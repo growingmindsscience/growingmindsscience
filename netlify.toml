@@ -37,6 +37,16 @@
   status = 200
 
 [[redirects]]
+  from = "/tools/whats-underneath-the-meltdown"
+  to = "/tools/whats-underneath-the-meltdown.html"
+  status = 200
+
+[[redirects]]
+  from = "/tools/whats-underneath-the-meltdown/"
+  to = "/tools/whats-underneath-the-meltdown.html"
+  status = 200
+
+[[redirects]]
   from = "/thank-you"
   to = "/thank-you.html"
   status = 200
