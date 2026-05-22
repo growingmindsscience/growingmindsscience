@@ -10,6 +10,7 @@ first flagship class (Toddlerhood) has a dedicated detail page.
 - Marketing homepage at `/` (`index.html`) — pure HTML/CSS/JS, no build step
 - Flagship class page at `/classes/toddlerhood.html` (pretty URL: `/classes/toddlerhood`)
 - Standalone milestone tracker at `/milestones.html` (pretty URL: `/milestones`)
+- Parent tools hub at `/tools/` with standalone static guide pages
 - Brand: warm off-white, dark ink, teal CTAs, muted gold/brown accents
 - Type: Instrument Serif (display) + Work Sans (body) via Google Fonts
 
@@ -20,9 +21,13 @@ growing-minds-science/
 ├─ index.html                      # Sales homepage
 ├─ classes/
 │  └─ toddlerhood.html              # Flagship class detail / sales page
+├─ tools/
+│  ├─ index.html                    # Tools for Parents hub
+│  ├─ limits-without-escalation.html
+│  └─ whats-underneath-the-meltdown.html
 ├─ milestones.html                 # Standalone tracker; no framework bundle
 ├─ thank-you.html                  # Netlify Forms success page
-├─ _redirects                      # Pretty URLs for /milestones, /classes/toddlerhood, /thank-you
+├─ _redirects                      # Pretty URLs for /milestones, /classes/toddlerhood, /tools/*, /thank-you
 ├─ netlify.toml                    # Netlify config + redirects + headers
 ├─ robots.txt
 ├─ sitemap.xml
