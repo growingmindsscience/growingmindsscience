@@ -1,0 +1,24 @@
+# Netlify redirects / rewrites
+
+# Pretty URLs for the standalone static milestone tracker.
+/milestones                 /milestones.html               200
+/milestones/                /milestones.html               200
+
+# Pretty URLs for the flagship class detail page.
+/classes/toddlerhood        /classes/toddlerhood.html      200
+/classes/toddlerhood/       /classes/toddlerhood.html      200
+
+# Pretty URL for the limits-without-escalation tool page.
+/tools/limits-without-escalation   /tools/limits-without-escalation.html  200
+/tools/limits-without-escalation/  /tools/limits-without-escalation.html  200
+
+# Pretty URL for the Netlify Forms success page.
+/thank-you                  /thank-you.html                200
+/thank-you/                 /thank-you.html                200
+
+# Pretty URLs for directory hub pages (no-trailing-slash variants).
+/classes                    /classes/index.html            200
+/about                      /about/index.html              200
+/tools                      /tools/index.html              200
+/articles                   /articles/index.html           200
+/faq                        /faq/index.html                200

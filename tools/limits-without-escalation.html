@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Limits without escalation — Growing Minds Science</title>
+  <meta name="description" content="A practical parent tool on holding a no calmly when a toddler or preschooler is testing autonomy — without scripts and without losing your footing." />
+  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="color-scheme" content="light dark" />
+
+  <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg" />
+  <link rel="apple-touch-icon" href="../assets/img/logo-192.jpeg" />
+  <link rel="canonical" href="/tools/limits-without-escalation" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+
+  <style>
+    .tool-hero { padding: clamp(3rem, 6vw, 5rem) 0 2rem; }
+    .hero-grid { display: grid; grid-template-columns: 1.25fr .9fr; gap: var(--space-8); align-items: start; }
+    .tool-lede { font-size: var(--text-md); color: var(--ink-soft); max-width: 42rem; margin: 0 0 var(--space-6); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+
+    .hero-card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-6); }
+    .hero-card h2 { margin: 0 0 .65rem; font-size: var(--text-lg); }
+    .hero-card p { color: var(--ink-soft); }
+    .meta-list { list-style: none; padding: 0; margin: var(--space-4) 0 0; display: grid; gap: .85rem; }
+    .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
+    .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
+
+    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: 999px; background: var(--surface-2); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin-bottom: var(--space-3); }
+
+    .what-panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-6); }
+    .what-panel__blocks { display: grid; gap: var(--space-4); }
+    .what-block { border-left: 3px solid var(--accent); padding-left: var(--space-4); }
+    .what-block__label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .1em; color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
+    .what-block__text { margin: 0; color: var(--ink-soft); line-height: 1.65; }
+
+    .panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-6); }
+    .tabs { display: flex; flex-wrap: wrap; gap: .75rem; margin: 0 0 var(--space-5); }
+    .tab-btn { padding: .8rem 1rem; border-radius: 999px; border: 1px solid var(--border); background: var(--bg-alt); color: var(--ink-soft); cursor: pointer; transition: all var(--transition); }
+    .tab-btn[aria-selected="true"] { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
+    .tab-panel[hidden] { display: none; }
+    .tab-panel h3 { margin: 0 0 var(--space-4); font-size: var(--text-lg); }
+    .tip-list { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-4); }
+    .tip-item { display: grid; gap: .25rem; }
+    .tip-item__head { font-weight: 600; color: var(--ink); font-size: var(--text-base); }
+    .tip-item__body { color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; margin: 0; }
+
+    .tab-tip { margin-top: var(--space-5); padding: var(--space-4) var(--space-5); background: var(--surface-2); border-radius: var(--radius); border-left: 3px solid var(--accent); }
+    .tab-tip__label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .1em; color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
+    .tab-tip p { margin: 0; font-size: var(--text-sm); color: var(--ink-soft); }
+
+    .scenario-wrap { display: grid; grid-template-columns: .95fr 1.05fr; gap: var(--space-5); align-items: start; }
+    .scenario-buttons { display: grid; gap: .75rem; }
+    .scenario-btn { padding: .8rem 1rem; text-align: left; border-radius: 16px; border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); cursor: pointer; transition: all var(--transition); }
+    .scenario-btn.is-active { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
+    .scenario-output { padding: var(--space-6); border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--border-soft); box-shadow: var(--shadow-sm); }
+    .scenario-output[hidden] { display: none; }
+    .scenario-output h3 { margin: 0 0 .6rem; font-size: var(--text-md); }
+    .scenario-output p { color: var(--ink-soft); }
+
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+    .compare-box { padding: var(--space-5); border-radius: var(--radius); border: 1px solid var(--border-soft); background: var(--bg-alt); }
+    .compare-box h3 { margin: 0 0 .85rem; font-size: var(--text-md); }
+    .compare-box ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .55rem; }
+    .compare-box--helpful { border-color: color-mix(in srgb, var(--primary) 35%, var(--border-soft)); }
+    .compare-box--less { border-color: color-mix(in srgb, var(--warm) 42%, var(--border-soft)); }
+
+    .summary-card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-6); position: relative; overflow: hidden; }
+    .summary-card::after { content: ""; position: absolute; inset: auto -40px -40px auto; width: 160px; height: 160px; border-radius: 999px; background: color-mix(in srgb, var(--accent-soft) 55%, transparent); }
+    .summary-card ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .6rem; position: relative; z-index: 1; }
+
+    .cta-strip { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+
+    .small { font-size: var(--text-sm); color: var(--ink-muted); }
+
+    .section-intro { color: var(--ink-soft); max-width: 44rem; margin: 0 0 var(--space-6); }
+
+    @media (max-width: 920px) {
+      .hero-grid, .scenario-wrap, .compare-grid, .cta-strip { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="container site-header__inner">
+      <a class="brand" href="/" aria-label="Growing Minds Science — home">
+        <img class="brand__mark" src="../assets/img/logo-192.jpeg" alt="" width="36" height="36" decoding="async" />
+        <span class="brand__name">Growing Minds Science</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Toggle navigation menu">
+          <span class="nav-toggle__bars"><span></span></span>
+        </button>
+
+        <ul class="nav__list" id="primary-nav-list">
+          <li><a class="nav__link" href="/">Home</a></li>
+          <li><a class="nav__link" href="/classes/">Classes</a></li>
+          <li><a class="nav__link" href="/about/">About</a></li>
+          <li><a class="nav__link" href="/tools/" aria-current="page">Tools for Parents</a></li>
+          <li><a class="nav__link" href="/faq/">FAQ</a></li>
+          <li><a class="nav__link" href="/articles/">Articles</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse classes</a></li>
+        </ul>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
+          <svg class="theme-toggle__moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="tool-hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Toddler &amp; Preschool &middot; Behavior guide</p>
+          <h1 class="page-hero__title">Limits without escalation</h1>
+          <p class="tool-lede">Holding a "no" calmly when a child is testing autonomy — without scripts and without losing your own footing. This guide is built for the ordinary moments when a child pushes, refuses, or falls apart after a limit.</p>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="#interactive-guide">Open the guide</a>
+            <a class="btn btn--ghost" href="#one-minute-summary">Jump to summary</a>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-labelledby="tool-at-a-glance">
+          <span class="tag">At a glance</span>
+          <h2 id="tool-at-a-glance">What this tool helps with</h2>
+          <ul class="meta-list">
+            <li><span class="dot"></span><span>Saying no without turning it into a negotiation.</span></li>
+            <li><span class="dot"></span><span>Knowing the difference between a limit problem and a regulation problem.</span></li>
+            <li><span class="dot"></span><span>Staying brief and steady when your child pushes harder.</span></li>
+            <li><span class="dot"></span><span>Repairing the moment if you already escalated.</span></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>The core idea</h2>
+        <p class="section-intro">When a toddler or preschooler pushes against a limit, the task is not to produce instant obedience or to find a perfect script. The task is to stay clear about the boundary, keep yourself as steady as you can, and follow through without adding extra fuel.</p>
+
+        <div class="what-panel">
+          <span class="tag">What is happening</span>
+
+          <div class="what-panel__blocks">
+
+            <div class="what-block">
+              <p class="what-block__label">The prefrontal cortex is still under construction</p>
+              <p class="what-block__text">Impulse control is a brain function that matures over decades. When a toddler keeps reaching for something after you said no, the brake system is genuinely weak — not broken, just immature. Repetition is developmental, not defiance.</p>
+            </div>
+
+            <div class="what-block">
+              <p class="what-block__label">Autonomy and connection are pulling in opposite directions at once</p>
+              <p class="what-block__text">Children this age have a strong drive to assert themselves and a strong need to stay close to you — both at once. When you set a limit, both drives activate simultaneously. The big reaction is that tension, not a sign something is wrong.</p>
+            </div>
+
+            <div class="what-block">
+              <p class="what-block__label">They borrow regulation from you — they cannot fully self-regulate yet</p>
+              <p class="what-block__text">Young children's nervous systems are not yet equipped to calm themselves down fully. Your calm is physiological scaffolding for theirs. If you escalate, they escalate. If you slow down and lower your voice, you give their system something steadier to organize around.</p>
+            </div>
+
+            <div class="what-block">
+              <p class="what-block__label">Limit-testing is how children learn where the edges are</p>
+              <p class="what-block__text">Children push limits to find out what the adult will actually do. Consistent, calm follow-through teaches them that the limit is real and stable — and that their upset does not destroy the relationship.</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="interactive-guide">
+      <div class="container container--narrow">
+        <h2>Interactive guide</h2>
+        <p class="section-intro">Use the tabs to orient yourself in the moment. Then choose the scenario that feels closest to what is happening in your house.</p>
+
+        <div class="panel">
+          <div class="tabs" role="tablist" aria-label="Guide sections">
+            <button class="tab-btn" role="tab" aria-selected="true" aria-controls="tab-before" id="btn-before">Before</button>
+            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-during" id="btn-during">During</button>
+            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-after" id="btn-after">After</button>
+          </div>
+
+          <section class="tab-panel" id="tab-before" role="tabpanel" aria-labelledby="btn-before">
+            <h3>Before the moment</h3>
+            <ul class="tip-list">
+              <li class="tip-item">
+                <span class="tip-item__head">Only set limits you can physically follow through on.</span>
+                <p class="tip-item__body">If you cannot actually stop it from happening, it is not a limit yet — it is a negotiation. Adjust the environment or the limit before you say no.</p>
+              </li>
+              <li class="tip-item">
+                <span class="tip-item__head">Decide your one-sentence version in advance.</span>
+                <p class="tip-item__body">Children process short, simple language better. Before a known hard moment (leaving the park, turning off the TV), settle on one clear phrase and stick to it. "We're leaving in two minutes" is clearer than "Okay, I really mean it this time."</p>
+              </li>
+              <li class="tip-item">
+                <span class="tip-item__head">Check your own state before you engage.</span>
+                <p class="tip-item__body">If you are already flooded — hungry, exhausted, overwhelmed — your window for staying regulated is much narrower. Where you can, notice this before the moment starts. Your arousal level is a variable you can work with.</p>
+              </li>
+              <li class="tip-item">
+                <span class="tip-item__head">Give one transition warning, then follow through.</span>
+                <p class="tip-item__body">"Two more minutes, then we wash hands" reduces the spike at the limit. The warning is information, not negotiation — give it once and mean it.</p>
+              </li>
+              <li class="tip-item">
+                <span class="tip-item__head">Change the environment when possible.</span>
+                <p class="tip-item__body">A child cannot throw the breakable thing if it is not in reach. Save your follow-through energy for the limits that matter — eliminate the ones you can ahead of time.</p>
+              </li>
+            </ul>
+          </section>
+
+          <section class="tab-panel" id="tab-during" role="tabpanel" aria-labelledby="btn-during" hidden>
+            <h3>During the moment</h3>
+            <ul class="tip-list">
+              <li class="tip-item">
+                <span class="tip-item__head">State the limit once, then repeat only the core line.</span>
+                <p class="tip-item__body">If they continue, return to the same short phrase — do not add new reasons or threats. Consistent language signals the boundary is stable. Varying it signals uncertainty, which invites more testing.</p>
+              </li>
+              <li class="tip-item">
+                <span class="tip-item__head">Name the feeling without opening the negotiation.</span>
+                <p class="tip-item__body">"You really want to keep playing" and "We're still leaving" can both be true at once. Acknowledging the feeling reduces its intensity — it does not mean agreeing with the demand.</p>
+              </li>
+              <li class="tip-item">
+                <span class="tip-item__head">Lower your voice rather than raising it.</span>
+                <p class="tip-item__body">Children are wired to match the emotional tone of the adult they are attached to. A raised voice spikes arousal on both sides. A slower, quieter voice gives their nervous system a steadier signal to organize around.</p>
+              </li>
+              <li class="tip-item">
+                <span class="tip-item__head">Move closer instead of repeating louder.</span>
+                <p class="tip-item__body">Words travel across the room; action does not. If the limit requires stopping something, move toward the child. Gentle physical redirection — "I'm going to help you stop" — is usually more effective than escalating from a distance.</p>
+              </li>
+              <li class="tip-item">
+                <span class="tip-item__head">Let them be upset without collapsing or arguing.</span>
+                <p class="tip-item__body">A child's distress is not proof the limit was wrong. Stay present and hold the edge. That teaches something real: feelings are survivable, and the relationship stays intact through them.</p>
+              </li>
+            </ul>
+
+            <div class="tab-tip">
+              <p class="tab-tip__label">If they are flooded, not just upset</p>
+              <p>A child who is panicked, unable to hear language, or spiraling is not in a state to use a limit. Help them settle first — regulation before boundary enforcement.</p>
+            </div>
+          </section>
+
+          <section class="tab-panel" id="tab-after" role="tabpanel" aria-labelledby="btn-after" hidden>
+            <h3>After the moment</h3>
+            <ul class="tip-list">
+              <li class="tip-item">
+                <span class="tip-item__head">Repair the tone, not the limit.</span>
+                <p class="tip-item__body">If you got too loud or reactive, say so briefly — then restate the limit. "I got really loud. The rule is still the same." That communicates accountability and stability at once. Children need both.</p>
+              </li>
+              <li class="tip-item">
+                <span class="tip-item__head">Keep repair short.</span>
+                <p class="tip-item__body">Right after a hard moment, most toddlers cannot process a long conversation — their system is still settling. A brief, warm acknowledgment is enough: "That was hard. I love you." The lesson can wait.</p>
+              </li>
+              <li class="tip-item">
+                <span class="tip-item__head">Reconnect before you teach anything.</span>
+                <p class="tip-item__body">A child's attachment system activates during hard moments. They need to feel the relationship is intact before they can take in anything new. A few minutes of low-demand connection — a hug, sitting together — resets the baseline. This is not a reward; it is physiological repair.</p>
+              </li>
+              <li class="tip-item">
+                <span class="tip-item__head">Ask what was happening on the adult side.</span>
+                <p class="tip-item__body">The most useful question after escalation is usually not "what should I have said?" but "what was going on for me?" Exhaustion, accumulated stress, and old patterns are real triggers. Your own state is the one variable you can actually work with.</p>
+              </li>
+              <li class="tip-item">
+                <span class="tip-item__head">Notice patterns, not just incidents.</span>
+                <p class="tip-item__body">If the same situation reliably ends badly — same time of day, same transition — that is a signal something in the setup needs adjusting. Repetition is not failure; it is information.</p>
+              </li>
+            </ul>
+
+            <div class="tab-tip">
+              <p class="tab-tip__label">Worth knowing</p>
+              <p>If the same escalation keeps repeating, repair alone is not enough. The goal over time is to change the conditions that make escalation likely — not just to recover from it each time.</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>Choose the closest scenario</h2>
+        <p class="section-intro">This is not about finding the perfect script. It is about noticing what kind of moment you are in, so your response can get simpler and steadier.</p>
+        <div class="scenario-wrap">
+          <div class="scenario-buttons" role="tablist" aria-label="Scenario choices">
+            <button class="scenario-btn is-active" data-scenario="repeat">My child keeps doing it after I said no.</button>
+            <button class="scenario-btn" data-scenario="meltdown">My child melts down when I hold the limit.</button>
+            <button class="scenario-btn" data-scenario="escalated">I already raised my voice.</button>
+            <button class="scenario-btn" data-scenario="unclear">I am not sure if this is a limit issue or a regulation issue.</button>
+          </div>
+
+          <div>
+            <article class="scenario-output" data-output="repeat">
+              <span class="tag">When the child repeats the behavior</span>
+              <h3>Focus on follow-through, not stronger language.</h3>
+              <p>If the child keeps doing it after a clear no, the next move is usually less talking and more action. Move closer, block what needs blocking, remove what needs removing, or help the child transition out of the setup that is not working.</p>
+              <p class="small">Try: "I'm not letting you throw that. I'm moving it."</p>
+            </article>
+
+            <article class="scenario-output" data-output="meltdown" hidden>
+              <span class="tag">When the limit triggers big feelings</span>
+              <h3>Keep the limit and make room for the feeling.</h3>
+              <p>A child falling apart does not automatically mean the limit was too harsh. If the boundary is reasonable and necessary, the job is to stay nearby, keep the limit intact, and avoid arguing with the feeling.</p>
+              <p class="small">Try: "You're mad. I'm still not letting you hit."</p>
+            </article>
+
+            <article class="scenario-output" data-output="escalated" hidden>
+              <span class="tag">When the adult already escalated</span>
+              <h3>Repair the tone, not the boundary.</h3>
+              <p>If you yelled, threatened, or got pulled into a power struggle, you can come back without pretending the limit disappeared. Lower your voice, simplify, and return to the clearest version of the boundary.</p>
+              <p class="small">Try: "I got too loud. I'm going to say it again more clearly. I'm not letting you climb there."</p>
+            </article>
+
+            <article class="scenario-output" data-output="unclear" hidden>
+              <span class="tag">When you are unsure what kind of moment this is</span>
+              <h3>Ask whether the child can use the limit right now.</h3>
+              <p>If the child is exhausted, dysregulated, sick, overloaded, or moving toward panic, the first task may be reducing stimulation and helping the system settle. If the child is organized enough to keep testing, the limit likely needs steadier follow-through.</p>
+              <p class="small">Ask: "Is my child unable right now, or mostly unwilling?"</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>What escalation usually looks like</h2>
+        <div class="compare-grid">
+          <article class="compare-box compare-box--helpful">
+            <h3>More helpful</h3>
+            <ul>
+              <li>Short language.</li>
+              <li>One clear limit.</li>
+              <li>Steady tone.</li>
+              <li>Physical follow-through when needed.</li>
+              <li>Letting the child dislike the boundary.</li>
+            </ul>
+          </article>
+          <article class="compare-box compare-box--less">
+            <h3>Less helpful</h3>
+            <ul>
+              <li>Explaining the limit five different ways.</li>
+              <li>Threatening consequences you do not plan to use.</li>
+              <li>Turning the moment into a lecture.</li>
+              <li>Changing the rule midstream.</li>
+              <li>Trying to make the child stop feeling upset before the limit can hold.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="one-minute-summary">
+      <div class="container container--narrow">
+        <div class="summary-card">
+          <span class="tag">One-minute summary</span>
+          <h2 style="font-size:var(--text-xl); margin-top:0;">When you need the short version</h2>
+          <ul>
+            <li>Name the limit clearly.</li>
+            <li>Use fewer words than you want to use.</li>
+            <li>Stay as physically and emotionally steady as you can.</li>
+            <li>Follow through instead of arguing.</li>
+            <li>If you escalate, repair and return to the limit.</li>
+            <li>The goal is not zero feelings. The goal is a clear boundary without extra fuel.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <div class="cta-strip">
+          <div>
+            <p class="eyebrow">Next step</p>
+            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Want more support for this age?</h2>
+            <p class="small" style="max-width:38rem; margin:0;">Join the toddler class waitlist for research-based parent education on language, autonomy, and big feelings.</p>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="/classes/toddlerhood#waitlist">Join waitlist</a>
+            <a class="btn btn--ghost" href="/tools/">Back to tools</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container site-footer__inner">
+      <div>
+        <a class="brand" href="/" aria-label="Growing Minds Science — home">
+          <img class="brand__mark" src="../assets/img/logo-192.jpeg" alt="" width="36" height="36" />
+          <span class="brand__name">Growing Minds Science</span>
+        </a>
+        <p style="margin-top: var(--space-4);">
+          Developmental science, translated for parents.
+        </p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul class="footer-list">
+          <li><a href="/">Home</a></li>
+          <li><a href="/classes/">Classes</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/tools/">Tools for parents</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/articles/">Articles</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Stay in the loop</h4>
+        <p style="font-size: var(--text-sm);">
+          <a href="/classes/toddlerhood.html#waitlist">Join the waitlist →</a>
+        </p>
+        <p class="footer-elsewhere" style="margin-top: var(--space-5);">
+          Also on
+          <a href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr"
+             target="_blank" rel="noopener noreferrer">Instagram</a>
+        </p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
+        <span>&copy; <span data-year>2026</span> Growing Minds Science. All rights reserved.</span>
+        <span>Educational content only. Not medical or psychological advice.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js" defer></script>
+  <script>
+    (function(){
+      var tabButtons = document.querySelectorAll('.tab-btn');
+      var tabPanels = document.querySelectorAll('.tab-panel');
+      tabButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          tabButtons.forEach(function(b) { b.setAttribute('aria-selected', 'false'); });
+          tabPanels.forEach(function(p) { p.hidden = true; });
+          btn.setAttribute('aria-selected', 'true');
+          document.getElementById(btn.getAttribute('aria-controls')).hidden = false;
+        });
+      });
+
+      var scenarioButtons = document.querySelectorAll('.scenario-btn');
+      var outputs = document.querySelectorAll('.scenario-output');
+      scenarioButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var key = btn.dataset.scenario;
+          scenarioButtons.forEach(function(b) { b.classList.remove('is-active'); });
+          btn.classList.add('is-active');
+          outputs.forEach(function(o) { o.hidden = o.dataset.output !== key; });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
