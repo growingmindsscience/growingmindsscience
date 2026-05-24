@@ -8,14 +8,15 @@
   <meta name="theme-color" content="#6F8F7B" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg" />
-  <link rel="apple-touch-icon" href="../assets/img/logo-192.jpeg" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
   <link rel="canonical" href="/tools/" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600;700&display=swap" />
   <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/refresh.css" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -23,7 +24,7 @@
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
       <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="../assets/img/logo-192.jpeg" alt="" width="36" height="36" decoding="async" />
+        <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -52,22 +53,40 @@
 
   <main id="main">
 
-    <section class="page-hero">
+    <section class="page-hero page-hero--visual">
       <div class="container">
-        <p class="eyebrow">Tools for parents</p>
-        <h1 class="page-hero__title">A small but growing free library of practical developmental tools.</h1>
-        <p class="page-hero__lede">
-          Short, plain-language references organized by topic. Designed to be useful
-          inside ordinary parenting days — not a blog archive to scroll through.
-        </p>
+        <div class="page-hero__copy">
+          <p class="eyebrow">Tools for parents</p>
+          <h1 class="page-hero__title">A small but growing free library of practical developmental tools.</h1>
+          <p class="page-hero__lede">
+            Short, plain-language references organized by topic. Designed to be useful
+            inside ordinary parenting days — not a blog archive to scroll through.
+          </p>
 
-        <ul class="topic-nav" aria-label="Topic shortcuts">
-          <li><a href="#milestone-tracker">Milestone tracker</a></li>
-          <li><a href="#behavior">Behavior</a></li>
-          <li><a href="#sleep">Sleep</a></li>
-          <li><a href="#screen-time">Screen time</a></li>
-          <li><a href="#regulation">Regulation</a></li>
-        </ul>
+          <div class="library-intro" aria-label="Library status">
+            <div>
+              <span class="library-intro__label">Available now</span>
+              <strong>4 parent tools</strong>
+            </div>
+            <div>
+              <span class="library-intro__label">Building next</span>
+              <strong>Behavior, sleep, screen time, and regulation guides</strong>
+            </div>
+          </div>
+
+          <ul class="topic-nav" aria-label="Topic shortcuts">
+            <li><a href="#milestone-tracker">Milestone tracker</a></li>
+            <li><a href="#behavior">Behavior</a></li>
+            <li><a href="#sleep">Sleep</a></li>
+            <li><a href="#screen-time">Screen time</a></li>
+            <li><a href="#regulation">Regulation</a></li>
+          </ul>
+        </div>
+        <figure class="page-hero__visual page-hero__visual--graphic">
+          <img src="../assets/img/tools-library-graphic.svg"
+               alt="An abstract illustration of parent reference cards, milestone paths, and developmental tools."
+               width="900" height="680" loading="eager" decoding="async" />
+        </figure>
       </div>
     </section>
 
@@ -112,10 +131,10 @@
       <div class="container">
         <div class="notice">
           <p>
-            <strong>The library is just getting started.</strong> The tools below are
-            in development. Each one is being built from current developmental
-            research and shaped by what parents actually run into during the day.
-            New resources will appear here as they're ready.
+            <strong>The library is just getting started.</strong> Some tools are
+            available now, and more are in development. Each one is built from
+            current developmental research and shaped by what parents actually
+            run into during the day.
           </p>
         </div>
 
@@ -123,14 +142,14 @@
         <div class="topic-section" id="behavior">
           <div class="topic-section__head">
             <h2>Behavior</h2>
-            <span class="topic-section__count">Guides · in development</span>
+            <span class="topic-section__count">Guides · available now</span>
           </div>
           <div class="tool-grid">
             <article class="tool-card">
               <span class="tool-card__eyebrow">Toddler · 1–3</span>
               <h3 class="tool-card__title">What's underneath the meltdown</h3>
               <p class="tool-card__desc">A short reference that translates a tantrum from "bad behavior" into a nervous-system event — and what kinds of responses the research supports.</p>
-              <p class="tool-card__cta"><span class="muted" style="font-size: var(--text-xs);">In development</span></p>
+              <p class="tool-card__cta"><a class="btn btn--primary" href="/tools/whats-underneath-the-meltdown">Open tool</a></p>
             </article>
             <article class="tool-card">
               <span class="tool-card__eyebrow">Toddler &amp; Preschool</span>
@@ -142,7 +161,7 @@
               <span class="tool-card__eyebrow">Any age</span>
               <h3 class="tool-card__title">Repair after the hard moment</h3>
               <p class="tool-card__desc">What the research says about repair — for the child, and for the adult — when a moment goes sideways.</p>
-              <p class="tool-card__cta"><span class="muted" style="font-size: var(--text-xs);">In development</span></p>
+              <p class="tool-card__cta"><a class="btn btn--primary" href="/tools/repair-after-the-hard-moment">Open tool</a></p>
             </article>
           </div>
         </div>
@@ -236,7 +255,7 @@
     <div class="container site-footer__inner">
       <div>
         <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="../assets/img/logo-192.jpeg" alt="" width="36" height="36" />
+          <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p style="margin-top: var(--space-4);">

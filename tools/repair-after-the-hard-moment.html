@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Repair after the hard moment - Growing Minds Science</title>
+  <meta name="description" content="A practical parent tool on repair after hard parenting moments - what helps the child, what helps the adult, and how to come back without giving up the boundary." />
+  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="color-scheme" content="light dark" />
+
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="canonical" href="/tools/repair-after-the-hard-moment" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/refresh.css" />
+
+  <style>
+    .tool-hero { padding: clamp(3rem, 6vw, 5rem) 0 2rem; }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr .9fr; gap: var(--space-8); align-items: start; }
+    .tool-lede { font-size: var(--text-md); color: var(--ink-soft); max-width: 43rem; margin: 0 0 var(--space-6); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+
+    .hero-card,
+    .panel,
+    .what-panel,
+    .summary-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: var(--space-6);
+    }
+
+    .hero-card h2 { margin: 0 0 .65rem; font-size: var(--text-lg); }
+    .hero-card p { color: var(--ink-soft); }
+    .meta-list { list-style: none; padding: 0; margin: var(--space-4) 0 0; display: grid; gap: .85rem; }
+    .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
+    .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
+
+    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: 999px; background: var(--surface-2); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .section-intro { color: var(--ink-soft); max-width: 44rem; margin: 0 0 var(--space-6); }
+    .small { font-size: var(--text-sm); color: var(--ink-muted); }
+
+    .what-panel__blocks { display: grid; gap: var(--space-4); }
+    .what-block { border-left: 3px solid var(--accent); padding-left: var(--space-4); }
+    .what-block__label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .1em; color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
+    .what-block__text { margin: 0; color: var(--ink-soft); line-height: 1.65; }
+
+    .repair-steps { counter-reset: repair-step; display: grid; gap: var(--space-4); margin: 0; padding: 0; list-style: none; }
+    .repair-step { counter-increment: repair-step; display: grid; grid-template-columns: 46px 1fr; gap: var(--space-4); align-items: start; padding: var(--space-5); border: 1px solid var(--border-soft); border-radius: var(--radius); background: var(--bg-alt); }
+    .repair-step::before { content: counter(repair-step); width: 38px; height: 38px; border-radius: 999px; display: grid; place-items: center; background: var(--primary); color: var(--primary-ink); font-weight: 700; }
+    .repair-step h3 { margin: 0 0 .4rem; font-size: var(--text-md); }
+    .repair-step p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
+
+    .scenario-wrap { display: grid; grid-template-columns: .95fr 1.05fr; gap: var(--space-5); align-items: start; }
+    .scenario-buttons { display: grid; gap: .75rem; }
+    .scenario-btn { padding: .8rem 1rem; text-align: left; border-radius: 16px; border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); cursor: pointer; transition: all var(--transition); }
+    .scenario-btn.is-active { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
+    .scenario-output { padding: var(--space-6); border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--border-soft); box-shadow: var(--shadow-sm); }
+    .scenario-output[hidden] { display: none; }
+    .scenario-output h3 { margin: 0 0 .6rem; font-size: var(--text-md); }
+    .scenario-output p { color: var(--ink-soft); }
+    .script-line { margin-top: var(--space-4); padding: var(--space-4); border-left: 3px solid var(--accent); background: var(--surface-2); border-radius: var(--radius); color: var(--ink); font-size: var(--text-sm); line-height: 1.65; }
+
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+    .compare-box { padding: var(--space-5); border-radius: var(--radius); border: 1px solid var(--border-soft); background: var(--bg-alt); }
+    .compare-box h3 { margin: 0 0 .85rem; font-size: var(--text-md); }
+    .compare-box ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .55rem; }
+    .compare-box--helpful { border-color: color-mix(in srgb, var(--primary) 35%, var(--border-soft)); }
+    .compare-box--less { border-color: color-mix(in srgb, var(--warm) 42%, var(--border-soft)); }
+
+    .research-list { display: grid; gap: var(--space-4); margin: 0; padding: 0; list-style: none; }
+    .research-list li { padding: var(--space-4); border: 1px solid var(--border-soft); border-radius: var(--radius); background: var(--bg-alt); }
+    .research-list strong { display: block; margin-bottom: .3rem; color: var(--ink); }
+    .research-list span { color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
+
+    .summary-card { position: relative; overflow: hidden; }
+    .summary-card::after { content: ""; position: absolute; inset: auto -40px -40px auto; width: 160px; height: 160px; border-radius: 999px; background: color-mix(in srgb, var(--accent-soft) 55%, transparent); }
+    .summary-card ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .6rem; position: relative; z-index: 1; }
+
+    .cta-strip { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .scenario-wrap,
+      .compare-grid,
+      .cta-strip { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="container site-header__inner">
+      <a class="brand" href="/" aria-label="Growing Minds Science - home">
+        <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+        <span class="brand__name">Growing Minds Science</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Toggle navigation menu">
+          <span class="nav-toggle__bars"><span></span></span>
+        </button>
+
+        <ul class="nav__list" id="primary-nav-list">
+          <li><a class="nav__link" href="/">Home</a></li>
+          <li><a class="nav__link" href="/classes/">Classes</a></li>
+          <li><a class="nav__link" href="/about/">About</a></li>
+          <li><a class="nav__link" href="/tools/" aria-current="page">Tools for Parents</a></li>
+          <li><a class="nav__link" href="/faq/">FAQ</a></li>
+          <li><a class="nav__link" href="/articles/">Articles</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse classes</a></li>
+        </ul>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
+          <svg class="theme-toggle__moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="tool-hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Any age · Relationship repair</p>
+          <h1 class="page-hero__title">Repair after the hard moment</h1>
+          <p class="tool-lede">What the research says about repair - for the child, and for the adult - when a parenting moment goes sideways. Use this when there has been yelling, harshness, a rupture, or a boundary that got messy.</p>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="#repair-builder">Open the repair builder</a>
+            <a class="btn btn--ghost" href="#one-minute-summary">Jump to summary</a>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-labelledby="tool-at-a-glance">
+          <span class="tag">At a glance</span>
+          <h2 id="tool-at-a-glance">What this tool helps with</h2>
+          <ul class="meta-list">
+            <li><span class="dot"></span><span>Coming back after yelling, snapping, or too much intensity.</span></li>
+            <li><span class="dot"></span><span>Repairing connection without giving up the boundary.</span></li>
+            <li><span class="dot"></span><span>Using words a child can actually take in after stress.</span></li>
+            <li><span class="dot"></span><span>Helping the adult return to responsibility without spiraling into shame.</span></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>The core idea</h2>
+        <p class="section-intro">Repair is not pretending the hard moment was fine. It is the adult coming back to safety, clarity, and connection: "I am responsible for my part, our relationship is still intact, and the boundary can still be real."</p>
+
+        <div class="what-panel">
+          <span class="tag">What is happening</span>
+          <div class="what-panel__blocks">
+            <div class="what-block">
+              <p class="what-block__label">Ruptures are part of close relationships</p>
+              <p class="what-block__text">Even warm, responsive caregivers have moments that miss, overwhelm, or scare a child. The protective piece is not perfection. It is whether the adult can notice the rupture and come back in a way that restores safety.</p>
+            </div>
+
+            <div class="what-block">
+              <p class="what-block__label">Children organize around the adult's return</p>
+              <p class="what-block__text">After stress, children often need help making sense of what happened. A brief repair reduces confusion: the adult is steady again, the child is not responsible for the adult's reaction, and the relationship survived the hard feeling.</p>
+            </div>
+
+            <div class="what-block">
+              <p class="what-block__label">Repair models accountability</p>
+              <p class="what-block__text">A calm apology teaches more than a lecture about apologies. Children learn that strong feelings can be followed by responsibility, gentleness, and another try.</p>
+            </div>
+
+            <div class="what-block">
+              <p class="what-block__label">The adult side matters too</p>
+              <p class="what-block__text">Shame often pushes adults toward defensiveness, overexplaining, or avoiding repair. The goal is not self-attack. The goal is enough self-regulation to take responsibility clearly.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>A simple repair sequence</h2>
+        <p class="section-intro">Use this as a shape, not a script. The younger or more overwhelmed the child is, the shorter the repair should be.</p>
+
+        <ol class="repair-steps">
+          <li class="repair-step">
+            <div>
+              <h3>Settle your own body first</h3>
+              <p>Take a breath, lower your voice, unclench your face or hands, and pause long enough that your child is not receiving the same intensity again.</p>
+            </div>
+          </li>
+          <li class="repair-step">
+            <div>
+              <h3>Name your part briefly</h3>
+              <p>Keep the responsibility with you. "I yelled" is clearer than "I yelled because you would not listen."</p>
+            </div>
+          </li>
+          <li class="repair-step">
+            <div>
+              <h3>Validate the impact</h3>
+              <p>You do not need to decide exactly how the child felt. You can name what may have landed: "That was too loud" or "That probably felt scary."</p>
+            </div>
+          </li>
+          <li class="repair-step">
+            <div>
+              <h3>Reconnect before teaching</h3>
+              <p>A child who is still flooded cannot use a lesson well. Offer closeness, warmth, or quiet presence before you return to problem-solving.</p>
+            </div>
+          </li>
+          <li class="repair-step">
+            <div>
+              <h3>Return to the boundary if needed</h3>
+              <p>Repairing your tone does not mean erasing the limit. You can say, "I got too loud. The rule is still that I will not let you hit."</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="repair-builder">
+      <div class="container container--narrow">
+        <h2>Repair builder</h2>
+        <p class="section-intro">Choose the closest version of what happened. The goal is a repair that is small enough to actually use in real life.</p>
+
+        <div class="scenario-wrap">
+          <div class="scenario-buttons" role="tablist" aria-label="Repair situations">
+            <button class="scenario-btn is-active" data-scenario="yelled">I yelled or got too intense.</button>
+            <button class="scenario-btn" data-scenario="unfair">I was unfair or too harsh.</button>
+            <button class="scenario-btn" data-scenario="upset">My child is still upset.</button>
+            <button class="scenario-btn" data-scenario="boundary">The boundary still needs to hold.</button>
+            <button class="scenario-btn" data-scenario="guilt">I am stuck in guilt.</button>
+          </div>
+
+          <div>
+            <article class="scenario-output" data-output="yelled">
+              <span class="tag">When your intensity scared or overwhelmed them</span>
+              <h3>Repair the tone first.</h3>
+              <p>The child needs to know the adult is safe again. Keep it short, own your part, and avoid explaining why you lost it while the child is still activated.</p>
+              <div class="script-line">Try: "I got too loud. That was my job to handle. I am sorry. I am here now."</div>
+            </article>
+
+            <article class="scenario-output" data-output="unfair" hidden>
+              <span class="tag">When your response did not fit the moment</span>
+              <h3>Name the miss without making the child manage you.</h3>
+              <p>Children do not need a perfect parent. They do need a parent who can say, "I see that I got that wrong," without asking the child to reassure the adult.</p>
+              <div class="script-line">Try: "I was too harsh. You did need help, and I reacted like you were trying to make things hard. I am sorry."</div>
+            </article>
+
+            <article class="scenario-output" data-output="upset" hidden>
+              <span class="tag">When the child is not ready to move on</span>
+              <h3>Do not rush forgiveness.</h3>
+              <p>Repair is an offer, not a demand. If the child pulls away, cries, or stays angry, you can stay warm and steady without forcing a hug, a smile, or an "it's okay."</p>
+              <div class="script-line">Try: "You are still upset. I understand. I will stay close, and you can come to me when you are ready."</div>
+            </article>
+
+            <article class="scenario-output" data-output="boundary" hidden>
+              <span class="tag">When the limit was right but the delivery was not</span>
+              <h3>Separate the boundary from the rupture.</h3>
+              <p>A useful repair keeps both truths in the room: the adult's reaction needs repair, and the unsafe or impossible behavior still cannot continue.</p>
+              <div class="script-line">Try: "I am sorry I yelled. I will work on that. And I still cannot let you throw the truck."</div>
+            </article>
+
+            <article class="scenario-output" data-output="guilt" hidden>
+              <span class="tag">When the adult is flooded with shame</span>
+              <h3>Move from self-attack to responsibility.</h3>
+              <p>Guilt can point you toward repair. Shame often traps you in collapse. A steadier adult question is: "What needs repair, and what support do I need so this pattern is less likely next time?"</p>
+              <div class="script-line">Try internally: "I can take responsibility without making this moment my whole identity."</div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>More helpful / less helpful</h2>
+        <div class="compare-grid">
+          <article class="compare-box compare-box--helpful">
+            <h3>More helpful</h3>
+            <ul>
+              <li>"I got too loud. I am sorry."</li>
+              <li>"That probably felt scary."</li>
+              <li>"You did not make me yell. That was my job."</li>
+              <li>"The rule is still the same, and I can say it more calmly."</li>
+              <li>"We can try again."</li>
+            </ul>
+          </article>
+          <article class="compare-box compare-box--less">
+            <h3>Less helpful</h3>
+            <ul>
+              <li>"I am sorry, but you made me so angry."</li>
+              <li>Long explanations while the child is still flooded.</li>
+              <li>Demanding immediate forgiveness or affection.</li>
+              <li>Over-apologizing until the child has to comfort the adult.</li>
+              <li>Erasing every boundary because the adult feels guilty.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <div class="panel">
+          <span class="tag">Research anchors</span>
+          <h2 style="font-size:var(--text-xl); margin-top:0;">Why repair helps</h2>
+          <p class="section-intro">The guidance here comes from a few overlapping areas of developmental science, not from the idea that one perfect script fixes everything.</p>
+          <ul class="research-list">
+            <li>
+              <strong>Co-regulation and emotion socialization</strong>
+              <span>Children learn regulation partly through repeated interactions with caregivers: how adults express emotion, respond to distress, and help a child come back down.</span>
+            </li>
+            <li>
+              <strong>Accountability and trust repair</strong>
+              <span>Apologies and amends can help repair trust after a rupture when they clearly name responsibility and attend to the harmed person's feelings.</span>
+            </li>
+            <li>
+              <strong>Adult self-compassion</strong>
+              <span>Self-compassion is not letting yourself off the hook. It can reduce defensive shame enough for a parent to return to responsibility, reflection, and repair.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="one-minute-summary">
+      <div class="container container--narrow">
+        <div class="summary-card">
+          <span class="tag">One-minute summary</span>
+          <h2 style="font-size:var(--text-xl); margin-top:0;">When you need the short version</h2>
+          <ul>
+            <li>Repair is the adult coming back to safety, not pretending the moment was okay.</li>
+            <li>Keep it brief: name your part, validate the impact, and reconnect.</li>
+            <li>Do not make the child responsible for your reaction.</li>
+            <li>Do not demand instant forgiveness.</li>
+            <li>Repair your delivery without automatically erasing the boundary.</li>
+            <li>Afterward, look for the pattern that made the hard moment more likely.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <div class="cta-strip">
+          <div>
+            <p class="eyebrow">Next step</p>
+            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Want another behavior tool?</h2>
+            <p class="small" style="max-width:38rem; margin:0;">Pair this with the limits guide when a boundary was necessary, but the moment got too hot.</p>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="/tools/limits-without-escalation">Open limits guide</a>
+            <a class="btn btn--ghost" href="/tools/">Back to tools</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container site-footer__inner">
+      <div>
+        <a class="brand" href="/" aria-label="Growing Minds Science - home">
+          <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" />
+          <span class="brand__name">Growing Minds Science</span>
+        </a>
+        <p style="margin-top: var(--space-4);">
+          Developmental science, translated for parents.
+        </p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul class="footer-list">
+          <li><a href="/">Home</a></li>
+          <li><a href="/classes/">Classes</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/tools/">Tools for parents</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/articles/">Articles</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Stay in the loop</h4>
+        <p style="font-size: var(--text-sm);">
+          <a href="/classes/toddlerhood.html#waitlist">Join the waitlist</a>
+        </p>
+        <p class="footer-elsewhere" style="margin-top: var(--space-5);">
+          Also on
+          <a href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr"
+             target="_blank" rel="noopener noreferrer">Instagram</a>
+        </p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
+        <span>&copy; <span data-year>2026</span> Growing Minds Science. All rights reserved.</span>
+        <span>Educational content only. Not medical or psychological advice.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js" defer></script>
+  <script>
+    (function(){
+      var scenarioButtons = document.querySelectorAll('.scenario-btn');
+      var outputs = document.querySelectorAll('.scenario-output');
+      scenarioButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var key = btn.dataset.scenario;
+          scenarioButtons.forEach(function(b) { b.classList.remove('is-active'); });
+          btn.classList.add('is-active');
+          outputs.forEach(function(o) { o.hidden = o.dataset.output !== key; });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

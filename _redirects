@@ -12,6 +12,14 @@
 /tools/limits-without-escalation   /tools/limits-without-escalation.html  200
 /tools/limits-without-escalation/  /tools/limits-without-escalation.html  200
 
+# Pretty URL for the meltdown behavior tool page.
+/tools/whats-underneath-the-meltdown   /tools/whats-underneath-the-meltdown.html  200
+/tools/whats-underneath-the-meltdown/  /tools/whats-underneath-the-meltdown.html  200
+
+# Pretty URL for the repair-after-the-hard-moment tool page.
+/tools/repair-after-the-hard-moment   /tools/repair-after-the-hard-moment.html  200
+/tools/repair-after-the-hard-moment/  /tools/repair-after-the-hard-moment.html  200
+
 # Pretty URL for the Netlify Forms success page.
 /thank-you                  /thank-you.html                200
 /thank-you/                 /thank-you.html                200

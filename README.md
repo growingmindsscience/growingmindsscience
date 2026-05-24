@@ -20,6 +20,11 @@ growing-minds-science/
 ├─ index.html                      # Sales homepage
 ├─ classes/
 │  └─ toddlerhood.html              # Flagship class detail / sales page
+├─ tools/
+│  ├─ index.html                    # Tools for Parents hub
+│  ├─ limits-without-escalation.html
+│  ├─ repair-after-the-hard-moment.html
+│  └─ whats-underneath-the-meltdown.html
 ├─ milestones.html                 # Standalone tracker; no framework bundle
 ├─ thank-you.html                  # Netlify Forms success page
 ├─ _redirects                      # Pretty URLs for /milestones, /classes/toddlerhood, /thank-you

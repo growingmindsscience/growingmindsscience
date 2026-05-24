@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#0E5C66"/>
-  <g fill="none" stroke="#F4EFE6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M32 30 V16"/>
-    <path d="M32 22 C26 18 22 20 22 24 C22 28 26 28 32 26"/>
-    <path d="M32 20 C38 14 44 16 44 21 C44 26 38 28 32 24"/>
-    <path d="M32 30 C25 28 19 32 19 38 C19 44 24 48 31 48"/>
-    <path d="M32 30 C39 28 45 32 45 38 C45 44 40 48 33 48"/>
-    <path d="M32 32 V48"/>
-  </g>
+  <rect width="64" height="64" rx="14" fill="#F8F6F1"/>
+  <path d="M32 27 C32 22 32 17 32 10" fill="none" stroke="#0E5C66" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M32 30 C29 23 23 19 14 19 C16 28 22 33 30 32" fill="#64C7A0" stroke="#0E5C66" stroke-width="3.6" stroke-linejoin="round"/>
+  <path d="M32 30 C35 23 41 19 50 19 C48 28 42 33 34 32" fill="#64C7A0" stroke="#0E5C66" stroke-width="3.6" stroke-linejoin="round"/>
+  <path d="M32 7 C26 13 26 22 32 28 C38 22 38 13 32 7Z" fill="#A7D84E" stroke="#0E5C66" stroke-width="3.6" stroke-linejoin="round"/>
+  <path d="M31 32 C27 29 21 29 17 32 C12 32 9 36 10 41 C7 45 10 51 15 51 C18 57 25 58 29 54 C30 58 34 58 35 54 C39 58 46 57 49 51 C54 51 57 45 54 41 C55 36 52 32 47 32 C43 29 37 29 33 32Z" fill="#F3A22D" stroke="#0E5C66" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M32 32 V55" fill="none" stroke="#0E5C66" stroke-width="4" stroke-linecap="round"/>
+  <path d="M23 40 C27 40 29 38 29 35" fill="none" stroke="#0E5C66" stroke-width="3" stroke-linecap="round"/>
+  <path d="M41 40 C37 40 35 38 35 35" fill="none" stroke="#0E5C66" stroke-width="3" stroke-linecap="round"/>
 </svg>
