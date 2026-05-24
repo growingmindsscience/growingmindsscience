@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 680" role="img" aria-labelledby="title desc">
+  <title id="title">Growing Minds Science parent tools illustration</title>
+  <desc id="desc">An illustration of the Growing Minds Science logo mark surrounded by parent tool cards and developmental guidance pathways.</desc>
+  <rect width="900" height="680" rx="24" fill="#F1EFE8"/>
+  <path d="M108 536 C210 472 314 468 410 514 C510 562 630 548 774 458" fill="none" stroke="#D5BE98" stroke-width="12" stroke-linecap="round"/>
+  <path d="M118 190 C232 128 328 137 405 216 C486 299 594 310 764 214" fill="none" stroke="#CADADB" stroke-width="16" stroke-linecap="round"/>
+
+  <g transform="translate(74 104)">
+    <rect x="0" y="0" width="245" height="318" rx="18" fill="#FFFFFF" stroke="#D9D1C4" stroke-width="3"/>
+    <rect x="26" y="34" width="96" height="10" rx="5" fill="#0E5C66"/>
+    <rect x="26" y="66" width="172" height="8" rx="4" fill="#D9D1C4"/>
+    <rect x="26" y="88" width="132" height="8" rx="4" fill="#E8E1D4"/>
+    <g transform="translate(30 130)">
+      <circle cx="32" cy="32" r="30" fill="#E8F4ED" stroke="#64C7A0" stroke-width="4"/>
+      <path d="M22 34 C28 41 36 41 42 33" fill="none" stroke="#0E5C66" stroke-width="5" stroke-linecap="round"/>
+      <path d="M32 19 V31" fill="none" stroke="#0E5C66" stroke-width="5" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(116 138)">
+      <rect x="0" y="0" width="80" height="10" rx="5" fill="#F3A22D"/>
+      <rect x="0" y="28" width="96" height="8" rx="4" fill="#D9D1C4"/>
+      <rect x="0" y="50" width="66" height="8" rx="4" fill="#E8E1D4"/>
+    </g>
+    <circle cx="42" cy="258" r="11" fill="#64C7A0"/>
+    <rect x="66" y="251" width="126" height="8" rx="4" fill="#D9D1C4"/>
+    <circle cx="42" cy="288" r="11" fill="#F3A22D"/>
+    <rect x="66" y="281" width="148" height="8" rx="4" fill="#D9D1C4"/>
+  </g>
+
+  <g transform="translate(294 62)">
+    <rect x="0" y="0" width="330" height="470" rx="24" fill="#FFFFFF" stroke="#D9D1C4" stroke-width="3"/>
+    <circle cx="165" cy="177" r="130" fill="#F8F6F1" stroke="#E8E1D4" stroke-width="4"/>
+    <image href="original-logo-mark-no-words-transparent.png" x="48" y="46" width="234" height="286" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="52" y="360" width="226" height="11" rx="5.5" fill="#0E5C66"/>
+    <rect x="52" y="390" width="178" height="10" rx="5" fill="#D9D1C4"/>
+    <rect x="52" y="418" width="126" height="10" rx="5" fill="#E8E1D4"/>
+  </g>
+
+  <g transform="translate(590 166)">
+    <rect x="0" y="0" width="238" height="314" rx="20" fill="#0E5C66"/>
+    <rect x="28" y="32" width="84" height="10" rx="5" fill="#F8F6F1"/>
+    <circle cx="48" cy="92" r="16" fill="#F3A22D"/>
+    <rect x="78" y="85" width="114" height="8" rx="4" fill="#F8F6F1" opacity=".92"/>
+    <circle cx="48" cy="142" r="16" fill="#64C7A0"/>
+    <rect x="78" y="135" width="92" height="8" rx="4" fill="#CADADB"/>
+    <circle cx="48" cy="192" r="16" fill="#D5BE98"/>
+    <rect x="78" y="185" width="124" height="8" rx="4" fill="#F8F6F1" opacity=".92"/>
+    <path d="M40 252 H198" stroke="#F8F6F1" stroke-width="9" stroke-linecap="round"/>
+    <path d="M40 280 H148" stroke="#CADADB" stroke-width="9" stroke-linecap="round"/>
+  </g>
+
+  <g transform="translate(138 526)">
+    <circle cx="0" cy="0" r="15" fill="#0E5C66"/>
+    <circle cx="88" cy="-22" r="15" fill="#F3A22D"/>
+    <circle cx="176" cy="0" r="15" fill="#64C7A0"/>
+    <path d="M16 -4 C42 -16 58 -20 72 -20" fill="none" stroke="#0E5C66" stroke-width="5" stroke-linecap="round"/>
+    <path d="M104 -20 C132 -12 146 -5 160 -2" fill="none" stroke="#0E5C66" stroke-width="5" stroke-linecap="round"/>
+  </g>
+</svg>
