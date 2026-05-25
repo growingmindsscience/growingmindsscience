@@ -86,7 +86,7 @@
     if (heroEyebrow && heroTitle && heroLede) {
       heroEyebrow.textContent = "For parents of young children";
       heroTitle.textContent = "Understand what is happening underneath behavior.";
-      heroLede.textContent = "Self-paced classes and tools that translate child development into calmer choices for everyday family life.";
+      heroLede.textContent = "Classes, articles, and tools that translate developmental science into calmer choices for everyday family life.";
     }
 
     var hero = document.querySelector(".hero");
