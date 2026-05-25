@@ -83,7 +83,7 @@
   status = 200
 
 [[redirects]]
-  form = "/about"
+  from = "/about"
   to = "/about/index.html"
   status = 200
 
