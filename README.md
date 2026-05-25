@@ -24,6 +24,7 @@ growing-minds-science/
 │  ├─ index.html                    # Tools for Parents hub
 │  ├─ limits-without-escalation.html
 │  ├─ repair-after-the-hard-moment.html
+│  ├─ whats-typical-by-stage.html
 │  └─ whats-underneath-the-meltdown.html
 ├─ milestones.html                 # Standalone tracker; no framework bundle
 ├─ thank-you.html                  # Netlify Forms success page
@@ -74,7 +75,7 @@ becomes available, it can be added later with a clear caption.
 ## Deploy
 
 Drop the folder into Netlify (drag-and-drop or `netlify deploy --prod --dir=.`).
-Custom domain + HTTPS handled by Netlify.
+Custom domain + HTTPPS handled by Netlify.
 
 ## Forms
 
@@ -101,7 +102,7 @@ respects an `?interest=...` query string for cross-page preselection.
 
 The tracker is intentionally a single static `milestones.html` file with inline
 CSS, inline JavaScript, and embedded milestone data. It does not use React,
-Vite, hashed bundles, or a `/milestones/assets/` folder. This avoids Netlify
+Vite, hashed bundles, or a `milestones/assets/` folder. This avoids Netlify
 manual-deploy edge cases where subdirectory app assets can be served as HTML
 (which previously caused infinite reload loops).
 

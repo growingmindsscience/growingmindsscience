@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>What's typical, by stage - Growing Minds Science</title>
+  <meta name="description" content="A calm infant sleep guide for the first year: what changes by stage, what varies, and what developmental sleep research can and cannot tell parents." />
+  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="color-scheme" content="light dark" />
+
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="canonical" href="/tools/whats-typical-by-stage" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/refresh.css" />
+
+  <style>
+    .tool-hero { padding: clamp(3rem, 6vw, 5rem) 0 2rem; }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr .9fr; gap: var(--space-8); align-items: start; }
+    .tool-lede { font-size: var(--text-md); color: var(--ink-soft); max-width: 44rem; margin: 0 0 var(--space-6); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+
+    .hero-card,
+    .panel,
+    .stage-output,
+    .summary-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: var(--space-6);
+    }
+
+    .hero-card h2 { margin: 0 0 .65rem; font-size: var(--text-lg); }
+    .hero-card p { color: var(--ink-soft); }
+    .meta-list { list-style: none; padding: 0; margin: var(--space-4) 0 0; display: grid; gap: .85rem; }
+    .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
+    .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
+
+    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: 999px; background: var(--surface-2); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .section-intro { color: var(--ink-soft); max-width: 45rem; margin: 0 0 var(--space-6); }
+    .small { font-size: var(--text-sm); color: var(--ink-muted); }
+
+    .stage-wrap { display: grid; grid-template-columns: .92fr 1.08fr; gap: var(--space-5); align-items: start; }
+    .stage-buttons { display: grid; gap: .75rem; }
+    .stage-btn { padding: .85rem 1rem; text-align: left; border-radius: 16px; border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); cursor: pointer; transition: all var(--transition); }
+    .stage-btn strong { display: block; color: inherit; margin-bottom: .2rem; }
+    .stage-btn span { display: block; font-size: var(--text-xs); opacity: .82; line-height: 1.45; }
+    .stage-btn.is-active { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
+    .stage-output[hidden] { display: none; }
+    .stage-output h3 { margin: 0 0 .6rem; font-size: var(--text-lg); }
+    .stage-output p { color: var(--ink-soft); }
+    .stage-facts { display: grid; gap: var(--space-3); margin: var(--space-5) 0 0; }
+    .stage-fact { padding: var(--space-4); border-left: 3px solid var(--accent); background: var(--surface-2); border-radius: var(--radius); }
+    .stage-fact strong { display: block; margin-bottom: .25rem; color: var(--ink); font-size: var(--text-sm); }
+    .stage-fact span { display: block; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.6; }
+
+    .principle-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }
+    .principle-card { padding: var(--space-5); border: 1px solid var(--border-soft); border-radius: var(--radius); background: var(--bg-alt); }
+    .principle-card h3 { margin: 0 0 .55rem; font-size: var(--text-md); }
+    .principle-card p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
+
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+    .compare-box { padding: var(--space-5); border-radius: var(--radius); border: 1px solid var(--border-soft); background: var(--bg-alt); }
+    .compare-box h3 { margin: 0 0 .85rem; font-size: var(--text-md); }
+    .compare-box ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .55rem; }
+    .compare-box--helpful { border-color: color-mix(in srgb, var(--primary) 35%, var(--border-soft)); }
+    .compare-box--less { border-color: color-mix(in srgb, var(--warm) 42%, var(--border-soft)); }
+
+    .source-list { display: grid; gap: var(--space-3); margin: 0; padding-left: 1.1rem; }
+    .source-list a { color: var(--primary); font-weight: 700; }
+
+    .summary-card { position: relative; overflow: hidden; }
+    .summary-card::after { content: ""; position: absolute; inset: auto -40px -40px auto; width: 160px; height: 160px; border-radius: 999px; background: color-mix(in srgb, var(--accent-soft) 55%, transparent); }
+    .summary-card ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .6rem; position: relative; z-index: 1; }
+
+    .cta-strip { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .stage-wrap,
+      .principle-grid,
+      .compare-grid,
+      .cta-strip { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="container site-header__inner">
+      <a class="brand" href="/" aria-label="Growing Minds Science - home">
+        <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+        <span class="brand__name">Growing Minds Science</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Toggle navigation menu">
+          <span class="nav-toggle__bars"><span></span></span>
+        </button>
+
+        <ul class="nav__list" id="primary-nav-list">
+          <li><a class="nav__link" href="/">Home</a></li>
+          <li><a class="nav__link" href="/classes/">Classes</a></li>
+          <li><a class="nav__link" href="/about/">About</a></li>
+          <li><a class="nav__link" href="/tools/" aria-current="page">Tools for Parents</a></li>
+          <li><a class="nav__link" href="/faq/">FAQ</a></li>
+          <li><a class="nav__link" href="/articles/">Articles</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse classes</a></li>
+        </ul>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
+          <svg class="theme-toggle__moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="tool-hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Infant · 0-12 mo · Sleep development</p>
+          <h1 class="page-hero__title">What's typical, by stage</h1>
+          <p class="tool-lede">A calm look at sleep development across the first year: what is typical, what varies, and what the research can and cannot tell us.</p>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="#stage-guide">Open the stage guide</a>
+            <a class="btn btn--ghost" href="#one-minute-summary">Jump to summary</a>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-labelledby="tool-at-a-glance">
+          <span class="tag">At a glance</span>
+          <h2 id="tool-at-a-glance">What this tool helps with</h2>
+          <ul class="meta-list">
+            <li><span class="dot"></span><span>Understanding normal sleep variation without treating every wake-up as a failure.</span></li>
+            <li><span class="dot"></span><span>Separating developmental sleep changes from sleep-safety decisions.</span></li>
+            <li><span class="dot"></span><span>Knowing what evidence supports, and where exact schedules become guesswork.</span></li>
+            <li><span class="dot"></span><span>Deciding when a pattern deserves a pediatrician conversation.</span></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>The core idea</h2>
+        <p class="section-intro">Infant sleep is developmental. It changes as feeding, circadian rhythms, motor skills, separation awareness, and family routines change. The research can give useful ranges and safety rules. It cannot tell you that every healthy baby should follow one exact schedule.</p>
+
+        <div class="principle-grid">
+          <article class="principle-card">
+            <h3>Safety comes first</h3>
+            <p>For the first year, sleep advice should never override safe sleep: back to sleep, a firm flat surface, no soft bedding, and room-sharing without bed-sharing when possible.</p>
+          </article>
+          <article class="principle-card">
+            <h3>Ranges are more honest than targets</h3>
+            <p>For 4-12 months, the major sleep-duration benchmark is 12-16 total hours per 24 hours, including naps. Newborn sleep is even more variable.</p>
+          </article>
+          <article class="principle-card">
+            <h3>Night waking is data, not a verdict</h3>
+            <p>Waking can reflect hunger, development, illness, discomfort, sleep associations, schedule fit, or temperament. The useful question is what pattern is changing.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="stage-guide">
+      <div class="container container--narrow">
+        <h2>Stage guide</h2>
+        <p class="section-intro">Choose your baby's closest stage. Use this as orientation, not a prescription.</p>
+
+        <div class="stage-wrap">
+          <div class="stage-buttons" role="tablist" aria-label="Infant sleep stages">
+            <button class="stage-btn is-active" data-stage="newborn"><strong>0-2 months</strong><span>Newborn sleep is fragmented and feeding-driven.</span></button>
+            <button class="stage-btn" data-stage="early"><strong>2-4 months</strong><span>Day-night rhythm begins to organize, unevenly.</span></button>
+            <button class="stage-btn" data-stage="middle"><strong>4-6 months</strong><span>More predictable patterns may start to appear.</span></button>
+            <button class="stage-btn" data-stage="older"><strong>6-9 months</strong><span>Motor practice and separation awareness can affect nights.</span></button>
+            <button class="stage-btn" data-stage="late"><strong>9-12 months</strong><span>Naps often consolidate, but waking can still be normal.</span></button>
+          </div>
+
+          <div>
+            <article class="stage-output" data-output="newborn">
+              <span class="tag">0-2 months</span>
+              <h3>Fragmented sleep is expected.</h3>
+              <p>Newborns do not yet have mature circadian rhythms. Sleep is spread across day and night, and feeding needs usually drive the pattern.</p>
+              <div class="stage-facts">
+                <div class="stage-fact"><strong>Typical pattern</strong><span>Many short sleep periods across 24 hours, with frequent waking for feeding, comfort, and regulation.</span></div>
+                <div class="stage-fact"><strong>What helps</strong><span>Protect safe sleep, use daylight and ordinary household cues during the day, keep nights low-stimulation, and follow medical feeding guidance.</span></div>
+                <div class="stage-fact"><strong>What not to overread</strong><span>A newborn who wakes often is not failing to self-soothe. The nervous system is immature, and sleep is still organizing.</span></div>
+              </div>
+            </article>
+
+            <article class="stage-output" data-output="early" hidden>
+              <span class="tag">2-4 months</span>
+              <h3>Rhythm starts to emerge, but it is fragile.</h3>
+              <p>Some babies begin giving longer stretches, especially at night, while others remain highly variable. Growth, feeding, reflux, temperament, and family routines can all matter.</p>
+              <div class="stage-facts">
+                <div class="stage-fact"><strong>Typical pattern</strong><span>Sleep may still happen in several blocks, but day-night differences often become clearer.</span></div>
+                <div class="stage-fact"><strong>What helps</strong><span>A simple bedtime rhythm, consistent light cues, and a safe sleep space can support organization without forcing a rigid schedule.</span></div>
+                <div class="stage-fact"><strong>What not to overread</strong><span>A rough patch around this age is common. It may reflect development, not a permanent sleep problem.</span></div>
+              </div>
+            </article>
+
+            <article class="stage-output" data-output="middle" hidden>
+              <span class="tag">4-6 months</span>
+              <h3>Total sleep range becomes more useful.</h3>
+              <p>From 4 months onward, the AASM-supported benchmark is 12-16 total hours per 24 hours, including naps. Some babies begin more predictable nap and bedtime patterns here.</p>
+              <div class="stage-facts">
+                <div class="stage-fact"><strong>Typical pattern</strong><span>Many babies still wake at night, while some begin longer stretches. Naps may be inconsistent before they consolidate.</span></div>
+                <div class="stage-fact"><strong>What helps</strong><span>Look at the whole 24-hour rhythm: wake time, naps, bedtime, feeding, and how the baby gets help returning to sleep.</span></div>
+                <div class="stage-fact"><strong>What not to overread</strong><span>The 12-16 hour range is not a promise that nights will be uninterrupted. It is a total sleep-duration guide.</span></div>
+              </div>
+            </article>
+
+            <article class="stage-output" data-output="older" hidden>
+              <span class="tag">6-9 months</span>
+              <h3>Development can show up at night.</h3>
+              <p>Rolling, sitting, crawling practice, new foods, illness, teething discomfort, and separation awareness can all disturb sleep. More skills can mean more night activity for a while.</p>
+              <div class="stage-facts">
+                <div class="stage-fact"><strong>Typical pattern</strong><span>Some babies move toward two or three naps and longer night stretches. Others still need help overnight.</span></div>
+                <div class="stage-fact"><strong>What helps</strong><span>Keep the response predictable and boring at night, give motor practice during the day, and keep the sleep surface safe as mobility increases.</span></div>
+                <div class="stage-fact"><strong>What not to overread</strong><span>A baby who was sleeping longer and starts waking again has not lost all progress. Sleep often changes around new skills.</span></div>
+              </div>
+            </article>
+
+            <article class="stage-output" data-output="late" hidden>
+              <span class="tag">9-12 months</span>
+              <h3>More pattern does not mean no waking.</h3>
+              <p>By the end of the first year, many babies have more predictable sleep, but normal variation remains wide. Travel, illness, separation, feeding changes, and nap transitions can still disrupt nights.</p>
+              <div class="stage-facts">
+                <div class="stage-fact"><strong>Typical pattern</strong><span>Many babies are moving toward two naps and a steadier bedtime rhythm, with total sleep still commonly understood within the 12-16 hour range.</span></div>
+                <div class="stage-fact"><strong>What helps</strong><span>A repeatable wind-down, enough daytime sleep, and a response plan caregivers can use consistently.</span></div>
+                <div class="stage-fact"><strong>What not to overread</strong><span>One rough week is not a diagnosis. Look for persistent patterns, daytime functioning, growth, feeding, breathing, and family strain.</span></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>What the research can and cannot tell us</h2>
+        <div class="compare-grid">
+          <article class="compare-box compare-box--helpful">
+            <h3>Can tell us</h3>
+            <ul>
+              <li>Safe sleep practices reduce risk and should anchor every plan.</li>
+              <li>Infant sleep changes rapidly across the first year.</li>
+              <li>There is wide normal variation in sleep duration, waking, and nap patterns.</li>
+              <li>For 4-12 months, 12-16 total hours per 24 hours is the main health-oriented duration range.</li>
+              <li>Persistent sleep difficulty can affect the whole family and may deserve support.</li>
+            </ul>
+          </article>
+          <article class="compare-box compare-box--less">
+            <h3>Cannot tell us</h3>
+            <ul>
+              <li>That every baby should sleep through the night by a specific month.</li>
+              <li>That one nap schedule works for all infants.</li>
+              <li>That night waking always means a parent has created a bad habit.</li>
+              <li>That a sleep plan is appropriate when feeding, growth, breathing, or medical concerns are present.</li>
+              <li>That convenience products are safe just because they are marketed for sleep.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <div class="panel">
+          <span class="tag">Safety check</span>
+          <h2 style="font-size:var(--text-xl); margin-top:0;">Before interpreting the pattern</h2>
+          <p class="section-intro">If sleep feels impossible, start by making the sleep setup safe and asking whether there is a medical or feeding issue underneath the waking.</p>
+          <ul class="source-list">
+            <li>Back sleep for every sleep, on a firm, flat, non-inclined surface designed for infants.</li>
+            <li>No pillows, loose blankets, soft bedding, positioners, or weighted sleep products in or near the infant sleep space.</li>
+            <li>Room-share without bed-sharing when possible, especially during the first 6 months.</li>
+            <li>Talk with a pediatrician promptly for breathing concerns, poor weight gain, feeding difficulty, unusual lethargy, persistent vomiting, or caregiver exhaustion that feels unsafe.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="one-minute-summary">
+      <div class="container container--narrow">
+        <div class="summary-card">
+          <span class="tag">One-minute summary</span>
+          <h2 style="font-size:var(--text-xl); margin-top:0;">When you need the short version</h2>
+          <ul>
+            <li>Infant sleep changes quickly in the first year.</li>
+            <li>Newborn sleep is fragmented; day-night rhythm takes time.</li>
+            <li>From 4-12 months, 12-16 total hours per 24 hours is the main sleep-duration benchmark.</li>
+            <li>Night waking can be normal, especially during feeding needs, illness, and developmental change.</li>
+            <li>Safe sleep rules matter more than any schedule.</li>
+            <li>Ask for medical guidance when sleep problems come with feeding, breathing, growth, health, or safety concerns.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <div class="panel">
+          <span class="tag">Sources used</span>
+          <h2 style="font-size:var(--text-xl); margin-top:0;">Research anchors</h2>
+          <ul class="source-list">
+            <li><a href="https://publications.aap.org/pediatrics/article-abstract/150/1/e2022057990/188304/Sleep-Related-Infant-Deaths-Updated-2022/" target="_blank" rel="noopener noreferrer">AAP 2022 safe sleep policy statement</a></li>
+            <li><a href="https://www.cdc.gov/reproductive-health/features/babies-sleep.html" target="_blank" rel="noopener noreferrer">CDC safe sleep guidance for babies</a></li>
+            <li><a href="https://pubmed.ncbi.nlm.nih.gov/27250809/" target="_blank" rel="noopener noreferrer">American Academy of Sleep Medicine pediatric sleep duration consensus</a></li>
+            <li><a href="https://pubmed.ncbi.nlm.nih.gov/29356197/" target="_blank" rel="noopener noreferrer">Systematic review of infant sleep-wake reference values in the first year</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <div class="cta-strip">
+          <div>
+            <p class="eyebrow">Next step</p>
+            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Want to compare this with other tools?</h2>
+            <p class="small" style="max-width:38rem; margin:0;">Return to the parent tools library for behavior, repair, limits, and milestone resources.</p>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="/tools/">Back to tools</a>
+            <a class="btn btn--ghost" href="/milestones.html">Open milestone tracker</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container site-footer__inner">
+      <div>
+        <a class="brand" href="/" aria-label="Growing Minds Science - home">
+          <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" />
+          <span class="brand__name">Growing Minds Science</span>
+        </a>
+        <p style="margin-top: var(--space-4);">
+          Developmental science, translated for parents.
+        </p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul class="footer-list">
+          <li><a href="/">Home</a></li>
+          <li><a href="/classes/">Classes</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/tools/">Tools for parents</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/articles/">Articles</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Stay in the loop</h4>
+        <p style="font-size: var(--text-sm);">
+          <a href="/classes/toddlerhood.html#waitlist">Join the waitlist</a>
+        </p>
+        <p class="footer-elsewhere" style="margin-top: var(--space-5);">
+          Also on
+          <a href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr"
+             target="_blank" rel="noopener noreferrer">Instagram</a>
+        </p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
+        <span>&copy; <span data-year>2026</span> Growing Minds Science. All rights reserved.</span>
+        <span>Educational content only. Not medical or psychological advice.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js" defer></script>
+  <script>
+    (function(){
+      var stageButtons = document.querySelectorAll('.stage-btn');
+      var outputs = document.querySelectorAll('.stage-output');
+      stageButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var key = btn.dataset.stage;
+          stageButtons.forEach(function(b) { b.classList.remove('is-active'); });
+          btn.classList.add('is-active');
+          outputs.forEach(function(o) { o.hidden = o.dataset.output !== key; });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

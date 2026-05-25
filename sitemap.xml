@@ -51,6 +51,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>/tools/whats-typical-by-stage</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>/milestones.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

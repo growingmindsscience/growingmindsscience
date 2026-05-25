@@ -57,6 +57,16 @@
   status = 200
 
 [[redirects]]
+  from = "/tools/whats-typical-by-stage"
+  to = "/tools/whats-typical-by-stage.html"
+  status = 200
+
+[[redirects]]
+  from = "/tools/whats-typical-by-stage/"
+  to = "/tools/whats-typical-by-stage.html"
+  status = 200
+
+[[redirects]]
   from = "/thank-you"
   to = "/thank-you.html"
   status = 200
@@ -73,7 +83,7 @@
   status = 200
 
 [[redirects]]
-  from = "/about"
+  form = "/about"
   to = "/about/index.html"
   status = 200
 
