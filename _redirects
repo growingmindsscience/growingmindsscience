@@ -24,6 +24,10 @@
 /tools/whats-typical-by-stage   /tools/whats-typical-by-stage.html  200
 /tools/whats-typical-by-stage/  /tools/whats-typical-by-stage.html  200
 
+# Pretty URL for the Growing Minds AI product page.
+/tools/growing-minds-ai   /tools/growing-minds-ai.html  200
+/tools/growing-minds-ai/  /tools/growing-minds-ai.html  200
+
 # Pretty URL for the Netlify Forms success page.
 /thank-you                  /thank-you.html                200
 /thank-you/                 /thank-you.html                200

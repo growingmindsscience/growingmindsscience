@@ -67,6 +67,16 @@
   status = 200
 
 [[redirects]]
+  from = "/tools/growing-minds-ai"
+  to = "/tools/growing-minds-ai.html"
+  status = 200
+
+[[redirects]]
+  from = "/tools/growing-minds-ai/"
+  to = "/tools/growing-minds-ai.html"
+  status = 200
+
+[[redirects]]
   from = "/thank-you"
   to = "/thank-you.html"
   status = 200

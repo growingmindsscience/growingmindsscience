@@ -22,6 +22,7 @@ growing-minds-science/
 │  └─ toddlerhood.html              # Flagship class detail / sales page
 ├─ tools/
 │  ├─ index.html                    # Tools for Parents hub
+│  ├─ growing-minds-ai.html
 │  ├─ limits-without-escalation.html
 │  ├─ repair-after-the-hard-moment.html
 │  ├─ whats-typical-by-stage.html
