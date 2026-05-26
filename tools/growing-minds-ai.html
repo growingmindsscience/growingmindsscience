@@ -62,26 +62,38 @@
             research-grounded explanations shaped by Growing Minds Science.
           </p>
           <div class="hero__ctas">
-            <a class="btn btn--primary btn--lg" href="#early-access">Join early access</a>
+            <a class="btn btn--primary btn--lg" href="#ask">Try the tutor</a>
             <a class="btn btn--ghost btn--lg" href="#preview">See example questions</a>
           </div>
         </div>
 
-        <div class="ai-chat-preview" aria-label="Growing Minds AI chat preview">
+        <div class="ai-chat-preview ai-chat-preview--live" aria-label="Growing Minds AI chat">
           <div class="ai-chat-preview__top">
             <span class="ai-chat-preview__dot"></span>
             <strong>Growing Minds AI</strong>
-            <span>Research-backed developmental support</span>
+            <span>Live developmental science tutor</span>
           </div>
-          <div class="ai-chat-preview__body">
-            <div class="ai-message ai-message--user">What is normal emotional regulation at age 5?</div>
+          <div class="ai-chat-preview__body" id="ask">
             <div class="ai-message ai-message--assistant">
-              At 5, many children are better at naming feelings and recovering from frustration, but they still need adult support when tired, overwhelmed, hungry, or disappointed. The goal is not perfect self-control. It is growing capacity with co-regulation nearby.
+              Ask a developmental science question. I can explain concepts, suggest simple activities, and help you think about what is typical by age.
             </div>
             <div class="ai-source-strip" aria-label="Answer grounding">
               <span>Developmental science</span>
               <span>Plain language</span>
               <span>Not medical advice</span>
+            </div>
+            <form class="ai-chat-form" data-ai-chat>
+              <label class="form-label" for="ai-question">Your question</label>
+              <textarea class="form-input ai-chat-form__input" id="ai-question" name="question" rows="4" maxlength="1200" required placeholder="What is normal emotional regulation at age 5?"></textarea>
+              <div class="ai-chat-form__actions">
+                <button class="btn btn--primary" type="submit">Ask Growing Minds AI</button>
+                <p class="form-status" data-ai-status role="status" aria-live="polite"></p>
+              </div>
+            </form>
+            <div class="ai-suggested" aria-label="Suggested questions">
+              <button type="button" data-ai-question="What is normal emotional regulation at age 5?">Age 5 regulation</button>
+              <button type="button" data-ai-question="Explain Vygotsky simply.">Explain Vygotsky</button>
+              <button type="button" data-ai-question="Create three developmental activities for a toddler.">Toddler activities</button>
             </div>
           </div>
         </div>
@@ -129,6 +141,18 @@
             <p class="tool-card__desc">Generate simple, age-appropriate ideas that support language, connection, motor skills, and early problem-solving.</p>
           </article>
         </div>
+      </div>
+    </section>
+
+    <section class="section--alt">
+      <div class="container ai-live-note">
+        <p class="eyebrow">MVP status</p>
+        <h2>Now wired for a real AI backend.</h2>
+        <p class="lede">
+          This chat connects to a private Netlify Function. Once the OpenAI key
+          and optional vector store ID are added in Netlify, it can answer using
+          the Growing Minds AI tutor instructions.
+        </p>
       </div>
     </section>
 

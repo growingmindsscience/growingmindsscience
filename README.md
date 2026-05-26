@@ -99,6 +99,26 @@ waitlist signup form before scrolling to it. The class detail page also
 includes a hidden `interest=Toddlerhood` field, and the homepage form
 respects an `?interest=...` query string for cross-page preselection.
 
+## Growing Minds AI
+
+The Growing Minds AI page at `/tools/growing-minds-ai` includes a working chat
+MVP backed by a Netlify Function:
+
+- Function: `netlify/functions/growing-minds-ai.mjs`
+- Browser endpoint: `/.netlify/functions/growing-minds-ai`
+- Required Netlify environment variable: `OPENAI_API_KEY`
+- Optional Netlify environment variable: `OPENAI_VECTOR_STORE_ID`
+- Optional Netlify environment variable: `OPENAI_MODEL` (defaults to `gpt-5.5`)
+
+Set environment variables in Netlify with the Functions scope enabled. The API
+key must never be placed in browser JavaScript or committed to the repository.
+
+When `OPENAI_VECTOR_STORE_ID` is present, the function enables OpenAI file
+search so answers can be grounded in uploaded Growing Minds Science course
+material, parent tools, and curated developmental science notes. Without a
+vector store, the tutor still uses the system instructions but will not retrieve
+from a private knowledge base.
+
 ## Milestone tracker
 
 The tracker is intentionally a single static `milestones.html` file with inline

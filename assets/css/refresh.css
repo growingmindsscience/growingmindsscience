@@ -579,6 +579,11 @@ h4,
   padding: var(--space-5);
 }
 
+.ai-chat-preview--live .ai-chat-preview__body {
+  max-height: 680px;
+  overflow-y: auto;
+}
+
 .ai-message {
   max-width: 88%;
   border: 1px solid var(--border-soft);
@@ -624,6 +629,60 @@ h4,
   grid-template-columns: minmax(0, 1fr) minmax(260px, 0.62fr);
   gap: clamp(var(--space-8), 6vw, var(--space-16));
   align-items: start;
+}
+
+.ai-chat-form {
+  display: grid;
+  gap: var(--space-3);
+  border-top: 1px solid var(--border-soft);
+  padding-top: var(--space-4);
+}
+
+.ai-chat-form__input {
+  min-height: 8.5rem;
+  resize: vertical;
+}
+
+.ai-chat-form__actions {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.ai-chat-form button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.ai-suggested {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.ai-suggested button {
+  appearance: none;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink-soft);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  line-height: 1.2;
+  min-height: 2.25rem;
+  padding: 0.45rem 0.65rem;
+}
+
+.ai-suggested button:hover {
+  border-color: color-mix(in oklab, var(--primary) 35%, var(--border));
+  color: var(--ink);
+}
+
+.ai-live-note {
+  max-width: 760px;
 }
 
 .site-footer {
@@ -691,6 +750,19 @@ h4,
 
   .featured-tool .hero__ctas .btn {
     width: 100%;
+  }
+
+  .ai-chat-form__actions {
+    grid-template-columns: 1fr;
+  }
+
+  .ai-chat-form__actions .btn {
+    width: 100%;
+  }
+
+  .ai-chat-preview--live .ai-chat-preview__body {
+    max-height: none;
+    overflow-y: visible;
   }
 
   .proof-strip {

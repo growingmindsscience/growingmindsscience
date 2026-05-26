@@ -217,5 +217,78 @@
         if (status) status.textContent = "Sending…";
       });
     }
+
+    // Growing Minds AI chat MVP.
+    var aiForm = document.querySelector("[data-ai-chat]");
+    if (aiForm) {
+      var aiInput = aiForm.querySelector('textarea[name="question"]');
+      var aiStatus = document.querySelector("[data-ai-status]");
+      var aiBody = document.querySelector(".ai-chat-preview__body");
+      var aiSubmit = aiForm.querySelector('button[type="submit"]');
+      var suggestedQuestions = document.querySelectorAll("[data-ai-question]");
+
+      function addAiMessage(text, type) {
+        if (!aiBody) return null;
+        var node = document.createElement("div");
+        node.className = "ai-message ai-message--" + type;
+        text.split(/\n{2,}/).forEach(function (paragraph, index) {
+          if (!paragraph.trim()) return;
+          if (index > 0) node.appendChild(document.createElement("br"));
+          if (index > 0) node.appendChild(document.createElement("br"));
+          node.appendChild(document.createTextNode(paragraph.trim()));
+        });
+        aiForm.insertAdjacentElement("beforebegin", node);
+        return node;
+      }
+
+      function setAiLoading(loading) {
+        if (aiSubmit) aiSubmit.disabled = loading;
+        if (aiInput) aiInput.disabled = loading;
+        if (aiStatus) aiStatus.textContent = loading ? "Thinking…" : "";
+      }
+
+      suggestedQuestions.forEach(function (button) {
+        button.addEventListener("click", function () {
+          if (!aiInput) return;
+          aiInput.value = button.getAttribute("data-ai-question") || "";
+          aiInput.focus();
+        });
+      });
+
+      aiForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (!aiInput) return;
+        var question = aiInput.value.trim();
+        if (!question) {
+          if (aiStatus) aiStatus.textContent = "Please enter a question.";
+          return;
+        }
+
+        addAiMessage(question, "user");
+        setAiLoading(true);
+
+        fetch("/.netlify/functions/growing-minds-ai", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ question: question }),
+        })
+          .then(function (response) {
+            return response.json().then(function (data) {
+              if (!response.ok) throw new Error(data.error || "Growing Minds AI could not answer right now.");
+              return data;
+            });
+          })
+          .then(function (data) {
+            addAiMessage(data.answer, "assistant");
+            aiInput.value = "";
+          })
+          .catch(function (error) {
+            addAiMessage(error.message || "Growing Minds AI could not answer right now. Please try again.", "assistant");
+          })
+          .finally(function () {
+            setAiLoading(false);
+          });
+      });
+    }
   });
 })();
