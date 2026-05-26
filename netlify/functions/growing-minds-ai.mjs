@@ -53,11 +53,25 @@ export default async function handler(request) {
     });
   }
 
+  const configuredAccessCode = process.env.GMS_AI_ACCESS_CODE;
+  if (!configuredAccessCode) {
+    return jsonResponse(503, {
+      error: "Growing Minds AI is available for enrolled families. Add GMS_AI_ACCESS_CODE in Netlify environment variables before enabling chat.",
+    });
+  }
+
   let payload;
   try {
     payload = await request.json();
   } catch (_) {
     return jsonResponse(400, { error: "Please send a valid JSON request." });
+  }
+
+  const accessCode = String(payload.accessCode || "").trim();
+  if (!accessCode || accessCode !== configuredAccessCode) {
+    return jsonResponse(401, {
+      error: "Please enter the class access code to use Growing Minds AI.",
+    });
   }
 
   const question = String(payload.question || "").trim();

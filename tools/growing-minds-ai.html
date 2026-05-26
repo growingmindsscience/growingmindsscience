@@ -55,11 +55,11 @@
     <section class="ai-hero">
       <div class="container ai-hero__inner">
         <div class="ai-hero__copy">
-          <p class="eyebrow">Early access · Growing Minds AI</p>
+          <p class="eyebrow">Class companion · Growing Minds AI</p>
           <h1 class="page-hero__title">An AI developmental science tutor for parents and students.</h1>
           <p class="page-hero__lede">
-            Ask plain-language questions about early development and get calm,
-            research-grounded explanations shaped by Growing Minds Science.
+            Available to enrolled families and students as a paid class companion
+            for calm, research-grounded developmental science support.
           </p>
           <div class="hero__ctas">
             <a class="btn btn--primary btn--lg" href="#ask">Try the tutor</a>
@@ -71,11 +71,11 @@
           <div class="ai-chat-preview__top">
             <span class="ai-chat-preview__dot"></span>
             <strong>Growing Minds AI</strong>
-            <span>Live developmental science tutor</span>
+            <span>For enrolled class families</span>
           </div>
           <div class="ai-chat-preview__body" id="ask">
             <div class="ai-message ai-message--assistant">
-              Ask a developmental science question. I can explain concepts, suggest simple activities, and help you think about what is typical by age.
+              Enter your class access code, then ask a developmental science question. I can explain concepts, suggest simple activities, and help you think about what is typical by age.
             </div>
             <div class="ai-source-strip" aria-label="Answer grounding">
               <span>Developmental science</span>
@@ -83,6 +83,8 @@
               <span>Not medical advice</span>
             </div>
             <form class="ai-chat-form" data-ai-chat>
+              <label class="form-label" for="ai-access-code">Class access code</label>
+              <input class="form-input" id="ai-access-code" name="access-code" type="password" autocomplete="off" required placeholder="Provided after class purchase" />
               <label class="form-label" for="ai-question">Your question</label>
               <textarea class="form-input ai-chat-form__input" id="ai-question" name="question" rows="4" maxlength="1200" required placeholder="What is normal emotional regulation at age 5?"></textarea>
               <div class="ai-chat-form__actions">

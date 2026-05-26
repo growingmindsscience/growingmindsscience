@@ -107,11 +107,15 @@ MVP backed by a Netlify Function:
 - Function: `netlify/functions/growing-minds-ai.mjs`
 - Browser endpoint: `/.netlify/functions/growing-minds-ai`
 - Required Netlify environment variable: `OPENAI_API_KEY`
+- Required Netlify environment variable: `GMS_AI_ACCESS_CODE`
 - Optional Netlify environment variable: `OPENAI_VECTOR_STORE_ID`
 - Optional Netlify environment variable: `OPENAI_MODEL` (defaults to `gpt-5.5`)
 
 Set environment variables in Netlify with the Functions scope enabled. The API
 key must never be placed in browser JavaScript or committed to the repository.
+`GMS_AI_ACCESS_CODE` should be shared only with enrolled class families; the
+function will not call OpenAI unless the submitted access code matches this
+server-side value.
 
 When `OPENAI_VECTOR_STORE_ID` is present, the function enables OpenAI file
 search so answers can be grounded in uploaded Growing Minds Science course

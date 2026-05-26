@@ -222,6 +222,7 @@
     var aiForm = document.querySelector("[data-ai-chat]");
     if (aiForm) {
       var aiInput = aiForm.querySelector('textarea[name="question"]');
+      var aiAccessCode = aiForm.querySelector('input[name="access-code"]');
       var aiStatus = document.querySelector("[data-ai-status]");
       var aiBody = document.querySelector(".ai-chat-preview__body");
       var aiSubmit = aiForm.querySelector('button[type="submit"]');
@@ -244,6 +245,7 @@
       function setAiLoading(loading) {
         if (aiSubmit) aiSubmit.disabled = loading;
         if (aiInput) aiInput.disabled = loading;
+        if (aiAccessCode) aiAccessCode.disabled = loading;
         if (aiStatus) aiStatus.textContent = loading ? "Thinking…" : "";
       }
 
@@ -259,6 +261,12 @@
         event.preventDefault();
         if (!aiInput) return;
         var question = aiInput.value.trim();
+        var accessCode = aiAccessCode ? aiAccessCode.value.trim() : "";
+        if (!accessCode) {
+          if (aiStatus) aiStatus.textContent = "Please enter the class access code.";
+          if (aiAccessCode) aiAccessCode.focus();
+          return;
+        }
         if (!question) {
           if (aiStatus) aiStatus.textContent = "Please enter a question.";
           return;
@@ -270,7 +278,7 @@
         fetch("/.netlify/functions/growing-minds-ai", {
           method: "POST",
           headers: { "content-type": "application/json" },
-          body: JSON.stringify({ question: question }),
+          body: JSON.stringify({ question: question, accessCode: accessCode }),
         })
           .then(function (response) {
             return response.json().then(function (data) {
