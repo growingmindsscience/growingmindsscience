@@ -67,6 +67,16 @@
   status = 200
 
 [[redirects]]
+  from = "/tools/routines-transitions-night-waking"
+  to = "/tools/routines-transitions-night-waking.html"
+  status = 200
+
+[[redirects]]
+  from = "/tools/routines-transitions-night-waking/"
+  to = "/tools/routines-transitions-night-waking.html"
+  status = 200
+
+[[redirects]]
   from = "/tools/growing-minds-ai"
   to = "/tools/growing-minds-ai.html"
   status = 200

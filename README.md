@@ -25,6 +25,7 @@ growing-minds-science/
 │  ├─ growing-minds-ai.html
 │  ├─ limits-without-escalation.html
 │  ├─ repair-after-the-hard-moment.html
+│  ├─ routines-transitions-night-waking.html
 │  ├─ whats-typical-by-stage.html
 │  └─ whats-underneath-the-meltdown.html
 ├─ milestones.html                 # Standalone tracker; no framework bundle

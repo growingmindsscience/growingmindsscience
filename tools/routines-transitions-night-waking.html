@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Routines, transitions, and night-waking - Growing Minds Science</title>
+  <meta name="description" content="A toddler sleep guide for parents: why sleep changes from ages 1-3, what routines help, and how to read night-waking without panic." />
+  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="color-scheme" content="light dark" />
+
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="canonical" href="/tools/routines-transitions-night-waking" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/refresh.css" />
+
+  <style>
+    .tool-hero { padding: clamp(3rem, 6vw, 5rem) 0 2rem; }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr .9fr; gap: var(--space-8); align-items: start; }
+    .tool-lede { font-size: var(--text-md); color: var(--ink-soft); max-width: 44rem; margin: 0 0 var(--space-6); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+
+    .hero-card,
+    .panel,
+    .pattern-output,
+    .summary-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: var(--space-6);
+    }
+
+    .hero-card h2 { margin: 0 0 .65rem; font-size: var(--text-lg); }
+    .hero-card p { color: var(--ink-soft); }
+    .meta-list { list-style: none; padding: 0; margin: var(--space-4) 0 0; display: grid; gap: .85rem; }
+    .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
+    .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
+
+    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: 999px; background: var(--surface-2); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .section-intro { color: var(--ink-soft); max-width: 45rem; margin: 0 0 var(--space-6); }
+    .small { font-size: var(--text-sm); color: var(--ink-muted); }
+
+    .principle-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }
+    .principle-card { padding: var(--space-5); border: 1px solid var(--border-soft); border-radius: var(--radius); background: var(--bg-alt); }
+    .principle-card h3 { margin: 0 0 .55rem; font-size: var(--text-md); }
+    .principle-card p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
+
+    .pattern-wrap { display: grid; grid-template-columns: .92fr 1.08fr; gap: var(--space-5); align-items: start; }
+    .pattern-buttons { display: grid; gap: .75rem; }
+    .pattern-btn { padding: .85rem 1rem; text-align: left; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); cursor: pointer; transition: all var(--transition); }
+    .pattern-btn strong { display: block; color: inherit; margin-bottom: .2rem; }
+    .pattern-btn span { display: block; font-size: var(--text-xs); opacity: .82; line-height: 1.45; }
+    .pattern-btn.is-active { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
+    .pattern-output[hidden] { display: none; }
+    .pattern-output h3 { margin: 0 0 .6rem; font-size: var(--text-lg); }
+    .pattern-output p { color: var(--ink-soft); }
+    .pattern-facts { display: grid; gap: var(--space-3); margin: var(--space-5) 0 0; }
+    .pattern-fact { padding: var(--space-4); border-left: 3px solid var(--accent); background: var(--surface-2); border-radius: var(--radius); }
+    .pattern-fact strong { display: block; margin-bottom: .25rem; color: var(--ink); font-size: var(--text-sm); }
+    .pattern-fact span { display: block; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.6; }
+
+    .routine-list { counter-reset: routine; display: grid; gap: var(--space-4); margin: 0; padding: 0; list-style: none; }
+    .routine-list li { counter-increment: routine; display: grid; grid-template-columns: auto 1fr; gap: var(--space-4); padding: var(--space-4); border: 1px solid var(--border-soft); border-radius: var(--radius); background: var(--bg-alt); }
+    .routine-list li::before { content: counter(routine); display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 999px; background: var(--primary); color: var(--primary-ink); font-weight: 700; }
+    .routine-list strong { display: block; margin-bottom: .2rem; }
+    .routine-list span { color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.6; }
+
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+    .compare-box { padding: var(--space-5); border-radius: var(--radius); border: 1px solid var(--border-soft); background: var(--bg-alt); }
+    .compare-box h3 { margin: 0 0 .85rem; font-size: var(--text-md); }
+    .compare-box ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .55rem; }
+    .compare-box--helpful { border-color: color-mix(in srgb, var(--primary) 35%, var(--border-soft)); }
+    .compare-box--less { border-color: color-mix(in srgb, var(--warm) 42%, var(--border-soft)); }
+
+    .source-list { display: grid; gap: var(--space-3); margin: 0; padding-left: 1.1rem; }
+    .source-list a { color: var(--primary); font-weight: 700; }
+
+    .summary-card { position: relative; overflow: hidden; }
+    .summary-card::after { content: ""; position: absolute; inset: auto -40px -40px auto; width: 160px; height: 160px; border-radius: 999px; background: color-mix(in srgb, var(--accent-soft) 55%, transparent); }
+    .summary-card ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .6rem; position: relative; z-index: 1; }
+
+    .cta-strip { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .pattern-wrap,
+      .principle-grid,
+      .compare-grid,
+      .cta-strip { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="container site-header__inner">
+      <a class="brand" href="/" aria-label="Growing Minds Science - home">
+        <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+        <span class="brand__name">Growing Minds Science</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Toggle navigation menu">
+          <span class="nav-toggle__bars"><span></span></span>
+        </button>
+
+        <ul class="nav__list" id="primary-nav-list">
+          <li><a class="nav__link" href="/">Home</a></li>
+          <li><a class="nav__link" href="/classes/">Classes</a></li>
+          <li><a class="nav__link" href="/about/">About</a></li>
+          <li><a class="nav__link" href="/tools/" aria-current="page">Tools for Parents</a></li>
+          <li><a class="nav__link" href="/faq/">FAQ</a></li>
+          <li><a class="nav__link" href="/articles/">Articles</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse classes</a></li>
+        </ul>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
+          <svg class="theme-toggle__moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="tool-hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Toddler · 1-3 · Sleep development</p>
+          <h1 class="page-hero__title">Routines, transitions, and night-waking</h1>
+          <p class="tool-lede">Why toddler sleep changes, what routines help, and how to read night-waking without panic.</p>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="#pattern-reader">Read the pattern</a>
+            <a class="btn btn--ghost" href="#one-minute-summary">Jump to summary</a>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-labelledby="tool-at-a-glance">
+          <span class="tag">At a glance</span>
+          <h2 id="tool-at-a-glance">What this tool helps with</h2>
+          <ul class="meta-list">
+            <li><span class="dot"></span><span>Understanding why toddlers can resist bedtime after a good day.</span></li>
+            <li><span class="dot"></span><span>Building a routine that is predictable without becoming a 90-minute negotiation.</span></li>
+            <li><span class="dot"></span><span>Reading night-waking as a pattern, not a verdict on your parenting.</span></li>
+            <li><span class="dot"></span><span>Knowing when sleep concerns deserve pediatric guidance.</span></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>The core idea</h2>
+        <p class="section-intro">Toddler sleep sits at the intersection of biology, separation, autonomy, habits, and family stress. A useful plan does not force every child into the same schedule. It makes the evening predictable, keeps limits kind and clear, and looks for the pattern underneath the waking.</p>
+
+        <div class="principle-grid">
+          <article class="principle-card">
+            <h3>Toddlers still need a lot of sleep</h3>
+            <p>AASM guidance puts ages 1-2 at 11-14 total hours per 24 hours, including naps. Ages 3-5 are usually 10-13 hours. These are ranges, not moral scorecards.</p>
+          </article>
+          <article class="principle-card">
+            <h3>Predictability lowers the demand</h3>
+            <p>Regular routines help toddlers know what comes next. The same order matters more than a perfect script: connect, care tasks, quiet, bed.</p>
+          </article>
+          <article class="principle-card">
+            <h3>Every child wakes briefly</h3>
+            <p>Brief arousals are part of normal sleep. The question is what your child needs to return to sleep and whether that pattern is working for the whole family.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="pattern-reader">
+      <div class="container container--narrow">
+        <h2>Read the pattern</h2>
+        <p class="section-intro">Choose the closest pattern. Start with curiosity: what changed, what repeats, and what helps without making the next night harder?</p>
+
+        <div class="pattern-wrap">
+          <div class="pattern-buttons" role="tablist" aria-label="Toddler sleep patterns">
+            <button class="pattern-btn is-active" data-pattern="stalling"><strong>Bedtime stalling</strong><span>Water, one more book, another hug, one more question.</span></button>
+            <button class="pattern-btn" data-pattern="separation"><strong>Separation distress</strong><span>Your child panics, cries, or needs you close to settle.</span></button>
+            <button class="pattern-btn" data-pattern="waking"><strong>Middle-of-night waking</strong><span>Your child wakes and needs help returning to sleep.</span></button>
+            <button class="pattern-btn" data-pattern="nap"><strong>Nap transition trouble</strong><span>Too tired by dinner, wired at bedtime, or inconsistent naps.</span></button>
+            <button class="pattern-btn" data-pattern="fear"><strong>Fears and bad dreams</strong><span>New worries, nightmares, shadows, or scary images.</span></button>
+          </div>
+
+          <div>
+            <article class="pattern-output" data-output="stalling">
+              <span class="tag">Bedtime stalling</span>
+              <h3>Autonomy often shows up at the doorway.</h3>
+              <p>Stalling can be a toddler's way of seeking control, connection, or clarity when the day is ending. The goal is not to remove all protest. It is to make the sequence predictable enough that the protest has less room to grow.</p>
+              <div class="pattern-facts">
+                <div class="pattern-fact"><strong>Try first</strong><span>Use a short visual or spoken sequence: pajamas, teeth, two books, song, bed. Offer two small choices before the final limit.</span></div>
+                <div class="pattern-fact"><strong>Limit line</strong><span>"You can choose the truck book or the bear book. After the book, it is time for bed."</span></div>
+                <div class="pattern-fact"><strong>Watch for</strong><span>A bedtime that starts too late, too much screen stimulation, or a nap ending so late that sleep pressure is low.</span></div>
+              </div>
+            </article>
+
+            <article class="pattern-output" data-output="separation" hidden>
+              <span class="tag">Separation distress</span>
+              <h3>The need is connection plus a clear ending.</h3>
+              <p>Separation gets more complicated as toddlers understand distance, absence, and return. Comfort matters, but comfort works best when it comes with a consistent path toward sleep.</p>
+              <div class="pattern-facts">
+                <div class="pattern-fact"><strong>Try first</strong><span>Add connection before the routine tightens: a few minutes of undistracted play, then a predictable wind-down.</span></div>
+                <div class="pattern-fact"><strong>Limit line</strong><span>"I am close. You are safe. I will check on you after I put the cup away."</span></div>
+                <div class="pattern-fact"><strong>Watch for</strong><span>Recent changes: travel, illness, new school, a new sibling, family stress, or a caregiver schedule shift.</span></div>
+              </div>
+            </article>
+
+            <article class="pattern-output" data-output="waking" hidden>
+              <span class="tag">Middle-of-night waking</span>
+              <h3>Ask what changed before deciding what it means.</h3>
+              <p>Night-waking can reflect illness, discomfort, hunger, overtiredness, a new skill, fear, schedule mismatch, or a learned pattern around how sleep resumes. One bad night is information. A repeating pattern is a map.</p>
+              <div class="pattern-facts">
+                <div class="pattern-fact"><strong>Try first</strong><span>Keep the response calm, brief, and boring. Offer reassurance, check basic needs, and return to the same sleep cue.</span></div>
+                <div class="pattern-fact"><strong>Limit line</strong><span>"It is still nighttime. I will help you get cozy, and then your body can rest."</span></div>
+                <div class="pattern-fact"><strong>Watch for</strong><span>Snoring, breathing pauses, pain, fever, frequent vomiting, unusual daytime sleepiness, or sleep issues that are affecting daytime behavior.</span></div>
+              </div>
+            </article>
+
+            <article class="pattern-output" data-output="nap" hidden>
+              <span class="tag">Nap transition trouble</span>
+              <h3>Nap changes can make bedtime look mysterious.</h3>
+              <p>A toddler dropping or shifting a nap may seem tired and wired at the same time. Too little daytime sleep can lead to overtiredness; a nap too late can make bedtime harder.</p>
+              <div class="pattern-facts">
+                <div class="pattern-fact"><strong>Try first</strong><span>Adjust gradually. Protect a predictable rest window, and watch the evening mood rather than only the clock.</span></div>
+                <div class="pattern-fact"><strong>Limit line</strong><span>"You do not have to sleep, but your body gets quiet rest now."</span></div>
+                <div class="pattern-fact"><strong>Watch for</strong><span>Late afternoon naps, repeated car naps, or a bedtime that shifted later after daytime sleep changed.</span></div>
+              </div>
+            </article>
+
+            <article class="pattern-output" data-output="fear" hidden>
+              <span class="tag">Fears and bad dreams</span>
+              <h3>Comfort first, then return to the sleep path.</h3>
+              <p>Fear at night is not manipulation. Imagination is growing, and toddlers may not easily separate dream, shadow, story, and real danger. Comfort them, keep the environment boring, and avoid accidentally making the fear the center of the night.</p>
+              <div class="pattern-facts">
+                <div class="pattern-fact"><strong>Try first</strong><span>Use brief reassurance, a nightlight if helpful, and calmer media earlier in the day. Avoid scary content before bed.</span></div>
+                <div class="pattern-fact"><strong>Limit line</strong><span>"That dream felt scary. You are safe in your bed. I will tuck you back in."</span></div>
+                <div class="pattern-fact"><strong>Watch for</strong><span>Frequent intense nightmares, sleepwalking, night terrors, trauma exposure, or fear that starts affecting daytime life.</span></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>A simple routine that can actually work</h2>
+        <p class="section-intro">The best routine is short enough to repeat when everyone is tired. Aim for predictable, warm, and boring.</p>
+        <ol class="routine-list">
+          <li><div><strong>Connect before demands</strong><span>Five minutes of full attention often reduces the bedtime chase. Connection first, then the routine.</span></div></li>
+          <li><div><strong>Name the sequence</strong><span>Use the same order most nights. Toddlers borrow the routine's predictability before they can fully regulate themselves.</span></div></li>
+          <li><div><strong>Offer two tiny choices</strong><span>Choices work best when both options are acceptable: blue pajamas or green pajamas, one song or two kisses.</span></div></li>
+          <li><div><strong>Hold the final boundary</strong><span>Once the routine is done, keep language simple and repeatable. Too much explaining can restart negotiation.</span></div></li>
+          <li><div><strong>Make night responses boring</strong><span>At night, use low light, low voice, and the same phrase. You are communicating: nothing interesting happens now except rest.</span></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>What helps and what can backfire</h2>
+        <div class="compare-grid">
+          <article class="compare-box compare-box--helpful">
+            <h3>Usually helpful</h3>
+            <ul>
+              <li>A consistent wake time and bedtime window.</li>
+              <li>A calm, repeatable bedtime order.</li>
+              <li>Daytime movement and daylight.</li>
+              <li>Small choices before the final limit.</li>
+              <li>A plan caregivers can use in the middle of the night.</li>
+              <li>Medical guidance when sleep problems come with health concerns.</li>
+            </ul>
+          </article>
+          <article class="compare-box compare-box--less">
+            <h3>Can backfire</h3>
+            <ul>
+              <li>Letting the routine expand every time your child protests.</li>
+              <li>Starting bedtime only after the child is already overtired.</li>
+              <li>Big explanations after lights out.</li>
+              <li>Using screens as the main wind-down cue.</li>
+              <li>Cutting naps too aggressively to force better nighttime sleep.</li>
+              <li>Treating every wake-up as a behavior problem.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <div class="panel">
+          <span class="tag">When to ask for help</span>
+          <h2 style="font-size:var(--text-xl); margin-top:0;">Do not troubleshoot alone if something feels off</h2>
+          <p class="section-intro">Most toddler sleep disruption is not an emergency. But sleep advice should pause when there may be a health, safety, or family-functioning concern.</p>
+          <ul class="source-list">
+            <li>Talk with a pediatrician about snoring, gasping, breathing pauses, chronic mouth breathing, pain, frequent vomiting, seizures, or unusual daytime sleepiness.</li>
+            <li>Ask for support when sleep problems are affecting daytime behavior, caregiver safety, or the family's ability to function.</li>
+            <li>Seek professional guidance after major stress, trauma, or a sudden intense change in sleep.</li>
+            <li>For urgent safety concerns, contact local emergency services or crisis support immediately.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="one-minute-summary">
+      <div class="container container--narrow">
+        <div class="summary-card">
+          <span class="tag">One-minute summary</span>
+          <h2 style="font-size:var(--text-xl); margin-top:0;">When you need the short version</h2>
+          <ul>
+            <li>Toddler sleep changes because toddlers are developing autonomy, language, memory, imagination, and separation awareness.</li>
+            <li>Ages 1-2 usually need 11-14 total hours of sleep per 24 hours, including naps; ages 3-5 usually need 10-13 hours.</li>
+            <li>Routine order matters: connect, care tasks, quiet cue, bed.</li>
+            <li>Night-waking is common. Look for what changed and whether the pattern repeats.</li>
+            <li>Keep middle-of-night responses calm, brief, and boring.</li>
+            <li>Ask a pediatrician when sleep concerns come with breathing, pain, health, growth, daytime functioning, or caregiver safety concerns.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <div class="panel">
+          <span class="tag">Sources used</span>
+          <h2 style="font-size:var(--text-xl); margin-top:0;">Research anchors</h2>
+          <ul class="source-list">
+            <li><a href="https://www.healthychildren.org/English/healthy-living/sleep/Pages/bedtime-trouble.aspx" target="_blank" rel="noopener noreferrer">HealthyChildren.org: Toddler bedtime trouble</a></li>
+            <li><a href="https://www.nationwidechildrens.org/specialties/sleep-disorder-center/nightwakings" target="_blank" rel="noopener noreferrer">Nationwide Children's Hospital: Night wakings</a></li>
+            <li><a href="https://www.nationwidechildrens.org/specialties/sleep-disorder-center/sleep-in-toddlers" target="_blank" rel="noopener noreferrer">Nationwide Children's Hospital: Sleep in toddlers</a></li>
+            <li><a href="https://pubmed.ncbi.nlm.nih.gov/27250809/" target="_blank" rel="noopener noreferrer">American Academy of Sleep Medicine pediatric sleep duration consensus</a></li>
+            <li><a href="https://www.mayoclinic.org/healthy-lifestyle/childrens-health/in-depth/child-sleep/art-20044338" target="_blank" rel="noopener noreferrer">Mayo Clinic: Child bedtime problems</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <div class="cta-strip">
+          <div>
+            <p class="eyebrow">Next step</p>
+            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Want to compare this with behavior tools?</h2>
+            <p class="small" style="max-width:38rem; margin:0;">Sleep and behavior often affect each other. Return to the parent tools library for repair, limits, meltdowns, and milestones.</p>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="/tools/">Back to tools</a>
+            <a class="btn btn--ghost" href="/tools/whats-underneath-the-meltdown">Meltdown tool</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container site-footer__inner">
+      <div>
+        <a class="brand" href="/" aria-label="Growing Minds Science - home">
+          <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" />
+          <span class="brand__name">Growing Minds Science</span>
+        </a>
+        <p style="margin-top: var(--space-4);">
+          Developmental science, translated for parents.
+        </p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul class="footer-list">
+          <li><a href="/">Home</a></li>
+          <li><a href="/classes/">Classes</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/tools/">Tools for parents</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/articles/">Articles</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Stay in the loop</h4>
+        <p style="font-size: var(--text-sm);">
+          <a href="/classes/toddlerhood.html#waitlist">Join the waitlist</a>
+        </p>
+        <p class="footer-elsewhere" style="margin-top: var(--space-5);">
+          Also on
+          <a href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr"
+             target="_blank" rel="noopener noreferrer">Instagram</a>
+        </p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
+        <span>&copy; <span data-year>2026</span> Growing Minds Science. All rights reserved.</span>
+        <span>Educational content only. Not medical or psychological advice.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js" defer></script>
+  <script>
+    (function(){
+      var patternButtons = document.querySelectorAll('.pattern-btn');
+      var outputs = document.querySelectorAll('.pattern-output');
+      patternButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var key = btn.dataset.pattern;
+          patternButtons.forEach(function(b) { b.classList.remove('is-active'); });
+          btn.classList.add('is-active');
+          outputs.forEach(function(o) { o.hidden = o.dataset.output !== key; });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
