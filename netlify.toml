@@ -87,6 +87,26 @@
   status = 200
 
 [[redirects]]
+  from = "/articles/serve-and-return"
+  to = "/articles/serve-and-return.html"
+  status = 200
+
+[[redirects]]
+  from = "/articles/serve-and-return/"
+  to = "/articles/serve-and-return.html"
+  status = 200
+
+[[redirects]]
+  from = "/articles/screen-time"
+  to = "/articles/screen-time.html"
+  status = 200
+
+[[redirects]]
+  from = "/articles/screen-time/"
+  to = "/articles/screen-time.html"
+  status = 200
+
+[[redirects]]
   from = "/thank-you"
   to = "/thank-you.html"
   status = 200

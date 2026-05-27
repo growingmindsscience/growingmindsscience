@@ -32,6 +32,14 @@
 /tools/growing-minds-ai   /tools/growing-minds-ai.html  200
 /tools/growing-minds-ai/  /tools/growing-minds-ai.html  200
 
+# Pretty URL for the first research explainer.
+/articles/serve-and-return   /articles/serve-and-return.html  200
+/articles/serve-and-return/  /articles/serve-and-return.html  200
+
+# Pretty URL for the screen time practical article.
+/articles/screen-time   /articles/screen-time.html  200
+/articles/screen-time/  /articles/screen-time.html  200
+
 # Pretty URL for the Netlify Forms success page.
 /thank-you                  /thank-you.html                200
 /thank-you/                 /thank-you.html                200

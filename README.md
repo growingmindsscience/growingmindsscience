@@ -20,6 +20,10 @@ growing-minds-science/
 ├─ index.html                      # Sales homepage
 ├─ classes/
 │  └─ toddlerhood.html              # Flagship class detail / sales page
+├─ articles/
+│  ├─ index.html                    # Articles hub
+│  ├─ screen-time.html              # Practical screen time guide
+│  └─ serve-and-return.html         # First research explainer
 ├─ tools/
 │  ├─ index.html                    # Tools for Parents hub
 │  ├─ growing-minds-ai.html
