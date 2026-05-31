@@ -1155,6 +1155,13 @@ img {
   height: 38px;
 }
 
+/* Dark mode: swap to transparent logo so the white fill doesn't show */
+[data-theme="dark"] .brand__mark {
+  background: transparent;
+  border-color: transparent;
+  content: url("/assets/img/original-logo-mark-no-words-transparent.png");
+}
+
 /* Tools SVG graphic — constrain and center it nicely inside its frame */
 .page-hero__visual--graphic img {
   padding: clamp(8px, 4%, 24px);
