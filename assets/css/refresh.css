@@ -1083,3 +1083,63 @@ h4,
     color-mix(in oklab, var(--warm) 8%, var(--bg)) 0%,
     var(--bg) 100%);
 }
+
+/* =========================================================
+   Image & frame polish pass
+   ========================================================= */
+
+/* Hero photo is portrait (tall) inside a square frame —
+   shift focus upward so the parent/child faces are visible */
+.hero__media img {
+  object-position: center 18%;
+}
+
+/* Matthew's portrait — show face, not midriff */
+.about-preview__media img {
+  object-position: center 12%;
+}
+
+/* Scrolled header: stronger shadow for clear elevation */
+.site-header.is-scrolled {
+  background: color-mix(in oklab, var(--bg) 96%, transparent);
+  box-shadow: 0 1px 0 var(--border-soft), 0 4px 20px rgba(28, 34, 31, 0.07);
+}
+
+/* Page-hero visual frame: slight warm tint as background while image loads */
+.page-hero__visual {
+  background: color-mix(in oklab, var(--warm) 18%, var(--surface-2));
+}
+
+/* Hero media placeholder — prevents jarring blank white while loading */
+.hero__media {
+  background: color-mix(in oklab, var(--warm) 12%, var(--surface-2));
+}
+
+/* About photo placeholder */
+.about-preview__media {
+  background: color-mix(in oklab, var(--warm) 10%, var(--surface-2));
+}
+
+/* Smooth image fade-in once loaded — prevents hard pop */
+img {
+  transition: opacity 0.25s ease;
+}
+
+/* Brand mark in header: slightly larger and with a more polished pad */
+.site-header .brand__mark {
+  width: 38px;
+  height: 38px;
+}
+
+/* Tools SVG graphic — constrain and center it nicely inside its frame */
+.page-hero__visual--graphic img {
+  padding: clamp(8px, 4%, 24px);
+  object-fit: contain;
+  object-position: center;
+}
+
+/* Print: ensure images print at proper scale */
+@media print {
+  img { max-width: 100%; }
+  .hero__media { aspect-ratio: 4 / 3; }
+}
