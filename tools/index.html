@@ -59,15 +59,15 @@
 
     <section class="page-hero page-hero--visual">
       <div class="container">
-        <div class="page-hero__copy">
-          <p class="eyebrow">Tools for parents</p>
-          <h1 class="page-hero__title">A small but growing free library of practical developmental tools.</h1>
-          <p class="page-hero__lede">
+        <div class="page-hero__copy" data-stagger>
+          <p class="eyebrow" data-animate>Tools for parents</p>
+          <h1 class="page-hero__title" data-animate>A small but growing free library of practical developmental tools.</h1>
+          <p class="page-hero__lede" data-animate>
             Short, plain-language references organized by topic. Designed to be useful
             inside ordinary parenting days — not a blog archive to scroll through.
           </p>
 
-          <div class="library-intro" aria-label="Library status">
+          <div class="library-intro" aria-label="Library status" data-animate>
             <div>
               <span class="library-intro__label">In the library</span>
               <strong>6 parent tools and previews</strong>
@@ -86,7 +86,7 @@
             <li><a href="#regulation">Regulation</a></li>
           </ul>
         </div>
-        <figure class="page-hero__visual page-hero__visual--graphic">
+        <figure class="page-hero__visual page-hero__visual--graphic" data-animate style="--anim-delay: 200ms">
           <img src="../assets/img/tools-library-graphic.svg"
                alt="An abstract illustration of parent reference cards, milestone paths, and developmental tools."
                width="900" height="680" loading="eager" fetchpriority="high" decoding="async" />
@@ -97,7 +97,7 @@
     <!-- FEATURED — MILESTONE TRACKER -->
     <section id="milestone-tracker" style="padding-top: 0;">
       <div class="container">
-        <div class="featured-tool">
+        <div class="featured-tool" data-animate>
           <div>
             <p class="featured-tool__eyebrow">Featured tool · Available now</p>
             <h2 class="featured-tool__title">Milestone tracker</h2>
@@ -144,24 +144,24 @@
 
         <!-- BEHAVIOR -->
         <div class="topic-section" id="behavior">
-          <div class="topic-section__head">
+          <div class="topic-section__head" data-animate>
             <h2>Behavior</h2>
             <span class="topic-section__count">Guides · available now</span>
           </div>
-          <div class="tool-grid">
-            <article class="tool-card">
+          <div class="tool-grid" data-stagger>
+            <article class="tool-card" data-animate>
               <span class="tool-card__eyebrow">Toddler · 1–3</span>
               <h3 class="tool-card__title">What's underneath the meltdown</h3>
               <p class="tool-card__desc">A short reference that translates a tantrum from "bad behavior" into a nervous-system event — and what kinds of responses the research supports.</p>
               <p class="tool-card__cta"><a class="btn btn--primary" href="/tools/whats-underneath-the-meltdown">Open tool</a></p>
             </article>
-            <article class="tool-card">
+            <article class="tool-card" data-animate>
               <span class="tool-card__eyebrow">Toddler &amp; Preschool</span>
               <h3 class="tool-card__title">Limits without escalation</h3>
               <p class="tool-card__desc">Holding a "no" calmly when a child is testing autonomy — without scripts and without losing your own footing.</p>
               <p class="tool-card__cta"><a class="btn btn--primary" href="/tools/limits-without-escalation">Open tool</a></p>
             </article>
-            <article class="tool-card">
+            <article class="tool-card" data-animate>
               <span class="tool-card__eyebrow">Any age</span>
               <h3 class="tool-card__title">Repair after the hard moment</h3>
               <p class="tool-card__desc">What the research says about repair — for the child, and for the adult — when a moment goes sideways.</p>
@@ -172,18 +172,18 @@
 
         <!-- SLEEP -->
         <div class="topic-section" id="sleep">
-          <div class="topic-section__head">
+          <div class="topic-section__head" data-animate>
             <h2>Sleep</h2>
             <span class="topic-section__count">Guides · available now</span>
           </div>
-          <div class="tool-grid">
-            <article class="tool-card">
+          <div class="tool-grid" data-stagger>
+            <article class="tool-card" data-animate>
               <span class="tool-card__eyebrow">Infant · 0–12 mo</span>
               <h3 class="tool-card__title">What's typical, by stage</h3>
               <p class="tool-card__desc">A calm look at sleep development across the first year — what's typical, what varies, and what the research can and can't tell us.</p>
               <p class="tool-card__cta"><a class="btn btn--primary" href="/tools/whats-typical-by-stage">Open tool</a></p>
             </article>
-            <article class="tool-card">
+            <article class="tool-card" data-animate>
               <span class="tool-card__eyebrow">Toddler · 1–3</span>
               <h3 class="tool-card__title">Routines, transitions, and night-waking</h3>
               <p class="tool-card__desc">Why toddler sleep changes, what routines help, and how to read night-waking without panic.</p>
@@ -194,18 +194,18 @@
 
         <!-- SCREEN TIME -->
         <div class="topic-section" id="screen-time">
-          <div class="topic-section__head">
+          <div class="topic-section__head" data-animate>
             <h2>Screen time</h2>
             <span class="topic-section__count">Guides · in development</span>
           </div>
-          <div class="tool-grid">
-            <article class="tool-card">
+          <div class="tool-grid" data-stagger>
+            <article class="tool-card" data-animate>
               <span class="tool-card__eyebrow">Any age</span>
               <h3 class="tool-card__title">Beyond "less is better"</h3>
               <p class="tool-card__desc">Plain-language guidance grounded in current research — context, content, and the difference between background TV and shared viewing.</p>
               <p class="tool-card__cta"><span class="muted" style="font-size: var(--text-xs);">In development</span></p>
             </article>
-            <article class="tool-card">
+            <article class="tool-card" data-animate>
               <span class="tool-card__eyebrow">Toddler &amp; Preschool</span>
               <h3 class="tool-card__title">Screens, language, and attention</h3>
               <p class="tool-card__desc">What the research suggests about how different kinds of screen use interact with language and attention in the early years.</p>
@@ -216,18 +216,18 @@
 
         <!-- REGULATION -->
         <div class="topic-section" id="regulation">
-          <div class="topic-section__head">
+          <div class="topic-section__head" data-animate>
             <h2>Regulation</h2>
             <span class="topic-section__count">Tools · in development</span>
           </div>
-          <div class="tool-grid">
-            <article class="tool-card">
+          <div class="tool-grid" data-stagger>
+            <article class="tool-card" data-animate>
               <span class="tool-card__eyebrow">Toddler · 1–3</span>
               <h3 class="tool-card__title">A nervous-system primer for parents</h3>
               <p class="tool-card__desc">A short reference that explains co-regulation in plain language — what it actually is, and why it matters more than scripts.</p>
               <p class="tool-card__cta"><span class="muted" style="font-size: var(--text-xs);">In development</span></p>
             </article>
-            <article class="tool-card">
+            <article class="tool-card" data-animate>
               <span class="tool-card__eyebrow">Adult</span>
               <h3 class="tool-card__title">Regulating yourself first</h3>
               <p class="tool-card__desc">Tools for the adult side of the room: noticing your own activation, what helps, and why it isn't selfish.</p>
@@ -298,5 +298,6 @@
   </footer>
 
   <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/animate.js" defer></script>
 </body>
 </html>

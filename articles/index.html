@@ -59,16 +59,16 @@
 
     <section class="page-hero page-hero--visual">
       <div class="container">
-        <div class="page-hero__copy">
-          <p class="eyebrow">Articles</p>
-          <h1 class="page-hero__title">Developmental science, in plain language.</h1>
-          <p class="page-hero__lede">
+        <div class="page-hero__copy" data-stagger>
+          <p class="eyebrow" data-animate>Articles</p>
+          <h1 class="page-hero__title" data-animate>Developmental science, in plain language.</h1>
+          <p class="page-hero__lede" data-animate>
             Short pieces for parents and professionals who want the research without
             the jargon. New studies explained simply, lessons from coaching
             conversations, and practical reminders for the early years.
           </p>
         </div>
-        <figure class="page-hero__visual">
+        <figure class="page-hero__visual" data-animate style="--anim-delay: 200ms">
           <img src="../assets/img/site/family-reading.jpg"
                alt="A father reading a picture book to his baby on the sofa."
                width="1400" height="935" loading="eager" fetchpriority="high" decoding="async" />
@@ -103,43 +103,43 @@
             <span class="topic-section__count">Forthcoming</span>
           </div>
 
-          <div class="article-grid">
-            <article class="article-card">
+          <div class="article-grid" data-stagger>
+            <article class="article-card" data-animate>
               <p class="article-card__kicker">Research, explained</p>
               <h3 class="article-card__title"><a href="/articles/serve-and-return">What "serve and return" actually means - and what it doesn't</a></h3>
               <p class="article-card__dek">A clear translation of one of the most cited ideas in early-language research, including where it's been over-applied.</p>
               <p class="article-card__meta">Published · 8 minute read</p>
             </article>
 
-            <article class="article-card">
+            <article class="article-card" data-animate>
               <p class="article-card__kicker">Practical</p>
               <h3 class="article-card__title"><a href="/articles/screen-time">A short, honest take on screen time</a></h3>
               <p class="article-card__dek">What the current research actually supports, what it doesn't, and how to think about it without shame or dogma.</p>
               <p class="article-card__meta">Published · 6 minute read</p>
             </article>
 
-            <article class="article-card">
+            <article class="article-card" data-animate>
               <p class="article-card__kicker">From coaching</p>
               <h3 class="article-card__title">The toddler "no" is not the war you think it is</h3>
               <p class="article-card__dek">A pattern that comes up every week in parent coaching, why it lands so hard, and a calmer mental model for it.</p>
               <p class="article-card__meta">Forthcoming</p>
             </article>
 
-            <article class="article-card">
+            <article class="article-card" data-animate>
               <p class="article-card__kicker">Research, explained</p>
               <h3 class="article-card__title">Self-regulation, briefly</h3>
               <p class="article-card__dek">What developmental science means by "regulation," why co-regulation comes first, and what that implies for everyday moments.</p>
               <p class="article-card__meta">Forthcoming</p>
             </article>
 
-            <article class="article-card">
+            <article class="article-card" data-animate>
               <p class="article-card__kicker">From coaching</p>
               <h3 class="article-card__title">When a parent's own nervous system is the variable</h3>
               <p class="article-card__dek">Notes from coaching conversations: why adult activation matters more than scripts, and how to work with it instead of against it.</p>
               <p class="article-card__meta">Forthcoming</p>
             </article>
 
-            <article class="article-card">
+            <article class="article-card" data-animate>
               <p class="article-card__kicker">Practical</p>
               <h3 class="article-card__title">What to do with milestone worry</h3>
               <p class="article-card__dek">A calmer way to read milestone variation, when to bring something up with a clinician, and how to use the milestone tracker without becoming anxious.</p>
@@ -152,22 +152,22 @@
           <div class="topic-section__head">
             <h2>What you can expect here</h2>
           </div>
-          <ul class="philosophy-list" style="margin-top: 0;">
-            <li>
+          <ul class="philosophy-list" style="margin-top: 0;" data-stagger>
+            <li data-animate>
               <span class="num">·</span>
               <div>
                 <strong>New research, explained simply</strong>
                 <span>Translations of recent developmental studies into plain language, with honesty about what's strong and what's still uncertain.</span>
               </div>
             </li>
-            <li>
+            <li data-animate>
               <span class="num">·</span>
               <div>
                 <strong>Notes from coaching</strong>
                 <span>Patterns that come up over and over in parent coaching, written carefully so the lesson is portable to other families.</span>
               </div>
             </li>
-            <li>
+            <li data-animate>
               <span class="num">·</span>
               <div>
                 <strong>Practical reminders</strong>
@@ -237,5 +237,6 @@
   </footer>
 
   <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/animate.js" defer></script>
 </body>
 </html>

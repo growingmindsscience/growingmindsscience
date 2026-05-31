@@ -1167,3 +1167,123 @@ img {
   img { max-width: 100%; }
   .hero__media { aspect-ratio: 4 / 3; }
 }
+
+/* =========================================================
+   Scroll animations — animate.js companion styles
+   ========================================================= */
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Base hidden state — fade up */
+  [data-animate] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity  0.55s cubic-bezier(0.25, 0.1, 0.25, 1),
+      transform 0.55s cubic-bezier(0.25, 0.1, 0.25, 1);
+    transition-delay: var(--anim-delay, 0ms);
+  }
+
+  /* Fade-only variant: data-animate="fade" */
+  [data-animate="fade"] {
+    transform: none;
+  }
+
+  /* Revealed state — JS adds .is-visible */
+  [data-animate].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+}
+
+/* =========================================================
+   Hover transitions — cards
+   ========================================================= */
+
+.how-card,
+.product-card,
+.tool-card,
+.article-card,
+.featured-tool {
+  transition:
+    transform  0.22s cubic-bezier(0.25, 0.1, 0.25, 1),
+    box-shadow 0.22s cubic-bezier(0.25, 0.1, 0.25, 1);
+  will-change: transform;
+}
+
+.how-card:hover,
+.tool-card:hover,
+.article-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Product cards: more subtle lift (featured card is large) */
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* =========================================================
+   Hover transitions — buttons
+   ========================================================= */
+
+.btn {
+  transition:
+    background-color 0.18s ease,
+    color            0.18s ease,
+    border-color     0.18s ease,
+    box-shadow       0.18s ease,
+    transform        0.15s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.btn:hover {
+  transform: translateY(-1px) scale(1.015);
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.985);
+  transition-duration: 0.08s;
+}
+
+/* =========================================================
+   Hover transitions — nav links (sliding underline)
+   ========================================================= */
+
+.nav__link {
+  position: relative;
+  transition: color 0.18s ease;
+}
+
+.nav__link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: var(--primary);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.22s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.nav__link:hover::after {
+  transform: scaleX(1);
+}
+
+/* Keep the active-page underline visible but static */
+.nav__link[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+/* =========================================================
+   Hover transitions — footer & inline links
+   ========================================================= */
+
+.footer-list a,
+.footer-elsewhere a {
+  transition: color 0.15s ease;
+}
+

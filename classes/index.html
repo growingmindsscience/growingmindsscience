@@ -59,17 +59,17 @@
 
     <section class="page-hero page-hero--visual">
       <div class="container">
-        <div class="page-hero__copy">
-          <p class="eyebrow">Classes</p>
-          <h1 class="page-hero__title">Self-paced classes for the early years.</h1>
-          <p class="page-hero__lede">
+        <div class="page-hero__copy" data-stagger>
+          <p class="eyebrow" data-animate>Classes</p>
+          <h1 class="page-hero__title" data-animate>Self-paced classes for the early years.</h1>
+          <p class="page-hero__lede" data-animate>
             Each class is built around a developmental window. The toddler class is
             launching first; the infant class is in active development. Preschool
             and family-systems classes are next. All classes are self-paced and
             translate developmental research into language you can actually use.
           </p>
         </div>
-        <figure class="page-hero__visual">
+        <figure class="page-hero__visual" data-animate style="--anim-delay: 200ms">
           <img src="../assets/img/site/toddler-blocks.jpg"
                alt="A toddler girl examining wooden blocks with wide-eyed curiosity."
                width="1400" height="933" loading="eager" fetchpriority="high" decoding="async" />
@@ -79,10 +79,10 @@
 
     <section style="padding-top: 0;">
       <div class="container">
-        <div class="product-grid product-grid--featured-first">
+        <div class="product-grid product-grid--featured-first" data-stagger>
 
           <!-- TODDLER — flagship -->
-          <article class="product-card product-card--featured" data-class-id="toddler-years">
+          <article class="product-card product-card--featured" data-animate data-class-id="toddler-years">
             <div class="product-card__body">
               <p class="product-card__status">
                 <span class="badge badge--coming">Coming soon</span>
@@ -104,7 +104,7 @@
           </article>
 
           <!-- BIRTH TO 12 MONTHS -->
-          <article class="product-card product-card--secondary" data-class-id="birth-to-12-months">
+          <article class="product-card product-card--secondary" data-animate data-class-id="birth-to-12-months">
             <div class="product-card__body">
               <p class="product-card__status">
                 <span class="badge badge--coming">Coming soon</span>
@@ -124,7 +124,7 @@
           </article>
 
           <!-- PRESCHOOL -->
-          <article class="product-card product-card--dev" data-class-id="preschool-years">
+          <article class="product-card product-card--dev" data-animate data-class-id="preschool-years">
             <div class="product-card__body">
               <p class="product-card__status">
                 <span class="badge badge--dev">In development</span>
@@ -143,7 +143,7 @@
           </article>
 
           <!-- FAMILY SYSTEMS -->
-          <article class="product-card product-card--dev" data-class-id="family-systems">
+          <article class="product-card product-card--dev" data-animate data-class-id="family-systems">
             <div class="product-card__body">
               <p class="product-card__status">
                 <span class="badge badge--dev">In development</span>
@@ -216,5 +216,6 @@
   </footer>
 
   <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/animate.js" defer></script>
 </body>
 </html>
