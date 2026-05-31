@@ -1,6 +1,6 @@
 export const config = { runtime: "edge" };
 
-import { getSession, isAuthConfigured } from "./_auth.js";
+import { getAuthConfiguration, getSession } from "./_auth.js";
 import { jsonResponse } from "./_security.js";
 
 export default async function handler(request) {
@@ -9,9 +9,11 @@ export default async function handler(request) {
   }
 
   const profile = await getSession(request);
+  const auth = getAuthConfiguration();
   return jsonResponse(200, {
     authenticated: Boolean(profile),
-    configured: isAuthConfigured(),
+    configured: auth.configured,
+    auth,
     profile,
   });
 }

@@ -25,14 +25,36 @@ function authConfig() {
   };
 }
 
-export function isAuthConfigured() {
+export function hasSessionSecret() {
+  return Boolean(authConfig().sessionSecret);
+}
+
+export function isPasswordAuthConfigured() {
   const config = authConfig();
   return Boolean(config.email && config.passwordHash && config.passwordSalt && config.sessionSecret);
 }
 
+export function isGoogleAuthConfigured() {
+  return Boolean(
+    process.env.GOOGLE_CLIENT_ID &&
+    process.env.GOOGLE_CLIENT_SECRET &&
+    authConfig().sessionSecret,
+  );
+}
+
+export function getAuthConfiguration() {
+  const password = isPasswordAuthConfigured();
+  const google = isGoogleAuthConfigured();
+  return {
+    configured: password || google,
+    password,
+    google,
+  };
+}
+
 export async function verifyLogin(email, password) {
   const config = authConfig();
-  if (!isAuthConfigured()) return { ok: false, reason: "not_configured" };
+  if (!isPasswordAuthConfigured()) return { ok: false, reason: "not_configured" };
   if (!constantTimeEqual(normalizeEmail(email), config.email)) return { ok: false, reason: "invalid" };
 
   const attemptedHash = base64UrlEncode(await pbkdf2Sha256(String(password || ""), config.passwordSalt, PASSWORD_ITERATIONS));
@@ -53,6 +75,7 @@ export async function createSessionCookie(request, profile, remember) {
   const payload = base64UrlEncode(new TextEncoder().encode(JSON.stringify({
     email: profile.email,
     name: profile.name,
+    provider: profile.provider || "password",
     exp: expiresAt,
   })));
   const signature = base64UrlEncode(await hmacSha256(authConfig().sessionSecret, payload));
@@ -66,7 +89,7 @@ export function clearSessionCookie(request) {
 
 export async function getSession(request) {
   const value = parseCookies(request)[SESSION_COOKIE];
-  if (!value || !isAuthConfigured()) return null;
+  if (!value || !hasSessionSecret()) return null;
 
   const [payload, signature] = value.split(".");
   if (!payload || !signature) return null;
@@ -85,5 +108,6 @@ export async function getSession(request) {
   return {
     email: normalizeEmail(session.email),
     name: cleanText(session.name, 80),
+    provider: cleanText(session.provider || "password", 40),
   };
 }

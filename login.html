@@ -55,6 +55,11 @@
 
         <form class="signup__form auth-form" data-login-form>
           <h2 class="signup__form-title">Log in</h2>
+          <a class="btn btn--ghost btn--block btn--lg google-login" href="/api/auth/google/start">
+            <span class="google-login__mark" aria-hidden="true">G</span>
+            <span>Continue with Google</span>
+          </a>
+          <div class="auth-divider"><span>or use email</span></div>
           <div class="form-row">
             <label class="form-label" for="login-email">Email</label>
             <input class="form-input" id="login-email" name="email" type="email" autocomplete="username" required placeholder="you@example.com" />
@@ -71,7 +76,7 @@
             <span>Keep me logged in on this device</span>
           </label>
           <button class="btn btn--primary btn--block btn--lg" type="submit">Log in</button>
-          <p class="form-status" data-login-status role="status" aria-live="polite"></p>
+          <p class="form-status" data-login-status data-auth-status role="status" aria-live="polite"></p>
         </form>
       </div>
     </section>

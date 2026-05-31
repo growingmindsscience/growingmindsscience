@@ -151,6 +151,18 @@
     var loginForm = document.querySelector("[data-login-form]");
     if (loginForm) {
       var loginStatus = loginForm.querySelector("[data-login-status]");
+      try {
+        var authStatus = new URLSearchParams(window.location.search).get("auth");
+        var authMessages = {
+          google_not_configured: "Google sign-in is not configured yet.",
+          google_cancelled: "Google sign-in was cancelled.",
+          google_invalid: "Google sign-in expired. Please try again.",
+          google_denied: "That Google account is not allowed to sign in.",
+          google_error: "Google sign-in could not be completed. Please try again.",
+        };
+        if (authStatus && authMessages[authStatus]) setStatus(loginStatus, authMessages[authStatus]);
+      } catch (_) {}
+
       loginForm.addEventListener("submit", function (event) {
         event.preventDefault();
         var submit = loginForm.querySelector('button[type="submit"]');

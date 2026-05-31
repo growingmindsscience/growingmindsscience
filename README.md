@@ -102,6 +102,8 @@ The `/login` and `/account` pages use Vercel Edge API routes:
 
 - `POST /api/login` verifies one configured account and sets a signed,
   `HttpOnly`, `SameSite=Lax` session cookie.
+- `GET /api/auth/google/start` starts Google OAuth sign-in.
+- `GET /api/auth/google/callback` completes Google OAuth sign-in.
 - `GET /api/session` returns the current session state.
 - `POST /api/logout` clears the session cookie.
 
@@ -112,6 +114,19 @@ Required Vercel environment variables:
 - `GMS_LOGIN_PASSWORD_SALT`
 - `GMS_LOGIN_PASSWORD_HASH`
 - `GMS_SESSION_SECRET`
+
+Optional Google sign-in environment variables:
+
+- `GOOGLE_CLIENT_ID`
+- `GOOGLE_CLIENT_SECRET`
+- `GOOGLE_ALLOWED_EMAILS` — comma-separated allowlist, optional
+- `GOOGLE_ALLOWED_DOMAIN` — single allowed email domain, optional
+
+Use this authorized redirect URI in Google Cloud for the OAuth client:
+
+```text
+https://growingmindsscience.com/api/auth/google/callback
+```
 
 Generate the password salt and hash locally:
 
