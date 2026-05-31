@@ -1,0 +1,30 @@
+{
+  "rewrites": [
+    { "source": "/classes",        "destination": "/classes/index.html" },
+    { "source": "/about",          "destination": "/about/index.html" },
+    { "source": "/tools",          "destination": "/tools/index.html" },
+    { "source": "/articles",       "destination": "/articles/index.html" },
+    { "source": "/faq",            "destination": "/faq/index.html" },
+    { "source": "/milestones",     "destination": "/milestones.html" },
+    { "source": "/thank-you",      "destination": "/thank-you.html" },
+    { "source": "/classes/toddlerhood",                     "destination": "/classes/toddlerhood.html" },
+    { "source": "/tools/limits-without-escalation",         "destination": "/tools/limits-without-escalation.html" },
+    { "source": "/tools/whats-underneath-the-meltdown",     "destination": "/tools/whats-underneath-the-meltdown.html" },
+    { "source": "/tools/repair-after-the-hard-moment",      "destination": "/tools/repair-after-the-hard-moment.html" },
+    { "source": "/tools/whats-typical-by-stage",            "destination": "/tools/whats-typical-by-stage.html" },
+    { "source": "/tools/routines-transitions-night-waking", "destination": "/tools/routines-transitions-night-waking.html" },
+    { "source": "/tools/growing-minds-ai",                  "destination": "/tools/growing-minds-ai.html" },
+    { "source": "/articles/serve-and-return",               "destination": "/articles/serve-and-return.html" },
+    { "source": "/articles/screen-time",                    "destination": "/articles/screen-time.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options",  "value": "nosniff" },
+        { "key": "Referrer-Policy",         "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy",      "value": "interest-cohort=()" }
+      ]
+    }
+  ]
+}

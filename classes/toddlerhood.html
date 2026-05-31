@@ -247,19 +247,16 @@
         <form
           class="signup__form"
           data-newsletter
-          name="waitlist"
           method="POST"
-          action="/thank-you.html"
-          data-netlify="true"
-          netlify-honeypot="bot-field"
+          action="https://api.web3forms.com/submit"
           aria-labelledby="waitlist-heading">
           <h3 id="waitlist-heading" class="signup__form-title">Join the toddler class waitlist</h3>
 
-          <input type="hidden" name="form-name" value="waitlist" />
+          <input type="hidden" name="access_key" value="REPLACE_WITH_WEB3FORMS_KEY" />
+          <input type="hidden" name="subject" value="Toddler Class Waitlist — Growing Minds Science" />
+          <input type="hidden" name="redirect" value="https://growingmindsscience.com/thank-you" />
           <input type="hidden" name="interest" value="Toddlerhood" />
-          <p hidden>
-            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-          </p>
+          <input type="checkbox" name="botcheck" style="display:none" />
 
           <div class="form-row">
             <label class="form-label" for="name">Your name <span class="muted">(optional)</span></label>

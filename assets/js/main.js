@@ -231,7 +231,7 @@
         addAiMessage(question, "user");
         setAiLoading(true);
 
-        fetch("/.netlify/functions/growing-minds-ai", {
+        fetch("/api/growing-minds-ai", {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify({ question: question, accessCode: accessCode }),
