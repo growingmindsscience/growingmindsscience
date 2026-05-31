@@ -3,7 +3,7 @@
    - Mobile nav toggle (closed by default; hidden until opened)
    - Theme toggle (localStorage with safe fallback, respects system pref)
    - Class card CTAs preselect interest in waitlist form, then scroll to #signup
-   - Waitlist form: client-side feedback only; Netlify Forms handles delivery
+   - Waitlist form: client-side feedback only; Vercel API handles delivery
 */
 (function () {
   "use strict";
@@ -84,6 +84,126 @@
 
     // Theme toggle
     if (themeBtn) themeBtn.addEventListener("click", toggleTheme);
+
+    function setStatus(node, message) {
+      if (node) node.textContent = message || "";
+    }
+
+    function getSession() {
+      return fetch("/api/session", {
+        method: "GET",
+        credentials: "same-origin",
+        headers: { "accept": "application/json" },
+      }).then(function (response) {
+        return response.json().catch(function () { return {}; });
+      }).catch(function () {
+        return { authenticated: false };
+      });
+    }
+
+    function updateAuthNav(session) {
+      if (!navList || navList.querySelector("[data-auth-nav]")) return;
+      var item = document.createElement("li");
+      item.className = "nav__auth";
+      item.setAttribute("data-auth-nav", "");
+
+      var link = document.createElement("a");
+      link.className = "nav__link";
+      link.href = session && session.authenticated ? "/account" : "/login";
+      link.textContent = session && session.authenticated ? "Account" : "Log in";
+      if (window.location.pathname === "/login" || window.location.pathname === "/login.html" || window.location.pathname === "/account" || window.location.pathname === "/account.html") {
+        link.setAttribute("aria-current", "page");
+      }
+
+      item.appendChild(link);
+      navList.appendChild(item);
+    }
+
+    getSession().then(function (session) {
+      updateAuthNav(session);
+
+      var accountPrivate = document.querySelector("[data-account-private]");
+      var accountGuest = document.querySelector("[data-account-guest]");
+      var accountName = document.querySelector("[data-account-name]");
+      if (accountPrivate || accountGuest) {
+        if (session.authenticated) {
+          if (accountName && session.profile && session.profile.name) accountName.textContent = session.profile.name;
+          if (accountPrivate) accountPrivate.hidden = false;
+        } else if (accountGuest) {
+          accountGuest.hidden = false;
+        }
+      }
+    });
+
+    var passwordToggle = document.querySelector("[data-password-toggle]");
+    if (passwordToggle) {
+      passwordToggle.addEventListener("click", function () {
+        var targetId = passwordToggle.getAttribute("aria-controls");
+        var passwordInput = targetId ? document.getElementById(targetId) : null;
+        if (!passwordInput) return;
+        var showing = passwordInput.type === "text";
+        passwordInput.type = showing ? "password" : "text";
+        passwordToggle.textContent = showing ? "Show" : "Hide";
+        passwordToggle.setAttribute("aria-label", showing ? "Show password" : "Hide password");
+      });
+    }
+
+    var loginForm = document.querySelector("[data-login-form]");
+    if (loginForm) {
+      var loginStatus = loginForm.querySelector("[data-login-status]");
+      loginForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var submit = loginForm.querySelector('button[type="submit"]');
+        var formData = new FormData(loginForm);
+        var payload = {
+          email: String(formData.get("email") || ""),
+          password: String(formData.get("password") || ""),
+          remember: formData.get("remember") === "on",
+        };
+
+        if (submit) submit.disabled = true;
+        setStatus(loginStatus, "Checking credentials…");
+
+        fetch("/api/login", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: {
+            "accept": "application/json",
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        })
+          .then(function (response) {
+            return response.json().then(function (data) {
+              if (!response.ok) throw new Error(data.error || "Login failed.");
+              return data;
+            });
+          })
+          .then(function () {
+            window.location.assign("/account");
+          })
+          .catch(function (error) {
+            setStatus(loginStatus, error.message || "Login failed.");
+          })
+          .finally(function () {
+            if (submit) submit.disabled = false;
+          });
+      });
+    }
+
+    var logoutButtons = document.querySelectorAll("[data-logout]");
+    logoutButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        button.disabled = true;
+        fetch("/api/logout", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: { "accept": "application/json" },
+        }).finally(function () {
+          window.location.assign("/login");
+        });
+      });
+    });
 
     // Sticky header scrolled state
     if (header) {

@@ -149,8 +149,8 @@
         <p class="eyebrow">MVP status</p>
         <h2>Now wired for a real AI backend.</h2>
         <p class="lede">
-          This chat connects to a private Netlify Function. Once the OpenAI key
-          and optional vector store ID are added in Netlify, it can answer using
+          This chat connects to a private Vercel API route. Once the OpenAI key
+          and optional vector store ID are added in Vercel, it can answer using
           the Growing Minds AI tutor instructions.
         </p>
       </div>
@@ -208,15 +208,12 @@
         <form
           class="signup__form"
           data-newsletter
-          name="waitlist"
           method="POST"
-          action="/thank-you.html"
-          data-netlify="true"
-          netlify-honeypot="bot-field"
+          action="/api/waitlist"
           aria-labelledby="ai-signup-heading">
           <h3 id="ai-signup-heading" class="signup__form-title">Join the early access list</h3>
 
-          <input type="hidden" name="form-name" value="waitlist" />
+          <input type="hidden" name="subject" value="Growing Minds AI Waitlist — Growing Minds Science" />
           <input type="hidden" name="interest" value="Growing Minds AI" />
           <p hidden>
             <label>Don't fill this out if you're human: <input name="bot-field" /></label>

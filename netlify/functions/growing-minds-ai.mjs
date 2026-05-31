@@ -1,4 +1,5 @@
 const OPENAI_API_URL = "https://api.openai.com/v1/responses";
+const encoder = new TextEncoder();
 
 const SYSTEM_PROMPT = `
 You are Growing Minds AI, an educational developmental science tutor for Growing Minds Science.
@@ -24,6 +25,34 @@ function jsonResponse(status, body) {
       "cache-control": "no-store",
     },
   });
+}
+
+async function parseJsonBody(request, maxBytes = 4096) {
+  const text = await request.text();
+  if (text.length > maxBytes) {
+    const error = new Error("Request body is too large.");
+    error.status = 413;
+    throw error;
+  }
+  try {
+    return text ? JSON.parse(text) : {};
+  } catch (_) {
+    const error = new Error("Please send a valid JSON request.");
+    error.status = 400;
+    throw error;
+  }
+}
+
+function constantTimeEqual(a, b) {
+  const left = encoder.encode(String(a || ""));
+  const right = encoder.encode(String(b || ""));
+  if (left.length !== right.length) return false;
+
+  let diff = 0;
+  for (let index = 0; index < left.length; index += 1) {
+    diff |= left[index] ^ right[index];
+  }
+  return diff === 0;
 }
 
 function extractText(responseBody) {
@@ -62,13 +91,13 @@ export default async function handler(request) {
 
   let payload;
   try {
-    payload = await request.json();
-  } catch (_) {
-    return jsonResponse(400, { error: "Please send a valid JSON request." });
+    payload = await parseJsonBody(request);
+  } catch (error) {
+    return jsonResponse(error.status || 400, { error: error.message });
   }
 
   const accessCode = String(payload.accessCode || "").trim();
-  if (!accessCode || accessCode !== configuredAccessCode) {
+  if (!accessCode || !constantTimeEqual(accessCode, configuredAccessCode)) {
     return jsonResponse(401, {
       error: "Please enter the class access code to use Growing Minds AI.",
     });
@@ -118,10 +147,9 @@ export default async function handler(request) {
 
   const responseBody = await openaiResponse.json().catch(() => ({}));
   if (!openaiResponse.ok) {
-    const message = responseBody.error && responseBody.error.message
-      ? responseBody.error.message
-      : "The AI service returned an error.";
-    return jsonResponse(openaiResponse.status, { error: message });
+    return jsonResponse(502, {
+      error: "Growing Minds AI could not answer right now. Please try again in a moment.",
+    });
   }
 
   const answer = extractText(responseBody);

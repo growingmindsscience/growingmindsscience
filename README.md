@@ -1,6 +1,6 @@
 # Growing Minds Science — site
 
-Static, Netlify-ready site for **Growing Minds Science**.
+Static site for **Growing Minds Science**, currently deployed on Vercel.
 
 The site sells research-based, self-paced, asynchronous parent classes for
 families of children ages 0–5. The homepage is structured as a sales-oriented
@@ -33,9 +33,10 @@ growing-minds-science/
 │  ├─ whats-typical-by-stage.html
 │  └─ whats-underneath-the-meltdown.html
 ├─ milestones.html                 # Standalone tracker; no framework bundle
-├─ thank-you.html                  # Netlify Forms success page
-├─ _redirects                      # Pretty URLs for /milestones, /classes/toddlerhood, /thank-you
-├─ netlify.toml                    # Netlify config + redirects + headers
+├─ thank-you.html                  # Waitlist success page
+├─ _redirects                      # Legacy Netlify pretty URLs
+├─ vercel.json                     # Vercel redirects + security headers
+├─ netlify.toml                    # Legacy Netlify config
 ├─ robots.txt
 ├─ sitemap.xml
 ├─ README.md
@@ -80,22 +81,53 @@ becomes available, it can be added later with a clear caption.
 
 ## Deploy
 
-Drop the folder into Netlify (drag-and-drop or `netlify deploy --prod --dir=.`).
-Custom domain + HTTPPS handled by Netlify.
+Deploy the repository on Vercel. The domain can still be managed in Netlify DNS,
+but page hosting and API routes are expected to run on Vercel.
 
 ## Forms
 
-The waitlist uses **Netlify Forms** — no backend needed:
+The waitlist posts to the Vercel API route at `/api/waitlist`, which forwards
+validated submissions to Web3Forms without exposing the Web3Forms access key in
+browser HTML.
 
-- `waitlist` — homepage waitlist and Toddlerhood class detail page waitlist
+Required Vercel environment variable:
 
-Both forms post to `/thank-you.html` so visitors land on a real success page
-instead of a 404. Enable email notifications in Netlify → Site → Forms →
-`waitlist` → Form notifications, and send them to
-`growingmindsscience@gmail.com`.
+- `WEB3FORMS_ACCESS_KEY`
 
-To switch to ConvertKit / Mailchimp / Buttondown, see comments in `index.html`
-and `assets/js/main.js`.
+Successful browser form submissions redirect to `/thank-you.html`.
+
+## Login
+
+The `/login` and `/account` pages use Vercel Edge API routes:
+
+- `POST /api/login` verifies one configured account and sets a signed,
+  `HttpOnly`, `SameSite=Lax` session cookie.
+- `GET /api/session` returns the current session state.
+- `POST /api/logout` clears the session cookie.
+
+Required Vercel environment variables:
+
+- `GMS_LOGIN_EMAIL`
+- `GMS_LOGIN_NAME`
+- `GMS_LOGIN_PASSWORD_SALT`
+- `GMS_LOGIN_PASSWORD_HASH`
+- `GMS_SESSION_SECRET`
+
+Generate the password salt and hash locally:
+
+```bash
+node scripts/hash-password.mjs 'replace-with-a-strong-password'
+```
+
+Generate a session secret:
+
+```bash
+openssl rand -base64 32
+```
+
+This is a single-account login for member access on a static site. Use a real
+identity provider or database-backed auth before adding public self-service
+registration, password reset, or per-customer entitlements.
 
 ## Class CTA / waitlist preselection
 
@@ -107,17 +139,17 @@ respects an `?interest=...` query string for cross-page preselection.
 ## Growing Minds AI
 
 The Growing Minds AI page at `/tools/growing-minds-ai` includes a working chat
-MVP backed by a Netlify Function:
+MVP backed by a Vercel API route:
 
-- Function: `netlify/functions/growing-minds-ai.mjs`
-- Browser endpoint: `/.netlify/functions/growing-minds-ai`
-- Required Netlify environment variable: `OPENAI_API_KEY`
-- Required Netlify environment variable: `GMS_AI_ACCESS_CODE`
-- Optional Netlify environment variable: `OPENAI_VECTOR_STORE_ID`
-- Optional Netlify environment variable: `OPENAI_MODEL` (defaults to `gpt-5.5`)
+- API route: `api/growing-minds-ai.js`
+- Browser endpoint: `/api/growing-minds-ai`
+- Required Vercel environment variable: `OPENAI_API_KEY`
+- Required Vercel environment variable: `GMS_AI_ACCESS_CODE`
+- Optional Vercel environment variable: `OPENAI_VECTOR_STORE_ID`
+- Optional Vercel environment variable: `OPENAI_MODEL` (defaults to `gpt-5.5`)
 
-Set environment variables in Netlify with the Functions scope enabled. The API
-key must never be placed in browser JavaScript or committed to the repository.
+Set environment variables in Vercel. The API key must never be placed in
+browser JavaScript or committed to the repository.
 `GMS_AI_ACCESS_CODE` should be shared only with enrolled class families; the
 function will not call OpenAI unless the submitted access code matches this
 server-side value.

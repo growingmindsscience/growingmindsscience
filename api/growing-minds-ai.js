@@ -1,5 +1,7 @@
 export const config = { runtime: "edge" };
 
+import { constantTimeEqual, jsonResponse, parseJsonBody } from "./_security.js";
+
 const OPENAI_API_URL = "https://api.openai.com/v1/responses";
 
 const SYSTEM_PROMPT = `
@@ -17,16 +19,6 @@ Core rules:
 - Keep answers concise. Use short headings or bullets when helpful.
 - End with one small next step or reflection question when appropriate.
 `;
-
-function jsonResponse(status, body) {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: {
-      "content-type": "application/json; charset=utf-8",
-      "cache-control": "no-store",
-    },
-  });
-}
 
 function extractText(responseBody) {
   if (typeof responseBody.output_text === "string" && responseBody.output_text.trim()) {
@@ -64,13 +56,13 @@ export default async function handler(request) {
 
   let payload;
   try {
-    payload = await request.json();
-  } catch (_) {
-    return jsonResponse(400, { error: "Please send a valid JSON request." });
+    payload = await parseJsonBody(request, 4096);
+  } catch (error) {
+    return jsonResponse(error.status || 400, { error: error.message });
   }
 
   const accessCode = String(payload.accessCode || "").trim();
-  if (!accessCode || accessCode !== configuredAccessCode) {
+  if (!accessCode || !constantTimeEqual(accessCode, configuredAccessCode)) {
     return jsonResponse(401, {
       error: "Please enter the class access code to use Growing Minds AI.",
     });
@@ -116,8 +108,9 @@ export default async function handler(request) {
 
   const responseBody = await openaiResponse.json().catch(() => ({}));
   if (!openaiResponse.ok) {
-    const message = responseBody.error?.message || "The AI service returned an error.";
-    return jsonResponse(openaiResponse.status, { error: message });
+    return jsonResponse(502, {
+      error: "Growing Minds AI could not answer right now. Please try again in a moment.",
+    });
   }
 
   const answer = extractText(responseBody);
