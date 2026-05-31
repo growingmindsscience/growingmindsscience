@@ -860,3 +860,226 @@ h4,
     aspect-ratio: 16 / 9;
   }
 }
+
+/* =========================================================
+   Visual upgrade pass — warmth, contrast, rhythm
+   ========================================================= */
+
+/* 1. Hero — warm amber-sage gradient wash */
+.hero {
+  background:
+    radial-gradient(ellipse 80% 60% at 30% 20%,
+      color-mix(in oklab, var(--warm) 28%, var(--bg)) 0%,
+      transparent 70%),
+    linear-gradient(160deg,
+      color-mix(in oklab, var(--bg-alt) 50%, var(--bg)) 0%,
+      var(--bg) 100%);
+}
+
+/* Hero headline — italic serif on the emotive word */
+.hero__title em {
+  font-style: italic;
+  color: var(--primary);
+}
+
+/* Hero credential — warmer left-border */
+.hero__credential {
+  border-left-color: var(--warm);
+}
+
+/* Hero media — warmer frame */
+.hero__media {
+  border-color: var(--border-soft);
+}
+
+/* 2. Proof strip — flip dark for instant contrast and rhythm */
+.proof-strip {
+  background: #252E25;
+  padding-block: var(--space-10);
+}
+
+.proof-strip .proof-strip__inner {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.proof-strip .proof-strip__item {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.proof-strip .proof-strip__label {
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.proof-strip .proof-strip__item strong {
+  color: #F5F0E8;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--text-md);
+  line-height: 1.3;
+}
+
+@media (max-width: 880px) {
+  .proof-strip .proof-strip__item {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+  .proof-strip .proof-strip__item:last-child {
+    border-bottom: none;
+  }
+}
+
+/* 3. Section eyebrows — pill badge style */
+.section-head__eyebrow,
+.page-hero .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.75rem;
+  background: color-mix(in oklab, var(--primary) 10%, var(--surface));
+  color: var(--primary);
+  border-radius: var(--radius-sm);
+  border: 1px solid color-mix(in oklab, var(--primary) 20%, transparent);
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+}
+
+/* 4. Four-pillar cards — each with a distinct top accent */
+.how-grid--four .how-card {
+  border-top: 3px solid transparent;
+}
+
+.how-grid--four .how-card:nth-child(1) {
+  border-top-color: var(--primary);
+}
+.how-grid--four .how-card:nth-child(1) .how-card__icon {
+  background: color-mix(in oklab, var(--primary) 12%, var(--surface));
+  color: var(--primary);
+}
+
+.how-grid--four .how-card:nth-child(2) {
+  border-top-color: var(--warm);
+}
+.how-grid--four .how-card:nth-child(2) .how-card__icon {
+  background: color-mix(in oklab, var(--warm) 22%, var(--surface));
+  color: #7A5C2E;
+}
+
+.how-grid--four .how-card:nth-child(3) {
+  border-top-color: var(--accent);
+}
+.how-grid--four .how-card:nth-child(3) .how-card__icon {
+  background: color-mix(in oklab, var(--accent) 18%, var(--surface));
+  color: #3D6B72;
+}
+
+.how-grid--four .how-card:nth-child(4) {
+  border-top-color: var(--ink-muted);
+}
+.how-grid--four .how-card:nth-child(4) .how-card__icon {
+  background: color-mix(in oklab, var(--ink) 8%, var(--surface));
+  color: var(--ink);
+}
+
+/* 5. How-it-works cards (3-col) — transparent on alt bg */
+.section--alt .how-grid--three .how-card {
+  background: transparent;
+  border-color: var(--border-soft);
+}
+
+/* 6. Belief quote section */
+.belief {
+  background: #1D2B1E;
+  padding-block: clamp(var(--space-16), 10vw, var(--space-24));
+}
+
+.belief__inner {
+  text-align: center;
+  max-width: 52ch;
+  margin-inline: auto;
+}
+
+.belief__quote {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 1rem + 3vw, 3rem);
+  font-weight: 400;
+  line-height: 1.18;
+  color: #F2EDE3;
+  letter-spacing: 0;
+  font-style: italic;
+}
+
+.belief__attr {
+  margin: var(--space-8) 0 0;
+  font-size: var(--text-sm);
+  color: rgba(242, 237, 227, 0.48);
+  letter-spacing: 0.06em;
+}
+
+/* 7. About Matthew — warm section background */
+#about {
+  background:
+    linear-gradient(180deg,
+      color-mix(in oklab, var(--warm) 14%, var(--bg)) 0%,
+      var(--bg) 100%);
+  border-top: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+/* 8. Classes section — slightly warmer bg */
+.classes {
+  background:
+    linear-gradient(180deg,
+      var(--bg) 0%,
+      color-mix(in oklab, var(--bg-alt) 35%, var(--bg)) 100%);
+}
+
+/* 9. Bigger, bolder section headings */
+.section-head__title {
+  font-size: clamp(2.1rem, 1.2rem + 3.6vw, 3.2rem);
+}
+
+/* 10. Hero headline scale bump */
+.hero__title {
+  font-size: clamp(2.6rem, 1.4rem + 4.8vw, 4.5rem);
+  max-width: 16ch;
+  line-height: 1.06;
+}
+
+/* 11. Credential box — slightly more styled */
+.hero__credential {
+  background: color-mix(in oklab, var(--warm) 8%, var(--surface));
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: var(--space-3) var(--space-4);
+  border-left-width: 3px;
+}
+
+/* 12. Featured class card — richer gradient */
+.product-card--featured {
+  background:
+    linear-gradient(135deg,
+      color-mix(in oklab, var(--primary) 8%, var(--surface)) 0%,
+      var(--surface) 55%);
+}
+
+/* 13. Waitlist section — stronger warm gradient */
+.signup {
+  background:
+    linear-gradient(160deg,
+      color-mix(in oklab, var(--warm) 28%, var(--bg-alt)) 0%,
+      color-mix(in oklab, var(--primary) 8%, var(--bg-alt)) 100%);
+}
+
+/* dark mode adjustments for belief section */
+[data-theme="dark"] .belief {
+  background: #0F160F;
+}
+[data-theme="dark"] .belief__quote {
+  color: #E8E2D6;
+}
+[data-theme="dark"] #about {
+  background: linear-gradient(180deg,
+    color-mix(in oklab, var(--warm) 8%, var(--bg)) 0%,
+    var(--bg) 100%);
+}
