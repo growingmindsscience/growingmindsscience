@@ -41,7 +41,7 @@
 
     .panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-6); }
     .tabs { display: flex; flex-wrap: wrap; gap: .75rem; margin: 0 0 var(--space-5); }
-    .tab-btn { padding: .8rem 1rem; border-radius: 999px; border: 1px solid var(--border); background: var(--bg-alt); color: var(--ink-soft); cursor: pointer; transition: all var(--transition); }
+    .tab-btn { padding: .8rem 1rem; border-radius: 999px; border: 1px solid var(--border); background: var(--bg-alt); color: var(--ink-soft); cursor: pointer; transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition); }
     .tab-btn[aria-selected="true"] { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
     .tab-panel[hidden] { display: none; }
     .tab-panel h3 { margin: 0 0 var(--space-4); font-size: var(--text-lg); }
@@ -56,7 +56,7 @@
 
     .scenario-wrap { display: grid; grid-template-columns: .95fr 1.05fr; gap: var(--space-5); align-items: start; }
     .scenario-buttons { display: grid; gap: .75rem; }
-    .scenario-btn { padding: .8rem 1rem; text-align: left; border-radius: 16px; border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); cursor: pointer; transition: all var(--transition); }
+    .scenario-btn { padding: .8rem 1rem; text-align: left; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); cursor: pointer; transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition); }
     .scenario-btn.is-active { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
     .scenario-output { padding: var(--space-6); border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--border-soft); box-shadow: var(--shadow-sm); }
     .scenario-output[hidden] { display: none; }
@@ -184,9 +184,9 @@
 
         <div class="panel">
           <div class="tabs" role="tablist" aria-label="Guide sections">
-            <button class="tab-btn" role="tab" aria-selected="true" aria-controls="tab-before" id="btn-before">Before</button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-during" id="btn-during">During</button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-after" id="btn-after">After</button>
+            <button class="tab-btn" type="button" role="tab" aria-selected="true" aria-controls="tab-before" id="btn-before">Before</button>
+            <button class="tab-btn" type="button" role="tab" aria-selected="false" aria-controls="tab-during" id="btn-during">During</button>
+            <button class="tab-btn" type="button" role="tab" aria-selected="false" aria-controls="tab-after" id="btn-after">After</button>
           </div>
 
           <section class="tab-panel" id="tab-before" role="tabpanel" aria-labelledby="btn-before">
@@ -285,11 +285,11 @@
         <h2>Choose the closest scenario</h2>
         <p class="section-intro">This is not about finding the perfect script. It is about noticing what kind of moment you are in, so your response can get simpler and steadier.</p>
         <div class="scenario-wrap">
-          <div class="scenario-buttons" role="tablist" aria-label="Scenario choices">
-            <button class="scenario-btn is-active" data-scenario="repeat">My child keeps doing it after I said no.</button>
-            <button class="scenario-btn" data-scenario="meltdown">My child melts down when I hold the limit.</button>
-            <button class="scenario-btn" data-scenario="escalated">I already raised my voice.</button>
-            <button class="scenario-btn" data-scenario="unclear">I am not sure if this is a limit issue or a regulation issue.</button>
+          <div class="scenario-buttons" role="group" aria-label="Scenario choices">
+            <button class="scenario-btn is-active" type="button" data-scenario="repeat" aria-pressed="true">My child keeps doing it after I said no.</button>
+            <button class="scenario-btn" type="button" data-scenario="meltdown" aria-pressed="false">My child melts down when I hold the limit.</button>
+            <button class="scenario-btn" type="button" data-scenario="escalated" aria-pressed="false">I already raised my voice.</button>
+            <button class="scenario-btn" type="button" data-scenario="unclear" aria-pressed="false">I am not sure if this is a limit issue or a regulation issue.</button>
           </div>
 
           <div>
@@ -448,8 +448,9 @@
       scenarioButtons.forEach(function(btn) {
         btn.addEventListener('click', function() {
           var key = btn.dataset.scenario;
-          scenarioButtons.forEach(function(b) { b.classList.remove('is-active'); });
+          scenarioButtons.forEach(function(b) { b.classList.remove('is-active'); b.setAttribute('aria-pressed', 'false'); });
           btn.classList.add('is-active');
+          btn.setAttribute('aria-pressed', 'true');
           outputs.forEach(function(o) { o.hidden = o.dataset.output !== key; });
         });
       });

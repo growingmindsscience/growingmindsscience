@@ -297,7 +297,7 @@
       setInterestValue(qInterest);
     } catch (_) {}
 
-    // Waitlist form: friendly status while Netlify processes submission.
+    // Waitlist form: friendly status while the Vercel API processes submission.
     var form = document.querySelector('form[data-newsletter]');
     if (form) {
       var status = form.querySelector(".form-status");

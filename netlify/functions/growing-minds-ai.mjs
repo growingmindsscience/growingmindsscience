@@ -78,14 +78,14 @@ export default async function handler(request) {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     return jsonResponse(503, {
-      error: "Growing Minds AI is not configured yet. Add OPENAI_API_KEY in Netlify environment variables.",
+      error: "Growing Minds AI is not configured yet. Add OPENAI_API_KEY in the hosting environment variables.",
     });
   }
 
   const configuredAccessCode = process.env.GMS_AI_ACCESS_CODE;
   if (!configuredAccessCode) {
     return jsonResponse(503, {
-      error: "Growing Minds AI is available for enrolled families. Add GMS_AI_ACCESS_CODE in Netlify environment variables before enabling chat.",
+      error: "Growing Minds AI is available for enrolled families. Add GMS_AI_ACCESS_CODE in the hosting environment variables before enabling chat.",
     });
   }
 

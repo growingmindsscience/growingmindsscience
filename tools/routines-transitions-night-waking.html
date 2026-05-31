@@ -52,7 +52,7 @@
 
     .pattern-wrap { display: grid; grid-template-columns: .92fr 1.08fr; gap: var(--space-5); align-items: start; }
     .pattern-buttons { display: grid; gap: .75rem; }
-    .pattern-btn { padding: .85rem 1rem; text-align: left; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); cursor: pointer; transition: all var(--transition); }
+    .pattern-btn { padding: .85rem 1rem; text-align: left; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); cursor: pointer; transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition); }
     .pattern-btn strong { display: block; color: inherit; margin-bottom: .2rem; }
     .pattern-btn span { display: block; font-size: var(--text-xs); opacity: .82; line-height: 1.45; }
     .pattern-btn.is-active { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
@@ -180,12 +180,12 @@
         <p class="section-intro">Choose the closest pattern. Start with curiosity: what changed, what repeats, and what helps without making the next night harder?</p>
 
         <div class="pattern-wrap">
-          <div class="pattern-buttons" role="tablist" aria-label="Toddler sleep patterns">
-            <button class="pattern-btn is-active" data-pattern="stalling"><strong>Bedtime stalling</strong><span>Water, one more book, another hug, one more question.</span></button>
-            <button class="pattern-btn" data-pattern="separation"><strong>Separation distress</strong><span>Your child panics, cries, or needs you close to settle.</span></button>
-            <button class="pattern-btn" data-pattern="waking"><strong>Middle-of-night waking</strong><span>Your child wakes and needs help returning to sleep.</span></button>
-            <button class="pattern-btn" data-pattern="nap"><strong>Nap transition trouble</strong><span>Too tired by dinner, wired at bedtime, or inconsistent naps.</span></button>
-            <button class="pattern-btn" data-pattern="fear"><strong>Fears and bad dreams</strong><span>New worries, nightmares, shadows, or scary images.</span></button>
+          <div class="pattern-buttons" role="group" aria-label="Toddler sleep patterns">
+            <button class="pattern-btn is-active" type="button" data-pattern="stalling" aria-pressed="true"><strong>Bedtime stalling</strong><span>Water, one more book, another hug, one more question.</span></button>
+            <button class="pattern-btn" type="button" data-pattern="separation" aria-pressed="false"><strong>Separation distress</strong><span>Your child panics, cries, or needs you close to settle.</span></button>
+            <button class="pattern-btn" type="button" data-pattern="waking" aria-pressed="false"><strong>Middle-of-night waking</strong><span>Your child wakes and needs help returning to sleep.</span></button>
+            <button class="pattern-btn" type="button" data-pattern="nap" aria-pressed="false"><strong>Nap transition trouble</strong><span>Too tired by dinner, wired at bedtime, or inconsistent naps.</span></button>
+            <button class="pattern-btn" type="button" data-pattern="fear" aria-pressed="false"><strong>Fears and bad dreams</strong><span>New worries, nightmares, shadows, or scary images.</span></button>
           </div>
 
           <div>
@@ -408,8 +408,9 @@
       patternButtons.forEach(function(btn) {
         btn.addEventListener('click', function() {
           var key = btn.dataset.pattern;
-          patternButtons.forEach(function(b) { b.classList.remove('is-active'); });
+          patternButtons.forEach(function(b) { b.classList.remove('is-active'); b.setAttribute('aria-pressed', 'false'); });
           btn.classList.add('is-active');
+          btn.setAttribute('aria-pressed', 'true');
           outputs.forEach(function(o) { o.hidden = o.dataset.output !== key; });
         });
       });

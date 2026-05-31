@@ -47,7 +47,7 @@
 
     .stage-wrap { display: grid; grid-template-columns: .92fr 1.08fr; gap: var(--space-5); align-items: start; }
     .stage-buttons { display: grid; gap: .75rem; }
-    .stage-btn { padding: .85rem 1rem; text-align: left; border-radius: 16px; border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); cursor: pointer; transition: all var(--transition); }
+    .stage-btn { padding: .85rem 1rem; text-align: left; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); cursor: pointer; transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition); }
     .stage-btn strong { display: block; color: inherit; margin-bottom: .2rem; }
     .stage-btn span { display: block; font-size: var(--text-xs); opacity: .82; line-height: 1.45; }
     .stage-btn.is-active { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
@@ -174,12 +174,12 @@
         <p class="section-intro">Choose your baby's closest stage. Use this as orientation, not a prescription.</p>
 
         <div class="stage-wrap">
-          <div class="stage-buttons" role="tablist" aria-label="Infant sleep stages">
-            <button class="stage-btn is-active" data-stage="newborn"><strong>0-2 months</strong><span>Newborn sleep is fragmented and feeding-driven.</span></button>
-            <button class="stage-btn" data-stage="early"><strong>2-4 months</strong><span>Day-night rhythm begins to organize, unevenly.</span></button>
-            <button class="stage-btn" data-stage="middle"><strong>4-6 months</strong><span>More predictable patterns may start to appear.</span></button>
-            <button class="stage-btn" data-stage="older"><strong>6-9 months</strong><span>Motor practice and separation awareness can affect nights.</span></button>
-            <button class="stage-btn" data-stage="late"><strong>9-12 months</strong><span>Naps often consolidate, but waking can still be normal.</span></button>
+          <div class="stage-buttons" role="group" aria-label="Infant sleep stages">
+            <button class="stage-btn is-active" type="button" data-stage="newborn" aria-pressed="true"><strong>0–2 months</strong><span>Newborn sleep is fragmented and feeding-driven.</span></button>
+            <button class="stage-btn" type="button" data-stage="early" aria-pressed="false"><strong>2–4 months</strong><span>Day-night rhythm begins to organize, unevenly.</span></button>
+            <button class="stage-btn" type="button" data-stage="middle" aria-pressed="false"><strong>4–6 months</strong><span>More predictable patterns may start to appear.</span></button>
+            <button class="stage-btn" type="button" data-stage="older" aria-pressed="false"><strong>6–9 months</strong><span>Motor practice and separation awareness can affect nights.</span></button>
+            <button class="stage-btn" type="button" data-stage="late" aria-pressed="false"><strong>9–12 months</strong><span>Naps often consolidate, but waking can still be normal.</span></button>
           </div>
 
           <div>
@@ -385,8 +385,9 @@
       stageButtons.forEach(function(btn) {
         btn.addEventListener('click', function() {
           var key = btn.dataset.stage;
-          stageButtons.forEach(function(b) { b.classList.remove('is-active'); });
+          stageButtons.forEach(function(b) { b.classList.remove('is-active'); b.setAttribute('aria-pressed', 'false'); });
           btn.classList.add('is-active');
+          btn.setAttribute('aria-pressed', 'true');
           outputs.forEach(function(o) { o.hidden = o.dataset.output !== key; });
         });
       });

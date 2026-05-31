@@ -58,7 +58,7 @@
 
     .scenario-wrap { display: grid; grid-template-columns: .95fr 1.05fr; gap: var(--space-5); align-items: start; }
     .scenario-buttons { display: grid; gap: .75rem; }
-    .scenario-btn { padding: .8rem 1rem; text-align: left; border-radius: 16px; border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); cursor: pointer; transition: all var(--transition); }
+    .scenario-btn { padding: .8rem 1rem; text-align: left; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); cursor: pointer; transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition); }
     .scenario-btn.is-active { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
     .scenario-output { padding: var(--space-6); border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--border-soft); box-shadow: var(--shadow-sm); }
     .scenario-output[hidden] { display: none; }
@@ -227,12 +227,12 @@
         <p class="section-intro">Choose the closest version of what happened. The goal is a repair that is small enough to actually use in real life.</p>
 
         <div class="scenario-wrap">
-          <div class="scenario-buttons" role="tablist" aria-label="Repair situations">
-            <button class="scenario-btn is-active" data-scenario="yelled">I yelled or got too intense.</button>
-            <button class="scenario-btn" data-scenario="unfair">I was unfair or too harsh.</button>
-            <button class="scenario-btn" data-scenario="upset">My child is still upset.</button>
-            <button class="scenario-btn" data-scenario="boundary">The boundary still needs to hold.</button>
-            <button class="scenario-btn" data-scenario="guilt">I am stuck in guilt.</button>
+          <div class="scenario-buttons" role="group" aria-label="Repair situations">
+            <button class="scenario-btn is-active" type="button" data-scenario="yelled" aria-pressed="true">I yelled or got too intense.</button>
+            <button class="scenario-btn" type="button" data-scenario="unfair" aria-pressed="false">I was unfair or too harsh.</button>
+            <button class="scenario-btn" type="button" data-scenario="upset" aria-pressed="false">My child is still upset.</button>
+            <button class="scenario-btn" type="button" data-scenario="boundary" aria-pressed="false">The boundary still needs to hold.</button>
+            <button class="scenario-btn" type="button" data-scenario="guilt" aria-pressed="false">I am stuck in guilt.</button>
           </div>
 
           <div>
@@ -411,8 +411,9 @@
       scenarioButtons.forEach(function(btn) {
         btn.addEventListener('click', function() {
           var key = btn.dataset.scenario;
-          scenarioButtons.forEach(function(b) { b.classList.remove('is-active'); });
+          scenarioButtons.forEach(function(b) { b.classList.remove('is-active'); b.setAttribute('aria-pressed', 'false'); });
           btn.classList.add('is-active');
+          btn.setAttribute('aria-pressed', 'true');
           outputs.forEach(function(o) { o.hidden = o.dataset.output !== key; });
         });
       });

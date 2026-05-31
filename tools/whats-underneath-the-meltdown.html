@@ -52,7 +52,7 @@
 
     .decoder { display: grid; grid-template-columns: .95fr 1.05fr; gap: var(--space-5); align-items: start; }
     .decoder-buttons { display: grid; gap: .75rem; }
-    .decoder-btn { padding: .8rem 1rem; text-align: left; border-radius: 16px; border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); cursor: pointer; transition: all var(--transition); }
+    .decoder-btn { padding: .8rem 1rem; text-align: left; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); cursor: pointer; transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition); }
     .decoder-btn.is-active { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
     .decoder-output { padding: var(--space-6); border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--border-soft); box-shadow: var(--shadow-sm); }
     .decoder-output[hidden] { display: none; }
@@ -182,12 +182,12 @@
         <p class="section-intro">Choose the closest pattern. The answer does not need to be perfect - it just helps you stop treating every tantrum like the same problem.</p>
 
         <div class="decoder">
-          <div class="decoder-buttons" role="tablist" aria-label="Meltdown patterns">
-            <button class="decoder-btn is-active" data-pattern="overloaded">The reaction is sudden and huge.</button>
-            <button class="decoder-btn" data-pattern="limit">The meltdown started after a clear no.</button>
-            <button class="decoder-btn" data-pattern="tired">It happens most when tired, hungry, or rushed.</button>
-            <button class="decoder-btn" data-pattern="sensory">Noise, clothing, crowds, or transitions set it off.</button>
-            <button class="decoder-btn" data-pattern="unsafe">There is hitting, throwing, biting, or running.</button>
+          <div class="decoder-buttons" role="group" aria-label="Meltdown patterns">
+            <button class="decoder-btn is-active" type="button" data-pattern="overloaded" aria-pressed="true">The reaction is sudden and huge.</button>
+            <button class="decoder-btn" type="button" data-pattern="limit" aria-pressed="false">The meltdown started after a clear no.</button>
+            <button class="decoder-btn" type="button" data-pattern="tired" aria-pressed="false">It happens most when tired, hungry, or rushed.</button>
+            <button class="decoder-btn" type="button" data-pattern="sensory" aria-pressed="false">Noise, clothing, crowds, or transitions set it off.</button>
+            <button class="decoder-btn" type="button" data-pattern="unsafe" aria-pressed="false">There is hitting, throwing, biting, or running.</button>
           </div>
 
           <div>
@@ -351,7 +351,7 @@
       <div>
         <h4>Stay in the loop</h4>
         <p style="font-size: var(--text-sm);">
-          <a href="/#signup">Join the waitlist -></a>
+          <a href="/#signup">Join the waitlist →</a>
         </p>
         <p class="footer-elsewhere" style="margin-top: var(--space-5);">
           Also on
@@ -376,8 +376,9 @@
       decoderButtons.forEach(function(btn) {
         btn.addEventListener('click', function() {
           var key = btn.dataset.pattern;
-          decoderButtons.forEach(function(b) { b.classList.remove('is-active'); });
+          decoderButtons.forEach(function(b) { b.classList.remove('is-active'); b.setAttribute('aria-pressed', 'false'); });
           btn.classList.add('is-active');
+          btn.setAttribute('aria-pressed', 'true');
           outputs.forEach(function(o) { o.hidden = o.dataset.output !== key; });
         });
       });
