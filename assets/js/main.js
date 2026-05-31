@@ -79,50 +79,6 @@
     var themeBtn = document.querySelector(".theme-toggle");
     var year = document.querySelector("[data-year]");
 
-    // Editorial content polish for the approved refresh.
-    var heroEyebrow = document.querySelector(".hero__eyebrow");
-    var heroTitle = document.querySelector(".hero__title");
-    var heroLede = document.querySelector(".hero__lede");
-    if (heroEyebrow && heroTitle && heroLede) {
-      heroEyebrow.textContent = "For parents of young children";
-      heroTitle.textContent = "Understand what is happening underneath behavior.";
-      heroLede.textContent = "Classes, articles, and tools that translate developmental science into calmer choices for everyday family life.";
-    }
-
-    var hero = document.querySelector(".hero");
-    if (hero && !document.querySelector(".proof-strip")) {
-      var proof = document.createElement("section");
-      proof.className = "proof-strip";
-      proof.setAttribute("aria-label", "Growing Minds Science approach");
-      proof.innerHTML =
-        '<div class="container proof-strip__inner">' +
-          '<div class="proof-strip__item"><span class="proof-strip__label">Source</span><strong>Peer-reviewed developmental science</strong></div>' +
-          '<div class="proof-strip__item"><span class="proof-strip__label">Format</span><strong>Short lessons for real parenting days</strong></div>' +
-          '<div class="proof-strip__item"><span class="proof-strip__label">Tone</span><strong>Clear, practical, and non-shaming</strong></div>' +
-        '</div>';
-      hero.insertAdjacentElement("afterend", proof);
-    }
-
-    document.querySelectorAll("p, li").forEach(function (node) {
-      if (/both science and law/i.test(node.textContent)) {
-        node.textContent = "His work draws on direct experience with families, years of teaching infant and toddler development, and graduate training in developmental psychology.";
-      }
-      if (/Boston University|J\.D\.|Doctor of Law/i.test(node.textContent)) {
-        node.remove();
-      }
-    });
-
-    var topicNav = document.querySelector(".topic-nav");
-    if (topicNav && !document.querySelector(".library-intro")) {
-      var libraryIntro = document.createElement("div");
-      libraryIntro.className = "library-intro";
-      libraryIntro.setAttribute("aria-label", "Library status");
-      libraryIntro.innerHTML =
-        '<div><span class="library-intro__label">Available now</span><strong>3 parent tools</strong></div>' +
-        '<div><span class="library-intro__label">Building next</span><strong>Behavior, sleep, screen time, and regulation guides</strong></div>';
-      topicNav.insertAdjacentElement("beforebegin", libraryIntro);
-    }
-
     // Footer year
     if (year) year.textContent = String(new Date().getFullYear());
 
