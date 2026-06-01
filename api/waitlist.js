@@ -3,6 +3,22 @@ export const config = { runtime: "edge" };
 import { cleanText, isValidEmail, jsonResponse, normalizeEmail, parseRequestBody } from "./_security.js";
 
 const WEB3FORMS_URL = "https://api.web3forms.com/submit";
+const KIT_API_URL = "https://api.convertkit.com/v3/forms";
+
+async function subscribeToKit(email, firstName) {
+  const apiKey = process.env.KIT_API_KEY;
+  const formId = process.env.KIT_FORM_ID;
+  if (!apiKey || !formId) return;
+  try {
+    await fetch(`${KIT_API_URL}/${formId}/subscribe`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ api_key: apiKey, email, first_name: firstName || "" }),
+    });
+  } catch (_) {
+    // Kit failure is non-blocking; Web3Forms submission already succeeded
+  }
+}
 
 function acceptsHtml(request) {
   return (request.headers.get("accept") || "").includes("text/html");
@@ -89,6 +105,9 @@ export default async function handler(request) {
   if (!upstreamResponse.ok) {
     return errorResponse(request, 502, "The waitlist service could not accept the signup. Please try again.");
   }
+
+  const firstName = submission.name ? submission.name.split(" ")[0] : "";
+  subscribeToKit(email, firstName);
 
   if (acceptsHtml(request)) return redirectResponse("/thank-you.html");
   return jsonResponse(200, { ok: true });
