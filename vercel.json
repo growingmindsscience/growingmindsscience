@@ -17,7 +17,9 @@
     { "source": "/tools/routines-transitions-night-waking", "destination": "/tools/routines-transitions-night-waking.html" },
     { "source": "/tools/growing-minds-ai",                  "destination": "/tools/growing-minds-ai.html" },
     { "source": "/articles/serve-and-return",               "destination": "/articles/serve-and-return.html" },
-    { "source": "/articles/screen-time",                    "destination": "/articles/screen-time.html" }
+    { "source": "/articles/screen-time",                    "destination": "/articles/screen-time.html" },
+    { "source": "/articles/toddler-no",                     "destination": "/articles/toddler-no.html" },
+    { "source": "/articles/self-regulation",                "destination": "/articles/self-regulation.html" }
   ],
   "headers": [
     {
