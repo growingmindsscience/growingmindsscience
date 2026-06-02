@@ -5,6 +5,8 @@
     { "source": "/tools",          "destination": "/tools/index.html" },
     { "source": "/articles",       "destination": "/articles/index.html" },
     { "source": "/faq",            "destination": "/faq/index.html" },
+    { "source": "/contact",        "destination": "/contact/index.html" },
+    { "source": "/preferences",    "destination": "/preferences/index.html" },
     { "source": "/login",          "destination": "/login.html" },
     { "source": "/account",        "destination": "/account.html" },
     { "source": "/milestones",     "destination": "/milestones.html" },

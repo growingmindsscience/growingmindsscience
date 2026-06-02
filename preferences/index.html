@@ -3,21 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Thank you — Growing Minds Science</title>
-  <meta name="description" content="Thank you for joining the Growing Minds Science waitlist." />
-  <meta name="robots" content="noindex, follow" />
+  <title>Email preferences — Growing Minds Science</title>
+  <meta name="description" content="Manage your Growing Minds Science email preferences. Update or unsubscribe at any time." />
+  <meta name="robots" content="noindex" />
   <meta name="theme-color" content="#6F8F7B" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="canonical" href="/thank-you.html" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="canonical" href="/preferences/" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="assets/css/styles.css" />
-  <link rel="stylesheet" href="assets/css/refresh.css" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/refresh.css" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -25,7 +25,7 @@
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
       <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+        <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -34,7 +34,7 @@
           <span class="nav-toggle__bars"><span></span></span>
         </button>
 
-                <ul class="nav__list" id="primary-nav-list">
+        <ul class="nav__list" id="primary-nav-list">
           <li><a class="nav__link" href="/classes/">Classes</a></li>
           <li><a class="nav__link" href="/tools/">Tools</a></li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
@@ -52,30 +52,61 @@
 
   <main id="main">
     <section class="page-hero">
-      <div class="container container--narrow">
-        <p class="eyebrow">Waitlist received</p>
-        <h1 class="page-hero__title">Thank you for joining the waitlist.</h1>
-        <p class="page-hero__lede">
-          Your email is in. You'll hear from Growing Minds Science when classes
-          open, plus occasional research-backed reminders for parents. As promised,
-          here's the milestone tracker — it's free to use right now.
+      <div class="container container--narrow" data-stagger>
+        <p class="eyebrow" data-animate>Email preferences</p>
+        <h1 class="page-hero__title" data-animate>Manage your emails from Growing Minds Science.</h1>
+        <p class="page-hero__lede" data-animate>
+          You're in control of what you receive. Here's how to update or stop your emails.
         </p>
-        <div class="hero__ctas" style="margin-top: var(--space-6);">
-          <a class="btn btn--primary btn--lg" href="/milestones">Open the milestone tracker</a>
-          <a class="btn btn--ghost btn--lg" href="/classes/">Back to classes</a>
-        </div>
       </div>
     </section>
 
     <section class="section--alt">
-      <div class="container container--narrow">
-        <p class="section-head__eyebrow">While you're here</p>
-        <h2>A few places to look around.</h2>
-        <ul class="check-list">
-          <li><a href="/about/">About Growing Minds Science</a> — the mission and the person behind it.</li>
-          <li><a href="/tools/">Tools for parents</a> — the growing free resource library.</li>
-          <li><a href="/faq/">FAQ</a> — common questions about the classes and how they work.</li>
+      <div class="container container--narrow" data-animate>
+        <p class="section-head__eyebrow">Unsubscribe</p>
+        <h2>Stop all emails.</h2>
+        <p style="color: var(--ink-soft); font-size: var(--text-md);">
+          Every email from Growing Minds Science includes an unsubscribe link at the bottom. Clicking it removes you from all future emails immediately — no confirmation step required.
+        </p>
+        <p style="color: var(--ink-soft);">
+          If you can't find a recent email, check your spam or promotions folder. Still can't find it? Use the contact form below and we'll remove you manually within one business day.
+        </p>
+        <p style="margin-top: var(--space-6);">
+          <a class="btn btn--primary" href="/contact/">Contact us to unsubscribe</a>
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow" data-animate>
+        <p class="section-head__eyebrow">What we send</p>
+        <h2>What emails you'll receive.</h2>
+        <ul class="philosophy-list" data-stagger>
+          <li data-animate>
+            <span class="num">01</span>
+            <div>
+              <strong>Class launch announcements</strong>
+              <span>When a new class opens for enrollment — sent to waitlist members who expressed interest in that age range.</span>
+            </div>
+          </li>
+          <li data-animate>
+            <span class="num">02</span>
+            <div>
+              <strong>Research-backed notes</strong>
+              <span>Occasional emails on early development topics — the same practical, non-shaming tone as the articles on this site.</span>
+            </div>
+          </li>
+          <li data-animate>
+            <span class="num">03</span>
+            <div>
+              <strong>New content alerts</strong>
+              <span>Infrequent updates when new tools or articles are published. These are kept to a low volume on purpose.</span>
+            </div>
+          </li>
         </ul>
+        <p style="margin-top: var(--space-6); font-size: var(--text-sm); color: var(--ink-muted);">
+          Your email is never shared, sold, or used for advertising. View our approach: <a href="/about/">About Growing Minds Science</a>.
+        </p>
       </div>
     </section>
   </main>
@@ -84,7 +115,7 @@
     <div class="container site-footer__inner">
       <div>
         <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+          <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p style="margin-top: var(--space-4);">
@@ -101,10 +132,14 @@
           <li><a href="/faq/">FAQ</a></li>
           <li><a href="/milestones">Milestone tracker</a></li>
           <li><a href="/contact/">Contact</a></li>
+          <li><a href="/contact/">Contact</a></li>
         </ul>
       </div>
       <div>
         <h4>Stay in the loop</h4>
+        <p style="font-size: var(--text-sm);">
+          <a href="/#signup">Join the waitlist →</a>
+        </p>
         <p class="footer-elsewhere" style="margin-top: var(--space-5);">
           Also on
           <a href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr"
@@ -120,7 +155,8 @@
     </div>
   </footer>
 
-  <script src="assets/js/main.js" defer></script>
+  <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/animate.js" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

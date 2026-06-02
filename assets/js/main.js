@@ -3,7 +3,8 @@
    - Mobile nav toggle (closed by default; hidden until opened)
    - Theme toggle (localStorage with safe fallback, respects system pref)
    - Class card CTAs preselect interest in waitlist form, then scroll to #signup
-   - Waitlist form: client-side feedback only; Vercel API handles delivery
+   - Waitlist & contact forms: AJAX submission with inline error/success handling
+   - Growing Minds AI chat with screen-reader announcements
 */
 (function () {
   "use strict";
@@ -85,8 +86,10 @@
     // Theme toggle
     if (themeBtn) themeBtn.addEventListener("click", toggleTheme);
 
-    function setStatus(node, message) {
-      if (node) node.textContent = message || "";
+    function setStatus(node, message, isError) {
+      if (!node) return;
+      node.textContent = message || "";
+      node.style.color = isError ? "var(--error, #c0392b)" : "";
     }
 
     function getSession() {
@@ -160,7 +163,7 @@
           google_denied: "That Google account is not allowed to sign in.",
           google_error: "Google sign-in could not be completed. Please try again.",
         };
-        if (authStatus && authMessages[authStatus]) setStatus(loginStatus, authMessages[authStatus]);
+        if (authStatus && authMessages[authStatus]) setStatus(loginStatus, authMessages[authStatus], true);
       } catch (_) {}
 
       loginForm.addEventListener("submit", function (event) {
@@ -195,7 +198,7 @@
             window.location.assign("/account");
           })
           .catch(function (error) {
-            setStatus(loginStatus, error.message || "Login failed.");
+            setStatus(loginStatus, error.message || "Login failed.", true);
           })
           .finally(function () {
             if (submit) submit.disabled = false;
@@ -277,10 +280,8 @@
           setInterestValue(interest);
           var signup = document.getElementById("signup");
           if (signup) {
-            // Use hash so back button works; smooth scroll handled by CSS scroll-behavior
             history.replaceState(null, "", "#signup");
             signup.scrollIntoView({ behavior: "smooth", block: "start" });
-            // Focus email after a short delay so smooth scroll can settle
             setTimeout(function () {
               var email = document.getElementById("email");
               if (email) email.focus({ preventScroll: true });
@@ -297,16 +298,74 @@
       setInterestValue(qInterest);
     } catch (_) {}
 
-    // Waitlist form: friendly status while the Vercel API processes submission.
-    var form = document.querySelector('form[data-newsletter]');
-    if (form) {
+    // Generic AJAX form handler — used by waitlist and contact forms.
+    function initAjaxForm(form, opts) {
+      if (!form) return;
       var status = form.querySelector(".form-status");
-      form.addEventListener("submit", function () {
-        if (status) status.textContent = "Sending…";
+      var submitBtn = form.querySelector('button[type="submit"]');
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        var emailInput = form.querySelector('input[type="email"]');
+        if (emailInput && !emailInput.value.trim()) {
+          setStatus(status, "Please enter your email address.", true);
+          emailInput.focus();
+          return;
+        }
+
+        if (opts && opts.extraValidate) {
+          var validationError = opts.extraValidate(form);
+          if (validationError) {
+            setStatus(status, validationError, true);
+            return;
+          }
+        }
+
+        setStatus(status, "Sending…");
+        if (submitBtn) submitBtn.disabled = true;
+
+        var formData = new FormData(form);
+        var payload = {};
+        formData.forEach(function (value, key) { payload[key] = value; });
+
+        var endpoint = form.getAttribute("action") || "/api/waitlist";
+
+        fetch(endpoint, {
+          method: "POST",
+          credentials: "same-origin",
+          headers: { "accept": "application/json", "content-type": "application/json" },
+          body: JSON.stringify(payload),
+        })
+          .then(function (response) {
+            return response.json().then(function (data) {
+              if (!response.ok) throw new Error(data.error || "Could not send. Please try again.");
+              return data;
+            });
+          })
+          .then(function () {
+            window.location.assign("/thank-you");
+          })
+          .catch(function (error) {
+            setStatus(status, error.message || "Could not send. Please try again.", true);
+            if (submitBtn) submitBtn.disabled = false;
+          });
       });
     }
 
-    // Growing Minds AI chat MVP.
+    // Waitlist form
+    initAjaxForm(document.querySelector("form[data-newsletter]"));
+
+    // Contact form
+    initAjaxForm(document.querySelector("form[data-contact-form]"), {
+      extraValidate: function (form) {
+        var msg = form.querySelector('textarea[name="message"]');
+        if (msg && !msg.value.trim()) return "Please enter a message.";
+        return null;
+      },
+    });
+
+    // Growing Minds AI chat.
     var aiForm = document.querySelector("[data-ai-chat]");
     if (aiForm) {
       var aiInput = aiForm.querySelector('textarea[name="question"]');
@@ -314,6 +373,7 @@
       var aiStatus = document.querySelector("[data-ai-status]");
       var aiBody = document.querySelector(".ai-chat-preview__body");
       var aiSubmit = aiForm.querySelector('button[type="submit"]');
+      var aiAnnouncer = document.getElementById("ai-announcer");
       var suggestedQuestions = document.querySelectorAll("[data-ai-question]");
 
       function addAiMessage(text, type) {
@@ -327,6 +387,15 @@
           node.appendChild(document.createTextNode(paragraph.trim()));
         });
         aiForm.insertAdjacentElement("beforebegin", node);
+
+        // Announce assistant responses to screen readers via live region.
+        if (type === "assistant" && aiAnnouncer) {
+          aiAnnouncer.textContent = "";
+          setTimeout(function () {
+            aiAnnouncer.textContent = text.slice(0, 150) + (text.length > 150 ? "…" : "");
+          }, 50);
+        }
+
         return node;
       }
 
