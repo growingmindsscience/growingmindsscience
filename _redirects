@@ -44,6 +44,18 @@
 /thank-you                  /thank-you.html                200
 /thank-you/                 /thank-you.html                200
 
+# Pretty URLs for articles.
+/articles/toddler-no        /articles/toddler-no.html      200
+/articles/toddler-no/       /articles/toddler-no.html      200
+/articles/self-regulation   /articles/self-regulation.html 200
+/articles/self-regulation/  /articles/self-regulation.html 200
+
+# Pretty URLs for auth pages.
+/login                      /login.html                    200
+/login/                     /login.html                    200
+/account                    /account.html                  200
+/account/                   /account.html                  200
+
 # Pretty URLs for directory hub pages (no-trailing-slash variants).
 /classes                    /classes/index.html            200
 /about                      /about/index.html              200
