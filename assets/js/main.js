@@ -246,6 +246,10 @@
         if (!e.target.closest(".nav__details")) {
           navDetails.forEach(function (details) { details.open = false; });
         }
+        if (nav.classList.contains("is-open") && !e.target.closest(".nav")) {
+          nav.classList.remove("is-open");
+          navToggle.setAttribute("aria-expanded", "false");
+        }
       });
       // Close on Escape
       document.addEventListener("keydown", function (e) {
