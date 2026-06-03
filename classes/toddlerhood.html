@@ -68,13 +68,15 @@
           calmer ways to respond to meltdowns, "no," and the explosion of new words.
         </p>
         <div class="hero__ctas">
-          <a class="btn btn--primary btn--lg" href="#waitlist">Join waitlist</a>
+          <a class="btn btn--primary btn--lg" href="#waitlist">Reserve your founding member spot</a>
           <a class="btn btn--ghost btn--lg" href="#whats-inside">See what's inside</a>
         </div>
-        <p class="muted" style="margin-top: var(--space-5); font-size: var(--text-sm); max-width: 60ch;">
-          Join the waitlist and get the milestone tracker. We'll send a short note
-          when this class opens.
-        </p>
+        <div style="margin-top: var(--space-5); display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-6); font-size: var(--text-sm); color: var(--ink-soft);">
+          <span>6 modules · ~20 min each</span>
+          <span>Self-paced · Watch on your phone</span>
+          <span>Founding member pricing for early signups</span>
+          <span>Free milestone tracker included</span>
+        </div>
       </div>
     </section>
 
@@ -108,6 +110,30 @@
       </div>
     </section>
 
+    <!-- ABOUT THE EDUCATOR -->
+    <section class="section--alt">
+      <div class="container container--narrow">
+        <p class="section-head__eyebrow">About the educator</p>
+        <h2>Built by Matthew McArthur for Growing Minds Science.</h2>
+        <p style="color: var(--ink-soft); font-size: var(--text-md);">
+          Matthew is a Child Development Specialist and parent coach. He has coached
+          over 100 parents in Los Angeles, has been working with parents on these
+          principles for two years, and has spent six years studying them.
+        </p>
+        <p style="color: var(--ink-soft);">
+          His research and practice focus on cognitive development, language
+          development, environmental influences on skill development, and
+          parenting behaviors. He teaches an Infant and Toddler Socialization class
+          in Los Angeles. Growing Minds Science is the place that brings that work
+          into one library for parents who want the developmental science without
+          the noise.
+        </p>
+        <p style="margin-top: var(--space-6);">
+          <a class="btn btn--ghost" href="/about/">Read more about Matthew</a>
+        </p>
+      </div>
+    </section>
+
     <!-- MODULE BREAKDOWN -->
     <section>
       <div class="container">
@@ -117,6 +143,7 @@
           <p>
             Each module gives you a clear developmental idea, a few practical ways
             to use it, and language you can carry into ordinary family life.
+            Six modules · ~20 minutes each · self-paced · works on your phone.
           </p>
         </div>
         <div class="module-grid">
@@ -204,42 +231,21 @@
       </div>
     </section>
 
-    <!-- ABOUT THE EDUCATOR / GMS -->
-    <section class="section--alt">
-      <div class="container container--narrow">
-        <p class="section-head__eyebrow">About the educator</p>
-        <h2>Built by Matthew McArthur for Growing Minds Science.</h2>
-        <p style="color: var(--ink-soft); font-size: var(--text-md);">
-          Matthew is a Child Development Specialist and parent coach. He has coached
-          over 100 parents in Los Angeles, has been working with parents on these
-          principles for two years, and has spent six years studying them.
-        </p>
-        <p style="color: var(--ink-soft);">
-          His research and practice focus on cognitive development, language
-          development, environmental influences on skill development, and
-          parenting behaviors. He teaches an Infant and Toddler Socialization class
-          in Los Angeles. Growing Minds Science is the place that brings that work
-          into one library for parents who want the developmental science without
-          the noise.
-        </p>
-        <p style="margin-top: var(--space-6);">
-          <a class="btn btn--ghost" href="/about/">Read more about Matthew</a>
-        </p>
-      </div>
-    </section>
-
     <!-- WAITLIST CTA BLOCK -->
     <section id="waitlist" class="signup">
       <div class="container signup__inner">
         <div>
-          <p class="eyebrow">Waitlist</p>
-          <h2>Be the first to know when this class opens.</h2>
+          <p class="eyebrow">Founding members waitlist</p>
+          <h2>Get founding member pricing before this class opens to the public.</h2>
           <p class="lede">
-            Join the waitlist and get the milestone tracker. We'll send a short
-            note when the toddler class opens, plus occasional research-backed
-            reminders for parents.
+            The first group of parents to join gets early-bird pricing and the free
+            milestone tracker. We'll send one short note when the toddler class opens
+            — no spam, unsubscribe anytime.
           </p>
-          <p class="muted" style="font-size: var(--text-sm);">
+          <p style="font-size: var(--text-sm); color: var(--ink-soft); margin-top: var(--space-4);">
+            6 modules · ~20 min each · self-paced · lifetime access
+          </p>
+          <p class="muted" style="font-size: var(--text-sm); margin-top: var(--space-3);">
             <a href="/classes/">← Back to all classes</a>
           </p>
         </div>
@@ -250,7 +256,7 @@
           method="POST"
           action="/api/waitlist"
           aria-labelledby="waitlist-heading">
-          <h3 id="waitlist-heading" class="signup__form-title">Join the toddler class waitlist</h3>
+          <h3 id="waitlist-heading" class="signup__form-title">Reserve your founding member spot</h3>
 
           <input type="hidden" name="subject" value="Toddler Class Waitlist — Growing Minds Science" />
           <input type="hidden" name="interest" value="Toddlerhood" />
@@ -267,10 +273,10 @@
             <p class="form-help">Unsubscribe anytime. We don't share your email.</p>
           </div>
 
-          <button class="btn btn--primary btn--block btn--lg" type="submit">Join waitlist</button>
+          <button class="btn btn--primary btn--block btn--lg" type="submit">Reserve my founding member spot</button>
           <p class="form-status" role="status" aria-live="polite"></p>
           <p class="muted" style="font-size: var(--text-xs); margin-top: var(--space-3);">
-            By joining, you'll also receive the free milestone tracker.
+            Founding members get early-bird pricing + the free milestone tracker.
           </p>
         </form>
       </div>
