@@ -1,124 +1,117 @@
 export const config = { runtime: "edge" };
 
-import { constantTimeEqual, jsonResponse, parseJsonBody } from "./_security.js";
+import { constantTimeEqual, parseJsonBody, jsonResponse } from "./_security.js";
 
-const OPENAI_API_URL = "https://api.openai.com/v1/responses";
+const SYSTEM_PROMPT = `You are Growing Minds AI, a developmental science tutor for Growing Minds Science — a parent education platform grounded in developmental neuroscience, child development research, and 50+ years of rigorous published science.
 
-const SYSTEM_PROMPT = `
-You are Growing Minds AI, an educational developmental science tutor for Growing Minds Science.
+Your audience is parents of young children (ages 0–5), students of child development, and educators. Your role is to explain what is happening in development clearly — not to replace professional support.
 
-Your audience is parents, students, and educators. Answer in calm, plain language while preserving developmental science accuracy.
+Topics you cover well:
+• Brain and neurological development in early childhood
+• Language acquisition: serve-and-return, vocabulary explosion, bilingualism
+• Emotion regulation and co-regulation between parent and child
+• Executive function: impulse control, attention, working memory, flexible thinking
+• Attachment theory, autonomy, and the toddler period (ages 1–3)
+• Transitions, routines, and predictability as developmental scaffolds
+• Repair after hard moments — for children and parents
+• What is typical, what varies, and when professional support is worth considering
 
-Core rules:
-- Explain development; do not diagnose children or adults.
-- Do not provide medical, psychological, legal, crisis, or emergency advice.
-- If a question suggests immediate danger, abuse, neglect, self-harm, harm to others, or urgent medical risk, tell the user to contact local emergency services or a qualified professional now.
-- When relevant, distinguish what is typical, what varies, and what may be worth discussing with a pediatrician, therapist, teacher, or other qualified professional.
-- Prefer practical, non-shaming guidance for ordinary family life.
-- If the knowledge base does not provide enough support, say so clearly instead of overstating certainty.
-- Keep answers concise. Use short headings or bullets when helpful.
-- End with one small next step or reflection question when appropriate.
-`;
+How you answer:
+• Use calm, plain language. Define any technical term you use.
+• Be specific — tie answers to what is actually happening in the child's developing brain or nervous system at that age.
+• Distinguish clearly between: what is typical, what varies widely, and what may warrant a conversation with a professional.
+• Keep answers concise and scannable. Use short bullet lists or numbered steps when they help.
+• End with one small, actionable next step or a reflection question when it fits naturally.
+• Never diagnose, label, or suggest a child "has" a condition.
+• Never provide medical, psychiatric, legal, crisis, or emergency advice.
+• If a message suggests immediate danger, abuse, neglect, self-harm, or harm to others: direct the user to emergency services or a crisis line immediately, then stop.
+• You are not a substitute for pediatricians, therapists, or other qualified specialists.`;
 
-function extractText(responseBody) {
-  if (typeof responseBody.output_text === "string" && responseBody.output_text.trim()) {
-    return responseBody.output_text.trim();
-  }
+function sseResponse(body) {
+  return new Response(body, {
+    headers: {
+      "Content-Type": "text/event-stream; charset=utf-8",
+      "Cache-Control": "no-cache, no-transform",
+      "X-Accel-Buffering": "no",
+    },
+  });
+}
 
-  const chunks = [];
-  for (const item of responseBody.output || []) {
-    for (const content of item.content || []) {
-      if (content.type === "output_text" && content.text) chunks.push(content.text);
-      if (content.type === "text" && content.text) chunks.push(content.text);
-    }
-  }
-  return chunks.join("\n\n").trim();
+function errorSSE(message) {
+  const enc = new TextEncoder();
+  const stream = new ReadableStream({
+    start(ctrl) {
+      ctrl.enqueue(enc.encode(`data: ${JSON.stringify({ error: message })}\n\n`));
+      ctrl.close();
+    },
+  });
+  return sseResponse(stream);
 }
 
 export default async function handler(request) {
   if (request.method !== "POST") {
-    return jsonResponse(405, { error: "Use POST to ask Growing Minds AI a question." });
+    return jsonResponse(405, { error: "Use POST." });
   }
 
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
-    return jsonResponse(503, {
-      error: "Growing Minds AI is not configured yet. Add OPENAI_API_KEY in Vercel environment variables.",
-    });
-  }
-
-  const configuredAccessCode = process.env.GMS_AI_ACCESS_CODE;
-  if (!configuredAccessCode) {
-    return jsonResponse(503, {
-      error: "Growing Minds AI is available for enrolled families. Add GMS_AI_ACCESS_CODE in Vercel environment variables before enabling chat.",
-    });
+    return errorSSE("Growing Minds AI is not configured yet. Check back soon.");
   }
 
   let payload;
   try {
-    payload = await parseJsonBody(request, 4096);
-  } catch (error) {
-    return jsonResponse(error.status || 400, { error: error.message });
+    payload = await parseJsonBody(request, 8192);
+  } catch (err) {
+    return errorSSE(err.message || "Invalid request.");
   }
 
-  const accessCode = String(payload.accessCode || "").trim();
-  if (!accessCode || !constantTimeEqual(accessCode, configuredAccessCode)) {
-    return jsonResponse(401, {
-      error: "Please enter the class access code to use Growing Minds AI.",
-    });
+  // Access code validation (optional — unlocks unlimited tier)
+  const configuredCode = process.env.GMS_AI_ACCESS_CODE;
+  const providedCode = String(payload.accessCode || "").trim();
+  if (providedCode && configuredCode && !constantTimeEqual(providedCode, configuredCode)) {
+    return errorSSE("That access code isn't right. Check your class confirmation email.");
   }
 
   const question = String(payload.question || "").trim();
-  if (!question) {
-    return jsonResponse(400, { error: "Please enter a question." });
-  }
-  if (question.length > 1200) {
-    return jsonResponse(400, { error: "Please keep questions under 1,200 characters." });
-  }
+  if (!question) return errorSSE("Please enter a question.");
+  if (question.length > 1200) return errorSSE("Please keep questions under 1,200 characters.");
 
-  const vectorStoreId = process.env.OPENAI_VECTOR_STORE_ID;
-  const tools = vectorStoreId
-    ? [{ type: "file_search", vector_store_ids: [vectorStoreId], max_num_results: 4 }]
-    : [];
+  // Conversation history — last 8 turns, validated
+  const rawHistory = Array.isArray(payload.history) ? payload.history : [];
+  const history = rawHistory
+    .slice(-8)
+    .filter(m => (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
+    .map(m => ({ role: m.role, content: m.content.slice(0, 2000) }));
 
-  const openaiPayload = {
-    model: process.env.OPENAI_MODEL || "gpt-5.5",
-    instructions: SYSTEM_PROMPT,
-    input: question,
-    max_output_tokens: 900,
-  };
+  const messages = [
+    { role: "system", content: SYSTEM_PROMPT },
+    ...history,
+    { role: "user", content: question },
+  ];
 
-  if (tools.length) openaiPayload.tools = tools;
-
-  let openaiResponse;
+  let upstream;
   try {
-    openaiResponse = await fetch(OPENAI_API_URL, {
+    upstream = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
-        "authorization": `Bearer ${apiKey}`,
-        "content-type": "application/json",
+        "Authorization": `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(openaiPayload),
+      body: JSON.stringify({
+        model: process.env.OPENAI_MODEL || "gpt-4o-mini",
+        messages,
+        stream: true,
+        max_tokens: 900,
+        temperature: 0.35,
+      }),
     });
   } catch (_) {
-    return jsonResponse(502, {
-      error: "Growing Minds AI could not reach the AI service. Please try again in a moment.",
-    });
+    return errorSSE("Could not reach the AI service. Please try again in a moment.");
   }
 
-  const responseBody = await openaiResponse.json().catch(() => ({}));
-  if (!openaiResponse.ok) {
-    return jsonResponse(502, {
-      error: "Growing Minds AI could not answer right now. Please try again in a moment.",
-    });
+  if (!upstream.ok) {
+    return errorSSE("Growing Minds AI couldn't answer right now. Please try again.");
   }
 
-  const answer = extractText(responseBody);
-  if (!answer) {
-    return jsonResponse(502, {
-      error: "Growing Minds AI returned an empty answer. Please try rephrasing your question.",
-    });
-  }
-
-  return jsonResponse(200, { answer, grounded: Boolean(vectorStoreId) });
+  return sseResponse(upstream.body);
 }
