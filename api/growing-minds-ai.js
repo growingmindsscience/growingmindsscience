@@ -53,7 +53,7 @@ export default async function handler(request) {
     return jsonResponse(405, { error: "Use POST." });
   }
 
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
     return errorSSE("Growing Minds AI is not configured yet. Check back soon.");
   }
@@ -77,32 +77,31 @@ export default async function handler(request) {
   if (question.length > 1200) return errorSSE("Please keep questions under 1,200 characters.");
 
   // Conversation history — last 8 turns, validated
+  // Anthropic requires messages to alternate user/assistant, starting with user
   const rawHistory = Array.isArray(payload.history) ? payload.history : [];
-  const history = rawHistory
-    .slice(-8)
-    .filter(m => (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
-    .map(m => ({ role: m.role, content: m.content.slice(0, 2000) }));
-
   const messages = [
-    { role: "system", content: SYSTEM_PROMPT },
-    ...history,
+    ...rawHistory
+      .slice(-8)
+      .filter(m => (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
+      .map(m => ({ role: m.role, content: m.content.slice(0, 2000) })),
     { role: "user", content: question },
   ];
 
   let upstream;
   try {
-    upstream = await fetch("https://api.openai.com/v1/chat/completions", {
+    upstream = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
       },
       body: JSON.stringify({
-        model: process.env.OPENAI_MODEL || "gpt-4o-mini",
+        model: process.env.ANTHROPIC_MODEL || "claude-haiku-4-5-20251001",
+        max_tokens: 1024,
+        system: SYSTEM_PROMPT,
         messages,
         stream: true,
-        max_tokens: 900,
-        temperature: 0.35,
       }),
     });
   } catch (_) {
@@ -113,5 +112,42 @@ export default async function handler(request) {
     return errorSSE("Growing Minds AI couldn't answer right now. Please try again.");
   }
 
-  return sseResponse(upstream.body);
+  // Transform Anthropic's SSE format → OpenAI-compatible so the frontend needs no changes.
+  // Anthropic emits: event: content_block_delta / data: {"type":"content_block_delta","delta":{"type":"text_delta","text":"..."}}
+  // Frontend expects: data: {"choices":[{"delta":{"content":"..."}}]}
+  const enc = new TextEncoder();
+  const transformed = new ReadableStream({
+    async start(ctrl) {
+      const reader = upstream.body.getReader();
+      const dec = new TextDecoder();
+      let buf = "";
+      try {
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buf += dec.decode(value, { stream: true });
+          const lines = buf.split("\n");
+          buf = lines.pop() ?? "";
+          for (const line of lines) {
+            if (!line.startsWith("data: ")) continue;
+            const raw = line.slice(6).trim();
+            if (!raw) continue;
+            try {
+              const evt = JSON.parse(raw);
+              if (evt.type === "content_block_delta" && evt.delta?.type === "text_delta" && evt.delta.text) {
+                ctrl.enqueue(enc.encode(
+                  `data: ${JSON.stringify({ choices: [{ delta: { content: evt.delta.text } }] })}\n\n`
+                ));
+              }
+            } catch { /* malformed chunk — skip */ }
+          }
+        }
+      } finally {
+        ctrl.enqueue(enc.encode("data: [DONE]\n\n"));
+        ctrl.close();
+      }
+    },
+  });
+
+  return sseResponse(transformed);
 }
