@@ -81,65 +81,71 @@
         <div class="notice">
           <p>
             <strong>Now publishing.</strong> Articles are written one at a time
-            and edited carefully - quality over volume. Start with the newest
-            research explainers and practical guides below, then check back as
-            new pieces are added.
+            and edited carefully — quality over volume. Start with the newest
+            research explainers and practical guides below.
           </p>
         </div>
 
-        <div class="systems-callout" style="margin-bottom: var(--space-12);">
-          <p class="section-head__eyebrow">What this section will feel like</p>
-          <h2>Research with enough context to be useful.</h2>
-          <p>
-            Articles will pair careful developmental science with examples from
-            ordinary family life, so the takeaway is practical without flattening
-            the research into a slogan.
-          </p>
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--space-4); margin-bottom:var(--space-12); padding:var(--space-6) var(--space-8); background:var(--bg-alt); border-radius:var(--radius-xl); border:1px solid var(--border-soft);">
+          <div>
+            <p class="section-head__eyebrow" style="margin-bottom:var(--space-2);">Toddler class — launching soon</p>
+            <p style="font-size:var(--text-md); font-weight:600; color:var(--ink); margin:0;">Language, autonomy, and big feelings. Founding member price: $49.</p>
+          </div>
+          <a class="btn btn--primary" href="/classes/toddlerhood.html" style="white-space:nowrap; flex-shrink:0;">Reserve your spot →</a>
         </div>
 
         <div class="topic-section">
           <div class="topic-section__head">
-            <h2>On the editorial calendar</h2>
-            <span class="topic-section__count">Forthcoming</span>
+            <h2>Published articles</h2>
+            <span class="topic-section__count">4 articles</span>
           </div>
 
           <div class="article-grid" data-stagger>
             <article class="article-card" data-animate>
               <p class="article-card__kicker">Research, explained</p>
-              <h3 class="article-card__title"><a href="/articles/serve-and-return">What "serve and return" actually means - and what it doesn't</a></h3>
+              <h3 class="article-card__title"><a href="/articles/serve-and-return">What "serve and return" actually means — and what it doesn't</a></h3>
               <p class="article-card__dek">A clear translation of one of the most cited ideas in early-language research, including where it's been over-applied.</p>
-              <p class="article-card__meta">Published · 8 minute read</p>
+              <p class="article-card__meta">8 minute read</p>
             </article>
 
             <article class="article-card" data-animate>
               <p class="article-card__kicker">Practical</p>
               <h3 class="article-card__title"><a href="/articles/screen-time">A short, honest take on screen time</a></h3>
               <p class="article-card__dek">What the current research actually supports, what it doesn't, and how to think about it without shame or dogma.</p>
-              <p class="article-card__meta">Published · 6 minute read</p>
+              <p class="article-card__meta">6 minute read</p>
             </article>
 
             <article class="article-card" data-animate>
               <p class="article-card__kicker">From coaching</p>
               <h3 class="article-card__title"><a href="/articles/toddler-no">The toddler "no" is not the war you think it is</a></h3>
               <p class="article-card__dek">A pattern that comes up every week in parent coaching, why it lands so hard, and a calmer mental model for it.</p>
-              <p class="article-card__meta">Published · 7 minute read</p>
+              <p class="article-card__meta">7 minute read</p>
             </article>
 
             <article class="article-card" data-animate>
               <p class="article-card__kicker">Research, explained</p>
               <h3 class="article-card__title"><a href="/articles/self-regulation">Self-regulation, briefly</a></h3>
               <p class="article-card__dek">What developmental science means by "regulation," why co-regulation comes first, and what that implies for everyday moments.</p>
-              <p class="article-card__meta">Published · 8 minute read</p>
+              <p class="article-card__meta">8 minute read</p>
             </article>
+          </div>
+        </div>
 
-            <article class="article-card" data-animate>
+        <div class="topic-section" style="margin-top:var(--space-16);">
+          <div class="topic-section__head">
+            <h2>Coming next</h2>
+            <span class="topic-section__count">Forthcoming</span>
+          </div>
+
+          <div class="article-grid" data-stagger>
+            <article class="article-card article-card--muted" data-animate>
               <p class="article-card__kicker">From coaching</p>
               <h3 class="article-card__title">When a parent's own nervous system is the variable</h3>
               <p class="article-card__dek">Notes from coaching conversations: why adult activation matters more than scripts, and how to work with it instead of against it.</p>
               <p class="article-card__meta">Forthcoming</p>
             </article>
 
-            <article class="article-card" data-animate>
+            <article class="article-card article-card--muted" data-animate>
               <p class="article-card__kicker">Practical</p>
               <h3 class="article-card__title">What to do with milestone worry</h3>
               <p class="article-card__dek">A calmer way to read milestone variation, when to bring something up with a clinician, and how to use the milestone tracker without becoming anxious.</p>
@@ -181,16 +187,67 @@
 
     <section class="section--alt">
       <div class="container container--narrow center">
-        <h2 style="max-width: 28ch; margin-inline: auto;">Want articles in your inbox?</h2>
-        <p class="lede" style="max-width: 56ch; margin-inline: auto;">
-          Join the waitlist and get the milestone tracker. New articles will go out
-          when they're ready — no fixed weekly cadence, no filler.
+        <h2 style="max-width: 28ch; margin-inline: auto;">Get new articles by email.</h2>
+        <p class="lede" style="max-width: 52ch; margin-inline: auto;">
+          No fixed cadence, no filler. A short note when a new piece is ready.
         </p>
-        <p style="margin-top: var(--space-5);">
-          <a class="btn btn--primary" href="/#signup">Join waitlist</a>
-        </p>
+        <form
+          id="articlesSignupForm"
+          style="margin-top:var(--space-6); display:flex; gap:var(--space-3); flex-wrap:wrap; justify-content:center; max-width:480px; margin-inline:auto;"
+          method="POST"
+          action="/api/waitlist"
+          novalidate>
+          <input type="hidden" name="subject" value="Articles Email Signup — Growing Minds Science" />
+          <input type="hidden" name="interest" value="Articles" />
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+          <input
+            type="email"
+            name="email"
+            required
+            placeholder="your@email.com"
+            style="flex:1; min-width:200px; padding:var(--space-3) var(--space-4); border:1px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:var(--text-sm); background:var(--surface); color:var(--ink);"
+            aria-label="Email address" />
+          <button
+            type="submit"
+            class="btn btn--primary"
+            style="white-space:nowrap;">Send me articles</button>
+          <p id="articlesFormStatus" role="status" aria-live="polite" style="width:100%; font-size:var(--text-sm); text-align:center; min-height:1.25em;"></p>
+        </form>
+        <p style="margin-top:var(--space-4); font-size:var(--text-xs); color:var(--ink-muted);">Unsubscribe anytime. No spam.</p>
       </div>
     </section>
+
+    <script>
+      (function() {
+        var form = document.getElementById('articlesSignupForm');
+        var status = document.getElementById('articlesFormStatus');
+        form.addEventListener('submit', async function(e) {
+          e.preventDefault();
+          var btn = form.querySelector('button[type="submit"]');
+          btn.disabled = true;
+          btn.textContent = 'Sending…';
+          status.textContent = '';
+          try {
+            var res = await fetch('/api/waitlist', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(Object.fromEntries(new FormData(form)))
+            });
+            if (res.ok) {
+              status.textContent = "You're in — we'll send new articles when they're ready.";
+              status.style.color = 'var(--primary)';
+              form.reset();
+            } else { throw new Error(); }
+          } catch {
+            status.textContent = 'Something went wrong — please try again.';
+            status.style.color = '#c0392b';
+          } finally {
+            btn.disabled = false;
+            btn.textContent = 'Send me articles';
+          }
+        });
+      })();
+    </script>
 
   </main>
 
