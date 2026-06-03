@@ -3,10 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Growing Minds AI — Developmental science tutor</title>
-  <meta name="description" content="Growing Minds AI is an upcoming developmental science tutor for parents and students, built around evidence-based early childhood research and Growing Minds Science course material." />
-  <meta name="theme-color" content="#6F8F7B" />
-  <meta name="color-scheme" content="light dark" />
+  <title>Growing Minds AI — Ask a developmental science question</title>
+  <meta name="description" content="Growing Minds AI answers your parenting questions with developmental science — not judgment, not generic advice. 5 free questions a day, no account needed." />
+  <meta name="theme-color" content="#1E5F62" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Growing Minds AI" />
+  <meta property="og:description" content="Ask a developmental science question. Get a calm, research-grounded answer." />
+  <meta property="og:image" content="/assets/img/original-logo-mark-no-words-solid.png" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
   <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
@@ -14,274 +19,989 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600;700&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css" />
-  <link rel="stylesheet" href="../assets/css/refresh.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Variables ─────────────────────────────────── */
+    :root {
+      --teal:        #1E5F62;
+      --teal-dark:   #1A3F42;
+      --teal-hover:  #185053;
+      --teal-light:  rgba(30,95,98,.08);
+      --amber:       #C4672A;
+      --amber-dark:  #a85520;
+      --cream:       #FAF6EF;
+      --ink:         #1A1714;
+      --ink-soft:    rgba(26,23,20,.68);
+      --ink-muted:   rgba(26,23,20,.45);
+      --blush:       #F2DDD0;
+      --white:       #ffffff;
+      --border:      rgba(26,23,20,.1);
+      --border-mid:  rgba(26,23,20,.16);
+    }
+
+    /* ── Reset ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: 'Instrument Sans', -apple-system, sans-serif;
+      font-size: 1rem; line-height: 1.7; color: var(--ink);
+      background: var(--cream);
+      -webkit-font-smoothing: antialiased;
+      display: flex; flex-direction: column; min-height: 100vh;
+    }
+    h1,h2,h3 { font-family: 'Lora', Georgia, serif; letter-spacing: -.02em; line-height: 1.2; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; height: auto; display: block; }
+    ul, ol { list-style: none; }
+    button { cursor: pointer; font-family: inherit; }
+    textarea { font-family: inherit; }
+
+    /* ── Layout ────────────────────────────────────── */
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+    .skip-link {
+      position: absolute; top: -100%; left: 1rem;
+      background: var(--ink); color: var(--white);
+      padding: .5rem 1rem; border-radius: 0 0 6px 6px; font-size: .875rem; z-index: 999;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ── Buttons ───────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: .375rem;
+      padding: .75rem 1.5rem; border-radius: 6px; border: 2px solid transparent;
+      font-family: inherit; font-weight: 500; font-size: .9375rem;
+      line-height: 1; white-space: nowrap;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .btn--amber { background: var(--amber); color: var(--white); border-color: var(--amber); }
+    .btn--amber:hover { background: var(--amber-dark); border-color: var(--amber-dark); }
+    .btn--ghost { background: transparent; color: var(--teal); border-color: var(--teal); }
+    .btn--ghost:hover { background: var(--teal); color: var(--white); }
+
+    /* ── Nav ───────────────────────────────────────── */
+    .site-nav {
+      position: sticky; top: 0; z-index: 200;
+      background: var(--cream); border-bottom: 1px solid var(--border);
+    }
+    .site-nav__inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px; gap: 1.5rem;
+    }
+    .site-nav__logo {
+      display: flex; align-items: center; gap: .625rem; flex-shrink: 0;
+    }
+    .site-nav__logo-mark {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--amber); overflow: hidden;
+    }
+    .site-nav__logo-mark img { width: 100%; height: 100%; object-fit: cover; }
+    .site-nav__logo-text {
+      font-family: 'Lora', serif; font-weight: 600; font-size: .9375rem; letter-spacing: -.02em;
+    }
+    .site-nav__links { display: flex; align-items: center; gap: 1.75rem; }
+    .site-nav__links a { font-size: .9rem; color: var(--ink-soft); transition: color .2s; }
+    .site-nav__links a:hover, .site-nav__links a[aria-current] { color: var(--teal); }
+    .site-nav__toggle {
+      display: none; background: none; border: none;
+      flex-direction: column; gap: 5px; padding: .5rem;
+    }
+    .site-nav__toggle span { display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 2px; }
+    .site-nav__drawer {
+      display: none; flex-direction: column;
+      background: var(--cream); border-top: 1px solid var(--border);
+      padding: .5rem 0 1.25rem;
+    }
+    .site-nav__drawer.is-open { display: flex; }
+    .site-nav__drawer a { display: block; padding: .75rem 1.5rem; font-size: 1rem; color: var(--ink); }
+    .site-nav__drawer a:hover { background: var(--teal-light); }
+    .site-nav__drawer .btn { margin: .75rem 1.5rem 0; }
+
+    /* ── Page header ───────────────────────────────── */
+    .ai-page-header {
+      background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 100%);
+      padding: 2.5rem 0 2rem;
+    }
+    .ai-page-header__inner {
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+    }
+    .ai-badge {
+      display: inline-flex; align-items: center; gap: .375rem;
+      font-size: .6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
+      color: var(--amber); background: rgba(196,103,42,.18);
+      padding: .3rem .75rem; border-radius: 100px; margin-bottom: 1rem;
+    }
+    .ai-badge__dot { width: 6px; height: 6px; background: #4ade80; border-radius: 50%; }
+    .ai-page-header h1 {
+      font-size: clamp(1.625rem, 3vw, 2.25rem); color: var(--white);
+      margin-bottom: .625rem;
+    }
+    .ai-page-header p {
+      font-size: .9375rem; color: rgba(255,255,255,.7); max-width: 52ch;
+    }
+    .ai-tier-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+      border-radius: 8px; padding: .625rem 1rem;
+      font-size: .8125rem; color: rgba(255,255,255,.85); white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .ai-tier-badge__icon { font-size: 1rem; }
+    .ai-tier-badge strong { color: var(--white); }
+
+    /* ── Chat shell ────────────────────────────────── */
+    .chat-shell {
+      flex: 1; display: flex; flex-direction: column;
+      max-width: 860px; width: 100%; margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── Messages ──────────────────────────────────── */
+    .chat-messages {
+      flex: 1; overflow-y: auto; padding: 1.5rem 0;
+      display: flex; flex-direction: column; gap: 1.125rem;
+      min-height: 300px; max-height: calc(100vh - 380px);
+    }
+    .chat-messages::-webkit-scrollbar { width: 4px; }
+    .chat-messages::-webkit-scrollbar-track { background: transparent; }
+    .chat-messages::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 4px; }
+
+    /* Welcome state */
+    .chat-welcome { text-align: center; padding: 2rem 0 1rem; }
+    .chat-welcome__icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--amber) 100%);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.25rem;
+      font-family: 'Lora', serif; font-weight: 700; font-size: .875rem; color: var(--white);
+    }
+    .chat-welcome h2 { font-size: 1.1875rem; color: var(--ink); margin-bottom: .5rem; }
+    .chat-welcome p { font-size: .9rem; color: var(--ink-soft); max-width: 42ch; margin: 0 auto; }
+
+    /* Starters */
+    .chat-starters { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin-top: 1.25rem; }
+    .chat-starter {
+      background: var(--white); border: 1px solid var(--border-mid);
+      border-radius: 20px; padding: .5rem 1rem;
+      font-size: .8125rem; color: var(--teal); font-weight: 500;
+      transition: background .15s, border-color .15s;
+      text-align: left;
+    }
+    .chat-starter:hover { background: var(--teal-light); border-color: var(--teal); }
+
+    /* Message bubbles */
+    .msg { display: flex; flex-direction: column; max-width: 84%; }
+    .msg--user { align-self: flex-end; align-items: flex-end; }
+    .msg--assistant { align-self: flex-start; align-items: flex-start; }
+
+    .msg__bubble {
+      padding: .875rem 1.125rem; border-radius: 14px; font-size: .9375rem; line-height: 1.6;
+    }
+    .msg--user .msg__bubble {
+      background: var(--teal); color: var(--white);
+      border-bottom-right-radius: 4px;
+    }
+    .msg--assistant .msg__bubble {
+      background: var(--white); color: var(--ink);
+      border: 1px solid var(--border); border-bottom-left-radius: 4px;
+      box-shadow: 0 1px 4px rgba(26,23,20,.06);
+    }
+
+    /* Markdown rendering inside assistant bubble */
+    .msg__bubble strong { font-weight: 600; }
+    .msg__bubble em { font-style: italic; }
+    .msg__bubble ul { padding-left: 1.25rem; list-style: disc; margin: .5rem 0; display: flex; flex-direction: column; gap: .25rem; }
+    .msg__bubble li { line-height: 1.5; }
+    .msg__bubble p + p { margin-top: .625rem; }
+    .msg__bubble .error { color: #c0392b; }
+
+    /* Typing cursor */
+    .cursor {
+      display: inline-block; width: 2px; height: 1em;
+      background: var(--teal); vertical-align: text-bottom;
+      margin-left: 2px; border-radius: 1px;
+      animation: blink .8s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* Thinking dots */
+    .msg__thinking {
+      display: flex; gap: 4px; align-items: center; padding: .75rem 1rem;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 14px; border-bottom-left-radius: 4px;
+      box-shadow: 0 1px 4px rgba(26,23,20,.06);
+    }
+    .msg__thinking span {
+      width: 6px; height: 6px; background: var(--ink-muted); border-radius: 50%;
+      animation: dot .9s ease-in-out infinite;
+    }
+    .msg__thinking span:nth-child(2) { animation-delay: .15s; }
+    .msg__thinking span:nth-child(3) { animation-delay: .3s; }
+    @keyframes dot { 0%,80%,100% { transform: scale(.7); opacity: .4; } 40% { transform: scale(1); opacity: 1; } }
+
+    /* Disclaimer strip inside messages */
+    .msg__disclaimer {
+      font-size: .75rem; color: var(--ink-muted); margin-top: .375rem; padding: 0 .25rem;
+    }
+
+    /* ── Input area ────────────────────────────────── */
+    .chat-input-wrap {
+      border-top: 1px solid var(--border); padding: 1rem 0 1.25rem; background: var(--cream);
+    }
+    .chat-input-box {
+      display: flex; align-items: flex-end; gap: .75rem;
+      background: var(--white); border: 1px solid var(--border-mid);
+      border-radius: 12px; padding: .625rem .75rem;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .chat-input-box:focus-within {
+      border-color: var(--teal); box-shadow: 0 0 0 3px rgba(30,95,98,.12);
+    }
+    .chat-textarea {
+      flex: 1; border: none; background: transparent; resize: none;
+      font-size: .9375rem; line-height: 1.55; color: var(--ink);
+      max-height: 140px; min-height: 24px; overflow-y: auto; outline: none;
+    }
+    .chat-textarea::placeholder { color: var(--ink-muted); }
+    .chat-send {
+      background: var(--teal); border: none; color: var(--white);
+      width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s; padding: 0;
+    }
+    .chat-send:hover:not(:disabled) { background: var(--teal-hover); }
+    .chat-send:disabled { background: var(--border-mid); cursor: default; }
+    .chat-send svg { pointer-events: none; }
+
+    .chat-meta {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: .625rem; gap: 1rem; flex-wrap: wrap;
+    }
+    .chat-meta__left { font-size: .8rem; color: var(--ink-muted); }
+    .chat-meta__right { display: flex; align-items: center; gap: .75rem; }
+    .access-code-toggle {
+      font-size: .8rem; color: var(--teal); background: none; border: none;
+      padding: 0; font-family: inherit; cursor: pointer; text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .access-code-toggle:hover { color: var(--teal-hover); }
+
+    /* Limit reached */
+    .chat-limit {
+      background: var(--blush); border: 1px solid rgba(196,103,42,.3);
+      border-radius: 10px; padding: 1rem 1.25rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+    }
+    .chat-limit p { font-size: .875rem; color: var(--ink); }
+    .chat-limit strong { color: var(--amber); }
+
+    /* ── Access code panel ─────────────────────────── */
+    .access-panel {
+      background: var(--white); border: 1px solid var(--border-mid);
+      border-radius: 10px; padding: 1.25rem; margin-bottom: 1rem;
+      display: none;
+    }
+    .access-panel.is-open { display: block; }
+    .access-panel h3 { font-size: 1rem; margin-bottom: .375rem; }
+    .access-panel p { font-size: .8375rem; color: var(--ink-soft); margin-bottom: .875rem; }
+    .access-panel__row { display: flex; gap: .625rem; align-items: stretch; }
+    .access-input {
+      flex: 1; padding: .625rem .875rem; border: 1px solid var(--border-mid);
+      border-radius: 6px; font-size: .9rem; font-family: inherit; color: var(--ink);
+      background: var(--cream); outline: none;
+    }
+    .access-input:focus { border-color: var(--teal); box-shadow: 0 0 0 2px rgba(30,95,98,.12); }
+    .access-btn {
+      background: var(--teal); color: var(--white); border: none;
+      border-radius: 6px; padding: .625rem 1rem; font-family: inherit; font-size: .875rem; font-weight: 500;
+      cursor: pointer; white-space: nowrap; transition: background .2s;
+    }
+    .access-btn:hover { background: var(--teal-hover); }
+    .access-status { font-size: .8rem; margin-top: .5rem; }
+    .access-status--success { color: #16a34a; }
+    .access-status--error { color: #c0392b; }
+
+    /* ── Pricing section ───────────────────────────── */
+    .pricing { padding: 5rem 0; background: var(--cream); border-top: 1px solid var(--border); }
+    .pricing__header { text-align: center; margin-bottom: 3rem; }
+    .pricing__eyebrow {
+      font-size: .6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em;
+      color: var(--amber); margin-bottom: .75rem;
+    }
+    .pricing__title { font-size: clamp(1.75rem, 3.5vw, 2.375rem); color: var(--ink); margin-bottom: .75rem; }
+    .pricing__sub { font-size: 1rem; color: var(--ink-soft); max-width: 52ch; margin: 0 auto; }
+    .pricing__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .price-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 14px; padding: 2rem 1.75rem; display: flex; flex-direction: column;
+      transition: box-shadow .25s;
+    }
+    .price-card:hover { box-shadow: 0 8px 32px rgba(26,23,20,.1); }
+    .price-card--featured {
+      border-color: var(--teal); background: linear-gradient(160deg, var(--teal-dark) 0%, var(--teal) 100%);
+    }
+    .price-card__label {
+      font-size: .6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
+      color: var(--amber); margin-bottom: .75rem;
+    }
+    .price-card--featured .price-card__label { color: rgba(196,103,42,.9); }
+    .price-card__name {
+      font-family: 'Lora', serif; font-size: 1.375rem; font-weight: 700;
+      color: var(--ink); margin-bottom: .375rem;
+    }
+    .price-card--featured .price-card__name { color: var(--white); }
+    .price-card__price {
+      font-size: 2.25rem; font-weight: 700; font-family: 'Lora', serif;
+      color: var(--ink); line-height: 1; margin: .875rem 0;
+    }
+    .price-card--featured .price-card__price { color: var(--white); }
+    .price-card__price sup { font-size: 1rem; vertical-align: top; margin-top: .5rem; }
+    .price-card__price sub { font-size: .875rem; font-weight: 400; color: var(--ink-muted); }
+    .price-card--featured .price-card__price sub { color: rgba(255,255,255,.6); }
+    .price-card__tagline { font-size: .875rem; color: var(--ink-soft); margin-bottom: 1.5rem; }
+    .price-card--featured .price-card__tagline { color: rgba(255,255,255,.72); }
+    .price-card__features { list-style: none; display: flex; flex-direction: column; gap: .625rem; flex: 1; }
+    .price-card__features li {
+      display: flex; gap: .625rem; font-size: .875rem; color: var(--ink-soft); align-items: flex-start;
+    }
+    .price-card--featured .price-card__features li { color: rgba(255,255,255,.8); }
+    .price-card__features li::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: var(--teal); flex-shrink: 0; margin-top: .55em;
+    }
+    .price-card--featured .price-card__features li::before { background: var(--amber); }
+    .price-card__cta { margin-top: 1.75rem; }
+    .price-card__cta a, .price-card__cta button {
+      display: block; width: 100%; text-align: center;
+      padding: .8125rem; border-radius: 6px; font-weight: 500; font-size: .9375rem;
+      font-family: inherit; cursor: pointer; border: 2px solid transparent;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .price-card__cta--teal a, .price-card__cta--teal button {
+      background: var(--teal); color: var(--white); border-color: var(--teal);
+    }
+    .price-card__cta--teal a:hover, .price-card__cta--teal button:hover {
+      background: var(--teal-hover); border-color: var(--teal-hover);
+    }
+    .price-card__cta--white a {
+      background: var(--white); color: var(--teal); border-color: var(--white);
+    }
+    .price-card__cta--white a:hover { background: var(--blush); }
+    .price-card__cta--ghost a {
+      background: transparent; color: var(--ink-soft); border-color: var(--border-mid);
+    }
+    .price-card__cta--ghost a:hover { border-color: var(--ink); color: var(--ink); }
+    .price-card__coming {
+      display: block; width: 100%; text-align: center; padding: .8125rem;
+      border-radius: 6px; font-size: .875rem; color: var(--ink-muted);
+      background: var(--cream); border: 1px dashed var(--border-mid);
+    }
+
+    /* ── Footer ────────────────────────────────────── */
+    .site-footer { background: var(--ink); padding-top: 3.5rem; margin-top: auto; }
+    .site-footer__main {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 2rem; padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,.08); flex-wrap: wrap;
+    }
+    .footer-brand { display: flex; align-items: center; gap: .625rem; }
+    .footer-brand__mark { width: 26px; height: 26px; border-radius: 50%; background: var(--amber); overflow: hidden; }
+    .footer-brand__mark img { width: 100%; height: 100%; object-fit: cover; }
+    .footer-brand__name { font-family: 'Lora', serif; font-weight: 600; font-size: .9375rem; color: var(--white); }
+    .footer-nav { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .footer-nav a { font-size: .875rem; color: rgba(255,255,255,.5); transition: color .2s; }
+    .footer-nav a:hover { color: var(--white); }
+    .site-footer__bottom {
+      display: flex; justify-content: space-between; padding: 1.25rem 0; flex-wrap: wrap; gap: .5rem;
+    }
+    .site-footer__bottom p { font-size: .8rem; color: rgba(255,255,255,.3); }
+
+    /* ── Responsive ────────────────────────────────── */
+    @media (max-width: 640px) {
+      .site-nav__links, .site-nav__cta { display: none; }
+      .site-nav__toggle { display: flex; }
+      .ai-page-header { padding: 2rem 0 1.5rem; }
+      .ai-page-header__inner { flex-direction: column; align-items: flex-start; }
+      .chat-messages { max-height: calc(100vh - 440px); min-height: 240px; }
+      .pricing__grid { grid-template-columns: 1fr; }
+      .site-footer__main { flex-direction: column; align-items: flex-start; }
+      .site-footer__bottom { flex-direction: column; }
+    }
+    @media (max-width: 860px) {
+      .pricing__grid { grid-template-columns: 1fr 1fr; }
+      .price-card--featured { grid-column: 1 / -1; }
+    }
+    @media (max-width: 560px) {
+      .pricing__grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
+
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header" role="banner">
-    <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
-        <span class="brand__name">Growing Minds Science</span>
+  <!-- NAV -->
+  <header class="site-nav">
+    <div class="container site-nav__inner">
+      <a class="site-nav__logo" href="/" aria-label="Growing Minds Science — home">
+        <div class="site-nav__logo-mark">
+          <img src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="26" height="26" loading="eager" decoding="async" />
+        </div>
+        <span class="site-nav__logo-text">Growing Minds Science</span>
       </a>
 
-      <nav class="nav" aria-label="Primary">
-        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Toggle navigation menu">
-          <span class="nav-toggle__bars"><span></span></span>
-        </button>
-
-                <ul class="nav__list" id="primary-nav-list">
-          <li><a class="nav__link" href="/classes/">Classes</a></li>
-          <li><a class="nav__link" aria-current="page" href="/tools/">Tools</a></li>
-          <li><a class="nav__link" href="/articles/">Articles</a></li>
-          <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/#signup">Join waitlist</a></li>
-        </ul>
-
-        <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
-          <svg class="theme-toggle__moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
-        </button>
+      <nav class="site-nav__links" aria-label="Primary">
+        <a href="/classes/">Classes</a>
+        <a href="/tools/" aria-current="page">Tools</a>
+        <a href="/articles/">Articles</a>
+        <a href="/about/">About</a>
       </nav>
+
+      <a class="btn btn--amber site-nav__cta" href="/classes/toddlerhood.html" style="padding:.625rem 1.25rem; font-size:.875rem;">Join class waitlist</a>
+
+      <button class="site-nav__toggle" id="navToggle" aria-controls="navDrawer" aria-expanded="false" aria-label="Open navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="site-nav__drawer" id="navDrawer" aria-hidden="true">
+      <a href="/classes/">Classes</a>
+      <a href="/tools/">Tools</a>
+      <a href="/articles/">Articles</a>
+      <a href="/about/">About</a>
+      <a class="btn btn--amber" href="/classes/toddlerhood.html">Join class waitlist</a>
     </div>
   </header>
 
   <main id="main">
-    <section class="ai-hero">
-      <div class="container ai-hero__inner">
-        <div class="ai-hero__copy">
-          <p class="eyebrow">Class companion · Growing Minds AI</p>
-          <h1 class="page-hero__title">An AI developmental science tutor for parents and students.</h1>
-          <p class="page-hero__lede">
-            Available to enrolled families and students as a paid class companion
-            for calm, research-grounded developmental science support.
-          </p>
-          <div class="hero__ctas">
-            <a class="btn btn--primary btn--lg" href="#ask">Try the tutor</a>
-            <a class="btn btn--ghost btn--lg" href="#preview">See example questions</a>
-          </div>
-        </div>
 
-        <div class="ai-chat-preview ai-chat-preview--live" aria-label="Growing Minds AI chat">
-          <div class="ai-chat-preview__top">
-            <span class="ai-chat-preview__dot"></span>
-            <strong>Growing Minds AI</strong>
-            <span>For enrolled class families</span>
-          </div>
-          <div class="ai-chat-preview__body" id="ask">
-            <div class="ai-message ai-message--assistant">
-              Enter your class access code, then ask a developmental science question. I can explain concepts, suggest simple activities, and help you think about what is typical by age.
-            </div>
-            <div class="ai-source-strip" aria-label="Answer grounding">
-              <span>Developmental science</span>
-              <span>Plain language</span>
-              <span>Not medical advice</span>
-            </div>
-            <form class="ai-chat-form" data-ai-chat>
-              <label class="form-label" for="ai-access-code">Class access code</label>
-              <input class="form-input" id="ai-access-code" name="access-code" type="password" autocomplete="off" required placeholder="Provided after class purchase" />
-              <label class="form-label" for="ai-question">Your question</label>
-              <textarea class="form-input ai-chat-form__input" id="ai-question" name="question" rows="4" maxlength="1200" required placeholder="What is normal emotional regulation at age 5?"></textarea>
-              <div class="ai-chat-form__actions">
-                <button class="btn btn--primary" type="submit">Ask Growing Minds AI</button>
-                <p class="form-status" data-ai-status role="status" aria-live="polite"></p>
-              </div>
-            </form>
-            <div class="ai-suggested" aria-label="Suggested questions">
-              <button type="button" data-ai-question="What is normal emotional regulation at age 5?">Age 5 regulation</button>
-              <button type="button" data-ai-question="Explain Vygotsky simply.">Explain Vygotsky</button>
-              <button type="button" data-ai-question="Create three developmental activities for a toddler.">Toddler activities</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="proof-strip" aria-label="Growing Minds AI approach">
-      <div class="container proof-strip__inner">
-        <div class="proof-strip__item">
-          <span class="proof-strip__label">Built for</span>
-          <strong>Parents, students, and educators</strong>
-        </div>
-        <div class="proof-strip__item">
-          <span class="proof-strip__label">Grounded in</span>
-          <strong>Developmental science and course material</strong>
-        </div>
-        <div class="proof-strip__item">
-          <span class="proof-strip__label">Designed to be</span>
-          <strong>Clear, practical, and non-shaming</strong>
-        </div>
-      </div>
-    </section>
-
-    <section id="preview" class="section--alt">
-      <div class="container">
-        <div class="section-head">
-          <p class="section-head__eyebrow">What it can help with</p>
-          <h2 class="section-head__title">Ask the kinds of questions parents and students actually have.</h2>
-        </div>
-
-        <div class="tool-grid">
-          <article class="tool-card">
-            <span class="tool-card__eyebrow">Ages and stages</span>
-            <h3 class="tool-card__title">"What's typical at this age?"</h3>
-            <p class="tool-card__desc">Get developmentally realistic explanations of behavior, language, play, sleep, and regulation across early childhood.</p>
-          </article>
-          <article class="tool-card">
-            <span class="tool-card__eyebrow">Study support</span>
-            <h3 class="tool-card__title">"Explain Vygotsky simply."</h3>
-            <p class="tool-card__desc">Turn major developmental theories into clear examples without losing the scientific meaning underneath them.</p>
-          </article>
-          <article class="tool-card">
-            <span class="tool-card__eyebrow">Daily activities</span>
-            <h3 class="tool-card__title">"Create toddler activities."</h3>
-            <p class="tool-card__desc">Generate simple, age-appropriate ideas that support language, connection, motor skills, and early problem-solving.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section--alt">
-      <div class="container ai-live-note">
-        <p class="eyebrow">MVP status</p>
-        <h2>Now wired for a real AI backend.</h2>
-        <p class="lede">
-          This chat connects to a private Vercel API route. Once the OpenAI key
-          and optional vector store ID are added in Vercel, it can answer using
-          the Growing Minds AI tutor instructions.
-        </p>
-      </div>
-    </section>
-
-    <section>
-      <div class="container ai-split">
+    <!-- PAGE HEADER -->
+    <div class="ai-page-header">
+      <div class="container ai-page-header__inner">
         <div>
-          <p class="eyebrow">Why this is different</p>
-          <h2>Not a generic parenting chatbot.</h2>
-          <p class="lede">
-            Growing Minds AI is being designed around evidence-based developmental
-            science, SRCD-informed literature, and your Growing Minds Science course
-            material. The goal is to give families better explanations, not more
-            pressure or one-size-fits-all scripts.
-          </p>
-        </div>
-        <div class="featured-tool__panel">
-          <p class="featured-tool__panel-label">Planned knowledge base</p>
-          <ul>
-            <li>Growing Minds Science lessons and parent tools</li>
-            <li>Developmental psychology concepts in plain language</li>
-            <li>Research-backed early childhood guidance</li>
-            <li>Clear limits around medical, diagnostic, and crisis advice</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="mission">
-      <div class="container">
-        <div class="mission__inner">
-          <p class="eyebrow">Product principle</p>
-          <h2 class="mission__title">Helpful, bounded, and honest.</h2>
-          <ul class="check-list">
-            <li>Answers should explain development, not diagnose a child.</li>
-            <li>Activities should be realistic for ordinary family life.</li>
-            <li>Uncertainty should be named clearly, especially when professional support may be needed.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="early-access" class="signup">
-      <div class="container signup__inner">
-        <div class="signup__intro">
-          <p class="eyebrow">Early access</p>
-          <h2>Help shape Growing Minds AI before it launches.</h2>
-          <p class="lede">
-            Join the waitlist for updates, early demos, and the chance to tell us
-            what questions this tutor should answer first.
-          </p>
-        </div>
-
-        <form
-          class="signup__form"
-          data-newsletter
-          method="POST"
-          action="/api/waitlist"
-          aria-labelledby="ai-signup-heading">
-          <h3 id="ai-signup-heading" class="signup__form-title">Join the early access list</h3>
-
-          <input type="hidden" name="subject" value="Growing Minds AI Waitlist — Growing Minds Science" />
-          <input type="hidden" name="interest" value="Growing Minds AI" />
-          <p hidden>
-            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-          </p>
-
-          <div class="form-row">
-            <label class="form-label" for="name">Your name <span class="muted">(optional)</span></label>
-            <input class="form-input" type="text" id="name" name="name" autocomplete="name" placeholder="Your name" />
+          <div class="ai-badge">
+            <span class="ai-badge__dot" aria-hidden="true"></span>
+            Growing Minds AI · Free
           </div>
-
-          <div class="form-row">
-            <label class="form-label" for="email">Your email</label>
-            <input class="form-input" type="email" id="email" name="email" autocomplete="email" required placeholder="you@example.com" />
-          </div>
-
-          <button class="btn btn--primary btn--block btn--lg" type="submit">Join early access</button>
-          <p class="form-status" role="status" aria-live="polite"></p>
-          <p class="muted" style="font-size: var(--text-xs); margin-top: var(--space-3);">
-            Educational content only. Growing Minds AI will not provide medical, diagnostic, or emergency advice.
-          </p>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer" role="contentinfo">
-    <div class="container site-footer__inner">
-      <div>
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
-          <span class="brand__name">Growing Minds Science</span>
-        </a>
-        <p style="margin-top: var(--space-4);">
-          Developmental science, translated for parents.
-        </p>
-      </div>
-      <div>
-        <h4>Site</h4>
-        <ul class="footer-list">
-          <li><a href="/classes/">Classes</a></li>
-          <li><a href="/tools/">Free tools</a></li>
-          <li><a href="/articles/">Articles</a></li>
-          <li><a href="/about/">About</a></li>
-          <li><a href="/faq/">FAQ</a></li>
-          <li><a href="/milestones.html">Milestone tracker</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Stay in the loop</h4>
-        <p style="font-size: var(--text-sm);">
-          <a href="#early-access">Join early access -></a>
-        </p>
-        <p class="footer-elsewhere" style="margin-top: var(--space-5);">
-          Also on
-          <a href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr"
-             target="_blank" rel="noopener noreferrer">Instagram</a>
-        </p>
+          <h1>Ask a developmental science question.</h1>
+          <p>Get a calm, research-grounded answer — not generic internet advice, not judgment. Grounded in developmental neuroscience and 50+ years of published research.</p>
+        </div>
+        <div class="ai-tier-badge" id="tierBadge" aria-live="polite">
+          <span class="ai-tier-badge__icon">💬</span>
+          <span id="tierText">Free · <strong id="questionsLeft">5</strong> questions today</span>
+        </div>
       </div>
     </div>
+
+    <!-- CHAT -->
+    <div class="chat-shell">
+
+      <!-- Messages -->
+      <div class="chat-messages" id="chatMessages" role="log" aria-label="Conversation" aria-live="polite">
+        <div class="chat-welcome" id="chatWelcome">
+          <div class="chat-welcome__icon" aria-hidden="true">GM</div>
+          <h2>What would you like to understand?</h2>
+          <p>Ask about any stage of early childhood — behavior, language, sleep, emotions, development.</p>
+          <div class="chat-starters" role="list">
+            <button class="chat-starter" type="button" data-q="Why does my toddler have meltdowns at transitions?" role="listitem">Why meltdowns at transitions?</button>
+            <button class="chat-starter" type="button" data-q="How does serve-and-return support language development?" role="listitem">How serve-and-return builds language</button>
+            <button class="chat-starter" type="button" data-q="What's actually happening in my toddler's brain when they say no to everything?" role="listitem">Why "no" to everything?</button>
+            <button class="chat-starter" type="button" data-q="How do I help my child after I lose my temper?" role="listitem">After I lose my temper</button>
+            <button class="chat-starter" type="button" data-q="What does co-regulation look like in practice?" role="listitem">Co-regulation in practice</button>
+            <button class="chat-starter" type="button" data-q="What's typical for a 2-year-old's sleep?" role="listitem">2-year-old sleep — what's typical?</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Access code panel -->
+      <div class="access-panel" id="accessPanel" role="region" aria-label="Class access code">
+        <h3>Enter your class access code</h3>
+        <p>Class members get unlimited questions. Your access code is in your class confirmation email.</p>
+        <div class="access-panel__row">
+          <input class="access-input" type="password" id="accessCodeInput" placeholder="Your access code" autocomplete="off" aria-label="Access code" />
+          <button class="access-btn" type="button" id="accessCodeSubmit">Unlock</button>
+        </div>
+        <p class="access-status" id="accessStatus" aria-live="polite"></p>
+      </div>
+
+      <!-- Input -->
+      <div class="chat-input-wrap">
+        <div id="limitReached" class="chat-limit" style="display:none;">
+          <p>You've used your <strong>5 free questions</strong> for today. Join a class to unlock unlimited access — or come back tomorrow.</p>
+          <a class="btn btn--amber" href="/classes/toddlerhood.html" style="white-space:nowrap; font-size:.875rem; padding:.625rem 1.125rem;">See the class →</a>
+        </div>
+        <div id="inputArea">
+          <div class="chat-input-box">
+            <textarea
+              class="chat-textarea"
+              id="chatInput"
+              rows="1"
+              maxlength="1200"
+              placeholder="Ask a developmental science question…"
+              aria-label="Your question"></textarea>
+            <button class="chat-send" id="sendBtn" type="button" aria-label="Send" disabled>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </div>
+          <div class="chat-meta">
+            <p class="chat-meta__left">Not medical advice. <a href="/about/" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">About this tool</a></p>
+            <div class="chat-meta__right">
+              <button class="access-code-toggle" type="button" id="accessCodeToggle">Have a class access code?</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRICING -->
+    <section class="pricing" aria-labelledby="pricing-title">
+      <div class="container">
+        <div class="pricing__header">
+          <p class="pricing__eyebrow">How it works</p>
+          <h2 class="pricing__title" id="pricing-title">Free to try. Unlimited with a class.</h2>
+          <p class="pricing__sub">The AI is included free with any Growing Minds Science class purchase. No separate subscription needed.</p>
+        </div>
+        <div class="pricing__grid">
+
+          <div class="price-card">
+            <p class="price-card__label">Always free</p>
+            <p class="price-card__name">Free</p>
+            <p class="price-card__price"><sup>$</sup>0</p>
+            <p class="price-card__tagline">5 questions per day · No account needed</p>
+            <ul class="price-card__features">
+              <li>5 developmental science questions daily</li>
+              <li>Full access to Growing Minds AI</li>
+              <li>Multi-turn conversation memory</li>
+              <li>Grounded in peer-reviewed research</li>
+              <li>Resets every day at midnight</li>
+            </ul>
+            <div class="price-card__cta price-card__cta--teal">
+              <button type="button" onclick="document.getElementById('chatInput').focus()">Start asking →</button>
+            </div>
+          </div>
+
+          <div class="price-card price-card--featured">
+            <p class="price-card__label">Best value · Recommended</p>
+            <p class="price-card__name">Class bundle</p>
+            <p class="price-card__price">Included</p>
+            <p class="price-card__tagline">Unlimited AI · Free with any class</p>
+            <ul class="price-card__features">
+              <li>Unlimited questions, no daily cap</li>
+              <li>Lifetime access with class purchase</li>
+              <li>AI tuned to your class content</li>
+              <li>Access code delivered at enrollment</li>
+              <li>The toddler class is launching first</li>
+            </ul>
+            <div class="price-card__cta price-card__cta--white">
+              <a href="/classes/toddlerhood.html">Reserve founding member spot →</a>
+            </div>
+          </div>
+
+          <div class="price-card">
+            <p class="price-card__label">Coming soon</p>
+            <p class="price-card__name">AI Pro</p>
+            <p class="price-card__price"><sup>$</sup>9<sub>/mo</sub></p>
+            <p class="price-card__tagline">Unlimited access · No class required</p>
+            <ul class="price-card__features">
+              <li>Unlimited questions daily</li>
+              <li>No class purchase needed</li>
+              <li>Full conversation history</li>
+              <li>Priority updates and new features</li>
+              <li>Cancel anytime</li>
+            </ul>
+            <div class="price-card__cta">
+              <span class="price-card__coming">Launching after the class opens</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
     <div class="container">
-      <div class="footer-bottom">
-        <span>© <span data-year>2026</span> Growing Minds Science. All rights reserved.</span>
-        <span>Educational content only. Not medical or psychological advice.</span>
+      <div class="site-footer__main">
+        <a class="footer-brand" href="/" aria-label="Growing Minds Science — home">
+          <div class="footer-brand__mark">
+            <img src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="26" height="26" loading="lazy" decoding="async" />
+          </div>
+          <span class="footer-brand__name">Growing Minds Science</span>
+        </a>
+        <nav class="footer-nav" aria-label="Footer">
+          <a href="/classes/">Classes</a>
+          <a href="/tools/">Tools</a>
+          <a href="/articles/">Articles</a>
+          <a href="/about/">About</a>
+          <a href="/faq/">FAQ</a>
+        </nav>
+        <a href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" style="font-size:.875rem; color:rgba(255,255,255,.5); transition:color .2s;">Instagram</a>
+      </div>
+      <div class="site-footer__bottom">
+        <p>© <span id="currentYear"></span> Growing Minds Science. All rights reserved.</p>
+        <p>Educational content only. Growing Minds AI does not provide medical, diagnostic, or emergency advice.</p>
       </div>
     </div>
   </footer>
 
-  <script src="../assets/js/main.js" defer></script>
+  <script>
+    /* ── State ────────────────────────────────────────── */
+    const FREE_LIMIT = 5;
+    const STORAGE_KEY = 'gm_ai_usage';
+    let conversationHistory = [];
+    let accessCode = sessionStorage.getItem('gm_access_code') || '';
+    let isStreaming = false;
+
+    /* ── Free tier tracking ───────────────────────────── */
+    function getUsage() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return { date: today(), count: 0 };
+        const data = JSON.parse(raw);
+        if (data.date !== today()) return { date: today(), count: 0 };
+        return data;
+      } catch { return { date: today(), count: 0 }; }
+    }
+    function today() {
+      return new Date().toISOString().slice(0, 10);
+    }
+    function incrementUsage() {
+      const usage = getUsage();
+      usage.count++;
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(usage)); } catch {}
+    }
+    function questionsRemaining() {
+      if (accessCode) return Infinity;
+      return Math.max(0, FREE_LIMIT - getUsage().count);
+    }
+    function updateTierBadge() {
+      const rem = questionsRemaining();
+      const leftEl = document.getElementById('questionsLeft');
+      const textEl = document.getElementById('tierText');
+      const limitEl = document.getElementById('limitReached');
+      const inputArea = document.getElementById('inputArea');
+
+      if (accessCode) {
+        textEl.innerHTML = '🔓 Class member · <strong>Unlimited</strong>';
+        document.getElementById('accessCodeToggle').style.display = 'none';
+      } else if (rem > 0) {
+        textEl.innerHTML = `Free · <strong id="questionsLeft">${rem}</strong> question${rem === 1 ? '' : 's'} today`;
+      } else {
+        textEl.innerHTML = 'Free · <strong>Limit reached</strong>';
+        limitEl.style.display = 'flex';
+        inputArea.style.display = 'none';
+      }
+    }
+
+    /* ── Markdown renderer ────────────────────────────── */
+    function renderMarkdown(raw) {
+      // Escape HTML
+      let t = raw
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+      // Process line by line for lists
+      const lines = t.split('\n');
+      const out = [];
+      let inList = false;
+
+      for (const line of lines) {
+        const bullet = line.match(/^[-•·*]\s+(.+)/);
+        if (bullet) {
+          if (!inList) { out.push('<ul>'); inList = true; }
+          out.push(`<li>${applyInline(bullet[1])}</li>`);
+        } else {
+          if (inList) { out.push('</ul>'); inList = false; }
+          if (line.trim() === '') {
+            out.push('');
+          } else {
+            out.push(applyInline(line));
+          }
+        }
+      }
+      if (inList) out.push('</ul>');
+
+      // Join and convert double newlines to paragraph breaks
+      let html = out.join('\n')
+        .replace(/\n{2,}/g, '</p><p>')
+        .replace(/\n/g, '<br>');
+
+      // Wrap non-list content in paragraphs
+      if (!html.startsWith('<ul>') && !html.startsWith('<p>')) {
+        html = '<p>' + html + '</p>';
+      }
+
+      // Clean up empty paragraphs
+      html = html.replace(/<p><\/p>/g, '').replace(/<p>\s*<br>\s*<\/p>/g, '');
+
+      return html;
+    }
+
+    function applyInline(text) {
+      return text
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/`(.+?)`/g, '<code>$1</code>');
+    }
+
+    /* ── DOM helpers ──────────────────────────────────── */
+    const messagesEl = document.getElementById('chatMessages');
+    const welcomeEl  = document.getElementById('chatWelcome');
+    const inputEl    = document.getElementById('chatInput');
+    const sendBtn    = document.getElementById('sendBtn');
+
+    function hideWelcome() {
+      if (welcomeEl) welcomeEl.style.display = 'none';
+    }
+
+    function addMessage(role, html) {
+      const wrap = document.createElement('div');
+      wrap.className = `msg msg--${role}`;
+      const bubble = document.createElement('div');
+      bubble.className = 'msg__bubble';
+      bubble.innerHTML = html;
+      wrap.appendChild(bubble);
+      if (role === 'assistant') {
+        const disc = document.createElement('p');
+        disc.className = 'msg__disclaimer';
+        disc.textContent = 'Not medical advice.';
+        wrap.appendChild(disc);
+      }
+      messagesEl.appendChild(wrap);
+      scrollToBottom();
+      return bubble;
+    }
+
+    function addThinkingIndicator() {
+      const wrap = document.createElement('div');
+      wrap.className = 'msg msg--assistant';
+      wrap.id = 'thinking';
+      const dots = document.createElement('div');
+      dots.className = 'msg__thinking';
+      dots.innerHTML = '<span></span><span></span><span></span>';
+      wrap.appendChild(dots);
+      messagesEl.appendChild(wrap);
+      scrollToBottom();
+      return wrap;
+    }
+
+    function scrollToBottom() {
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    /* ── Send message ─────────────────────────────────── */
+    async function sendMessage(question) {
+      if (isStreaming || !question.trim()) return;
+      if (questionsRemaining() <= 0) return;
+
+      isStreaming = true;
+      sendBtn.disabled = true;
+      inputEl.value = '';
+      inputEl.style.height = 'auto';
+      inputEl.dispatchEvent(new Event('input'));
+
+      hideWelcome();
+      addMessage('user', renderMarkdown(question));
+
+      const thinkingEl = addThinkingIndicator();
+
+      let assistantBubble = null;
+      let fullText = '';
+
+      try {
+        const res = await fetch('/api/growing-minds-ai', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            question,
+            history: conversationHistory,
+            accessCode,
+          }),
+        });
+
+        // Replace thinking dots with empty assistant bubble
+        thinkingEl.remove();
+        assistantBubble = addMessage('assistant', '<span class="cursor"></span>');
+
+        if (!res.body) throw new Error('No response body.');
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buf = '';
+
+        outer: while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buf += decoder.decode(value, { stream: true });
+          const lines = buf.split('\n');
+          buf = lines.pop() ?? '';
+
+          for (const line of lines) {
+            if (!line.startsWith('data: ')) continue;
+            const raw = line.slice(6).trim();
+            if (raw === '[DONE]') break outer;
+
+            let parsed;
+            try { parsed = JSON.parse(raw); } catch { continue; }
+
+            if (parsed.error) {
+              assistantBubble.innerHTML = `<span class="error">${parsed.error}</span>`;
+              isStreaming = false;
+              sendBtn.disabled = false;
+              return;
+            }
+
+            const chunk = parsed.choices?.[0]?.delta?.content;
+            if (chunk) {
+              fullText += chunk;
+              assistantBubble.innerHTML = renderMarkdown(fullText) + '<span class="cursor"></span>';
+              scrollToBottom();
+            }
+          }
+        }
+
+        // Streaming done — remove cursor
+        assistantBubble.innerHTML = renderMarkdown(fullText);
+
+        // Update history
+        conversationHistory.push({ role: 'user', content: question });
+        conversationHistory.push({ role: 'assistant', content: fullText });
+
+        // Decrement free tier
+        if (!accessCode) {
+          incrementUsage();
+          updateTierBadge();
+        }
+
+      } catch (err) {
+        thinkingEl?.remove();
+        if (assistantBubble) {
+          assistantBubble.innerHTML = `<span class="error">Something went wrong. Please try again.</span>`;
+        } else {
+          addMessage('assistant', `<span class="error">Something went wrong. Please try again.</span>`);
+        }
+      } finally {
+        isStreaming = false;
+        sendBtn.disabled = false;
+        inputEl.focus();
+      }
+    }
+
+    /* ── Input behaviour ──────────────────────────────── */
+    inputEl.addEventListener('input', () => {
+      // Auto-resize
+      inputEl.style.height = 'auto';
+      inputEl.style.height = Math.min(inputEl.scrollHeight, 140) + 'px';
+      // Enable/disable send
+      sendBtn.disabled = !inputEl.value.trim() || isStreaming;
+    });
+
+    inputEl.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        if (!sendBtn.disabled) sendMessage(inputEl.value.trim());
+      }
+    });
+
+    sendBtn.addEventListener('click', () => {
+      if (!sendBtn.disabled) sendMessage(inputEl.value.trim());
+    });
+
+    // Suggested starters
+    document.querySelectorAll('.chat-starter').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const q = btn.dataset.q;
+        if (q) sendMessage(q);
+      });
+    });
+
+    /* ── Access code ──────────────────────────────────── */
+    const toggleBtn  = document.getElementById('accessCodeToggle');
+    const panel      = document.getElementById('accessPanel');
+    const codeInput  = document.getElementById('accessCodeInput');
+    const codeSubmit = document.getElementById('accessCodeSubmit');
+    const codeStatus = document.getElementById('accessStatus');
+
+    toggleBtn.addEventListener('click', () => {
+      const open = panel.classList.toggle('is-open');
+      if (open) codeInput.focus();
+    });
+
+    async function submitAccessCode() {
+      const code = codeInput.value.trim();
+      if (!code) return;
+      codeSubmit.disabled = true;
+      codeStatus.textContent = 'Checking…';
+      codeStatus.className = 'access-status';
+
+      // Validate by trying a ping request
+      try {
+        const res = await fetch('/api/growing-minds-ai', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question: 'ping', accessCode: code, history: [] }),
+        });
+
+        // Read first chunk to check for error
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        const { value } = await reader.read();
+        reader.cancel();
+
+        const text = decoder.decode(value || new Uint8Array());
+        const firstLine = text.split('\n').find(l => l.startsWith('data: '));
+        if (firstLine) {
+          try {
+            const parsed = JSON.parse(firstLine.slice(6));
+            if (parsed.error && parsed.error.includes("access code")) {
+              codeStatus.textContent = parsed.error;
+              codeStatus.className = 'access-status access-status--error';
+              codeSubmit.disabled = false;
+              return;
+            }
+          } catch {}
+        }
+
+        // Valid — save it
+        accessCode = code;
+        sessionStorage.setItem('gm_access_code', code);
+        codeStatus.textContent = '✓ Access unlocked — unlimited questions.';
+        codeStatus.className = 'access-status access-status--success';
+        updateTierBadge();
+        panel.classList.remove('is-open');
+      } catch {
+        codeStatus.textContent = 'Could not verify. Please try again.';
+        codeStatus.className = 'access-status access-status--error';
+      } finally {
+        codeSubmit.disabled = false;
+      }
+    }
+
+    codeSubmit.addEventListener('click', submitAccessCode);
+    codeInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitAccessCode(); });
+
+    /* ── Nav toggle ───────────────────────────────────── */
+    const navToggle = document.getElementById('navToggle');
+    const navDrawer = document.getElementById('navDrawer');
+    navToggle.addEventListener('click', () => {
+      const open = navDrawer.classList.toggle('is-open');
+      navToggle.setAttribute('aria-expanded', String(open));
+      navDrawer.setAttribute('aria-hidden', String(!open));
+    });
+    navDrawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      navDrawer.classList.remove('is-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navDrawer.setAttribute('aria-hidden', 'true');
+    }));
+
+    /* ── Init ─────────────────────────────────────────── */
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    updateTierBadge();
+    inputEl.focus();
+  </script>
+
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
