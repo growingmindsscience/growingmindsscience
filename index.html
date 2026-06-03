@@ -504,11 +504,35 @@
     .testimonial__author {
       font-size: .875rem; font-weight: 500; color: rgba(26,23,20,.55);
     }
-    .testimonial__placeholder {
-      border: 2px dashed rgba(26,23,20,.15); border-radius: 12px;
-      padding: 2.5rem; color: rgba(26,23,20,.4); font-size: .9rem; line-height: 1.7;
+    .trust-stat-row {
+      display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center;
+      margin-bottom: 2.5rem; padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
     }
-    .testimonial__placeholder strong { display: block; margin-bottom: .5rem; color: rgba(26,23,20,.55); }
+    .trust-stat-item {
+      display: flex; flex-direction: column; align-items: center; gap: .375rem;
+      text-align: center; flex: 1 1 180px;
+    }
+    .trust-stat-item strong {
+      font-family: 'Lora', serif; font-weight: 700;
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      letter-spacing: -.02em; color: var(--teal); line-height: 1;
+    }
+    .trust-stat-item span { font-size: .875rem; color: rgba(26,23,20,.6); max-width: 20ch; }
+    .founder-pull-quote {
+      max-width: 680px; margin: 0 auto; text-align: center;
+    }
+    .founder-pull-quote p {
+      font-family: 'Lora', serif; font-style: italic;
+      font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+      line-height: 1.6; color: var(--ink); margin-bottom: 1rem;
+    }
+    .founder-pull-quote p::before { content: '\201C'; }
+    .founder-pull-quote p::after  { content: '\201D'; }
+    .founder-pull-quote cite {
+      font-size: .8125rem; color: rgba(26,23,20,.5);
+      font-style: normal; font-weight: 500;
+    }
 
     /* ════════════════════════════════════════════
        RESPONSIVE ≤ 640px
@@ -798,15 +822,27 @@
       </div>
     </section>
 
-    <!-- TESTIMONIAL -->
-    <section class="testimonial" aria-label="Parent testimonial">
-      <div class="container testimonial__inner">
-        <div class="testimonial__placeholder">
-          <strong>Add a parent quote here</strong>
-          A real quote from one of the 100+ parents you've coached in Los Angeles. One or two sentences on how understanding the developmental science changed how they respond to their toddler.
-          <br><br>Example format:<br>
-          "Quote here." — First name, parent of a [age] year old
+    <!-- SOCIAL PROOF -->
+    <section class="testimonial" aria-label="Why parents trust Growing Minds Science">
+      <div class="container">
+        <div class="trust-stat-row fade-in">
+          <div class="trust-stat-item">
+            <strong>100+</strong>
+            <span>families coached directly in Los Angeles</span>
+          </div>
+          <div class="trust-stat-item">
+            <strong>4</strong>
+            <span>research domains per module: brain development, language, executive function, emotion regulation</span>
+          </div>
+          <div class="trust-stat-item">
+            <strong>50+</strong>
+            <span>years of peer-reviewed research behind every class</span>
+          </div>
         </div>
+        <blockquote class="founder-pull-quote fade-in" style="transition-delay:.15s">
+          <p>The research on early childhood is clear and consistent — but almost entirely absent from mainstream parenting content. Every class here exists to close that gap.</p>
+          <cite>— Matthew McArthur, Child Development Specialist &nbsp;·&nbsp; Graduate training in developmental psychology</cite>
+        </blockquote>
       </div>
     </section>
 
