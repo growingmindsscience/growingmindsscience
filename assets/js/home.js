@@ -1,9 +1,12 @@
 /* Growing Minds Science — home.js (self-contained homepage script)
+   - Theme toggle (shared "gms-theme" key; head script applies before paint)
+   - Sticky header scrolled state (rAF-throttled, passive)
    - Footer year
    - Mobile nav toggle
    - Scroll-reveal ([data-animate] / [data-stagger]); gated by <html class="anim">
      so reduced-motion / no-JS always show content
-   - Signature "calming conversation" AI demo (scripted, scroll-triggered)
+   - Growth-arc stage tabs (proper tabs semantics, arrow keys)
+   - Scripted AI conversation demo (scroll-triggered)
    - Waitlist form: in-voice success/error with graceful native fallback
    CSP-safe: external 'self' script, no inline handlers, no eval.
 */
@@ -23,6 +26,40 @@
     if (className) node.className = className;
     if (text != null) node.textContent = text;
     return node;
+  }
+
+  // ------------------------------------------------------------------
+  // Theme toggle (same storage key as main.js so the choice follows
+  // the visitor across pages; head script applies it before paint)
+  // ------------------------------------------------------------------
+  var THEME_KEY = "gms-theme";
+  function initTheme() {
+    var btn = document.querySelector(".theme-toggle");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      var dark = document.documentElement.getAttribute("data-theme") === "dark";
+      var next = dark ? "light" : "dark";
+      if (next === "dark") document.documentElement.setAttribute("data-theme", "dark");
+      else document.documentElement.removeAttribute("data-theme");
+      try { localStorage.setItem(THEME_KEY, next); } catch (_) {}
+    });
+  }
+
+  // ------------------------------------------------------------------
+  // Sticky header scrolled state
+  // ------------------------------------------------------------------
+  function initHeader() {
+    var header = document.querySelector(".site-header");
+    if (!header) return;
+    var ticking = false;
+    function update() {
+      header.classList.toggle("is-scrolled", window.scrollY > 6);
+      ticking = false;
+    }
+    update();
+    window.addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+    }, { passive: true });
   }
 
   // ------------------------------------------------------------------
@@ -70,11 +107,9 @@
   function initReveal() {
     var animated = document.querySelectorAll("[data-animate]");
     if (!animEnabled || !("IntersectionObserver" in window)) {
-      // No animation wanted (reduced-motion) or unsupported: ensure all visible.
       animated.forEach(function (n) { n.classList.add("is-visible"); });
       return;
     }
-    // Stagger direct [data-animate] children of [data-stagger].
     document.querySelectorAll("[data-stagger]").forEach(function (wrap) {
       var kids = wrap.querySelectorAll(":scope > [data-animate]");
       Array.prototype.forEach.call(kids, function (kid, i) {
@@ -92,6 +127,42 @@
       });
     }, { rootMargin: "-50px 0px", threshold: 0.01 });
     animated.forEach(function (n) { io.observe(n); });
+  }
+
+  // ------------------------------------------------------------------
+  // Growth arc — stage tabs (arrow keys, Home/End, proper ARIA)
+  // ------------------------------------------------------------------
+  function initArc() {
+    var device = document.querySelector("[data-arc]");
+    if (!device) return;
+    var tabs = Array.prototype.slice.call(device.querySelectorAll('[role="tab"]'));
+    var panels = Array.prototype.slice.call(device.querySelectorAll('[role="tabpanel"]'));
+    if (!tabs.length || tabs.length !== panels.length) return;
+
+    function select(index, focus) {
+      tabs.forEach(function (tab, i) {
+        var active = i === index;
+        tab.setAttribute("aria-selected", active ? "true" : "false");
+        tab.tabIndex = active ? 0 : -1;
+        panels[i].hidden = !active;
+      });
+      if (focus) tabs[index].focus();
+    }
+
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener("click", function () { select(i, false); });
+      tab.addEventListener("keydown", function (e) {
+        var next = null;
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") next = (i + 1) % tabs.length;
+        else if (e.key === "ArrowLeft" || e.key === "ArrowUp") next = (i - 1 + tabs.length) % tabs.length;
+        else if (e.key === "Home") next = 0;
+        else if (e.key === "End") next = tabs.length - 1;
+        if (next !== null) {
+          e.preventDefault();
+          select(next, true);
+        }
+      });
+    });
   }
 
   // ------------------------------------------------------------------
@@ -287,9 +358,12 @@
   }
 
   ready(function () {
+    initTheme();
+    initHeader();
     initYear();
     initNav();
     initReveal();
+    initArc();
     initChat();
     initWaitlist();
   });
