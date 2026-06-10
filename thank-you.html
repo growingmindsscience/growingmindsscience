@@ -121,5 +121,38 @@
 
   <script src="assets/js/main.js" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
+  <script>
+  (function () {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get("purchase") !== "1") return;
+
+    // Swap the page content for a purchase-success variant
+    var eyebrow = document.querySelector(".page-hero .eyebrow");
+    var title = document.querySelector(".page-hero__title");
+    var lede = document.querySelector(".page-hero__lede");
+    var ctas = document.querySelector(".page-hero .hero__ctas");
+
+    if (eyebrow) eyebrow.textContent = "Purchase confirmed";
+    if (title) title.textContent = "You're in. Welcome to Growing Minds Science.";
+    if (lede) lede.innerHTML =
+      "Your payment was received. Check your email — your access to the class and " +
+      "your <strong>unlimited Growing Minds AI access code</strong> will arrive shortly. " +
+      "While you wait, the milestone tracker is free and ready now.";
+    if (ctas) ctas.innerHTML =
+      '<a class="btn btn--primary btn--lg" href="/milestones.html">Open the milestone tracker</a>' +
+      '<a class="btn btn--ghost btn--lg" href="/tools/growing-minds-ai.html">Try Growing Minds AI</a>';
+
+    // Update the section below
+    var altSection = document.querySelector(".section--alt");
+    if (altSection) {
+      altSection.querySelector("h2").textContent = "A few things worth exploring now.";
+      var list = altSection.querySelector(".check-list");
+      if (list) list.innerHTML =
+        '<li><a href="/tools/growing-minds-ai.html">Growing Minds AI</a> — ask a developmental science question from the curated research library.</li>' +
+        '<li><a href="/tools/">Tools for parents</a> — free guides on meltdowns, limits, sleep, and repair.</li>' +
+        '<li><a href="/about/">About Growing Minds Science</a> — the mission and the person behind it.</li>';
+    }
+  })();
+  </script>
 </body>
 </html>
