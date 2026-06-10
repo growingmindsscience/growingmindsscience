@@ -147,9 +147,19 @@ function loadSources() {
     if (!TEXT_EXT.has(ext)) continue;
     if (file.toLowerCase() === "readme.md") continue;
 
-    const raw = readFileSync(join(dir, file), "utf8");
+    const rawFile = readFileSync(join(dir, file), "utf8");
     const baseName = basename(file, ext);
     const niceName = baseName.replace(/[-_]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+
+    // Optional "source-label:" directive in a leading HTML comment lets a file
+    // declare how it should be cited (e.g. a published paper vs. class notes).
+    const labelMatch = rawFile.match(/<!--[\s\S]*?source-label:\s*(.+?)\s*(?:-->|\n)/i);
+    const sourceLabel = labelMatch
+      ? labelMatch[1].trim()
+      : `Growing Minds class material — ${niceName}`;
+
+    // Strip HTML comments so directives/notes aren't ingested as content.
+    const raw = rawFile.replace(/<!--[\s\S]*?-->/g, "").trim();
     const chunks = chunkText(raw);
 
     chunks.forEach((chunk, i) => {
@@ -165,7 +175,7 @@ function loadSources() {
           ...heading.toLowerCase().split(/[\s,]+/).filter((w) => w.length > 3),
         ],
         ageBands: [],
-        source: { label: `Growing Minds class material — ${niceName}` },
+        source: { label: sourceLabel },
         text: body,
       });
       count++;
