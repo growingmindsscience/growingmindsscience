@@ -523,6 +523,17 @@
         <p class="access-status" id="accessStatus" aria-live="polite"></p>
       </div>
 
+      <!-- Subscriber login panel -->
+      <div class="access-panel" id="subscriberPanel" style="display:none;" role="region" aria-label="Subscriber login">
+        <h3>AI Pro subscriber</h3>
+        <p>Enter the email you used when you subscribed to unlock unlimited access.</p>
+        <div class="access-panel__row">
+          <input class="access-input" type="email" id="subscriberEmailInput" placeholder="Your email address" autocomplete="email" aria-label="Subscriber email" />
+          <button class="access-btn" type="button" id="subscriberEmailSubmit">Unlock</button>
+        </div>
+        <p class="access-status" id="subscriberStatus" aria-live="polite"></p>
+      </div>
+
       <!-- Input -->
       <div class="chat-input-wrap">
         <div id="limitReached" class="chat-limit" style="display:none;">
@@ -557,8 +568,8 @@
       <div class="container">
         <div class="pricing__header">
           <p class="pricing__eyebrow">How it works</p>
-          <h2 class="pricing__title" id="pricing-title">Free to try. Unlimited with a class.</h2>
-          <p class="pricing__sub">The AI is included free with any Growing Minds Science class purchase. No separate subscription needed.</p>
+          <h2 class="pricing__title" id="pricing-title">Free to try. Unlimited your way.</h2>
+          <p class="pricing__sub">Ask 5 questions free every day — or go unlimited with a class or a monthly subscription.</p>
         </div>
         <div class="pricing__grid">
 
@@ -597,10 +608,10 @@
           </div>
 
           <div class="price-card">
-            <p class="price-card__label">Coming soon</p>
+            <p class="price-card__label">No class needed</p>
             <p class="price-card__name">AI Pro</p>
             <p class="price-card__price"><sup>$</sup>9<sub>/mo</sub></p>
-            <p class="price-card__tagline">Unlimited access · No class required</p>
+            <p class="price-card__tagline">Unlimited access · Cancel anytime</p>
             <ul class="price-card__features">
               <li>Unlimited questions daily</li>
               <li>No class purchase needed</li>
@@ -608,9 +619,12 @@
               <li>Priority updates and new features</li>
               <li>Cancel anytime</li>
             </ul>
-            <div class="price-card__cta">
-              <span class="price-card__coming">Launching after the class opens</span>
+            <div class="price-card__cta price-card__cta--teal">
+              <a href="/api/create-checkout-session" id="subscribeBtn">Subscribe $9/mo →</a>
             </div>
+            <p class="price-card__already" id="alreadySubscribed" style="display:none; margin-top:.75rem; font-size:.8rem; text-align:center;">
+              Already subscribed? <button type="button" id="subscriberLoginToggle" style="background:none;border:none;padding:0;color:var(--teal);cursor:pointer;font-size:.8rem;text-decoration:underline;">Enter your email to unlock.</button>
+            </p>
           </div>
 
         </div>
@@ -649,8 +663,10 @@
     /* ── State ────────────────────────────────────────── */
     const FREE_LIMIT = 5;
     const STORAGE_KEY = 'gm_ai_usage';
+    const SUB_TOKEN_KEY = 'gm_sub_token';
     let conversationHistory = [];
     let accessCode = sessionStorage.getItem('gm_access_code') || '';
+    let subscriberToken = localStorage.getItem(SUB_TOKEN_KEY) || '';
     let isStreaming = false;
 
     /* ── Free tier tracking ───────────────────────────── */
@@ -671,26 +687,36 @@
       usage.count++;
       try { localStorage.setItem(STORAGE_KEY, JSON.stringify(usage)); } catch {}
     }
+    function isUnlimited() {
+      return Boolean(accessCode || subscriberToken);
+    }
     function questionsRemaining() {
-      if (accessCode) return Infinity;
+      if (isUnlimited()) return Infinity;
       return Math.max(0, FREE_LIMIT - getUsage().count);
     }
     function updateTierBadge() {
       const rem = questionsRemaining();
-      const leftEl = document.getElementById('questionsLeft');
       const textEl = document.getElementById('tierText');
       const limitEl = document.getElementById('limitReached');
       const inputArea = document.getElementById('inputArea');
+      const alreadySub = document.getElementById('alreadySubscribed');
 
-      if (accessCode) {
+      if (subscriberToken) {
+        textEl.innerHTML = '🔓 AI Pro · <strong>Unlimited</strong>';
+        document.getElementById('accessCodeToggle').style.display = 'none';
+        if (alreadySub) alreadySub.style.display = 'none';
+      } else if (accessCode) {
         textEl.innerHTML = '🔓 Class member · <strong>Unlimited</strong>';
         document.getElementById('accessCodeToggle').style.display = 'none';
+        if (alreadySub) alreadySub.style.display = 'none';
       } else if (rem > 0) {
         textEl.innerHTML = `Free · <strong id="questionsLeft">${rem}</strong> question${rem === 1 ? '' : 's'} today`;
+        if (alreadySub) alreadySub.style.display = 'block';
       } else {
         textEl.innerHTML = 'Free · <strong>Limit reached</strong>';
         limitEl.style.display = 'flex';
         inputArea.style.display = 'none';
+        if (alreadySub) alreadySub.style.display = 'block';
       }
     }
 
@@ -818,6 +844,7 @@
             question,
             history: conversationHistory,
             accessCode,
+            subscriberToken,
           }),
         });
 
@@ -870,7 +897,7 @@
         conversationHistory.push({ role: 'assistant', content: fullText });
 
         // Decrement free tier
-        if (!accessCode) {
+        if (!isUnlimited()) {
           incrementUsage();
           updateTierBadge();
         }
@@ -995,6 +1022,76 @@
       navToggle.setAttribute('aria-expanded', 'false');
       navDrawer.setAttribute('aria-hidden', 'true');
     }));
+
+    /* ── Subscriber login ─────────────────────────────── */
+    const subLoginToggle  = document.getElementById('subscriberLoginToggle');
+    const subPanel        = document.getElementById('subscriberPanel');
+    const subEmailInput   = document.getElementById('subscriberEmailInput');
+    const subSubmitBtn    = document.getElementById('subscriberEmailSubmit');
+    const subStatus       = document.getElementById('subscriberStatus');
+
+    if (subLoginToggle) {
+      subLoginToggle.addEventListener('click', () => {
+        subPanel.style.display = subPanel.style.display === 'none' ? 'block' : 'none';
+        if (subPanel.style.display === 'block') subEmailInput.focus();
+      });
+    }
+
+    async function submitSubscriberEmail() {
+      const email = subEmailInput.value.trim();
+      if (!email) return;
+      subSubmitBtn.disabled = true;
+      subStatus.textContent = 'Checking…';
+      subStatus.className = 'access-status';
+
+      try {
+        const res = await fetch('/api/verify-subscription', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        const data = await res.json();
+
+        if (!res.ok || !data.token) {
+          subStatus.textContent = data.error || 'No active subscription found for that email.';
+          subStatus.className = 'access-status access-status--error';
+          subSubmitBtn.disabled = false;
+          return;
+        }
+
+        subscriberToken = data.token;
+        try { localStorage.setItem(SUB_TOKEN_KEY, data.token); } catch {}
+        subStatus.textContent = '✓ Unlimited access unlocked!';
+        subStatus.className = 'access-status access-status--success';
+        updateTierBadge();
+        setTimeout(() => { subPanel.style.display = 'none'; }, 1200);
+
+        // Restore input area if it was hidden
+        const inputArea = document.getElementById('inputArea');
+        const limitEl   = document.getElementById('limitReached');
+        if (inputArea) inputArea.style.display = '';
+        if (limitEl)   limitEl.style.display = 'none';
+
+      } catch {
+        subStatus.textContent = 'Could not verify. Please try again.';
+        subStatus.className = 'access-status access-status--error';
+      } finally {
+        subSubmitBtn.disabled = false;
+      }
+    }
+
+    if (subSubmitBtn) subSubmitBtn.addEventListener('click', submitSubscriberEmail);
+    if (subEmailInput) subEmailInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitSubscriberEmail(); });
+
+    /* ── Post-subscribe welcome ────────────────────────── */
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('subscribed') === '1') {
+      // Show subscriber panel automatically so they can unlock immediately
+      if (subPanel) subPanel.style.display = 'block';
+      if (subEmailInput) subEmailInput.focus();
+      // Clean URL
+      history.replaceState(null, '', window.location.pathname);
+    }
 
     /* ── Init ─────────────────────────────────────────── */
     document.getElementById('currentYear').textContent = new Date().getFullYear();
