@@ -22,6 +22,10 @@ export default async function handler(request) {
     "cancel_url": `${siteUrl}/classes/toddlerhood.html`,
     "allow_promotion_codes": "true",
     "metadata[product]": "toddlerhood-class",
+    // What buyers see on their card statement (5–22 chars, no special chars).
+    // Keeps the charge recognizable as the class purchase.
+    "payment_intent_data[statement_descriptor]": "GROWINGMINDS SCIENCE",
+    "payment_intent_data[description]": "Toddler Years Class — Growing Minds Science",
   };
 
   if (priceId) {
