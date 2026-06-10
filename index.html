@@ -3,13 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Growing Minds Science — Classes and tools for parents of young children</title>
-  <meta name="description" content="Developmental science translated for parents. Self-paced classes, free parent tools, and research-backed articles for the first five years of life." />
-  <meta name="theme-color" content="#1E5F62" />
+  <script>/* Enable scroll-reveal only when motion is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}</script>
+  <title>Growing Minds Science — Self-paced classes &amp; tools for parents of children 0–5</title>
+  <meta name="description" content="Developmental science translated for parents. Self-paced video classes, free parent tools, research-backed articles, and a research-grounded AI tutor for the first five years of life." />
+  <meta name="theme-color" content="#0F3A35" />
+  <meta name="color-scheme" content="light" />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Growing Minds Science" />
-  <meta property="og:description" content="Developmental science made usable for parents. Classes, free tools, and articles for the early years." />
+  <meta property="og:description" content="Developmental science made usable for parents. Classes, free tools, articles, and a research-grounded AI tutor for the early years." />
   <meta property="og:image" content="assets/img/original-logo-mark-no-words-solid.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
@@ -19,7 +21,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..560&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="assets/css/home.css" />
 
   <script type="application/ld+json">
   {
@@ -30,855 +33,347 @@
     "logo": "/assets/img/original-logo-mark-no-words-solid.png",
     "founder": { "@type": "Person", "name": "Matthew McArthur" },
     "sameAs": ["https://www.instagram.com/growingmindsscience"],
-    "description": "Developmental science made usable for parents. Self-paced classes and practical tools."
+    "description": "Developmental science made usable for parents. Self-paced classes, free tools, articles, and a research-grounded AI tutor for the first five years."
   }
   </script>
-
-  <style>
-    /* ── Variables ─────────────────────────────── */
-    :root {
-      --teal:       #1E5F62;
-      --teal-dark:  #1A3F42;
-      --teal-hover: #185053;
-      --amber:      #C4672A;
-      --amber-dark: #a85520;
-      --cream:      #FAF6EF;
-      --ink:        #1A1714;
-      --blush:      #F2DDD0;
-      --white:      #ffffff;
-      --border:     rgba(26,23,20,0.1);
-    }
-
-    /* ── Reset ─────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-    body {
-      font-family: 'Instrument Sans', -apple-system, sans-serif;
-      font-weight: 400;
-      font-size: 1rem;
-      line-height: 1.7;
-      color: var(--ink);
-      background-color: var(--cream);
-      -webkit-font-smoothing: antialiased;
-    }
-    h1,h2,h3,h4,h5,h6 {
-      font-family: 'Lora', Georgia, serif;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; height: auto; display: block; }
-    ul, ol { list-style: none; }
-    button { cursor: pointer; font-family: inherit; }
-
-    /* ── Layout ────────────────────────────────── */
-    .container { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
-
-    .skip-link {
-      position: absolute; top: -100%; left: 1rem;
-      background: var(--ink); color: var(--white);
-      padding: .5rem 1rem; border-radius: 0 0 6px 6px; font-size: .875rem; z-index: 999;
-    }
-    .skip-link:focus { top: 0; }
-
-    /* ── Buttons ───────────────────────────────── */
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: .375rem;
-      padding: .75rem 1.5rem; border-radius: 6px; border: 2px solid transparent;
-      font-family: 'Instrument Sans', sans-serif; font-weight: 500; font-size: .9375rem;
-      line-height: 1; text-decoration: none; white-space: nowrap;
-      transition: background-color .2s, color .2s, border-color .2s;
-    }
-    .btn--amber { background: var(--amber); color: var(--white); border-color: var(--amber); }
-    .btn--amber:hover { background: var(--amber-dark); border-color: var(--amber-dark); }
-    .btn--outline-teal { background: transparent; color: var(--teal); border-color: var(--teal); }
-    .btn--outline-teal:hover { background: var(--teal); color: var(--white); }
-    .btn--ghost-white { background: transparent; color: rgba(255,255,255,.85); border-color: transparent; padding-left: 0; padding-right: 0; }
-    .btn--ghost-white:hover { color: var(--blush); }
-
-    /* ── Scroll fade-in ────────────────────────── */
-    .fade-in {
-      opacity: 0; transform: translateY(22px);
-      transition: opacity .65s ease, transform .65s ease;
-    }
-    .fade-in.is-visible { opacity: 1; transform: translateY(0); }
-
-    /* ── Section shared ────────────────────────── */
-    .eyebrow {
-      font-family: 'Instrument Sans', sans-serif; font-weight: 500;
-      font-size: .6875rem; text-transform: uppercase; letter-spacing: .12em;
-      color: var(--amber); margin-bottom: .75rem;
-    }
-    .section-title {
-      font-family: 'Lora', serif; font-weight: 700;
-      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-      letter-spacing: -.02em; color: var(--ink);
-    }
-    .section-header { text-align: center; margin-bottom: 3rem; }
-
-    /* ════════════════════════════════════════════
-       1. NAV
-    ════════════════════════════════════════════ */
-    .site-nav {
-      position: sticky; top: 0; z-index: 200;
-      background-color: var(--cream); border-bottom: 1px solid var(--border);
-    }
-    .site-nav__inner {
-      display: flex; align-items: center; justify-content: space-between;
-      height: 70px; gap: 1.5rem;
-    }
-    .site-nav__logo {
-      display: flex; align-items: center; gap: .625rem;
-      color: var(--ink); text-decoration: none; flex-shrink: 0;
-    }
-    .site-nav__logo-mark {
-      width: 28px; height: 28px; border-radius: 50%;
-      background-color: var(--amber); overflow: hidden; flex-shrink: 0;
-    }
-    .site-nav__logo-mark img { width: 100%; height: 100%; object-fit: cover; }
-    .site-nav__logo-text {
-      font-family: 'Lora', serif; font-weight: 600; font-size: 1rem;
-      letter-spacing: -.02em;
-    }
-    .site-nav__links {
-      display: flex; align-items: center; gap: 2rem; flex: 1; justify-content: center;
-    }
-    .site-nav__links a {
-      font-size: .9375rem; color: rgba(26,23,20,.72);
-      transition: color .2s;
-    }
-    .site-nav__links a:hover { color: var(--teal); }
-    .site-nav__toggle {
-      display: none; background: none; border: none;
-      flex-direction: column; gap: 5px; padding: .5rem;
-    }
-    .site-nav__toggle span {
-      display: block; width: 22px; height: 2px;
-      background: var(--ink); border-radius: 2px; transition: .2s;
-    }
-    /* Mobile drawer */
-    .site-nav__drawer {
-      display: none; flex-direction: column;
-      background: var(--cream); border-top: 1px solid var(--border);
-      padding: .5rem 0 1.25rem;
-    }
-    .site-nav__drawer.is-open { display: flex; }
-    .site-nav__drawer a {
-      display: block; padding: .75rem 1.5rem;
-      font-size: 1rem; color: var(--ink); transition: background .15s;
-    }
-    .site-nav__drawer a:hover { background: rgba(30,95,98,.06); }
-    .site-nav__drawer .btn {
-      margin: .75rem 1.5rem 0; justify-content: center; text-align: center;
-    }
-
-    /* ════════════════════════════════════════════
-       2. HERO
-    ════════════════════════════════════════════ */
-    .hero {
-      background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 100%);
-      padding: 5rem 0;
-    }
-    .hero__inner {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 4rem; align-items: center;
-    }
-    .hero__eyebrow {
-      font-family: 'Instrument Sans', sans-serif; font-weight: 500;
-      font-size: .6875rem; text-transform: uppercase; letter-spacing: .12em;
-      color: var(--amber); margin-bottom: 1.25rem;
-    }
-    .hero__title {
-      font-family: 'Lora', serif; font-weight: 700;
-      font-size: clamp(2rem, 4.5vw, 3.125rem);
-      letter-spacing: -.02em; line-height: 1.15; color: var(--white);
-      margin-bottom: 1.25rem;
-    }
-    .hero__title em { font-style: italic; color: var(--blush); }
-    .hero__sub {
-      font-weight: 300; font-size: 1.0625rem; line-height: 1.7;
-      color: rgba(255,255,255,.82); margin-bottom: 2.25rem; max-width: 500px;
-    }
-    .hero__ctas {
-      display: flex; align-items: center; gap: 1.5rem;
-      flex-wrap: wrap; margin-bottom: 2.5rem;
-    }
-    .hero__ctas .btn--amber { padding: .875rem 1.75rem; font-size: 1rem; }
-    .hero__ctas .btn--ghost-white { font-size: 1rem; }
-    .hero__stats {
-      display: flex; flex-wrap: wrap; gap: 0 2rem;
-      border-top: 1px solid rgba(255,255,255,.15); padding-top: 1.75rem;
-    }
-    .hero__stat {
-      font-size: .8125rem; color: rgba(255,255,255,.6); padding: .2rem 0;
-      position: relative;
-    }
-    .hero__stat + .hero__stat::before {
-      content: '·'; position: absolute; left: -1.125rem;
-      color: rgba(255,255,255,.3);
-    }
-    .hero__media {
-      border-radius: 14px; overflow: hidden; aspect-ratio: 3/4;
-      background: rgba(255,255,255,.08);
-    }
-    .hero__media img { width: 100%; height: 100%; object-fit: cover; }
-
-    /* ════════════════════════════════════════════
-       3. CREDENTIAL BAR
-    ════════════════════════════════════════════ */
-    .cred-bar {
-      background: var(--cream); border-bottom: 1px solid var(--border);
-      padding: 1.125rem 0; text-align: center;
-    }
-    .cred-bar p {
-      font-size: .875rem; color: rgba(26,23,20,.55); line-height: 1.6;
-    }
-
-    /* ════════════════════════════════════════════
-       4. AI FEATURE
-    ════════════════════════════════════════════ */
-    .ai-feature { background: var(--ink); padding: 5rem 0; }
-    .ai-feature__inner {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 4rem; align-items: center;
-    }
-    .ai-feature__badge {
-      display: inline-block;
-      font-family: 'Instrument Sans', sans-serif; font-weight: 700;
-      font-size: .6875rem; letter-spacing: .12em; text-transform: uppercase;
-      color: var(--amber); background: rgba(196,103,42,.18);
-      padding: .3rem .75rem; border-radius: 100px; margin-bottom: 1.25rem;
-    }
-    .ai-feature__title {
-      font-family: 'Lora', serif; font-weight: 700;
-      font-size: clamp(1.75rem, 3.5vw, 2.625rem);
-      letter-spacing: -.02em; line-height: 1.2; color: var(--white);
-      margin-bottom: 1.125rem;
-    }
-    .ai-feature__body {
-      font-size: 1rem; line-height: 1.7; color: rgba(255,255,255,.68);
-      margin-bottom: 2rem;
-    }
-    /* Chat widget */
-    .chat-widget {
-      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1);
-      border-radius: 14px; overflow: hidden;
-    }
-    .chat-widget__header {
-      display: flex; align-items: center; gap: .75rem;
-      padding: 1rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,.07);
-    }
-    .chat-widget__icon {
-      width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
-      background: linear-gradient(135deg, var(--teal) 0%, var(--amber) 100%);
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Lora', serif; font-weight: 700; font-size: .75rem; color: var(--white);
-    }
-    .chat-widget__name {
-      font-weight: 500; font-size: .9rem; color: var(--white);
-    }
-    .chat-widget__status {
-      margin-left: auto; display: flex; align-items: center; gap: .4rem;
-      font-size: .75rem; color: rgba(255,255,255,.45);
-    }
-    .chat-widget__dot {
-      width: 7px; height: 7px; background: #4ade80; border-radius: 50%;
-    }
-    .chat-messages {
-      padding: 1.25rem; display: flex; flex-direction: column; gap: .875rem;
-    }
-    .chat-msg {
-      max-width: 84%; padding: .75rem 1rem; border-radius: 12px;
-      font-size: .9rem; line-height: 1.55;
-    }
-    .chat-msg--user {
-      background: rgba(255,255,255,.1); color: rgba(255,255,255,.88);
-      align-self: flex-end; border-bottom-right-radius: 4px;
-    }
-    .chat-msg--ai {
-      background: var(--teal); color: rgba(255,255,255,.93);
-      align-self: flex-start; border-bottom-left-radius: 4px;
-    }
-
-    /* ════════════════════════════════════════════
-       5. PILLARS
-    ════════════════════════════════════════════ */
-    .pillars { padding: 5rem 0; background: var(--cream); }
-    .pillars__grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
-    }
-    .pillar-card {
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: 14px; padding: 2rem;
-      transition: box-shadow .25s, transform .25s;
-    }
-    .pillar-card:hover { box-shadow: 0 8px 40px rgba(26,23,20,.1); transform: translateY(-3px); }
-    .pillar-card__icon {
-      width: 50px; height: 50px; border-radius: 12px;
-      background: rgba(30,95,98,.1);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 1.25rem;
-    }
-    .pillar-card__title {
-      font-family: 'Lora', serif; font-weight: 600; font-size: 1.3125rem;
-      letter-spacing: -.02em; color: var(--ink); margin-bottom: .625rem;
-    }
-    .pillar-card__desc {
-      font-size: .9375rem; line-height: 1.7; color: rgba(26,23,20,.68);
-      margin-bottom: 1.25rem;
-    }
-    .pillar-card__cta {
-      font-weight: 500; font-size: .9rem; color: var(--teal);
-      display: inline-flex; align-items: center; gap: .375rem; transition: gap .2s, color .2s;
-    }
-    .pillar-card__cta:hover { gap: .625rem; color: var(--teal-hover); }
-
-    /* ════════════════════════════════════════════
-       6. ABOUT
-    ════════════════════════════════════════════ */
-    .about { padding: 5rem 0; background: var(--blush); }
-    .about__single { max-width: 680px; margin: 0 auto; }
-    .about__title {
-      font-family: 'Lora', serif; font-weight: 700;
-      font-size: clamp(1.625rem, 3vw, 2.25rem);
-      letter-spacing: -.02em; line-height: 1.2; color: var(--ink);
-      margin-bottom: 1.25rem;
-    }
-    .about__body {
-      font-size: 1rem; line-height: 1.7; color: rgba(26,23,20,.8);
-      margin-bottom: 1.25rem;
-    }
-    .credentials { margin: 1.75rem 0; display: flex; flex-direction: column; gap: .625rem; }
-    .credentials li {
-      display: flex; align-items: flex-start; gap: .75rem;
-      font-size: .9375rem; line-height: 1.5; color: var(--ink);
-    }
-    .credentials li::before {
-      content: ''; display: block; width: 6px; height: 6px; border-radius: 50%;
-      background: var(--amber); flex-shrink: 0; margin-top: .55em;
-    }
-
-    /* ════════════════════════════════════════════
-       7. WAITLIST
-    ════════════════════════════════════════════ */
-    .waitlist { padding: 5rem 0; background: var(--teal); }
-    .waitlist__inner {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 4.5rem; align-items: start;
-    }
-    .waitlist__title {
-      font-family: 'Lora', serif; font-weight: 700;
-      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-      letter-spacing: -.02em; line-height: 1.2; color: var(--white);
-      margin-bottom: 1rem;
-    }
-    .waitlist__sub { font-size: 1rem; line-height: 1.7; color: rgba(255,255,255,.72); }
-    /* Form */
-    .signup-form { display: flex; flex-direction: column; gap: 1rem; }
-    .form-group { display: flex; flex-direction: column; gap: .4rem; }
-    .form-label {
-      font-weight: 500; font-size: .875rem; color: rgba(255,255,255,.82);
-    }
-    .form-input {
-      width: 100%; padding: .75rem 1rem;
-      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
-      border-radius: 6px; font-family: 'Instrument Sans', sans-serif;
-      font-size: .9375rem; color: var(--white); appearance: none;
-      transition: border-color .2s, background .2s;
-    }
-    .form-input::placeholder { color: rgba(255,255,255,.38); }
-    .form-input:focus { outline: none; border-color: rgba(255,255,255,.55); background: rgba(255,255,255,.15); }
-    select.form-input {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.5)' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem;
-    }
-    select.form-input option { background: var(--teal-dark); color: var(--white); }
-    .btn--submit {
-      width: 100%; padding: 1rem; font-size: 1rem;
-      border: none; justify-content: center;
-    }
-    .form-disclaimer { font-size: .8125rem; color: rgba(255,255,255,.45); text-align: center; }
-    .form-status { font-size: .875rem; min-height: 1.25em; text-align: center; }
-    .form-status--success { color: #86efac; }
-    .form-status--error   { color: #fca5a5; }
-
-    /* ════════════════════════════════════════════
-       8. FOOTER
-    ════════════════════════════════════════════ */
-    .site-footer { background: var(--ink); padding-top: 4rem; }
-    .site-footer__main {
-      display: flex; justify-content: space-between; align-items: center;
-      gap: 2.5rem; padding-bottom: 3rem;
-      border-bottom: 1px solid rgba(255,255,255,.08); flex-wrap: wrap;
-    }
-    .footer-brand { display: flex; align-items: center; gap: .625rem; text-decoration: none; }
-    .footer-brand__mark {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: var(--amber); overflow: hidden; flex-shrink: 0;
-    }
-    .footer-brand__mark img { width: 100%; height: 100%; object-fit: cover; }
-    .footer-brand__name {
-      font-family: 'Lora', serif; font-weight: 600; font-size: 1rem;
-      letter-spacing: -.02em; color: var(--white);
-    }
-    .footer-nav { display: flex; gap: 1.75rem; flex-wrap: wrap; align-items: center; }
-    .footer-nav a { font-size: .9rem; color: rgba(255,255,255,.55); transition: color .2s; }
-    .footer-nav a:hover { color: var(--white); }
-    .footer-social {
-      display: flex; align-items: center; gap: .5rem;
-      font-size: .9rem; color: rgba(255,255,255,.55); transition: color .2s;
-    }
-    .footer-social:hover { color: var(--white); }
-    .site-footer__bottom {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.5rem 0; flex-wrap: wrap; gap: .75rem;
-    }
-    .site-footer__bottom p { font-size: .8125rem; color: rgba(255,255,255,.35); }
-
-    /* ════════════════════════════════════════════
-       FEATURED CLASS
-    ════════════════════════════════════════════ */
-    .featured-class { padding: 5rem 0; background: var(--cream); }
-    .featured-class__inner {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 4rem; align-items: start;
-    }
-    .featured-class__badge {
-      display: inline-block; font-weight: 700;
-      font-size: .6875rem; letter-spacing: .12em; text-transform: uppercase;
-      color: var(--teal); background: rgba(30,95,98,.1);
-      padding: .3rem .75rem; border-radius: 100px; margin-bottom: 1.25rem;
-    }
-    .featured-class__title {
-      font-family: 'Lora', serif; font-weight: 700;
-      font-size: clamp(1.75rem, 3.5vw, 2.625rem);
-      letter-spacing: -.02em; color: var(--ink); margin-bottom: 1rem; line-height: 1.2;
-    }
-    .featured-class__desc {
-      font-size: 1rem; line-height: 1.7; color: rgba(26,23,20,.75); margin-bottom: 1.75rem;
-    }
-    .featured-class__meta {
-      display: flex; flex-wrap: wrap; gap: 1.25rem 2rem; margin-bottom: 2rem;
-      padding: 1.25rem 1.5rem; background: rgba(30,95,98,.05);
-      border-radius: 8px; border: 1px solid rgba(30,95,98,.12);
-    }
-    .featured-class__meta-item { display: flex; flex-direction: column; gap: .2rem; }
-    .featured-class__meta-label {
-      font-size: .6875rem; text-transform: uppercase; letter-spacing: .1em;
-      color: rgba(26,23,20,.45); font-weight: 500;
-    }
-    .featured-class__meta-value { font-size: .9375rem; font-weight: 500; color: var(--ink); }
-    .featured-class__ctas { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
-    .featured-class__modules { display: flex; flex-direction: column; gap: .625rem; }
-    .featured-class__module {
-      display: flex; align-items: flex-start; gap: .875rem;
-      padding: .875rem 1rem; background: var(--white); border: 1px solid var(--border);
-      border-radius: 10px;
-    }
-    .featured-class__module-num {
-      font-size: .6875rem; font-weight: 700; color: var(--teal);
-      background: rgba(30,95,98,.1); padding: .25rem .5rem; border-radius: 4px;
-      flex-shrink: 0; margin-top: .15rem; letter-spacing: .04em;
-    }
-    .featured-class__module-title {
-      font-family: 'Lora', serif; font-size: .9375rem; font-weight: 600;
-      color: var(--ink); line-height: 1.3;
-    }
-    .featured-class__module-desc {
-      font-size: .8125rem; color: rgba(26,23,20,.6); line-height: 1.5; margin-top: .2rem;
-    }
-
-    /* ════════════════════════════════════════════
-       TESTIMONIAL
-    ════════════════════════════════════════════ */
-    .testimonial { padding: 5rem 0; background: var(--cream); border-top: 1px solid var(--border); }
-    .testimonial__inner { max-width: 720px; margin: 0 auto; text-align: center; }
-    .testimonial__quote {
-      font-family: 'Lora', serif; font-style: italic; font-weight: 400;
-      font-size: clamp(1.125rem, 2.5vw, 1.4375rem);
-      letter-spacing: -.01em; color: var(--ink); line-height: 1.55;
-      margin-bottom: 1.5rem;
-    }
-    .testimonial__quote::before { content: '\201C'; }
-    .testimonial__quote::after  { content: '\201D'; }
-    .testimonial__author {
-      font-size: .875rem; font-weight: 500; color: rgba(26,23,20,.55);
-    }
-    .trust-stat-row {
-      display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center;
-      margin-bottom: 2.5rem; padding-bottom: 2.5rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .trust-stat-item {
-      display: flex; flex-direction: column; align-items: center; gap: .375rem;
-      text-align: center; flex: 1 1 180px;
-    }
-    .trust-stat-item strong {
-      font-family: 'Lora', serif; font-weight: 700;
-      font-size: clamp(2rem, 4vw, 2.75rem);
-      letter-spacing: -.02em; color: var(--teal); line-height: 1;
-    }
-    .trust-stat-item span { font-size: .875rem; color: rgba(26,23,20,.6); max-width: 20ch; }
-    .founder-pull-quote {
-      max-width: 680px; margin: 0 auto; text-align: center;
-    }
-    .founder-pull-quote p {
-      font-family: 'Lora', serif; font-style: italic;
-      font-size: clamp(1.05rem, 2.2vw, 1.3rem);
-      line-height: 1.6; color: var(--ink); margin-bottom: 1rem;
-    }
-    .founder-pull-quote p::before { content: '\201C'; }
-    .founder-pull-quote p::after  { content: '\201D'; }
-    .founder-pull-quote cite {
-      font-size: .8125rem; color: rgba(26,23,20,.5);
-      font-style: normal; font-weight: 500;
-    }
-
-    /* ════════════════════════════════════════════
-       RESPONSIVE ≤ 640px
-    ════════════════════════════════════════════ */
-    @media (max-width: 640px) {
-      .site-nav__links, .site-nav__cta { display: none; }
-      .site-nav__toggle { display: flex; }
-
-      .hero { padding: 3rem 0; }
-      .hero__inner { grid-template-columns: 1fr; gap: 2rem; }
-      .hero__media { aspect-ratio: 4/3; max-height: 280px; order: -1; }
-      .hero__stats { flex-direction: column; gap: .375rem; padding-top: 1.25rem; }
-      .hero__stat + .hero__stat::before { display: none; }
-
-      .ai-feature { padding: 3rem 0; }
-      .ai-feature__inner { grid-template-columns: 1fr; gap: 2.5rem; }
-
-      .pillars { padding: 3rem 0; }
-      .pillars__grid { grid-template-columns: 1fr; }
-
-      .about { padding: 3rem 0; }
-
-      .waitlist { padding: 3rem 0; }
-      .waitlist__inner { grid-template-columns: 1fr; gap: 2.5rem; }
-
-      .featured-class { padding: 3rem 0; }
-      .featured-class__inner { grid-template-columns: 1fr; gap: 2.5rem; }
-
-      .testimonial { padding: 3rem 0; }
-
-      .site-footer__main { flex-direction: column; align-items: flex-start; gap: 1.75rem; }
-      .site-footer__bottom { flex-direction: column; align-items: flex-start; }
-    }
-  </style>
 </head>
 <body>
-
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- 1. NAV -->
-  <header class="site-nav">
-    <div class="container site-nav__inner">
-      <a class="site-nav__logo" href="/" aria-label="Growing Minds Science — home">
-        <div class="site-nav__logo-mark">
-          <img src="assets/img/original-logo-mark-no-words-512.png" alt="" width="28" height="28" loading="eager" decoding="async" />
-        </div>
-        <span class="site-nav__logo-text">Growing Minds Science</span>
+  <header class="site-header" role="banner">
+    <div class="container site-header__inner">
+      <a class="brand" href="/" aria-label="Growing Minds Science — home">
+        <img class="brand__mark" src="assets/img/original-logo-mark-no-words-512.png" alt="" width="38" height="38" decoding="async" />
+        <span class="brand__name">Growing Minds Science</span>
       </a>
 
-      <nav class="site-nav__links" aria-label="Primary">
-        <a href="/classes/">Classes</a>
-        <a href="/tools/">Tools</a>
-        <a href="/articles/">Articles</a>
-        <a href="/about/">About</a>
+      <nav class="nav" aria-label="Primary">
+        <ul class="nav__list" id="primary-nav-list">
+          <li><a class="nav__link" href="/classes/">Classes</a></li>
+          <li><a class="nav__link" href="/tools/">Tools</a></li>
+          <li><a class="nav__link" href="/articles/">Articles</a></li>
+          <li><a class="nav__link" href="/about/">About</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="#signup">Join the class waitlist</a></li>
+        </ul>
+
+        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Toggle navigation menu">
+          <span class="nav-toggle__bars"><span></span></span>
+        </button>
       </nav>
-
-      <a class="btn btn--amber site-nav__cta" href="/classes/toddlerhood.html">Join the class waitlist</a>
-
-      <button class="site-nav__toggle" id="navToggle" aria-controls="navDrawer" aria-expanded="false" aria-label="Open navigation menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-
-    <div class="site-nav__drawer" id="navDrawer" aria-hidden="true">
-      <a href="/classes/">Classes</a>
-      <a href="/tools/">Tools</a>
-      <a href="/articles/">Articles</a>
-      <a href="/about/">About</a>
-      <a class="btn btn--amber" href="/classes/toddlerhood.html">Join the class waitlist</a>
     </div>
   </header>
 
   <main id="main">
 
-    <!-- 2. HERO -->
-    <section class="hero" aria-labelledby="hero-title">
+    <!-- HERO -->
+    <section class="hero">
       <div class="container hero__inner">
-
-        <div class="fade-in">
-          <p class="hero__eyebrow">Self-paced online classes for parents · Ages 0–5</p>
-          <h1 class="hero__title" id="hero-title">Your child's behavior makes <em>sense.</em> Here's why.</h1>
-          <p class="hero__sub">Short video classes built from peer-reviewed developmental science — so you can understand what your child is actually doing, and respond with confidence instead of guessing.</p>
-          <div class="hero__ctas">
-            <a class="btn btn--amber" href="/classes/toddlerhood.html">See the toddler class →</a>
-            <a class="btn btn--ghost-white" href="/tools/">Explore free tools</a>
+        <div class="hero__content" data-stagger>
+          <p class="eyebrow" data-animate>Self-paced online classes · Ages 0–5</p>
+          <h1 class="hero__title" data-animate>Your child's behavior makes <span class="accent">sense.</span> Here's why.</h1>
+          <p class="hero__lede" data-animate>
+            Short video classes built from peer-reviewed developmental science — so you can understand what your child is actually doing, and respond with confidence instead of guessing.
+          </p>
+          <div class="hero__ctas" data-animate>
+            <a class="btn btn--primary btn--lg" href="/classes/toddlerhood.html">See the toddler class</a>
+            <a class="btn btn--ghost btn--lg" href="/tools/">Explore free tools</a>
           </div>
-          <div class="hero__stats">
-            <span class="hero__stat">6-module self-paced class · $49 founding member</span>
-            <span class="hero__stat">Grounded in 50+ years of research</span>
-            <span class="hero__stat">Free tools, no account needed</span>
-          </div>
-        </div>
-
-        <figure class="hero__media fade-in" style="transition-delay:.18s" aria-hidden="true">
-          <img
-            src="assets/img/site/hero-parent-baby.jpg"
-            alt="A parent and young child together in warm, natural light."
-            width="800" height="1000"
-            loading="eager" fetchpriority="high" decoding="async"
-            onerror="this.style.opacity='0'" />
-        </figure>
-
-      </div>
-    </section>
-
-    <!-- 3. CREDENTIAL BAR -->
-    <div class="cred-bar fade-in">
-      <div class="container">
-        <p>Self-paced video classes &nbsp;·&nbsp; Free parent tools &nbsp;·&nbsp; Research-backed articles &nbsp;·&nbsp; Grounded in 50+ years of developmental science &nbsp;·&nbsp; Created by a Child Development Specialist</p>
-      </div>
-    </div>
-
-    <!-- 4. FEATURED CLASS -->
-    <section class="featured-class" aria-labelledby="featured-class-title">
-      <div class="container featured-class__inner">
-
-        <div class="fade-in">
-          <span class="featured-class__badge">Flagship class · Launching first</span>
-          <h2 class="featured-class__title" id="featured-class-title">Toddler years: language, autonomy, and big feelings.</h2>
-          <p class="featured-class__desc">A self-paced class for parents of 1–3 year olds. Six short modules translate peer-reviewed developmental science into a clearer mental model of what your toddler is doing — and why. No scripts, no shame, no graduate seminar.</p>
-          <div class="featured-class__meta">
-            <div class="featured-class__meta-item">
-              <span class="featured-class__meta-label">Format</span>
-              <span class="featured-class__meta-value">6 modules · ~1 hr each</span>
-            </div>
-            <div class="featured-class__meta-item">
-              <span class="featured-class__meta-label">Access</span>
-              <span class="featured-class__meta-value">Self-paced, lifetime access</span>
-            </div>
-            <div class="featured-class__meta-item">
-              <span class="featured-class__meta-label">Ages</span>
-              <span class="featured-class__meta-value">1–3 years</span>
-            </div>
-            <div class="featured-class__meta-item">
-              <span class="featured-class__meta-label">Founding member price</span>
-              <span class="featured-class__meta-value">$49 · AI included free</span>
-            </div>
-          </div>
-          <div class="featured-class__ctas">
-            <a class="btn btn--amber" href="/classes/toddlerhood.html" style="padding:.875rem 1.75rem;font-size:1rem;">Reserve your spot</a>
-            <a class="btn btn--outline-teal" href="/classes/">See all classes</a>
-          </div>
-        </div>
-
-        <div class="featured-class__modules fade-in" style="transition-delay:.15s">
-          <div class="featured-class__module">
-            <span class="featured-class__module-num">01</span>
-            <div>
-              <p class="featured-class__module-title">The Toddler Brain, Briefly</p>
-              <p class="featured-class__module-desc">Why toddlers need more support than their behavior suggests.</p>
-            </div>
-          </div>
-          <div class="featured-class__module">
-            <span class="featured-class__module-num">02</span>
-            <div>
-              <p class="featured-class__module-title">Language — The Everyday Version</p>
-              <p class="featured-class__module-desc">How language grows through ordinary conversation, not lesson plans.</p>
-            </div>
-          </div>
-          <div class="featured-class__module">
-            <span class="featured-class__module-num">03</span>
-            <div>
-              <p class="featured-class__module-title">Autonomy and "No"</p>
-              <p class="featured-class__module-desc">Why "no" is healthy — and how to hold limits without power struggles.</p>
-            </div>
-          </div>
-          <div class="featured-class__module">
-            <span class="featured-class__module-num">04</span>
-            <div>
-              <p class="featured-class__module-title">Big Feelings and Meltdowns</p>
-              <p class="featured-class__module-desc">What's actually happening, and why your calm is their scaffold.</p>
-            </div>
-          </div>
-          <div class="featured-class__module">
-            <span class="featured-class__module-num">05</span>
-            <div>
-              <p class="featured-class__module-title">Transitions and Routines</p>
-              <p class="featured-class__module-desc">Why predictability matters and how to make daily shifts less explosive.</p>
-            </div>
-          </div>
-          <div class="featured-class__module">
-            <span class="featured-class__module-num">06</span>
-            <div>
-              <p class="featured-class__module-title">Repair, and the Long Game</p>
-              <p class="featured-class__module-desc">What to do after hard moments, and why patterns matter more than any single day.</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- 5. FOUR PILLARS -->
-    <section class="pillars" aria-labelledby="pillars-title">
-      <div class="container">
-        <div class="section-header fade-in">
-          <p class="eyebrow">What's here</p>
-          <h2 class="section-title" id="pillars-title">Four ways to understand your child better.</h2>
-        </div>
-        <div class="pillars__grid">
-
-          <article class="pillar-card fade-in">
-            <div class="pillar-card__icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E5F62" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-            </div>
-            <h3 class="pillar-card__title">Classes</h3>
-            <p class="pillar-card__desc">Self-paced courses built around developmental windows — language, autonomy, big feelings, and what your child needs at each stage.</p>
-            <a class="pillar-card__cta" href="/classes/">See the classes →</a>
-          </article>
-
-          <article class="pillar-card fade-in" style="transition-delay:.1s">
-            <div class="pillar-card__icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E5F62" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            </div>
-            <h3 class="pillar-card__title">Free Tools</h3>
-            <p class="pillar-card__desc">Practical references for everyday moments — meltdowns, sleep, limits, repair, and the milestone tracker. Free with no account needed.</p>
-            <a class="pillar-card__cta" href="/tools/">Browse free tools →</a>
-          </article>
-
-          <article class="pillar-card fade-in" style="transition-delay:.15s">
-            <div class="pillar-card__icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E5F62" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-            </div>
-            <h3 class="pillar-card__title">Articles</h3>
-            <p class="pillar-card__desc">Research explained without buzzwords or parenting shame — serve-and-return, screen time, self-regulation, and what to do with all of it.</p>
-            <a class="pillar-card__cta" href="/articles/">Read the articles →</a>
-          </article>
-
-          <article class="pillar-card fade-in" style="transition-delay:.2s">
-            <div class="pillar-card__icon" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E5F62" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            </div>
-            <h3 class="pillar-card__title">Growing Minds AI</h3>
-            <p class="pillar-card__desc">Ask a parenting question. Get a research-grounded answer — not generic internet advice, not judgment. A private AI tutor built around developmental science.</p>
-            <a class="pillar-card__cta" href="/tools/growing-minds-ai.html">Try it free →</a>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- 6. WHY TRUST THIS -->
-    <section class="about" aria-labelledby="about-title">
-      <div class="container">
-        <div class="about__single fade-in">
-          <p class="eyebrow">Why trust this</p>
-          <h2 class="about__title" id="about-title">Built on developmental science, not parenting trends.</h2>
-          <p class="about__body">Every class and tool at Growing Minds Science draws from peer-reviewed research in cognitive development, language acquisition, executive function, and emotion regulation. The content is created and taught by a Child Development Specialist with graduate training in developmental psychology and years of direct work with young children and families in Los Angeles.</p>
-          <ul class="credentials">
-            <li>Developmental neuroscience</li>
-            <li>Child development research</li>
-            <li>50+ years of rigorous published research</li>
+          <ul class="hero__stats" data-animate>
+            <li class="hero__stat"><strong>6-module class</strong> · $49 founding member</li>
+            <li class="hero__stat">Grounded in <strong>50+ years</strong> of research</li>
+            <li class="hero__stat">Free tools, <strong>no account</strong> needed</li>
           </ul>
-          <a class="btn btn--outline-teal" href="/about/">About Growing Minds Science</a>
+        </div>
+
+        <figure class="hero__media" data-animate style="--anim-delay: 220ms">
+          <div class="hero__frame">
+            <img
+              src="assets/img/site/hero-parent-baby.jpg"
+              alt="A parent and a young child together at home in warm, natural light."
+              width="800" height="1000"
+              loading="eager" fetchpriority="high" decoding="async" />
+          </div>
+          <div class="hero__chip" aria-hidden="true">
+            <span class="hero__chip-dot"></span>
+            <span class="hero__chip-text"><strong>Grounded in research</strong>Not trends, not parenting shame</span>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- CREDIBILITY BAND -->
+    <section class="cred" aria-label="Why parents trust Growing Minds Science">
+      <div class="container cred__inner">
+        <div class="cred__founder" data-animate>
+          <span class="cred__avatar">
+            <img src="assets/img/matthew-photo.jpeg" alt="Matthew McArthur, founder of Growing Minds Science." width="56" height="56" loading="lazy" decoding="async" />
+          </span>
+          <span class="cred__founder-text">
+            <span class="cred__founder-name">Matthew McArthur</span>
+            <span class="cred__founder-role">Child Development Specialist · Graduate training in developmental psychology</span>
+          </span>
+        </div>
+        <div class="cred__grid" data-stagger>
+          <div class="cred__stat" data-animate>
+            <p class="cred__stat-num">50<span class="unit">+</span></p>
+            <p class="cred__stat-label">years of peer-reviewed research behind every class</p>
+          </div>
+          <div class="cred__stat" data-animate>
+            <p class="cred__stat-num">100<span class="unit">+</span></p>
+            <p class="cred__stat-label">families coached directly in Los Angeles</p>
+          </div>
+          <div class="cred__stat" data-animate>
+            <p class="cred__stat-num">4</p>
+            <p class="cred__stat-label">research domains per module: brain, language, executive function, emotion</p>
+          </div>
+          <div class="cred__stat" data-animate>
+            <p class="cred__stat-num">0–5</p>
+            <p class="cred__stat-label">the whole early window — birth through kindergarten</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- AI FEATURE -->
-    <section class="ai-feature" aria-labelledby="ai-title">
-      <div class="container ai-feature__inner">
-
-        <div class="fade-in">
-          <span class="ai-feature__badge">Growing Minds AI · Free</span>
-          <h2 class="ai-feature__title" id="ai-title">Ask a parenting question. Get a research-grounded answer.</h2>
-          <p class="ai-feature__body">Not generic internet advice, not judgment. A private AI tutor built around developmental science — because the right answer in the moment is usually the one informed by what's actually happening inside your child's developing brain.</p>
-          <a class="btn btn--amber" href="/tools/growing-minds-ai.html" style="margin-top:.5rem;">Try it free →</a>
-        </div>
-
-        <div class="chat-widget fade-in" style="transition-delay:.15s" aria-hidden="true">
-          <div class="chat-widget__header">
-            <div class="chat-widget__icon">GM</div>
-            <span class="chat-widget__name">Growing Minds AI</span>
-            <span class="chat-widget__status">
-              <span class="chat-widget__dot"></span>
-              Online
-            </span>
-          </div>
-          <div class="chat-messages">
-            <div class="chat-msg chat-msg--user">My toddler says "no" to everything. Is something wrong?</div>
-            <div class="chat-msg chat-msg--ai">Not at all — this is actually a healthy sign. Between 18 months and 3 years, toddlers are actively building autonomy. "No" is their way of practicing self-determination while their prefrontal cortex is still very immature. The key is to offer real choices where you can, and hold the line calmly where you need to.</div>
-            <div class="chat-msg chat-msg--user">So I shouldn't try to stop it?</div>
-            <div class="chat-msg chat-msg--ai">The goal isn't to stop it — it's to channel it. When you give choices ("Do you want the red cup or the blue cup?"), the toddler gets to say yes to something, which satisfies the autonomy drive without a battle.</div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- SOCIAL PROOF -->
-    <section class="testimonial" aria-label="Why parents trust Growing Minds Science">
+    <!-- FLAGSHIP CLASS -->
+    <section id="classes" class="class section">
       <div class="container">
-        <div class="trust-stat-row fade-in">
-          <div class="trust-stat-item">
-            <strong>100+</strong>
-            <span>families coached directly in Los Angeles</span>
-          </div>
-          <div class="trust-stat-item">
-            <strong>4</strong>
-            <span>research domains per module: brain development, language, executive function, emotion regulation</span>
-          </div>
-          <div class="trust-stat-item">
-            <strong>50+</strong>
-            <span>years of peer-reviewed research behind every class</span>
+        <div class="section-head" data-animate>
+          <p class="eyebrow">The flagship class</p>
+          <h2>Toddler years: language, autonomy, and big feelings.</h2>
+          <p class="section-head__lede">A self-paced class for parents of 1–3 year olds. Six short modules translate peer-reviewed developmental science into a clearer mental model of what your toddler is doing — and why. No scripts, no shame, no graduate seminar.</p>
+        </div>
+
+        <div class="class__inner">
+          <aside class="class__rail" data-animate>
+            <div class="class__badges">
+              <span class="tag tag--first tag--dot">Launching first</span>
+              <span class="tag">Self-paced</span>
+            </div>
+            <h3 class="class__title">The toddler years</h3>
+            <p class="class__age">Ages 1–3 · 6 modules</p>
+            <dl class="class__meta">
+              <div class="class__meta-item">
+                <dt>Format</dt><dd>6 modules · ~1 hr each</dd>
+              </div>
+              <div class="class__meta-item">
+                <dt>Access</dt><dd>Self-paced, lifetime</dd>
+              </div>
+              <div class="class__meta-item">
+                <dt>Ages</dt><dd>1–3 years</dd>
+              </div>
+              <div class="class__meta-item class__meta-item--price">
+                <dt>Founding price</dt><dd>$49 · AI included free</dd>
+              </div>
+            </dl>
+            <div class="class__rail-ctas">
+              <a class="btn btn--primary" href="/classes/toddlerhood.html">Reserve your spot</a>
+              <a class="btn btn--ghost" href="/classes/">See all classes</a>
+            </div>
+          </aside>
+
+          <div class="class__modules">
+            <p class="class__syllabus-label">The syllabus</p>
+            <ol class="modules" data-stagger>
+              <li class="module" data-animate>
+                <span class="module__num">01</span>
+                <div class="module__body">
+                  <h3>The toddler brain, briefly</h3>
+                  <p>Why toddlers need far more support than their behavior seems to suggest.</p>
+                </div>
+              </li>
+              <li class="module" data-animate>
+                <span class="module__num">02</span>
+                <div class="module__body">
+                  <h3>Language — the everyday version</h3>
+                  <p>How language grows through ordinary conversation, not lesson plans.</p>
+                </div>
+              </li>
+              <li class="module" data-animate>
+                <span class="module__num">03</span>
+                <div class="module__body">
+                  <h3>Autonomy and "no"</h3>
+                  <p>Why "no" is healthy — and how to hold limits without power struggles.</p>
+                </div>
+              </li>
+              <li class="module" data-animate>
+                <span class="module__num">04</span>
+                <div class="module__body">
+                  <h3>Big feelings and meltdowns</h3>
+                  <p>What's actually happening, and why your calm is their scaffold.</p>
+                </div>
+              </li>
+              <li class="module" data-animate>
+                <span class="module__num">05</span>
+                <div class="module__body">
+                  <h3>Transitions and routines</h3>
+                  <p>Why predictability matters and how to make daily shifts less explosive.</p>
+                </div>
+              </li>
+              <li class="module" data-animate>
+                <span class="module__num">06</span>
+                <div class="module__body">
+                  <h3>Repair, and the long game</h3>
+                  <p>What to do after hard moments, and why patterns matter more than any single day.</p>
+                </div>
+              </li>
+            </ol>
           </div>
         </div>
-        <blockquote class="founder-pull-quote fade-in" style="transition-delay:.15s">
-          <p>The research on early childhood is clear and consistent — but almost entirely absent from mainstream parenting content. Every class here exists to close that gap.</p>
-          <cite>— Matthew McArthur, Child Development Specialist &nbsp;·&nbsp; Graduate training in developmental psychology</cite>
-        </blockquote>
       </div>
     </section>
 
-    <!-- 7. WAITLIST -->
-    <section class="waitlist" id="signup" aria-labelledby="waitlist-title">
-      <div class="container waitlist__inner">
+    <!-- SIGNATURE: AI CONVERSATION -->
+    <section class="ai section" aria-label="Growing Minds AI">
+      <div class="container ai__inner">
+        <div class="ai__demo" data-animate>
+          <div class="chat" data-chat aria-label="Example conversation with Growing Minds AI">
+            <div class="chat__top">
+              <span class="chat__avatar" aria-hidden="true">G</span>
+              <span class="chat__name">Growing Minds AI</span>
+              <span class="chat__live"><span class="chat__live-dot"></span> online · free</span>
+            </div>
+            <div class="chat__body" data-chat-body role="log" aria-live="polite"></div>
+            <form class="chat__composer" data-chat-form>
+              <label class="u-visually-hidden" for="ai-demo-input">Ask a developmental question</label>
+              <input class="chat__input" id="ai-demo-input" data-chat-input type="text" placeholder="Ask your own question…" autocomplete="off" />
+              <button class="chat__send" type="submit" aria-label="Send question">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </form>
+            <p class="chat__note" data-chat-note role="status" aria-live="polite"></p>
+          </div>
+        </div>
 
-        <div class="fade-in">
-          <h2 class="waitlist__title" id="waitlist-title">Be the first parent in the room who actually understands why.</h2>
-          <p class="waitlist__sub">Founding members get early-bird pricing and the free milestone tracker. The first group is small — join the waitlist now.</p>
+        <div class="ai__aside">
+          <p class="eyebrow" data-animate>Growing Minds AI · Free</p>
+          <h2 data-animate>Ask a parenting question. Get a research-grounded answer.</h2>
+          <div class="ai__points" data-stagger>
+            <div class="ai__point" data-animate>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.35-7-10a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 5.65-7 10-7 10"/></svg>
+              <span><strong>Grounded in developmental science</strong><span>Not generic internet advice — answers built on what the research actually shows.</span></span>
+            </div>
+            <div class="ai__point" data-animate>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span><strong>Plain language, no shame</strong><span>Explains what's typical by age and what helps — the way a thoughtful friend would.</span></span>
+            </div>
+            <div class="ai__point" data-animate>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+              <span><strong>Free to try</strong><span>A private tutor you can ask right now. Educational only — never medical advice.</span></span>
+            </div>
+          </div>
+          <p data-animate><a class="btn btn--primary" href="/tools/growing-minds-ai.html">Try it free</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOUR WAYS -->
+    <section class="ways section">
+      <div class="container">
+        <div class="section-head" data-animate>
+          <p class="eyebrow">What's here</p>
+          <h2>Four ways to understand your child better.</h2>
+        </div>
+        <div class="ways__grid" data-stagger>
+
+          <article class="way" data-animate>
+            <span class="way__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </span>
+            <h3>Classes</h3>
+            <p>Self-paced courses built around developmental windows — language, autonomy, big feelings, and what your child needs at each stage.</p>
+            <a class="way__link" href="/classes/">See the classes <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </article>
+
+          <article class="way" data-animate>
+            <span class="way__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </span>
+            <h3>Free tools</h3>
+            <p>Practical references for everyday moments — meltdowns, sleep, limits, repair, and the milestone tracker. Free, no account needed.</p>
+            <a class="way__link" href="/tools/">Browse free tools <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </article>
+
+          <article class="way" data-animate>
+            <span class="way__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </span>
+            <h3>Articles</h3>
+            <p>Research explained without buzzwords or parenting shame — serve-and-return, screen time, self-regulation, and what to do with it.</p>
+            <a class="way__link" href="/articles/">Read the articles <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </article>
+
+          <article class="way" data-animate>
+            <span class="way__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </span>
+            <h3>Growing Minds AI</h3>
+            <p>Ask a parenting question, get a research-grounded answer — not generic internet advice, not judgment. A private AI tutor, free to try.</p>
+            <a class="way__link" href="/tools/growing-minds-ai.html">Try it free <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- BELIEF / FOUNDER -->
+    <section class="belief" aria-label="Why this exists">
+      <div class="container belief__inner">
+        <blockquote class="belief__quote" data-animate="fade">
+          The research on early childhood is clear and consistent — yet almost entirely absent from mainstream parenting content. Every class here exists to <span class="accent">close that gap</span>.
+        </blockquote>
+        <p class="belief__attr">Matthew McArthur — Child Development Specialist</p>
+      </div>
+    </section>
+
+    <!-- WAITLIST -->
+    <section id="signup" class="signup section">
+      <div class="container signup__inner">
+        <div class="signup__pitch" data-animate>
+          <p class="eyebrow">Founding members</p>
+          <h2>Be the first parent in the room who actually understands why.</h2>
+          <p>The toddler class opens to a small founding group first. Join the waitlist for early-bird $49 pricing and the free milestone tracker.</p>
+          <ul class="signup__perks">
+            <li class="signup__perk">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Founding-member price — $49, with Growing Minds AI included free</span>
+            </li>
+            <li class="signup__perk">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>The free milestone tracker — first five years, no account required</span>
+            </li>
+            <li class="signup__perk">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>First access the moment the class launches — the first group is small</span>
+            </li>
+          </ul>
         </div>
 
         <form
-          class="signup-form fade-in"
-          style="transition-delay:.15s"
-          id="signupForm"
+          class="signup__form"
+          data-newsletter
           method="POST"
           action="/api/waitlist"
-          novalidate>
+          aria-labelledby="signup-heading"
+          data-animate>
+          <h3 id="signup-heading" class="signup__form-title">Reserve your founding spot</h3>
+          <p class="signup__form-sub">No spam — unsubscribe any time.</p>
 
           <input type="hidden" name="subject" value="New Waitlist Signup — Growing Minds Science" />
-          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
-          <div class="form-group">
-            <label class="form-label" for="f-name">Your name <span style="opacity:.6;font-weight:400">(optional)</span></label>
-            <input class="form-input" type="text" id="f-name" name="name" autocomplete="name" placeholder="Your name" />
+          <div class="field">
+            <label class="field__label" for="email">Email address</label>
+            <input class="field__input" type="email" id="email" name="email" autocomplete="email" required placeholder="you@example.com" />
           </div>
 
-          <div class="form-group">
-            <label class="form-label" for="f-email">Email address</label>
-            <input class="form-input" type="email" id="f-email" name="email" autocomplete="email" required placeholder="you@example.com" />
+          <div class="field">
+            <label class="field__label" for="name">Your name <span class="opt">optional</span></label>
+            <input class="field__input" type="text" id="name" name="name" autocomplete="name" placeholder="Your name" />
           </div>
 
-          <div class="form-group">
-            <label class="form-label" for="f-interest">Which class are you most interested in?</label>
-            <select class="form-input" id="f-interest" name="interest">
+          <div class="field">
+            <label class="field__label" for="interest">Which class are you most interested in?</label>
+            <select class="field__select" id="interest" name="interest">
               <option value="">No preference yet</option>
               <option value="Toddlerhood">Toddler years (ages 1–3)</option>
               <option value="Birth to 12 months">Birth to 12 months</option>
@@ -887,108 +382,56 @@
             </select>
           </div>
 
-          <button class="btn btn--amber btn--submit" type="submit">Reserve my founding member spot</button>
-          <div class="form-status" role="status" aria-live="polite" id="formStatus"></div>
-          <p class="form-disclaimer">No spam. Unsubscribe any time.</p>
+          <button class="btn btn--primary btn--block btn--lg" type="submit">Reserve my founding member spot</button>
+          <p class="form-status" data-form-status role="status" aria-live="polite"></p>
         </form>
-
       </div>
     </section>
 
   </main>
 
-  <!-- 8. FOOTER -->
   <footer class="site-footer" role="contentinfo">
-    <div class="container">
-      <div class="site-footer__main">
-
-        <a class="footer-brand" href="/" aria-label="Growing Minds Science — home">
-          <div class="footer-brand__mark">
-            <img src="assets/img/original-logo-mark-no-words-512.png" alt="" width="28" height="28" loading="lazy" decoding="async" />
-          </div>
-          <span class="footer-brand__name">Growing Minds Science</span>
+    <div class="container site-footer__inner">
+      <div class="site-footer__brand">
+        <a class="brand" href="/" aria-label="Growing Minds Science — home">
+          <img class="brand__mark" src="assets/img/original-logo-mark-no-words-512.png" alt="" width="38" height="38" loading="lazy" decoding="async" />
+          <span class="brand__name">Growing Minds Science</span>
         </a>
-
-        <nav class="footer-nav" aria-label="Footer">
-          <a href="/classes/">Classes</a>
-          <a href="/tools/">Tools</a>
-          <a href="/articles/">Articles</a>
-          <a href="/about/">About</a>
-          <a href="/faq/">FAQ</a>
-        </nav>
-
-        <a class="footer-social" href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-          Instagram
-        </a>
-
+        <p class="site-footer__tag">Developmental science, translated for parents — for the first five years.</p>
       </div>
-      <div class="site-footer__bottom">
-        <p>© <span id="currentYear"></span> Growing Minds Science. All rights reserved.</p>
-        <p>Educational content only. Not medical or psychological advice.</p>
+      <div>
+        <h4>Explore</h4>
+        <ul class="footer-list">
+          <li><a href="/classes/">Classes</a></li>
+          <li><a href="/tools/">Free tools</a></li>
+          <li><a href="/articles/">Articles</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/milestones">Milestone tracker</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Stay in the loop</h4>
+        <ul class="footer-list">
+          <li><a href="/#signup">Join the class waitlist →</a></li>
+        </ul>
+        <p style="margin-top: var(--space-5);">
+          <a class="footer-ig" href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
+            Instagram
+          </a>
+        </p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© <span data-year>2026</span> Growing Minds Science</span>
+        <span>Educational content only. Not medical or psychological advice.</span>
       </div>
     </div>
   </footer>
 
-  <script>
-    // Year
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-    // Scroll fade-in via IntersectionObserver
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
-      });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
-
-    // Mobile nav
-    const toggle = document.getElementById('navToggle');
-    const drawer = document.getElementById('navDrawer');
-    toggle.addEventListener('click', () => {
-      const open = drawer.classList.toggle('is-open');
-      toggle.setAttribute('aria-expanded', String(open));
-      drawer.setAttribute('aria-hidden', String(!open));
-    });
-    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-      drawer.classList.remove('is-open');
-      toggle.setAttribute('aria-expanded', 'false');
-      drawer.setAttribute('aria-hidden', 'true');
-    }));
-
-    // Waitlist form
-    const form    = document.getElementById('signupForm');
-    const statusEl = document.getElementById('formStatus');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const emailEl = document.getElementById('f-email');
-      if (!emailEl.value) { emailEl.focus(); return; }
-      const btn = form.querySelector('.btn--submit');
-      btn.disabled = true;
-      btn.textContent = 'Sending…';
-      statusEl.textContent = '';
-      statusEl.className = 'form-status';
-      try {
-        const res = await fetch('/api/waitlist', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(Object.fromEntries(new FormData(form)))
-        });
-        if (res.ok) {
-          statusEl.textContent = "You're in! We'll be in touch soon.";
-          statusEl.className = 'form-status form-status--success';
-          form.reset();
-        } else { throw new Error(); }
-      } catch {
-        statusEl.textContent = 'Something went wrong — please try again.';
-        statusEl.className = 'form-status form-status--error';
-      } finally {
-        btn.disabled = false;
-        btn.textContent = 'Reserve my founding member spot';
-      }
-    });
-  </script>
-
+  <script src="assets/js/home.js" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
