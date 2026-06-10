@@ -1093,9 +1093,41 @@
       history.replaceState(null, '', window.location.pathname);
     }
 
+    /* ── Token auto-refresh ───────────────────────────── */
+    async function maybeRefreshToken() {
+      if (!subscriberToken) return;
+      try {
+        const [payload] = subscriberToken.split('.');
+        const data = JSON.parse(atob(payload.replace(/-/g, '+').replace(/_/g, '/')));
+        const sevenDays = 60 * 60 * 24 * 7;
+        const now = Math.floor(Date.now() / 1000);
+        // Refresh if expired or expiring within 7 days
+        if (data.exp && data.exp - now < sevenDays && data.email) {
+          const res = await fetch('/api/verify-subscription', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: data.email }),
+          });
+          if (res.ok) {
+            const json = await res.json();
+            if (json.token) {
+              subscriberToken = json.token;
+              try { localStorage.setItem(SUB_TOKEN_KEY, json.token); } catch {}
+            }
+          } else {
+            // Sub cancelled — clear token
+            subscriberToken = '';
+            try { localStorage.removeItem(SUB_TOKEN_KEY); } catch {}
+            updateTierBadge();
+          }
+        }
+      } catch {}
+    }
+
     /* ── Init ─────────────────────────────────────────── */
     document.getElementById('currentYear').textContent = new Date().getFullYear();
     updateTierBadge();
+    maybeRefreshToken();
     inputEl.focus();
   </script>
 

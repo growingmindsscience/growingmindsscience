@@ -29,7 +29,6 @@ export default async function handler(request) {
         "success_url": `${origin}/tools/growing-minds-ai?subscribed=1`,
         "cancel_url": `${origin}/tools/growing-minds-ai`,
         "billing_address_collection": "auto",
-        "customer_creation": "always",
       }).toString(),
     });
   } catch {
