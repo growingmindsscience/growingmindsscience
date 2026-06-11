@@ -90,12 +90,12 @@
   function inject() {
     document.querySelectorAll(".page-hero, .class-hero, .article-hero, .tool-hero").forEach(function (hero) {
       if (!bare(hero)) return;
-      hero.insertBefore(make("hero-sprig", "-0.07", SPRIG), hero.firstChild);
-      hero.insertBefore(make("hero-rings", "0.14", RINGS), hero.firstChild);
+      hero.insertBefore(make("hero-sprig", "-0.1", SPRIG), hero.firstChild);
+      hero.insertBefore(make("hero-rings", "0.16", RINGS), hero.firstChild);
     });
     document.querySelectorAll("section.signup").forEach(function (band) {
       if (!bare(band)) return;
-      band.insertBefore(make("band-rings", "-0.1", RINGS), band.firstChild);
+      band.insertBefore(make("band-rings", "-0.12", RINGS), band.firstChild);
     });
     document.querySelectorAll(".cta-strip, .article-cta").forEach(function (card) {
       if (!bare(card)) return;
@@ -153,7 +153,9 @@
         // never feeds back into its own input.
         var box = d.host.getBoundingClientRect();
         var progress = (box.top + box.height / 2 - vh / 2) / vh;
-        var y = -progress * d.speed * 160;
+        // speed reads as a parallax factor: 0.2 = the motif lags the page
+        // by 20% of the scroll distance — clearly visible, never frantic.
+        var y = -progress * d.speed * vh;
         d.el.style.transform = "translate3d(0," + y.toFixed(1) + "px,0)";
       });
     }
