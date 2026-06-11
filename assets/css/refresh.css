@@ -1,49 +1,55 @@
-/* Editorial refresh overrides */
+/* Editorial refresh overrides — retargeted to the homepage "Tidepool" system
+   (deep teal-ink + brand teal + sea-glass ground + one coral accent).
+   Token names kept; values + fonts now mirror home.css so inner pages match. */
 :root {
-  --bg: #F8F6F1;
-  --bg-alt: #EEF3EF;
+  --bg: #F0F5F3;            /* mist — cool aqua page ground */
+  --bg-alt: #E4EEEA;        /* alternate band */
   --surface: #FFFFFF;
-  --surface-2: #F1EFE8;
-  --border: #D9D1C4;
-  --border-soft: #E8E1D4;
-  --ink: #211F1A;
-  --ink-soft: #373A34;
-  --ink-muted: #626157;
-  --primary: #517965;
-  --primary-hover: #3F624F;
-  --accent: #86A9AD;
-  --accent-soft: #CADADB;
-  --accent-brown: #7A6444;
-  --warm: #D5BE98;
-  --leaf: #517965;
-  --radius-sm: 4px;
-  --radius: 8px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
-  --shadow-sm: 0 1px 2px rgba(28, 34, 31, 0.05);
-  --shadow-md: 0 10px 24px rgba(28, 34, 31, 0.07);
-  --shadow-lg: 0 22px 48px rgba(28, 34, 31, 0.09);
+  --surface-2: #E9F1ED;     /* sea-glass-tinted chips / graphic ground */
+  --border: #D4E0DC;        /* line */
+  --border-soft: #E2EAE7;
+  --ink: #15393C;           /* pine: dominant text */
+  --ink-soft: #3D5A5A;
+  --ink-muted: #5C7472;
+  --primary: #1E5F62;       /* brand teal (AA on white) */
+  --primary-hover: #2E7A77; /* teal-soft */
+  --primary-ink: #FFFFFF;
+  --accent: #2E7A77;        /* secondary teal accent */
+  --accent-soft: #CFE3DE;   /* sea-glass */
+  --accent-brown: #A3492E;  /* coral-deep — warm at text sizes */
+  --warm: #DE7356;          /* coral — the one accent */
+  --leaf: #2E7A77;
+  /* Typography now matches home: Bricolage Grotesque display + Source Serif 4 body */
+  --font-display: "Bricolage Grotesque", "Avenir Next", "Helvetica Neue", sans-serif;
+  --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 22px;
+  --shadow-sm: 0 1px 2px rgba(14, 42, 45, 0.06);
+  --shadow-md: 0 16px 36px -20px rgba(14, 42, 45, 0.30);
+  --shadow-lg: 0 32px 64px -30px rgba(14, 42, 45, 0.38);
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --bg: #161513;
-  --bg-alt: #1B1A18;
-  --surface: #1F1E1B;
-  --surface-2: #25231F;
-  --border: #34322D;
-  --border-soft: #2A2824;
-  --ink: #ECE5D4;
-  --ink-soft: #C7C2B5;
-  --ink-muted: #8E8B82;
-  --primary: #9FBFAB;
-  --primary-hover: #BFD6C7;
-  --primary-ink: #15201A;
-  --accent: #A7C4BC;
-  --accent-soft: #87A89F;
-  --accent-brown: #C8A878;
-  --warm: #D8C3A5;
-  --leaf: #9FBFAB;
+  --bg: #0F1A18;
+  --bg-alt: #11302F;
+  --surface: #152421;
+  --surface-2: #1C3733;
+  --border: #28403B;
+  --border-soft: #1E322E;
+  --ink: #E8EFEB;
+  --ink-soft: #C2CFC9;
+  --ink-muted: #8CA09A;
+  --primary: #6FBCAF;
+  --primary-hover: #8FD0C4;
+  --primary-ink: #07211E;
+  --accent: #8FD0C4;
+  --accent-soft: #1C3733;
+  --accent-brown: #E78D6F;
+  --warm: #E78D6F;
+  --leaf: #6FBCAF;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 18px 40px rgba(0, 0, 0, 0.5);
@@ -237,14 +243,14 @@ h4,
 }
 
 .mission {
-  background: #26352E;
-  color: #F5F2EA;
+  background: #15393C;
+  color: #EDF4F1;
 }
 
 .mission .eyebrow,
 .mission .check-list li,
 .mission__quote p {
-  color: color-mix(in oklab, #F5F2EA 88%, transparent);
+  color: color-mix(in oklab, #EDF4F1 88%, transparent);
 }
 
 .mission__title,
@@ -314,6 +320,22 @@ h4,
 
 .page-hero__visual--graphic img {
   object-fit: contain;
+}
+
+/* Shared warm photo grade + brand-tint wash — unifies site photography.
+   Scoped to photo heroes only (not the line-art graphic variant). */
+.page-hero__visual:not(.page-hero__visual--graphic) {
+  position: relative;
+}
+.page-hero__visual:not(.page-hero__visual--graphic) img {
+  filter: saturate(0.94) contrast(1.03) brightness(1.02) sepia(0.05);
+}
+.page-hero__visual:not(.page-hero__visual--graphic)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(165deg, rgba(222,115,86,0.06) 0%, rgba(21,57,60,0.04) 45%, rgba(21,57,60,0.12) 100%);
+  pointer-events: none;
 }
 
 .life-strip {
@@ -710,8 +732,8 @@ h4,
 }
 
 .site-footer {
-  background: #211F1A;
-  color: #F4EFE6;
+  background: #0E2A2D;
+  color: #EDF4F1;
 }
 
 .site-footer .brand,
@@ -726,12 +748,12 @@ h4,
 .site-footer .footer-bottom,
 .site-footer .footer-elsewhere,
 .site-footer .footer-elsewhere a {
-  color: color-mix(in oklab, #F4EFE6 72%, transparent);
+  color: color-mix(in oklab, #EDF4F1 72%, transparent);
 }
 
 .site-footer,
 .site-footer .footer-bottom {
-  border-color: color-mix(in oklab, #F4EFE6 14%, transparent);
+  border-color: color-mix(in oklab, #EDF4F1 14%, transparent);
 }
 
 @media (max-width: 880px) {
@@ -918,7 +940,7 @@ h4,
 
 /* 2. Proof strip — flip dark for instant contrast and rhythm */
 .proof-strip {
-  background: #252E25;
+  background: #15393C;
   padding-block: var(--space-10);
 }
 
@@ -935,7 +957,7 @@ h4,
 }
 
 .proof-strip .proof-strip__item strong {
-  color: #F5F0E8;
+  color: #EDF4F1;
   font-family: var(--font-display);
   font-weight: 400;
   font-size: var(--text-md);
@@ -986,7 +1008,7 @@ h4,
 }
 .how-grid--four .how-card:nth-child(2) .how-card__icon {
   background: color-mix(in oklab, var(--warm) 22%, var(--surface));
-  color: #7A5C2E;
+  color: #A3492E;
 }
 
 .how-grid--four .how-card:nth-child(3) {
@@ -994,7 +1016,7 @@ h4,
 }
 .how-grid--four .how-card:nth-child(3) .how-card__icon {
   background: color-mix(in oklab, var(--accent) 18%, var(--surface));
-  color: #3D6B72;
+  color: #1E5F62;
 }
 
 .how-grid--four .how-card:nth-child(4) {
@@ -1013,7 +1035,7 @@ h4,
 
 /* 6. Belief quote section */
 .belief {
-  background: #1D2B1E;
+  background: #15393C;
   padding-block: clamp(var(--space-16), 10vw, var(--space-24));
 }
 
@@ -1029,7 +1051,7 @@ h4,
   font-size: clamp(1.8rem, 1rem + 3vw, 3rem);
   font-weight: 400;
   line-height: 1.18;
-  color: #F2EDE3;
+  color: #EDF4F1;
   letter-spacing: 0;
   font-style: italic;
 }
@@ -1097,10 +1119,10 @@ h4,
 
 /* dark mode adjustments for belief section */
 [data-theme="dark"] .belief {
-  background: #0F160F;
+  background: #0E2A2D;
 }
 [data-theme="dark"] .belief__quote {
-  color: #E8E2D6;
+  color: #EDF4F1;
 }
 [data-theme="dark"] #about {
   background: linear-gradient(180deg,

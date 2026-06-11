@@ -1,58 +1,98 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 680" role="img" aria-labelledby="title desc">
-  <title id="title">Growing Minds Science parent tools illustration</title>
-  <desc id="desc">An illustration of the Growing Minds Science logo mark surrounded by parent tool cards and developmental guidance pathways.</desc>
-  <rect width="900" height="680" rx="24" fill="#F1EFE8"/>
-  <path d="M108 536 C210 472 314 468 410 514 C510 562 630 548 774 458" fill="none" stroke="#D5BE98" stroke-width="12" stroke-linecap="round"/>
-  <path d="M118 190 C232 128 328 137 405 216 C486 299 594 310 764 214" fill="none" stroke="#CADADB" stroke-width="16" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 680" role="img" aria-labelledby="tg-title tg-desc">
+  <title id="tg-title">Growing Minds Science parent tools</title>
+  <desc id="tg-desc">Abstract illustration of a small library of parent reference cards linked by a developmental guidance path with milestone markers.</desc>
+  <defs>
+    <linearGradient id="tg-card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#FBFDFC"/>
+    </linearGradient>
+    <linearGradient id="tg-sage" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2E7A77"/><stop offset="1" stop-color="#1E5F62"/>
+    </linearGradient>
+    <radialGradient id="tg-ripple" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0.62" stop-color="#CFE3DE" stop-opacity="0"/>
+      <stop offset="0.63" stop-color="#CFE3DE" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#CFE3DE" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
 
-  <g transform="translate(74 104)">
-    <rect x="0" y="0" width="245" height="318" rx="18" fill="#FFFFFF" stroke="#D9D1C4" stroke-width="3"/>
-    <rect x="26" y="34" width="96" height="10" rx="5" fill="#0E5C66"/>
-    <rect x="26" y="66" width="172" height="8" rx="4" fill="#D9D1C4"/>
-    <rect x="26" y="88" width="132" height="8" rx="4" fill="#E8E1D4"/>
-    <g transform="translate(30 130)">
-      <circle cx="32" cy="32" r="30" fill="#E8F4ED" stroke="#64C7A0" stroke-width="4"/>
-      <path d="M22 34 C28 41 36 41 42 33" fill="none" stroke="#0E5C66" stroke-width="5" stroke-linecap="round"/>
-      <path d="M32 19 V31" fill="none" stroke="#0E5C66" stroke-width="5" stroke-linecap="round"/>
+  <!-- soft tidepool ripples behind -->
+  <circle cx="470" cy="300" r="250" fill="url(#tg-ripple)"/>
+  <circle cx="470" cy="300" r="190" fill="url(#tg-ripple)"/>
+
+  <!-- guidance path with milestone markers -->
+  <path d="M96 556 C 250 500, 360 596, 470 560 C 600 518, 700 588, 812 506" fill="none"
+        stroke="#DE7356" stroke-width="11" stroke-linecap="round"/>
+  <path d="M96 556 C 250 500, 360 596, 470 560 C 600 518, 700 588, 812 506" fill="none"
+        stroke="#C75E44" stroke-width="11" stroke-linecap="round" stroke-dasharray="2 26" opacity="0.55"/>
+  <g>
+    <circle cx="172" cy="529" r="11" fill="#FBFDFC" stroke="#A3492E" stroke-width="4"/>
+    <circle cx="470" cy="560" r="11" fill="#FBFDFC" stroke="#5E9C97" stroke-width="4"/>
+    <circle cx="744" cy="536" r="11" fill="#FBFDFC" stroke="#1E5F62" stroke-width="4"/>
+  </g>
+
+  <!-- LEFT card: milestones (checklist) -->
+  <g transform="translate(96 150) rotate(-5 130 175)">
+    <ellipse cx="135" cy="362" rx="120" ry="20" fill="#0E2A2D" opacity="0.06"/>
+    <rect x="0" y="0" width="262" height="346" rx="20" fill="url(#tg-card)" stroke="#D4E0DC" stroke-width="2.5"/>
+    <g transform="translate(28 30)">
+      <rect width="46" height="46" rx="12" fill="#EAF3EF"/>
+      <path d="M12 32 C 18 22, 28 20, 34 14" fill="none" stroke="#1E5F62" stroke-width="3.5" stroke-linecap="round"/>
+      <circle cx="12" cy="32" r="3.4" fill="#1E5F62"/><circle cx="34" cy="14" r="3.4" fill="#DE7356"/>
     </g>
-    <g transform="translate(116 138)">
-      <rect x="0" y="0" width="80" height="10" rx="5" fill="#F3A22D"/>
-      <rect x="0" y="28" width="96" height="8" rx="4" fill="#D9D1C4"/>
-      <rect x="0" y="50" width="66" height="8" rx="4" fill="#E8E1D4"/>
+    <rect x="90" y="38" width="120" height="11" rx="5.5" fill="#15393C"/>
+    <rect x="90" y="58" width="86" height="8" rx="4" fill="#D4E0DC"/>
+    <g transform="translate(30 116)">
+      <g><circle cx="11" cy="11" r="11" fill="#EAF3EF"/><path d="M6 11 l3.4 3.6 L17 7" fill="none" stroke="#1E5F62" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="34" y="5" width="160" height="9" rx="4.5" fill="#D4E0DC"/></g>
+      <g transform="translate(0 44)"><circle cx="11" cy="11" r="11" fill="#EAF3EF"/><path d="M6 11 l3.4 3.6 L17 7" fill="none" stroke="#1E5F62" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><rect x="34" y="5" width="132" height="9" rx="4.5" fill="#DDE9E4"/></g>
+      <g transform="translate(0 88)"><circle cx="11" cy="11" r="11" fill="#EEF4F1" stroke="#D4E0DC" stroke-width="2"/><rect x="34" y="5" width="150" height="9" rx="4.5" fill="#DDE9E4"/></g>
+      <g transform="translate(0 132)"><circle cx="11" cy="11" r="11" fill="#EEF4F1" stroke="#D4E0DC" stroke-width="2"/><rect x="34" y="5" width="116" height="9" rx="4.5" fill="#DDE9E4"/></g>
     </g>
-    <circle cx="42" cy="258" r="11" fill="#64C7A0"/>
-    <rect x="66" y="251" width="126" height="8" rx="4" fill="#D9D1C4"/>
-    <circle cx="42" cy="288" r="11" fill="#F3A22D"/>
-    <rect x="66" y="281" width="148" height="8" rx="4" fill="#D9D1C4"/>
   </g>
 
-  <g transform="translate(294 62)">
-    <rect x="0" y="0" width="330" height="470" rx="24" fill="#FFFFFF" stroke="#D9D1C4" stroke-width="3"/>
-    <circle cx="165" cy="177" r="130" fill="#F8F6F1" stroke="#E8E1D4" stroke-width="4"/>
-    <image href="original-logo-mark-no-words-transparent.png" x="48" y="46" width="234" height="286" preserveAspectRatio="xMidYMid meet"/>
-    <rect x="52" y="360" width="226" height="11" rx="5.5" fill="#0E5C66"/>
-    <rect x="52" y="390" width="178" height="10" rx="5" fill="#D9D1C4"/>
-    <rect x="52" y="418" width="126" height="10" rx="5" fill="#E8E1D4"/>
+  <!-- RIGHT card: guidance (sage, list with dots) -->
+  <g transform="translate(556 184) rotate(5 120 160)">
+    <ellipse cx="125" cy="338" rx="118" ry="20" fill="#0E2A2D" opacity="0.06"/>
+    <rect x="0" y="0" width="258" height="322" rx="20" fill="url(#tg-sage)"/>
+    <g transform="translate(28 30)">
+      <rect width="46" height="46" rx="12" fill="#FFFFFF" opacity="0.16"/>
+      <path d="M11 14 h24 a4 4 0 0 1 4 4 v10 a4 4 0 0 1 -4 4 H22 l-7 7 v-7 h-4 a4 4 0 0 1 -4 -4 V18 a4 4 0 0 1 4 -4 Z" fill="none" stroke="#EAF3EF" stroke-width="3" stroke-linejoin="round"/>
+    </g>
+    <rect x="90" y="40" width="110" height="11" rx="5.5" fill="#EAF3EF"/>
+    <rect x="90" y="60" width="74" height="8" rx="4" fill="#9FC3BA"/>
+    <g transform="translate(30 116)">
+      <g><circle cx="9" cy="9" r="9" fill="#DE7356"/><rect x="30" y="3" width="168" height="10" rx="5" fill="#EAF3EF"/></g>
+      <g transform="translate(0 42)"><circle cx="9" cy="9" r="9" fill="#9FCABF"/><rect x="30" y="3" width="140" height="10" rx="5" fill="#CFE3DE" opacity="0.85"/></g>
+      <g transform="translate(0 84)"><circle cx="9" cy="9" r="9" fill="#BFD8D1"/><rect x="30" y="3" width="184" height="10" rx="5" fill="#A6CCC1"/></g>
+      <g transform="translate(0 126)"><circle cx="9" cy="9" r="9" fill="#BFD8D1"/><rect x="30" y="3" width="120" height="10" rx="5" fill="#A6CCC1"/></g>
+    </g>
   </g>
 
-  <g transform="translate(590 166)">
-    <rect x="0" y="0" width="238" height="314" rx="20" fill="#0E5C66"/>
-    <rect x="28" y="32" width="84" height="10" rx="5" fill="#F8F6F1"/>
-    <circle cx="48" cy="92" r="16" fill="#F3A22D"/>
-    <rect x="78" y="85" width="114" height="8" rx="4" fill="#F8F6F1" opacity=".92"/>
-    <circle cx="48" cy="142" r="16" fill="#64C7A0"/>
-    <rect x="78" y="135" width="92" height="8" rx="4" fill="#CADADB"/>
-    <circle cx="48" cy="192" r="16" fill="#D5BE98"/>
-    <rect x="78" y="185" width="124" height="8" rx="4" fill="#F8F6F1" opacity=".92"/>
-    <path d="M40 252 H198" stroke="#F8F6F1" stroke-width="9" stroke-linecap="round"/>
-    <path d="M40 280 H148" stroke="#CADADB" stroke-width="9" stroke-linecap="round"/>
+  <!-- CENTER card: front, growth-rings emblem -->
+  <g transform="translate(318 92)">
+    <ellipse cx="132" cy="420" rx="150" ry="24" fill="#0E2A2D" opacity="0.08"/>
+    <rect x="0" y="0" width="264" height="404" rx="22" fill="url(#tg-card)" stroke="#D4E0DC" stroke-width="2.5"/>
+    <g transform="translate(132 150)">
+      <circle r="92" fill="#EFF6F2"/>
+      <circle r="92" fill="none" stroke="#CFE3DE" stroke-width="2.5"/>
+      <circle r="66" fill="none" stroke="#BFD8D1" stroke-width="2.5" stroke-dasharray="4 9"/>
+      <circle r="40" fill="none" stroke="#5E9C97" stroke-width="2.5"/>
+      <path d="M0 44 C 0 18, 0 2, 0 -28" fill="none" stroke="#1E5F62" stroke-width="5" stroke-linecap="round"/>
+      <path d="M0 6 C -22 0, -34 -14, -34 -34 C -10 -32, 2 -16, 0 6 Z" fill="#2E7A77"/>
+      <path d="M0 -10 C 22 -16, 36 -30, 38 -52 C 14 -50, -2 -34, 0 -10 Z" fill="#1E5F62"/>
+      <circle cx="0" cy="-34" r="6" fill="#DE7356"/>
+    </g>
+    <rect x="40" y="276" width="150" height="13" rx="6.5" fill="#15393C"/>
+    <rect x="40" y="304" width="184" height="9" rx="4.5" fill="#D4E0DC"/>
+    <rect x="40" y="322" width="150" height="9" rx="4.5" fill="#D4E0DC"/>
+    <rect x="40" y="352" width="92" height="26" rx="13" fill="#EAF3EF"/>
+    <rect x="40" y="352" width="92" height="26" rx="13" fill="none" stroke="#8FBDB4" stroke-width="2"/>
+    <rect x="56" y="361" width="60" height="8" rx="4" fill="#1E5F62"/>
   </g>
 
-  <g transform="translate(138 526)">
-    <circle cx="0" cy="0" r="15" fill="#0E5C66"/>
-    <circle cx="88" cy="-22" r="15" fill="#F3A22D"/>
-    <circle cx="176" cy="0" r="15" fill="#64C7A0"/>
-    <path d="M16 -4 C42 -16 58 -20 72 -20" fill="none" stroke="#0E5C66" stroke-width="5" stroke-linecap="round"/>
-    <path d="M104 -20 C132 -12 146 -5 160 -2" fill="none" stroke="#0E5C66" stroke-width="5" stroke-linecap="round"/>
+  <!-- small leaf sprig accent, bottom-left -->
+  <g transform="translate(60 432)" stroke-linecap="round">
+    <path d="M0 60 C 2 36, 0 20, 14 2" stroke="#5E9C97" stroke-width="3.5" fill="none"/>
+    <path d="M7 34 C -8 30, -16 20, -16 6 C -2 8, 8 18, 7 34 Z" fill="#CFE3DE"/>
+    <path d="M9 20 C 22 16, 30 8, 30 -4 C 18 -2, 8 8, 9 20 Z" fill="#BFD8D1"/>
   </g>
 </svg>

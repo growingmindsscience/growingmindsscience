@@ -14,7 +14,7 @@
   --surface-2: #F1EFE8;       /* secondary surface / chips */
   --border: #D9D1C4;          /* warm border */
   --border-soft: #E8E1D4;
-  --ink: #211F1A;             /* primary text */
+  --ink: #0E2A2D;             /* primary text */
   --ink-soft: #373A34;
   --ink-muted: #626157;       /* muted text */
   --primary: #517965;         /* sage accent */
@@ -2365,14 +2365,14 @@ button:disabled {
 }
 
 .mission {
-  background: #26352E;
-  color: #F5F2EA;
+  background: #15393C;
+  color: #EDF4F1;
 }
 
 .mission .eyebrow,
 .mission .check-list li,
 .mission__quote p {
-  color: color-mix(in oklab, #F5F2EA 88%, transparent);
+  color: color-mix(in oklab, #EDF4F1 88%, transparent);
 }
 
 .mission__title,
@@ -2455,8 +2455,8 @@ button:disabled {
 }
 
 .site-footer {
-  background: #211F1A;
-  color: #F4EFE6;
+  background: #0E2A2D;
+  color: #EDF4F1;
 }
 
 .site-footer .brand,
@@ -2471,12 +2471,12 @@ button:disabled {
 .site-footer .footer-bottom,
 .site-footer .footer-elsewhere,
 .site-footer .footer-elsewhere a {
-  color: color-mix(in oklab, #F4EFE6 72%, transparent);
+  color: color-mix(in oklab, #EDF4F1 72%, transparent);
 }
 
 .site-footer,
 .site-footer .footer-bottom {
-  border-color: color-mix(in oklab, #F4EFE6 14%, transparent);
+  border-color: color-mix(in oklab, #EDF4F1 14%, transparent);
 }
 
 @media (max-width: 880px) {
