@@ -1316,3 +1316,91 @@ img {
   transition: color 0.15s ease;
 }
 
+/* =========================================================
+   Tidepool accent motifs — injected by decor.js into the
+   site's dead spaces, with gentle scroll-linked motion
+   ========================================================= */
+
+/* Hosts get a stacking context so motifs can sit behind the
+   content (z-index: -1) but above the section's background */
+.page-hero,
+.class-hero,
+.article-hero,
+.tool-hero,
+.signup,
+.cta-strip,
+.article-cta {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.gms-decor {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+.gms-decor svg { display: block; width: 100%; height: auto; }
+
+/* Placement per dead space */
+.gms-decor--hero-rings { top: -90px; right: -80px; width: min(38vw, 430px); }
+.gms-decor--hero-sprig { left: 2px; bottom: 7%; width: clamp(60px, 7vw, 96px); }
+.gms-decor--band-rings { left: -90px; bottom: -120px; width: min(36vw, 360px); }
+.gms-decor--card-seeds { top: 8px; right: 12px; width: 76px; opacity: 0.55; }
+
+@media (max-width: 1240px) {
+  .gms-decor--hero-sprig { display: none; }
+}
+@media (max-width: 860px) {
+  .gms-decor--hero-rings { width: 270px; top: -70px; right: -70px; opacity: 0.65; }
+  .gms-decor--band-rings { width: 230px; left: -70px; bottom: -90px; opacity: 0.6; }
+}
+
+/* Shape colors follow the theme tokens, so dark mode is automatic */
+.gms-c-ring1 { stroke: var(--accent-soft); }
+.gms-c-ring2 { stroke: color-mix(in oklab, var(--accent-soft) 70%, var(--accent)); }
+.gms-c-dash  { stroke: var(--accent); stroke-opacity: 0.28; }
+.gms-c-arc   { stroke: var(--warm); stroke-opacity: 0.32; }
+.gms-c-seed  { fill: var(--warm); fill-opacity: 0.6; }
+.gms-c-seed2 { fill: var(--accent); fill-opacity: 0.5; }
+.gms-c-stem  { stroke: var(--accent); stroke-opacity: 0.55; }
+.gms-c-leaf1 { fill: var(--accent-soft); }
+.gms-c-leaf2 { fill: color-mix(in oklab, var(--accent-soft) 70%, var(--accent)); }
+
+[data-theme="dark"] .gms-decor { opacity: 0.55; }
+[data-theme="dark"] .gms-decor--card-seeds { opacity: 0.35; }
+
+/* ---- Motion (html.gms-motion = JS present + motion welcome) ---- */
+
+[data-drift] { will-change: transform; }
+
+/* Draw-in: shapes surface one by one the first time a motif is seen */
+.gms-motion .gms-reveal :where(circle, path) {
+  opacity: 0;
+  transition: opacity 0.9s ease;
+}
+.gms-motion .gms-reveal.is-visible :where(circle, path) { opacity: 1; }
+.gms-motion .gms-reveal :where(circle, path):nth-child(2) { transition-delay: 100ms; }
+.gms-motion .gms-reveal :where(circle, path):nth-child(3) { transition-delay: 200ms; }
+.gms-motion .gms-reveal :where(circle, path):nth-child(4) { transition-delay: 300ms; }
+.gms-motion .gms-reveal :where(circle, path):nth-child(5) { transition-delay: 400ms; }
+.gms-motion .gms-reveal :where(circle, path):nth-child(6) { transition-delay: 500ms; }
+.gms-motion .gms-reveal :where(circle, path):nth-child(7) { transition-delay: 600ms; }
+.gms-motion .gms-reveal :where(circle, path):nth-child(8) { transition-delay: 700ms; }
+
+/* Slow floating bob; the dashed ring turns almost imperceptibly */
+@keyframes gms-float {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-9px); }
+}
+@keyframes gms-spin {
+  to { transform: rotate(360deg); }
+}
+.gms-motion .gms-float { animation: gms-float 7s ease-in-out infinite alternate; }
+.gms-motion .gms-float--slow { animation-duration: 10s; }
+.gms-motion .gms-spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: gms-spin 90s linear infinite;
+}
+
