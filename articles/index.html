@@ -14,7 +14,7 @@
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Articles — Growing Minds Science" />
-  <meta property="og:description" content="Developmental science in plain language — new research explained, lessons from parent coaching, and practical reminders for the early years." />
+  <meta property="og:description" content="Developmental science in plain language: new research explained, lessons from parent coaching, and practical reminders for the early years." />
   <meta property="og:image" content="/assets/img/site/family-reading.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
@@ -81,14 +81,14 @@
         <div class="notice">
           <p>
             <strong>Now publishing.</strong> Articles are written one at a time
-            and edited carefully — quality over volume. Start with the newest
+            and edited carefully, quality over volume. Start with the newest
             research explainers and practical guides below.
           </p>
         </div>
 
         <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--space-4); margin-bottom:var(--space-12); padding:var(--space-6) var(--space-8); background:var(--bg-alt); border-radius:var(--radius-xl); border:1px solid var(--border-soft);">
           <div>
-            <p class="section-head__eyebrow" style="margin-bottom:var(--space-2);">Toddler class — launching soon</p>
+            <p class="section-head__eyebrow" style="margin-bottom:var(--space-2);">Toddler class · launching soon</p>
             <p style="font-size:var(--text-md); font-weight:600; color:var(--ink); margin:0;">Language, autonomy, and big feelings. Founding member price: $49.</p>
           </div>
           <a class="btn btn--primary" href="/classes/toddlerhood.html" style="white-space:nowrap; flex-shrink:0;">Reserve your spot →</a>
@@ -103,7 +103,7 @@
           <div class="article-grid" data-stagger>
             <article class="article-card" data-animate>
               <p class="article-card__kicker">Research, explained</p>
-              <h3 class="article-card__title"><a href="/articles/serve-and-return">What "serve and return" actually means — and what it doesn't</a></h3>
+              <h3 class="article-card__title"><a href="/articles/serve-and-return">What "serve and return" actually means, and what it doesn't</a></h3>
               <p class="article-card__dek">A clear translation of one of the most cited ideas in early-language research, including where it's been over-applied.</p>
               <p class="article-card__meta">8 minute read</p>
             </article>
@@ -234,12 +234,12 @@
               body: JSON.stringify(Object.fromEntries(new FormData(form)))
             });
             if (res.ok) {
-              status.textContent = "You're in — we'll send new articles when they're ready.";
+              status.textContent = "You're in. We'll send new articles when they're ready.";
               status.style.color = 'var(--primary)';
               form.reset();
             } else { throw new Error(); }
           } catch {
-            status.textContent = 'Something went wrong — please try again.';
+            status.textContent = 'Something went wrong. Please try again.';
             status.style.color = '#c0392b';
           } finally {
             btn.disabled = false;
