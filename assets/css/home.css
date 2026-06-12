@@ -548,6 +548,9 @@ h3 { font-size: var(--text-xl); }
 }
 .arc__tab[aria-selected="true"] .arc__tab-name { color: var(--coral-deep); }
 
+/* Stacks all five stage panels cleanly when JS is unavailable; with JS only one panel is visible so the gap is inert. */
+.arc__panels { display: grid; gap: var(--space-6); }
+
 .arc__panel {
   background: var(--surface);
   border: 1px solid var(--line-soft);

@@ -1,4 +1,7 @@
 {
+  "redirects": [
+    { "source": "/milestones.html", "destination": "/milestones", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/classes",        "destination": "/classes/index.html" },
     { "source": "/about",          "destination": "/about/index.html" },

@@ -110,11 +110,11 @@
           calmer ways to respond to meltdowns, "no," and the explosion of new words.
         </p>
         <div class="hero__ctas">
-          <button class="btn btn--primary btn--lg" id="checkoutBtn" type="button">Buy now — $49</button>
+          <a class="btn btn--primary btn--lg" href="#waitlist">Reserve your founding member spot</a>
           <a class="btn btn--ghost btn--lg" href="#whats-inside">See what's inside</a>
         </div>
         <p style="margin-top: var(--space-3); font-size: var(--text-sm); color: var(--ink-soft);">
-          Or <a href="#waitlist">join the free waitlist</a> and pay when classes open.
+          $49 founding member price — locked in when you join the waitlist. You pay when classes open.
         </p>
         <div style="margin-top: var(--space-5); display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-6); font-size: var(--text-sm); color: var(--ink-soft);">
           <span>6 modules · ~1 hr each</span>
@@ -376,7 +376,7 @@
           <li><a href="/articles/">Articles</a></li>
           <li><a href="/about/">About</a></li>
           <li><a href="/faq/">FAQ</a></li>
-          <li><a href="/milestones.html">Milestone tracker</a></li>
+          <li><a href="/milestones">Milestone tracker</a></li>
         </ul>
       </div>
       <div>
@@ -402,31 +402,5 @@
   <script src="../assets/js/main.js" defer></script>
   <script src="../assets/js/decor.js" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
-  <script>
-  (function () {
-    var btn = document.getElementById("checkoutBtn");
-    if (!btn) return;
-    btn.addEventListener("click", function () {
-      btn.disabled = true;
-      btn.textContent = "Opening checkout…";
-      fetch("/api/checkout", { method: "POST" })
-        .then(function (r) { return r.json(); })
-        .then(function (data) {
-          if (data.url) {
-            window.location.href = data.url;
-          } else {
-            btn.disabled = false;
-            btn.textContent = "Buy now — $49";
-            alert(data.error || "Checkout unavailable. Please try again.");
-          }
-        })
-        .catch(function () {
-          btn.disabled = false;
-          btn.textContent = "Buy now — $49";
-          alert("Something went wrong. Please try again.");
-        });
-    });
-  })();
-  </script>
 </body>
 </html>

@@ -4,6 +4,13 @@
 [build]
   publish = "."
 
+# Canonical URL: /milestones.html -> /milestones ("force" so the redirect wins over the existing file).
+[[redirects]]
+  from = "/milestones.html"
+  to = "/milestones"
+  status = 301
+  force = true
+
 # Pretty URL: /milestones -> standalone static tracker.
 [[redirects]]
   from = "/milestones"
