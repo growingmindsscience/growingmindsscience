@@ -1,5 +1,8 @@
 # Netlify redirects / rewrites
 
+# Canonical URL for the milestone tracker ("!" forces the redirect over the existing file).
+/milestones.html            /milestones                    301!
+
 # Pretty URLs for the standalone static milestone tracker.
 /milestones                 /milestones.html               200
 /milestones/                /milestones.html               200

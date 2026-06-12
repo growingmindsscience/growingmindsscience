@@ -149,6 +149,13 @@
       if (focus) tabs[index].focus();
     }
 
+    // Panels ship un-hidden so the no-JS page shows all five stages in order;
+    // collapse to the marked-selected tab only once JS is running.
+    var initial = tabs.findIndex(function (tab) {
+      return tab.getAttribute("aria-selected") === "true";
+    });
+    select(initial === -1 ? 0 : initial, false);
+
     tabs.forEach(function (tab, i) {
       tab.addEventListener("click", function () { select(i, false); });
       tab.addEventListener("keydown", function (e) {
