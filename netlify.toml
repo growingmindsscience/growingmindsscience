@@ -123,6 +123,46 @@
   to = "/thank-you.html"
   status = 200
 
+[[redirects]]
+  from = "/articles/toddler-no"
+  to = "/articles/toddler-no.html"
+  status = 200
+
+[[redirects]]
+  from = "/articles/toddler-no/"
+  to = "/articles/toddler-no.html"
+  status = 200
+
+[[redirects]]
+  from = "/articles/self-regulation"
+  to = "/articles/self-regulation.html"
+  status = 200
+
+[[redirects]]
+  from = "/articles/self-regulation/"
+  to = "/articles/self-regulation.html"
+  status = 200
+
+[[redirects]]
+  from = "/login"
+  to = "/login.html"
+  status = 200
+
+[[redirects]]
+  from = "/login/"
+  to = "/login.html"
+  status = 200
+
+[[redirects]]
+  from = "/account"
+  to = "/account.html"
+  status = 200
+
+[[redirects]]
+  from = "/account/"
+  to = "/account.html"
+  status = 200
+
 # Pretty URLs for directory hub pages (no-trailing-slash variants).
 [[redirects]]
   from = "/classes"
