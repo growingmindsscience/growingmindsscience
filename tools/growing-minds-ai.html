@@ -162,6 +162,9 @@
       display: flex; flex-direction: column; gap: 1.125rem;
       min-height: 300px; max-height: calc(100vh - 380px);
     }
+    /* In the welcome state, let the topic browser breathe instead of
+       scrolling inside the short messages box. */
+    .chat-messages.is-welcome { max-height: none; overflow: visible; }
     .chat-messages::-webkit-scrollbar { width: 4px; }
     .chat-messages::-webkit-scrollbar-track { background: transparent; }
     .chat-messages::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 4px; }
@@ -178,7 +181,7 @@
     .chat-welcome h2 { font-size: 1.1875rem; color: var(--ink); margin-bottom: .5rem; }
     .chat-welcome p { font-size: .9rem; color: var(--ink-soft); max-width: 42ch; margin: 0 auto; }
 
-    /* Starters */
+    /* Starters (legacy chips, kept for fallback) */
     .chat-starters { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin-top: 1.25rem; }
     .chat-starter {
       background: var(--white); border: 1px solid var(--border-mid);
@@ -188,6 +191,97 @@
       text-align: left;
     }
     .chat-starter:hover { background: var(--teal-light); border-color: var(--teal); }
+
+    /* ── Topic browser (training cards) ────────────── */
+    .topic-browser { margin-top: 1.75rem; text-align: left; }
+    .topic-browser__hint {
+      text-align: center; font-size: .8125rem; color: var(--ink-muted);
+      margin-bottom: 1rem;
+    }
+    .topic-tabs {
+      display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+    .topic-tab {
+      background: var(--white); border: 1px solid var(--border-mid);
+      border-radius: 100px; padding: .5rem .9rem;
+      font-size: .8125rem; font-weight: 600; color: var(--ink-soft);
+      display: inline-flex; align-items: center; gap: .4rem;
+      transition: background .15s, border-color .15s, color .15s;
+    }
+    .topic-tab:hover { border-color: var(--teal); color: var(--teal); }
+    .topic-tab[aria-selected="true"] {
+      background: var(--teal); border-color: var(--teal); color: var(--white);
+    }
+    .topic-tab__emoji { font-size: .95rem; }
+
+    .topic-cards {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem;
+    }
+    .topic-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 12px; padding: .9rem 1rem;
+      font-size: .9rem; line-height: 1.45; color: var(--ink);
+      text-align: left; display: flex; align-items: flex-start; gap: .625rem;
+      transition: background .15s, border-color .15s, box-shadow .15s, transform .1s;
+    }
+    .topic-card:hover {
+      background: var(--teal-light); border-color: var(--teal);
+      box-shadow: 0 4px 16px rgba(26,23,20,.07);
+    }
+    .topic-card:active { transform: translateY(1px); }
+    .topic-card__arrow {
+      color: var(--teal); flex-shrink: 0; margin-top: .15em; opacity: .55;
+      transition: opacity .15s, transform .15s;
+    }
+    .topic-card:hover .topic-card__arrow { opacity: 1; transform: translateX(2px); }
+
+    /* ── Chat toolbar (new conversation) ───────────── */
+    .chat-toolbar {
+      display: none; align-items: center; justify-content: space-between;
+      gap: 1rem; padding: .5rem 0 0; flex-wrap: wrap;
+    }
+    .chat-toolbar.is-visible { display: flex; }
+    .chat-toolbar__label { font-size: .8rem; color: var(--ink-muted); }
+    .chat-pill-btn {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: var(--white); border: 1px solid var(--border-mid);
+      border-radius: 100px; padding: .4rem .85rem;
+      font-size: .8125rem; font-weight: 600; color: var(--teal);
+      transition: background .15s, border-color .15s;
+    }
+    .chat-pill-btn:hover { background: var(--teal-light); border-color: var(--teal); }
+    .chat-pill-btn svg { width: 14px; height: 14px; }
+
+    /* ── Topic sheet (browse anytime) ──────────────── */
+    .topic-sheet-backdrop {
+      position: fixed; inset: 0; background: rgba(21,57,60,.4);
+      z-index: 300; display: none; opacity: 0; transition: opacity .2s;
+    }
+    .topic-sheet-backdrop.is-open { display: block; opacity: 1; }
+    .topic-sheet {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 301;
+      background: var(--cream); border-radius: 16px 16px 0 0;
+      max-height: 80vh; overflow-y: auto;
+      padding: 1.25rem 1.5rem 2rem;
+      transform: translateY(100%); transition: transform .25s ease;
+      box-shadow: 0 -8px 40px rgba(21,57,60,.18);
+    }
+    .topic-sheet.is-open { transform: translateY(0); }
+    .topic-sheet__bar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1rem; position: sticky; top: -1.25rem;
+      background: var(--cream); padding: .75rem 0; margin-top: -.5rem;
+    }
+    .topic-sheet__title { font-size: 1.0625rem; color: var(--ink); }
+    .topic-sheet__close {
+      background: var(--white); border: 1px solid var(--border-mid);
+      border-radius: 50%; width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--ink-soft); font-size: 1.1rem; line-height: 1;
+    }
+    .topic-sheet__close:hover { background: var(--teal-light); color: var(--teal); }
+    .topic-sheet .topic-browser { max-width: 760px; margin: 0 auto; }
 
     /* Message bubbles */
     .msg { display: flex; flex-direction: column; max-width: 84%; }
@@ -321,81 +415,23 @@
     .access-status--success { color: #16a34a; }
     .access-status--error { color: #c0392b; }
 
-    /* ── Pricing section ───────────────────────────── */
-    .pricing { padding: 5rem 0; background: var(--cream); border-top: 1px solid var(--border); }
-    .pricing__header { text-align: center; margin-bottom: 3rem; }
-    .pricing__eyebrow {
-      font-size: .6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em;
-      color: var(--amber); margin-bottom: .75rem;
+    /* ── Plans strip (gentle pointer to /pricing) ──── */
+    .plans-strip {
+      border-top: 1px solid var(--border); background: var(--cream);
+      padding: 2.5rem 0 3rem;
     }
-    .pricing__title { font-size: clamp(1.75rem, 3.5vw, 2.375rem); color: var(--ink); margin-bottom: .75rem; }
-    .pricing__sub { font-size: 1rem; color: var(--ink-soft); max-width: 52ch; margin: 0 auto; }
-    .pricing__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-    .price-card {
+    .plans-strip__card {
+      max-width: 720px; margin: 0 auto;
       background: var(--white); border: 1px solid var(--border);
-      border-radius: 14px; padding: 2rem 1.75rem; display: flex; flex-direction: column;
-      transition: box-shadow .25s;
+      border-radius: 16px; padding: 1.75rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1.5rem; flex-wrap: wrap;
     }
-    .price-card:hover { box-shadow: 0 8px 32px rgba(26,23,20,.1); }
-    .price-card--featured {
-      border-color: var(--teal); background: linear-gradient(160deg, var(--teal-dark) 0%, var(--teal) 100%);
+    .plans-strip__text h2 {
+      font-size: 1.1875rem; color: var(--ink); margin-bottom: .25rem;
     }
-    .price-card__label {
-      font-size: .6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
-      color: var(--amber); margin-bottom: .75rem;
-    }
-    .price-card--featured .price-card__label { color: rgba(196,103,42,.9); }
-    .price-card__name {
-      font-family: 'Bricolage Grotesque', serif; font-size: 1.375rem; font-weight: 700;
-      color: var(--ink); margin-bottom: .375rem;
-    }
-    .price-card--featured .price-card__name { color: var(--white); }
-    .price-card__price {
-      font-size: 2.25rem; font-weight: 700; font-family: 'Bricolage Grotesque', serif;
-      color: var(--ink); line-height: 1; margin: .875rem 0;
-    }
-    .price-card--featured .price-card__price { color: var(--white); }
-    .price-card__price sup { font-size: 1rem; vertical-align: top; margin-top: .5rem; }
-    .price-card__price sub { font-size: .875rem; font-weight: 400; color: var(--ink-muted); }
-    .price-card--featured .price-card__price sub { color: rgba(255,255,255,.6); }
-    .price-card__tagline { font-size: .875rem; color: var(--ink-soft); margin-bottom: 1.5rem; }
-    .price-card--featured .price-card__tagline { color: rgba(255,255,255,.72); }
-    .price-card__features { list-style: none; display: flex; flex-direction: column; gap: .625rem; flex: 1; }
-    .price-card__features li {
-      display: flex; gap: .625rem; font-size: .875rem; color: var(--ink-soft); align-items: flex-start;
-    }
-    .price-card--featured .price-card__features li { color: rgba(255,255,255,.8); }
-    .price-card__features li::before {
-      content: ''; width: 5px; height: 5px; border-radius: 50%;
-      background: var(--teal); flex-shrink: 0; margin-top: .55em;
-    }
-    .price-card--featured .price-card__features li::before { background: var(--amber); }
-    .price-card__cta { margin-top: 1.75rem; }
-    .price-card__cta a, .price-card__cta button {
-      display: block; width: 100%; text-align: center;
-      padding: .8125rem; border-radius: 6px; font-weight: 500; font-size: .9375rem;
-      font-family: inherit; cursor: pointer; border: 2px solid transparent;
-      transition: background .2s, color .2s, border-color .2s;
-    }
-    .price-card__cta--teal a, .price-card__cta--teal button {
-      background: var(--teal); color: var(--white); border-color: var(--teal);
-    }
-    .price-card__cta--teal a:hover, .price-card__cta--teal button:hover {
-      background: var(--teal-hover); border-color: var(--teal-hover);
-    }
-    .price-card__cta--white a {
-      background: var(--white); color: var(--teal); border-color: var(--white);
-    }
-    .price-card__cta--white a:hover { background: var(--blush); }
-    .price-card__cta--ghost a {
-      background: transparent; color: var(--ink-soft); border-color: var(--border-mid);
-    }
-    .price-card__cta--ghost a:hover { border-color: var(--ink); color: var(--ink); }
-    .price-card__coming {
-      display: block; width: 100%; text-align: center; padding: .8125rem;
-      border-radius: 6px; font-size: .875rem; color: var(--ink-muted);
-      background: var(--cream); border: 1px dashed var(--border-mid);
-    }
+    .plans-strip__text p { font-size: .9rem; color: var(--ink-soft); max-width: 44ch; }
+    .plans-strip__cta { display: flex; gap: .625rem; flex-shrink: 0; flex-wrap: wrap; }
 
     /* ── Footer ────────────────────────────────────── */
     .site-footer { background: var(--ink); padding-top: 3.5rem; margin-top: auto; }
@@ -423,16 +459,11 @@
       .ai-page-header { padding: 2rem 0 1.5rem; }
       .ai-page-header__inner { flex-direction: column; align-items: flex-start; }
       .chat-messages { max-height: calc(100vh - 440px); min-height: 240px; }
-      .pricing__grid { grid-template-columns: 1fr; }
+      .topic-cards { grid-template-columns: 1fr; }
+      .topic-sheet { max-height: 88vh; padding: 1rem 1.125rem 1.75rem; }
+      .plans-strip__card { flex-direction: column; align-items: flex-start; text-align: left; }
       .site-footer__main { flex-direction: column; align-items: flex-start; }
       .site-footer__bottom { flex-direction: column; }
-    }
-    @media (max-width: 860px) {
-      .pricing__grid { grid-template-columns: 1fr 1fr; }
-      .price-card--featured { grid-column: 1 / -1; }
-    }
-    @media (max-width: 560px) {
-      .pricing__grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -452,7 +483,8 @@
 
       <nav class="site-nav__links" aria-label="Primary">
         <a href="/classes/">Classes</a>
-        <a href="/tools/" aria-current="page">Tools</a>
+        <a href="/tools/">Tools</a>
+        <a href="/tools/growing-minds-ai.html" aria-current="page">Growing Minds AI</a>
         <a href="/articles/">Articles</a>
         <a href="/about/">About</a>
       </nav>
@@ -466,6 +498,7 @@
     <div class="site-nav__drawer" id="navDrawer" aria-hidden="true">
       <a href="/classes/">Classes</a>
       <a href="/tools/">Tools</a>
+      <a href="/tools/growing-minds-ai.html" aria-current="page">Growing Minds AI</a>
       <a href="/articles/">Articles</a>
       <a href="/about/">About</a>
       <a class="btn btn--amber" href="/classes/toddlerhood.html">Join class waitlist</a>
@@ -495,19 +528,33 @@
     <!-- CHAT -->
     <div class="chat-shell">
 
+      <!-- Toolbar (appears once a conversation starts) -->
+      <div class="chat-toolbar" id="chatToolbar">
+        <span class="chat-toolbar__label">Your conversation stays private to this browser.</span>
+        <div style="display:flex; gap:.5rem;">
+          <button class="chat-pill-btn" type="button" id="browseTopicsBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Browse questions
+          </button>
+          <button class="chat-pill-btn" type="button" id="newChatBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            New conversation
+          </button>
+        </div>
+      </div>
+
       <!-- Messages -->
-      <div class="chat-messages" id="chatMessages" role="log" aria-label="Conversation" aria-live="polite">
+      <div class="chat-messages is-welcome" id="chatMessages" role="log" aria-label="Conversation" aria-live="polite">
         <div class="chat-welcome" id="chatWelcome">
           <div class="chat-welcome__icon" aria-hidden="true">GM</div>
-          <h2>What would you like to understand?</h2>
-          <p>Ask about any stage of early childhood: behavior, language, sleep, emotions, development.</p>
-          <div class="chat-starters" role="list">
-            <button class="chat-starter" type="button" data-q="Why does my toddler have meltdowns at transitions?" role="listitem">Why meltdowns at transitions?</button>
-            <button class="chat-starter" type="button" data-q="How does serve-and-return support language development?" role="listitem">How serve-and-return builds language</button>
-            <button class="chat-starter" type="button" data-q="What's actually happening in my toddler's brain when they say no to everything?" role="listitem">Why "no" to everything?</button>
-            <button class="chat-starter" type="button" data-q="How do I help my child after I lose my temper?" role="listitem">After I lose my temper</button>
-            <button class="chat-starter" type="button" data-q="What does co-regulation look like in practice?" role="listitem">Co-regulation in practice</button>
-            <button class="chat-starter" type="button" data-q="What's typical for a 2-year-old's sleep?" role="listitem">2-year-old sleep: what's typical?</button>
+          <h2>What's on your mind today?</h2>
+          <p>Ask anything about your child's behavior, feelings, sleep, language, or development. You'll get a calm, research-grounded answer — no judgment, and never a diagnosis.</p>
+
+          <!-- Topic browser (data-driven training cards) -->
+          <div class="topic-browser" id="topicBrowser">
+            <p class="topic-browser__hint">Not sure where to start? Pick a stage or topic, then tap a question.</p>
+            <div class="topic-tabs" id="topicTabs" role="tablist" aria-label="Question topics"></div>
+            <div class="topic-cards" id="topicCards" role="list"></div>
           </div>
         </div>
       </div>
@@ -537,8 +584,8 @@
       <!-- Input -->
       <div class="chat-input-wrap">
         <div id="limitReached" class="chat-limit" style="display:none;">
-          <p>You've used your <strong>5 free questions</strong> for today. Join a class to unlock unlimited access, or come back tomorrow.</p>
-          <a class="btn btn--amber" href="/classes/toddlerhood.html" style="white-space:nowrap; font-size:.875rem; padding:.625rem 1.125rem;">See the class →</a>
+          <p>You've used your <strong>5 free questions</strong> for today. Go unlimited with a class or AI Pro, or come back tomorrow.</p>
+          <a class="btn btn--amber" href="/pricing" style="white-space:nowrap; font-size:.875rem; padding:.625rem 1.125rem;">See plans →</a>
         </div>
         <div id="inputArea">
           <div class="chat-input-box">
@@ -557,81 +604,42 @@
             <p class="chat-meta__left">Not medical advice. <a href="/about/" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">About this tool</a></p>
             <div class="chat-meta__right">
               <button class="access-code-toggle" type="button" id="accessCodeToggle">Have a class access code?</button>
+              <button class="access-code-toggle" type="button" id="subscriberLoginToggle">AI&nbsp;Pro subscriber?</button>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- PRICING -->
-    <section class="pricing" aria-labelledby="pricing-title">
+    <!-- PLANS STRIP -->
+    <section class="plans-strip" aria-labelledby="plans-strip-title">
       <div class="container">
-        <div class="pricing__header">
-          <p class="pricing__eyebrow">How it works</p>
-          <h2 class="pricing__title" id="pricing-title">Free to try. Unlimited your way.</h2>
-          <p class="pricing__sub">Ask 5 questions free every day, or go unlimited with a class or a monthly subscription.</p>
-        </div>
-        <div class="pricing__grid">
-
-          <div class="price-card">
-            <p class="price-card__label">Always free</p>
-            <p class="price-card__name">Free</p>
-            <p class="price-card__price"><sup>$</sup>0</p>
-            <p class="price-card__tagline">5 questions per day · No account needed</p>
-            <ul class="price-card__features">
-              <li>5 developmental science questions daily</li>
-              <li>Full access to Growing Minds AI</li>
-              <li>Multi-turn conversation memory</li>
-              <li>Grounded in peer-reviewed research</li>
-              <li>Resets every day at midnight</li>
-            </ul>
-            <div class="price-card__cta price-card__cta--teal">
-              <button type="button" onclick="document.getElementById('chatInput').focus()">Start asking →</button>
-            </div>
+        <div class="plans-strip__card">
+          <div class="plans-strip__text">
+            <h2 id="plans-strip-title">Free gives you 5 questions a day.</h2>
+            <p>Want unlimited? A class bundle or a simple $9/month plan opens it all up — see what fits.</p>
           </div>
-
-          <div class="price-card price-card--featured">
-            <p class="price-card__label">Best value · Recommended</p>
-            <p class="price-card__name">Class bundle</p>
-            <p class="price-card__price"><sup>$</sup>49</p>
-            <p class="price-card__tagline">Founding member price · AI included free</p>
-            <ul class="price-card__features">
-              <li>Full toddler class (6 modules · ~1 hr each)</li>
-              <li>Unlimited Growing Minds AI, included</li>
-              <li>Lifetime access to class and AI</li>
-              <li>Free milestone tracker</li>
-              <li>Founding member price, locked in before launch</li>
-            </ul>
-            <div class="price-card__cta price-card__cta--white">
-              <a href="/classes/toddlerhood.html">Reserve founding member spot →</a>
-            </div>
+          <div class="plans-strip__cta">
+            <a class="btn btn--amber" href="/pricing">See plans &amp; pricing →</a>
           </div>
-
-          <div class="price-card">
-            <p class="price-card__label">No class needed</p>
-            <p class="price-card__name">AI Pro</p>
-            <p class="price-card__price"><sup>$</sup>9<sub>/mo</sub></p>
-            <p class="price-card__tagline">Unlimited access · Cancel anytime</p>
-            <ul class="price-card__features">
-              <li>Unlimited questions daily</li>
-              <li>No class purchase needed</li>
-              <li>Full conversation history</li>
-              <li>Priority updates and new features</li>
-              <li>Cancel anytime</li>
-            </ul>
-            <div class="price-card__cta price-card__cta--teal">
-              <a href="/api/create-checkout-session" id="subscribeBtn">Subscribe $9/mo →</a>
-            </div>
-            <p class="price-card__already" id="alreadySubscribed" style="display:none; margin-top:.75rem; font-size:.8rem; text-align:center;">
-              Already subscribed? <button type="button" id="subscriberLoginToggle" style="background:none;border:none;padding:0;color:var(--teal);cursor:pointer;font-size:.8rem;text-decoration:underline;">Enter your email to unlock.</button>
-            </p>
-          </div>
-
         </div>
       </div>
     </section>
 
   </main>
+
+  <!-- TOPIC SHEET (browse questions anytime) -->
+  <div class="topic-sheet-backdrop" id="topicSheetBackdrop"></div>
+  <div class="topic-sheet" id="topicSheet" role="dialog" aria-modal="true" aria-labelledby="topicSheetTitle" aria-hidden="true">
+    <div class="topic-sheet__bar">
+      <h2 class="topic-sheet__title" id="topicSheetTitle">Browse questions</h2>
+      <button class="topic-sheet__close" type="button" id="topicSheetClose" aria-label="Close">×</button>
+    </div>
+    <div class="topic-browser">
+      <div class="topic-tabs" id="sheetTabs" role="tablist" aria-label="Question topics"></div>
+      <div class="topic-cards" id="sheetCards" role="list"></div>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <footer class="site-footer" role="contentinfo">
@@ -660,6 +668,111 @@
   </footer>
 
   <script>
+    /* ── Topic library (training cards) ───────────────── */
+    /* Add or edit topics here — the browser and the bottom sheet both
+       render from this single source, so new questions appear everywhere. */
+    const TOPICS = [
+      {
+        id: 'babies', label: 'Babies (0–1 yr)', emoji: '👶',
+        questions: [
+          "Why does my baby cry so much in the evening?",
+          "What is serve-and-return, and why does it matter for babies?",
+          "Can I 'spoil' a newborn by holding them too much?",
+          "How does my baby build a sense of safety and trust?",
+          "What's typical for newborn and infant sleep?",
+          "When do babies start to remember people and routines?",
+          "Why does my baby get upset when I leave the room?",
+          "How does tummy time and movement help brain development?",
+        ],
+      },
+      {
+        id: 'toddlers', label: 'Toddlers (1–3 yr)', emoji: '🧸',
+        questions: [
+          "Why does my toddler have meltdowns at transitions?",
+          "What's happening in my toddler's brain when they say 'no' to everything?",
+          "Why does my toddler hit or bite, and what actually helps?",
+          "How do I handle tantrums without giving in or yelling?",
+          "Why won't my toddler share, and is that normal?",
+          "Should I worry that my 2-year-old isn't talking much yet?",
+          "Why does my toddler want to do everything 'by myself'?",
+          "How do I handle the witching hour before dinner?",
+        ],
+      },
+      {
+        id: 'preschool', label: 'Preschoolers (3–5 yr)', emoji: '🎨',
+        questions: [
+          "Why does my preschooler tell elaborate stories that aren't true?",
+          "How do I support big emotions in a 4-year-old?",
+          "What is executive function, and how does it develop?",
+          "Why are mornings such a battle with my preschooler?",
+          "My child is anxious about starting school — how can I help?",
+          "Why does my preschooler ask 'why?' about everything?",
+          "How do I handle defiance and back-talk at this age?",
+          "Is imaginary play important, or just cute?",
+        ],
+      },
+      {
+        id: 'feelings', label: 'Big feelings & behavior', emoji: '🌊',
+        questions: [
+          "What does co-regulation actually look like in practice?",
+          "What's the difference between a tantrum and a meltdown?",
+          "How do I set a limit without the whole thing escalating?",
+          "Why does my child fall apart the moment I pick them up?",
+          "Why does my child have such big reactions to small things?",
+          "How do I help a child who hits when they're angry?",
+          "How do I stay calm when my child pushes my buttons?",
+          "Is it okay to let my child see me upset?",
+        ],
+      },
+      {
+        id: 'sleep', label: 'Sleep & routines', emoji: '🌙',
+        questions: [
+          "What's typical for a 2-year-old's sleep?",
+          "Why does my child fight bedtime so hard?",
+          "My child keeps waking at night — what's going on developmentally?",
+          "How do daily routines help my child feel safe?",
+          "How do I make transitions, like leaving the park, easier?",
+          "Why did my good sleeper suddenly start waking again?",
+          "How much sleep does my child actually need by age?",
+        ],
+      },
+      {
+        id: 'language', label: 'Talking & learning', emoji: '💬',
+        questions: [
+          "How does serve-and-return support language development?",
+          "How does play help my child's brain grow?",
+          "What helps a young child learn to focus and pay attention?",
+          "Does being bilingual confuse a young child?",
+          "How can I support my late talker without pressure?",
+          "Why does reading the same book over and over help?",
+          "How does screen time affect language at this age?",
+        ],
+      },
+      {
+        id: 'connection', label: 'Connection & repair', emoji: '🤝',
+        questions: [
+          "How do I repair after a hard moment with my child?",
+          "How do I help my child after I lose my temper?",
+          "What is attachment, and how do I build a secure one?",
+          "Does my child need me to be a 'perfect' parent?",
+          "How do I reconnect after a long day apart?",
+          "Why does my child save their biggest feelings for me?",
+        ],
+      },
+      {
+        id: 'typical', label: 'Is this typical?', emoji: '🧭',
+        questions: [
+          "What's typical, and when should I check with a professional?",
+          "Is my child's behavior normal for their age?",
+          "When does separation anxiety usually peak?",
+          "How do I tell the difference between a phase and a real concern?",
+          "What developmental red flags are worth paying attention to?",
+          "My child seems behind their peers — how worried should I be?",
+        ],
+      },
+    ];
+    let activeTopicId = TOPICS[0].id;
+
     /* ── State ────────────────────────────────────────── */
     const FREE_LIMIT = 5;
     const STORAGE_KEY = 'gm_ai_usage';
@@ -699,24 +812,27 @@
       const textEl = document.getElementById('tierText');
       const limitEl = document.getElementById('limitReached');
       const inputArea = document.getElementById('inputArea');
-      const alreadySub = document.getElementById('alreadySubscribed');
+      const accessToggle = document.getElementById('accessCodeToggle');
+      const subToggle = document.getElementById('subscriberLoginToggle');
 
       if (subscriberToken) {
         textEl.innerHTML = '🔓 AI Pro · <strong>Unlimited</strong>';
-        document.getElementById('accessCodeToggle').style.display = 'none';
-        if (alreadySub) alreadySub.style.display = 'none';
+        if (accessToggle) accessToggle.style.display = 'none';
+        if (subToggle) subToggle.style.display = 'none';
       } else if (accessCode) {
         textEl.innerHTML = '🔓 Class member · <strong>Unlimited</strong>';
-        document.getElementById('accessCodeToggle').style.display = 'none';
-        if (alreadySub) alreadySub.style.display = 'none';
+        if (accessToggle) accessToggle.style.display = 'none';
+        if (subToggle) subToggle.style.display = 'none';
       } else if (rem > 0) {
         textEl.innerHTML = `Free · <strong id="questionsLeft">${rem}</strong> question${rem === 1 ? '' : 's'} today`;
-        if (alreadySub) alreadySub.style.display = 'block';
+        if (accessToggle) accessToggle.style.display = '';
+        if (subToggle) subToggle.style.display = '';
       } else {
         textEl.innerHTML = 'Free · <strong>Limit reached</strong>';
         limitEl.style.display = 'flex';
         inputArea.style.display = 'none';
-        if (alreadySub) alreadySub.style.display = 'block';
+        if (accessToggle) accessToggle.style.display = '';
+        if (subToggle) subToggle.style.display = '';
       }
     }
 
@@ -778,8 +894,27 @@
     const inputEl    = document.getElementById('chatInput');
     const sendBtn    = document.getElementById('sendBtn');
 
+    const toolbarEl = document.getElementById('chatToolbar');
+
     function hideWelcome() {
       if (welcomeEl) welcomeEl.style.display = 'none';
+      messagesEl.classList.remove('is-welcome');
+      if (toolbarEl) toolbarEl.classList.add('is-visible');
+    }
+
+    function resetConversation() {
+      conversationHistory = [];
+      // Remove every message bubble, keep the welcome node
+      messagesEl.querySelectorAll('.msg, #thinking').forEach(el => el.remove());
+      if (welcomeEl) welcomeEl.style.display = '';
+      messagesEl.classList.add('is-welcome');
+      if (toolbarEl) toolbarEl.classList.remove('is-visible');
+      activeTopicId = TOPICS[0].id;
+      renderAllTopics();
+      inputEl.value = '';
+      inputEl.style.height = 'auto';
+      inputEl.focus({ preventScroll: true });
+      welcomeEl?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function addMessage(role, html) {
@@ -936,13 +1071,77 @@
       if (!sendBtn.disabled) sendMessage(inputEl.value.trim());
     });
 
-    // Suggested starters
-    document.querySelectorAll('.chat-starter').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const q = btn.dataset.q;
-        if (q) sendMessage(q);
+    /* ── Topic browser rendering ──────────────────────── */
+    const ARROW_SVG = '<svg class="topic-card__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+
+    function renderTopics(tabsEl, cardsEl) {
+      // Tabs
+      tabsEl.innerHTML = '';
+      TOPICS.forEach(topic => {
+        const tab = document.createElement('button');
+        tab.type = 'button';
+        tab.className = 'topic-tab';
+        tab.setAttribute('role', 'tab');
+        tab.setAttribute('aria-selected', String(topic.id === activeTopicId));
+        tab.dataset.topic = topic.id;
+        tab.innerHTML = `<span class="topic-tab__emoji" aria-hidden="true">${topic.emoji}</span>${topic.label}`;
+        tab.addEventListener('click', () => {
+          activeTopicId = topic.id;
+          // Re-render both surfaces so they stay in sync
+          renderTopics(document.getElementById('topicTabs'), document.getElementById('topicCards'));
+          renderTopics(document.getElementById('sheetTabs'), document.getElementById('sheetCards'));
+        });
+        tabsEl.appendChild(tab);
       });
+
+      // Cards for active topic
+      const active = TOPICS.find(t => t.id === activeTopicId) || TOPICS[0];
+      cardsEl.innerHTML = '';
+      active.questions.forEach(q => {
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'topic-card';
+        card.setAttribute('role', 'listitem');
+        card.innerHTML = `<span>${q}</span>${ARROW_SVG}`;
+        card.addEventListener('click', () => {
+          closeTopicSheet();
+          sendMessage(q);
+        });
+        cardsEl.appendChild(card);
+      });
+    }
+
+    function renderAllTopics() {
+      renderTopics(document.getElementById('topicTabs'), document.getElementById('topicCards'));
+      renderTopics(document.getElementById('sheetTabs'), document.getElementById('sheetCards'));
+    }
+
+    /* ── Topic sheet (browse anytime) ─────────────────── */
+    const sheet         = document.getElementById('topicSheet');
+    const sheetBackdrop = document.getElementById('topicSheetBackdrop');
+    const sheetClose    = document.getElementById('topicSheetClose');
+
+    function openTopicSheet() {
+      sheetBackdrop.classList.add('is-open');
+      sheet.classList.add('is-open');
+      sheet.setAttribute('aria-hidden', 'false');
+      sheetClose.focus();
+    }
+    function closeTopicSheet() {
+      sheetBackdrop.classList.remove('is-open');
+      sheet.classList.remove('is-open');
+      sheet.setAttribute('aria-hidden', 'true');
+    }
+
+    document.getElementById('browseTopicsBtn').addEventListener('click', openTopicSheet);
+    sheetClose.addEventListener('click', closeTopicSheet);
+    sheetBackdrop.addEventListener('click', closeTopicSheet);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && sheet.classList.contains('is-open')) closeTopicSheet();
     });
+
+    /* ── New conversation ─────────────────────────────── */
+    document.getElementById('newChatBtn').addEventListener('click', resetConversation);
 
     /* ── Access code ──────────────────────────────────── */
     const toggleBtn  = document.getElementById('accessCodeToggle');
@@ -1126,9 +1325,10 @@
 
     /* ── Init ─────────────────────────────────────────── */
     document.getElementById('currentYear').textContent = new Date().getFullYear();
+    renderAllTopics();
     updateTierBadge();
     maybeRefreshToken();
-    inputEl.focus();
+    inputEl.focus({ preventScroll: true });
   </script>
 
   <script defer src="/_vercel/insights/script.js"></script>

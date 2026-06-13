@@ -35,6 +35,11 @@
 /tools/growing-minds-ai   /tools/growing-minds-ai.html  200
 /tools/growing-minds-ai/  /tools/growing-minds-ai.html  200
 
+# Canonical URL for the plans & pricing page.
+/pricing.html             /pricing                       301!
+/pricing                  /pricing.html                  200
+/pricing/                 /pricing.html                  200
+
 # Pretty URL for the first research explainer.
 /articles/serve-and-return   /articles/serve-and-return.html  200
 /articles/serve-and-return/  /articles/serve-and-return.html  200
