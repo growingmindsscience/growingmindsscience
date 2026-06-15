@@ -1,8 +1,10 @@
 {
   "redirects": [
-    { "source": "/milestones.html", "destination": "/milestones", "permanent": true }
+    { "source": "/milestones.html", "destination": "/milestones", "permanent": true },
+    { "source": "/pricing.html",    "destination": "/pricing",    "permanent": true }
   ],
   "rewrites": [
+    { "source": "/pricing",        "destination": "/pricing.html" },
     { "source": "/classes",        "destination": "/classes/index.html" },
     { "source": "/about",          "destination": "/about/index.html" },
     { "source": "/tools",          "destination": "/tools/index.html" },
