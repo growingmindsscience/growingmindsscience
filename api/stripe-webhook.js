@@ -1,6 +1,6 @@
 export const config = { runtime: "edge" };
 
-import { jsonResponse } from "./_security.js";
+import { jsonResponse, constantTimeEqual } from "./_security.js";
 
 const TIMESTAMP_TOLERANCE = 300; // 5 minutes
 
@@ -30,7 +30,7 @@ async function verifyStripeSignature(rawBody, header, secret) {
   const computed = Array.from(new Uint8Array(sig))
     .map((b) => b.toString(16).padStart(2, "0"))
     .join("");
-  return computed === signature;
+  return constantTimeEqual(computed, signature);
 }
 
 export default async function handler(request) {

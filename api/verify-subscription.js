@@ -8,9 +8,14 @@ import {
   hmacSha256,
   base64UrlEncode,
 } from "./_security.js";
+import { checkRateLimit, rateLimitResponse } from "./_ratelimit.js";
 
 export default async function handler(request) {
   if (request.method !== "POST") return jsonResponse(405, { error: "Use POST." });
+
+  // Throttle per IP to blunt customer enumeration via this email->subscription oracle.
+  const rl = checkRateLimit(request, { key: "verify-sub", limit: 5, windowMs: 10 * 60 * 1000 });
+  if (rl.limited) return rateLimitResponse(rl.retryAfter);
 
   const stripeKey = process.env.STRIPE_SECRET_KEY;
   const sessionSecret = process.env.GMS_SESSION_SECRET;

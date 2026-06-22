@@ -1,6 +1,7 @@
 export const config = { runtime: "edge" };
 
 import { cleanText, isValidEmail, jsonResponse, normalizeEmail, parseRequestBody } from "./_security.js";
+import { checkRateLimit } from "./_ratelimit.js";
 
 const WEB3FORMS_URL = "https://api.web3forms.com/submit";
 
@@ -34,6 +35,9 @@ export default async function handler(request) {
   if (request.method !== "POST") {
     return jsonResponse(405, { error: "Use POST to send a contact message." });
   }
+
+  const rl = checkRateLimit(request, { key: "contact", limit: 5, windowMs: 10 * 60 * 1000 });
+  if (rl.limited) return errorResponse(request, 429, "Too many requests. Please wait a moment and try again.");
 
   const accessKey = process.env.WEB3FORMS_ACCESS_KEY;
   if (!accessKey) {
