@@ -310,6 +310,58 @@
       });
     }
 
+    // Contact form: submit via fetch so we can show an inline confirmation
+    // instead of redirecting to the waitlist thank-you page. Falls back to a
+    // native POST (handled by /api/contact) when JavaScript is unavailable.
+    var contactForm = document.querySelector("form[data-contact]");
+    if (contactForm) {
+      var contactStatus = contactForm.querySelector(".form-status");
+      var contactBtn = contactForm.querySelector('button[type="submit"]');
+      contactForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (contactStatus) {
+          contactStatus.style.color = "";
+          contactStatus.textContent = "Sending…";
+        }
+        if (contactBtn) contactBtn.disabled = true;
+
+        var payload = {
+          name: contactForm.querySelector('[name="name"]') ? contactForm.querySelector('[name="name"]').value : "",
+          email: contactForm.querySelector('[name="email"]') ? contactForm.querySelector('[name="email"]').value : "",
+          message: contactForm.querySelector('[name="message"]') ? contactForm.querySelector('[name="message"]').value : "",
+        };
+
+        fetch("/api/contact", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(payload),
+        })
+          .then(function (response) {
+            return response.json().then(function (data) {
+              if (!response.ok || !data.ok) {
+                throw new Error(data.error || "Your message couldn't be sent. Please try again.");
+              }
+            });
+          })
+          .then(function () {
+            contactForm.reset();
+            if (contactStatus) {
+              contactStatus.style.color = "";
+              contactStatus.textContent = "Thanks — your message is on its way. Matthew reads every note personally and usually replies within a few business days.";
+            }
+          })
+          .catch(function (error) {
+            if (contactStatus) {
+              contactStatus.style.color = "#c0392b";
+              contactStatus.textContent = error.message || "Your message couldn't be sent. Please try again.";
+            }
+          })
+          .finally(function () {
+            if (contactBtn) contactBtn.disabled = false;
+          });
+      });
+    }
+
     // Growing Minds AI chat MVP.
     var aiForm = document.querySelector("[data-ai-chat]");
     if (aiForm) {

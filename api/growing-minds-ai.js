@@ -67,9 +67,38 @@ function errorSSE(message) {
   return sseResponse(stream);
 }
 
+// Per-instance rate limiting (best-effort; no shared state across edge instances).
+const ipRequestLog = new Map();
+const RATE_WINDOW_MS = 60_000;
+const RATE_MAX_PER_WINDOW = 10;
+
+function clientIp(request) {
+  return (request.headers.get("x-forwarded-for") || "").split(",")[0].trim()
+    || request.headers.get("x-real-ip")
+    || "";
+}
+
+function isRateLimited(ip) {
+  if (!ip) return false;
+  const now = Date.now();
+  const entry = ipRequestLog.get(ip);
+  if (!entry || now - entry.windowStart > RATE_WINDOW_MS) {
+    ipRequestLog.set(ip, { windowStart: now, count: 1 });
+    return false;
+  }
+  entry.count += 1;
+  return entry.count > RATE_MAX_PER_WINDOW;
+}
+
 export default async function handler(request) {
   if (request.method !== "POST") {
     return jsonResponse(405, { error: "Use POST." });
+  }
+
+  // Throttle bursts per IP. Surface the limit through the SSE channel the
+  // chat UI already listens on, so it renders like any other error.
+  if (isRateLimited(clientIp(request))) {
+    return errorSSE("Too many requests. Please wait a moment before asking another question.");
   }
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
