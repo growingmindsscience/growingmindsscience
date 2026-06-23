@@ -324,9 +324,21 @@
   function initWaitlist() {
     var form = document.querySelector('form[data-newsletter]');
     if (!form || !window.fetch || !window.FormData) return;
+
+    var fields = form.querySelector("[data-form-fields]");
+    var success = form.querySelector("[data-form-success]");
+    var successTitle = form.querySelector("[data-success-title]");
+    var resetBtn = form.querySelector("[data-form-reset]");
     var status = form.querySelector("[data-form-status]");
-    var submit = form.querySelector('button[type="submit"]');
-    var submitLabel = submit ? submit.textContent : "";
+    var submit = form.querySelector("[data-submit]");
+    var submitLabel = submit ? submit.querySelector(".btn__label") : null;
+    var submitLabelText = submitLabel ? submitLabel.textContent : "Notify me";
+    var emailField = form.querySelector("#email");
+    var emailError = form.querySelector("#email-error");
+
+    // JS owns validation now, so silence native bubbles. This line never runs
+    // without JS, so the no-JS path keeps native required / type=email checks.
+    form.noValidate = true;
 
     function setStatus(message, state) {
       if (!status) return;
@@ -334,22 +346,72 @@
       if (state) status.setAttribute("data-state", state);
       else status.removeAttribute("data-state");
     }
+    function showFieldError(field, errNode, message) {
+      if (field) field.setAttribute("aria-invalid", "true");
+      if (errNode) { errNode.textContent = message; errNode.hidden = false; }
+    }
+    function clearFieldError(field, errNode) {
+      if (field) field.removeAttribute("aria-invalid");
+      if (errNode) { errNode.textContent = ""; errNode.hidden = true; }
+    }
+    function validateEmail(flagEmpty) {
+      if (!emailField) return true;
+      var v = emailField.value.trim();
+      if (!v) {
+        if (flagEmpty) { showFieldError(emailField, emailError, "Enter your email so we can reach you."); }
+        else { clearFieldError(emailField, emailError); }
+        return false;
+      }
+      if (!looksLikeEmail(v)) {
+        showFieldError(emailField, emailError, "That email looks off. Check for a missing @ or domain.");
+        return false;
+      }
+      clearFieldError(emailField, emailError);
+      return true;
+    }
+
+    // Inline validation: flag on blur, forgive the moment they start fixing it.
+    if (emailField) {
+      emailField.addEventListener("blur", function () { validateEmail(false); });
+      emailField.addEventListener("input", function () {
+        if (emailField.getAttribute("aria-invalid") === "true") clearFieldError(emailField, emailError);
+        if (status && status.getAttribute("data-state") === "error") setStatus("", null);
+      });
+    }
+
+    function setLoading(on) {
+      if (!submit) return;
+      submit.disabled = on;
+      submit.classList.toggle("is-loading", on);
+      submit.setAttribute("aria-busy", on ? "true" : "false");
+      if (submitLabel) submitLabel.textContent = on ? "Sending…" : submitLabelText;
+    }
+    function showSuccess() {
+      if (fields) fields.hidden = true;
+      if (success) success.hidden = false;
+      if (successTitle && successTitle.focus) successTitle.focus(); // announce to screen readers
+    }
+    function showForm() {
+      if (success) success.hidden = true;
+      if (fields) fields.hidden = false;
+      setStatus("", null);
+      if (emailField) emailField.focus();
+    }
+    if (resetBtn) resetBtn.addEventListener("click", function () { form.reset(); showForm(); });
 
     form.addEventListener("submit", function (event) {
-      var emailField = form.querySelector("#email");
-      var email = emailField ? emailField.value.trim() : "";
-      if (!looksLikeEmail(email)) {
-        event.preventDefault();
-        setStatus("Please enter a valid email address so we can reach you.", "error");
+      event.preventDefault();
+      if (!validateEmail(true)) {
+        setStatus("Please fix the highlighted field.", "error");
         if (emailField) emailField.focus();
         return;
       }
-      event.preventDefault();
+
       var data = new FormData(form);
       var payload = {};
       data.forEach(function (value, key) { payload[key] = value; });
 
-      if (submit) { submit.disabled = true; submit.textContent = "Sending…"; }
+      setLoading(true);
       setStatus("Sending…", null);
 
       fetch(form.action, {
@@ -364,15 +426,16 @@
           });
         })
         .then(function () {
-          form.reset();
-          setStatus("You're in! Watch your inbox for the milestone tracker and founding-member news.", "success");
+          setStatus("", null);
+          showSuccess();
         })
         .catch(function (error) {
+          // Network failure: fall back to a native full-page POST (server redirects to /thank-you).
           if (error && error.name === "TypeError") { form.submit(); return; }
-          setStatus(error.message || "Something went wrong — please try again.", "error");
+          setStatus(error.message || "Something went wrong — please try again. Your details are still here.", "error");
         })
         .finally(function () {
-          if (submit) { submit.disabled = false; submit.textContent = submitLabel; }
+          setLoading(false);
         });
     });
   }

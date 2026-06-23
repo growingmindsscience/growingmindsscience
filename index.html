@@ -452,6 +452,21 @@
           <p style="margin-top: var(--space-5);">
             <a class="btn btn--primary btn--lg" href="https://matthew-s-site-de0b.thinkific.com/products/courses/ToddlerYears" target="_blank" rel="noopener">Enroll in the toddler class</a>
           </p>
+
+          <div class="faq" aria-label="Common questions before signing up">
+            <details class="faq__item">
+              <summary class="faq__q">What happens after I sign up?</summary>
+              <p class="faq__a">You'll get the free milestone tracker right away, plus a short note whenever a new class opens. No drip funnel, no sales sequence.</p>
+            </details>
+            <details class="faq__item">
+              <summary class="faq__q">Is the milestone tracker really free?</summary>
+              <p class="faq__a">Yes. No account, no card. It's the same tracker enrolled families use, free for everyone.</p>
+            </details>
+            <details class="faq__item">
+              <summary class="faq__q">How often will you email me?</summary>
+              <p class="faq__a">Only when something's genuinely new: a class opening or a major update. Once a month at most, and you can unsubscribe any time.</p>
+            </details>
+          </div>
         </div>
 
         <form
@@ -461,34 +476,52 @@
           action="/api/waitlist"
           aria-labelledby="signup-form-heading"
           data-animate style="--anim-delay: 120ms">
-          <h3 id="signup-form-heading" class="signup__form-title">Be first to know about new classes</h3>
-          <p class="signup__form-sub">For the infant, preschool, and family classes. No spam, unsubscribe any time.</p>
 
-          <input type="hidden" name="subject" value="New Class Notify Signup — Growing Minds Science" />
-          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <div class="signup__form-fields" data-form-fields>
+            <h3 id="signup-form-heading" class="signup__form-title">Be first to know about new classes</h3>
+            <p class="signup__form-sub">For the infant, preschool, and family classes. No spam, unsubscribe any time.</p>
 
-          <div class="field">
-            <label class="field__label" for="email">Email address</label>
-            <input class="field__input" type="email" id="email" name="email" autocomplete="email" required placeholder="you@example.com" />
+            <input type="hidden" name="subject" value="New Class Notify Signup — Growing Minds Science" />
+            <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+            <div class="field">
+              <label class="field__label" for="email">Email address</label>
+              <input class="field__input" type="email" id="email" name="email" autocomplete="email" required
+                placeholder="you@example.com" aria-describedby="email-hint email-error" />
+              <span class="field__hint" id="email-hint">We'll only email about new classes.</span>
+              <span class="field__error" id="email-error" role="alert" hidden></span>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="name">Your name <span class="opt">optional</span></label>
+              <input class="field__input" type="text" id="name" name="name" autocomplete="name" placeholder="Your name" />
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="interest">Which class are you most interested in?</label>
+              <select class="field__select" id="interest" name="interest">
+                <option value="">No preference yet</option>
+                <option value="Birth to 12 months">Birth to 12 months</option>
+                <option value="Preschool">Preschool years (ages 3–5)</option>
+                <option value="Family systems &amp; stress">Family systems &amp; stress</option>
+              </select>
+            </div>
+
+            <button class="btn btn--primary btn--block btn--lg" type="submit" data-submit>
+              <span class="btn__spinner" aria-hidden="true"></span>
+              <span class="btn__label">Notify me</span>
+            </button>
+            <p class="form-status" data-form-status role="status" aria-live="polite"></p>
           </div>
 
-          <div class="field">
-            <label class="field__label" for="name">Your name <span class="opt">optional</span></label>
-            <input class="field__input" type="text" id="name" name="name" autocomplete="name" placeholder="Your name" />
+          <div class="signup__success" data-form-success hidden>
+            <span class="signup__success-mark" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <h3 class="signup__success-title" data-success-title tabindex="-1">You're on the list.</h3>
+            <p class="signup__success-text">Watch your inbox. We'll send the free milestone tracker and tell you the moment the next class opens. Nothing else.</p>
+            <button class="btn btn--quiet" type="button" data-form-reset>Add another email</button>
           </div>
-
-          <div class="field">
-            <label class="field__label" for="interest">Which class are you most interested in?</label>
-            <select class="field__select" id="interest" name="interest">
-              <option value="">No preference yet</option>
-              <option value="Birth to 12 months">Birth to 12 months</option>
-              <option value="Preschool">Preschool years (ages 3–5)</option>
-              <option value="Family systems &amp; stress">Family systems &amp; stress</option>
-            </select>
-          </div>
-
-          <button class="btn btn--primary btn--block btn--lg" type="submit">Notify me</button>
-          <p class="form-status" data-form-status role="status" aria-live="polite"></p>
         </form>
       </div>
     </section>
