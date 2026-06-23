@@ -52,7 +52,8 @@
     .small { font-size: var(--text-sm); color: var(--ink-muted); }
 
     .what-panel__blocks { display: grid; gap: var(--space-4); }
-    .what-block { border-left: 3px solid var(--accent); padding-left: var(--space-4); }
+    .what-block { position: relative; padding-left: var(--space-5); }
+    .what-block::before { content: ""; position: absolute; left: 2px; top: .58em; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
     .what-block__label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .1em; color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
     .what-block__text { margin: 0; color: var(--ink-soft); line-height: 1.65; }
 

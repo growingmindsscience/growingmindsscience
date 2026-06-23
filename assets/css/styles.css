@@ -624,7 +624,6 @@ section { padding-block: clamp(5rem, 8vw, 7rem); /* 80–112px */ }
 .systems-callout {
   background: var(--surface);
   border: 1px solid var(--border-soft);
-  border-left: 3px solid var(--primary);
   border-radius: var(--radius);
   padding: clamp(var(--space-6), 3vw, var(--space-10));
   max-width: 70ch;
@@ -884,7 +883,6 @@ button:disabled {
 .tracker-disclaimer {
   background: var(--surface);
   border: 1px solid var(--border-soft);
-  border-left: 3px solid var(--accent);
   border-radius: var(--radius);
   padding: var(--space-5) var(--space-6);
   margin-top: var(--space-6);
@@ -1304,7 +1302,6 @@ button:disabled {
 .cred-box {
   background: var(--surface);
   border: 1px solid var(--border-soft);
-  border-left: 3px solid var(--primary);
   border-radius: var(--radius);
   padding: clamp(var(--space-6), 3vw, var(--space-10));
 }
@@ -1538,10 +1535,10 @@ button:disabled {
 }
 .pull-quote {
   margin: var(--space-8) 0 0;
-  padding: var(--space-5) var(--space-6);
-  border-left: 3px solid var(--primary);
-  background: var(--surface);
-  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: var(--space-6) var(--space-7);
+  background: color-mix(in oklab, var(--accent-soft) 26%, var(--surface));
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
   max-width: 56ch;
 }
 .pull-quote p {
@@ -2016,7 +2013,6 @@ button:disabled {
 .notice {
   background: var(--surface);
   border: 1px solid var(--border-soft);
-  border-left: 3px solid var(--accent);
   border-radius: var(--radius);
   padding: var(--space-5) var(--space-6);
   margin-bottom: var(--space-10);
@@ -2136,10 +2132,10 @@ button:disabled {
 /* ---------- Mission quote ---------- */
 .mission__quote {
   margin: var(--space-8) 0 0;
-  padding: var(--space-5) var(--space-6);
-  border-left: 3px solid var(--primary);
-  background: var(--surface);
-  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: var(--space-6) var(--space-7);
+  background: color-mix(in oklab, var(--accent-soft) 26%, var(--surface));
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
 }
 .mission__quote p {
   margin: 0;
@@ -2252,8 +2248,10 @@ button:disabled {
 
 .hero__credential {
   max-width: 52ch;
-  padding-left: var(--space-5);
-  border-left: 2px solid var(--accent);
+  padding: var(--space-4) var(--space-5);
+  background: color-mix(in oklab, var(--surface) 60%, transparent);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
   font-style: normal;
   line-height: 1.55;
 }
