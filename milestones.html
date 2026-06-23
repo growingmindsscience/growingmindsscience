@@ -18,6 +18,47 @@
     @media (max-width:850px){.footer-grid{grid-template-columns:1fr}.footer-inner{flex-direction:column}}
     @media print{.subnav,.footer-grid{display:none}}
   </style>
+  <style>
+    /* ===== Bold Tidepool look uplift ===== */
+    /* Hero atmosphere — coral + teal gradient wash, like the homepage */
+    .hero{
+      background:
+        radial-gradient(56% 64% at 94% 2%, color-mix(in oklab, var(--warm,#DE7356) 13%, transparent) 0%, transparent 60%),
+        radial-gradient(60% 72% at 0% 0%, color-mix(in oklab, var(--teal) 9%, transparent) 0%, transparent 55%);
+    }
+    /* Card hover life */
+    .card{transition:transform .24s cubic-bezier(.22,1,.36,1), box-shadow .24s, border-color .24s}
+    .card:hover{transform:translateY(-3px);box-shadow:0 20px 44px rgba(21,57,60,.11);border-color:var(--muted)}
+    /* Domain colour-coding — a considered data-viz palette, all AA on white */
+    .card[data-domain="Cognitive"] .badge{background:#DBEAE6;color:#1A565A}
+    .card[data-domain="Social-emotional"] .badge{background:#F7E5DE;color:#9C4429}
+    .card[data-domain="Motor"] .badge{background:#DCE8DB;color:#3C6B45}
+    .card[data-domain="Language"] .badge{background:#F1E6CD;color:#785618}
+    .card[data-domain="Sensory & regulation"] .badge{background:#E1E9F1;color:#3C5E78}
+    .card[data-domain="Adaptive skills"] .badge{background:#F1E2EA;color:#7A4660}
+    /* Two-column body: "What you might notice" stays plain, "Try this" becomes an action panel */
+    .card .columns{gap:16px}
+    .card .columns>div{padding:12px 0}
+    .card .columns>div:last-child{
+      background:var(--surface2);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px 14px;
+    }
+    .card .columns>div:last-child .list-title{color:var(--teal)}
+    /* Custom bullets: sea-glass for what-you-notice, teal for try-this */
+    .card .columns ul{list-style:none;padding-left:0;margin:6px 0}
+    .card .columns ul li{position:relative;padding-left:18px;margin:5px 0}
+    .card .columns ul li::before{content:"";position:absolute;left:1px;top:.62em;width:6px;height:6px;border-radius:50%;background:#CFE3DE}
+    .card .columns>div:last-child ul li::before{background:var(--teal)}
+    /* Control + tab polish */
+    .age-tabs button:hover{border-color:var(--teal);color:var(--ink)}
+    .control input:focus,.control select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px color-mix(in oklab, var(--teal) 20%, transparent)}
+    @media (prefers-reduced-motion: reduce){
+      .card{transition:none}
+      .card:hover{transform:none}
+    }
+  </style>
 </head>
 <body>
 <a class="skip" href="#tracker">Skip to tracker</a>
@@ -64,7 +105,7 @@ var state = {q:'', age:'All', domain:'All'};
 function el(id){return document.getElementById(id)}
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]})}
 function sourceLinks(keys){return keys.map(function(k){return DATA.sources[k]}).filter(Boolean).map(function(s){return '<a href="'+esc(s.url)+'" target="_blank" rel="noreferrer">'+esc(s.label)+'</a>'}).join('')}
-function card(m){return '<article class="card"><div class="card-top"><span class="age">'+esc(m.age)+'</span><span class="badge">'+esc(m.domain)+'</span></div><h3>'+esc(m.title)+'</h3><p>'+esc(m.explanation)+'</p><div class="columns"><div><div class="list-title">What you might notice</div><ul>'+m.watchFor.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul></div><div><div class="list-title">Try this</div><ul>'+m.tryThis.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul></div></div><div class="sources">'+sourceLinks(m.sources)+'</div></article>'}
+function card(m){return '<article class="card" data-domain="'+esc(m.domain)+'"><div class="card-top"><span class="age">'+esc(m.age)+'</span><span class="badge">'+esc(m.domain)+'</span></div><h3>'+esc(m.title)+'</h3><p>'+esc(m.explanation)+'</p><div class="columns"><div><div class="list-title">What you might notice</div><ul>'+m.watchFor.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul></div><div><div class="list-title">Try this</div><ul>'+m.tryThis.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul></div></div><div class="sources">'+sourceLinks(m.sources)+'</div></article>'}
 function render(){var q=state.q.toLowerCase().trim();var items=DATA.milestones.filter(function(m){return (state.age==='All'||m.age===state.age)&&(state.domain==='All'||m.domain===state.domain)&&(!q||[m.age,m.domain,m.title,m.explanation,m.watchFor.join(' '),m.tryThis.join(' ')].join(' ').toLowerCase().indexOf(q)>-1)});el('cards').innerHTML=items.map(card).join('');el('resultCount').textContent=items.length+' milestone '+(items.length===1?'card':'cards')+' shown';el('emptyState').style.display=items.length?'none':'block';document.querySelectorAll('#ageTabs button').forEach(function(b){b.classList.toggle('active',b.dataset.age===state.age)})}
 function init(){el('ageFilter').innerHTML=['All'].concat(DATA.ageBands).map(function(a){return '<option>'+esc(a)+'</option>'}).join('');el('domainFilter').innerHTML=['All'].concat(DATA.domains).map(function(d){return '<option>'+esc(d)+'</option>'}).join('');el('ageTabs').innerHTML=['All'].concat(DATA.ageBands).map(function(a){return '<button type="button" data-age="'+esc(a)+'">'+esc(a)+'</button>'}).join('');el('search').addEventListener('input',function(e){state.q=e.target.value;render()});el('ageFilter').addEventListener('change',function(e){state.age=e.target.value;render()});el('domainFilter').addEventListener('change',function(e){state.domain=e.target.value;render()});el('ageTabs').addEventListener('click',function(e){if(e.target.matches('button')){state.age=e.target.dataset.age;el('ageFilter').value=state.age;render()}});el('resetBtn').addEventListener('click',function(){state={q:'',age:'All',domain:'All'};el('search').value='';el('ageFilter').value='All';el('domainFilter').value='All';render()});render()}
 init();

@@ -154,6 +154,17 @@ A cool teal foundation — mist ground, deep pine ink, brand teal action — pun
 
 **The Cool-Ground Rule.** The body ground is cool aqua-mist, never cream/sand. Warmth comes from coral, the serif, and imagery — not from a warm-tinted background.
 
+### Domain Palette (data-viz only)
+The milestone tracker color-codes its six developmental domains for scanning. This is the one sanctioned place for a fuller palette (data-viz), kept muted so it still reads as Tidepool. Each is a light tint with an AA-on-white deep text color, used only on the domain badge:
+- **Cognitive** — tint `#DBEAE6`, text `#1A565A` (teal)
+- **Social-emotional** — tint `#F7E5DE`, text `#9C4429` (coral-deep)
+- **Motor** — tint `#DCE8DB`, text `#3C6B45` (moss)
+- **Language** — tint `#F1E6CD`, text `#785618` (ochre)
+- **Sensory & regulation** — tint `#E1E9F1`, text `#3C5E78` (slate-blue)
+- **Adaptive skills** — tint `#F1E2EA`, text `#7A4660` (plum)
+
+**The Domains-Only Rule.** This six-hue palette appears *only* as milestone-domain badges. Everywhere else, the One-Coral Rule holds — don't borrow these hues for general UI.
+
 ## 3. Typography
 
 **Display Font:** Bricolage Grotesque (with Avenir Next, Helvetica Neue)

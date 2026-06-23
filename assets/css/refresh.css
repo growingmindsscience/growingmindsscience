@@ -112,6 +112,9 @@ h4,
 
 .hero {
   padding-block: clamp(4.75rem, 8vw, 7rem);
+  background:
+    radial-gradient(54% 60% at 96% 2%, color-mix(in oklab, var(--warm) 12%, transparent) 0%, transparent 60%),
+    radial-gradient(58% 68% at 0% 0%, color-mix(in oklab, var(--primary) 8%, transparent) 0%, transparent 55%);
 }
 
 .hero__inner {
@@ -132,15 +135,17 @@ h4,
 
 .hero__credential {
   max-width: 52ch;
-  padding-left: var(--space-5);
-  border-left: 2px solid var(--accent);
+  padding: var(--space-4) var(--space-5);
+  background: color-mix(in oklab, var(--surface) 60%, transparent);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
   font-style: normal;
   line-height: 1.55;
 }
 
 .hero__media {
   border-radius: var(--radius);
-  box-shadow: none;
+  box-shadow: 0 32px 64px -30px rgba(21, 57, 60, 0.4);
   border: 1px solid var(--border);
   aspect-ratio: 1 / 1;
 }
@@ -1096,9 +1101,8 @@ h4,
 /* 11. Credential box — slightly more styled */
 .hero__credential {
   background: color-mix(in oklab, var(--warm) 8%, var(--surface));
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  padding: var(--space-3) var(--space-4);
-  border-left-width: 3px;
+  border-radius: var(--radius);
+  padding: var(--space-4) var(--space-5);
 }
 
 /* 12. Featured class card — richer gradient */
@@ -1402,5 +1406,28 @@ img {
   transform-box: fill-box;
   transform-origin: center;
   animation: gms-spin 50s linear infinite;
+}
+
+/* ===== Bold uplift: card life (overrides the flat defaults above) ===== */
+.card,
+.product-card,
+.tool-card,
+.module-card,
+.how-card {
+  box-shadow: 0 1px 2px rgba(21, 57, 60, 0.05);
+  transition: transform .24s cubic-bezier(.22, 1, .36, 1), box-shadow .24s, border-color .24s;
+}
+.card:hover,
+.product-card:hover,
+.tool-card:hover,
+.module-card:hover,
+.how-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 46px -20px rgba(21, 57, 60, 0.28);
+  border-color: var(--ink-muted);
+}
+@media (prefers-reduced-motion: reduce) {
+  .card, .product-card, .tool-card, .module-card, .how-card { transition: none; }
+  .card:hover, .product-card:hover, .tool-card:hover, .module-card:hover, .how-card:hover { transform: none; }
 }
 
