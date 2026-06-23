@@ -58,8 +58,11 @@ typography:
     lineHeight: 1.4
     letterSpacing: "0.18em"
 rounded:
+  xs: "4px"
   sm: "8px"
+  control: "10px"
   md: "14px"
+  card: "16px"
   lg: "20px"
   pill: "999px"
   arch: "999px 999px 20px 20px"
@@ -164,6 +167,15 @@ The milestone tracker color-codes its six developmental domains for scanning. Th
 - **Adaptive skills** — tint `#F1E2EA`, text `#7A4660` (plum)
 
 **The Domains-Only Rule.** This six-hue palette appears *only* as milestone-domain badges. Everywhere else, the One-Coral Rule holds — don't borrow these hues for general UI.
+
+### Utility & status colors
+A few function-only values, documented so they're intentional, not drift:
+- **Available green** `#5FBF8E` — the Growing Minds AI "online" status dot. A calm Tidepool-family green (never neon/generic-SaaS green like `#4ade80`).
+- **Selection** `#2B130B` text on `--coral` — the `::selection` highlight.
+- **Shadows** are pine-tinted (`rgba(21,57,60,…)`); a few legacy warm-gray shadow rgbas (`rgba(28,34,31,…)`) survive in `styles.css`/`refresh.css` and should migrate to pine over time.
+
+### Radius scale
+`xs 4 · sm 8 · control 10 · md 14 · card 16 · lg 20 · pill 999`, plus the `arch`. Small controls (chips, toggles, inputs) sit on the 4–14 end; cards and panels on 14–20. Treat 2px as a hairline detail only.
 
 ## 3. Typography
 
