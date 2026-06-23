@@ -2,6 +2,9 @@
 
 .claude/
 
+# Impeccable local cache (design docs + config are tracked)
+.impeccable/hook.cache.json
+
 # Local environment files (keep .env.example tracked)
 .env
 .env.*

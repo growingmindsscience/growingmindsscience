@@ -16,9 +16,10 @@
   --sea-glass: #CFE3DE;     /* tint surfaces, bubbles */
   --mist: #F0F5F3;          /* page ground — cool aqua, not cream */
   --surface: #FFFFFF;
-  --coral: #DE7356;         /* the one accent: milestones, highlights */
-  --coral-deep: #A3492E;    /* coral at text sizes (AA on mist/white) */
+  --coral: #DE7356;         /* the one accent: milestones, highlights (decor / large text only) */
+  --coral-deep: #9C4429;    /* coral at text sizes (AA on mist / white / sea-glass) */
   --coral-tint: #F8E7E0;
+  --coral-on-dark: #E78D6F; /* lighter coral for small text on pine bands (AA on pine) */
 
   --ink: var(--pine);
   --ink-soft: #3D5A5A;
@@ -197,7 +198,7 @@ h3 { font-size: var(--text-xl); }
   color: var(--coral-deep);
   margin: 0 0 var(--space-5);
 }
-.eyebrow--on-dark { color: var(--coral); }
+.eyebrow--on-dark { color: var(--coral-on-dark); }
 
 .section-head { max-width: 46ch; margin-bottom: clamp(var(--space-8), 5vw, var(--space-12)); }
 .section-head__lede {
@@ -383,10 +384,10 @@ h3 { font-size: var(--text-xl); }
   gap: var(--space-4);
   max-width: 52ch;
   margin: 0 0 var(--space-8);
-  padding: var(--space-3) var(--space-4) var(--space-3) var(--space-3);
-  border-left: 3px solid var(--coral);
+  padding: var(--space-3) var(--space-4);
   background: color-mix(in oklab, var(--surface) 62%, transparent);
-  border-radius: 0 var(--radius) var(--radius) 0;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
 }
 .hero__cred-photo {
   flex: none;
@@ -465,7 +466,7 @@ h3 { font-size: var(--text-xl); }
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--coral);
+  color: var(--coral-on-dark);
   margin: 0 0 var(--space-10);
 }
 .trust__proofs {
@@ -675,7 +676,7 @@ h3 { font-size: var(--text-xl); }
 .chat__avatar {
   width: 30px; height: 30px; border-radius: 50%;
   display: grid; place-items: center;
-  background: var(--pine); color: var(--coral);
+  background: var(--pine); color: var(--coral-on-dark);
   font-family: var(--font-display); font-weight: 600; font-size: 0.9rem;
 }
 [data-theme="dark"] .chat__avatar { background: var(--pine-deep); }
@@ -818,9 +819,9 @@ h3 { font-size: var(--text-xl); }
   text-decoration: none;
   transition: color var(--t);
 }
-.way__link::after { content: " →"; color: var(--coral-deep); transition: padding var(--t); }
+.way__link::after { content: " →"; color: var(--coral-deep); display: inline-block; transition: transform var(--t); }
 .way__link:hover { color: var(--teal); }
-.way__link:hover::after { padding-left: 4px; }
+.way__link:hover::after { transform: translateX(4px); }
 .way__body p { margin: 0; color: var(--ink-soft); max-width: 60ch; }
 
 /* ---------- Waitlist (pine) ---------- */

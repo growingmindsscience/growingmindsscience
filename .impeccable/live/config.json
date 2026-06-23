@@ -1,0 +1,7 @@
+{
+  "files": ["**/*.html"],
+  "exclude": ["404.html", "thank-you.html", "netlify/**/*.html"],
+  "insertBefore": "</body>",
+  "commentSyntax": "html",
+  "cspChecked": true
+}

@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-23T16:15:00.000Z",
+  "title": "Design System: Growing Minds Science",
+  "extensions": {
+    "colorMeta": {
+      "teal":        { "role": "primary",  "displayName": "Brand Teal",   "canonical": "#1E5F62", "tonalRamp": ["#0a2426", "#103538", "#16474a", "#1E5F62", "#2E7A77", "#5fa39c", "#9cc7c1", "#d6e8e5"] },
+      "coral":       { "role": "secondary","displayName": "Coral",        "canonical": "#DE7356", "tonalRamp": ["#4a2014", "#6b2f1d", "#8c3f28", "#9C4429", "#c25c3c", "#DE7356", "#E78D6F", "#f6cabb"] },
+      "coral-deep":  { "role": "secondary","displayName": "Coral Deep",   "canonical": "#9C4429", "tonalRamp": ["#3a1810", "#552318", "#6f2f20", "#9C4429", "#c25738", "#de7356", "#ec9a82", "#f8ddd2"] },
+      "pine":        { "role": "neutral",  "displayName": "Pine Ink",     "canonical": "#15393C", "tonalRamp": ["#0A1F1E", "#0E2A2D", "#15393C", "#1f5154", "#2e7a77", "#5fa39c", "#a7ccc7", "#dcebe8"] },
+      "mist":        { "role": "neutral",  "displayName": "Aqua Mist",    "canonical": "#F0F5F3", "tonalRamp": ["#1c2826", "#33433f", "#4f635e", "#76918b", "#a3bbb5", "#cadbd6", "#e2ece9", "#F0F5F3"] },
+      "sea-glass":   { "role": "neutral",  "displayName": "Sea Glass",    "canonical": "#CFE3DE", "tonalRamp": ["#1f3a35", "#33564f", "#4a726a", "#669088", "#86aca5", "#a8c6bf", "#CFE3DE", "#eef5f3"] },
+      "ink-muted":   { "role": "neutral",  "displayName": "Muted Ink",    "canonical": "#5C7472", "tonalRamp": ["#1f2a29", "#30403e", "#425553", "#5C7472", "#7b918f", "#9fb1af", "#c5d2d0", "#e8eeed"] },
+      "line":        { "role": "neutral",  "displayName": "Hairline",     "canonical": "#D4E0DC", "tonalRamp": ["#3a4744", "#536460", "#6f827d", "#8da19c", "#aabfb9", "#c2d4cf", "#D4E0DC", "#eef3f2"] }
+    },
+    "typographyMeta": {
+      "display":   { "displayName": "Display",   "purpose": "Hero headline, Bricolage Grotesque 600, tight tracking." },
+      "headline":  { "displayName": "Headline",  "purpose": "Section h2s." },
+      "title":     { "displayName": "Title",     "purpose": "Card / module / way headings (h3)." },
+      "body":      { "displayName": "Body",      "purpose": "Running text, Source Serif 4 17px, measure ~60–72ch." },
+      "highlight": { "displayName": "Highlight", "purpose": "Signature coral serif-italic phrase inside grotesque headlines." },
+      "eyebrow":   { "displayName": "Eyebrow",   "purpose": "Section kicker, uppercase; used only when it carries real info." }
+    },
+    "shadows": [
+      { "name": "sm", "value": "0 1px 2px rgba(14,42,45,0.06)", "purpose": "Resting hairline lift." },
+      { "name": "md", "value": "0 16px 36px -20px rgba(14,42,45,0.32)", "purpose": "Cards and dropdowns." },
+      { "name": "lg", "value": "0 32px 64px -30px rgba(14,42,45,0.4)", "purpose": "Chat demo and prominent floats." },
+      { "name": "button-primary", "value": "0 14px 28px -16px rgba(30,95,98,0.55)", "purpose": "Soft teal-tinted glow under primary buttons." }
+    ],
+    "motion": [
+      { "name": "ease", "value": "cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "Default easing." },
+      { "name": "t", "value": "240ms", "purpose": "Default transition duration; button lift uses 140ms." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "560px" },
+      { "name": "md", "value": "720px" },
+      { "name": "lg", "value": "960px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main call to action — teal pill with a soft teal glow.",
+      "html": "<button class=\"ds-btn-primary\">Enroll now</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 48px; padding: 0.8rem 1.5rem; background: #1E5F62; color: #fff; border: 1.5px solid transparent; border-radius: 999px; font-family: 'Bricolage Grotesque', 'Avenir Next', sans-serif; font-size: 1rem; font-weight: 600; line-height: 1.1; cursor: pointer; box-shadow: 0 14px 28px -16px rgba(30,95,98,0.55); transition: background 240ms cubic-bezier(0.22,1,0.36,1), transform 140ms cubic-bezier(0.22,1,0.36,1), box-shadow 240ms cubic-bezier(0.22,1,0.36,1); } .ds-btn-primary:hover { background: #15393C; transform: translateY(-2px); } .ds-btn-primary:focus-visible { outline: 2.5px solid #9C4429; outline-offset: 3px; }"
+    },
+    {
+      "name": "Quiet Button",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "Secondary action — ghost pill with a hairline border.",
+      "html": "<button class=\"ds-btn-quiet\">See the free tools</button>",
+      "css": ".ds-btn-quiet { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 48px; padding: 0.8rem 1.5rem; background: transparent; color: #15393C; border: 1.5px solid #D4E0DC; border-radius: 999px; font-family: 'Bricolage Grotesque', 'Avenir Next', sans-serif; font-size: 1rem; font-weight: 600; line-height: 1.1; cursor: pointer; transition: border-color 240ms cubic-bezier(0.22,1,0.36,1), background 240ms cubic-bezier(0.22,1,0.36,1); } .ds-btn-quiet:hover { border-color: #1E5F62; background: #F0F5F3; } .ds-btn-quiet:focus-visible { outline: 2.5px solid #9C4429; outline-offset: 3px; }"
+    },
+    {
+      "name": "Module Row",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Numbered curriculum row — ordered sequence, full hairline border.",
+      "html": "<li class=\"ds-module\"><span class=\"ds-module__num\">01</span><div><h3 class=\"ds-module__title\">The toddler brain, briefly</h3><p class=\"ds-module__desc\">Why toddlers need far more support than their behavior suggests.</p></div></li>",
+      "css": ".ds-module { display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: start; list-style: none; background: #fff; border: 1px solid #D4E0DC; border-radius: 14px; padding: 1.5rem; } .ds-module__num { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; font-size: 1.1rem; color: #9C4429; line-height: 1; } .ds-module__title { margin: 0 0 0.25rem; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 600; font-size: 1.25rem; letter-spacing: -0.015em; color: #15393C; } .ds-module__desc { margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-size: 1rem; line-height: 1.6; color: #3D5A5A; }"
+    },
+    {
+      "name": "Eyebrow",
+      "kind": "custom",
+      "refersTo": "eyebrow",
+      "description": "Section kicker — uppercase grotesque, coral-deep; only when it carries real info.",
+      "html": "<p class=\"ds-eyebrow\">Growing Minds AI · Free · Answers show their sources</p>",
+      "css": ".ds-eyebrow { display: block; margin: 0 0 1.25rem; font-family: 'Bricolage Grotesque', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #9C4429; }"
+    },
+    {
+      "name": "Field Input",
+      "kind": "input",
+      "refersTo": "field-input",
+      "description": "Form text input — white surface, hairline border, coral focus ring.",
+      "html": "<input class=\"ds-field-input\" type=\"email\" placeholder=\"you@example.com\" />",
+      "css": ".ds-field-input { width: 100%; padding: 0.75rem 1rem; background: #fff; color: #15393C; border: 1px solid #D4E0DC; border-radius: 8px; font-family: 'Source Serif 4', Georgia, serif; font-size: 1.0625rem; } .ds-field-input::placeholder { color: #5C7472; } .ds-field-input:focus-visible { outline: 2.5px solid #9C4429; outline-offset: 3px; border-color: #1E5F62; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Tidepool",
+    "overview": "A calm, clear pool of teal lit by a single warm coral. Deep teal-ink text and dark bands, a cool aqua-mist ground (not cream), brand teal for action, and exactly one warm accent. Bricolage Grotesque display over Source Serif 4 body, with a signature coral serif-italic phrase dropped inside grotesque headlines. Warmth comes from coral, the serif, and editorial photography behind soft arch shapes — never from pastels. The palette tilts cool-green where most parenting brands tilt nursery-pastel, which keeps it adult and trustworthy.",
+    "keyCharacteristics": [
+      "Cool aqua-mist ground + deep teal-ink, with one coral accent — adult, not pastel.",
+      "Bricolage Grotesque display (tight, 600) over Source Serif 4 body (17px, 1.65).",
+      "Signature .hl: coral serif-italic phrase inside grotesque headlines.",
+      "Pill buttons (48px min), 14–20px card radii, an 'arch' doorway motif for hero imagery.",
+      "Diffuse low shadows; depth from tonal layering (mist → surface → pine bands).",
+      "Custom SVG decor and a bespoke interactive Growth Arc tablist.",
+      "Full light/dark theming via [data-theme]; reduced-motion honored; content visible by default."
+    ],
+    "rules": [
+      { "name": "The One-Coral Rule", "body": "Coral is the only warm color and appears sparingly — a mark, a highlighted phrase, a focus ring. If coral is doing more than punctuating, it's doing too much.", "section": "colors" },
+      { "name": "The Coral-Size Rule", "body": "Coral text must match its background: coral-deep on light grounds, coral-on-dark on pine. Plain --coral is for decor and large display text only — it fails AA as small text on both mist (2.85:1) and pine (3.98:1).", "section": "colors" },
+      { "name": "The Cool-Ground Rule", "body": "The body ground is cool aqua-mist, never cream/sand. Warmth comes from coral, the serif, and imagery — not a warm-tinted background.", "section": "colors" },
+      { "name": "The Signature-Phrase Rule", "body": "The coral serif-italic .hl is the brand's one typographic flourish. Use it on the headlines that most deserve emphasis — not on every section.", "section": "typography" },
+      { "name": "The Eyebrow-Earns-It Rule", "body": "An eyebrow appears only when it carries real information (age range, 'Free · sources shown', enrolling status) — not as automatic scaffolding above every section.", "section": "typography" },
+      { "name": "The Tonal-Depth Rule", "body": "Reach for a darker pine band before reaching for a heavier shadow. The page's depth is its bands, not its drop shadows.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep the cool aqua-mist (#F0F5F3) ground — warmth comes from coral, serif, and imagery.",
+      "Do size coral text to its background: coral-deep on light, coral-on-dark on pine, coral for decor/large only.",
+      "Do reserve the coral serif-italic .hl for headlines that earn emphasis.",
+      "Do use full 1px line borders on cards; let dark pine bands carry depth.",
+      "Do keep primary CTAs as teal pills (48px min) and 'Enroll' labels pointing only to checkout.",
+      "Do honor prefers-reduced-motion, keep content visible by default (reveal is enhancement, never a gate), and keep the theme toggle working."
+    ],
+    "donts": [
+      "Don't ship a generic SaaS/startup look: no gradient hero, no big-number hero-metric template, no identical icon-card grids, no purple-on-white.",
+      "Don't go clinical/medical: no sterile hospital-blue, no fear-based 'is your child behind?' messaging.",
+      "Don't revert to a cream/sand/warm-tinted body ground — Tidepool is cool by design.",
+      "Don't use a border-left/right greater than 1px as a colored accent stripe.",
+      "Don't animate layout properties (padding/width/height) — use transform/opacity.",
+      "Don't put an eyebrow above every section, and don't let the .hl highlight land on every heading."
+    ]
+  }
+}

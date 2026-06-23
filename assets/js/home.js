@@ -127,6 +127,19 @@
       });
     }, { rootMargin: "-50px 0px", threshold: 0.01 });
     animated.forEach(function (n) { io.observe(n); });
+
+    // Failsafe: the reveal is an enhancement, never a gate on content.
+    // JS-on renderers that don't scroll (social/OG preview bots, full-page
+    // screenshots, print/PDF, reader modes) never trip the observer, so any
+    // still-hidden section would otherwise ship blank. Reveal whatever the
+    // observer hasn't caught shortly after load; humans who scroll sooner
+    // still get the staggered entrance.
+    function revealAll() {
+      io.disconnect();
+      animated.forEach(function (n) { n.classList.add("is-visible"); });
+    }
+    window.addEventListener("load", function () { window.setTimeout(revealAll, 900); });
+    window.addEventListener("beforeprint", revealAll);
   }
 
   // ------------------------------------------------------------------
