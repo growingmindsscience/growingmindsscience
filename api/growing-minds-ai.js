@@ -1,6 +1,13 @@
 export const config = { runtime: "edge" };
 
-import { constantTimeEqual, parseJsonBody, jsonResponse } from "./_security.js";
+import {
+  base64UrlDecode,
+  base64UrlEncode,
+  constantTimeEqual,
+  hmacSha256,
+  parseJsonBody,
+  jsonResponse,
+} from "./_security.js";
 import { retrieve, formatContext } from "./_retrieval.js";
 import { createPiiRedactor } from "./_pii-guard.js";
 
@@ -71,6 +78,9 @@ function errorSSE(message) {
 const ipRequestLog = new Map();
 const RATE_WINDOW_MS = 60_000;
 const RATE_MAX_PER_WINDOW = 10;
+const FREE_DAILY_LIMIT = 5;
+const freeUsageLog = new Map();
+const MAX_FREE_USAGE_KEYS = 10000;
 
 function clientIp(request) {
   return (request.headers.get("x-forwarded-for") || "").split(",")[0].trim()
@@ -90,6 +100,47 @@ function isRateLimited(ip) {
   return entry.count > RATE_MAX_PER_WINDOW;
 }
 
+function today() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function hasFreeAllowance(ip) {
+  const key = ip || "unknown";
+  const currentDay = today();
+  const entry = freeUsageLog.get(key);
+  if (!entry || entry.day !== currentDay) {
+    if (freeUsageLog.size >= MAX_FREE_USAGE_KEYS) {
+      for (const [k, value] of freeUsageLog) {
+        if (value.day !== currentDay) freeUsageLog.delete(k);
+      }
+    }
+    freeUsageLog.set(key, { day: currentDay, count: 1 });
+    return true;
+  }
+  if (entry.count >= FREE_DAILY_LIMIT) return false;
+  entry.count += 1;
+  return true;
+}
+
+async function verifySubscriberToken(token) {
+  const sessionSecret = String(process.env.GMS_SESSION_SECRET || "").trim();
+  const value = String(token || "").trim();
+  if (!sessionSecret || !value) return false;
+
+  const [payload, signature] = value.split(".");
+  if (!payload || !signature) return false;
+
+  const expected = base64UrlEncode(await hmacSha256(sessionSecret, payload));
+  if (!constantTimeEqual(signature, expected)) return false;
+
+  try {
+    const data = JSON.parse(new TextDecoder().decode(base64UrlDecode(payload)));
+    return data?.type === "subscriber" && data.exp && data.exp >= Math.floor(Date.now() / 1000);
+  } catch (_) {
+    return false;
+  }
+}
+
 export default async function handler(request) {
   if (request.method !== "POST") {
     return jsonResponse(405, { error: "Use POST." });
@@ -97,7 +148,8 @@ export default async function handler(request) {
 
   // Throttle bursts per IP. Surface the limit through the SSE channel the
   // chat UI already listens on, so it renders like any other error.
-  if (isRateLimited(clientIp(request))) {
+  const ip = clientIp(request);
+  if (isRateLimited(ip)) {
     return errorSSE("Too many requests. Please wait a moment before asking another question.");
   }
 
@@ -113,16 +165,24 @@ export default async function handler(request) {
     return errorSSE(err.message || "Invalid request.");
   }
 
-  // Access code validation (optional — unlocks unlimited tier)
+  // Server-side entitlement check. The browser also tracks a friendly free-tier
+  // counter, but that is only UX; this is the control that protects paid AI calls.
   const configuredCode = process.env.GMS_AI_ACCESS_CODE;
   const providedCode = String(payload.accessCode || "").trim();
-  if (providedCode && configuredCode && !constantTimeEqual(providedCode, configuredCode)) {
+  const subscriberToken = String(payload.subscriberToken || "").trim();
+  const hasAccessCode = Boolean(configuredCode && providedCode && constantTimeEqual(providedCode, configuredCode));
+  const hasSubscriberToken = await verifySubscriberToken(subscriberToken);
+  if (providedCode && !hasAccessCode && !hasSubscriberToken) {
     return errorSSE("That access code isn't right. Check your class confirmation email.");
   }
 
   const question = String(payload.question || "").trim();
   if (!question) return errorSSE("Please enter a question.");
   if (question.length > 1200) return errorSSE("Please keep questions under 1,200 characters.");
+
+  if (!hasAccessCode && !hasSubscriberToken && !hasFreeAllowance(ip)) {
+    return errorSSE("You've reached today's free question limit. Use your class access code or AI Pro subscriber login to keep going.");
+  }
 
   // Conversation history — last 8 turns, validated
   // Anthropic requires messages to alternate user/assistant, starting with user

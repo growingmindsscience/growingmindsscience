@@ -8,6 +8,7 @@ import {
   hmacSha256,
   base64UrlEncode,
 } from "./_security.js";
+import { getSession } from "./_auth.js";
 import { checkRateLimit, rateLimitResponse } from "./_ratelimit.js";
 
 export default async function handler(request) {
@@ -31,6 +32,14 @@ export default async function handler(request) {
   const email = normalizeEmail(body.email);
   if (!isValidEmail(email)) {
     return jsonResponse(400, { error: "Please enter a valid email address." });
+  }
+
+  const session = await getSession(request);
+  if (!session) {
+    return jsonResponse(401, { error: "Please sign in with the subscriber email before unlocking AI Pro." });
+  }
+  if (normalizeEmail(session.email) !== email) {
+    return jsonResponse(403, { error: "Sign in with the same email you used for your subscription." });
   }
 
   let customersRes;
