@@ -93,7 +93,8 @@
             data-contact
             method="POST"
             action="/api/contact"
-            aria-labelledby="contact-heading">
+            aria-labelledby="contact-heading"
+            novalidate>
             <h3 id="contact-heading" class="signup__form-title">Send a message</h3>
 
             <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true" />
@@ -105,7 +106,8 @@
 
             <div class="form-row">
               <label class="form-label" for="email">Your email</label>
-              <input class="form-input" type="email" id="email" name="email" autocomplete="email" required placeholder="you@example.com" />
+              <input class="form-input" type="email" id="email" name="email" autocomplete="email" required placeholder="you@example.com" aria-describedby="contact-email-error" />
+              <p class="field-error" id="contact-email-error" role="alert"></p>
             </div>
 
             <div class="form-row">
@@ -117,7 +119,9 @@
                 rows="6"
                 required
                 maxlength="2000"
-                placeholder="What's on your mind?"></textarea>
+                placeholder="What's on your mind?"
+                aria-describedby="contact-message-error"></textarea>
+              <p class="field-error" id="contact-message-error" role="alert"></p>
             </div>
 
             <button class="btn btn--primary btn--block btn--lg" type="submit">Send message</button>

@@ -85,8 +85,50 @@
     // Theme toggle
     if (themeBtn) themeBtn.addEventListener("click", toggleTheme);
 
-    function setStatus(node, message) {
-      if (node) node.textContent = message || "";
+    function setStatus(node, message, tone) {
+      if (!node) return;
+      node.textContent = message || "";
+      if (tone) node.setAttribute("data-tone", tone);
+      else node.removeAttribute("data-tone");
+    }
+
+    var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    function isEmail(value) { return EMAIL_RE.test(String(value || "").trim()); }
+
+    function showFieldError(input, message) {
+      if (!input) return;
+      input.setAttribute("aria-invalid", "true");
+      var describedby = input.getAttribute("aria-describedby");
+      var errorNode = describedby ? document.getElementById(describedby) : null;
+      if (errorNode) {
+        errorNode.textContent = message;
+        errorNode.setAttribute("data-shown", "");
+      }
+    }
+    function clearFieldError(input) {
+      if (!input) return;
+      input.removeAttribute("aria-invalid");
+      var describedby = input.getAttribute("aria-describedby");
+      var errorNode = describedby ? document.getElementById(describedby) : null;
+      if (errorNode) {
+        errorNode.textContent = "";
+        errorNode.removeAttribute("data-shown");
+      }
+    }
+
+    // Toggle a submit button between idle and loading; preserves original label.
+    function setBtnLoading(btn, on, loadingLabel) {
+      if (!btn) return;
+      if (on) {
+        if (!btn.dataset.label) btn.dataset.label = btn.textContent;
+        btn.disabled = true;
+        btn.setAttribute("aria-busy", "true");
+        btn.innerHTML = '<span class="btn__spinner" aria-hidden="true"></span>' + (loadingLabel || "Working…");
+      } else {
+        btn.disabled = false;
+        btn.removeAttribute("aria-busy");
+        if (btn.dataset.label) { btn.textContent = btn.dataset.label; delete btn.dataset.label; }
+      }
     }
 
     function getSession() {
@@ -163,17 +205,45 @@
         if (authStatus && authMessages[authStatus]) setStatus(loginStatus, authMessages[authStatus]);
       } catch (_) {}
 
+      var loginEmail = loginForm.querySelector("#login-email");
+      var loginPassword = loginForm.querySelector("#login-password");
+
+      // Validate on blur (flag once they leave), forgive on input.
+      if (loginEmail) {
+        loginEmail.addEventListener("blur", function () {
+          var v = loginEmail.value.trim();
+          if (v && !isEmail(v)) showFieldError(loginEmail, "Enter a valid email address.");
+        });
+        loginEmail.addEventListener("input", function () { clearFieldError(loginEmail); });
+      }
+      if (loginPassword) {
+        loginPassword.addEventListener("input", function () { clearFieldError(loginPassword); });
+      }
+
       loginForm.addEventListener("submit", function (event) {
         event.preventDefault();
         var submit = loginForm.querySelector('button[type="submit"]');
-        var formData = new FormData(loginForm);
+        var email = loginEmail ? loginEmail.value.trim() : "";
+        var password = loginPassword ? loginPassword.value : "";
+
+        // Inline validation before any network call.
+        var firstInvalid = null;
+        if (!email) { showFieldError(loginEmail, "Enter your email."); firstInvalid = firstInvalid || loginEmail; }
+        else if (!isEmail(email)) { showFieldError(loginEmail, "Enter a valid email address."); firstInvalid = firstInvalid || loginEmail; }
+        if (!password) { showFieldError(loginPassword, "Enter your password."); firstInvalid = firstInvalid || loginPassword; }
+        if (firstInvalid) {
+          setStatus(loginStatus, "");
+          firstInvalid.focus();
+          return;
+        }
+
         var payload = {
-          email: String(formData.get("email") || ""),
-          password: String(formData.get("password") || ""),
-          remember: formData.get("remember") === "on",
+          email: email,
+          password: password,
+          remember: loginForm.querySelector('[name="remember"]') ? loginForm.querySelector('[name="remember"]').checked : false,
         };
 
-        if (submit) submit.disabled = true;
+        setBtnLoading(submit, true, "Checking…");
         setStatus(loginStatus, "Checking credentials…");
 
         fetch("/api/login", {
@@ -192,13 +262,12 @@
             });
           })
           .then(function () {
+            setStatus(loginStatus, "Signed in. Taking you to your account…", "success");
             window.location.assign("/account");
           })
           .catch(function (error) {
-            setStatus(loginStatus, error.message || "Login failed.");
-          })
-          .finally(function () {
-            if (submit) submit.disabled = false;
+            setStatus(loginStatus, error.message || "Login failed.", "error");
+            setBtnLoading(submit, false);
           });
       });
     }
@@ -317,18 +386,42 @@
     if (contactForm) {
       var contactStatus = contactForm.querySelector(".form-status");
       var contactBtn = contactForm.querySelector('button[type="submit"]');
+      var contactEmail = contactForm.querySelector('[name="email"]');
+      var contactMessage = contactForm.querySelector('[name="message"]');
+
+      if (contactEmail) {
+        contactEmail.addEventListener("blur", function () {
+          var v = contactEmail.value.trim();
+          if (v && !isEmail(v)) showFieldError(contactEmail, "Enter a valid email address.");
+        });
+        contactEmail.addEventListener("input", function () { clearFieldError(contactEmail); });
+      }
+      if (contactMessage) {
+        contactMessage.addEventListener("input", function () { clearFieldError(contactMessage); });
+      }
+
       contactForm.addEventListener("submit", function (event) {
         event.preventDefault();
-        if (contactStatus) {
-          contactStatus.style.color = "";
-          contactStatus.textContent = "Sending…";
+        var email = contactEmail ? contactEmail.value.trim() : "";
+        var message = contactMessage ? contactMessage.value.trim() : "";
+
+        var firstInvalid = null;
+        if (!email) { showFieldError(contactEmail, "Enter your email so I can reply."); firstInvalid = firstInvalid || contactEmail; }
+        else if (!isEmail(email)) { showFieldError(contactEmail, "Enter a valid email address."); firstInvalid = firstInvalid || contactEmail; }
+        if (!message) { showFieldError(contactMessage, "Add a short message."); firstInvalid = firstInvalid || contactMessage; }
+        if (firstInvalid) {
+          setStatus(contactStatus, "");
+          firstInvalid.focus();
+          return;
         }
-        if (contactBtn) contactBtn.disabled = true;
+
+        setStatus(contactStatus, "Sending…");
+        setBtnLoading(contactBtn, true, "Sending…");
 
         var payload = {
           name: contactForm.querySelector('[name="name"]') ? contactForm.querySelector('[name="name"]').value : "",
-          email: contactForm.querySelector('[name="email"]') ? contactForm.querySelector('[name="email"]').value : "",
-          message: contactForm.querySelector('[name="message"]') ? contactForm.querySelector('[name="message"]').value : "",
+          email: email,
+          message: message,
         };
 
         fetch("/api/contact", {
@@ -345,19 +438,13 @@
           })
           .then(function () {
             contactForm.reset();
-            if (contactStatus) {
-              contactStatus.style.color = "";
-              contactStatus.textContent = "Thanks — your message is on its way. Matthew reads every note personally and usually replies within a few business days.";
-            }
+            setStatus(contactStatus, "Thanks — your message is on its way. Matthew reads every note personally and usually replies within a few business days.", "success");
           })
           .catch(function (error) {
-            if (contactStatus) {
-              contactStatus.style.color = "#c0392b";
-              contactStatus.textContent = error.message || "Your message couldn't be sent. Please try again.";
-            }
+            setStatus(contactStatus, error.message || "Your message couldn't be sent. Please try again.", "error");
           })
           .finally(function () {
-            if (contactBtn) contactBtn.disabled = false;
+            setBtnLoading(contactBtn, false);
           });
       });
     }
