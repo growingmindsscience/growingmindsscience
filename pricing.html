@@ -258,7 +258,32 @@
       .site-footer__main { flex-direction: column; align-items: flex-start; }
       .site-footer__bottom { flex-direction: column; }
     }
+
+    [data-theme="dark"] {
+      --teal:        #6FBCAF;
+      --teal-dark:   #0F1A18;
+      --teal-hover:  #8FD0C4;
+      --teal-light:  rgba(111,188,175,.12);
+      --amber:       #E78D6F;
+      --amber-dark:  #E78D6F;
+      --cream:       #0F1A18;
+      --ink:         #E8EFEB;
+      --ink-soft:    rgba(232,239,235,.72);
+      --ink-muted:   rgba(232,239,235,.55);
+      --blush:       #2E211C;
+      --white:       #152421;
+      --border:      rgba(111,188,175,.14);
+      --border-mid:  rgba(111,188,175,.22);
+    }
+    [data-theme="dark"] body { background: var(--cream); color: var(--ink); }
+    [data-theme="dark"] .site-nav { background: rgba(15,26,24,.96); }
+    [data-theme="dark"] .price-card { background: #152421; border-color: var(--border-mid); }
+    [data-theme="dark"] .price-card--featured { background: linear-gradient(160deg, #1C3430 0%, #152421 100%); }
+    [data-theme="dark"] .faq__item { border-color: var(--border); }
+    [data-theme="dark"] .faq__answer { color: var(--ink-soft); }
+    [data-theme="dark"] .site-footer { background: #0A1F1E; border-color: var(--border); color: var(--ink-soft); }
   </style>
+  <script>try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 </head>
 <body>
 
@@ -288,7 +313,7 @@
         <span></span><span></span><span></span>
       </button>
     </div>
-    <div class="site-nav__drawer" id="navDrawer" aria-hidden="true">
+    <div class="site-nav__drawer" id="navDrawer" aria-hidden="true" inert>
       <a href="/classes/">Classes</a>
       <a href="/tools/">Tools</a>
       <a href="/tools/growing-minds-ai.html">Growing Minds AI</a>
@@ -448,10 +473,30 @@
     /* Nav toggle */
     const navToggle = document.getElementById('navToggle');
     const navDrawer = document.getElementById('navDrawer');
+
+    function openNav() {
+      navDrawer.classList.add('is-open');
+      navToggle.setAttribute('aria-expanded', 'true');
+      navDrawer.removeAttribute('aria-hidden');
+      navDrawer.removeAttribute('inert');
+      navDrawer.querySelector('a').focus();
+    }
+    function closeNav() {
+      navDrawer.classList.remove('is-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navDrawer.setAttribute('aria-hidden', 'true');
+      navDrawer.setAttribute('inert', '');
+      navToggle.focus();
+    }
+
     navToggle.addEventListener('click', () => {
-      const open = navDrawer.classList.toggle('is-open');
-      navToggle.setAttribute('aria-expanded', String(open));
-      navDrawer.setAttribute('aria-hidden', String(!open));
+      navDrawer.classList.contains('is-open') ? closeNav() : openNav();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navDrawer.classList.contains('is-open')) closeNav();
+    });
+    navDrawer.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', closeNav);
     });
   </script>
 

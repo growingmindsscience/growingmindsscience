@@ -140,6 +140,7 @@ h1, h2, h3, h4 {
   letter-spacing: 0;
   color: var(--ink);
   margin: 0 0 var(--space-4);
+  text-wrap: balance;
 }
 
 h1 { font-size: var(--text-hero); }
@@ -2085,6 +2086,7 @@ button:disabled {
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  margin-top: var(--space-5);
 }
 .footer-elsewhere a {
   color: var(--ink-soft);

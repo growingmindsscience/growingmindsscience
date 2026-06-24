@@ -87,12 +87,12 @@
           </p>
         </div>
 
-        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--space-4); margin-bottom:var(--space-12); padding:var(--space-6) var(--space-8); background:var(--bg-alt); border-radius:var(--radius-xl); border:1px solid var(--border-soft);">
+        <div class="promo-banner">
           <div>
-            <p class="section-head__eyebrow" style="margin-bottom:var(--space-2);">Toddler class · now available</p>
-            <p style="font-size:var(--text-md); font-weight:600; color:var(--ink); margin:0;">Language, autonomy, and big feelings. $49 · lifetime access.</p>
+            <p class="section-head__eyebrow">Toddler class · now available</p>
+            <p class="promo-banner__title">Language, autonomy, and big feelings. $49 · lifetime access.</p>
           </div>
-          <a class="btn btn--primary" href="/classes/toddlerhood.html" style="white-space:nowrap; flex-shrink:0;">Enroll now →</a>
+          <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now →</a>
         </div>
 
         <div class="topic-section">
@@ -188,13 +188,13 @@
 
     <section class="section--alt">
       <div class="container container--narrow center">
-        <h2 style="max-width: 28ch; margin-inline: auto;">Get new articles by email.</h2>
-        <p class="lede" style="max-width: 52ch; margin-inline: auto;">
+        <h2 class="inline-signup__heading">Get new articles by email.</h2>
+        <p class="lede inline-signup__lede">
           No fixed cadence, no filler. A short note when a new piece is ready.
         </p>
         <form
           id="articlesSignupForm"
-          style="margin-top:var(--space-6); display:flex; gap:var(--space-3); flex-wrap:wrap; justify-content:center; max-width:480px; margin-inline:auto;"
+          class="inline-signup"
           method="POST"
           action="/api/waitlist"
           novalidate>
@@ -206,15 +206,14 @@
             name="email"
             required
             placeholder="your@email.com"
-            style="flex:1; min-width:200px; padding:var(--space-3) var(--space-4); border:1px solid var(--border); border-radius:var(--radius); font-family:inherit; font-size:var(--text-sm); background:var(--surface); color:var(--ink);"
+            class="inline-signup__input"
             aria-label="Email address" />
           <button
             type="submit"
-            class="btn btn--primary"
-            style="white-space:nowrap;">Send me articles</button>
-          <p id="articlesFormStatus" role="status" aria-live="polite" style="width:100%; font-size:var(--text-sm); text-align:center; min-height:1.25em;"></p>
+            class="btn btn--primary">Send me articles</button>
+          <p id="articlesFormStatus" role="status" aria-live="polite" class="inline-signup__status"></p>
         </form>
-        <p style="margin-top:var(--space-4); font-size:var(--text-xs); color:var(--ink-muted);">Unsubscribe anytime. No spam.</p>
+        <p class="inline-signup__disclaimer">Unsubscribe anytime. No spam.</p>
       </div>
     </section>
 
@@ -277,10 +276,10 @@
       </div>
       <div>
         <h4>Stay in the loop</h4>
-        <p style="font-size: var(--text-sm);">
+        <p>
           <a href="/#signup">Join the waitlist →</a>
         </p>
-        <p class="footer-elsewhere" style="margin-top: var(--space-5);">
+        <p class="footer-elsewhere">
           Also on
           <a href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr"
              target="_blank" rel="noopener noreferrer">Instagram</a>

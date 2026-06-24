@@ -298,37 +298,67 @@
 
     // Mobile nav: closed by default. CSS hides .nav__list until .nav.is-open is set.
     if (navToggle && nav) {
+      function getFocusableNavItems() {
+        return Array.prototype.slice.call(
+          nav.querySelectorAll("a, button, [tabindex]:not([tabindex='-1'])")
+        ).filter(function (el) { return !el.closest(".nav__list") || nav.classList.contains("is-open"); });
+      }
+
+      function openMobileNav() {
+        nav.classList.add("is-open");
+        navToggle.setAttribute("aria-expanded", "true");
+        // Move focus into nav list after CSS transition has a chance to render
+        setTimeout(function () {
+          var first = navList && navList.querySelector("a");
+          if (first) first.focus();
+        }, 50);
+      }
+
+      function closeMobileNav() {
+        nav.classList.remove("is-open");
+        navToggle.setAttribute("aria-expanded", "false");
+        navDetails.forEach(function (details) { details.open = false; });
+        navToggle.focus();
+      }
+
       navToggle.addEventListener("click", function () {
-        var open = nav.classList.toggle("is-open");
-        navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+        if (nav.classList.contains("is-open")) { closeMobileNav(); } else { openMobileNav(); }
       });
+
       if (navList) {
         navList.addEventListener("click", function (e) {
           var a = e.target.closest("a");
           if (!a) return;
-          nav.classList.remove("is-open");
-          navToggle.setAttribute("aria-expanded", "false");
-          navDetails.forEach(function (details) { details.open = false; });
+          closeMobileNav();
         });
       }
+
       document.addEventListener("click", function (e) {
         if (!e.target.closest(".nav__details")) {
           navDetails.forEach(function (details) { details.open = false; });
         }
         if (nav.classList.contains("is-open") && !e.target.closest(".nav")) {
-          nav.classList.remove("is-open");
-          navToggle.setAttribute("aria-expanded", "false");
+          closeMobileNav();
         }
       });
-      // Close on Escape
+
       document.addEventListener("keydown", function (e) {
         if (e.key === "Escape") {
           navDetails.forEach(function (details) { details.open = false; });
+          if (nav.classList.contains("is-open")) closeMobileNav();
+          return;
         }
-        if (e.key === "Escape" && nav.classList.contains("is-open")) {
-          nav.classList.remove("is-open");
-          navToggle.setAttribute("aria-expanded", "false");
-          navToggle.focus();
+        // Focus trap: only active on narrow viewports where the overlay is visible
+        if (e.key === "Tab" && nav.classList.contains("is-open") && window.innerWidth < 768) {
+          var items = Array.prototype.slice.call(navList.querySelectorAll("a, button"));
+          if (!items.length) return;
+          var first = items[0];
+          var last = items[items.length - 1];
+          if (e.shiftKey) {
+            if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+          } else {
+            if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+          }
         }
       });
     }
