@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>A nervous-system primer for parents — Growing Minds Science</title>
+  <meta name="description" content="A short reference that explains co-regulation in plain language: what it actually is, why a child borrows calm from a steady adult, and why your state matters more than any perfect script." />
+  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="color-scheme" content="light dark" />
+
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="canonical" href="/tools/co-regulation-primer" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="A nervous-system primer for parents — Growing Minds Science" />
+  <meta property="og:description" content="A short reference that explains co-regulation in plain language: what it actually is, why a child borrows calm from a steady adult, and why your state matters more than any perfect script." />
+  <meta property="og:image" content="/assets/img/site/family-reading.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/refresh.css" />
+
+  <style>
+    .tool-hero { padding: clamp(3rem, 6vw, 5rem) 0 2rem; }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr .9fr; gap: var(--space-8); align-items: start; }
+    .tool-lede { font-size: var(--text-md); color: var(--ink-soft); max-width: 43rem; margin: 0 0 var(--space-6); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+
+    .hero-card,
+    .panel,
+    .what-panel,
+    .summary-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: var(--space-6);
+    }
+
+    .hero-card h2 { margin: 0 0 .65rem; font-size: var(--text-lg); }
+    .hero-card p { color: var(--ink-soft); }
+    .meta-list { list-style: none; padding: 0; margin: var(--space-4) 0 0; display: grid; gap: .85rem; }
+    .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
+    .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
+
+    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: 999px; background: var(--surface-2); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .section-intro { color: var(--ink-soft); max-width: 44rem; margin: 0 0 var(--space-6); }
+    .small { font-size: var(--text-sm); color: var(--ink-muted); }
+
+    .what-panel__blocks { display: grid; gap: var(--space-4); }
+    .what-block { position: relative; padding-left: var(--space-5); }
+    .what-block::before { content: ""; position: absolute; left: 2px; top: .58em; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+    .what-block__label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .1em; color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
+    .what-block__text { margin: 0; color: var(--ink-soft); line-height: 1.65; }
+
+    .decoder { display: grid; grid-template-columns: .95fr 1.05fr; gap: var(--space-5); align-items: start; }
+    .decoder-buttons { display: grid; gap: .75rem; }
+    .decoder-btn { padding: .8rem 1rem; text-align: left; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); cursor: pointer; transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition); }
+    .decoder-btn.is-active { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
+    .decoder-output { padding: var(--space-6); border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--border-soft); box-shadow: var(--shadow-sm); }
+    .decoder-output[hidden] { display: none; }
+    .decoder-output h3 { margin: 0 0 .6rem; font-size: var(--text-lg); }
+    .decoder-output p { color: var(--ink-soft); }
+
+    .response-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }
+    .response-card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: var(--space-5); }
+    .response-card__num { width: 34px; height: 34px; border-radius: 999px; display: grid; place-items: center; background: var(--primary); color: var(--primary-ink); font-weight: 700; margin-bottom: var(--space-4); }
+    .response-card h3 { font-size: var(--text-md); margin-bottom: .65rem; }
+    .response-card p { color: var(--ink-soft); font-size: var(--text-sm); }
+
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+    .compare-box { padding: var(--space-5); border-radius: var(--radius); border: 1px solid var(--border-soft); background: var(--bg-alt); }
+    .compare-box h3 { margin: 0 0 .85rem; font-size: var(--text-md); }
+    .compare-box ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .55rem; }
+    .compare-box--helpful { border-color: color-mix(in srgb, var(--primary) 35%, var(--border-soft)); }
+    .compare-box--less { border-color: color-mix(in srgb, var(--warm) 42%, var(--border-soft)); }
+
+    .summary-card { position: relative; overflow: hidden; }
+    .summary-card::after { content: ""; position: absolute; inset: auto -40px -40px auto; width: 160px; height: 160px; border-radius: 999px; background: color-mix(in srgb, var(--accent-soft) 55%, transparent); }
+    .summary-card ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .6rem; position: relative; z-index: 1; }
+
+    .cta-strip { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+
+    .sources-panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-6); }
+    .sources-panel h2 { margin: 0 0 var(--space-4); font-size: var(--text-lg); }
+    .sources-panel ul { margin: 0; padding-left: 1.25rem; display: grid; gap: var(--space-3); color: var(--ink-soft); line-height: 1.65; }
+    .sources-panel a { color: var(--primary); font-weight: 700; }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .decoder,
+      .response-grid,
+      .compare-grid,
+      .cta-strip { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="container site-header__inner">
+      <a class="brand" href="/" aria-label="Growing Minds Science — home">
+        <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+        <span class="brand__name">Growing Minds Science</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Toggle navigation menu">
+          <span class="nav-toggle__bars"><span></span></span>
+        </button>
+
+                <ul class="nav__list" id="primary-nav-list">
+          <li><a class="nav__link" href="/classes/">Classes</a></li>
+          <li><a class="nav__link" aria-current="page" href="/tools/">Tools</a></li>
+          <li><a class="nav__link" href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
+          <li><a class="nav__link" href="/articles/">Articles</a></li>
+          <li><a class="nav__link" href="/about/">About</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a></li>
+        </ul>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
+          <svg class="theme-toggle__moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="tool-hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Toddler · 1-3 · Regulation primer</p>
+          <h1 class="page-hero__title">A nervous-system primer for parents</h1>
+          <p class="tool-lede">A short reference that explains co-regulation in plain language. A young child can&rsquo;t yet steady their own nervous system, so they borrow steadiness from yours. That borrowing is the mechanism, and your actual state matters more than any perfect phrase.</p>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="#state-chooser">What does it look like right now?</a>
+            <a class="btn btn--ghost" href="#one-minute-summary">Jump to summary</a>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-labelledby="tool-at-a-glance">
+          <span class="tag">At a glance</span>
+          <h2 id="tool-at-a-glance">What this primer covers</h2>
+          <ul class="meta-list">
+            <li><span class="dot"></span><span>What co-regulation actually is, without the jargon.</span></li>
+            <li><span class="dot"></span><span>Why it has to come before self-regulation in the toddler years.</span></li>
+            <li><span class="dot"></span><span>Why your calm body does more than your perfect words.</span></li>
+            <li><span class="dot"></span><span>How to stay steady and still hold a limit.</span></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>The core idea</h2>
+        <p class="section-intro">Self-regulation isn&rsquo;t something a child is born with. It gets built, slowly, out of thousands of moments where a calmer adult lends them steadiness. That lending is co-regulation, and it is the developmental precursor to a child eventually managing their own state. The toddler at the 5pm meltdown isn&rsquo;t refusing to calm down. Their system simply can&rsquo;t do it alone yet.</p>
+
+        <div class="what-panel">
+          <span class="tag">What is happening</span>
+          <div class="what-panel__blocks">
+            <div class="what-block">
+              <p class="what-block__label">Co-regulation is a child borrowing your calm</p>
+              <p class="what-block__text">A young child can&rsquo;t fully settle their own nervous system, so they catch the state of the adult next to them. Tone, face, pace, and a steady body all send signals about whether things are safe. When you stay regulated, you become external scaffolding for a system that can&rsquo;t yet hold itself together. Stuart Shanker&rsquo;s Self-Reg work and the Center on the Developing Child at Harvard both describe self-regulation as something built through these supportive, back-and-forth relationships, not something switched on by instruction.</p>
+            </div>
+
+            <div class="what-block">
+              <p class="what-block__label">Co-regulation comes first, by years</p>
+              <p class="what-block__text">Self-regulation develops on a long timeline. A child needs a regulated nervous system to borrow from long before they can supply their own. Each time big feelings are met by a calm adult, a little of that capacity gets internalized. There&rsquo;s no shortcut that skips the borrowing stage.</p>
+            </div>
+
+            <div class="what-block">
+              <p class="what-block__label">The upstairs brain is still under construction</p>
+              <p class="what-block__text">The prefrontal cortex, the part that plans, reasons, and puts on the brakes, is years from mature. Under stress, the child drops into a protective response: fight, flight, freeze, or collapse. Reasoning lands poorly mid-flood. Dan Siegel and Tina Bryson&rsquo;s &ldquo;flip your lid&rdquo; and &ldquo;name it to tame it&rdquo; are useful pictures of this, but they&rsquo;re a translation of the neuroscience for parents, not a literal map of the brain.</p>
+            </div>
+
+            <div class="what-block">
+              <p class="what-block__label">Your state matters more than your script</p>
+              <p class="what-block__text">A perfectly worded sentence delivered by a tense, flooded adult doesn&rsquo;t regulate a child. A calm body with clumsy words usually does. Edward Tronick&rsquo;s still-face experiments show how quickly even infants react when a caregiver goes emotionally flat or unavailable. Children are reading your nervous system, not grading your phrasing. Scripts are scaffolding for you, not magic words for them.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="state-chooser">
+      <div class="container container--narrow">
+        <h2>What does co-regulation look like right now?</h2>
+        <p class="section-intro">Pick the state that&rsquo;s closest to what you&rsquo;re seeing. Each one shows what the child&rsquo;s system likely needs from yours, plus one concrete move. None of these are scripts. The point is the state you bring, not the exact words.</p>
+
+        <div class="decoder">
+          <div class="decoder-buttons" role="group" aria-label="Child states">
+            <button class="decoder-btn is-active" type="button" data-pattern="revved" aria-pressed="true">Revved up and silly, past the point of fun.</button>
+            <button class="decoder-btn" type="button" data-pattern="meltdown" aria-pressed="false">Melting down and can&rsquo;t hear me.</button>
+            <button class="decoder-btn" type="button" data-pattern="frozen" aria-pressed="false">Frozen, shut down, gone quiet.</button>
+            <button class="decoder-btn" type="button" data-pattern="testing" aria-pressed="false">Frustrated and testing a limit.</button>
+            <button class="decoder-btn" type="button" data-pattern="scared" aria-pressed="false">Scared or overwhelmed by something new.</button>
+          </div>
+
+          <div>
+            <article class="decoder-output" data-output="revved">
+              <span class="tag">Their system needs: a slower one to match</span>
+              <h3>Bring your pace down, and they&rsquo;ll drift toward it.</h3>
+              <p>Wound-up, giddy energy is still dysregulation. The child isn&rsquo;t going to find the brakes on their own. They&rsquo;ll borrow your tempo, so slow your own body first: quieter voice, slower movements, less stimulation around you both.</p>
+              <p class="small">Move: drop your volume and slow down rather than getting louder and faster to be heard over them.</p>
+            </article>
+
+            <article class="decoder-output" data-output="meltdown" hidden>
+              <span class="tag">Their system needs: steady presence, not words</span>
+              <h3>Be the calm body in the room, and talk less.</h3>
+              <p>A flooded child can&rsquo;t process language or logic. This isn&rsquo;t the moment to explain. Get low, stay near, keep your face and voice soft, and let your steadiness do the work while the wave passes.</p>
+              <p class="small">Move: less talking, more presence. Your regulated body is the message.</p>
+            </article>
+
+            <article class="decoder-output" data-output="frozen" hidden>
+              <span class="tag">Their system needs: safety and no pressure</span>
+              <h3>Come close gently and lower the demand to zero.</h3>
+              <p>Going quiet or limp is a stress response too, not stubbornness or calm. Pushing harder makes a frozen system retreat further. Offer a soft, unhurried presence, drop any demand for now, and give them time to come back.</p>
+              <p class="small">Move: get close and quiet, wait, and let them re-engage at their own pace.</p>
+            </article>
+
+            <article class="decoder-output" data-output="testing" hidden>
+              <span class="tag">Their system needs: a calm, steady edge</span>
+              <h3>Hold the limit with a regulated body.</h3>
+              <p>Frustration plus a boundary is normal, and you can be calm and firm at the same time. Steady is not soft. Keep the limit simple, let the feeling exist, and don&rsquo;t add new arguments or match the intensity coming at you.</p>
+              <p class="small">Move: keep your voice level and the limit unchanged, even while they protest.</p>
+            </article>
+
+            <article class="decoder-output" data-output="scared" hidden>
+              <span class="tag">Their system needs: your steadiness as a reference</span>
+              <h3>Be the signal that this is safe.</h3>
+              <p>A child meeting something new checks your face and tone to decide how alarmed to be. If your body reads calm and unhurried, that&rsquo;s the cue their system uses. Stay close, narrate gently, and let them approach the new thing from the safety of you.</p>
+              <p class="small">Move: settle your own body first, then stay alongside them rather than pushing them forward.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>The order that tends to work</h2>
+        <p class="section-intro">Co-regulation isn&rsquo;t a single move. In the hard moment, it&rsquo;s usually a short sequence. The adult&rsquo;s state comes first because everything after it depends on it.</p>
+
+        <div class="response-grid">
+          <article class="response-card">
+            <span class="response-card__num">1</span>
+            <h3>Steady yourself first</h3>
+            <p>You can&rsquo;t lend a calm you don&rsquo;t have. Notice your own activation and bring your body down before you engage. The fuller version of this lives in its own tool.</p>
+          </article>
+          <article class="response-card">
+            <span class="response-card__num">2</span>
+            <h3>Offer your calm</h3>
+            <p>Get low, slow your pace, soften your voice, use fewer words. The child catches the state you&rsquo;re in. Presence does more here than any phrase.</p>
+          </article>
+          <article class="response-card">
+            <span class="response-card__num">3</span>
+            <h3>Hold the limit, teach later</h3>
+            <p>Steady doesn&rsquo;t mean permissive. Keep the boundary in place through the feeling, and save any teaching for after the body has come back down.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>Co-regulation, and the common misreads</h2>
+        <div class="compare-grid">
+          <article class="compare-box compare-box--helpful">
+            <h3>What co-regulation actually is</h3>
+            <ul>
+              <li>Lending a steadier nervous system to a child who can&rsquo;t supply their own yet.</li>
+              <li>The normal route to self-regulation, built over thousands of repetitions.</li>
+              <li>Mostly about your state: tone, pace, face, a calm body.</li>
+              <li>Compatible with holding a clear limit.</li>
+              <li>A long, patient job, not a one-time lesson.</li>
+            </ul>
+          </article>
+          <article class="compare-box compare-box--less">
+            <h3>Common misreads</h3>
+            <ul>
+              <li>&ldquo;They should be able to self-soothe by now.&rdquo;</li>
+              <li>&ldquo;Staying calm means giving in.&rdquo;</li>
+              <li>&ldquo;If I say the right phrase, they&rsquo;ll settle.&rdquo;</li>
+              <li>&ldquo;Comforting them now teaches dependence.&rdquo;</li>
+              <li>&ldquo;Reasoning it through mid-meltdown will work.&rdquo;</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="one-minute-summary">
+      <div class="container container--narrow">
+        <div class="summary-card">
+          <span class="tag">One-minute summary</span>
+          <h2 style="font-size:var(--text-xl); margin-top:0;">When you need the short version</h2>
+          <ul>
+            <li>A young child can&rsquo;t fully regulate alone yet. They borrow it from you.</li>
+            <li>That borrowing is co-regulation, and it&rsquo;s how self-regulation gets built.</li>
+            <li>Under stress, the reasoning brain goes offline. Calm has to come before logic.</li>
+            <li>Your actual state does more than any perfect script.</li>
+            <li>You can be calm and still hold a limit. Steady is not soft.</li>
+            <li>It&rsquo;s a translation of converging research, not a precise mechanism. Hold it lightly.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <div class="what-panel">
+          <span class="tag">A note on the science, and on support</span>
+          <p class="section-intro" style="margin-bottom:var(--space-4);">This primer is a plain-language translation of converging developmental and neuroscience research. Some popular models go further than the evidence does. Polyvagal theory and the idea of &ldquo;neuroception,&rdquo; for example, are influential but still debated, so it&rsquo;s worth not overclaiming a precise mechanism. The broad picture, that children regulate through relationships before they regulate alone, is well supported.</p>
+          <p class="section-intro" style="margin-bottom:0;">This tool is educational and can&rsquo;t evaluate an individual child. If meltdowns are frequent, intense, unsafe, tied to developmental concerns, or leaving your family unable to function, it&rsquo;s worth talking with your pediatrician, an early childhood specialist, or a licensed mental health professional.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <div class="sources-panel">
+          <h2>Sources and further reading</h2>
+          <ul>
+            <li><a href="https://developingchild.harvard.edu/science/key-concepts/executive-function/" target="_blank" rel="noopener noreferrer">Center on the Developing Child, Harvard: Executive Function and Self-Regulation</a></li>
+            <li>Shanker, S. (2016). <em>Self-Reg: How to Help Your Child (and You) Break the Stress Cycle and Successfully Engage with Life.</em> Penguin.</li>
+            <li>Tronick, E. (1978). The still-face paradigm; the infant&rsquo;s response to entrapment between contradictory messages in face-to-face interaction. <em>Journal of the American Academy of Child Psychiatry, 17</em>(1), 1&ndash;13.</li>
+            <li>Siegel, D. J., &amp; Bryson, T. P. (2011). <em>The Whole-Brain Child.</em> Delacorte Press.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top:0;">
+      <div class="container container--narrow">
+        <div class="promo-banner">
+          <div>
+            <p class="eyebrow">Now available · $49</p>
+            <p class="promo-banner__body">Toddler class · Unlimited Growing Minds AI · Milestone tracker · Lifetime access</p>
+          </div>
+          <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now →</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <div class="cta-strip">
+          <div>
+            <p class="eyebrow">Toddler class · now available</p>
+            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Module 4 covers big feelings, meltdowns, and co-regulation in full.</h2>
+            <p class="small" style="max-width:38rem; margin:0;">What&rsquo;s happening in a toddler&rsquo;s nervous system, why your calm becomes their scaffold, and what that looks like in practice. $49 for lifetime access.</p>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a>
+            <a class="btn btn--ghost" href="/tools/regulating-yourself-first">Regulating yourself first</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container site-footer__inner">
+      <div>
+        <a class="brand" href="/" aria-label="Growing Minds Science — home">
+          <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+          <span class="brand__name">Growing Minds Science</span>
+        </a>
+        <p style="margin-top: var(--space-4);">
+          Developmental science, translated for parents.
+        </p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul class="footer-list">
+          <li><a href="/classes/">Classes</a></li>
+          <li><a href="/tools/">Free tools</a></li>
+          <li><a href="/articles/">Articles</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/milestones">Milestone tracker</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Stay in the loop</h4>
+        <p style="font-size: var(--text-sm);">
+          <a href="/#signup">Join the waitlist →</a>
+        </p>
+        <p class="footer-elsewhere" style="margin-top: var(--space-5);">
+          Also on
+          <a href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr"
+             target="_blank" rel="noopener noreferrer">Instagram</a>
+        </p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
+        <span>&copy; <span data-year>2026</span> Growing Minds Science. All rights reserved.</span>
+        <span>Educational content only. Not medical or psychological advice.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/decor.js" defer></script>
+  <script>
+    (function(){
+      var decoderButtons = document.querySelectorAll('.decoder-btn');
+      var outputs = document.querySelectorAll('.decoder-output');
+      decoderButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var key = btn.dataset.pattern;
+          decoderButtons.forEach(function(b) { b.classList.remove('is-active'); b.setAttribute('aria-pressed', 'false'); });
+          btn.classList.add('is-active');
+          btn.setAttribute('aria-pressed', 'true');
+          outputs.forEach(function(o) { o.hidden = o.dataset.output !== key; });
+        });
+      });
+    })();
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Regulating yourself first — Growing Minds Science</title>
+  <meta name="description" content="Tools for the adult side of the room: noticing your own activation, what helps in the moment, and why regulating yourself isn't selfish." />
+  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="color-scheme" content="light dark" />
+
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="canonical" href="/tools/regulating-yourself-first" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Regulating yourself first — Growing Minds Science" />
+  <meta property="og:description" content="The adult side of the room: how to notice your own activation earlier and have a few real options before you react." />
+  <meta property="og:image" content="/assets/img/site/family-reading.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/refresh.css" />
+
+  <style>
+    .tool-hero { padding: clamp(3rem, 6vw, 5rem) 0 2rem; }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr .9fr; gap: var(--space-8); align-items: start; }
+    .tool-lede { font-size: var(--text-md); color: var(--ink-soft); max-width: 43rem; margin: 0 0 var(--space-6); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+
+    .hero-card,
+    .panel,
+    .what-panel,
+    .summary-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: var(--space-6);
+    }
+
+    .hero-card h2 { margin: 0 0 .65rem; font-size: var(--text-lg); }
+    .hero-card p { color: var(--ink-soft); }
+    .meta-list { list-style: none; padding: 0; margin: var(--space-4) 0 0; display: grid; gap: .85rem; }
+    .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
+    .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
+
+    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: 999px; background: var(--surface-2); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .section-intro { color: var(--ink-soft); max-width: 44rem; margin: 0 0 var(--space-6); }
+    .small { font-size: var(--text-sm); color: var(--ink-muted); }
+
+    .what-panel__blocks { display: grid; gap: var(--space-4); }
+    .what-block { position: relative; padding-left: var(--space-5); }
+    .what-block::before { content: ""; position: absolute; left: 2px; top: .58em; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+    .what-block__label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .1em; color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
+    .what-block__text { margin: 0; color: var(--ink-soft); line-height: 1.65; }
+
+    .decoder { display: grid; grid-template-columns: .95fr 1.05fr; gap: var(--space-5); align-items: start; }
+    .decoder-buttons { display: grid; gap: .75rem; }
+    .decoder-btn { padding: .8rem 1rem; text-align: left; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); cursor: pointer; transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition); }
+    .decoder-btn.is-active { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
+    .decoder-output { padding: var(--space-6); border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--border-soft); box-shadow: var(--shadow-sm); }
+    .decoder-output[hidden] { display: none; }
+    .decoder-output h3 { margin: 0 0 .6rem; font-size: var(--text-lg); }
+    .decoder-output p { color: var(--ink-soft); }
+
+    .response-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); }
+    .response-card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: var(--space-5); }
+    .response-card__num { width: 34px; height: 34px; border-radius: 999px; display: grid; place-items: center; background: var(--primary); color: var(--primary-ink); font-weight: 700; margin-bottom: var(--space-4); }
+    .response-card h3 { font-size: var(--text-md); margin-bottom: .65rem; }
+    .response-card p { color: var(--ink-soft); font-size: var(--text-sm); }
+
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+    .compare-box { padding: var(--space-5); border-radius: var(--radius); border: 1px solid var(--border-soft); background: var(--bg-alt); }
+    .compare-box h3 { margin: 0 0 .85rem; font-size: var(--text-md); }
+    .compare-box ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .55rem; }
+    .compare-box--helpful { border-color: color-mix(in srgb, var(--primary) 35%, var(--border-soft)); }
+    .compare-box--less { border-color: color-mix(in srgb, var(--warm) 42%, var(--border-soft)); }
+
+    .summary-card { position: relative; overflow: hidden; }
+    .summary-card::after { content: ""; position: absolute; inset: auto -40px -40px auto; width: 160px; height: 160px; border-radius: 999px; background: color-mix(in srgb, var(--accent-soft) 55%, transparent); }
+    .summary-card ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .6rem; position: relative; z-index: 1; }
+
+    .sources-panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-5); margin-top: var(--space-6); }
+    .sources-panel h2 { font-size: var(--text-lg); margin: 0 0 var(--space-4); }
+    .sources-panel ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .55rem; color: var(--ink-soft); line-height: 1.6; }
+    .sources-panel li { font-size: var(--text-sm); }
+    .sources-panel a { color: var(--primary); font-weight: 700; }
+
+    .cta-strip { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .decoder,
+      .response-grid,
+      .compare-grid,
+      .cta-strip { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="container site-header__inner">
+      <a class="brand" href="/" aria-label="Growing Minds Science — home">
+        <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+        <span class="brand__name">Growing Minds Science</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Toggle navigation menu">
+          <span class="nav-toggle__bars"><span></span></span>
+        </button>
+
+        <ul class="nav__list" id="primary-nav-list">
+          <li><a class="nav__link" href="/classes/">Classes</a></li>
+          <li><a class="nav__link" aria-current="page" href="/tools/">Tools</a></li>
+          <li><a class="nav__link" href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
+          <li><a class="nav__link" href="/articles/">Articles</a></li>
+          <li><a class="nav__link" href="/about/">About</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a></li>
+        </ul>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
+          <svg class="theme-toggle__moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="tool-hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Adult · Regulation</p>
+          <h1 class="page-hero__title">Regulating yourself first</h1>
+          <p class="tool-lede">Your nervous system is the most powerful regulation tool in the room. This is the adult side of it: how to notice your own activation a little earlier, and what to actually do with it before you react. Not staying calm all the time. Nobody does that.</p>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="#spike-chooser">What just spiked you?</a>
+            <a class="btn btn--ghost" href="#one-minute-summary">Jump to summary</a>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-labelledby="tool-at-a-glance">
+          <span class="tag">At a glance</span>
+          <h2 id="tool-at-a-glance">What this tool helps with</h2>
+          <ul class="meta-list">
+            <li><span class="dot"></span><span>Catching the early body signs before you raise your voice.</span></li>
+            <li><span class="dot"></span><span>A few real options in the moment, not a rigid script.</span></li>
+            <li><span class="dot"></span><span>Seeing your triggers as yours, without blaming the child.</span></li>
+            <li><span class="dot"></span><span>Why lowering your own load is for your child, not selfish.</span></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>The core idea</h2>
+        <p class="section-intro">Kids borrow regulation from the adults around them. A parent who is flooded can't hand over a calm they don't currently have. The good news is that your own state is something you can learn to feel coming and work with, the same way you learned to read your child.</p>
+
+        <div class="what-panel">
+          <span class="tag">What is happening</span>
+          <div class="what-panel__blocks">
+            <div class="what-block">
+              <p class="what-block__label">Your state is the tool</p>
+              <p class="what-block__text">Children read the adult's body before they process the adult's words. Ed Tronick's still-face studies showed how quickly a baby registers a caregiver going flat or unavailable. Your steadiness, or your edge, lands on your child whether or not you say anything. That is why "calm down" rarely works but a slower body often does. (The companion to this is <a href="/tools/co-regulation-primer">a nervous-system primer for parents</a>, which covers why your calm matters for them.)</p>
+            </div>
+
+            <div class="what-block">
+              <p class="what-block__label">Activation shows up in the body first</p>
+              <p class="what-block__text">The jaw tightens. Shoulders climb. Heat rises in the chest or face. Your voice gets louder and faster. There is a pull to win the moment. These signals arrive before the yelling does, but most parents only notice them after they have already snapped. Catching them earlier is the whole skill, and it is a skill, not a personality trait.</p>
+            </div>
+
+            <div class="what-block">
+              <p class="what-block__label">Your triggers are usually yours</p>
+              <p class="what-block__text">Fatigue, hunger, being rushed, noise, feeling disrespected, your own childhood history: the load was already there before the 5pm witching hour started. The toddler pulled the thread. They did not weave it. A two-year-old refusing shoes is not trying to demote you, even when it lands like rejection.</p>
+            </div>
+
+            <div class="what-block">
+              <p class="what-block__label">The goal is noticing earlier, not being perfect</p>
+              <p class="what-block__text">You will still lose it sometimes. Everyone does. The aim is a slightly longer gap between the spike and the reaction, so that more often there is a beat where you get to choose. Some days the most honest win is simply not making it worse.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="spike-chooser">
+      <div class="container container--narrow">
+        <h2>What just spiked you?</h2>
+        <p class="section-intro">Pick the closest one. Each gives you a small, doable move for that exact moment, not a lecture. The answer doesn't need to be perfect.</p>
+
+        <div class="decoder">
+          <div class="decoder-buttons" role="group" aria-label="What just spiked you">
+            <button class="decoder-btn is-active" type="button" data-pattern="yell" aria-pressed="true">I'm about to yell.</button>
+            <button class="decoder-btn" type="button" data-pattern="body" aria-pressed="false">Jaw tight, heat rising.</button>
+            <button class="decoder-btn" type="button" data-pattern="disrespected" aria-pressed="false">I feel disrespected or defied.</button>
+            <button class="decoder-btn" type="button" data-pattern="rushed" aria-pressed="false">I'm rushed and out of time.</button>
+            <button class="decoder-btn" type="button" data-pattern="nosleep" aria-pressed="false">I'm running on no sleep.</button>
+            <button class="decoder-btn" type="button" data-pattern="lostit" aria-pressed="false">I already lost it.</button>
+          </div>
+
+          <div>
+            <article class="decoder-output" data-output="yell">
+              <span class="tag">Right at the edge</span>
+              <h3>Buy one beat and drop your volume.</h3>
+              <p>You don't have to fix the situation in this second. You have to not pour fuel on it. Say out loud that you need a moment, then make your next sentence quieter and slower than the last one. Volume down tends to bring everything else down with it.</p>
+              <p class="small">Try: "I need a second." Then one long exhale before you say anything else.</p>
+            </article>
+
+            <article class="decoder-output" data-output="body" hidden>
+              <span class="tag">You caught it early</span>
+              <h3>Good. That noticing is the skill.</h3>
+              <p>If you can feel the jaw and the heat, you are ahead of where most people are, which is already mid-yell. Unclench your jaw, let your shoulders drop, and make your out-breath longer than your in-breath. A slower exhale is one of the few quick ways to nudge your own body off the gas.</p>
+              <p class="small">Try: a slow breath out, shoulders down, hands unclenched, before you respond.</p>
+            </article>
+
+            <article class="decoder-output" data-output="disrespected" hidden>
+              <span class="tag">An old thread, not the child</span>
+              <h3>This one is usually about you, and that's okay.</h3>
+              <p>Feeling defied or disrespected can hit hard, because it touches your own history and your sense of authority. But a young child saying no is doing their developmental job, not staging a coup. Naming it to yourself takes some of the charge out: this is my trigger, not their crime.</p>
+              <p class="small">Try internally: "They're not trying to disrespect me. I can hold the limit without the heat."</p>
+            </article>
+
+            <article class="decoder-output" data-output="rushed" hidden>
+              <span class="tag">The clock is the trigger</span>
+              <h3>Lower the demand before you raise your voice.</h3>
+              <p>The 7:45am shoe standoff is rarely about the shoes. It's the deadline pressing on you. You can't add minutes, but you can cut the task: do it for them, drop a step, carry the shoes to the car. Getting there a little late and a little connected usually beats getting there on time and blown up.</p>
+              <p class="small">Try: "I'm going to help your body get to the car. We'll finish the shoes there."</p>
+            </article>
+
+            <article class="decoder-output" data-output="nosleep" hidden>
+              <span class="tag">Running on empty</span>
+              <h3>Lower the bar for today, on purpose.</h3>
+              <p>On no sleep, your reserves are gone before the day starts. This is not the day to teach the big lesson or win the standoff. Aim for safe and connected, keep the demands small, and let some things slide that you'd normally hold. Doing less today isn't giving up. It's parenting from the floor you actually have.</p>
+              <p class="small">Try: pick the one limit that truly matters right now, and let the rest be easy.</p>
+            </article>
+
+            <article class="decoder-output" data-output="lostit" hidden>
+              <span class="tag">It already happened</span>
+              <h3>Now the move is repair, not shame.</h3>
+              <p>You yelled, or you got too harsh, and now you feel awful. That feeling means you care; it doesn't mean you broke anything that can't be mended. Once your own body settles, come back, name your part briefly, and reconnect. Repair is what protects the relationship, and your child learns from watching you do it.</p>
+              <p class="small">See the <a href="/tools/repair-after-the-hard-moment">repair tool</a> for the words. Short is better than perfect.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>A simple in-the-moment sequence</h2>
+        <p class="section-intro">Use it as a shape, not a checklist. The point is to put a few seconds between the spike and the reaction.</p>
+
+        <div class="response-grid">
+          <article class="response-card">
+            <span class="response-card__num">1</span>
+            <h3>Notice the body</h3>
+            <p>Catch the early sign: jaw, shoulders, chest, heat, the volume climbing, the urge to win. Naming it to yourself is enough to start.</p>
+          </article>
+          <article class="response-card">
+            <span class="response-card__num">2</span>
+            <h3>Buy a beat</h3>
+            <p>"I need a second." A longer exhale. If the child is safe, even a step back. You are not abandoning them; you are getting yourself back.</p>
+          </article>
+          <article class="response-card">
+            <span class="response-card__num">3</span>
+            <h3>Lower your own intensity</h3>
+            <p>Drop your voice, slow your body, unclench your face. Lower the demand if the moment is too big. Sometimes the move is just not making it worse.</p>
+          </article>
+          <article class="response-card">
+            <span class="response-card__num">4</span>
+            <h3>Reconnect or repair</h3>
+            <p>If it went sideways, come back when you're steadier and mend it. Rupture and repair, not perfection, is what teaches and protects the bond.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>What helps you, and what adds fuel</h2>
+        <div class="compare-grid">
+          <article class="compare-box compare-box--helpful">
+            <h3>Helps you</h3>
+            <ul>
+              <li>Catching the body signal early.</li>
+              <li>A longer out-breath before you speak.</li>
+              <li>Saying "I need a second" out loud.</li>
+              <li>Lowering the demand when you're depleted.</li>
+              <li>Repairing afterward instead of stewing.</li>
+            </ul>
+          </article>
+          <article class="compare-box compare-box--less">
+            <h3>Adds fuel</h3>
+            <ul>
+              <li>Telling yourself you should never get activated.</li>
+              <li>Trying to win the standoff at all costs.</li>
+              <li>Reading a toddler's "no" as disrespect.</li>
+              <li>Pushing through on no sleep with full demands.</li>
+              <li>Spiraling into shame instead of repairing.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="one-minute-summary">
+      <div class="container container--narrow">
+        <div class="summary-card">
+          <span class="tag">One-minute summary</span>
+          <h2 style="font-size:var(--text-xl); margin-top:0;">When you need the short version</h2>
+          <ul>
+            <li>Your nervous system is the regulation tool. Your child borrows it.</li>
+            <li>Activation shows up in the body first. Learn to catch it earlier.</li>
+            <li>Your triggers are usually yours. The child pulled the thread.</li>
+            <li>In the moment: notice, buy a beat, lower your intensity.</li>
+            <li>On no sleep, lower the bar on purpose. That isn't failing.</li>
+            <li>You'll lose it sometimes. Repair is what protects the relationship.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <div class="what-panel">
+          <span class="tag">Why this isn't selfish</span>
+          <p class="section-intro" style="margin-bottom:0;">Your baseline load is part of the equation. Sleep, food, support, and how depleted you already are all set the floor you parent from. Sara Waters and Wendy Berry Mendes found that a caregiver's stress can transmit to an infant physiologically, not just through behavior; your state is genuinely shared. So lowering your own background stress isn't an indulgence stolen from your child. It raises the floor everyone in the house stands on, including them.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <div class="what-panel">
+          <span class="tag">A note on support</span>
+          <p class="section-intro" style="margin-bottom:0;">This tool is educational and can't assess your situation. If the overwhelm or anger feels constant, hard to come back from, or frightening to you, that's worth talking through with your doctor or a licensed mental health professional. Reaching for that kind of help is a sign of strength and care, not failure.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <div class="sources-panel">
+          <h2>Sources and further reading</h2>
+          <ul>
+            <li>Waters, S. F., West, T. V., &amp; Mendes, W. B. (2014). Stress contagion: Physiological covariation between mothers and infants. <em>Psychological Science, 25</em>(4), 934–942.</li>
+            <li>Tronick, E. Z. The "still-face" paradigm and the infant's response to caregiver unavailability.</li>
+            <li><a href="https://developingchild.harvard.edu/science/key-concepts/resilience/" target="_blank" rel="noopener noreferrer">Center on the Developing Child, Harvard: Resilience and the role of adult capabilities.</a></li>
+            <li>Siegel, D. J., &amp; Bryson, T. P. <em>The Whole-Brain Child</em> and <em>No-Drama Discipline.</em></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top:0;">
+      <div class="container container--narrow">
+        <div class="promo-banner">
+          <div>
+            <p class="eyebrow">Now available · $49</p>
+            <p class="promo-banner__body">Toddler class · Unlimited Growing Minds AI · Milestone tracker · Lifetime access</p>
+          </div>
+          <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now →</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <div class="cta-strip">
+          <div>
+            <p class="eyebrow">Toddler class · now available</p>
+            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Module 4 covers co-regulation and the adult's role in full.</h2>
+            <p class="small" style="max-width:38rem; margin:0;">Why your state lands on your child, how to notice your own activation earlier, and what to do with it in the hard moment. $49 for lifetime access.</p>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a>
+            <a class="btn btn--ghost" href="/tools/co-regulation-primer">Nervous-system primer</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container site-footer__inner">
+      <div>
+        <a class="brand" href="/" aria-label="Growing Minds Science — home">
+          <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+          <span class="brand__name">Growing Minds Science</span>
+        </a>
+        <p style="margin-top: var(--space-4);">
+          Developmental science, translated for parents.
+        </p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul class="footer-list">
+          <li><a href="/classes/">Classes</a></li>
+          <li><a href="/tools/">Free tools</a></li>
+          <li><a href="/articles/">Articles</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/milestones">Milestone tracker</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Stay in the loop</h4>
+        <p style="font-size: var(--text-sm);">
+          <a href="/#signup">Join the waitlist →</a>
+        </p>
+        <p class="footer-elsewhere" style="margin-top: var(--space-5);">
+          Also on
+          <a href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr"
+             target="_blank" rel="noopener noreferrer">Instagram</a>
+        </p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
+        <span>&copy; <span data-year>2026</span> Growing Minds Science. All rights reserved.</span>
+        <span>Educational content only. Not medical or psychological advice.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/decor.js" defer></script>
+  <script>
+    (function(){
+      var decoderButtons = document.querySelectorAll('.decoder-btn');
+      var outputs = document.querySelectorAll('.decoder-output');
+      decoderButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var key = btn.dataset.pattern;
+          decoderButtons.forEach(function(b) { b.classList.remove('is-active'); b.setAttribute('aria-pressed', 'false'); });
+          btn.classList.add('is-active');
+          btn.setAttribute('aria-pressed', 'true');
+          outputs.forEach(function(o) { o.hidden = o.dataset.output !== key; });
+        });
+      });
+    })();
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

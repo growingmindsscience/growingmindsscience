@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Beyond &quot;less is better&quot; — Growing Minds Science</title>
+  <meta name="description" content="A calmer, more accurate way to think about screen time than a raw time limit: what the content is, the context it's used in, and the child it's for." />
+  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="color-scheme" content="light dark" />
+
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="canonical" href="/tools/beyond-less-is-better" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Beyond &quot;less is better&quot; — Growing Minds Science" />
+  <meta property="og:description" content="A calmer, more accurate way to think about screen time than a raw time limit: content, context, and the child." />
+  <meta property="og:image" content="/assets/img/site/family-reading.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/refresh.css" />
+
+  <style>
+    .tool-hero { padding: clamp(3rem, 6vw, 5rem) 0 2rem; }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr .9fr; gap: var(--space-8); align-items: start; }
+    .tool-lede { font-size: var(--text-md); color: var(--ink-soft); max-width: 43rem; margin: 0 0 var(--space-6); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+
+    .hero-card,
+    .panel,
+    .what-panel,
+    .summary-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: var(--space-6);
+    }
+
+    .hero-card h2 { margin: 0 0 .65rem; font-size: var(--text-lg); }
+    .hero-card p { color: var(--ink-soft); }
+    .meta-list { list-style: none; padding: 0; margin: var(--space-4) 0 0; display: grid; gap: .85rem; }
+    .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
+    .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
+
+    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: 999px; background: var(--surface-2); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .section-intro { color: var(--ink-soft); max-width: 44rem; margin: 0 0 var(--space-6); }
+    .small { font-size: var(--text-sm); color: var(--ink-muted); }
+
+    .what-panel__blocks { display: grid; gap: var(--space-4); }
+    .what-block { position: relative; padding-left: var(--space-5); }
+    .what-block::before { content: ""; position: absolute; left: 2px; top: .58em; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+    .what-block__label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .1em; color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
+    .what-block__text { margin: 0; color: var(--ink-soft); line-height: 1.65; }
+
+    .decoder { display: grid; grid-template-columns: .95fr 1.05fr; gap: var(--space-5); align-items: start; }
+    .decoder-buttons { display: grid; gap: .75rem; }
+    .decoder-btn { padding: .8rem 1rem; text-align: left; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); cursor: pointer; transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition); }
+    .decoder-btn.is-active { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
+    .decoder-output { padding: var(--space-6); border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--border-soft); box-shadow: var(--shadow-sm); }
+    .decoder-output[hidden] { display: none; }
+    .decoder-output h3 { margin: 0 0 .6rem; font-size: var(--text-lg); }
+    .decoder-output p { color: var(--ink-soft); }
+
+    .response-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }
+    .response-card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: var(--space-5); }
+    .response-card__num { width: 34px; height: 34px; border-radius: 999px; display: grid; place-items: center; background: var(--primary); color: var(--primary-ink); font-weight: 700; margin-bottom: var(--space-4); }
+    .response-card h3 { font-size: var(--text-md); margin-bottom: .65rem; }
+    .response-card p { color: var(--ink-soft); font-size: var(--text-sm); }
+
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+    .compare-box { padding: var(--space-5); border-radius: var(--radius); border: 1px solid var(--border-soft); background: var(--bg-alt); }
+    .compare-box h3 { margin: 0 0 .85rem; font-size: var(--text-md); }
+    .compare-box ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .55rem; }
+    .compare-box--helpful { border-color: color-mix(in srgb, var(--primary) 35%, var(--border-soft)); }
+    .compare-box--less { border-color: color-mix(in srgb, var(--warm) 42%, var(--border-soft)); }
+
+    .source-list { display: grid; gap: var(--space-3); margin: 0; padding-left: 1.1rem; }
+    .source-list a { color: var(--primary); font-weight: 700; }
+    .sources-panel a { color: var(--primary); font-weight: 700; }
+    .sources-panel ul { margin-bottom: 0; }
+
+    .summary-card { position: relative; overflow: hidden; }
+    .summary-card::after { content: ""; position: absolute; inset: auto -40px -40px auto; width: 160px; height: 160px; border-radius: 999px; background: color-mix(in srgb, var(--accent-soft) 55%, transparent); }
+    .summary-card ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .6rem; position: relative; z-index: 1; }
+
+    .cta-strip { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .decoder,
+      .response-grid,
+      .compare-grid,
+      .cta-strip { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="container site-header__inner">
+      <a class="brand" href="/" aria-label="Growing Minds Science — home">
+        <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+        <span class="brand__name">Growing Minds Science</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Toggle navigation menu">
+          <span class="nav-toggle__bars"><span></span></span>
+        </button>
+
+                <ul class="nav__list" id="primary-nav-list">
+          <li><a class="nav__link" href="/classes/">Classes</a></li>
+          <li><a class="nav__link" aria-current="page" href="/tools/">Tools</a></li>
+          <li><a class="nav__link" href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
+          <li><a class="nav__link" href="/articles/">Articles</a></li>
+          <li><a class="nav__link" href="/about/">About</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a></li>
+        </ul>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
+          <svg class="theme-toggle__moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="tool-hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Any age · Screen time guide</p>
+          <h1 class="page-hero__title">Beyond &quot;less is better&quot;</h1>
+          <p class="tool-lede">A raw time limit is a blunt tool. The research has moved toward three better questions: what the content is, the context it's used in, and the child it's for. This is a quick way to think it through without the guilt.</p>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="#screen-moment">Open the chooser</a>
+            <a class="btn btn--ghost" href="#one-minute-summary">Jump to summary</a>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-labelledby="tool-at-a-glance">
+          <span class="tag">At a glance</span>
+          <h2 id="tool-at-a-glance">What this tool helps with</h2>
+          <ul class="meta-list">
+            <li><span class="dot"></span><span>Thinking past a stopwatch toward content, context, and the individual child.</span></li>
+            <li><span class="dot"></span><span>Knowing why the youngest children get less from passive screens.</span></li>
+            <li><span class="dot"></span><span>Spotting background TV as its own underrated issue.</span></li>
+            <li><span class="dot"></span><span>Protecting what screens can displace: sleep, talk, movement, and play.</span></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>The core idea</h2>
+        <p class="section-intro">For years the only message was "less is better," and a single number of minutes carried all the weight. The research has shifted. The American Academy of Pediatrics now puts far more emphasis on content quality, watching together, and what screens crowd out than on a blanket time cap. A video call with a grandparent and an autoplay feed at bedtime are not the same exposure, even at the same minute count.</p>
+
+        <div class="what-panel">
+          <span class="tag">Three things to weigh</span>
+          <div class="what-panel__blocks">
+            <div class="what-block">
+              <p class="what-block__label">Content: what is on the screen</p>
+              <p class="what-block__text">Slow, age-appropriate, made-for-children content sits in a different category from fast-paced apps, open platforms, and autoplay. Even good content lands better when an adult helps connect it to the real world.</p>
+            </div>
+
+            <div class="what-block">
+              <p class="what-block__label">Context: how it's being used</p>
+              <p class="what-block__text">Solo at bedtime is different from shared on the couch. Background TV that no one is watching is different again. The same show can help or just fill time depending on what's happening around it.</p>
+            </div>
+
+            <div class="what-block">
+              <p class="what-block__label">The child: age and individual</p>
+              <p class="what-block__text">Under about two and a half, children learn markedly less from screens than from a live person. This is the "video deficit." Older children, and the same content with a responsive adult, change the math.</p>
+            </div>
+
+            <div class="what-block">
+              <p class="what-block__label">What it tends to displace</p>
+              <p class="what-block__text">The clearest mechanism we have is displacement: screens become more of a concern when they repeatedly replace sleep, conversation, movement, and unstructured play. Guard those, and a little screen time carries less weight.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-moment">
+      <div class="container container--narrow">
+        <h2>Is this screen moment helping, or just filling time?</h2>
+        <p class="section-intro">Pick the moment closest to yours. None of these is a verdict on your parenting. Each one gives you a calmer way to read it, plus one small thing you can adjust.</p>
+
+        <div class="decoder">
+          <div class="decoder-buttons" role="group" aria-label="Screen moments">
+            <button class="decoder-btn is-active" type="button" data-pattern="background" aria-pressed="true">Background TV while we do other things.</button>
+            <button class="decoder-btn" type="button" data-pattern="together" aria-pressed="false">We're watching together and talking about it.</button>
+            <button class="decoder-btn" type="button" data-pattern="reset" aria-pressed="false">Solo tablet during a meltdown to reset.</button>
+            <button class="decoder-btn" type="button" data-pattern="grandparents" aria-pressed="false">A video call with grandparents.</button>
+            <button class="decoder-btn" type="button" data-pattern="bedtime" aria-pressed="false">A fast-paced app right before bed.</button>
+          </div>
+
+          <div>
+            <article class="decoder-output" data-output="background">
+              <span class="tag">Mostly filling space</span>
+              <h3>Background TV is the underrated one.</h3>
+              <p>A TV on that no one is really watching is associated with less back-and-forth talk and more disrupted play. Marie Evans Schmidt and Heather Kirkorian's work suggests the harm here can be quieter, and arguably larger, than a show the child is actually engaged with. Your child isn't watching it, but it's still pulling at the room.</p>
+              <p class="small">One adjustment: turn it off when no one is actively watching. The quiet usually fills back up with talk on its own.</p>
+            </article>
+
+            <article class="decoder-output" data-output="together" hidden>
+              <span class="tag">Doing real work</span>
+              <h3>This is close to reading a book together.</h3>
+              <p>When an adult watches alongside and talks about what's happening, screens shift toward what researchers call joint media engagement. The video deficit shrinks, because the screen now sits inside a real conversation. You're the bridge between what's on screen and the world.</p>
+              <p class="small">One adjustment: keep narrating in plain turns. "What do you think happens next?" does more than the show does alone.</p>
+            </article>
+
+            <article class="decoder-output" data-output="reset" hidden>
+              <span class="tag">A tool, used on purpose</span>
+              <h3>A reset in a hard moment is allowed.</h3>
+              <p>Handing over a tablet to help a flooded child settle is a reasonable tool, not a failure. It only becomes worth a second look if it's the main way big feelings get resolved most days, because then it can crowd out practice with frustration. One hard afternoon is not a pattern.</p>
+              <p class="small">One adjustment: notice what happens afterward. If transitions off the device are rough, give a clear ending up front next time.</p>
+            </article>
+
+            <article class="decoder-output" data-output="grandparents" hidden>
+              <span class="tag">In a category of its own</span>
+              <h3>A real-time call is barely "screen time" at all.</h3>
+              <p>Bidirectional video calls work differently from passive video. When a grandparent responds in real time to what your child does and says, the exchange resembles a real conversation, the contingent, back-and-forth quality that early learning is built on. The AAP treats live video chat as a reasonable exception even for the youngest children.</p>
+              <p class="small">One adjustment: nothing needed. Maybe hand the child something to show the screen, so the call stays a two-way thing.</p>
+            </article>
+
+            <article class="decoder-output" data-output="bedtime" hidden>
+              <span class="tag">Working against the night</span>
+              <h3>The timing is the part to look at.</h3>
+              <p>A fast-paced app close to bedtime tends to make winding down harder: the content is exciting and the device is hard to put away. The concern here is less the app itself than what it's displacing, which is sleep. Protecting the wind-down is one of the higher-value moves you can make.</p>
+              <p class="small">One adjustment: move the device out of the bedtime hour, and trade it for something slower if a screen is still needed.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>A better question than &quot;how much?&quot;</h2>
+        <p class="section-intro">When a moment feels off, these three questions tell you more than the minute count does. They also give you something to adjust besides guilt.</p>
+
+        <div class="response-grid">
+          <article class="response-card">
+            <span class="response-card__num">1</span>
+            <h3>What is it displacing?</h3>
+            <p>Is this screen time replacing sleep, talk, movement, or play? Displacement is the clearest mechanism the research has. Protect those first.</p>
+          </article>
+          <article class="response-card">
+            <span class="response-card__num">2</span>
+            <h3>Is it solo or shared?</h3>
+            <p>Co-viewing isn't required every second. But a nearby adult who talks about what's happening turns a passive show into something closer to a conversation.</p>
+          </article>
+          <article class="response-card">
+            <span class="response-card__num">3</span>
+            <h3>Does it fit this child, today?</h3>
+            <p>Age matters most under two and a half. So does how your own child handles the transition off. That data from your actual kid beats any general rule.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>Two ways to frame it</h2>
+        <div class="compare-grid">
+          <article class="compare-box compare-box--helpful">
+            <h3>More helpful framing</h3>
+            <ul>
+              <li>Ask what, when, why, and with whom, not only how many minutes.</li>
+              <li>Turn off background TV when no one is watching.</li>
+              <li>Watch with the child and talk when you can.</li>
+              <li>Treat live video calls as connection, not screen time.</li>
+              <li>Protect sleep, meals, movement, and play as the real anchors.</li>
+            </ul>
+          </article>
+          <article class="compare-box compare-box--less">
+            <h3>Less helpful framing</h3>
+            <ul>
+              <li>Counting minutes as if every minute is the same exposure.</li>
+              <li>Treating any screen as proof of bad parenting.</li>
+              <li>Trusting &quot;educational&quot; as a label without watching along.</li>
+              <li>Leaving a TV on as constant background noise.</li>
+              <li>Letting a hard season become a referendum on your whole approach.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="one-minute-summary">
+      <div class="container container--narrow">
+        <div class="summary-card">
+          <span class="tag">One-minute summary</span>
+          <h2 style="font-size:var(--text-xl); margin-top:0;">When you need the short version</h2>
+          <ul>
+            <li>The research moved past "less is better" toward content, context, and the child.</li>
+            <li>Under about two and a half, children learn far less from screens than from a live person.</li>
+            <li>Background TV is its own issue: it cuts into talk and play even when no one watches.</li>
+            <li>Watching together shrinks the gap and turns a screen into a conversation.</li>
+            <li>Live video calls work differently and count as connection.</li>
+            <li>Guard what screens displace, sleep, talk, movement, and play, more than the minutes.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <div class="what-panel">
+          <span class="tag">A note on support</span>
+          <p class="section-intro" style="margin-bottom:0;">Most of this research is correlational, and heavy screen use often travels with other stressors, so we can't cleanly separate the screen from everything around it. This tool is educational and can't assess your individual child. If screens feel like they're displacing sleep, eating, or relationships in a way you can't shift, or you have concerns about development, it's worth talking with your pediatrician or an early childhood specialist.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <div class="panel">
+          <span class="tag">Sources used</span>
+          <h2 style="font-size:var(--text-xl); margin-top:0;">Research anchors</h2>
+          <div class="sources-panel">
+            <ul class="source-list">
+              <li>Anderson &amp; Pempek (2005). Television and Very Young Children. <em>American Behavioral Scientist</em> — the review that named the "video deficit."</li>
+              <li>Kuhl, Tsao &amp; Liu (2003). Foreign-Language Experience in Infancy: Effects of Short-Term Exposure and Social Interaction on Phonetic Learning. <em>PNAS</em> — live tutoring produced learning; the same content on video did not.</li>
+              <li>Schmidt, Pempek, Kirkorian, Lund &amp; Anderson (2008). The Effects of Background Television on the Toy Play Behavior of Very Young Children. <em>Child Development</em>.</li>
+              <li>Kirkorian, Pempek, Murphy, Schmidt &amp; Anderson (2009). The Impact of Background Television on Parent-Child Interaction. <em>Child Development</em>.</li>
+              <li><a href="https://www.aap.org/en/patient-care/media-and-children/center-of-excellence-on-social-media-and-youth-mental-health/qa-portal/qa-portal-library/qa-portal-library-questions/screen-time-guidelines" target="_blank" rel="noopener noreferrer">American Academy of Pediatrics: media and screen time guidance</a> — emphasis on content quality, co-viewing, and protecting sleep, play, and interaction.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top:0;">
+      <div class="container container--narrow">
+        <div class="promo-banner">
+          <div>
+            <p class="eyebrow">Now available · $49</p>
+            <p class="promo-banner__body">Toddler class · Unlimited Growing Minds AI · Milestone tracker · Lifetime access</p>
+          </div>
+          <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now →</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <div class="cta-strip">
+          <div>
+            <p class="eyebrow">Toddler class · now available</p>
+            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Want the bigger picture of early development?</h2>
+            <p class="small" style="max-width:38rem; margin:0;">The toddler class covers language, attention, big feelings, and what actually shapes the first three years, grounded in the same research as this tool. $49 for lifetime access.</p>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a>
+            <a class="btn btn--ghost" href="/tools/">Back to tools</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container site-footer__inner">
+      <div>
+        <a class="brand" href="/" aria-label="Growing Minds Science — home">
+          <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+          <span class="brand__name">Growing Minds Science</span>
+        </a>
+        <p style="margin-top: var(--space-4);">
+          Developmental science, translated for parents.
+        </p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul class="footer-list">
+          <li><a href="/classes/">Classes</a></li>
+          <li><a href="/tools/">Free tools</a></li>
+          <li><a href="/articles/">Articles</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/milestones">Milestone tracker</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Stay in the loop</h4>
+        <p style="font-size: var(--text-sm);">
+          <a href="/#signup">Join the waitlist →</a>
+        </p>
+        <p class="footer-elsewhere" style="margin-top: var(--space-5);">
+          Also on
+          <a href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr"
+             target="_blank" rel="noopener noreferrer">Instagram</a>
+        </p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
+        <span>&copy; <span data-year>2026</span> Growing Minds Science. All rights reserved.</span>
+        <span>Educational content only. Not medical or psychological advice.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/decor.js" defer></script>
+  <script>
+    (function(){
+      var decoderButtons = document.querySelectorAll('.decoder-btn');
+      var outputs = document.querySelectorAll('.decoder-output');
+      decoderButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var key = btn.dataset.pattern;
+          decoderButtons.forEach(function(b) { b.classList.remove('is-active'); b.setAttribute('aria-pressed', 'false'); });
+          btn.classList.add('is-active');
+          btn.setAttribute('aria-pressed', 'true');
+          outputs.forEach(function(o) { o.hidden = o.dataset.output !== key; });
+        });
+      });
+    })();
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

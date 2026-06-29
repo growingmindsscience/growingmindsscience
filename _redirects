@@ -31,6 +31,18 @@
 /tools/routines-transitions-night-waking   /tools/routines-transitions-night-waking.html  200
 /tools/routines-transitions-night-waking/  /tools/routines-transitions-night-waking.html  200
 
+# Pretty URLs for the screen time tool pages.
+/tools/beyond-less-is-better   /tools/beyond-less-is-better.html  200
+/tools/beyond-less-is-better/  /tools/beyond-less-is-better.html  200
+/tools/screens-language-attention   /tools/screens-language-attention.html  200
+/tools/screens-language-attention/  /tools/screens-language-attention.html  200
+
+# Pretty URLs for the regulation tool pages.
+/tools/co-regulation-primer   /tools/co-regulation-primer.html  200
+/tools/co-regulation-primer/  /tools/co-regulation-primer.html  200
+/tools/regulating-yourself-first   /tools/regulating-yourself-first.html  200
+/tools/regulating-yourself-first/  /tools/regulating-yourself-first.html  200
+
 # Pretty URL for the Growing Minds AI product page.
 /tools/growing-minds-ai   /tools/growing-minds-ai.html  200
 /tools/growing-minds-ai/  /tools/growing-minds-ai.html  200
@@ -57,6 +69,10 @@
 /articles/toddler-no/       /articles/toddler-no.html      200
 /articles/self-regulation   /articles/self-regulation.html 200
 /articles/self-regulation/  /articles/self-regulation.html 200
+/articles/parents-nervous-system   /articles/parents-nervous-system.html 200
+/articles/parents-nervous-system/  /articles/parents-nervous-system.html 200
+/articles/milestone-worry   /articles/milestone-worry.html 200
+/articles/milestone-worry/  /articles/milestone-worry.html 200
 
 # Pretty URLs for auth pages.
 /login                      /login.html                    200

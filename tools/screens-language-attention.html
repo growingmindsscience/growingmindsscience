@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Screens, language, and attention — Growing Minds Science</title>
+  <meta name="description" content="A quick-reference guide for parents on how different kinds of screen use interact with language development and attention in toddlers and preschoolers." />
+  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="color-scheme" content="light dark" />
+
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="canonical" href="/tools/screens-language-attention" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Screens, language, and attention — Growing Minds Science" />
+  <meta property="og:description" content="What the research suggests about how different kinds of screen use interact with language and attention in the early years." />
+  <meta property="og:image" content="/assets/img/site/family-reading.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/refresh.css" />
+
+  <style>
+    .tool-hero { padding: clamp(3rem, 6vw, 5rem) 0 2rem; }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr .9fr; gap: var(--space-8); align-items: start; }
+    .tool-lede { font-size: var(--text-md); color: var(--ink-soft); max-width: 43rem; margin: 0 0 var(--space-6); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+
+    .hero-card,
+    .panel,
+    .what-panel,
+    .summary-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: var(--space-6);
+    }
+
+    .hero-card h2 { margin: 0 0 .65rem; font-size: var(--text-lg); }
+    .hero-card p { color: var(--ink-soft); }
+    .meta-list { list-style: none; padding: 0; margin: var(--space-4) 0 0; display: grid; gap: .85rem; }
+    .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
+    .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
+
+    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: 999px; background: var(--surface-2); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .section-intro { color: var(--ink-soft); max-width: 44rem; margin: 0 0 var(--space-6); }
+    .small { font-size: var(--text-sm); color: var(--ink-muted); }
+
+    .what-panel__blocks { display: grid; gap: var(--space-4); }
+    .what-block { position: relative; padding-left: var(--space-5); }
+    .what-block::before { content: ""; position: absolute; left: 2px; top: .58em; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+    .what-block__label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .1em; color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
+    .what-block__text { margin: 0; color: var(--ink-soft); line-height: 1.65; }
+
+    .decoder { display: grid; grid-template-columns: .95fr 1.05fr; gap: var(--space-5); align-items: start; }
+    .decoder-buttons { display: grid; gap: .75rem; }
+    .decoder-btn { padding: .8rem 1rem; text-align: left; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); cursor: pointer; transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition); }
+    .decoder-btn.is-active { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
+    .decoder-output { padding: var(--space-6); border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--border-soft); box-shadow: var(--shadow-sm); }
+    .decoder-output[hidden] { display: none; }
+    .decoder-output h3 { margin: 0 0 .6rem; font-size: var(--text-lg); }
+    .decoder-output p { color: var(--ink-soft); }
+
+    .response-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); }
+    .response-card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: var(--space-5); }
+    .response-card__num { width: 34px; height: 34px; border-radius: 999px; display: grid; place-items: center; background: var(--primary); color: var(--primary-ink); font-weight: 700; margin-bottom: var(--space-4); }
+    .response-card h3 { font-size: var(--text-md); margin-bottom: .65rem; }
+    .response-card p { color: var(--ink-soft); font-size: var(--text-sm); }
+
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+    .compare-box { padding: var(--space-5); border-radius: var(--radius); border: 1px solid var(--border-soft); background: var(--bg-alt); }
+    .compare-box h3 { margin: 0 0 .85rem; font-size: var(--text-md); }
+    .compare-box ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .55rem; }
+    .compare-box--helpful { border-color: color-mix(in srgb, var(--primary) 35%, var(--border-soft)); }
+    .compare-box--less { border-color: color-mix(in srgb, var(--warm) 42%, var(--border-soft)); }
+
+    .summary-card { position: relative; overflow: hidden; }
+    .summary-card::after { content: ""; position: absolute; inset: auto -40px -40px auto; width: 160px; height: 160px; border-radius: 999px; background: color-mix(in srgb, var(--accent-soft) 55%, transparent); }
+    .summary-card ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .6rem; position: relative; z-index: 1; }
+
+    .sources-panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-6); }
+    .sources-panel h2 { font-size: var(--text-xl); margin-top: 0; }
+    .sources-panel ul { margin: 0; padding-left: 1.15rem; display: grid; gap: var(--space-3); }
+    .sources-panel a { color: var(--primary); font-weight: 700; }
+
+    .cta-strip { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+
+    @media (max-width: 920px) {
+      .hero-grid,
+      .decoder,
+      .response-grid,
+      .compare-grid,
+      .cta-strip { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="container site-header__inner">
+      <a class="brand" href="/" aria-label="Growing Minds Science — home">
+        <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+        <span class="brand__name">Growing Minds Science</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Toggle navigation menu">
+          <span class="nav-toggle__bars"><span></span></span>
+        </button>
+
+                <ul class="nav__list" id="primary-nav-list">
+          <li><a class="nav__link" href="/classes/">Classes</a></li>
+          <li><a class="nav__link" aria-current="page" href="/tools/">Tools</a></li>
+          <li><a class="nav__link" href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
+          <li><a class="nav__link" href="/articles/">Articles</a></li>
+          <li><a class="nav__link" href="/about/">About</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a></li>
+        </ul>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
+          <svg class="theme-toggle__moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="tool-hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Toddler &amp; Preschool · Screen time guide</p>
+          <h1 class="page-hero__title">Screens, language, and attention</h1>
+          <p class="tool-lede">Screen time is not one thing, and it does not act on a child like a spell. This is a short reference for the two worries parents bring up most: language and focus. What the research actually shows, and what it doesn't.</p>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="#screen-chooser">Open the chooser</a>
+            <a class="btn btn--ghost" href="#one-minute-summary">Jump to summary</a>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-labelledby="tool-at-a-glance">
+          <span class="tag">At a glance</span>
+          <h2 id="tool-at-a-glance">What this tool helps with</h2>
+          <ul class="meta-list">
+            <li><span class="dot"></span><span>Telling apart the kinds of screen use that touch language versus attention.</span></li>
+            <li><span class="dot"></span><span>Understanding why young kids learn language from people more than from video.</span></li>
+            <li><span class="dot"></span><span>Reading the attention research without the scary headlines.</span></li>
+            <li><span class="dot"></span><span>Making small, calm adjustments instead of policing a stopwatch.</span></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>The core idea</h2>
+        <p class="section-intro">Most of the worry about screens comes down to two questions: is this slowing my child's talking, and is this wrecking their focus? The honest answers are more specific than the headlines. What a screen displaces, and whether anyone is talking with the child, usually matters more than the raw number of minutes.</p>
+
+        <div class="what-panel">
+          <span class="tag">What the research suggests</span>
+          <div class="what-panel__blocks">
+            <div class="what-block">
+              <p class="what-block__label">Very young kids learn language from people, not from video</p>
+              <p class="what-block__text">Under about two and a half, language is built through responsive back-and-forth: a child does something, an adult answers. A screen doesn't return the serve. Patricia Kuhl's foreign-language studies showed this clearly. Nine-month-olds who heard a live Mandarin speaker picked up new sounds; babies who got the identical session on video learned almost nothing. Researchers call the broader pattern the "video deficit."</p>
+            </div>
+
+            <div class="what-block">
+              <p class="what-block__label">The bigger documented effect is displacement, not a spell</p>
+              <p class="what-block__text">Time on a screen is time not spent in conversation. Background TV is the clearest example: studies by Christakis and by Schmidt found that a TV on in the room cuts both the amount and the quality of parent-child talk, even when nobody is really watching. The mechanism most researchers trust is reduced talk, not the screen reaching in and changing the brain directly.</p>
+            </div>
+
+            <div class="what-block">
+              <p class="what-block__label">Some screen use supports language</p>
+              <p class="what-block__text">Watching together and talking about what's on screen, what researchers call joint media engagement, can help vocabulary. Video calls with a grandparent are a partial exception too, because a person on the other end can respond in real time. That contingent, back-and-forth quality is the part a passive video can't offer.</p>
+            </div>
+
+            <div class="what-block">
+              <p class="what-block__label">The fear that fast shows "rewire" attention is weaker than it sounds</p>
+              <p class="what-block__text">Lillard and Peterson (2011) found that a fast-paced cartoon left preschoolers worse at a focus-and-self-control task right after watching, compared with drawing or a slower show. That was a short-term dip measured minutes later, not proof of lasting damage. The older longitudinal links between heavy early TV and later attention problems (Christakis, 2004) are correlational and tangled up with other factors, so they can't show that screens caused anything.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="screen-chooser">
+      <div class="container container--narrow">
+        <h2>What is this screen habit most likely affecting?</h2>
+        <p class="section-intro">Pick the habit that sounds most like your house. The point isn't a grade. It's to see which outcome a given kind of screen use actually touches, and one small thing you can change.</p>
+
+        <div class="decoder">
+          <div class="decoder-buttons" role="group" aria-label="Screen habits">
+            <button class="decoder-btn is-active" type="button" data-pattern="background" aria-pressed="true">Background TV on most of the day.</button>
+            <button class="decoder-btn" type="button" data-pattern="fast" aria-pressed="false">Fast-paced cartoons.</button>
+            <button class="decoder-btn" type="button" data-pattern="coview" aria-pressed="false">A slow, interactive show we watch together.</button>
+            <button class="decoder-btn" type="button" data-pattern="app" aria-pressed="false">A solo educational app.</button>
+            <button class="decoder-btn" type="button" data-pattern="videocall" aria-pressed="false">Video calls with family.</button>
+          </div>
+
+          <div>
+            <article class="decoder-output" data-output="background">
+              <span class="tag">Mostly touches: language</span>
+              <h3>This one is about the talk it quietly crowds out.</h3>
+              <p>A TV running in the background pulls a surprising amount out of a room. Christakis and Schmidt found it lowers both how much parents and children talk and how rich that talk is, even when no one is watching. Your child isn't being harmed by the pictures so much as missing the conversation those minutes would have held.</p>
+              <p class="small">One tweak: turn it off when no one is actually watching. Quiet rooms leave more room for your child to say something and for you to answer.</p>
+            </article>
+
+            <article class="decoder-output" data-output="fast" hidden>
+              <span class="tag">Mostly touches: attention (briefly)</span>
+              <h3>Likely a short-term wobble, not lasting damage.</h3>
+              <p>Lillard and Peterson found a fast, frantic cartoon left preschoolers temporarily worse at focus and self-control right afterward. The key word is temporarily. It was measured minutes later, and the claim that fast shows permanently rewire attention is not well supported. Pacing and what comes next matter more than banning cartoons.</p>
+              <p class="small">One tweak: if you notice a rough patch after a particular show, follow it with something calm (blocks, a snack, outside time) rather than straight into the next demand.</p>
+            </article>
+
+            <article class="decoder-output" data-output="coview" hidden>
+              <span class="tag">Can support: language</span>
+              <h3>This is closer to how kids actually learn.</h3>
+              <p>Watching together and talking about what's happening, joint media engagement, is one of the few screen setups research treats kindly for vocabulary. A slower show gives your child time to notice things, and your comments turn a passive minute into a small conversation.</p>
+              <p class="small">One tweak: narrate and connect it to real life. "That's a tractor. We saw one at the farm, remember?" The bridge to the real world is where the learning sticks.</p>
+            </article>
+
+            <article class="decoder-output" data-output="app" hidden>
+              <span class="tag">Mixed: depends on what it replaces</span>
+              <h3>"Educational" is a label, not a guarantee.</h3>
+              <p>Some apps are thoughtfully built; plenty are mostly stimulation with a learning sticker. For young kids, even good content usually teaches more when an adult connects it to the real world. The bigger question is what the solo time is replacing. Free play and conversation are where a lot of early attention and language get built.</p>
+              <p class="small">One tweak: now and then, sit alongside and talk about what they're doing, and keep an eye that the app isn't eating the play and talk it sits next to.</p>
+            </article>
+
+            <article class="decoder-output" data-output="videocall" hidden>
+              <span class="tag">The friendly exception</span>
+              <h3>This one is real interaction that happens to be on a screen.</h3>
+              <p>Video chat is the partial exception to the video deficit. When a grandparent laughs back, answers, and responds to what your child just did, the exchange behaves like a real conversation: contingent and back-and-forth. That's the ingredient passive video is missing.</p>
+              <p class="small">One tweak: nothing to fix here. Help the call stay a real exchange (peekaboo, showing a toy, naming things together) rather than a screen your child just stares at.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>The honest bottom line</h2>
+        <p class="section-intro">If you protect a few things, the occasional fast cartoon or sick-day movie marathon is not a developmental emergency. These are the levers that actually carry weight.</p>
+
+        <div class="response-grid">
+          <article class="response-card">
+            <span class="response-card__num">1</span>
+            <h3>Protect the talk</h3>
+            <p>Responsive back-and-forth is how language gets built in the early years. Turn off background TV when no one is watching, and keep some of the day open for ordinary conversation.</p>
+          </article>
+          <article class="response-card">
+            <span class="response-card__num">2</span>
+            <h3>Protect sleep and play</h3>
+            <p>A lot of what worries parents about attention is really about what screens displace. Sleep and unstructured play are where focus gets practiced. Guard those first.</p>
+          </article>
+          <article class="response-card">
+            <span class="response-card__num">3</span>
+            <h3>Favor slower and shared</h3>
+            <p>Calmer, age-appropriate content that you watch and talk about together beats fast, solo, autoplay viewing. Co-viewing turns a passive minute into a conversation.</p>
+          </article>
+          <article class="response-card">
+            <span class="response-card__num">4</span>
+            <h3>Don't panic about the exceptions</h3>
+            <p>The pattern matters more than any single episode. A fast show now and then, or a long screen day in a hard week, does not undo the relationship you're building.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <h2>How to think about it, and how not to</h2>
+        <div class="compare-grid">
+          <article class="compare-box compare-box--helpful">
+            <h3>More useful framing</h3>
+            <ul>
+              <li>"What is this screen time replacing right now?"</li>
+              <li>"Is anyone talking with my child during the day?"</li>
+              <li>Slower, co-viewed, age-appropriate content.</li>
+              <li>Video calls counted as real interaction, not screen time.</li>
+              <li>Watching how my own child handles a given show.</li>
+            </ul>
+          </article>
+          <article class="compare-box compare-box--less">
+            <h3>Less useful framing</h3>
+            <ul>
+              <li>Treating every minute of screen as the same exposure.</li>
+              <li>Believing a fast cartoon permanently rewires the brain.</li>
+              <li>Reading correlational studies as proof of cause.</li>
+              <li>Counting only the clock and ignoring content and context.</li>
+              <li>Turning a normal screen habit into a verdict on your parenting.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="one-minute-summary">
+      <div class="container container--narrow">
+        <div class="summary-card">
+          <span class="tag">One-minute summary</span>
+          <h2 style="font-size:var(--text-xl); margin-top:0;">When you need the short version</h2>
+          <ul>
+            <li>Screens mostly don't teach language to very young kids the way a responding person does — that's the "video deficit."</li>
+            <li>The clearest documented effect is displacement: background TV cuts the quantity and quality of parent-child talk.</li>
+            <li>Co-viewing and video calls are the friendlier cases, because they keep some back-and-forth.</li>
+            <li>Fast cartoons can dent focus briefly right afterward, but the "permanent rewiring" claim isn't well supported.</li>
+            <li>Old links between heavy TV and later attention problems are correlational and confounded — not proof of cause.</li>
+            <li>Protect talk, sleep, and play; favor slower, shared content; don't panic about the occasional fast show.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <div class="what-panel">
+          <span class="tag">A note on support</span>
+          <p class="section-intro" style="margin-bottom:0;">This tool is educational and can't evaluate an individual child. If you're worried about your child's language or attention (words not coming, very little back-and-forth, focus that seems unusual for their age, or a screen habit that has taken over the day), it's worth talking with your pediatrician, a speech-language pathologist, or an early childhood specialist. Concerns are easier to sort out early, and asking is not an overreaction.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <div class="sources-panel">
+          <h2>Sources</h2>
+          <ul>
+            <li>Kuhl, P. K., Tsao, F.-M., &amp; Liu, H.-M. (2003). Foreign-language experience in infancy: Effects of short-term exposure and social interaction on phonetic learning. <em>Proceedings of the National Academy of Sciences.</em></li>
+            <li>Lillard, A. S., &amp; Peterson, J. (2011). The immediate impact of different types of television on young children's executive function. <em>Pediatrics.</em></li>
+            <li>Christakis, D. A., Zimmerman, F. J., DiGiuseppe, D. L., &amp; McCarthy, C. A. (2004). Early television exposure and subsequent attentional problems in children. <em>Pediatrics.</em></li>
+            <li>Christakis, D. A., Gilkerson, J., Richards, J. A., et al. (2009). Audible television and decreased adult words, infant vocalizations, and conversational turns. <em>Archives of Pediatrics &amp; Adolescent Medicine.</em></li>
+            <li>Schmidt, M. E., Pempek, T. A., Kirkorian, H. L., Lund, A. F., &amp; Anderson, D. R. (2008). The effects of background television on the toy play behavior of very young children. <em>Child Development.</em></li>
+            <li>Kirkorian, H. L., Pempek, T. A., Murphy, L. A., Schmidt, M. E., &amp; Anderson, D. R. (2009). The impact of background television on parent-child interaction. <em>Child Development.</em></li>
+            <li>American Academy of Pediatrics, Council on Communications and Media (2016). Media and young minds. <em>Pediatrics.</em></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top:0;">
+      <div class="container container--narrow">
+        <div class="promo-banner">
+          <div>
+            <p class="eyebrow">Now available · $49</p>
+            <p class="promo-banner__body">Toddler class · Unlimited Growing Minds AI · Milestone tracker · Lifetime access</p>
+          </div>
+          <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now →</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container container--narrow">
+        <div class="cta-strip">
+          <div>
+            <p class="eyebrow">Toddler class · now available</p>
+            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Language and attention are covered in depth in the toddler class.</h2>
+            <p class="small" style="max-width:38rem; margin:0;">How language actually grows through ordinary conversation, what supports focus in the early years, and how to think about screens without shame, all grounded in the same research as this page. $49 for lifetime access.</p>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a>
+            <a class="btn btn--ghost" href="/tools/">Back to tools</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container site-footer__inner">
+      <div>
+        <a class="brand" href="/" aria-label="Growing Minds Science — home">
+          <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+          <span class="brand__name">Growing Minds Science</span>
+        </a>
+        <p style="margin-top: var(--space-4);">
+          Developmental science, translated for parents.
+        </p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul class="footer-list">
+          <li><a href="/classes/">Classes</a></li>
+          <li><a href="/tools/">Free tools</a></li>
+          <li><a href="/articles/">Articles</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/milestones">Milestone tracker</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Stay in the loop</h4>
+        <p style="font-size: var(--text-sm);">
+          <a href="/#signup">Join the waitlist →</a>
+        </p>
+        <p class="footer-elsewhere" style="margin-top: var(--space-5);">
+          Also on
+          <a href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr"
+             target="_blank" rel="noopener noreferrer">Instagram</a>
+        </p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
+        <span>&copy; <span data-year>2026</span> Growing Minds Science. All rights reserved.</span>
+        <span>Educational content only. Not medical or psychological advice.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/decor.js" defer></script>
+  <script>
+    (function(){
+      var decoderButtons = document.querySelectorAll('.decoder-btn');
+      var outputs = document.querySelectorAll('.decoder-output');
+      decoderButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var key = btn.dataset.pattern;
+          decoderButtons.forEach(function(b) { b.classList.remove('is-active'); b.setAttribute('aria-pressed', 'false'); });
+          btn.classList.add('is-active');
+          btn.setAttribute('aria-pressed', 'true');
+          outputs.forEach(function(o) { o.hidden = o.dataset.output !== key; });
+        });
+      });
+    })();
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
