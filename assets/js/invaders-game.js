@@ -733,7 +733,9 @@
     fireBtn.addEventListener("mouseleave", fup);
 
     function onKeydown(e) {
-      if (e.target && e.target.tagName === "INPUT") { if (e.key === "Escape") closeOverlay(overlay); return; }
+      // While typing initials, leave all keys (incl. Escape/Enter) to the form
+      // so a stray Escape never reloads the page and drops the high score.
+      if (e.target && e.target.tagName === "INPUT") return;
       if (e.key === "Escape") { closeOverlay(overlay); return; }
       if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") { e.preventDefault(); game.held.left = true; }
       else if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") { e.preventDefault(); game.held.right = true; }

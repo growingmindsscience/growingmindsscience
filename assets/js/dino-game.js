@@ -47,12 +47,13 @@
 
   // ---------- Chapters (score gates + scene palette) ----------
   // Each: name, score floor, speed band [lo,hi], scene colors, night flag.
+  // Gentle, slowly-rising difficulty: starts very easy and ramps gradually.
   var CHAPTERS = [
-    { name: "Crib",       lo: 0,    sLo: 2.6, sHi: 3.4, bg: "#F4EFE3", far: "#E4DCC4", mid: "#C9D8C9", night: 0 },
-    { name: "Toddler",    lo: 150,  sLo: 3.4, sHi: 4.2, bg: "#EAF2EA", far: "#CFE0D2", mid: "#A9C6B4", night: 0 },
-    { name: "Preschool",  lo: 450,  sLo: 4.2, sHi: 5.0, bg: "#EDE8DC", far: "#D5BE98", mid: "#9FBFAB", night: 0 },
-    { name: "Schoolyard", lo: 900,  sLo: 5.0, sHi: 5.8, bg: "#D9C9AE", far: "#B79B7B", mid: "#6F8F7B", night: 0.4 },
-    { name: "Cosmos",     lo: 1600, sLo: 5.8, sHi: 6.6, bg: "#16242A", far: "#22323A", mid: "#33505A", night: 1 }
+    { name: "Crib",       lo: 0,    sLo: 2.1, sHi: 2.7, bg: "#F4EFE3", far: "#E4DCC4", mid: "#C9D8C9", night: 0 },
+    { name: "Toddler",    lo: 300,  sLo: 2.7, sHi: 3.4, bg: "#EAF2EA", far: "#CFE0D2", mid: "#A9C6B4", night: 0 },
+    { name: "Preschool",  lo: 750,  sLo: 3.4, sHi: 4.2, bg: "#EDE8DC", far: "#D5BE98", mid: "#9FBFAB", night: 0 },
+    { name: "Schoolyard", lo: 1400, sLo: 4.2, sHi: 5.1, bg: "#D9C9AE", far: "#B79B7B", mid: "#6F8F7B", night: 0.4 },
+    { name: "Cosmos",     lo: 2300, sLo: 5.1, sHi: 6.0, bg: "#16242A", far: "#22323A", mid: "#33505A", night: 1 }
   ];
 
   // ---------- Small helpers ----------
@@ -149,7 +150,7 @@
     var legPhase, legTimer, squashTimer;
     var growthSeeds, bloomTimer, shieldArmed, shieldSeedCounter, invulnTimer;
     var chapterIdx, palT, palPrev, scene;
-    var shakeMag, shakeTimer, hitstopTimer, flashTimer;
+    var hitstopTimer, flashTimer;
     var milestoneText, milestoneTimer, nextMilestone;
     var blinkTimer;
 
@@ -165,13 +166,13 @@
       speed = CHAPTERS[0].sLo;
       score = 0;
       groundOffset = 0; parX = 0;
-      nextSpawn = 70;
+      nextSpawn = 95;
       coyoteTimer = 0; bufferTimer = 0; chargeFrames = 0;
       jumpHeld = false; jumpConsumed = false; downHeld = false;
       legPhase = 0; legTimer = 0; squashTimer = 0;
       growthSeeds = 0; bloomTimer = 0; shieldArmed = true; shieldSeedCounter = 0; invulnTimer = 0;
       chapterIdx = 0; palT = 1; palPrev = CHAPTERS[0]; scene = sceneColors(CHAPTERS[0], CHAPTERS[0], 1);
-      shakeMag = 0; shakeTimer = 0; hitstopTimer = 0; flashTimer = 0;
+      hitstopTimer = 0; flashTimer = 0;
       milestoneText = ""; milestoneTimer = 0; nextMilestone = 250;
       blinkTimer = 0;
     }
@@ -289,7 +290,6 @@
     function gameOver() {
       state = "gameover";
       ensureAudio(); sfx.hit();
-      if (!reduce) { shakeMag = 3; shakeTimer = 10; }
       showGameOver(Math.floor(score));
     }
 
@@ -305,20 +305,29 @@
       var ch = chapterIdx;
       var roll = Math.random();
       var madeToy = false;
-      // Chapter-gated spawn table.
+      // Chapter-gated spawn table — very easy at first, building up gradually.
       if (ch === 0) {
-        pushBook(roll < 0.25 ? 2 : 1);
+        // Crib: single books only, wide gaps, the occasional gentle 2-stack.
+        pushBook(roll < 0.1 ? 2 : 1);
       } else if (ch === 1) {
-        if (roll < 0.45) pushToy(), madeToy = true;
-        else pushBook(roll < 0.7 ? 2 : 1);
+        // Toddler: introduce flying toys sparingly, a few 2-stacks.
+        if (roll < 0.3) { pushToy(); madeToy = true; }
+        else pushBook(roll < 0.65 ? 2 : 1);
+      } else if (ch === 2) {
+        // Preschool: more toys, first telegraphed combos.
+        if (roll < 0.14) pushCombo();
+        else if (roll < 0.46) { pushToy(); madeToy = true; }
+        else pushBook(roll < 0.72 ? 2 : 1);
       } else {
-        if (roll < 0.18 && ch >= 2) { pushCombo(); }
+        // Schoolyard / Cosmos: full mix.
+        if (roll < 0.2) pushCombo();
         else if (roll < 0.5) { pushToy(); madeToy = true; }
         else pushBook(roll < 0.75 ? 2 : 1);
       }
       // Lay a teaching seed cluster along the safe line.
       maybeSeedCluster(madeToy);
-      var gap = minGapPx() + 20 + Math.random() * 70;
+      // Extra breathing room early; tightens as chapters advance.
+      var gap = minGapPx() + 30 + Math.random() * 80 + (ch === 0 ? 34 : ch === 1 ? 16 : 0);
       nextSpawn = gap;
     }
     function pushBook(variant) {
@@ -383,8 +392,8 @@
         };
       }
       var ch = CHAPTERS[chapterIdx];
-      var bandT = clamp((score - ch.lo) / ((CHAPTERS[chapterIdx + 1] ? CHAPTERS[chapterIdx + 1].lo : ch.lo + 800) - ch.lo), 0, 1);
-      speed = clamp(lerp(ch.sLo, ch.sHi, bandT), 2.6, 6.6);
+      var bandT = clamp((score - ch.lo) / ((CHAPTERS[chapterIdx + 1] ? CHAPTERS[chapterIdx + 1].lo : ch.lo + 900) - ch.lo), 0, 1);
+      speed = clamp(lerp(ch.sLo, ch.sHi, bandT), 2.1, 6.0);
 
       // Score
       var mult = bloomTimer > 0 ? 2 : 1;
@@ -399,7 +408,6 @@
       if (coyoteTimer > 0) coyoteTimer -= dt;
       if (bufferTimer > 0) bufferTimer -= dt;
       if (squashTimer < 0) squashTimer += dt; else if (squashTimer > 0) squashTimer -= dt;
-      if (shakeTimer > 0) { shakeTimer -= dt; if (shakeTimer <= 0) shakeMag = 0; }
       if (flashTimer > 0) flashTimer -= dt;
       if (milestoneTimer > 0) milestoneTimer -= dt;
       blinkTimer += dt;
@@ -485,15 +493,14 @@
         score += 10;
         spawnBurst(ob.x + 8, (ob.type === "book" ? GROUND_Y - ob.h / 2 : ob.y + 4), BOOK_COLORS[Math.floor(Math.random() * 4)], 8);
         spawnFloater(ob.x + 4, GROUND_Y - 40, "+10", BRAIN);
-        if (!reduce) { hitstopTimer = 2; shakeMag = 2; shakeTimer = 6; }
         ensureAudio(); sfx.smash();
         return;
       }
       if (invulnTimer > 0) return;
       if (shieldArmed) {
-        shieldArmed = false; invulnTimer = 60; growthSeeds = 0;
+        shieldArmed = false; invulnTimer = 60; growthSeeds = 0; shieldSeedCounter = 0;
         spawnBurst(player.x + 11, player.top + 12, LEAF_TOP, 6);
-        if (!reduce) { flashTimer = 6; shakeMag = 2; shakeTimer = 8; }
+        if (!reduce) flashTimer = 4;
         ensureAudio(); sfx.shield();
         return;
       }
@@ -503,16 +510,12 @@
     function triggerMilestone(text) {
       milestoneText = text;
       milestoneTimer = 90;
-      if (!reduce) { flashTimer = 4; shakeMag = 2; shakeTimer = 6; hitstopTimer = 1; }
       ensureAudio(); sfx.milestone();
     }
 
     // ---------- Render ----------
     function render() {
-      var ox = 0, oy = 0;
-      if (shakeMag > 0 && shakeTimer > 0) { ox = (Math.random() - 0.5) * shakeMag * 2; oy = (Math.random() - 0.5) * shakeMag * 2; }
       ctx.save();
-      ctx.translate(Math.round(ox), Math.round(oy));
 
       // Sky
       ctx.fillStyle = scene.bg;
@@ -638,9 +641,9 @@
         ctx.globalAlpha = 1; ctx.textAlign = "left";
       }
 
-      // Milestone / death flash
+      // Gentle shield-break flash (soft, brief — no screen shake).
       if (flashTimer > 0) {
-        ctx.globalAlpha = clamp(flashTimer / 6, 0, 1) * 0.5;
+        ctx.globalAlpha = clamp(flashTimer / 4, 0, 1) * 0.22;
         ctx.fillStyle = "#FFF8E7"; ctx.fillRect(-4, -4, W + 8, H + 8);
         ctx.globalAlpha = 1;
       }
@@ -813,7 +816,9 @@
     duckBtn.addEventListener("mouseleave", dEnd);
 
     function onKeydown(e) {
-      if (e.target && e.target.tagName === "INPUT") { if (e.key === "Escape") closeOverlay(overlay); return; }
+      // While typing initials, leave all keys (incl. Escape/Enter) to the form
+      // so a stray Escape never reloads the page and drops the high score.
+      if (e.target && e.target.tagName === "INPUT") return;
       if (e.key === "Escape") { closeOverlay(overlay); return; }
       if (e.code === "Space" || e.key === " " || e.key === "ArrowUp" || e.key === "w" || e.key === "W") {
         e.preventDefault();
