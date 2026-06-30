@@ -40,17 +40,14 @@
 body.gms-arcade-lock { overflow: hidden; }
 .gms-arcade-falling { will-change: transform, opacity; }
 
-/* ---------- Overlay shell ---------- */
+/* ---------- Overlay shell (fullscreen, like the Pong egg) ---------- */
 .gms-arcade-overlay {
   position: fixed;
   inset: 0;
   z-index: 1000;
   display: none;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-4);
 }
-.gms-arcade-overlay.is-open { display: flex; }
+.gms-arcade-overlay.is-open { display: block; }
 
 /* Page already tumbled away, so the backdrop is just the clean site bg —
    the page reads as if it became the game. */
@@ -63,19 +60,22 @@ body.gms-arcade-lock { overflow: hidden; }
 
 @keyframes gms-arcade-fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes gms-arcade-rise {
-  from { opacity: 0; transform: translateY(18px) scale(0.98); }
+  from { opacity: 0; transform: translateY(18px) scale(0.99); }
   to { opacity: 1; transform: none; }
 }
 
+/* The panel fills the whole viewport: HUD up top, the game scaled to fill the
+   middle, help + touch controls at the bottom. */
 .gms-arcade-panel {
-  position: relative;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  max-width: 640px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  padding: var(--space-5);
+  height: 100%;
+  background: var(--bg);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: clamp(10px, 2vh, 22px) clamp(12px, 4vw, 48px);
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
@@ -88,10 +88,14 @@ body.gms-arcade-lock { overflow: hidden; }
 }
 
 .gms-arcade-panel__head {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .gms-arcade-title {
@@ -124,8 +128,10 @@ body.gms-arcade-lock { overflow: hidden; }
 .gms-arcade-close:hover { color: var(--ink); border-color: var(--ink-muted); }
 
 .gms-arcade-scores {
+  flex: 0 0 auto;
   display: flex;
   gap: var(--space-5);
+  justify-content: center;
   font-family: var(--font-body);
   font-size: var(--text-xs);
   font-weight: 600;
@@ -134,20 +140,24 @@ body.gms-arcade-lock { overflow: hidden; }
 }
 .gms-arcade-scores strong { color: var(--ink); font-variant-numeric: tabular-nums; }
 
+/* The stage takes all remaining height; the canvas scales up to fill it,
+   preserving its pixel aspect ratio (letterboxed against the page bg). */
 .gms-arcade-stage {
   position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
   width: 100%;
-  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
-  border: 1px solid var(--border-soft);
 }
-.gms-arcade-stage--runner { aspect-ratio: 320 / 120; }
-.gms-arcade-stage--invaders { aspect-ratio: 220 / 260; max-height: 60vh; margin: 0 auto; }
 
 .gms-arcade-canvas {
   display: block;
   width: 100%;
   height: 100%;
+  object-fit: contain;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
   cursor: pointer;
@@ -167,6 +177,7 @@ body.gms-arcade-lock { overflow: hidden; }
   gap: var(--space-3);
   text-align: center;
   padding: var(--space-4);
+  overflow-y: auto;
   background: rgba(244, 239, 227, 0.86);
   color: #0E2A2D;
   font-family: var(--font-body);
@@ -177,6 +188,7 @@ body.gms-arcade-lock { overflow: hidden; }
 .gms-arcade-prompt__actions { pointer-events: auto; display: flex; gap: var(--space-3); flex-wrap: wrap; justify-content: center; }
 
 .gms-arcade-help {
+  flex: 0 0 auto;
   margin: 0;
   font-size: var(--text-xs);
   color: var(--ink-muted);
@@ -246,7 +258,7 @@ body.gms-arcade-lock { overflow: hidden; }
 .gms-arcade-touchbtn:active { background: var(--primary); color: var(--primary-ink); border-color: var(--primary); }
 
 /* ---------- Invaders touch row (left / fire / right) ---------- */
-.gms-arcade-touchrow { display: flex; gap: var(--space-2); justify-content: center; }
+.gms-arcade-touchrow { flex: 0 0 auto; display: flex; gap: var(--space-2); justify-content: center; }
 .gms-arcade-touchrow .gms-arcade-touchbtn { min-width: 64px; }
 
 /* On precise pointers (mouse) we hide the on-screen touch controls. */
