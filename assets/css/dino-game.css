@@ -18,6 +18,9 @@
 
 body.gms-egg-lock { overflow: hidden; }
 
+/* Each page chunk that tumbles off-screen when the game opens. */
+.gms-egg-falling { will-change: transform, opacity; }
+
 .gms-egg-overlay {
   position: fixed;
   inset: 0;
@@ -29,10 +32,22 @@ body.gms-egg-lock { overflow: hidden; }
 }
 .gms-egg-overlay.is-open { display: flex; }
 
+/* The page contents have already tumbled away, so the backdrop is just the
+   clean site background — the page reads as if it became the game. */
 .gms-egg-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(14, 42, 45, 0.55);
+  background: var(--bg);
+  animation: gms-egg-fade 360ms ease both;
+}
+
+@keyframes gms-egg-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes gms-egg-rise {
+  from { opacity: 0; transform: translateY(18px) scale(0.98); }
+  to { opacity: 1; transform: none; }
 }
 
 .gms-egg-panel {
@@ -47,6 +62,12 @@ body.gms-egg-lock { overflow: hidden; }
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  animation: gms-egg-rise 420ms cubic-bezier(0.16, 1, 0.3, 1) 120ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gms-egg-backdrop,
+  .gms-egg-panel { animation: none; }
 }
 
 .gms-egg-panel__head {

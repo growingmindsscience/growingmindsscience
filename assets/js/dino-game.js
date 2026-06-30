@@ -387,12 +387,11 @@
     return overlay;
   }
 
+  // The page contents are torn away when the game opens, so the simplest,
+  // most robust way to put the page back is a reload.
   function closeOverlay(overlay) {
-    overlay.classList.remove("is-open");
-    document.body.classList.remove("gms-egg-lock");
     overlay.game.deactivate();
-    document.removeEventListener("keydown", overlay._onKeydown);
-    document.removeEventListener("keyup", overlay._onKeyup);
+    window.location.reload();
   }
 
   function openOverlay(overlay) {
@@ -402,6 +401,49 @@
     document.addEventListener("keyup", overlay._onKeyup);
     overlay.game.activate();
     window.requestAnimationFrame(function () { overlay._canvas.focus(); });
+  }
+
+  // Tumble the page (header, main content, footer) off the bottom of the
+  // screen with a staggered fall, then run `done`. Honors reduced motion.
+  function tearPageAway(done) {
+    var reduce = false;
+    try { reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+
+    var pieces = [];
+    var header = document.querySelector(".site-header");
+    if (header) pieces.push(header);
+    var main = document.getElementById("main");
+    if (main) [].forEach.call(main.children, function (c) { pieces.push(c); });
+    var footer = document.querySelector(".site-footer");
+    if (footer) pieces.push(footer);
+
+    document.body.classList.add("gms-egg-lock");
+
+    if (reduce || !pieces.length) {
+      pieces.forEach(function (p) { p.style.visibility = "hidden"; });
+      done();
+      return;
+    }
+
+    var maxDelay = 0;
+    pieces.forEach(function (p, i) {
+      var delay = i * 70;
+      maxDelay = Math.max(maxDelay, delay);
+      var dx = (Math.random() * 220 - 110);
+      var rot = (Math.random() * 60 - 30);
+      p.classList.add("gms-egg-falling");
+      p.style.transition =
+        "transform .95s cubic-bezier(.55,.06,.68,.19) " + delay + "ms, " +
+        "opacity .95s ease-in " + delay + "ms";
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          p.style.transform =
+            "translate(" + dx.toFixed(0) + "px, 125vh) rotate(" + rot.toFixed(0) + "deg)";
+          p.style.opacity = "0";
+        });
+      });
+    });
+    window.setTimeout(done, maxDelay + 1000);
   }
 
   ready(function () {
@@ -414,10 +456,13 @@
     toggle.appendChild(hotspot);
 
     var overlay = null;
+    var opening = false;
 
     function open() {
+      if (opening) return;
+      opening = true;
       if (!overlay) overlay = buildOverlay();
-      openOverlay(overlay);
+      tearPageAway(function () { openOverlay(overlay); });
     }
 
     ["click", "mousedown", "touchstart"].forEach(function (evt) {
