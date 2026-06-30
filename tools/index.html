@@ -428,6 +428,7 @@
       padding: .6rem clamp(.8rem, 3vw, 2rem) 1rem;
       font-family: var(--font-body, system-ui), sans-serif;
     }
+    .pong-foot__left { display: flex; align-items: center; gap: .85rem; min-width: 0; }
     .pong-foot .pong-hint { color: #9fb3a6; font-size: .82rem; }
     .pong-foot button {
       font: inherit; font-size: .85rem; cursor: pointer;
@@ -461,7 +462,10 @@
       </div>
     </div>
     <div class="pong-foot">
-      <span class="pong-hint">You control the right paddle · mouse, touch, or ↑ ↓ / W S · first to 7 wins</span>
+      <div class="pong-foot__left">
+        <button id="pong-mute" type="button" aria-pressed="false">♪ Music: on</button>
+        <span class="pong-hint">You control the right paddle · mouse, touch, or ↑ ↓ / W S · first to 7 wins</span>
+      </div>
       <button id="pong-exit" type="button">← Back to tools</button>
     </div>
   </div>
@@ -482,6 +486,83 @@
     var msgBtn = document.getElementById('pong-msg-btn');
     var exitBtn = document.getElementById('pong-exit');
     var hint = document.querySelector('.pong-foot .pong-hint');
+    var muteBtn = document.getElementById('pong-mute');
+
+    // ---- Calm synth soundtrack (Web Audio, no files) ----
+    var audioCtx = null, masterGain = null, musicTimer = null;
+    var musicOn = (localStorage.getItem('gms_pong_mute') !== '1');
+    var nextNoteTime = 0, stepIndex = 0;
+    var STEP_DUR = 0.42; // seconds per arpeggio note — slow and calm
+    var PENTA = [0, 3, 5, 7, 10, 12]; // A minor pentatonic (+octave)
+    var ARP = [0, 2, 1, 3, 2, 4, 3, 1]; // gentle wander through the scale
+
+    function aFreq(semi) { return 220 * Math.pow(2, semi / 12); } // base A3
+    function ensureAudio() {
+      if (!audioCtx) {
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return;
+        audioCtx = new AC();
+        masterGain = audioCtx.createGain();
+        var lp = audioCtx.createBiquadFilter();
+        lp.type = 'lowpass'; lp.frequency.value = 1500;
+        masterGain.connect(lp); lp.connect(audioCtx.destination);
+        masterGain.gain.value = musicOn ? 0.14 : 0.0001;
+      }
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+    }
+    function tone(freq, t, dur, type, vol) {
+      var o = audioCtx.createOscillator();
+      o.type = type; o.frequency.value = freq;
+      var g = audioCtx.createGain();
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(vol, t + 0.04);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      o.connect(g); g.connect(masterGain);
+      o.start(t); o.stop(t + dur + 0.05);
+    }
+    function playStep(i, t) {
+      var note = PENTA[ARP[i % ARP.length]] + 12; // arp an octave up, soft
+      tone(aFreq(note), t, 0.6, 'triangle', 0.10);
+      if (i % 8 === 4) tone(aFreq(note + 7), t, 0.5, 'sine', 0.05); // soft harmony
+      if (i % 4 === 0) { // slow bass drone, alternating A2 / E2 (a calm fifth)
+        var root = (Math.floor(i / 4) % 2 === 0) ? -12 : -17;
+        tone(aFreq(root), t, 1.4, 'sine', 0.16);
+      }
+    }
+    function musicScheduler() {
+      while (nextNoteTime < audioCtx.currentTime + 0.12) {
+        playStep(stepIndex, nextNoteTime);
+        nextNoteTime += STEP_DUR;
+        stepIndex = (stepIndex + 1) % 64;
+      }
+      musicTimer = setTimeout(musicScheduler, 25);
+    }
+    function startMusic() {
+      ensureAudio();
+      if (!audioCtx || musicTimer) return;
+      nextNoteTime = audioCtx.currentTime + 0.1;
+      musicScheduler();
+    }
+    function applyMute() {
+      if (muteBtn) {
+        muteBtn.textContent = musicOn ? '♪ Music: on' : '♪ Music: off';
+        muteBtn.setAttribute('aria-pressed', musicOn ? 'false' : 'true');
+      }
+      if (masterGain) {
+        var now = audioCtx.currentTime;
+        masterGain.gain.cancelScheduledValues(now);
+        masterGain.gain.setValueAtTime(Math.max(0.0001, masterGain.gain.value), now);
+        masterGain.gain.exponentialRampToValueAtTime(musicOn ? 0.14 : 0.0001, now + 0.25);
+      }
+    }
+    if (muteBtn) muteBtn.addEventListener('click', function () {
+      musicOn = !musicOn;
+      localStorage.setItem('gms_pong_mute', musicOn ? '0' : '1');
+      ensureAudio();
+      applyMute();
+      if (musicOn) startMusic();
+    });
+    applyMute();
 
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -664,6 +745,7 @@
     function startMatch() {
       msg.hidden = true;
       if (hint) hint.style.visibility = 'hidden';
+      if (musicOn) startMusic();
       scoreYou = 0; scoreCpu = 0;
       scoreYouEl.textContent = '0'; scoreCpuEl.textContent = '0';
       fit();
