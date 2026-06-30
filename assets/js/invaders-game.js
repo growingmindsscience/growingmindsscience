@@ -575,8 +575,10 @@
       els.promptText.textContent = "Answer the questions before they reach the floor. ← → move · Space fire.";
       els.promptActions.textContent = "";
       A.renderLeaderboard(els.promptActions, GAME_KEY, { title: "Local top scores" });
-      var hint = document.createElement("p"); hint.className = "gms-arcade-help"; hint.textContent = "Press Space or tap FIRE to begin";
-      els.promptActions.appendChild(hint);
+      var btn = document.createElement("button");
+      btn.type = "button"; btn.className = "btn btn--primary"; btn.textContent = "Start";
+      btn.addEventListener("click", function () { start(); try { canvas.focus(); } catch (e) {} });
+      els.promptActions.appendChild(btn);
       els.prompt.hidden = false;
     }
     function showEnd(won, finalScore) {

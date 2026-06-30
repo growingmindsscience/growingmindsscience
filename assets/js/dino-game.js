@@ -147,7 +147,7 @@
     var player, obstacles, seeds, particles, floaters;
     var speed, score, groundOffset, parX, nextSpawn;
     var coyoteTimer, bufferTimer, chargeFrames, jumpHeld, jumpConsumed, downHeld;
-    var legPhase, legTimer, squashTimer;
+    var legPhase, legTimer;
     var growthSeeds, bloomTimer, shieldArmed, shieldSeedCounter, invulnTimer;
     var chapterIdx, palT, palPrev, scene;
     var hitstopTimer, flashTimer;
@@ -169,7 +169,7 @@
       nextSpawn = 95;
       coyoteTimer = 0; bufferTimer = 0; chargeFrames = 0;
       jumpHeld = false; jumpConsumed = false; downHeld = false;
-      legPhase = 0; legTimer = 0; squashTimer = 0;
+      legPhase = 0; legTimer = 0;
       growthSeeds = 0; bloomTimer = 0; shieldArmed = true; shieldSeedCounter = 0; invulnTimer = 0;
       chapterIdx = 0; palT = 1; palPrev = CHAPTERS[0]; scene = sceneColors(CHAPTERS[0], CHAPTERS[0], 1);
       hitstopTimer = 0; flashTimer = 0;
@@ -269,7 +269,6 @@
         jumpConsumed = true;
         chargeFrames = CHARGE_FRAMES;
         coyoteTimer = 0;
-        squashTimer = -4; // stretch
         ensureAudio(); sfx.jump();
       } else if (!player.grounded) {
         bufferTimer = BUFFER;
@@ -407,7 +406,6 @@
       if (invulnTimer > 0) invulnTimer -= dt;
       if (coyoteTimer > 0) coyoteTimer -= dt;
       if (bufferTimer > 0) bufferTimer -= dt;
-      if (squashTimer < 0) squashTimer += dt; else if (squashTimer > 0) squashTimer -= dt;
       if (flashTimer > 0) flashTimer -= dt;
       if (milestoneTimer > 0) milestoneTimer -= dt;
       blinkTimer += dt;
@@ -423,7 +421,6 @@
           player.vy = 0;
           player.grounded = true;
           jumpConsumed = false;
-          squashTimer = 4; // squash
           if (!reduce) for (var d = 0; d < 4; d++) spawnParticle(player.x + 4 + d * 3, GROUND_Y - 1, (Math.random() - 0.5) * 1.2, -Math.random() * 0.8, 10, WARM, 2);
           ensureAudio(); sfx.land();
           if (bufferTimer > 0) { bufferTimer = 0; jump(); }
@@ -573,21 +570,12 @@
         if (ob.type === "book") drawBook(ctx, ob); else drawToy(ctx, ob);
       }
 
-      // Mascot (with squash/stretch + invuln blink)
+      // Mascot — drawn crisp at integer positions (no scale transform, so it
+      // never looks fuzzy or jittery). Blinks briefly only during invuln.
       var blink = invulnTimer > 0 && (Math.floor(blinkTimer / 3) % 2 === 0);
       if (!blink) {
         var ls = player.grounded ? legPhase : "tuck";
-        if (!reduce && squashTimer !== 0) {
-          var sq = squashTimer > 0 ? 1 : -1; // squash(+) / stretch(-)
-          ctx.save();
-          var cx = player.x + 11, by = player.top + currentH();
-          var sy = sq > 0 ? 0.9 : 1.12, sxs = sq > 0 ? 1.08 : 0.95;
-          ctx.translate(cx, by); ctx.scale(sxs, sy); ctx.translate(-cx, -by);
-          drawMascot(ctx, player.x, player.top, player.ducking, ls, bloomTimer > 0);
-          ctx.restore();
-        } else {
-          drawMascot(ctx, player.x, player.top, player.ducking, ls, bloomTimer > 0);
-        }
+        drawMascot(ctx, player.x, player.top, player.ducking, ls, bloomTimer > 0);
         // Shield aura
         if (shieldArmed && !player.ducking) {
           ctx.strokeStyle = "rgba(64,192,153,0.7)"; ctx.lineWidth = 1;
@@ -662,9 +650,13 @@
     function showIdle() {
       if (!els.prompt) return;
       els.promptTitle.textContent = "Brain Sprint";
-      els.promptText.textContent = "Tap or press Space to start · hold to jump higher, ↓ to duck";
+      els.promptText.textContent = "Hold to jump higher · ↓ to duck";
       els.promptActions.textContent = "";
       A.renderLeaderboard(els.promptActions, GAME_KEY, { title: "Local top scores" });
+      var btn = document.createElement("button");
+      btn.type = "button"; btn.className = "btn btn--primary"; btn.textContent = "Start";
+      btn.addEventListener("click", function () { start(); try { canvas.focus(); } catch (e) {} });
+      els.promptActions.appendChild(btn);
       els.prompt.hidden = false;
     }
     function showGameOver(finalScore) {
@@ -679,21 +671,25 @@
             updateScoreHud();
             els.promptActions.textContent = "";
             A.renderLeaderboard(els.promptActions, GAME_KEY, { title: "Local top scores", highlightRank: rank });
-            addRetry();
+            addPlayAgain("Play again");
             try { canvas.focus(); } catch (e) {}
           }
         });
+        // Let the player bail out without saving and restart immediately.
+        addPlayAgain("Skip & play again", "btn--ghost");
       } else {
         A.renderLeaderboard(els.promptActions, GAME_KEY, { title: "Local top scores" });
-        addRetry();
+        addPlayAgain("Play again");
       }
       els.prompt.hidden = false;
     }
-    function addRetry() {
-      var hint = document.createElement("p");
-      hint.className = "gms-arcade-help";
-      hint.textContent = "Tap or press Space to play again";
-      els.promptActions.appendChild(hint);
+    function addPlayAgain(label, variant) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "btn " + (variant || "btn--primary");
+      btn.textContent = label;
+      btn.addEventListener("click", function () { restart(); try { canvas.focus(); } catch (e) {} });
+      els.promptActions.appendChild(btn);
     }
 
     // ---------- Loop ----------
