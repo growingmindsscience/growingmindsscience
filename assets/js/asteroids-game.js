@@ -53,6 +53,7 @@
 
   function createGame(canvas, els) {
     var ctx = canvas.getContext("2d");
+    var backingScale = 1;
     ctx.imageSmoothingEnabled = false;
     canvas.width = W;
     canvas.height = H;
@@ -488,6 +489,8 @@
     }
 
     function render() {
+      ctx.setTransform(backingScale, 0, 0, backingScale, 0, 0);
+      ctx.imageSmoothingEnabled = false;
       var sx = 0, sy = 0;
       if (shakeTimer > 0 && !reduce) { sx = rand(-shakeMag, shakeMag); sy = rand(-shakeMag, shakeMag); }
       ctx.save();
@@ -665,6 +668,19 @@
       blink: blink,
       followMouse: function (x, y) { if (state === "running") mouseTarget = { x: x, y: y }; },
       clearMouse: function () { mouseTarget = null; },
+      resize: function (cssW, cssH) {
+        var dpr = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
+        var nextW = Math.max(W, Math.round(cssW * dpr));
+        var nextH = Math.max(H, Math.round(cssH * dpr));
+        if (canvas.width !== nextW || canvas.height !== nextH) {
+          canvas.width = nextW;
+          canvas.height = nextH;
+          ctx.imageSmoothingEnabled = false;
+        }
+        canvas.style.width = Math.round(cssW) + "px";
+        canvas.style.height = Math.round(cssH) + "px";
+        backingScale = nextW / W;
+      },
       toggleMute: function () { muted = !muted; try { window.localStorage.setItem(MUTE_KEY, muted ? "1" : "0"); } catch (e) {} if (!muted) ensureAudio(); return muted; },
       isMuted: function () { return muted; },
       activate: function () { resetWorld(); state = "idle"; lastTime = 0; updateHud(); showIdle(); rafId = window.requestAnimationFrame(loop); },
@@ -719,8 +735,7 @@
       var rect = stage.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
       var scale = Math.max(1, Math.floor(Math.min(rect.width / W, rect.height / H)));
-      canvas.style.width = (W * scale) + "px";
-      canvas.style.height = (H * scale) + "px";
+      game.resize(W * scale, H * scale);
     }
     var game = createGame(canvas, {
       score: overlay.querySelector("[data-egg-score]"),
