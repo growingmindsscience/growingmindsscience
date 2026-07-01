@@ -1,6 +1,6 @@
 /* Growing Minds Science — arcade.css
    Shared styling for the hidden 8-bit easter-egg games (see arcade-core.js,
-   dino-game.js, invaders-game.js). Covers the overlay shell, the page-tear
+   dino-game.js, invaders-game.js, asteroids-game.js). Covers the overlay shell, the page-tear
    animation, the local leaderboard, and the initials-entry form. Game-specific
    controls live in their own blocks at the bottom. Loaded on pages that host
    a game.
@@ -36,6 +36,29 @@
 .gms-arcade-invader-trigger:focus-visible { opacity: 0.92; transform: translateY(-2px); }
 .gms-arcade-invader-trigger svg { display: block; width: 100%; height: 100%; }
 
+/* A tiny orbit glyph tucked into the About portrait. */
+.gms-arcade-asteroid-trigger {
+  position: absolute;
+  top: 10px; right: 10px;
+  width: 34px; height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--surface) 74%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--primary) 26%, transparent);
+  cursor: pointer;
+  opacity: 0.24;
+  color: var(--primary);
+  transition: opacity var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+.gms-arcade-asteroid-trigger:hover,
+.gms-arcade-asteroid-trigger:focus-visible {
+  opacity: 0.95;
+  transform: rotate(-10deg) scale(1.08);
+  box-shadow: 0 0 0 1px var(--primary), 0 12px 24px -18px var(--primary);
+}
+.gms-arcade-asteroid-trigger svg { display: block; width: 100%; height: 100%; }
+
 /* ---------- Page tear-away ---------- */
 body.gms-arcade-lock { overflow: hidden; }
 .gms-arcade-falling { will-change: transform, opacity; }
@@ -46,6 +69,11 @@ body.gms-arcade-lock { overflow: hidden; }
   inset: 0;
   z-index: 1000;
   display: none;
+  width: 100vw;
+  max-width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
 }
 .gms-arcade-overlay.is-open { display: block; }
 
@@ -69,8 +97,12 @@ body.gms-arcade-lock { overflow: hidden; }
 .gms-arcade-panel {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  max-width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
   background: var(--bg);
   border: 0;
   border-radius: 0;
@@ -130,6 +162,7 @@ body.gms-arcade-lock { overflow: hidden; }
 .gms-arcade-scores {
   flex: 0 0 auto;
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-5);
   justify-content: center;
   font-family: var(--font-body);
@@ -258,11 +291,47 @@ body.gms-arcade-lock { overflow: hidden; }
 .gms-arcade-touchbtn:active { background: var(--primary); color: var(--primary-ink); border-color: var(--primary); }
 
 /* ---------- Invaders touch row (left / fire / right) ---------- */
-.gms-arcade-touchrow { flex: 0 0 auto; display: flex; gap: var(--space-2); justify-content: center; }
+.gms-arcade-touchrow {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 auto;
+  display: flex;
+  gap: var(--space-2);
+  justify-content: center;
+}
 .gms-arcade-touchrow .gms-arcade-touchbtn { min-width: 64px; }
 
 /* On precise pointers (mouse) we hide the on-screen touch controls. */
 @media (hover: hover) and (pointer: fine) {
   .gms-arcade-touchbtn { display: none; }
   .gms-arcade-touchrow { display: none; }
+}
+
+@media (max-width: 700px) {
+  .gms-arcade-panel {
+    padding: 10px 12px;
+    gap: var(--space-2);
+  }
+  .gms-arcade-panel__head { align-items: flex-start; }
+  .gms-arcade-title { font-size: 1.15rem; line-height: 1.1; }
+  .gms-arcade-title span { display: inline; font-size: 0.82rem; }
+  .gms-arcade-scores {
+    gap: 0.25rem 0.85rem;
+    font-size: 0.68rem;
+    line-height: 1.25;
+  }
+  .gms-arcade-help {
+    max-width: 100%;
+    padding-inline: var(--space-2);
+    font-size: 0.72rem;
+    line-height: 1.35;
+  }
+  .gms-arcade-touchrow {
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+  .gms-arcade-touchrow .gms-arcade-touchbtn {
+    min-width: 62px;
+    padding: 0.55rem 0.85rem;
+  }
 }
