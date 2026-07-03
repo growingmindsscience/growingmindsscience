@@ -695,18 +695,31 @@
     muteBtn.addEventListener("click", function () { game.toggleMute(); syncMute(); });
     syncMute();
 
-    // Canvas pointer: tap fires; mouse-over eases ship toward pointer.
-    var suppressMouse = 0;
-    canvas.addEventListener("touchstart", function (e) { e.preventDefault(); suppressMouse = Date.now() + 500; game.fire(); }, { passive: false });
-    canvas.addEventListener("mousedown", function (e) { if (Date.now() < suppressMouse) return; e.preventDefault(); game.fire(); });
-    canvas.addEventListener("mousemove", function (e) {
+    // Canvas pointer: tap fires; mouse-over eases ship toward pointer;
+    // dragging a finger steers the ship (much nicer than holding ◀ ▶).
+    function logicalX(clientX) {
       // The canvas is object-fit:contain, so the drawn area is letterboxed
       // inside the element box — map the pointer through that transform.
       var rect = canvas.getBoundingClientRect();
       var scale = Math.min(rect.width / W, rect.height / H);
       var offX = (rect.width - W * scale) / 2;
-      var lx = (e.clientX - rect.left - offX) / scale;
-      game.moveShipTo(lx);
+      return (clientX - rect.left - offX) / scale;
+    }
+    var suppressMouse = 0;
+    canvas.addEventListener("touchstart", function (e) {
+      e.preventDefault();
+      suppressMouse = Date.now() + 500;
+      if (e.touches && e.touches.length) game.moveShipTo(logicalX(e.touches[0].clientX));
+      game.fire();
+    }, { passive: false });
+    canvas.addEventListener("touchmove", function (e) {
+      e.preventDefault();
+      suppressMouse = Date.now() + 500;
+      if (e.touches && e.touches.length) game.moveShipTo(logicalX(e.touches[0].clientX));
+    }, { passive: false });
+    canvas.addEventListener("mousedown", function (e) { if (Date.now() < suppressMouse) return; e.preventDefault(); game.fire(); });
+    canvas.addEventListener("mousemove", function (e) {
+      game.moveShipTo(logicalX(e.clientX));
     });
 
     // Touch buttons (held-set), each owns its pointer.

@@ -425,7 +425,7 @@
     .pong-msg .btn { pointer-events: auto; margin-top: 1rem; }
     .pong-foot {
       display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-      padding: .6rem clamp(.8rem, 3vw, 2rem) 1rem;
+      padding: .6rem clamp(.8rem, 3vw, 2rem) calc(1rem + env(safe-area-inset-bottom, 0px));
       font-family: var(--font-body, system-ui), sans-serif;
     }
     .pong-foot__left { display: flex; align-items: center; gap: .85rem; min-width: 0; }
@@ -617,7 +617,14 @@
       canvas.height = Math.max(2, Math.round(rect.height * dpr));
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       W = rect.width; H = rect.height;
-      leftX = 26; rightX = W - 26 - PW;
+      // Scale the pieces to the court so phones (and short landscape
+      // viewports) keep the classic proportions instead of a giant paddle.
+      PH = Math.round(Math.max(52, Math.min(96, H * 0.22)));
+      PW = Math.round(Math.max(9, Math.min(13, W * 0.02)));
+      speedBase = Math.max(4.0, Math.min(6.0, W / 140));
+      speedMax = speedBase * 2.15;
+      var inset = Math.round(Math.max(14, Math.min(26, W * 0.03)));
+      leftX = inset; rightX = W - inset - PW;
       if (leftY == null) leftY = H / 2 - PH / 2;
       if (rightY == null) rightY = H / 2 - PH / 2;
       clampPaddles();
@@ -627,7 +634,8 @@
       rightY = Math.max(0, Math.min(H - PH, rightY));
     }
     function resetBall(dir) {
-      ball = { x: W / 2, y: H / 2, r: 8, vx: 0, vy: 0, speed: speedBase };
+      var r = Math.round(Math.max(6, Math.min(9, W / 90)));
+      ball = { x: W / 2, y: H / 2, r: r, vx: 0, vy: 0, speed: speedBase };
       var ang = (Math.random() * 0.5 - 0.25) * Math.PI; // -45deg..45deg
       ball.vx = dir * ball.speed * Math.cos(ang);
       ball.vy = ball.speed * Math.sin(ang);
@@ -641,10 +649,12 @@
       ball.vy = ball.speed * Math.sin(ang);
     }
 
-    function update(now) {
+    function update(now, dt) {
+      // dt is normalized to 60fps frames so 120Hz+ displays play at the
+      // same speed instead of double-time.
       // player paddle (keyboard); pointer sets rightY directly via handler
       if (!pointerActive) {
-        var pv = 7.5;
+        var pv = 7.5 * dt;
         if (keyUp) rightY -= pv;
         if (keyDown) rightY += pv;
       }
@@ -655,15 +665,15 @@
       var cpuCenter = leftY + PH / 2;
       var cpuTarget = (ball && ball.vx < 0) ? ball.y : H / 2;
       var cpuDiff = cpuTarget - cpuCenter;
-      var cpuMax = 4.0;
-      leftY += Math.max(-cpuMax, Math.min(cpuMax, cpuDiff * 0.08));
+      var cpuMax = 4.0 * dt;
+      leftY += Math.max(-cpuMax, Math.min(cpuMax, cpuDiff * 0.08 * dt));
       clampPaddles();
 
       if (!ball) return;
       if (now < serveAt) return; // serve pause
 
-      ball.x += ball.vx;
-      ball.y += ball.vy;
+      ball.x += ball.vx * dt;
+      ball.y += ball.vy * dt;
 
       if (ball.y - ball.r < 0) { ball.y = ball.r; ball.vy *= -1; }
       if (ball.y + ball.r > H) { ball.y = H - ball.r; ball.vy *= -1; }
@@ -729,9 +739,13 @@
       ctx.closePath(); ctx.fill();
     }
 
+    var lastFrame = 0;
     function loop(now) {
       if (!running) return;
-      update(now);
+      if (!lastFrame) lastFrame = now;
+      var dt = Math.min(2.5, (now - lastFrame) / (1000 / 60));
+      lastFrame = now;
+      update(now, dt);
       draw();
       rafId = requestAnimationFrame(loop);
     }
@@ -752,6 +766,7 @@
       leftY = H / 2 - PH / 2; rightY = H / 2 - PH / 2;
       resetBall(Math.random() < 0.5 ? -1 : 1);
       running = true;
+      lastFrame = 0;
       cancelAnimationFrame(rafId);
       rafId = requestAnimationFrame(loop);
     }
@@ -776,6 +791,7 @@
       clampPaddles();
     }
     canvas.addEventListener('mousemove', onPointer);
+    canvas.addEventListener('touchstart', function (e) { onPointer(e); e.preventDefault(); }, { passive: false });
     canvas.addEventListener('touchmove', function (e) { onPointer(e); e.preventDefault(); }, { passive: false });
 
     window.addEventListener('keydown', function (e) {

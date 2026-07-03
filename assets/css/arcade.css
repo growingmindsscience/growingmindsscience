@@ -59,6 +59,59 @@
 }
 .gms-arcade-asteroid-trigger svg { display: block; width: 100%; height: 100%; }
 
+/* A tiny pixel-spark glyph tucked into the home hero photo arch. */
+.gms-arcade-snake-trigger {
+  position: absolute;
+  bottom: 12px; right: 12px;
+  width: 30px; height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--surface) 70%, transparent);
+  cursor: pointer;
+  opacity: 0.26;
+  color: var(--primary);
+  transition: opacity var(--transition), transform var(--transition);
+  z-index: 2;
+}
+.gms-arcade-snake-trigger:hover,
+.gms-arcade-snake-trigger:focus-visible { opacity: 0.95; transform: scale(1.1); }
+.gms-arcade-snake-trigger svg { display: block; width: 100%; height: 100%; }
+
+/* A pixel-brick glyph tucked into the FAQ hero. */
+.gms-arcade-brick-trigger {
+  position: absolute;
+  top: 0; right: 0;
+  width: 30px; height: 22px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  opacity: 0.28;
+  color: var(--primary);
+  transition: opacity var(--transition), transform var(--transition);
+}
+.gms-arcade-brick-trigger:hover,
+.gms-arcade-brick-trigger:focus-visible { opacity: 0.92; transform: translateY(-2px); }
+.gms-arcade-brick-trigger svg { display: block; width: 100%; height: 100%; }
+
+/* A pixel-envelope glyph tucked into the Contact hero. */
+.gms-arcade-envelope-trigger {
+  position: absolute;
+  top: 0; right: 0;
+  width: 30px; height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  opacity: 0.28;
+  color: var(--primary);
+  transition: opacity var(--transition), transform var(--transition);
+}
+.gms-arcade-envelope-trigger:hover,
+.gms-arcade-envelope-trigger:focus-visible { opacity: 0.92; transform: translateY(-2px); }
+.gms-arcade-envelope-trigger svg { display: block; width: 100%; height: 100%; }
+
 /* ---------- Page tear-away ---------- */
 body.gms-arcade-lock { overflow: hidden; }
 .gms-arcade-falling { will-change: transform, opacity; }
@@ -195,6 +248,7 @@ body.gms-arcade-lock { overflow: hidden; }
   image-rendering: pixelated;
   cursor: pointer;
   outline: none;
+  touch-action: none;
 }
 
 /* ---------- Overlay messages (start / game over) ---------- */
@@ -298,8 +352,15 @@ body.gms-arcade-lock { overflow: hidden; }
   display: flex;
   gap: var(--space-2);
   justify-content: center;
+  /* keep thumbs clear of the iOS home indicator */
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
-.gms-arcade-touchrow .gms-arcade-touchbtn { min-width: 64px; }
+.gms-arcade-touchrow .gms-arcade-touchbtn {
+  flex: 1 1 0;
+  min-width: 64px;
+  max-width: 150px;
+  min-height: 48px;
+}
 
 /* On precise pointers (mouse) we hide the on-screen touch controls. */
 @media (hover: hover) and (pointer: fine) {
@@ -309,7 +370,7 @@ body.gms-arcade-lock { overflow: hidden; }
 
 @media (max-width: 700px) {
   .gms-arcade-panel {
-    padding: 10px 12px;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
     gap: var(--space-2);
   }
   .gms-arcade-panel__head { align-items: flex-start; }
