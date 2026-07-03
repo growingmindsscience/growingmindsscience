@@ -734,11 +734,10 @@
       if (!stage) return;
       var rect = stage.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
-      // Integer upscale when there's room (crisp pixels); fractional
-      // downscale on narrow phones so the canvas never overflows the stage.
-      var scale = Math.min(rect.width / W, rect.height / H);
-      if (scale >= 1) scale = Math.floor(scale);
-      else scale = Math.max(0.5, scale);
+      // Fractional scale is fine: the backing store is already rendered at
+      // devicePixelRatio resolution, so this stays crisp while filling the
+      // available space (no wasted margin from flooring to whole numbers).
+      var scale = Math.max(0.5, Math.min(rect.width / W, rect.height / H));
       game.resize(W * scale, H * scale);
     }
     var game = createGame(canvas, {
