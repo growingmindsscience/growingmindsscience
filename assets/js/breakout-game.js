@@ -96,6 +96,7 @@
   // ======================================================================
   function createGame(canvas, els) {
     var ctx = canvas.getContext("2d");
+    var backingScale = 1; // hi-res backing store so text stays crisp when scaled up
     ctx.imageSmoothingEnabled = false;
     canvas.width = W;
     canvas.height = H;
@@ -387,6 +388,8 @@
 
     // ---------- Render ----------
     function render() {
+      ctx.setTransform(backingScale, 0, 0, backingScale, 0, 0);
+      ctx.imageSmoothingEnabled = false;
       ctx.save();
       ctx.fillStyle = CREAM;
       ctx.fillRect(-4, -4, W + 8, H + 8);
@@ -546,6 +549,19 @@
 
     return {
       held: held,
+      resize: function (cssW, cssH) {
+        var dpr = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
+        var nextW = Math.max(W, Math.round(cssW * dpr));
+        var nextH = Math.max(H, Math.round(cssH * dpr));
+        if (canvas.width !== nextW || canvas.height !== nextH) {
+          canvas.width = nextW;
+          canvas.height = nextH;
+          ctx.imageSmoothingEnabled = false;
+        }
+        canvas.style.width = Math.round(cssW) + "px";
+        canvas.style.height = Math.round(cssH) + "px";
+        backingScale = nextW / W;
+      },
       launchOrStart: function () {
         ensureAudio();
         if (state === "idle") { start(); return; }
@@ -621,6 +637,16 @@
     document.body.appendChild(overlay);
 
     var canvas = overlay.querySelector(".gms-arcade-canvas");
+    function fitCanvas() {
+      var stage = overlay.querySelector(".gms-arcade-stage");
+      if (!stage) return;
+      var rect = stage.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      var scale = Math.min(rect.width / W, rect.height / H);
+      if (scale >= 1) scale = Math.floor(scale);
+      else scale = Math.max(0.5, scale);
+      game.resize(W * scale, H * scale);
+    }
     var game = createGame(canvas, {
       score: overlay.querySelector("[data-egg-score]"),
       best: overlay.querySelector("[data-egg-best]"),
@@ -703,6 +729,7 @@
     overlay._onKeydown = onKeydown;
     overlay._onKeyup = onKeyup;
     overlay._canvas = canvas;
+    overlay._fitCanvas = fitCanvas;
     return overlay;
   }
 
@@ -713,8 +740,10 @@
   function openOverlay(overlay) {
     overlay.classList.add("is-open");
     document.body.classList.add("gms-arcade-lock");
+    overlay._fitCanvas();
     document.addEventListener("keydown", overlay._onKeydown);
     document.addEventListener("keyup", overlay._onKeyup);
+    window.addEventListener("resize", overlay._fitCanvas);
     overlay.game.activate();
     window.requestAnimationFrame(function () { overlay._canvas.focus(); });
   }
