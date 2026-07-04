@@ -1,59 +1,7 @@
-/* Editorial refresh overrides — retargeted to the homepage "Tidepool" system
-   (deep teal-ink + brand teal + sea-glass ground + one coral accent).
-   Token names kept; values + fonts now mirror home.css so inner pages match. */
-:root {
-  --bg: #F0F5F3;            /* mist — cool aqua page ground */
-  --bg-alt: #E4EEEA;        /* alternate band */
-  --surface: #FFFFFF;
-  --surface-2: #E9F1ED;     /* sea-glass-tinted chips / graphic ground */
-  --border: #D4E0DC;        /* line */
-  --border-soft: #E2EAE7;
-  --ink: #15393C;           /* pine: dominant text */
-  --ink-soft: #3D5A5A;
-  --ink-muted: #5C7472;
-  --primary: #1E5F62;       /* brand teal (AA on white) */
-  --primary-hover: #2E7A77; /* teal-soft */
-  --primary-ink: #FFFFFF;
-  --accent: #2E7A77;        /* secondary teal accent */
-  --accent-soft: #CFE3DE;   /* sea-glass */
-  --accent-brown: #A3492E;  /* coral-deep — warm at text sizes */
-  --warm: #DE7356;          /* coral — the one accent */
-  --leaf: #2E7A77;
-  /* Typography now matches home: Bricolage Grotesque display + Source Serif 4 body */
-  --font-display: "Bricolage Grotesque", "Avenir Next", "Helvetica Neue", sans-serif;
-  --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
-  --radius-sm: 8px;
-  --radius: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 22px;
-  --shadow-sm: 0 1px 2px rgba(14, 42, 45, 0.06);
-  --shadow-md: 0 16px 36px -20px rgba(14, 42, 45, 0.30);
-  --shadow-lg: 0 32px 64px -30px rgba(14, 42, 45, 0.38);
-}
-
-[data-theme="dark"] {
-  color-scheme: dark;
-  --bg: #0F1A18;
-  --bg-alt: #11302F;
-  --surface: #152421;
-  --surface-2: #1C3733;
-  --border: #28403B;
-  --border-soft: #1E322E;
-  --ink: #E8EFEB;
-  --ink-soft: #C2CFC9;
-  --ink-muted: #8CA09A;
-  --primary: #6FBCAF;
-  --primary-hover: #8FD0C4;
-  --primary-ink: #07211E;
-  --accent: #8FD0C4;
-  --accent-soft: #1C3733;
-  --accent-brown: #E78D6F;
-  --warm: #E78D6F;
-  --leaf: #6FBCAF;
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 18px 40px rgba(0, 0, 0, 0.5);
-}
+/* Editorial refresh overrides — component-level styling for the "Tidepool" system.
+   Design tokens (:root color/type/radius/shadow + [data-theme="dark"]) now live in
+   styles.css as the single source of truth; this file only carries the component
+   overrides (header, hero, buttons, cards, etc.) layered on top. */
 
 h1,
 h2,
@@ -1209,13 +1157,13 @@ h4,
 
 @media (prefers-reduced-motion: no-preference) {
 
-  /* Base hidden state — fade up */
+  /* Base hidden state — fade up. Easing matches the homepage (ease-out-quint). */
   [data-animate] {
     opacity: 0;
     transform: translateY(18px);
     transition:
-      opacity  0.55s cubic-bezier(0.25, 0.1, 0.25, 1),
-      transform 0.55s cubic-bezier(0.25, 0.1, 0.25, 1);
+      opacity  0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     transition-delay: var(--anim-delay, 0ms);
   }
 
@@ -1232,6 +1180,17 @@ h4,
 
 }
 
+/* No-JS safety net: the reveal can only fire from JS (IntersectionObserver adds
+   .is-visible). If scripting is unavailable the reveal never runs, so keep
+   [data-animate] content visible by default — the animation is enhancement,
+   never a gate on content. Mirrors the homepage's html.anim guard. */
+@media (scripting: none) {
+  [data-animate] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* =========================================================
    Hover transitions — cards
    ========================================================= */
@@ -1242,16 +1201,20 @@ h4,
 .article-card,
 .featured-tool {
   transition:
-    transform  0.22s cubic-bezier(0.25, 0.1, 0.25, 1),
-    box-shadow 0.22s cubic-bezier(0.25, 0.1, 0.25, 1);
-  will-change: transform;
+    transform  0.24s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.24s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* will-change only while the pointer is over the card — not preemptively on
+   every card in the page (which would waste compositor layers). */
 .how-card:hover,
+.product-card:hover,
 .tool-card:hover,
-.article-card:hover {
+.article-card:hover,
+.featured-tool:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-lg);
+  will-change: transform;
 }
 
 /* Product cards: more subtle lift (featured card is large) */

@@ -14,7 +14,7 @@ colors:
   coral-on-dark: "#E78D6F"
   coral-tint: "#F8E7E0"
   ink-soft: "#3D5A5A"
-  ink-muted: "#5C7472"
+  ink-muted: "#4E6564"
   line: "#D4E0DC"
   line-soft: "#E2EAE7"
   on-dark: "#EDF4F1"
@@ -146,7 +146,7 @@ A cool teal foundation — mist ground, deep pine ink, brand teal action — pun
 - **Mist** (`#F0F5F3`): the page ground — cool aqua, not cream.
 - **Surface** (`#FFFFFF`) / **Sea-Glass** (`#CFE3DE`): card surface and tinted section bands (the AI section).
 - **Pine** (`#15393C`) / **Pine-Deep** (`#0E2A2D`): dominant text, dark feature bands (trust, waitlist), footer floor.
-- **Ink-Soft** (`#3D5A5A`): secondary body copy. **Ink-Muted** (`#5C7472`): meta/labels only (AA on mist/white; **fails on sea-glass** — don't use it there).
+- **Ink-Soft** (`#3D5A5A`): secondary body copy. **Ink-Muted** (`#4E6564`): meta/labels only — now AA on mist, white, surface-2, **and** sea-glass (≥4.6:1), so the old "don't use on sea-glass" caveat is lifted. Still reserve it for meta/labels, not long body copy.
 - **Line** (`#D4E0DC`) / **Line-Soft** (`#E2EAE7`): full borders and hairline dividers.
 - **On-Dark** (`#EDF4F1`) / **On-Dark-Soft** (`#BCD2CC`) / **On-Dark-Muted** (`#8BA59F`): text tiers on pine bands (all AA on pine).
 
@@ -172,7 +172,10 @@ The milestone tracker color-codes its six developmental domains for scanning. Th
 A few function-only values, documented so they're intentional, not drift:
 - **Available green** `#5FBF8E` — the Growing Minds AI "online" status dot. A calm Tidepool-family green (never neon/generic-SaaS green like `#4ade80`).
 - **Selection** `#2B130B` text on `--coral` — the `::selection` highlight.
-- **Shadows** are pine-tinted (`rgba(21,57,60,…)`); a few legacy warm-gray shadow rgbas (`rgba(28,34,31,…)`) survive in `styles.css`/`refresh.css` and should migrate to pine over time.
+- **Shadows** are pine-tinted (`rgba(14,42,45,…)` / `rgba(21,57,60,…)`) across all stylesheets; the legacy warm-gray shadow rgbas (`rgba(28,34,31,…)`) have been migrated out.
+
+### Arcade easter-egg palettes
+The hidden arcade games (Pong on Tools, Brain Sprint on Classes, GMS Invaders on Articles, Asteroids on About, plus Snake/Breakout/Dino/Hopper) intentionally use their own **isolated retro palettes** (dark cabinets, phosphor greens, etc.) that sit *outside* Tidepool — e.g. `#0c0f0e`, `#9fb3a6`, `#6f8f7b`. This is deliberate: an arcade cabinet should not look like the marketing site. These values are scoped to the game canvases/inline game styles only and are **not** design-system drift. Everywhere outside the games, the One-Coral Rule and the documented palette hold.
 
 ### Radius scale
 `xs 4 · sm 8 · control 10 · md 14 · card 16 · lg 20 · pill 999`, plus the `arch`. Small controls (chips, toggles, inputs) sit on the 4–14 end; cards and panels on 14–20. Treat 2px as a hairline detail only.

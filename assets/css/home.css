@@ -23,7 +23,7 @@
 
   --ink: var(--pine);
   --ink-soft: #3D5A5A;
-  --ink-muted: #5C7472;     /* AA on mist for >=14px */
+  --ink-muted: #4E6564;     /* AA on mist/surface/sea-glass (>=4.6:1) */
   --line: #D4E0DC;
   --line-soft: #E2EAE7;
 
@@ -238,6 +238,7 @@ h3 { font-size: var(--text-xl); }
   background: var(--pine);
   color: #fff;
   transform: translateY(-2px);
+  box-shadow: 0 20px 34px -16px rgba(30, 95, 98, 0.62);
 }
 [data-theme="dark"] .btn--primary:hover { background: var(--teal-soft); color: var(--btn-primary-ink); }
 .btn--quiet {
@@ -525,11 +526,14 @@ h3 { font-size: var(--text-xl); }
   border-radius: 50%;
   background: var(--surface);
   border: 2.5px solid var(--teal);
-  transition: background var(--t), border-color var(--t), box-shadow var(--t);
+  transition: background var(--t), border-color var(--t), box-shadow var(--t),
+              transform 260ms var(--ease);
 }
+.arc__tab:hover .arc__dot { transform: scale(1.12); }
 .arc__tab[aria-selected="true"] .arc__dot {
   background: var(--coral);
   border-color: var(--coral);
+  transform: scale(1.14);
   box-shadow: 0 0 0 5px color-mix(in oklab, var(--coral) 22%, transparent);
 }
 .arc__tab-age {
@@ -1082,6 +1086,18 @@ html.anim [data-animate] {
 html.anim [data-animate="fade"] { transform: none; }
 html.anim [data-animate].is-visible { opacity: 1; transform: none; }
 
+/* Signature moment: the coral highlight phrase ("Here's why.") comes into focus
+   a beat after the black headline has arrived, so it lands last. Hero-scoped,
+   enhancement only — with no JS / reduced motion the phrase is simply present. */
+html.anim .hero__title .hl { opacity: 0; display: inline-block; }
+html.anim .hero__title.is-visible .hl {
+  animation: hl-settle 860ms var(--ease) 620ms both;
+}
+@keyframes hl-settle {
+  from { opacity: 0; filter: blur(6px); transform: translateY(0.18em); }
+  to   { opacity: 1; filter: blur(0); transform: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
@@ -1193,6 +1209,17 @@ html.anim [data-animate].is-visible { opacity: 1; transform: none; }
 .gms-motion .gms-reveal :where(circle, path):nth-child(6) { transition-delay: 500ms; }
 .gms-motion .gms-reveal :where(circle, path):nth-child(7) { transition-delay: 600ms; }
 .gms-motion .gms-reveal :where(circle, path):nth-child(8) { transition-delay: 700ms; }
+
+/* Growth arc: the newly-selected stage panel eases in instead of snapping.
+   JS toggles [hidden]; showing a panel restarts this keyframe. gms-motion-gated,
+   so reduced-motion / no-JS keep the instant, correct switch. */
+.gms-motion .arc__panel:not([hidden]) {
+  animation: arc-panel-in 380ms var(--ease) both;
+}
+@keyframes arc-panel-in {
+  from { opacity: 0; transform: translateY(9px); }
+  to   { opacity: 1; transform: none; }
+}
 
 /* Slow floating bob; the dashed rings turn almost imperceptibly */
 @keyframes gms-float {

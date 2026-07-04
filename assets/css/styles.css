@@ -1,36 +1,36 @@
 /* =========================================================
    Growing Minds Science
-   Stylesheet — warm, academic, parent-friendly.
-   Palette: warm off-white, dark ink, teal CTAs, muted gold/brown.
-   Type: Instrument Serif (display) + Work Sans (body).
+   Stylesheet — "Tidepool": cool teal/mist, deep pine ink, one coral accent.
+   Palette: cool aqua-mist ground, deep pine ink, brand teal CTAs, coral accent.
+   Type: Bricolage Grotesque (display) + Source Serif 4 (body).
    ========================================================= */
 
 /* ---------- Tokens ---------- */
 :root {
-  /* Color — lightened palette */
-  --bg: #F8F6F1;             /* warm background */
-  --bg-alt: #EEF3EF;          /* alternate section */
+  /* Color — Tidepool (cool aqua-mist ground, one coral accent) */
+  --bg: #F0F5F3;             /* mist — cool aqua page ground */
+  --bg-alt: #E4EEEA;          /* alternate section */
   --surface: #FFFFFF;         /* card surface */
-  --surface-2: #F1EFE8;       /* secondary surface / chips */
-  --border: #D9D1C4;          /* warm border */
-  --border-soft: #E8E1D4;
-  --ink: #0E2A2D;             /* primary text */
-  --ink-soft: #373A34;
-  --ink-muted: #626157;       /* muted text */
-  --primary: #517965;         /* sage accent */
-  --primary-hover: #3F624F;
+  --surface-2: #E9F1ED;       /* sea-glass-tinted surface / chips */
+  --border: #D4E0DC;          /* line */
+  --border-soft: #E2EAE7;
+  --ink: #15393C;             /* pine: dominant text */
+  --ink-soft: #3D5A5A;
+  --ink-muted: #4E6564;       /* muted text — AA on mist/surface/sea-glass (>=4.6:1) */
+  --primary: #1E5F62;         /* brand teal (AA with white text) */
+  --primary-hover: #2E7A77;   /* teal-soft */
   --primary-ink: #FFFFFF;
-  --accent: #86A9AD;          /* cool research accent */
-  --accent-soft: #CADADB;
-  --accent-brown: #7A6444;    /* legacy alias */
-  --warm: #D5BE98;            /* warm highlight */
-  --leaf: #517965;
-  --danger: #A6371F;          /* form error — 6.2:1 on bg, 6.6:1 on surface */
+  --accent: #2E7A77;          /* secondary teal accent */
+  --accent-soft: #CFE3DE;     /* sea-glass */
+  --accent-brown: #A3492E;    /* coral-deep — warm at text sizes */
+  --warm: #DE7356;            /* coral — the one accent (decor / large text) */
+  --leaf: #2E7A77;
+  --danger: #A6371F;          /* form error — ~6:1 on mist / surface */
   --success: #2F6B4A;         /* form success */
 
   /* Type */
-  --font-display: "Instrument Serif", "Source Serif 4", Georgia, "Times New Roman", serif;
-  --font-body: "Work Sans", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Bricolage Grotesque", "Avenir Next", "Helvetica Neue", sans-serif;
+  --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
 
   --text-xs: 0.8125rem;   /* 13px */
   --text-sm: 0.9375rem;   /* 15px */
@@ -56,14 +56,14 @@
   --space-24: 6rem;
   --space-32: 8rem;
 
-  --radius-sm: 4px;
-  --radius: 8px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
+  --radius-sm: 8px;
+  --radius: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 22px;
 
-  --shadow-sm: 0 1px 2px rgba(28, 34, 31, 0.05);
-  --shadow-md: 0 10px 24px rgba(28, 34, 31, 0.07);
-  --shadow-lg: 0 22px 48px rgba(28, 34, 31, 0.09);
+  --shadow-sm: 0 1px 2px rgba(14, 42, 45, 0.06);
+  --shadow-md: 0 16px 36px -20px rgba(14, 42, 45, 0.30);
+  --shadow-lg: 0 32px 64px -30px rgba(14, 42, 45, 0.38);
 
   --container: 1200px;
   --container-narrow: 880px;
@@ -73,23 +73,24 @@
 }
 
 [data-theme="dark"] {
-  --bg: #161513;
-  --bg-alt: #1B1A18;
-  --surface: #1F1E1B;
-  --surface-2: #25231F;
-  --border: #34322D;
-  --border-soft: #2A2824;
-  --ink: #ECE5D4;
-  --ink-soft: #C7C2B5;
-  --ink-muted: #8E8B82;
-  --primary: #9FBFAB;
-  --primary-hover: #BFD6C7;
-  --primary-ink: #15201A;
-  --accent: #A7C4BC;
-  --accent-soft: #87A89F;
-  --accent-brown: #C8A878;
-  --warm: #D8C3A5;
-  --leaf: #9FBFAB;
+  color-scheme: dark;
+  --bg: #0F1A18;
+  --bg-alt: #11302F;
+  --surface: #152421;
+  --surface-2: #1C3733;
+  --border: #28403B;
+  --border-soft: #1E322E;
+  --ink: #E8EFEB;
+  --ink-soft: #C2CFC9;
+  --ink-muted: #8CA09A;
+  --primary: #6FBCAF;
+  --primary-hover: #8FD0C4;
+  --primary-ink: #07211E;
+  --accent: #8FD0C4;
+  --accent-soft: #1C3733;
+  --accent-brown: #E78D6F;
+  --warm: #E78D6F;
+  --leaf: #6FBCAF;
 
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
   --shadow-md: 0 4px 14px rgba(0,0,0,0.4);
@@ -376,7 +377,7 @@ section { padding-block: clamp(5rem, 8vw, 7rem); /* 80–112px */ }
   color: var(--primary-ink);
   box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 6px 14px -8px rgba(14, 92, 102, 0.6);
 }
-.btn--primary:hover { background: var(--primary-hover); color: var(--primary-ink); box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 10px 20px -8px rgba(14, 92, 102, 0.6); }
+.btn--primary:hover { background: var(--primary-hover); color: var(--primary-ink); transform: translateY(-2px); box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 16px 26px -12px rgba(14, 92, 102, 0.6); }
 
 .btn--ghost {
   background: transparent;
@@ -2367,7 +2368,7 @@ button:disabled {
 .card:hover,
 .product-card:hover,
 .tool-card:hover {
-  box-shadow: 0 12px 28px rgba(28, 34, 31, 0.07);
+  box-shadow: 0 12px 28px rgba(14, 42, 45, 0.09);
 }
 
 .how-card {
@@ -2396,7 +2397,7 @@ button:disabled {
 }
 
 .product-card--featured:hover {
-  box-shadow: 0 16px 34px rgba(28, 34, 31, 0.08);
+  box-shadow: 0 16px 34px rgba(14, 42, 45, 0.10);
 }
 
 .product-card__media {
