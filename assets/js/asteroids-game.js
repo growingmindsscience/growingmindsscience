@@ -59,14 +59,19 @@
     canvas.height = H;
 
     var reduce = A.prefersReducedMotion();
-    var muted;
-    try { muted = window.localStorage.getItem(MUTE_KEY) === "1"; } catch (e) { muted = false; }
+    // Shared juice: crisp trauma shake + hit-stop, and a "Flow" chain multiplier.
+    // Audio-mute is deliberately independent of reduced-motion (a11y: motion-
+    // sensitive players still get sound).
+    var camera = A.makeCamera({ reduce: reduce, maxPx: 4 });
+    var combo = A.makeCombo({ window: 120, max: 5 });
+
+    var BLOOM_MAX = 430; // frames a full Bloom Drive window lasts
 
     var state = "idle"; // idle | running | waveclear | gameover
     var held = { left: false, right: false, thrust: false, fire: false, blink: false };
     var ship, rocks, shots, pickups, particles, floaters, stars, mouseTarget;
     var wave, lives, score, seedMeter, shield, bloomTimer, fireCooldown, blinkCooldown, nextWaveTimer;
-    var shakeTimer, shakeMag, flashTimer;
+    var flashTimer;
     var PARTICLE_CAP = 56, FLOATER_CAP = 16;
 
     function makeStars() {
@@ -80,6 +85,7 @@
       makeStars();
       wave = 1; lives = 3; score = 0; seedMeter = 0; shield = true;
       bloomTimer = 0; fireCooldown = 0; blinkCooldown = 0; nextWaveTimer = 0;
+      combo.reset(true);
       particles = particles || []; floaters = floaters || [];
       particles.length = 0; floaters.length = 0;
       mouseTarget = null;
@@ -128,43 +134,30 @@
       });
     }
 
-    // ---------- Audio ----------
-    var audioCtx = null, masterGain = null;
-    function ensureAudio() {
-      if (muted) return;
-      if (!audioCtx) {
-        var AC = window.AudioContext || window.webkitAudioContext;
-        if (!AC) return;
-        audioCtx = new AC();
-        masterGain = audioCtx.createGain();
-        masterGain.gain.value = 0.075;
-        masterGain.connect(audioCtx.destination);
-      }
-      if (audioCtx.state === "suspended") audioCtx.resume();
-    }
-    function beep(f0, f1, dur, type, vol) {
-      if (muted || !audioCtx) return;
-      var t = audioCtx.currentTime;
-      var o = audioCtx.createOscillator(), g = audioCtx.createGain();
-      o.type = type || "square";
-      o.frequency.setValueAtTime(f0, t);
-      if (f1 && f1 !== f0) o.frequency.exponentialRampToValueAtTime(Math.max(1, f1), t + dur);
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.exponentialRampToValueAtTime(vol || 0.5, t + 0.01);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-      o.connect(g); g.connect(masterGain);
-      o.start(t); o.stop(t + dur + 0.02);
-    }
+    // ---------- Audio (shared GMSArcade synth: compressor + noise + arp) ----------
+    var audio = A.makeSynth({ muteKey: MUTE_KEY });
+    function ensureAudio() { audio.ensure(); }
     var sfx = {
-      fire: function () { beep(760, 520, 0.06, "square", 0.38); },
-      thrust: function () { beep(90, 70, 0.04, "sawtooth", 0.18); },
-      rock: function () { beep(180, 80, 0.12, "sawtooth", 0.42); },
-      seed: function () { beep(620, 980, 0.12, "triangle", 0.42); },
-      bloom: function () { beep(440, 880, 0.22, "triangle", 0.5); },
-      shield: function () { beep(260, 540, 0.16, "sine", 0.44); },
-      hit: function () { beep(190, 55, 0.22, "sawtooth", 0.58); },
-      blink: function () { beep(900, 320, 0.16, "triangle", 0.35); },
-      wave: function () { beep(392, 784, 0.28, "triangle", 0.44); }
+      fire: function () { audio.beep(760, 520, 0.06, "square", 0.38); },
+      thrust: function () { audio.beep(90, 70, 0.04, "sawtooth", 0.18); },
+      // Pitch rises with the Flow multiplier; layered noise gives the rock a crunch.
+      rock: function (mult) {
+        mult = mult || 1;
+        audio.beep(150 + (mult - 1) * 70, 80, 0.12, "sawtooth", 0.42);
+        audio.noise(0.16, 1100, 0.3);
+      },
+      seed: function () { audio.beep(620, 980, 0.12, "triangle", 0.42); },
+      bloom: function () { audio.arp([440, 660, 880, 1320], 0.06, 0.2, "triangle", 0.5); },
+      // Soft detuned pad that swells for the length of the Bloom window.
+      bloomPad: function () {
+        var d = BLOOM_MAX / 60;
+        audio.beep(174, 174, d, "sine", 0.13);
+        audio.beep(176.5, 176.5, d, "triangle", 0.1);
+      },
+      shield: function () { audio.beep(260, 540, 0.16, "sine", 0.44); },
+      hit: function () { audio.beep(190, 55, 0.22, "sawtooth", 0.58); audio.noise(0.34, 850, 0.45); },
+      blink: function () { audio.beep(900, 320, 0.16, "triangle", 0.35); },
+      wave: function () { audio.arp([392, 588, 784], 0.07, 0.2, "triangle", 0.44); }
     };
 
     // ---------- Feedback ----------
@@ -239,9 +232,15 @@
       var rock = rocks[index];
       var shot = shotIndex >= 0 ? shots[shotIndex] : null;
       if (shot) shots.splice(shotIndex, 1);
-      score += rock.size === 4 ? 45 : rock.size === 3 ? 70 : rock.size === 2 ? 110 : 180;
+      var mult = combo.hit();
+      var base = rock.size === 4 ? 45 : rock.size === 3 ? 70 : rock.size === 2 ? 110 : 180;
+      score += base * mult;
       burst(rock.x, rock.y, rock.size <= 1 ? LEAF_TOP : WARM, rock.size <= 1 ? 6 : 10);
-      sfx.rock();
+      if (mult > 1) spawnFloater(rock.x - 6, rock.y - 8, "x" + mult, mult >= 4 ? BRAIN : LEAF_TOP);
+      sfx.rock(mult);
+      // Trauma scales with rock size; a tiny hit-stop adds crunch (bigger for big rocks).
+      camera.shake(rock.size >= 4 ? 0.32 : rock.size === 3 ? 0.22 : rock.size === 2 ? 0.13 : 0.08);
+      camera.freeze(reduce ? 0 : (rock.size >= 3 ? 3 : 1));
       if (rock.size > 1) {
         var kids = rock.size === 4 ? 3 : 2;
         for (var k = 0; k < kids; k++) {
@@ -281,13 +280,16 @@
         burst(ship.x, ship.y, LEAF_SIDE, 18);
         spawnFloater(ship.x - 16, ship.y - 14, "shield", LEAF_SIDE);
         hitRock(rockIndex, -1);
+        camera.shake(0.3); camera.freeze(reduce ? 0 : 2);
         sfx.shield();
         updateHud();
         return;
       }
       lives--;
       flashTimer = 16;
-      if (!reduce) { shakeTimer = 12; shakeMag = 3; }
+      combo.reset();
+      camera.shake(0.85);
+      camera.freeze(reduce ? 0 : 8);
       burst(ship.x, ship.y, BRAIN, 18);
       sfx.hit();
       if (lives <= 0) {
@@ -312,11 +314,14 @@
         sfx.seed();
         if (seedMeter >= 5) {
           seedMeter = 0;
-          bloomTimer = 430;
+          bloomTimer = BLOOM_MAX;
           shield = true;
           burst(ship.x, ship.y, LEAF_TOP, 26);
           spawnFloater(ship.x - 22, ship.y - 18, "bloom", LEAF_TOP);
+          camera.shake(0.5);
+          camera.freeze(reduce ? 0 : 4);
           sfx.bloom();
+          sfx.bloomPad();
         }
       }
       pickups.splice(i, 1);
@@ -364,7 +369,7 @@
       if (ship.blink > 0) ship.blink -= dt;
       if (bloomTimer > 0) bloomTimer -= dt;
       if (flashTimer > 0) flashTimer -= dt;
-      if (shakeTimer > 0) shakeTimer -= dt;
+      combo.tick(dt);
 
       for (var s = shots.length - 1; s >= 0; s--) {
         var shot = shots[s];
@@ -491,10 +496,9 @@
     function render() {
       ctx.setTransform(backingScale, 0, 0, backingScale, 0, 0);
       ctx.imageSmoothingEnabled = false;
-      var sx = 0, sy = 0;
-      if (shakeTimer > 0 && !reduce) { sx = rand(-shakeMag, shakeMag); sy = rand(-shakeMag, shakeMag); }
       ctx.save();
-      ctx.translate(sx | 0, sy | 0);
+      var sh = camera.offset();
+      ctx.translate(sh.x, sh.y);
       ctx.fillStyle = bloomTimer > 0 ? "#EAF2EA" : CREAM;
       ctx.fillRect(-6, -6, W + 12, H + 12);
 
@@ -516,9 +520,12 @@
 
       for (var r = 0; r < rocks.length; r++) drawRock(rocks[r]);
       for (var p = 0; p < pickups.length; p++) drawPickup(pickups[p]);
+      var bloomOn = bloomTimer > 0;
       for (var s = 0; s < shots.length; s++) {
-        ctx.fillStyle = bloomTimer > 0 ? LEAF_TOP : LEAF_SIDE;
-        ctx.fillRect(Math.round(shots[s].x) - 1, Math.round(shots[s].y) - 1, 3, 3);
+        var shx = Math.round(shots[s].x), shy = Math.round(shots[s].y);
+        if (!reduce) A.pixelGlow(ctx, shx, shy, bloomOn ? 5 : 3, bloomOn ? LEAF_TOP : LEAF_SIDE, bloomOn ? 0.2 : 0.14);
+        ctx.fillStyle = bloomOn ? LEAF_TOP : LEAF_SIDE;
+        ctx.fillRect(shx - 1, shy - 1, 3, 3);
       }
       for (var pp = 0; pp < particles.length; pp++) {
         var part = particles[pp];
@@ -528,8 +535,25 @@
         ctx.fillRect(Math.round(part.x), Math.round(part.y), part.size, part.size);
       }
       ctx.globalAlpha = 1;
+      // Ship aura — a soft halo that visibly intensifies while Bloom Drive charges.
+      if (!reduce && state === "running") {
+        A.pixelGlow(ctx, Math.round(ship.x), Math.round(ship.y),
+          bloomOn ? 15 : 8, bloomOn ? LEAF_TOP : BRAIN, bloomOn ? 0.22 : 0.1);
+      }
       drawShip();
       drawMeters();
+      // Flow combo readout (top-left) with a thin draining "window" bar.
+      var cm = combo.mult();
+      if (cm > 1) {
+        var cc = cm >= 4 ? BRAIN : LEAF_SIDE;
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = cc;
+        ctx.font = "bold 9px monospace";
+        ctx.textAlign = "left";
+        ctx.fillText("FLOW x" + cm, 8, 14);
+        ctx.fillStyle = "rgba(64,192,153,0.5)";
+        ctx.fillRect(8, 17, Math.round(40 * combo.frac()), 2);
+      }
       for (var f = 0; f < floaters.length; f++) {
         var fl = floaters[f];
         if (fl.life <= 0) continue;
@@ -570,6 +594,7 @@
         ctx.beginPath(); ctx.arc(x, y, 6, 0, Math.PI * 2); ctx.stroke();
         ctx.fillStyle = LEAF_SIDE; ctx.fillRect(x - 1, y - 4, 2, 8);
       } else {
+        if (!reduce) A.pixelGlow(ctx, x, y, bloomTimer > 0 ? 6 : 4, LEAF_TOP, bloomTimer > 0 ? 0.2 : 0.14);
         blockyRect(ctx, x - 3, y - 3, 6, 6, LEAF_TOP);
         ctx.fillStyle = LEAF_SIDE; ctx.fillRect(x + 2, y - 5, 4, 3);
         ctx.fillStyle = INK;
@@ -582,15 +607,21 @@
     }
 
     function drawMeters() {
+      var bloomOn = bloomTimer > 0;
+      // Warn in the last ~60 frames: the bar + label flash so the window's end is legible.
+      var warn = bloomOn && bloomTimer <= 60;
+      var flashOn = warn && Math.floor(bloomTimer / 6) % 2 === 0;
       ctx.fillStyle = "rgba(14,42,45,0.22)";
       ctx.fillRect(8, H - 11, 54, 4);
-      ctx.fillStyle = bloomTimer > 0 ? LEAF_TOP : LEAF_SIDE;
-      ctx.fillRect(8, H - 11, bloomTimer > 0 ? 54 : seedMeter * 10.8, 4);
-      ctx.fillStyle = INK;
-      ctx.globalAlpha = 0.6;
+      // Bloom now DRAINS with its real timer instead of sitting full.
+      var frac = bloomOn ? clamp(bloomTimer / BLOOM_MAX, 0, 1) : seedMeter / 5;
+      ctx.fillStyle = flashOn ? BRAIN : (bloomOn ? LEAF_TOP : LEAF_SIDE);
+      ctx.fillRect(8, H - 11, Math.round(54 * frac), 4);
+      ctx.fillStyle = flashOn ? BRAIN : INK;
+      ctx.globalAlpha = warn ? 0.9 : 0.6;
       ctx.font = "8px monospace";
       ctx.textAlign = "left";
-      ctx.fillText(bloomTimer > 0 ? "BLOOM" : "SEEDS", 8, H - 14);
+      ctx.fillText(bloomOn ? (warn ? "BLOOM!" : "BLOOM") : "SEEDS", 8, H - 14);
       if (blinkCooldown <= 0) ctx.fillText("BLINK READY", W - 62, H - 14);
       ctx.globalAlpha = 1;
     }
@@ -617,7 +648,8 @@
     function showEnd(finalScore) {
       updateHud();
       els.promptTitle.textContent = "Drift complete";
-      els.promptText.textContent = "Score " + String(finalScore).padStart(6, "0");
+      els.promptText.textContent = "Score " + String(finalScore).padStart(6, "0") +
+        (combo.best() > 1 ? " · best flow chain " + combo.best() : "");
       els.promptActions.textContent = "";
       if (A.leaderboard.qualifies(GAME_KEY, finalScore)) {
         A.mountInitialsEntry(els.promptActions, {
@@ -656,7 +688,8 @@
       if (!lastTime) lastTime = now;
       var dt = Math.min(2.4, (now - lastTime) / (1000 / 60));
       lastTime = now;
-      tick(dt);
+      camera.tick(dt);
+      if (!camera.frozen()) tick(dt);
       render();
       updateHud();
       rafId = window.requestAnimationFrame(loop);
@@ -681,10 +714,10 @@
         canvas.style.height = Math.round(cssH) + "px";
         backingScale = nextW / W;
       },
-      toggleMute: function () { muted = !muted; try { window.localStorage.setItem(MUTE_KEY, muted ? "1" : "0"); } catch (e) {} if (!muted) ensureAudio(); return muted; },
-      isMuted: function () { return muted; },
+      toggleMute: function () { return audio.toggleMute(); },
+      isMuted: function () { return audio.isMuted(); },
       activate: function () { resetWorld(); state = "idle"; lastTime = 0; updateHud(); showIdle(); rafId = window.requestAnimationFrame(loop); },
-      deactivate: function () { if (rafId) window.cancelAnimationFrame(rafId); rafId = null; if (audioCtx) { try { audioCtx.close(); } catch (e) {} audioCtx = null; } }
+      deactivate: function () { if (rafId) window.cancelAnimationFrame(rafId); rafId = null; audio.close(); }
     };
   }
 

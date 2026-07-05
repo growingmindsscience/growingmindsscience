@@ -82,13 +82,15 @@
     canvas.height = H;
 
     var reduce = A.prefersReducedMotion();
-    var muted;
-    try { muted = window.localStorage.getItem(MUTE_KEY) === "1"; } catch (e) { muted = false; }
-    if (reduce) muted = true;
+    // Shared juice: crisp shake + hit-stop, delivery streak multiplier. Audio-mute
+    // is deliberately independent of reduced-motion (a11y: motion-sensitive players
+    // still get sound).
+    var camera = A.makeCamera({ reduce: reduce, maxPx: 3 });
+    var combo = A.makeCombo({ window: 200, max: 5 });
 
     var state = "idle"; // idle | running | gameover
     var player, lanes, slots, wave, lives, score, bestRow, letterTimer;
-    var deathTimer, deathText, hopQ;
+    var deathTimer, deathText, hopQ, edgeWarn;
     var particles, floaters, tickCount;
     var PARTICLE_CAP = 28, FLOATER_CAP = 10;
 
@@ -137,12 +139,14 @@
       bestRow = START_ROW;
       letterTimer = LETTER_TIME;
       hopQ = null;
+      edgeWarn = 0;
     }
 
     function resetWorld() {
       wave = 1; lives = 3; score = 0;
       slots = [false, false, false, false, false];
-      deathTimer = 0; deathText = "";
+      deathTimer = 0; deathText = ""; edgeWarn = 0;
+      combo.reset(true);
       particles = particles || []; floaters = floaters || [];
       particles.length = 0; floaters.length = 0;
       tickCount = 0;
@@ -150,41 +154,20 @@
       resetPlayer();
     }
 
-    // ---------- Audio ----------
-    var audioCtx = null, masterGain = null;
-    function ensureAudio() {
-      if (muted) return;
-      if (!audioCtx) {
-        var AC = window.AudioContext || window.webkitAudioContext;
-        if (!AC) return;
-        audioCtx = new AC();
-        masterGain = audioCtx.createGain();
-        masterGain.gain.value = 0.09;
-        masterGain.connect(audioCtx.destination);
-      }
-      if (audioCtx.state === "suspended") audioCtx.resume();
-    }
-    function beep(f0, f1, dur, type, vol) {
-      if (muted || !audioCtx) return;
-      var t = audioCtx.currentTime;
-      var o = audioCtx.createOscillator();
-      var g = audioCtx.createGain();
-      o.type = type || "square";
-      o.frequency.setValueAtTime(f0, t);
-      if (f1 && f1 !== f0) o.frequency.exponentialRampToValueAtTime(Math.max(1, f1), t + dur);
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.exponentialRampToValueAtTime(vol || 0.6, t + 0.012);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-      o.connect(g); g.connect(masterGain);
-      o.start(t); o.stop(t + dur + 0.02);
-    }
+    // ---------- Audio (shared GMSArcade synth: compressor + noise + arp) ----------
+    var audio = A.makeSynth({ muteKey: MUTE_KEY });
+    function ensureAudio() { audio.ensure(); }
     var sfx = {
-      hop: function () { beep(300, 420, 0.05, "square", 0.35); },
-      forward: function () { beep(420, 560, 0.05, "triangle", 0.4); },
-      deliver: function () { beep(523, 784, 0.18, "triangle", 0.5); setTimeout(function () { beep(659, 988, 0.18, "triangle", 0.4); }, 90); },
-      wave: function () { beep(392, 784, 0.28, "triangle", 0.45); },
-      splash: function () { beep(260, 80, 0.22, "sine", 0.5); },
-      squish: function () { beep(200, 70, 0.22, "sawtooth", 0.55); }
+      hop: function () { audio.beep(300, 420, 0.05, "square", 0.35); },
+      forward: function () { audio.beep(420, 560, 0.05, "triangle", 0.4); },
+      // each successive ring in a round climbs a step so deliveries feel like a scale
+      deliver: function (step) {
+        var b = 1 + (Math.max(1, step || 1) - 1) * 0.08;
+        audio.arp([523 * b, 659 * b, 784 * b], 0.06, 0.16, "triangle", 0.5);
+      },
+      wave: function () { audio.arp([392, 523, 659, 784, 1046], 0.07, 0.2, "triangle", 0.5); },
+      splash: function () { audio.noise(0.3, 520, 0.5, 2); audio.beep(260, 80, 0.22, "sine", 0.4); },
+      squish: function () { audio.noise(0.26, 300, 0.55, 4); audio.beep(200, 70, 0.2, "sawtooth", 0.45); }
     };
 
     // ---------- Particles / floaters (pooled) ----------
@@ -208,6 +191,15 @@
       if (!f) { if (floaters.length >= FLOATER_CAP) return; f = {}; floaters.push(f); }
       f.x = x; f.y = y; f.life = 30; f.maxLife = 30; f.text = text; f.color = color;
     }
+    // Low, sideways puff kicked up when the envelope touches down — sells weight.
+    function spawnDust(cx, cy) {
+      if (reduce) return;
+      for (var i = 0; i < 4; i++) {
+        var vx = (Math.random() * 2 - 1) * 0.9;
+        spawnParticle(cx + (Math.random() * 6 - 3), cy, vx, -0.1 - Math.random() * 0.2,
+          7 + Math.random() * 4, WARM);
+      }
+    }
 
     // ---------- Lifecycle ----------
     function start() { resetWorld(); state = "running"; hidePrompt(); ensureAudio(); }
@@ -216,8 +208,12 @@
       lives--;
       deathTimer = 45;
       deathText = reason;
+      combo.reset();
+      edgeWarn = 0;
       ensureAudio();
       if (reason === "splash") sfx.splash(); else sfx.squish();
+      camera.shake(reason === "splash" ? 0.5 : 0.6);
+      camera.freeze(reduce ? 0 : 5);
       spawnBurst(player.px + CELL / 2, player.row * CELL + CELL / 2,
         reason === "splash" ? LEAF_SIDE : BRAIN, 12);
     }
@@ -232,18 +228,22 @@
 
     function deliver(slotIdx) {
       slots[slotIdx] = true;
-      var bonus = 50 * wave + Math.floor(letterTimer / 120) * 2;
+      var mult = combo.hit();
+      var bonus = (50 * wave + Math.floor(letterTimer / 120) * 2) * mult;
       score += bonus;
-      spawnFloater(SLOT_COLS[slotIdx] * CELL + CELL / 2, CELL, "+" + bonus, BRAIN);
+      var filled = 0, allDone = true;
+      for (var i = 0; i < slots.length; i++) { if (slots[i]) filled++; else allDone = false; }
+      spawnFloater(SLOT_COLS[slotIdx] * CELL + CELL / 2, CELL,
+        "+" + bonus + (mult > 1 ? " x" + mult : ""), BRAIN);
       spawnBurst(SLOT_COLS[slotIdx] * CELL + CELL / 2, CELL / 2, LEAF_TOP, 10);
-      ensureAudio(); sfx.deliver();
-      var allDone = true;
-      for (var i = 0; i < slots.length; i++) { if (!slots[i]) { allDone = false; break; } }
+      camera.shake(0.2); camera.freeze(reduce ? 0 : 2);   // small celebratory pop
+      ensureAudio(); sfx.deliver(filled);
       if (allDone) {
         score += 150;
         wave++;
         slots = [false, false, false, false, false];
         buildWave();
+        camera.shake(0.5); camera.freeze(reduce ? 0 : 5);  // medium round-clear
         ensureAudio(); sfx.wave();
         spawnFloater(W / 2, H / 2, "round " + wave + "!", LEAF_SIDE);
       }
@@ -292,6 +292,8 @@
     // ---------- Update ----------
     function tick(dt) {
       tickCount += dt;
+      combo.tick(dt);
+      if (edgeWarn > 0) edgeWarn -= dt;
 
       // lanes always drift
       for (var l = 0; l < lanes.length; l++) {
@@ -314,6 +316,7 @@
         player.hopT -= dt;
         if (player.hopT <= 0) {
           player.hopT = 0;
+          spawnDust(player.px + CELL / 2, player.row * CELL + 14);
           if (hopQ) { var q = hopQ; hopQ = null; hop(q.x, q.y); }
         }
       }
@@ -331,6 +334,8 @@
         }
         if (!on) { loseLetter("splash"); return; }
         player.px += on.dir * on.speed * speedMul() * dt;
+        // telegraph the "drift off the edge" death — flash before it's fatal
+        if (player.px < 1 || player.px > W - CELL - 1) { if (!reduce) edgeWarn = 8; }
         if (player.px < -CELL * 0.7 || player.px > W - CELL * 0.3) { loseLetter("splash"); return; }
       }
 
@@ -403,19 +408,56 @@
     }
 
     function drawPlayer() {
-      var px = player.px, py = player.row * CELL;
+      var groundX = player.px, groundY = player.row * CELL;
+      var baseX = groundX, baseY = groundY, lift = 0;
       if (player.hopT > 0) {
         var t = player.hopT / 5;
-        px = px + (player.fromX - px) * t;
-        py = py + (player.fromY - py) * t;
-        py -= Math.sin((1 - t) * Math.PI) * 4; // little arc
+        baseX = groundX + (player.fromX - groundX) * t;
+        baseY = groundY + (player.fromY - groundY) * t;
+        lift = Math.sin((1 - t) * Math.PI) * 4; // arc apex height
       }
-      px = Math.round(px); py = Math.round(py);
+
+      // cast shadow — stays on the ground line and SHRINKS/fades as the hop rises
+      if (!reduce) {
+        var shW = Math.max(4, Math.round(10 - lift * 1.4));
+        var shX = Math.round(baseX + 8 - shW / 2);
+        var shY = Math.round(baseY) + 14;
+        ctx.globalAlpha = clamp(0.22 * (1 - lift / 6), 0.05, 0.22);
+        ctx.fillStyle = INK;
+        ctx.fillRect(shX + 1, shY, shW - 2, 2);
+        ctx.fillRect(shX, shY + 1, shW, 1);
+        ctx.globalAlpha = 1;
+      }
+
+      // idle bob when stationary — a gentle 1px lift, never during a hop/death
+      var idleBob = 0;
+      if (!reduce && player.hopT <= 0 && deathTimer <= 0 && state === "running") {
+        idleBob = Math.sin(tickCount * 0.12) < -0.4 ? -1 : 0;
+      }
+
+      var px = Math.round(baseX);
+      var py = Math.round(baseY - lift) + idleBob;
+
+      // squash & stretch (integer px): tall+thin at the apex, wide+short near the
+      // ground; the envelope base edge is held fixed so it never floats.
+      var dw = 0, dh = 0;
+      if (!reduce && player.hopT > 0) {
+        if (lift > 2.2) { dw = -2; dh = 2; }   // stretched at apex
+        else { dw = 2; dh = -1; }              // squashed at take-off / landing
+      }
+      var ew = 12 + dw, eh = 8 + dh;
+      var ex = px + 2 - dw / 2, ey = py + 6 - dh; // hold the base edge (ey + eh)
+
       // envelope
-      blockyRect(ctx, px + 2, py + 6, 12, 8, "#FFFFFF");
+      blockyRect(ctx, ex, ey, ew, eh, "#FFFFFF");
+      // edge-drift warning outline while riding a book near the brink
+      if (!reduce && edgeWarn > 0 && Math.floor(edgeWarn / 3) % 2 === 0) {
+        ctx.strokeStyle = BRAIN; ctx.lineWidth = 1;
+        ctx.strokeRect(ex - 1.5, ey - 1.5, ew + 3, eh + 3);
+      }
       ctx.strokeStyle = INK; ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.moveTo(px + 2, py + 6); ctx.lineTo(px + 8, py + 11); ctx.lineTo(px + 14, py + 6);
+      ctx.moveTo(ex, ey); ctx.lineTo(ex + ew / 2, ey + eh - 3); ctx.lineTo(ex + ew, ey);
       ctx.stroke();
       // sprout carrier peeking over the top
       blockyRect(ctx, px + 5, py + 1, 6, 5, BRAIN);
@@ -426,6 +468,8 @@
       ctx.setTransform(backingScale, 0, 0, backingScale, 0, 0);
       ctx.imageSmoothingEnabled = false;
       ctx.save();
+      var sh = camera.offset();
+      ctx.translate(sh.x, sh.y);
 
       // bands
       ctx.fillStyle = CREAM;
@@ -471,6 +515,8 @@
           ctx.fillStyle = LEAF_SIDE;
           ctx.fillRect(sx + 4, 6, 8, 1);
         } else {
+          // open mailbox = a live objective — soft crisp halo so it reads clearly
+          if (!reduce) A.pixelGlow(ctx, sx + CELL / 2, CELL / 2 + 1, 6, BRAIN, 0.14);
           blockyRect(ctx, sx + 3, 3, 10, 9, WARM);
           ctx.fillStyle = BRAIN;
           ctx.fillRect(sx + 11, 1, 2, 5);
@@ -498,6 +544,22 @@
         drawPlayer();
       }
 
+      // death banner — finally surfaces deathText as a punchy SPLASH!/SQUISH!
+      if (deathTimer > 0 && deathText) {
+        var label = deathText === "splash" ? "SPLASH!" : "SQUISH!";
+        var lcol = deathText === "splash" ? LEAF_SIDE : BRAIN;
+        var bx = clamp(player.px + CELL / 2, 34, W - 34);
+        var by = clamp(player.row * CELL - 3, 16, H - 22);
+        ctx.globalAlpha = clamp(deathTimer / 40, 0, 1);
+        ctx.font = "bold 15px monospace"; ctx.textAlign = "center";
+        ctx.fillStyle = INK;
+        ctx.fillText(label, bx - 1, by + 1);
+        ctx.fillText(label, bx + 1, by + 1);
+        ctx.fillStyle = lcol;
+        ctx.fillText(label, bx, by);
+        ctx.globalAlpha = 1; ctx.textAlign = "left";
+      }
+
       // particles
       for (var p = 0; p < particles.length; p++) {
         var pt = particles[p];
@@ -518,6 +580,22 @@
         ctx.fillText(fl.text, Math.round(fl.x), Math.round(fl.y));
       }
       ctx.globalAlpha = 1; ctx.textAlign = "left";
+
+      // delivery streak readout on the empty median band (DOM HUD only shows
+      // SCORE/ROUND/BEST, so the multiplier lives on-canvas).
+      var cmult = combo.mult();
+      if (cmult > 1) {
+        var ccx = W / 2, ccy = MEDIAN_ROW * CELL + 11;
+        ctx.font = "bold 10px monospace"; ctx.textAlign = "center";
+        ctx.fillStyle = INK;
+        ctx.fillText("x" + cmult, ccx + 1, ccy + 1);
+        ctx.fillStyle = cmult >= 4 ? BRAIN : LEAF_SIDE;
+        ctx.fillText("x" + cmult, ccx, ccy);
+        ctx.textAlign = "left";
+        // thin draining window bar under it
+        ctx.fillStyle = "rgba(64,192,153,0.55)";
+        ctx.fillRect(Math.round(ccx - 8), ccy + 3, Math.round(16 * combo.frac()), 1);
+      }
 
       // letter timer (bottom bar)
       var tw = Math.round((letterTimer / LETTER_TIME) * (W - 12));
@@ -590,7 +668,8 @@
       if (!lastTime) lastTime = now;
       var dt = Math.min(2.5, (now - lastTime) / (1000 / 60));
       lastTime = now;
-      if (state === "running") tick(dt);
+      camera.tick(dt);
+      if (state === "running" && !camera.frozen()) tick(dt);
       render();
       updateHud();
       rafId = window.requestAnimationFrame(loop);
@@ -619,13 +698,8 @@
           start();
         }
       },
-      toggleMute: function () {
-        muted = !muted;
-        try { window.localStorage.setItem(MUTE_KEY, muted ? "1" : "0"); } catch (e) {}
-        if (!muted) ensureAudio();
-        return muted;
-      },
-      isMuted: function () { return muted; },
+      toggleMute: function () { return audio.toggleMute(); },
+      isMuted: function () { return audio.isMuted(); },
       activate: function () {
         resetWorld(); state = "idle"; lastTime = 0;
         updateHud(); showIdle();
@@ -634,7 +708,7 @@
       deactivate: function () {
         if (rafId) window.cancelAnimationFrame(rafId);
         rafId = null;
-        if (audioCtx) { try { audioCtx.close(); } catch (e) {} audioCtx = null; }
+        audio.close();
       }
     };
   }

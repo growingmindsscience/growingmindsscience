@@ -105,8 +105,10 @@
     canvas.height = H;
 
     var reduce = A.prefersReducedMotion();
-    var muted;
-    try { muted = window.localStorage.getItem(MUTE_KEY) === "1"; } catch (e) { muted = false; }
+    // Shared juice: trauma-based shake + hit-stop, and a "Curiosity Streak"
+    // chain multiplier. Audio-mute is independent of reduced-motion (a11y).
+    var camera = A.makeCamera({ reduce: reduce, maxPx: 4 });
+    var combo = A.makeCombo({ window: 90, max: 5 });
 
     var state = "idle"; // idle | running | banner | won | gameover
     var held = { left: false, right: false, fire: false };
@@ -114,7 +116,7 @@
     var ship, sparks, enemies, bolts, shields, particles, floaters, capsules, ufo, boss;
     var offsetX, offsetY, dir, stepTimer, wobble, aliveCount, totalCount;
     var wave, lives, score, fireCooldown, focusTimer, ufoTimer, bannerTimer, bannerText;
-    var warnTimer, marchNote, shakeMag, shakeTimer;
+    var warnTimer, marchNote;
     var PARTICLE_CAP = 32, FLOATER_CAP = 12;
 
     function baseX(col) { return FORM_START_X + col * CELL_W; }
@@ -127,7 +129,8 @@
       ufo = null; boss = null;
       wave = 1; lives = 3; score = 0;
       fireCooldown = 0; focusTimer = 0; ufoTimer = randRange(16, 26) * 60;
-      shakeMag = 0; shakeTimer = 0; warnTimer = 0; marchNote = 0;
+      warnTimer = 0; marchNote = 0;
+      combo.reset(true);
       buildWave(1);
       buildShields();
     }
@@ -167,44 +170,28 @@
       aliveCount = totalCount;
     }
 
-    // ---------- Audio ----------
-    var audioCtx = null, masterGain = null;
-    function ensureAudio() {
-      if (muted) return;
-      if (!audioCtx) {
-        var AC = window.AudioContext || window.webkitAudioContext;
-        if (!AC) return;
-        audioCtx = new AC();
-        masterGain = audioCtx.createGain();
-        masterGain.gain.value = 0.08;
-        masterGain.connect(audioCtx.destination);
-      }
-      if (audioCtx.state === "suspended") audioCtx.resume();
-    }
-    function beep(f0, f1, dur, type, vol) {
-      if (muted || !audioCtx) return;
-      var t = audioCtx.currentTime;
-      var o = audioCtx.createOscillator(), g = audioCtx.createGain();
-      o.type = type || "square";
-      o.frequency.setValueAtTime(f0, t);
-      if (f1 && f1 !== f0) o.frequency.exponentialRampToValueAtTime(Math.max(1, f1), t + dur);
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.exponentialRampToValueAtTime(vol || 0.6, t + 0.01);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-      o.connect(g); g.connect(masterGain);
-      o.start(t); o.stop(t + dur + 0.02);
-    }
+    // ---------- Audio (shared GMSArcade synth: compressor + noise + arp) ----------
+    var audio = A.makeSynth({ muteKey: MUTE_KEY });
+    function ensureAudio() { audio.ensure(); }
     var MARCH_NOTES = [98, 87, 78, 73];
     var sfx = {
-      fire: function () { beep(660, 720, 0.05, "square", 0.4); },
-      answer: function (tier) { beep(520 + tier * 120, 220, 0.08, "triangle", 0.5); },
-      march: function () { beep(MARCH_NOTES[marchNote % 4], 0, 0.09, "square", 0.5); marchNote++; },
-      hit: function () { beep(200, 70, 0.2, "sawtooth", 0.6); },
-      ufo: function () { beep(880, 660, 0.3, "sine", 0.4); },
-      capsule: function () { beep(440, 660, 0.18, "triangle", 0.4); },
-      wave: function () { beep(523, 1046, 0.25, "triangle", 0.5); },
-      win: function () { beep(523, 784, 0.4, "triangle", 0.5); setTimeout(function(){ beep(659,988,0.4,"triangle",0.4); }, 140); },
-      warn: function () { beep(330, 200, 0.18, "sawtooth", 0.4); }
+      fire: function () { audio.beep(660, 720, 0.05, "square", 0.4); },
+      // kill SFX: pitch rises slightly with the combo multiplier, layered over a
+      // short filtered noise burst so answers land with a punchy crunch.
+      answer: function (tier, mult) {
+        mult = mult || 1;
+        audio.beep(520 + tier * 120 + (mult - 1) * 70, 220, 0.08, "triangle", 0.5);
+        audio.noise(0.12, 1400 + tier * 300, 0.3);
+      },
+      march: function () { audio.beep(MARCH_NOTES[marchNote % 4], 0, 0.09, "square", 0.5); marchNote++; },
+      hit: function () { audio.beep(200, 70, 0.2, "sawtooth", 0.6); audio.noise(0.28, 700, 0.42); },
+      boss: function () { audio.beep(300, 90, 0.1, "sawtooth", 0.45); audio.noise(0.16, 1000, 0.35); },
+      bossDie: function () { audio.arp([392, 523, 659, 880], 0.06, 0.18, "triangle", 0.5); audio.noise(0.4, 1600, 0.5); },
+      ufo: function () { audio.beep(880, 660, 0.3, "sine", 0.4); audio.noise(0.2, 1800, 0.3); },
+      capsule: function () { audio.beep(440, 660, 0.18, "triangle", 0.4); },
+      wave: function () { audio.beep(523, 1046, 0.25, "triangle", 0.5); },
+      win: function () { audio.arp([523, 659, 784, 988], 0.08, 0.4, "triangle", 0.5); },
+      warn: function () { audio.beep(330, 200, 0.18, "sawtooth", 0.4); }
     };
 
     // ---------- Particles / floaters ----------
@@ -232,15 +219,24 @@
     function fireRequest() {
       var cap = wave >= 3 ? 2 : 1;
       if (sparks.length >= cap || fireCooldown > 0) return;
-      sparks.push({ x: ship.x + SHIP_W / 2 - 1, y: SHIP_Y - 4 });
+      var sx = ship.x + SHIP_W / 2 - 1;
+      // px/py seed a short 2-segment fading trail behind the spark.
+      sparks.push({ x: sx, y: SHIP_Y - 4, px: sx, py: SHIP_Y - 4, px2: sx, py2: SHIP_Y - 4 });
       fireCooldown = 13;
+      // muzzle flash: a few upward-fanning sparks at the nozzle.
+      var nozX = ship.x + 8.5, nozY = SHIP_Y - 2;
+      for (var m = 0; m < 4; m++) {
+        var a = -Math.PI / 2 + (Math.random() - 0.5) * 1.1, sp = 0.6 + Math.random() * 0.8;
+        spawnParticle(nozX, nozY, Math.cos(a) * sp, Math.sin(a) * sp, 8, m % 2 ? LEAF_TOP : LEAF_SIDE);
+      }
       ensureAudio(); sfx.fire();
     }
 
     function loseLife() {
       lives--;
       ensureAudio(); sfx.hit();
-      if (!reduce) { shakeMag = 3; shakeTimer = 10; }
+      combo.reset();
+      camera.shake(0.85); camera.freeze(reduce ? 0 : 5);
       if (lives <= 0) { endGame(false); return; }
       ship.invuln = 60;
     }
@@ -274,7 +270,7 @@
       if (fireCooldown > 0) fireCooldown -= dt;
       if (focusTimer > 0) focusTimer -= dt;
       if (warnTimer > 0) warnTimer -= dt;
-      if (shakeTimer > 0) { shakeTimer -= dt; if (shakeTimer <= 0) shakeMag = 0; }
+      combo.tick(dt);
       if (held.fire) fireRequest();
 
       // Formation march (lockstep)
@@ -287,8 +283,11 @@
       // Sparks
       for (var s = sparks.length - 1; s >= 0; s--) {
         var sp = sparks[s];
+        // shift the 2-segment trail before advancing the head
+        sp.px2 = sp.px; sp.py2 = sp.py; sp.px = sp.x; sp.py = sp.y;
         sp.y -= 4.2 * dt;
-        if (sp.y < -6) { sparks.splice(s, 1); continue; }
+        // spark left the top without hitting anything: a miss breaks the streak
+        if (sp.y < -6) { sparks.splice(s, 1); combo.reset(); continue; }
         if (sparkHits(sp, s)) continue;
       }
 
@@ -406,8 +405,19 @@
       // boss
       if (boss && boss.hp > 0 && overlap(sbox, { x: boss.x, y: boss.y, w: boss.w, h: boss.h })) {
         boss.hp--; boss.flash = 4; sparks.splice(sIdx, 1);
-        sparkle(sp.x, sp.y, BRAIN); ensureAudio(); sfx.answer(2);
-        if (boss.hp <= 0) { score += 300; spawnFloater(boss.x + boss.w / 2, boss.y, "+300", BRAIN); for (var k = 0; k < 12; k++) sparkle(boss.x + Math.random() * boss.w, boss.y + Math.random() * boss.h, LEAF_TOP); }
+        sparkle(sp.x, sp.y, BRAIN);
+        camera.shake(0.3); camera.freeze(reduce ? 0 : 2);   // medium crunch per boss hit
+        ensureAudio();
+        if (boss.hp <= 0) {
+          score += 300; spawnFloater(boss.x + boss.w / 2, boss.y, "+300", BRAIN);
+          // final-defeat flourish: a brief multi-burst + heavy hit-stop + shake
+          for (var k = 0; k < 12; k++) sparkle(boss.x + Math.random() * boss.w, boss.y + Math.random() * boss.h, LEAF_TOP);
+          for (var k2 = 0; k2 < 10; k2++) sparkle(boss.x + Math.random() * boss.w, boss.y + Math.random() * boss.h, BRAIN);
+          camera.shake(1); camera.freeze(reduce ? 0 : 7);
+          sfx.bossDie();
+        } else {
+          sfx.boss();
+        }
         return true;
       }
       // enemies
@@ -416,12 +426,16 @@
         if (!e.alive) continue;
         if (overlap(sbox, enemyScreenBox(e))) {
           e.alive = false; aliveCount--;
-          var pts = e.tier === 2 ? 30 : (e.tier === 1 ? 20 : 10);
+          var mult = combo.hit();                  // Curiosity Streak
+          var pts = (e.tier === 2 ? 30 : (e.tier === 1 ? 20 : 10)) * mult;
           score += pts;
+          var col = e.tier === 2 ? LEAF_SIDE : (e.tier === 1 ? BRAIN : LEAF_TOP);
           var ex = baseX(e.col) + offsetX, ey = baseY(e.row) + offsetY;
-          sparkle(ex + SPRITE_W / 2, ey + SPRITE_H / 2, e.tier === 2 ? LEAF_SIDE : (e.tier === 1 ? BRAIN : LEAF_TOP));
-          spawnFloater(ex, ey, "+" + pts, e.tier === 2 ? LEAF_SIDE : (e.tier === 1 ? BRAIN : LEAF_TOP));
-          ensureAudio(); sfx.answer(e.tier);
+          sparkle(ex + SPRITE_W / 2, ey + SPRITE_H / 2, col);
+          spawnFloater(ex, ey, "+" + pts + (mult > 1 ? " x" + mult : ""), col);
+          camera.freeze(reduce ? 0 : 1);           // ~1 frame crunch per kill
+          camera.shake(0.08 + mult * 0.03);        // small, scaled by the streak
+          ensureAudio(); sfx.answer(e.tier, mult);
           if (Math.random() < 0.07) capsules.push({ x: ex + SPRITE_W / 2 - 3, y: ey });
           sparks.splice(sIdx, 1);
           return true;
@@ -432,6 +446,7 @@
         score += ufo.val; spawnFloater(ufo.x, ufo.y, "+" + ufo.val, LEAF_SIDE);
         for (var u = 0; u < 8; u++) sparkle(ufo.x + Math.random() * 12, ufo.y + Math.random() * 8, LEAF_SIDE);
         ufo = null; ufoTimer = randRange(16, 26) * 60;
+        camera.shake(0.4); camera.freeze(reduce ? 0 : 2);
         sparks.splice(sIdx, 1); ensureAudio(); sfx.ufo();
         return true;
       }
@@ -476,10 +491,9 @@
     function render() {
       ctx.setTransform(backingScale, 0, 0, backingScale, 0, 0);
       ctx.imageSmoothingEnabled = false;
-      var ox = 0, oy = 0;
-      if (shakeMag > 0 && shakeTimer > 0) { ox = (Math.random() - 0.5) * shakeMag * 2; oy = (Math.random() - 0.5) * shakeMag * 2; }
       ctx.save();
-      ctx.translate(Math.round(ox), Math.round(oy));
+      var sh = camera.offset();
+      ctx.translate(sh.x, sh.y);
 
       ctx.fillStyle = "#F8F6F1";
       ctx.fillRect(-4, -4, W + 8, H + 8);
@@ -525,12 +539,26 @@
       // capsules
       for (var c = 0; c < capsules.length; c++) blockyRect(ctx, capsules[c].x, capsules[c].y, 6, 6, LEAF_TOP);
 
-      // ufo
-      if (ufo) { blockyRect(ctx, ufo.x, ufo.y, 12, 6, "#FFFFFF"); ctx.fillStyle = LEAF_SIDE; ctx.fillRect(ufo.x + 2, ufo.y + 2, 8, 2); }
+      // ufo (crisp halo so it reads as a beacon)
+      if (ufo) {
+        if (!reduce) A.pixelGlow(ctx, ufo.x + 6, ufo.y + 3, 6, LEAF_SIDE, 0.14);
+        blockyRect(ctx, ufo.x, ufo.y, 12, 6, "#FFFFFF"); ctx.fillStyle = LEAF_SIDE; ctx.fillRect(ufo.x + 2, ufo.y + 2, 8, 2);
+      }
 
-      // sparks
-      ctx.fillStyle = LEAF_TOP;
-      for (var s = 0; s < sparks.length; s++) { ctx.fillStyle = LEAF_TOP; ctx.fillRect(Math.round(sparks[s].x), Math.round(sparks[s].y), 2, 6); ctx.fillStyle = LEAF_SIDE; ctx.fillRect(Math.round(sparks[s].x), Math.round(sparks[s].y), 2, 1); }
+      // sparks (fading 2-segment trail + crisp glow, then the crisp head)
+      for (var s = 0; s < sparks.length; s++) {
+        var spk = sparks[s];
+        var sxr = Math.round(spk.x);
+        if (!reduce) {
+          ctx.fillStyle = LEAF_SIDE;
+          ctx.globalAlpha = 0.45; ctx.fillRect(Math.round(spk.px), Math.round(spk.py) + 2, 2, 5);
+          ctx.globalAlpha = 0.2; ctx.fillRect(Math.round(spk.px2), Math.round(spk.py2) + 3, 2, 4);
+          ctx.globalAlpha = 1;
+          A.pixelGlow(ctx, spk.x + 1, spk.y + 3, 4, LEAF_TOP, 0.14);
+        }
+        ctx.fillStyle = LEAF_TOP; ctx.fillRect(sxr, Math.round(spk.y), 2, 6);
+        ctx.fillStyle = LEAF_SIDE; ctx.fillRect(sxr, Math.round(spk.y), 2, 1);
+      }
 
       // bolts
       for (var b = 0; b < bolts.length; b++) blockyRect(ctx, bolts[b].x, bolts[b].y, 2, 6, BRAIN);
@@ -550,6 +578,17 @@
 
       // lives (brain pips, top-left)
       for (var lv = 0; lv < lives; lv++) blockyRect(ctx, 6 + lv * 10, 6, 7, 5, BRAIN);
+
+      // Curiosity Streak readout (pips + xN + draining window bar), below lives
+      var cm = combo.mult();
+      if (cm > 1) {
+        var cc = cm >= 4 ? BRAIN : LEAF_SIDE;
+        for (var cp = 0; cp < cm; cp++) blockyRect(ctx, 6 + cp * 5, 15, 3, 3, cc);
+        ctx.fillStyle = "rgba(64,192,153,0.55)";
+        ctx.fillRect(6, 20, Math.round((cm * 5 - 2) * combo.frac()), 1);
+        ctx.fillStyle = cc; ctx.font = "7px monospace"; ctx.textAlign = "left";
+        ctx.fillText("x" + cm, 6 + cm * 5 + 2, 21);
+      }
 
       // FOCUS indicator
       if (focusTimer > 0) { ctx.fillStyle = LEAF_SIDE; ctx.font = "7px monospace"; ctx.fillText("FOCUS", W - 40, 11); }
@@ -587,7 +626,8 @@
     function showEnd(won, finalScore) {
       updateHud();
       els.promptTitle.textContent = won ? "All questions answered!" : "A question reached the nursery";
-      els.promptText.textContent = "Score " + String(finalScore).padStart(6, "0");
+      els.promptText.textContent = "Score " + String(finalScore).padStart(6, "0") +
+        (combo.best() > 1 ? " · best streak " + combo.best() : "");
       els.promptActions.textContent = "";
       if (A.leaderboard.qualifies(GAME_KEY, finalScore)) {
         A.mountInitialsEntry(els.promptActions, {
@@ -620,7 +660,8 @@
       var dt = Math.min(2.5, (now - lastTime) / (1000 / 60));
       lastTime = now;
       if (!reduce) driftY = (driftY + dt * 0.3) % H;
-      if (state === "running" || state === "banner") tick(dt);
+      camera.tick(dt);
+      if ((state === "running" || state === "banner") && !camera.frozen()) tick(dt);
       render();
       updateHud();
       rafId = window.requestAnimationFrame(loop);
@@ -643,10 +684,10 @@
         canvas.style.height = Math.round(cssH) + "px";
         backingScale = nextW / W;
       },
-      toggleMute: function () { muted = !muted; try { window.localStorage.setItem(MUTE_KEY, muted ? "1" : "0"); } catch (e) {} if (!muted) ensureAudio(); return muted; },
-      isMuted: function () { return muted; },
+      toggleMute: function () { return audio.toggleMute(); },
+      isMuted: function () { return audio.isMuted(); },
       activate: function () { resetWorld(); state = "idle"; lastTime = 0; updateHud(); showIdle(); rafId = window.requestAnimationFrame(loop); },
-      deactivate: function () { if (rafId) window.cancelAnimationFrame(rafId); rafId = null; if (audioCtx) { try { audioCtx.close(); } catch (e) {} audioCtx = null; } }
+      deactivate: function () { if (rafId) window.cancelAnimationFrame(rafId); rafId = null; audio.close(); }
     };
   }
 

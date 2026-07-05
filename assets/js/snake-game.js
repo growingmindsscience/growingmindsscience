@@ -69,17 +69,19 @@
     canvas.height = H;
 
     var reduce = A.prefersReducedMotion();
-    var muted;
-    try { muted = window.localStorage.getItem(MUTE_KEY) === "1"; } catch (e) { muted = false; }
-    if (reduce) muted = true;
+    // Shared juice: crisp shake + hit-stop, chain multiplier. Audio-mute is
+    // deliberately independent of reduced-motion (a11y: motion-sensitive
+    // players still get sound).
+    var camera = A.makeCamera({ reduce: reduce, maxPx: 3 });
+    var combo = A.makeCombo({ window: 110, max: 5 });
 
-    var state = "idle"; // idle | running | gameover
+    var state = "idle"; // idle | running | dying | gameover
     var snake, dirQ, dir, growth, moveTimer, moveInterval;
     var spark, book, bookTimer, blocks, sparksEaten, score;
-    var comboTimer, comboMult;
     var chapterIdx, milestoneText, milestoneTimer;
-    var particles, floaters, pulse;
-    var PARTICLE_CAP = 28, FLOATER_CAP = 10;
+    var particles, floaters, pulse, pulses;
+    var deathTimer, deathFlash, deadDissolved, dyingScore;
+    var PARTICLE_CAP = 48, FLOATER_CAP = 10;
 
     function cellKey(c) { return c.x + "," + c.y; }
 
@@ -94,11 +96,12 @@
       blocks = [];
       book = null; bookTimer = 0;
       sparksEaten = 0; score = 0;
-      comboTimer = 0; comboMult = 1;
+      combo.reset(true);
       chapterIdx = 0; milestoneText = ""; milestoneTimer = 0;
-      particles = particles || []; floaters = floaters || [];
-      particles.length = 0; floaters.length = 0;
+      particles = particles || []; floaters = floaters || []; pulses = pulses || [];
+      particles.length = 0; floaters.length = 0; pulses.length = 0;
       pulse = 0;
+      deathTimer = 0; deathFlash = 0; deadDissolved = 0; dyingScore = 0;
       spark = null;
       placeSpark();
     }
@@ -155,39 +158,14 @@
       }
     }
 
-    // ---------- Audio (Web Audio synth, CSP-safe) ----------
-    var audioCtx = null, masterGain = null;
-    function ensureAudio() {
-      if (muted) return;
-      if (!audioCtx) {
-        var AC = window.AudioContext || window.webkitAudioContext;
-        if (!AC) return;
-        audioCtx = new AC();
-        masterGain = audioCtx.createGain();
-        masterGain.gain.value = 0.09;
-        masterGain.connect(audioCtx.destination);
-      }
-      if (audioCtx.state === "suspended") audioCtx.resume();
-    }
-    function beep(f0, f1, dur, type, vol) {
-      if (muted || !audioCtx) return;
-      var t = audioCtx.currentTime;
-      var o = audioCtx.createOscillator();
-      var g = audioCtx.createGain();
-      o.type = type || "square";
-      o.frequency.setValueAtTime(f0, t);
-      if (f1 && f1 !== f0) o.frequency.exponentialRampToValueAtTime(Math.max(1, f1), t + dur);
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.exponentialRampToValueAtTime(vol || 0.6, t + 0.012);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-      o.connect(g); g.connect(masterGain);
-      o.start(t); o.stop(t + dur + 0.02);
-    }
+    // ---------- Audio (shared GMSArcade synth: compressor + noise + arp) ----------
+    var audio = A.makeSynth({ muteKey: MUTE_KEY });
+    function ensureAudio() { audio.ensure(); }
     var sfx = {
-      spark: function (mult) { beep(560 + mult * 60, 840 + mult * 60, 0.06, "triangle", 0.45); },
-      book: function () { beep(440, 880, 0.16, "triangle", 0.5); },
-      milestone: function () { beep(523, 784, 0.18, "triangle", 0.5); setTimeout(function () { beep(659, 988, 0.18, "triangle", 0.4); }, 90); },
-      hit: function () { beep(200, 70, 0.24, "sawtooth", 0.6); }
+      spark: function (mult) { audio.beep(560 + mult * 45, 860 + mult * 45, 0.06, "triangle", 0.45); },
+      book: function () { audio.arp([523, 784, 1046], 0.05, 0.14, "triangle", 0.42); },
+      milestone: function () { audio.arp([523, 659, 784, 1046], 0.07, 0.18, "triangle", 0.45); },
+      hit: function () { audio.beep(200, 70, 0.24, "sawtooth", 0.5); audio.noise(0.3, 900, 0.4); }
     };
 
     // ---------- Particles / floaters (pooled) ----------
@@ -212,16 +190,25 @@
       f.x = x; f.y = y; f.life = 26; f.maxLife = 26; f.text = text; f.color = color;
     }
 
+    // A "synapse firing": a bright signal that travels head -> tail along the
+    // pathway. render() brightens the segment at floor(age). Chains at combo.
+    function firePulse() {
+      if (reduce) return;
+      pulses.push({ age: 0 });
+      if (pulses.length > 6) pulses.shift();
+    }
+
     function triggerMilestone(text) {
       milestoneText = text;
       milestoneTimer = 90;
+      camera.shake(0.35);
       ensureAudio(); sfx.milestone();
     }
 
     // ---------- Controls ----------
     function queueDir(x, y) {
       if (state === "idle") { start(); }
-      if (state === "gameover") return;
+      if (state === "gameover" || state === "dying") return;
       var last = dirQ.length ? dirQ[dirQ.length - 1] : dir;
       if (last.x === x && last.y === y) return;       // same way
       if (last.x === -x && last.y === -y) return;      // no 180s
@@ -232,10 +219,33 @@
     function restart() { resetWorld(); state = "running"; hidePrompt(); }
 
     function gameOver() {
-      state = "gameover";
       ensureAudio(); sfx.hit();
+      camera.shake(0.9); camera.freeze(reduce ? 0 : 6);
+      combo.reset();
+      dyingScore = Math.floor(score);
       spawnBurst(snake[0].x * CELL + CELL / 2, snake[0].y * CELL + CELL / 2, BRAIN, 12);
-      showGameOver(Math.floor(score));
+      // Reduced-motion players skip the dissolve and go straight to the card.
+      if (reduce) { finalizeGameOver(); return; }
+      state = "dying";
+      deathTimer = 34; deathFlash = 6; deadDissolved = 0;
+    }
+    function finalizeGameOver() {
+      state = "gameover";
+      showGameOver(dyingScore);
+    }
+    // Dissolve the pathway into pixel confetti, head -> tail, over ~34 frames.
+    function tickDeath(dt) {
+      if (deathFlash > 0) deathFlash -= dt;
+      deathTimer -= dt;
+      var total = snake.length;
+      var revealed = Math.floor((1 - Math.max(0, deathTimer) / 34) * total);
+      while (deadDissolved < revealed && deadDissolved < total) {
+        var seg = snake[deadDissolved];
+        spawnBurst(seg.x * CELL + CELL / 2, seg.y * CELL + CELL / 2, deadDissolved % 2 ? LEAF_SIDE : LEAF_TOP, 4);
+        deadDissolved++;
+      }
+      updateParticles(dt);
+      if (deathTimer <= 0) finalizeGameOver();
     }
 
     // ---------- Update ----------
@@ -261,16 +271,17 @@
 
       // spark
       if (spark && spark.x === nx && spark.y === ny) {
-        var pts = 10 * comboMult;
+        var mult = combo.hit();
+        var pts = 10 * mult;
         score += pts;
         sparksEaten++;
         growth += 1;
         spawnBurst(nx * CELL + CELL / 2, ny * CELL + CELL / 2, LEAF_TOP, 6);
-        spawnFloater(nx * CELL + CELL / 2, ny * CELL - 2, "+" + pts + (comboMult > 1 ? " x" + comboMult : ""), LEAF_SIDE);
-        ensureAudio(); sfx.spark(comboMult);
-        if (comboTimer > 0) comboMult = Math.min(5, comboMult + 1);
-        else comboMult = 1;
-        comboTimer = 110;
+        spawnFloater(nx * CELL + CELL / 2, ny * CELL - 2, "+" + pts + (mult > 1 ? " x" + mult : ""), LEAF_SIDE);
+        firePulse();
+        camera.freeze(reduce ? 0 : 2);           // micro hit-stop = crunch
+        if (mult >= 3) camera.shake(0.12);
+        ensureAudio(); sfx.spark(mult);
         spark = null;
         placeSpark();
         maybePlaceBook();
@@ -283,24 +294,14 @@
         growth += 2;
         spawnBurst(nx * CELL + CELL / 2, ny * CELL + CELL / 2, BRAIN, 10);
         spawnFloater(nx * CELL + CELL / 2, ny * CELL - 2, "+50", BRAIN);
+        firePulse();
+        camera.shake(0.3); camera.freeze(reduce ? 0 : 3);
         ensureAudio(); sfx.book();
         book = null;
       }
     }
 
-    function tick(dt) {
-      pulse += dt;
-      if (comboTimer > 0) { comboTimer -= dt; if (comboTimer <= 0) comboMult = 1; }
-      if (milestoneTimer > 0) milestoneTimer -= dt;
-      if (book) { bookTimer -= dt; if (bookTimer <= 0) book = null; }
-      if (spark) spark.glint += dt * 0.25;
-
-      moveTimer -= dt;
-      while (moveTimer <= 0 && state === "running") {
-        step();
-        moveTimer += moveInterval;
-      }
-
+    function updateParticles(dt) {
       for (var p = 0; p < particles.length; p++) {
         var pt = particles[p];
         if (pt.life <= 0) continue;
@@ -311,6 +312,27 @@
         if (fl.life <= 0) continue;
         fl.y -= 0.35 * dt; fl.life -= dt;
       }
+      for (var pz = pulses.length - 1; pz >= 0; pz--) {
+        pulses[pz].age += 0.6 * dt;
+        if (pulses[pz].age > (snake ? snake.length : 0) + 3) pulses.splice(pz, 1);
+      }
+    }
+
+    function tick(dt) {
+      if (state === "dying") { tickDeath(dt); return; }
+      pulse += dt;
+      combo.tick(dt);
+      if (milestoneTimer > 0) milestoneTimer -= dt;
+      if (book) { bookTimer -= dt; if (bookTimer <= 0) book = null; }
+      if (spark) spark.glint += dt * 0.25;
+
+      moveTimer -= dt;
+      while (moveTimer <= 0 && state === "running") {
+        step();
+        moveTimer += moveInterval;
+      }
+
+      updateParticles(dt);
     }
 
     // ---------- Render ----------
@@ -318,6 +340,8 @@
       ctx.setTransform(backingScale, 0, 0, backingScale, 0, 0);
       ctx.imageSmoothingEnabled = false;
       ctx.save();
+      var sh = camera.offset();
+      ctx.translate(sh.x, sh.y);
       ctx.fillStyle = CREAM;
       ctx.fillRect(-4, -4, W + 8, H + 8);
 
@@ -345,37 +369,51 @@
 
       // book bonus (blinks when about to fade)
       if (book && !(bookTimer < 80 && Math.floor(bookTimer / 6) % 2 === 0)) {
+        var bcx = book.x * CELL + CELL / 2, bcy = book.y * CELL + CELL / 2;
+        if (!reduce) A.pixelGlow(ctx, bcx, bcy, 5, BRAIN, 0.16);
         blockyRect(ctx, book.x * CELL, book.y * CELL + 2, CELL, CELL - 4, BRAIN);
         ctx.fillStyle = INK;
         ctx.fillRect(book.x * CELL + 2, book.y * CELL + 2, 2, CELL - 4);
       }
 
-      // spark
+      // spark (soft leaf halo so it reads as a beacon)
       if (spark) {
         var sx = spark.x * CELL + CELL / 2, sy = spark.y * CELL + CELL / 2;
         var r = reduce ? 2 : 2 + Math.sin(pulse * 0.18) * 0.8;
+        if (!reduce) A.pixelGlow(ctx, sx, sy, 4, LEAF_TOP, 0.14);
         blockyRect(ctx, sx - r, sy - r, r * 2, r * 2, LEAF_TOP);
         var gx2 = sx + Math.round(Math.cos(spark.glint) * 3);
         var gy2 = sy + Math.round(Math.sin(spark.glint) * 3);
         ctx.fillStyle = LEAF_SIDE; ctx.fillRect(gx2, gy2, 1, 1);
       }
 
-      // pathway body (tail → head so the head draws on top)
+      // pathway body (tail → head so the head draws on top). During the death
+      // dissolve, already-scattered segments [0, deadDissolved) are hidden.
       for (var i = snake.length - 1; i >= 1; i--) {
+        if (state === "dying" && i < deadDissolved) continue;
         var seg = snake[i];
         var fill = i % 2 === 0 ? LEAF_SIDE : LEAF_TOP;
+        // a travelling "synapse" signal brightens the segment it's passing
+        for (var pz = 0; pz < pulses.length; pz++) {
+          if (Math.floor(pulses[pz].age) === i) { fill = CREAM; break; }
+        }
         var inset = i === snake.length - 1 ? 2 : 1;
         blockyRect(ctx, seg.x * CELL + inset, seg.y * CELL + inset, CELL - inset * 2, CELL - inset * 2, fill);
       }
       // head: little brain-sprout
-      var hd = snake[0];
-      blockyRect(ctx, hd.x * CELL, hd.y * CELL, CELL, CELL, BRAIN);
-      ctx.fillStyle = INK;
-      ctx.fillRect(hd.x * CELL + CELL / 2 - 1, hd.y * CELL + 2, 1, CELL - 4);
-      // leaf points the way it's heading
-      var lx = hd.x * CELL + CELL / 2 - 2 + dir.x * 4;
-      var ly = hd.y * CELL + CELL / 2 - 2 + dir.y * 4;
-      blockyRect(ctx, lx, ly, 4, 4, LEAF_TOP);
+      if (!(state === "dying" && deadDissolved > 0)) {
+        var hd = snake[0];
+        var hcx = hd.x * CELL + CELL / 2, hcy = hd.y * CELL + CELL / 2;
+        // warm aura that intensifies with the combo
+        if (!reduce && combo.mult() >= 3) A.pixelGlow(ctx, hcx, hcy, 5, BRAIN, 0.08 + combo.mult() * 0.03);
+        blockyRect(ctx, hd.x * CELL, hd.y * CELL, CELL, CELL, BRAIN);
+        ctx.fillStyle = INK;
+        ctx.fillRect(hd.x * CELL + CELL / 2 - 1, hd.y * CELL + 2, 1, CELL - 4);
+        // leaf points the way it's heading
+        var lx = hd.x * CELL + CELL / 2 - 2 + dir.x * 4;
+        var ly = hd.y * CELL + CELL / 2 - 2 + dir.y * 4;
+        blockyRect(ctx, lx, ly, 4, 4, LEAF_TOP);
+      }
 
       // particles
       for (var p = 0; p < particles.length; p++) {
@@ -398,10 +436,13 @@
       }
       ctx.globalAlpha = 1; ctx.textAlign = "left";
 
-      // combo pips (top-left)
-      if (comboMult > 1) {
-        ctx.fillStyle = LEAF_SIDE;
-        for (var cp = 0; cp < comboMult; cp++) ctx.fillRect(6 + cp * 5, 6, 3, 3);
+      // combo pips (top-left) + a thin draining "window" bar
+      var cm = combo.mult();
+      if (cm > 1) {
+        var cc = cm >= 4 ? BRAIN : LEAF_SIDE;
+        for (var cp = 0; cp < cm; cp++) blockyRect(ctx, 6 + cp * 5, 6, 3, 3, cc);
+        ctx.fillStyle = "rgba(64,192,153,0.55)";
+        ctx.fillRect(6, 11, Math.round((cm * 5 - 2) * combo.frac()), 1);
       }
 
       // milestone banner
@@ -410,6 +451,14 @@
         ctx.fillStyle = INK; ctx.font = "bold 10px monospace"; ctx.textAlign = "center";
         ctx.fillText(milestoneText, W / 2, 20);
         ctx.globalAlpha = 1; ctx.textAlign = "left";
+      }
+
+      // death flash (full-frame cream pop as the pathway shatters)
+      if (deathFlash > 0) {
+        ctx.globalAlpha = clamp(deathFlash / 6, 0, 1) * 0.8;
+        ctx.fillStyle = CREAM;
+        ctx.fillRect(-4, -4, W + 8, H + 8);
+        ctx.globalAlpha = 1;
       }
 
       ctx.restore();
@@ -439,7 +488,8 @@
     function showGameOver(finalScore) {
       updateHud();
       els.promptTitle.textContent = "The pathway tangled";
-      els.promptText.textContent = "Score " + String(finalScore).padStart(5, "0") + " · length " + snake.length;
+      els.promptText.textContent = "Score " + String(finalScore).padStart(5, "0") +
+        " · reached " + CHAPTERS[chapterIdx].name + " · " + sparksEaten + " sparks linked";
       els.promptActions.textContent = "";
       if (A.leaderboard.qualifies(GAME_KEY, finalScore)) {
         A.mountInitialsEntry(els.promptActions, {
@@ -474,7 +524,8 @@
       if (!lastTime) lastTime = now;
       var dt = Math.min(2.5, (now - lastTime) / (1000 / 60));
       lastTime = now;
-      if (state === "running") tick(dt);
+      camera.tick(dt);
+      if ((state === "running" || state === "dying") && !camera.frozen()) tick(dt);
       render();
       updateHud();
       rafId = window.requestAnimationFrame(loop);
@@ -503,13 +554,8 @@
           restart();
         }
       },
-      toggleMute: function () {
-        muted = !muted;
-        try { window.localStorage.setItem(MUTE_KEY, muted ? "1" : "0"); } catch (e) {}
-        if (!muted) ensureAudio();
-        return muted;
-      },
-      isMuted: function () { return muted; },
+      toggleMute: function () { return audio.toggleMute(); },
+      isMuted: function () { return audio.isMuted(); },
       activate: function () {
         resetWorld(); state = "idle"; lastTime = 0;
         updateHud(); showIdle();
@@ -518,7 +564,7 @@
       deactivate: function () {
         if (rafId) window.cancelAnimationFrame(rafId);
         rafId = null;
-        if (audioCtx) { try { audioCtx.close(); } catch (e) {} audioCtx = null; }
+        audio.close();
       }
     };
   }
