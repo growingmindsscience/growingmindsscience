@@ -183,6 +183,117 @@
         }
       });
     });
+
+    initArcScroll(device, tabs, panels, select);
+  }
+
+  // ------------------------------------------------------------------
+  // Growth arc — scroll-cinematic layer (progressive enhancement)
+  // Desktop + motion only. Pins the device while a coral trail draws itself up
+  // the growth curve (dot at its tip) and the stage advances with scroll. The
+  // tablist stays the source of truth for a11y; this is a purely visual layer
+  // that also calls select() as you scroll. Mobile / reduced-motion / no-JS
+  // never enable it, so the plain tabs remain.
+  // ------------------------------------------------------------------
+  function initArcScroll(device, tabs, panels, select) {
+    if (reduceMotion) return;
+    var scroll = device.parentNode;
+    var section = device.closest(".arc");
+    var line = device.querySelector(".arc__curve-line");
+    var trail = device.querySelector(".arc__curve-trail");
+    var runner = device.querySelector(".arc__runner");
+    var panelsWrap = device.querySelector(".arc__panels");
+    if (!scroll || !section || !line || !trail || !runner || !panelsWrap) return;
+    if (typeof line.getPointAtLength !== "function") return;
+
+    var stages = tabs.length;
+    var active = false, ticking = false, curStage = -1, pathLen = 0, panelMinH = 0;
+    var mq = window.matchMedia("(min-width: 721px)");
+
+    function measurePanels() {
+      // Equalise panel heights so the pinned device doesn't jump between stages.
+      var max = 0;
+      panels.forEach(function (p) {
+        var wasHidden = p.hidden; p.hidden = false;
+        max = Math.max(max, p.offsetHeight);
+        p.hidden = wasHidden;
+      });
+      panelMinH = max;
+    }
+
+    function layout() {
+      var vh = window.innerHeight;
+      panelsWrap.style.minHeight = panelMinH + "px";
+      var deviceH = device.offsetHeight;
+      var step = Math.round(vh * 0.55);          // scroll distance per stage
+      scroll.style.height = (deviceH + step * (stages - 1)) + "px";
+      device.style.top = Math.max(84, Math.round((vh - deviceH) / 2)) + "px";
+    }
+
+    function render() {
+      ticking = false;
+      var vh = window.innerHeight;
+      var range = scroll.offsetHeight - vh;
+      var p = range > 0 ? Math.min(1, Math.max(0, -scroll.getBoundingClientRect().top / range)) : 0;
+      var pt = line.getPointAtLength(p * pathLen);
+      runner.setAttribute("cx", pt.x.toFixed(1));
+      runner.setAttribute("cy", pt.y.toFixed(1));
+      trail.style.strokeDashoffset = (1 - p).toFixed(4);
+      var idx = Math.min(stages - 1, Math.floor(p * stages));
+      if (idx !== curStage) { curStage = idx; select(idx, false); }
+    }
+
+    function onScroll() {
+      if (!active || ticking) return;
+      ticking = true;
+      requestAnimationFrame(render);
+    }
+
+    var resizeTimer;
+    function onResize() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () { if (active) { measurePanels(); layout(); render(); } }, 150);
+    }
+
+    function enable() {
+      if (active) return;
+      active = true;
+      section.classList.add("arc--scrolly");
+      pathLen = line.getTotalLength();
+      trail.style.strokeDasharray = "1";
+      trail.style.strokeDashoffset = "1";
+      measurePanels();
+      layout();
+      render();
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onResize, { passive: true });
+    }
+
+    function disable() {
+      if (!active) return;
+      active = false;
+      section.classList.remove("arc--scrolly");
+      device.style.top = "";
+      scroll.style.height = "";
+      panelsWrap.style.minHeight = "";
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+    }
+
+    // Clicking a stage in scroll mode scrolls to it, so the pinned view syncs.
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener("click", function () {
+        if (!active) return;
+        var range = scroll.offsetHeight - window.innerHeight;
+        var target = window.scrollY + scroll.getBoundingClientRect().top + (i / stages) * range + 4;
+        window.scrollTo({ top: target, behavior: "smooth" });
+      });
+    });
+
+    function apply(e) { e.matches ? enable() : disable(); }
+    apply(mq);
+    if (mq.addEventListener) mq.addEventListener("change", apply);
+    else if (mq.addListener) mq.addListener(apply);
   }
 
   // ------------------------------------------------------------------
@@ -440,6 +551,46 @@
     });
   }
 
+  // ------------------------------------------------------------------
+  // Mobile sticky enrollment CTA
+  // Visible only after the hero CTAs scroll away AND before the signup /
+  // footer bands (which carry their own CTA) come into view — so the shortcut
+  // is always reachable without ever duplicating a CTA already on screen.
+  // Pure enhancement: CSS keeps it hidden on desktop and off-screen with no JS.
+  // ------------------------------------------------------------------
+  function initMobileCta() {
+    var bar = document.querySelector("[data-mobile-cta]");
+    var heroCtas = document.querySelector(".hero__ctas");
+    if (!bar || !heroCtas || !("IntersectionObserver" in window)) return;
+
+    var pastHero = false;
+    var endEls = [document.querySelector(".signup"), document.querySelector(".site-footer")].filter(Boolean);
+    var visibleEnds = 0;
+
+    function update() {
+      bar.classList.toggle("is-visible", pastHero && visibleEnds === 0);
+    }
+
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        // Past the hero once its CTAs have scrolled above the viewport top.
+        pastHero = !e.isIntersecting && e.boundingClientRect.top < 0;
+      });
+      update();
+    }, { threshold: 0 }).observe(heroCtas);
+
+    if (endEls.length) {
+      var endObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          visibleEnds += e.isIntersecting ? 1 : -1;
+        });
+        if (visibleEnds < 0) visibleEnds = 0;
+        update();
+      }, { threshold: 0 });
+      endEls.forEach(function (el) { endObserver.observe(el); });
+    }
+  }
+
   ready(function () {
     initTheme();
     initHeader();
@@ -449,5 +600,6 @@
     initArc();
     initChat();
     initWaitlist();
+    initMobileCta();
   });
 }());

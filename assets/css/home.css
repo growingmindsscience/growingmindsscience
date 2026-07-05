@@ -250,6 +250,10 @@ h3 { font-size: var(--text-xl); }
 .btn--block { width: 100%; }
 .btn--lg { min-height: 54px; padding: 1rem 1.8rem; }
 
+/* Mobile-only sticky enrollment CTA — desktop hides it entirely (out of the
+   a11y tree / tab order). Mobile styles + slide-in live in the 720px query. */
+.mobile-cta { display: none; }
+
 /* ---------- Header / nav ---------- */
 .site-header {
   position: sticky;
@@ -578,6 +582,40 @@ h3 { font-size: var(--text-xl); }
   margin-bottom: var(--space-3);
 }
 .arc__cols p { margin: 0; color: var(--ink-soft); }
+
+/* ---------- Growth Arc: scroll-cinematic layer ----------
+   Pure progressive enhancement. home.js adds .arc--scrolly (desktop + motion
+   only) and drives the runner/trail/stage from scroll. Without it — mobile,
+   reduced motion, or no JS — the tablist behaves exactly as before and the
+   coral trail + runner stay hidden. */
+.arc__scroll { position: relative; }
+.arc__curve-trail {
+  stroke: var(--coral);
+  opacity: 0;
+}
+.arc__runner {
+  fill: var(--coral);
+  opacity: 0;
+  filter: drop-shadow(0 0 5px color-mix(in oklab, var(--coral) 60%, transparent));
+}
+
+@media (min-width: 721px) {
+  /* Drop the section's clip so the device can pin to the viewport (an
+     overflow-clipping ancestor would otherwise capture the sticky). Double-class
+     to beat the later base `.arc { overflow: hidden }` at equal specificity. The
+     coral trail replaces the small decorative sprig as the section's accent. */
+  .arc.arc--scrolly { overflow: visible; }
+  .arc--scrolly .arc__decor { display: none; }
+  .arc--scrolly .arc__device {
+    position: sticky;
+    /* `top` is set inline by home.js to vertically centre the device */
+  }
+  .arc--scrolly .arc__curve-trail,
+  .arc--scrolly .arc__runner {
+    opacity: 1;
+    transition: opacity 0.5s var(--ease);
+  }
+}
 
 /* ---------- Flagship class ---------- */
 .class { background: var(--surface); border-block: 1px solid var(--line-soft); }
@@ -1123,6 +1161,25 @@ html.anim .hero__title.is-visible .hl {
 
 @media (max-width: 720px) {
   :root { --header-h: 62px; }
+
+  /* Sticky enrollment shortcut: keeps "See the toddler class" one thumb-tap
+     away once the hero buttons scroll off. Opaque (no glass), safe-area aware. */
+  .mobile-cta {
+    display: block;
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 90;
+    padding: var(--space-3) clamp(1.15rem, 4vw, 2.25rem);
+    padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
+    background: var(--mist);
+    border-top: 1px solid var(--line);
+    box-shadow: 0 -10px 28px -18px rgba(14, 42, 45, 0.35);
+    transform: translateY(130%);
+    transition: transform 340ms var(--ease);
+  }
+  .mobile-cta.is-visible { transform: translateY(0); }
+  .mobile-cta .btn { min-height: 52px; }
+
   .nav-toggle { display: inline-flex; order: 3; }
   .nav { gap: var(--space-2); }
   .nav__list {

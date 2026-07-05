@@ -191,9 +191,12 @@
           <p class="section-head__lede">Each stage has its own logic. Choose one to see what's growing right now, and what actually helps.</p>
         </div>
 
+        <div class="arc__scroll">
         <div class="arc__device" data-arc data-animate>
           <svg class="arc__curve" viewBox="0 0 1000 110" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-            <path d="M10 100 C 220 96, 420 78, 600 50 S 920 14, 990 8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+            <path class="arc__curve-line" d="M10 100 C 220 96, 420 78, 600 50 S 920 14, 990 8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+            <path class="arc__curve-trail" d="M10 100 C 220 96, 420 78, 600 50 S 920 14, 990 8" fill="none" stroke-width="3" stroke-linecap="round" pathLength="1" />
+            <circle class="arc__runner" r="9" aria-hidden="true" />
           </svg>
 
           <div class="arc__tabs" role="tablist" aria-label="Developmental stages, birth to five">
@@ -291,6 +294,7 @@
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </section>
@@ -540,6 +544,14 @@
     </section>
 
   </main>
+
+  <!-- Mobile-only sticky shortcut to enrollment. Slides in once the hero CTAs
+       scroll away and hides again when the signup band / footer (own CTA) is in
+       view, so it's never redundant. JS toggles .is-visible; CSS keeps it
+       display:none on desktop, so it's out of the a11y tree there. -->
+  <div class="mobile-cta" data-mobile-cta>
+    <a class="btn btn--primary btn--block" href="/classes/toddlerhood.html">See the toddler class</a>
+  </div>
 
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
