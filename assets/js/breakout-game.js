@@ -102,23 +102,26 @@
     canvas.height = H;
 
     var reduce = A.prefersReducedMotion();
-    var muted;
-    try { muted = window.localStorage.getItem(MUTE_KEY) === "1"; } catch (e) { muted = false; }
-    if (reduce) muted = true;
+    // Shared juice: crisp shake + hit-stop, and the "Curiosity Chain" rally
+    // multiplier. Audio-mute is deliberately independent of reduced-motion
+    // (a11y: motion-sensitive players still get sound).
+    var camera = A.makeCamera({ reduce: reduce, maxPx: 3 });
+    var combo = A.makeCombo({ window: 150, max: 5 });
 
     var state = "idle"; // idle | running | banner | gameover
     var held = { left: false, right: false };
-    var paddleX, balls, bricks, drops, particles, floaters;
+    var paddleX, balls, bricks, drops, particles, floaters, trail;
     var level, lives, score, calmTimer, wideTimer, bannerText, bannerTimer;
-    var PARTICLE_CAP = 32, FLOATER_CAP = 10;
+    var PARTICLE_CAP = 32, FLOATER_CAP = 10, TRAIL_CAP = 6;
 
     function paddleW() { return wideTimer > 0 ? PADDLE_W * 1.5 : PADDLE_W; }
 
     function resetWorld() {
       level = 1; lives = 3; score = 0;
       calmTimer = 0; wideTimer = 0;
-      particles = particles || []; floaters = floaters || [];
-      particles.length = 0; floaters.length = 0;
+      particles = particles || []; floaters = floaters || []; trail = trail || [];
+      particles.length = 0; floaters.length = 0; trail.length = 0;
+      combo.reset(true);
       drops = [];
       paddleX = W / 2 - PADDLE_W / 2;
       buildLevel();
@@ -144,43 +147,22 @@
       };
     }
 
-    // ---------- Audio ----------
-    var audioCtx = null, masterGain = null;
-    function ensureAudio() {
-      if (muted) return;
-      if (!audioCtx) {
-        var AC = window.AudioContext || window.webkitAudioContext;
-        if (!AC) return;
-        audioCtx = new AC();
-        masterGain = audioCtx.createGain();
-        masterGain.gain.value = 0.09;
-        masterGain.connect(audioCtx.destination);
-      }
-      if (audioCtx.state === "suspended") audioCtx.resume();
-    }
-    function beep(f0, f1, dur, type, vol) {
-      if (muted || !audioCtx) return;
-      var t = audioCtx.currentTime;
-      var o = audioCtx.createOscillator();
-      var g = audioCtx.createGain();
-      o.type = type || "square";
-      o.frequency.setValueAtTime(f0, t);
-      if (f1 && f1 !== f0) o.frequency.exponentialRampToValueAtTime(Math.max(1, f1), t + dur);
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.exponentialRampToValueAtTime(vol || 0.6, t + 0.012);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-      o.connect(g); g.connect(masterGain);
-      o.start(t); o.stop(t + dur + 0.02);
-    }
+    // ---------- Audio (shared GMSArcade synth: compressor + noise + arp) ----------
+    var audio = A.makeSynth({ muteKey: MUTE_KEY });
+    function ensureAudio() { audio.ensure(); }
     var sfx = {
-      paddle: function () { beep(220, 330, 0.05, "square", 0.4); },
-      wall: function () { beep(160, 160, 0.04, "square", 0.3); },
-      brick: function () { beep(520, 700, 0.06, "triangle", 0.45); },
-      crack: function () { beep(320, 240, 0.07, "square", 0.4); },
-      bust: function () { beep(520, 1040, 0.18, "triangle", 0.5); },
-      drop: function () { beep(660, 880, 0.1, "triangle", 0.4); },
-      lose: function () { beep(220, 70, 0.3, "sawtooth", 0.55); },
-      level: function () { beep(523, 784, 0.2, "triangle", 0.5); setTimeout(function () { beep(659, 988, 0.2, "triangle", 0.4); }, 100); }
+      paddle: function () { audio.beep(220, 330, 0.05, "square", 0.4); },
+      wall: function () { audio.beep(160, 160, 0.04, "square", 0.3); },
+      // Rally xylophone: the brick pitch climbs with the curiosity chain
+      // (clamped so a long rally can't drive it painfully high).
+      brick: function (chain) { var c = Math.min(chain || 0, 14); audio.beep(480 + c * 70, 660 + c * 70, 0.06, "triangle", 0.45); },
+      crack: function () { audio.beep(320, 240, 0.07, "square", 0.4); },
+      bust: function (chain) { var c = Math.min(chain || 0, 12); audio.beep(520 + c * 60, 1040 + c * 60, 0.18, "triangle", 0.5); audio.noise(0.14, 1600, 0.28); },
+      drop: function () { audio.beep(660, 880, 0.1, "triangle", 0.4); },
+      lose: function () { audio.beep(220, 70, 0.3, "sawtooth", 0.55); audio.noise(0.3, 900, 0.4); },
+      // Downward cue when the rally is broken on paddle contact.
+      chainBroken: function () { audio.beep(440, 150, 0.16, "square", 0.32); },
+      level: function () { audio.arp([523, 659, 784, 988], 0.09, 0.2, "triangle", 0.46); }
     };
 
     // ---------- Particles / floaters (pooled) ----------
@@ -227,6 +209,8 @@
       if (balls.length) return; // other balls still live
       lives--;
       ensureAudio(); sfx.lose();
+      combo.reset();
+      camera.shake(0.7); camera.freeze(reduce ? 0 : 3);
       calmTimer = 0; wideTimer = 0;
       if (lives <= 0) {
         state = "gameover";
@@ -252,6 +236,16 @@
 
       if (calmTimer > 0) calmTimer -= dt;
       if (wideTimer > 0) wideTimer -= dt;
+      combo.tick(dt);
+
+      // Ball trail — the spark of curiosity. Sample the lead ball each frame.
+      if (!reduce && balls.length) {
+        var lead = balls[0];
+        trail.unshift({ x: lead.x, y: lead.y });
+        if (trail.length > TRAIL_CAP) trail.length = TRAIL_CAP;
+      } else if (trail.length) {
+        trail.length = 0;
+      }
 
       var speedScale = calmTimer > 0 ? 0.65 : 1;
 
@@ -280,7 +274,10 @@
           b.vx = Math.cos(ang) * b.speed;
           b.vy = Math.sin(ang) * b.speed;
           b.y = PADDLE_Y - BALL / 2;
-          ensureAudio(); sfx.paddle();
+          ensureAudio();
+          // Rally broken: the paddle catch resets the curiosity chain.
+          if (combo.active() && combo.count() > 1) { sfx.chainBroken(); } else { sfx.paddle(); }
+          combo.reset();
         }
 
         // bricks
@@ -344,12 +341,24 @@
 
         br.hp--;
         if (br.hp <= 0) {
-          var pts = br.myth ? 50 : 10 + (3 - Math.min(br.r, 3)) * 5;
+          // Curiosity Chain: each destroyed brick extends the rally.
+          var mult = combo.hit();
+          var chain = combo.count();
+          var base = br.myth ? 50 : 10 + (3 - Math.min(br.r, 3)) * 5;
+          var pts = base * mult;
           score += pts;
           spawnBurst(box.x + box.w / 2, box.y + box.h / 2, br.myth ? BRAIN : ROW_COLORS[br.r % ROW_COLORS.length], br.myth ? 12 : 6);
-          spawnFloater(box.x + box.w / 2, box.y, br.myth ? "busted!" : "+" + pts, br.myth ? BRAIN : LEAF_SIDE);
+          spawnFloater(box.x + box.w / 2, box.y,
+            (br.myth ? "busted!" : "+" + pts) + (mult > 1 ? " x" + mult : ""),
+            br.myth ? BRAIN : LEAF_SIDE);
           ensureAudio();
-          if (br.myth) sfx.bust(); else sfx.brick();
+          if (br.myth) {
+            sfx.bust(chain);
+            camera.shake(0.5); camera.freeze(reduce ? 0 : 3);   // busting a myth = a satisfying crunch
+          } else {
+            sfx.brick(chain);
+            camera.shake(0.14);                                  // tiny tap per brick
+          }
           if (Math.random() < (br.myth ? 0.55 : 0.14)) {
             var types = ["calm", "wide", "spark"];
             drops.push({ x: box.x + box.w / 2, y: box.y + box.h / 2, type: types[Math.floor(Math.random() * types.length)] });
@@ -391,6 +400,8 @@
       ctx.setTransform(backingScale, 0, 0, backingScale, 0, 0);
       ctx.imageSmoothingEnabled = false;
       ctx.save();
+      var sh = camera.offset();
+      ctx.translate(sh.x, sh.y);
       ctx.fillStyle = CREAM;
       ctx.fillRect(-4, -4, W + 8, H + 8);
 
@@ -438,9 +449,26 @@
       ctx.fillStyle = BRAIN;
       ctx.fillRect(Math.round(paddleX + pw / 2 - 2), PADDLE_Y + 1, 4, PADDLE_H - 2);
 
+      // ball trail — the spark of curiosity, tinted by the rally: white when
+      // idle, warming to LEAF_SIDE then BRAIN as the chain climbs.
+      var cm = combo.mult();
+      var trailColor = cm >= 4 ? BRAIN : cm >= 2 ? LEAF_SIDE : "#FFFFFF";
+      if (!reduce) {
+        for (var tr = trail.length - 1; tr >= 1; tr--) {
+          var tp = trail[tr];
+          ctx.globalAlpha = clamp((1 - tr / TRAIL_CAP) * 0.5, 0, 1);
+          ctx.fillStyle = trailColor;
+          var ts = tr <= 2 ? 3 : 2;
+          ctx.fillRect(Math.round(tp.x - ts / 2), Math.round(tp.y - ts / 2), ts, ts);
+        }
+        ctx.globalAlpha = 1;
+      }
+
       // balls
       for (var b = 0; b < balls.length; b++) {
-        blockyRect(ctx, balls[b].x - BALL / 2, balls[b].y - BALL / 2, BALL, BALL, calmTimer > 0 ? LEAF_SIDE : "#FFFFFF");
+        var ball = balls[b];
+        if (!reduce) A.pixelGlow(ctx, ball.x, ball.y, 4, calmTimer > 0 ? LEAF_SIDE : trailColor, 0.14);
+        blockyRect(ctx, ball.x - BALL / 2, ball.y - BALL / 2, BALL, BALL, calmTimer > 0 ? LEAF_SIDE : "#FFFFFF");
       }
 
       // particles
@@ -472,6 +500,20 @@
       ctx.font = "7px monospace";
       if (calmTimer > 0) { ctx.fillStyle = LEAF_SIDE; ctx.fillText("CALM", W - 66, 10); }
       if (wideTimer > 0) { ctx.fillStyle = LEAF_TOP; ctx.fillText("WIDE", W - 34, 10); }
+
+      // Curiosity Chain readout — colour escalates LEAF_SIDE -> BRAIN as the
+      // rally grows, with a thin draining bar for the combo window.
+      var chainN = combo.count();
+      if (chainN > 1) {
+        var cMult = combo.mult();
+        var chainColor = cMult >= 4 ? BRAIN : cMult >= 2 ? LEAF_SIDE : LEAF_TOP;
+        ctx.font = "bold 7px monospace"; ctx.textAlign = "center";
+        ctx.fillStyle = chainColor;
+        ctx.fillText("CHAIN x" + cMult + " (" + chainN + ")", W / 2, 10);
+        ctx.fillStyle = "rgba(64,192,153,0.55)";
+        ctx.fillRect(W / 2 - 20, 12, Math.round(40 * combo.frac()), 1);
+        ctx.textAlign = "left";
+      }
 
       // banner
       if (state === "banner" && bannerTimer > 0) {
@@ -506,7 +548,8 @@
     function showEnd(finalScore) {
       updateHud();
       els.promptTitle.textContent = "The wall held — this time";
-      els.promptText.textContent = "Score " + String(finalScore).padStart(5, "0") + " · wall " + level;
+      els.promptText.textContent = "Score " + String(finalScore).padStart(5, "0") + " · wall " + level +
+        (combo.best() > 1 ? " · best chain " + combo.best() : "");
       els.promptActions.textContent = "";
       if (A.leaderboard.qualifies(GAME_KEY, finalScore)) {
         A.mountInitialsEntry(els.promptActions, {
@@ -541,7 +584,8 @@
       if (!lastTime) lastTime = now;
       var dt = Math.min(2.5, (now - lastTime) / (1000 / 60));
       lastTime = now;
-      if (state === "running" || state === "banner") tick(dt);
+      camera.tick(dt);
+      if ((state === "running" || state === "banner") && !camera.frozen()) tick(dt);
       render();
       updateHud();
       rafId = window.requestAnimationFrame(loop);
@@ -575,13 +619,8 @@
         if (state !== "running" && state !== "banner") return;
         paddleX = clamp(lx - paddleW() / 2, 2, W - 2 - paddleW());
       },
-      toggleMute: function () {
-        muted = !muted;
-        try { window.localStorage.setItem(MUTE_KEY, muted ? "1" : "0"); } catch (e) {}
-        if (!muted) ensureAudio();
-        return muted;
-      },
-      isMuted: function () { return muted; },
+      toggleMute: function () { return audio.toggleMute(); },
+      isMuted: function () { return audio.isMuted(); },
       activate: function () {
         resetWorld(); state = "idle"; lastTime = 0;
         updateHud(); showIdle();
@@ -590,7 +629,7 @@
       deactivate: function () {
         if (rafId) window.cancelAnimationFrame(rafId);
         rafId = null;
-        if (audioCtx) { try { audioCtx.close(); } catch (e) {} audioCtx = null; }
+        audio.close();
       }
     };
   }

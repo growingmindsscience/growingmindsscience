@@ -76,7 +76,7 @@
   }
 
   // ---------- Mascot sprite ----------
-  function drawMascot(ctx, x, y, ducking, legState, bloom) {
+  function drawMascot(ctx, x, y, ducking, legState, bloom, squash) {
     x = Math.round(x); y = Math.round(y);
     var brainFill = bloom ? LEAF_TOP : BRAIN;
     if (ducking) {
@@ -89,7 +89,7 @@
       blockyRect(ctx, x + 17, y + 13, 4, 3, INK);
       return;
     }
-    // legs
+    // legs (planted on the ground line, so they don't move with squash)
     if (legState === "tuck") {
       blockyRect(ctx, x + 6, y + 23, 3, 4, INK);
       blockyRect(ctx, x + 13, y + 23, 3, 4, INK);
@@ -98,13 +98,22 @@
       blockyRect(ctx, x + 6, leftUp ? y + 22 : y + 24, 3, 4, INK);
       blockyRect(ctx, x + 13, leftUp ? y + 24 : y + 22, 3, 4, INK);
     }
-    blockyRect(ctx, x + 9, y + 6, 4, 5, INK);          // stem
-    blockyRect(ctx, x + 3, y + 10, 16, 14, brainFill); // brain
+    // Squash & stretch: integer width/height nudges only (never ctx.scale),
+    // bottom-anchored so the feet stay planted. q>0 squashes (landing thud),
+    // q<0 stretches (jump takeoff). Upper parts (stem/leaves) follow the body.
+    var q = squash | 0;
+    var bodyW = 16 + q * 2;
+    var bodyH = 14 - q;
+    var bodyX = x + 11 - Math.round(bodyW / 2);
+    var bodyY = y + 24 - bodyH;
+    var topD = q;
+    blockyRect(ctx, x + 9, y + 6 + topD, 4, 5, INK);        // stem
+    blockyRect(ctx, bodyX, bodyY, bodyW, bodyH, brainFill); // brain
     ctx.fillStyle = INK;
-    ctx.fillRect(x + 10, y + 11, 2, 12);               // midline
-    blockyRect(ctx, x + 9, y, 4, 7, LEAF_TOP);         // top leaf
-    blockyRect(ctx, x + 2, y + 3, 6, 5, LEAF_SIDE);    // side leaves
-    blockyRect(ctx, x + 14, y + 3, 6, 5, LEAF_SIDE);
+    ctx.fillRect(x + 10, bodyY + 1, 2, bodyH - 2);          // midline
+    blockyRect(ctx, x + 9, y + topD, 4, 7, LEAF_TOP);       // top leaf
+    blockyRect(ctx, x + 2, y + 3 + topD, 6, 5, LEAF_SIDE);  // side leaves
+    blockyRect(ctx, x + 14, y + 3 + topD, 6, 5, LEAF_SIDE);
   }
 
   function drawBook(ctx, ob) {
@@ -140,22 +149,28 @@
     canvas.height = H;
 
     var reduce = A.prefersReducedMotion();
-    var muted;
-    try { muted = window.localStorage.getItem(MUTE_KEY) === "1"; } catch (e) { muted = false; }
-    if (reduce) muted = true;
+    // Shared juice: crisp shake + hit-stop, and a gentle dodge-streak
+    // multiplier. Tiny maxPx keeps the shake subtle for a calm kids' game.
+    // Audio-mute is deliberately independent of reduced-motion (a11y:
+    // motion-sensitive players still get sound).
+    var camera = A.makeCamera({ reduce: reduce, maxPx: 2 });
+    var combo = A.makeCombo({ window: 150, max: 5 });
 
-    var state = "idle"; // idle | running | gameover
+    var state = "idle"; // idle | running | dying | gameover
     var player, obstacles, seeds, particles, floaters;
     var speed, score, groundOffset, parX, nextSpawn;
     var coyoteTimer, bufferTimer, chargeFrames, jumpHeld, jumpConsumed, downHeld;
     var legPhase, legTimer;
     var growthSeeds, bloomTimer, shieldArmed, shieldSeedCounter, invulnTimer;
     var chapterIdx, palT, palPrev, scene;
-    var hitstopTimer, flashTimer;
+    var flashTimer;
+    var squashTimer, squashPeak;
+    var deathTimer, deathFlash, dyingScore;
     var milestoneText, milestoneTimer, nextMilestone;
     var blinkTimer;
 
     var PARTICLE_CAP = 28, FLOATER_CAP = 12;
+    var SQUASH_MAX = 8;
 
     function resetWorld() {
       player = { x: 26, top: GROUND_Y - STAND_H, vy: 0, grounded: true, ducking: false };
@@ -173,7 +188,10 @@
       legPhase = 0; legTimer = 0;
       growthSeeds = 0; bloomTimer = 0; shieldArmed = true; shieldSeedCounter = 0; invulnTimer = 0;
       chapterIdx = 0; palT = 1; palPrev = CHAPTERS[0]; scene = sceneColors(CHAPTERS[0], CHAPTERS[0], 1);
-      hitstopTimer = 0; flashTimer = 0;
+      flashTimer = 0;
+      squashTimer = 0; squashPeak = 0;
+      deathTimer = 0; deathFlash = 0; dyingScore = 0;
+      combo.reset(true);
       milestoneText = ""; milestoneTimer = 0; nextMilestone = 250;
       blinkTimer = 0;
     }
@@ -190,43 +208,18 @@
     function currentW() { return player.ducking ? DUCK_W : STAND_W; }
     function currentH() { return player.ducking ? DUCK_H : STAND_H; }
 
-    // ---------- Audio (Web Audio synth, CSP-safe) ----------
-    var audioCtx = null, masterGain = null;
-    function ensureAudio() {
-      if (muted) return;
-      if (!audioCtx) {
-        var AC = window.AudioContext || window.webkitAudioContext;
-        if (!AC) return;
-        audioCtx = new AC();
-        masterGain = audioCtx.createGain();
-        masterGain.gain.value = 0.09;
-        masterGain.connect(audioCtx.destination);
-      }
-      if (audioCtx.state === "suspended") audioCtx.resume();
-    }
-    function beep(f0, f1, dur, type, vol) {
-      if (muted || !audioCtx) return;
-      var t = audioCtx.currentTime;
-      var o = audioCtx.createOscillator();
-      var g = audioCtx.createGain();
-      o.type = type || "square";
-      o.frequency.setValueAtTime(f0, t);
-      if (f1 && f1 !== f0) o.frequency.exponentialRampToValueAtTime(Math.max(1, f1), t + dur);
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.exponentialRampToValueAtTime(vol || 0.6, t + 0.012);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-      o.connect(g); g.connect(masterGain);
-      o.start(t); o.stop(t + dur + 0.02);
-    }
+    // ---------- Audio (shared GMSArcade synth: compressor + noise + arp) ----------
+    var audio = A.makeSynth({ muteKey: MUTE_KEY });
+    function ensureAudio() { audio.ensure(); }
     var sfx = {
-      jump: function () { beep(220, 330, 0.08, "square", 0.5); },
-      land: function () { beep(140, 110, 0.06, "sine", 0.4); },
-      seed: function () { beep(660, 880, 0.05, "triangle", 0.4); },
-      bloom: function () { beep(440, 880, 0.25, "triangle", 0.5); },
-      smash: function () { beep(520, 200, 0.08, "square", 0.4); },
-      shield: function () { beep(300, 120, 0.12, "sawtooth", 0.4); },
-      hit: function () { beep(200, 70, 0.22, "sawtooth", 0.6); },
-      milestone: function () { beep(523, 784, 0.18, "triangle", 0.5); setTimeout(function () { beep(659, 988, 0.18, "triangle", 0.4); }, 90); }
+      jump: function () { audio.beep(220, 330, 0.08, "square", 0.5); },
+      land: function () { audio.beep(150, 110, 0.05, "sine", 0.35); audio.noise(0.09, 500, 0.22); },
+      seed: function () { audio.beep(660, 880, 0.05, "triangle", 0.4); },
+      bloom: function () { audio.arp([440, 660, 880, 1100], 0.05, 0.16, "triangle", 0.45); },
+      smash: function () { audio.beep(520, 200, 0.08, "square", 0.35); audio.noise(0.12, 800, 0.32); },
+      shield: function () { audio.beep(300, 120, 0.12, "sawtooth", 0.4); },
+      hit: function () { audio.beep(200, 70, 0.22, "sawtooth", 0.55); audio.noise(0.28, 700, 0.4); },
+      milestone: function () { audio.arp([523, 659, 784, 1046], 0.07, 0.18, "triangle", 0.45); }
     };
 
     // ---------- Particles / floaters (pooled) ----------
@@ -259,6 +252,7 @@
     }
     function jump() {
       if (state === "idle") { start(); return; }
+      if (state === "dying") return;  // ignore input during the death animation
       if (state === "gameover") {
         if (document.activeElement && document.activeElement.tagName === "INPUT") return;
         restart();
@@ -270,6 +264,7 @@
         jumpConsumed = true;
         chargeFrames = CHARGE_FRAMES;
         coyoteTimer = 0;
+        squashPeak = -2; squashTimer = SQUASH_MAX;   // stretch on takeoff
         ensureAudio(); sfx.jump();
       } else if (!player.grounded) {
         bufferTimer = BUFFER;
@@ -288,9 +283,36 @@
     function restart() { resetWorld(); state = "running"; hidePrompt(); }
 
     function gameOver() {
-      state = "gameover";
+      combo.reset();
       ensureAudio(); sfx.hit();
-      showGameOver(Math.floor(score));
+      dyingScore = Math.floor(score);
+      camera.shake(0.9); camera.freeze(reduce ? 0 : 6);
+      // Reduced-motion players skip the shatter and go straight to the card.
+      if (reduce) { finalizeGameOver(); return; }
+      state = "dying";
+      deathTimer = 30; deathFlash = 6;
+      spawnShatter(player.x + 11, player.top + 14);
+    }
+    function finalizeGameOver() {
+      state = "gameover";
+      showGameOver(dyingScore);
+    }
+    // Burst the mascot into ~13 blocky leaf/brain/warm fragments.
+    function spawnShatter(cx, cy) {
+      var cols = [LEAF_TOP, LEAF_SIDE, BRAIN, INK, WARM];
+      for (var i = 0; i < 13; i++) {
+        var a = Math.random() * Math.PI * 2, sp = 0.8 + Math.random() * 1.8;
+        spawnParticle(cx + (Math.random() * 10 - 5), cy + (Math.random() * 14 - 7),
+          Math.cos(a) * sp, Math.sin(a) * sp - 1.0, 16 + Math.random() * 10, cols[i % cols.length], 3);
+      }
+    }
+    // Always-decrementing death animation (driven from the loop, since tick()'s
+    // world-stepping is gated on state === "running").
+    function tickDeath(dt) {
+      if (deathFlash > 0) deathFlash -= dt;
+      deathTimer -= dt;
+      updateParticles(dt);
+      if (deathTimer <= 0) finalizeGameOver();
     }
 
     // ---------- Spawning ----------
@@ -369,8 +391,22 @@
     function overlap(a, b) { return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y; }
 
     // ---------- Update ----------
+    function updateParticles(dt) {
+      for (var p = 0; p < particles.length; p++) {
+        var pt = particles[p];
+        if (pt.life <= 0) continue;
+        pt.x += pt.vx * dt; pt.y += pt.vy * dt; pt.vy += 0.12 * dt; pt.life -= dt;
+      }
+      for (var f = 0; f < floaters.length; f++) {
+        var fl = floaters[f];
+        if (fl.life <= 0) continue;
+        fl.y -= 0.35 * dt; fl.life -= dt;
+      }
+    }
+
     function tick(dt) {
-      if (hitstopTimer > 0) { hitstopTimer -= dt; return; }
+      if (state === "dying") { tickDeath(dt); return; }
+      combo.tick(dt);
 
       // Chapter + speed + palette
       var ci = 0;
@@ -408,6 +444,7 @@
       if (coyoteTimer > 0) coyoteTimer -= dt;
       if (bufferTimer > 0) bufferTimer -= dt;
       if (flashTimer > 0) flashTimer -= dt;
+      if (squashTimer > 0) squashTimer -= dt;
       if (milestoneTimer > 0) milestoneTimer -= dt;
       blinkTimer += dt;
 
@@ -422,6 +459,7 @@
           player.vy = 0;
           player.grounded = true;
           jumpConsumed = false;
+          squashPeak = 2; squashTimer = SQUASH_MAX;   // squash on the landing thud
           if (!reduce) for (var d = 0; d < 4; d++) spawnParticle(player.x + 4 + d * 3, GROUND_Y - 1, (Math.random() - 0.5) * 1.2, -Math.random() * 0.8, 10, WARM, 2);
           ensureAudio(); sfx.land();
           if (bufferTimer > 0) { bufferTimer = 0; jump(); }
@@ -446,7 +484,14 @@
         ob.x -= speed * dt;
         if (ob.type === "toy") ob.y = ob.baseY + Math.sin((ob.seed + ob.x) * 0.05) * 3;
         if (ob.x + ob.w < -12) { obstacles.splice(i, 1); continue; }
-        if (!ob.scored && ob.x + ob.w < player.x) { ob.scored = true; }
+        if (!ob.scored && ob.x + ob.w < player.x) {
+          // Dodge streak: cleanly clearing an obstacle extends the chain and
+          // adds a small (gentle) multiplied bonus. A hit resets it.
+          ob.scored = true;
+          var dm = combo.hit();
+          score += dm;
+          if (dm > 1) spawnFloater(player.x + 22, player.top + 4, "x" + dm, LEAF_SIDE);
+        }
         if (overlap(box, obstacleHitbox(ob))) handleHit(ob, i);
       }
 
@@ -463,7 +508,7 @@
           spawnBurst(sd.x, sd.y, LEAF_TOP, 5);
           spawnFloater(sd.x, sd.y - 4, "+20", LEAF_SIDE);
           ensureAudio(); sfx.seed();
-          if (growthSeeds >= 12) { growthSeeds = 0; bloomTimer = 300; spawnBurst(player.x + 11, player.top + 14, BRAIN, 10); ensureAudio(); sfx.bloom(); }
+          if (growthSeeds >= 12) { growthSeeds = 0; bloomTimer = 300; spawnBurst(player.x + 11, player.top + 14, BRAIN, 10); camera.freeze(reduce ? 0 : 4); camera.shake(0.2); ensureAudio(); sfx.bloom(); }
           if (!shieldArmed && shieldSeedCounter >= 15) { shieldArmed = true; shieldSeedCounter = 0; }
         }
       }
@@ -473,16 +518,7 @@
       parX = (parX + speed * dt);
 
       // Particles / floaters
-      for (var p = 0; p < particles.length; p++) {
-        var pt = particles[p];
-        if (pt.life <= 0) continue;
-        pt.x += pt.vx * dt; pt.y += pt.vy * dt; pt.vy += 0.12 * dt; pt.life -= dt;
-      }
-      for (var f = 0; f < floaters.length; f++) {
-        var fl = floaters[f];
-        if (fl.life <= 0) continue;
-        fl.y -= 0.35 * dt; fl.life -= dt;
-      }
+      updateParticles(dt);
     }
 
     function handleHit(ob, i) {
@@ -491,14 +527,17 @@
         score += 10;
         spawnBurst(ob.x + 8, (ob.type === "book" ? GROUND_Y - ob.h / 2 : ob.y + 4), BOOK_COLORS[Math.floor(Math.random() * 4)], 8);
         spawnFloater(ob.x + 4, GROUND_Y - 40, "+10", BRAIN);
+        camera.freeze(reduce ? 0 : 2); camera.shake(0.12);   // smash crunch
         ensureAudio(); sfx.smash();
         return;
       }
       if (invulnTimer > 0) return;
       if (shieldArmed) {
         shieldArmed = false; invulnTimer = 60; growthSeeds = 0; shieldSeedCounter = 0;
+        combo.reset();
         spawnBurst(player.x + 11, player.top + 12, LEAF_TOP, 6);
         if (!reduce) flashTimer = 4;
+        camera.freeze(reduce ? 0 : 4); camera.shake(0.25);   // shield-break jolt
         ensureAudio(); sfx.shield();
         return;
       }
@@ -508,6 +547,7 @@
     function triggerMilestone(text) {
       milestoneText = text;
       milestoneTimer = 90;
+      camera.shake(0.2);   // gentle celebratory nudge (auto-zeroes under reduced motion)
       ensureAudio(); sfx.milestone();
     }
 
@@ -516,6 +556,8 @@
       ctx.setTransform(backingScale, 0, 0, backingScale, 0, 0);
       ctx.imageSmoothingEnabled = false;
       ctx.save();
+      var sh = camera.offset();
+      ctx.translate(sh.x, sh.y);
 
       // Sky
       ctx.fillStyle = scene.bg;
@@ -559,6 +601,7 @@
       // Seeds
       for (var s = 0; s < seeds.length; s++) {
         var sd = seeds[s];
+        if (!reduce) A.pixelGlow(ctx, sd.x, sd.y, 3, LEAF_TOP, 0.14);
         blockyRect(ctx, sd.x - 1, sd.y - 1, 3, 3, LEAF_SIDE);
         var gx2 = sd.x + Math.round(Math.cos(sd.glint) * 2);
         var gy2 = sd.y + Math.round(Math.sin(sd.glint) * 2);
@@ -576,9 +619,15 @@
       // Mascot — drawn crisp at integer positions (no scale transform, so it
       // never looks fuzzy or jittery). Blinks briefly only during invuln.
       var blink = invulnTimer > 0 && (Math.floor(blinkTimer / 3) % 2 === 0);
-      if (!blink) {
+      if (!blink && state !== "dying") {
         var ls = player.grounded ? legPhase : "tuck";
-        drawMascot(ctx, player.x, player.top, player.ducking, ls, bloomTimer > 0);
+        var q = (!reduce && squashTimer > 0) ? Math.round(squashPeak * (squashTimer / SQUASH_MAX)) : 0;
+        // Subtle warm living aura (brighter mid-bloom). Crisp pixel bloom only.
+        if (!reduce) {
+          var acx = player.x + 11, acy = player.top + Math.round(currentH() / 2);
+          A.pixelGlow(ctx, acx, acy, bloomTimer > 0 ? 13 : 10, bloomTimer > 0 ? BRAIN : WARM, bloomTimer > 0 ? 0.12 : 0.07);
+        }
+        drawMascot(ctx, player.x, player.top, player.ducking, ls, bloomTimer > 0, q);
         // Shield aura
         if (shieldArmed && !player.ducking) {
           ctx.strokeStyle = "rgba(64,192,153,0.7)"; ctx.lineWidth = 1;
@@ -618,6 +667,17 @@
       ctx.fillStyle = "rgba(14,42,45,0.25)"; ctx.fillRect(6, 6, meterW, 4);
       ctx.fillStyle = bloomTimer > 0 ? BRAIN : LEAF_TOP; ctx.fillRect(6, 6, fillW, 4);
 
+      // Dodge-streak multiplier (top-right) with a thin draining window bar.
+      var cm = combo.mult();
+      if (cm > 1) {
+        ctx.font = "bold 8px monospace"; ctx.textAlign = "right";
+        ctx.fillStyle = cm >= 4 ? BRAIN : LEAF_SIDE;
+        ctx.fillText("x" + cm, W - 6, 12);
+        ctx.fillStyle = "rgba(64,192,153,0.5)";
+        ctx.fillRect(W - 26, 15, Math.round(20 * combo.frac()), 1);
+        ctx.textAlign = "left";
+      }
+
       // Bloom vignette
       if (bloomTimer > 0) {
         ctx.strokeStyle = "rgba(159,203,67,0.5)"; ctx.lineWidth = 3;
@@ -632,9 +692,16 @@
         ctx.globalAlpha = 1; ctx.textAlign = "left";
       }
 
-      // Gentle shield-break flash (soft, brief — no screen shake).
+      // Gentle shield-break flash (soft, brief).
       if (flashTimer > 0) {
         ctx.globalAlpha = clamp(flashTimer / 4, 0, 1) * 0.22;
+        ctx.fillStyle = "#FFF8E7"; ctx.fillRect(-4, -4, W + 8, H + 8);
+        ctx.globalAlpha = 1;
+      }
+
+      // Death shatter cream flash (brief, brighter pop as the mascot bursts).
+      if (deathFlash > 0) {
+        ctx.globalAlpha = clamp(deathFlash / 6, 0, 1) * 0.55;
         ctx.fillStyle = "#FFF8E7"; ctx.fillRect(-4, -4, W + 8, H + 8);
         ctx.globalAlpha = 1;
       }
@@ -665,7 +732,8 @@
     function showGameOver(finalScore) {
       updateScoreHud();
       els.promptTitle.textContent = "Game over";
-      els.promptText.textContent = "Score " + String(finalScore).padStart(5, "0");
+      els.promptText.textContent = "Score " + String(finalScore).padStart(5, "0") +
+        (combo.best() > 1 ? " · best dodge streak " + combo.best() : "");
       els.promptActions.textContent = "";
       if (A.leaderboard.qualifies(GAME_KEY, finalScore)) {
         A.mountInitialsEntry(els.promptActions, {
@@ -701,7 +769,8 @@
       if (!lastTime) lastTime = now;
       var dt = Math.min(2.5, (now - lastTime) / (1000 / 60));
       lastTime = now;
-      if (state === "running") tick(dt);
+      camera.tick(dt);
+      if ((state === "running" || state === "dying") && !camera.frozen()) tick(dt);
       render();
       updateScoreHud();
       rafId = window.requestAnimationFrame(loop);
@@ -724,13 +793,8 @@
         canvas.style.height = Math.round(cssH) + "px";
         backingScale = nextW / W;
       },
-      toggleMute: function () {
-        muted = !muted;
-        try { window.localStorage.setItem(MUTE_KEY, muted ? "1" : "0"); } catch (e) {}
-        if (!muted) ensureAudio();
-        return muted;
-      },
-      isMuted: function () { return muted; },
+      toggleMute: function () { return audio.toggleMute(); },
+      isMuted: function () { return audio.isMuted(); },
       activate: function () {
         resetWorld(); state = "idle"; lastTime = 0;
         updateScoreHud(); showIdle();
@@ -739,7 +803,7 @@
       deactivate: function () {
         if (rafId) window.cancelAnimationFrame(rafId);
         rafId = null;
-        if (audioCtx) { try { audioCtx.close(); } catch (e) {} audioCtx = null; }
+        audio.close();
       }
     };
   }
