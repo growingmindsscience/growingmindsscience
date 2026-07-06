@@ -9,3 +9,9 @@
 .env
 .env.*
 !.env.example
+
+# Node artifacts — only used locally for the tools smoke test (playwright-core).
+# Kept out of the repo so this static site has no package.json for Vercel to build.
+node_modules/
+package.json
+package-lock.json

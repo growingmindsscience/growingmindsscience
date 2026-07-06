@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />
   <link rel="stylesheet" href="../assets/css/styles.css" />
   <link rel="stylesheet" href="../assets/css/refresh.css" />
+  <link rel="stylesheet" href="../assets/css/tools.css" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -71,7 +72,7 @@
           <div class="library-intro" aria-label="Library status" data-animate>
             <div>
               <span class="library-intro__label">In the library</span>
-              <strong>11 free parent tools</strong>
+              <strong>12 free parent tools</strong>
             </div>
             <div>
               <span class="library-intro__label">Building next</span>
@@ -80,6 +81,7 @@
           </div>
 
           <ul class="topic-nav" aria-label="Topic shortcuts">
+            <li><a href="/tools/right-now">It's hard right now</a></li>
             <li><a href="#milestone-tracker">Milestone tracker</a></li>
             <li><a href="#growing-minds-ai">Growing Minds AI</a></li>
             <li><a href="#behavior">Behavior</a></li>
@@ -93,6 +95,26 @@
                alt="An abstract illustration of parent reference cards, milestone paths, and developmental tools."
                width="900" height="680" loading="eager" fetchpriority="high" decoding="async" />
         </figure>
+      </div>
+    </section>
+
+    <!-- CHILD PROFILE (local only, optional) -->
+    <section style="padding-top: 0;">
+      <div class="container">
+        <div data-gms-profile></div>
+      </div>
+    </section>
+
+    <!-- IT'S HARD RIGHT NOW — quick entry -->
+    <section style="padding-top: 0;">
+      <div class="container">
+        <a class="rn-entry" href="/tools/right-now">
+          <span class="rn-entry__text">
+            <strong>Having a hard moment?</strong>
+            A calm, one-tap guide for meltdowns, limits, sleep, or losing your patience — no reading required.
+          </span>
+          <span class="rn-entry__cta">Open →</span>
+        </a>
       </div>
     </section>
 
@@ -186,14 +208,14 @@
             <h2>Behavior</h2>
             <span class="topic-section__count">Guides · available now</span>
           </div>
-          <div class="tool-grid" data-stagger>
-            <article class="tool-card" data-animate>
+          <div class="tool-grid" data-stagger data-gms-tool-list>
+            <article class="tool-card" data-animate data-age-min="12" data-age-max="36">
               <span class="tool-card__eyebrow">Toddler · 1–3</span>
               <h3 class="tool-card__title">What's underneath the meltdown</h3>
               <p class="tool-card__desc">A short reference that translates a tantrum from "bad behavior" into a nervous-system event, plus what kinds of responses the research supports.</p>
               <p class="tool-card__cta"><a class="btn btn--primary" href="/tools/whats-underneath-the-meltdown">Open tool</a></p>
             </article>
-            <article class="tool-card" data-animate>
+            <article class="tool-card" data-animate data-age-min="12" data-age-max="60">
               <span class="tool-card__eyebrow">Toddler &amp; Preschool</span>
               <h3 class="tool-card__title">Limits without escalation</h3>
               <p class="tool-card__desc">Holding a "no" calmly when a child is testing autonomy, without scripts and without losing your own footing.</p>
@@ -214,14 +236,14 @@
             <h2>Sleep</h2>
             <span class="topic-section__count">Guides · available now</span>
           </div>
-          <div class="tool-grid" data-stagger>
-            <article class="tool-card" data-animate>
+          <div class="tool-grid" data-stagger data-gms-tool-list>
+            <article class="tool-card" data-animate data-age-min="0" data-age-max="12">
               <span class="tool-card__eyebrow">Infant · 0–12 mo</span>
               <h3 class="tool-card__title">What's typical, by stage</h3>
               <p class="tool-card__desc">A calm look at sleep development across the first year: what's typical, what varies, and what the research can and can't tell us.</p>
               <p class="tool-card__cta"><a class="btn btn--primary" href="/tools/whats-typical-by-stage">Open tool</a></p>
             </article>
-            <article class="tool-card" data-animate>
+            <article class="tool-card" data-animate data-age-min="12" data-age-max="36">
               <span class="tool-card__eyebrow">Toddler · 1–3</span>
               <h3 class="tool-card__title">Routines, transitions, and night-waking</h3>
               <p class="tool-card__desc">Why toddler sleep changes, what routines help, and how to read night-waking without panic.</p>
@@ -236,14 +258,14 @@
             <h2>Screen time</h2>
             <span class="topic-section__count">Guides · available now</span>
           </div>
-          <div class="tool-grid" data-stagger>
+          <div class="tool-grid" data-stagger data-gms-tool-list>
             <article class="tool-card" data-animate>
               <span class="tool-card__eyebrow">Any age</span>
               <h3 class="tool-card__title">Beyond "less is better"</h3>
               <p class="tool-card__desc">Plain-language guidance grounded in current research: context, content, and the difference between background TV and shared viewing.</p>
               <p class="tool-card__cta"><a class="btn btn--primary" href="/tools/beyond-less-is-better">Open tool</a></p>
             </article>
-            <article class="tool-card" data-animate>
+            <article class="tool-card" data-animate data-age-min="12" data-age-max="60">
               <span class="tool-card__eyebrow">Toddler &amp; Preschool</span>
               <h3 class="tool-card__title">Screens, language, and attention</h3>
               <p class="tool-card__desc">What the research suggests about how different kinds of screen use interact with language and attention in the early years.</p>
@@ -258,8 +280,8 @@
             <h2>Regulation</h2>
             <span class="topic-section__count">Tools · available now</span>
           </div>
-          <div class="tool-grid" data-stagger>
-            <article class="tool-card" data-animate>
+          <div class="tool-grid" data-stagger data-gms-tool-list>
+            <article class="tool-card" data-animate data-age-min="12" data-age-max="36">
               <span class="tool-card__eyebrow">Toddler · 1–3</span>
               <h3 class="tool-card__title">A nervous-system primer for parents</h3>
               <p class="tool-card__desc">A short reference that explains co-regulation in plain language: what it actually is, and why it matters more than scripts.</p>
@@ -274,6 +296,17 @@
           </div>
         </div>
 
+      </div>
+    </section>
+
+    <!-- SAVED FOR YOU (local shelf) -->
+    <section>
+      <div class="container">
+        <div class="topic-section__head" data-animate>
+          <h2>Saved for you</h2>
+          <span class="topic-section__count">Private · this browser only</span>
+        </div>
+        <div data-gms-shelf></div>
       </div>
     </section>
 
@@ -809,6 +842,7 @@
   </script>
 
   <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/gms-tools.js" defer></script>
   <script src="../assets/js/decor.js" defer></script>
   <script src="../assets/js/animate.js" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>

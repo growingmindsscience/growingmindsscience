@@ -43,6 +43,10 @@
 /tools/regulating-yourself-first   /tools/regulating-yourself-first.html  200
 /tools/regulating-yourself-first/  /tools/regulating-yourself-first.html  200
 
+# Pretty URL for the "it's hard right now" router page.
+/tools/right-now   /tools/right-now.html  200
+/tools/right-now/  /tools/right-now.html  200
+
 # Pretty URL for the Growing Minds AI product page.
 /tools/growing-minds-ai   /tools/growing-minds-ai.html  200
 /tools/growing-minds-ai/  /tools/growing-minds-ai.html  200

@@ -1293,6 +1293,16 @@
       history.replaceState(null, '', window.location.pathname);
     }
 
+    // Seed a question from ?q= (e.g. an "Ask about this" link from a tool or the
+    // right-now guide). Prefill only — never auto-send — so the free-question
+    // limit is respected and the parent can edit before asking.
+    const seededQuestion = urlParams.get('q');
+    if (seededQuestion) {
+      inputEl.value = seededQuestion.slice(0, 500);
+      inputEl.dispatchEvent(new Event('input'));
+      history.replaceState(null, '', window.location.pathname);
+    }
+
     /* ── Token auto-refresh ───────────────────────────── */
     async function maybeRefreshToken() {
       if (!subscriberToken) return;

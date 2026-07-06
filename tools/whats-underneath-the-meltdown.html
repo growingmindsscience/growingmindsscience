@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />
   <link rel="stylesheet" href="../assets/css/styles.css" />
   <link rel="stylesheet" href="../assets/css/refresh.css" />
+  <link rel="stylesheet" href="../assets/css/tools.css" />
 
   <style>
     .tool-hero { padding: clamp(3rem, 6vw, 5rem) 0 2rem; }
@@ -304,7 +305,22 @@
             <li>You can hold a boundary and still allow the feeling.</li>
             <li>After recovery, repair briefly and teach one small next step.</li>
           </ul>
+          <p style="margin: var(--space-5) 0 0;">
+            <button type="button" class="btn btn--ghost" data-print-card>Print pocket card</button>
+          </p>
         </div>
+      </div>
+
+      <!-- Printable pocket card (screen-hidden; shown only when printing) -->
+      <div class="pocket-card" aria-hidden="true">
+        <h2>Meltdown: the 3-step sequence</h2>
+        <ul class="pocket-seq">
+          <li>1. Make it safe — block harm, move breakable things, lower the audience.</li>
+          <li>2. Regulate first — lower your voice, slow your body, fewer words, stay close.</li>
+          <li>3. Teach after recovery — briefly name what happened and one next step.</li>
+        </ul>
+        <div class="pocket-try">Try saying: “I'm here. You're safe. We can wait.”</div>
+        <p class="pocket-foot">Growing Minds Science · growingmindsscience.com</p>
       </div>
     </section>
 
@@ -390,22 +406,8 @@
   </footer>
 
   <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/gms-tools.js" defer></script>
   <script src="../assets/js/decor.js" defer></script>
-  <script>
-    (function(){
-      var decoderButtons = document.querySelectorAll('.decoder-btn');
-      var outputs = document.querySelectorAll('.decoder-output');
-      decoderButtons.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          var key = btn.dataset.pattern;
-          decoderButtons.forEach(function(b) { b.classList.remove('is-active'); b.setAttribute('aria-pressed', 'false'); });
-          btn.classList.add('is-active');
-          btn.setAttribute('aria-pressed', 'true');
-          outputs.forEach(function(o) { o.hidden = o.dataset.output !== key; });
-        });
-      });
-    })();
-  </script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
