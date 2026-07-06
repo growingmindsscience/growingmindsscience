@@ -184,5 +184,28 @@ function updateProgress(){var total=DATA.milestones.length,d=0,by={};DATA.domain
 function init(){el('ageFilter').innerHTML=['All'].concat(DATA.ageBands).map(function(a){return '<option>'+esc(a)+'</option>'}).join('');el('domainFilter').innerHTML=['All'].concat(DATA.domains).map(function(d){return '<option>'+esc(d)+'</option>'}).join('');el('ageTabs').innerHTML=['All'].concat(DATA.ageBands).map(function(a,i){return '<button type="button" role="tab" aria-selected="'+(i===0?'true':'false')+'" data-age="'+esc(a)+'">'+esc(a)+'</button>'}).join('');el('search').addEventListener('input',function(e){state.q=e.target.value;render()});el('ageFilter').addEventListener('change',function(e){state.age=e.target.value;render()});el('domainFilter').addEventListener('change',function(e){state.domain=e.target.value;render()});el('ageTabs').addEventListener('click',function(e){if(e.target.matches('[role="tab"]')){state.age=e.target.dataset.age;el('ageFilter').value=state.age;render()}});el('ageTabs').addEventListener('keydown',function(e){var tabs=Array.prototype.slice.call(el('ageTabs').querySelectorAll('[role="tab"]'));var idx=tabs.indexOf(document.activeElement);if(idx===-1)return;if(e.key==='ArrowRight'||e.key==='ArrowDown'){e.preventDefault();tabs[(idx+1)%tabs.length].focus();}else if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();tabs[(idx-1+tabs.length)%tabs.length].focus();}else if(e.key==='Home'){e.preventDefault();tabs[0].focus();}else if(e.key==='End'){e.preventDefault();tabs[tabs.length-1].focus();}});el('resetBtn').addEventListener('click',function(){state={q:'',age:'All',domain:'All'};el('search').value='';el('ageFilter').value='All';el('domainFilter').value='All';render()});el('cards').addEventListener('click',function(e){var b=e.target.closest('[data-check]');if(!b)return;var id=b.getAttribute('data-check');toggleDone(id);var on=isDone(id);b.setAttribute('aria-pressed',String(on));var lab=b.querySelector('.mark-label');if(lab)lab.textContent=on?'Noticed':'Mark as noticed';var art=b.closest('.card');if(art)art.classList.toggle('card--done',on);updateProgress()});var rst=document.querySelector('[data-progress-reset]');if(rst){rst.addEventListener('click',function(){if(!window.confirm('Clear every milestone you have marked as noticed? This only affects this device.'))return;done={};saveDone();render()})}var pp=document.querySelector('[data-progress]');if(pp)pp.hidden=false;render()}
 init();
 </script>
+<script src="assets/js/gms-tools.js" defer></script>
+<script>
+/* Auto-open the tracker to the active child's stage (from the local profile or a
+   #band= hash), reusing the existing #ageFilter change wiring. Never overrides a
+   manual choice, and only applies a band the tracker actually offers. */
+(function () {
+  function apply() {
+    var sel = document.getElementById('ageFilter');
+    if (!sel || sel.value !== 'All') return;
+    var band = null;
+    var m = /band=([^&]+)/.exec(window.location.hash + window.location.search);
+    if (m) { try { band = decodeURIComponent(m[1]); } catch (e) { band = m[1]; } }
+    if (!band && window.GMS && GMS.profile) { var b = GMS.profile.ageBand(); if (b) band = b.band; }
+    if (!band) return;
+    var ok = Array.prototype.some.call(sel.options, function (o) { return o.value === band; });
+    if (!ok) return;
+    sel.value = band;
+    sel.dispatchEvent(new Event('change'));
+  }
+  if (document.readyState !== 'loading') apply();
+  else document.addEventListener('DOMContentLoaded', apply);
+})();
+</script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body></html>

@@ -183,6 +183,60 @@ Vite, hashed bundles, or a `milestones/assets/` folder. This avoids Netlify
 manual-deploy edge cases where subdirectory app assets can be served as HTML
 (which previously caused infinite reload loops).
 
+## Parent-tools engagement layer
+
+A small shared layer makes the tools meet a parent in the moment and remember
+their context — with no account, no build step, and no growth-hacking mechanics
+(deliberately no streaks, badges, or notifications, per `PRODUCT.md`).
+
+Shared files:
+
+- `assets/js/gms-tools.js` — a single `window.GMS` namespace: a local child
+  profile, a saved "shelf", the decoder enhancer, `speechSynthesis` narration,
+  a print helper, and the age-aware hub reordering. It mirrors the
+  `main.js` safe-storage pattern (localStorage with an in-memory fallback) and
+  namespaces its keys `gms-*`.
+- `assets/css/tools.css` — styles for the decoder widget, profile chip/editor,
+  shelf, Save/Listen/Ask action row, the right-now page, and the print pocket
+  card. Built on existing tokens, so light/dark and reduced-motion come for free.
+
+Local storage keys (device-only, never sent to any server):
+
+- `gms-child-v1` — `{activeId, children:[{id, name, birthdate|null, band|null}]}`.
+  A child has a birthdate (primary) **or** an age band (fallback). Age maps to
+  the same seven bands as the milestone tracker.
+- `gms-shelf-v1` — `{items:[{id, key, toolSlug, toolTitle, toolUrl, title, body,
+  tryLine, savedAt}]}` for the "Saved for you" shelf.
+
+Features:
+
+- **Child profile** (`tools/index.html`): an optional, local profile. When set,
+  age-relevant tool cards float to the front of their grid (`data-age-min` /
+  `data-age-max` in months on each `.tool-card`), and the milestone tracker
+  auto-opens to the child's band (via `#band=` hash or the profile).
+- **It's hard right now** (`tools/right-now.html`, pretty URL `/tools/right-now`):
+  a calm, one-tap crisis guide. Situation → short answer data lives in the page's
+  `#router-data` JSON. Each answer offers Save / Listen / Ask about this / Print.
+- **Decoders**: five pages share the `gms-tools.js` toggle enhancer; the three
+  variant choosers (`.scenario-*`, `.stage-*`, `.pattern-*`) keep their own
+  toggle but receive the Save/Listen/Ask action row. All output articles are
+  saveable and narratable.
+- **Saved shelf**: "Save this" persists a card to `gms-shelf-v1`; the hub renders
+  it under "Saved for you".
+- **Print pocket card**: `GMS.printCard()` (wired to `[data-print-card]`) prints
+  only the `.pocket-card` block by toggling `body.printing-pocket`, leaving normal
+  Ctrl+P untouched.
+- **Growing Minds AI prefill**: `/tools/growing-minds-ai?q=<question>` prefills
+  the chat box (prefill only — it never auto-sends, so the free-question limit is
+  respected). "Ask about this" links use `GMS.askUrl()`, which prepends a coarse
+  age phrase (never the name or birthdate) when a profile exists.
+
+Smoke test: `npm i -D playwright-core` once, then `node scripts/smoke-tools.mjs`.
+It serves the repo and drives Chromium through the profile, reorder, milestones
+deep-link, all three decoder variants, the right-now router, the shelf, the print
+card, and the AI prefill. The npm artifacts are gitignored so the static site
+carries no `package.json`.
+
 ## Accessibility notes
 
 - Skip link, semantic landmarks, single `<h1>` per page.
