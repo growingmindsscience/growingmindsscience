@@ -109,8 +109,13 @@
     // chain multiplier. Audio-mute is independent of reduced-motion (a11y).
     var camera = A.makeCamera({ reduce: reduce, maxPx: 4 });
     var combo = A.makeCombo({ window: 90, max: 5 });
+    // Mobile: wake lock holds the screen on during play; the hidden-tab hook
+    // pauses a live run instead of burning it. Bound in activate()/deactivate().
+    var wake = A.makeWakeLock();
+    var offHidden = null;
 
-    var state = "idle"; // idle | running | banner | won | gameover
+    var state = "idle"; // idle | running | banner | paused | won | gameover
+    var pausedFrom = "running"; // state to restore on resume (running | banner)
     var held = { left: false, right: false, fire: false };
 
     var ship, sparks, enemies, bolts, shields, particles, floaters, capsules, ufo, boss;
@@ -194,6 +199,17 @@
       warn: function () { audio.beep(330, 200, 0.18, "sawtooth", 0.4); }
     };
 
+    // Haptics live on the game events (not the input layer) so keyboard runs
+    // buzz too. Kill pops are rate-capped: a chained streak must read as
+    // separate pops, never one long vibration.
+    var lastPopAt = 0;
+    function killBuzz() {
+      var t = Date.now();
+      if (t - lastPopAt < 80) return;
+      lastPopAt = t;
+      A.haptics.pop();
+    }
+
     // ---------- Particles / floaters ----------
     function spawnParticle(x, y, vx, vy, life, color) {
       if (reduce) return;
@@ -235,6 +251,7 @@
     function loseLife() {
       lives--;
       ensureAudio(); sfx.hit();
+      A.haptics.crash();
       combo.reset();
       camera.shake(0.85); camera.freeze(reduce ? 0 : 5);
       if (lives <= 0) { endGame(false); return; }
@@ -248,9 +265,26 @@
         var cells = 0; for (var i = 0; i < shields.length; i++) for (var gy = 0; gy < shields[i].rows; gy++) for (var gx = 0; gx < shields[i].cols; gx++) cells += shields[i].grid[gy][gx];
         score += cells * 2;
         ensureAudio(); sfx.win();
+        A.haptics.win();
       }
       state = won ? "won" : "gameover";
       showEnd(won, Math.floor(score));
+    }
+
+    // Pause survives hidden tabs: only a live run pauses, and everything the
+    // player was holding is dropped (keyups are lost while hidden).
+    function pauseGame() {
+      if (state !== "running" && state !== "banner") return;
+      pausedFrom = state;
+      state = "paused";
+      held.left = false; held.right = false; held.fire = false;
+      showPaused();
+    }
+    function resumeGame() {
+      if (state !== "paused") return;
+      state = pausedFrom;
+      hidePrompt();
+      lastTime = 0; // time spent paused must not land as one huge dt
     }
 
     // ---------- Update ----------
@@ -330,7 +364,7 @@
       // Crib-line warning + lose check
       var lowest = lowestEnemyBottom();
       if (lowest >= WARN_Y && warnTimer <= 0) { warnTimer = 40; ensureAudio(); sfx.warn(); }
-      if (lowest >= CRIB_Y) { endGame(false); return; }
+      if (lowest >= CRIB_Y) { A.haptics.crash(); endGame(false); return; }
 
       // Wave clear
       if (aliveCount <= 0 && (!boss || boss.hp <= 0)) {
@@ -339,6 +373,7 @@
         wave++;
         buildWave(wave);
         ensureAudio(); sfx.wave();
+        A.haptics.thump();
         startBanner("Wave " + wave + " — " + WAVE_NAMES[wave - 1]);
       }
     }
@@ -415,6 +450,7 @@
           for (var k2 = 0; k2 < 10; k2++) sparkle(boss.x + Math.random() * boss.w, boss.y + Math.random() * boss.h, BRAIN);
           camera.shake(1); camera.freeze(reduce ? 0 : 7);
           sfx.bossDie();
+          A.haptics.thump();
         } else {
           sfx.boss();
         }
@@ -436,6 +472,7 @@
           camera.freeze(reduce ? 0 : 1);           // ~1 frame crunch per kill
           camera.shake(0.08 + mult * 0.03);        // small, scaled by the streak
           ensureAudio(); sfx.answer(e.tier, mult);
+          killBuzz();
           if (Math.random() < 0.07) capsules.push({ x: ex + SPRITE_W / 2 - 3, y: ey });
           sparks.splice(sIdx, 1);
           return true;
@@ -448,6 +485,7 @@
         ufo = null; ufoTimer = randRange(16, 26) * 60;
         camera.shake(0.4); camera.freeze(reduce ? 0 : 2);
         sparks.splice(sIdx, 1); ensureAudio(); sfx.ufo();
+        killBuzz();
         return true;
       }
       return false;
@@ -614,7 +652,9 @@
     function hidePrompt() { if (els.prompt) els.prompt.hidden = true; }
     function showIdle() {
       els.promptTitle.textContent = "GMS Invaders";
-      els.promptText.textContent = "Answer the questions before they reach the floor. ← → move · Space fire.";
+      els.promptText.textContent = A.isCoarsePointer()
+        ? "Answer the questions before they reach the floor. Hold the field to fire, slide to steer."
+        : "Answer the questions before they reach the floor. ← → move · Space fire.";
       els.promptActions.textContent = "";
       A.renderLeaderboard(els.promptActions, GAME_KEY, { title: "Local top scores" });
       var btn = document.createElement("button");
@@ -652,6 +692,16 @@
       btn.addEventListener("click", function () { start(); try { canvas.focus(); } catch (e) {} });
       els.promptActions.appendChild(btn);
     }
+    function showPaused() {
+      els.promptTitle.textContent = "Paused";
+      els.promptText.textContent = "The questions hold their fire. Tap the field or press Space to resume.";
+      els.promptActions.textContent = "";
+      var btn = document.createElement("button");
+      btn.type = "button"; btn.className = "btn btn--primary"; btn.textContent = "Resume";
+      btn.addEventListener("click", function () { resumeGame(); try { canvas.focus(); } catch (e) {} });
+      els.promptActions.appendChild(btn);
+      els.prompt.hidden = false;
+    }
 
     // ---------- Loop ----------
     var rafId = null, lastTime = 0, driftY = 0;
@@ -669,7 +719,11 @@
 
     return {
       held: held,
-      fire: function () { ensureAudio(); if (state === "idle") { start(); return; } if (state === "gameover" || state === "won") { if (document.activeElement && document.activeElement.tagName === "INPUT") return; start(); return; } fireRequest(); },
+      // A fire input while paused resumes instead of shooting (the shot is
+      // swallowed on purpose — resuming must never cost the player aim).
+      fire: function () { ensureAudio(); if (state === "paused") { resumeGame(); return; } if (state === "idle") { start(); return; } if (state === "gameover" || state === "won") { if (document.activeElement && document.activeElement.tagName === "INPUT") return; start(); return; } fireRequest(); },
+      isPaused: function () { return state === "paused"; },
+      resume: resumeGame,
       moveShipTo: function (lx) { if (state === "running") { ship.x = clamp(lx - SHIP_W / 2, MARGIN_L, MARGIN_R - SHIP_W); } },
       resize: function (cssW, cssH) {
         var dpr = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
@@ -686,8 +740,8 @@
       },
       toggleMute: function () { return audio.toggleMute(); },
       isMuted: function () { return audio.isMuted(); },
-      activate: function () { resetWorld(); state = "idle"; lastTime = 0; updateHud(); showIdle(); rafId = window.requestAnimationFrame(loop); },
-      deactivate: function () { if (rafId) window.cancelAnimationFrame(rafId); rafId = null; audio.close(); }
+      activate: function () { resetWorld(); state = "idle"; lastTime = 0; updateHud(); showIdle(); wake.acquire(); offHidden = A.onHidden(pauseGame); rafId = window.requestAnimationFrame(loop); },
+      deactivate: function () { if (rafId) window.cancelAnimationFrame(rafId); rafId = null; if (offHidden) { offHidden(); offHidden = null; } wake.release(); audio.close(); }
     };
   }
 
@@ -723,7 +777,7 @@
             '<div class="gms-arcade-prompt__actions" data-egg-prompt-actions></div>' +
           '</div>' +
         '</div>' +
-        '<p class="gms-arcade-help">← → / A D move · Space / ↑ fire · M to mute</p>' +
+        '<p class="gms-arcade-help">← → / A D move · Space / ↑ fire · M to mute · touch: hold the field to autofire, slide to steer</p>' +
         '<div class="gms-arcade-touchrow">' +
           '<button type="button" class="gms-arcade-touchbtn" data-egg-left aria-label="Move left">◀</button>' +
           '<button type="button" class="gms-arcade-touchbtn" data-egg-fire aria-label="Fire">FIRE</button>' +
@@ -733,8 +787,8 @@
     document.body.appendChild(overlay);
 
     var canvas = overlay.querySelector(".gms-arcade-canvas");
+    var stage = overlay.querySelector(".gms-arcade-stage");
     function fitCanvas() {
-      var stage = overlay.querySelector(".gms-arcade-stage");
       if (!stage) return;
       var rect = stage.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
@@ -763,28 +817,44 @@
     muteBtn.addEventListener("click", function () { game.toggleMute(); syncMute(); });
     syncMute();
 
-    // Canvas pointer: tap fires; mouse-over eases ship toward pointer;
-    // dragging a finger steers the ship (much nicer than holding ◀ ▶).
+    // Stage pointer: the whole stage — letterbox margins included — is the
+    // touch surface. A held finger autofires (held.fire) while dragging
+    // steers, so one thumb plays the whole game. A tap while paused only
+    // resumes; it must not double as a shot. Buttons/inputs inside the
+    // prompt keep their own behavior via the closest() guard.
     function logicalX(clientX) {
       // The canvas is object-fit:contain, so the drawn area is letterboxed
       // inside the element box — map the pointer through that transform.
+      // The rect mapping holds for stage-originated events too; clamp so
+      // letterbox touches land on the edge columns instead of off-field.
       var rect = canvas.getBoundingClientRect();
       var scale = Math.min(rect.width / W, rect.height / H);
       var offX = (rect.width - W * scale) / 2;
-      return (clientX - rect.left - offX) / scale;
+      return clamp((clientX - rect.left - offX) / scale, 0, W);
     }
     var suppressMouse = 0;
-    canvas.addEventListener("touchstart", function (e) {
+    stage.addEventListener("touchstart", function (e) {
+      if (e.target.closest && e.target.closest("button, a, input, label, form")) return;
       e.preventDefault();
       suppressMouse = Date.now() + 500;
+      if (game.isPaused()) { game.resume(); return; }
       if (e.touches && e.touches.length) game.moveShipTo(logicalX(e.touches[0].clientX));
+      game.held.fire = true;
       game.fire();
     }, { passive: false });
-    canvas.addEventListener("touchmove", function (e) {
+    stage.addEventListener("touchmove", function (e) {
+      if (e.target.closest && e.target.closest("button, a, input, label, form")) return;
       e.preventDefault();
       suppressMouse = Date.now() + 500;
       if (e.touches && e.touches.length) game.moveShipTo(logicalX(e.touches[0].clientX));
     }, { passive: false });
+    function stageTouchEnd(e) {
+      if (e.target.closest && e.target.closest("button, a, input, label, form")) return;
+      suppressMouse = Date.now() + 500;
+      game.held.fire = false;
+    }
+    stage.addEventListener("touchend", stageTouchEnd);
+    stage.addEventListener("touchcancel", stageTouchEnd);
     canvas.addEventListener("mousedown", function (e) { if (Date.now() < suppressMouse) return; e.preventDefault(); game.fire(); });
     canvas.addEventListener("mousemove", function (e) {
       game.moveShipTo(logicalX(e.clientX));
@@ -793,8 +863,8 @@
     // Touch buttons (held-set), each owns its pointer.
     function holdBtn(sel, key) {
       var el = overlay.querySelector(sel);
-      var down = function (e) { e.preventDefault(); game.held[key] = true; };
-      var up = function (e) { e.preventDefault(); game.held[key] = false; };
+      var down = function (e) { e.preventDefault(); game.held[key] = true; el.classList.add("is-held"); };
+      var up = function (e) { e.preventDefault(); game.held[key] = false; el.classList.remove("is-held"); };
       el.addEventListener("touchstart", down, { passive: false });
       el.addEventListener("touchend", up, { passive: false });
       el.addEventListener("touchcancel", up, { passive: false });
@@ -806,8 +876,8 @@
     holdBtn("[data-egg-right]", "right");
     // FIRE button: held + a fire each press (auto-repeat via held.fire in tick)
     var fireBtn = overlay.querySelector("[data-egg-fire]");
-    var fdown = function (e) { e.preventDefault(); game.held.fire = true; game.fire(); };
-    var fup = function (e) { e.preventDefault(); game.held.fire = false; };
+    var fdown = function (e) { e.preventDefault(); game.held.fire = true; fireBtn.classList.add("is-held"); game.fire(); };
+    var fup = function (e) { e.preventDefault(); game.held.fire = false; fireBtn.classList.remove("is-held"); };
     fireBtn.addEventListener("touchstart", fdown, { passive: false });
     fireBtn.addEventListener("touchend", fup, { passive: false });
     fireBtn.addEventListener("touchcancel", fup, { passive: false });
@@ -840,6 +910,7 @@
   }
 
   function closeOverlay(overlay) {
+    if (overlay._offViewport) { overlay._offViewport(); overlay._offViewport = null; }
     overlay.game.deactivate();
     window.location.reload();
   }
@@ -849,7 +920,9 @@
     overlay._fitCanvas();
     document.addEventListener("keydown", overlay._onKeydown);
     document.addEventListener("keyup", overlay._onKeyup);
-    window.addEventListener("resize", overlay._fitCanvas);
+    // resize alone misses iOS URL-bar collapse and rotation; the shared
+    // watcher also covers visualViewport.
+    overlay._offViewport = A.onViewportChange(overlay._fitCanvas);
     overlay.game.activate();
     window.requestAnimationFrame(function () { overlay._canvas.focus(); });
   }

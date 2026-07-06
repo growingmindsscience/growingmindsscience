@@ -12,6 +12,8 @@
    leaderboard, and the initials entry. Self-contained otherwise: own overlay
    DOM, own rAF loop, full teardown on close. CSP-safe (no eval, no external
    assets; audio is Web Audio oscillator synth). Honors prefers-reduced-motion.
+   Mobile: relative "touchpad" drag anywhere on the stage steers the paddle,
+   a wake lock holds the screen through a run, and a hidden tab auto-pauses.
 */
 (function () {
   "use strict";
@@ -108,11 +110,12 @@
     var camera = A.makeCamera({ reduce: reduce, maxPx: 3 });
     var combo = A.makeCombo({ window: 150, max: 5 });
 
-    var state = "idle"; // idle | running | banner | gameover
+    var state = "idle"; // idle | running | banner | paused | gameover
     var held = { left: false, right: false };
     var paddleX, balls, bricks, drops, particles, floaters, trail;
-    var level, lives, score, calmTimer, wideTimer, bannerText, bannerTimer;
+    var level, lives, score, calmTimer, wideTimer, bannerText, bannerTimer, pausedFrom;
     var PARTICLE_CAP = 32, FLOATER_CAP = 10, TRAIL_CAP = 6;
+    var brickBuzzed = false; // haptic budget: one brick pop per frame, multiball included
 
     function paddleW() { return wideTimer > 0 ? PADDLE_W * 1.5 : PADDLE_W; }
 
@@ -188,8 +191,29 @@
     }
 
     // ---------- Lifecycle ----------
+    // Wake lock + hidden-tab pause live only while the overlay is active
+    // (acquired in activate, torn down in deactivate).
+    var wake = A.makeWakeLock();
+    var unHidden = null;
+
     function start() { resetWorld(); state = "running"; hidePrompt(); ensureAudio(); }
     function startBanner(text) { bannerText = text; bannerTimer = 100; state = "banner"; }
+
+    // Pause preserves the banner state too: resume returns to whichever
+    // state was live, with its timer intact.
+    function pauseGame() {
+      if (state !== "running" && state !== "banner") return;
+      pausedFrom = state;
+      state = "paused";
+      showPause();
+    }
+    function resumeGame() {
+      if (state !== "paused") return;
+      state = pausedFrom || "running";
+      pausedFrom = null;
+      hidePrompt();
+      lastTime = 0; // no dt jump across the pause
+    }
 
     function launch() {
       var launched = false;
@@ -209,6 +233,7 @@
       if (balls.length) return; // other balls still live
       lives--;
       ensureAudio(); sfx.lose();
+      A.haptics.crash(); // covers game over too — it is reached through here
       combo.reset();
       camera.shake(0.7); camera.freeze(reduce ? 0 : 3);
       calmTimer = 0; wideTimer = 0;
@@ -222,13 +247,14 @@
 
     // ---------- Update ----------
     function tick(dt) {
+      brickBuzzed = false;
       if (state === "banner") {
         bannerTimer -= dt;
         if (bannerTimer <= 0) { state = "running"; }
         return;
       }
 
-      // Paddle (keyboard; pointer sets paddleX directly via handler)
+      // Paddle (keyboard; mouse sets paddleX absolutely, touch drags it by delta)
       var pv = 3.2;
       if (held.left) paddleX -= pv * dt;
       if (held.right) paddleX += pv * dt;
@@ -275,6 +301,7 @@
           b.vy = Math.sin(ang) * b.speed;
           b.y = PADDLE_Y - BALL / 2;
           ensureAudio();
+          A.haptics.tick();
           // Rally broken: the paddle catch resets the curiosity chain.
           if (combo.active() && combo.count() > 1) { sfx.chainBroken(); } else { sfx.paddle(); }
           combo.reset();
@@ -320,6 +347,7 @@
         score += 100 + level * 50;
         level++;
         ensureAudio(); sfx.level();
+        A.haptics.win(); // clearing a wall is the biggest beat the game has
         buildLevel();
         spawnBall();
         startBanner("Wall " + level + " — keep asking");
@@ -352,6 +380,7 @@
             (br.myth ? "busted!" : "+" + pts) + (mult > 1 ? " x" + mult : ""),
             br.myth ? BRAIN : LEAF_SIDE);
           ensureAudio();
+          if (!brickBuzzed) { A.haptics.pop(); brickBuzzed = true; }
           if (br.myth) {
             sfx.bust(chain);
             camera.shake(0.5); camera.freeze(reduce ? 0 : 3);   // busting a myth = a satisfying crunch
@@ -375,6 +404,7 @@
 
     function applyDrop(type) {
       ensureAudio(); sfx.drop();
+      A.haptics.thump();
       if (type === "calm") {
         calmTimer = 420;
         spawnFloater(paddleX + paddleW() / 2, PADDLE_Y - 8, "calm", LEAF_SIDE);
@@ -545,6 +575,16 @@
       els.promptActions.appendChild(btn);
       els.prompt.hidden = false;
     }
+    function showPause() {
+      els.promptTitle.textContent = "Paused";
+      els.promptText.textContent = "The myths will wait. Take a breath.";
+      els.promptActions.textContent = "";
+      var btn = document.createElement("button");
+      btn.type = "button"; btn.className = "btn btn--primary"; btn.textContent = "Resume";
+      btn.addEventListener("click", function () { resumeGame(); try { canvas.focus(); } catch (e) {} });
+      els.promptActions.appendChild(btn);
+      els.prompt.hidden = false;
+    }
     function showEnd(finalScore) {
       updateHud();
       els.promptTitle.textContent = "The wall held — this time";
@@ -608,6 +648,7 @@
       },
       launchOrStart: function () {
         ensureAudio();
+        if (state === "paused") { resumeGame(); return; }
         if (state === "idle") { start(); return; }
         if (state === "gameover") {
           if (document.activeElement && document.activeElement.tagName === "INPUT") return;
@@ -619,16 +660,26 @@
         if (state !== "running" && state !== "banner") return;
         paddleX = clamp(lx - paddleW() / 2, 2, W - 2 - paddleW());
       },
+      movePaddleBy: function (dlx) {
+        if (state !== "running" && state !== "banner") return;
+        paddleX = clamp(paddleX + dlx, 2, W - 2 - paddleW());
+      },
+      isPaused: function () { return state === "paused"; },
+      resume: function () { resumeGame(); },
       toggleMute: function () { return audio.toggleMute(); },
       isMuted: function () { return audio.isMuted(); },
       activate: function () {
         resetWorld(); state = "idle"; lastTime = 0;
         updateHud(); showIdle();
+        wake.acquire();
+        unHidden = A.onHidden(pauseGame);
         rafId = window.requestAnimationFrame(loop);
       },
       deactivate: function () {
         if (rafId) window.cancelAnimationFrame(rafId);
         rafId = null;
+        wake.release();
+        if (unHidden) { unHidden(); unHidden = null; }
         audio.close();
       }
     };
@@ -666,7 +717,7 @@
             '<div class="gms-arcade-prompt__actions" data-egg-prompt-actions></div>' +
           '</div>' +
         '</div>' +
-        '<p class="gms-arcade-help">Mouse / drag moves the paddle · click or Space launches · M to mute</p>' +
+        '<p class="gms-arcade-help">Mouse or drag anywhere steers (touchpad-style) · tap / click / Space launches · M to mute</p>' +
         '<div class="gms-arcade-touchrow">' +
           '<button type="button" class="gms-arcade-touchbtn" data-egg-left aria-label="Move left">◀</button>' +
           '<button type="button" class="gms-arcade-touchbtn" data-egg-launch aria-label="Launch">LAUNCH</button>' +
@@ -676,8 +727,8 @@
     document.body.appendChild(overlay);
 
     var canvas = overlay.querySelector(".gms-arcade-canvas");
+    var stage = overlay.querySelector(".gms-arcade-stage");
     function fitCanvas() {
-      var stage = overlay.querySelector(".gms-arcade-stage");
       if (!stage) return;
       var rect = stage.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
@@ -720,22 +771,62 @@
       e.preventDefault();
       game.launchOrStart();
     });
-    canvas.addEventListener("touchstart", function (e) {
+
+    // Touch steers relative, touchpad-style: paddle moves by finger delta x
+    // sensitivity, so a thumb resting anywhere on the stage (letterbox
+    // margins included) never has to cover the paddle. Handlers live on the
+    // stage, not the canvas; prompt buttons and the initials form pass through
+    // untouched. Origin refreshes every move so direction flips never lag.
+    var TOUCH_SENS = 1.4, TAP_SLOP = 8;
+    var touchId = null, touchLastX = 0, tapX = 0, tapY = 0, isTap = false, tapSpent = false;
+    function findTouch(list, id) {
+      for (var i = 0; i < list.length; i++) { if (list[i].identifier === id) return list[i]; }
+      return null;
+    }
+    function stageScale() {
+      var rect = canvas.getBoundingClientRect();
+      return Math.min(rect.width / W, rect.height / H) || 1;
+    }
+    stage.addEventListener("touchstart", function (e) {
+      if (e.target.closest && e.target.closest("button, a, input, label, form")) return;
       e.preventDefault();
       suppressMouse = Date.now() + 500;
-      if (e.touches.length) game.movePaddleTo(logicalX(e.touches[0].clientX));
-      game.launchOrStart();
+      if (touchId !== null) return; // first finger keeps the paddle
+      var t = e.changedTouches[0];
+      touchId = t.identifier;
+      touchLastX = t.clientX;
+      tapX = t.clientX; tapY = t.clientY;
+      isTap = true;
+      // A pause-breaking tap only resumes — it must not also serve the ball.
+      tapSpent = game.isPaused();
+      if (tapSpent) game.resume();
     }, { passive: false });
-    canvas.addEventListener("touchmove", function (e) {
+    stage.addEventListener("touchmove", function (e) {
+      if (e.target.closest && e.target.closest("button, a, input, label, form")) return;
       e.preventDefault();
-      if (e.touches.length) game.movePaddleTo(logicalX(e.touches[0].clientX));
+      var t = findTouch(e.changedTouches, touchId);
+      if (!t) return;
+      if (Math.abs(t.clientX - tapX) > TAP_SLOP || Math.abs(t.clientY - tapY) > TAP_SLOP) isTap = false;
+      game.movePaddleBy(((t.clientX - touchLastX) / stageScale()) * TOUCH_SENS);
+      touchLastX = t.clientX;
     }, { passive: false });
+    function onTouchEnd(e) {
+      if (e.target.closest && e.target.closest("button, a, input, label, form")) return;
+      var t = findTouch(e.changedTouches, touchId);
+      if (!t) return;
+      e.preventDefault();
+      touchId = null;
+      // Tap (< 8px travel) starts, resumes, or serves; a drag never launches.
+      if (e.type === "touchend" && isTap && !tapSpent) game.launchOrStart();
+    }
+    stage.addEventListener("touchend", onTouchEnd, { passive: false });
+    stage.addEventListener("touchcancel", onTouchEnd, { passive: false });
 
     // Touch buttons.
     function holdBtn(sel, key) {
       var el = overlay.querySelector(sel);
-      var down = function (e) { e.preventDefault(); game.held[key] = true; };
-      var up = function (e) { e.preventDefault(); game.held[key] = false; };
+      var down = function (e) { e.preventDefault(); game.held[key] = true; el.classList.add("is-held"); };
+      var up = function (e) { e.preventDefault(); game.held[key] = false; el.classList.remove("is-held"); };
       el.addEventListener("touchstart", down, { passive: false });
       el.addEventListener("touchend", up, { passive: false });
       el.addEventListener("touchcancel", up, { passive: false });
@@ -746,9 +837,14 @@
     holdBtn("[data-egg-left]", "left");
     holdBtn("[data-egg-right]", "right");
     var launchBtn = overlay.querySelector("[data-egg-launch]");
-    var ldown = function (e) { e.preventDefault(); game.launchOrStart(); };
+    var ldown = function (e) { e.preventDefault(); launchBtn.classList.add("is-held"); game.launchOrStart(); };
+    var lup = function () { launchBtn.classList.remove("is-held"); };
     launchBtn.addEventListener("touchstart", ldown, { passive: false });
+    launchBtn.addEventListener("touchend", lup);
+    launchBtn.addEventListener("touchcancel", lup);
     launchBtn.addEventListener("mousedown", ldown);
+    launchBtn.addEventListener("mouseup", lup);
+    launchBtn.addEventListener("mouseleave", lup);
 
     function onKeydown(e) {
       // While typing initials, leave all keys (incl. Escape/Enter) to the form
@@ -774,6 +870,7 @@
   }
 
   function closeOverlay(overlay) {
+    if (overlay._unwatchViewport) { overlay._unwatchViewport(); overlay._unwatchViewport = null; }
     overlay.game.deactivate();
     window.location.reload();
   }
@@ -783,7 +880,8 @@
     overlay._fitCanvas();
     document.addEventListener("keydown", overlay._onKeydown);
     document.addEventListener("keyup", overlay._onKeyup);
-    window.addEventListener("resize", overlay._fitCanvas);
+    // resize alone misses iOS URL-bar collapse; the core watcher covers it.
+    overlay._unwatchViewport = A.onViewportChange(overlay._fitCanvas);
     overlay.game.activate();
     window.requestAnimationFrame(function () { overlay._canvas.focus(); });
   }
