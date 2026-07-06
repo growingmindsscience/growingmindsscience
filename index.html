@@ -199,6 +199,11 @@
             <circle class="arc__runner" r="9" aria-hidden="true" />
           </svg>
 
+          <!-- Mobile-only coral progress rail (the desktop growth-line's phone
+               counterpart). Pure CSS: the fill width reacts to which stage is
+               aria-selected via :has(), and glides on tap. -->
+          <div class="arc__rail" aria-hidden="true"><span class="arc__rail-fill"></span></div>
+
           <div class="arc__tabs" role="tablist" aria-label="Developmental stages, birth to five">
             <button class="arc__tab" role="tab" id="arc-tab-0" aria-controls="arc-panel-0" aria-selected="true" type="button">
               <span class="arc__dot" aria-hidden="true"></span>

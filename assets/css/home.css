@@ -617,6 +617,49 @@ h3 { font-size: var(--text-xl); }
   }
 }
 
+/* Mobile-only coral progress rail — the growth-line's phone counterpart.
+   Desktop hides it (the scroll-driven curve is the show there). On mobile the
+   curve is hidden, so this rail carries the motion: a coral fill glides to the
+   selected stage with a glowing dot at its tip. Driven purely by :has() on the
+   live aria-selected state, so tapping a chip animates it with no JS. */
+.arc__rail { display: none; }
+
+@media (max-width: 720px) {
+  .arc__rail {
+    display: block;
+    position: relative;
+    height: 5px;
+    margin: var(--space-1) 6px var(--space-6);
+    border-radius: var(--radius-pill);
+    background: color-mix(in oklab, var(--teal) 20%, transparent);
+  }
+  .arc__rail-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    /* home.js sets this element's width inline per selected stage; 8% is the
+       stage-0 default so the rail reads right before JS runs. */
+    width: 8%;
+    border-radius: var(--radius-pill);
+    background: var(--coral);
+    transition: width 0.55s var(--ease);
+  }
+  .arc__rail-fill::after {
+    content: "";
+    position: absolute;
+    right: -5px; top: 50%;
+    width: 13px; height: 13px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: var(--coral);
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--coral) 22%, transparent),
+                0 0 6px color-mix(in oklab, var(--coral) 55%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arc__rail-fill { transition: none; }
+}
+
 /* ---------- Flagship class ---------- */
 .class { background: var(--surface); border-block: 1px solid var(--line-soft); }
 .class__inner {

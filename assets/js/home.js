@@ -151,6 +151,7 @@
     var tabs = Array.prototype.slice.call(device.querySelectorAll('[role="tab"]'));
     var panels = Array.prototype.slice.call(device.querySelectorAll('[role="tabpanel"]'));
     if (!tabs.length || tabs.length !== panels.length) return;
+    var railFill = device.querySelector(".arc__rail-fill");
 
     function select(index, focus) {
       tabs.forEach(function (tab, i) {
@@ -159,6 +160,12 @@
         tab.tabIndex = active ? 0 : -1;
         panels[i].hidden = !active;
       });
+      // Drive the mobile progress rail (harmless on desktop, where it's hidden):
+      // map stage 0..last -> 8%..100% width; the CSS width transition animates it.
+      if (railFill) {
+        var frac = tabs.length > 1 ? index / (tabs.length - 1) : 0;
+        railFill.style.width = (8 + frac * 92) + "%";
+      }
       if (focus) tabs[index].focus();
     }
 
