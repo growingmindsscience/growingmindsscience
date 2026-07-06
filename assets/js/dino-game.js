@@ -6,9 +6,11 @@
    jumping book stacks and ducking flying toys.
 
    Built on window.GMSArcade (arcade-core.js) for the page-tear, the local
-   leaderboard, and the initials entry. Self-contained otherwise: own overlay
-   DOM, own rAF loop, full teardown on close. CSP-safe (no eval, no external
-   assets; audio is Web Audio oscillator synth). Honors prefers-reduced-motion.
+   leaderboard, the initials entry, and the mobile toolkit (wake lock,
+   hidden-tab pause, viewport watcher, haptics). Self-contained otherwise: own
+   overlay DOM, own rAF loop, full teardown on close. CSP-safe (no eval, no
+   external assets; audio is Web Audio oscillator synth). Honors
+   prefers-reduced-motion.
 */
 (function () {
   "use strict";
@@ -156,7 +158,12 @@
     var camera = A.makeCamera({ reduce: reduce, maxPx: 2 });
     var combo = A.makeCombo({ window: 150, max: 5 });
 
-    var state = "idle"; // idle | running | dying | gameover
+    // Mobile toolkit: the screen must not sleep mid-run, and a hidden tab
+    // must not burn one. Both no-op where the platform lacks the API.
+    var wake = A.makeWakeLock();
+    var offHidden = null;
+
+    var state = "idle"; // idle | running | paused | dying | gameover
     var player, obstacles, seeds, particles, floaters;
     var speed, score, groundOffset, parX, nextSpawn;
     var coyoteTimer, bufferTimer, chargeFrames, jumpHeld, jumpConsumed, downHeld;
@@ -252,6 +259,7 @@
     }
     function jump() {
       if (state === "idle") { start(); return; }
+      if (state === "paused") { resumeGame(); return; } // the resume tap must not also hop
       if (state === "dying") return;  // ignore input during the death animation
       if (state === "gameover") {
         if (document.activeElement && document.activeElement.tagName === "INPUT") return;
@@ -266,6 +274,7 @@
         coyoteTimer = 0;
         squashPeak = -2; squashTimer = SQUASH_MAX;   // stretch on takeoff
         ensureAudio(); sfx.jump();
+        A.haptics.tick();
       } else if (!player.grounded) {
         bufferTimer = BUFFER;
       }
@@ -277,14 +286,32 @@
       if (on === player.ducking) return;
       player.ducking = on;
       player.top = GROUND_Y - currentH();
+      if (on) A.haptics.tick();
     }
 
     function start() { resetWorld(); state = "running"; hidePrompt(); }
     function restart() { resetWorld(); state = "running"; hidePrompt(); }
 
+    // Held inputs are released before pausing: once the page is hidden the
+    // matching touchend/keyup may never arrive.
+    function pauseGame() {
+      if (state !== "running") return;
+      jumpHeld = false;
+      setDucking(false);
+      state = "paused";
+      showPaused();
+    }
+    function resumeGame() {
+      if (state !== "paused") return;
+      state = "running";
+      lastTime = 0; // rAF stalls while hidden; a stale timestamp would dt-jump
+      hidePrompt();
+    }
+
     function gameOver() {
       combo.reset();
       ensureAudio(); sfx.hit();
+      A.haptics.crash(); // here so every input path (touch, key, button) buzzes
       dyingScore = Math.floor(score);
       camera.shake(0.9); camera.freeze(reduce ? 0 : 6);
       // Reduced-motion players skip the shatter and go straight to the card.
@@ -508,7 +535,7 @@
           spawnBurst(sd.x, sd.y, LEAF_TOP, 5);
           spawnFloater(sd.x, sd.y - 4, "+20", LEAF_SIDE);
           ensureAudio(); sfx.seed();
-          if (growthSeeds >= 12) { growthSeeds = 0; bloomTimer = 300; spawnBurst(player.x + 11, player.top + 14, BRAIN, 10); camera.freeze(reduce ? 0 : 4); camera.shake(0.2); ensureAudio(); sfx.bloom(); }
+          if (growthSeeds >= 12) { growthSeeds = 0; bloomTimer = 300; spawnBurst(player.x + 11, player.top + 14, BRAIN, 10); camera.freeze(reduce ? 0 : 4); camera.shake(0.2); ensureAudio(); sfx.bloom(); A.haptics.pop(); }
           if (!shieldArmed && shieldSeedCounter >= 15) { shieldArmed = true; shieldSeedCounter = 0; }
         }
       }
@@ -539,6 +566,7 @@
         if (!reduce) flashTimer = 4;
         camera.freeze(reduce ? 0 : 4); camera.shake(0.25);   // shield-break jolt
         ensureAudio(); sfx.shield();
+        A.haptics.thump();
         return;
       }
       gameOver();
@@ -549,6 +577,7 @@
       milestoneTimer = 90;
       camera.shake(0.2);   // gentle celebratory nudge (auto-zeroes under reduced motion)
       ensureAudio(); sfx.milestone();
+      A.haptics.pop();
     }
 
     // ---------- Render ----------
@@ -720,12 +749,25 @@
     function showIdle() {
       if (!els.prompt) return;
       els.promptTitle.textContent = "Brain Sprint";
-      els.promptText.textContent = "Hold to jump higher · ↓ to duck";
+      els.promptText.textContent = "Hold to jump higher · ↓ / swipe down to duck";
       els.promptActions.textContent = "";
       A.renderLeaderboard(els.promptActions, GAME_KEY, { title: "Local top scores" });
       var btn = document.createElement("button");
       btn.type = "button"; btn.className = "btn btn--primary"; btn.textContent = "Start";
       btn.addEventListener("click", function () { start(); try { canvas.focus(); } catch (e) {} });
+      els.promptActions.appendChild(btn);
+      els.prompt.hidden = false;
+    }
+    // The hidden-tab pause card. Any stage tap resumes too (jump() routes
+    // paused-state input here), so the button is a fallback, not the only way.
+    function showPaused() {
+      if (!els.prompt) return;
+      els.promptTitle.textContent = "Paused";
+      els.promptText.textContent = "Tap anywhere to resume";
+      els.promptActions.textContent = "";
+      var btn = document.createElement("button");
+      btn.type = "button"; btn.className = "btn btn--primary"; btn.textContent = "Resume";
+      btn.addEventListener("click", function () { resumeGame(); try { canvas.focus(); } catch (e) {} });
       els.promptActions.appendChild(btn);
       els.prompt.hidden = false;
     }
@@ -798,11 +840,15 @@
       activate: function () {
         resetWorld(); state = "idle"; lastTime = 0;
         updateScoreHud(); showIdle();
+        wake.acquire();
+        offHidden = A.onHidden(pauseGame);
         rafId = window.requestAnimationFrame(loop);
       },
       deactivate: function () {
         if (rafId) window.cancelAnimationFrame(rafId);
         rafId = null;
+        wake.release();
+        if (offHidden) { offHidden(); offHidden = null; }
         audio.close();
       }
     };
@@ -839,7 +885,7 @@
             '<div class="gms-arcade-prompt__actions" data-egg-prompt-actions></div>' +
           '</div>' +
         '</div>' +
-        '<p class="gms-arcade-help">Space / tap to jump (hold = higher) · hold ↓ to duck · M to mute</p>' +
+        '<p class="gms-arcade-help">Space / tap to jump (hold = higher) · swipe down / hold ↓ to duck · M to mute</p>' +
         '<div class="gms-arcade-touchrow">' +
           '<button type="button" class="gms-arcade-touchbtn" data-egg-jump aria-label="Jump">JUMP</button>' +
           '<button type="button" class="gms-arcade-touchbtn" data-egg-duckbtn aria-label="Duck">DUCK</button>' +
@@ -877,30 +923,86 @@
     muteBtn.addEventListener("click", function () { game.toggleMute(); syncMute(); });
     syncMute();
 
-    // Pointer jump on canvas (mouse + touch), with hold for variable jump.
+    // Pointer jump on the whole stage (mouse + touch), with hold for variable
+    // jump. The stage, not the canvas: the letterbox margins around the canvas
+    // must not be dead zones on small screens. Prompt buttons/forms keep their
+    // own clicks (no preventDefault when the press lands on them).
+    var stage = overlay.querySelector(".gms-arcade-stage");
+    function onInteractive(e) {
+      return !!(e.target && e.target.closest && e.target.closest("button, a, input, label, form"));
+    }
+    function findTouch(list, id) {
+      for (var i = 0; i < list.length; i++) { if (list[i].identifier === id) return list[i]; }
+      return null;
+    }
+
+    // One tracked touch: tap = jump (hold = higher). If the same finger moves
+    // >= SWIPE_PX downward before SWIPE_PX in another dominant direction, the
+    // pending jump is cut (jumpUp before any hop registers) and the touch
+    // becomes a duck-hold; release stands back up.
+    var SWIPE_PX = 24;
     var suppressMouse = 0;
-    canvas.addEventListener("touchstart", function (e) { e.preventDefault(); suppressMouse = Date.now() + 500; game.jumpDown(); }, { passive: false });
-    canvas.addEventListener("touchend", function (e) { e.preventDefault(); game.jumpUp(); }, { passive: false });
-    canvas.addEventListener("mousedown", function (e) { if (Date.now() < suppressMouse) return; e.preventDefault(); game.jumpDown(); });
+    var touchId = null, touchOX = 0, touchOY = 0, touchDuck = false, touchLocked = false;
+    stage.addEventListener("touchstart", function (e) {
+      if (onInteractive(e)) return;
+      e.preventDefault();
+      suppressMouse = Date.now() + 500;
+      if (touchId !== null) return; // one gesture at a time
+      var t = e.changedTouches[0];
+      touchId = t.identifier; touchOX = t.clientX; touchOY = t.clientY;
+      touchDuck = false; touchLocked = false;
+      game.jumpDown();
+    }, { passive: false });
+    stage.addEventListener("touchmove", function (e) {
+      if (touchId === null) return;
+      var t = findTouch(e.changedTouches, touchId);
+      if (!t) return;
+      if (e.cancelable) e.preventDefault();
+      if (touchDuck || touchLocked) return;
+      var dx = t.clientX - touchOX, dy = t.clientY - touchOY;
+      if (dy >= SWIPE_PX && dy >= Math.abs(dx)) {
+        game.jumpUp();      // cancel the pending jump so no micro-hop fires
+        game.duck(true);
+        touchDuck = true;
+      } else if (Math.abs(dx) >= SWIPE_PX || dy <= -SWIPE_PX) {
+        touchLocked = true; // dominant direction was not down: stays a jump
+      }
+    }, { passive: false });
+    function endStageTouch(e) {
+      if (touchId === null) return;
+      var t = findTouch(e.changedTouches, touchId);
+      if (!t) return;
+      if (e.cancelable) e.preventDefault();
+      if (touchDuck) game.duck(false); else game.jumpUp();
+      touchId = null; touchDuck = false; touchLocked = false;
+    }
+    stage.addEventListener("touchend", endStageTouch, { passive: false });
+    stage.addEventListener("touchcancel", endStageTouch, { passive: false });
+    stage.addEventListener("mousedown", function (e) {
+      if (onInteractive(e)) return;
+      if (Date.now() < suppressMouse) return;
+      e.preventDefault();
+      game.jumpDown();
+    });
     window.addEventListener("mouseup", function () { game.jumpUp(); });
 
-    // JUMP button (own pointer)
-    var jumpBtn = overlay.querySelector("[data-egg-jump]");
-    jumpBtn.addEventListener("touchstart", function (e) { e.preventDefault(); game.jumpDown(); }, { passive: false });
-    jumpBtn.addEventListener("touchend", function (e) { e.preventDefault(); game.jumpUp(); }, { passive: false });
-    jumpBtn.addEventListener("mousedown", function (e) { e.preventDefault(); game.jumpDown(); });
-    jumpBtn.addEventListener("mouseup", function (e) { e.preventDefault(); game.jumpUp(); });
-    jumpBtn.addEventListener("mouseleave", function () { game.jumpUp(); });
-
-    // DUCK button (own pointer)
-    var duckBtn = overlay.querySelector("[data-egg-duckbtn]");
-    var dStart = function (e) { e.preventDefault(); game.duck(true); };
-    var dEnd = function (e) { e.preventDefault(); game.duck(false); };
-    duckBtn.addEventListener("touchstart", dStart, { passive: false });
-    duckBtn.addEventListener("touchend", dEnd, { passive: false });
-    duckBtn.addEventListener("mousedown", dStart);
-    duckBtn.addEventListener("mouseup", dEnd);
-    duckBtn.addEventListener("mouseleave", dEnd);
+    // Touch buttons (own pointer). Pressed styling is JS-driven ("is-held"):
+    // :active is unreliable on touch once preventDefault is in play.
+    function bindHoldBtn(btn, onDown, onUp) {
+      function down(e) { e.preventDefault(); btn.classList.add("is-held"); onDown(); }
+      function up(e) { if (e.cancelable) e.preventDefault(); btn.classList.remove("is-held"); onUp(); }
+      function drop() { btn.classList.remove("is-held"); onUp(); }
+      btn.addEventListener("touchstart", down, { passive: false });
+      btn.addEventListener("touchend", up, { passive: false });
+      btn.addEventListener("touchcancel", drop);
+      btn.addEventListener("mousedown", down);
+      btn.addEventListener("mouseup", up);
+      btn.addEventListener("mouseleave", drop);
+    }
+    bindHoldBtn(overlay.querySelector("[data-egg-jump]"),
+      function () { game.jumpDown(); }, function () { game.jumpUp(); });
+    bindHoldBtn(overlay.querySelector("[data-egg-duckbtn]"),
+      function () { game.duck(true); }, function () { game.duck(false); });
 
     function onKeydown(e) {
       // While typing initials, leave all keys (incl. Escape/Enter) to the form
@@ -930,6 +1032,7 @@
   }
 
   function closeOverlay(overlay) {
+    if (overlay._offViewport) { overlay._offViewport(); overlay._offViewport = null; }
     overlay.game.deactivate();
     window.location.reload();
   }
@@ -939,7 +1042,9 @@
     overlay._fitCanvas();
     document.addEventListener("keydown", overlay._onKeydown);
     document.addEventListener("keyup", overlay._onKeyup);
-    window.addEventListener("resize", overlay._fitCanvas);
+    // Bare window.resize misses iOS URL-bar collapse and rotation; the shared
+    // watcher covers visualViewport + orientationchange too.
+    overlay._offViewport = A.onViewportChange(overlay._fitCanvas);
     overlay.game.activate();
     window.requestAnimationFrame(function () { overlay._canvas.focus(); });
   }

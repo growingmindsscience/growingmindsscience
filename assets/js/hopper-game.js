@@ -12,6 +12,10 @@
    leaderboard, and the initials entry. Self-contained otherwise: own overlay
    DOM, own rAF loop, full teardown on close. CSP-safe (no eval, no external
    assets; audio is Web Audio oscillator synth). Honors prefers-reduced-motion.
+
+   Mobile (shared toolkit): touch lands anywhere on the stage, not just the
+   canvas; tap hops forward, a held finger chains hops swipe-by-swipe; wake
+   lock while open; auto-pause on tab-hide; haptics degrade to no-ops.
 */
 (function () {
   "use strict";
@@ -87,8 +91,10 @@
     // still get sound).
     var camera = A.makeCamera({ reduce: reduce, maxPx: 3 });
     var combo = A.makeCombo({ window: 200, max: 5 });
+    var wake = A.makeWakeLock();
+    var offHidden = null;
 
-    var state = "idle"; // idle | running | gameover
+    var state = "idle"; // idle | running | paused | gameover
     var player, lanes, slots, wave, lives, score, bestRow, letterTimer;
     var deathTimer, deathText, hopQ, edgeWarn;
     var particles, floaters, tickCount;
@@ -204,6 +210,20 @@
     // ---------- Lifecycle ----------
     function start() { resetWorld(); state = "running"; hidePrompt(); ensureAudio(); }
 
+    // Auto-pause must never burn a life: tick() is gated on "running", so the
+    // letter timer, lanes, and death countdown all freeze with the state.
+    function pause() {
+      if (state !== "running") return;
+      state = "paused";
+      showPaused();
+    }
+    function resume() {
+      if (state !== "paused") return;
+      state = "running";
+      hidePrompt();
+      lastTime = 0; // hidden tabs stall rAF — don't let the first dt span the pause
+    }
+
     function loseLetter(reason) {
       lives--;
       deathTimer = 45;
@@ -212,6 +232,7 @@
       edgeWarn = 0;
       ensureAudio();
       if (reason === "splash") sfx.splash(); else sfx.squish();
+      A.haptics.crash();
       camera.shake(reason === "splash" ? 0.5 : 0.6);
       camera.freeze(reduce ? 0 : 5);
       spawnBurst(player.px + CELL / 2, player.row * CELL + CELL / 2,
@@ -238,6 +259,7 @@
       spawnBurst(SLOT_COLS[slotIdx] * CELL + CELL / 2, CELL / 2, LEAF_TOP, 10);
       camera.shake(0.2); camera.freeze(reduce ? 0 : 2);   // small celebratory pop
       ensureAudio(); sfx.deliver(filled);
+      A.haptics.pop();
       if (allDone) {
         score += 150;
         wave++;
@@ -245,6 +267,7 @@
         buildWave();
         camera.shake(0.5); camera.freeze(reduce ? 0 : 5);  // medium round-clear
         ensureAudio(); sfx.wave();
+        A.haptics.thump(); // overrides the pop — vibrate() replaces, not queues
         spawnFloater(W / 2, H / 2, "round " + wave + "!", LEAF_SIDE);
       }
       resetPlayer();
@@ -630,6 +653,16 @@
       els.promptActions.appendChild(btn);
       els.prompt.hidden = false;
     }
+    function showPaused() {
+      els.promptTitle.textContent = "Paused";
+      els.promptText.textContent = "Your letter waits right where it stands.";
+      els.promptActions.textContent = "";
+      var btn = document.createElement("button");
+      btn.type = "button"; btn.className = "btn btn--primary"; btn.textContent = "Resume";
+      btn.addEventListener("click", function () { resume(); try { canvas.focus(); } catch (e) {} });
+      els.promptActions.appendChild(btn);
+      els.prompt.hidden = false;
+    }
     function showEnd(finalScore) {
       updateHud();
       els.promptTitle.textContent = "The letters got lost";
@@ -690,24 +723,32 @@
         canvas.style.height = Math.round(cssH) + "px";
         backingScale = nextW / W;
       },
+      // Returns true when the tap was consumed (start/restart/resume) so the
+      // stage touchend never turns that same tap into a forward hop.
       tapStart: function () {
         ensureAudio();
-        if (state === "idle") { start(); return; }
+        if (state === "idle") { start(); return true; }
+        if (state === "paused") { resume(); return true; }
         if (state === "gameover") {
-          if (document.activeElement && document.activeElement.tagName === "INPUT") return;
-          start();
+          if (document.activeElement && document.activeElement.tagName === "INPUT") return true;
+          start(); return true;
         }
+        return false;
       },
       toggleMute: function () { return audio.toggleMute(); },
       isMuted: function () { return audio.isMuted(); },
       activate: function () {
         resetWorld(); state = "idle"; lastTime = 0;
         updateHud(); showIdle();
+        wake.acquire();
+        offHidden = A.onHidden(pause);
         rafId = window.requestAnimationFrame(loop);
       },
       deactivate: function () {
         if (rafId) window.cancelAnimationFrame(rafId);
         rafId = null;
+        wake.release();
+        if (offHidden) { offHidden(); offHidden = null; }
         audio.close();
       }
     };
@@ -745,7 +786,7 @@
             '<div class="gms-arcade-prompt__actions" data-egg-prompt-actions></div>' +
           '</div>' +
         '</div>' +
-        '<p class="gms-arcade-help">Arrows / WASD hop · swipe on touch · ride the books across the stream · M to mute</p>' +
+        '<p class="gms-arcade-help">Arrows / WASD hop · tap = hop forward · swipe to hop, keep the finger down to chain hops · M to mute</p>' +
         '<div class="gms-arcade-touchrow">' +
           '<button type="button" class="gms-arcade-touchbtn" data-egg-hop="-1,0" aria-label="Hop left">◀</button>' +
           '<button type="button" class="gms-arcade-touchbtn" data-egg-hop="0,-1" aria-label="Hop forward">▲</button>' +
@@ -786,41 +827,68 @@
     muteBtn.addEventListener("click", function () { game.toggleMute(); syncMute(); });
     syncMute();
 
-    // D-pad buttons.
+    // D-pad buttons. Touch presses get a brief held state + tick so the
+    // press registers even when the thumb hides the button.
     overlay.querySelectorAll("[data-egg-hop]").forEach(function (el) {
       var parts = el.getAttribute("data-egg-hop").split(",");
       var dx = parseInt(parts[0], 10), dy = parseInt(parts[1], 10);
+      var heldT = null;
       var press = function (e) { e.preventDefault(); game.hop(dx, dy); };
-      el.addEventListener("touchstart", press, { passive: false });
+      el.addEventListener("touchstart", function (e) {
+        press(e);
+        A.haptics.tick();
+        el.classList.add("is-held");
+        if (heldT) window.clearTimeout(heldT);
+        heldT = window.setTimeout(function () { el.classList.remove("is-held"); }, 120);
+      }, { passive: false });
       el.addEventListener("mousedown", press);
     });
 
-    // Canvas: tap starts/restarts; a quick swipe hops that way.
+    // Stage (canvas + letterbox margins): tap starts/resumes, or hops forward
+    // mid-run; swipes chain — the origin re-arms at the finger after every
+    // hop, so a held finger steers hop-by-hop without lifting. The threshold
+    // per hop (22px) is what stops it machine-gunning.
+    // Guard first: prompt buttons and initials input live inside the stage.
+    var stage = overlay.querySelector(".gms-arcade-stage");
+    var SWIPE_PX = 22, TAP_PX = 10;
     var swipe = null, suppressMouse = 0;
-    canvas.addEventListener("touchstart", function (e) {
+    function onControl(e) {
+      return !!(e.target && e.target.closest && e.target.closest("button, a, input, label, form"));
+    }
+    stage.addEventListener("touchstart", function (e) {
+      if (onControl(e)) return;
       e.preventDefault();
       suppressMouse = Date.now() + 500;
       var t = e.touches[0];
-      swipe = { x: t.clientX, y: t.clientY, used: false };
-      game.tapStart();
+      swipe = { x: t.clientX, y: t.clientY, sx: t.clientX, sy: t.clientY, hops: 0, consumed: game.tapStart() };
     }, { passive: false });
-    canvas.addEventListener("touchmove", function (e) {
+    stage.addEventListener("touchmove", function (e) {
+      if (onControl(e)) return;
       e.preventDefault();
-      if (!swipe || swipe.used || !e.touches.length) return;
+      if (!swipe || !e.touches.length) return;
       var t = e.touches[0];
       var dx = t.clientX - swipe.x, dy = t.clientY - swipe.y;
-      if (Math.abs(dx) < 22 && Math.abs(dy) < 22) return;
+      if (Math.abs(dx) < SWIPE_PX && Math.abs(dy) < SWIPE_PX) return;
       if (Math.abs(dx) > Math.abs(dy)) game.hop(dx > 0 ? 1 : -1, 0);
       else game.hop(0, dy > 0 ? 1 : -1);
-      swipe.used = true;
+      A.haptics.tick();
+      swipe.x = t.clientX; swipe.y = t.clientY; // re-arm from here — chained hop
+      swipe.hops++;
     }, { passive: false });
-    canvas.addEventListener("touchend", function (e) {
+    stage.addEventListener("touchend", function (e) {
+      if (onControl(e)) return;
       e.preventDefault();
-      // a plain tap (no swipe) hops forward — the most common move
-      if (swipe && !swipe.used) game.hop(0, -1);
+      // a near-still tap (< 10px, no swipe hops, not a start/resume tap)
+      // hops forward — the most common move
+      if (swipe && !swipe.consumed && !swipe.hops) {
+        var t = e.changedTouches && e.changedTouches[0];
+        var moved = t ? Math.max(Math.abs(t.clientX - swipe.sx), Math.abs(t.clientY - swipe.sy)) : 0;
+        if (moved < TAP_PX) { game.hop(0, -1); A.haptics.tick(); }
+      }
       swipe = null;
     }, { passive: false });
-    canvas.addEventListener("mousedown", function (e) {
+    stage.addEventListener("mousedown", function (e) {
+      if (onControl(e)) return;
       if (Date.now() < suppressMouse) return;
       e.preventDefault();
       game.tapStart();
@@ -855,7 +923,9 @@
     document.body.classList.add("gms-arcade-lock");
     overlay._fitCanvas();
     document.addEventListener("keydown", overlay._onKeydown);
-    window.addEventListener("resize", overlay._fitCanvas);
+    // resize alone misses iOS URL-bar collapse + orientation; close reloads
+    // the page, so the subscription needs no teardown path.
+    overlay._offViewport = A.onViewportChange(overlay._fitCanvas);
     overlay.game.activate();
     window.requestAnimationFrame(function () { overlay._canvas.focus(); });
   }

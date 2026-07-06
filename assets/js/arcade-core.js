@@ -425,6 +425,187 @@
     };
   }
 
+  // ======================================================================
+  // Mobile toolkit — shared capability layer for phones/tablets. Same
+  // philosophy as the juice kit: primitives, not policies. Each game decides
+  // when to buzz, when to pause, where its stick lives. Everything degrades
+  // to a no-op where the platform lacks the API (iOS Safari has no vibrate;
+  // old browsers have no wake lock) so games call these unconditionally.
+  // ======================================================================
+
+  // ---------- Pointer class ----------
+  function isCoarsePointer() {
+    try {
+      if (window.matchMedia && window.matchMedia("(pointer: coarse)").matches) return true;
+    } catch (e) {}
+    return (navigator.maxTouchPoints | 0) > 0;
+  }
+
+  // ---------- Haptics ----------
+  // Named patterns instead of raw ms so all six games speak the same physical
+  // language: tick = steering/paddle, pop = pickup, thump = big hit,
+  // crash = death, win = stinger. Persisted opt-out shared across games.
+  var HAPTIC_KEY = "gms-arcade-haptics-off";
+  var haptics = (function () {
+    var off;
+    try { off = window.localStorage.getItem(HAPTIC_KEY) === "1"; } catch (e) { off = false; }
+    function buzz(pattern) {
+      if (off) return;
+      try { if (navigator.vibrate) navigator.vibrate(pattern); } catch (e) {}
+    }
+    return {
+      supported: !!navigator.vibrate,
+      tick: function () { buzz(8); },
+      pop: function () { buzz(14); },
+      thump: function () { buzz([10, 20, 26]); },
+      crash: function () { buzz([0, 46, 34, 60]); },
+      win: function () { buzz([0, 18, 26, 18, 26, 34]); },
+      enabled: function () { return !off; },
+      setEnabled: function (on) {
+        off = !on;
+        try {
+          if (off) window.localStorage.setItem(HAPTIC_KEY, "1");
+          else window.localStorage.removeItem(HAPTIC_KEY);
+        } catch (e) {}
+      }
+    };
+  })();
+
+  // ---------- Screen wake lock ----------
+  // Phones dim/sleep mid-run without this. `want` survives tab switches: the
+  // visibilitychange hook re-acquires when the player comes back.
+  function makeWakeLock() {
+    var lock = null, want = false;
+    function request() {
+      if (!want || lock || !navigator.wakeLock || document.visibilityState !== "visible") return;
+      navigator.wakeLock.request("screen").then(function (l) {
+        lock = l;
+        l.addEventListener("release", function () { lock = null; });
+      }).catch(function () {});
+    }
+    function onVis() { request(); }
+    return {
+      acquire: function () {
+        want = true;
+        document.addEventListener("visibilitychange", onVis);
+        request();
+      },
+      release: function () {
+        want = false;
+        document.removeEventListener("visibilitychange", onVis);
+        if (lock) { try { lock.release(); } catch (e) {} lock = null; }
+      }
+    };
+  }
+
+  // ---------- Hidden-tab hook ----------
+  // Games auto-pause with this instead of burning a run while the player
+  // answers a text. Returns an unsubscribe.
+  function onHidden(fn) {
+    var h = function () { if (document.visibilityState === "hidden") fn(); };
+    document.addEventListener("visibilitychange", h);
+    return function () { document.removeEventListener("visibilitychange", h); };
+  }
+
+  // ---------- Viewport watcher ----------
+  // window.resize alone misses iOS URL-bar collapse and orientation quirks;
+  // visualViewport catches both. Debounced one frame. Returns unsubscribe.
+  function onViewportChange(fn) {
+    var raf = null;
+    var h = function () {
+      if (raf) return;
+      raf = window.requestAnimationFrame(function () { raf = null; fn(); });
+    };
+    window.addEventListener("resize", h);
+    window.addEventListener("orientationchange", h);
+    if (window.visualViewport) window.visualViewport.addEventListener("resize", h);
+    return function () {
+      window.removeEventListener("resize", h);
+      window.removeEventListener("orientationchange", h);
+      if (window.visualViewport) window.visualViewport.removeEventListener("resize", h);
+      if (raf) window.cancelAnimationFrame(raf);
+    };
+  }
+
+  // ---------- Floating virtual stick ----------
+  // Thumbstick that anchors wherever the finger lands in `zone` and follows
+  // the drag: no fixed dead corner, works left- or right-handed. Pointer
+  // events (capture) so it keeps tracking outside the zone. Visuals are two
+  // DOM rings styled in arcade.css; games read vec()/mag()/angle() per frame.
+  function makeStick(zone, opts) {
+    opts = opts || {};
+    var radius = opts.radius == null ? 48 : opts.radius;
+    var dead = opts.dead == null ? 0.18 : opts.dead;
+    var pid = null, ox = 0, oy = 0, vx = 0, vy = 0;
+
+    var base = document.createElement("div");
+    base.className = NS + "-stick";
+    var nub = document.createElement("div");
+    nub.className = NS + "-stick__nub";
+    base.appendChild(nub);
+    base.style.display = "none";
+    zone.appendChild(base);
+
+    function place(px, py) {
+      base.style.left = px + "px";
+      base.style.top = py + "px";
+    }
+    function setNub(dx, dy) {
+      nub.style.transform = "translate(-50%, -50%) translate(" + dx.toFixed(0) + "px, " + dy.toFixed(0) + "px)";
+    }
+    function down(e) {
+      if (pid != null) return;
+      if (opts.accept && !opts.accept(e)) return;
+      pid = e.pointerId;
+      var r = zone.getBoundingClientRect();
+      ox = e.clientX - r.left; oy = e.clientY - r.top;
+      vx = 0; vy = 0;
+      place(ox, oy); setNub(0, 0);
+      base.style.display = "";
+      try { zone.setPointerCapture(pid); } catch (err) {}
+      e.preventDefault();
+    }
+    function move(e) {
+      if (e.pointerId !== pid) return;
+      var r = zone.getBoundingClientRect();
+      var dx = (e.clientX - r.left) - ox, dy = (e.clientY - r.top) - oy;
+      var d = Math.sqrt(dx * dx + dy * dy);
+      if (d > radius) { dx = dx / d * radius; dy = dy / d * radius; d = radius; }
+      setNub(dx, dy);
+      var m = d / radius;
+      if (m < dead) { vx = 0; vy = 0; }
+      else {
+        var scaled = (m - dead) / (1 - dead);
+        vx = (dx / (d || 1)) * scaled;
+        vy = (dy / (d || 1)) * scaled;
+      }
+      e.preventDefault();
+    }
+    function up(e) {
+      if (e.pointerId !== pid) return;
+      pid = null; vx = 0; vy = 0;
+      base.style.display = "none";
+    }
+    zone.addEventListener("pointerdown", down);
+    zone.addEventListener("pointermove", move);
+    zone.addEventListener("pointerup", up);
+    zone.addEventListener("pointercancel", up);
+
+    return {
+      active: function () { return pid != null; },
+      vec: function () { return { x: vx, y: vy }; },
+      mag: function () { return Math.min(1, Math.sqrt(vx * vx + vy * vy)); },
+      angle: function () { return Math.atan2(vy, vx); },
+      destroy: function () {
+        zone.removeEventListener("pointerdown", down);
+        zone.removeEventListener("pointermove", move);
+        zone.removeEventListener("pointerup", up);
+        zone.removeEventListener("pointercancel", up);
+        if (base.parentNode) base.parentNode.removeChild(base);
+      }
+    };
+  }
+
   window.GMSArcade = {
     ns: NS,
     ready: ready,
@@ -438,5 +619,12 @@
     pixelGlow: pixelGlow,
     makeSynth: makeSynth,
     makeCombo: makeCombo,
+    // Shared mobile toolkit
+    isCoarsePointer: isCoarsePointer,
+    haptics: haptics,
+    makeWakeLock: makeWakeLock,
+    onHidden: onHidden,
+    onViewportChange: onViewportChange,
+    makeStick: makeStick,
   };
 })();

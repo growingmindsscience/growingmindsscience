@@ -67,11 +67,14 @@
 
     var BLOOM_MAX = 430; // frames a full Bloom Drive window lasts
 
-    var state = "idle"; // idle | running | waveclear | gameover
+    var state = "idle"; // idle | running | paused | waveclear | gameover
     var held = { left: false, right: false, thrust: false, fire: false, blink: false };
     var ship, rocks, shots, pickups, particles, floaters, stars, mouseTarget;
     var wave, lives, score, seedMeter, shield, bloomTimer, fireCooldown, blinkCooldown, nextWaveTimer;
     var flashTimer;
+    var stateBeforePause = null; // pause must return to running OR waveclear
+    var thrustLevel = 0; // 0..1 — keyboard is all-or-nothing, the stick is analog
+    var lastPopAt = 0; // haptic rate cap: chain kills must not blur into one buzz
     var PARTICLE_CAP = 56, FLOATER_CAP = 16;
 
     function makeStars() {
@@ -182,11 +185,43 @@
       f.x = x; f.y = y; f.life = 38; f.maxLife = 38; f.text = text; f.color = color;
     }
 
+    // ---------- Mobile: floating stick + lifecycle ----------
+    // Coarse pointers steer with a floating stick (anchors under the thumb,
+    // self-renders into the stage) and autofire while it is engaged, so one
+    // thumb plays the whole game. Keyboard/mouse paths are untouched.
+    var stick = null;
+    if (A.isCoarsePointer() && els.stage) {
+      stick = A.makeStick(els.stage, {
+        accept: function (e) {
+          return !(e.target.closest && e.target.closest("button, a, input, label, form"));
+        }
+      });
+    }
+    // Screen must not sleep mid-run; a hidden tab must not cost a life.
+    var wake = A.makeWakeLock();
+    var unHidden = null;
+
     // ---------- Gameplay ----------
     function start() {
       ensureAudio();
       resetWorld();
       state = "running";
+      hidePrompt();
+    }
+
+    function pauseGame() {
+      if (state !== "running" && state !== "waveclear") return;
+      stateBeforePause = state;
+      state = "paused";
+      held.left = false; held.right = false; held.thrust = false; held.fire = false;
+      showPaused();
+    }
+
+    function resumeGame() {
+      if (state !== "paused") return;
+      state = stateBeforePause || "running";
+      stateBeforePause = null;
+      lastTime = 0; // a hidden-tab gap must not land as one giant dt
       hidePrompt();
     }
 
@@ -238,6 +273,11 @@
       burst(rock.x, rock.y, rock.size <= 1 ? LEAF_TOP : WARM, rock.size <= 1 ? 6 : 10);
       if (mult > 1) spawnFloater(rock.x - 6, rock.y - 8, "x" + mult, mult >= 4 ? BRAIN : LEAF_TOP);
       sfx.rock(mult);
+      // Haptics live in game logic so keyboard, buttons, and stick all get
+      // them; pop is capped (~80ms) so chain kills stay discrete pulses.
+      var nowMs = Date.now();
+      if (rock.size >= 3) { A.haptics.thump(); lastPopAt = nowMs; }
+      else if (nowMs - lastPopAt >= 80) { A.haptics.pop(); lastPopAt = nowMs; }
       // Trauma scales with rock size; a tiny hit-stop adds crunch (bigger for big rocks).
       camera.shake(rock.size >= 4 ? 0.32 : rock.size === 3 ? 0.22 : rock.size === 2 ? 0.13 : 0.08);
       camera.freeze(reduce ? 0 : (rock.size >= 3 ? 3 : 1));
@@ -292,6 +332,7 @@
       camera.freeze(reduce ? 0 : 8);
       burst(ship.x, ship.y, BRAIN, 18);
       sfx.hit();
+      A.haptics.crash();
       if (lives <= 0) {
         state = "gameover";
         showEnd(Math.floor(score));
@@ -329,7 +370,10 @@
     }
 
     function tick(dt) {
-      if (held.fire) fire();
+      if (state === "paused") return;
+      // Autofire while the stick is engaged; fireCooldown inside fire() is
+      // the rate cap either way.
+      if (held.fire || (stick && stick.active() && state === "running")) fire();
       if (held.blink) { blink(); held.blink = false; }
 
       if (state === "waveclear") {
@@ -338,6 +382,18 @@
       }
       if (state !== "running") return;
 
+      // Stick pre-empts mouse aim so the two schemes never fight; same turn
+      // clamp as mouse aim so the feel matches.
+      var stickMag = 0;
+      if (stick && stick.active()) {
+        mouseTarget = null;
+        stickMag = stick.mag();
+      }
+      if (stickMag > 0) {
+        var sdes = stick.angle();
+        var sturn = Math.atan2(Math.sin(sdes - ship.a), Math.cos(sdes - ship.a));
+        ship.a += clamp(sturn, -0.11 * dt, 0.11 * dt);
+      }
       if (mouseTarget) {
         var mx = mouseTarget.x - ship.x;
         var my = mouseTarget.y - ship.y;
@@ -347,9 +403,13 @@
       }
       if (!mouseTarget && held.left) ship.a -= 0.075 * dt;
       if (!mouseTarget && held.right) ship.a += 0.075 * dt;
-      if (held.thrust) {
-        ship.vx += Math.cos(ship.a) * 0.085 * dt;
-        ship.vy += Math.sin(ship.a) * 0.085 * dt;
+      // Same accel as keyboard thrust, scaled by stick deflection past the
+      // 0.35 gate — keyboard feel is unchanged (thrustLevel 1).
+      thrustLevel = held.thrust ? 1 : 0;
+      if (stickMag > 0.35) thrustLevel = Math.max(thrustLevel, stickMag);
+      if (thrustLevel > 0) {
+        ship.vx += Math.cos(ship.a) * 0.085 * thrustLevel * dt;
+        ship.vy += Math.sin(ship.a) * 0.085 * thrustLevel * dt;
         if (!reduce && Math.random() < 0.65) {
           spawnParticle(ship.x - Math.cos(ship.a) * 9, ship.y - Math.sin(ship.a) * 9, -Math.cos(ship.a) * rand(0.7, 1.5), -Math.sin(ship.a) * rand(0.7, 1.5), 10, BRAIN, 2);
         }
@@ -431,6 +491,7 @@
         state = "waveclear";
         nextWaveTimer = 90;
         spawnFloater(W / 2 - 30, H / 2 - 12, "clear +" + (200 + wave * 40), LEAF_TOP);
+        A.haptics.win();
         updateHud();
       }
     }
@@ -449,7 +510,7 @@
         ctx.beginPath(); ctx.arc(0, 0, bloomTimer > 0 ? 15 : 12, 0, Math.PI * 2); ctx.stroke();
         ctx.globalAlpha = 1;
       }
-      if (held.thrust && state === "running") {
+      if (thrustLevel > 0 && state === "running") {
         blockyRect(ctx, -13, -2, 5, 4, BRAIN);
         ctx.fillStyle = WARM;
         ctx.fillRect(-17, -1, 4, 2);
@@ -645,6 +706,16 @@
       els.promptActions.appendChild(btn);
       els.prompt.hidden = false;
     }
+    function showPaused() {
+      els.promptTitle.textContent = "Paused";
+      els.promptText.textContent = "The drift holds. Resume when you're ready.";
+      els.promptActions.textContent = "";
+      var btn = document.createElement("button");
+      btn.type = "button"; btn.className = "btn btn--primary"; btn.textContent = "Resume";
+      btn.addEventListener("click", function () { resumeGame(); try { canvas.focus(); } catch (e) {} });
+      els.promptActions.appendChild(btn);
+      els.prompt.hidden = false;
+    }
     function showEnd(finalScore) {
       updateHud();
       els.promptTitle.textContent = "Drift complete";
@@ -699,6 +770,11 @@
       held: held,
       fire: fire,
       blink: blink,
+      // Plain stage tap (no drag): resume when paused, start when idle/over.
+      tap: function () {
+        if (state === "paused") { resumeGame(); return; }
+        if (state === "idle" || state === "gameover") start();
+      },
       followMouse: function (x, y) { if (state === "running") mouseTarget = { x: x, y: y }; },
       clearMouse: function () { mouseTarget = null; },
       resize: function (cssW, cssH) {
@@ -716,8 +792,19 @@
       },
       toggleMute: function () { return audio.toggleMute(); },
       isMuted: function () { return audio.isMuted(); },
-      activate: function () { resetWorld(); state = "idle"; lastTime = 0; updateHud(); showIdle(); rafId = window.requestAnimationFrame(loop); },
-      deactivate: function () { if (rafId) window.cancelAnimationFrame(rafId); rafId = null; audio.close(); }
+      activate: function () {
+        resetWorld(); state = "idle"; stateBeforePause = null; lastTime = 0; updateHud(); showIdle();
+        wake.acquire();
+        unHidden = A.onHidden(pauseGame);
+        rafId = window.requestAnimationFrame(loop);
+      },
+      deactivate: function () {
+        if (rafId) window.cancelAnimationFrame(rafId);
+        rafId = null;
+        wake.release();
+        if (unHidden) { unHidden(); unHidden = null; }
+        audio.close();
+      }
     };
   }
 
@@ -751,7 +838,7 @@
             '<div class="gms-arcade-prompt__actions" data-egg-prompt-actions></div>' +
           '</div>' +
         '</div>' +
-        '<p class="gms-arcade-help">Mouse aims · click/Space fires · Up/W thrusts · fly through seeds · Shift blink</p>' +
+        '<p class="gms-arcade-help">Mouse aims · click/Space fires · Up/W thrusts · Shift blink · touch: drag the stick to steer + thrust, fire is automatic</p>' +
         '<div class="gms-arcade-touchrow">' +
           '<button type="button" class="gms-arcade-touchbtn" data-egg-left aria-label="Rotate left">LEFT</button>' +
           '<button type="button" class="gms-arcade-touchbtn" data-egg-thrust aria-label="Thrust">GO</button>' +
@@ -774,6 +861,7 @@
       game.resize(W * scale, H * scale);
     }
     var game = createGame(canvas, {
+      stage: overlay.querySelector(".gms-arcade-stage"),
       score: overlay.querySelector("[data-egg-score]"),
       best: overlay.querySelector("[data-egg-best]"),
       wave: overlay.querySelector("[data-egg-wave]"),
@@ -802,21 +890,43 @@
       var ly = (clientY - rect.top) / rect.height * H;
       game.followMouse(lx, ly);
     }
+    var coarse = A.isCoarsePointer();
     var suppressMouse = 0;
-    canvas.addEventListener("touchstart", function (e) {
-      e.preventDefault();
-      suppressMouse = Date.now() + 500;
-      if (e.touches && e.touches.length) aimAt(e.touches[0].clientX, e.touches[0].clientY);
-      game.held.fire = true;
-      game.fire();
-    }, { passive: false });
-    canvas.addEventListener("touchmove", function (e) {
-      e.preventDefault();
-      suppressMouse = Date.now() + 500;
-      if (e.touches && e.touches.length) aimAt(e.touches[0].clientX, e.touches[0].clientY);
-    }, { passive: false });
-    canvas.addEventListener("touchend", function () { game.held.fire = false; }, { passive: false });
-    canvas.addEventListener("touchcancel", function () { game.held.fire = false; }, { passive: false });
+    if (!coarse) {
+      // Aim-at-finger only remains for fine-pointer touchscreens; coarse
+      // pointers get the floating stick (created in createGame) instead,
+      // and the two schemes must not fight.
+      canvas.addEventListener("touchstart", function (e) {
+        e.preventDefault();
+        suppressMouse = Date.now() + 500;
+        if (e.touches && e.touches.length) aimAt(e.touches[0].clientX, e.touches[0].clientY);
+        game.held.fire = true;
+        game.fire();
+      }, { passive: false });
+      canvas.addEventListener("touchmove", function (e) {
+        e.preventDefault();
+        suppressMouse = Date.now() + 500;
+        if (e.touches && e.touches.length) aimAt(e.touches[0].clientX, e.touches[0].clientY);
+      }, { passive: false });
+      canvas.addEventListener("touchend", function () { game.held.fire = false; }, { passive: false });
+      canvas.addEventListener("touchcancel", function () { game.held.fire = false; }, { passive: false });
+    } else {
+      // A plain tap starts/restarts/resumes; anything that moves far enough
+      // to steer belongs to the stick. Buttons keep their own click paths.
+      var stageEl = overlay.querySelector(".gms-arcade-stage");
+      var tapX = 0, tapY = 0, tapAt = 0;
+      stageEl.addEventListener("pointerdown", function (e) {
+        if (e.target.closest && e.target.closest("button, a, input, label, form")) { tapAt = 0; return; }
+        tapX = e.clientX; tapY = e.clientY; tapAt = Date.now();
+      });
+      stageEl.addEventListener("pointerup", function (e) {
+        if (!tapAt) return;
+        var dx = e.clientX - tapX, dy = e.clientY - tapY;
+        var wasTap = (Date.now() - tapAt) < 400 && (dx * dx + dy * dy) < 144;
+        tapAt = 0;
+        if (wasTap) game.tap();
+      });
+    }
     canvas.addEventListener("mousedown", function (e) {
       if (Date.now() < suppressMouse) return;
       e.preventDefault();
@@ -832,8 +942,8 @@
 
     function holdBtn(sel, key) {
       var el = overlay.querySelector(sel);
-      var down = function (e) { e.preventDefault(); game.held[key] = true; };
-      var up = function (e) { e.preventDefault(); game.held[key] = false; };
+      var down = function (e) { e.preventDefault(); el.classList.add("is-held"); game.held[key] = true; };
+      var up = function (e) { e.preventDefault(); el.classList.remove("is-held"); game.held[key] = false; };
       el.addEventListener("touchstart", down, { passive: false });
       el.addEventListener("touchend", up, { passive: false });
       el.addEventListener("touchcancel", up, { passive: false });
@@ -845,8 +955,8 @@
     holdBtn("[data-egg-right]", "right");
     holdBtn("[data-egg-thrust]", "thrust");
     var fireBtn = overlay.querySelector("[data-egg-fire]");
-    var fdown = function (e) { e.preventDefault(); game.held.fire = true; game.fire(); };
-    var fup = function (e) { e.preventDefault(); game.held.fire = false; };
+    var fdown = function (e) { e.preventDefault(); fireBtn.classList.add("is-held"); game.held.fire = true; game.fire(); };
+    var fup = function (e) { e.preventDefault(); fireBtn.classList.remove("is-held"); game.held.fire = false; };
     fireBtn.addEventListener("touchstart", fdown, { passive: false });
     fireBtn.addEventListener("touchend", fup, { passive: false });
     fireBtn.addEventListener("touchcancel", fup, { passive: false });
@@ -880,6 +990,7 @@
   }
 
   function closeOverlay(overlay) {
+    if (overlay._unViewport) { overlay._unViewport(); overlay._unViewport = null; }
     overlay.game.deactivate();
     window.location.reload();
   }
@@ -889,7 +1000,8 @@
     overlay._fitCanvas();
     document.addEventListener("keydown", overlay._onKeydown);
     document.addEventListener("keyup", overlay._onKeyup);
-    window.addEventListener("resize", overlay._fitCanvas);
+    // resize alone misses iOS URL-bar collapse and orientation quirks.
+    overlay._unViewport = A.onViewportChange(overlay._fitCanvas);
     overlay.game.activate();
     window.requestAnimationFrame(function () { overlay._canvas.focus(); });
   }

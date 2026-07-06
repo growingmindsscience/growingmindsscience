@@ -12,6 +12,8 @@
    leaderboard, and the initials entry. Self-contained otherwise: own overlay
    DOM, own rAF loop, full teardown on close. CSP-safe (no eval, no external
    assets; audio is Web Audio oscillator synth). Honors prefers-reduced-motion.
+   Mobile: the whole stage is a swipe surface, a wake lock holds the screen on
+   during play, hiding the tab pauses the run, and haptics mark the big beats.
 */
 (function () {
   "use strict";
@@ -75,7 +77,12 @@
     var camera = A.makeCamera({ reduce: reduce, maxPx: 3 });
     var combo = A.makeCombo({ window: 110, max: 5 });
 
-    var state = "idle"; // idle | running | dying | gameover
+    // Shared mobile toolkit: everything no-ops where the platform lacks the
+    // API, so these are called unconditionally.
+    var wake = A.makeWakeLock();
+    var unsubHidden = null;
+
+    var state = "idle"; // idle | running | paused | dying | gameover
     var snake, dirQ, dir, growth, moveTimer, moveInterval;
     var spark, book, bookTimer, blocks, sparksEaten, score;
     var chapterIdx, milestoneText, milestoneTimer;
@@ -203,23 +210,43 @@
       milestoneTimer = 90;
       camera.shake(0.35);
       ensureAudio(); sfx.milestone();
+      A.haptics.thump();
     }
 
     // ---------- Controls ----------
+    // Returns true only when the turn was accepted into the queue — touch
+    // callers gate haptics on this so a buzz always means a real turn.
     function queueDir(x, y) {
       if (state === "idle") { start(); }
-      if (state === "gameover" || state === "dying") return;
+      if (state === "paused" || state === "gameover" || state === "dying") return false;
       var last = dirQ.length ? dirQ[dirQ.length - 1] : dir;
-      if (last.x === x && last.y === y) return;       // same way
-      if (last.x === -x && last.y === -y) return;      // no 180s
-      if (dirQ.length < 2) dirQ.push({ x: x, y: y });
+      if (last.x === x && last.y === y) return false;       // same way
+      if (last.x === -x && last.y === -y) return false;      // no 180s
+      if (dirQ.length >= 2) return false;
+      dirQ.push({ x: x, y: y });
+      return true;
     }
 
     function start() { resetWorld(); state = "running"; hidePrompt(); }
     function restart() { resetWorld(); state = "running"; hidePrompt(); }
 
+    // Auto-pause: a hidden tab must not burn the run. Resume zeroes lastTime
+    // so the first frame back can't produce a dt jump.
+    function pauseGame() {
+      if (state !== "running") return;
+      state = "paused";
+      showPaused();
+    }
+    function resumeGame() {
+      if (state !== "paused") return;
+      state = "running";
+      lastTime = 0;
+      hidePrompt();
+    }
+
     function gameOver() {
       ensureAudio(); sfx.hit();
+      A.haptics.crash();
       camera.shake(0.9); camera.freeze(reduce ? 0 : 6);
       combo.reset();
       dyingScore = Math.floor(score);
@@ -282,6 +309,7 @@
         camera.freeze(reduce ? 0 : 2);           // micro hit-stop = crunch
         if (mult >= 3) camera.shake(0.12);
         ensureAudio(); sfx.spark(mult);
+        A.haptics.pop();
         spark = null;
         placeSpark();
         maybePlaceBook();
@@ -297,6 +325,7 @@
         firePulse();
         camera.shake(0.3); camera.freeze(reduce ? 0 : 3);
         ensureAudio(); sfx.book();
+        A.haptics.thump();
         book = null;
       }
     }
@@ -485,6 +514,17 @@
       els.promptActions.appendChild(btn);
       els.prompt.hidden = false;
     }
+    function showPaused() {
+      if (!els.prompt) return;
+      els.promptTitle.textContent = "Paused";
+      els.promptText.textContent = "The pathway is waiting — no sparks lost.";
+      els.promptActions.textContent = "";
+      var btn = document.createElement("button");
+      btn.type = "button"; btn.className = "btn btn--primary"; btn.textContent = "Resume";
+      btn.addEventListener("click", function () { resumeGame(); try { canvas.focus(); } catch (e) {} });
+      els.promptActions.appendChild(btn);
+      els.prompt.hidden = false;
+    }
     function showGameOver(finalScore) {
       updateHud();
       els.promptTitle.textContent = "The pathway tangled";
@@ -549,6 +589,7 @@
       tapStart: function () {
         ensureAudio();
         if (state === "idle") { start(); return; }
+        if (state === "paused") { resumeGame(); return; }
         if (state === "gameover") {
           if (document.activeElement && document.activeElement.tagName === "INPUT") return;
           restart();
@@ -559,11 +600,15 @@
       activate: function () {
         resetWorld(); state = "idle"; lastTime = 0;
         updateHud(); showIdle();
+        wake.acquire();
+        unsubHidden = A.onHidden(pauseGame);
         rafId = window.requestAnimationFrame(loop);
       },
       deactivate: function () {
         if (rafId) window.cancelAnimationFrame(rafId);
         rafId = null;
+        wake.release();
+        if (unsubHidden) { unsubHidden(); unsubHidden = null; }
         audio.close();
       }
     };
@@ -601,7 +646,7 @@
             '<div class="gms-arcade-prompt__actions" data-egg-prompt-actions></div>' +
           '</div>' +
         '</div>' +
-        '<p class="gms-arcade-help">Arrows / WASD steer · swipe on touch · edges wrap around · M to mute</p>' +
+        '<p class="gms-arcade-help">Arrows / WASD steer · swipe anywhere on the field or tap the d-pad · edges wrap around · M to mute</p>' +
         '<div class="gms-arcade-touchrow">' +
           '<button type="button" class="gms-arcade-touchbtn" data-egg-dir="-1,0" aria-label="Left">◀</button>' +
           '<button type="button" class="gms-arcade-touchbtn" data-egg-dir="0,-1" aria-label="Up">▲</button>' +
@@ -642,36 +687,54 @@
     muteBtn.addEventListener("click", function () { game.toggleMute(); syncMute(); });
     syncMute();
 
-    // D-pad buttons (tap = queue a turn).
+    // D-pad buttons (tap = queue a turn). Touch presses get a brief .is-held
+    // flash (mobile browsers don't reliably show :active) and a haptic tick,
+    // but only when the queue actually accepted the turn.
     overlay.querySelectorAll("[data-egg-dir]").forEach(function (el) {
       var parts = el.getAttribute("data-egg-dir").split(",");
       var dx = parseInt(parts[0], 10), dy = parseInt(parts[1], 10);
-      var press = function (e) { e.preventDefault(); game.queueDir(dx, dy); };
-      el.addEventListener("touchstart", press, { passive: false });
+      var press = function (e) { e.preventDefault(); return game.queueDir(dx, dy); };
+      el.addEventListener("touchstart", function (e) {
+        el.classList.add("is-held");
+        window.setTimeout(function () { el.classList.remove("is-held"); }, 120);
+        if (press(e)) A.haptics.tick();
+      }, { passive: false });
       el.addEventListener("mousedown", press);
     });
 
-    // Canvas: tap starts/restarts; swiping steers (resets origin each turn so
-    // you can snake around without lifting your finger).
+    // Stage: tap starts/restarts/resumes; swiping steers (resets origin each
+    // turn so you can snake around without lifting your finger). The canvas is
+    // letterboxed inside the stage, so the whole stage is the control surface
+    // — dead margins around the canvas read as broken on a phone. Taps on
+    // interactive elements (prompt buttons, initials form) must keep native
+    // behavior, so those bail before preventDefault.
+    var stage = overlay.querySelector(".gms-arcade-stage");
     var swipe = null, suppressMouse = 0;
-    canvas.addEventListener("touchstart", function (e) {
+    stage.addEventListener("touchstart", function (e) {
+      if (e.target.closest && e.target.closest("button, a, input, label, form")) return;
       e.preventDefault();
       suppressMouse = Date.now() + 500;
       var t = e.touches[0];
       swipe = { x: t.clientX, y: t.clientY, moved: false };
       game.tapStart();
     }, { passive: false });
-    canvas.addEventListener("touchmove", function (e) {
+    stage.addEventListener("touchmove", function (e) {
+      if (e.target.closest && e.target.closest("button, a, input, label, form")) return;
       e.preventDefault();
       if (!swipe || !e.touches.length) return;
       var t = e.touches[0];
       var dx = t.clientX - swipe.x, dy = t.clientY - swipe.y;
-      if (Math.abs(dx) < 18 && Math.abs(dy) < 18) return;
-      if (Math.abs(dx) > Math.abs(dy)) game.queueDir(dx > 0 ? 1 : -1, 0);
-      else game.queueDir(0, dy > 0 ? 1 : -1);
+      if (Math.abs(dx) < 14 && Math.abs(dy) < 14) return;
+      var queued;
+      if (Math.abs(dx) > Math.abs(dy)) queued = game.queueDir(dx > 0 ? 1 : -1, 0);
+      else queued = game.queueDir(0, dy > 0 ? 1 : -1);
+      if (queued) A.haptics.tick();
       swipe = { x: t.clientX, y: t.clientY, moved: true };
     }, { passive: false });
-    canvas.addEventListener("touchend", function () { swipe = null; }, { passive: false });
+    stage.addEventListener("touchend", function (e) {
+      if (e.target.closest && e.target.closest("button, a, input, label, form")) return;
+      swipe = null;
+    }, { passive: false });
     canvas.addEventListener("mousedown", function (e) {
       if (Date.now() < suppressMouse) return;
       e.preventDefault();
@@ -699,6 +762,8 @@
   }
 
   function closeOverlay(overlay) {
+    // Best-effort: the reload tears everything down anyway.
+    if (overlay._unViewport) { overlay._unViewport(); overlay._unViewport = null; }
     overlay.game.deactivate();
     window.location.reload();
   }
@@ -707,7 +772,8 @@
     document.body.classList.add("gms-arcade-lock");
     overlay._fitCanvas();
     document.addEventListener("keydown", overlay._onKeydown);
-    window.addEventListener("resize", overlay._fitCanvas);
+    // resize alone misses iOS URL-bar collapse and rotation.
+    overlay._unViewport = A.onViewportChange(overlay._fitCanvas);
     overlay.game.activate();
     window.requestAnimationFrame(function () { overlay._canvas.focus(); });
   }

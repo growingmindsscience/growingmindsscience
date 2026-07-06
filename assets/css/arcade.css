@@ -127,6 +127,17 @@ body.gms-arcade-lock { overflow: hidden; }
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
+  /* Mobile hardening: no pull-to-refresh, no tap-highlight flash, no
+     accidental text selection mid-game. The initials input opts back in. */
+  overscroll-behavior: contain;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.gms-arcade-overlay input {
+  user-select: text;
+  -webkit-user-select: text;
 }
 .gms-arcade-overlay.is-open { display: block; }
 
@@ -341,8 +352,45 @@ body.gms-arcade-lock { overflow: hidden; }
   user-select: none;
   touch-action: none;
   cursor: pointer;
+  transition: transform 80ms ease, background 80ms ease;
 }
-.gms-arcade-touchbtn:active { background: var(--primary); color: var(--primary-ink); border-color: var(--primary); }
+.gms-arcade-touchbtn:active,
+.gms-arcade-touchbtn.is-held {
+  background: var(--primary);
+  color: var(--primary-ink);
+  border-color: var(--primary);
+  transform: scale(0.94);
+}
+@media (prefers-reduced-motion: reduce) {
+  .gms-arcade-touchbtn { transition: none; }
+  .gms-arcade-touchbtn:active,
+  .gms-arcade-touchbtn.is-held { transform: none; }
+}
+
+/* ---------- Floating virtual stick (GMSArcade.makeStick) ---------- */
+/* Anchors under the thumb wherever it lands on the stage; hidden until
+   touched. Translucent so the play field stays readable behind it. */
+.gms-arcade-stick {
+  position: absolute;
+  width: 96px;
+  height: 96px;
+  margin: -48px 0 0 -48px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--primary) 45%, transparent);
+  background: color-mix(in oklab, var(--surface) 30%, transparent);
+  pointer-events: none;
+  z-index: 3;
+}
+.gms-arcade-stick__nub {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--primary) 70%, transparent);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
 
 /* ---------- Invaders touch row (left / fire / right) ---------- */
 .gms-arcade-touchrow {
@@ -394,5 +442,23 @@ body.gms-arcade-lock { overflow: hidden; }
   .gms-arcade-touchrow .gms-arcade-touchbtn {
     min-width: 62px;
     padding: 0.55rem 0.85rem;
+  }
+}
+
+/* Phones held sideways: every vertical pixel goes to the play field. The
+   title tagline and help line are the first things to give way; the HUD
+   collapses into the header row. */
+@media (max-height: 480px) and (orientation: landscape) {
+  .gms-arcade-panel {
+    padding: 6px clamp(10px, 3vw, 20px) calc(6px + env(safe-area-inset-bottom, 0px));
+    gap: 6px;
+  }
+  .gms-arcade-title { font-size: 1rem; }
+  .gms-arcade-title span { display: none; }
+  .gms-arcade-help { display: none; }
+  .gms-arcade-scores { font-size: 0.66rem; gap: 0.2rem 0.8rem; }
+  .gms-arcade-touchrow .gms-arcade-touchbtn {
+    min-height: 42px;
+    padding: 0.35rem 0.7rem;
   }
 }
