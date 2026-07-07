@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "nsc/citations.schema.json",
+  "title": "NSC citation table (citations.vN.json) — spec §6.2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["artifact", "version", "citations"],
+  "properties": {
+    "artifact": { "const": "citations" },
+    "version": { "type": "string", "pattern": "^v[0-9]+$" },
+    "citations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["tag_id", "anchor", "claim_scope", "verified", "full_cite"],
+        "properties": {
+          "tag_id": {
+            "type": "string",
+            "pattern": "^ev\\.[a-z]+\\.[a-z0-9]+$"
+          },
+          "anchor": { "type": "string", "minLength": 5 },
+          "claim_scope": { "type": "string", "minLength": 10 },
+          "verified": {
+            "type": "boolean",
+            "description": "Flipped to true ONLY by the G1 human citation-verification pass. The full-mode cert refuses unverified tags."
+          },
+          "full_cite": { "type": ["string", "null"] },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

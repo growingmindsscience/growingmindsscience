@@ -1,0 +1,25 @@
+{
+  "artifact": "games.catalog",
+  "version": "v1-gold",
+  "games": [
+    {
+      "id": "game.l1.redteam-schema",
+      "title": "Red Team Schema Violation",
+      "levels": ["L1"],
+      "age_bands": ["24-30m"],
+      "goal": "Fixture: missing level_down and script too short",
+      "materials": ["a bowl"],
+      "duration_min": 3,
+      "frequency_rx": "daily",
+      "script": ["Hand one block to the bear.", "Say thank you."],
+      "level_up": "Ask for two once, playfully, then return to one.",
+      "bilingual_note": "Either home language works for this game.",
+      "evidence": {
+        "tag_ids": ["ev.numbertalk.levine2010"],
+        "strength": "correlational-strong",
+        "consensus": "high"
+      },
+      "printable_id": null
+    }
+  ]
+}

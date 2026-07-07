@@ -1,0 +1,72 @@
+{
+  "artifact": "assessment.copy",
+  "version": "v1-gold",
+  "states": {
+    "setup:checklist": {
+      "lines": [
+        "You'll need 10 small things that look the same. Blocks, pom-poms, big buttons.",
+        "Skip food if it might get eaten mid-game. The bear won't mind, but the data will.",
+        "A bowl or plate, plus any stuffed animal. That's the bear now.",
+        "Pick a moment when {name} is fed, rested, and you have ten minutes."
+      ]
+    },
+    "setup:rules": {
+      "lines": [
+        "Read each line exactly as written. The wording matters more than it looks.",
+        "Don't count for {name}. Don't stress the number word. Don't fix answers mid-game.",
+        "Whatever happens, say \"Thank you!\" and move on. Every answer feeds the bear."
+      ]
+    },
+    "praise": {
+      "lines": ["Thank you! The bear is so happy."]
+    },
+    "trial:1:1": {
+      "lines": ["Can you feed the bear one {objects}? Put one in the bowl."]
+    },
+    "trial:1:2": {
+      "lines": ["The bear is hungry again! Can you feed it one {objects}? Put one in the bowl."]
+    },
+    "trial:1:3": {
+      "lines": ["One more snack for the bear. Can you feed it one {objects}? Put one in the bowl."]
+    },
+    "check:1": {
+      "lines": ["Is that one? Can you count and check?"]
+    },
+    "pause": {
+      "lines": [
+        "Good stopping point. The bear will nap.",
+        "Come back within two days and you'll pick up right here. After that, we start fresh so the game stays fair."
+      ]
+    },
+    "resume": {
+      "lines": ["The bear woke up hungry. Ready to keep playing?"]
+    },
+    "bonus": {
+      "lines": ["One last one for the bear!"]
+    },
+    "end:L1:high": {
+      "lines": [
+        "Right now, {name} is a one-knower. That's a real stage on the counting ladder.",
+        "{name} knows exactly what \"one\" means. \"Two\" is still a word in a song.",
+        "Next comes two. Every child climbs this ladder, one rung at a time, and each rung takes months.",
+        "The games this week are built for exactly this rung. They make the climb richer."
+      ]
+    },
+    "end:L1:medium": {
+      "lines": [
+        "Today's best read: {name} is a one-knower. That's a real stage on the counting ladder.",
+        "{name} showed a solid grip on \"one.\" A few moments were hard to read, which is typical for a game at home.",
+        "Next comes two. Every child climbs this ladder, one rung at a time.",
+        "This week's games are built for this rung. Try the check-in again in a week or two."
+      ]
+    },
+    "end:L1:low": {
+      "lines": [
+        "Today gave us a playful estimate, not a measurement: {name} is likely around the one-knower rung.",
+        "Little ones have off days. Bears get eaten. It happens.",
+        "We picked this week's games for the one-knower rung, the cozier read of today.",
+        "Try the check-in again in a week or two. Fresh day, fresh bear."
+      ]
+    }
+  }
+}

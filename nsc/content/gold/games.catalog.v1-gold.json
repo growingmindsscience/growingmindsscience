@@ -1,0 +1,61 @@
+{
+  "artifact": "games.catalog",
+  "version": "v1-gold",
+  "games": [
+    {
+      "id": "game.l2.snack-plate-match",
+      "title": "Snack Plate Match",
+      "levels": ["L2", "L3"],
+      "age_bands": ["30-36m", "36-42m", "42-48m"],
+      "goal": "Map small number words onto exact sets by matching plates",
+      "materials": ["two plates", "6 identical snacks or blocks"],
+      "duration_min": 5,
+      "frequency_rx": "2-3x/week",
+      "script": [
+        "Put two plates on the table. Say: \"One plate for you, one plate for me.\"",
+        "Put two snacks on your plate. Say: \"Look, I have two. Can you make your plate match mine?\"",
+        "Wait. Let {name} work it out. No counting for them, no hints.",
+        "Whatever lands on the plate, say: \"Thank you! Let's check together. One... two.\"",
+        "If the plates match, celebrate the match, not the child: \"Same! Both plates have two!\"",
+        "Swap roles. Say: \"Your turn. Put some on your plate, and I'll match you.\"",
+        "Play three or four rounds, then stop while it's still fun."
+      ],
+      "level_up": "Once, playfully, make your plate hold three and ask for a match. If it flops, laugh and go back to two.",
+      "level_down": "Drop to matching one snack, and let {name} be the one who builds the plate you copy.",
+      "bilingual_note": "Play in either home language. Counting skill moves across languages with the child.",
+      "evidence": {
+        "tag_ids": ["ev.numbertalk.gunderson2011", "ev.knower.lecorre2007"],
+        "strength": "correlational-strong",
+        "consensus": "high"
+      },
+      "printable_id": null
+    },
+    {
+      "id": "game.l0.one-for-you-one-for-me",
+      "title": "One for You, One for Me",
+      "levels": ["L0", "L1"],
+      "age_bands": ["24-30m", "30-36m"],
+      "goal": "Build one-to-one giving inside a daily routine, no prep",
+      "materials": ["any small items you are already handing out"],
+      "duration_min": 3,
+      "frequency_rx": "daily, inside routines",
+      "script": [
+        "At snack, laundry, or cleanup, hand things out one at a time.",
+        "Say the ritual out loud, slowly: \"One for you... one for me.\"",
+        "Tap each item as you say its word. The tap is the whole trick.",
+        "Sometimes pause with the item in the air and let {name} say the next part.",
+        "If {name} grabs a handful, that's fine. Say: \"So many!\" and keep going.",
+        "End before {name} is done wanting it."
+      ],
+      "level_up": "Ask once, playfully: \"Can you give the bear just one?\" Then back to the ritual either way.",
+      "level_down": "Drop the words and keep the rhythm: hand, tap, smile. The pattern comes first.",
+      "bilingual_note": "Use whichever language the routine already happens in. Both work.",
+      "evidence": {
+        "tag_ids": ["ev.numbertalk.levine2010"],
+        "strength": "correlational-strong",
+        "consensus": "high"
+      },
+      "printable_id": null
+    }
+  ]
+}
