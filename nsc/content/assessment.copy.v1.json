@@ -1,0 +1,305 @@
+{
+  "artifact": "assessment.copy",
+  "version": "v1",
+  "states": {
+    "prescreen:intro": {
+      "lines": [
+        "Five quick taps before the game. This helps us read today's play, nothing more."
+      ]
+    },
+    "prescreen:q1": {
+      "lines": ["When was {name} born? Month and year is all we keep."]
+    },
+    "prescreen:q2": {
+      "lines": ["Without help, how high can {name} count before a mix-up?"]
+    },
+    "prescreen:q2:opts": {
+      "lines": ["Not yet counting", "Up to 4", "5 to 9", "10 to 19", "20 or higher"]
+    },
+    "prescreen:q3": {
+      "lines": ["If you ask for one cracker, does {name} hand you exactly one?"]
+    },
+    "prescreen:q3:opts": {
+      "lines": ["Yes", "Sometimes", "No", "Never tried"]
+    },
+    "prescreen:q4": {
+      "lines": ["Does {name} count objects by pointing or touching them?"]
+    },
+    "prescreen:q4:opts": {
+      "lines": ["Yes", "Sometimes", "No"]
+    },
+    "prescreen:q5": {
+      "lines": ["Which languages does {name} hear at home?"]
+    },
+    "setup:checklist": {
+      "lines": [
+        "You'll need 10 small things that look the same. Blocks, pom-poms, big buttons.",
+        "Skip food if it might get eaten mid-game. The bear won't mind, but the data will.",
+        "A bowl or plate, plus any stuffed animal. That's the bear now.",
+        "Pick a moment when {name} is fed, rested, and you have ten minutes."
+      ]
+    },
+    "setup:rules": {
+      "lines": [
+        "Read each line exactly as written. The wording matters more than it looks.",
+        "Don't count for {name}. Don't stress the number word. Don't fix answers mid-game.",
+        "Whatever happens, say \"Thank you!\" and move on. Every answer feeds the bear."
+      ]
+    },
+    "praise": {
+      "lines": ["Thank you! The bear is so happy."]
+    },
+    "trial:1:1": {
+      "lines": ["Can you feed the bear one {objects}? Put one in the bowl."]
+    },
+    "trial:1:2": {
+      "lines": ["The bear is hungry again! Can you feed it one {objects}? Put one in the bowl."]
+    },
+    "trial:1:3": {
+      "lines": ["The bear asks so nicely! Can you feed it one {objects}? Put one in the bowl."]
+    },
+    "check:1": {
+      "lines": ["Is that one? Can you count and check?"]
+    },
+    "trial:2:1": {
+      "lines": ["Can you feed the bear two {objects}? Put two in the bowl."]
+    },
+    "trial:2:2": {
+      "lines": ["The bear is hungry again! Can you feed it two {objects}? Put two in the bowl."]
+    },
+    "trial:2:3": {
+      "lines": ["The bear asks so nicely! Can you feed it two {objects}? Put two in the bowl."]
+    },
+    "check:2": {
+      "lines": ["Is that two? Can you count and check?"]
+    },
+    "trial:3:1": {
+      "lines": ["Can you feed the bear three {objects}? Put three in the bowl."]
+    },
+    "trial:3:2": {
+      "lines": ["The bear is hungry again! Can you feed it three {objects}? Put three in the bowl."]
+    },
+    "trial:3:3": {
+      "lines": ["The bear asks so nicely! Can you feed it three {objects}? Put three in the bowl."]
+    },
+    "check:3": {
+      "lines": ["Is that three? Can you count and check?"]
+    },
+    "trial:4:1": {
+      "lines": ["Can you feed the bear four {objects}? Put four in the bowl."]
+    },
+    "trial:4:2": {
+      "lines": ["The bear is hungry again! Can you feed it four {objects}? Put four in the bowl."]
+    },
+    "trial:4:3": {
+      "lines": ["The bear asks so nicely! Can you feed it four {objects}? Put four in the bowl."]
+    },
+    "check:4": {
+      "lines": ["Is that four? Can you count and check?"]
+    },
+    "trial:5:1": {
+      "lines": ["Can you feed the bear five {objects}? Put five in the bowl."]
+    },
+    "trial:5:2": {
+      "lines": ["The bear is hungry again! Can you feed it five {objects}? Put five in the bowl."]
+    },
+    "trial:5:3": {
+      "lines": ["The bear asks so nicely! Can you feed it five {objects}? Put five in the bowl."]
+    },
+    "check:5": {
+      "lines": ["Is that five? Can you count and check?"]
+    },
+    "trial:6:1": {
+      "lines": ["Can you feed the bear six {objects}? Put six in the bowl."]
+    },
+    "trial:6:2": {
+      "lines": ["The bear is hungry again! Can you feed it six {objects}? Put six in the bowl."]
+    },
+    "trial:6:3": {
+      "lines": ["The bear asks so nicely! Can you feed it six {objects}? Put six in the bowl."]
+    },
+    "check:6": {
+      "lines": ["Is that six? Can you count and check?"]
+    },
+    "pause": {
+      "lines": [
+        "Good stopping point. The bear will nap.",
+        "Come back within two days and you'll pick up right here. After that, we start fresh so the game stays fair."
+      ]
+    },
+    "resume": {
+      "lines": ["The bear woke up hungry. Ready to keep playing?"]
+    },
+    "bonus": {
+      "lines": ["One last one for the bear!"]
+    },
+    "end:L0:high": {
+      "lines": [
+        "Right now, {name} is at the very first rung of the counting ladder.",
+        "Counting words are still music: {name} may sing them, but they don't point at amounts yet. That's a real stage, and every counter starts here.",
+        "Next, one number word will click onto meaning: \"one.\" It arrives with time and talk.",
+        "This week's games soak daily routines in number words. That's the whole job right now."
+      ]
+    },
+    "end:L0:medium": {
+      "lines": [
+        "Today's best read: {name} is at the very first rung of the counting ladder.",
+        "Counting words are still music at this stage. The meanings come later, one word at a time.",
+        "A few moments were hard to read, which is typical for a game at home.",
+        "This week's games are built for exactly this rung. Try the check-in again in a week or two."
+      ]
+    },
+    "end:L0:low": {
+      "lines": [
+        "Today gave us a playful estimate, not a measurement: {name} is likely near the first rung of the ladder.",
+        "Little ones have off days. Bears get eaten. It happens.",
+        "We picked this week's games for the very first rung, the cozier read of today.",
+        "Try the check-in again in a week or two. Fresh day, fresh bear."
+      ]
+    },
+    "end:L1:high": {
+      "lines": [
+        "Right now, {name} is a one-knower. That's a real stage on the counting ladder.",
+        "{name} knows exactly what \"one\" means. \"Two\" is still a word in a song.",
+        "Next comes two. Every child climbs this ladder, one rung at a time, and each rung takes months.",
+        "The games this week are built for exactly this rung. They make the climb richer."
+      ]
+    },
+    "end:L1:medium": {
+      "lines": [
+        "Today's best read: {name} is a one-knower. That's a real stage on the counting ladder.",
+        "{name} showed a solid grip on \"one.\" A few moments were hard to read, which is typical for a game at home.",
+        "Next comes two. Every child climbs this ladder, one rung at a time.",
+        "This week's games are built for this rung. Try the check-in again in a week or two."
+      ]
+    },
+    "end:L1:low": {
+      "lines": [
+        "Today gave us a playful estimate, not a measurement: {name} is likely around the one-knower rung.",
+        "Little ones have off days. Bears get eaten. It happens.",
+        "We picked this week's games for the one-knower rung, the cozier read of today.",
+        "Try the check-in again in a week or two. Fresh day, fresh bear."
+      ]
+    },
+    "end:L2:high": {
+      "lines": [
+        "Right now, {name} is a two-knower. That's a real stage on the counting ladder.",
+        "\"One\" and \"two\" mean exact amounts to {name} now. \"Three\" is still catching up.",
+        "Next comes three, and it usually takes months of ordinary play. That's the ladder working, not stalling.",
+        "This week's games give \"two\" a workout and let \"three\" start knocking."
+      ]
+    },
+    "end:L2:medium": {
+      "lines": [
+        "Today's best read: {name} is a two-knower. That's a real stage on the counting ladder.",
+        "\"One\" and \"two\" looked solid. A few moments were hard to read, which is typical for a game at home.",
+        "Next comes three, in its own time.",
+        "This week's games are built for this rung. Try the check-in again in a week or two."
+      ]
+    },
+    "end:L2:low": {
+      "lines": [
+        "Today gave us a playful estimate, not a measurement: {name} is likely around the two-knower rung.",
+        "Little ones have off days. Bears get eaten. It happens.",
+        "We picked this week's games for the two-knower rung, the cozier read of today.",
+        "Try the check-in again in a week or two. Fresh day, fresh bear."
+      ]
+    },
+    "end:L3:high": {
+      "lines": [
+        "Right now, {name} is a three-knower. That's a real stage on the counting ladder.",
+        "One, two, and three are exact ideas for {name} now. \"Four\" is next in line.",
+        "Children usually climb one number at a time here, and then something bigger clicks all at once.",
+        "This week's games stretch toward four and keep three feeling easy."
+      ]
+    },
+    "end:L3:medium": {
+      "lines": [
+        "Today's best read: {name} is a three-knower. That's a real stage on the counting ladder.",
+        "One through three looked solid. A few moments were hard to read, which is typical for a game at home.",
+        "\"Four\" comes next, in its own time.",
+        "This week's games are built for this rung. Try the check-in again in a week or two."
+      ]
+    },
+    "end:L3:low": {
+      "lines": [
+        "Today gave us a playful estimate, not a measurement: {name} is likely around the three-knower rung.",
+        "Little ones have off days. Bears get eaten. It happens.",
+        "We picked this week's games for the three-knower rung, the cozier read of today.",
+        "Try the check-in again in a week or two. Fresh day, fresh bear."
+      ]
+    },
+    "end:L4:high": {
+      "lines": [
+        "Right now, {name} is a four-knower. That's a real stage, high on the counting ladder.",
+        "One through four are exact ideas for {name}. The next step is the big one: discovering that counting itself tells you how many.",
+        "That discovery tends to arrive after months on this rung, often all at once.",
+        "This week's games set the table for it: counting out, checking, and lots of five."
+      ]
+    },
+    "end:L4:medium": {
+      "lines": [
+        "Today's best read: {name} is a four-knower. That's a real stage, high on the counting ladder.",
+        "One through four looked solid. A few moments were hard to read, which is typical for a game at home.",
+        "The next step is the big aha: counting itself tells you how many.",
+        "This week's games are built for this rung. Try the check-in again in a week or two."
+      ]
+    },
+    "end:L4:low": {
+      "lines": [
+        "Today gave us a playful estimate, not a measurement: {name} is likely around the four-knower rung.",
+        "Little ones have off days. Bears get eaten. It happens.",
+        "We picked this week's games for the four-knower rung, the cozier read of today.",
+        "Try the check-in again in a week or two. Fresh day, fresh bear."
+      ]
+    },
+    "end:L4near:high": {
+      "lines": [
+        "Right now, {name} is a four-knower standing on the doorstep of the biggest step on the ladder.",
+        "Five went beautifully today. The full discovery, that counting itself tells you how many, every time, for any amount, is very close.",
+        "When it clicks, it tends to click all at once.",
+        "This week's games are exactly the doorstep games: counting out, checking, and celebrating the check."
+      ]
+    },
+    "end:L4near:medium": {
+      "lines": [
+        "Today's best read: {name} is a four-knower right at the doorstep of the counting ladder's biggest step.",
+        "Five had great moments today. A few were hard to read, which is typical for a game at home.",
+        "The full discovery, counting tells you how many, is close.",
+        "This week's games are doorstep games. Try the check-in again in a week or two."
+      ]
+    },
+    "end:L4near:low": {
+      "lines": [
+        "Today gave us a playful estimate, not a measurement: {name} looks like a four-knower near the ladder's biggest step.",
+        "Little ones have off days. Bears get eaten. It happens.",
+        "We picked this week's games for the four-knower rung, the cozier read of today.",
+        "Try the check-in again in a week or two. Fresh day, fresh bear."
+      ]
+    },
+    "end:CP:high": {
+      "lines": [
+        "Right now, {name} is a cardinal-principle knower. The ladder's big discovery has happened.",
+        "{name} can count out an amount and knows the last word counted tells how many. That works for any number {name} can count to.",
+        "From here the fun widens: one more, one fewer, who has more, and a longer count list.",
+        "This week's games open that next territory."
+      ]
+    },
+    "end:CP:medium": {
+      "lines": [
+        "Today's best read: {name} is a cardinal-principle knower. The ladder's big discovery looks like it has happened.",
+        "Counting out and checking both showed up today. A few moments were hard to read, which is typical for a game at home.",
+        "From here the fun widens: one more, one fewer, who has more.",
+        "This week's games open that territory. Try the check-in again in a week or two to watch it settle."
+      ]
+    },
+    "end:CP:low": {
+      "lines": [
+        "Today gave us a playful estimate, not a measurement: {name} may be at or near the ladder's big discovery.",
+        "Little ones have off days. Bears get eaten. It happens.",
+        "We picked this week's games a rung below the top read, the cozier choice for a fuzzy day.",
+        "Try the check-in again in a week or two. Fresh day, fresh bear."
+      ]
+    }
+  }
+}

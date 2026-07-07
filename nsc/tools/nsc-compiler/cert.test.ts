@@ -36,7 +36,44 @@ describe("gold set certifies green (PR3 milestone)", () => {
     expect(r.checks.find((c) => c.name === "coverage-matrix")!.status).toBe(
       "skip",
     );
-    // unverified citations surface as a warning, never silently
+    // G1 has now run: the real citation table is fully verified, so gold
+    // mode reports a clean pass rather than the pending-G1 warning.
+    expect(r.checks.find((c) => c.name === "evidence-tags")!.status).toBe(
+      "pass",
+    );
+  });
+
+  it("gold mode still WARNS (never silently passes) when a tag is unverified", () => {
+    // Prove the pending-G1 signal survives by feeding a synthetic
+    // unverified table for the tags the gold games reference.
+    const unverified = JSON.stringify({
+      artifact: "citations",
+      version: "v1",
+      citations: [
+        {
+          tag_id: "ev.numbertalk.levine2010",
+          anchor: "x",
+          claim_scope: "placeholder scope",
+          verified: false,
+          full_cite: null,
+        },
+        {
+          tag_id: "ev.numbertalk.gunderson2011",
+          anchor: "x",
+          claim_scope: "placeholder scope",
+          verified: false,
+          full_cite: null,
+        },
+        {
+          tag_id: "ev.knower.lecorre2007",
+          anchor: "x",
+          claim_scope: "placeholder scope",
+          verified: false,
+          full_cite: null,
+        },
+      ],
+    });
+    const r = certifyGamesCatalog(goldGames, unverified, "gold");
     expect(r.checks.find((c) => c.name === "evidence-tags")!.status).toBe(
       "warn",
     );
@@ -55,11 +92,27 @@ describe("gold set certifies green (PR3 milestone)", () => {
     );
   });
 
-  it("full mode refuses unverified citations (G1 gate is mechanical)", () => {
-    const games = certifyGamesCatalog(goldGames, citations, "full");
-    expect(games.pass).toBe(false);
-    const cites = certifyCitations(citations, "full");
-    expect(cites.pass).toBe(false);
+  it("full mode accepts the real citation table now that G1 has run", () => {
+    // All rows in content/citations.v1.json were flipped verified:true by the
+    // G1 human-verification pass (2026-07-07).
+    expect(certifyCitations(citations, "full").pass).toBe(true);
+  });
+
+  it("full mode still refuses an unverified citation (G1 gate is mechanical)", () => {
+    const table = JSON.parse(citations);
+    // flip a tag a gold game actually cites (levine2010 → one-for-you-one-for-me)
+    const row = table.citations.find(
+      (c: { tag_id: string }) => c.tag_id === "ev.numbertalk.levine2010",
+    );
+    row.verified = false;
+    const raw = JSON.stringify(table);
+    expect(certifyCitations(raw, "full").pass).toBe(false);
+    // the evidence-tags check specifically flags the unverified tag (overall
+    // pass is confounded by the gold set's deliberate coverage shortfall)
+    const games = certifyGamesCatalog(goldGames, raw, "full");
+    const evidence = games.checks.find((c) => c.name === "evidence-tags")!;
+    expect(evidence.status).toBe("fail");
+    expect(evidence.details).toContain("not G1-verified");
   });
 });
 

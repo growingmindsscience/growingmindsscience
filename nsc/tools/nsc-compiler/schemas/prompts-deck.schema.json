@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "nsc/prompts-deck.schema.json",
+  "title": "NSC daily number-talk prompt deck (prompts.deck.vN.json) — spec §4.3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["artifact", "version", "bands"],
+  "properties": {
+    "artifact": { "const": "prompts.deck" },
+    "version": { "type": "string", "pattern": "^v[0-9]+(-gold)?$" },
+    "bands": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["24-30m", "30-36m", "36-42m", "42-48m", "48-60m"],
+      "properties": {
+        "24-30m": { "$ref": "#/definitions/promptList" },
+        "30-36m": { "$ref": "#/definitions/promptList" },
+        "36-42m": { "$ref": "#/definitions/promptList" },
+        "42-48m": { "$ref": "#/definitions/promptList" },
+        "48-60m": { "$ref": "#/definitions/promptList" }
+      }
+    }
+  },
+  "definitions": {
+    "promptList": {
+      "type": "array",
+      "minItems": 90,
+      "maxItems": 90,
+      "items": { "type": "string", "minLength": 10, "maxLength": 180 }
+    }
+  }
+}

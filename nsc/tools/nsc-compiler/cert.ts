@@ -19,6 +19,10 @@ import gameSchema from "./schemas/game.schema.json";
 import gamesCatalogSchema from "./schemas/games-catalog.schema.json";
 import assessmentCopySchema from "./schemas/assessment-copy.schema.json";
 import citationsSchema from "./schemas/citations.schema.json";
+import promptsDeckSchema from "./schemas/prompts-deck.schema.json";
+
+const AGE_BANDS = ["24-30m", "30-36m", "36-42m", "42-48m", "48-60m"] as const;
+const PROMPTS_PER_BAND = 90;
 
 export type CertMode = "gold" | "full";
 
@@ -200,6 +204,82 @@ export function certifyGamesCatalog(
     evidenceCheck(data.games ?? [], citations.citations ?? [], mode),
   ];
   return report("games.catalog", raw, mode, checks);
+}
+
+/** Normalize a prompt for cross-band duplicate detection (§7.1.6). */
+function normalizePrompt(text: string): string {
+  return text
+    .toLowerCase()
+    .replaceAll("{name}", "")
+    .replace(/[^a-z0-9 ]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/** Count sentence-terminators as a proxy for the ≤2-sentence rule. */
+function sentenceCount(text: string): number {
+  return (text.match(/[.!?]+(?:\s|$)/g) ?? []).length || 1;
+}
+
+function promptDeckCounts(
+  bands: Record<string, string[]>,
+): CheckResult {
+  const problems: string[] = [];
+  for (const band of AGE_BANDS) {
+    const list = bands[band] ?? [];
+    if (list.length !== PROMPTS_PER_BAND) {
+      problems.push(`${band}: ${list.length} prompts (need ${PROMPTS_PER_BAND})`);
+    }
+    const overLong = list.filter((p) => sentenceCount(p) > 2).length;
+    if (overLong > 0) problems.push(`${band}: ${overLong} prompts over 2 sentences`);
+    const dupsInBand =
+      list.length - new Set(list.map(normalizePrompt)).size;
+    if (dupsInBand > 0) problems.push(`${band}: ${dupsInBand} in-band duplicates`);
+  }
+  return {
+    name: "prompt-deck-counts",
+    status: problems.length === 0 ? "pass" : "fail",
+    details:
+      problems.length === 0
+        ? `${PROMPTS_PER_BAND} unique ≤2-sentence prompts per band`
+        : problems.join("; "),
+  };
+}
+
+function promptDeckAdjacency(
+  bands: Record<string, string[]>,
+): CheckResult {
+  const overlaps: string[] = [];
+  for (let i = 0; i < AGE_BANDS.length - 1; i++) {
+    const a = new Set((bands[AGE_BANDS[i]] ?? []).map(normalizePrompt));
+    const b = (bands[AGE_BANDS[i + 1]] ?? []).map(normalizePrompt);
+    const shared = b.filter((p) => a.has(p));
+    if (shared.length > 0) {
+      overlaps.push(`${AGE_BANDS[i]}↔${AGE_BANDS[i + 1]}: ${shared.length}`);
+    }
+  }
+  return {
+    name: "prompt-deck-adjacency",
+    status: overlaps.length === 0 ? "pass" : "fail",
+    details:
+      overlaps.length === 0
+        ? "no duplicate prompts across adjacent bands"
+        : `duplicate normalized text across adjacent bands: ${overlaps.join(", ")}`,
+  };
+}
+
+export function certifyPromptsDeck(raw: string): CertReport {
+  const ajv = ajvInstance();
+  const data = JSON.parse(raw);
+  const bands = data.bands ?? {};
+  const checks: CheckResult[] = [
+    schemaCheck(ajv, promptsDeckSchema, data),
+    bannedCheck(data),
+    readabilityCheck(data),
+    promptDeckCounts(bands),
+    promptDeckAdjacency(bands),
+  ];
+  return report("prompts.deck", raw, "full", checks);
 }
 
 export function certifyAssessmentCopy(raw: string, mode: CertMode): CertReport {
