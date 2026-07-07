@@ -1,0 +1,65 @@
+{
+  "artifact": "citations",
+  "version": "v1",
+  "citations": [
+    {
+      "tag_id": "ev.given.wynn1990",
+      "anchor": "Wynn (1990, Cognition); Wynn (1992)",
+      "claim_scope": "Give-N task; knower-level stages in number word learning",
+      "verified": false,
+      "full_cite": null,
+      "notes": "G1: verify full cite, findings, effect sizes against the papers before content freeze."
+    },
+    {
+      "tag_id": "ev.knower.lecorre2007",
+      "anchor": "Le Corre & Carey (2007, Cognition)",
+      "claim_scope": "Titrated Give-N; subset-knower to cardinal-principle progression",
+      "verified": false,
+      "full_cite": null
+    },
+    {
+      "tag_id": "ev.knower.sarnecka2008",
+      "anchor": "Sarnecka & Carey (2008, Cognition)",
+      "claim_scope": "Cardinal principle as inductive leap; what CP-knowers know",
+      "verified": false,
+      "full_cite": null
+    },
+    {
+      "tag_id": "ev.numbertalk.levine2010",
+      "anchor": "Levine et al. (2010, Developmental Psychology)",
+      "claim_scope": "Parent number talk at 14-30 months predicts later cardinal-number knowledge",
+      "verified": false,
+      "full_cite": null
+    },
+    {
+      "tag_id": "ev.numbertalk.gunderson2011",
+      "anchor": "Gunderson & Levine (2011)",
+      "claim_scope": "Talk about sets (especially larger, present sets) drives the number-talk effect",
+      "verified": false,
+      "full_cite": null
+    },
+    {
+      "tag_id": "ev.spatial.pruden2011",
+      "anchor": "Pruden, Levine & Huttenlocher (2011)",
+      "claim_scope": "Spatial language input predicts later spatial skills",
+      "verified": false,
+      "full_cite": null
+    },
+    {
+      "tag_id": "ev.boardgame.ramani2008",
+      "anchor": "Ramani & Siegler (2008, Child Development)",
+      "claim_scope": "Linear number board games improve numerical knowledge in young children (RCT)",
+      "verified": false,
+      "full_cite": null,
+      "notes": "ADDED beyond the spec seed table (supports the Number Path printable board game). Confirm inclusion at G1."
+    },
+    {
+      "tag_id": "ev.exclusion.ans",
+      "anchor": "Position note (Barner-aligned)",
+      "claim_scope": "Why Number Path does not sell approximate-number-system training: transfer is contested",
+      "verified": false,
+      "full_cite": null,
+      "notes": "Renders as the honesty card: what we deliberately left out, and why."
+    }
+  ]
+}

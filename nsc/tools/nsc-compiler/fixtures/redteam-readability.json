@@ -1,0 +1,12 @@
+{
+  "artifact": "assessment.copy",
+  "version": "v1-gold",
+  "states": {
+    "setup:rules": {
+      "lines": [
+        "Notwithstanding considerable methodological heterogeneity across developmental investigations, contemporaneous psychometric operationalizations of cardinality comprehension necessitate substantially standardized administration procedures incorporating verbatim instructional phraseology alongside systematically counterbalanced presentation sequences.",
+        "Consequently, parental facilitators should conscientiously internalize the aforementioned administration prerequisites, meticulously documenting behavioral observations notwithstanding potentially ambiguous manifestations of numerical comprehension throughout the evaluative interaction."
+      ]
+    }
+  }
+}

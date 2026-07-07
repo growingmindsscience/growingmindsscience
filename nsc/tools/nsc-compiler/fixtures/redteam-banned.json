@@ -1,0 +1,31 @@
+{
+  "artifact": "games.catalog",
+  "version": "v1-gold",
+  "games": [
+    {
+      "id": "game.l2.redteam-banned",
+      "title": "Red Team Banned Language",
+      "levels": ["L2"],
+      "age_bands": ["30-36m"],
+      "goal": "Fixture: every field hides a banned phrase the lint must catch",
+      "materials": ["two plates"],
+      "duration_min": 5,
+      "frequency_rx": "2-3x/week",
+      "script": [
+        "Your child seems behind the other kids at daycare.",
+        "By now most children can count to five without help.",
+        "A typical child at this age should be able to hand you two blocks.",
+        "If they keep struggling, that could be a red flag for a delay."
+      ],
+      "level_up": "Children above the 60th percentile can try three blocks.",
+      "level_down": "If your child is at risk of falling further, drop to one block.",
+      "bilingual_note": "A diagnostic check in either language works fine here.",
+      "evidence": {
+        "tag_ids": ["ev.numbertalk.levine2010"],
+        "strength": "correlational-strong",
+        "consensus": "high"
+      },
+      "printable_id": null
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "mode": "gold",
+  "pass": true,
+  "reports": [
+    {
+      "artifact": "games.catalog",
+      "sha256": "998ca4d6cbc80e6b4d61fab60817d38a1602b7f77b80459552409644a116c5e7",
+      "mode": "gold",
+      "pass": true,
+      "checks": [
+        {
+          "name": "json-schema",
+          "status": "pass",
+          "details": "valid"
+        },
+        {
+          "name": "banned-language",
+          "status": "pass",
+          "details": "no banned language"
+        },
+        {
+          "name": "readability",
+          "status": "pass",
+          "details": "FK grade 2.42 over 24 pooled strings (300 words) — limit 8"
+        },
+        {
+          "name": "coverage-matrix",
+          "status": "skip",
+          "details": "gold mode — exemplar set, coverage enforced at full compile"
+        },
+        {
+          "name": "evidence-tags",
+          "status": "warn",
+          "details": "tags resolve; G1 verification still pending (gold mode allows)"
+        }
+      ]
+    },
+    {
+      "artifact": "assessment.copy",
+      "sha256": "4db7199733c1bdfec1ed8810f665f3448f566e6e44f81faf91eae95b17ef345d",
+      "mode": "gold",
+      "pass": true,
+      "checks": [
+        {
+          "name": "json-schema",
+          "status": "pass",
+          "details": "valid"
+        },
+        {
+          "name": "banned-language",
+          "status": "pass",
+          "details": "no banned language"
+        },
+        {
+          "name": "readability",
+          "status": "pass",
+          "details": "FK grade 1.48 over 28 pooled strings (376 words) — limit 8"
+        }
+      ]
+    },
+    {
+      "artifact": "citations",
+      "sha256": "bbc0c8b64e9f0ef9a966735b99c705ff418c3766b90cc679e77760ea2b354051",
+      "mode": "gold",
+      "pass": true,
+      "checks": [
+        {
+          "name": "json-schema",
+          "status": "pass",
+          "details": "valid"
+        },
+        {
+          "name": "banned-language",
+          "status": "pass",
+          "details": "no banned language"
+        },
+        {
+          "name": "g1-verified",
+          "status": "skip",
+          "details": "gold mode — G1 human pass has not run"
+        }
+      ]
+    }
+  ]
+}
