@@ -62,13 +62,15 @@ dev. Set the server-only secrets via `vercel env add`.
 
 ## Stripe setup (one-time SKU, pricing option B)
 
-1. Create a product ("Number Path — full access") with a one-time price in the
-   growingmindsscience Stripe account. Put the price id in `NSC_PRICE_ID`.
-2. Add a webhook endpoint → `https://growingmindsscience.com/nsc/api/stripe-webhook`,
-   event `checkout.session.completed`. Put its signing secret in
-   `STRIPE_WEBHOOK_SECRET`.
-3. Final price is Matthew's call ($29–39); set `NEXT_PUBLIC_NSC_PRICE_DISPLAY`
-   to match.
+Account: **Growing minds science** (`acct_1Tgtk3LIy3W5wQUy`), LIVE.
+
+- ✅ Product created: **Number Path — full access** (`prod_UqNqkOL2xt8fWK`)
+- ✅ Price created: **$34 one-time** → `NSC_PRICE_ID=price_1Tqh56LIy3W5wQUy3yLbcd6r`
+- ⚠ **Webhook** (do in the Stripe dashboard): add an endpoint →
+  `https://growingmindsscience.com/nsc/api/stripe-webhook`, event
+  `checkout.session.completed`. Reveal its signing secret and set
+  `STRIPE_WEBHOOK_SECRET` via `vercel env add`.
+- ⚠ **Secret key**: set `STRIPE_SECRET_KEY` (live `sk_live_…`) via `vercel env add`.
 
 ## Supabase auth notes
 
@@ -90,8 +92,9 @@ v1: `nsc_assessments` (started/completed, placement, confidence),
 | DDL apply | ✅ applied to `kxljngtmnqarvsawakmf` |
 | G1 citation verification | ✅ all 8 verified (see `content/citations.v1.json` notes) |
 | G2 full compile | ✅ done — all artifacts full-mode cert-green |
-| Stripe product/price + webhook secret | ⚠ human step (keys are Matthew's) |
-| Final price point ($29–39) | ⚠ open |
+| Stripe product + price | ✅ created live ($34, `price_1Tqh56LIy3W5wQUy3yLbcd6r`) |
+| Stripe webhook + secret key env | ⚠ dashboard webhook + `vercel env add` |
+| Final price point | ✅ $34 |
 | Production deploy + root rewrite | ⚠ human step |
 
 ## Commands
