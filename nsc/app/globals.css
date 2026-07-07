@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ground: #f0f5f3;
+  --color-surface: #ffffff;
+  --color-ink: #15393c;
+  --color-ink-deep: #0e2a2d;
+  --color-teal: #1e5f62;
+  --color-teal-soft: #2e7a77;
+  --color-rung-glow: #f8e7e0;
+  --color-sea-glass: #cfe3de;
+}
+
+body {
+  background: var(--color-ground);
+  color: var(--color-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
