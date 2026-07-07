@@ -6,60 +6,65 @@
       "tag_id": "ev.given.wynn1990",
       "anchor": "Wynn (1990, Cognition); Wynn (1992)",
       "claim_scope": "Give-N task; knower-level stages in number word learning",
-      "verified": false,
-      "full_cite": null,
-      "notes": "G1: verify full cite, findings, effect sizes against the papers before content freeze."
+      "verified": true,
+      "full_cite": "Wynn, K. (1990). Children's understanding of counting. Cognition, 36(2), 155-193. And: Wynn, K. (1992). Children's acquisition of the number words and the counting system. Cognitive Psychology, 24(2), 220-251.",
+      "notes": "G1 verified 2026-07-07 against PubMed (PMID 2225756) and the published 1992 text: Give-N methodology, stage-like knower levels, roughly a year from reciting a count list to using counting for cardinality. Verification by Claude under Matthew's blanket approval; sources linked in PR for spot-check."
     },
     {
       "tag_id": "ev.knower.lecorre2007",
       "anchor": "Le Corre & Carey (2007, Cognition)",
       "claim_scope": "Titrated Give-N; subset-knower to cardinal-principle progression",
-      "verified": false,
-      "full_cite": null
+      "verified": true,
+      "full_cite": "Le Corre, M., & Carey, S. (2007). One, two, three, four, nothing more: An investigation of the conceptual sources of the verbal counting principles. Cognition, 105(2), 395-438.",
+      "notes": "G1 verified 2026-07-07 against PubMed (PMID 17208214): titrated Give-N procedure; subset-knower levels (1- through 4-knower) preceding CP; wide age overlap across levels (one-knowers through CP-knowers all present at 46 months) — supports the wide, honest age bands."
     },
     {
       "tag_id": "ev.knower.sarnecka2008",
       "anchor": "Sarnecka & Carey (2008, Cognition)",
       "claim_scope": "Cardinal principle as inductive leap; what CP-knowers know",
-      "verified": false,
-      "full_cite": null
+      "verified": true,
+      "full_cite": "Sarnecka, B. W., & Carey, S. (2008). How counting represents number: What children must learn and when they learn it. Cognition, 108(3), 662-674.",
+      "notes": "G1 verified 2026-07-07 against PubMed (PMID 18572155) and the published text: CP-knowers count to produce sets far more than subset-knowers (67% vs 16% counted aloud). Caveat recorded: later work (Cheung et al. 2017; Spaepen et al. 2018) shows full successor understanding lands AFTER CP — copy must not claim CP-knowers own the successor function."
     },
     {
       "tag_id": "ev.numbertalk.levine2010",
       "anchor": "Levine et al. (2010, Developmental Psychology)",
       "claim_scope": "Parent number talk at 14-30 months predicts later cardinal-number knowledge",
-      "verified": false,
-      "full_cite": null
+      "verified": true,
+      "full_cite": "Levine, S. C., Suriyakham, L. W., Rowe, M. L., Huttenlocher, J., & Gunderson, E. A. (2010). What counts in the development of young children's number knowledge? Developmental Psychology, 46(5), 1309-1319.",
+      "notes": "G1 verified 2026-07-07 against PubMed (PMID 20822240) / PMC2998540: observed parent number talk 14-30m predicts children's cardinal-number knowledge at 46m. Correlational-longitudinal, not RCT — games citing this stay tagged correlational-strong."
     },
     {
       "tag_id": "ev.numbertalk.gunderson2011",
-      "anchor": "Gunderson & Levine (2011)",
+      "anchor": "Gunderson & Levine (2011, Developmental Science)",
       "claim_scope": "Talk about sets (especially larger, present sets) drives the number-talk effect",
-      "verified": false,
-      "full_cite": null
+      "verified": true,
+      "full_cite": "Gunderson, E. A., & Levine, S. C. (2011). Some types of parent number talk count more than others: Relations between parents' input and children's cardinal-number knowledge. Developmental Science, 14(5), 1021-1032.",
+      "notes": "G1 verified 2026-07-07 against Wiley record (DOI 10.1111/j.1467-7687.2011.01050.x): number talk about present sets, especially sets of 4-10, is the predictive slice — motivates set-anchored game design over rote recitation."
     },
     {
       "tag_id": "ev.spatial.pruden2011",
-      "anchor": "Pruden, Levine & Huttenlocher (2011)",
+      "anchor": "Pruden, Levine & Huttenlocher (2011, Developmental Science)",
       "claim_scope": "Spatial language input predicts later spatial skills",
-      "verified": false,
-      "full_cite": null
+      "verified": true,
+      "full_cite": "Pruden, S. M., Levine, S. C., & Huttenlocher, J. (2011). Children's spatial thinking: Does talk about the spatial world matter? Developmental Science, 14(6), 1417-1430.",
+      "notes": "G1 verified 2026-07-07 against PubMed (PMID 22010900, DOI 10.1111/j.1467-7687.2011.01088.x). Held for future spatial-talk content; no v1 game cites it."
     },
     {
       "tag_id": "ev.boardgame.ramani2008",
       "anchor": "Ramani & Siegler (2008, Child Development)",
       "claim_scope": "Linear number board games improve numerical knowledge in young children (RCT)",
-      "verified": false,
-      "full_cite": null,
-      "notes": "ADDED beyond the spec seed table (supports the Number Path printable board game). Confirm inclusion at G1."
+      "verified": true,
+      "full_cite": "Ramani, G. B., & Siegler, R. S. (2008). Promoting broad and stable improvements in low-income children's numerical knowledge through playing number board games. Child Development, 79(2), 375-394.",
+      "notes": "G1 verified 2026-07-07 against Wiley (DOI 10.1111/j.1467-8624.2007.01131.x, PMID 18366429). Replicated: Siegler & Ramani (2008, Developmental Science, 11(5), 655-661) — number-labeled linear boards worked, color-only boards did not. Basis for the rct-replicated tag on the Number Path board game. Added beyond the spec seed table; inclusion confirmed under Matthew's blanket approval."
     },
     {
       "tag_id": "ev.exclusion.ans",
       "anchor": "Position note (Barner-aligned)",
       "claim_scope": "Why Number Path does not sell approximate-number-system training: transfer is contested",
-      "verified": false,
-      "full_cite": null,
-      "notes": "Renders as the honesty card: what we deliberately left out, and why."
+      "verified": true,
+      "full_cite": "Position note grounded in: Szucs, D., & Myers, T. (2017). A critical analysis of design, facts, bias and inference in the approximate number system training literature: A systematic review. Trends in Neuroscience and Education, 6, 187-203. Contrast: Park, J., & Brannon, E. M. (2013). Training the approximate number system improves math proficiency. Psychological Science, 24(10), 2013-2019.",
+      "notes": "G1 verified 2026-07-07 via Crossref (DOIs 10.1016/j.tine.2016.11.002; 10.1177/0956797613482944). 'Contested' is the accurate label: positive findings exist (Park & Brannon) and a systematic review disputes design and inference (Szucs & Myers). Renders as the honesty card."
     }
   ]
 }

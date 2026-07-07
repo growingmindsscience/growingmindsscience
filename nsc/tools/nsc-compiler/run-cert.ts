@@ -11,6 +11,7 @@ import {
   certifyAssessmentCopy,
   certifyCitations,
   certifyGamesCatalog,
+  certifyPromptsDeck,
   type CertMode,
   type CertReport,
 } from "./cert";
@@ -36,6 +37,7 @@ const files =
         games: join(root, "content/games.catalog.v1.json"),
         copy: join(root, "content/assessment.copy.v1.json"),
         citations: join(root, "content/citations.v1.json"),
+        prompts: join(root, "content/prompts.deck.v1.json"),
       };
 
 const gamesRaw = readFileSync(files.games, "utf8");
@@ -47,6 +49,14 @@ const reports: CertReport[] = [
   certifyAssessmentCopy(copyRaw, mode),
   certifyCitations(citationsRaw, mode),
 ];
+
+if (mode === "full") {
+  const promptsRaw = readFileSync(
+    join(root, "content/prompts.deck.v1.json"),
+    "utf8",
+  );
+  reports.push(certifyPromptsDeck(promptsRaw));
+}
 
 const allPass = reports.every((r) => r.pass);
 const out = { mode, pass: allPass, reports };

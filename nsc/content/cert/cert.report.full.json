@@ -1,11 +1,11 @@
 {
-  "mode": "gold",
+  "mode": "full",
   "pass": true,
   "reports": [
     {
       "artifact": "games.catalog",
-      "sha256": "998ca4d6cbc80e6b4d61fab60817d38a1602b7f77b80459552409644a116c5e7",
-      "mode": "gold",
+      "sha256": "34e9f52ebd28b32fa451571a2302c2f09d2d47b3fc9f9b5a0e04a09e359cd028",
+      "mode": "full",
       "pass": true,
       "checks": [
         {
@@ -21,12 +21,12 @@
         {
           "name": "readability",
           "status": "pass",
-          "details": "FK grade 2.42 over 24 pooled strings (300 words) — limit 8"
+          "details": "FK grade 3.71 over 474 pooled strings (5239 words) — limit 8"
         },
         {
           "name": "coverage-matrix",
-          "status": "skip",
-          "details": "gold mode — exemplar set, coverage enforced at full compile"
+          "status": "pass",
+          "details": "all cells ≥ 4"
         },
         {
           "name": "evidence-tags",
@@ -37,8 +37,8 @@
     },
     {
       "artifact": "assessment.copy",
-      "sha256": "4db7199733c1bdfec1ed8810f665f3448f566e6e44f81faf91eae95b17ef345d",
-      "mode": "gold",
+      "sha256": "9f5c087f5d8a02d0756187f52ab0af3268c0093f349b762f62eb8fa2f54bedfb",
+      "mode": "full",
       "pass": true,
       "checks": [
         {
@@ -54,14 +54,14 @@
         {
           "name": "readability",
           "status": "pass",
-          "details": "FK grade 1.48 over 28 pooled strings (376 words) — limit 8"
+          "details": "FK grade 2.24 over 126 pooled strings (1784 words) — limit 8"
         }
       ]
     },
     {
       "artifact": "citations",
       "sha256": "f7c123656e56b96b9a931be526eeb15671391a725f27aec8db68170d059f6b6b",
-      "mode": "gold",
+      "mode": "full",
       "pass": true,
       "checks": [
         {
@@ -76,8 +76,41 @@
         },
         {
           "name": "g1-verified",
-          "status": "skip",
-          "details": "gold mode — G1 human pass has not run"
+          "status": "pass",
+          "details": "all citations human-verified"
+        }
+      ]
+    },
+    {
+      "artifact": "prompts.deck",
+      "sha256": "11d8724a9612a3b4f7382a76b8a9618a774f24578b34ed3737fb7c76bc6d43b3",
+      "mode": "full",
+      "pass": true,
+      "checks": [
+        {
+          "name": "json-schema",
+          "status": "pass",
+          "details": "valid"
+        },
+        {
+          "name": "banned-language",
+          "status": "pass",
+          "details": "no banned language"
+        },
+        {
+          "name": "readability",
+          "status": "pass",
+          "details": "FK grade 2 over 450 pooled strings (6063 words) — limit 8"
+        },
+        {
+          "name": "prompt-deck-counts",
+          "status": "pass",
+          "details": "90 unique ≤2-sentence prompts per band"
+        },
+        {
+          "name": "prompt-deck-adjacency",
+          "status": "pass",
+          "details": "no duplicate prompts across adjacent bands"
         }
       ]
     }
