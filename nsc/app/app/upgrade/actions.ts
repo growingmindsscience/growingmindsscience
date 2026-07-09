@@ -6,6 +6,18 @@ import { requireAuth } from "@/lib/auth";
 import { stripe, NSC_PRODUCT } from "@/lib/stripe";
 
 /**
+ * Coerce a configured site origin into a valid absolute URL. Guards against a
+ * misconfigured NEXT_PUBLIC_SITE_URL (missing scheme, stray whitespace, or a
+ * trailing slash) that would otherwise make Stripe reject success_url/cancel_url
+ * with `url_invalid`.
+ */
+function normalizeOrigin(raw: string): string {
+  let origin = raw.trim();
+  if (origin && !/^https?:\/\//i.test(origin)) origin = `https://${origin}`;
+  return origin.replace(/\/+$/, "");
+}
+
+/**
  * Create a one-time Stripe Checkout session for the full-access SKU and send
  * the parent to Stripe. client_reference_id carries the user id so the webhook
  * can grant the entitlement to the right owner.
@@ -19,9 +31,10 @@ export async function startCheckout() {
   }
 
   const hdrs = await headers();
-  const origin =
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    `https://${hdrs.get("host") ?? "growingmindsscience.com"}`;
+  const origin = normalizeOrigin(
+    process.env.NEXT_PUBLIC_SITE_URL ||
+      `https://${hdrs.get("host") ?? "growingmindsscience.com"}`,
+  );
 
   const session = await stripe().checkout.sessions.create({
     mode: "payment",
