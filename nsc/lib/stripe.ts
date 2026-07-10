@@ -13,5 +13,5 @@ export function stripe(): Stripe {
 
 export const NSC_PRODUCT = "numberpath_full" as const;
 
-/** Display price for the pricing page; final number is Matthew's call ($29–39). */
-export const PRICE_DISPLAY = process.env.NEXT_PUBLIC_NSC_PRICE_DISPLAY ?? "$34";
+/** Display price. Decided 2026-07-10: $39 one-time (Matthew). */
+export const PRICE_DISPLAY = process.env.NEXT_PUBLIC_NSC_PRICE_DISPLAY ?? "$39";
