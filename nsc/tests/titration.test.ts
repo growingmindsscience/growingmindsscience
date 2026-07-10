@@ -112,17 +112,38 @@ describe("classification map (§2.2)", () => {
   });
 });
 
-describe("2-of-3 crediting", () => {
-  it("credits a level on 2 corrects even after 1 incorrect (2-of-3)", () => {
-    // At N=1: ✓, then dip? No — force ✗✓✓ pattern at 1.
+describe("clean-or-confirmed crediting (v1.1, amendment A2)", () => {
+  it("does NOT credit 2 corrects that carry an incorrect; a 3rd correct confirms", () => {
     let s = createSession();
     s = applyOutcome(s, "incorrect"); // 1: 0-1, still at 1
     s = applyOutcome(s, "correct"); // 1: 1-1 → move to 2
     s = applyOutcome(s, "incorrect"); // 2: 0-1 → back to 1
-    s = applyOutcome(s, "correct"); // 1: 2-1 → credited
-    s = applyOutcome(s, "incorrect"); // 2: 0-2 → failed → boundary
+    s = applyOutcome(s, "correct"); // 1: 2-1 → AMBIGUOUS under v1.1, not credited
+    expect(s.phase).toBe("trial"); // old 2-of-3 rule would have credited 1 here
+    // walk moves up to the unresolved 2 first; failing 2 brings it back to 1
+    s = applyOutcome(s, "incorrect"); // 2: 0-2 → failed (no boundary: 1 not credited)
+    s = applyOutcome(s, "correct"); // 1: 3-1 → confirmed credit → boundary → L1
     const r = getResult(s)!;
     expect(r.placement).toBe("L1");
+    // confirmed-not-clean credit is a shaky decision → never high confidence
+    expect(r.confidence).not.toBe("high");
+  });
+
+  it("a 2✓/2✗ tie FAILS the rung — ties break downward (conservative)", () => {
+    // Rung 2 accumulates ✓✓✗✗ across visits and must resolve as failed.
+    const s = play([
+      "correct", // 1: 1-0 → 2
+      "incorrect", // 2: 0-1 → 1
+      "correct", // 1: 2-0 clean credit → 2
+      "correct", // 2: 1-1 → 3
+      "incorrect", // 3: 0-1 → 2
+      "correct", // 2: 2-1 ambiguous → 3
+      "incorrect", // 3: 0-2 failed → 2 (no boundary: 2 unresolved)
+      "incorrect", // 2: 2-2 TIE → failed → boundary at credited 1
+    ]);
+    const r = getResult(s)!;
+    expect(r.placement).toBe("L1"); // old rule would have credited 2 → L2
+    expect(r.confidence).toBe("medium"); // one shaky decision, flagged
   });
 });
 
@@ -190,13 +211,14 @@ describe("confidence tiers (§2.2)", () => {
     expect(getResult(s)!.confidence).toBe("high");
   });
 
-  it("one contradictory trial below the boundary → medium", () => {
+  it("one contradictory trial below the boundary → medium (confirmed-credit path)", () => {
     let s = createSession();
     s = applyOutcome(s, "incorrect"); // contradiction at 1 (later credited)
-    s = applyOutcome(s, "correct");
-    s = applyOutcome(s, "incorrect"); // 2: 0-1
-    s = applyOutcome(s, "correct"); // 1 credited
-    s = applyOutcome(s, "incorrect"); // 2 failed → L1
+    s = applyOutcome(s, "correct"); // 1: 1-1 → 2
+    s = applyOutcome(s, "incorrect"); // 2: 0-1 → 1
+    s = applyOutcome(s, "correct"); // 1: 2-1 → ambiguous under v1.1 → walk to 2
+    s = applyOutcome(s, "incorrect"); // 2: 0-2 → failed → back to 1
+    s = applyOutcome(s, "correct"); // 1: 3-1 → confirmed credit → boundary → L1
     const r = getResult(s)!;
     expect(r.placement).toBe("L1");
     expect(r.confidence).toBe("medium");

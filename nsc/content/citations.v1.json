@@ -56,15 +56,103 @@
       "claim_scope": "Linear number board games improve numerical knowledge in young children (RCT)",
       "verified": true,
       "full_cite": "Ramani, G. B., & Siegler, R. S. (2008). Promoting broad and stable improvements in low-income children's numerical knowledge through playing number board games. Child Development, 79(2), 375-394.",
-      "notes": "G1 verified 2026-07-07 against Wiley (DOI 10.1111/j.1467-8624.2007.01131.x, PMID 18366429). Replicated: Siegler & Ramani (2008, Developmental Science, 11(5), 655-661) — number-labeled linear boards worked, color-only boards did not. Basis for the rct-replicated tag on the Number Path board game. Added beyond the spec seed table; inclusion confirmed under Matthew's blanket approval."
+      "notes": "G1 verified 2026-07-07 against Wiley (DOI 10.1111/j.1467-8624.2007.01131.x, PMID 18366429). Replicated: Siegler & Ramani (2008, Developmental Science, 11(5), 655-661) — number-labeled linear boards worked, color-only boards did not. Basis for the rct-replicated tag on the Number Path board game. Added beyond the spec seed table; inclusion confirmed under Matthew's blanket approval. AMENDED 2026-07-10 (v1.1, G1 pass by Claude under Matthew's blanket approval): quotable pooled effect is now Nelson et al. (2025, Review of Educational Research) meta-analysis of 18 studies / 123 effect sizes: g = 0.21, 95% CI [0.08, 0.34], p = .004 — real but modest. A preregistered school-based RCT found no benefit beyond teaching-as-usual (James-Brabham et al., 2024, J. Educational Psychology). Strongest effects: 1:1 play, low-prior-knowledge children. Marketing quotes g=0.21, never the 2008 headline alone; the null RCT renders on the honesty card. See ev.boardgame.nelson2025 and ev.boardgame.jamesbrabham2024."
     },
     {
       "tag_id": "ev.exclusion.ans",
       "anchor": "Position note (Barner-aligned)",
       "claim_scope": "Why Number Path does not sell approximate-number-system training: transfer is contested",
       "verified": true,
-      "full_cite": "Position note grounded in: Szucs, D., & Myers, T. (2017). A critical analysis of design, facts, bias and inference in the approximate number system training literature: A systematic review. Trends in Neuroscience and Education, 6, 187-203. Contrast: Park, J., & Brannon, E. M. (2013). Training the approximate number system improves math proficiency. Psychological Science, 24(10), 2013-2019.",
-      "notes": "G1 verified 2026-07-07 via Crossref (DOIs 10.1016/j.tine.2016.11.002; 10.1177/0956797613482944). 'Contested' is the accurate label: positive findings exist (Park & Brannon) and a systematic review disputes design and inference (Szucs & Myers). Renders as the honesty card."
+      "full_cite": "Position note grounded in: Szucs, D., & Myers, T. (2017). A critical analysis of design, facts, bias and inference in the approximate number system training literature: A systematic review. Trends in Neuroscience and Education, 6, 187-203. Szkudlarek, E., Park, J., & Brannon, E. M. (2020). Failure to replicate the benefit of approximate arithmetic training for symbolic arithmetic fluency in adults. Cognition, 207, 104521 (four experiments, N = 318). Qiu, K., Chen, E. H., Wan, S., & Bailey, D. H. (2021). A multilevel meta-analysis on the causal effect of approximate number system training on symbolic math performance. JEP: Learning, Memory, and Cognition, 47(11), 1820-1835 (g = 0.11, 95% CI [-0.01, 0.22]; PEESE-adjusted g = -0.04). Contrast: Park, J., & Brannon, E. M. (2013). Training the approximate number system improves math proficiency. Psychological Science, 24(10), 2013-2019.",
+      "notes": "G1 verified 2026-07-07 via Crossref (DOIs 10.1016/j.tine.2016.11.002; 10.1177/0956797613482944). 'Contested' is the accurate label: positive findings exist (Park & Brannon) and a systematic review disputes design and inference (Szucs & Myers). Renders as the honesty card. AMENDED 2026-07-10 (v1.1): stack strengthened with the N=318 failed replication (Szkudlarek et al. 2020) and the meta-analysis showing a small, non-significant pooled causal effect that shrinks under publication-bias correction (Qiu et al. 2021). Honesty-card wording stays 'contested, not settled' — positive findings exist."
+    },
+    {
+      "tag_id": "ev.numbertalk.gibson2020",
+      "anchor": "Gibson, Gunderson & Levine (2020, Child Development)",
+      "claim_scope": "RCT: parent-child number-book reading causally increases 2-4-year-olds' number knowledge; small-number (1-3) input most effective overall, larger numbers (4-6) for children further along",
+      "verified": true,
+      "full_cite": "Gibson, D. J., Gunderson, E. A., & Levine, S. C. (2020). Causal effects of parent number talk on preschoolers' number knowledge. Child Development, 91(5), e1162-e1177.",
+      "notes": "G1 verified 2026-07-10 (abstract-level, Consensus/PubMed records) by Claude under Matthew's blanket approval; PDF-level effect-size read owed before any number is quoted in marketing copy. FLAGSHIP tag: experimental validation of level-matched numerical input — the product's core routing thesis. N=100, ages 2-4, 4-week daily book-reading RCT. Pairs with ev.numbertalk.levine2010 wherever the correlational claim renders; small-number books best overall, large-number books benefited children with more prior knowledge."
+    },
+    {
+      "tag_id": "ev.numbertalk.carrazza2024",
+      "anchor": "Carrazza, Gibson & Levine (2024, Developmental Psychology)",
+      "claim_scope": "Counting books that embed number in goal-based narratives beat sparse counting drills for cardinal-knowledge gains",
+      "verified": true,
+      "full_cite": "Carrazza, C., Gibson, D. J., & Levine, S. C. (2024). Less is not always more: Rich and meaningful counting books lead to greater gains in number understanding than sparse counting books. Developmental Psychology, 61(4).",
+      "notes": "G1 verified 2026-07-10 (abstract-level, Consensus/PubMed records) by Claude under Matthew's blanket approval; PDF-level effect-size read owed before any number is quoted in marketing copy. N=71 three-year-olds, random assignment to rich-narrative vs sparse counting books vs control. Design rule for all game scripts and the printable mini-book: embed the number request in a goal ('the bear is hungry for exactly 3'), never bare drill."
+    },
+    {
+      "tag_id": "ev.boardgame.nelson2025",
+      "anchor": "Nelson et al. (2025, Review of Educational Research)",
+      "claim_scope": "Meta-analysis of linear number board games: pooled g = 0.21 [0.08, 0.34] on mathematics outcomes",
+      "verified": true,
+      "full_cite": "Nelson, G., et al. (2025). Investigating main effects and moderators of linear number board games: A meta-analytic review. Review of Educational Research. 18 studies, 123 effect sizes.",
+      "notes": "G1 verified 2026-07-10 (abstract-level, Consensus/PubMed records) by Claude under Matthew's blanket approval; PDF-level effect-size read owed before any number is quoted in marketing copy. This is the number the product quotes for the Number Path board game. Moderators include dosage, play partner, control condition, and board characteristics."
+    },
+    {
+      "tag_id": "ev.boardgame.jamesbrabham2024",
+      "anchor": "James-Brabham et al. (2024, J. Educational Psychology)",
+      "claim_scope": "Preregistered school RCT: no evidence linear number board games improve numerical skills beyond teaching-as-usual",
+      "verified": true,
+      "full_cite": "James-Brabham, E., et al. (2024). No evidence that playing a linear number board game improves numerical skills beyond teaching as usual: A randomized controlled trial in 4- to 5-year-old primary school children. Journal of Educational Psychology.",
+      "notes": "G1 verified 2026-07-10 (abstract-level, Consensus/PubMed records) by Claude under Matthew's blanket approval; PDF-level effect-size read owed before any number is quoted in marketing copy. Cited on the honesty card next to the meta-analysis. Context differs from the home product (classroom, not 1:1 parent play) — bounds the claim, does not erase it."
+    },
+    {
+      "tag_id": "ev.knower.krajcsi2023",
+      "anchor": "Krajcsi et al. (2023, Developmental Science)",
+      "claim_scope": "Five- and six-knowers still behave like subset-knowers; CP should be identified with strict criteria",
+      "verified": true,
+      "full_cite": "Krajcsi, A., et al. (2023). Miscategorized subset-knowers: Five- and six-knowers can compare only the numbers they know. Developmental Science, 27(2), e13430.",
+      "notes": "G1 verified 2026-07-10 (abstract-level, Consensus/PubMed records) by Claude under Matthew's blanket approval; PDF-level effect-size read owed before any number is quoted in marketing copy. Scientific basis for the credits-5-AND-6 CP rule and the L4+nearCP cap ('doorstep of CP', never a CP claim from crediting 5 alone)."
+    },
+    {
+      "tag_id": "ev.protocol.marchand2022",
+      "anchor": "Marchand, Lovelett, Kendro & Barner (2022, Cognition)",
+      "claim_scope": "Give-N test-retest reliability is high overall but varies sharply by knower level; titrated administration yields slightly higher levels than non-titrated",
+      "verified": true,
+      "full_cite": "Marchand, E., Lovelett, J. T., Kendro, K., & Barner, D. (2022). Assessing the knower-level framework: How reliable is the Give-a-Number task? Cognition, 222, 104998.",
+      "notes": "G1 verified 2026-07-10 (abstract-level, Consensus/PubMed records) by Claude under Matthew's blanket approval; PDF-level effect-size read owed before any number is quoted in marketing copy. Basis for confidence tiers, conservative low-confidence routing, the 'playful estimate / snapshot' readout copy, and the 6-week re-run cadence. Cited in-product as the reason the readout hedges."
+    },
+    {
+      "tag_id": "ev.protocol.wege2025",
+      "anchor": "Wege, Trezise & Inglis et al. (2025, J. Numerical Cognition)",
+      "claim_scope": "Systematic review of 30 years of Give-N: administration and scoring variants matter and should be documented explicitly",
+      "verified": true,
+      "full_cite": "Wege, T., et al. (2025). Thirty years of the Give-N task: A systematic review, reflections, and recommendations. Journal of Numerical Cognition.",
+      "notes": "G1 verified 2026-07-10 (abstract-level, Consensus/PubMed records) by Claude under Matthew's blanket approval; PDF-level effect-size read owed before any number is quoted in marketing copy. The protocol transparency page (amendment A10) answers this review's methodological call: verbatim scripts, crediting rules, stop conditions, and simulation results published."
+    },
+    {
+      "tag_id": "ev.protocol.silver2021",
+      "anchor": "Silver et al. (2021, Frontiers in Psychology)",
+      "claim_scope": "Point-to-X (2AFC) complements Give-N for 2-3-year-olds, captures emerging knowledge Give-N misses; no in-person vs remote administration difference",
+      "verified": true,
+      "full_cite": "Silver, A. M., Elliott, L., Braham, E. J., Bachman, H. J., Votruba-Drzal, E., Tamis-LeMonda, C. S., Cabrera, N., & Libertus, M. E. (2021). Measuring emerging number knowledge in toddlers. Frontiers in Psychology, 12, 703598.",
+      "notes": "G1 verified 2026-07-10 (abstract-level, Consensus/PubMed records) by Claude under Matthew's blanket approval; PDF-level effect-size read owed before any number is quoted in marketing copy. N=100 toddlers ages 2-3. Basis for the 'Point and Seek' instrument (24-30m default; gentle fallback after skip-heavy Give-N sessions). Point and Seek reports early signs, never a rung placement."
+    },
+    {
+      "tag_id": "ev.mathanx.berkowitz2015",
+      "anchor": "Berkowitz et al. (2015, Science)",
+      "claim_scope": "Parent-child math-story app RCT (first-graders): weekly-plus use improved math achievement; largest gains for children of high-math-anxious parents",
+      "verified": true,
+      "full_cite": "Berkowitz, T., Schaeffer, M. W., Maloney, E. A., Peterson, L., Gregor, C., Levine, S. C., & Beilock, S. L. (2015). Math at home adds up to achievement in school. Science, 350(6257), 196-198.",
+      "notes": "G1 verified 2026-07-10 (abstract-level, Consensus/PubMed records) by Claude under Matthew's blanket approval; PDF-level effect-size read owed before any number is quoted in marketing copy. SCOPE LIMIT: participants were first-graders — cite for the parent-facilitated-math-talk mechanism and math-anxiety moderation, never for toddler outcomes. A published technical Comment (Science, 2016) challenged aspects of the analysis; the authors responded; the 3-year follow-up found persistent benefits (see ev.mathanx.schaeffer2018)."
+    },
+    {
+      "tag_id": "ev.mathanx.schaeffer2018",
+      "anchor": "Schaeffer, Rozek, Berkowitz, Levine & Beilock (2018, JEP: General)",
+      "claim_scope": "Follow-up of the 2015 cohort: the app intervention disassociated parents' math anxiety from children's math achievement, detectable ~3 years later",
+      "verified": true,
+      "full_cite": "Schaeffer, M. W., Rozek, C. S., Berkowitz, T., Levine, S. C., & Beilock, S. L. (2018). Disassociating the relation between parents' math anxiety and children's math achievement: Long-term effects of a math app intervention. Journal of Experimental Psychology: General, 147(12), 1782-1790.",
+      "notes": "G1 verified 2026-07-10 (abstract-level, Consensus/PubMed records) by Claude under Matthew's blanket approval; PDF-level effect-size read owed before any number is quoted in marketing copy. The strongest citation for the 'don't pass it on' positioning: structured, low-prep, scripted math moments buffer the intergenerational transmission channel."
+    },
+    {
+      "tag_id": "ev.mathanx.maloney2015",
+      "anchor": "Maloney, Ramirez, Gunderson, Levine & Beilock (2015, Psychological Science)",
+      "claim_scope": "When high-math-anxious parents helped frequently with math homework, first/second-graders learned less math and developed more math anxiety",
+      "verified": true,
+      "full_cite": "Maloney, E. A., Ramirez, G., Gunderson, E. A., Levine, S. C., & Beilock, S. L. (2015). Intergenerational effects of parents' math anxiety on children's math achievement and anxiety. Psychological Science, 26(9), 1480-1488.",
+      "notes": "G1 verified 2026-07-10 (abstract-level, Consensus/PubMed records) by Claude under Matthew's blanket approval; PDF-level effect-size read owed before any number is quoted in marketing copy. SCOPE LIMIT: homework-help context with school-age children. Used as motivation for verbatim-scripted, low-stakes interactions — never as a claim that anxious parents harm toddlers by engaging. Complement at the product's age band: Berkowitz, Gibson & Levine (2021, J. Cognition & Development) — parent math anxiety predicts reduced cardinal number talk with under-3s (N=36 dyads, preliminary)."
     }
   ]
 }
