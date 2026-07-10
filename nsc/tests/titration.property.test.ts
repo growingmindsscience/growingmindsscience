@@ -151,3 +151,129 @@ describe("structural invariants (all noise tiers, 10k sessions)", () => {
     }
   });
 });
+
+/**
+ * v1.1 certified acceptance tiers (spec amendment A3) — measured with the
+ * empirically honest simulator (luckyGrabs: true, so subset-knowers are
+ * accidentally correct ~1/9 of the time above their level, per the observed
+ * random-grab signature). The v1.0 "100% exact at ε=0" bar is provably
+ * unattainable under that simulator; what the clean-or-confirmed rule DOES
+ * guarantee is the direction of residual error: conservative. Thresholds
+ * carry safety margin below measured performance.
+ */
+describe("v1.1 acceptance: certified tiers (lucky grabs on, 7 levels incl. 5-knower)", () => {
+  const LEVELS7: SimLevel[] = ["L0", "L1", "L2", "L3", "L4", "L5", "CP"];
+
+  function tier(epsilon: number, sigma: number, seedBase: number, perLevel: number) {
+    let exact = 0;
+    let withinOne = 0;
+    let under = 0; // conservative errors
+    let over = 0; // liberal errors
+    let errNotHigh = 0;
+    let total = 0;
+    let scoredSum = 0;
+
+    for (const level of LEVELS7) {
+      const rng = mulberry32(seedBase + LEVELS7.indexOf(level) * 7919);
+      for (let i = 0; i < perLevel; i++) {
+        const child = makeChild(level, { rng, epsilon, sigma, luckyGrabs: true });
+        const end = runSession(child, createSession, applyOutcome, nextRequest);
+        const r = getResult(end)!;
+        total++;
+        scoredSum += end.trials.filter((t) => !t.isBonus).length;
+        const got = rank(r.placement, r.nearCP);
+        const want = level === "L5" ? 5 : trueRank(level);
+        const d = got - want;
+        if (d === 0) exact++;
+        if (Math.abs(d) <= 1) withinOne++;
+        if (d < 0) under++;
+        if (d > 0) over++;
+        if (d !== 0 && r.confidence !== "high") errNotHigh++;
+      }
+    }
+    return { exact, withinOne, under, over, errNotHigh, total, meanScored: scoredSum / total };
+  }
+
+  it("ε=0, σ=0: ≥98% exact, ≥99.5% within one rung, ZERO under-placements, mean ≤12 trials", () => {
+    const s = tier(0, 0, 0x11a11, 1500);
+    expect(s.exact / s.total, `exact=${(s.exact / s.total).toFixed(3)}`).toBeGreaterThanOrEqual(0.98);
+    expect(s.withinOne / s.total).toBeGreaterThanOrEqual(0.995);
+    expect(s.under, "a clean responder must never be under-placed").toBe(0);
+    expect(s.meanScored).toBeLessThanOrEqual(12);
+  });
+
+  it("ε=0.10, σ=0.05: ≥86% exact, ≥95% within one, errors skew conservative ≥1.3:1", () => {
+    const s = tier(0.1, 0.05, 0x22b22, 1500);
+    expect(s.exact / s.total, `exact=${(s.exact / s.total).toFixed(3)}`).toBeGreaterThanOrEqual(0.86);
+    expect(s.withinOne / s.total).toBeGreaterThanOrEqual(0.95);
+    expect(s.under, `under=${s.under} over=${s.over}`).toBeGreaterThanOrEqual(1.3 * s.over);
+    expect(s.meanScored).toBeLessThanOrEqual(12);
+  });
+
+  it("ε=0.20, σ=0.10: ≥65% exact, ≥81% within one, conservative ≥2:1, ≥60% of errors flagged below high", () => {
+    const s = tier(0.2, 0.1, 0x33c33, 1500);
+    expect(s.exact / s.total, `exact=${(s.exact / s.total).toFixed(3)}`).toBeGreaterThanOrEqual(0.65);
+    expect(s.withinOne / s.total, `withinOne=${(s.withinOne / s.total).toFixed(3)}`).toBeGreaterThanOrEqual(0.81);
+    expect(s.under, `under=${s.under} over=${s.over}`).toBeGreaterThanOrEqual(2 * s.over);
+    const errors = s.total - s.exact;
+    expect(s.errNotHigh / Math.max(1, errors)).toBeGreaterThanOrEqual(0.6);
+    expect(s.meanScored).toBeLessThanOrEqual(12);
+  });
+});
+
+/**
+ * Monotonicity property (spec §7.2): flipping any single incorrect→correct
+ * never lowers placement. The child is modeled as a fixed outcome table
+ * keyed by (requestedN, attempt#-at-that-N) so replays stay well-defined
+ * when the walk diverges. Budget/skip-stopped runs are excluded: under a
+ * hard trial budget an extra early success can reallocate scarce trials
+ * upward, and those runs are already flagged low-confidence.
+ */
+describe("v1.1 monotonicity property", () => {
+  const LEVELS7: SimLevel[] = ["L0", "L1", "L2", "L3", "L4", "L5", "CP"];
+  const MAX_ATTEMPTS = 5;
+
+  it("one extra correct never lowers placement (protocol-terminated runs)", () => {
+    let checked = 0;
+    for (let seed = 1; seed <= 250; seed++) {
+      for (const level of LEVELS7) {
+        const rng = mulberry32(seed * 131 + LEVELS7.indexOf(level));
+        const child = makeChild(level, { rng, epsilon: 0.15, sigma: 0, luckyGrabs: true });
+        const table: ("correct" | "incorrect")[][] = [];
+        for (let n = 1; n <= 6; n++) {
+          table[n] = [];
+          for (let a = 0; a < MAX_ATTEMPTS; a++) {
+            table[n][a] = child(n) as "correct" | "incorrect";
+          }
+        }
+        const fromTable = (flip?: { n: number; a: number }) => {
+          const attempts: Record<number, number> = {};
+          return (reqN: number) => {
+            const a = attempts[reqN] ?? 0;
+            attempts[reqN] = a + 1;
+            if (flip && flip.n === reqN && flip.a === a) return "correct" as const;
+            return table[reqN][Math.min(a, MAX_ATTEMPTS - 1)];
+          };
+        };
+        const base = runSession(fromTable(), createSession, applyOutcome, nextRequest);
+        const baseResult = getResult(base)!;
+        if (baseResult.stopReason === "budget" || baseResult.stopReason === "skips") continue;
+        const baseRank = rank(baseResult.placement, baseResult.nearCP);
+        for (let n = 1; n <= 6; n++) {
+          for (let a = 0; a < MAX_ATTEMPTS; a++) {
+            if (table[n][a] !== "incorrect") continue;
+            const flipped = runSession(fromTable({ n, a }), createSession, applyOutcome, nextRequest);
+            const fr = getResult(flipped)!;
+            if (fr.stopReason === "budget" || fr.stopReason === "skips") continue;
+            expect(
+              rank(fr.placement, fr.nearCP),
+              `seed=${seed} level=${level} flip=(${n},${a})`,
+            ).toBeGreaterThanOrEqual(baseRank);
+            checked++;
+          }
+        }
+      }
+    }
+    expect(checked).toBeGreaterThan(3000);
+  });
+});

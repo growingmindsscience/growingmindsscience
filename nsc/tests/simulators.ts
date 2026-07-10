@@ -22,7 +22,7 @@ export function mulberry32(seed: number): () => number {
   };
 }
 
-export type SimLevel = "L0" | "L1" | "L2" | "L3" | "L4" | "CP";
+export type SimLevel = "L0" | "L1" | "L2" | "L3" | "L4" | "L5" | "CP";
 
 export const KNOWN: Record<SimLevel, number> = {
   L0: 0,
@@ -30,6 +30,11 @@ export const KNOWN: Record<SimLevel, number> = {
   L2: 2,
   L3: 3,
   L4: 4,
+  // "five-knower": knows 1-5 but not 6 - the empirical doorstep-of-CP child
+  // (Le Corre & Carey 2007 found no stable 5-knowers; Krajcsi et al. 2023
+  // shows such children still behave like subset-knowers). The engine maps
+  // them to L4 + nearCP.
+  L5: 5,
   CP: 6,
 };
 

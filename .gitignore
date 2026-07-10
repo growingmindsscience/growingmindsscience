@@ -12,6 +12,9 @@
 
 # Node artifacts — only used locally for the tools smoke test (playwright-core).
 # Kept out of the repo so this static site has no package.json for Vercel to build.
+# NOTE: anchored to the repo root on purpose — the nsc/ Next.js app NEEDS its
+# manifest tracked (the previous unanchored "package.json" rule silently
+# swallowed nsc/package.json and left the app unbuildable from a fresh clone).
 node_modules/
-package.json
-package-lock.json
+/package.json
+/package-lock.json

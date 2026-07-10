@@ -10,8 +10,17 @@
  * Protocol:
  * - Start at N=1 always (§2.1 named tradeoff: comparability over speed).
  * - Correct → move toward N+1; incorrect → toward N−1 (skip repeats N).
- * - A set size N is CREDITED at 2 correct, FAILED at 2 incorrect (2-of-3;
- *   at most 3 scored trials per N).
+ * - A set size N is CREDITED on 2 clean corrects (zero incorrects at N) or
+ *   3 corrects total; FAILED at 2 incorrects. An ambiguous rung (✓✗✓) gets
+ *   a 4th resolving trial; a 2✓/2✗ tie FAILS the rung — ties break downward
+ *   (v1.1 "clean-or-confirmed" rule, spec amendment A2).
+ *   WHY: subset-knowers randomly grabbing 2–10 are accidentally correct at
+ *   the requested N ~1/9 of the time; under plain 2-of-3 crediting that
+ *   chance floor inflates placements, so classification errors skewed
+ *   LIBERAL — the opposite of §2.2's conservative policy. Clean-or-confirmed
+ *   crediting halves spurious over-placement and flips the measured error
+ *   skew to conservative (≥1.3:1 at ε=0.1, ≥2:1 at ε=0.2; see the §7.2
+ *   property suite acceptance bars).
  * - Stops: (a) credited N with N+1 failed → N-knower; (b) credited 5 and 6
  *   → CP; (c) 18-trial budget or ≥4 skips → best-available + low confidence.
  * - End-on-success: after placement is decided, emit one bonus trial at the
@@ -43,7 +52,10 @@ export interface LevelTally {
 export interface TitrationConfig {
   minN: number;
   maxN: number;
-  creditAt: number; // corrects needed to credit a level
+  /** corrects that credit a level when the level has ZERO incorrects ("clean") */
+  cleanCreditAt: number;
+  /** corrects that credit a level regardless of incorrects ("confirmed") */
+  confirmCreditAt: number;
   failAt: number; // incorrects needed to fail a level
   trialBudget: number; // scored + skipped trials, excluding bonus
   skipBudget: number; // session ends when skips reach this
@@ -52,7 +64,8 @@ export interface TitrationConfig {
 export const DEFAULT_CONFIG: TitrationConfig = {
   minN: 1,
   maxN: 6,
-  creditAt: 2,
+  cleanCreditAt: 2,
+  confirmCreditAt: 3,
   failAt: 2,
   trialBudget: 18,
   skipBudget: 4,
@@ -95,12 +108,23 @@ function tally(state: TitrationState, n: number): LevelTally {
   return state.tallies[n] ?? { correct: 0, incorrect: 0 };
 }
 
-export function isCredited(state: TitrationState, n: number): boolean {
-  return tally(state, n).correct >= state.config.creditAt;
-}
-
 export function isFailed(state: TitrationState, n: number): boolean {
   return tally(state, n).incorrect >= state.config.failAt;
+}
+
+/**
+ * v1.1 clean-or-confirmed crediting (amendment A2). Fail wins ties: a level
+ * with 2 incorrects is failed even if it later would accrue corrects — but
+ * movement never re-tests resolved rungs, so in practice the two are
+ * mutually exclusive by construction.
+ */
+export function isCredited(state: TitrationState, n: number): boolean {
+  if (isFailed(state, n)) return false;
+  const t = tally(state, n);
+  return (
+    (t.correct >= state.config.cleanCreditAt && t.incorrect === 0) ||
+    t.correct >= state.config.confirmCreditAt
+  );
 }
 
 function isResolved(state: TitrationState, n: number): boolean {
@@ -258,6 +282,22 @@ function contradictionCount(state: TitrationState): number {
   ).length;
 }
 
+/**
+ * Decisions that carry a noise signature: a level credited despite an
+ * incorrect (confirmed-not-clean credit) or failed despite a correct.
+ * These are exactly the rungs where a chance grab or a mis-tap changed the
+ * evidence; each one downgrades confidence (amendment A2/A3).
+ */
+function shakyDecisionCount(state: TitrationState): number {
+  let shaky = 0;
+  for (let n = state.config.minN; n <= state.config.maxN; n++) {
+    const t = tally(state, n);
+    if (isCredited(state, n) && t.incorrect > 0) shaky++;
+    if (isFailed(state, n) && t.correct > 0) shaky++;
+  }
+  return shaky;
+}
+
 /** Credited set is contiguous from the floor and nothing above is credited below a failure. */
 function isMonotone(state: TitrationState): boolean {
   const { minN, maxN } = state.config;
@@ -306,12 +346,13 @@ export function getResult(state: TitrationState): TitrationResult | null {
   const scored = state.trials.filter((t) => !t.isBonus);
   const clean = state.stopReason === "boundary" || state.stopReason === "cp";
   const contradictions = contradictionCount(state);
+  const shaky = shakyDecisionCount(state);
   const monotone = isMonotone(state);
 
   let confidence: Confidence;
-  if (!clean || !monotone) {
+  if (!clean || !monotone || shaky >= 2) {
     confidence = "low";
-  } else if (contradictions === 0 && state.skips <= 1) {
+  } else if (contradictions === 0 && shaky === 0 && state.skips <= 1) {
     confidence = "high";
   } else if (contradictions <= 1 && state.skips <= 3) {
     confidence = "medium";
