@@ -8,28 +8,53 @@
       ]
     },
     "prescreen:q1": {
-      "lines": ["When was {name} born? Month and year is all we keep."]
+      "lines": [
+        "When was {name} born? Month and year is all we keep."
+      ]
     },
     "prescreen:q2": {
-      "lines": ["Without help, how high can {name} count before a mix-up?"]
+      "lines": [
+        "Without help, how high can {name} count before a mix-up?"
+      ]
     },
     "prescreen:q2:opts": {
-      "lines": ["Not yet counting", "Up to 4", "5 to 9", "10 to 19", "20 or higher"]
+      "lines": [
+        "Not yet counting",
+        "Up to 4",
+        "5 to 9",
+        "10 to 19",
+        "20 or higher"
+      ]
     },
     "prescreen:q3": {
-      "lines": ["If you ask for one cracker, does {name} hand you exactly one?"]
+      "lines": [
+        "If you ask for one cracker, does {name} hand you exactly one?"
+      ]
     },
     "prescreen:q3:opts": {
-      "lines": ["Yes", "Sometimes", "No", "Never tried"]
+      "lines": [
+        "Yes",
+        "Sometimes",
+        "No",
+        "Never tried"
+      ]
     },
     "prescreen:q4": {
-      "lines": ["Does {name} count objects by pointing or touching them?"]
+      "lines": [
+        "Does {name} count objects by pointing or touching them?"
+      ]
     },
     "prescreen:q4:opts": {
-      "lines": ["Yes", "Sometimes", "No"]
+      "lines": [
+        "Yes",
+        "Sometimes",
+        "No"
+      ]
     },
     "prescreen:q5": {
-      "lines": ["Which languages does {name} hear at home?"]
+      "lines": [
+        "Which languages does {name} hear at home?"
+      ]
     },
     "setup:checklist": {
       "lines": [
@@ -47,79 +72,129 @@
       ]
     },
     "praise": {
-      "lines": ["Thank you! The bear is so happy."]
+      "lines": [
+        "Thank you! The bear is so happy."
+      ]
     },
     "trial:1:1": {
-      "lines": ["Can you feed the bear one {objects}? Put one in the bowl."]
+      "lines": [
+        "Can you feed the bear one {objects}? Put one in the bowl."
+      ]
     },
     "trial:1:2": {
-      "lines": ["The bear is hungry again! Can you feed it one {objects}? Put one in the bowl."]
+      "lines": [
+        "The bear is hungry again! Can you feed it one {objects}? Put one in the bowl."
+      ]
     },
     "trial:1:3": {
-      "lines": ["The bear asks so nicely! Can you feed it one {objects}? Put one in the bowl."]
+      "lines": [
+        "The bear asks so nicely! Can you feed it one {objects}? Put one in the bowl."
+      ]
     },
     "check:1": {
-      "lines": ["Is that one? Can you count and check?"]
+      "lines": [
+        "Is that one? Can you count and check?"
+      ]
     },
     "trial:2:1": {
-      "lines": ["Can you feed the bear two {objects}? Put two in the bowl."]
+      "lines": [
+        "Can you feed the bear two {objects}? Put two in the bowl."
+      ]
     },
     "trial:2:2": {
-      "lines": ["The bear is hungry again! Can you feed it two {objects}? Put two in the bowl."]
+      "lines": [
+        "The bear is hungry again! Can you feed it two {objects}? Put two in the bowl."
+      ]
     },
     "trial:2:3": {
-      "lines": ["The bear asks so nicely! Can you feed it two {objects}? Put two in the bowl."]
+      "lines": [
+        "The bear asks so nicely! Can you feed it two {objects}? Put two in the bowl."
+      ]
     },
     "check:2": {
-      "lines": ["Is that two? Can you count and check?"]
+      "lines": [
+        "Is that two? Can you count and check?"
+      ]
     },
     "trial:3:1": {
-      "lines": ["Can you feed the bear three {objects}? Put three in the bowl."]
+      "lines": [
+        "Can you feed the bear three {objects}? Put three in the bowl."
+      ]
     },
     "trial:3:2": {
-      "lines": ["The bear is hungry again! Can you feed it three {objects}? Put three in the bowl."]
+      "lines": [
+        "The bear is hungry again! Can you feed it three {objects}? Put three in the bowl."
+      ]
     },
     "trial:3:3": {
-      "lines": ["The bear asks so nicely! Can you feed it three {objects}? Put three in the bowl."]
+      "lines": [
+        "The bear asks so nicely! Can you feed it three {objects}? Put three in the bowl."
+      ]
     },
     "check:3": {
-      "lines": ["Is that three? Can you count and check?"]
+      "lines": [
+        "Is that three? Can you count and check?"
+      ]
     },
     "trial:4:1": {
-      "lines": ["Can you feed the bear four {objects}? Put four in the bowl."]
+      "lines": [
+        "Can you feed the bear four {objects}? Put four in the bowl."
+      ]
     },
     "trial:4:2": {
-      "lines": ["The bear is hungry again! Can you feed it four {objects}? Put four in the bowl."]
+      "lines": [
+        "The bear is hungry again! Can you feed it four {objects}? Put four in the bowl."
+      ]
     },
     "trial:4:3": {
-      "lines": ["The bear asks so nicely! Can you feed it four {objects}? Put four in the bowl."]
+      "lines": [
+        "The bear asks so nicely! Can you feed it four {objects}? Put four in the bowl."
+      ]
     },
     "check:4": {
-      "lines": ["Is that four? Can you count and check?"]
+      "lines": [
+        "Is that four? Can you count and check?"
+      ]
     },
     "trial:5:1": {
-      "lines": ["Can you feed the bear five {objects}? Put five in the bowl."]
+      "lines": [
+        "Can you feed the bear five {objects}? Put five in the bowl."
+      ]
     },
     "trial:5:2": {
-      "lines": ["The bear is hungry again! Can you feed it five {objects}? Put five in the bowl."]
+      "lines": [
+        "The bear is hungry again! Can you feed it five {objects}? Put five in the bowl."
+      ]
     },
     "trial:5:3": {
-      "lines": ["The bear asks so nicely! Can you feed it five {objects}? Put five in the bowl."]
+      "lines": [
+        "The bear asks so nicely! Can you feed it five {objects}? Put five in the bowl."
+      ]
     },
     "check:5": {
-      "lines": ["Is that five? Can you count and check?"]
+      "lines": [
+        "Is that five? Can you count and check?"
+      ]
     },
     "trial:6:1": {
-      "lines": ["Can you feed the bear six {objects}? Put six in the bowl."]
+      "lines": [
+        "Can you feed the bear six {objects}? Put six in the bowl."
+      ]
     },
     "trial:6:2": {
-      "lines": ["The bear is hungry again! Can you feed it six {objects}? Put six in the bowl."]
+      "lines": [
+        "The bear is hungry again! Can you feed it six {objects}? Put six in the bowl."
+      ]
     },
     "trial:6:3": {
-      "lines": ["The bear asks so nicely! Can you feed it six {objects}? Put six in the bowl."]
+      "lines": [
+        "The bear asks so nicely! Can you feed it six {objects}? Put six in the bowl."
+      ]
     },
     "check:6": {
-      "lines": ["Is that six? Can you count and check?"]
+      "lines": [
+        "Is that six? Can you count and check?"
+      ]
     },
     "pause": {
       "lines": [
@@ -128,10 +203,14 @@
       ]
     },
     "resume": {
-      "lines": ["The bear woke up hungry. Ready to keep playing?"]
+      "lines": [
+        "The bear woke up hungry. Ready to keep playing?"
+      ]
     },
     "bonus": {
-      "lines": ["One last one for the bear!"]
+      "lines": [
+        "One last one for the bear!"
+      ]
     },
     "end:L0:high": {
       "lines": [
@@ -299,6 +378,83 @@
         "Little ones have off days. Bears get eaten. It happens.",
         "We picked this week's games a rung below the top read, the cozier choice for a fuzzy day.",
         "Try the check-in again in a week or two. Fresh day, fresh bear."
+      ]
+    },
+    "ps:intro": {
+      "lines": [
+        "Point and Seek is a watching game. No blocks, no bowl, nothing to set up.",
+        "Two cards appear on the screen. Read the question exactly, then tap the side {name} points to.",
+        "If {name} does not point, tap skip and move on. The whole game takes about two minutes.",
+        "Ready when you are. Keep it light. Every answer earns a thank you."
+      ]
+    },
+    "ps:trial:1": {
+      "lines": [
+        "Which card has one?",
+        "Point to one!"
+      ]
+    },
+    "ps:trial:2": {
+      "lines": [
+        "Which card has two?",
+        "Point to two!"
+      ]
+    },
+    "ps:trial:3": {
+      "lines": [
+        "Which card has three?",
+        "Point to three!"
+      ]
+    },
+    "ps:trial:4": {
+      "lines": [
+        "Which card has two?",
+        "Point to two!"
+      ]
+    },
+    "ps:trial:5": {
+      "lines": [
+        "Which card has four?",
+        "Point to four!"
+      ]
+    },
+    "ps:trial:6": {
+      "lines": [
+        "Which card has one?",
+        "Point to one!"
+      ]
+    },
+    "ps:trial:7": {
+      "lines": [
+        "Which card has four?",
+        "Point to four!"
+      ]
+    },
+    "ps:trial:8": {
+      "lines": [
+        "Which card has three?",
+        "Point to three!"
+      ]
+    },
+    "ps:end:clear": {
+      "lines": [
+        "That is a clear early sign. {name} is starting to connect number words to real amounts.",
+        "At this age, that connection is the whole game. The plan starts with play that makes one and two feel rock solid.",
+        "One session is a snapshot, and snapshots wiggle. The ladder game unlocks when {name} is a little older."
+      ]
+    },
+    "ps:end:some": {
+      "lines": [
+        "Some early signs are showing, and that is completely typical at this age.",
+        "Number words take a long, slow while to attach to real amounts. Play is what attaches them.",
+        "The plan starts with the gentlest games. One session is a snapshot. You can play Point and Seek again in a few weeks."
+      ]
+    },
+    "ps:end:unclear": {
+      "lines": [
+        "No clear read today. That is the most common outcome at this age, and it says nothing bad.",
+        "Pointing games ask a lot of a very small person. A snack, a nap, or a different day changes everything.",
+        "The plan below starts at the very beginning, which is exactly where the best number talk lives. Try again in a few weeks."
       ]
     }
   }

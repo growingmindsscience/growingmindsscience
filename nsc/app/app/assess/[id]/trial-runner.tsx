@@ -9,7 +9,7 @@ import { stepView } from "@/lib/assessment";
 import type { AssessmentCopy } from "@/lib/content-types";
 import { interpolate } from "@/lib/assessment";
 import type { Outcome, TitrationState } from "@/lib/titration";
-import { pauseAssessment, recordOutcome } from "../actions";
+import { pauseAssessment, recordOutcome, startPointAndSeek } from "../actions";
 
 const NUMWORDS = ["zero", "one", "two", "three", "four", "five", "six"];
 
@@ -114,6 +114,17 @@ export function TrialRunner({
         >
           See this week&rsquo;s plan
         </Link>
+        {state.stopReason === "skips" && (
+          <form action={startPointAndSeek.bind(null, childId)}>
+            <button
+              type="submit"
+              className="w-full text-center text-sm text-teal-soft underline"
+            >
+              The bear got mobbed? Try Point and Seek — a two-minute watching
+              game, no setup
+            </button>
+          </form>
+        )}
         <EnrichmentFooter text={brand.enrichmentFooter} />
       </main>
     );

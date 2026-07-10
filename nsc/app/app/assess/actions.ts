@@ -12,8 +12,20 @@ import {
   type Outcome,
   type TitrationState,
 } from "@/lib/titration";
+import {
+  createPointSession,
+  psApplyPick,
+  psIsDone,
+  psResult,
+  type PSPick,
+  type PSState,
+} from "@/lib/pointandseek";
+import { ageInMonths } from "@/lib/age";
 
 const RESUME_WINDOW_MS = 48 * 60 * 60 * 1000;
+
+/** Below this age Point and Seek replaces Give-N as the default instrument (A5). */
+const POINT_AND_SEEK_MAX_MONTHS = 30;
 
 /** Create a child (nickname + birth month + languages) and go to the pre-screen. */
 export async function createChild(formData: FormData) {
@@ -75,6 +87,19 @@ export async function beginAssessment(childId: string, formData: FormData) {
     redirect(`/app/assess/${existing.id}`);
   }
 
+  // Instrument routing (amendment A5): under ~30 months, Give-N compliance
+  // is poor and these families previously got no assessment at all — the
+  // Point-to-X-style "Point and Seek" runs instead (ev.protocol.silver2021).
+  const { data: childRow } = await supabase
+    .from("nsc_children")
+    .select("birth_month")
+    .eq("id", childId)
+    .single();
+  const months = childRow
+    ? ageInMonths(String(childRow.birth_month).slice(0, 7), new Date())
+    : POINT_AND_SEEK_MAX_MONTHS;
+  const usePointAndSeek = months < POINT_AND_SEEK_MAX_MONTHS;
+
   const { data, error } = await supabase
     .from("nsc_assessments")
     .insert({
@@ -83,12 +108,50 @@ export async function beginAssessment(childId: string, formData: FormData) {
       artifact_version: ARTIFACT_VERSION,
       status: "in_progress",
       prescreen,
-      engine_state: createSession() as unknown as object,
+      instrument: usePointAndSeek ? "point_and_seek" : "give_n",
+      engine_state: (usePointAndSeek
+        ? createPointSession()
+        : createSession()) as unknown as object,
     })
     .select("id")
     .single();
 
   if (error) redirect(`/app/child/${childId}/prescreen?error=${encodeURIComponent(error.message)}`);
+  redirect(`/app/assess/${data!.id}`);
+}
+
+/**
+ * Start a Point and Seek session directly — the gentle retry offered after
+ * a skip-heavy Give-N session ("the bear just wants to watch this time").
+ * Reuses the child's most recent prescreen answers for context.
+ */
+export async function startPointAndSeek(childId: string) {
+  const user = await requireAuth();
+  const supabase = await createClient();
+
+  const { data: latest } = await supabase
+    .from("nsc_assessments")
+    .select("prescreen")
+    .eq("child_id", childId)
+    .order("started_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  const { data, error } = await supabase
+    .from("nsc_assessments")
+    .insert({
+      child_id: childId,
+      owner_id: user.id,
+      artifact_version: ARTIFACT_VERSION,
+      status: "in_progress",
+      prescreen: latest?.prescreen ?? {},
+      instrument: "point_and_seek",
+      engine_state: createPointSession() as unknown as object,
+    })
+    .select("id")
+    .single();
+
+  if (error) redirect(`/app?error=${encodeURIComponent(error.message)}`);
   redirect(`/app/assess/${data!.id}`);
 }
 
@@ -165,4 +228,56 @@ export async function pauseAssessment(assessmentId: string) {
     .eq("status", "in_progress");
   revalidatePath("/app");
   redirect("/app");
+}
+
+export interface PointPickResult {
+  state: PSState;
+}
+
+/**
+ * Record one Point and Seek tap. Same authority pattern as recordOutcome:
+ * load server-side state, apply the pure module, persist trial + state,
+ * finalize the soft signal when done. Point and Seek NEVER writes a rung
+ * above L1 and never better than medium confidence (amendment A5).
+ */
+export async function recordPointPick(
+  assessmentId: string,
+  pick: PSPick,
+): Promise<PointPickResult> {
+  await requireAuth();
+  const { supabase, data } = await loadAssessment(assessmentId);
+  if (data.status === "complete") {
+    return { state: data.engine_state as PSState };
+  }
+
+  const prev = data.engine_state as PSState;
+  const next = psApplyPick(prev, pick);
+  const last = next.records[next.records.length - 1];
+
+  await supabase.from("nsc_trials").insert({
+    assessment_id: assessmentId,
+    seq: last.seq,
+    requested_n: last.target,
+    outcome: last.pick === "skip" ? "skip" : last.correct ? "correct" : "incorrect",
+    post_check: false,
+    is_bonus: false,
+  });
+
+  const result = psIsDone(next) ? psResult(next) : null;
+  await supabase
+    .from("nsc_assessments")
+    .update({
+      engine_state: next as unknown as object,
+      trial_count: next.records.length,
+      status: result ? "complete" : "in_progress",
+      placement: result?.routePlacement ?? null,
+      near_cp: false,
+      confidence: result?.routeConfidence ?? null,
+      ps_signal: result?.signal ?? null,
+      completed_at: result ? new Date().toISOString() : null,
+    })
+    .eq("id", assessmentId);
+
+  if (result) revalidatePath("/app");
+  return { state: next };
 }
