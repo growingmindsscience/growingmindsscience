@@ -7,8 +7,16 @@ import { NextResponse, type NextRequest } from "next/server";
  * routes are redirected to /login. Paths here are relative to basePath (/nsc).
  */
 // Exact-match public routes plus prefix-match public sections.
-const PUBLIC_EXACT = new Set(["/"]);
-const PUBLIC_PREFIXES = ["/login", "/signup", "/auth", "/api/stripe-webhook"];
+const PUBLIC_EXACT = new Set(["/", "/evidence"]);
+const PUBLIC_PREFIXES = [
+  "/login",
+  "/signup",
+  "/auth",
+  "/reset",
+  "/api/stripe-webhook",
+  "/api/cron", // guarded by its own CRON_SECRET bearer check
+  "/api/email/unsubscribe", // token-authenticated, clicked from mail clients
+];
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });

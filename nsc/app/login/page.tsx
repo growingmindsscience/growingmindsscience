@@ -40,6 +40,12 @@ export default async function LoginPage({
           <Button type="submit" className="mt-2">
             Sign in
           </Button>
+          <Link
+            href="/reset"
+            className="text-center text-sm text-teal-soft underline"
+          >
+            Forgot your password?
+          </Link>
         </form>
       </Card>
       <p className="text-center text-sm text-teal-soft">

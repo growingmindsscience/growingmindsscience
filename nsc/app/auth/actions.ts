@@ -44,6 +44,40 @@ export async function signup(formData: FormData) {
   redirect(next);
 }
 
+function siteOrigin(): string {
+  let origin = (process.env.NEXT_PUBLIC_SITE_URL ?? "").trim();
+  if (origin && !/^https?:\/\//i.test(origin)) origin = `https://${origin}`;
+  return origin.replace(/\/+$/, "") || "https://growingmindsscience.com";
+}
+
+export async function requestPasswordReset(formData: FormData) {
+  const supabase = await createClient();
+  const email = String(formData.get("email") ?? "").trim();
+  if (!email) redirect("/reset?error=Please+enter+your+email.");
+
+  await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${siteOrigin()}/nsc/auth/callback?next=${encodeURIComponent("/reset/update")}`,
+  });
+  // Always confirm — never reveal whether an account exists.
+  redirect("/reset?sent=1");
+}
+
+export async function updatePassword(formData: FormData) {
+  const supabase = await createClient();
+  const password = String(formData.get("password") ?? "");
+  if (password.length < 12) {
+    redirect(
+      `/reset/update?error=${encodeURIComponent("Password must be at least 12 characters.")}`,
+    );
+  }
+  const { error } = await supabase.auth.updateUser({ password });
+  if (error) {
+    redirect(`/reset/update?error=${encodeURIComponent(error.message)}`);
+  }
+  revalidatePath("/", "layout");
+  redirect("/app");
+}
+
 export async function signout() {
   const supabase = await createClient();
   await supabase.auth.signOut();

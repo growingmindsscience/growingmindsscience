@@ -88,8 +88,7 @@ export default async function PrescreenPage({
                       type="radio"
                       name={q.name}
                       value={o.value}
-                      required={i === 0}
-                      defaultChecked={i === 0}
+                      required
                       className="sr-only"
                     />
                     {o.label}

@@ -5,6 +5,10 @@ import { signout } from "@/app/auth/actions";
 import { Card, LinkButton } from "@/components/ui";
 import { brand } from "@/lib/config/brand";
 import { RUNG_LABEL } from "@/lib/labels";
+import { nextCheckin, shortDate } from "@/lib/checkin";
+
+/** Mirrors RESUME_WINDOW_MS in app/app/assess/actions.ts. */
+const RESUME_WINDOW_MS = 48 * 60 * 60 * 1000;
 
 export default async function AppHome() {
   const user = await requireAuth();
@@ -17,16 +21,31 @@ export default async function AppHome() {
 
   const { data: assessments } = await supabase
     .from("nsc_assessments")
-    .select("child_id, status, placement, near_cp, started_at")
+    .select("id, child_id, status, placement, near_cp, started_at, completed_at")
     .order("started_at", { ascending: false });
 
   const latestByChild = new Map<
     string,
-    { status: string; placement: string | null; near_cp: boolean }
+    {
+      id: string;
+      status: string;
+      placement: string | null;
+      near_cp: boolean;
+      started_at: string;
+    }
   >();
+  const latestCompleteByChild = new Map<string, { completed_at: string }>();
   for (const a of assessments ?? []) {
     if (!latestByChild.has(a.child_id)) latestByChild.set(a.child_id, a);
+    if (
+      a.status === "complete" &&
+      a.completed_at &&
+      !latestCompleteByChild.has(a.child_id)
+    ) {
+      latestCompleteByChild.set(a.child_id, { completed_at: a.completed_at });
+    }
   }
+  const now = new Date();
 
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-6 py-10">
@@ -48,23 +67,69 @@ export default async function AppHome() {
           const rung =
             latest?.placement &&
             RUNG_LABEL(latest.placement, latest.near_cp ?? false);
+          const lastComplete = latestCompleteByChild.get(c.id);
+          const checkin = lastComplete
+            ? nextCheckin(lastComplete.completed_at, now)
+            : null;
+          const inFlight =
+            latest?.status === "in_progress" || latest?.status === "paused";
+          // Inside the 48h window "Continue" drops straight back into the
+          // game; after it, the prescreen starts a fresh session.
+          const resumable =
+            inFlight &&
+            now.getTime() - new Date(latest.started_at).getTime() <
+              RESUME_WINDOW_MS;
           return (
             <Card key={c.id}>
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <h2 className="text-lg font-semibold text-ink-deep">{c.nickname}</h2>
                   {latest?.status === "complete" && rung ? (
-                    <p className="text-sm text-teal-soft">On the ladder: {rung}</p>
-                  ) : latest?.status === "in_progress" || latest?.status === "paused" ? (
-                    <p className="text-sm text-teal-soft">Check-in in progress</p>
+                    <>
+                      <p className="text-sm text-teal-soft">On the ladder: {rung}</p>
+                      {checkin?.ready ? (
+                        <p className="mt-1 text-sm font-semibold text-teal">
+                          Six weeks are up — time to re-run the check-in and see
+                          if the rung moved.{" "}
+                          <Link
+                            href={`/app/child/${c.id}/plan`}
+                            className="font-normal text-teal-soft underline"
+                          >
+                            This week&rsquo;s plan →
+                          </Link>
+                        </p>
+                      ) : checkin ? (
+                        <p className="mt-1 text-sm text-teal-soft">
+                          Next check-in around {shortDate(checkin.due)}
+                        </p>
+                      ) : null}
+                    </>
+                  ) : inFlight ? (
+                    <p className="text-sm text-teal-soft">
+                      Check-in in progress — the bear is napping
+                    </p>
                   ) : (
                     <p className="text-sm text-teal-soft">No check-in yet</p>
                   )}
                 </div>
                 {latest?.status === "complete" ? (
-                  <LinkButton href={`/app/child/${c.id}/plan`}>This week</LinkButton>
-                ) : latest?.status === "in_progress" || latest?.status === "paused" ? (
-                  <LinkButton href={`/app/child/${c.id}/prescreen`}>Continue</LinkButton>
+                  checkin?.ready ? (
+                    <LinkButton href={`/app/child/${c.id}/prescreen`}>
+                      Re-run check-in
+                    </LinkButton>
+                  ) : (
+                    <LinkButton href={`/app/child/${c.id}/plan`}>This week</LinkButton>
+                  )
+                ) : inFlight ? (
+                  <LinkButton
+                    href={
+                      resumable
+                        ? `/app/assess/${latest.id}`
+                        : `/app/child/${c.id}/prescreen`
+                    }
+                  >
+                    Continue
+                  </LinkButton>
                 ) : (
                   <LinkButton href={`/app/child/${c.id}/prescreen`}>
                     Start the game
