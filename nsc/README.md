@@ -48,17 +48,49 @@ NEXT_PUBLIC_NSC_PRICE_DISPLAY      # e.g. "$34" (display only)
 `.env.local` is gitignored and holds the two public Supabase values for local
 dev. Set the server-only secrets via `vercel env add`.
 
-## Deploy (multi-zone)
+## Deployment (multi-zone) — READ THIS BEFORE TOUCHING VERCEL
 
-1. Deploy this dir as its own Vercel project (root = `nsc/`). `basePath: /nsc`,
-   so it serves at `https://<nsc-project>.vercel.app/nsc/*`.
-2. Add all env vars above in the Vercel project.
-3. In the **static site's root `vercel.json`**, add rewrites so
-   growingmindsscience.com/nsc proxies to the app:
-   ```json
-   { "source": "/nsc", "destination": "https://<nsc-project>.vercel.app/nsc" },
-   { "source": "/nsc/:path*", "destination": "https://<nsc-project>.vercel.app/nsc/:path*" }
-   ```
+This one GitHub repo (`growingmindsscience/growingmindsscience`) ships **two
+separate Vercel projects**, both on team `growingmindssciences-projects`
+(`team_0gvjTk1SedmFDSuFgvAk9qZp`). They are a multi-zone pair, not a monorepo
+build:
+
+| Vercel project | Root Directory | Framework | Serves | Domain |
+|---|---|---|---|---|
+| `growingmindsscience` | repo root (none) | static | the marketing site | `growingmindsscience.com` |
+| `nsc` | **`nsc`** | Next.js | this app (`basePath: /nsc`) | `nsc-lake.vercel.app` |
+
+The static site's root `vercel.json` rewrites the `/nsc` path to the app's zone:
+
+```json
+{ "source": "/nsc",        "destination": "https://nsc-lake.vercel.app/nsc" },
+{ "source": "/nsc/:path*", "destination": "https://nsc-lake.vercel.app/nsc/:path*" }
+```
+
+So `growingmindsscience.com/nsc/*` is proxied to the `nsc` project. (The root
+`vercel.json` also gives `/nsc` its own CSP that permits the Supabase origin;
+the site's strict `connect-src 'self'` would otherwise block the app.)
+
+### The rule that keeps this from breaking
+
+**BOTH projects must stay git-connected to this repo with Production Branch =
+`main`.** If either loses its git connection, `main` merges silently stop
+deploying to that half and the live product drifts behind the repo (this is
+exactly what happened once when `nsc` was only ever `vercel --prod`'d from a
+laptop — the static site kept auto-deploying while `/nsc` served a stale build).
+
+Verify both connections any time the product looks out of date:
+
+```bash
+# each should show a github link + productionBranch "main"
+vercel git connect            # run inside the repo root  → growingmindsscience
+cd nsc && vercel git connect  # run inside nsc/           → nsc  (Root Directory must be "nsc")
+```
+
+The `nsc` project's **Root Directory** must be `nsc` (Project → Settings →
+Build & Deployment → Root Directory), or Vercel tries to build the static repo
+root as a Next.js app and fails. New `nsc` env vars are added with
+`cd nsc && vercel env add <NAME> production`.
 
 ## Stripe setup (one-time SKU, pricing option B)
 
