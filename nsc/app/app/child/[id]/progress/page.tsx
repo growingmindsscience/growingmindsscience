@@ -7,6 +7,10 @@ import { Ladder } from "@/components/ladder";
 import { brand } from "@/lib/config/brand";
 import { RUNG_LABEL } from "@/lib/labels";
 import type { Placement } from "@/lib/titration";
+import { nextCheckin, shortDate } from "@/lib/checkin";
+
+/** Ladder height per placement — only for spotting upward moves in history. */
+const RANK: Record<string, number> = { L0: 0, L1: 1, L2: 2, L3: 3, L4: 4, CP: 5 };
 
 export default async function ProgressPage({
   params,
@@ -72,24 +76,76 @@ export default async function ProgressPage({
         <h2 className="text-sm font-semibold uppercase tracking-wide text-teal">
           Check-in history
         </h2>
-        {(history ?? []).map((h, i) => (
-          <Card key={i}>
-            <div className="flex items-center justify-between">
-              <span className="font-medium text-ink">
-                {RUNG_LABEL(h.placement as string, h.near_cp ?? false)}
-              </span>
-              <span className="text-sm text-teal-soft">
-                {h.completed_at
-                  ? new Date(h.completed_at).toLocaleDateString()
-                  : ""}
-              </span>
-            </div>
-          </Card>
-        ))}
+        {(history ?? []).map((h, i) => {
+          const prev = i > 0 ? history![i - 1] : null;
+          const climbed =
+            prev?.placement &&
+            h.placement &&
+            (RANK[h.placement] ?? 0) > (RANK[prev.placement] ?? 0);
+          return (
+            <Card key={i}>
+              <div className="flex items-center justify-between gap-3">
+                <span className="font-medium text-ink">
+                  {RUNG_LABEL(h.placement as string, h.near_cp ?? false)}
+                  {climbed && (
+                    <span className="ml-2 rounded-full bg-rung-glow px-2 py-0.5 text-xs font-semibold text-teal">
+                      ↑ climbed
+                    </span>
+                  )}
+                </span>
+                <span className="text-sm text-teal-soft">
+                  {h.completed_at
+                    ? shortDate(new Date(h.completed_at))
+                    : ""}
+                </span>
+              </div>
+            </Card>
+          );
+        })}
         {(history?.length ?? 0) === 0 && (
           <p className="text-sm text-teal-soft">No check-ins recorded yet.</p>
         )}
       </section>
+
+      {latest?.completed_at && (
+        <Card className="bg-sea-glass/30">
+          {(() => {
+            const checkin = nextCheckin(latest.completed_at);
+            return checkin.ready ? (
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <p className="text-ink">
+                  <span className="font-semibold text-ink-deep">
+                    Six weeks are up.
+                  </span>{" "}
+                  Re-run the check-in and watch the ladder move.
+                </p>
+                <Link
+                  href={`/app/child/${id}/prescreen`}
+                  className="font-semibold text-teal underline"
+                >
+                  Re-run the check-in →
+                </Link>
+              </div>
+            ) : (
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <p className="text-ink">
+                  Next check-in around{" "}
+                  <span className="font-semibold text-ink-deep">
+                    {shortDate(checkin.due)}
+                  </span>{" "}
+                  — the six-week rhythm.
+                </p>
+                <a
+                  href={`/app/child/${id}/checkin.ics`}
+                  className="text-sm font-semibold text-teal underline"
+                >
+                  Add to calendar
+                </a>
+              </div>
+            );
+          })()}
+        </Card>
+      )}
 
       <p className="text-center text-sm text-teal-soft">
         Every child climbs at their own pace. This is {child.nickname} against

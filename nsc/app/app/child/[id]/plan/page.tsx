@@ -9,6 +9,7 @@ import { Ladder } from "@/components/ladder";
 import { GameCard } from "@/components/game-card";
 import { brand } from "@/lib/config/brand";
 import { RUNG_LABEL } from "@/lib/labels";
+import { nextCheckin, shortDate } from "@/lib/checkin";
 
 export default async function PlanPage({
   params,
@@ -35,6 +36,7 @@ export default async function PlanPage({
   );
   const todayPrompt = ctx.plan.prompts[dayIndex(now)] ?? ctx.plan.prompts[0];
   const rung = RUNG_LABEL(ctx.placement, ctx.nearCP);
+  const checkin = nextCheckin(ctx.assessedAt, now);
 
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-6 py-10">
@@ -70,9 +72,15 @@ export default async function PlanPage({
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-teal">
-          This week&rsquo;s games
-        </h2>
+        <div>
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-teal">
+            This week&rsquo;s games
+          </h2>
+          <p className="mt-1 text-sm text-teal-soft">
+            A fresh three arrive every Monday, matched to {ctx.child.nickname}
+            &rsquo;s rung.
+          </p>
+        </div>
         {ctx.plan.games.map((game, i) => (
           <GameCard
             key={game.id}
@@ -97,6 +105,43 @@ export default async function PlanPage({
         </Card>
       )}
 
+      <Card className="bg-sea-glass/30">
+        {checkin.ready ? (
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h2 className="font-semibold text-ink-deep">
+                Six weeks are up
+              </h2>
+              <p className="mt-1 text-sm text-ink">
+                Rungs move on the scale of weeks and months. Re-run the
+                check-in and see where {ctx.child.nickname} stands now.
+              </p>
+            </div>
+            <LinkButton href={`/app/child/${id}/prescreen`}>
+              Re-run the check-in
+            </LinkButton>
+          </div>
+        ) : (
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h2 className="font-semibold text-ink-deep">
+                Next check-in around {shortDate(checkin.due)}
+              </h2>
+              <p className="mt-1 text-sm text-ink">
+                That&rsquo;s the six-week rhythm — long enough for a rung to
+                move, short enough to catch it moving.
+              </p>
+            </div>
+            <a
+              href={`/app/child/${id}/checkin.ics`}
+              className="text-sm font-semibold text-teal underline"
+            >
+              Add to calendar
+            </a>
+          </div>
+        )}
+      </Card>
+
       <div className="flex flex-wrap justify-between gap-2 text-sm">
         <Link href={`/app/child/${id}/progress`} className="font-semibold text-teal underline">
           See progress →
@@ -108,6 +153,9 @@ export default async function PlanPage({
         )}
         <Link href={`/app/child/${id}/prescreen`} className="text-teal-soft underline">
           Play the check-in again
+        </Link>
+        <Link href="/evidence" className="text-teal-soft underline">
+          The evidence →
         </Link>
       </div>
 

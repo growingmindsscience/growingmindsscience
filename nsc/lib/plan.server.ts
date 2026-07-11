@@ -13,6 +13,8 @@ export interface PlanContext {
   servedPlacement: Placement; // conservative shift applied for low confidence
   nearCP: boolean;
   confidence: Confidence;
+  /** When the placement assessment completed — drives the six-week rhythm. */
+  assessedAt: string;
   plan: WeeklyPlan;
   citations: Map<string, Citation>;
   recentPlays: { game_id: string; played_at: string; reaction: string | null }[];
@@ -38,7 +40,7 @@ export async function getPlanContext(
 
   const { data: assessment } = await supabase
     .from("nsc_assessments")
-    .select("placement, near_cp, confidence")
+    .select("placement, near_cp, confidence, completed_at")
     .eq("child_id", childId)
     .eq("status", "complete")
     .order("completed_at", { ascending: false })
@@ -89,6 +91,7 @@ export async function getPlanContext(
     servedPlacement,
     nearCP,
     confidence,
+    assessedAt: assessment.completed_at,
     plan,
     citations,
     recentPlays: recentPlays ?? [],

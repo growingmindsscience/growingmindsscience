@@ -36,6 +36,8 @@ export function TrialRunner({
   );
   const [showCheck, setShowCheck] = useState(false);
   const [pending, setPending] = useState(false);
+  const [confirmPause, setConfirmPause] = useState(false);
+  const [showResumeNote, setShowResumeNote] = useState(resumed);
 
   const vars = { name: childName, objects };
   const view = stepView(state, copy, vars, showCheck);
@@ -46,6 +48,7 @@ export function TrialRunner({
       const { state: next } = await recordOutcome(assessmentId, outcome);
       setState(next);
       setShowCheck(false);
+      setShowResumeNote(false);
     } finally {
       setPending(false);
     }
@@ -131,10 +134,66 @@ export function TrialRunner({
   }
 
   const bigN = view.n != null ? NUMWORDS[view.n] : "";
+  const pauseLines = copy.states["pause"]?.lines ?? [];
+  const resumeLine = copy.states["resume"]?.lines?.[0];
+
+  if (confirmPause) {
+    return (
+      <main className="mx-auto flex min-h-screen max-w-lg flex-col justify-center gap-6 px-6 py-12">
+        <Card className="text-center">
+          <div className="flex flex-col gap-3">
+            {pauseLines.map((l, i) => (
+              <p key={i} className={i === 0 ? "text-lg font-semibold text-ink-deep" : "text-ink"}>
+                {interpolate(l, vars)}
+              </p>
+            ))}
+          </div>
+        </Card>
+        <form action={pauseAssessment.bind(null, assessmentId)}>
+          <Button type="submit" className="w-full">
+            Pause &mdash; the bear naps
+          </Button>
+        </form>
+        <Button variant="ghost" onClick={() => setConfirmPause(false)}>
+          Keep playing
+        </Button>
+      </main>
+    );
+  }
 
   return (
     <main className="mx-auto flex min-h-screen max-w-lg flex-col justify-between gap-6 px-6 py-10">
       <div className="flex flex-1 flex-col justify-center gap-6">
+        {showResumeNote && (
+          <Card className="bg-sea-glass/30">
+            <p className="font-medium text-ink-deep">
+              {resumeLine
+                ? interpolate(resumeLine, vars)
+                : "Ready to keep playing?"}{" "}
+              <span className="font-normal text-ink">
+                You&rsquo;re picking up right where you left off.
+              </span>
+            </p>
+            {rules.length > 0 && (
+              <ul className="mt-3 flex flex-col gap-1 text-sm text-ink">
+                {rules.map((l, i) => (
+                  <li key={i} className="flex gap-2">
+                    <span aria-hidden className="text-teal">
+                      •
+                    </span>
+                    <span>{interpolate(l, vars)}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <button
+              onClick={() => setShowResumeNote(false)}
+              className="mt-3 text-sm font-semibold text-teal underline"
+            >
+              Got it
+            </button>
+          </Card>
+        )}
         <p className="text-center text-sm font-medium uppercase tracking-widest text-teal">
           {view.kind === "bonus" ? "One last one" : "Feed the bear"}
         </p>
@@ -188,14 +247,12 @@ export function TrialRunner({
           Read it exactly. Don&rsquo;t count for {childName}. Every answer earns a
           &ldquo;thank you.&rdquo;
         </p>
-        <form action={pauseAssessment.bind(null, assessmentId)}>
-          <button
-            type="submit"
-            className="w-full text-center text-sm text-teal-soft underline"
-          >
-            Pause and come back later
-          </button>
-        </form>
+        <button
+          onClick={() => setConfirmPause(true)}
+          className="w-full text-center text-sm text-teal-soft underline"
+        >
+          Pause and come back later
+        </button>
       </div>
     </main>
   );

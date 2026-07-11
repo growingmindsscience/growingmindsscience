@@ -29,6 +29,11 @@ pause/resume), `nsc_trials`, `nsc_game_plays`, `nsc_purchases`. RLS on every
 table; trials scope through their assessment; purchases are read-own,
 service-role-write.
 
+Migration `0003_email_engagement.sql` (⚠ apply to the project) adds
+`nsc_email_prefs` (per-account toggles + unsubscribe token, read/update-own)
+and `nsc_email_log` (service-role-only send ledger that makes the engagement
+cron idempotent).
+
 Supabase project: **dedicated free project `kxljngtmnqarvsawakmf`** (personal
 org, us-west-1).
 
@@ -43,6 +48,9 @@ STRIPE_WEBHOOK_SECRET              # server-only; from the webhook endpoint
 NSC_PRICE_ID                       # the one-time price id
 NEXT_PUBLIC_SITE_URL               # https://growingmindsscience.com (for redirects)
 NEXT_PUBLIC_NSC_PRICE_DISPLAY      # e.g. "$34" (display only)
+CRON_SECRET                        # server-only; Vercel sends it as the cron Bearer token
+RESEND_API_KEY                     # server-only; without it the engagement cron logs + skips sends
+NSC_EMAIL_FROM                     # optional; default "Number Path <hello@growingmindsscience.com>"
 ```
 
 `.env.local` is gitignored and holds the two public Supabase values for local
@@ -78,6 +86,29 @@ Email/password via Supabase Auth (12-char minimum enforced in the signup
 action). For a frictionless first run, either disable email confirmation in the
 Supabase dashboard or wire a confirmation redirect. Leaked-password protection
 recommended ON.
+
+Password reset: `/reset` → email link → `/auth/callback?next=/reset/update`.
+⚠ In the Supabase dashboard (Auth → URL Configuration) add
+`https://growingmindsscience.com/nsc/auth/callback` to the redirect allowlist
+or the recovery links will bounce.
+
+## Engagement emails (`app/api/cron/engagement`)
+
+`vercel.json` schedules a daily cron (15:00 UTC) that sends, via Resend:
+Mondays a "fresh week of games" note per account, and a one-time "six weeks
+are up" re-check-in reminder per completed placement. Idempotent through
+`nsc_email_log`; per-account opt-out via the unsubscribe link in every email
+(`/api/email/unsubscribe?token=…`). Human steps before it goes live:
+
+1. Apply `supabase/migrations/0003_email_engagement.sql`.
+2. `vercel env add CRON_SECRET` (any long random string; Vercel crons send it
+   automatically as `Authorization: Bearer …`).
+3. Create a Resend API key on a verified growingmindsscience.com domain and
+   `vercel env add RESEND_API_KEY`. Until then the cron runs and logs but
+   sends nothing.
+
+Zero-infra fallback that already works: every plan/progress page offers an
+"Add to calendar" `.ics` for the next six-week check-in.
 
 ## Telemetry
 
