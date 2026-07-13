@@ -56,16 +56,36 @@ export async function getPlanContext(
 
   const band = ageBand(child.birth_month, now);
 
-  // Repeat-avoidance: games played in the last 14 days.
-  const since = new Date(now.getTime() - 14 * 86400000)
+  // Reaction-aware rotation. A play tells the plan something, and the three
+  // reactions must mean three different things (they used to be identical):
+  //   flopped → rest it a good while (6 weeks), so a flop really removes it
+  //   fine    → normal 2-week rotation
+  //   loved   → never suppressed — keep playing what a child loves
+  // Query 6 weeks so flopped games can be held out that long; the 2-week
+  // window is applied per-play below.
+  const now14 = now.getTime() - 14 * 86400000;
+  const since = new Date(now.getTime() - 42 * 86400000)
     .toISOString()
     .slice(0, 10);
-  const { data: recentPlays } = await supabase
+  const { data: allPlays } = await supabase
     .from("nsc_game_plays")
     .select("game_id, played_at, reaction")
     .eq("child_id", childId)
     .gte("played_at", since)
     .order("played_at", { ascending: false });
+
+  const suppressed = new Set<string>();
+  const recentPlays: {
+    game_id: string;
+    played_at: string;
+    reaction: string | null;
+  }[] = [];
+  for (const p of allPlays ?? []) {
+    const at = new Date(p.played_at).getTime();
+    if (at >= now14) recentPlays.push(p); // "played this week" chip + display
+    if (p.reaction === "flopped") suppressed.add(p.game_id); // full 6 weeks
+    else if (p.reaction !== "loved" && at >= now14) suppressed.add(p.game_id);
+  }
 
   const [catalog, deck, citationsTable] = await Promise.all([
     getGamesCatalog(),
@@ -80,7 +100,7 @@ export async function getPlanContext(
     band,
     nearCP: confidence === "low" ? false : nearCP,
     seed: weekSeed(childId, now),
-    recentGameIds: (recentPlays ?? []).map((p) => p.game_id),
+    recentGameIds: [...suppressed],
   });
 
   const citations = new Map(citationsTable.citations.map((c) => [c.tag_id, c]));
@@ -94,6 +114,6 @@ export async function getPlanContext(
     assessedAt: assessment.completed_at,
     plan,
     citations,
-    recentPlays: recentPlays ?? [],
+    recentPlays,
   };
 }
