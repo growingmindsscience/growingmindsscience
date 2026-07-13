@@ -218,7 +218,7 @@
         "Counting words are still music: {name} may sing them, but they don't point at amounts yet. That's a real stage, and every counter starts here.",
         "Next, one number word will click onto meaning: \"one.\" It arrives with time and talk.",
         "This week's games soak daily routines in number words. That's the whole job right now.",
-        "Come back in about six weeks and play the check-in again. Rungs move on the scale of weeks and months, and the climb is a good one to watch."
+        "Come back in about six weeks and play the check-in again. Rungs move on the scale of months — some check-ins show a climb, and many show a rung settling in. Both are the ladder working."
       ]
     },
     "end:L0:medium": {
@@ -243,7 +243,7 @@
         "{name} knows exactly what \"one\" means. \"Two\" is still a word in a song.",
         "Next comes two. Every child climbs this ladder, one rung at a time, and each rung takes months.",
         "The games this week are built for exactly this rung. They make the climb richer.",
-        "Come back in about six weeks and play the check-in again. Rungs move on the scale of weeks and months, and the climb is a good one to watch."
+        "Come back in about six weeks and play the check-in again. Rungs move on the scale of months — some check-ins show a climb, and many show a rung settling in. Both are the ladder working."
       ]
     },
     "end:L1:medium": {
@@ -268,7 +268,7 @@
         "\"One\" and \"two\" mean exact amounts to {name} now. \"Three\" is still catching up.",
         "Next comes three, and it usually takes months of ordinary play. That's the ladder working, not stalling.",
         "This week's games give \"two\" a workout and let \"three\" start knocking.",
-        "Come back in about six weeks and play the check-in again. Rungs move on the scale of weeks and months, and the climb is a good one to watch."
+        "Come back in about six weeks and play the check-in again. Rungs move on the scale of months — some check-ins show a climb, and many show a rung settling in. Both are the ladder working."
       ]
     },
     "end:L2:medium": {
@@ -293,7 +293,7 @@
         "One, two, and three are exact ideas for {name} now. \"Four\" is next in line.",
         "Children usually climb one number at a time here, and then something bigger clicks all at once.",
         "This week's games stretch toward four and keep three feeling easy.",
-        "Come back in about six weeks and play the check-in again. Rungs move on the scale of weeks and months, and the climb is a good one to watch."
+        "Come back in about six weeks and play the check-in again. Rungs move on the scale of months — some check-ins show a climb, and many show a rung settling in. Both are the ladder working."
       ]
     },
     "end:L3:medium": {
@@ -318,7 +318,7 @@
         "One through four are exact ideas for {name}. The next step is the big one: discovering that counting itself tells you how many.",
         "That discovery tends to arrive after months on this rung, often all at once.",
         "This week's games set the table for it: counting out, checking, and lots of five.",
-        "Come back in about six weeks and play the check-in again. Rungs move on the scale of weeks and months, and the climb is a good one to watch."
+        "Come back in about six weeks and play the check-in again. Rungs move on the scale of months — some check-ins show a climb, and many show a rung settling in. Both are the ladder working."
       ]
     },
     "end:L4:medium": {
@@ -341,9 +341,9 @@
       "lines": [
         "Right now, {name} is a four-knower standing on the doorstep of the biggest step on the ladder.",
         "Five went beautifully today. The full discovery, that counting itself tells you how many, every time, for any amount, is very close.",
-        "When it clicks, it tends to click all at once.",
+        "When it arrives, counting starts answering the question on its own — and the deeper ideas keep ripening for years after.",
         "This week's games are exactly the doorstep games: counting out, checking, and celebrating the check.",
-        "Come back in about six weeks and play the check-in again. Rungs move on the scale of weeks and months, and the climb is a good one to watch."
+        "Come back in about six weeks and play the check-in again. Rungs move on the scale of months — some check-ins show a climb, and many show a rung settling in. Both are the ladder working."
       ]
     },
     "end:L4near:medium": {
@@ -364,18 +364,18 @@
     },
     "end:CP:high": {
       "lines": [
-        "Right now, {name} is a cardinal-principle knower. The ladder's big discovery has happened.",
+        "Right now, {name} is a cardinal-principle knower. The ladder's big discovery is showing up in play.",
         "{name} can count out an amount and knows the last word counted tells how many. That works for any number {name} can count to.",
-        "From here the fun widens: one more, one fewer, who has more, and a longer count list.",
+        "From here the fun widens: one more, who has more, and a longer count list.",
         "This week's games open that next territory.",
-        "Check in again in about six weeks if you like — from here it's watching the count list stretch and the ideas widen."
+        "The deeper ideas — what number comes after another, comparing numbers out loud — arrive over the next years, in their own time. Check in again in about six weeks if you like, and watch the count list stretch."
       ]
     },
     "end:CP:medium": {
       "lines": [
         "Today's best read: {name} is a cardinal-principle knower. The ladder's big discovery looks like it has happened.",
         "Counting out and checking both showed up today. A few moments were hard to read, which is typical for a game at home.",
-        "From here the fun widens: one more, one fewer, who has more.",
+        "From here the fun widens: one more, who has more, and a longer count list.",
         "This week's games open that territory. Try the check-in again in a week or two to watch it settle."
       ]
     },

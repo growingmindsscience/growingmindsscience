@@ -27,7 +27,7 @@ export async function GET(
 
   const { data: assessment } = await supabase
     .from("nsc_assessments")
-    .select("completed_at")
+    .select("completed_at, confidence")
     .eq("child_id", id)
     .eq("status", "complete")
     .order("completed_at", { ascending: false })
@@ -37,7 +37,11 @@ export async function GET(
     return new NextResponse("No completed check-in yet", { status: 404 });
   }
 
-  const { due } = nextCheckin(assessment.completed_at);
+  const { due } = nextCheckin(
+    assessment.completed_at,
+    new Date(),
+    assessment.confidence,
+  );
   const day = (d: Date) => d.toISOString().slice(0, 10).replaceAll("-", "");
   const dayAfter = new Date(due.getTime() + 24 * 60 * 60 * 1000);
   const stamp = new Date().toISOString().replace(/[-:]/g, "").slice(0, 15) + "Z";
@@ -53,7 +57,7 @@ export async function GET(
     `DTEND;VALUE=DATE:${day(dayAfter)}`,
     `SUMMARY:Number Path check-in — ${child.nickname}`,
     "DESCRIPTION:Ten minutes\\, a bowl\\, ten blocks\\, and the bear. Re-run " +
-      "the counting-ladder check-in and see if the rung moved: " +
+      "the counting-ladder check-in and see where things stand: " +
       "https://growingmindsscience.com/nsc/app",
     "END:VEVENT",
     "END:VCALENDAR",

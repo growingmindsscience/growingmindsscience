@@ -68,6 +68,9 @@ export async function beginAssessment(childId: string, formData: FormData) {
     count_band: String(formData.get("count_band") ?? ""),
     gives_one: String(formData.get("gives_one") ?? ""),
     points_counts: String(formData.get("points_counts") ?? ""),
+    // Small number words are learned per-language (Wagner, Kimura & Barner
+    // 2015) — the check-in should run in the child's counting language.
+    number_language: String(formData.get("number_language") ?? "english"),
   };
 
   // Resume an in-flight assessment for this child inside the 48h window.
@@ -159,7 +162,7 @@ async function loadAssessment(assessmentId: string) {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("nsc_assessments")
-    .select("id, child_id, status, engine_state")
+    .select("id, child_id, status, engine_state, confidence")
     .eq("id", assessmentId)
     .single();
   if (error || !data) throw new Error("Assessment not found");
@@ -179,6 +182,7 @@ export interface OutcomeResult {
 export async function recordOutcome(
   assessmentId: string,
   outcome: Outcome,
+  selfCorrected?: boolean,
 ): Promise<OutcomeResult> {
   await requireAuth();
   const { supabase, data } = await loadAssessment(assessmentId);
@@ -190,6 +194,7 @@ export async function recordOutcome(
   const next = applyOutcome(prev, outcome, /* postCheck */ true);
   const seq = next.trials.length;
   const last = next.trials[next.trials.length - 1];
+  if (selfCorrected !== undefined) last.selfCorrected = selfCorrected;
 
   await supabase.from("nsc_trials").insert({
     assessment_id: assessmentId,
@@ -216,6 +221,27 @@ export async function recordOutcome(
 
   if (result) revalidatePath("/app");
   return { state: next };
+}
+
+/**
+ * Parent marks a completed session as an off day (tired, distracted, shy).
+ * Downward confounds are real, so a high-confidence read on a flagged day
+ * is softened to medium. Confidence-only: placement never changes, and the
+ * re-run invitation keeps its normal time gate — an instant "bad day, go
+ * again" button would ratchet placements up through retest familiarity.
+ */
+export async function flagOffDay(assessmentId: string) {
+  await requireAuth();
+  const { supabase, data } = await loadAssessment(assessmentId);
+  if (data.status !== "complete") return;
+
+  const state = data.engine_state as TitrationState & { offDay?: boolean };
+  const update: Record<string, unknown> = {
+    engine_state: { ...state, offDay: true },
+  };
+  if (data.confidence === "high") update.confidence = "medium";
+  await supabase.from("nsc_assessments").update(update).eq("id", assessmentId);
+  revalidatePath("/app");
 }
 
 export async function pauseAssessment(assessmentId: string) {

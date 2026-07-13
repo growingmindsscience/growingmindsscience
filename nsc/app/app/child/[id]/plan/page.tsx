@@ -36,7 +36,7 @@ export default async function PlanPage({
   );
   const todayPrompt = ctx.plan.prompts[dayIndex(now)] ?? ctx.plan.prompts[0];
   const rung = RUNG_LABEL(ctx.placement, ctx.nearCP);
-  const checkin = nextCheckin(ctx.assessedAt, now);
+  const checkin = nextCheckin(ctx.assessedAt, now, ctx.confidence);
 
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-6 py-10">
@@ -109,12 +109,10 @@ export default async function PlanPage({
         {checkin.ready ? (
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
-              <h2 className="font-semibold text-ink-deep">
-                Six weeks are up
-              </h2>
+              <h2 className="font-semibold text-ink-deep">Check-in time</h2>
               <p className="mt-1 text-sm text-ink">
-                Rungs move on the scale of weeks and months. Re-run the
-                check-in and see where {ctx.child.nickname} stands now.
+                See where {ctx.child.nickname} stands. Rungs take months —
+                a climb and a rung settling in are both the ladder working.
               </p>
             </div>
             <LinkButton href={`/app/child/${id}/prescreen`}>
@@ -128,8 +126,9 @@ export default async function PlanPage({
                 Next check-in around {shortDate(checkin.due)}
               </h2>
               <p className="mt-1 text-sm text-ink">
-                That&rsquo;s the six-week rhythm — long enough for a rung to
-                move, short enough to catch it moving.
+                {ctx.confidence === "low"
+                  ? "A sooner look, because today's read was a playful estimate."
+                  : "The six-week rhythm. Rungs take months to move — the check-in is how you watch the climb without rushing it."}
               </p>
             </div>
             <a

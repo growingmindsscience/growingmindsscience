@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/server";
 import { emailEnabled, renderEmail, sendEmail } from "@/lib/email.server";
-import { CHECKIN_INTERVAL_DAYS, nextCheckin, shortDate } from "@/lib/checkin";
+import { nextCheckin, shortDate } from "@/lib/checkin";
 import { RUNG_LABEL } from "@/lib/labels";
 
 /**
@@ -44,7 +44,7 @@ export async function GET(req: Request) {
   // Latest completed assessment per child, with owner + nickname.
   const { data: rows, error } = await supabase
     .from("nsc_assessments")
-    .select("id, child_id, owner_id, placement, near_cp, completed_at")
+    .select("id, child_id, owner_id, placement, near_cp, completed_at, confidence")
     .eq("status", "complete")
     .order("completed_at", { ascending: false });
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
@@ -144,7 +144,7 @@ export async function GET(req: Request) {
     const c = childById.get(childId);
     const to = c && emailByOwner.get(c.owner_id);
     if (!c || !to) continue;
-    const { ready } = nextCheckin(a.completed_at!, now);
+    const { ready } = nextCheckin(a.completed_at!, now, a.confidence);
     if (!ready) continue;
 
     const prefs = await ownerPrefs(c.owner_id);
@@ -160,10 +160,10 @@ export async function GET(req: Request) {
 
     const rung = RUNG_LABEL(a.placement as string, a.near_cp ?? false);
     const { html, text } = renderEmail({
-      heading: `Time to see if the rung moved`,
+      heading: `Time for ${c.nickname}'s next check-in`,
       paragraphs: [
-        `It's been about ${Math.round(CHECKIN_INTERVAL_DAYS / 7)} weeks since ${c.nickname}'s last check-in (${shortDate(new Date(a.completed_at!))}, ${rung}).`,
-        `Ten minutes, a bowl, ten blocks, and the bear — run it again and the ladder updates, along with every game that follows.`,
+        `The last check-in was ${shortDate(new Date(a.completed_at!))} (${rung}). Rungs move on the scale of months — some check-ins show a climb, many show a rung settling in, and both are the ladder working.`,
+        `Ten minutes, a bowl, ten blocks, and the bear — run it again and this week's games follow whatever you find.`,
       ],
       ctaLabel: `Re-run ${c.nickname}'s check-in`,
       ctaUrl: `${SITE}/nsc/app`,
@@ -171,7 +171,7 @@ export async function GET(req: Request) {
     });
     const sent = await sendEmail({
       to,
-      subject: `${c.nickname}'s six-week check-in is ready`,
+      subject: `${c.nickname}'s next check-in is ready`,
       html,
       text,
     });

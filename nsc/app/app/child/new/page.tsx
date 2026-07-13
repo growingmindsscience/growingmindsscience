@@ -30,7 +30,7 @@ export default async function NewChildPage({
           <Field
             label="Home languages"
             htmlFor="home_languages"
-            hint="Optional, comma-separated. Counting transfers across languages."
+            hint="Optional, comma-separated. The counting steps carry across languages; each language's first number words are learned on their own."
           >
             <Input id="home_languages" name="home_languages" placeholder="English, Spanish" />
           </Field>

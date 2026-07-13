@@ -63,6 +63,17 @@ export default async function PrescreenPage({
         label,
       })),
     },
+    {
+      // Children learn each language's small number words separately, so the
+      // check-in should run in the child's counting language.
+      name: "number_language",
+      question: `Which language does ${child.nickname} hear numbers in most?`,
+      options: [
+        { value: "english", label: "English" },
+        { value: "spanish", label: "Spanish" },
+        { value: "other", label: "Another language" },
+      ],
+    },
   ];
 
   return (

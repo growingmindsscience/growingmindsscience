@@ -21,7 +21,7 @@ export default async function AppHome() {
 
   const { data: assessments } = await supabase
     .from("nsc_assessments")
-    .select("id, child_id, status, placement, near_cp, started_at, completed_at")
+    .select("id, child_id, status, placement, near_cp, started_at, completed_at, confidence")
     .order("started_at", { ascending: false });
 
   const latestByChild = new Map<
@@ -34,7 +34,10 @@ export default async function AppHome() {
       started_at: string;
     }
   >();
-  const latestCompleteByChild = new Map<string, { completed_at: string }>();
+  const latestCompleteByChild = new Map<
+    string,
+    { completed_at: string; confidence: string | null }
+  >();
   for (const a of assessments ?? []) {
     if (!latestByChild.has(a.child_id)) latestByChild.set(a.child_id, a);
     if (
@@ -42,7 +45,10 @@ export default async function AppHome() {
       a.completed_at &&
       !latestCompleteByChild.has(a.child_id)
     ) {
-      latestCompleteByChild.set(a.child_id, { completed_at: a.completed_at });
+      latestCompleteByChild.set(a.child_id, {
+        completed_at: a.completed_at,
+        confidence: a.confidence ?? null,
+      });
     }
   }
   const now = new Date();
@@ -69,7 +75,7 @@ export default async function AppHome() {
             RUNG_LABEL(latest.placement, latest.near_cp ?? false);
           const lastComplete = latestCompleteByChild.get(c.id);
           const checkin = lastComplete
-            ? nextCheckin(lastComplete.completed_at, now)
+            ? nextCheckin(lastComplete.completed_at, now, lastComplete.confidence)
             : null;
           const inFlight =
             latest?.status === "in_progress" || latest?.status === "paused";
@@ -89,8 +95,7 @@ export default async function AppHome() {
                       <p className="text-sm text-teal-soft">On the ladder: {rung}</p>
                       {checkin?.ready ? (
                         <p className="mt-1 text-sm font-semibold text-teal">
-                          Six weeks are up — time to re-run the check-in and see
-                          if the rung moved.{" "}
+                          Time for the next check-in — see where things stand.{" "}
                           <Link
                             href={`/app/child/${c.id}/plan`}
                             className="font-normal text-teal-soft underline"

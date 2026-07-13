@@ -2,7 +2,7 @@ import { notFound, redirect } from "next/navigation";
 import { requireAuth } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { getAssessmentCopy } from "@/lib/content.server";
-import type { TitrationState } from "@/lib/titration";
+import type { Placement, TitrationState } from "@/lib/titration";
 import type { PSState } from "@/lib/pointandseek";
 import { TrialRunner } from "./trial-runner";
 import { PointSeekRunner } from "./point-seek-runner";
@@ -18,7 +18,7 @@ export default async function AssessPage({
 
   const { data: assessment } = await supabase
     .from("nsc_assessments")
-    .select("id, child_id, status, engine_state, instrument")
+    .select("id, child_id, status, engine_state, instrument, prescreen, started_at")
     .eq("id", id)
     .single();
 
@@ -34,6 +34,23 @@ export default async function AssessPage({
     .single();
   if (!child) notFound();
 
+  // Previous completed placement — lets the readout frame a re-run honestly
+  // (held steady / climbed / read lower) instead of repeating itself.
+  const { data: prior } = await supabase
+    .from("nsc_assessments")
+    .select("placement")
+    .eq("child_id", assessment.child_id)
+    .eq("status", "complete")
+    .not("id", "eq", assessment.id)
+    .order("completed_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  const prevPlacement = (prior?.placement as Placement | undefined) ?? null;
+
+  const numberLanguage =
+    ((assessment.prescreen as Record<string, string> | null)?.number_language ??
+      "english") !== "english";
+
   const copy = await getAssessmentCopy();
 
   if (assessment.instrument === "point_and_seek") {
@@ -44,6 +61,7 @@ export default async function AssessPage({
         initialState={assessment.engine_state as PSState}
         copy={copy}
         childName={child.nickname}
+        otherNumberLanguage={numberLanguage}
       />
     );
   }
@@ -60,6 +78,8 @@ export default async function AssessPage({
       childName={child.nickname}
       objects="blocks"
       resumed={resumed}
+      prevPlacement={prevPlacement}
+      otherNumberLanguage={numberLanguage}
     />
   );
 }

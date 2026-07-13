@@ -37,7 +37,7 @@
     },
     {
       "artifact": "assessment.copy",
-      "sha256": "9f399b44c0482160cecafb384bd384e2c4b0072a0887cd34c8acf9fcd8ff9c2a",
+      "sha256": "040ddc9e794e2dacf4356bd8c58dbf7fd7e0741fc59b6b65c40ef14984cc2341",
       "mode": "full",
       "pass": true,
       "checks": [
@@ -54,7 +54,7 @@
         {
           "name": "readability",
           "status": "pass",
-          "details": "FK grade 2.24 over 154 pooled strings (2244 words) — limit 8"
+          "details": "FK grade 2.41 over 154 pooled strings (2309 words) — limit 8"
         }
       ]
     },
