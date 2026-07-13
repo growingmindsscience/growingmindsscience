@@ -28,7 +28,7 @@ const GROUPS: { prefix: string[]; title: string; blurb: string }[] = [
     prefix: ["ev.boardgame.", "ev.spatial."],
     title: "The games",
     blurb:
-      "The linear board game in your printable pack is the single most-replicated activity in this literature; spatial-language play earns its slot too.",
+      "The linear board game is the most-studied home activity in this literature — real but modest effects, strongest in one-on-one play, and one preregistered school trial found none. Level-matched book counting carries the core randomized evidence.",
   },
   {
     prefix: ["ev.protocol."],

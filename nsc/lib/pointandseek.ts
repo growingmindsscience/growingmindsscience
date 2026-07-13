@@ -41,16 +41,22 @@ export interface PSTrialSpec {
  * Fixed, counterbalanced plan. Targets 1–4 twice each; correct side
  * balanced 4 left / 4 right with no side repeated 3× in a row; foils mix
  * easy (1:3) and hard (2:3, 3:4) ratios per the Point-to-X design.
+ *
+ * Foil DIRECTION is balanced 4/4 (target-larger vs target-smaller) so a
+ * pure "point at the less-crowded card" (or busier-card) bias scores
+ * exactly chance. The target-larger trials use SMALL targets (2v1, 3v2)
+ * on purpose — a genuine 1–2-knower can pass them via the number word or
+ * mutual exclusivity, the partial knowledge this instrument exists to see.
  */
 export const PS_PLAN: readonly PSTrialSpec[] = [
-  { target: 1, foil: 3, correctSide: "left" },
-  { target: 2, foil: 4, correctSide: "right" },
-  { target: 3, foil: 1, correctSide: "right" },
-  { target: 2, foil: 3, correctSide: "left" },
-  { target: 4, foil: 2, correctSide: "left" },
-  { target: 1, foil: 2, correctSide: "right" },
-  { target: 4, foil: 6, correctSide: "right" },
-  { target: 3, foil: 4, correctSide: "left" },
+  { target: 1, foil: 3, correctSide: "left" }, // smaller — gentle start
+  { target: 2, foil: 1, correctSide: "right" }, // LARGER, small target
+  { target: 3, foil: 5, correctSide: "right" }, // smaller
+  { target: 2, foil: 4, correctSide: "left" }, // smaller
+  { target: 4, foil: 2, correctSide: "left" }, // LARGER
+  { target: 1, foil: 2, correctSide: "right" }, // smaller
+  { target: 4, foil: 3, correctSide: "right" }, // LARGER
+  { target: 3, foil: 2, correctSide: "left" }, // LARGER, small target
 ] as const;
 
 export interface PSRecord {
@@ -144,7 +150,10 @@ export function psResult(state: PSState): PSResult | null {
     correct,
     skips: state.skips,
     routePlacement: signal === "clear" ? "L1" : "L0",
-    routeConfidence: signal === "unclear" ? "low" : "medium",
+    // Only "clear" (≥7/8, p≈.035) earns medium; "some" (5–6/8) is not
+    // statistically above chance, so it carries no more confidence than
+    // "unclear" does.
+    routeConfidence: signal === "clear" ? "medium" : "low",
   };
 }
 

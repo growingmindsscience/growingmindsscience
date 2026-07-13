@@ -77,7 +77,7 @@ export default async function PlanPage({
             This week&rsquo;s games
           </h2>
           <p className="mt-1 text-sm text-teal-soft">
-            A fresh three arrive every Monday, matched to {ctx.child.nickname}
+            A fresh three arrive each week, matched to {ctx.child.nickname}
             &rsquo;s rung.
           </p>
         </div>

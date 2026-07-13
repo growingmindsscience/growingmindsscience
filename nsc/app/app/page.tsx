@@ -6,9 +6,7 @@ import { Card, LinkButton } from "@/components/ui";
 import { brand } from "@/lib/config/brand";
 import { RUNG_LABEL } from "@/lib/labels";
 import { nextCheckin, shortDate } from "@/lib/checkin";
-
-/** Mirrors RESUME_WINDOW_MS in app/app/assess/actions.ts. */
-const RESUME_WINDOW_MS = 48 * 60 * 60 * 1000;
+import { RESUME_WINDOW_MS } from "@/lib/age";
 
 export default async function AppHome() {
   const user = await requireAuth();

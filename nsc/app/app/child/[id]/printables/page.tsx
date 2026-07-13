@@ -3,7 +3,7 @@ import { requirePaid } from "@/lib/entitlements.server";
 import { Card } from "@/components/ui";
 
 const SHEETS = [
-  { slug: "board", title: "Number Path board game", blurb: "The linear 1–20 board. The one game with a replicated trial behind it." },
+  { slug: "board", title: "Number Path board game", blurb: "The linear 1–20 board. The most-studied game in the pack — say the printed numbers, never count the moves." },
   { slug: "dot-cards", title: "Dot cards 1–6", blurb: "Peek-and-count cards for quick subitizing play." },
   { slug: "ladder", title: "The counting ladder poster", blurb: "Every rung, for the fridge. A map of where the counting is headed." },
   { slug: "prompts", title: "Number-talk cards", blurb: "This month's prompts, cut into pocket-sized cards." },

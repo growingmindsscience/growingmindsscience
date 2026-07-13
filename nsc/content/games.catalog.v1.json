@@ -5,10 +5,18 @@
     {
       "id": "game.l0.one-for-you-one-for-me",
       "title": "One for You, One for Me",
-      "levels": ["L0", "L1"],
-      "age_bands": ["24-30m", "30-36m"],
+      "levels": [
+        "L0",
+        "L1"
+      ],
+      "age_bands": [
+        "24-30m",
+        "30-36m"
+      ],
       "goal": "Build one-to-one giving inside a daily routine, no prep",
-      "materials": ["any small items you are already handing out"],
+      "materials": [
+        "any small items you are already handing out"
+      ],
       "duration_min": 3,
       "frequency_rx": "daily, inside routines",
       "script": [
@@ -23,7 +31,9 @@
       "level_down": "Drop the words and keep the rhythm: hand, tap, smile. The pattern comes first.",
       "bilingual_note": "Use whichever language the routine already happens in. Both work.",
       "evidence": {
-        "tag_ids": ["ev.numbertalk.levine2010"],
+        "tag_ids": [
+          "ev.numbertalk.levine2010"
+        ],
         "strength": "correlational-strong",
         "consensus": "high"
       },
@@ -32,8 +42,15 @@
     {
       "id": "game.l0.count-the-stairs",
       "title": "Count the Stairs",
-      "levels": ["L0", "L1"],
-      "age_bands": ["24-30m", "30-36m", "36-42m"],
+      "levels": [
+        "L0",
+        "L1"
+      ],
+      "age_bands": [
+        "24-30m",
+        "30-36m",
+        "36-42m"
+      ],
       "goal": "Attach number words to a body rhythm the child already loves",
       "materials": [],
       "duration_min": 2,
@@ -49,7 +66,9 @@
       "level_down": "Count only the first three steps, big and cheerful, and let the rest be climbing.",
       "bilingual_note": "Count the same stairs in both home languages on different trips. The rhythm carries over.",
       "evidence": {
-        "tag_ids": ["ev.numbertalk.levine2010"],
+        "tag_ids": [
+          "ev.numbertalk.levine2010"
+        ],
         "strength": "correlational-strong",
         "consensus": "high"
       },
@@ -58,8 +77,14 @@
     {
       "id": "game.l0.finger-tag-songs",
       "title": "Finger-Tag Number Songs",
-      "levels": ["L0", "L1"],
-      "age_bands": ["24-30m", "30-36m"],
+      "levels": [
+        "L0",
+        "L1"
+      ],
+      "age_bands": [
+        "24-30m",
+        "30-36m"
+      ],
       "goal": "Turn number songs into touch: one word, one finger, every time",
       "materials": [],
       "duration_min": 3,
@@ -75,7 +100,9 @@
       "level_down": "Skip the numbers and tap the beat. Touch plus rhythm is the on-ramp.",
       "bilingual_note": "Songs in each home language both count. Pick the ones you actually remember.",
       "evidence": {
-        "tag_ids": ["ev.numbertalk.levine2010"],
+        "tag_ids": [
+          "ev.numbertalk.levine2010"
+        ],
         "strength": "correlational-strong",
         "consensus": "high"
       },
@@ -84,10 +111,19 @@
     {
       "id": "game.l0.photo-hunt-how-many",
       "title": "How-Many Photo Hunt",
-      "levels": ["L0", "L1", "L2"],
-      "age_bands": ["30-36m", "36-42m"],
+      "levels": [
+        "L0",
+        "L1",
+        "L2"
+      ],
+      "age_bands": [
+        "30-36m",
+        "36-42m"
+      ],
       "goal": "Notice and name tiny sets (one to three) in pictures and the world",
-      "materials": ["a picture book or your phone photos"],
+      "materials": [
+        "a picture book or your phone photos"
+      ],
       "duration_min": 4,
       "frequency_rx": "2-3x/week",
       "script": [
@@ -102,7 +138,9 @@
       "level_down": "You do all the naming. Pointing along is full participation.",
       "bilingual_note": "Name the sets in either language, or both back to back. Two labels, one idea.",
       "evidence": {
-        "tag_ids": ["ev.numbertalk.gunderson2011"],
+        "tag_ids": [
+          "ev.numbertalk.gunderson2011"
+        ],
         "strength": "correlational-strong",
         "consensus": "high"
       },
@@ -111,10 +149,19 @@
     {
       "id": "game.l0.bath-cup-pour",
       "title": "Bath Cup Pour and Talk",
-      "levels": ["L0", "L1"],
-      "age_bands": ["24-30m", "30-36m", "36-42m"],
+      "levels": [
+        "L0",
+        "L1"
+      ],
+      "age_bands": [
+        "24-30m",
+        "30-36m",
+        "36-42m"
+      ],
       "goal": "Soak everyday bath play in number and amount words",
-      "materials": ["two or three bath cups"],
+      "materials": [
+        "two or three bath cups"
+      ],
       "duration_min": 5,
       "frequency_rx": "bath nights",
       "script": [
@@ -129,7 +176,9 @@
       "level_down": "Drop the requests and keep the narration. Hearing the words during play is the win.",
       "bilingual_note": "Bath talk works in any language you're comfortable in. Use the one that flows.",
       "evidence": {
-        "tag_ids": ["ev.numbertalk.levine2010"],
+        "tag_ids": [
+          "ev.numbertalk.levine2010"
+        ],
         "strength": "correlational-strong",
         "consensus": "high"
       },
@@ -138,8 +187,14 @@
     {
       "id": "game.l0.two-eyes-one-nose",
       "title": "Two Eyes, One Nose",
-      "levels": ["L0"],
-      "age_bands": ["24-30m", "30-36m", "36-42m"],
+      "levels": [
+        "L0"
+      ],
+      "age_bands": [
+        "24-30m",
+        "30-36m",
+        "36-42m"
+      ],
       "goal": "Anchor one and two to the body the child knows best",
       "materials": [],
       "duration_min": 2,
@@ -155,7 +210,9 @@
       "level_down": "Just the touching and the words. The counting can stay yours for months.",
       "bilingual_note": "Body words plus number words in either language. Do the tour in both if you like.",
       "evidence": {
-        "tag_ids": ["ev.numbertalk.levine2010"],
+        "tag_ids": [
+          "ev.numbertalk.levine2010"
+        ],
         "strength": "correlational-strong",
         "consensus": "high"
       },
@@ -164,8 +221,15 @@
     {
       "id": "game.l0.clap-the-beat",
       "title": "Clap the Beat",
-      "levels": ["L0", "L1"],
-      "age_bands": ["24-30m", "30-36m", "36-42m"],
+      "levels": [
+        "L0",
+        "L1"
+      ],
+      "age_bands": [
+        "24-30m",
+        "30-36m",
+        "36-42m"
+      ],
       "goal": "Feel small quantities as rhythm before naming them",
       "materials": [],
       "duration_min": 3,
@@ -181,7 +245,9 @@
       "level_down": "Clap together at the same time instead of taking turns. Shared beat first.",
       "bilingual_note": "Count the claps in either home language. The beat is the same in both.",
       "evidence": {
-        "tag_ids": ["ev.numbertalk.levine2010"],
+        "tag_ids": [
+          "ev.numbertalk.levine2010"
+        ],
         "strength": "correlational-strong",
         "consensus": "high"
       },
@@ -190,10 +256,20 @@
     {
       "id": "game.l0.laundry-basket-toss",
       "title": "Laundry Basket Toss",
-      "levels": ["L0", "L1"],
-      "age_bands": ["24-30m", "30-36m", "36-42m"],
+      "levels": [
+        "L0",
+        "L1"
+      ],
+      "age_bands": [
+        "24-30m",
+        "30-36m",
+        "36-42m"
+      ],
       "goal": "One-at-a-time handling with a number word glued to each toss",
-      "materials": ["laundry", "a basket"],
+      "materials": [
+        "laundry",
+        "a basket"
+      ],
       "duration_min": 4,
       "frequency_rx": "laundry days",
       "script": [
@@ -208,7 +284,9 @@
       "level_down": "Toss together, hand over hand, with you saying the words.",
       "bilingual_note": "Narrate in whichever language you sort laundry in. Both languages count the same socks.",
       "evidence": {
-        "tag_ids": ["ev.numbertalk.levine2010"],
+        "tag_ids": [
+          "ev.numbertalk.levine2010"
+        ],
         "strength": "correlational-strong",
         "consensus": "high"
       },
@@ -217,10 +295,19 @@
     {
       "id": "game.l0.snack-drop-song",
       "title": "Snack Drop Song",
-      "levels": ["L0", "L1"],
-      "age_bands": ["24-30m", "30-36m"],
+      "levels": [
+        "L0",
+        "L1"
+      ],
+      "age_bands": [
+        "24-30m",
+        "30-36m"
+      ],
       "goal": "Make snack-serving a counted ritual the child can predict",
-      "materials": ["snack pieces", "a bowl"],
+      "materials": [
+        "snack pieces",
+        "a bowl"
+      ],
       "duration_min": 2,
       "frequency_rx": "daily at snack",
       "script": [
@@ -234,7 +321,9 @@
       "level_down": "Count just to two, then pour the rest freely. Tiny ritual, zero pressure.",
       "bilingual_note": "Alternate languages by day if you like. Same tune, different words, same numbers.",
       "evidence": {
-        "tag_ids": ["ev.numbertalk.levine2010"],
+        "tag_ids": [
+          "ev.numbertalk.levine2010"
+        ],
         "strength": "correlational-strong",
         "consensus": "high"
       },
@@ -243,10 +332,20 @@
     {
       "id": "game.l2.snack-plate-match",
       "title": "Snack Plate Match",
-      "levels": ["L2", "L3"],
-      "age_bands": ["30-36m", "36-42m", "42-48m"],
+      "levels": [
+        "L2",
+        "L3"
+      ],
+      "age_bands": [
+        "30-36m",
+        "36-42m",
+        "42-48m"
+      ],
       "goal": "Map small number words onto exact sets by matching plates",
-      "materials": ["two plates", "6 identical snacks or blocks"],
+      "materials": [
+        "two plates",
+        "6 identical snacks or blocks"
+      ],
       "duration_min": 5,
       "frequency_rx": "2-3x/week",
       "script": [
@@ -262,7 +361,10 @@
       "level_down": "Drop to matching one snack, and let {name} be the one who builds the plate you copy.",
       "bilingual_note": "Play in either home language. Counting skill moves across languages with the child.",
       "evidence": {
-        "tag_ids": ["ev.numbertalk.gunderson2011", "ev.knower.lecorre2007"],
+        "tag_ids": [
+          "ev.numbertalk.gunderson2011",
+          "ev.knower.lecorre2007"
+        ],
         "strength": "correlational-strong",
         "consensus": "high"
       },
@@ -271,10 +373,22 @@
     {
       "id": "game.l1.feed-the-bear-free",
       "title": "Feed the Bear, Free Play",
-      "levels": ["L1", "L2", "L3"],
-      "age_bands": ["30-36m", "36-42m", "42-48m"],
+      "levels": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "age_bands": [
+        "30-36m",
+        "36-42m",
+        "42-48m"
+      ],
       "goal": "Practice giving exact tiny amounts with a very forgiving customer",
-      "materials": ["a stuffed animal", "a bowl", "small blocks or pom-poms"],
+      "materials": [
+        "a stuffed animal",
+        "a bowl",
+        "small blocks or pom-poms"
+      ],
       "duration_min": 5,
       "frequency_rx": "2-3x/week",
       "script": [
@@ -290,7 +404,10 @@
       "level_down": "The bear asks only for \"one\" and celebrates enormously every time.",
       "bilingual_note": "The bear happily speaks both home languages. Alternate its orders if you like.",
       "evidence": {
-        "tag_ids": ["ev.given.wynn1990", "ev.knower.lecorre2007"],
+        "tag_ids": [
+          "ev.given.wynn1990",
+          "ev.knower.lecorre2007"
+        ],
         "strength": "theory-derived",
         "consensus": "high"
       },
@@ -299,8 +416,15 @@
     {
       "id": "game.l1.give-me-one-errands",
       "title": "Give-Me-One Errands",
-      "levels": ["L1", "L2"],
-      "age_bands": ["24-30m", "30-36m", "36-42m"],
+      "levels": [
+        "L1",
+        "L2"
+      ],
+      "age_bands": [
+        "24-30m",
+        "30-36m",
+        "36-42m"
+      ],
       "goal": "Turn fetching into exact-amount practice, one request at a time",
       "materials": [],
       "duration_min": 3,
@@ -316,7 +440,10 @@
       "level_down": "Point at the thing while you ask. Pointing plus the word is still the game.",
       "bilingual_note": "Give errands in either language. If two adults use different languages, even better.",
       "evidence": {
-        "tag_ids": ["ev.given.wynn1990", "ev.numbertalk.levine2010"],
+        "tag_ids": [
+          "ev.given.wynn1990",
+          "ev.numbertalk.levine2010"
+        ],
         "strength": "theory-derived",
         "consensus": "high"
       },
@@ -325,10 +452,19 @@
     {
       "id": "game.l1.one-in-each-cup",
       "title": "One in Each Cup",
-      "levels": ["L1", "L2"],
-      "age_bands": ["30-36m", "36-42m"],
+      "levels": [
+        "L1",
+        "L2"
+      ],
+      "age_bands": [
+        "30-36m",
+        "36-42m"
+      ],
       "goal": "Build exactly-one-per-spot thinking with cups and treasures",
-      "materials": ["3-4 cups", "small blocks or pom-poms"],
+      "materials": [
+        "3-4 cups",
+        "small blocks or pom-poms"
+      ],
       "duration_min": 5,
       "frequency_rx": "2x/week",
       "script": [
@@ -343,7 +479,9 @@
       "level_down": "Use two cups only, and load them together, hand over hand.",
       "bilingual_note": "Run rounds in different home languages. \"One\" in each language lives in the same cup.",
       "evidence": {
-        "tag_ids": ["ev.knower.lecorre2007"],
+        "tag_ids": [
+          "ev.knower.lecorre2007"
+        ],
         "strength": "theory-derived",
         "consensus": "high"
       },
@@ -352,8 +490,15 @@
     {
       "id": "game.l1.stair-stop",
       "title": "Stair Stop",
-      "levels": ["L1", "L2"],
-      "age_bands": ["24-30m", "30-36m", "36-42m"],
+      "levels": [
+        "L1",
+        "L2"
+      ],
+      "age_bands": [
+        "24-30m",
+        "30-36m",
+        "36-42m"
+      ],
       "goal": "Make a number word control the body: climb exactly N and freeze",
       "materials": [],
       "duration_min": 3,
@@ -369,7 +514,10 @@
       "level_down": "You climb and freeze while {name} watches and laughs, then climb together on your count.",
       "bilingual_note": "Call missions in either language. Freezing is universal.",
       "evidence": {
-        "tag_ids": ["ev.given.wynn1990", "ev.numbertalk.levine2010"],
+        "tag_ids": [
+          "ev.given.wynn1990",
+          "ev.numbertalk.levine2010"
+        ],
         "strength": "theory-derived",
         "consensus": "moderate"
       },
@@ -378,10 +526,19 @@
     {
       "id": "game.l1.two-tower",
       "title": "Two-Tower",
-      "levels": ["L1", "L2"],
-      "age_bands": ["30-36m", "36-42m", "42-48m"],
+      "levels": [
+        "L1",
+        "L2"
+      ],
+      "age_bands": [
+        "30-36m",
+        "36-42m",
+        "42-48m"
+      ],
       "goal": "Build sets of exactly two, over and over, until two feels solid",
-      "materials": ["blocks"],
+      "materials": [
+        "blocks"
+      ],
       "duration_min": 5,
       "frequency_rx": "2x/week",
       "script": [
@@ -396,7 +553,10 @@
       "level_down": "Build every tower together, your hand on theirs, counting slowly.",
       "bilingual_note": "Inspect in both home languages on different days. The law translates.",
       "evidence": {
-        "tag_ids": ["ev.knower.lecorre2007", "ev.numbertalk.gunderson2011"],
+        "tag_ids": [
+          "ev.knower.lecorre2007",
+          "ev.numbertalk.gunderson2011"
+        ],
         "strength": "theory-derived",
         "consensus": "high"
       },
@@ -405,10 +565,19 @@
     {
       "id": "game.l2.shoe-pair-hunt",
       "title": "Shoe Pair Hunt",
-      "levels": ["L1", "L2"],
-      "age_bands": ["30-36m", "36-42m", "42-48m"],
+      "levels": [
+        "L1",
+        "L2"
+      ],
+      "age_bands": [
+        "30-36m",
+        "36-42m",
+        "42-48m"
+      ],
       "goal": "Find twos everywhere: pairs are the world's favorite set",
-      "materials": ["the shoe pile by the door"],
+      "materials": [
+        "the shoe pile by the door"
+      ],
       "duration_min": 4,
       "frequency_rx": "2x/week",
       "script": [
@@ -423,7 +592,9 @@
       "level_down": "You find the partners; {name} does the two-tap on each pair.",
       "bilingual_note": "Hunt in either language. \"A pair\" has a word in both, and both mean two.",
       "evidence": {
-        "tag_ids": ["ev.numbertalk.gunderson2011"],
+        "tag_ids": [
+          "ev.numbertalk.gunderson2011"
+        ],
         "strength": "correlational-strong",
         "consensus": "high"
       },
@@ -432,10 +603,20 @@
     {
       "id": "game.l2.two-for-the-truck",
       "title": "Two for the Truck",
-      "levels": ["L2", "L3"],
-      "age_bands": ["30-36m", "36-42m", "42-48m"],
+      "levels": [
+        "L2",
+        "L3"
+      ],
+      "age_bands": [
+        "30-36m",
+        "36-42m",
+        "42-48m"
+      ],
       "goal": "Load exact small cargoes on request, then stretch to three",
-      "materials": ["a toy truck or box", "small blocks"],
+      "materials": [
+        "a toy truck or box",
+        "small blocks"
+      ],
       "duration_min": 5,
       "frequency_rx": "2-3x/week",
       "script": [
@@ -450,7 +631,10 @@
       "level_down": "Every job is \"one big block,\" delivered with maximum truck noises.",
       "bilingual_note": "Dispatch in both home languages. Trucks are famously bilingual.",
       "evidence": {
-        "tag_ids": ["ev.given.wynn1990", "ev.knower.lecorre2007"],
+        "tag_ids": [
+          "ev.given.wynn1990",
+          "ev.knower.lecorre2007"
+        ],
         "strength": "theory-derived",
         "consensus": "high"
       },
@@ -459,10 +643,19 @@
     {
       "id": "game.l2.napkin-setter",
       "title": "Napkin Setter",
-      "levels": ["L2", "L3"],
-      "age_bands": ["36-42m", "42-48m"],
+      "levels": [
+        "L2",
+        "L3"
+      ],
+      "age_bands": [
+        "36-42m",
+        "42-48m"
+      ],
       "goal": "Set the table with exact counts: real job, real sets",
-      "materials": ["napkins", "spoons"],
+      "materials": [
+        "napkins",
+        "spoons"
+      ],
       "duration_min": 4,
       "frequency_rx": "daily at dinner",
       "script": [
@@ -477,7 +670,10 @@
       "level_down": "Set two places only, and count the chairs together first, every time.",
       "bilingual_note": "Set the table in the language dinner happens in tonight. Rotate freely.",
       "evidence": {
-        "tag_ids": ["ev.numbertalk.gunderson2011", "ev.knower.sarnecka2008"],
+        "tag_ids": [
+          "ev.numbertalk.gunderson2011",
+          "ev.knower.sarnecka2008"
+        ],
         "strength": "correlational-strong",
         "consensus": "high"
       },
@@ -486,10 +682,20 @@
     {
       "id": "game.l2.berry-share",
       "title": "Berry Share",
-      "levels": ["L2", "L3"],
-      "age_bands": ["30-36m", "36-42m", "42-48m"],
+      "levels": [
+        "L2",
+        "L3"
+      ],
+      "age_bands": [
+        "30-36m",
+        "36-42m",
+        "42-48m"
+      ],
       "goal": "Deal a snack into fair little sets and name what each person got",
-      "materials": ["a snack that comes in pieces", "two bowls"],
+      "materials": [
+        "a snack that comes in pieces",
+        "two bowls"
+      ],
       "duration_min": 4,
       "frequency_rx": "snack times, 3x/week",
       "script": [
@@ -504,7 +710,9 @@
       "level_down": "Deal just one berry each and marvel at the matching ones. Tiny sets, big deal.",
       "bilingual_note": "Deal in either language. Fair is fair in both.",
       "evidence": {
-        "tag_ids": ["ev.numbertalk.gunderson2011"],
+        "tag_ids": [
+          "ev.numbertalk.gunderson2011"
+        ],
         "strength": "correlational-strong",
         "consensus": "high"
       },
@@ -513,10 +721,19 @@
     {
       "id": "game.l2.sock-match",
       "title": "Sock Match Factory",
-      "levels": ["L1", "L2"],
-      "age_bands": ["30-36m", "36-42m", "42-48m"],
+      "levels": [
+        "L1",
+        "L2"
+      ],
+      "age_bands": [
+        "30-36m",
+        "36-42m",
+        "42-48m"
+      ],
       "goal": "Match and count tiny sets inside a chore you had to do anyway",
-      "materials": ["clean socks"],
+      "materials": [
+        "clean socks"
+      ],
       "duration_min": 5,
       "frequency_rx": "laundry days",
       "script": [
@@ -531,7 +748,9 @@
       "level_down": "You do the matching; {name} presses the twins together and gets the count said over them.",
       "bilingual_note": "Sort in whichever language laundry happens in. Twins translate.",
       "evidence": {
-        "tag_ids": ["ev.numbertalk.levine2010"],
+        "tag_ids": [
+          "ev.numbertalk.levine2010"
+        ],
         "strength": "correlational-strong",
         "consensus": "high"
       },
@@ -540,10 +759,20 @@
     {
       "id": "game.l3.three-bears-picnic",
       "title": "Three Bears Picnic",
-      "levels": ["L3", "L4"],
-      "age_bands": ["36-42m", "42-48m"],
+      "levels": [
+        "L3",
+        "L4"
+      ],
+      "age_bands": [
+        "36-42m",
+        "42-48m"
+      ],
       "goal": "Serve exact sets of three and four across multiple hungry guests",
-      "materials": ["3 stuffed animals", "small blocks or snacks", "3 plates or napkins"],
+      "materials": [
+        "3 stuffed animals",
+        "small blocks or snacks",
+        "3 plates or napkins"
+      ],
       "duration_min": 8,
       "frequency_rx": "2x/week",
       "script": [
@@ -559,7 +788,10 @@
       "level_down": "Two bears only, orders of one and two, and serve the first order together.",
       "bilingual_note": "Bears order in both home languages happily. Take orders in whichever flows today.",
       "evidence": {
-        "tag_ids": ["ev.given.wynn1990", "ev.knower.lecorre2007"],
+        "tag_ids": [
+          "ev.given.wynn1990",
+          "ev.knower.lecorre2007"
+        ],
         "strength": "theory-derived",
         "consensus": "high"
       },
@@ -568,10 +800,20 @@
     {
       "id": "game.l3.parking-garage",
       "title": "Parking Garage",
-      "levels": ["L3", "L4"],
-      "age_bands": ["36-42m", "42-48m", "48-60m"],
+      "levels": [
+        "L3",
+        "L4"
+      ],
+      "age_bands": [
+        "36-42m",
+        "42-48m",
+        "48-60m"
+      ],
       "goal": "Count out exact fleets and park them spot by spot",
-      "materials": ["toy cars", "paper with drawn parking spots (optional)"],
+      "materials": [
+        "toy cars",
+        "paper with drawn parking spots (optional)"
+      ],
       "duration_min": 6,
       "frequency_rx": "2x/week",
       "script": [
@@ -586,7 +828,10 @@
       "level_down": "Fleets of one and two, and park the first car together as the demo.",
       "bilingual_note": "Radio calls in either language. Cars obey both.",
       "evidence": {
-        "tag_ids": ["ev.knower.lecorre2007", "ev.knower.sarnecka2008"],
+        "tag_ids": [
+          "ev.knower.lecorre2007",
+          "ev.knower.sarnecka2008"
+        ],
         "strength": "theory-derived",
         "consensus": "high"
       },
@@ -595,10 +840,20 @@
     {
       "id": "game.l3.grab-bag-check",
       "title": "Grab Bag Check",
-      "levels": ["L3", "L4"],
-      "age_bands": ["36-42m", "42-48m", "48-60m"],
+      "levels": [
+        "L3",
+        "L4"
+      ],
+      "age_bands": [
+        "36-42m",
+        "42-48m",
+        "48-60m"
+      ],
       "goal": "Grab a handful, then count to find out: checking is the game",
-      "materials": ["a bag or pillowcase", "small blocks"],
+      "materials": [
+        "a bag or pillowcase",
+        "small blocks"
+      ],
       "duration_min": 5,
       "frequency_rx": "2x/week",
       "script": [
@@ -613,7 +868,9 @@
       "level_down": "Grab tiny handfuls of one or two, and count hand over hand.",
       "bilingual_note": "Count hauls in either language, or once in each. Same blocks, same total.",
       "evidence": {
-        "tag_ids": ["ev.knower.sarnecka2008"],
+        "tag_ids": [
+          "ev.knower.sarnecka2008"
+        ],
         "strength": "theory-derived",
         "consensus": "moderate"
       },
@@ -622,10 +879,20 @@
     {
       "id": "game.l3.snack-factory",
       "title": "Snack Factory",
-      "levels": ["L3", "L4"],
-      "age_bands": ["36-42m", "42-48m", "48-60m"],
+      "levels": [
+        "L3",
+        "L4"
+      ],
+      "age_bands": [
+        "36-42m",
+        "42-48m",
+        "48-60m"
+      ],
       "goal": "Fill repeat orders of exact sizes: three, four, and the occasional five",
-      "materials": ["snack pieces", "small cups or a muffin tin"],
+      "materials": [
+        "snack pieces",
+        "small cups or a muffin tin"
+      ],
       "duration_min": 6,
       "frequency_rx": "2x/week",
       "script": [
@@ -640,7 +907,10 @@
       "level_down": "Boxes of two, and pack the first box together, tapping as you drop each piece.",
       "bilingual_note": "Take orders in both home languages. The factory exports everywhere.",
       "evidence": {
-        "tag_ids": ["ev.knower.lecorre2007", "ev.numbertalk.gunderson2011"],
+        "tag_ids": [
+          "ev.knower.lecorre2007",
+          "ev.numbertalk.gunderson2011"
+        ],
         "strength": "theory-derived",
         "consensus": "high"
       },
@@ -649,8 +919,15 @@
     {
       "id": "game.l3.count-out-helper",
       "title": "Count-Out Helper",
-      "levels": ["L3", "L4"],
-      "age_bands": ["36-42m", "42-48m", "48-60m"],
+      "levels": [
+        "L3",
+        "L4"
+      ],
+      "age_bands": [
+        "36-42m",
+        "42-48m",
+        "48-60m"
+      ],
       "goal": "Fetch exact amounts as real household help, counting on the way",
       "materials": [],
       "duration_min": 3,
@@ -666,7 +943,10 @@
       "level_down": "Order two, and count the fetch together on the way back.",
       "bilingual_note": "Order in whichever language the kitchen runs on tonight.",
       "evidence": {
-        "tag_ids": ["ev.given.wynn1990", "ev.numbertalk.levine2010"],
+        "tag_ids": [
+          "ev.given.wynn1990",
+          "ev.numbertalk.levine2010"
+        ],
         "strength": "theory-derived",
         "consensus": "high"
       },
@@ -675,8 +955,15 @@
     {
       "id": "game.l3.red-light-count",
       "title": "Red Light, Count Light",
-      "levels": ["L3", "L4"],
-      "age_bands": ["36-42m", "42-48m", "48-60m"],
+      "levels": [
+        "L3",
+        "L4"
+      ],
+      "age_bands": [
+        "36-42m",
+        "42-48m",
+        "48-60m"
+      ],
       "goal": "Move exactly N steps on command: numbers steer the whole body",
       "materials": [],
       "duration_min": 6,
@@ -693,7 +980,9 @@
       "level_down": "Calls of one and two only, and step together while counting in chorus.",
       "bilingual_note": "Call moves in both home languages across rounds. Feet understand both.",
       "evidence": {
-        "tag_ids": ["ev.knower.lecorre2007"],
+        "tag_ids": [
+          "ev.knower.lecorre2007"
+        ],
         "strength": "theory-derived",
         "consensus": "moderate"
       },
@@ -702,10 +991,18 @@
     {
       "id": "game.l4.dot-card-flash",
       "title": "Dot Card Peek",
-      "levels": ["L4", "CP"],
-      "age_bands": ["42-48m", "48-60m"],
+      "levels": [
+        "L4",
+        "CP"
+      ],
+      "age_bands": [
+        "42-48m",
+        "48-60m"
+      ],
       "goal": "See small amounts at a glance, then prove it by counting",
-      "materials": ["index cards with 1-6 big dots drawn on"],
+      "materials": [
+        "index cards with 1-6 big dots drawn on"
+      ],
       "duration_min": 5,
       "frequency_rx": "2x/week",
       "printable_id": "printable.dot-cards",
@@ -721,7 +1018,9 @@
       "level_down": "Use only one-, two-, and three-dot cards, with long relaxed peeks.",
       "bilingual_note": "Peek and count in either language. Dots don't care.",
       "evidence": {
-        "tag_ids": ["ev.knower.sarnecka2008"],
+        "tag_ids": [
+          "ev.knower.sarnecka2008"
+        ],
         "strength": "theory-derived",
         "consensus": "moderate"
       }
@@ -729,8 +1028,14 @@
     {
       "id": "game.l4.high-five-fingers",
       "title": "High-Five Fingers",
-      "levels": ["L4", "CP"],
-      "age_bands": ["42-48m", "48-60m"],
+      "levels": [
+        "L4",
+        "CP"
+      ],
+      "age_bands": [
+        "42-48m",
+        "48-60m"
+      ],
       "goal": "Make five a friend: build it, break it, and find it on hands",
       "materials": [],
       "duration_min": 4,
@@ -746,7 +1051,10 @@
       "level_down": "Count {name}'s fingers for them, folding gently, and stop at three sometimes.",
       "bilingual_note": "Fingers count identically in every language you speak. Rotate freely.",
       "evidence": {
-        "tag_ids": ["ev.numbertalk.levine2010", "ev.knower.sarnecka2008"],
+        "tag_ids": [
+          "ev.numbertalk.levine2010",
+          "ev.knower.sarnecka2008"
+        ],
         "strength": "correlational-strong",
         "consensus": "high"
       },
@@ -755,8 +1063,14 @@
     {
       "id": "game.l4.four-corners-hunt",
       "title": "Four Corners Hunt",
-      "levels": ["L4", "CP"],
-      "age_bands": ["42-48m", "48-60m"],
+      "levels": [
+        "L4",
+        "CP"
+      ],
+      "age_bands": [
+        "42-48m",
+        "48-60m"
+      ],
       "goal": "Hunt for exact-size sets hiding in ordinary rooms",
       "materials": [],
       "duration_min": 5,
@@ -773,7 +1087,10 @@
       "level_down": "Hunt twos and threes, and hunt as one team instead of trading jobs.",
       "bilingual_note": "Call hunts in either home language. The house is bilingual too.",
       "evidence": {
-        "tag_ids": ["ev.numbertalk.gunderson2011", "ev.knower.sarnecka2008"],
+        "tag_ids": [
+          "ev.numbertalk.gunderson2011",
+          "ev.knower.sarnecka2008"
+        ],
         "strength": "correlational-strong",
         "consensus": "high"
       },
@@ -782,16 +1099,28 @@
     {
       "id": "game.l4.number-path-board",
       "title": "Number Path Board Game",
-      "levels": ["L4", "CP", "CPX"],
-      "age_bands": ["42-48m", "48-60m"],
+      "levels": [
+        "L4",
+        "CP",
+        "CPX"
+      ],
+      "age_bands": [
+        "42-48m",
+        "48-60m"
+      ],
       "goal": "March a token along a numbered path: the classic that moves the needle",
-      "materials": ["printed Number Path board", "a token per player", "the spinner"],
+      "materials": [
+        "printed Number Path board",
+        "a token per player",
+        "the spinner"
+      ],
       "duration_min": 10,
       "frequency_rx": "3-4x/week for 2 weeks",
       "printable_id": "printable.number-path-board",
       "script": [
         "Print the board. Each player picks a token and starts at 1.",
         "Spin, then move that many spaces, SAYING EACH NUMBER YOU LAND ON: \"Five, six!\"",
+        "Say the numbers PRINTED on the spaces, never \"one, two\" for the moves. On 4, spin 2: say \"five, six!\"",
         "Saying the numbers on the spaces is the whole engine. Gently insist on it.",
         "Take turns. React big to every move, huge to none.",
         "First to the end wins, and the loser demands a rematch. Grant it.",
@@ -801,18 +1130,32 @@
       "level_down": "Move one space per turn, reading each number together, no spinner race.",
       "bilingual_note": "Play rounds in each home language. The board's numbers belong to both.",
       "evidence": {
-        "tag_ids": ["ev.boardgame.ramani2008"],
+        "tag_ids": [
+          "ev.boardgame.ramani2008",
+          "ev.boardgame.nelson2025",
+          "ev.boardgame.jamesbrabham2024"
+        ],
         "strength": "rct-replicated",
-        "consensus": "high"
+        "consensus": "moderate"
       }
     },
     {
       "id": "game.l4.bear-restaurant",
       "title": "Bear Restaurant",
-      "levels": ["L4", "CP"],
-      "age_bands": ["42-48m", "48-60m"],
+      "levels": [
+        "L4",
+        "CP"
+      ],
+      "age_bands": [
+        "42-48m",
+        "48-60m"
+      ],
       "goal": "Fill bigger exact orders under gentle restaurant pressure",
-      "materials": ["stuffed animals", "small blocks or snacks", "plates"],
+      "materials": [
+        "stuffed animals",
+        "small blocks or snacks",
+        "plates"
+      ],
       "duration_min": 8,
       "frequency_rx": "2x/week",
       "script": [
@@ -827,7 +1170,10 @@
       "level_down": "Orders of two and three, and count out the first order together.",
       "bilingual_note": "Bears order in both home languages, sometimes in the same meal.",
       "evidence": {
-        "tag_ids": ["ev.given.wynn1990", "ev.knower.lecorre2007"],
+        "tag_ids": [
+          "ev.given.wynn1990",
+          "ev.knower.lecorre2007"
+        ],
         "strength": "theory-derived",
         "consensus": "high"
       },
@@ -836,10 +1182,18 @@
     {
       "id": "game.l4.guess-then-count",
       "title": "Guess, Then Count",
-      "levels": ["L4", "CP"],
-      "age_bands": ["42-48m", "48-60m"],
+      "levels": [
+        "L4",
+        "CP"
+      ],
+      "age_bands": [
+        "42-48m",
+        "48-60m"
+      ],
       "goal": "Estimate first, count to check: the scientist's two-step",
-      "materials": ["any pile of small things"],
+      "materials": [
+        "any pile of small things"
+      ],
       "duration_min": 4,
       "frequency_rx": "daily, found moments",
       "script": [
@@ -854,7 +1208,9 @@
       "level_down": "Piles of two to four, and count the pile first, then \"guess\" together from memory.",
       "bilingual_note": "Guess in one language, check in the other. Double the number talk, same pile.",
       "evidence": {
-        "tag_ids": ["ev.knower.sarnecka2008"],
+        "tag_ids": [
+          "ev.knower.sarnecka2008"
+        ],
         "strength": "theory-derived",
         "consensus": "moderate"
       },
@@ -863,8 +1219,14 @@
     {
       "id": "game.cp.count-anything-club",
       "title": "Count-Anything Club",
-      "levels": ["CP", "CPX"],
-      "age_bands": ["42-48m", "48-60m"],
+      "levels": [
+        "CP",
+        "CPX"
+      ],
+      "age_bands": [
+        "42-48m",
+        "48-60m"
+      ],
       "goal": "Count the world: any set, anywhere, membership permanent",
       "materials": [],
       "duration_min": 3,
@@ -881,7 +1243,10 @@
       "level_down": "Count only what sits still, and count in chorus together.",
       "bilingual_note": "The club counts in every language its members speak. Alternate proudly.",
       "evidence": {
-        "tag_ids": ["ev.numbertalk.gunderson2011", "ev.knower.sarnecka2008"],
+        "tag_ids": [
+          "ev.numbertalk.gunderson2011",
+          "ev.knower.sarnecka2008"
+        ],
         "strength": "correlational-strong",
         "consensus": "high"
       },
@@ -890,10 +1255,19 @@
     {
       "id": "game.cp.snack-split-fair",
       "title": "Snack Split",
-      "levels": ["CP", "CPX"],
-      "age_bands": ["42-48m", "48-60m"],
+      "levels": [
+        "CP",
+        "CPX"
+      ],
+      "age_bands": [
+        "42-48m",
+        "48-60m"
+      ],
       "goal": "Divide a snack fairly and prove the fairness by counting",
-      "materials": ["a snack that comes in pieces", "2-3 bowls"],
+      "materials": [
+        "a snack that comes in pieces",
+        "2-3 bowls"
+      ],
       "duration_min": 5,
       "frequency_rx": "snack times, 3x/week",
       "script": [
@@ -908,7 +1282,10 @@
       "level_down": "Split four pieces between two bowls, dealing one at a time in chorus.",
       "bilingual_note": "Run the fairness check in either language. Fair is provable in both.",
       "evidence": {
-        "tag_ids": ["ev.knower.sarnecka2008", "ev.numbertalk.gunderson2011"],
+        "tag_ids": [
+          "ev.knower.sarnecka2008",
+          "ev.numbertalk.gunderson2011"
+        ],
         "strength": "theory-derived",
         "consensus": "high"
       },
@@ -917,10 +1294,18 @@
     {
       "id": "game.cp.hidden-counters",
       "title": "Hidden Counters",
-      "levels": ["CP", "CPX"],
-      "age_bands": ["48-60m"],
+      "levels": [
+        "CP",
+        "CPX"
+      ],
+      "age_bands": [
+        "48-60m"
+      ],
       "goal": "Hold a counted set in mind after it disappears",
-      "materials": ["small blocks", "a cup or cloth"],
+      "materials": [
+        "small blocks",
+        "a cup or cloth"
+      ],
       "duration_min": 5,
       "frequency_rx": "2x/week",
       "script": [
@@ -935,7 +1320,9 @@
       "level_down": "Hide two or three, and whisper the count together while they're hidden.",
       "bilingual_note": "Hide in one language, reveal in the other. The blocks keep count either way.",
       "evidence": {
-        "tag_ids": ["ev.knower.sarnecka2008"],
+        "tag_ids": [
+          "ev.knower.sarnecka2008"
+        ],
         "strength": "theory-derived",
         "consensus": "moderate"
       },
@@ -944,10 +1331,19 @@
     {
       "id": "game.cp.silly-count-check",
       "title": "Silly Count Patrol",
-      "levels": ["CP", "CPX"],
-      "age_bands": ["42-48m", "48-60m"],
+      "levels": [
+        "CP",
+        "CPX"
+      ],
+      "age_bands": [
+        "42-48m",
+        "48-60m"
+      ],
       "goal": "Catch counting mistakes: skipped items, double-counts, wrong totals",
-      "materials": ["a puppet or stuffed animal", "small blocks"],
+      "materials": [
+        "a puppet or stuffed animal",
+        "small blocks"
+      ],
       "duration_min": 5,
       "frequency_rx": "2x/week",
       "script": [
@@ -962,7 +1358,10 @@
       "level_down": "Blatant errors on three blocks, and recount together in chorus after each catch.",
       "bilingual_note": "The puppet blunders in both home languages with equal confidence.",
       "evidence": {
-        "tag_ids": ["ev.knower.sarnecka2008", "ev.knower.lecorre2007"],
+        "tag_ids": [
+          "ev.knower.sarnecka2008",
+          "ev.knower.lecorre2007"
+        ],
         "strength": "theory-derived",
         "consensus": "high"
       },
@@ -971,10 +1370,18 @@
     {
       "id": "game.cp.calendar-candles",
       "title": "Calendar and Candles",
-      "levels": ["CP", "CPX"],
-      "age_bands": ["48-60m"],
+      "levels": [
+        "CP",
+        "CPX"
+      ],
+      "age_bands": [
+        "48-60m"
+      ],
       "goal": "Count out meaningful numbers: ages, days, and candles",
-      "materials": ["paper", "crayons"],
+      "materials": [
+        "paper",
+        "crayons"
+      ],
       "duration_min": 6,
       "frequency_rx": "1-2x/week",
       "script": [
@@ -989,7 +1396,10 @@
       "level_down": "Cakes with two and three candles, counted out together stroke by stroke.",
       "bilingual_note": "Sing and count in both home languages. Cakes are multilingual by nature.",
       "evidence": {
-        "tag_ids": ["ev.knower.sarnecka2008", "ev.numbertalk.gunderson2011"],
+        "tag_ids": [
+          "ev.knower.sarnecka2008",
+          "ev.numbertalk.gunderson2011"
+        ],
         "strength": "theory-derived",
         "consensus": "high"
       },
@@ -998,10 +1408,18 @@
     {
       "id": "game.cpx.one-more-bakery",
       "title": "One-More Bakery",
-      "levels": ["CP", "CPX"],
-      "age_bands": ["48-60m"],
+      "levels": [
+        "CP",
+        "CPX"
+      ],
+      "age_bands": [
+        "48-60m"
+      ],
       "goal": "Feel what one more does to a set, over and over, deliciously",
-      "materials": ["small snacks or blocks", "a plate"],
+      "materials": [
+        "small snacks or blocks",
+        "a plate"
+      ],
       "duration_min": 5,
       "frequency_rx": "2x/week",
       "script": [
@@ -1016,7 +1434,9 @@
       "level_down": "Stay at one-two-three, recounting from the start after each new roll.",
       "bilingual_note": "Take bakery orders in either home language. One more works the same in both.",
       "evidence": {
-        "tag_ids": ["ev.knower.sarnecka2008"],
+        "tag_ids": [
+          "ev.knower.sarnecka2008"
+        ],
         "strength": "theory-derived",
         "consensus": "moderate"
       },
@@ -1025,10 +1445,18 @@
     {
       "id": "game.cpx.who-has-more",
       "title": "Who Has More?",
-      "levels": ["CP", "CPX"],
-      "age_bands": ["42-48m", "48-60m"],
+      "levels": [
+        "CP",
+        "CPX"
+      ],
+      "age_bands": [
+        "42-48m",
+        "48-60m"
+      ],
       "goal": "Compare sets by counting, and let the count settle every argument",
-      "materials": ["small blocks or snacks"],
+      "materials": [
+        "small blocks or snacks"
+      ],
       "duration_min": 5,
       "frequency_rx": "2x/week",
       "script": [
@@ -1043,7 +1471,10 @@
       "level_down": "Compare piles of two versus four, where eyes alone can tell, then count to confirm.",
       "bilingual_note": "Hold court in either language. The count rules in both.",
       "evidence": {
-        "tag_ids": ["ev.knower.sarnecka2008", "ev.numbertalk.gunderson2011"],
+        "tag_ids": [
+          "ev.knower.sarnecka2008",
+          "ev.numbertalk.gunderson2011"
+        ],
         "strength": "theory-derived",
         "consensus": "high"
       },
@@ -1052,8 +1483,12 @@
     {
       "id": "game.cpx.next-number-riddles",
       "title": "Next-Number Riddles",
-      "levels": ["CPX"],
-      "age_bands": ["48-60m"],
+      "levels": [
+        "CPX"
+      ],
+      "age_bands": [
+        "48-60m"
+      ],
       "goal": "Play with the count list itself: what comes after, what came before",
       "materials": [],
       "duration_min": 3,
@@ -1069,7 +1504,9 @@
       "level_down": "Riddle only after numbers one and two, and always count up together from one.",
       "bilingual_note": "Riddle in both home languages. The count list climbs the same ladder in each.",
       "evidence": {
-        "tag_ids": ["ev.knower.sarnecka2008"],
+        "tag_ids": [
+          "ev.knower.sarnecka2008"
+        ],
         "strength": "theory-derived",
         "consensus": "moderate"
       },
@@ -1078,10 +1515,17 @@
     {
       "id": "game.cpx.staircase-towers",
       "title": "Staircase Towers",
-      "levels": ["CP", "CPX"],
-      "age_bands": ["48-60m"],
+      "levels": [
+        "CP",
+        "CPX"
+      ],
+      "age_bands": [
+        "48-60m"
+      ],
       "goal": "Build one, two, three, four as towers and see the ladder grow",
-      "materials": ["blocks, a dozen or so"],
+      "materials": [
+        "blocks, a dozen or so"
+      ],
       "duration_min": 8,
       "frequency_rx": "1-2x/week",
       "script": [
@@ -1096,7 +1540,9 @@
       "level_down": "Build just one-two-three together, counting each tower as a team.",
       "bilingual_note": "Build in one language today and the other tomorrow. Same staircase either way.",
       "evidence": {
-        "tag_ids": ["ev.knower.sarnecka2008", "ev.boardgame.ramani2008"],
+        "tag_ids": [
+          "ev.knower.sarnecka2008"
+        ],
         "strength": "theory-derived",
         "consensus": "high"
       },
@@ -1105,10 +1551,17 @@
     {
       "id": "game.cpx.number-neighbors",
       "title": "Number Neighbors",
-      "levels": ["CPX"],
-      "age_bands": ["48-60m"],
+      "levels": [
+        "CPX"
+      ],
+      "age_bands": [
+        "48-60m"
+      ],
       "goal": "Find each number's neighbors: the one before and the one after",
-      "materials": ["paper", "a crayon"],
+      "materials": [
+        "paper",
+        "a crayon"
+      ],
       "duration_min": 5,
       "frequency_rx": "1-2x/week",
       "script": [
@@ -1123,7 +1576,9 @@
       "level_down": "Use houses one to three, and always finger-walk from house one together.",
       "bilingual_note": "Visit the neighbors in either home language. Same street, same houses.",
       "evidence": {
-        "tag_ids": ["ev.knower.sarnecka2008", "ev.boardgame.ramani2008"],
+        "tag_ids": [
+          "ev.knower.sarnecka2008"
+        ],
         "strength": "theory-derived",
         "consensus": "moderate"
       },
@@ -1132,10 +1587,18 @@
     {
       "id": "game.cpx.one-fewer-picnic",
       "title": "One-Fewer Picnic",
-      "levels": ["CPX"],
-      "age_bands": ["48-60m"],
+      "levels": [
+        "CPX"
+      ],
+      "age_bands": [
+        "48-60m"
+      ],
       "goal": "Feel what taking one away does to a counted set",
-      "materials": ["small snacks", "a plate", "a stuffed animal"],
+      "materials": [
+        "small snacks",
+        "a plate",
+        "a stuffed animal"
+      ],
       "duration_min": 5,
       "frequency_rx": "2x/week",
       "script": [
@@ -1150,7 +1613,9 @@
       "level_down": "Start with three snacks, recounting slowly from the start after each theft.",
       "bilingual_note": "The bear steals snacks in both home languages. Count the losses in either.",
       "evidence": {
-        "tag_ids": ["ev.knower.sarnecka2008"],
+        "tag_ids": [
+          "ev.knower.sarnecka2008"
+        ],
         "strength": "theory-derived",
         "consensus": "moderate"
       },
@@ -1159,8 +1624,13 @@
     {
       "id": "game.cpx.count-on-walk",
       "title": "The Long Count Walk",
-      "levels": ["CP", "CPX"],
-      "age_bands": ["48-60m"],
+      "levels": [
+        "CP",
+        "CPX"
+      ],
+      "age_bands": [
+        "48-60m"
+      ],
       "goal": "Stretch the count list past ten with feet, not flashcards",
       "materials": [],
       "duration_min": 6,
@@ -1177,9 +1647,53 @@
       "level_down": "Count to five-step targets, in chorus, and let the rhythm carry the words.",
       "bilingual_note": "Count one target in each home language. The teens live in both lists.",
       "evidence": {
-        "tag_ids": ["ev.numbertalk.levine2010"],
+        "tag_ids": [
+          "ev.numbertalk.levine2010"
+        ],
         "strength": "correlational-strong",
         "consensus": "high"
+      },
+      "printable_id": null
+    },
+    {
+      "id": "game.l2.count-the-pictures",
+      "title": "Count the Pictures",
+      "levels": [
+        "L1",
+        "L2",
+        "L3",
+        "L4"
+      ],
+      "age_bands": [
+        "30-36m",
+        "36-42m",
+        "42-48m",
+        "48-60m"
+      ],
+      "goal": "Share any picture book and land the count on its total",
+      "materials": [
+        "any picture book"
+      ],
+      "duration_min": 5,
+      "frequency_rx": "2-3x/week",
+      "script": [
+        "Snuggle up with any picture book. Favorites welcome.",
+        "On a page, find something there is more than one of: ducks, buttons, boots.",
+        "Count them out loud together, touching each one: \"One, two...\"",
+        "Land hard on the total: \"Two ducks!\" The last word is the prize.",
+        "Two or three counting pages make a full session. Story first, numbers second.",
+        "The same page every night? Wonderful. Repetition is the point."
+      ],
+      "level_up": "When counting to three feels easy, hunt for pages with four, five, or six things.",
+      "level_down": "You count, {name} touches. Land on the total together: \"Two!\"",
+      "bilingual_note": "Count the pictures in either home language, always landing on the total.",
+      "evidence": {
+        "tag_ids": [
+          "ev.numbertalk.gibson2020",
+          "ev.numbertalk.carrazza2024"
+        ],
+        "strength": "rct",
+        "consensus": "moderate"
       },
       "printable_id": null
     }
