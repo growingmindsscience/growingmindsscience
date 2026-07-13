@@ -87,7 +87,7 @@ export function GameCard({
             </div>
           )}
 
-          <div className="mt-5 flex items-center gap-2">
+          <div className="mt-5 flex flex-wrap items-center gap-2">
             <span className="text-sm text-teal-soft">We played it:</span>
             {(["loved", "fine", "flopped"] as const).map((r) => (
               <button
@@ -105,6 +105,15 @@ export function GameCard({
               </button>
             ))}
           </div>
+          {reaction && (
+            <p className="mt-2 text-xs text-teal-soft">
+              {reaction === "loved"
+                ? "Great — it stays in the rotation so you can keep playing it."
+                : reaction === "flopped"
+                  ? "No worries — we'll swap it out and rest it for a few weeks."
+                  : "Got it — something new will rotate in next."}
+            </p>
+          )}
         </>
       )}
     </Card>

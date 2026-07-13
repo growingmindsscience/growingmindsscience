@@ -69,6 +69,34 @@ export default async function PlanPage({
             </p>
           )}
         </Card>
+        {full && (
+          <details className="mt-3 rounded-2xl border border-sea-glass/60 bg-surface px-5 py-4">
+            <summary className="cursor-pointer text-sm font-semibold text-teal">
+              See the whole week
+            </summary>
+            <p className="mt-1 text-xs text-teal-soft">
+              Read ahead and pick whichever fits your day — there&rsquo;s
+              nothing to check off.
+            </p>
+            <ol className="mt-3 flex flex-col gap-2">
+              {ctx.plan.prompts.map((p, i) => (
+                <li
+                  key={i}
+                  className={
+                    i === dayIndex(now)
+                      ? "text-ink-deep"
+                      : "text-ink-deep/70"
+                  }
+                >
+                  <span className="mr-2 text-xs text-teal-soft">
+                    {i === dayIndex(now) ? "Today" : `Day ${i + 1}`}
+                  </span>
+                  {p}
+                </li>
+              ))}
+            </ol>
+          </details>
+        )}
       </section>
 
       <section className="flex flex-col gap-4">
@@ -77,8 +105,9 @@ export default async function PlanPage({
             This week&rsquo;s games
           </h2>
           <p className="mt-1 text-sm text-teal-soft">
-            A fresh three arrive each week, matched to {ctx.child.nickname}
-            &rsquo;s rung.
+            Three to choose from, matched to {ctx.child.nickname}&rsquo;s rung.
+            Even one, played a couple of times, is a real week — no need to do
+            them all.
           </p>
         </div>
         {ctx.plan.games.map((game, i) => (
