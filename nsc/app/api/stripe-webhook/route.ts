@@ -2,6 +2,13 @@ import { NextResponse, type NextRequest } from "next/server";
 import type Stripe from "stripe";
 import { stripe, NSC_PRODUCT } from "@/lib/stripe";
 import { createServiceClient } from "@/lib/supabase/server";
+import { mintGiftCode } from "@/lib/gift.server";
+import { sendEmail } from "@/lib/email.server";
+
+const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://growingmindsscience.com").replace(
+  /\/+$/,
+  "",
+);
 
 /**
  * Stripe webhook — grants the full-access entitlement on a completed one-time
@@ -29,6 +36,38 @@ export async function POST(req: NextRequest) {
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as Stripe.Checkout.Session;
+
+    // Gift purchase: mint a redemption code instead of granting the buyer
+    // access, and email the buyer the code + a printable card.
+    if (session.metadata?.kind === "gift" && session.payment_status === "paid") {
+      const email = session.customer_details?.email ?? null;
+      const code = await mintGiftCode({
+        sessionId: session.id,
+        purchaserEmail: email,
+        amountCents: session.amount_total ?? null,
+      });
+      if (code && email) {
+        const cardUrl = `${SITE}/nsc/gift/card?code=${code}`;
+        const redeemUrl = `${SITE}/nsc/redeem`;
+        const html = `<!doctype html><html><body style="margin:0;background:#F0F5F3;font-family:Georgia,serif">
+  <div style="max-width:520px;margin:0 auto;padding:32px 20px">
+    <p style="margin:0 0 20px;color:#1E5F62;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-family:Helvetica,Arial,sans-serif">Number Path</p>
+    <div style="background:#fff;border:1px solid #CFE3DE;border-radius:16px;padding:28px 24px">
+      <h1 style="margin:0 0 16px;color:#0E2A2D;font-size:22px">Your gift is ready</h1>
+      <p style="margin:0 0 14px;color:#15393C;font-size:16px;line-height:1.55">Here&rsquo;s the code to give:</p>
+      <p style="margin:0 0 18px;font-family:Helvetica,Arial,sans-serif;font-size:26px;font-weight:bold;letter-spacing:3px;color:#1E5F62">${code}</p>
+      <p style="margin:0 0 20px;color:#15393C;font-size:16px;line-height:1.55">The family redeems it whenever they&rsquo;re ready, and it&rsquo;s theirs for good — no subscription, nothing to cancel.</p>
+      <a href="${cardUrl}" style="display:inline-block;background:#1E5F62;color:#fff;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-weight:bold;padding:12px 24px;border-radius:999px">Print a gift card</a>
+      <p style="margin:16px 0 0;color:#2E7A77;font-size:13px;font-family:Helvetica,Arial,sans-serif">Or send them straight to <a href="${redeemUrl}" style="color:#2E7A77">${redeemUrl}</a></p>
+    </div>
+  </div>
+</body></html>`;
+        const text = `Your Number Path gift is ready.\n\nCode to give: ${code}\n\nThe family redeems it at ${redeemUrl} whenever they're ready — theirs for good, no subscription.\n\nPrintable card: ${cardUrl}\n`;
+        await sendEmail({ to: email, subject: "Your Number Path gift code", html, text });
+      }
+      return NextResponse.json({ received: true });
+    }
+
     const ownerId = session.client_reference_id ?? session.metadata?.owner_id;
     const product = session.metadata?.product ?? NSC_PRODUCT;
 

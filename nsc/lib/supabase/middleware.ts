@@ -13,6 +13,8 @@ const PUBLIC_PREFIXES = [
   "/signup",
   "/auth",
   "/reset",
+  "/gift", // gifting needs no account; buy + printable card are public
+  "/redeem", // renders its own sign-in prompt; the action gates with requireAuth
   "/api/stripe-webhook",
   "/api/cron", // guarded by its own CRON_SECRET bearer check
   "/api/email/unsubscribe", // token-authenticated, clicked from mail clients
