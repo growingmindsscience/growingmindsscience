@@ -4,7 +4,7 @@
   "reports": [
     {
       "artifact": "games.catalog",
-      "sha256": "34e9f52ebd28b32fa451571a2302c2f09d2d47b3fc9f9b5a0e04a09e359cd028",
+      "sha256": "27f9873094fda9080661785f8e76a6b7d9e9448a51323196f21ad5ec5b94de58",
       "mode": "full",
       "pass": true,
       "checks": [
@@ -21,7 +21,7 @@
         {
           "name": "readability",
           "status": "pass",
-          "details": "FK grade 3.71 over 474 pooled strings (5239 words) — limit 8"
+          "details": "FK grade 3.71 over 485 pooled strings (5373 words) — limit 8"
         },
         {
           "name": "coverage-matrix",

@@ -2,6 +2,7 @@ import { notFound, redirect } from "next/navigation";
 import { requireAuth } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { getAssessmentCopy } from "@/lib/content.server";
+import { RESUME_WINDOW_MS } from "@/lib/age";
 import type { Placement, TitrationState } from "@/lib/titration";
 import type { PSState } from "@/lib/pointandseek";
 import { TrialRunner } from "./trial-runner";
@@ -25,6 +26,14 @@ export default async function AssessPage({
   if (!assessment) notFound();
   if (assessment.status === "complete") {
     redirect(`/app/child/${assessment.child_id}/plan`);
+  }
+  // The 48h resume promise holds here too, not just at the dashboard funnel —
+  // a bookmarked URL must not resurrect a week-old half-session.
+  if (
+    Date.now() - new Date(assessment.started_at).getTime() >
+    RESUME_WINDOW_MS
+  ) {
+    redirect(`/app/child/${assessment.child_id}/prescreen`);
   }
 
   const { data: child } = await supabase

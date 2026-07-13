@@ -20,9 +20,7 @@ import {
   type PSPick,
   type PSState,
 } from "@/lib/pointandseek";
-import { ageInMonths } from "@/lib/age";
-
-const RESUME_WINDOW_MS = 48 * 60 * 60 * 1000;
+import { ageInMonths, MIN_ASSESSMENT_MONTHS, RESUME_WINDOW_MS } from "@/lib/age";
 
 /** Below this age Point and Seek replaces Give-N as the default instrument (A5). */
 const POINT_AND_SEEK_MAX_MONTHS = 30;
@@ -41,6 +39,9 @@ export async function createChild(formData: FormData) {
 
   if (!nickname || !/^\d{4}-\d{2}$/.test(birthMonth)) {
     redirect("/app/child/new?error=Please+add+a+name+and+birth+month.");
+  }
+  if (birthMonth > new Date().toISOString().slice(0, 7)) {
+    redirect("/app/child/new?error=That+birth+month+is+in+the+future.");
   }
 
   const { data, error } = await supabase
@@ -101,6 +102,11 @@ export async function beginAssessment(childId: string, formData: FormData) {
   const months = childRow
     ? ageInMonths(String(childRow.birth_month).slice(0, 7), new Date())
     : POINT_AND_SEEK_MAX_MONTHS;
+  // Under ~2 there is no assessment at all — the prescreen page shows the
+  // "just talk" guidance instead; this guard is defense in depth.
+  if (months < MIN_ASSESSMENT_MONTHS) {
+    redirect(`/app/child/${childId}/prescreen`);
+  }
   const usePointAndSeek = months < POINT_AND_SEEK_MAX_MONTHS;
 
   const { data, error } = await supabase

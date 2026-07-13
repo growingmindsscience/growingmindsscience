@@ -1,5 +1,14 @@
 import type { AgeBand } from "@/lib/content-types";
 
+/**
+ * Below this, no assessment at all — before ~2 the best number input is
+ * plain talk, and neither instrument reads meaningfully at that age.
+ */
+export const MIN_ASSESSMENT_MONTHS = 24;
+
+/** Paused/in-flight sessions resume within this window, then start fresh. */
+export const RESUME_WINDOW_MS = 48 * 60 * 60 * 1000;
+
 /** Whole months between a birth month (day=1) and a reference date. */
 export function ageInMonths(birthMonthISO: string, asOf: Date): number {
   const b = new Date(birthMonthISO + "T00:00:00Z");

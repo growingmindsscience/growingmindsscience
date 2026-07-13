@@ -52,6 +52,34 @@ describe("plan design invariants", () => {
     expect(left).toBe(4);
   });
 
+  it("balances foil direction 4/4 so a size heuristic scores exactly chance", () => {
+    const larger = PS_PLAN.filter((t) => t.target > t.foil);
+    const smaller = PS_PLAN.filter((t) => t.target < t.foil);
+    expect(larger).toHaveLength(4);
+    expect(smaller).toHaveLength(4);
+    // At least two target-larger trials must use small targets (≤3) so a
+    // genuine 1-2-knower can pass them via mutual exclusivity.
+    expect(larger.filter((t) => t.target <= 3).length).toBeGreaterThanOrEqual(2);
+  });
+
+  it("a pure less-crowded-card bias scores exactly 4/8 — never 'some'", () => {
+    let s = createPointSession();
+    while (!psIsDone(s)) {
+      const spec = PS_PLAN[s.index];
+      // Always pick the card with fewer dots.
+      const smallerSide =
+        spec.target < spec.foil
+          ? spec.correctSide
+          : spec.correctSide === "left"
+            ? "right"
+            : "left";
+      s = psApplyPick(s, smallerSide);
+    }
+    const r = psResult(s)!;
+    expect(r.correct).toBe(4);
+    expect(r.signal).toBe("unclear");
+  });
+
   it("never shows the same correct side 3x in a row (anti-perseveration)", () => {
     for (let i = 0; i + 2 < PS_PLAN.length; i++) {
       const s = new Set([
