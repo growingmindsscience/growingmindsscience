@@ -85,9 +85,24 @@ export function buildWeeklyPlan(args: {
   }
   const games = chosen.slice(0, 3);
 
+  // Level-aware prompt selection. The daily prompt is the product's
+  // highest-frequency surface, so it must match the child's rung — not just
+  // their age band. Prefer prompts the child can actually perform (level ≤
+  // placement); backfill from the rest only if a rung is thin, so there are
+  // always 7. `placement` here is the served (conservative) placement.
   const bandPrompts = deck.bands[band] ?? [];
-  const orderedPrompts = seededOrder(bandPrompts, (p) => p, seed + ":prompts");
-  const prompts = orderedPrompts.slice(0, 7);
+  const bandLevels = deck.levels?.[band] ?? [];
+  const ceiling = LADDER_ORDER.indexOf(placement);
+  const performable: string[] = [];
+  const rest: string[] = [];
+  bandPrompts.forEach((text, i) => {
+    const lvl = bandLevels[i];
+    const rank = lvl ? LADDER_ORDER.indexOf(lvl) : 0;
+    (rank <= ceiling ? performable : rest).push(text);
+  });
+  const orderedPerformable = seededOrder(performable, (p) => p, seed + ":prompts");
+  const orderedRest = seededOrder(rest, (p) => p, seed + ":prompts:rest");
+  const prompts = [...orderedPerformable, ...orderedRest].slice(0, 7);
 
   return { games, prompts, band, placement };
 }

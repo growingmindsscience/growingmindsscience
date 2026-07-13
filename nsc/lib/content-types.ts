@@ -41,6 +41,8 @@ export interface PromptsDeck {
   artifact: "prompts.deck";
   version: string;
   bands: Record<AgeBand, string[]>;
+  /** Lowest knower level that can perform each prompt, index-aligned with bands. */
+  levels: Record<AgeBand, Placement[]>;
 }
 
 export interface Citation {

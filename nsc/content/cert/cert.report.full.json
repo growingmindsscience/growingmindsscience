@@ -83,7 +83,7 @@
     },
     {
       "artifact": "prompts.deck",
-      "sha256": "11d8724a9612a3b4f7382a76b8a9618a774f24578b34ed3737fb7c76bc6d43b3",
+      "sha256": "8be59ca376a2d19e0b1e668bd2504ea1842d48295fba78d49c7a687684b5ba42",
       "mode": "full",
       "pass": true,
       "checks": [
@@ -100,7 +100,7 @@
         {
           "name": "readability",
           "status": "pass",
-          "details": "FK grade 2 over 450 pooled strings (6063 words) — limit 8"
+          "details": "FK grade 1.92 over 450 pooled strings (6041 words) — limit 8"
         },
         {
           "name": "prompt-deck-counts",
@@ -111,6 +111,11 @@
           "name": "prompt-deck-adjacency",
           "status": "pass",
           "details": "no duplicate prompts across adjacent bands"
+        },
+        {
+          "name": "prompt-deck-levels",
+          "status": "pass",
+          "details": "levels aligned; every band has a subset-knower floor"
         }
       ]
     }
