@@ -78,18 +78,28 @@ export default async function ProgressPage({
         </h2>
         {(history ?? []).map((h, i) => {
           const prev = i > 0 ? history![i - 1] : null;
-          const climbed =
-            prev?.placement &&
-            h.placement &&
-            (RANK[h.placement] ?? 0) > (RANK[prev.placement] ?? 0);
+          const delta =
+            prev?.placement && h.placement
+              ? (RANK[h.placement] ?? 0) - (RANK[prev.placement] ?? 0)
+              : null;
           return (
             <Card key={i}>
               <div className="flex items-center justify-between gap-3">
                 <span className="font-medium text-ink">
                   {RUNG_LABEL(h.placement as string, h.near_cp ?? false)}
-                  {climbed && (
+                  {delta != null && delta > 0 && (
                     <span className="ml-2 rounded-full bg-rung-glow px-2 py-0.5 text-xs font-semibold text-teal">
                       ↑ climbed
+                    </span>
+                  )}
+                  {delta === 0 && (
+                    <span className="ml-2 rounded-full bg-sea-glass/60 px-2 py-0.5 text-xs font-semibold text-teal-soft">
+                      steady — rungs take months
+                    </span>
+                  )}
+                  {delta != null && delta < 0 && (
+                    <span className="ml-2 rounded-full bg-sea-glass/60 px-2 py-0.5 text-xs font-semibold text-teal-soft">
+                      a wiggly read — it happens
                     </span>
                   )}
                 </span>
@@ -110,14 +120,19 @@ export default async function ProgressPage({
       {latest?.completed_at && (
         <Card className="bg-sea-glass/30">
           {(() => {
-            const checkin = nextCheckin(latest.completed_at);
+            const checkin = nextCheckin(
+              latest.completed_at,
+              new Date(),
+              latest.confidence,
+            );
             return checkin.ready ? (
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <p className="text-ink">
                   <span className="font-semibold text-ink-deep">
-                    Six weeks are up.
+                    Check-in time.
                   </span>{" "}
-                  Re-run the check-in and watch the ladder move.
+                  Re-run it and see where things stand — climbs and settled
+                  rungs are both the ladder working.
                 </p>
                 <Link
                   href={`/app/child/${id}/prescreen`}
@@ -132,8 +147,10 @@ export default async function ProgressPage({
                   Next check-in around{" "}
                   <span className="font-semibold text-ink-deep">
                     {shortDate(checkin.due)}
-                  </span>{" "}
-                  — the six-week rhythm.
+                  </span>
+                  {latest.confidence === "low"
+                    ? " — a sooner look after a playful estimate."
+                    : " — the six-week rhythm."}
                 </p>
                 <a
                   href={`/app/child/${id}/checkin.ics`}

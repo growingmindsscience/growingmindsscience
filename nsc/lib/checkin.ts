@@ -1,12 +1,16 @@
 /**
- * Re-check-in cadence. The product promise is "re-run the ladder about every
- * six weeks" — long enough for a rung to plausibly move (knower levels change
- * on the scale of weeks-to-months), short enough that parents see the climb.
- * Medium/low-confidence readouts already invite an earlier retry in copy;
- * this module only computes the standing six-week rhythm.
+ * Re-check-in cadence. The standing rhythm is ~six weeks, but the honest
+ * framing matters more than the number: knower rungs move on the scale of
+ * months (Wynn 1992; Rousselle 2021), so most six-week windows show the SAME
+ * rung — copy on every surface treats "held steady" as the normal outcome,
+ * never as stalling. Low-confidence reads invite a much earlier retry (the
+ * readout says "a week or two"), so the timer agrees with the copy.
  */
 
 export const CHECKIN_INTERVAL_DAYS = 42;
+
+/** Matches the low-confidence readouts' "try again in a week or two." */
+export const CHECKIN_INTERVAL_DAYS_LOW_CONFIDENCE = 14;
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -22,9 +26,14 @@ export interface CheckinStatus {
 export function nextCheckin(
   lastCompletedAt: string | Date,
   now: Date = new Date(),
+  confidence?: string | null,
 ): CheckinStatus {
+  const intervalDays =
+    confidence === "low"
+      ? CHECKIN_INTERVAL_DAYS_LOW_CONFIDENCE
+      : CHECKIN_INTERVAL_DAYS;
   const last = new Date(lastCompletedAt).getTime();
-  const due = new Date(last + CHECKIN_INTERVAL_DAYS * DAY_MS);
+  const due = new Date(last + intervalDays * DAY_MS);
   const ready = now.getTime() >= due.getTime();
   const daysAway = ready
     ? 0

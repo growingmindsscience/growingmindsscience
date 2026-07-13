@@ -42,6 +42,14 @@ export interface TrialRecord {
   outcome: Outcome;
   postCheck: boolean;
   isBonus: boolean;
+  /**
+   * Parent-reported: the child changed the amount during "count and check".
+   * Optional analytics only — never feeds crediting. Placement stays scored
+   * on the checked response (standard titrated Give-N; the check rescues a
+   * true knower from an impulsive grab and cannot lift a subset-knower above
+   * their level). The pre/post delta is the coaching/impulsivity signal.
+   */
+  selfCorrected?: boolean;
 }
 
 export interface LevelTally {

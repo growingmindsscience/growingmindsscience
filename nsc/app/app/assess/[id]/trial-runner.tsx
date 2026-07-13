@@ -8,10 +8,13 @@ import { brand } from "@/lib/config/brand";
 import { stepView } from "@/lib/assessment";
 import type { AssessmentCopy } from "@/lib/content-types";
 import { interpolate } from "@/lib/assessment";
-import type { Outcome, TitrationState } from "@/lib/titration";
-import { pauseAssessment, recordOutcome, startPointAndSeek } from "../actions";
+import { getResult, type Outcome, type Placement, type TitrationState } from "@/lib/titration";
+import { flagOffDay, pauseAssessment, recordOutcome, startPointAndSeek } from "../actions";
 
 const NUMWORDS = ["zero", "one", "two", "three", "four", "five", "six"];
+
+/** Rung height, for framing a re-run against the previous placement. */
+const RANK: Record<string, number> = { L0: 0, L1: 1, L2: 2, L3: 3, L4: 4, CP: 5 };
 
 export function TrialRunner({
   assessmentId,
@@ -21,6 +24,8 @@ export function TrialRunner({
   childName,
   objects,
   resumed,
+  prevPlacement = null,
+  otherNumberLanguage = false,
 }: {
   assessmentId: string;
   childId: string;
@@ -29,6 +34,8 @@ export function TrialRunner({
   childName: string;
   objects: string;
   resumed: boolean;
+  prevPlacement?: Placement | null;
+  otherNumberLanguage?: boolean;
 }) {
   const [state, setState] = useState<TitrationState>(initialState);
   const [phase, setPhase] = useState<"setup" | "running">(
@@ -38,14 +45,19 @@ export function TrialRunner({
   const [pending, setPending] = useState(false);
   const [confirmPause, setConfirmPause] = useState(false);
   const [showResumeNote, setShowResumeNote] = useState(resumed);
+  const [offDayMarked, setOffDayMarked] = useState(false);
 
   const vars = { name: childName, objects };
   const view = stepView(state, copy, vars, showCheck);
 
-  async function record(outcome: Outcome) {
+  async function record(outcome: Outcome, selfCorrected?: boolean) {
     setPending(true);
     try {
-      const { state: next } = await recordOutcome(assessmentId, outcome);
+      const { state: next } = await recordOutcome(
+        assessmentId,
+        outcome,
+        selfCorrected,
+      );
       setState(next);
       setShowCheck(false);
       setShowResumeNote(false);
@@ -53,6 +65,14 @@ export function TrialRunner({
       setPending(false);
     }
   }
+
+  // Two skips in a row usually means the child is done for now, not that the
+  // parent should push — surface the pause path before the session sours.
+  const scored = state.trials.filter((t) => !t.isBonus);
+  const twoRecentSkips =
+    scored.length >= 2 &&
+    scored[scored.length - 1].outcome === "skip" &&
+    scored[scored.length - 2].outcome === "skip";
 
   const rules = copy.states["setup:rules"]?.lines ?? [];
   const checklist = copy.states["setup:checklist"]?.lines ?? [];
@@ -91,6 +111,17 @@ export function TrialRunner({
                 <span>{interpolate(l, vars)}</span>
               </li>
             ))}
+            {otherNumberLanguage && (
+              <li className="flex gap-2">
+                <span aria-hidden className="text-teal">
+                  •
+                </span>
+                <span>
+                  Say the number words in the language {childName} counts in
+                  most. Keep the rest of each line as written.
+                </span>
+              </li>
+            )}
           </ul>
         </Card>
         <Button onClick={() => setPhase("running")}>I&rsquo;m ready</Button>
@@ -99,6 +130,11 @@ export function TrialRunner({
   }
 
   if (view.kind === "done") {
+    const result = getResult(state);
+    const delta =
+      prevPlacement != null && view.placement != null
+        ? (RANK[view.placement] ?? 0) - (RANK[prevPlacement] ?? 0)
+        : null;
     return (
       <main className="mx-auto flex min-h-screen max-w-lg flex-col justify-center gap-6 px-6 py-12">
         <Ladder current={view.placement} nearCP={view.nearCP} animate />
@@ -111,6 +147,66 @@ export function TrialRunner({
             ))}
           </div>
         </Card>
+        {delta !== null && (
+          <Card className="bg-sea-glass/30">
+            <p className="text-sm leading-relaxed text-ink">
+              {delta === 0 ? (
+                <>
+                  <span className="font-semibold text-ink-deep">
+                    Same rung as last time — that&rsquo;s the usual six-week
+                    story.
+                  </span>{" "}
+                  Rungs take months, and a home read can wiggle either way.
+                  This week&rsquo;s games keep working the edge.
+                </>
+              ) : delta > 0 ? (
+                <>
+                  <span className="font-semibold text-ink-deep">
+                    A rung higher than last time. Lovely.
+                  </span>{" "}
+                  One home check-in can read a touch generous, so this
+                  week&rsquo;s games stay planted on the new rung and let it
+                  settle.
+                </>
+              ) : (
+                <>
+                  <span className="font-semibold text-ink-deep">
+                    Reading lower than last time usually means the day, not
+                    the child.
+                  </span>{" "}
+                  Hungry bears, split attention — nothing is lost. This
+                  week&rsquo;s games sit at today&rsquo;s cozier read; play
+                  the check-in again in a week or two if you&rsquo;re curious.
+                </>
+              )}
+            </p>
+          </Card>
+        )}
+        {otherNumberLanguage && (
+          <p className="text-center text-xs leading-relaxed text-teal-soft">
+            Children learn each language&rsquo;s number words separately. If{" "}
+            {childName} counts in another language, an English read can sit a
+            rung low — that&rsquo;s the language, not the ladder.
+          </p>
+        )}
+        {result?.confidence === "high" &&
+          (offDayMarked ? (
+            <p className="text-center text-sm text-teal-soft">
+              Marked. We&rsquo;ll treat today as a rougher estimate — the
+              plan stays the same, and the next check-in will tell you more.
+            </p>
+          ) : (
+            <button
+              onClick={async () => {
+                setOffDayMarked(true);
+                await flagOffDay(assessmentId);
+              }}
+              className="text-center text-sm text-teal-soft underline"
+            >
+              Was today an off day — tired, distracted, bear mobbed? Tap to
+              mark it, and we&rsquo;ll read today gently.
+            </button>
+          ))}
         <Link
           href={`/app/child/${childId}/plan`}
           className="inline-flex items-center justify-center rounded-full bg-teal px-6 py-3 text-base font-semibold text-white hover:bg-teal-soft"
@@ -211,15 +307,32 @@ export function TrialRunner({
         </Card>
 
         {view.kind === "trial" && (
-          <Button disabled={pending} onClick={() => setShowCheck(true)}>
-            They&rsquo;re done &mdash; let&rsquo;s check
-          </Button>
+          <div className="flex flex-col gap-3">
+            <Button disabled={pending} onClick={() => setShowCheck(true)}>
+              They&rsquo;re done &mdash; let&rsquo;s check
+            </Button>
+            <button
+              disabled={pending}
+              onClick={() => record("skip")}
+              className="text-sm text-teal-soft underline disabled:opacity-50"
+            >
+              Skip &mdash; {childName} didn&rsquo;t try this one
+            </button>
+          </div>
         )}
 
         {view.kind === "check" && (
           <div className="flex flex-col gap-3">
-            <Button disabled={pending} onClick={() => record("correct")}>
+            <Button disabled={pending} onClick={() => record("correct", false)}>
               Yes, that&rsquo;s {bigN}
+            </Button>
+            <Button
+              variant="ghost"
+              disabled={pending}
+              onClick={() => record("correct", true)}
+              className="border border-sea-glass"
+            >
+              Yes &mdash; after fixing it during the check
             </Button>
             <Button variant="ghost" disabled={pending} onClick={() => record("incorrect")}>
               Not quite
@@ -243,9 +356,28 @@ export function TrialRunner({
 
       {/* sticky rules reminder + pause */}
       <div className="flex flex-col gap-3">
+        {twoRecentSkips && (
+          <Card className="bg-rung-glow/60">
+            <p className="text-sm text-ink">
+              <span className="font-semibold text-ink-deep">
+                Two skips in a row?
+              </span>{" "}
+              The bear may need a nap. Pausing keeps everything — come back
+              within two days and pick up right here.
+            </p>
+            <button
+              onClick={() => setConfirmPause(true)}
+              className="mt-2 text-sm font-semibold text-teal underline"
+            >
+              Pause for now
+            </button>
+          </Card>
+        )}
         <p className="rounded-xl bg-sea-glass/40 px-4 py-2 text-center text-xs text-ink">
-          Read it exactly. Don&rsquo;t count for {childName}. Every answer earns a
-          &ldquo;thank you.&rdquo;
+          Read it exactly. Don&rsquo;t count for {childName}. Every answer earns
+          a &ldquo;thank you.&rdquo;
+          {otherNumberLanguage &&
+            ` Number words go in ${childName}'s counting language.`}
         </p>
         <button
           onClick={() => setConfirmPause(true)}

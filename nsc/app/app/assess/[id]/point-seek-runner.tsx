@@ -55,12 +55,14 @@ export function PointSeekRunner({
   initialState,
   copy,
   childName,
+  otherNumberLanguage = false,
 }: {
   assessmentId: string;
   childId: string;
   initialState: PSState;
   copy: AssessmentCopy;
   childName: string;
+  otherNumberLanguage?: boolean;
 }) {
   const [state, setState] = useState<PSState>(initialState);
   const [phase, setPhase] = useState<"setup" | "running">(
@@ -183,6 +185,8 @@ export function PointSeekRunner({
       <p className="rounded-xl bg-sea-glass/40 px-4 py-2 text-center text-xs text-ink">
         Read it exactly. No hints, no pointing for them. Every answer earns a
         &ldquo;thank you.&rdquo;
+        {otherNumberLanguage &&
+          ` Say the number words in ${childName}'s counting language.`}
       </p>
     </main>
   );
