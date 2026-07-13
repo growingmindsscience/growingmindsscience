@@ -2,14 +2,15 @@
   "name": "nsc",
   "version": "1.1.0",
   "private": true,
-  "description": "Number Path (codename nsc) — parent-run early-math check-in. Next.js app + compiled-artifact content + titration engine.",
+  "description": "Number Path (codename nsc) \u2014 parent-run early-math check-in. Next.js app + compiled-artifact content + titration engine.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "cert": "tsx tools/nsc-compiler/run-cert.ts"
+    "cert": "tsx tools/nsc-compiler/run-cert.ts",
+    "audio": "tsx tools/nsc-compiler/gen-audio.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.7.0",

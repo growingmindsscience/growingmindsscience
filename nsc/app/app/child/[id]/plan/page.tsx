@@ -10,6 +10,7 @@ import { GameCard } from "@/components/game-card";
 import { brand } from "@/lib/config/brand";
 import { RUNG_LABEL } from "@/lib/labels";
 import { nextCheckin, shortDate } from "@/lib/checkin";
+import { getAudioIds } from "@/lib/audio.server";
 
 export default async function PlanPage({
   params,
@@ -37,6 +38,7 @@ export default async function PlanPage({
   const todayPrompt = ctx.plan.prompts[dayIndex(now)] ?? ctx.plan.prompts[0];
   const rung = RUNG_LABEL(ctx.placement, ctx.nearCP);
   const checkin = nextCheckin(ctx.assessedAt, now, ctx.confidence);
+  const audioIds = await getAudioIds();
 
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-6 py-10">
@@ -117,6 +119,7 @@ export default async function PlanPage({
             childId={id}
             playedReaction={playedThisWeek.get(game.id)}
             locked={!full && i > 0}
+            audioIds={audioIds}
           />
         ))}
       </section>

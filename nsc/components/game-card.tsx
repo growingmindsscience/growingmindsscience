@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useMemo, useState, useTransition } from "react";
 import { Card } from "@/components/ui";
+import { AudioButton } from "@/components/audio-button";
 import { EvidenceChips } from "@/components/evidence-chip";
 import type { Game } from "@/lib/content-types";
 import { logPlay } from "@/app/app/child/[id]/plan/actions";
@@ -11,15 +12,18 @@ export function GameCard({
   childId,
   playedReaction,
   locked = false,
+  audioIds = [],
 }: {
   game: Game;
   childId: string;
   playedReaction?: string | null;
   locked?: boolean;
+  audioIds?: string[];
 }) {
   const [open, setOpen] = useState(false);
   const [reaction, setReaction] = useState<string | null>(playedReaction ?? null);
   const [pending, startTransition] = useTransition();
+  const audioSet = useMemo(() => new Set(audioIds), [audioIds]);
 
   function react(r: "loved" | "fine" | "flopped") {
     setReaction(r);
@@ -68,7 +72,12 @@ export function GameCard({
               )}
               <ol className="flex list-decimal flex-col gap-2 pl-5 text-ink">
                 {game.script.map((line, i) => (
-                  <li key={i}>{line}</li>
+                  <li key={i}>
+                    <span className="inline-flex items-start gap-2">
+                      <span>{line}</span>
+                      <AudioButton line={line} available={audioSet} className="h-6 w-6" />
+                    </span>
+                  </li>
                 ))}
               </ol>
               <div className="grid gap-2 text-sm text-ink sm:grid-cols-2">

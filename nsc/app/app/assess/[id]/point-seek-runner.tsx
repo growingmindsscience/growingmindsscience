@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Button, Card, EnrichmentFooter } from "@/components/ui";
+import { AudioButton } from "@/components/audio-button";
 import { brand } from "@/lib/config/brand";
 import { interpolate } from "@/lib/assessment";
 import type { AssessmentCopy } from "@/lib/content-types";
@@ -56,6 +57,7 @@ export function PointSeekRunner({
   copy,
   childName,
   otherNumberLanguage = false,
+  audioIds = [],
 }: {
   assessmentId: string;
   childId: string;
@@ -63,7 +65,9 @@ export function PointSeekRunner({
   copy: AssessmentCopy;
   childName: string;
   otherNumberLanguage?: boolean;
+  audioIds?: string[];
 }) {
+  const audioSet = useMemo(() => new Set(audioIds), [audioIds]);
   const [state, setState] = useState<PSState>(initialState);
   const [phase, setPhase] = useState<"setup" | "running">(
     initialState.records.length > 0 ? "running" : "setup",
@@ -158,9 +162,10 @@ export function PointSeekRunner({
             {lines(psTrialKey(state.index), [
               `Which card has ${spec.target}?`,
             ]).map((l, i) => (
-              <p key={i} className="text-lg text-ink">
-                {l}
-              </p>
+              <div key={i} className="flex items-center justify-center gap-2">
+                <p className="text-lg text-ink">{l}</p>
+                <AudioButton line={l} available={audioSet} />
+              </div>
             ))}
           </div>
         </Card>

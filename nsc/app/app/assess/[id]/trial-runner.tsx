@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Button, Card, EnrichmentFooter } from "@/components/ui";
+import { AudioButton } from "@/components/audio-button";
 import { Ladder } from "@/components/ladder";
 import { brand } from "@/lib/config/brand";
 import { stepView } from "@/lib/assessment";
@@ -26,6 +27,7 @@ export function TrialRunner({
   resumed,
   prevPlacement = null,
   otherNumberLanguage = false,
+  audioIds = [],
 }: {
   assessmentId: string;
   childId: string;
@@ -36,7 +38,9 @@ export function TrialRunner({
   resumed: boolean;
   prevPlacement?: Placement | null;
   otherNumberLanguage?: boolean;
+  audioIds?: string[];
 }) {
+  const audioSet = useMemo(() => new Set(audioIds), [audioIds]);
   const [state, setState] = useState<TitrationState>(initialState);
   const [phase, setPhase] = useState<"setup" | "running">(
     resumed ? "running" : "setup",
@@ -299,9 +303,10 @@ export function TrialRunner({
           </p>
           <div className="flex flex-col gap-2">
             {view.lines.map((l, i) => (
-              <p key={i} className="text-lg text-ink">
-                {l}
-              </p>
+              <div key={i} className="flex items-center justify-center gap-2">
+                <p className="text-lg text-ink">{l}</p>
+                <AudioButton line={l} available={audioSet} />
+              </div>
             ))}
           </div>
         </Card>
