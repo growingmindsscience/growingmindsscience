@@ -96,6 +96,37 @@ describe("weekly plan", () => {
       expect(g.levels).toContain("L2");
     }
   });
+
+  it("serves an older low-knower child only performable prompts", () => {
+    // A 4-5yo assessed L1: every daily prompt must be one an L1 child can do
+    // (level L0 or L1), never the band's CP arithmetic.
+    const LADDER = ["L0", "L1", "L2", "L3", "L4", "CP"];
+    const band = "48-60m" as const;
+    const levels = deck.levels[band];
+    const performable = new Set(
+      deck.bands[band].filter((_, i) => LADDER.indexOf(levels[i]) <= 1),
+    );
+    const plan = buildWeeklyPlan({
+      ...base,
+      placement: "L1",
+      band,
+      seed: "child-9:2026-W30",
+    });
+    expect(plan.prompts).toHaveLength(7);
+    for (const p of plan.prompts) {
+      expect(performable.has(p)).toBe(true);
+    }
+  });
+
+  it("serves a CP child the full band, arithmetic prompts included", () => {
+    const plan = buildWeeklyPlan({
+      ...base,
+      placement: "CP",
+      band: "48-60m",
+      seed: "child-9:2026-W30",
+    });
+    expect(plan.prompts).toHaveLength(7);
+  });
 });
 
 describe("conservative placement", () => {

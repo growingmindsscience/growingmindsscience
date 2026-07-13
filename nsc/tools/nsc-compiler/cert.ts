@@ -268,16 +268,47 @@ function promptDeckAdjacency(
   };
 }
 
+function promptDeckLevels(
+  bands: Record<string, string[]>,
+  levels: Record<string, string[]>,
+): CheckResult {
+  const problems: string[] = [];
+  for (const band of AGE_BANDS) {
+    const b = bands[band] ?? [];
+    const l = levels[band] ?? [];
+    if (l.length !== b.length) {
+      problems.push(`${band}: ${l.length} levels for ${b.length} prompts`);
+      continue;
+    }
+    // Every band must offer a real floor of subset-knower-performable prompts
+    // (L0/L1), so an older low-knower child is never served only hard prompts.
+    const lowFloor = l.filter((x) => x === "L0" || x === "L1").length;
+    if (lowFloor < 12) {
+      problems.push(`${band}: only ${lowFloor} L0/L1 prompts (need ≥12)`);
+    }
+  }
+  return {
+    name: "prompt-deck-levels",
+    status: problems.length === 0 ? "pass" : "fail",
+    details:
+      problems.length === 0
+        ? "levels aligned; every band has a subset-knower floor"
+        : problems.join("; "),
+  };
+}
+
 export function certifyPromptsDeck(raw: string): CertReport {
   const ajv = ajvInstance();
   const data = JSON.parse(raw);
   const bands = data.bands ?? {};
+  const levels = data.levels ?? {};
   const checks: CheckResult[] = [
     schemaCheck(ajv, promptsDeckSchema, data),
     bannedCheck(data),
     readabilityCheck(data),
     promptDeckCounts(bands),
     promptDeckAdjacency(bands),
+    promptDeckLevels(bands, levels),
   ];
   return report("prompts.deck", raw, "full", checks);
 }

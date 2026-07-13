@@ -4,7 +4,7 @@
   "title": "NSC daily number-talk prompt deck (prompts.deck.vN.json) — spec §4.3",
   "type": "object",
   "additionalProperties": false,
-  "required": ["artifact", "version", "bands"],
+  "required": ["artifact", "version", "bands", "levels"],
   "properties": {
     "artifact": { "const": "prompts.deck" },
     "version": { "type": "string", "pattern": "^v[0-9]+(-gold)?$" },
@@ -19,6 +19,19 @@
         "42-48m": { "$ref": "#/definitions/promptList" },
         "48-60m": { "$ref": "#/definitions/promptList" }
       }
+    },
+    "levels": {
+      "description": "Per-prompt lowest knower level that can perform it, index-aligned with bands.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["24-30m", "30-36m", "36-42m", "42-48m", "48-60m"],
+      "properties": {
+        "24-30m": { "$ref": "#/definitions/levelList" },
+        "30-36m": { "$ref": "#/definitions/levelList" },
+        "36-42m": { "$ref": "#/definitions/levelList" },
+        "42-48m": { "$ref": "#/definitions/levelList" },
+        "48-60m": { "$ref": "#/definitions/levelList" }
+      }
     }
   },
   "definitions": {
@@ -27,6 +40,12 @@
       "minItems": 90,
       "maxItems": 90,
       "items": { "type": "string", "minLength": 10, "maxLength": 180 }
+    },
+    "levelList": {
+      "type": "array",
+      "minItems": 90,
+      "maxItems": 90,
+      "items": { "enum": ["L0", "L1", "L2", "L3", "L4", "CP"] }
     }
   }
 }
