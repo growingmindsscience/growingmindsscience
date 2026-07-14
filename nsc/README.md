@@ -34,6 +34,17 @@ Migration `0003_email_engagement.sql` (⚠ apply to the project) adds
 and `nsc_email_log` (service-role-only send ledger that makes the engagement
 cron idempotent).
 
+Migration `0004_gift_codes.sql` (applied) adds `nsc_gift_codes` — giftable
+one-time purchases. Service-role only (RLS on, no policies): the Stripe webhook
+mints a code on a `metadata.kind=gift` checkout and emails it to the buyer; the
+recipient redeems it at `/redeem`, which grants `numberpath_full` by writing an
+`nsc_purchases` row that reuses the gift's Stripe session id (so no change to
+that table and the grant stays idempotent). No new Stripe product — gifting
+reuses the existing `$34` price; buyer needs no account. Public routes: `/gift`,
+`/gift/success`, `/gift/card`, `/redeem` (the redeem action still gates with
+`requireAuth`). The gift email needs `RESEND_API_KEY`; without it the code is
+minted and shown on the success page but not emailed.
+
 Supabase project: **dedicated free project `kxljngtmnqarvsawakmf`** (personal
 org, us-west-1).
 

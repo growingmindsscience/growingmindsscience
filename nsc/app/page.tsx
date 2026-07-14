@@ -214,6 +214,13 @@ export default async function Home() {
           <LinkButton href={start} className="mt-6">
             Start the free check-in
           </LinkButton>
+          <p className="mt-4 text-sm text-teal-soft">
+            Or{" "}
+            <Link href="/gift" className="font-semibold text-teal underline">
+              give it as a gift
+            </Link>{" "}
+            — a finite present, nothing to cancel.
+          </p>
         </Card>
       </section>
 

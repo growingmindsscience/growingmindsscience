@@ -70,6 +70,12 @@ export default async function UpgradePage({
       <Link href="/app" className="text-center text-sm text-teal-soft underline">
         Maybe later
       </Link>
+      <p className="text-center text-xs text-teal-soft">
+        Buying it for someone else?{" "}
+        <Link href="/gift" className="font-semibold text-teal underline">
+          Give it as a gift
+        </Link>
+      </p>
     </main>
   );
 }
