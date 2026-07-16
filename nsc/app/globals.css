@@ -9,11 +9,27 @@
   --color-teal-soft: #2e7a77;
   --color-rung-glow: #f8e7e0;
   --color-sea-glass: #cfe3de;
+  /* Brand pairing, mirroring the parent site's --font-display/--font-body. */
+  --font-display: var(--font-bricolage), "Avenir Next", "Helvetica Neue",
+    sans-serif;
+  --font-body: var(--font-source-serif), Georgia, "Times New Roman", serif;
 }
 
 body {
   background: var(--color-ground);
   color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+/* Headings and controls carry the display face, as on the parent site. */
+h1,
+h2,
+h3,
+h4,
+button,
+summary,
+label {
+  font-family: var(--font-display);
 }
 
 @media (prefers-reduced-motion: reduce) {

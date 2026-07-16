@@ -117,6 +117,7 @@ export default async function PlanPage({
             key={game.id}
             game={game}
             childId={id}
+            childName={ctx.child.nickname}
             playedReaction={playedThisWeek.get(game.id)}
             locked={!full && i > 0}
             audioIds={audioIds}

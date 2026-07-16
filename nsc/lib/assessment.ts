@@ -10,10 +10,13 @@ import {
 /** Interpolate the live placeholders in compiled copy. */
 export function interpolate(
   line: string,
-  vars: { name: string; objects: string },
+  vars: { name: string; objects: string; objectsSingular?: string },
 ): string {
+  // Copy always phrases counts as "«numberword» {objects}"; "one" takes the
+  // singular so N=1 trials don't read "one blocks".
   return line
     .replaceAll("{name}", vars.name)
+    .replaceAll("one {objects}", `one ${vars.objectsSingular ?? vars.objects}`)
     .replaceAll("{objects}", vars.objects);
 }
 

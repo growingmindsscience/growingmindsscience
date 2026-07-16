@@ -25,6 +25,7 @@ export function TrialRunner({
   copy,
   childName,
   objects,
+  objectsSingular,
   resumed,
   prevPlacement = null,
   ageMonths = null,
@@ -37,6 +38,7 @@ export function TrialRunner({
   copy: AssessmentCopy;
   childName: string;
   objects: string;
+  objectsSingular?: string;
   resumed: boolean;
   prevPlacement?: Placement | null;
   ageMonths?: number | null;
@@ -54,7 +56,7 @@ export function TrialRunner({
   const [showResumeNote, setShowResumeNote] = useState(resumed);
   const [offDayMarked, setOffDayMarked] = useState(false);
 
-  const vars = { name: childName, objects };
+  const vars = { name: childName, objects, objectsSingular };
   const view = stepView(state, copy, vars, showCheck);
 
   async function record(outcome: Outcome, selfCorrected?: boolean) {

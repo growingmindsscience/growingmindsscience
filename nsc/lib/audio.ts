@@ -16,6 +16,8 @@ export const AUDIO_VOICE_ID = "EXAVITQu4vr4xnSDxMaL"; // Sarah — reassuring
 export const AUDIO_MODEL_ID = "eleven_multilingual_v2";
 /** Fixed object word for the Give-N script (matches the runtime `objects`). */
 export const AUDIO_OBJECTS = "blocks";
+/** Singular form, used after "one" (matches the runtime `objectsSingular`). */
+export const AUDIO_OBJECTS_SINGULAR = "block";
 
 // Salt binds the id to voice+model so a voice change invalidates old clips.
 const SALT = `${AUDIO_VOICE_ID}:${AUDIO_MODEL_ID}:v1`;
@@ -43,7 +45,10 @@ export function audioClipId(text: string): string {
  * the same substituted string for the id to match.
  */
 export function voiceableText(rawLine: string): string | null {
-  const s = rawLine.replaceAll("{objects}", AUDIO_OBJECTS);
+  // Must mirror lib/assessment.ts interpolate(): "one" takes the singular.
+  const s = rawLine
+    .replaceAll("one {objects}", `one ${AUDIO_OBJECTS_SINGULAR}`)
+    .replaceAll("{objects}", AUDIO_OBJECTS);
   return s.includes("{") ? null : s;
 }
 

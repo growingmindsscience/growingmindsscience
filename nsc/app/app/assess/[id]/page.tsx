@@ -20,17 +20,28 @@ export default async function AssessPage({
 
   const { data: assessment } = await supabase
     .from("nsc_assessments")
-    .select("id, child_id, status, engine_state, instrument, prescreen, started_at")
+    .select(
+      "id, child_id, status, engine_state, instrument, prescreen, started_at, completed_at",
+    )
     .eq("id", id)
     .single();
 
   if (!assessment) notFound();
   if (assessment.status === "complete") {
-    redirect(`/app/child/${assessment.child_id}/plan`);
-  }
-  // The 48h resume promise holds here too, not just at the dashboard funnel —
-  // a bookmarked URL must not resurrect a week-old half-session.
-  if (
+    // The completing action's revalidatePath re-renders this route, so an
+    // unconditional redirect here yanks the end-of-assessment readout off the
+    // screen before the parent can read it. Grace window: a just-finished
+    // assessment keeps rendering its readout (the runner's done view, with the
+    // plan CTA); only stale completed URLs bounce straight to the plan.
+    const completedMs = assessment.completed_at
+      ? Date.now() - new Date(assessment.completed_at).getTime()
+      : Infinity;
+    if (completedMs > 10 * 60 * 1000) {
+      redirect(`/app/child/${assessment.child_id}/plan`);
+    }
+  } else if (
+    // The 48h resume promise holds here too, not just at the dashboard funnel —
+    // a bookmarked URL must not resurrect a week-old half-session.
     Date.now() - new Date(assessment.started_at).getTime() >
     RESUME_WINDOW_MS
   ) {
@@ -90,6 +101,7 @@ export default async function AssessPage({
       copy={copy}
       childName={child.nickname}
       objects="blocks"
+      objectsSingular="block"
       resumed={resumed}
       prevPlacement={prevPlacement}
       ageMonths={months}

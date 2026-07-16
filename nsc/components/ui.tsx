@@ -48,10 +48,15 @@ export function Card({
   className?: string;
   children: ReactNode;
 }) {
+  // Tailwind resolves conflicting utilities by stylesheet order, not attribute
+  // order, so a caller's bg-* override can silently lose to bg-surface. Yield
+  // the default background whenever the caller brings their own.
+  const hasBgOverride = /(^|\s)bg-/.test(className ?? "");
   return (
     <div
       className={cx(
-        "rounded-2xl border border-sea-glass/60 bg-surface p-6 shadow-sm",
+        "rounded-2xl border border-sea-glass/60 p-6 shadow-sm",
+        !hasBgOverride && "bg-surface",
         className,
       )}
     >

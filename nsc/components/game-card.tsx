@@ -4,18 +4,21 @@ import { useMemo, useState, useTransition } from "react";
 import { Card } from "@/components/ui";
 import { AudioButton } from "@/components/audio-button";
 import { EvidenceChips } from "@/components/evidence-chip";
+import { interpolate } from "@/lib/assessment";
 import type { Game } from "@/lib/content-types";
 import { logPlay } from "@/app/app/child/[id]/plan/actions";
 
 export function GameCard({
   game,
   childId,
+  childName,
   playedReaction,
   locked = false,
   audioIds = [],
 }: {
   game: Game;
   childId: string;
+  childName: string;
   playedReaction?: string | null;
   locked?: boolean;
   audioIds?: string[];
@@ -24,6 +27,9 @@ export function GameCard({
   const [reaction, setReaction] = useState<string | null>(playedReaction ?? null);
   const [pending, startTransition] = useTransition();
   const audioSet = useMemo(() => new Set(audioIds), [audioIds]);
+  // Game copy carries {name} placeholders; interpolate for display but hand
+  // AudioButton the raw line — clip ids key off the uninterpolated template.
+  const vars = { name: childName, objects: "" };
 
   function react(r: "loved" | "fine" | "flopped") {
     setReaction(r);
@@ -74,7 +80,7 @@ export function GameCard({
                 {game.script.map((line, i) => (
                   <li key={i}>
                     <span className="inline-flex items-start gap-2">
-                      <span>{line}</span>
+                      <span>{interpolate(line, vars)}</span>
                       <AudioButton line={line} available={audioSet} className="h-6 w-6" />
                     </span>
                   </li>
@@ -82,10 +88,12 @@ export function GameCard({
               </ol>
               <div className="grid gap-2 text-sm text-ink sm:grid-cols-2">
                 <p className="rounded-xl bg-sea-glass/30 px-3 py-2">
-                  <span className="font-semibold">Too easy?</span> {game.level_up}
+                  <span className="font-semibold">Too easy?</span>{" "}
+                  {interpolate(game.level_up, vars)}
                 </p>
                 <p className="rounded-xl bg-sea-glass/30 px-3 py-2">
-                  <span className="font-semibold">Too hard?</span> {game.level_down}
+                  <span className="font-semibold">Too hard?</span>{" "}
+                  {interpolate(game.level_down, vars)}
                 </p>
               </div>
               <p className="text-sm text-teal-soft">{game.bilingual_note}</p>
