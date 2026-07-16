@@ -15,10 +15,13 @@ const PUBLIC_PREFIXES = [
   "/reset",
   "/gift", // gifting needs no account; buy + printable card are public
   "/redeem", // renders its own sign-in prompt; the action gates with requireAuth
+  "/activities", // Activity Library browse/detail are public SEO surfaces; depth gates via entitlements
   "/api/stripe-webhook",
   "/api/cron", // guarded by its own CRON_SECRET bearer check
   "/api/email/unsubscribe", // token-authenticated, clicked from mail clients
 ];
+// /admin is intentionally NOT public: middleware sends signed-out visitors to
+// /login, and requireAdmin 404s any signed-in non-admin.
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });

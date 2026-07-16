@@ -63,6 +63,21 @@ one-time purchases into `entitlements` and handles
 first, then live `membership`/`numberpath_full` entitlements, so deploying
 this code before the migration is applied degrades safely.
 
+Migration `0006_activity_library.sql` (⚠ apply to the project, after 0005) adds
+the shared **admin review queue** (`review_items`, generic over content types:
+activities today; claims, navigator nodes, guidance blocks, prompt cards later)
+and the **Activity Library** (`activities` public-read-when-published,
+`activity_completions` own-row RLS). The pipeline: drafts are graded
+mechanically (`tools/activities/grader.ts` — safety lexicon, mechanism
+vocabulary in `tools/activities/mechanisms.ts`, FK ≤ 8, banned-language floor,
+household-materials rule, duplicate similarity; planted-violation eval in
+`tests/activities-grader.test.ts` must reject 12/12), enqueued via the
+"Import batch" button on `/admin` (ADMIN_EMAILS-gated), and published only by
+an explicit approve in the queue. Public browse/detail at `/activities`
+(public in middleware; steps gate on `is_free` or a live membership
+entitlement). Batch 001 (18 drafts, 3 per band 0–36m, one free per band) is
+committed at `tools/activities/batches/batch-001.json`.
+
 Supabase project: **dedicated free project `kxljngtmnqarvsawakmf`** (personal
 org, us-west-1).
 
@@ -83,6 +98,7 @@ NSC_EMAIL_FROM                     # optional; default "Number Path <hello@growi
 MEMBERSHIP_PRICE_MONTHLY           # optional until membership SKUs exist; $9/mo price id
 MEMBERSHIP_PRICE_ANNUAL            # optional; $79/yr price id
 LEGACY_AI_PRO_PRICE                # optional; the live AI Pro $9/mo price id (absorbed into membership)
+ADMIN_EMAILS                       # comma-separated allowlist for /admin (review queue); unset = no admins
 ```
 
 The three membership price vars gate the subscription grant path: unset, the

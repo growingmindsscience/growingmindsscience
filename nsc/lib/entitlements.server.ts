@@ -39,6 +39,28 @@ export async function hasFullAccess(): Promise<boolean> {
 }
 
 /**
+ * Membership gate (Activity Library, full Claims Library, …). Distinct from
+ * hasFullAccess: a standalone Number Path purchase does NOT unlock
+ * membership surfaces; membership unlocks Number Path (plan 2.2).
+ */
+export async function hasMembership(): Promise<boolean> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return false;
+  const { data } = await supabase
+    .from("entitlements")
+    .select("product_scope, expires_at")
+    .eq("user_id", user.id)
+    .eq("product_scope", "membership");
+  const now = new Date();
+  return Boolean(
+    data?.some((r) => r.expires_at === null || new Date(r.expires_at) > now),
+  );
+}
+
+/**
  * Write a set of grants for a user (service-role client required — the
  * entitlements table has no user write policies). Additive by construction:
  * upsert on the (user, scope, source, ref) identity only ever refreshes
