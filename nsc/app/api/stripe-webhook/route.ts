@@ -4,6 +4,28 @@ import { stripe, NSC_PRODUCT } from "@/lib/stripe";
 import { createServiceClient } from "@/lib/supabase/server";
 import { mintGiftCode } from "@/lib/gift.server";
 import { sendEmail } from "@/lib/email.server";
+import { applyGrants } from "@/lib/entitlements.server";
+import {
+  grantsForOneTimePurchase,
+  grantsForSubscription,
+  type PriceConfig,
+} from "@/lib/grants";
+
+/** Membership price wiring (plan 2.2). Unset env → no subscription grants,
+ * so deploying ahead of the Stripe SKUs is a safe no-op. */
+function pricesFromEnv(): PriceConfig {
+  return {
+    membershipMonthly: process.env.MEMBERSHIP_PRICE_MONTHLY,
+    membershipAnnual: process.env.MEMBERSHIP_PRICE_ANNUAL,
+    legacyAiPro: process.env.LEGACY_AI_PRO_PRICE,
+  };
+}
+
+const SUBSCRIPTION_EVENTS = new Set([
+  "customer.subscription.created",
+  "customer.subscription.updated",
+  "customer.subscription.deleted",
+]);
 
 const SITE = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://growingmindsscience.com").replace(
   /\/+$/,
@@ -89,6 +111,66 @@ export async function POST(req: NextRequest) {
           },
           { onConflict: "stripe_checkout_session_id" },
         );
+      // Phase 0 spine: mirror the purchase as an additive entitlement grant.
+      await applyGrants(
+        supabase,
+        ownerId,
+        grantsForOneTimePurchase({ sessionId: session.id, product }),
+      );
+    }
+  }
+
+  if (SUBSCRIPTION_EVENTS.has(event.type)) {
+    const sub = event.data.object as Stripe.Subscription;
+    const supabase = createServiceClient();
+
+    // Prefer explicit metadata (set by our checkout); fall back to the
+    // mirror row a prior event created.
+    let userId = sub.metadata?.owner_id ?? null;
+    if (!userId) {
+      const { data } = await supabase
+        .from("subscriptions")
+        .select("user_id")
+        .eq("stripe_subscription_id", sub.id)
+        .maybeSingle();
+      userId = data?.user_id ?? null;
+    }
+
+    if (userId) {
+      const item = sub.items?.data?.[0];
+      const priceId = item?.price?.id ?? "";
+      // Basil-era API: current_period_end lives on the item, in seconds.
+      const periodEndSec = item?.current_period_end ?? null;
+      const periodEnd = periodEndSec
+        ? new Date(periodEndSec * 1000).toISOString()
+        : null;
+
+      await supabase.from("subscriptions").upsert(
+        {
+          user_id: userId,
+          stripe_subscription_id: sub.id,
+          stripe_customer_id:
+            typeof sub.customer === "string" ? sub.customer : (sub.customer?.id ?? null),
+          price_id: priceId,
+          status: sub.status,
+          current_period_end: periodEnd,
+          cancel_at_period_end: sub.cancel_at_period_end ?? false,
+          updated_at: new Date().toISOString(),
+        },
+        { onConflict: "stripe_subscription_id" },
+      );
+
+      await applyGrants(
+        supabase,
+        userId,
+        grantsForSubscription({
+          subscriptionId: sub.id,
+          priceId,
+          status: sub.status,
+          currentPeriodEnd: periodEnd,
+          prices: pricesFromEnv(),
+        }),
+      );
     }
   }
 

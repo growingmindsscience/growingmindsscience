@@ -50,6 +50,19 @@ reuses the existing `$34` price; buyer needs no account. Public routes: `/gift`,
 `requireAuth`). The gift email needs `RESEND_API_KEY`; without it the code is
 minted and shown on the success page but not emailed.
 
+Migration `0005_spine_entitlements.sql` (⚠ apply to the project — the personal
+org isn't reachable from the CLI/MCP tokens on this machine, so paste it into
+the SQL editor or `supabase link` + `db push` with the personal-org token) is
+the Phase 0 spine from the portfolio plan: `entitlements` (additive-only
+grants, enumerated sources, read-own / service-role-write), a `subscriptions`
+mirror of Stripe state, and `nsc_children.born_early_weeks` +
+`primary_languages`. Grant rules live in `lib/grants.ts` (pure, tested — the
+plan 2.2 SKU-reconciliation table as code); the webhook now also mirrors
+one-time purchases into `entitlements` and handles
+`customer.subscription.*` events. `hasFullAccess` checks `nsc_purchases`
+first, then live `membership`/`numberpath_full` entitlements, so deploying
+this code before the migration is applied degrades safely.
+
 Supabase project: **dedicated free project `kxljngtmnqarvsawakmf`** (personal
 org, us-west-1).
 
@@ -67,7 +80,14 @@ NEXT_PUBLIC_NSC_PRICE_DISPLAY      # e.g. "$34" (display only)
 CRON_SECRET                        # server-only; Vercel sends it as the cron Bearer token
 RESEND_API_KEY                     # server-only; without it the engagement cron logs + skips sends
 NSC_EMAIL_FROM                     # optional; default "Number Path <hello@growingmindsscience.com>"
+MEMBERSHIP_PRICE_MONTHLY           # optional until membership SKUs exist; $9/mo price id
+MEMBERSHIP_PRICE_ANNUAL            # optional; $79/yr price id
+LEGACY_AI_PRO_PRICE                # optional; the live AI Pro $9/mo price id (absorbed into membership)
 ```
+
+The three membership price vars gate the subscription grant path: unset, the
+webhook's `customer.subscription.*` handling is a safe no-op, so this code can
+ship before the membership SKUs are created in Stripe (D7 sign-off).
 
 `.env.local` is gitignored and holds the two public Supabase values for local
 dev. Set the server-only secrets via `vercel env add`.
