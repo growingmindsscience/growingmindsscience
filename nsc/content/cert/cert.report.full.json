@@ -4,7 +4,7 @@
   "reports": [
     {
       "artifact": "games.catalog",
-      "sha256": "27f9873094fda9080661785f8e76a6b7d9e9448a51323196f21ad5ec5b94de58",
+      "sha256": "bc4893a4db15253eb6b48df2ea4869032865e9bf0405eeed03e4b5383b615f51",
       "mode": "full",
       "pass": true,
       "checks": [

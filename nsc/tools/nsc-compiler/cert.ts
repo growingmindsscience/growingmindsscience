@@ -43,15 +43,19 @@ export interface CertReport {
 const MAX_FK_GRADE = 8;
 
 /**
- * PROPOSED applicability map for the §4.2 coverage matrix (the spec does not
- * enumerate level×band cells — derived from the §1.1 emergence ranges;
- * Matthew to ratify before the full compile).
+ * Applicability map for the §4.2 coverage matrix. Widened 2026-07-16 to match
+ * runtime reachability: any rung can be served at any age (a four-year-old
+ * pre-knower is rare but real, and low-confidence reads route one rung
+ * lower), so L0/L1 now require the full age range and L2/L3 extend to
+ * 48-60m. Cells still absent here (precocious-young: L2-L4 below their
+ * listed floors) are covered at runtime by same-rung neighbor-band backfill
+ * in lib/routing.ts rather than by required content.
  */
 export const APPLICABLE_BANDS: Record<string, string[]> = {
-  L0: ["24-30m", "30-36m", "36-42m"],
-  L1: ["24-30m", "30-36m", "36-42m"],
-  L2: ["30-36m", "36-42m", "42-48m"],
-  L3: ["36-42m", "42-48m"],
+  L0: ["24-30m", "30-36m", "36-42m", "42-48m", "48-60m"],
+  L1: ["24-30m", "30-36m", "36-42m", "42-48m", "48-60m"],
+  L2: ["30-36m", "36-42m", "42-48m", "48-60m"],
+  L3: ["30-36m", "36-42m", "42-48m", "48-60m"],
   L4: ["36-42m", "42-48m", "48-60m"],
   CP: ["42-48m", "48-60m"],
   CPX: ["48-60m"],

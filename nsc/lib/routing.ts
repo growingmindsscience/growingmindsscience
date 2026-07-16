@@ -51,6 +51,44 @@ export function applicableGames(
   );
 }
 
+const BAND_ORDER: AgeBand[] = [
+  "24-30m",
+  "30-36m",
+  "36-42m",
+  "42-48m",
+  "48-60m",
+];
+
+/**
+ * Same-rung games from neighboring bands, nearest first (younger before
+ * older at equal distance — content written for a slightly younger band
+ * reads fine; older-band framing may assume skills the child lacks). The
+ * rung carries the developmental fit; the band only tunes the framing, so
+ * this is the safe way to keep a thin rung×band cell from starving a plan.
+ */
+function neighborBandGames(
+  catalog: GamesCatalog,
+  placement: Placement,
+  band: AgeBand,
+  nearCP: boolean,
+): Game[] {
+  const idx = BAND_ORDER.indexOf(band);
+  const out: Game[] = [];
+  const seen = new Set<string>();
+  for (let d = 1; d < BAND_ORDER.length; d++) {
+    for (const nb of [BAND_ORDER[idx - d], BAND_ORDER[idx + d]]) {
+      if (!nb) continue;
+      for (const g of applicableGames(catalog, placement, nb, nearCP)) {
+        if (!seen.has(g.id)) {
+          seen.add(g.id);
+          out.push(g);
+        }
+      }
+    }
+  }
+  return out;
+}
+
 export interface WeeklyPlan {
   games: Game[];
   prompts: string[]; // 7, one per day
@@ -75,7 +113,16 @@ export function buildWeeklyPlan(args: {
   const { catalog, deck, placement, band, nearCP = false, seed } = args;
   const recent = new Set(args.recentGameIds ?? []);
   const applicable = applicableGames(catalog, placement, band, nearCP);
-  const ordered = seededOrder(applicable, (g) => g.id, seed);
+  // A rung×band cell can be thin or empty (a four-year-old pre-knower is
+  // rare but real, and low-confidence reads route one rung lower). In-band
+  // games always come first; neighbors only ever fill the gap to 3.
+  const backfill =
+    applicable.length < 3
+      ? neighborBandGames(catalog, placement, band, nearCP).filter(
+          (g) => !applicable.some((a) => a.id === g.id),
+        )
+      : [];
+  const ordered = [...seededOrder(applicable, (g) => g.id, seed), ...backfill];
 
   const fresh = ordered.filter((g) => !recent.has(g.id));
   const chosen = [...fresh];

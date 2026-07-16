@@ -35,10 +35,10 @@ describe("applicable games", () => {
   it("every rung×band cell the routing can hit has >=3 applicable games", () => {
     // Mirrors the cert coverage map so a plan can always be filled.
     const cells: [string, string[]][] = [
-      ["L0", ["24-30m", "30-36m", "36-42m"]],
-      ["L1", ["24-30m", "30-36m", "36-42m"]],
-      ["L2", ["30-36m", "36-42m", "42-48m"]],
-      ["L3", ["36-42m", "42-48m"]],
+      ["L0", ["24-30m", "30-36m", "36-42m", "42-48m", "48-60m"]],
+      ["L1", ["24-30m", "30-36m", "36-42m", "42-48m", "48-60m"]],
+      ["L2", ["30-36m", "36-42m", "42-48m", "48-60m"]],
+      ["L3", ["30-36m", "36-42m", "42-48m", "48-60m"]],
       ["L4", ["36-42m", "42-48m", "48-60m"]],
       ["CP", ["42-48m", "48-60m"]],
     ];
@@ -47,6 +47,50 @@ describe("applicable games", () => {
         const n = applicableGames(catalog, lvl as never, band as never).length;
         expect(n, `${lvl}×${band}`).toBeGreaterThanOrEqual(3);
       }
+    }
+  });
+});
+
+describe("plan totality", () => {
+  const BANDS = ["24-30m", "30-36m", "36-42m", "42-48m", "48-60m"] as const;
+  const PLACEMENTS = ["L0", "L1", "L2", "L3", "L4"] as const;
+
+  it("every placement×band serves a full 3-game, 7-prompt plan (neighbor backfill)", () => {
+    // The titration engine is age-blind, so every cell is reachable — a
+    // 27-month CP-knower and a 52-month pre-knower both deserve a real week.
+    for (const placement of PLACEMENTS) {
+      for (const band of BANDS) {
+        const plan = buildWeeklyPlan({
+          catalog,
+          deck,
+          placement,
+          band,
+          seed: `totality:${placement}:${band}`,
+        });
+        expect(plan.games, `${placement}×${band}`).toHaveLength(3);
+        expect(plan.prompts, `${placement}×${band}`).toHaveLength(7);
+        for (const g of plan.games) {
+          expect(g.levels, `${placement}×${band} game ${g.id}`).toContain(
+            placement,
+          );
+        }
+      }
+    }
+  });
+
+  it("in-band games always outrank neighbor-band backfill", () => {
+    // L4×30-36m has exactly one in-band game; it must lead the plan.
+    const inBand = applicableGames(catalog, "L4", "30-36m").map((g) => g.id);
+    expect(inBand.length).toBeGreaterThanOrEqual(1);
+    const plan = buildWeeklyPlan({
+      catalog,
+      deck,
+      placement: "L4",
+      band: "30-36m",
+      seed: "backfill-order:w1",
+    });
+    for (const id of inBand) {
+      expect(plan.games.map((g) => g.id)).toContain(id);
     }
   });
 });

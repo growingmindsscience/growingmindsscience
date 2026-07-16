@@ -49,7 +49,9 @@
       "age_bands": [
         "24-30m",
         "30-36m",
-        "36-42m"
+        "36-42m",
+        "42-48m",
+        "48-60m"
       ],
       "goal": "Attach number words to a body rhythm the child already loves",
       "materials": [],
@@ -118,7 +120,9 @@
       ],
       "age_bands": [
         "30-36m",
-        "36-42m"
+        "36-42m",
+        "42-48m",
+        "48-60m"
       ],
       "goal": "Notice and name tiny sets (one to three) in pictures and the world",
       "materials": [
@@ -156,7 +160,9 @@
       "age_bands": [
         "24-30m",
         "30-36m",
-        "36-42m"
+        "36-42m",
+        "42-48m",
+        "48-60m"
       ],
       "goal": "Soak everyday bath play in number and amount words",
       "materials": [
@@ -228,7 +234,9 @@
       "age_bands": [
         "24-30m",
         "30-36m",
-        "36-42m"
+        "36-42m",
+        "42-48m",
+        "48-60m"
       ],
       "goal": "Feel small quantities as rhythm before naming them",
       "materials": [],
@@ -263,7 +271,9 @@
       "age_bands": [
         "24-30m",
         "30-36m",
-        "36-42m"
+        "36-42m",
+        "42-48m",
+        "48-60m"
       ],
       "goal": "One-at-a-time handling with a number word glued to each toss",
       "materials": [
@@ -339,7 +349,8 @@
       "age_bands": [
         "30-36m",
         "36-42m",
-        "42-48m"
+        "42-48m",
+        "48-60m"
       ],
       "goal": "Map small number words onto exact sets by matching plates",
       "materials": [
@@ -381,7 +392,8 @@
       "age_bands": [
         "30-36m",
         "36-42m",
-        "42-48m"
+        "42-48m",
+        "48-60m"
       ],
       "goal": "Practice giving exact tiny amounts with a very forgiving customer",
       "materials": [
@@ -533,7 +545,8 @@
       "age_bands": [
         "30-36m",
         "36-42m",
-        "42-48m"
+        "42-48m",
+        "48-60m"
       ],
       "goal": "Build sets of exactly two, over and over, until two feels solid",
       "materials": [
@@ -572,7 +585,8 @@
       "age_bands": [
         "30-36m",
         "36-42m",
-        "42-48m"
+        "42-48m",
+        "48-60m"
       ],
       "goal": "Find twos everywhere: pairs are the world's favorite set",
       "materials": [
@@ -610,7 +624,8 @@
       "age_bands": [
         "30-36m",
         "36-42m",
-        "42-48m"
+        "42-48m",
+        "48-60m"
       ],
       "goal": "Load exact small cargoes on request, then stretch to three",
       "materials": [
@@ -649,7 +664,8 @@
       ],
       "age_bands": [
         "36-42m",
-        "42-48m"
+        "42-48m",
+        "48-60m"
       ],
       "goal": "Set the table with exact counts: real job, real sets",
       "materials": [
@@ -689,7 +705,8 @@
       "age_bands": [
         "30-36m",
         "36-42m",
-        "42-48m"
+        "42-48m",
+        "48-60m"
       ],
       "goal": "Deal a snack into fair little sets and name what each person got",
       "materials": [
@@ -728,7 +745,8 @@
       "age_bands": [
         "30-36m",
         "36-42m",
-        "42-48m"
+        "42-48m",
+        "48-60m"
       ],
       "goal": "Match and count tiny sets inside a chore you had to do anyway",
       "materials": [
