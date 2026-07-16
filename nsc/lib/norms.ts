@@ -5,14 +5,17 @@ import { RUNG_LABEL } from "@/lib/labels";
  * Age-referenced typical ranges for knower-levels — the "where does this sit
  * for their age" metric.
  *
- * Sources are the same cross-sectional Give-N literature the evidence page
- * already cites (ev.knower.lecorre2007, ev.knower.sarnecka2008,
- * ev.given.wynn1990): one-knowers emerge in the mid-twos, subset knowers
- * (1–3) dominate the threes, and the cardinal principle typically lands
- * between about 3½ and 4½. The bands below are deliberately WIDE — they
- * describe roughly the middle half of published samples, not cutoffs — and
- * every consuming surface must keep the framing calm: a range is a map,
- * never a race, and "earlier side" is common and workable, not a deficit.
+ * Sources: the Give-N literature the evidence page already cites
+ * (ev.given.wynn1990, ev.knower.lecorre2007, ev.knower.sarnecka2008), plus
+ * two band-boundary anchors not yet in the certified citations artifact —
+ * Sarnecka & Lee (2009, J. Exp. Child Psych., knower-level ages) and
+ * Geary & vanMarle (2018, Dev. Psych., longitudinal CP-acquisition ages,
+ * N=197). If bands are ever surfaced on /evidence, those two need the
+ * compile + cert pass first. Per-band anchors are documented on the table
+ * below. The bands are deliberately WIDE — they describe roughly the
+ * middle span of published samples, not cutoffs — and every consuming
+ * surface must keep the framing calm: a range is a map, never a race, and
+ * "earlier side" is common and workable, not a deficit.
  *
  * Pure module: no I/O, importable from client components.
  */
@@ -38,14 +41,34 @@ const RANK: Record<Placement, number> = {
  * months < each row's `upTo` → that row (rows are contiguous from 24).
  * Lows and highs are both monotone non-decreasing so a child who simply
  * gets older never "loses ground" against the range by table artifact.
+ *
+ * Empirical anchors per band (all English-language Give-N samples):
+ * - 24–29m: most toddlers are pre-knowers; one-knowers emerge — "one" is
+ *   learned around 2½ on average (Wynn 1990/92; Silver et al. 2021).
+ * - 30–35m: "one" lands ~2½ on average, so pre-knowers are still common
+ *   here (hence the L0 floor); "two" follows ~4–5 months after "one"
+ *   (Wynn 1992; Sarnecka & Lee 2009).
+ * - 36–41m: subset knowers (1–3) dominate the early threes; "three" takes
+ *   several months more than "two" (Sarnecka & Lee 2009).
+ * - 42–47m: CP arrives here for many in high-SES lab samples (Le Corre &
+ *   Carey 2007, CP mean ≈ 3;7) but 1-knowers through CP-knowers are ALL
+ *   still present at 46 months in that same study — the reason this band,
+ *   and every band, stays wide.
+ * - 48–53m: in a broader longitudinal sample only 28% were CP at 3;11 and
+ *   ~48% by 4;3 (Geary & vanMarle 2018, N=197), so mid subset-knowers
+ *   remain within typical through four.
+ * - 54m+: 77% CP by 4;9 and 91% by 5;1 in the same sample — below L4 at
+ *   this age is genuinely the earlier side.
+ * Broad-population samples run later than university-lab samples, so the
+ * bands lean toward the wider (later) estimates on purpose.
  */
 const NORMS: { upTo: number; low: Placement; high: Placement }[] = [
-  { upTo: 30, low: "L0", high: "L1" }, // 24–29m: pre- and one-knowers
-  { upTo: 36, low: "L1", high: "L2" }, // 30–35m: one- and two-knowers
-  { upTo: 42, low: "L1", high: "L3" }, // 36–41m: subset knowers spread out
-  { upTo: 48, low: "L2", high: "CP" }, // 42–47m: CP typically arriving
-  { upTo: 54, low: "L3", high: "CP" }, // 48–53m: most at CP or its doorstep
-  { upTo: Infinity, low: "L4", high: "CP" }, // 54m+: CP expected soon
+  { upTo: 30, low: "L0", high: "L1" }, // 24–29m
+  { upTo: 36, low: "L0", high: "L2" }, // 30–35m
+  { upTo: 42, low: "L1", high: "L3" }, // 36–41m
+  { upTo: 48, low: "L2", high: "CP" }, // 42–47m
+  { upTo: 54, low: "L3", high: "CP" }, // 48–53m
+  { upTo: Infinity, low: "L4", high: "CP" }, // 54m+
 ];
 
 export const MIN_NORMS_MONTHS = 24;

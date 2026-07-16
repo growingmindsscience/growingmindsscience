@@ -63,10 +63,20 @@ describe("standingForAge", () => {
     }
   });
 
-  it("spot checks: CP at 2 is ahead, L0 at 4 is earlier, L1 at 26m is typical", () => {
+  it("spot checks anchored to the literature", () => {
     expect(standingForAge(25, "CP")).toBe("ahead");
     expect(standingForAge(50, "L0")).toBe("earlier");
     expect(standingForAge(26, "L1")).toBe("typical");
+    // "one" is learned ~2½ on average, so a young-threes pre-knower is
+    // typical at 32m and only reads "earlier" past three.
+    expect(standingForAge(32, "L0")).toBe("typical");
+    expect(standingForAge(38, "L0")).toBe("earlier");
+    // Only 28% are CP at 3;11 (Geary & vanMarle 2018): a 46m three-knower
+    // is typical, and CP at 44m is within range, not "ahead".
+    expect(standingForAge(46, "L3")).toBe("typical");
+    expect(standingForAge(44, "CP")).toBe("typical");
+    // 77% CP by 4;9: an L3 read at 57m is the earlier side.
+    expect(standingForAge(57, "L3")).toBe("earlier");
   });
 });
 

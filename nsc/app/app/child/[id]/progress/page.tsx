@@ -77,15 +77,19 @@ export default async function ProgressPage({
     : null;
 
   // Practice rhythm: distinct weeks with at least one logged game, last six.
+  // A 42-day window can graze 7 partial ISO weeks, so cap at 6.
   const sixWeeksAgo = now.getTime() - 42 * 86400000;
-  const weeksPlayed = new Set(
-    (plays ?? [])
-      .filter((p) => new Date(p.played_at).getTime() >= sixWeeksAgo)
-      .map((p) => {
-        const { year, week } = isoWeek(new Date(p.played_at));
-        return `${year}-W${week}`;
-      }),
-  ).size;
+  const weeksPlayed = Math.min(
+    6,
+    new Set(
+      (plays ?? [])
+        .filter((p) => new Date(p.played_at).getTime() >= sixWeeksAgo)
+        .map((p) => {
+          const { year, week } = isoWeek(new Date(p.played_at));
+          return `${year}-W${week}`;
+        }),
+    ).size,
+  );
 
   // Most-loved game — the reaction log doubles as a "what works" signal.
   const lovedCounts = new Map<string, number>();
@@ -188,7 +192,11 @@ export default async function ProgressPage({
           </p>
         </Card>
         <Card className="text-center">
-          <p className="text-3xl font-bold text-teal">{weeksPlayed} of 6</p>
+          {/* "0 of 6" would read as a failing score to a brand-new family —
+              the rhythm stat only appears once there's a rhythm to show. */}
+          <p className="text-3xl font-bold text-teal">
+            {(plays?.length ?? 0) > 0 ? `${weeksPlayed} of 6` : "—"}
+          </p>
           <p className="text-sm text-teal-soft">recent weeks with play</p>
         </Card>
       </section>
