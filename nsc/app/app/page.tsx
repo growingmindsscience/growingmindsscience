@@ -6,7 +6,8 @@ import { Card, LinkButton } from "@/components/ui";
 import { brand } from "@/lib/config/brand";
 import { RUNG_LABEL } from "@/lib/labels";
 import { nextCheckin, shortDate } from "@/lib/checkin";
-import { RESUME_WINDOW_MS } from "@/lib/age";
+import { ageInMonths, RESUME_WINDOW_MS } from "@/lib/age";
+import { formatAge } from "@/lib/norms";
 
 export default async function AppHome() {
   const user = await requireAuth();
@@ -87,10 +88,23 @@ export default async function AppHome() {
             <Card key={c.id}>
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <h2 className="text-lg font-semibold text-ink-deep">{c.nickname}</h2>
+                  <div className="flex items-baseline gap-2">
+                    <h2 className="text-lg font-semibold text-ink-deep">{c.nickname}</h2>
+                    <span className="text-xs text-teal-soft">
+                      {formatAge(ageInMonths(String(c.birth_month).slice(0, 7), now))}
+                    </span>
+                  </div>
                   {latest?.status === "complete" && rung ? (
                     <>
-                      <p className="text-sm text-teal-soft">On the ladder: {rung}</p>
+                      <p className="text-sm text-teal-soft">
+                        On the ladder: {rung} ·{" "}
+                        <Link
+                          href={`/app/child/${c.id}/progress`}
+                          className="underline"
+                        >
+                          progress
+                        </Link>
+                      </p>
                       {checkin?.ready ? (
                         <p className="mt-1 text-sm font-semibold text-teal">
                           Time for the next check-in — see where things stand.{" "}

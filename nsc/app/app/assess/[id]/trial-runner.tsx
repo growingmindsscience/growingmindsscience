@@ -10,6 +10,7 @@ import { stepView } from "@/lib/assessment";
 import type { AssessmentCopy } from "@/lib/content-types";
 import { interpolate } from "@/lib/assessment";
 import { getResult, type Outcome, type Placement, type TitrationState } from "@/lib/titration";
+import { standingSummary } from "@/lib/norms";
 import { flagOffDay, pauseAssessment, recordOutcome, startPointAndSeek } from "../actions";
 
 const NUMWORDS = ["zero", "one", "two", "three", "four", "five", "six"];
@@ -26,6 +27,7 @@ export function TrialRunner({
   objects,
   resumed,
   prevPlacement = null,
+  ageMonths = null,
   otherNumberLanguage = false,
   audioIds = [],
 }: {
@@ -37,6 +39,7 @@ export function TrialRunner({
   objects: string;
   resumed: boolean;
   prevPlacement?: Placement | null;
+  ageMonths?: number | null;
   otherNumberLanguage?: boolean;
   audioIds?: string[];
 }) {
@@ -135,6 +138,17 @@ export function TrialRunner({
 
   if (view.kind === "done") {
     const result = getResult(state);
+    // "For their age" — one warm sentence against the published typical
+    // range. The over-time version of this lives on the progress page.
+    const ageSummary =
+      ageMonths != null && view.placement != null
+        ? standingSummary({
+            months: ageMonths,
+            placement: view.placement,
+            name: childName,
+            confidence: result?.confidence,
+          })
+        : null;
     const delta =
       prevPlacement != null && view.placement != null
         ? (RANK[view.placement] ?? 0) - (RANK[prevPlacement] ?? 0)
@@ -183,6 +197,28 @@ export function TrialRunner({
                   the check-in again in a week or two if you&rsquo;re curious.
                 </>
               )}
+            </p>
+          </Card>
+        )}
+        {ageSummary && (
+          <Card className="bg-rung-glow/40">
+            <p className="text-sm leading-relaxed text-ink">
+              <span className="font-semibold text-ink-deep">
+                {ageSummary.headline}
+              </span>{" "}
+              {ageSummary.detail}
+            </p>
+            {ageSummary.caveat && (
+              <p className="mt-2 text-xs text-teal-soft">{ageSummary.caveat}</p>
+            )}
+            <p className="mt-2 text-xs text-teal-soft">
+              Typical ranges are wide — a map, never a race.{" "}
+              <Link
+                href={`/app/child/${childId}/progress`}
+                className="font-semibold underline"
+              >
+                Watch it over time →
+              </Link>
             </p>
           </Card>
         )}

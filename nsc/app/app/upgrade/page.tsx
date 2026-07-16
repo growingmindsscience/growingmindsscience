@@ -11,6 +11,7 @@ const INCLUDED = [
   "Every game matched to your child's exact rung",
   "A fresh number-talk prompt every day",
   "Re-check-ins as they climb the ladder",
+  "Where they sit in the typical range for their age — and how it moves",
   "The printable pack: board game, dot cards, ladder poster",
 ];
 
