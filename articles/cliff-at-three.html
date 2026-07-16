@@ -63,6 +63,15 @@
     .sources-panel { margin-top: var(--space-10); }
     .sources-panel ul { margin-bottom: 0; }
     .article-cta { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+    .article-figure { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-6); margin: var(--space-8) 0; }
+    .article-figure svg { display: block; width: 100%; height: auto; }
+    .article-figure figcaption { color: var(--ink-muted); font-size: var(--text-sm); line-height: 1.6; margin-top: var(--space-4); }
+    .figure-steps { display: grid; gap: var(--space-5); margin: 0; padding: 0; list-style: none; }
+    .figure-steps li { display: grid; grid-template-columns: 44px 1fr; gap: var(--space-4); align-items: start; }
+    .figure-step__num { display: grid; place-items: center; width: 44px; height: 44px; border: 2px solid var(--primary); border-radius: 999px; color: var(--primary); background: var(--bg-alt); font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+    .figure-steps h4 { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); }
+    .figure-steps p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
+    .figure-foot { margin: var(--space-5) 0 0; padding-top: var(--space-4); border-top: 1px dashed var(--border-soft); color: var(--accent-brown); font-style: italic; font-size: var(--text-md); }
     @media (max-width: 920px) {
       .article-layout, .translation-grid { grid-template-columns: 1fr; }
       .article-cta { flex-direction: column; align-items: stretch; }
@@ -234,6 +243,31 @@
           <h2 id="what-to-do">What to actually do: a timeline working back from the birthday</h2>
 
           <p>This is the part to screenshot. None of it requires you to become an expert or a lawyer. It's a handful of specific questions, asked early, in writing where you can. Working backward from the third birthday:</p>
+
+          <figure class="article-figure">
+            <p class="article-kicker" style="margin-bottom: var(--space-4);">The transition timeline</p>
+            <svg viewBox="0 0 720 232" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Timeline working backward from the third birthday: around nine months before, transition planning can begin; at least 90 days before, the transition conference must be held and the plan written; by the third birthday itself, an eligible child's IEP must be in place.">
+              <line x1="40" y1="140" x2="680" y2="140" stroke="var(--ink-muted)" stroke-opacity=".55" stroke-width="2" />
+              <polygon points="678,133 694,140 678,147" fill="var(--ink-muted)" fill-opacity=".7" />
+              <rect x="80" y="133" width="373" height="14" rx="7" fill="var(--primary)" fill-opacity=".18" />
+              <text x="266" y="122" text-anchor="middle" font-family="var(--font-display)" font-size="13" fill="var(--ink-soft)">transition plan is written in this window</text>
+              <line x1="80" y1="98" x2="80" y2="126" stroke="var(--ink-muted)" stroke-opacity=".35" stroke-width="1.5" />
+              <circle cx="80" cy="140" r="9" fill="var(--surface)" stroke="var(--primary)" stroke-width="3" />
+              <text x="80" y="52" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="16" fill="var(--ink)">~9 months before</text>
+              <text x="80" y="73" text-anchor="middle" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">transition planning</text>
+              <text x="80" y="91" text-anchor="middle" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">can begin</text>
+              <circle cx="453" cy="140" r="9" fill="var(--surface)" stroke="var(--primary)" stroke-width="3" />
+              <text x="453" y="176" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="16" fill="var(--ink)">at least 90 days before</text>
+              <text x="453" y="197" text-anchor="middle" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">transition conference held;</text>
+              <text x="453" y="215" text-anchor="middle" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">plan written into the IFSP</text>
+              <line x1="640" y1="98" x2="640" y2="124" stroke="var(--warm)" stroke-opacity=".5" stroke-width="1.5" />
+              <circle cx="640" cy="140" r="11" fill="var(--warm)" />
+              <text x="700" y="52" text-anchor="end" font-family="var(--font-display)" font-weight="600" font-size="17" fill="var(--accent-brown)">the 3rd birthday</text>
+              <text x="700" y="73" text-anchor="end" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">IEP must be in place —</text>
+              <text x="700" y="91" text-anchor="end" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">the deadline, not the start</text>
+            </svg>
+            <figcaption>The federal timeline runs backward from the birthday: planning can start nine months out, the transition conference must happen at least 90 days out, and an eligible child's IEP must be in place the day they turn three.</figcaption>
+          </figure>
 
           <div class="checklist">
             <h3>The backward-from-the-birthday checklist</h3>

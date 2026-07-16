@@ -53,6 +53,15 @@
     .sources-panel { margin-top: var(--space-10); }
     .sources-panel ul { margin-bottom: 0; }
     .article-cta { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+    .article-figure { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-6); margin: var(--space-8) 0; }
+    .article-figure svg { display: block; width: 100%; height: auto; }
+    .article-figure figcaption { color: var(--ink-muted); font-size: var(--text-sm); line-height: 1.6; margin-top: var(--space-4); }
+    .figure-steps { display: grid; gap: var(--space-5); margin: 0; padding: 0; list-style: none; }
+    .figure-steps li { display: grid; grid-template-columns: 44px 1fr; gap: var(--space-4); align-items: start; }
+    .figure-step__num { display: grid; place-items: center; width: 44px; height: 44px; border: 2px solid var(--primary); border-radius: 999px; color: var(--primary); background: var(--bg-alt); font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+    .figure-steps h4 { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); }
+    .figure-steps p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
+    .figure-foot { margin: var(--space-5) 0 0; padding-top: var(--space-4); border-top: 1px dashed var(--border-soft); color: var(--accent-brown); font-style: italic; font-size: var(--text-md); }
     @media (max-width: 920px) {
       .article-layout, .translation-grid { grid-template-columns: 1fr; }
       .article-cta { flex-direction: column; align-items: stretch; }
@@ -135,6 +144,33 @@
           <p>And then something bigger happens. Somewhere around three or four, most children make a leap that researchers call the <strong>cardinal principle</strong> discovery: they suddenly grasp that counting itself is the tool that answers &ldquo;how many.&rdquo; They understand that the last word you say when you count a set tells you the size of the whole set, and that this works for any number, not just the few they had memorized. A child who reaches this insight is often called a &ldquo;cardinal-principle knower,&rdquo; and from there, counting becomes genuinely useful to them rather than a recitation.</p>
 
           <p>The clever part is how anyone figured this out. The standard tool is a task the psychologist Karen Wynn introduced around 1990, usually called Give-N, or &ldquo;give a number.&rdquo; A researcher sits with a child and a pile of small objects and simply asks: &ldquo;Can you give me three?&rdquo; What the child does next is the data. The one-knower gives a fistful. The three-knower carefully counts out three. That single, low-key request quietly reveals which rung of the ladder the child is standing on. Later work, notably by Mathieu Le Corre and Susan Carey in 2007, mapped the knower levels in detail and showed that the jump to the cardinal principle is a real conceptual change, not just more of the same memorizing.</p>
+
+          <figure class="article-figure">
+            <p class="article-kicker" style="margin-bottom: var(--space-4);">The knower levels</p>
+            <svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A staircase showing the knower levels children climb: one-knower, two-knower, three-knower, four-knower, and at the top the cardinal-principle discovery, when counting itself starts to answer 'how many'.">
+              <text x="560" y="18" text-anchor="middle" font-family="var(--font-body)" font-style="italic" font-size="13.5" fill="var(--accent-brown)">the leap: a real conceptual change</text>
+              <path d="M 500 84 Q 566 30 620 34" fill="none" stroke="var(--warm)" stroke-width="2" stroke-dasharray="5 4" />
+              <polygon points="614,28 628,35 616,43" fill="var(--warm)" />
+              <rect x="15" y="248" width="138" height="52" rx="4" fill="var(--primary)" fill-opacity=".12" stroke="var(--primary)" stroke-opacity=".55" stroke-width="1.5" />
+              <text x="84" y="272" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="15.5" fill="var(--ink)">One-knower</text>
+              <text x="84" y="291" text-anchor="middle" font-family="var(--font-display)" font-size="12.5" fill="var(--ink-soft)">hands you exactly 1</text>
+              <rect x="153" y="196" width="138" height="104" rx="4" fill="var(--primary)" fill-opacity=".12" stroke="var(--primary)" stroke-opacity=".55" stroke-width="1.5" />
+              <text x="222" y="220" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="15.5" fill="var(--ink)">Two-knower</text>
+              <text x="222" y="239" text-anchor="middle" font-family="var(--font-display)" font-size="12.5" fill="var(--ink-soft)">1 and 2 are reliable</text>
+              <rect x="291" y="144" width="138" height="156" rx="4" fill="var(--primary)" fill-opacity=".12" stroke="var(--primary)" stroke-opacity=".55" stroke-width="1.5" />
+              <text x="360" y="168" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="15.5" fill="var(--ink)">Three-knower</text>
+              <text x="360" y="187" text-anchor="middle" font-family="var(--font-display)" font-size="12.5" fill="var(--ink-soft)">1 through 3 are secure</text>
+              <rect x="429" y="92" width="138" height="208" rx="4" fill="var(--primary)" fill-opacity=".12" stroke="var(--primary)" stroke-opacity=".55" stroke-width="1.5" />
+              <text x="498" y="116" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="15.5" fill="var(--ink)">Four-knower</text>
+              <text x="498" y="135" text-anchor="middle" font-family="var(--font-display)" font-size="12.5" fill="var(--ink-soft)">4 joins the list</text>
+              <rect x="567" y="40" width="138" height="260" rx="4" fill="var(--warm)" fill-opacity=".16" stroke="var(--warm)" stroke-opacity=".7" stroke-width="1.5" />
+              <text x="636" y="64" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="15" fill="var(--ink)">Cardinal principle</text>
+              <text x="636" y="83" text-anchor="middle" font-family="var(--font-display)" font-size="12.5" fill="var(--ink-soft)">counting answers</text>
+              <text x="636" y="99" text-anchor="middle" font-family="var(--font-display)" font-size="12.5" fill="var(--ink-soft)">&#8220;how many&#8221;</text>
+              <line x1="15" y1="300" x2="705" y2="300" stroke="var(--border-soft)" stroke-width="2" />
+            </svg>
+            <figcaption>Children become &ldquo;knowers&rdquo; one number at a time, and each rung can last for months. The jump at the top &mdash; discovering that the last word counted names the size of the whole set &mdash; is the moment counting becomes a tool rather than a recitation.</figcaption>
+          </figure>
 
           <h2 id="why-the-rung-matters">Why knowing the rung matters</h2>
 

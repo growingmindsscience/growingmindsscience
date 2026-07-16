@@ -53,6 +53,15 @@
     .sources-panel { margin-top: var(--space-10); }
     .sources-panel ul { margin-bottom: 0; }
     .article-cta { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+    .article-figure { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-6); margin: var(--space-8) 0; }
+    .article-figure svg { display: block; width: 100%; height: auto; }
+    .article-figure figcaption { color: var(--ink-muted); font-size: var(--text-sm); line-height: 1.6; margin-top: var(--space-4); }
+    .figure-steps { display: grid; gap: var(--space-5); margin: 0; padding: 0; list-style: none; }
+    .figure-steps li { display: grid; grid-template-columns: 44px 1fr; gap: var(--space-4); align-items: start; }
+    .figure-step__num { display: grid; place-items: center; width: 44px; height: 44px; border: 2px solid var(--primary); border-radius: 999px; color: var(--primary); background: var(--bg-alt); font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+    .figure-steps h4 { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); }
+    .figure-steps p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
+    .figure-foot { margin: var(--space-5) 0 0; padding-top: var(--space-4); border-top: 1px dashed var(--border-soft); color: var(--accent-brown); font-style: italic; font-size: var(--text-md); }
     @media (max-width: 920px) {
       .article-layout, .translation-grid { grid-template-columns: 1fr; }
       .article-cta { flex-direction: column; align-items: stretch; }
@@ -139,6 +148,38 @@
           <p>The return isn't just any adult talk; it's connected. The adult notices the child's focus and responds to it: "You saw the dog. He is running fast." Or, "You want me to open this. It is stuck." Or, sometimes, no big language lesson at all: a nod, a hug, a pause, a shared look.</p>
 
           <p>Harvard's Center on the Developing Child describes serve and return as contingent, reciprocal interaction: a back-and-forth exchange where the adult response is linked to the child's signal. That contingent part matters. It means the adult is not simply broadcasting language into the room. The adult is responding to the child in front of them.</p>
+
+          <figure class="article-figure">
+            <p class="article-kicker" style="margin-bottom: var(--space-4);">The loop</p>
+            <svg viewBox="0 0 720 345" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A circular loop with four beats: the child serves with a babble, a point, or a look; you return it in the same neighborhood of their attention; you add a little, one new word rather than a lecture; then you wait, leaving space for the child's next turn — and the loop begins again.">
+              <defs>
+                <marker id="sr-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+                  <path d="M0 0 L10 5 L0 10 z" fill="var(--primary)" />
+                </marker>
+              </defs>
+              <path d="M 376.5 86.4 A 95 95 0 0 1 453.6 163.5" fill="none" stroke="var(--primary)" stroke-width="2.5" marker-end="url(#sr-arrow)" />
+              <path d="M 453.6 196.5 A 95 95 0 0 1 376.5 273.6" fill="none" stroke="var(--primary)" stroke-width="2.5" marker-end="url(#sr-arrow)" />
+              <path d="M 343.5 273.6 A 95 95 0 0 1 266.4 196.5" fill="none" stroke="var(--primary)" stroke-width="2.5" marker-end="url(#sr-arrow)" />
+              <path d="M 266.4 163.5 A 95 95 0 0 1 343.5 86.4" fill="none" stroke="var(--primary)" stroke-width="2.5" marker-end="url(#sr-arrow)" />
+              <circle cx="360" cy="85" r="7" fill="var(--warm)" />
+              <circle cx="455" cy="180" r="7" fill="var(--primary)" />
+              <circle cx="360" cy="275" r="7" fill="var(--primary)" />
+              <circle cx="265" cy="180" r="7" fill="var(--primary)" />
+              <text x="360" y="38" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="16" fill="var(--ink)">1 &middot; The child serves</text>
+              <text x="360" y="58" text-anchor="middle" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">a babble, a point, a look toward the door</text>
+              <text x="478" y="160" font-family="var(--font-display)" font-weight="600" font-size="16" fill="var(--ink)">2 &middot; Return it</text>
+              <text x="478" y="180" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">in the same neighborhood:</text>
+              <text x="478" y="198" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">&#8220;You saw the dog.&#8221;</text>
+              <text x="360" y="308" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="16" fill="var(--ink)">3 &middot; Add a little</text>
+              <text x="360" y="328" text-anchor="middle" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">one new word, not a lecture</text>
+              <text x="242" y="160" text-anchor="end" font-family="var(--font-display)" font-weight="600" font-size="16" fill="var(--ink)">4 &middot; Wait</text>
+              <text x="242" y="180" text-anchor="end" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">leave space for</text>
+              <text x="242" y="198" text-anchor="end" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">their next turn</text>
+              <text x="360" y="172" text-anchor="middle" font-family="var(--font-body)" font-style="italic" font-size="15" fill="var(--accent-brown)">a responsive loop,</text>
+              <text x="360" y="193" text-anchor="middle" font-family="var(--font-body)" font-style="italic" font-size="15" fill="var(--accent-brown)">not a script</text>
+            </svg>
+            <figcaption>The return is connected to what the child is already attending to &mdash; and the wait matters as much as the words, because it hands the next turn back.</figcaption>
+          </figure>
 
           <p>Michael Tomasello's research on joint attention offers an early window into why contingency matters. When an adult follows a child's gaze or pointing gesture and names what the child is already attending to, vocabulary acquisition is measurably stronger than when an adult tries to redirect the child's attention elsewhere. The child has already initiated an interest. A return that connects to that initiative lands differently than language delivered independently of it.</p>
 
