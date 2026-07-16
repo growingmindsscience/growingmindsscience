@@ -21,6 +21,11 @@ Full app: assessment → placement → weekly plan → paywall → printables.
 - **App**: Next.js 15 App Router + Supabase (auth + Postgres, RLS per-user) +
   Stripe (one-time SKU). Content flow: `lib/content.server.ts` (certified load)
   → `lib/routing.ts` (placement → plan) → screens.
+- **Age-referenced standing** (`lib/norms.ts`): pure typical-range table from
+  the published Give-N literature (same studies the evidence page cites).
+  Powers the "for their age" metric on the Give-N readout and the progress
+  page (full detail is paid; free tier sees a teaser). Give-N reads only —
+  Point-and-Seek results are soft routing signals and are never compared.
 
 ## Data model (`supabase/migrations/0001_nsc_core.sql`, applied)
 

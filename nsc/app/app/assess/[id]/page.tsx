@@ -3,7 +3,7 @@ import { requireAuth } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { getAssessmentCopy } from "@/lib/content.server";
 import { getAudioIds } from "@/lib/audio.server";
-import { RESUME_WINDOW_MS } from "@/lib/age";
+import { ageInMonths, RESUME_WINDOW_MS } from "@/lib/age";
 import type { Placement, TitrationState } from "@/lib/titration";
 import type { PSState } from "@/lib/pointandseek";
 import { TrialRunner } from "./trial-runner";
@@ -39,10 +39,11 @@ export default async function AssessPage({
 
   const { data: child } = await supabase
     .from("nsc_children")
-    .select("nickname")
+    .select("nickname, birth_month")
     .eq("id", assessment.child_id)
     .single();
   if (!child) notFound();
+  const months = ageInMonths(String(child.birth_month).slice(0, 7), new Date());
 
   // Previous completed placement — lets the readout frame a re-run honestly
   // (held steady / climbed / read lower) instead of repeating itself.
@@ -91,6 +92,7 @@ export default async function AssessPage({
       objects="blocks"
       resumed={resumed}
       prevPlacement={prevPlacement}
+      ageMonths={months}
       otherNumberLanguage={numberLanguage}
       audioIds={audioIds}
     />

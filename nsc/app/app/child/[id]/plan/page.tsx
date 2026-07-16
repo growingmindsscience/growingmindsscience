@@ -129,7 +129,8 @@ export default async function PlanPage({
           <h2 className="text-lg font-semibold text-white">Unlock the full plan</h2>
           <p className="mt-2 text-sm text-sea-glass">
             Every game, every daily prompt, re-check-ins as {ctx.child.nickname}{" "}
-            climbs, and the printable pack. One payment, yours for good.
+            climbs, where they sit in the typical range for their age, and the
+            printable pack. One payment, yours for good.
           </p>
           <LinkButton href="/app/upgrade" className="mt-4 bg-white text-ink-deep hover:bg-sea-glass">
             See the price
@@ -175,7 +176,7 @@ export default async function PlanPage({
 
       <div className="flex flex-wrap justify-between gap-2 text-sm">
         <Link href={`/app/child/${id}/progress`} className="font-semibold text-teal underline">
-          See progress →
+          Progress &amp; where they stand →
         </Link>
         {full && (
           <Link href={`/app/child/${id}/printables`} className="font-semibold text-teal underline">
