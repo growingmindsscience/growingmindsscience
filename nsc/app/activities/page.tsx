@@ -59,12 +59,18 @@ export default async function ActivitiesPage({
           Simple things to do together, each with the developmental why spelled
           out, household materials, and a way to make it easier or harder.
         </p>
-        <p className="mt-3">
+        <p className="mt-3 flex flex-wrap gap-4">
           <Link
             href="/activities/today"
             className="text-sm font-semibold text-teal underline"
           >
             Today&rsquo;s 3 for your child →
+          </Link>
+          <Link
+            href="/activities/week"
+            className="text-sm font-semibold text-teal underline"
+          >
+            This week&rsquo;s plan →
           </Link>
         </p>
       </header>

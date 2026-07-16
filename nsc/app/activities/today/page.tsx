@@ -130,6 +130,14 @@ export default async function TodaysThreePage({
           Three picks for today, balanced across areas of development. Even one
           is a real day — no need to do them all.
         </p>
+        <p className="mt-2">
+          <Link
+            href="/activities/week"
+            className="text-sm font-semibold text-teal underline"
+          >
+            Plan the whole week instead →
+          </Link>
+        </p>
       </header>
 
       {error && (
