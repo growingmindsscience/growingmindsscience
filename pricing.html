@@ -3,526 +3,286 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Plans & Pricing — Growing Minds AI</title>
-  <meta name="description" content="Simple, honest plans for Growing Minds AI. Ask 5 developmental science questions free every day, or go unlimited with a class bundle or a $9/month subscription." />
-  <meta name="theme-color" content="#1E5F62" />
-
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Plans & Pricing — Growing Minds AI" />
-  <meta property="og:description" content="Start free. Go unlimited your way — with a class or a simple monthly subscription." />
-  <meta property="og:image" content="/assets/img/original-logo-mark-no-words-solid.png" />
-  <meta name="twitter:card" content="summary_large_image" />
+  <title>Plans &amp; Pricing — Growing Minds Science</title>
+  <meta name="description" content="Everything Growing Minds Science offers, in one place: free tools and articles, the $49 toddler class, unlimited Growing Minds AI for $9/month, and Number Path for $34." />
+  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="color-scheme" content="light dark" />
 
   <link rel="icon" type="image/png" href="/assets/img/original-logo-mark-no-words-512.png" />
   <link rel="apple-touch-icon" href="/assets/img/original-logo-mark-no-words-512.png" />
   <link rel="canonical" href="/pricing" />
 
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Plans &amp; Pricing — Growing Minds Science" />
+  <meta property="og:description" content="Start free. Add the class, the AI, or Number Path when you want more. No hidden fees, and the free tier stays free." />
+  <meta property="og:image" content="/assets/img/original-logo-mark-no-words-solid.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" rel="stylesheet" />
-
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <link rel="stylesheet" href="/assets/css/refresh.css" />
   <style>
-    /* ── Variables ─────────────────────────────────── */
-    :root {
-      --teal:        #1E5F62;
-      --teal-dark:   #15393C;
-      --teal-hover:  #185053;
-      --teal-light:  rgba(30,95,98,.08);
-      --amber:       #DE7356;
-      --amber-dark:  #A3492E;
-      --cream:       #F0F5F3;
-      --ink:         #15393C;
-      --ink-soft:    rgba(21,57,60,.72);
-      --ink-muted:   rgba(21,57,60,.55);
-      --blush:       #F8E7E0;
-      --white:       #ffffff;
-      --border:      rgba(21,57,60,.12);
-      --border-mid:  rgba(21,57,60,.18);
-    }
-
-    /* ── Reset ─────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-    body {
-      font-family: 'Source Serif 4', Georgia, serif;
-      font-size: 1rem; line-height: 1.7; color: var(--ink);
-      background: var(--cream);
-      -webkit-font-smoothing: antialiased;
-      display: flex; flex-direction: column; min-height: 100vh;
-    }
-    h1,h2,h3 { font-family: 'Bricolage Grotesque', Georgia, serif; letter-spacing: -.02em; line-height: 1.2; }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; height: auto; display: block; }
-    ul, ol { list-style: none; }
-    button { cursor: pointer; font-family: inherit; }
-
-    /* ── Layout ────────────────────────────────────── */
-    .container { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
-    .skip-link {
-      position: absolute; top: -100%; left: 1rem;
-      background: var(--ink); color: var(--white);
-      padding: .5rem 1rem; border-radius: 0 0 6px 6px; font-size: .875rem; z-index: 999;
-    }
-    .skip-link:focus { top: 0; }
-
-    /* ── Buttons ───────────────────────────────────── */
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: .375rem;
-      padding: .75rem 1.5rem; border-radius: 6px; border: 2px solid transparent;
-      font-family: inherit; font-weight: 500; font-size: .9375rem;
-      line-height: 1; white-space: nowrap;
-      transition: background .2s, color .2s, border-color .2s;
-    }
-    .btn--amber { background: var(--amber); color: var(--white); border-color: var(--amber); }
-    .btn--amber:hover { background: var(--amber-dark); border-color: var(--amber-dark); }
-    .btn--ghost { background: transparent; color: var(--teal); border-color: var(--teal); }
-    .btn--ghost:hover { background: var(--teal); color: var(--white); }
-
-    /* ── Nav ───────────────────────────────────────── */
-    .site-nav {
-      position: sticky; top: 0; z-index: 200;
-      background: var(--cream); border-bottom: 1px solid var(--border);
-    }
-    .site-nav__inner {
-      display: flex; align-items: center; justify-content: space-between;
-      height: 64px; gap: 1.5rem;
-    }
-    .site-nav__logo { display: flex; align-items: center; gap: .625rem; flex-shrink: 0; }
-    .site-nav__logo-mark {
-      width: 26px; height: 26px; border-radius: 50%;
-      background: var(--amber); overflow: hidden;
-    }
-    .site-nav__logo-mark img { width: 100%; height: 100%; object-fit: cover; }
-    .site-nav__logo-text {
-      font-family: 'Bricolage Grotesque', serif; font-weight: 600; font-size: .9375rem; letter-spacing: -.02em;
-    }
-    .site-nav__links { display: flex; align-items: center; gap: 1.75rem; }
-    .site-nav__links a { font-size: .9rem; color: var(--ink-soft); transition: color .2s; }
-    .site-nav__links a:hover, .site-nav__links a[aria-current] { color: var(--teal); }
-    .site-nav__toggle {
-      display: none; background: none; border: none;
-      flex-direction: column; gap: 5px; padding: .5rem;
-    }
-    .site-nav__toggle span { display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 2px; }
-    .site-nav__drawer {
-      display: none; flex-direction: column;
-      background: var(--cream); border-top: 1px solid var(--border);
-      padding: .5rem 0 1.25rem;
-    }
-    .site-nav__drawer.is-open { display: flex; }
-    .site-nav__drawer a { display: block; padding: .75rem 1.5rem; font-size: 1rem; color: var(--ink); }
-    .site-nav__drawer a:hover { background: var(--teal-light); }
-    .site-nav__drawer .btn { margin: .75rem 1.5rem 0; }
-
-    /* ── Page hero ─────────────────────────────────── */
-    .price-hero {
-      background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 100%);
-      padding: 3.5rem 0 3rem; text-align: center;
-    }
-    .price-hero__eyebrow {
-      display: inline-block; font-size: .6875rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .12em;
-      color: var(--amber); background: rgba(196,103,42,.18);
-      padding: .3rem .85rem; border-radius: 100px; margin-bottom: 1.125rem;
-    }
-    .price-hero h1 {
-      font-size: clamp(1.875rem, 4vw, 2.75rem); color: var(--white);
-      margin-bottom: .875rem;
-    }
-    .price-hero p {
-      font-size: 1.0625rem; color: rgba(255,255,255,.78);
-      max-width: 56ch; margin: 0 auto;
-    }
-
-    /* ── Pricing section ───────────────────────────── */
-    .pricing { padding: 4rem 0 5rem; }
-    .pricing__grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
-      max-width: 1000px; margin: 0 auto; align-items: stretch;
-    }
-    .price-card {
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: 16px; padding: 2.25rem 2rem; display: flex; flex-direction: column;
-      transition: box-shadow .25s, transform .2s;
-    }
-    .price-card:hover { box-shadow: 0 12px 40px rgba(26,23,20,.1); transform: translateY(-3px); }
-    .price-card--featured {
-      border-color: var(--teal); background: linear-gradient(160deg, var(--teal-dark) 0%, var(--teal) 100%);
-      position: relative;
-    }
-    .price-card__badge {
-      position: absolute; top: -.75rem; left: 50%; transform: translateX(-50%);
-      background: var(--amber); color: var(--white);
-      font-size: .6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
-      padding: .3rem .85rem; border-radius: 100px; white-space: nowrap;
-    }
-    .price-card__label {
-      font-size: .6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
-      color: var(--amber); margin-bottom: .75rem;
-    }
-    .price-card--featured .price-card__label { color: rgba(255,255,255,.85); }
-    .price-card__name {
-      font-family: 'Bricolage Grotesque', serif; font-size: 1.5rem; font-weight: 700;
-      color: var(--ink); margin-bottom: .375rem;
-    }
-    .price-card--featured .price-card__name { color: var(--white); }
-    .price-card__price {
-      font-size: 2.5rem; font-weight: 700; font-family: 'Bricolage Grotesque', serif;
-      color: var(--ink); line-height: 1; margin: .875rem 0;
-    }
-    .price-card--featured .price-card__price { color: var(--white); }
-    .price-card__price sup { font-size: 1.125rem; vertical-align: top; margin-top: .5rem; }
-    .price-card__price sub { font-size: .9375rem; font-weight: 400; color: var(--ink-muted); }
-    .price-card--featured .price-card__price sub { color: rgba(255,255,255,.6); }
-    .price-card__tagline { font-size: .9rem; color: var(--ink-soft); margin-bottom: 1.5rem; }
-    .price-card--featured .price-card__tagline { color: rgba(255,255,255,.74); }
-    .price-card__features { list-style: none; display: flex; flex-direction: column; gap: .75rem; flex: 1; }
-    .price-card__features li {
-      display: flex; gap: .625rem; font-size: .9rem; color: var(--ink-soft); align-items: flex-start;
-    }
-    .price-card--featured .price-card__features li { color: rgba(255,255,255,.82); }
-    .price-card__features li::before {
-      content: ''; width: 6px; height: 6px; border-radius: 50%;
-      background: var(--teal); flex-shrink: 0; margin-top: .55em;
-    }
-    .price-card--featured .price-card__features li::before { background: var(--amber); }
-    .price-card__cta { margin-top: 2rem; }
-    .price-card__cta a, .price-card__cta button {
-      display: block; width: 100%; text-align: center;
-      padding: .875rem; border-radius: 8px; font-weight: 600; font-size: .9375rem;
-      font-family: inherit; cursor: pointer; border: 2px solid transparent;
-      transition: background .2s, color .2s, border-color .2s;
-    }
-    .price-card__cta--teal a, .price-card__cta--teal button {
-      background: var(--teal); color: var(--white); border-color: var(--teal);
-    }
-    .price-card__cta--teal a:hover, .price-card__cta--teal button:hover {
-      background: var(--teal-hover); border-color: var(--teal-hover);
-    }
-    .price-card__cta--white a { background: var(--white); color: var(--teal); border-color: var(--white); }
-    .price-card__cta--white a:hover { background: var(--blush); }
-    .price-card__cta--ghost a {
-      background: transparent; color: var(--ink-soft); border-color: var(--border-mid);
-    }
-    .price-card__cta--ghost a:hover { border-color: var(--ink); color: var(--ink); }
-    .price-card__foot {
-      margin-top: .9rem; font-size: .8rem; text-align: center; color: var(--ink-muted);
-    }
-    .price-card__foot a { color: var(--teal); text-decoration: underline; text-underline-offset: 2px; }
-
-    .pricing__reassure {
-      max-width: 1000px; margin: 1.75rem auto 0; text-align: center;
-      font-size: .85rem; color: var(--ink-muted);
-    }
-
-    /* ── FAQ ───────────────────────────────────────── */
-    .faq { padding: 0 0 5rem; }
-    .faq__inner { max-width: 760px; margin: 0 auto; }
-    .faq__title {
-      text-align: center; font-size: clamp(1.5rem, 3vw, 2rem);
-      color: var(--ink); margin-bottom: 2rem;
-    }
-    .faq__item {
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: .875rem;
-    }
-    .faq__q { font-family: 'Bricolage Grotesque', serif; font-weight: 600; font-size: 1.0625rem; color: var(--ink); margin-bottom: .375rem; }
-    .faq__a { font-size: .9375rem; color: var(--ink-soft); }
-    .faq__a a { color: var(--teal); text-decoration: underline; text-underline-offset: 2px; }
-
-    /* ── Footer ────────────────────────────────────── */
-    .site-footer { background: var(--ink); padding-top: 3.5rem; margin-top: auto; }
-    .site-footer__main {
-      display: flex; justify-content: space-between; align-items: center;
-      gap: 2rem; padding-bottom: 2.5rem;
-      border-bottom: 1px solid rgba(255,255,255,.08); flex-wrap: wrap;
-    }
-    .footer-brand { display: flex; align-items: center; gap: .625rem; }
-    .footer-brand__mark { width: 26px; height: 26px; border-radius: 50%; background: var(--amber); overflow: hidden; }
-    .footer-brand__mark img { width: 100%; height: 100%; object-fit: cover; }
-    .footer-brand__name { font-family: 'Bricolage Grotesque', serif; font-weight: 600; font-size: .9375rem; color: var(--white); }
-    .footer-nav { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-    .footer-nav a { font-size: .875rem; color: rgba(255,255,255,.72); transition: color .2s; }
-    .footer-nav a:hover { color: var(--white); }
-    .site-footer__bottom {
-      display: flex; justify-content: space-between; padding: 1.25rem 0; flex-wrap: wrap; gap: .5rem;
-    }
-    .site-footer__bottom p { font-size: .8rem; color: rgba(255,255,255,.72); }
-
-    /* ── Responsive ────────────────────────────────── */
-    @media (max-width: 860px) {
-      .site-nav__links, .site-nav__cta { display: none; }
-      .site-nav__toggle { display: flex; }
-      .pricing__grid { grid-template-columns: 1fr; max-width: 460px; }
-      .price-card__badge { position: static; transform: none; display: inline-block; margin-bottom: 1rem; }
-      .site-footer__main { flex-direction: column; align-items: flex-start; }
-      .site-footer__bottom { flex-direction: column; }
-    }
-
-    [data-theme="dark"] {
-      --teal:        #6FBCAF;
-      --teal-dark:   #0F1A18;
-      --teal-hover:  #8FD0C4;
-      --teal-light:  rgba(111,188,175,.12);
-      --amber:       #E78D6F;
-      --amber-dark:  #E78D6F;
-      --cream:       #0F1A18;
-      --ink:         #E8EFEB;
-      --ink-soft:    rgba(232,239,235,.72);
-      --ink-muted:   rgba(232,239,235,.55);
-      --blush:       #2E211C;
-      --white:       #152421;
-      --border:      rgba(111,188,175,.14);
-      --border-mid:  rgba(111,188,175,.22);
-    }
-    [data-theme="dark"] body { background: var(--cream); color: var(--ink); }
-    [data-theme="dark"] .site-nav { background: rgba(15,26,24,.96); }
-    [data-theme="dark"] .price-card { background: #152421; border-color: var(--border-mid); }
-    [data-theme="dark"] .price-card--featured { background: linear-gradient(160deg, #1C3430 0%, #152421 100%); }
-    [data-theme="dark"] .faq__item { border-color: var(--border); }
-    [data-theme="dark"] .faq__answer { color: var(--ink-soft); }
-    [data-theme="dark"] .site-footer { background: #0A1F1E; border-color: var(--border); color: var(--ink-soft); }
+    /* Page-local: price line inside the shared product-card pattern. */
+    .price-figure { font-family: 'Bricolage Grotesque', Georgia, serif; font-size: 2rem; font-weight: 700; line-height: 1; }
+    .price-figure sub { font-size: .9rem; font-weight: 400; color: var(--ink-soft); vertical-align: baseline; }
   </style>
-  <script>try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 </head>
 <body>
-
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- NAV -->
-  <header class="site-nav">
-    <div class="container site-nav__inner">
-      <a class="site-nav__logo" href="/" aria-label="Growing Minds Science — home">
-        <div class="site-nav__logo-mark">
-          <img src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="26" height="26" loading="eager" decoding="async" />
-        </div>
-        <span class="site-nav__logo-text">Growing Minds Science</span>
+  <header class="site-header" role="banner">
+    <div class="container site-header__inner">
+      <a class="brand" href="/" aria-label="Growing Minds Science — home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+        <span class="brand__name">Growing Minds Science</span>
       </a>
 
-      <nav class="site-nav__links" aria-label="Primary">
-        <a href="/classes/">Classes</a>
-        <a href="/tools/">Tools</a>
-        <a href="/tools/growing-minds-ai.html">Growing Minds AI</a>
-        <a href="/articles/">Articles</a>
-        <a href="/about/">About</a>
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Toggle navigation menu">
+          <span class="nav-toggle__bars"><span></span></span>
+        </button>
+
+        <ul class="nav__list" id="primary-nav-list">
+          <li><a class="nav__link" href="/classes/">Classes</a></li>
+          <li><a class="nav__link" href="/nsc">Number Path</a></li>
+          <li><a class="nav__link" href="/tools/">Tools</a></li>
+          <li><a class="nav__link" href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
+          <li><a class="nav__link" href="/articles/">Articles</a></li>
+          <li><a class="nav__link" href="/about/">About</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a></li>
+        </ul>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
+          <svg class="theme-toggle__moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+        </button>
       </nav>
-
-      <a class="btn btn--amber site-nav__cta" href="/classes/toddlerhood.html" style="padding:.625rem 1.25rem; font-size:.875rem;">Enroll now</a>
-
-      <button class="site-nav__toggle" id="navToggle" aria-controls="navDrawer" aria-expanded="false" aria-label="Open navigation menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-    <div class="site-nav__drawer" id="navDrawer" aria-hidden="true" inert>
-      <a href="/classes/">Classes</a>
-      <a href="/tools/">Tools</a>
-      <a href="/tools/growing-minds-ai.html">Growing Minds AI</a>
-      <a href="/articles/">Articles</a>
-      <a href="/about/">About</a>
-      <a class="btn btn--amber" href="/classes/toddlerhood.html">Enroll now</a>
     </div>
   </header>
 
   <main id="main">
 
-    <!-- HERO -->
-    <section class="price-hero">
+    <section class="page-hero">
       <div class="container">
-        <span class="price-hero__eyebrow">Plans &amp; pricing</span>
-        <h1>Start free. Go unlimited your way.</h1>
-        <p>Ask five developmental science questions free every day — no account, no card. When you want more, a class or a simple monthly plan unlocks unlimited access.</p>
+        <div class="page-hero__copy" data-stagger>
+          <p class="eyebrow" data-animate>Plans &amp; pricing</p>
+          <h1 class="page-hero__title" data-animate>Start free. Add more when you want it.</h1>
+          <p class="page-hero__lede" data-animate>
+            The tools, articles, and milestone tracker are free, and Growing Minds AI
+            answers five questions a day with no account and no card. When you want
+            more, everything we sell is here, with the price stated plainly.
+          </p>
+        </div>
       </div>
     </section>
 
-    <!-- PLANS -->
-    <section class="pricing" aria-labelledby="plans-title">
-      <h2 id="plans-title" class="skip-link" style="position:static;">Plans</h2>
+    <section style="padding-top: 0;">
       <div class="container">
-        <div class="pricing__grid">
+        <div class="product-grid product-grid--featured-first" data-stagger>
 
-          <div class="price-card">
-            <p class="price-card__label">Always free</p>
-            <p class="price-card__name">Free</p>
-            <p class="price-card__price"><sup>$</sup>0</p>
-            <p class="price-card__tagline">5 questions per day · No account needed</p>
-            <ul class="price-card__features">
-              <li>5 developmental science questions daily</li>
-              <li>Full access to Growing Minds AI</li>
-              <li>Multi-turn conversation memory</li>
-              <li>Grounded in peer-reviewed research</li>
-              <li>Resets every day at midnight</li>
-            </ul>
-            <div class="price-card__cta price-card__cta--ghost">
-              <a href="/tools/growing-minds-ai.html">Start asking free →</a>
+          <!-- TODDLER CLASS — flagship -->
+          <article class="product-card product-card--featured" data-animate>
+            <div class="product-card__body">
+              <p class="product-card__status">
+                <span class="badge badge--open">Best value</span>
+                <span class="product-card__status-text">One payment · Lifetime access</span>
+              </p>
+              <h2 class="product-card__title">Toddler class bundle</h2>
+              <p class="price-figure">$49</p>
+              <p class="product-card__promise">
+                The full toddler class (5 modules, 29 lessons) plus unlimited
+                Growing Minds AI, included for life. One payment, no subscription.
+                Built for parents of children 1&ndash;3.
+              </p>
+              <p class="product-card__cta product-card__cta--row">
+                <a class="btn btn--primary" href="https://matthew-s-site-de0b.thinkific.com/products/courses/ToddlerYears" target="_blank" rel="noopener">Enroll now</a>
+                <a class="btn btn--ghost" href="/classes/toddlerhood.html">See class details</a>
+              </p>
             </div>
-          </div>
+          </article>
 
-          <div class="price-card price-card--featured">
-            <span class="price-card__badge">Best value</span>
-            <p class="price-card__label">Recommended</p>
-            <p class="price-card__name">Class bundle</p>
-            <p class="price-card__price"><sup>$</sup>49</p>
-            <p class="price-card__tagline">One payment · AI included free</p>
-            <ul class="price-card__features">
-              <li>Full toddler class (5 modules · 29 lessons)</li>
-              <li>Unlimited Growing Minds AI, included</li>
-              <li>Lifetime access to class and AI</li>
-              <li>Free milestone tracker</li>
-              <li>One payment of $49, no subscription</li>
-            </ul>
-            <div class="price-card__cta price-card__cta--white">
-              <a href="https://matthew-s-site-de0b.thinkific.com/products/courses/ToddlerYears" target="_blank" rel="noopener">Enroll now →</a>
+          <!-- FREE -->
+          <article class="product-card product-card--secondary" data-animate>
+            <div class="product-card__body">
+              <p class="product-card__status">
+                <span class="badge badge--soft">Always free</span>
+                <span class="product-card__status-text">No account · No card</span>
+              </p>
+              <h2 class="product-card__title">Free</h2>
+              <p class="price-figure">$0</p>
+              <p class="product-card__promise">
+                Eleven practical parent tools, eight research-backed articles, the
+                milestone tracker for the first three years, the Number Path counting
+                check-in, and five Growing Minds AI questions every day.
+              </p>
+              <p class="product-card__cta product-card__cta--row">
+                <a class="btn btn--primary" href="/tools/">Explore the free tools</a>
+                <a class="btn btn--ghost" href="/tools/growing-minds-ai.html">Ask the AI free</a>
+              </p>
             </div>
-          </div>
+          </article>
 
-          <div class="price-card">
-            <p class="price-card__label">No class needed</p>
-            <p class="price-card__name">AI Pro</p>
-            <p class="price-card__price"><sup>$</sup>9<sub>/mo</sub></p>
-            <p class="price-card__tagline">Unlimited access · Cancel anytime</p>
-            <ul class="price-card__features">
-              <li>Unlimited questions daily</li>
-              <li>No class purchase needed</li>
-              <li>Full conversation history</li>
-              <li>Priority updates and new features</li>
-              <li>Cancel anytime</li>
-            </ul>
-            <div class="price-card__cta price-card__cta--teal">
-              <a href="/api/create-checkout-session" id="subscribeBtn">Subscribe $9/mo →</a>
+          <!-- AI PRO -->
+          <article class="product-card product-card--secondary" data-animate>
+            <div class="product-card__body">
+              <p class="product-card__status">
+                <span class="badge badge--accent">Subscription</span>
+                <span class="product-card__status-text">Cancel anytime</span>
+              </p>
+              <h2 class="product-card__title">AI Pro</h2>
+              <p class="price-figure">$9<sub>/month</sub></p>
+              <p class="product-card__promise">
+                Unlimited Growing Minds AI questions, no class purchase needed.
+                Every answer grounded in the curated research library, with sources
+                shown. Month to month; you keep access through the period you paid for.
+              </p>
+              <p class="product-card__cta product-card__cta--row">
+                <a class="btn btn--primary" href="/api/create-checkout-session">Subscribe · $9/mo</a>
+                <a class="btn btn--ghost" href="/tools/growing-minds-ai.html?subscribed=1">Already subscribed?</a>
+              </p>
             </div>
-            <p class="price-card__foot">
-              Already subscribed? <a href="/tools/growing-minds-ai.html?subscribed=1">Sign in to unlock</a>
+          </article>
+
+          <!-- NUMBER PATH -->
+          <article class="product-card product-card--secondary" data-animate>
+            <div class="product-card__body">
+              <p class="product-card__status">
+                <span class="badge badge--accent">Early math</span>
+                <span class="product-card__status-text">Ages 2&ndash;5 · One payment</span>
+              </p>
+              <h2 class="product-card__title">Number Path</h2>
+              <p class="price-figure">$34</p>
+              <p class="product-card__promise">
+                The counting check-in is free to run. The full version adds your
+                child's spot on the counting ladder, three matched games a week, a
+                daily number-talk prompt, and a re-check every six weeks.
+              </p>
+              <p class="product-card__cta product-card__cta--row">
+                <a class="btn btn--primary" href="/nsc">Meet Number Path</a>
+                <a class="btn btn--ghost" href="/nsc/gift">Give it as a gift</a>
+              </p>
+            </div>
+          </article>
+
+        </div>
+
+        <p style="margin-top: var(--space-8); max-width: 60ch; color: var(--ink-soft);">
+          No hidden fees. Cancel any subscription in one click and keep access
+          through the period you paid for. The free tier stays free.
+        </p>
+      </div>
+    </section>
+
+    <section style="padding-top: 0;">
+      <div class="container container--narrow">
+        <h2 style="margin-bottom: var(--space-6);">Questions parents ask</h2>
+        <div class="faq">
+          <details>
+            <summary>What's the difference between the class bundle and AI Pro?</summary>
+            <p>
+              The class bundle is a one-time $49 payment that includes the full
+              toddler class <em>and</em> unlimited Growing Minds AI for life. AI Pro
+              is just the unlimited AI, billed monthly. If you have a toddler, the
+              bundle is the better deal; if you only want the AI, AI Pro is simpler.
             </p>
-          </div>
-
-        </div>
-        <div class="pricing__grid" style="grid-template-columns:1fr; max-width:460px; margin-top:1.5rem;">
-          <div class="price-card">
-            <p class="price-card__label">New &middot; Early math</p>
-            <p class="price-card__name">Number Path</p>
-            <p class="price-card__price"><sup>$</sup>34</p>
-            <p class="price-card__tagline">One payment &middot; Counting check-in + weekly plans</p>
-            <ul class="price-card__features">
-              <li>The Feed-the-Bear counting check-in &mdash; free to run (ages 2&ndash;5)</li>
-              <li>Your child's spot on the counting ladder, honestly framed</li>
-              <li>Three games a week matched to that spot</li>
-              <li>A daily number-talk prompt, zero prep</li>
-              <li>Re-run the check-in every six weeks, included</li>
-            </ul>
-            <div class="price-card__cta price-card__cta--teal">
-              <a href="/nsc">Meet Number Path &rarr;</a>
-            </div>
-          </div>
-        </div>
-        <p class="pricing__reassure">No hidden fees. Cancel any subscription in one click. The free tier stays free.</p>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="faq" aria-labelledby="faq-title">
-      <div class="faq__inner">
-        <h2 class="faq__title" id="faq-title">Questions parents ask</h2>
-
-        <div class="faq__item">
-          <p class="faq__q">What is Number Path?</p>
-          <p class="faq__a">A parent-run counting check-in for ages 2&ndash;5, plus weekly games and daily number talk matched to where your child is on the counting ladder. One payment of $34. It's an enrichment tool, not a medical or developmental screening.</p>
-        </div>
-
-        <div class="faq__item">
-          <p class="faq__q">Do I need an account to try it?</p>
-          <p class="faq__a">No. The free tier gives you five questions every day with no sign-up and no card. It resets each midnight.</p>
-        </div>
-
-        <div class="faq__item">
-          <p class="faq__q">Can I cancel the monthly plan anytime?</p>
-          <p class="faq__a">Yes. AI Pro is month-to-month and you can cancel in one click. You keep access through the end of the period you've paid for.</p>
-        </div>
-
-        <div class="faq__item">
-          <p class="faq__q">What's the difference between the class bundle and AI Pro?</p>
-          <p class="faq__a">The class bundle is a one-time $49 payment that includes the full toddler class <em>and</em> unlimited Growing Minds AI for life. AI Pro is just the unlimited AI, billed monthly — best if you don't need the class.</p>
-        </div>
-
-        <div class="faq__item">
-          <p class="faq__q">Is this medical advice?</p>
-          <p class="faq__a">No. Growing Minds AI explains developmental science in plain language. It does not diagnose, label, or replace your pediatrician, therapist, or other specialists. <a href="/about/">More about the tool</a>.</p>
-        </div>
-
-        <div class="faq__item">
-          <p class="faq__q">Is my conversation private?</p>
-          <p class="faq__a">Your conversation stays in your browser. We don't ask for personal details to use the free tier.</p>
-        </div>
-
-        <div style="text-align:center; margin-top:2rem;">
-          <a class="btn btn--ghost" href="/tools/growing-minds-ai.html">← Back to Growing Minds AI</a>
+          </details>
+          <details>
+            <summary>What is Number Path?</summary>
+            <p>
+              A parent-run counting check-in for ages 2&ndash;5, plus weekly games and
+              daily number talk matched to where your child is on the counting ladder.
+              The check-in itself is free; the full version is one payment of $34.
+              It's an enrichment tool, not a medical or developmental screening.
+            </p>
+          </details>
+          <details>
+            <summary>Do I need an account to try the AI?</summary>
+            <p>
+              No. The free tier gives you five questions every day with no sign-up
+              and no card. It resets each midnight.
+            </p>
+          </details>
+          <details>
+            <summary>Can I cancel the monthly plan anytime?</summary>
+            <p>
+              Yes. AI Pro is month to month and you can cancel in one click. You keep
+              access through the end of the period you've paid for.
+            </p>
+          </details>
+          <details>
+            <summary>I subscribed. How do I unlock unlimited access?</summary>
+            <p>
+              Right after checkout you're sent back to
+              <a href="/tools/growing-minds-ai.html">Growing Minds AI</a> and access
+              unlocks automatically. On a new device, open the
+              <a href="/tools/growing-minds-ai.html?subscribed=1">unlock panel</a>
+              and confirm the email you subscribed with.
+            </p>
+          </details>
+          <details>
+            <summary>Is any of this medical advice?</summary>
+            <p>
+              No. Everything here explains developmental science in plain language.
+              It does not diagnose, label, or replace your pediatrician, therapist,
+              or other specialists. <a href="/about/">More about the approach</a>.
+            </p>
+          </details>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- FOOTER -->
   <footer class="site-footer" role="contentinfo">
-    <div class="container">
-      <div class="site-footer__main">
-        <a class="footer-brand" href="/" aria-label="Growing Minds Science — home">
-          <div class="footer-brand__mark">
-            <img src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="26" height="26" loading="lazy" decoding="async" />
-          </div>
-          <span class="footer-brand__name">Growing Minds Science</span>
+    <div class="container site-footer__inner">
+      <div>
+        <a class="brand" href="/" aria-label="Growing Minds Science — home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+          <span class="brand__name">Growing Minds Science</span>
         </a>
-        <nav class="footer-nav" aria-label="Footer">
-          <a href="/classes/">Classes</a>
-          <a href="/tools/">Tools</a>
-          <a href="/tools/growing-minds-ai.html">Growing Minds AI</a>
-          <a href="/pricing" aria-current="page">Pricing</a>
-          <a href="/articles/">Articles</a>
-          <a href="/about/">About</a>
-          <a href="/faq/">FAQ</a>
-          <a href="/contact/">Contact</a>
-        </nav>
-        <a href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" style="font-size:.875rem; color:rgba(255,255,255,.5); transition:color .2s;">Instagram</a>
+        <p style="margin-top: var(--space-4);">
+          Developmental science, translated for parents.
+        </p>
       </div>
-      <div class="site-footer__bottom">
-        <p>© <span id="currentYear"></span> Growing Minds Science. All rights reserved.</p>
-        <p>Educational content only. Growing Minds AI does not provide medical, diagnostic, or emergency advice.</p>
+      <div>
+        <h4>Site</h4>
+        <ul class="footer-list">
+          <li><a href="/classes/">Classes</a></li>
+          <li><a href="/pricing" aria-current="page">Pricing</a></li>
+          <li><a href="/nsc">Number Path</a></li>
+          <li><a href="/tools/">Free tools</a></li>
+          <li><a href="/articles/">Articles</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/milestones">Milestone tracker</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Stay in the loop</h4>
+        <p style="font-size: var(--text-sm);">
+          <a href="/#signup">Join the waitlist →</a>
+        </p>
+        <p class="footer-elsewhere" style="margin-top: var(--space-5);">
+          Also on
+          <a href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr"
+             target="_blank" rel="noopener noreferrer">Instagram</a>
+        </p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© <span data-year>2026</span> Growing Minds Science. All rights reserved.</span>
+        <span>Educational content only. Not medical or psychological advice.</span>
       </div>
     </div>
   </footer>
 
-  <script>
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-    /* Nav toggle */
-    const navToggle = document.getElementById('navToggle');
-    const navDrawer = document.getElementById('navDrawer');
-
-    function openNav() {
-      navDrawer.classList.add('is-open');
-      navToggle.setAttribute('aria-expanded', 'true');
-      navDrawer.removeAttribute('aria-hidden');
-      navDrawer.removeAttribute('inert');
-      navDrawer.querySelector('a').focus();
-    }
-    function closeNav() {
-      navDrawer.classList.remove('is-open');
-      navToggle.setAttribute('aria-expanded', 'false');
-      navDrawer.setAttribute('aria-hidden', 'true');
-      navDrawer.setAttribute('inert', '');
-      navToggle.focus();
-    }
-
-    navToggle.addEventListener('click', () => {
-      navDrawer.classList.contains('is-open') ? closeNav() : openNav();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && navDrawer.classList.contains('is-open')) closeNav();
-    });
-    navDrawer.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', closeNav);
-    });
-  </script>
-
+  <script src="/assets/js/main.js" defer></script>
+  <script src="/assets/js/decor.js" defer></script>
+  <script src="/assets/js/animate.js" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

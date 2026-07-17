@@ -653,6 +653,7 @@
         </a>
         <nav class="footer-nav" aria-label="Footer">
           <a href="/classes/">Classes</a>
+          <a href="/pricing">Pricing</a>
           <a href="/tools/">Tools</a>
           <a href="/articles/">Articles</a>
           <a href="/about/">About</a>
@@ -1283,14 +1284,64 @@
     if (subSubmitBtn) subSubmitBtn.addEventListener('click', submitSubscriberEmail);
     if (subEmailInput) subEmailInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitSubscriberEmail(); });
 
+    // Fresh from Stripe Checkout: the session id proves the purchase, so we
+    // can unlock automatically — no email re-entry, no site login needed.
+    async function unlockFromCheckout(checkoutSessionId) {
+      if (subStatus) {
+        subStatus.textContent = 'Confirming your subscription…';
+        subStatus.className = 'access-status';
+      }
+      try {
+        const res = await fetch('/api/verify-subscription', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sessionId: checkoutSessionId }),
+        });
+        const data = await res.json();
+
+        if (!res.ok || !data.token) {
+          if (subStatus) {
+            subStatus.textContent = data.error || 'Could not confirm automatically. Enter your email below to unlock.';
+            subStatus.className = 'access-status access-status--error';
+          }
+          if (subEmailInput) subEmailInput.focus();
+          return;
+        }
+
+        subscriberToken = data.token;
+        try { localStorage.setItem(SUB_TOKEN_KEY, data.token); } catch {}
+        if (subStatus) {
+          subStatus.textContent = '✓ Unlimited access unlocked. Welcome!';
+          subStatus.className = 'access-status access-status--success';
+        }
+        updateTierBadge();
+        setTimeout(() => { subPanel.style.display = 'none'; }, 1800);
+
+        const inputArea = document.getElementById('inputArea');
+        const limitEl   = document.getElementById('limitReached');
+        if (inputArea) inputArea.style.display = '';
+        if (limitEl)   limitEl.style.display = 'none';
+      } catch {
+        if (subStatus) {
+          subStatus.textContent = 'Could not confirm automatically. Enter your email below to unlock.';
+          subStatus.className = 'access-status access-status--error';
+        }
+        if (subEmailInput) subEmailInput.focus();
+      }
+    }
+
     /* ── Post-subscribe welcome ────────────────────────── */
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('subscribed') === '1') {
-      // Show subscriber panel automatically so they can unlock immediately
+      const checkoutSessionId = urlParams.get('session_id') || '';
+      // Show subscriber panel and clean the URL (drops the one-time checkout id)
       if (subPanel) subPanel.style.display = 'block';
-      if (subEmailInput) subEmailInput.focus();
-      // Clean URL
       history.replaceState(null, '', window.location.pathname);
+      if (checkoutSessionId) {
+        unlockFromCheckout(checkoutSessionId);
+      } else if (subEmailInput) {
+        subEmailInput.focus();
+      }
     }
 
     // Seed a question from ?q= (e.g. an "Ask about this" link from a tool or the
@@ -1311,12 +1362,13 @@
         const data = JSON.parse(atob(payload.replace(/-/g, '+').replace(/_/g, '/')));
         const sevenDays = 60 * 60 * 24 * 7;
         const now = Math.floor(Date.now() / 1000);
-        // Refresh if expired or expiring within 7 days
-        if (data.exp && data.exp - now < sevenDays && data.email) {
+        // Refresh if expiring within 7 days. The still-valid token itself is
+        // the credential, so this works without a site login.
+        if (data.exp && data.exp - now < sevenDays) {
           const res = await fetch('/api/verify-subscription', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: data.email }),
+            body: JSON.stringify({ token: subscriberToken }),
           });
           if (res.ok) {
             const json = await res.json();
@@ -1324,8 +1376,9 @@
               subscriberToken = json.token;
               try { localStorage.setItem(SUB_TOKEN_KEY, json.token); } catch {}
             }
-          } else {
-            // Sub cancelled — clear token
+          } else if (res.status === 401 || res.status === 403 || res.status === 404) {
+            // Definitively rejected (expired token or cancelled sub) — clear it.
+            // Transient failures (rate limit, network, 5xx) keep the token.
             subscriberToken = '';
             try { localStorage.removeItem(SUB_TOKEN_KEY); } catch {}
             updateTierBadge();

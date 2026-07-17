@@ -113,7 +113,7 @@ async function notifyOwner(email, product) {
       access_key: accessKey,
       subject: `New Purchase — Growing Minds Science`,
       from_name: "Growing Minds Science (Purchase Notification)",
-      message: `New class purchase received.\n\nEmail: ${safeEmail}\nProduct: ${safeProduct}\n\nPlease send the AI access code to this customer via your ConvertKit sequence or by replying to their confirmation email.`,
+      message: `New purchase received.\n\nEmail: ${safeEmail}\nProduct: ${safeProduct}\n\nIf this is a class purchase, send the AI access code to this customer via your ConvertKit sequence or by replying to their confirmation email. AI Pro (ai_pro) subscriptions unlock automatically — no action needed.`,
     }),
   });
 }

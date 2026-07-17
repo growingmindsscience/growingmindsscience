@@ -2,7 +2,9 @@ export const config = { runtime: "edge" };
 
 import { jsonResponse } from "./_security.js";
 
-const PRICE_ID = "price_1Tgu9yLIy3W5wQUyOw1FYEPA";
+// AI Pro subscription price. Env-configurable so the SKU can rotate (e.g. the
+// planned membership absorption) without a code change.
+const PRICE_ID = process.env.AI_PRO_PRICE_ID || "price_1Tgu9yLIy3W5wQUyOw1FYEPA";
 
 export default async function handler(request) {
   if (request.method !== "GET" && request.method !== "POST") {
@@ -26,7 +28,11 @@ export default async function handler(request) {
         "mode": "subscription",
         "line_items[0][price]": PRICE_ID,
         "line_items[0][quantity]": "1",
-        "success_url": `${origin}/tools/growing-minds-ai?subscribed=1`,
+        // Label the session so webhooks never fall back to their
+        // "toddlerhood-class" default when logging this purchase.
+        "metadata[product]": "ai_pro",
+        "subscription_data[metadata][product]": "ai_pro",
+        "success_url": `${origin}/tools/growing-minds-ai?subscribed=1&session_id={CHECKOUT_SESSION_ID}`,
         "cancel_url": `${origin}/tools/growing-minds-ai`,
         "billing_address_collection": "auto",
       }).toString(),
