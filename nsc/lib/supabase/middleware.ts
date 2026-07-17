@@ -16,6 +16,7 @@ const PUBLIC_PREFIXES = [
   "/gift", // gifting needs no account; buy + printable card are public
   "/redeem", // renders its own sign-in prompt; the action gates with requireAuth
   "/activities", // Activity Library browse/detail are public SEO surfaces; depth gates via entitlements
+  "/worried", // Navigator is free and anonymous by design (plan 3.3)
   "/api/stripe-webhook",
   "/api/cron", // guarded by its own CRON_SECRET bearer check
   "/api/email/unsubscribe", // token-authenticated, clicked from mail clients

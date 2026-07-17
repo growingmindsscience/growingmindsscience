@@ -78,6 +78,19 @@ an explicit approve in the queue. Public browse/detail at `/activities`
 entitlement). Batch 001 (18 drafts, 3 per band 0–36m, one free per band) is
 committed at `tools/activities/batches/batch-001.json`.
 
+Migration `0007_navigator.sql` (⚠ apply to the project, after 0006) adds
+`navigator_sessions` (anonymous, enumerated-answers-only, service-role write;
+12-month retention policy, cleanup cron to follow) and `part_c_directory`
+(public read; **rows enter only after human verification against the ECTA
+directory — never generated**). The Navigator itself: frozen tree artifacts in
+`content/navigator/` (Talking shipped as **status "draft"** — invisible in
+production until Matthew's review + the D3 attorney read flip it to
+"published"; drafts render in dev or with `NAVIGATOR_PREVIEW=1`). Grader in
+`tools/navigator/grader.ts` (reachability, ≤8-question depth, loss-of-skills
+short-circuit on every branch, not-sure-conservatism, never-diagnostic
+lexicon, FK ≤ 7, citations; the publish gate requires G1-verified citations).
+Walker is pure TS in `lib/navigator.ts`; public pages at `/worried`.
+
 Supabase project: **dedicated free project `kxljngtmnqarvsawakmf`** (personal
 org, us-west-1).
 

@@ -1,0 +1,607 @@
+{
+  "artifact": "navigator.tree",
+  "domain": "talking",
+  "version": "v1",
+  "status": "draft",
+  "age_min": 6,
+  "age_max": 42,
+  "entry": "r.age",
+  "citations": [
+    { "id": "cdc.9m", "label": "CDC milestone checklist, 9 months", "url": "https://www.cdc.gov/ncbddd/actearly/milestones/milestones-9mo.html", "source": "CDC", "verified": false },
+    { "id": "cdc.12m", "label": "CDC milestone checklist, 12 months", "url": "https://www.cdc.gov/ncbddd/actearly/milestones/milestones-1yr.html", "source": "CDC", "verified": false },
+    { "id": "cdc.15m", "label": "CDC milestone checklist, 15 months", "url": "https://www.cdc.gov/ncbddd/actearly/milestones/milestones-15mo.html", "source": "CDC", "verified": false },
+    { "id": "cdc.18m", "label": "CDC milestone checklist, 18 months", "url": "https://www.cdc.gov/ncbddd/actearly/milestones/milestones-18mo.html", "source": "CDC", "verified": false },
+    { "id": "cdc.24m", "label": "CDC milestone checklist, 2 years", "url": "https://www.cdc.gov/ncbddd/actearly/milestones/milestones-2yr.html", "source": "CDC", "verified": false },
+    { "id": "cdc.30m", "label": "CDC milestone checklist, 30 months", "url": "https://www.cdc.gov/ncbddd/actearly/milestones/milestones-30mo.html", "source": "CDC", "verified": false },
+    { "id": "cdc.36m", "label": "CDC milestone checklist, 3 years", "url": "https://www.cdc.gov/ncbddd/actearly/milestones/milestones-3yr.html", "source": "CDC", "verified": false },
+    { "id": "cdc.concerned", "label": "CDC: If you're concerned, act early", "url": "https://www.cdc.gov/ncbddd/actearly/concerned.html", "source": "CDC", "verified": false },
+    { "id": "aap.hearing", "label": "AAP HealthyChildren: hearing checks when speech is in question", "url": "https://www.healthychildren.org/English/health-issues/conditions/ear-nose-throat/Pages/Hearing-Loss.aspx", "source": "AAP", "verified": false },
+    { "id": "ecta.families", "label": "ECTA Center: early intervention for families", "url": "https://ectacenter.org/families.asp", "source": "gov", "verified": false }
+  ],
+  "nodes": {
+    "r.age": {
+      "kind": "router",
+      "id": "r.age",
+      "routes": [
+        { "age_lt": 12, "next": "q.u12.loss" },
+        { "age_lt": 18, "next": "q.12.loss" },
+        { "age_lt": 24, "next": "q.18.loss" },
+        { "age_lt": 31, "next": "q.24.loss" },
+        { "age_lt": 37, "next": "q.31.loss" },
+        { "next": "t.36.over" }
+      ]
+    },
+
+    "q.u12.loss": {
+      "kind": "question",
+      "id": "q.u12.loss",
+      "tag": "loss_of_skills",
+      "text": "In the last few months, has your child stopped making sounds they used to make, like babbling that went away?",
+      "options": [
+        { "label": "No", "next": "q.u12.babble" },
+        { "label": "Yes", "next": "t.loss" },
+        { "label": "I'm not sure", "next": "q.u12.babble" }
+      ],
+      "citations": ["cdc.concerned"]
+    },
+    "q.u12.babble": {
+      "kind": "question",
+      "id": "q.u12.babble",
+      "text": "Does your child make speech-like sounds: 'ba', 'da', 'ma', or strings like 'bababa'?",
+      "options": [
+        { "label": "Yes, lots of sounds", "next": "t.u12.typical" },
+        { "label": "Some sounds, not often", "next": "t.u12.monitor" },
+        { "label": "Rarely or never", "next": "t.u12.discuss" },
+        { "label": "I'm not sure", "next": "t.u12.monitor" }
+      ],
+      "citations": ["cdc.9m"]
+    },
+    "t.u12.typical": {
+      "kind": "terminal",
+      "id": "t.u12.typical",
+      "tier": "typical_range",
+      "headline": "That babbling is right where it belongs",
+      "body": [
+        "Frequent speech-like sounds in the first year are the foundation words are built on. What you describe sits inside the typical range.",
+        "The best fuel is simple: answer the babble. Treat each sound as a turn in a conversation, pause, and let your child take the next turn.",
+        "And if something still feels off to you, asking your pediatrician is always right. You never need to wait for a checklist."
+      ],
+      "citations": ["cdc.9m", "cdc.12m"]
+    },
+    "t.u12.monitor": {
+      "kind": "terminal",
+      "id": "t.u12.monitor",
+      "tier": "monitor",
+      "headline": "Worth watching, and easy to feed",
+      "body": [
+        "Some babies are quieter than others, and sound-making often comes in bursts. This is worth keeping an eye on rather than worrying over.",
+        "For the next few weeks, narrate what you do, answer every sound your child makes, and pause so they can answer back. Turn-taking, not flashcards, is what grows early sounds.",
+        "Mention it at your next visit either way. If the quiet continues for a month or so, ask sooner. A quick hearing check is a common first step."
+      ],
+      "citations": ["cdc.9m", "aap.hearing"]
+    },
+    "t.u12.discuss": {
+      "kind": "terminal",
+      "id": "t.u12.discuss",
+      "tier": "discuss",
+      "headline": "Worth a conversation with your pediatrician",
+      "body": [
+        "By the later part of the first year, most babies make frequent speech-like sounds. Little or no babbling is worth bringing up now, not at some future visit.",
+        "One common and very fixable reason is hearing. Even mild ear fluid can quiet a baby's sounds. A hearing check is a simple place to start.",
+        "Bringing this up early is never an overreaction. The worst case for asking early is reassurance."
+      ],
+      "citations": ["cdc.9m", "aap.hearing", "cdc.concerned"],
+      "script_addon": "Please also check my baby's hearing, or refer us for a hearing test."
+    },
+
+    "q.12.loss": {
+      "kind": "question",
+      "id": "q.12.loss",
+      "tag": "loss_of_skills",
+      "text": "Has your child lost words or skills they used to have: words they said before and stopped saying, or waving or pointing that went away?",
+      "options": [
+        { "label": "No", "next": "q.12.gesture" },
+        { "label": "Yes", "next": "t.loss" },
+        { "label": "I'm not sure", "next": "q.12.gesture" }
+      ],
+      "citations": ["cdc.concerned"]
+    },
+    "q.12.gesture": {
+      "kind": "question",
+      "id": "q.12.gesture",
+      "text": "Does your child point at things, wave, or hold things up to show you?",
+      "help": "Gestures are early communication. Pointing to ask, waving bye-bye, and showing you a toy all count.",
+      "options": [
+        { "label": "Yes, points and waves", "next": "q.12.words.hi" },
+        { "label": "Waves or reaches, but no pointing yet", "next": "q.12.words.low" },
+        { "label": "Not really", "next": "q.12.words.low" },
+        { "label": "I'm not sure", "next": "q.12.words.low" }
+      ],
+      "citations": ["cdc.12m", "cdc.15m", "cdc.18m"]
+    },
+    "q.12.words.hi": {
+      "kind": "question",
+      "id": "q.12.words.hi",
+      "text": "Does your child say any words, like 'mama' or 'dada' for the right person, or names for things they want?",
+      "help": "Word-tries count. 'Baba' for bottle is a word if it means bottle every time.",
+      "options": [
+        { "label": "Three or more words", "next": "t.12.typical" },
+        { "label": "One or two words", "next": "t.12.monitor" },
+        { "label": "No words yet", "next": "r.12.none.hi" },
+        { "label": "I'm not sure", "next": "t.12.monitor" }
+      ],
+      "citations": ["cdc.12m", "cdc.15m"]
+    },
+    "q.12.words.low": {
+      "kind": "question",
+      "id": "q.12.words.low",
+      "text": "Does your child say any words, like 'mama' or 'dada' for the right person, or names for things they want?",
+      "help": "Word-tries count. 'Baba' for bottle is a word if it means bottle every time.",
+      "options": [
+        { "label": "Three or more words", "next": "t.12.monitor_gest" },
+        { "label": "One or two words", "next": "r.12.low.few" },
+        { "label": "No words yet", "next": "r.12.low.none" },
+        { "label": "I'm not sure", "next": "t.12.discuss_soft" }
+      ],
+      "citations": ["cdc.12m", "cdc.15m"]
+    },
+    "r.12.none.hi": {
+      "kind": "router",
+      "id": "r.12.none.hi",
+      "routes": [
+        { "age_lt": 16, "next": "t.12.monitor_nowords" },
+        { "next": "t.16.discuss_nowords" }
+      ]
+    },
+    "r.12.low.few": {
+      "kind": "router",
+      "id": "r.12.low.few",
+      "routes": [
+        { "age_lt": 14, "next": "t.12.monitor_gest" },
+        { "next": "t.14.discuss_gest" }
+      ]
+    },
+    "r.12.low.none": {
+      "kind": "router",
+      "id": "r.12.low.none",
+      "routes": [
+        { "age_lt": 14, "next": "t.12.discuss_soft" },
+        { "next": "t.14.discuss_gest" }
+      ]
+    },
+    "t.12.typical": {
+      "kind": "terminal",
+      "id": "t.12.typical",
+      "tier": "typical_range",
+      "headline": "Pointing plus first words: the typical path",
+      "body": [
+        "Gestures and a few words at this age sit inside the typical range. Pointing is a big deal: it means your child is sharing attention with you, which is the engine of word learning.",
+        "Keep it fed the easy way. Follow the point, name what they showed you, and add one word to whatever they say.",
+        "If something still feels off to you, asking your pediatrician is always right. Your sense of your own child counts."
+      ],
+      "citations": ["cdc.12m", "cdc.15m"]
+    },
+    "t.12.monitor": {
+      "kind": "terminal",
+      "id": "t.12.monitor",
+      "tier": "monitor",
+      "headline": "On the path, worth watching",
+      "body": [
+        "Gestures are strong and words are starting. Word counts at this age range widely, and gestures are the better predictor of what comes next.",
+        "For the next month, name what your child points at, right when they point. That timing, word meeting attention, is where vocabularies come from.",
+        "Bring it up at your next visit either way, and ask sooner if new words don't keep arriving. Asking early costs nothing."
+      ],
+      "citations": ["cdc.12m", "cdc.15m"]
+    },
+    "t.12.monitor_gest": {
+      "kind": "terminal",
+      "id": "t.12.monitor_gest",
+      "tier": "monitor",
+      "headline": "Words are coming, so let's grow the gestures too",
+      "body": [
+        "Your child has words, which is great. Pointing and showing usually arrive alongside, and they carry a lot of the communication load at this age.",
+        "Play point-and-name games: point at things across the room and name them, and watch whether your child's eyes follow your point. Follow their reaches the same way.",
+        "Mention the gesture picture at your next pediatrician visit. It's a quick, useful conversation."
+      ],
+      "citations": ["cdc.15m", "cdc.18m"]
+    },
+    "t.12.monitor_nowords": {
+      "kind": "terminal",
+      "id": "t.12.monitor_nowords",
+      "tier": "monitor",
+      "headline": "Strong gestures, words still loading",
+      "body": [
+        "Pointing and waving with no words yet is a common picture in the early teens of months, and the gestures are genuinely good news: they predict words.",
+        "Narrate the day in short phrases, answer every gesture with the word for it, and read together daily, letting your child pat and point at the pages.",
+        "If there are still no word-tries by around 16 months, bring it to your pediatrician then. And bring it up sooner any time your gut says to."
+      ],
+      "citations": ["cdc.12m", "cdc.15m", "cdc.18m"]
+    },
+    "t.12.discuss_soft": {
+      "kind": "terminal",
+      "id": "t.12.discuss_soft",
+      "tier": "discuss",
+      "headline": "Worth a conversation with your pediatrician",
+      "body": [
+        "Few gestures and no words together are worth discussing now. Often nothing is wrong. But this combination deserves real eyes on it rather than waiting.",
+        "A hearing check is a common first step; even mild ear fluid can mute both sounds and gestures' payoff.",
+        "The visit costs you one conversation. Waiting costs months that early support could use."
+      ],
+      "citations": ["cdc.12m", "cdc.15m", "aap.hearing", "cdc.concerned"],
+      "script_addon": "Please also check my child's hearing, or refer us for a hearing test."
+    },
+    "t.14.discuss_gest": {
+      "kind": "terminal",
+      "id": "t.14.discuss_gest",
+      "tier": "discuss",
+      "headline": "Bring this to your pediatrician now",
+      "body": [
+        "By this age, pointing carries a lot of communication, and its absence alongside few words is a picture pediatricians want to hear about promptly.",
+        "This is exactly what developmental screening exists for: a structured look, not a verdict. Many children screened at this age simply get watched and supported.",
+        "Ask directly for a screening at the visit. The sentence to say is below. A hearing check belongs in the same conversation."
+      ],
+      "citations": ["cdc.15m", "cdc.18m", "aap.hearing", "cdc.concerned"],
+      "script_addon": "Please also check my child's hearing, or refer us for a hearing test."
+    },
+    "t.16.discuss_nowords": {
+      "kind": "terminal",
+      "id": "t.16.discuss_nowords",
+      "tier": "discuss",
+      "headline": "Time to talk to your pediatrician",
+      "body": [
+        "No words by 16 months is a well-established marker for a closer look. The strong gestures you described are genuinely encouraging, and the conversation should still happen now.",
+        "Ask for a developmental screening and a hearing check in the same visit. Both are quick, and both give you real information instead of worry.",
+        "While that's in motion, keep doing what works: name what your child points at, the moment they point at it."
+      ],
+      "citations": ["cdc.15m", "cdc.18m", "aap.hearing", "cdc.concerned"],
+      "script_addon": "Please also check my child's hearing, or refer us for a hearing test."
+    },
+
+    "q.18.loss": {
+      "kind": "question",
+      "id": "q.18.loss",
+      "tag": "loss_of_skills",
+      "text": "Has your child lost words or skills they used to have: words they said before and stopped saying, or gestures that went away?",
+      "options": [
+        { "label": "No", "next": "q.18.words" },
+        { "label": "Yes", "next": "t.loss" },
+        { "label": "I'm not sure", "next": "q.18.words" }
+      ],
+      "citations": ["cdc.concerned"]
+    },
+    "q.18.words": {
+      "kind": "question",
+      "id": "q.18.words",
+      "text": "About how many words does your child say on their own?",
+      "help": "Count word-tries. 'Nana' for banana counts if it means banana every time. Signs count too.",
+      "options": [
+        { "label": "Ten or more", "next": "q.18.follow.hi" },
+        { "label": "Three to nine", "next": "q.18.follow.mid" },
+        { "label": "One or two", "next": "t.18.discuss" },
+        { "label": "None yet", "next": "t.18.act" },
+        { "label": "I'm not sure", "next": "q.18.follow.mid" }
+      ],
+      "citations": ["cdc.18m"]
+    },
+    "q.18.follow.hi": {
+      "kind": "question",
+      "id": "q.18.follow.hi",
+      "text": "If you ask for something simple without pointing, like 'go get your shoes', does your child do it?",
+      "options": [
+        { "label": "Usually", "next": "t.18.typical" },
+        { "label": "Sometimes", "next": "t.18.monitor" },
+        { "label": "Rarely", "next": "t.18.discuss_und" },
+        { "label": "I'm not sure", "next": "t.18.monitor" }
+      ],
+      "citations": ["cdc.18m", "cdc.24m"]
+    },
+    "q.18.follow.mid": {
+      "kind": "question",
+      "id": "q.18.follow.mid",
+      "text": "If you ask for something simple without pointing, like 'go get your shoes', does your child do it?",
+      "options": [
+        { "label": "Usually", "next": "t.18.monitor" },
+        { "label": "Sometimes", "next": "t.18.monitor" },
+        { "label": "Rarely", "next": "t.18.discuss_und" },
+        { "label": "I'm not sure", "next": "t.18.monitor" }
+      ],
+      "citations": ["cdc.18m", "cdc.24m"]
+    },
+    "t.18.typical": {
+      "kind": "terminal",
+      "id": "t.18.typical",
+      "tier": "typical_range",
+      "headline": "Talking and understanding are both on track",
+      "body": [
+        "A growing word list plus following simple asks: that's the typical picture at this age, and understanding is the half people forget to check.",
+        "Keep adding one word to whatever your child says. 'Dog!' becomes 'big dog!' Small, constant, and remarkably powerful.",
+        "If your gut still itches about something, ask your pediatrician anyway. That instinct is data too."
+      ],
+      "citations": ["cdc.18m"]
+    },
+    "t.18.monitor": {
+      "kind": "terminal",
+      "id": "t.18.monitor",
+      "tier": "monitor",
+      "headline": "Growing, and worth keeping a friendly eye on",
+      "body": [
+        "Words at this age arrive at wildly different rates, and what you describe is inside the wide part of that range. The thing to watch is direction: new words should keep showing up.",
+        "For the next month, name what your child is looking at, right when they look, and add a word to what they say. Note new words on your phone. A list beats a feeling.",
+        "If the list stalls for a month, or two-word combinations haven't started as the second birthday approaches, bring the list to your pediatrician."
+      ],
+      "citations": ["cdc.18m", "cdc.24m"]
+    },
+    "t.18.discuss": {
+      "kind": "terminal",
+      "id": "t.18.discuss",
+      "tier": "discuss",
+      "headline": "Worth a conversation with your pediatrician now",
+      "body": [
+        "Just a word or two at this age is worth a real look. Plenty of children who talk late do fine, and the ones who benefit from support benefit most when it starts early. You can't tell the two apart by waiting.",
+        "Ask for a developmental screening and a hearing check in the same visit. The sentences to say are below.",
+        "Between now and the visit, narrate hard: short phrases, right where your child's attention already is."
+      ],
+      "citations": ["cdc.18m", "aap.hearing", "cdc.concerned"],
+      "script_addon": "Please also check my child's hearing, or refer us for a hearing test."
+    },
+    "t.18.discuss_und": {
+      "kind": "terminal",
+      "id": "t.18.discuss_und",
+      "tier": "discuss",
+      "headline": "The understanding piece is the one to discuss",
+      "body": [
+        "Words are coming, and that's real. The part worth a prompt conversation is understanding: children this age usually follow simple, familiar asks without gestures.",
+        "Understanding is hard for parents to judge. We gesture without noticing. A pediatrician visit plus a hearing check turns guessing into knowing.",
+        "Say the sentences below at the visit, and mention specifically what you noticed about following directions."
+      ],
+      "citations": ["cdc.18m", "cdc.24m", "aap.hearing"],
+      "script_addon": "Please also check my child's hearing, or refer us for a hearing test."
+    },
+    "t.18.act": {
+      "kind": "terminal",
+      "id": "t.18.act",
+      "tier": "act_now",
+      "headline": "Ask for a screening and an evaluation now",
+      "body": [
+        "No words by this age is a clear signal to act: calmly, and this week rather than at a someday visit. Acting now is not a verdict about your child. It's how you get real answers.",
+        "Two moves, both free to start: call your pediatrician and say the sentences below, and call your state's early intervention program yourself. A doctor's referral is not required.",
+        "A hearing test belongs at the front of the line. It's painless, quick, and rules a big question in or out."
+      ],
+      "citations": ["cdc.18m", "aap.hearing", "cdc.concerned", "ecta.families"],
+      "script_addon": "Please also check my child's hearing, or refer us for a hearing test."
+    },
+
+    "q.24.loss": {
+      "kind": "question",
+      "id": "q.24.loss",
+      "tag": "loss_of_skills",
+      "text": "Has your child lost words or skills they used to have: words that went away, or skills they stopped using?",
+      "options": [
+        { "label": "No", "next": "q.24.combo" },
+        { "label": "Yes", "next": "t.loss" },
+        { "label": "I'm not sure", "next": "q.24.combo" }
+      ],
+      "citations": ["cdc.concerned"]
+    },
+    "q.24.combo": {
+      "kind": "question",
+      "id": "q.24.combo",
+      "text": "Does your child put two words together, like 'more milk' or 'daddy go'?",
+      "options": [
+        { "label": "Yes, often", "next": "q.24.clear" },
+        { "label": "Just starting", "next": "q.24.clear2" },
+        { "label": "Not yet", "next": "r.24.none" },
+        { "label": "I'm not sure", "next": "t.24.discuss" }
+      ],
+      "citations": ["cdc.24m"]
+    },
+    "r.24.none": {
+      "kind": "router",
+      "id": "r.24.none",
+      "routes": [
+        { "age_lt": 27, "next": "t.24.discuss" },
+        { "next": "t.27.act" }
+      ]
+    },
+    "q.24.clear": {
+      "kind": "question",
+      "id": "q.24.clear",
+      "text": "Can people who don't live with you understand some of what your child says?",
+      "options": [
+        { "label": "Yes, a fair amount", "next": "t.24.typical" },
+        { "label": "Mostly just family understands", "next": "t.24.monitor" },
+        { "label": "Hardly anyone understands", "next": "t.24.discuss_speech" },
+        { "label": "I'm not sure", "next": "t.24.monitor" }
+      ],
+      "citations": ["cdc.24m", "cdc.30m"]
+    },
+    "q.24.clear2": {
+      "kind": "question",
+      "id": "q.24.clear2",
+      "text": "Can people who don't live with you understand some of what your child says?",
+      "options": [
+        { "label": "Yes, a fair amount", "next": "t.24.monitor" },
+        { "label": "Mostly just family understands", "next": "t.24.monitor" },
+        { "label": "Hardly anyone understands", "next": "t.24.discuss_speech" },
+        { "label": "I'm not sure", "next": "t.24.monitor" }
+      ],
+      "citations": ["cdc.24m", "cdc.30m"]
+    },
+    "t.24.typical": {
+      "kind": "terminal",
+      "id": "t.24.typical",
+      "tier": "typical_range",
+      "headline": "Two-word phrases, understood by others: on track",
+      "body": [
+        "Combining words is the big second-birthday milestone, and yours is doing it. Being understood outside the family is the bonus sign that speech sounds are coming along too.",
+        "Feed it with expansions: whatever your child says, hand it back one word bigger. 'Truck go' becomes 'the truck goes fast!'",
+        "Still uneasy about something specific? Ask your pediatrician about exactly that thing. Specific questions get useful answers."
+      ],
+      "citations": ["cdc.24m"]
+    },
+    "t.24.monitor": {
+      "kind": "terminal",
+      "id": "t.24.monitor",
+      "tier": "monitor",
+      "headline": "Moving in the right direction: keep watching",
+      "body": [
+        "Combinations are starting, which is the main event at this age. Clarity for strangers usually lags home understanding by a while; family ears are trained ears.",
+        "This month, note down new two-word phrases as they appear. A visible list settles nerves better than memory does, and it's gold at a checkup.",
+        "If combinations don't multiply over the next month or two, or clarity stays family-only past the next visit, raise it then, or sooner, any time you want to."
+      ],
+      "citations": ["cdc.24m", "cdc.30m"]
+    },
+    "t.24.discuss": {
+      "kind": "terminal",
+      "id": "t.24.discuss",
+      "tier": "discuss",
+      "headline": "Two-word phrases are the thing to ask about",
+      "body": [
+        "By two, most children put two words together. Not doing it yet is common enough that you'll hear 'wait and see' from friends, and it's exactly the thing worth a professional look instead.",
+        "Ask for a developmental screening at your pediatrician's, and add a hearing check. Both are quick, and the answer beats the worry.",
+        "Meanwhile, model two-word phrases about what your child is doing: 'more water', 'ball up', 'shoes on'. Short beats fancy."
+      ],
+      "citations": ["cdc.24m", "aap.hearing", "cdc.concerned"],
+      "script_addon": "Please also check my child's hearing, or refer us for a hearing test."
+    },
+    "t.24.discuss_speech": {
+      "kind": "terminal",
+      "id": "t.24.discuss_speech",
+      "tier": "discuss",
+      "headline": "The clarity piece deserves a look",
+      "body": [
+        "Your child has language. The combinations show it. When almost nobody outside the family can understand them, the speech-sound side deserves attention of its own.",
+        "This is squarely what speech-language pathologists do, and pediatricians refer to them all the time. A hearing check comes first; muffled hearing makes muffled speech.",
+        "At the visit, say the sentences below and describe exactly who can and can't understand your child."
+      ],
+      "citations": ["cdc.30m", "aap.hearing"],
+      "script_addon": "Please also check my child's hearing, or refer us for a hearing test."
+    },
+    "t.27.act": {
+      "kind": "terminal",
+      "id": "t.27.act",
+      "tier": "act_now",
+      "headline": "Ask for a screening and an evaluation now",
+      "body": [
+        "Past two and a half without two-word phrases is a clear signal to act now: calmly, and without treating it as a verdict. Early support works best early; that's the whole reason to move.",
+        "Two calls, both free to start: your pediatrician, using the sentences below, and your state's early intervention program. You can call them yourself, no doctor's referral needed.",
+        "Put a hearing test at the front of the line, and keep talking to your child the whole way through: short phrases, warm voice, no drilling."
+      ],
+      "citations": ["cdc.24m", "cdc.30m", "aap.hearing", "cdc.concerned", "ecta.families"],
+      "script_addon": "Please also check my child's hearing, or refer us for a hearing test."
+    },
+
+    "q.31.loss": {
+      "kind": "question",
+      "id": "q.31.loss",
+      "tag": "loss_of_skills",
+      "text": "Has your child lost words or skills they used to have: sentences that shrank back to single words, or skills that went away?",
+      "options": [
+        { "label": "No", "next": "q.31.sent" },
+        { "label": "Yes", "next": "t.loss" },
+        { "label": "I'm not sure", "next": "q.31.sent" }
+      ],
+      "citations": ["cdc.concerned"]
+    },
+    "q.31.sent": {
+      "kind": "question",
+      "id": "q.31.sent",
+      "text": "Does your child say little sentences of three or more words, like 'I want juice'?",
+      "options": [
+        { "label": "Yes, often", "next": "q.31.clear" },
+        { "label": "Sometimes", "next": "q.31.clear" },
+        { "label": "Not yet", "next": "t.31.discuss" },
+        { "label": "I'm not sure", "next": "t.31.discuss" }
+      ],
+      "citations": ["cdc.30m", "cdc.36m"]
+    },
+    "q.31.clear": {
+      "kind": "question",
+      "id": "q.31.clear",
+      "text": "Do people outside the family understand your child most of the time?",
+      "options": [
+        { "label": "Usually", "next": "t.31.typical" },
+        { "label": "About half the time", "next": "t.31.monitor" },
+        { "label": "Rarely", "next": "t.31.discuss_speech" },
+        { "label": "I'm not sure", "next": "t.31.monitor" }
+      ],
+      "citations": ["cdc.36m"]
+    },
+    "t.31.typical": {
+      "kind": "terminal",
+      "id": "t.31.typical",
+      "tier": "typical_range",
+      "headline": "Sentences, understood by the world: on track",
+      "body": [
+        "Three-word sentences that strangers mostly understand is the typical three-year-old picture. The engine is running.",
+        "The upgrade now is conversation: real back-and-forth turns. Ask questions that don't have yes-or-no answers, and wait longer than feels natural for the reply.",
+        "Anything still nagging at you belongs at your next checkup, named specifically. You never need a checklist's permission to ask."
+      ],
+      "citations": ["cdc.36m"]
+    },
+    "t.31.monitor": {
+      "kind": "terminal",
+      "id": "t.31.monitor",
+      "tier": "monitor",
+      "headline": "Talking well, clarity still catching up",
+      "body": [
+        "Sentences are here, and being understood about half the time by outsiders isn't unusual yet. Speech sounds have a long polishing schedule; some sounds take years more.",
+        "Watch direction over the next couple of months: strangers should understand a little more each month, not less.",
+        "If clarity plateaus, or your child gets frustrated at not being understood, ask your pediatrician about a speech-language look then, or now if the frustration is already real."
+      ],
+      "citations": ["cdc.36m"]
+    },
+    "t.31.discuss": {
+      "kind": "terminal",
+      "id": "t.31.discuss",
+      "tier": "discuss",
+      "headline": "Sentences are the thing to ask about",
+      "body": [
+        "By three, most children chain three or more words routinely. Not being there yet is worth a professional conversation now, while support is easiest to arrange and does the most.",
+        "Ask your pediatrician for a developmental screening and say the sentences below. Add a hearing check. It's the quiet culprit surprisingly often.",
+        "At home, keep sentences short and warm, and expand whatever your child gives you by one word."
+      ],
+      "citations": ["cdc.30m", "cdc.36m", "aap.hearing", "cdc.concerned"],
+      "script_addon": "Please also check my child's hearing, or refer us for a hearing test."
+    },
+    "t.31.discuss_speech": {
+      "kind": "terminal",
+      "id": "t.31.discuss_speech",
+      "tier": "discuss",
+      "headline": "The clarity piece deserves its own look",
+      "body": [
+        "Building sentences shows the language system working. When strangers rarely understand a three-year-old, the speech-sound side has earned a professional listen.",
+        "Speech-language pathologists sort exactly this, and the earlier the look, the lighter the fix tends to be. A hearing check comes first.",
+        "Describe to your pediatrician precisely who understands your child and who doesn't. That detail does a lot of work."
+      ],
+      "citations": ["cdc.36m", "aap.hearing"],
+      "script_addon": "Please also check my child's hearing, or refer us for a hearing test."
+    },
+
+    "t.loss": {
+      "kind": "terminal",
+      "id": "t.loss",
+      "tier": "act_now",
+      "headline": "Losing skills is the one to act on today",
+      "body": [
+        "A child losing words or skills they used to have, at any age, is the single clearest reason to act right away. Not to panic: to act. Many roads lead here, and every one of them is handled better early.",
+        "Call your pediatrician today and say exactly what went away and roughly when. Use the sentences below, and don't accept 'wait and see' for lost skills. Ask for the referral.",
+        "Call your state's early intervention program as well; you can do that yourself, free, without a doctor's referral."
+      ],
+      "citations": ["cdc.concerned", "ecta.families"],
+      "script_addon": "My child has lost skills they used to have. I am asking for a referral for a full developmental evaluation, not monitoring."
+    },
+    "t.36.over": {
+      "kind": "terminal",
+      "id": "t.36.over",
+      "tier": "discuss",
+      "headline": "Past three, the path runs through your school district",
+      "body": [
+        "This guide is built around the birth-to-three window, and your child is past it, which changes the doorway, not the advice. Concerns about talking at this age still deserve a real conversation, not waiting.",
+        "After the third birthday, free evaluations come from your local school district's preschool special education program rather than early intervention. You can request one directly, in writing, without a doctor's referral.",
+        "Your pediatrician remains a strong ally: bring the specifics you noticed and say the sentences below."
+      ],
+      "citations": ["cdc.36m", "cdc.concerned", "ecta.families"]
+    }
+  }
+}
