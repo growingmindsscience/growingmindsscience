@@ -141,6 +141,32 @@ async function verifySubscriberToken(token) {
   }
 }
 
+/**
+ * Unlimited via the shared Supabase session. `/nsc/*` is proxied under this
+ * same origin, so the Supabase cookie the browser sent to us is valid there
+ * too; we forward it to the entitlements endpoint and read the verdict.
+ *
+ * Best-effort by design: any failure (no cookie, endpoint down, timeout)
+ * returns false and the caller falls back to the free tier — a network blip
+ * must never hand out or wrongly deny access, only defer to the other checks.
+ */
+async function hasSessionEntitlement(request) {
+  const cookie = request.headers.get("cookie") || "";
+  if (!cookie) return false;
+  try {
+    const url = new URL("/nsc/api/entitlements/me", new URL(request.url).origin);
+    const res = await fetch(url, {
+      headers: { cookie, accept: "application/json" },
+      signal: AbortSignal.timeout(2500),
+    });
+    if (!res.ok) return false;
+    const data = await res.json();
+    return data?.unlimitedAi === true;
+  } catch (_) {
+    return false;
+  }
+}
+
 export default async function handler(request) {
   if (request.method !== "POST") {
     return jsonResponse(405, { error: "Use POST." });
@@ -180,8 +206,14 @@ export default async function handler(request) {
   if (!question) return errorSSE("Please enter a question.");
   if (question.length > 1200) return errorSSE("Please keep questions under 1,200 characters.");
 
-  if (!hasAccessCode && !hasSubscriberToken && !hasFreeAllowance(ip)) {
-    return errorSSE("You've reached today's free question limit. Use your class access code or AI Pro subscriber login to keep going.");
+  // Signed-in members (membership or the legacy class bundle's ai:unlimited)
+  // are unlimited too. Only checked when the cheaper token/code checks miss,
+  // to avoid the extra hop for already-unlocked callers.
+  const hasSession =
+    !hasAccessCode && !hasSubscriberToken && (await hasSessionEntitlement(request));
+
+  if (!hasAccessCode && !hasSubscriberToken && !hasSession && !hasFreeAllowance(ip)) {
+    return errorSSE("You've reached today's free question limit. Use your class access code, AI Pro subscriber login, or sign in to keep going.");
   }
 
   // Conversation history — last 8 turns, validated
