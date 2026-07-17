@@ -53,6 +53,15 @@
     .sources-panel { margin-top: var(--space-10); }
     .sources-panel ul { margin-bottom: 0; }
     .article-cta { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+    .article-figure { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-6); margin: var(--space-8) 0; }
+    .article-figure svg { display: block; width: 100%; height: auto; }
+    .article-figure figcaption { color: var(--ink-muted); font-size: var(--text-sm); line-height: 1.6; margin-top: var(--space-4); }
+    .figure-steps { display: grid; gap: var(--space-5); margin: 0; padding: 0; list-style: none; }
+    .figure-steps li { display: grid; grid-template-columns: 44px 1fr; gap: var(--space-4); align-items: start; }
+    .figure-step__num { display: grid; place-items: center; width: 44px; height: 44px; border: 2px solid var(--primary); border-radius: 999px; color: var(--primary); background: var(--bg-alt); font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+    .figure-steps h4 { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); }
+    .figure-steps p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
+    .figure-foot { margin: var(--space-5) 0 0; padding-top: var(--space-4); border-top: 1px dashed var(--border-soft); color: var(--accent-brown); font-style: italic; font-size: var(--text-md); }
     @media (max-width: 920px) {
       .article-layout, .translation-grid { grid-template-columns: 1fr; }
       .article-cta { flex-direction: column; align-items: stretch; }
@@ -157,6 +166,34 @@
           <h2 id="what-helps">What actually helps</h2>
 
           <p>None of this means limits don't exist or that everything is negotiable. It means the context in which limits are held matters enormously. Here are the patterns that tend to work from both research and coaching experience:</p>
+
+          <figure class="article-figure">
+            <p class="article-kicker" style="margin-bottom: var(--space-5);">Three moves that hold up</p>
+            <ol class="figure-steps">
+              <li>
+                <span class="figure-step__num" aria-hidden="true">1</span>
+                <div>
+                  <h4>Choices within limits, not unlimited choice</h4>
+                  <p>&#8220;Left shoe first, or right shoe?&#8221; The shoes are going on &mdash; the child exercises real agency inside that boundary.</p>
+                </div>
+              </li>
+              <li>
+                <span class="figure-step__num" aria-hidden="true">2</span>
+                <div>
+                  <h4>Connection before direction</h4>
+                  <p>Drop to their level, make eye contact, acknowledge &mdash; &#8220;You don't want to stop. I hear you.&#8221; &mdash; then redirect.</p>
+                </div>
+              </li>
+              <li>
+                <span class="figure-step__num" aria-hidden="true">3</span>
+                <div>
+                  <h4>Fewer battles, held more calmly</h4>
+                  <p>Reserve firm limits for safety, basic functioning, and the routines that matter. Let the rest go.</p>
+                </div>
+              </li>
+            </ol>
+            <p class="figure-foot">The &#8220;no&#8221; is identity under construction, not defiance.</p>
+          </figure>
 
           <h3>Choices within limits, not unlimited choice</h3>
 

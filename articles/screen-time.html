@@ -53,6 +53,15 @@
     .sources-panel { margin-top: var(--space-10); }
     .sources-panel ul { margin-bottom: 0; }
     .article-cta { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+    .article-figure { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-6); margin: var(--space-8) 0; }
+    .article-figure svg { display: block; width: 100%; height: auto; }
+    .article-figure figcaption { color: var(--ink-muted); font-size: var(--text-sm); line-height: 1.6; margin-top: var(--space-4); }
+    .figure-steps { display: grid; gap: var(--space-5); margin: 0; padding: 0; list-style: none; }
+    .figure-steps li { display: grid; grid-template-columns: 44px 1fr; gap: var(--space-4); align-items: start; }
+    .figure-step__num { display: grid; place-items: center; width: 44px; height: 44px; border: 2px solid var(--primary); border-radius: 999px; color: var(--primary); background: var(--bg-alt); font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+    .figure-steps h4 { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); }
+    .figure-steps p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
+    .figure-foot { margin: var(--space-5) 0 0; padding-top: var(--space-4); border-top: 1px dashed var(--border-soft); color: var(--accent-brown); font-style: italic; font-size: var(--text-md); }
     @media (max-width: 920px) {
       .article-layout, .translation-grid { grid-template-columns: 1fr; }
       .article-cta { flex-direction: column; align-items: stretch; }
@@ -139,6 +148,30 @@
           <p>For the early years, the research keeps pointing back to the same developmental basics: children need sleep, movement, hands-on exploration, language-rich interaction, pretend play, and emotionally available adults. Screens become more concerning when they repeatedly replace those things, especially for babies and toddlers whose learning is built so heavily through real-time social exchange.</p>
 
           <p>One of the most consistent findings in this area is what researchers call the "video deficit effect." Under around age 2, young children reliably learn less from video content than from identical live demonstrations. Patricia Kuhl and colleagues demonstrated this in a striking experiment: 9-month-old infants exposed to brief live sessions with a native Mandarin speaker showed significant phonetic learning. Infants exposed to the same content on video showed none. The social, contingent quality of live interaction, not just exposure to language, appears to be what makes early learning register. This is part of why bidirectional video calls differ developmentally from passive video. When a grandparent responds in real time to what a child does and says, the exchange resembles a real conversation. Autoplay video does not offer that.</p>
+
+          <figure class="article-figure">
+            <p class="article-kicker" style="margin-bottom: var(--space-4);">The video deficit effect</p>
+            <svg viewBox="0 0 720 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two panels comparing the same Mandarin sessions for 9-month-olds: with a live speaker, significant phonetic learning; with identical content on video, no measurable learning.">
+              <rect x="30" y="20" width="315" height="170" rx="14" fill="var(--bg-alt)" stroke="var(--border-soft)" />
+              <circle cx="90" cy="72" r="16" fill="none" stroke="var(--primary)" stroke-width="2.5" />
+              <path d="M 62 114 Q 90 88 118 114" fill="none" stroke="var(--primary)" stroke-width="2.5" />
+              <text x="140" y="68" font-family="var(--font-display)" font-weight="600" font-size="16" fill="var(--ink)">A live speaker</text>
+              <text x="140" y="89" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">real-time, responsive</text>
+              <path d="M 52 152 l 7 8 l 13 -16" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+              <text x="82" y="158" font-family="var(--font-display)" font-weight="600" font-size="15" fill="var(--ink)">Significant phonetic learning</text>
+              <text x="360" y="110" text-anchor="middle" font-family="var(--font-display)" font-size="14" fill="var(--ink-muted)">vs</text>
+              <rect x="375" y="20" width="315" height="170" rx="14" fill="var(--bg-alt)" stroke="var(--border-soft)" />
+              <rect x="415" y="52" width="46" height="34" rx="4" fill="none" stroke="var(--ink-muted)" stroke-width="2.5" />
+              <polygon points="431,61 431,77 445,69" fill="var(--ink-muted)" />
+              <line x1="438" y1="86" x2="438" y2="96" stroke="var(--ink-muted)" stroke-width="2.5" />
+              <line x1="424" y1="98" x2="452" y2="98" stroke="var(--ink-muted)" stroke-width="2.5" />
+              <text x="485" y="68" font-family="var(--font-display)" font-weight="600" font-size="16" fill="var(--ink)">Same content, on video</text>
+              <text x="485" y="89" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">one-way, non-contingent</text>
+              <path d="M 397 146 l 14 14 M 411 146 l -14 14" fill="none" stroke="var(--ink-muted)" stroke-width="3" stroke-linecap="round" />
+              <text x="427" y="158" font-family="var(--font-display)" font-weight="600" font-size="15" fill="var(--ink-muted)">No measurable learning</text>
+            </svg>
+            <figcaption>Kuhl and colleagues exposed 9-month-olds to brief Mandarin sessions &mdash; live or on video, same content. Only the live group learned. The social, contingent quality of the exchange, not the exposure itself, is what registers under age 2.</figcaption>
+          </figure>
 
           <div class="translation-grid">
             <div class="translation-card">

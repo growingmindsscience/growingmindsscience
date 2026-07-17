@@ -53,6 +53,15 @@
     .sources-panel { margin-top: var(--space-10); }
     .sources-panel ul { margin-bottom: 0; }
     .article-cta { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+    .article-figure { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-6); margin: var(--space-8) 0; }
+    .article-figure svg { display: block; width: 100%; height: auto; }
+    .article-figure figcaption { color: var(--ink-muted); font-size: var(--text-sm); line-height: 1.6; margin-top: var(--space-4); }
+    .figure-steps { display: grid; gap: var(--space-5); margin: 0; padding: 0; list-style: none; }
+    .figure-steps li { display: grid; grid-template-columns: 44px 1fr; gap: var(--space-4); align-items: start; }
+    .figure-step__num { display: grid; place-items: center; width: 44px; height: 44px; border: 2px solid var(--primary); border-radius: 999px; color: var(--primary); background: var(--bg-alt); font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+    .figure-steps h4 { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); }
+    .figure-steps p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
+    .figure-foot { margin: var(--space-5) 0 0; padding-top: var(--space-4); border-top: 1px dashed var(--border-soft); color: var(--accent-brown); font-style: italic; font-size: var(--text-md); }
     @media (max-width: 920px) {
       .article-layout, .translation-grid { grid-template-columns: 1fr; }
       .article-cta { flex-direction: column; align-items: stretch; }
@@ -166,6 +175,31 @@
             <li><strong>Ages 3 to 5:</strong> Preschoolers can follow more complex rules, wait briefly for things they want, and use simple strategies (like taking a breath or walking away) with adult support and scaffolding. They still need significant co-regulation for intense situations.</li>
             <li><strong>Ages 6 to 10:</strong> Elementary-aged children begin using internalized strategies more consistently. They can reflect on their behavior after the fact, engage with problem-solving, and apply rules without constant reminders in familiar situations.</li>
           </ul>
+
+          <figure class="article-figure">
+            <p class="article-kicker" style="margin-bottom: var(--space-4);">Borrowed calm &rarr; own capacity</p>
+            <svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A timeline from birth to age ten. A wide band of borrowed calm — co-regulation from adults — tapers as the child grows, while the child's own self-regulation capacity grows beneath it. The adult support never reaches zero.">
+              <polygon points="40,70 680,70 680,108 40,194" fill="var(--primary)" fill-opacity=".16" stroke="var(--primary)" stroke-opacity=".45" stroke-width="1" />
+              <text x="64" y="105" font-family="var(--font-display)" font-weight="600" font-size="16" fill="var(--ink)">Borrowed calm</text>
+              <text x="64" y="124" font-family="var(--font-display)" font-size="13" fill="var(--ink-soft)">(co-regulation from adults)</text>
+              <polygon points="40,194 680,108 680,200 40,200" fill="var(--warm)" fill-opacity=".2" stroke="var(--warm)" stroke-opacity=".5" stroke-width="1" />
+              <text x="656" y="172" text-anchor="end" font-family="var(--font-display)" font-weight="600" font-size="16" fill="var(--ink)">Own capacity</text>
+              <text x="656" y="191" text-anchor="end" font-family="var(--font-display)" font-size="13" fill="var(--ink-soft)">(self-regulation)</text>
+              <line x1="200" y1="134" x2="200" y2="200" stroke="var(--border-soft)" stroke-width="1.5" stroke-dasharray="4 4" />
+              <line x1="360" y1="70" x2="360" y2="200" stroke="var(--border-soft)" stroke-width="1.5" stroke-dasharray="4 4" />
+              <line x1="520" y1="70" x2="520" y2="200" stroke="var(--border-soft)" stroke-width="1.5" stroke-dasharray="4 4" />
+              <text x="120" y="224" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="14" fill="var(--ink)">Birth&ndash;12 mo</text>
+              <text x="120" y="243" text-anchor="middle" font-family="var(--font-display)" font-size="12.5" fill="var(--ink-soft)">fully external</text>
+              <text x="280" y="224" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="14" fill="var(--ink)">12&ndash;36 mo</text>
+              <text x="280" y="243" text-anchor="middle" font-family="var(--font-display)" font-size="12.5" fill="var(--ink-soft)">first self-soothing</text>
+              <text x="440" y="224" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="14" fill="var(--ink)">3&ndash;5 yrs</text>
+              <text x="440" y="243" text-anchor="middle" font-family="var(--font-display)" font-size="12.5" fill="var(--ink-soft)">strategies, with support</text>
+              <text x="600" y="224" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="14" fill="var(--ink)">6&ndash;10 yrs</text>
+              <text x="600" y="243" text-anchor="middle" font-family="var(--font-display)" font-size="12.5" fill="var(--ink-soft)">internalized strategies</text>
+              <text x="360" y="40" text-anchor="middle" font-family="var(--font-body)" font-style="italic" font-size="14" fill="var(--accent-brown)">Self-regulation is built on years of co-regulation &mdash; not instead of it.</text>
+            </svg>
+            <figcaption>The adult share shrinks as the child's own capacity grows, but it never drops to zero &mdash; stress, hunger, illness, and novelty can pull any child (or adult) back toward needing more support for a while.</figcaption>
+          </figure>
 
           <p>None of these stages happen cleanly or universally. Children vary. Stress, hunger, illness, transitions, and novelty can push any child back to an earlier regulatory state temporarily, adults included. Clancy Blair and Cybele Raver's research on toxic stress found that chronic exposure to high-stress environments actively disrupts the architecture of the stress-response system, making regulation significantly harder to develop over time. The developing brain is responding to its environment, which is a very different thing from a child's character.</p>
 

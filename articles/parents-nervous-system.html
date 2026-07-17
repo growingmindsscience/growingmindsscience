@@ -53,6 +53,15 @@
     .sources-panel { margin-top: var(--space-10); }
     .sources-panel ul { margin-bottom: 0; }
     .article-cta { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+    .article-figure { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-6); margin: var(--space-8) 0; }
+    .article-figure svg { display: block; width: 100%; height: auto; }
+    .article-figure figcaption { color: var(--ink-muted); font-size: var(--text-sm); line-height: 1.6; margin-top: var(--space-4); }
+    .figure-steps { display: grid; gap: var(--space-5); margin: 0; padding: 0; list-style: none; }
+    .figure-steps li { display: grid; grid-template-columns: 44px 1fr; gap: var(--space-4); align-items: start; }
+    .figure-step__num { display: grid; place-items: center; width: 44px; height: 44px; border: 2px solid var(--primary); border-radius: 999px; color: var(--primary); background: var(--bg-alt); font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
+    .figure-steps h4 { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); }
+    .figure-steps p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
+    .figure-foot { margin: var(--space-5) 0 0; padding-top: var(--space-4); border-top: 1px dashed var(--border-soft); color: var(--accent-brown); font-style: italic; font-size: var(--text-md); }
     @media (max-width: 920px) {
       .article-layout, .translation-grid { grid-template-columns: 1fr; }
       .article-cta { flex-direction: column; align-items: stretch; }
@@ -174,6 +183,41 @@
           <h2 id="working-with-it">Working with your nervous system instead of against it</h2>
 
           <p>None of this is an argument for performing calm. Children read performed calm easily; a tight, white-knuckled "I am being very patient right now" voice is not regulating, and most toddlers can tell the difference. The goal isn't to suppress what you feel. It's to notice it earlier and have a few real options before it runs the moment.</p>
+
+          <figure class="article-figure">
+            <p class="article-kicker" style="margin-bottom: var(--space-5);">The sequence, in order</p>
+            <ol class="figure-steps">
+              <li>
+                <span class="figure-step__num" aria-hidden="true">1</span>
+                <div>
+                  <h4>Notice the body first</h4>
+                  <p>The jaw tightens, the shoulders climb, heat in the chest. Catch it while it is still a clenched jaw and not yet a yell.</p>
+                </div>
+              </li>
+              <li>
+                <span class="figure-step__num" aria-hidden="true">2</span>
+                <div>
+                  <h4>Buy a beat before you respond</h4>
+                  <p>A slow exhale, out-breath longer than the in-breath. Drop your voice and slow your movements on purpose.</p>
+                </div>
+              </li>
+              <li>
+                <span class="figure-step__num" aria-hidden="true">3</span>
+                <div>
+                  <h4>Lower your own intensity before you address theirs</h4>
+                  <p>Get your own system down first, even partway. Then offer the steadier state. Then hold the limit.</p>
+                </div>
+              </li>
+              <li>
+                <span class="figure-step__num" aria-hidden="true">4</span>
+                <div>
+                  <h4>Plan for repair</h4>
+                  <p>When you snap &mdash; and you will &mdash; return, acknowledge, and re-establish warmth once your system is back online.</p>
+                </div>
+              </li>
+            </ol>
+            <p class="figure-foot">The goal is not performed calm. It is noticing earlier, with real options.</p>
+          </figure>
 
           <h3>Notice the body first</h3>
 
