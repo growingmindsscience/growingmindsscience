@@ -7,7 +7,7 @@
  * Matthew's ratification: ε=0.10/σ=0.10 → ≥75% exact, ≥95% within one rung,
  * 100% terminate within budget.
  */
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import {
   applyOutcome,
   createSession,
@@ -21,6 +21,14 @@ import {
   runSession,
   type SimLevel,
 } from "./simulators";
+
+// Every test in this file is CPU-bound simulation (hundreds to 10k seeded
+// sessions). In isolation the file runs in ~5s, but when all 14 test files run
+// in parallel workers it contends for CPU and takes ~27s — so individual tests
+// blow Vitest's 5s default and fail as timeouts, not as real assertion
+// failures. Give the whole file explicit headroom; the assertions, not the
+// wall clock, decide whether the protocol is correct.
+vi.setConfig({ testTimeout: 60_000 });
 
 const LEVELS: SimLevel[] = ["L0", "L1", "L2", "L3", "L4", "CP"];
 
