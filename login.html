@@ -4,98 +4,29 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Log in — Growing Minds Science</title>
-  <meta name="description" content="Log in to your Growing Minds Science account." />
+  <meta name="robots" content="noindex" />
   <meta name="theme-color" content="#6F8F7B" />
   <meta name="color-scheme" content="light dark" />
-  <meta name="robots" content="noindex" />
-
+  <!-- Sign-in now lives in the Number Path app (one Supabase identity across
+       the site). Bounce there; JS handles it instantly, meta refresh is the
+       no-JS fallback. -->
+  <meta http-equiv="refresh" content="0; url=/nsc/login" />
+  <link rel="canonical" href="/nsc/login" />
   <link rel="icon" type="image/png" href="assets/img/original-logo-mark-no-words-512.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <link rel="stylesheet" href="assets/css/refresh.css" />
+  <script>location.replace('/nsc/login');</script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-
-  <header class="site-header" role="banner">
-    <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
-        <span class="brand__name">Growing Minds Science</span>
-      </a>
-
-      <nav class="nav" aria-label="Primary">
-        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Toggle navigation menu">
-          <span class="nav-toggle__bars"><span></span></span>
-        </button>
-        <ul class="nav__list" id="primary-nav-list">
-          <li><a class="nav__link" href="/classes/">Classes</a></li>
-          <li><a class="nav__link" href="/nsc">Number Path</a></li>
-          <li><a class="nav__link" href="/tools/">Tools</a></li>
-          <li><a class="nav__link" href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
-          <li><a class="nav__link" href="/articles/">Articles</a></li>
-          <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a></li>
-        </ul>
-        <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
-          <svg class="theme-toggle__moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
-        </button>
-      </nav>
+  <main id="main" class="auth-page">
+    <div class="container container--narrow" style="text-align:center; padding:var(--space-16) 0;">
+      <p class="eyebrow">Member access</p>
+      <h1>Taking you to sign in…</h1>
+      <p class="lede">If you're not redirected, <a href="/nsc/login">go to sign in</a>.</p>
     </div>
-  </header>
-
-  <main id="main">
-    <section class="auth-page">
-      <div class="container auth-page__inner">
-        <div class="auth-page__copy">
-          <p class="eyebrow">Member access</p>
-          <h1>Log in to Growing Minds Science.</h1>
-          <p class="lede">Use the account credentials provided with your class access. Sessions are stored in a signed, HttpOnly cookie.</p>
-        </div>
-
-        <form class="signup__form auth-form" data-login-form novalidate>
-          <h2 class="signup__form-title">Log in</h2>
-          <a class="btn btn--ghost btn--block btn--lg google-login" href="/api/auth/google/start">
-            <span class="google-login__mark" aria-hidden="true">G</span>
-            <span>Continue with Google</span>
-          </a>
-          <div class="auth-divider"><span>or use email</span></div>
-          <div class="form-row">
-            <label class="form-label" for="login-email">Email</label>
-            <input class="form-input" id="login-email" name="email" type="email" autocomplete="username" required placeholder="you@example.com" aria-describedby="login-email-error" />
-            <p class="field-error" id="login-email-error" role="alert"></p>
-          </div>
-          <div class="form-row">
-            <label class="form-label" for="login-password">Password</label>
-            <div class="password-field">
-              <input class="form-input" id="login-password" name="password" type="password" autocomplete="current-password" required aria-describedby="login-password-error" />
-              <button class="btn btn--ghost password-toggle" type="button" data-password-toggle aria-controls="login-password" aria-label="Show password">Show</button>
-            </div>
-            <p class="field-error" id="login-password-error" role="alert"></p>
-          </div>
-          <label class="checkbox-row">
-            <input type="checkbox" name="remember" />
-            <span>Keep me logged in on this device</span>
-          </label>
-          <button class="btn btn--primary btn--block btn--lg" type="submit">Log in</button>
-          <p class="form-status" data-login-status data-auth-status role="status" aria-live="polite"></p>
-        </form>
-      </div>
-    </section>
   </main>
-
-  <footer class="site-footer" role="contentinfo">
-    <div class="container footer-bottom">
-      <span>© <span data-year>2026</span> Growing Minds Science. All rights reserved.</span>
-      <span>Educational content only. Not medical or psychological advice.</span>
-    </div>
-  </footer>
-
-  <script src="assets/js/main.js" defer></script>
-  <script src="assets/js/decor.js" defer></script>
-  <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

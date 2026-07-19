@@ -3,6 +3,23 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { backfillEntitlementsForUser } from "@/lib/backfill.server";
+
+/**
+ * Link any pre-existing Stripe purchases (legacy AI Pro subs, bought before
+ * this account existed) to the just-authenticated user. Idempotent and
+ * best-effort, so running it on every sign-in is safe and self-healing — a
+ * grant that appears later (a renewal) gets picked up on the next login.
+ */
+async function safeBackfill(user: { id: string; email?: string | null } | null): Promise<void> {
+  try {
+    if (user?.id && user.email) {
+      await backfillEntitlementsForUser(user.id, user.email);
+    }
+  } catch {
+    // never block auth on a backfill failure
+  }
+}
 
 function cleanNext(next: FormDataEntryValue | null): string {
   const v = typeof next === "string" ? next : "";
@@ -16,10 +33,11 @@ export async function login(formData: FormData) {
   const password = String(formData.get("password") ?? "");
   const next = cleanNext(formData.get("next"));
 
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) {
     redirect(`/login?error=${encodeURIComponent(error.message)}&next=${encodeURIComponent(next)}`);
   }
+  await safeBackfill(data.user);
   revalidatePath("/", "layout");
   redirect(next);
 }
@@ -36,10 +54,11 @@ export async function signup(formData: FormData) {
     );
   }
 
-  const { error } = await supabase.auth.signUp({ email, password });
+  const { data, error } = await supabase.auth.signUp({ email, password });
   if (error) {
     redirect(`/signup?error=${encodeURIComponent(error.message)}&next=${encodeURIComponent(next)}`);
   }
+  await safeBackfill(data.user);
   revalidatePath("/", "layout");
   redirect(next);
 }

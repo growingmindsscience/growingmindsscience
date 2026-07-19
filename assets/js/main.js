@@ -132,7 +132,10 @@
     }
 
     function getSession() {
-      return fetch("/api/session", {
+      // Identity lives in the Number Path Supabase app now. /nsc is proxied on
+      // this origin, so the shared session cookie reaches the entitlements
+      // endpoint and the whole site reflects one login.
+      return fetch("/nsc/api/entitlements/me", {
         method: "GET",
         credentials: "same-origin",
         headers: { "accept": "application/json" },
@@ -151,7 +154,7 @@
 
       var link = document.createElement("a");
       link.className = "nav__link";
-      link.href = session && session.authenticated ? "/account" : "/login";
+      link.href = session && session.authenticated ? "/account" : "/nsc/login";
       link.textContent = session && session.authenticated ? "Account" : "Log in";
       if (window.location.pathname === "/login" || window.location.pathname === "/login.html" || window.location.pathname === "/account" || window.location.pathname === "/account.html") {
         link.setAttribute("aria-current", "page");
