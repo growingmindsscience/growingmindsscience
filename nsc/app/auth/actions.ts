@@ -58,7 +58,12 @@ export async function signup(formData: FormData) {
   if (error) {
     redirect(`/signup?error=${encodeURIComponent(error.message)}&next=${encodeURIComponent(next)}`);
   }
-  await safeBackfill(data.user);
+  // Only backfill when signup produced a real session (email-confirmation off,
+  // so this IS the verified entry). When confirmation is on, data.session is
+  // null and the email isn't proven yet — backfilling here would let anyone
+  // claim a victim's subscription by signing up with their email. The
+  // post-confirmation auth/callback route handles that case safely instead.
+  await safeBackfill(data.session ? data.user : null);
   revalidatePath("/", "layout");
   redirect(next);
 }
