@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "note": "The corpus citation registry — one source of truth for what the knowledge base is allowed to lean on. `sources` are the external references cards may cite (every external source.url in the knowledge base must be registered here and verified). `claims` records the replication status of specific findings so the corpus, the library grader, and the marketing pipeline never present a contested result as settled. Extends the vetting already tracked in marketing/carousels/daily-log.md into structured, enforceable data.",
+  "sources": [
+    { "id": "zero-to-three", "label": "ZERO TO THREE", "url": "https://www.zerotothree.org/issue-areas/early-development/", "tier": "reputable-org", "verified": true },
+    { "id": "naeyc", "label": "NAEYC — Developmentally Appropriate Practice", "url": "https://www.naeyc.org/resources/topics/dap/infants-and-toddlers", "tier": "reputable-org", "verified": true },
+    { "id": "pathways", "label": "Pathways.org", "url": "https://pathways.org/all-ages/milestones/", "tier": "reputable-org", "verified": true },
+    { "id": "cdi", "label": "Child Development Institute", "url": "https://childdevelopmentinfo.com/child-development/normaldevelopment/", "tier": "reputable-org", "verified": true },
+    { "id": "harvard-serve-return", "label": "Center on the Developing Child, Harvard — Serve and Return", "url": "https://developingchild.harvard.edu/science/key-concepts/serve-and-return/", "tier": "academic", "verified": true },
+    { "id": "harvard-brain-architecture", "label": "Center on the Developing Child, Harvard — Brain Architecture", "url": "https://developingchild.harvard.edu/science/key-concepts/brain-architecture/", "tier": "academic", "verified": true },
+    { "id": "harvard-toxic-stress", "label": "Center on the Developing Child, Harvard — Toxic Stress", "url": "https://developingchild.harvard.edu/science/key-concepts/toxic-stress/", "tier": "academic", "verified": true },
+    { "id": "harvard-executive-function", "label": "Center on the Developing Child, Harvard — Executive Function", "url": "https://developingchild.harvard.edu/science/key-concepts/executive-function/", "tier": "academic", "verified": true },
+    { "id": "harvard-key-concepts", "label": "Center on the Developing Child, Harvard — Key Concepts", "url": "https://developingchild.harvard.edu/science/key-concepts/", "tier": "academic", "verified": true },
+    { "id": "aap-healthychildren", "label": "American Academy of Pediatrics — HealthyChildren media guidance", "url": "https://www.healthychildren.org/English/family-life/Media/Pages/default.aspx", "tier": "reputable-org", "verified": true },
+    { "id": "cdc-actearly", "label": "CDC — Learn the Signs. Act Early.", "url": "https://www.cdc.gov/ncbddd/actearly/", "tier": "government", "verified": true }
+  ],
+  "claims": [
+    { "id": "statistical-learning", "status": "supported", "citation": "Saffran, Aslin & Newport, Science 274:1926-1928 (1996)", "note": "8-month-olds segment words from continuous speech. Used in carousel 2026-07-16." },
+    { "id": "perceptual-narrowing", "status": "supported", "citation": "Werker & Tees, Infant Behavior and Development 7:49-63 (1984); Kuhl, Tsao & Liu, PNAS 100:9096-9101 (2003)", "note": "Native-phonetic narrowing 6-12 months. Used in carousel 2026-07-17." },
+    { "id": "serve-and-return", "status": "supported", "citation": "Center on the Developing Child, Harvard", "note": "Core framing; present accurately, avoid perfectionism/word-count pressure." },
+    { "id": "word-gap-30m", "status": "contested", "citation": "Hart & Risley (1995); Sperry, Sperry & Miller (2019) failed to replicate", "note": "DO NOT present as settled. Emphasize interaction quality over word count." },
+    { "id": "marshmallow-test", "status": "attenuated", "citation": "Mischel et al.; Watts, Duncan & Quan (2018)", "note": "Predictive effect substantially attenuated once background is controlled. Do not overclaim." },
+    { "id": "helper-hinderer", "status": "failed-replication", "citation": "Hamlin et al.; Lucca et al. (2025), ManyBabies, 1,018 infants", "note": "Failed to replicate. Do not cite as evidence of innate moral preference." }
+  ]
+}
