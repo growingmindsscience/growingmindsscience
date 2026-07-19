@@ -1,0 +1,26 @@
+{
+  "slug": "my-1-year-old-isnt-pointing",
+  "status": "draft",
+  "question": "My 1-year-old isn't pointing yet. Is that a problem?",
+  "ageBand": "10-12 months",
+  "domain": "Language",
+  "shortAnswer": "Pointing often appears around the first birthday, but the timing varies. Many children first share what they want with a reach, a grunt, or a look before a clear point shows up.",
+  "sections": [
+    {
+      "h": "Pointing is one of many ways to share",
+      "body": "Pointing matters because it shows a child wanting to share attention: look at that, together. But it is not the only sign that this is developing. Reaching toward things, looking back at you to check in, and making sounds to get your help are all early forms of the same skill. These often come before a finger point, and they are good signs on their own."
+    },
+    {
+      "h": "How to invite it",
+      "body": "You can model pointing gently through the day. Point to a dog, a truck, or a picture in a book and name it, then follow your child's gaze and put words to whatever they are looking at. Keeping favorite things just within sight but out of reach gives your child a reason to ask for help, which is exactly the back-and-forth that grows communication."
+    }
+  ],
+  "tryTonight": [
+    "Point and name as you go: \"Look, a dog!\"",
+    "Follow your child's gaze and say what they see.",
+    "Put a wanted toy in sight but out of reach to invite a request."
+  ],
+  "whenToReachOut": "If by around 15 to 18 months your child is not pointing, showing, or using gestures to share things with you, or is not responding to their name, a calm check-in with your pediatrician is reasonable. Bringing it up early is a normal step and often eases worry.",
+  "evidence": ["milestone-10-12-language", "milestone-10-12-cognitive"],
+  "related": { "articles": ["serve-and-return"], "class": "birth-to-12-months" }
+}

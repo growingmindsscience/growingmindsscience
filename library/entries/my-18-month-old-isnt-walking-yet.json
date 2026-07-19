@@ -1,0 +1,26 @@
+{
+  "slug": "my-18-month-old-isnt-walking-yet",
+  "status": "draft",
+  "question": "My 18-month-old isn't walking yet. Should I worry?",
+  "ageBand": "13-18 months",
+  "domain": "Motor",
+  "shortAnswer": "Independent walking usually shows up across a wide window, and many healthy children take their first steps later in the second year. Cruising along furniture, pulling to stand, and moving with purpose are all part of getting there.",
+  "sections": [
+    {
+      "h": "The walking window is wide",
+      "body": "Children reach walking on their own timelines. Some walk before their first birthday, and plenty are still working on it well into the middle of the second year. What matters more than the exact day is the direction of travel: pulling up to stand, cruising along the couch, squatting to pick up a toy, and bearing weight on their legs all show that the pieces are coming together."
+    },
+    {
+      "h": "How to support those first steps",
+      "body": "You can arrange sturdy furniture so there is a safe path to cruise along, and place a favorite toy just out of reach to invite a step or two. Barefoot time on safe surfaces helps your child feel the floor and build balance. There is no need to push. Steady practice and plenty of floor time do the work."
+    }
+  ],
+  "tryTonight": [
+    "Set up a short, safe cruising path between two low, stable pieces of furniture.",
+    "Offer both hands, then just one, as your child feels ready to step.",
+    "Give barefoot floor time so they can practice balance."
+  ],
+  "whenToReachOut": "If your child is not yet standing with support, has stopped doing something they used to do, or seems stiff or floppy to you, it is worth a calm conversation with your pediatrician. Trust your read on your own child; asking is always reasonable and often reassuring.",
+  "evidence": ["milestone-13-18-motor"],
+  "related": { "articles": ["milestone-worry"], "class": "toddlerhood" }
+}

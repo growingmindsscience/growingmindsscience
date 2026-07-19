@@ -1,0 +1,26 @@
+{
+  "slug": "is-my-2-year-old-not-talking-normal",
+  "status": "draft",
+  "question": "Is it normal that my 2-year-old isn't talking much yet?",
+  "ageBand": "19-24 months",
+  "domain": "Language",
+  "shortAnswer": "The range for talking at two is very wide. Many two-year-olds say only a handful of clear words, while others string together short phrases. What a child understands usually runs well ahead of what they can say.",
+  "sections": [
+    {
+      "h": "What is typical around two",
+      "body": "By two, a lot of children use somewhere between a few words and many words, and some begin to join two words together, like \"more milk.\" Others are still building up to that. Understanding tends to come first. If your child follows simple requests, points to things you name, and uses sounds, gestures, and gaze to get their meaning across, those are all signs that language is growing, even when spoken words are still few."
+    },
+    {
+      "h": "What helps language grow",
+      "body": "Language grows fastest inside warm, back-and-forth moments. You can name what your child looks at, add one word to what they say, and pause to give them a turn. Reading the same short books again and again helps too. This is about the quality of your everyday exchanges, not hitting a daily word count. Follow what your child is interested in and talk about that."
+    }
+  ],
+  "tryTonight": [
+    "Name what your child reaches for, then wait a beat for their reply.",
+    "Take one word they say and stretch it into two: \"ball\" becomes \"big ball.\"",
+    "Read one familiar book and let them fill in a word they know."
+  ],
+  "whenToReachOut": "You know your child best. If your two-year-old uses very few words or gestures, is not responding to their name, or has lost words they used to use, it is reasonable to check in with your pediatrician or ask about a free developmental evaluation. Reaching out early is a calm, ordinary step, and it often brings reassurance.",
+  "evidence": ["milestone-19-24-language", "language-development"],
+  "related": { "articles": ["serve-and-return"], "class": "toddlerhood" }
+}
