@@ -491,8 +491,17 @@
           the evidence is thin, the course says so.
         </p>
         <div class="btn-row">
-          <!-- The enrollment destination is not set. See the SCOPE FLAG below. -->
-          <a class="btn btn--primary" href="#included">See what is inside</a>
+          <!--
+            PRE-LAUNCH ROUTING (decided 2026-07-19, see companion/DECISIONS.md).
+            This page is a draft replacement for classes/birth-to-12-months.html
+            and should take over that URL rather than claiming a new one.
+            Pre-launch, the primary CTA points at the existing waitlist form on
+            that page, which already posts to /api/waitlist and subscribes to Kit.
+            AT LAUNCH, swap this href for the Thinkific product URL for this
+            course, with target="_blank" rel="noopener", exactly as
+            classes/toddlerhood.html does for the toddler class.
+          -->
+          <a class="btn btn--primary" href="/classes/birth-to-12-months.html#waitlist">Join the waitlist</a>
           <a class="btn btn--quiet" href="#honest">What this course refuses to claim</a>
         </div>
         <p class="hero__note">
@@ -502,10 +511,30 @@
     </section>
 
     <!--
-      SCOPE FLAG: this page has no pricing, no enrollment mechanism, and no
-      launch date, because none of those have been decided. The primary CTA
-      currently points at an on-page anchor. Before this page is published,
-      a human needs to set the real destination and decide the price frame.
+      RESOLVED 2026-07-19. The earlier scope flag here (no pricing, no
+      enrollment mechanism, no destination) has been decided. See
+      companion/DECISIONS.md for the reasoning and evidence.
+
+      PRICE: $49, lifetime access, unlimited Growing Minds AI included,
+      milestone tracker included. Matches the $49 toddler class deliberately:
+      that class is 5 modules and 29 lessons, this one is 6 modules and 26
+      lessons, so charging more for fewer lessons would not survive the
+      comparison. Early-bird $39 for existing waitlist members, honoring the
+      "early-bird pricing locked in" promise already made on the live
+      classes/birth-to-12-months.html page. Two-course bundle $79.
+
+      The price is deliberately NOT displayed on this page yet, because the
+      Thinkific product does not exist and a price with no way to pay it is
+      worse than no price. When the product exists, add a price line to the
+      hero and to the "what is included" section, and add a fourth card plus
+      the bundle to pricing.html.
+
+      STILL NEEDS A HUMAN: the live classes/birth-to-12-months.html advertises
+      a different module list, including a standalone "Sleep: What the Science
+      Actually Says" module that these drafts fold into Module 5, and does not
+      advertise Module 6 (Everyday Life). Either the page or the course
+      structure has to move before launch. It also promises "~1 hour each",
+      which should be checked against the final format.
     -->
 
     <!-- WHAT THIS IS -->
@@ -716,10 +745,22 @@
         </ul>
 
         <!--
-          PLACEHOLDER FOR A HUMAN: a social proof slot would sit here structurally.
-          It has been left empty on purpose. Do not fill it with invented quotes,
-          enrollment counts, or outcome statistics. If real reviews exist after
-          launch, a designer can add a quiet attributed quote block in this spot.
+          SOCIAL PROOF SLOT. Deliberately empty, decided 2026-07-19.
+
+          This course launches with no testimonials, because there are no
+          students yet and inventing quotes was never an option. Nothing on this
+          page depends on social proof to make sense, so the slot can stay empty
+          indefinitely without the page reading as unfinished.
+
+          Collection is built into the sequence: email 13 (Day 84) asks each
+          reader one specific question and asks separately for permission to
+          quote. Consent is tracked per quote and nothing appears here without an
+          explicit yes, and without a decision on whether a first name, a baby's
+          age, or a location may be shown.
+
+          Do not fill this with invented quotes, enrollment counts, or outcome
+          statistics. When real consented reviews exist, a quiet attributed quote
+          block goes here.
         -->
       </div>
     </section>
@@ -803,8 +844,8 @@
           and the course will be here for the whole of it.
         </p>
         <div class="btn-row">
-          <!-- Destination pending. See the SCOPE FLAG near the hero. -->
-          <a class="btn btn--primary" href="#hero-title">Begin the course</a>
+          <!-- Same routing as the hero CTA. Swap for the Thinkific URL at launch. -->
+          <a class="btn btn--primary" href="/classes/birth-to-12-months.html#waitlist">Join the waitlist</a>
         </div>
       </div>
     </section>

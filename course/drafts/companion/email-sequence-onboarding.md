@@ -4,21 +4,42 @@ Status: DRAFT. Not published, not merged, not sent.
 Branch: `course/first-year-2026-07-19`.
 Governed by `00-STYLE-AND-EVIDENCE-BRIEF.md` and `companion/00-COMPANION-BRIEF.md`.
 
-Twelve emails. Every scientific statement below traces to a passage in the six
-module drafts. Nothing here asserts anything the modules do not already support.
+Twelve teaching emails plus a closing request, across 84 days. Every scientific
+statement below traces to a passage in the six module drafts. Nothing here
+asserts anything the modules do not already support.
 
-> **SCOPE FLAG:** The "Send:" timings below are a proposed cadence only. Nothing
-> in the module drafts or the briefs specifies when modules unlock, whether the
-> course is drip-released or fully open on day one, or how long a parent is
-> expected to take. The day numbers are placeholders and should be reset against
-> the actual release schedule before this sequence is built in any sending tool.
+**This is a post-purchase sequence.** Every email addresses someone who already
+owns the course. That is why it contains no purchase ask: a sales pitch aimed at
+someone who has already paid is exactly the behavior this brand refuses. The
+purchase ask lives on the landing page and in the waitlist launch note, where a
+prospect actually is. Full reasoning in `DECISIONS.md`.
 
-> **SCOPE FLAG:** No email in this sequence contains a price, a discount, a
-> deadline, an upgrade path, or a referral ask. That is deliberate under the
-> calm-over-urgency rule, but it means this sequence does not currently do any
-> commercial work. If the business needs it to, that is a decision for a human,
-> and it should be made knowing that the honest version of this course has no
-> urgency hook available to it.
+## Cadence, decided 2026-07-19
+
+Day 0, 2, 5, 9, 14, 21, 28, 35, 42, 56, 70, 84, and 84 for the closing request.
+Gentle front-load, then a weekly plateau, then a fortnightly taper. Never more
+than three emails in any week. Emails 5 onward all fall on multiples of 7, so
+once past Day 14 the sequence snaps to a fixed weekday.
+
+Send Tuesday, about 10am recipient-local, for emails 5 onward. Emails 1 to 4 stay
+relative to signup.
+
+Two things a builder should know. First, weekly is the cadence with actual
+evidence behind it: a randomized trial of personalized weekly reminders in a
+self-paced online program raised on-schedule completion by 14 percentage points,
+and Text4baby's weekly, birth-date-timed messages retained 73% of a
+disadvantaged new-parent sample. Second, and more honestly, the *calm* part of
+this cadence is a brand decision rather than an empirical one. Postpartum SMS
+trials have sent twice daily without harm and with high satisfaction. Exhausted
+parents can handle frequency. We are choosing not to use it, because weekly is
+already sufficient to get the effect and because a sequence that decelerates is
+the shape of a course that trusts you to take your time.
+
+The Tuesday 10am guess is the weakest part of this. It rests on vendor open-rate
+data that Apple Mail Privacy Protection has corrupted, with nothing specific to
+parents or to education behind it. Treat send time as the first thing to A/B
+test, or use per-subscriber send-time optimization if the tool supports it and
+skip the guess entirely.
 
 ---
 
@@ -133,7 +154,7 @@ the worry.
 
 ## 4. States and cues
 
-**Send:** Day 8
+**Send:** Day 9
 **Subject:** Your baby has six states, not two
 **Preview text:** And it explains why the technique that worked yesterday failed today.
 
@@ -172,7 +193,7 @@ them, and say nothing for ten to twenty seconds.
 
 ## 5. Crying, honestly
 
-**Send:** Day 11
+**Send:** Day 14
 **Subject:** What the crying research actually found
 **Preview text:** The early weeks are loud. That is not caused by you.
 
@@ -214,7 +235,7 @@ out loud today, while nobody is crying.
 
 ## 6. Language, and the claim we refuse
 
-**Send:** Day 14
+**Send:** Day 21
 **Subject:** We do not teach the thirty million word gap
 **Preview text:** Nobody in Module 3 is going to ask you to talk more.
 
@@ -256,7 +277,7 @@ slower than yours.
 
 ## 7. Attachment without the pressure
 
-**Send:** Day 17
+**Send:** Day 28
 **Subject:** Attachment is a safety system, not a love meter
 **Preview text:** And the effect size is smaller than you have been told.
 
@@ -298,7 +319,7 @@ damage control. It is the curriculum.
 
 ## 8. How wide normal actually is
 
-**Send:** Day 20
+**Send:** Day 35
 **Subject:** The WHO milestone windows are wider than the chart on the wall
 **Preview text:** Including one milestone plenty of healthy babies skip entirely.
 
@@ -337,7 +358,7 @@ for two days before changing anything.
 
 ## 9. Sleep, and what the trials show
 
-**Send:** Day 23
+**Send:** Day 42
 **Subject:** "No adverse effects detected" is not "proven safe"
 **Preview text:** The honest state of the sleep training evidence.
 
@@ -382,7 +403,7 @@ not working for you.
 
 ## 10. Play and joint attention
 
-**Send:** Day 26
+**Send:** Day 56
 **Subject:** The wooden spoon beats the toy that lights up
 **Preview text:** And a milestone almost no list mentions.
 
@@ -421,7 +442,7 @@ already looking at. Do not introduce anything.
 
 ## 11. You are part of the system
 
-**Send:** Day 29
+**Send:** Day 70
 **Subject:** Your own steadiness is a developmental input
 **Preview text:** Written to reduce guilt, not add any.
 
@@ -469,7 +490,7 @@ hours on Saturday. One shop run. Something with edges.
 
 ## 12. Closing
 
-**Send:** Day 32
+**Send:** Day 84
 **Subject:** What to keep, and what to put down
 **Preview text:** The last email. There is no upsell in it.
 
@@ -507,3 +528,48 @@ You can put this down now. Your baby does not need you to have finished a
 course. They need you to be there, mostly, imperfectly, tomorrow.
 
 **Next step:** close this and go and be tired somewhere comfortable.
+
+---
+
+## 13. One question, if you have a minute
+
+**Send:** Day 84, a few hours after email 12
+**Subject:** One question about the course, and you can ignore it
+**Preview text:** No survey. One question, and only if you feel like it.
+
+This is the last email, and it is the only one that asks you for anything. You
+can ignore it with no consequence at all, and nothing further will arrive if you
+do.
+
+Here is the question. **Was there anything in this course that changed what you
+actually did, or stopped worrying about?**
+
+Not whether you liked it. Whether something moved. A sentence is plenty. If the
+honest answer is "not really, but it was interesting," that is genuinely useful
+too, and easier to act on than praise.
+
+The reason I am asking this particular way is that this course launched with no
+testimonials on the page, because there were no students yet and inventing some
+was not an option. So the page is currently a little bare where most courses put
+quotes. If you write something back and you are willing to have it quoted, I
+would like to use it. If you would rather it stayed between us, say so, or say
+nothing about it, and it stays between us. **Nothing gets published without you
+saying yes to that specifically.** No first name, no baby's age, no location,
+unless you tell me those are fine.
+
+One more thing worth saying plainly. If this course was not useful to you, or was
+useful but not worth what you paid, tell me and I will refund you. That offer
+does not expire and you do not have to justify it.
+
+**Next step:** hit reply with one sentence, or do not. Both are a completely fine
+way to end this.
+
+> **NOTE FOR THE BUILDER:** this email is the social-proof collection mechanism
+> decided in `DECISIONS.md`. Three things must be true when it is wired up.
+> Replies have to reach a real human inbox that is actually read, since the email
+> promises a reply is worth sending. Consent must be tracked per quote, not
+> inferred from a positive reply, so nothing reaches the landing page without an
+> explicit yes. And the refund offer in the last paragraph is a genuine
+> commitment that needs to be honored operationally before this sends. If any of
+> those three cannot be met, cut the corresponding paragraph rather than sending
+> a promise the business will not keep.

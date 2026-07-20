@@ -13,6 +13,7 @@ onboarding email sequence, quizzes, and a landing page draft.
 | File | What it is |
 | --- | --- |
 | `00-COMPANION-BRIEF.md` | The governing brief. Contains the protected-corrections table that every asset here was written against. |
+| `DECISIONS.md` | Every resolved decision (cadence, price, enrollment route, social proof) with its research basis and its honest limits. |
 | `worksheet-module-1-what-is-being-built.md` | Worksheet, aligned to Module 1's five activities. |
 | `worksheet-module-2-reading-your-baby.md` | Worksheet, Module 2. |
 | `worksheet-module-3-language-ready-baby.md` | Worksheet, Module 3. |
@@ -43,37 +44,28 @@ The corrections most likely to be undone by a well-meaning edit:
 - "Sleep training is safe," which overstates a trial with roughly 14 infants per arm.
 - Early allergen introduction generalized beyond peanut and beyond high-risk infants.
 
-## Open decisions for a human (the scope flags)
+## Decisions: all six scope flags are resolved
 
-Six flags were raised. Find them with `grep -rn "SCOPE FLAG" .`. None of them is
-a defect; each is a place where an asset would have had to invent something, and
-stopped instead.
+The six flags raised during drafting were researched and decided on 2026-07-19.
+**See `DECISIONS.md` for each decision, its evidence, and the places where the
+evidence did not settle the question and a judgment call was made instead.**
 
-**Commercial decisions, which are yours and not a drafting question:**
+In brief:
 
-1. **Email cadence is invented.** The "Send: Day N" timings are a proposed
-   rhythm. Nothing in the course specifies a release schedule, so these need
-   resetting against the real one.
-2. **The email sequence does no commercial work.** No price, no deadline, no
-   upsell, no referral ask. That follows directly from the calm-over-urgency
-   rule, which removes the usual conversion levers. Whether an onboarding
-   sequence that never asks for anything is acceptable is a business call.
-3. **The landing page has no enrollment destination.** Both CTAs point at
-   on-page anchors, because there is no pricing, no enrollment mechanism, and no
-   launch date to point them at.
-4. **The landing page has an empty social-proof slot**, marked with a comment
-   instructing that it not be filled with invented quotes or counts. It needs
-   something real or it should be deleted.
-
-**Content decisions:**
-
-5. **No quiz question on tummy time dose.** The hourly target is consensus
-   guidance rather than a trial-derived threshold, so any clean correct answer
-   would imply precision the evidence does not have.
-6. **No quiz question on breastfeeding and cognitive outcomes.** The honest
-   answer is that it is unsettled, but every workable distractor set read as a
-   verdict on a feeding decision many parents cannot freely make. Judged not
-   worth the cost to a tired reader.
+1. **Email cadence:** 12 teaching emails plus a closing request across 84 days
+   (Day 0, 2, 5, 9, 14, 21, 28, 35, 42, 56, 70, 84). Weekly is the cadence with
+   trial evidence behind it. The *calm* part is a brand decision, not an
+   empirical one, and `DECISIONS.md` says so plainly.
+2. **Price and the ask:** $49, matching the toddler class, with $39 early-bird
+   for the existing waitlist and a $79 two-course bundle. The sequence is
+   post-purchase, so no purchase ask belongs in it at all; the ask lives on the
+   landing page.
+3. **Enrollment route:** Thinkific, following the toddler-class precedent, not
+   the site's Stripe checkout (which is subscription-only). CTAs point at the
+   existing waitlist pre-launch.
+4. **Social proof:** launch without testimonials, collect via email 13 with
+   per-quote consent.
+5. **and 6.** The two withheld quiz questions stay withheld. Final.
 
 One further item, raised by a drafter rather than flagged in a file: in
 `quizzes.md`, "the evidence does not settle this" is the correct answer on some
