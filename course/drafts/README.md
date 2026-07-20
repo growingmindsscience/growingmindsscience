@@ -44,6 +44,7 @@ Specifically, before any of this goes anywhere near a learner:
 | `module-5-bodies-in-motion.md` | Motor development, tummy time, sleep, feeding, safety. Five lessons; sleep and feeding are separate. |
 | `module-6-everyday-life.md` | Play, joint attention, routines and stress, screens, caregiver wellbeing. |
 | `REVIEW-FLAGS.md` | Consolidated index of every contested claim flagged for human scrutiny. |
+| `companion/` | The surround: six parent worksheets, a 12-email onboarding sequence, six quizzes, and a landing page draft. See `companion/README.md`. |
 
 ## How this honors the repo's existing evidence standard
 
