@@ -74,7 +74,7 @@ You will not find a closing window in here. You will not find a race.
 You do not have to start today, and there is no schedule to fall behind on. The
 modules will be there when you have a hand free.
 
-**Next step:** open Module 1, Lesson 1.1, when you have ten quiet minutes. It is
+**Next step:** watch Module 1, Lesson 1.1, when you have ten quiet minutes. It is
 about what your baby arrived already able to do.
 
 ---
@@ -113,7 +113,7 @@ You also do not need to be contingent all the time. Nobody is. Missing a serve
 is not damage, and the return to connection after a mismatch is itself part of
 the process.
 
-**Next step:** read Module 1, Lesson 1.3, which is where all of this lives.
+**Next step:** watch Module 1, Lesson 1.3, which is where all of this lives.
 
 ---
 
@@ -124,7 +124,7 @@ the process.
 **Preview text:** Plasticity is on your side, not against you.
 
 Module 1 is about what is actually being built. It is also the module where we
-take something off your plate, so if you read only one lesson this week, make it
+take something off your plate, so if you watch only one lesson this week, make it
 Lesson 1.4.
 
 The claim that the first three years determine everything is an overclaim, and
@@ -185,7 +185,7 @@ intense. Your baby cannot turn their arousal down internally yet, so they look
 away, come down, and look back. Working harder at that moment raises the input
 your baby was trying to lower.
 
-**Next step:** read Module 2, Lesson 2.2, then try the back off and wait. Next
+**Next step:** watch Module 2, Lesson 2.2, then try the back off and wait. Next
 time your baby looks away, stop, lean back slightly, keep your hands supporting
 them, and say nothing for ten to twenty seconds.
 
@@ -228,7 +228,7 @@ walk out, and take five or ten minutes. A baby crying alone on their back in a
 safe empty sleep space for ten minutes is not being harmed. Make that decision
 without guilt. Never shake a baby, not once, not gently.
 
-**Next step:** read Module 2, Lesson 2.3, and have the step-away conversation
+**Next step:** watch Module 2, Lesson 2.3, and have the step-away conversation
 out loud today, while nobody is crying.
 
 ---
@@ -312,7 +312,7 @@ Read it alongside Bakermans-Kranenburg and colleagues (2003), who found that
 brief interventions narrowly focused on behaviour outperformed long
 comprehensive ones. More effort is not the mechanism.
 
-**Next step:** read Module 4, Lesson 4.2, on mismatch and repair. Repair is not
+**Next step:** watch Module 4, Lesson 4.2, on mismatch and repair. Repair is not
 damage control. It is the curriculum.
 
 ---
@@ -351,7 +351,7 @@ Wide normal is not the same as never worry. Loss of a motor skill your baby
 previously had, persistent stiffness or floppiness, or strong one-sidedness are
 reasons to mention something to your pediatrician rather than wait.
 
-**Next step:** read Module 5, Lesson 5.1, then try the floor time audit. Count
+**Next step:** watch Module 5, Lesson 5.1, then try the floor time audit. Count
 for two days before changing anything.
 
 ---
