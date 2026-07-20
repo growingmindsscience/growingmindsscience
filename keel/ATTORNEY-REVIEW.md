@@ -108,6 +108,6 @@ verification pass (keel/REVIEW.md) is running in parallel with this review.
 
 ## Launch mechanics once cleared
 
-Three marked changes (`NAVIGATOR-LAUNCH` in the code): remove the page's
-robots noindex meta, uncomment the tools-index card, add the sitemap entry.
-Nothing else moves.
+One command: `node keel/scripts/launch-navigator.mjs`. It removes the page's
+robots noindex meta, uncomments the tools-index card, and adds the sitemap
+entry. Nothing else moves.

@@ -54,9 +54,10 @@ certify the artifacts match the literature.
 - **Milestone Navigator: built, held** per `DECISIONS.md` D3 (attorney review is
   the launch blocker; build proceeds, launch does not). It is fully functional
   at `/tools/milestone-navigator` for review, with `noindex`, no sitemap entry,
-  and no tools-index card. To launch, make the three changes marked
-  `NAVIGATOR-LAUNCH` (robots meta in the page, card in `tools/index.html`,
-  entry in `sitemap.xml`).
+  and no tools-index card. Once review clears, launch is one command:
+  `node keel/scripts/launch-navigator.mjs` (flips the three `NAVIGATOR-LAUNCH`
+  spots, bumps the hub tool count, refuses to run twice), then run the checks
+  it prints and commit.
 
 ## Review packets
 
