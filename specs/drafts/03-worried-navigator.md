@@ -118,13 +118,35 @@ sentence, in the parent's own terms, not as a footnote. Draft banner copy:
 
 **Named tradeoff (decided):** two rounding conventions exist in the codebase.
 `keel/lib/navigator.mjs` returns a fractional corrected age; `nsc/lib/navigator.ts`
-floors to a whole month. Fractional is more faithful; floored is more
-conservative at every boundary, since flooring only moves a child younger, which
-only makes a threshold *not* fire early. They can disagree at a boundary, which
-is unacceptable in a tool whose whole claim is that two doors give one answer.
-**Floored wins:** one convention beats a marginally better one, and the floored
-value matches how a pediatrician says the number out loud. The keel engine
-changes to floor; the floors grader must stay green (§7.4).
+floors to a whole month.
+
+**Verified 2026-07-19, not asserted.** An earlier draft of this spec argued that
+floored was safe because flooring "moves a case out of a floor's window." That
+argument was wrong in its mechanism, and if it had been right it would have
+described a *softening*, which is exactly what the floors doctrine forbids. The
+real situation was measured instead:
+
+- All 77 age thresholds across `floors.v1.json` and `trees.v1.json` are
+  **integers**. For an integer `N`, `Math.floor(x) >= N` exactly when `x >= N`,
+  so flooring cannot change any threshold comparison. It is not a softening; it
+  is a no-op on classification.
+- A differential enumeration over every domain, every integer age 0 to 40, every
+  `weeksEarly` 0 to 16, and every answer path (**179,204 cases**) found
+  **0 classification differences** and **0 question-set differences** between the
+  two conventions.
+- The two conventions do produce a different *number* in **2,208** of those
+  `(age, weeksEarly)` pairs. That number is shown to the parent in the
+  corrected-age banner above, so the divergence is user-visible even though it is
+  safety-neutral.
+
+**Floored wins**, now on the honest grounds: it is provably safety-neutral, one
+convention beats two, and the floored value matches how a pediatrician says the
+number out loud. The parent is told "we compared to an 11-month-old," never
+"10.8 months."
+
+The remaining risk is not this change, it is §7.4's coverage gap: the floors
+grader never exercises corrected age at all, so it cannot certify this or any
+future rounding change. Fixing that gap is PR0 work.
 
 ### 1.3 Age gating and the edges
 
@@ -568,14 +590,67 @@ continues to pass and must assume the ten fixtures still fail.
   bottom tier are the two policy floors, and the standing invitation is required
   on both `typical_range` and `monitor`, which is strictly more coverage than
   today.
-- The corrected-age rounding change to floored (§1.2) can only move a child
-  younger, which can only prevent a threshold from firing early. It cannot cause a
-  floor-matching path to land below its floor, because the floors are keyed on
-  `applies_age_months_gte` and a smaller age moves a case *out* of a floor's
-  window, not into a softer class within it. The grader re-runs on the changed
-  engine and must be green before the change merges.
+- The corrected-age rounding change to floored (§1.2) is **verified
+  safety-neutral**, by measurement rather than argument. See §7.4.1.
 - Domain-slug unification is aliased, not renamed, so floor bindings resolve
   unchanged.
+
+### 7.4.1 Rounding change: what was actually run, and a coverage gap it exposed
+
+Run locally on 2026-07-19 in the spec worktree. Free, no API calls.
+
+**Step 1, baseline.** `node keel/graders/selftest.mjs` on unmodified `main`:
+approved artifacts pass at **372,689 cases**, all ten planted-violation fixtures
+correctly fail, exit 0.
+
+**Step 2, the change applied.** `correctedAge` in `keel/lib/navigator.mjs`
+switched to `Math.max(0, Math.floor(ageMonths - w / 4.345))`. Selftest re-run:
+**identical result**, 372,689 cases pass, ten fixtures fail, exit 0.
+
+**Step 3, and this is the part that matters.** That green is **vacuous on its
+own**, and reporting it as the verification would have been misleading.
+`correctedAge` is called only inside `resolve()`. The grader calls `classify()`
+and `askedQuestions()` directly and never calls `resolve()`, and its enumeration
+loop passes only `(domain, age, answers)` with no `weeksEarly` argument at all.
+**The Navigator floors grader never exercises corrected age.** A green selftest
+after a corrected-age change proves nothing about that change.
+
+**Step 4, the real test.** A differential enumeration was written instead,
+comparing the two rounding conventions across every domain, every integer age 0
+to 40, every `weeksEarly` 0 to 16, and every answer path. It is committed beside
+this spec as `specs/drafts/verify-rounding.mjs` so the result is reproducible
+rather than reported. Run `node specs/drafts/verify-rounding.mjs`; it is
+read-only, needs no network, and exits non-zero if the conventions ever diverge
+or if a non-integer threshold appears:
+
+| Measure | Result |
+|---|---|
+| Cases compared | 179,204 |
+| `(age, weeksEarly)` pairs where the two roundings differ numerically | 2,208 |
+| Asked-question-set differences | **0** |
+| Classification differences | **0** |
+
+The cause is structural, not luck: all 77 age thresholds in the two artifacts are
+integers, and `Math.floor(x) >= N` exactly when `x >= N` for integer `N`.
+
+**Step 5.** The engine change was **reverted**. This branch carries specs only
+and contains no edit to `keel/`. Verified with `git diff` and a final green
+selftest.
+
+**The coverage gap is now the finding.** Corrected age is a safety-relevant
+computation for preterm babies and it sits entirely outside the grader that
+certifies this product. Two consequences:
+
+1. Any future change to `correctedAge`, the `4.345` constant, the 3-week
+   threshold, or the 24-month cutoff would ship with a green CI and no coverage.
+   Today's no-op result does not generalize: **introduce one non-integer
+   threshold and the safety-neutrality argument collapses silently.**
+2. **PR0 acceptance criterion, added:** extend the Navigator enumeration to vary
+   `weeksEarly` over 0 to 16 and route through `resolve()` rather than
+   `classify()`, and add a planted-violation fixture that softens a floor only on
+   the preterm path. Today that fixture would pass the grader, which is the
+   definition of a gap. This is cheap: the enumeration already exists and the
+   case count rises by roughly the 17x weeksEarly factor, well within CI budget.
 
 ### 7.5 CI wiring
 

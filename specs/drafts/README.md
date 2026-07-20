@@ -168,13 +168,39 @@ flags, not a branching tree. Converting it is authoring work, not a
 transformation, and the recommendation in `03-worried-navigator.md` names that
 cost rather than hiding it.
 
-**3. A corrected-age rounding disagreement is a live correctness bug.**
+**3. The corrected-age rounding question is now resolved by measurement, and it
+exposed a coverage gap in the safety keel.**
+
 `keel/lib/navigator.mjs` returns a fractional corrected age; `nsc/lib/navigator.ts`
-floors to a whole month. At a threshold boundary the two can give different
-answers to the same parent, which breaks the product's core claim. The spec
-recommends flooring, on conservatism grounds. **The argument that the floors
-grader stays green after that change is reasoning, not a test run.** Run
-`node keel/graders/selftest.mjs` before acting on it.
+floors to a whole month. An earlier draft recommended flooring and argued it was
+safe. That argument was wrong in its mechanism, so it was tested instead. Run
+locally 2026-07-19, detailed in `03-worried-navigator.md` §7.4.1:
+
+- Baseline `keel/graders/selftest.mjs`: 372,689 cases pass, all ten planted
+  violations fail, exit 0.
+- With flooring applied: **identical**, still green.
+- **That green is vacuous.** `correctedAge` is only called inside `resolve()`;
+  the grader calls `classify()` directly and never passes `weeksEarly`. The
+  Navigator floors grader **never exercises corrected age**, so a green run after
+  a corrected-age change proves nothing.
+- A differential enumeration over 179,204 cases (every domain x age 0-40 x
+  weeksEarly 0-16 x every path) found **0 classification differences** and 0
+  question-set differences, though the two conventions differ numerically in
+  2,208 pairs. The cause is structural: all 77 age thresholds are integers, and
+  `floor(x) >= N` exactly when `x >= N` for integer `N`.
+- The engine change was **reverted**. This branch contains no edit to `keel/`.
+
+**Conclusion: flooring is verified safety-neutral, and the rounding split is a
+display-consistency bug rather than the safety bug it first appeared to be.** The
+real finding is the gap: a safety-relevant computation for preterm babies sits
+outside the grader that certifies the product. Introduce one non-integer
+threshold and today's result silently stops holding. A PR0 acceptance criterion
+to close it is written into §7.4.1.
+
+The differential test is committed as `verify-rounding.mjs` so this is
+reproducible rather than taken on trust. `node specs/drafts/verify-rounding.mjs`
+is read-only, needs no network, and exits non-zero if the two conventions ever
+diverge or if a non-integer age threshold is introduced.
 
 **4. Migration status is contradicted between two repo documents.** See §3.3.
 
