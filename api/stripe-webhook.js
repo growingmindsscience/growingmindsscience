@@ -62,7 +62,14 @@ export default async function handler(request) {
     const session = event.data.object;
     const email = session.customer_details?.email || session.customer_email || null;
     const sessionId = session.id;
-    const product = session.metadata?.product || "toddlerhood-class";
+    // Every Stripe Checkout Session and Payment Link that reaches this webhook
+    // must set metadata.product (see api/create-checkout-session.js for the
+    // pattern). We deliberately do not default to a specific product: with more
+    // than one thing for sale, guessing "toddlerhood-class" silently mislabels
+    // every other purchase in the purchases table and in the owner
+    // notification. An unlabelled session is recorded as "unknown" so it is
+    // visible and correctable, not attributed to the wrong course.
+    const product = session.metadata?.product || "unknown";
 
     await Promise.allSettled([
       storePurchase(email, sessionId, product),
@@ -106,14 +113,18 @@ async function notifyOwner(email, product) {
   if (!accessKey) return;
   const safeEmail = String(email || "unknown").replace(/[<>"]/g, "");
   const safeProduct = String(product || "unknown").replace(/[<>"]/g, "");
+  const unlabelledNote =
+    safeProduct === "unknown"
+      ? `\n\nHEADS UP: this checkout arrived without a product label, so it was recorded as "unknown". Check which product it was, and set metadata.product on the Stripe Checkout Session or Payment Link that produced it (see api/create-checkout-session.js) so future purchases are labelled correctly.`
+      : "";
   await fetch("https://api.web3forms.com/submit", {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({
       access_key: accessKey,
-      subject: `New Purchase — Growing Minds Science`,
+      subject: `New Purchase, Growing Minds Science`,
       from_name: "Growing Minds Science (Purchase Notification)",
-      message: `New purchase received.\n\nEmail: ${safeEmail}\nProduct: ${safeProduct}\n\nIf this is a class purchase, send the AI access code to this customer via your ConvertKit sequence or by replying to their confirmation email. AI Pro (ai_pro) subscriptions unlock automatically — no action needed.`,
+      message: `New purchase received.\n\nEmail: ${safeEmail}\nProduct: ${safeProduct}${unlabelledNote}\n\nIf this is a class purchase, send the AI access code to this customer via your ConvertKit sequence or by replying to their confirmation email. AI Pro (ai_pro) subscriptions unlock automatically, no action needed.`,
     }),
   });
 }

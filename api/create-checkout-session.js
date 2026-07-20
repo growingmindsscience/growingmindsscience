@@ -28,8 +28,8 @@ export default async function handler(request) {
         "mode": "subscription",
         "line_items[0][price]": PRICE_ID,
         "line_items[0][quantity]": "1",
-        // Label the session so webhooks never fall back to their
-        // "toddlerhood-class" default when logging this purchase.
+        // Label the session so the webhook records the right product instead
+        // of falling back to its "unknown" default when logging this purchase.
         "metadata[product]": "ai_pro",
         "subscription_data[metadata][product]": "ai_pro",
         "success_url": `${origin}/tools/growing-minds-ai?subscribed=1&session_id={CHECKOUT_SESSION_ID}`,
