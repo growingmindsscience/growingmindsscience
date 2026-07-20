@@ -20,6 +20,7 @@ const PUBLIC_PREFIXES = [
   "/api/stripe-webhook",
   "/api/cron", // guarded by its own CRON_SECRET bearer check
   "/api/email/unsubscribe", // token-authenticated, clicked from mail clients
+  "/api/entitlements", // self-gating: returns authenticated:false, never redirects
 ];
 // /admin is intentionally NOT public: middleware sends signed-out visitors to
 // /login, and requireAdmin 404s any signed-in non-admin.

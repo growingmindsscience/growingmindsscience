@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { backfillEntitlementsForUser } from "@/lib/backfill.server";
 
 /**
  * Auth code exchange for email links (password recovery, and any future
@@ -22,8 +23,14 @@ export async function GET(req: Request) {
 
   if (code) {
     const supabase = await createClient();
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
+      // Link any pre-existing Stripe purchases to this account (idempotent,
+      // best-effort — never block the redirect on it).
+      try {
+        const u = data.user;
+        if (u?.id && u.email) await backfillEntitlementsForUser(u.id, u.email);
+      } catch {}
       return NextResponse.redirect(new URL(`/nsc${next}`, origin));
     }
   }

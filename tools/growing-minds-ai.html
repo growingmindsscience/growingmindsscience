@@ -782,6 +782,10 @@
     let conversationHistory = [];
     let accessCode = sessionStorage.getItem('gm_access_code') || '';
     let subscriberToken = localStorage.getItem(SUB_TOKEN_KEY) || '';
+    // Unlimited via a signed-in Growing Minds account (membership or the
+    // legacy class bundle). Resolved async from the shared session; the
+    // server re-checks independently, so this only drives the UI.
+    let sessionUnlimited = false;
     let isStreaming = false;
 
     /* ── Free tier tracking ───────────────────────────── */
@@ -803,7 +807,7 @@
       try { localStorage.setItem(STORAGE_KEY, JSON.stringify(usage)); } catch {}
     }
     function isUnlimited() {
-      return Boolean(accessCode || subscriberToken);
+      return Boolean(accessCode || subscriberToken || sessionUnlimited);
     }
     function questionsRemaining() {
       if (isUnlimited()) return Infinity;
@@ -819,6 +823,10 @@
 
       if (subscriberToken) {
         textEl.innerHTML = '🔓 AI Pro · <strong>Unlimited</strong>';
+        if (accessToggle) accessToggle.style.display = 'none';
+        if (subToggle) subToggle.style.display = 'none';
+      } else if (sessionUnlimited) {
+        textEl.innerHTML = '🔓 Signed in · <strong>Unlimited</strong>';
         if (accessToggle) accessToggle.style.display = 'none';
         if (subToggle) subToggle.style.display = 'none';
       } else if (accessCode) {
@@ -1387,11 +1395,37 @@
       } catch {}
     }
 
+    /* ── Signed-in unlock ─────────────────────────────── */
+    // A Growing Minds account (membership or the legacy class bundle) unlocks
+    // unlimited without an access code or subscriber email. /nsc is proxied on
+    // this origin, so the shared Supabase session cookie reaches the endpoint.
+    // Best-effort and non-blocking: a signed-out or failed check just leaves
+    // the free tier in place.
+    async function checkSessionEntitlement() {
+      try {
+        const res = await fetch('/nsc/api/entitlements/me', {
+          headers: { accept: 'application/json' },
+          credentials: 'same-origin',
+        });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data && data.unlimitedAi === true) {
+          sessionUnlimited = true;
+          const inputArea = document.getElementById('inputArea');
+          const limitEl   = document.getElementById('limitReached');
+          if (inputArea) inputArea.style.display = '';
+          if (limitEl)   limitEl.style.display = 'none';
+          updateTierBadge();
+        }
+      } catch {}
+    }
+
     /* ── Init ─────────────────────────────────────────── */
     document.getElementById('currentYear').textContent = new Date().getFullYear();
     renderAllTopics();
     updateTierBadge();
     maybeRefreshToken();
+    checkSessionEntitlement();
     inputEl.focus({ preventScroll: true });
   </script>
 

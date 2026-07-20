@@ -90,3 +90,71 @@ export async function requirePaid(): Promise<void> {
   await requireAuth();
   if (!(await hasFullAccess())) redirect("/app/upgrade");
 }
+
+export interface EntitlementSummary {
+  authenticated: boolean;
+  /** Active product scopes, deduped. Empty when signed out. */
+  scopes: string[];
+  /** Convenience flags derived from scopes (union semantics). */
+  numberPath: boolean;
+  membership: boolean;
+  /** Unlimited Growing Minds AI: membership, or the legacy class bundle's
+   * `ai:unlimited` grant. This is what the parent AI tool reads. */
+  unlimitedAi: boolean;
+}
+
+const SIGNED_OUT_SUMMARY: EntitlementSummary = {
+  authenticated: false,
+  scopes: [],
+  numberPath: false,
+  membership: false,
+  unlimitedAi: false,
+};
+
+/**
+ * One read of the current user's live entitlements, shaped for cross-surface
+ * consumption (the parent site's AI tool calls the /api/entitlements/me route
+ * that wraps this). Union semantics, expiry-aware. Never throws on a missing
+ * table — degrades to whatever it can read.
+ */
+export async function getEntitlementSummary(): Promise<EntitlementSummary> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return SIGNED_OUT_SUMMARY;
+
+  const now = new Date();
+  const scopes = new Set<string>();
+
+  // Standalone Number Path purchase (authoritative, pre-spine).
+  const { data: purchase } = await supabase
+    .from("nsc_purchases")
+    .select("id")
+    .eq("owner_id", user.id)
+    .eq("product", "numberpath_full")
+    .limit(1)
+    .maybeSingle();
+  if (purchase) scopes.add("numberpath_full");
+
+  // Spine grants (RLS read-own). Tolerant of the table not existing yet.
+  const { data: ent } = await supabase
+    .from("entitlements")
+    .select("product_scope, expires_at")
+    .eq("user_id", user.id);
+  for (const row of ent ?? []) {
+    if (row.expires_at === null || new Date(row.expires_at) > now) {
+      scopes.add(row.product_scope);
+    }
+  }
+
+  const membership = scopes.has("membership");
+  return {
+    authenticated: true,
+    scopes: [...scopes],
+    // Membership includes Number Path (plan 2.2).
+    numberPath: scopes.has("numberpath_full") || membership,
+    membership,
+    unlimitedAi: membership || scopes.has("ai:unlimited"),
+  };
+}
