@@ -44,11 +44,21 @@ growing-minds-science/
       └─ site/                                  # Editorial photography
 ```
 
-> **Legacy, not deployed:** `netlify.toml` and `netlify/functions/` are dead
-> config from the pre-Vercel era. `vercel.json` governs and `api/*.js` are the
+> **Legacy code:** `netlify/functions/` is dead code from the pre-Vercel era
+> (`netlify.toml` is already gone). `vercel.json` governs and `api/*.js` are the
 > live functions. In particular `netlify/functions/growing-minds-ai.mjs` still
 > references OpenAI/gpt-5.5/vector-store — it is **not** how the AI works today
 > (see below) and is safe to delete.
+>
+> ⚠️ **Netlify is still connected to this repo**, despite the config being gone —
+> it builds on every PR and publishes at least two live, crawlable mirrors
+> (`growingmindsscience.netlify.app`, and `growing-minds-science.netlify.app`
+> serving *stale* content). Because these serve the same pages from a different
+> host, every page now declares an **absolute** canonical so the mirrors
+> consolidate to growingmindsscience.com instead of competing with it
+> (`scripts/check-canonicals.mjs` enforces this). The real fix is to disconnect
+> or unpublish those Netlify sites — that has to be done in the Netlify
+> dashboard, not here.
 
 ## Site imagery
 

@@ -65,6 +65,49 @@ function gitDate(file, first) {
   }
 }
 
+// Matches the whole generated block, markers included.
+const reEsc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const markerRe = () => new RegExp(`\\s*${reEsc(START)}[\\s\\S]*?${reEsc(END)}`);
+
+// Strip the generated block so two revisions can be compared on their real
+// content alone.
+const stripGenerated = (s) => s.replace(markerRe(), "").replace(/\s+/g, " ").trim();
+
+function gitShow(ref) {
+  try {
+    return execSync(`git show ${ref}`, { cwd: ROOT, stdio: ["ignore", "pipe", "ignore"] }).toString();
+  } catch {
+    return null; // path absent at that revision (e.g. the commit that added it)
+  }
+}
+
+/**
+ * dateModified = the newest commit that changed the article's ACTUAL content.
+ *
+ * Naively using `git log -1` makes this script non-idempotent: writing the block
+ * creates a commit, which changes the date, which rewrites the block, forever.
+ * So we walk the history newest-first and skip commits whose only effect on this
+ * file was inside the generated markers.
+ */
+function contentModifiedDate(relPath) {
+  try {
+    const shas = execSync(`git log --format=%H -- "${relPath}"`, { cwd: ROOT })
+      .toString().trim().split("\n").filter(Boolean);
+    for (const sha of shas) {
+      const cur = gitShow(`${sha}:${relPath}`);
+      if (cur === null) continue;
+      const prev = gitShow(`${sha}^:${relPath}`);
+      // No parent version => the commit that introduced the file: real change.
+      if (prev === null || stripGenerated(cur) !== stripGenerated(prev)) {
+        return execSync(`git log -1 --format=%aI ${sha}`, { cwd: ROOT }).toString().trim() || null;
+      }
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
 function buildArticleLd(file, html) {
   const rawTitle = decode(pick(html, /<title>([^<]*)<\/title>/i) || "");
   const title = rawTitle.replace(/\s*[-–—]\s*Growing Minds Science\s*$/i, "").trim();
@@ -74,7 +117,7 @@ function buildArticleLd(file, html) {
   const image = abs(pick(html, /<meta\s+property="og:image"\s+content="([^"]*)"/i));
   const rel = `articles/${file}`;
   const published = gitDate(rel, true);
-  const modified = gitDate(rel, false);
+  const modified = contentModifiedDate(rel);
 
   const article = {
     "@context": "https://schema.org",
@@ -115,9 +158,7 @@ function injectHead(html, jsonBlocks) {
     `\n  </script>\n` +
     `  ${END}`;
 
-  const marker = new RegExp(
-    `\\s*${START.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}[\\s\\S]*?${END.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`,
-  );
+  const marker = markerRe();
   if (marker.test(html)) return html.replace(marker, "\n" + script);
   return html.replace(/<\/head>/i, script + "\n</head>");
 }

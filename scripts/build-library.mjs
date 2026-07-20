@@ -130,7 +130,7 @@ function renderPage(entry, { draft }) {
   <meta name="theme-color" content="#6F8F7B" />
   <meta name="color-scheme" content="light dark" />${robots}
   <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="canonical" href="/answers/${entry.slug}.html" />
+  <link rel="canonical" href="${ORIGIN}/answers/${entry.slug}.html" />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="${escAttr(entry.question)}" />
   <meta property="og:description" content="${escAttr(entry.shortAnswer)}" />
@@ -210,7 +210,7 @@ function renderHub(entries, { draft }) {
   <meta name="theme-color" content="#6F8F7B" />
   <meta name="color-scheme" content="light dark" />${robots}
   <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="canonical" href="/answers/" />
+  <link rel="canonical" href="${ORIGIN}/answers/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />

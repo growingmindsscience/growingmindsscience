@@ -93,6 +93,17 @@ jobs:
             echo "::notice::scripts/corpus/certify.mjs not present on this ref — skipping"
           fi
 
+      # Mirrors we don't fully control (two live *.netlify.app copies, Vercel
+      # preview domains) serve these same pages. A relative canonical would let
+      # them self-canonicalise and compete with the production domain.
+      - name: Canonicals are absolute (mirror/duplicate-content guard)
+        run: |
+          if [ -f scripts/check-canonicals.mjs ]; then
+            node scripts/check-canonicals.mjs
+          else
+            echo "::notice::scripts/check-canonicals.mjs not present on this ref — skipping"
+          fi
+
       - name: Library compile — cert gate (no ungraded entry may ship)
         run: |
           if [ -f scripts/build-library.mjs ]; then
