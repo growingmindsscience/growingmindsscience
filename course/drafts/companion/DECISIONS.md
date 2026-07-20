@@ -121,7 +121,7 @@ funnel. $9, $34, $49, $49, bundle $79 is a list a parent can hold in their head.
 ### Where the ask lives, and why not where you would expect
 
 **The email sequence is post-purchase.** Email 1 opens "Welcome. You are in" and
-tells the reader to open Module 1. Every subsequent email addresses someone who
+tells the reader to watch Module 1. Every subsequent email addresses someone who
 already owns the course.
 
 **So a purchase ask cannot live in this sequence.** A sales pitch aimed at
@@ -202,20 +202,33 @@ preserving the URL, with the badge and waitlist swapped for enrollment.
 5. Send the waitlist launch note with the $39 early-bird, honoring the promise
    already on the live page.
 
-### Discrepancies between the live page and these drafts, for a human to resolve
+### Discrepancies between the live page and these drafts: RESOLVED 2026-07-20
 
-The live `classes/birth-to-12-months.html` makes public promises the drafted
-course does not match:
+Both items that were open here are now closed.
 
-- **The live module list differs.** It advertises The Newborn Brain / Reading
-  Your Baby's Cues / Attachment in the First Year / **Sleep: What the Science
-  Actually Says** / Language Before Words / Motor and Sensory Development. The
-  drafts put sleep inside Module 5 and add a sixth module, Everyday Life, that is
-  not advertised. Either the page or the course structure needs to move. The
-  promised standalone sleep module is the sharpest mismatch.
-- **"~1 hour each."** These modules run 6,000 to 9,000 words, roughly 30 to 45
-  minutes of reading each. Close, but check against the final format rather than
-  assuming.
+- **The live module list differed.** It advertised a standalone Sleep module and
+  a Motor and Sensory module, in a different order, with no Everyday Life module.
+  The live `classes/birth-to-12-months.html` was reconciled to the six drafted
+  modules on the course branch: sleep and feeding now sit inside Module 5, Bodies
+  in Motion (named explicitly in that module's card so it does not read as cut),
+  and Everyday Life is Module 6. Staged on the branch, not yet deployed.
+- **"~1 hour each" holds.** The course is delivered as narrated slides with an
+  audio overlay, the same format as the existing toddler class. At a normal
+  narration pace the six lesson scripts run roughly 45 to 65 minutes of audio per
+  module, so the "~1 hour each" claim on the live page is accurate. My earlier
+  flag assumed a reading course and is withdrawn.
+
+### Format, recorded so it is not lost
+
+The course is **slides with an audio overlay**, not a reading course. The drafted
+module files are the narration scripts, the same way the toddler class in
+`knowledge/sources/` is stored as class scripts. Customer-facing copy in this
+folder was corrected on 2026-07-20 to say watch and listen rather than read: the
+landing page hero, the "reading course" line, and the "how long will it take"
+FAQ, plus the "read Module N" next-steps in the email sequence. Do not
+reintroduce "reading course" framing. That this course matches the existing
+class format also quietly strengthens the ladder-coherence pricing argument
+above.
 
 ---
 
