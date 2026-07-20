@@ -2,7 +2,7 @@
 
 - **Suggested post date:** Friday, 2026-08-07
 - **Type:** Myth correction
-- **Source:** Watts, Duncan & Quan, *Psychological Science* (2018)
+- **Source:** Watts, Duncan & Quan, *Psychological Science*, 29, 1159-1177 (2018)
 - **Status:** draft, not published
 
 ---
@@ -21,6 +21,6 @@ I bring this up because the marshmallow story has a moral built into it, and the
 
 The replication points somewhere else. If you want a child to get better at waiting, the most useful thing in your control is being predictable. Not drilling the waiting.
 
-Watts, Duncan & Quan, *Psychological Science* (2018).
+Watts, Duncan & Quan, *Psychological Science*, 29, 1159-1177 (2018).
 
 *Educational content, not medical advice.*

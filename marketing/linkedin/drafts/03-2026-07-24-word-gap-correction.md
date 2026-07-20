@@ -2,7 +2,7 @@
 
 - **Suggested post date:** Friday, 2026-07-24
 - **Type:** Myth correction
-- **Sources:** Hart & Risley (1995); Sperry, Sperry & Miller, *Child Development* (2019)
+- **Sources:** Hart & Risley (1995); Sperry, Sperry & Miller, *Child Development*, 90(4), 1303-1318 (2019)
 - **Status:** draft, not published
 
 ---
@@ -19,6 +19,6 @@ I am not raising this to score a point about an old study. I raise it because of
 
 What does hold up is narrower and more useful: responsive back-and-forth with a child matters. That is not a word count. It is a loop, and it is available to everyone.
 
-Hart & Risley (1995). Sperry, Sperry & Miller, *Child Development* (2019).
+Hart & Risley (1995). Sperry, Sperry & Miller, *Child Development*, 90(4), 1303-1318 (2019).
 
 *Educational content, not medical advice.*
