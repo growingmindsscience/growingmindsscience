@@ -1,0 +1,840 @@
+<!doctype html>
+<!--
+  UNPUBLISHED DRAFT. Not merged, not live, not linked from the site.
+  Course landing page draft for "The First Year", built to the Tidepool design
+  system in DESIGN.md and governed by 00-COMPANION-BRIEF.md.
+  No pricing, no testimonials, no enrollment numbers, no outcome statistics.
+  Every claim on this page traces to the six module drafts in course/drafts/.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The First Year: a course for parents of babies 0 to 12 months</title>
+  <meta name="description" content="A six-module course on the first twelve months, built from developmental research, including a plain account of which popular claims do not hold up." />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="robots" content="noindex, nofollow" />
+  <script>
+    /* Apply saved or system theme before paint, same storage key as the live site. */
+    try {
+      var t = localStorage.getItem('gms-theme');
+      if (t === 'dark' || (t !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    } catch (e) {}
+  </script>
+  <style>
+    /* ---------------------------------------------------------------
+       Tokens. Values are taken directly from DESIGN.md (Tidepool).
+       Fonts are referenced by family name with the documented fallbacks.
+       Nothing is loaded over the network.
+       --------------------------------------------------------------- */
+    :root {
+      --mist: #F0F5F3;
+      --surface: #FFFFFF;
+      --sea-glass: #CFE3DE;
+      --pine: #15393C;
+      --pine-deep: #0E2A2D;
+      --teal: #1E5F62;
+      --teal-soft: #2E7A77;
+      --coral: #DE7356;
+      --coral-deep: #9C4429;
+      --coral-on-dark: #E78D6F;
+      --ink-soft: #3D5A5A;
+      --ink-muted: #4E6564;
+      --line: #D4E0DC;
+      --line-soft: #E2EAE7;
+      --on-dark: #EDF4F1;
+      --on-dark-soft: #BCD2CC;
+      --on-dark-muted: #8BA59F;
+
+      --font-display: "Bricolage Grotesque", "Avenir Next", "Helvetica Neue", sans-serif;
+      --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+
+      --r-xs: 4px;
+      --r-sm: 8px;
+      --r-control: 10px;
+      --r-md: 14px;
+      --r-card: 16px;
+      --r-lg: 20px;
+      --r-pill: 999px;
+
+      --shadow-sm: 0 1px 2px rgba(14, 42, 45, 0.06);
+      --shadow-md: 0 16px 36px -20px rgba(14, 42, 45, 0.32);
+      --shadow-btn: 0 14px 28px -16px rgba(30, 95, 98, 0.55);
+
+      --t: 140ms ease;
+
+      /* Semantic layer. These flip with the theme. */
+      --ground: var(--mist);
+      --panel: var(--surface);
+      --panel-2: var(--sea-glass);
+      --ink: var(--pine);
+      --ink-2: var(--ink-soft);
+      --ink-3: var(--ink-muted);
+      --rule: var(--line);
+      --rule-soft: var(--line-soft);
+      --action: var(--teal);
+      --action-hover: var(--teal-soft);
+      --action-ink: var(--surface);
+      /* Coral-Size Rule: coral text on a light ground is always coral-deep. */
+      --coral-text: var(--coral-deep);
+      --focus: var(--coral-deep);
+    }
+
+    [data-theme="dark"] {
+      --ground: var(--pine-deep);
+      --panel: #143336;
+      --panel-2: #17403F;
+      --ink: var(--on-dark);
+      --ink-2: var(--on-dark-soft);
+      --ink-3: var(--on-dark-muted);
+      --rule: #2A4C4E;
+      --rule-soft: #224245;
+      --action: #6FB3AE;
+      --action-hover: #8CC7C1;
+      --action-ink: var(--pine-deep);
+      /* Coral-Size Rule: on dark grounds small coral text is coral-on-dark. */
+      --coral-text: var(--coral-on-dark);
+      --focus: var(--coral-on-dark);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --ground: var(--pine-deep);
+        --panel: #143336;
+        --panel-2: #17403F;
+        --ink: var(--on-dark);
+        --ink-2: var(--on-dark-soft);
+        --ink-3: var(--on-dark-muted);
+        --rule: #2A4C4E;
+        --rule-soft: #224245;
+        --action: #6FB3AE;
+        --action-hover: #8CC7C1;
+        --action-ink: var(--pine-deep);
+        --coral-text: var(--coral-on-dark);
+        --focus: var(--coral-on-dark);
+      }
+    }
+
+    /* ------------------------------ base ------------------------------ */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      background: var(--ground);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 1.0625rem;
+      font-weight: 400;
+      line-height: 1.65;
+    }
+
+    ::selection { background: var(--coral); color: #2B130B; }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      margin: 0;
+    }
+
+    p { margin: 0 0 1rem; }
+    p:last-child { margin-bottom: 0; }
+
+    a { color: var(--action); }
+    a:hover { color: var(--action-hover); }
+
+    :focus-visible {
+      outline: 2.5px solid var(--focus);
+      outline-offset: 3px;
+      border-radius: var(--r-xs);
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      background: var(--panel);
+      color: var(--ink);
+      padding: 0.75rem 1rem;
+      border-radius: var(--r-sm);
+      z-index: 20;
+    }
+    .skip-link:focus { left: 1rem; top: 1rem; }
+
+    .container {
+      width: 100%;
+      max-width: 68rem;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    .prose { max-width: 60ch; }
+
+    section { padding: 4rem 0; }
+
+    /* ---------------------------- typography ---------------------------- */
+    .display {
+      font-size: clamp(2.45rem, 1.3rem + 4.6vw, 4.1rem);
+      line-height: 1.06;
+    }
+
+    .headline {
+      font-size: clamp(1.9rem, 1.2rem + 2.8vw, 3rem);
+      line-height: 1.06;
+    }
+
+    .title {
+      font-size: clamp(1.45rem, 1.1rem + 1.4vw, 1.9rem);
+      line-height: 1.1;
+    }
+
+    .eyebrow {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 600;
+      line-height: 1.4;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--coral-text);
+      margin: 0 0 0.75rem;
+    }
+
+    /* Signature-Phrase Rule: the coral serif-italic phrase inside a grotesque
+       headline. Used on exactly two headlines on this page. */
+    .hl {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-weight: 500;
+      color: var(--coral-deep);
+    }
+    [data-theme="dark"] .hl { color: var(--coral); }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .hl { color: var(--coral); }
+    }
+    /* Large display sizes only, so plain coral clears AA for large text. */
+    .band .hl { color: var(--coral); }
+
+    .lede {
+      font-size: 1.1875rem;
+      color: var(--ink-2);
+      max-width: 60ch;
+    }
+
+    .meta {
+      font-family: var(--font-display);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--ink-3);
+    }
+
+    /* ------------------------------ buttons ------------------------------ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0.8rem 1.5rem;
+      border-radius: var(--r-pill);
+      border: 1.5px solid transparent;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform var(--t), background-color var(--t), color var(--t);
+    }
+
+    .btn--primary {
+      background: var(--action);
+      color: var(--action-ink);
+      box-shadow: var(--shadow-btn);
+    }
+    .btn--primary:hover {
+      background: var(--action-hover);
+      color: var(--action-ink);
+      transform: translateY(-1px);
+    }
+
+    .btn--quiet {
+      background: transparent;
+      border-color: var(--rule);
+      color: var(--ink);
+    }
+    .btn--quiet:hover { background: var(--panel); color: var(--ink); transform: translateY(-1px); }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+
+    /* ------------------------------ header ------------------------------ */
+    .site-header {
+      border-bottom: 1px solid var(--rule-soft);
+      background: var(--ground);
+    }
+    .site-header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      min-height: 70px;
+    }
+    .brand {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .theme-toggle {
+      min-height: 40px;
+      padding: 0.4rem 0.9rem;
+      border-radius: var(--r-pill);
+      border: 1px solid var(--rule);
+      background: transparent;
+      color: var(--ink);
+      font-family: var(--font-display);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .theme-toggle:hover { background: var(--panel); }
+
+    /* ------------------------------- hero ------------------------------- */
+    .hero { padding: 4.5rem 0 3.5rem; }
+    .hero__title { margin-bottom: 1.25rem; }
+    .hero__note {
+      margin-top: 1.5rem;
+      font-size: 0.9375rem;
+      color: var(--ink-3);
+      max-width: 52ch;
+    }
+
+    /* ------------------------------- bands ------------------------------- */
+    .band {
+      background: var(--pine);
+      color: var(--on-dark);
+    }
+    .band .eyebrow { color: var(--coral-on-dark); }
+    .band h2, .band h3 { color: var(--on-dark); }
+    .band p { color: var(--on-dark-soft); }
+    .band .meta { color: var(--on-dark-muted); }
+    [data-theme="dark"] .band { background: var(--pine-deep); }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .band { background: var(--pine-deep); }
+    }
+
+    .band-soft { background: var(--panel-2); }
+
+    /* ------------------------------ modules ------------------------------ */
+    .modules {
+      list-style: none;
+      margin: 2.5rem 0 0;
+      padding: 0;
+      display: grid;
+      gap: 1rem;
+    }
+    .module {
+      background: var(--panel);
+      border: 1px solid var(--rule);
+      border-radius: var(--r-card);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      display: grid;
+      grid-template-columns: 3rem 1fr;
+      gap: 0 1rem;
+      align-items: start;
+    }
+    .module__num {
+      font-family: var(--font-display);
+      font-size: 1.0625rem;
+      font-weight: 600;
+      color: var(--ink-3);
+      padding-top: 0.35rem;
+    }
+    .module__title { font-size: 1.25rem; line-height: 1.2; }
+    .module__body {
+      margin: 0.5rem 0 0;
+      color: var(--ink-2);
+      max-width: 60ch;
+    }
+    .module__meta { margin-top: 0.5rem; }
+
+    @media (max-width: 30rem) {
+      .module { grid-template-columns: 1fr; gap: 0.5rem; }
+      .module__num { padding-top: 0; }
+    }
+
+    /* ------------------------- the honesty section ------------------------- */
+    .claims {
+      list-style: none;
+      margin: 2.5rem 0 0;
+      padding: 0;
+      display: grid;
+      gap: 1.25rem;
+    }
+    .claim {
+      border-top: 1px solid rgba(188, 210, 204, 0.28);
+      padding-top: 1.25rem;
+      max-width: 62ch;
+    }
+    .claim__heard {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--coral-on-dark);
+      margin: 0 0 0.5rem;
+    }
+    .claim__title { font-size: 1.1875rem; line-height: 1.25; margin-bottom: 0.5rem; }
+
+    /* ------------------------------ included ------------------------------ */
+    .included {
+      list-style: none;
+      margin: 2.5rem 0 0;
+      padding: 0;
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    }
+    .included li {
+      background: var(--panel);
+      border: 1px solid var(--rule);
+      border-radius: var(--r-md);
+      padding: 1.5rem;
+    }
+    .included h3 { font-size: 1.0625rem; margin-bottom: 0.4rem; }
+    .included p { color: var(--ink-2); font-size: 1rem; }
+
+    /* -------------------------------- faq -------------------------------- */
+    .faq { margin-top: 2.5rem; max-width: 60ch; }
+    .faq details {
+      border-bottom: 1px solid var(--rule);
+      padding: 1.125rem 0;
+    }
+    .faq summary {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1.0625rem;
+      letter-spacing: -0.015em;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: baseline;
+      min-height: 32px;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after {
+      content: "+";
+      font-size: 1.25rem;
+      color: var(--coral-text);
+      line-height: 1;
+    }
+    /* Minus sign U+2212, deliberately not a dash character. */
+    .faq details[open] summary::after { content: "\2212"; }
+    .faq details > p { margin-top: 0.75rem; color: var(--ink-2); }
+
+    /* ------------------------------- footer ------------------------------- */
+    .site-footer {
+      background: var(--pine-deep);
+      color: var(--on-dark-soft);
+      padding: 2.5rem 0;
+      font-size: 0.9375rem;
+    }
+    .site-footer p { max-width: 60ch; }
+
+    /* --------------------------- reduced motion --------------------------- */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+      .btn:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="container site-header__inner">
+      <a class="brand" href="/">Growing Minds Science</a>
+      <button class="theme-toggle" type="button" id="theme-toggle" aria-label="Toggle color theme">Theme</button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <p class="eyebrow">A course for the first 12 months</p>
+        <h1 class="display" id="hero-title">Your baby is doing something specific. <em class="hl">This explains what.</em></h1>
+        <p class="lede">
+          Six modules on the first year of life, written from the developmental
+          research and read at whatever pace a tired person can manage. It covers
+          what is actually being built, how to read your baby, language, attachment,
+          movement and sleep and feeding, and the shape of an ordinary day. Where
+          the evidence is thin, the course says so.
+        </p>
+        <div class="btn-row">
+          <!-- The enrollment destination is not set. See the SCOPE FLAG below. -->
+          <a class="btn btn--primary" href="#included">See what is inside</a>
+          <a class="btn btn--quiet" href="#honest">What this course refuses to claim</a>
+        </div>
+        <p class="hero__note">
+          Self-paced. Nothing expires, nothing is timed, and there is no cohort to keep up with.
+        </p>
+      </div>
+    </section>
+
+    <!--
+      SCOPE FLAG: this page has no pricing, no enrollment mechanism, and no
+      launch date, because none of those have been decided. The primary CTA
+      currently points at an on-page anchor. Before this page is published,
+      a human needs to set the real destination and decide the price frame.
+    -->
+
+    <!-- WHAT THIS IS -->
+    <section class="band-soft" aria-labelledby="what-title">
+      <div class="container">
+        <h2 class="headline" id="what-title">What this course is</h2>
+        <div class="prose" style="margin-top: 1.25rem;">
+          <p>
+            It is a reading course, not a program. You are not being told how to
+            parent. You are being told what the research on the first year
+            actually establishes, what it only suggests, and where the popular
+            version has run ahead of the findings.
+          </p>
+          <p>
+            Every module carries the same four parts: the lessons, five things you
+            could try this week, an explicit list of the claims the module refuses
+            to make, and the citations behind all of it with their replication
+            status marked.
+          </p>
+          <p>
+            It will not make your baby sleep, develop faster, or turn out better.
+            No course can do that, and the ones that say otherwise are selling
+            something. What it can do is make the next twelve months more legible,
+            so that fewer of them are spent guessing.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULES -->
+    <section aria-labelledby="modules-title">
+      <div class="container">
+        <h2 class="headline" id="modules-title">The six modules</h2>
+        <p class="lede" style="margin-top: 1rem;">
+          In order, because the first year is a sequence. Twenty-six lessons in
+          total, four to a module, except Modules 5 and 6, which run five.
+        </p>
+
+        <ol class="modules">
+          <li class="module">
+            <span class="module__num" aria-hidden="true">01</span>
+            <div>
+              <h3 class="module__title">What Is Actually Being Built</h3>
+              <p class="module__body">
+                Brain architecture, plasticity, the developmental sequence, and
+                serve and return, including why the pressure to optimize a
+                three-year window can be put down.
+              </p>
+              <p class="meta module__meta">4 lessons</p>
+            </div>
+          </li>
+
+          <li class="module">
+            <span class="module__num" aria-hidden="true">02</span>
+            <div>
+              <h3 class="module__title">Reading Your Baby</h3>
+              <p class="module__body">
+                Behavioral states, approach and disengagement cues, what crying is
+                for and how it changes across the first months, and temperament as
+                goodness of fit rather than a verdict.
+              </p>
+              <p class="meta module__meta">4 lessons</p>
+            </div>
+          </li>
+
+          <li class="module">
+            <span class="module__num" aria-hidden="true">03</span>
+            <div>
+              <h3 class="module__title">The Language-Ready Baby</h3>
+              <p class="module__body">
+                What newborns already hear, perceptual narrowing and statistical
+                learning, babbling as a conversation, and what the evidence says
+                actually predicts language.
+              </p>
+              <p class="meta module__meta">4 lessons</p>
+            </div>
+          </li>
+
+          <li class="module">
+            <span class="module__num" aria-hidden="true">04</span>
+            <div>
+              <h3 class="module__title">Connection and Security</h3>
+              <p class="module__body">
+                What attachment is and is not, the still-face experiment and why
+                repair matters more than accuracy, the eight-month reorganization,
+                and co-regulation in the first year.
+              </p>
+              <p class="meta module__meta">4 lessons</p>
+            </div>
+          </li>
+
+          <li class="module">
+            <span class="module__num" aria-hidden="true">05</span>
+            <div>
+              <h3 class="module__title">Bodies in Motion</h3>
+              <p class="module__body">
+                Motor development as a branching path rather than a ladder, tummy
+                time and the back-to-sleep tradeoff, how movement and thinking
+                develop together, and separate lessons on sleep and on feeding.
+              </p>
+              <p class="meta module__meta">5 lessons</p>
+            </div>
+          </li>
+
+          <li class="module">
+            <span class="module__num" aria-hidden="true">06</span>
+            <div>
+              <h3 class="module__title">Everyday Life</h3>
+              <p class="module__body">
+                Play as the curriculum, joint attention as the quiet milestone,
+                routines and stress buffering, an honest account of screens, and
+                the caregiver as part of the system rather than outside it.
+              </p>
+              <p class="meta module__meta">5 lessons</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- THE DIFFERENTIATOR -->
+    <section class="band" id="honest" aria-labelledby="honest-title">
+      <div class="container">
+        <p class="eyebrow">The part other courses leave out</p>
+        <h2 class="headline" id="honest-title">Some of what you have been told <em class="hl">does not hold up.</em></h2>
+        <p class="lede" style="color: var(--on-dark-soft); margin-top: 1.25rem;">
+          Every module ends with a section called "What this module is not saying."
+          It names the popular claims in that territory and explains, with the
+          citation, why the course will not repeat them. Three examples of what is
+          in there.
+        </p>
+
+        <ul class="claims">
+          <li class="claim">
+            <p class="claim__heard">You have probably heard</p>
+            <h3 class="claim__title">"There is a thirty million word gap, so talk more."</h3>
+            <p>
+              The Hart and Risley finding came from a very small sample, and Sperry,
+              Sperry and Miller (2019) failed to replicate it. Nothing in this course
+              asks you to count words. What the evidence points at is the quality and
+              contingency of interaction, which is a different target and a kinder one.
+            </p>
+          </li>
+
+          <li class="claim">
+            <p class="claim__heard">You have probably heard</p>
+            <h3 class="claim__title">"Babies are born knowing right from wrong."</h3>
+            <p>
+              That claim rests on the helper and hinderer studies. Lucca et al. (2025),
+              a ManyBabies replication running 1,018 infants across 37 labs, did not
+              find the effect. Notably, the author of the original finding is a co-author
+              on the replication. A null result is not proof of the opposite, so the
+              course says the effect did not replicate and stops there.
+            </p>
+          </li>
+
+          <li class="claim">
+            <p class="claim__heard">You have probably heard</p>
+            <h3 class="claim__title">"Crying peaks at six weeks, then improves."</h3>
+            <p>
+              The decline is real and well supported. The peak is not. Wolke, Bilgin and
+              Samara (2017) pooled diary data from 8,690 infants and reported no
+              statistical evidence for a universal peak. The durations across the first
+              six weeks were not distinguishable from one another. So the course tells
+              you the honest and still useful version: the early weeks are the loud ones,
+              and it reliably eases by around three months.
+            </p>
+          </li>
+        </ul>
+
+        <p style="margin-top: 2rem; max-width: 62ch;">
+          This is the actual difference. Plenty of courses promise confidence.
+          This one also tells you when the science is thinner than the headline,
+          which is the only way the confidence is worth anything.
+        </p>
+      </div>
+    </section>
+
+    <!-- WHAT IS INCLUDED -->
+    <section id="included" aria-labelledby="included-title">
+      <div class="container">
+        <h2 class="headline" id="included-title">What is included</h2>
+
+        <ul class="included">
+          <li>
+            <h3>Six modules</h3>
+            <p>
+              Twenty-six lessons in full prose, not outlines. Each module closes
+              with a summary and a citation list with replication status marked on
+              every contested source.
+            </p>
+          </li>
+          <li>
+            <h3>Six worksheets</h3>
+            <p>
+              One per module, built around that module's five "Try this week"
+              activities. Printable, and each one stands alone, because you will
+              print one and lose the others.
+            </p>
+          </li>
+          <li>
+            <h3>Six short quizzes</h3>
+            <p>
+              One per module, written to leave you feeling more capable rather than
+              caught out. They check understanding, not memory for numbers.
+            </p>
+          </li>
+        </ul>
+
+        <!--
+          PLACEHOLDER FOR A HUMAN: a social proof slot would sit here structurally.
+          It has been left empty on purpose. Do not fill it with invented quotes,
+          enrollment counts, or outcome statistics. If real reviews exist after
+          launch, a designer can add a quiet attributed quote block in this spot.
+        -->
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="band-soft" aria-labelledby="faq-title">
+      <div class="container">
+        <h2 class="headline" id="faq-title">Honest answers</h2>
+
+        <div class="faq">
+          <details>
+            <summary>Will this help my baby sleep?</summary>
+            <p>
+              It will not, and any course that promises it should worry you. Module 5
+              has a full lesson on sleep that explains what the research supports,
+              what it does not, and why the choice about sleep training is a values
+              decision rather than a settled scientific one. That is information, not
+              a result.
+            </p>
+          </details>
+
+          <details>
+            <summary>Is this going to tell me I am doing it wrong?</summary>
+            <p>
+              No. There is no "is your baby behind" framing anywhere in it. Several
+              of the modules exist specifically to take pressure off: mismatch and
+              repair are normal parts of interaction, missing cues is the ordinary
+              condition of parenting, and how much your baby cries in the first
+              months is not a report card on you.
+            </p>
+          </details>
+
+          <details>
+            <summary>Who is it for?</summary>
+            <p>
+              Parents and caregivers of babies from birth to twelve months. It works
+              during pregnancy too, and it works if your baby is already nine months
+              old, since the modules are ordered but not time-locked.
+            </p>
+          </details>
+
+          <details>
+            <summary>How long will it take?</summary>
+            <p>
+              As long as you want. The modules are reading, at your pace, with no
+              schedule and no live sessions. Most people will read one module in a
+              sitting or across several short ones.
+            </p>
+          </details>
+
+          <details>
+            <summary>Is this medical advice?</summary>
+            <p>
+              No. It is developmental education. The modules flag the specific
+              situations that warrant a call to your pediatrician, and they route
+              perinatal mental health concerns to real support rather than trying to
+              handle them. Anything about your particular baby's health belongs with
+              your clinician.
+            </p>
+          </details>
+
+          <details>
+            <summary>Where do the claims come from?</summary>
+            <p>
+              Peer-reviewed developmental research, cited at the end of every module,
+              with contested and failed-replication findings marked as such. Where a
+              finding is mixed, the course says it is mixed instead of picking the
+              tidier side.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLOSING -->
+    <section aria-labelledby="close-title">
+      <div class="container">
+        <h2 class="headline" id="close-title">Start whenever you are ready</h2>
+        <p class="lede" style="margin-top: 1rem;">
+          There is no window closing and no reason to hurry. The first year is long,
+          and the course will be here for the whole of it.
+        </p>
+        <div class="btn-row">
+          <!-- Destination pending. See the SCOPE FLAG near the hero. -->
+          <a class="btn btn--primary" href="#hero-title">Begin the course</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <p>
+        Growing Minds Science. Developmental science made usable for parents.
+        This course is educational and does not replace care from your pediatrician
+        or any other clinician.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    /* Theme toggle. Persists to the same key the rest of the site uses. */
+    (function () {
+      var btn = document.getElementById('theme-toggle');
+      if (!btn) return;
+      btn.addEventListener('click', function () {
+        var root = document.documentElement;
+        var isDark = root.getAttribute('data-theme') === 'dark'
+          || (!root.hasAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+        var next = isDark ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        try { localStorage.setItem('gms-theme', next); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>
