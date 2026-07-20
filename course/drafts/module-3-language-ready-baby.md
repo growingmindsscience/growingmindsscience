@@ -319,11 +319,24 @@ adults slip into around babies, compared to the same speaker's adult-directed
 speech. This is the finding the ManyBabies Consortium chose for its first
 project, precisely because it was foundational enough that the field needed to
 know whether it was real. ManyBabies 1, published in 2020 in Advances in Methods
-and Practices in Psychological Science, ran the test across dozens of labs on
-several continents with well over two thousand infants and a preregistered
+and Practices in Psychological Science, ran the test across 67 labs on four
+continents with 2,329 infants aged three to fifteen months, on a preregistered
 protocol. The preference replicated. It was clearly present, it was larger in
 older infants than younger ones, and it was stronger for infants hearing their
 own language community's speech.
+
+There is a second thing in that result, and it is worth more to you than the
+first. The replicated effect came out about half the size of the earlier
+literature's: a meta-analytic effect of d = 0.35, where the prior work had
+suggested something closer to 0.67. That is what a real finding usually looks
+like after a large preregistered test. It survives, and it shrinks. Early
+studies tend to be small, and small studies that find nothing tend not to get
+published, so the published average starts out flattering. A bigger, stricter
+test pulls it back toward its true size. A result getting smaller under better
+methods is not the same thing as a result collapsing, and being able to tell
+those two apart is genuinely useful when you are reading headlines about babies.
+Most of what you will see reported this year is one or the other, and they get
+described in identical language.
 
 That register is not something you have to be taught. Most adults, including
 people who insist they would never do it, produce it automatically when talking
@@ -482,7 +495,11 @@ Risley (1995) reported a large difference in cumulative words heard by age three
 between children in professional and welfare-recipient families, and that figure
 became one of the most repeated numbers in early childhood policy. Sperry,
 Sperry and Miller (2019), in Child Development, attempted to replicate the
-finding across five communities and did not. The original study rested on a very
+finding across five American communities, with longitudinal home observations of
+42 children aged eighteen to forty-eight months, and did not. They also found
+substantial variation *within* each socioeconomic group, which is its own
+argument against sorting children by their parents' income. The original study
+rested on a very
 small number of families, counted only speech directed at the child by a primary
 caregiver in the home, and used that count as though it measured the child's
 whole language environment. In communities where children are talked to by many
@@ -491,7 +508,12 @@ overheard and multiparty speech carries a large share of the load, that method
 systematically undercounts. The deficit framing that followed misread
 non-mainstream caregiver language environments as impoverished when what was
 actually impoverished was the measurement. This course does not use the word gap
-as evidence for anything.
+as evidence for anything. To be fair to the other side of it, this is a
+non-replication and a measurement critique rather than a demonstration that how
+much a child hears is irrelevant, and a published rebuttal exists (Golinkoff and
+colleagues, 2019). The reason this course declines the word gap is that the
+measure does not do what it was claimed to do, and that the variation inside any
+income group swamps the difference between groups.
 
 **It is not saying word count is the target.** No number is the target. There is
 no daily word quota, no app that should be counting for you, and no evidence
@@ -499,9 +521,14 @@ that pushing your talk volume upward produces the outcomes the correlational
 studies describe. Contingency and direction are what the evidence points at.
 Volume is the thing that got measured because it was easy to measure.
 
-**It is not saying baby sign accelerates speech.** Kirk et al. (2013) ran the
-randomized trial and found no language advantage from gestural training. Sign
-with your baby if you enjoy it. Do not pay for it as an accelerator.
+**It is not saying baby sign accelerates speech.** Kirk et al. (2013) followed 40
+infants from eight to twenty months across four arms, sign training, symbolic
+gesture training, verbal training, and no intervention, and found no infant
+language advantage from either gesture condition, against either comparison. It
+is worth saying that the study did find something: mothers in the gesture
+conditions became more responsive to their babies' nonverbal cues. So "no
+language advantage" is accurate and "no effect at all" would not be. Sign with
+your baby if you enjoy it. Do not pay for it as an accelerator.
 
 **It is not saying educational videos teach words.** DeLoache et al. (2010)
 found no word learning from a popular baby DVD. Screens are sometimes a
@@ -583,9 +610,11 @@ what to do if something concerns you: https://www.cdc.gov/ncbddd/actearly/
   (Goldstein & Schwade 2008).
 - The most useful skill is pausing. Say something, stop, look, and count to
   three. Baby response times are slower than adult ones.
-- Infants prefer infant-directed speech, and this replicated across dozens of
-  labs and thousands of infants (ManyBabies Consortium 2020). You do not have to
-  perform it, just not suppress it.
+- Infants prefer infant-directed speech, and this replicated across 67 labs and
+  2,329 infants (ManyBabies Consortium 2020). The replicated effect was about
+  half the size the earlier literature suggested, which is what a real finding
+  usually looks like after a big preregistered test: it survives and it shrinks.
+  You do not have to perform the register, just not suppress it.
 - Speech directed at your baby tracks later processing efficiency and
   vocabulary; speech merely audible in the room does not (Weisleder & Fernald
   2013, correlational, cannot license a causal instruction).
@@ -615,17 +644,26 @@ what to do if something concerns you: https://www.cdc.gov/ncbddd/actearly/
    8-month-old infants. *Science*, 274, 1926-1928. **[supported]** Registered in
    `corpus/citations.json` as `statistical-learning`.
 5. Goldstein, M. H., King, A. P., & West, M. J. (2003). Social interaction shapes
-   babbling: Testing parallels between birdsong and speech. *PNAS*, 100,
-   8030-8035. **[supported]** Contingent versus yoked noncontingent caregiver
-   response, within-session change in vocal maturity.
+   babbling: Testing parallels between birdsong and speech. *Proceedings of the
+   National Academy of Sciences*, 100(13), 8030-8035. **[supported]** **Verified
+   2026-07-19.** Contingent versus yoked noncontingent caregiver response,
+   within-session change in vocal maturity. The effects persisted after the
+   manipulation ended.
 6. Goldstein, M. H., & Schwade, J. A. (2008). Social feedback to infants'
    babbling facilitates rapid phonological learning. *Psychological Science*, 19,
    515-523. **[supported]** Infants restructure vocalizations toward the
    phonological patterns in contingent caregiver responses.
-7. ManyBabies Consortium. (2020). Quantifying sources of variability in infancy
-   research using the infant-directed speech preference. *Advances in Methods and
-   Practices in Psychological Science*, 3, 24-52. **[supported]** Preregistered
-   multi-lab replication across dozens of labs and thousands of infants.
+7. The ManyBabies Consortium. (2020). Quantifying sources of variability in
+   infancy research using the infant-directed-speech preference. *Advances in
+   Methods and Practices in Psychological Science*, 3(1), 24-52. **[supported]**
+   **Verified 2026-07-19.** Preregistered multi-lab replication: 67 labs on four
+   continents, 2,329 infants aged three to fifteen months. Use 67 and 2,329. Note
+   that 67 labs is the paper's own abstract figure, while the project site
+   reports 69 labs contributing data; the abstract figure is the one cited here.
+   The preference increased with age, was stronger for infants exposed to the
+   stimulus dialect (North American English), and varied by method. The
+   meta-analytic effect was d = 0.35, roughly half the d = 0.67 suggested by the
+   prior literature: the finding survived and shrank.
 8. Weisleder, A., & Fernald, A. (2013). Talking to children matters: Early
    language experience strengthens processing and builds vocabulary.
    *Psychological Science*, 24, 2143-2152. **[correlational]** Daylong recordings
@@ -637,13 +675,25 @@ what to do if something concerns you: https://www.cdc.gov/ncbddd/actearly/
    milestone timing better than quantity of talk.
 10. Kirk, E., Howlett, N., Pine, K. J., & Fletcher, B. C. (2013). To sign or not
     to sign? The impact of encouraging infants to gesture on infant language and
-    maternal mind-mindedness. *Child Development*, 84, 574-590. **[supported
-    null]** RCT; gestural training produced no infant language advantage.
+    maternal mind-mindedness. *Child Development*, 84(2), 574-590. **[supported
+    null]** **Verified 2026-07-19.** 40 infants followed from 8 to 20 months,
+    across four arms: British Sign Language training, symbolic gesture training,
+    verbal training, and non-intervention control. No infant language advantage
+    in either gesture condition, tested against both an active verbal-training
+    arm and a no-intervention arm, which is what makes the null informative. The
+    study did find positive effects on mothers, who became more responsive to
+    nonverbal cues, so "no language advantage" is accurate but "no effect at all"
+    would overstate it.
 11. DeLoache, J. S., Chiong, C., Sherman, K., Islam, N., Vanderborght, M.,
     Troseth, G. L., Strouse, G. A., & O'Doherty, K. (2010). Do babies learn from
-    baby media? *Psychological Science*, 21, 1570-1574. **[supported null]** No
-    word learning from a popular baby DVD; parents who liked the DVD believed
-    otherwise.
+    baby media? *Psychological Science*, 21(11), 1570-1574. **[supported null]**
+    **Verified 2026-07-19.** No word learning from a popular baby DVD. The
+    highest learning occurred in the no-video condition, where parents taught the
+    same words during everyday activities. Parents who liked the DVD
+    overestimated what their children had learned. Note that the course text
+    deliberately states no sample size for this study: the publisher reports 96
+    families, secondary sources circulate 72, and the discrepancy was not
+    resolvable without the full text. Do not add a sample size.
 12. Lehtonen, M., Soveri, A., Laine, A., Järvenpää, J., de Bruin, A., & Antfolk,
     J. (2018). Is bilingualism associated with enhanced executive functioning in
     adults? A meta-analytic review. *Psychological Bulletin*, 144, 394-425.
@@ -656,9 +706,18 @@ what to do if something concerns you: https://www.cdc.gov/ncbddd/actearly/
     `corpus/citations.json` as `word-gap-30m`. Do not present as settled.
 14. Sperry, D. E., Sperry, L. L., & Miller, P. J. (2019). Reexamining the verbal
     environments of children from different socioeconomic backgrounds. *Child
-    Development*, 90, 1303-1318. **[supported]** Failure to replicate the word
-    gap across five communities; identifies the measurement error behind the
-    deficit framing.
+    Development*, 90(4), 1303-1318. **[supported]** **Verified 2026-07-19.**
+    Ethnographic fieldwork with longitudinal home observations of 42 children
+    aged 18 to 48 months across five American communities. Did not replicate the
+    SES-based word gap, and found substantial variation *within* each
+    socioeconomic stratum. The methodological core of the paper is a measurement
+    argument: counting only primary-caregiver-directed speech systematically
+    undercounts the input reaching low-income children, who hear proportionally
+    more multiparty and overheard speech. This is a non-replication plus a
+    measurement critique, not a demonstration that input volume is irrelevant,
+    and a published rebuttal exists (Golinkoff et al., 2019, "Language Matters").
+    The module's refusal must stay framed around measurement validity and
+    within-group variation, not around "the word gap was debunked."
 15. Centers for Disease Control and Prevention. Learn the Signs. Act Early.
     https://www.cdc.gov/ncbddd/actearly/ **[reference]** Registered in
     `corpus/citations.json` as source `cdc-actearly`.

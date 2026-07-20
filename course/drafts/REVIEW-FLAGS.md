@@ -100,33 +100,112 @@ closed and what still needs human eyes.
 | **Hiscock & Wake maternal benefit** | Draft implied the maternal depression benefit persisted. It did not: it was present at the 2-year follow-up and gone by child age 6. | Stated with its expiry date. |
 | **Meltzoff & Moore neonatal imitation** | Was on the hard-ban list as a clean failed replication. It is not. Oostenbroek et al. (2016) found no evidence, but a re-analysis dispute followed, and Davis et al. (2021) found a pooled d = 0.68 across 336 effect sizes with heterogeneity tracking *researcher affiliation*. | Reclassified `contested`. Module 1 now carries a passage that refuses the confident version without asserting the opposite. **If a registry entry is added to `corpus/citations.json`, it must be `contested`, not `failed-replication`.** |
 
-### B3. STILL UNVERIFIED, needs human eyes
+### B3. RESOLVED 2026-07-19 by a second verification pass
 
-**Volume and page numbers given from memory, not yet spot-checked:**
+A second research pass took the remaining queue to primary sources. Everything
+that was open is now either verified, corrected in the drafts, or explicitly
+closed with a reason. Nothing in this section is still waiting on a human.
 
-- Goldstein, King and West (2003), PNAS 100:8030-8035.
-- Kirk et al. (2013), Child Development 84:574-590.
-- DeLoache et al. (2010), Psychological Science 21:1570-1574.
-- ManyBabies Consortium (2020), AMPPS 3:24-52.
-- Sperry, Sperry and Miller (2019), Child Development 90:1303-1318.
-- Tronick et al. (1978) volume and pages, given as journal only.
-- Mesman, van IJzendoorn and Bakermans-Kranenburg (2009) article title.
+**All seven page ranges were correct as drafted.** Verified against PubMed,
+publisher pages, and Crossref: Goldstein, King & West (2003) PNAS 100(13),
+8030-8035; Kirk et al. (2013) Child Development 84(2), 574-590; DeLoache et al.
+(2010) Psychological Science 21(11), 1570-1574; ManyBabies Consortium (2020)
+AMPPS 3(1), 24-52; Sperry, Sperry & Miller (2019) Child Development 90(4),
+1303-1318; Tronick et al. (1978) JAACP 17(1), 1-13; Mesman et al. (2009)
+Developmental Review 29(2), 120-162. Full locators and findings now sit in the
+module citation lists.
 
-**Numbers still stated approximately:**
+**Three corrections were needed, and were applied:**
 
-- Night-waking prevalence at 6 to 12 months, "a quarter to a third."
-- Newborn focal distance "eight to twelve inches", widely repeated, primary
-  source not identified. Framed as a rough description, not a measurement.
-- BEIP placement-age effects, hedged rather than given a crisp cutoff because
-  the threshold differs by outcome domain.
+| Item | What was wrong | Now |
+| --- | --- | --- |
+| **Thelen** | The leg-weighting and water-submersion stepping experiments were attributed loosely to Thelen, and are routinely mis-cited to Thelen & Fisher (1982). They are in **Thelen, Fisher & Ridley-Johnson (1984)**, Infant Behavior and Development 7(4), 479-493. | Module 5 splits the 1982 premise from the 1984 three-study test. The citation entry carries an explicit "do not re-attribute this to 1982" warning, since this is a widely propagated error a future editor might "fix" back. |
+| **NICHD 2001 follow-up** | Cited to the wrong journal. It is *Developmental Psychology* 37(6), 847-862, not Child Development. | Corrected, and both papers pinned. The 1997 primary is Child Development 68(5), 860-879, N = 1,153, Strange Situation at 15 months. |
+| **Newborn focal distance** | "Eight to twelve inches" had no defensible source and the fixed-focus premise behind it (Haynes, White & Held, 1965) was superseded by Braddick et al. (1979) and by the large depth of focus that follows from low newborn acuity. | Removed from Module 1, its worksheet, Module 2, and Module 2's worksheet. The passage now runs on low acuity, low contrast sensitivity, and "close, and high contrast." The Module 1 activity was renamed from "The eight inch face" to "Close, and high contrast." |
 
-**Cited by author and topic only, needs a specific reference or removal:**
+**The three approximate figures are now pinned or rewritten:**
 
-- Tronick and Gianino, mismatch and repair.
-- Adolph and Robinson; Thelen.
-- Diamond (A-not-B), Baillargeon, Murray and Cooper.
-- NICHD Early Child Care Research Network, cited as a research program rather
-  than a specific paper. Pin to one paper before publication.
+- **Night waking** is no longer a bare range. Module 5 now makes the definitional
+  problem the content: on the same 75 infants, 15% had not met a
+  midnight-to-5am or eight-consecutive-hours criterion at 12 months, while 28%
+  had not met a 10pm-to-6am criterion, which the authors argue is the
+  family-congruent one (Henderson et al., 2010, Pediatrics 126(5), e1081-e1087).
+  Weinraub et al. (2012), Developmental Psychology 48(6), 1511-1528, N > 1,200,
+  adds the two-class result: 66% "sleepers" waking about one night a week, 34%
+  "transitional sleepers" waking roughly seven nights a week at 6 months.
+- **Newborn focal distance:** cut, per the table above.
+- **BEIP placement age** is now domain-specific rather than "roughly two years":
+  24 months for IQ, attachment, and EEG; 15 months for expressive and receptive
+  language; and **no timing effect at all** for psychiatric outcomes, where
+  foster care reduced internalizing disorders regardless of placement age and did
+  not affect externalizing disorders. The IQ advantage had narrowed to
+  non-significance by age 8 (Fox et al., 2011, JCPP 52(9), 919-928). The passage
+  explicitly refuses the "past two years is too late" reading.
+
+**Author-only references are now pinned:**
+
+- **NICHD** to the 1997 Child Development paper (primary) and the 2001
+  Developmental Psychology follow-up, framed around the actual finding: childcare
+  by itself did not predict insecurity, and risk appeared only where low maternal
+  sensitivity coincided with poor-quality, extensive, or unstable care.
+- **Tronick and Gianino** split three ways, because the popular "30%" is
+  Tronick's own rounded summary rather than a printed result. The
+  ">70% of interaction time mismatched" finding goes to Tronick & Cohn (1989),
+  Child Development 60(1), 85-92 (54 dyads, first 2-minute normal episode, not
+  still-face data, repair roughly every 3 to 5 seconds); the "about 30% or less"
+  phrasing to Tronick (1989), American Psychologist 44(2), 112-119; the model to
+  Gianino & Tronick (1988). Two traps are recorded in the citation entry: the 70%
+  figure is often misattributed to a "1975 still-face study," and Tronick &
+  Gianino (1986) separately reported that about a third of interactive errors are
+  repaired in the very next step, which is a different statistic frequently
+  conflated with the coordination figure.
+- **Thelen** to the 1984 paper, the 1982 premise, and Thelen & Smith (1994).
+- **Adolph and Robinson** to the 2015 Handbook chapter, with Adolph & Hoch (2019),
+  Annual Review of Psychology 70, 141-164 preferred where checkable open-access
+  wording matters, since the Wiley chapter is paywalled and its specific
+  sub-claims could not be read.
+- **Diamond** split: 1985, Child Development 56(4), 868-883 carries the
+  memory/delay half (the delay needed to produce the error rose about 2 seconds
+  per month, from under 2 seconds at 7.5 months to over 10 seconds at 12 months);
+  1990, Annals of the NYAS 608, 637-669 carries the inhibitory-control and
+  prefrontal claim. Both are cited because the module makes the combined claim.
+- **Baillargeon** to Baillargeon, Spelke & Wasserman (1985), Cognition 20(3),
+  191-208, with the review flag strengthened rather than the finding retracted:
+  Rivera, Wakeley & Langer (1999) ran the drawbridge with no obstructing block at
+  all and infants still looked longer at 180-degree rotations, and Bogartz et al.
+  (2000) drew a Baillargeon reply in the same issue. The debate is live, not
+  settled against her.
+- **Murray and Cooper** to Murray, Fiori-Cowley, Hooper & Cooper (1996), Child
+  Development 67(5), 2512-2526, with the mediation made explicit: the cognitive
+  effect runs through interaction quality rather than depression itself,
+  attachment and cognition run through different routes, and social adversity
+  disrupts responsiveness much as depression does. The citation carries a "do not
+  claim gender moderation" note, since that sub-claim could not be verified.
+
+**Three editorial notes that came out of the verification:**
+
+- **DeLoache sample size stays absent.** The publisher reports 96 families,
+  secondary sources circulate 72, and the discrepancy was not resolvable without
+  the full text. The course states no number, which is the right call.
+- **ManyBabies lab count.** 67 labs is the paper's own abstract figure; the
+  project site says 69 contributed data. The drafts use 67 and 2,329 infants and
+  note the discrepancy. Module 3 also now teaches the survives-and-shrinks point:
+  the replicated effect was d = 0.35 against d = 0.67 in the prior literature.
+- **Sperry framing.** The refusal was already built on the measurement critique
+  and within-SES variation rather than "the word gap was debunked," which is the
+  defensible framing. A published rebuttal exists (Golinkoff et al., 2019,
+  "Language Matters") and is now noted in the citation, since a public-facing
+  refusal should expect it to be raised.
+
+**Still genuinely open, and small:**
+
+- The Adolph & Robinson (2015) chapter text could not be read (paywalled), so its
+  specific sub-claims are attributed on the strength of Adolph citing it herself.
+- Diamond (1990) has no abstract available; its argument is attributed on title
+  and citation record rather than read text.
+- Mesman et al. (2009) has a published erratum that was not retrieved. The module
+  cites it only for the qualitative robustness claim, so present use is
+  unaffected, but anyone quoting its effect sizes must read the erratum first.
 
 **Worth considering:**
 
@@ -154,9 +233,24 @@ publication date rather than as of this draft.
 
 ## Editorial notes from the drafting pass
 
-- Module 5, Lesson 5.4 runs 1,750 words, over the 1,600 ceiling, because it
-  carries sleep and feeding plus the restated safe-sleep block. Consider
-  splitting it.
-- Meltzoff and Moore neonatal imitation is on the banned list and appears
-  nowhere in the drafts, not even as a refusal. If the correction is wanted for
-  parents who have heard the claim, it needs adding to Module 1.
+Both original notes are now resolved.
+
+- ~~Module 5, Lesson 5.4 runs 1,750 words, over the ceiling.~~ **Done.** Split
+  into Lesson 5.4 (sleep) and Lesson 5.5 (feeding). Module 5 now has five
+  lessons, and the course has 26 lessons total.
+- ~~Meltzoff and Moore neonatal imitation appears nowhere, not even as a
+  refusal.~~ **Done, and the classification changed in the process.** It is in
+  Module 1 now, but as `contested` rather than as a banned failed replication.
+  See the Queue B2 table.
+
+Two notes added by the second pass:
+
+- **Module 3's Kirk bullet now concedes a positive maternal effect** inside a
+  section whose job is refusal. That is accurate (the trial found no infant
+  language advantage but did find mothers became more responsive to nonverbal
+  cues) but it is a slightly awkward shape for a "what this module is not
+  saying" item. Worth a read for tone.
+- **Module 4's NICHD passage changed meaning** when it was corrected, from a
+  broad compounding-disadvantage framing to the narrower and more accurate
+  interaction finding. The "Two honest limits" paragraph and the review flag
+  below it both predate that rewrite and should be re-read against it.

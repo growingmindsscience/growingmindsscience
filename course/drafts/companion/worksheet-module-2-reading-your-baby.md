@@ -49,8 +49,8 @@ from active sleep immediately.
 ## 2. Find quiet alert, and use it
 
 **What to do.** When you catch your baby eyes open, body still, breathing steady,
-drop what you are doing. Bring your face about eight to twelve inches from theirs
-and just look at them. Talk quietly, or say nothing. Let them look back.
+drop what you are doing. Bring your face close, near enough that it fills most of
+what they can see, and just look at them. Talk quietly, or say nothing. Let them look back.
 
 **Write it down.**
 
