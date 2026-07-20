@@ -93,6 +93,58 @@ try {
   ok(await page.locator('[data-print-card]').count() > 0, 'meltdown: print pocket card button present');
   ok(await page.locator('.pocket-card .pocket-seq li').count() === 3, 'meltdown: pocket card has 3 steps');
 
+  // --- Communication Snapshot: full run-through to a report ---
+  await page.goto(`${BASE}/tools/communication-snapshot.html`, { waitUntil: 'networkidle' });
+  await page.fill('#cs-age', '20');
+  await page.locator('.cs-chip', { hasText: 'No, full term or close' }).click();
+  await page.locator('.cs-nav .btn--primary', { hasText: 'Continue' }).click();
+  ok(await page.locator('.cs-step-title', { hasText: 'Words' }).count() > 0, 'snapshot: words step renders');
+  await page.locator('.cs-chip', { hasText: 'None yet' }).first().click();
+  await page.locator('.cs-item').nth(1).locator('.cs-chip', { hasText: '50 to 199' }).click();
+  await page.locator('.cs-nav .btn--primary', { hasText: 'Continue' }).click();
+  ok(await page.locator('.cs-item[data-behavior]').count() >= 8, 'snapshot: behavior items render');
+  // Answer every behavior 'Yes' except lost_skills ('No'); zero words at 20m must flag.
+  for (const item of await page.locator('.cs-item[data-behavior]').all()) {
+    const id = await item.getAttribute('data-behavior');
+    await item.locator('.cs-chip', { hasText: id === 'lost_skills' ? 'No' : 'Yes' }).first().click();
+  }
+  await page.locator('.cs-nav .btn--primary', { hasText: 'See the snapshot' }).click();
+  ok(await page.locator('.cs-sev--discuss').count() > 0, 'snapshot: no words at 20m compiles to discuss');
+  ok(await page.locator('.cs-flag', { hasText: 'No words yet' }).count() > 0, 'snapshot: no_words_16m flag surfaces');
+  ok(await page.locator('.cs-report .btn--primary', { hasText: 'Print notes' }).count() > 0, 'snapshot: print visit notes offered');
+
+  // --- Milestone Navigator: hearing concern routes discuss (audiology-led) ---
+  await page.goto(`${BASE}/tools/milestone-navigator.html`, { waitUntil: 'networkidle' });
+  ok(await page.locator('.nv-domain').count() === 8, 'navigator: 8 worry domains render');
+  await page.locator('.nv-domain', { hasText: 'Hearing and responding' }).click();
+  await page.fill('#nv-age', '8');
+  await page.locator('.nv-chip', { hasText: 'No, full term or close' }).click();
+  await page.locator('.nv-nav .btn--primary', { hasText: 'Continue' }).click();
+  // hr_skill_loss No, hr_concern Yes, hr_loud Yes, hr_turn Yes (name asked from 9m, so not at 8m)
+  await page.locator('.nv-answer', { hasText: 'No' }).click();
+  await page.locator('.nv-answer', { hasText: 'Yes' }).first().click();
+  await page.locator('.nv-answer', { hasText: 'Yes' }).first().click();
+  await page.locator('.nv-answer', { hasText: 'Yes' }).first().click();
+  ok(await page.locator('.nv-class--discuss').count() > 0, 'navigator: hearing concern lands discuss');
+  ok(/audiology/i.test(await page.locator('.nv-result').innerText()), 'navigator: action sheet leads with audiology');
+
+  // --- Navigator: clean walking path lands typical with invitation ---
+  await page.locator('.gms-link', { hasText: 'Check another area' }).click();
+  await page.locator('.nv-domain', { hasText: 'Walking and movement' }).click();
+  await page.fill('#nv-age', '14');
+  await page.locator('.nv-chip', { hasText: 'No, full term or close' }).click();
+  await page.locator('.nv-nav .btn--primary', { hasText: 'Continue' }).click();
+  for (let i = 0; i < 6; i++) {
+    const yes = page.locator('.nv-answer', { hasText: /^Yes$/ });
+    const no = page.locator('.nv-answer', { hasText: /^No$/ });
+    const q = await page.locator('.nv-title').innerText();
+    // Answer so nothing flags: loss/asymmetry get No, skills get Yes.
+    if (/lost|less than the other/i.test(q)) await no.first().click(); else await yes.first().click();
+    if (await page.locator('.nv-class').count()) break;
+  }
+  ok(await page.locator('.nv-class--typical_range').count() > 0, 'navigator: clean walking path lands typical_range');
+  ok(/bring it up with your pediatrician anyway/i.test(await page.locator('.nv-result').innerText()), 'navigator: typical result carries the standing invitation');
+
   // AI ?q= prefill — fills the box, does NOT send, cleans the URL
   await page.goto(`${BASE}/tools/growing-minds-ai.html?q=Why%20does%20my%20toddler%20melt%20down`, { waitUntil: 'networkidle' });
   await page.waitForTimeout(150);

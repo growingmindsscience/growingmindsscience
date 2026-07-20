@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Communication Snapshot - Growing Minds Science</title>
+  <meta name="description" content="A calm, research-grounded snapshot of your child's early communication (6 to 36 months): words, gestures, and understanding, with a clear read on what's typical and what's worth a pediatrician conversation." />
+  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="color-scheme" content="light dark" />
+
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="canonical" href="https://growingmindsscience.com/tools/communication-snapshot" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Communication Snapshot — Growing Minds Science" />
+  <meta property="og:description" content="A calm, research-grounded snapshot of your child's early communication, with a clear read on what's typical and what's worth a pediatrician conversation." />
+  <meta property="og:image" content="/assets/img/site/family-reading.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/refresh.css" />
+  <link rel="stylesheet" href="../assets/css/tools.css" />
+  <script>try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+
+  <style>
+    .tool-hero { padding: clamp(3rem, 6vw, 5rem) 0 2rem; }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr .9fr; gap: var(--space-8); align-items: start; }
+    .tool-lede { font-size: var(--text-md); color: var(--ink-soft); max-width: 44rem; margin: 0 0 var(--space-6); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+
+    .hero-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      padding: var(--space-6);
+    }
+    .hero-card h2 { margin: 0 0 .65rem; font-size: var(--text-lg); }
+    .meta-list { list-style: none; padding: 0; margin: var(--space-4) 0 0; display: grid; gap: .85rem; }
+    .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
+    .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
+    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: 999px; background: var(--surface-2); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .small { font-size: var(--text-sm); color: var(--ink-muted); }
+
+    /* --- Snapshot wizard --- */
+    .cs-app { max-width: var(--container-narrow); margin: 0 auto; }
+    .cs-card {
+      background: var(--surface); border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);
+      padding: clamp(1.25rem, 3vw, 2rem);
+    }
+    .cs-progress { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .12em; color: var(--ink-muted); font-weight: 700; margin: 0 0 var(--space-2); font-family: var(--font-display); }
+    .cs-step-title { margin: 0 0 .5rem; font-size: var(--text-xl); }
+    .cs-step-lede { color: var(--ink-soft); margin: 0 0 var(--space-5); }
+    .cs-field { display: grid; gap: .4rem; margin: 0 0 var(--space-5); }
+    .cs-field label { font-weight: 600; font-family: var(--font-display); }
+    .cs-field input[type="number"] {
+      width: 7.5rem; padding: .6rem .75rem; border: 1px solid var(--border);
+      border-radius: var(--radius-sm, 8px); background: var(--surface); color: var(--ink);
+      font: inherit;
+    }
+    .cs-field input:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+    .cs-hint { font-size: var(--text-sm); color: var(--ink-muted); }
+
+    .cs-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .cs-chip {
+      padding: .55rem .9rem; border-radius: 999px; border: 1px solid var(--border);
+      background: var(--surface); color: var(--ink-soft); cursor: pointer; font: inherit;
+      font-size: var(--text-sm); min-height: 44px;
+      transition: background var(--transition), border-color var(--transition), color var(--transition);
+    }
+    .cs-chip:hover { border-color: var(--primary); }
+    .cs-chip:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+    .cs-chip.is-active { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
+
+    .cs-item { padding: var(--space-4) 0; border-top: 1px solid var(--border-soft); }
+    .cs-item:first-of-type { border-top: 0; }
+    .cs-item__prompt { font-weight: 600; font-family: var(--font-display); margin: 0 0 .2rem; }
+    .cs-item__help { font-size: var(--text-sm); color: var(--ink-muted); margin: 0 0 .7rem; max-width: 46rem; }
+    .cs-item.is-missing .cs-item__prompt::after { content: " · needs an answer"; color: var(--warm-deep, #9C4429); font-size: var(--text-xs); font-family: var(--font-display); }
+
+    .cs-nav { display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-6); flex-wrap: wrap; }
+    .cs-error { color: #9C4429; font-size: var(--text-sm); margin: var(--space-3) 0 0; }
+
+    /* --- Report --- */
+    .cs-sev {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .4rem .85rem; border-radius: 999px; font-family: var(--font-display);
+      font-weight: 600; font-size: var(--text-sm); margin-bottom: var(--space-4);
+    }
+    .cs-sev--none, .cs-sev--watch { background: var(--surface-2); color: var(--primary); border: 1px solid color-mix(in srgb, var(--primary) 40%, transparent); }
+    .cs-sev--discuss, .cs-sev--priority_discuss { background: #F8E7E0; color: #9C4429; border: 1px solid color-mix(in srgb, #9C4429 30%, transparent); }
+    [data-theme="dark"] .cs-sev--discuss, [data-theme="dark"] .cs-sev--priority_discuss { background: color-mix(in srgb, #DE7356 18%, transparent); color: #E78D6F; border-color: color-mix(in srgb, #E78D6F 35%, transparent); }
+    .cs-report h2 { margin: 0 0 .6rem; }
+    .cs-lead { color: var(--ink-soft); max-width: 52rem; }
+    .cs-invitation { font-family: var(--font-body); font-style: italic; color: #9C4429; max-width: 48rem; margin: var(--space-4) 0 0; }
+    [data-theme="dark"] .cs-invitation { color: #E78D6F; }
+
+    .cs-flags { display: grid; gap: var(--space-4); margin: var(--space-6) 0 0; }
+    .cs-flag { border: 1px solid var(--border-soft); border-radius: var(--radius); background: var(--bg-alt); padding: var(--space-5); }
+    .cs-flag h3 { margin: 0 0 .45rem; font-size: var(--text-md); }
+    .cs-flag p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
+    .cs-flag--watch { border-left: 1px solid var(--border-soft); }
+
+    .cs-guidance { display: grid; gap: var(--space-3); margin: var(--space-6) 0 0; }
+    .cs-guidance details { border: 1px solid var(--border-soft); border-radius: var(--radius); background: var(--surface); padding: 0; }
+    .cs-guidance summary { cursor: pointer; padding: var(--space-4) var(--space-5); font-weight: 600; font-family: var(--font-display); }
+    .cs-guidance summary:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: var(--radius); }
+    .cs-guidance .cs-guidance__body { padding: 0 var(--space-5) var(--space-5); color: var(--ink-soft); }
+
+    .cs-recap { margin: var(--space-6) 0 0; border-top: 1px solid var(--border-soft); padding-top: var(--space-5); }
+    .cs-recap h3 { font-size: var(--text-md); margin: 0 0 var(--space-3); }
+    .cs-recap ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .35rem; font-size: var(--text-sm); color: var(--ink-soft); }
+    .cs-note { font-size: var(--text-xs); color: var(--ink-muted); margin: var(--space-5) 0 0; max-width: 52rem; }
+
+    /* --- Print visit sheet --- */
+    #visit-sheet { display: none; }
+    @media print {
+      body.printing-visit > :not(#visit-sheet) { display: none !important; }
+      body.printing-visit #visit-sheet { display: block; color: #000; font: 12pt/1.5 Georgia, serif; padding: 1rem; }
+      #visit-sheet h2 { font: 700 16pt/1.2 "Helvetica Neue", sans-serif; margin: 0 0 .3rem; }
+      #visit-sheet h3 { font: 700 12pt/1.2 "Helvetica Neue", sans-serif; margin: 1rem 0 .3rem; }
+      #visit-sheet ul { margin: .2rem 0; padding-left: 1.2rem; }
+      #visit-sheet .vs-foot { margin-top: 1.2rem; font-size: 9pt; color: #444; border-top: 1px solid #999; padding-top: .5rem; }
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="container site-header__inner">
+      <a class="brand" href="/" aria-label="Growing Minds Science — home">
+        <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+        <span class="brand__name">Growing Minds Science</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Toggle navigation menu">
+          <span class="nav-toggle__bars"><span></span></span>
+        </button>
+
+        <ul class="nav__list" id="primary-nav-list">
+          <li><a class="nav__link" href="/classes/">Classes</a></li>
+          <li><a class="nav__link" href="/nsc">Number Path</a></li>
+          <li><a class="nav__link" aria-current="page" href="/tools/">Tools</a></li>
+          <li><a class="nav__link" href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
+          <li><a class="nav__link" href="/articles/">Articles</a></li>
+          <li><a class="nav__link" href="/about/">About</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a></li>
+        </ul>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
+          <svg class="theme-toggle__moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="tool-hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Free · 6–36 months · About 4 minutes</p>
+          <h1 class="page-hero__title">Communication Snapshot</h1>
+          <p class="tool-lede">A few careful questions about words, gestures, and understanding. You get a calm, research-grounded read on where your child's communication sits right now, and printable notes if a pediatrician conversation is worth having.</p>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="#snapshot">Start the snapshot</a>
+            <a class="btn btn--ghost" href="#how-it-works">How it works</a>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-labelledby="cs-at-a-glance">
+          <span class="tag">What this is, and isn't</span>
+          <h2 id="cs-at-a-glance">Honest about its job</h2>
+          <ul class="meta-list">
+            <li><span class="dot"></span><span>It organizes what you already observe into the shape a pediatrician conversation actually uses.</span></li>
+            <li><span class="dot"></span><span>Every line it draws is tied to published research, and it never softens one.</span></li>
+            <li><span class="dot"></span><span>It is not a screening or diagnostic instrument, and it never labels your child.</span></li>
+            <li><span class="dot"></span><span>Everything stays on this device. Your answers are never sent to us.</span></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="snapshot" aria-label="Communication Snapshot">
+      <div class="container cs-app">
+        <div class="cs-card" id="cs-root" aria-live="polite">
+          <noscript><p>The Communication Snapshot needs JavaScript to run. Everything happens on your device; nothing is sent to us.</p></noscript>
+        </div>
+        <p class="cs-note">This tool offers educational information, not medical advice, diagnosis, or screening. It cannot see your child; it can only organize what you report. Decisions about your child's health belong with you and your child's clinician.</p>
+      </div>
+    </section>
+
+    <section id="how-it-works">
+      <div class="container container--narrow">
+        <h2>How this works</h2>
+        <p class="section-intro">Behind this tool sits a set of published red lines, things like <em>no single words by 16 months</em> (Filipek et al., 1999) and the <em>fewer than 50 words or no combinations at 24 months</em> late-talker marker (Rescorla, 1989). Each line is stored with its source, and an automated check runs on every update to this site: if a change would ever classify a red-line observation more softly than the research supports, the update fails and cannot ship. The tool can be more careful than the literature; it is never allowed to be less.</p>
+        <p class="section-intro">Two details we handle the way clinicians do: if your child was born more than 3 weeks early, we use corrected age (counted from the due date) under 24 months. And words count across every language your family speaks; being bilingual never delays any line here.</p>
+        <h3 style="font-size: var(--text-lg); margin-top: var(--space-7);">Sources</h3>
+        <ul class="source-list" style="display:grid; gap: var(--space-3); margin:0; padding-left:1.1rem;">
+          <li class="small">Zubler JM, et al. Evidence-informed milestones for developmental surveillance tools. <em>Pediatrics.</em> 2022;149(3).</li>
+          <li class="small">CDC, Learn the Signs. Act Early. Developmental milestones (2022 revision).</li>
+          <li class="small">Filipek PA, et al. The screening and diagnosis of autistic spectrum disorders. <em>J Autism Dev Disord.</em> 1999;29(6).</li>
+          <li class="small">Rescorla L. The Language Development Survey. <em>J Speech Hear Disord.</em> 1989;54(4).</li>
+          <li class="small">Zwaigenbaum L, et al. Early identification of autism spectrum disorder. <em>Pediatrics.</em> 2015;136(Suppl 1).</li>
+          <li class="small">Joint Committee on Infant Hearing, Year 2019 Position Statement.</li>
+          <li class="small">Lipkin PH, Macias MM. Promoting optimal development. <em>Pediatrics.</em> 2020;145(1).</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <div id="visit-sheet" aria-hidden="true"></div>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container site-footer__inner">
+      <div>
+        <a class="brand" href="/" aria-label="Growing Minds Science — home">
+          <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+          <span class="brand__name">Growing Minds Science</span>
+        </a>
+        <p style="margin-top: var(--space-4);">
+          Developmental science, translated for parents.
+        </p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul class="footer-list">
+          <li><a href="/classes/">Classes</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+          <li><a href="/nsc">Number Path</a></li>
+          <li><a href="/tools/">Free tools</a></li>
+          <li><a href="/articles/">Articles</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/milestones">Milestone tracker</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Stay in the loop</h4>
+        <p style="font-size: var(--text-sm);">
+          <a href="/#signup">Join the waitlist</a>
+        </p>
+        <p class="footer-elsewhere" style="margin-top: var(--space-5);">
+          Also on
+          <a href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr"
+             target="_blank" rel="noopener noreferrer">Instagram</a>
+        </p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
+        <span>&copy; <span data-year>2026</span> Growing Minds Science. All rights reserved.</span>
+        <span>Educational content only. Not medical or psychological advice.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/gms-tools.js" defer></script>
+  <script type="module">
+    import { compile, askedItems, correctedAge } from "/keel/lib/lmc.mjs";
+
+    const root = document.getElementById("cs-root");
+    const sheet = document.getElementById("visit-sheet");
+
+    let instrument, interpretation;
+    try {
+      [instrument, interpretation] = await Promise.all([
+        fetch("/keel/artifacts/lmc/instrument.v1.json").then((r) => r.json()),
+        fetch("/keel/artifacts/lmc/interpretation.v1.json").then((r) => r.json()),
+      ]);
+    } catch (e) {
+      root.innerHTML = "<p>The snapshot couldn't load. Please refresh the page to try again.</p>";
+      throw e;
+    }
+
+    const state = {
+      ageMonths: null,
+      weeksEarly: 0,
+      bornEarly: null,          // null until answered; false = full term
+      says: null,               // bucket value
+      saysLabel: null,
+      understands: null,
+      understandsLabel: null,
+      behaviors: {},            // id -> value
+    };
+
+    /* Prefill age from the shared child profile when one exists. */
+    function profileMonths() {
+      try {
+        if (window.GMS && GMS.profile) {
+          const child = GMS.profile.getActive();
+          if (child) return { months: GMS.profile.ageInMonths(child), name: child.name || "" };
+        }
+      } catch (e) {}
+      return null;
+    }
+
+    function el(tag, attrs, kids) {
+      const n = document.createElement(tag);
+      if (attrs) Object.keys(attrs).forEach((k) => {
+        if (k === "class") n.className = attrs[k];
+        else if (k === "text") n.textContent = attrs[k];
+        else if (k.indexOf("on") === 0) n.addEventListener(k.slice(2), attrs[k]);
+        else if (attrs[k] != null) n.setAttribute(k, attrs[k]);
+      });
+      (kids || []).forEach((c) => { if (c != null) n.appendChild(typeof c === "string" ? document.createTextNode(c) : c); });
+      return n;
+    }
+
+    function focusTitle() {
+      const h = root.querySelector(".cs-step-title, .cs-report h2");
+      if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: false }); }
+    }
+
+    function chipRow(options, current, onPick) {
+      const row = el("div", { class: "cs-chips", role: "group" });
+      options.forEach((o) => {
+        const b = el("button", {
+          type: "button",
+          class: "cs-chip" + (current === o.value ? " is-active" : ""),
+          "aria-pressed": current === o.value ? "true" : "false",
+          text: o.label,
+          onclick: () => onPick(o),
+        });
+        row.appendChild(b);
+      });
+      return row;
+    }
+
+    function effective() {
+      return correctedAge(state.ageMonths, state.weeksEarly, interpretation.corrected_age);
+    }
+
+    /* ---------------- Step 1: your child ---------------- */
+    function renderChild() {
+      root.innerHTML = "";
+      const pre = profileMonths();
+      const wrap = el("div", {}, [
+        el("p", { class: "cs-progress", text: "Step 1 of 3 · Your child" }),
+        el("h2", { class: "cs-step-title", text: pre && pre.name ? `About ${pre.name}` : "About your child" }),
+        el("p", { class: "cs-step-lede", text: "Age drives everything here. The lines this snapshot draws move month by month, so we start with where your child is." }),
+      ]);
+
+      const ageField = el("div", { class: "cs-field" }, [
+        el("label", { for: "cs-age", text: "Age in months" }),
+        el("input", { id: "cs-age", type: "number", min: "0", max: "72", inputmode: "numeric", value: state.ageMonths != null ? String(state.ageMonths) : (pre && pre.months != null ? String(pre.months) : "") }),
+        el("p", { class: "cs-hint", text: "This snapshot covers 6 to 36 months." }),
+      ]);
+      wrap.appendChild(ageField);
+
+      const earlyField = el("div", { class: "cs-field" }, [
+        el("label", { text: "Was your child born more than 3 weeks early?" }),
+      ]);
+      const weeksField = el("div", { class: "cs-field", style: state.bornEarly ? "" : "display:none" }, [
+        el("label", { for: "cs-weeks", text: "About how many weeks early?" }),
+        el("input", { id: "cs-weeks", type: "number", min: "4", max: "18", inputmode: "numeric", value: state.weeksEarly ? String(state.weeksEarly) : "" }),
+        el("p", { class: "cs-hint", text: "Under 24 months we use corrected age, counted from the due date. That's the standard approach, and your pediatrician does the same." }),
+      ]);
+      earlyField.appendChild(chipRow(
+        [{ value: false, label: "No, full term or close" }, { value: true, label: "Yes, more than 3 weeks early" }],
+        state.bornEarly,
+        (o) => { state.bornEarly = o.value; if (!o.value) state.weeksEarly = 0; renderChild(); }
+      ));
+      wrap.appendChild(earlyField);
+      wrap.appendChild(weeksField);
+
+      const err = el("p", { class: "cs-error", hidden: "hidden" });
+      wrap.appendChild(err);
+      wrap.appendChild(el("div", { class: "cs-nav" }, [
+        el("button", {
+          type: "button", class: "btn btn--primary", text: "Continue",
+          onclick: () => {
+            const age = parseInt(document.getElementById("cs-age").value, 10);
+            if (isNaN(age)) { err.hidden = false; err.textContent = "Enter your child's age in months."; return; }
+            if (state.bornEarly == null) { err.hidden = false; err.textContent = "Let us know whether your child was born more than 3 weeks early."; return; }
+            if (state.bornEarly) {
+              const w = parseInt(document.getElementById("cs-weeks").value, 10);
+              if (isNaN(w) || w < 4) { err.hidden = false; err.textContent = "Enter about how many weeks early (4 or more)."; return; }
+              state.weeksEarly = w;
+            }
+            state.ageMonths = age;
+            const eff = effective().months;
+            if (eff < instrument.age_range_months.min || age > instrument.age_range_months.max) { renderOutOfRange(eff); return; }
+            renderWords();
+          },
+        }),
+      ]));
+      root.appendChild(wrap);
+      focusTitle();
+    }
+
+    function renderOutOfRange(eff) {
+      root.innerHTML = "";
+      const young = eff < instrument.age_range_months.min;
+      root.appendChild(el("div", {}, [
+        el("h2", { class: "cs-step-title", text: young ? "A little young for this snapshot" : "Past the range this snapshot covers" }),
+        el("p", { class: "cs-step-lede", text: young
+          ? "This snapshot is built for 6 to 36 months (corrected age), because that's where its research lines live. Two things are true at any age, though: if you ever feel your baby doesn't hear well, that feeling alone is reason enough to ask for a hearing test. And if something feels off to you, bring it to your pediatrician; your sense of your child is real information."
+          : "This snapshot's research lines run through 36 months. Past that age, the right move is simpler: bring specific observations straight to your pediatrician, and consider asking about a speech-language evaluation if talking is the worry. Our milestone tracker covers ages up to five." }),
+        el("div", { class: "cs-nav" }, [
+          el("a", { class: "btn btn--primary", href: "/milestones", text: "Open the milestone tracker" }),
+          el("button", { type: "button", class: "gms-link", text: "← Change age", onclick: renderChild }),
+        ]),
+      ]));
+      focusTitle();
+    }
+
+    /* ---------------- Step 2: words ---------------- */
+    function renderWords() {
+      const eff = effective().months;
+      const asked = askedItems(instrument, eff);
+      if (!asked.vocab_says) { renderBehaviors(); return; }
+
+      root.innerHTML = "";
+      const wrap = el("div", {}, [
+        el("p", { class: "cs-progress", text: "Step 2 of 3 · Words" }),
+        el("h2", { class: "cs-step-title", text: "Words, in any language" }),
+        el("p", { class: "cs-step-lede", text: "Rough buckets are all we need. Count across every language your family speaks; that's how every serious count works." }),
+      ]);
+
+      const says = instrument.vocab.vocab_says;
+      const saysItem = el("div", { class: "cs-item" }, [
+        el("p", { class: "cs-item__prompt", text: says.prompt }),
+        el("p", { class: "cs-item__help", text: says.help }),
+      ]);
+      saysItem.appendChild(chipRow(says.buckets, state.says, (o) => { state.says = o.value; state.saysLabel = o.label; renderWords(); }));
+      wrap.appendChild(saysItem);
+
+      const und = instrument.vocab.vocab_understands;
+      const undItem = el("div", { class: "cs-item" }, [
+        el("p", { class: "cs-item__prompt", text: und.prompt }),
+        el("p", { class: "cs-item__help", text: und.help }),
+      ]);
+      undItem.appendChild(chipRow(und.buckets, state.understands, (o) => { state.understands = o.value; state.understandsLabel = o.label; renderWords(); }));
+      wrap.appendChild(undItem);
+
+      const err = el("p", { class: "cs-error", hidden: "hidden" });
+      wrap.appendChild(err);
+      wrap.appendChild(el("div", { class: "cs-nav" }, [
+        el("button", {
+          type: "button", class: "btn btn--primary", text: "Continue",
+          onclick: () => {
+            if (state.says == null || state.understands == null) { err.hidden = false; err.textContent = "Pick a bucket for each question. A rough guess is fine."; return; }
+            renderBehaviors();
+          },
+        }),
+        el("button", { type: "button", class: "gms-link", text: "← Back", onclick: renderChild }),
+      ]));
+      root.appendChild(wrap);
+      focusTitle();
+    }
+
+    /* ---------------- Step 3: behaviors ---------------- */
+    const VALUE_LABELS = { yes: "Yes", sometimes: "Sometimes", not_yet: "Not yet", no: "No" };
+
+    function renderBehaviors() {
+      const eff = effective().months;
+      const asked = askedItems(instrument, eff);
+      root.innerHTML = "";
+      const wrap = el("div", {}, [
+        el("p", { class: "cs-progress", text: "Step 3 of 3 · How they communicate" }),
+        el("h2", { class: "cs-step-title", text: "How your child communicates" }),
+        el("p", { class: "cs-step-lede", text: "Answer from ordinary days, not best days or worst days. 'Sometimes' and 'not yet' are normal answers; this list is not a test to pass." }),
+      ]);
+
+      asked.behaviors.forEach((b) => {
+        const item = el("div", { class: "cs-item", "data-behavior": b.id }, [
+          el("p", { class: "cs-item__prompt", text: b.prompt }),
+          el("p", { class: "cs-item__help", text: b.help }),
+        ]);
+        item.appendChild(chipRow(
+          b.values.map((v) => ({ value: v, label: VALUE_LABELS[v] })),
+          state.behaviors[b.id],
+          (o) => {
+            state.behaviors[b.id] = o.value;
+            item.classList.remove("is-missing");
+            const row = item.querySelector(".cs-chips");
+            row.querySelectorAll(".cs-chip").forEach((c) => { c.classList.toggle("is-active", c.textContent === o.label); c.setAttribute("aria-pressed", c.textContent === o.label ? "true" : "false"); });
+          }
+        ));
+        wrap.appendChild(item);
+      });
+
+      const err = el("p", { class: "cs-error", hidden: "hidden" });
+      wrap.appendChild(err);
+      wrap.appendChild(el("div", { class: "cs-nav" }, [
+        el("button", {
+          type: "button", class: "btn btn--primary", text: "See the snapshot",
+          onclick: () => {
+            const missing = asked.behaviors.filter((b) => state.behaviors[b.id] == null);
+            wrap.querySelectorAll(".cs-item").forEach((n) => n.classList.remove("is-missing"));
+            if (missing.length) {
+              missing.forEach((b) => { const n = wrap.querySelector(`[data-behavior="${b.id}"]`); if (n) n.classList.add("is-missing"); });
+              err.hidden = false; err.textContent = "A few questions still need an answer. 'Not yet' is a completely normal one.";
+              const first = wrap.querySelector(".cs-item.is-missing");
+              if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+              return;
+            }
+            renderReport(asked);
+          },
+        }),
+        el("button", { type: "button", class: "gms-link", text: "← Back", onclick: () => { (askedItems(instrument, effective().months).vocab_says) ? renderWords() : renderChild(); } }),
+      ]));
+      root.appendChild(wrap);
+      focusTitle();
+    }
+
+    /* ---------------- Report ---------------- */
+    const SEV_LABEL = {
+      none: "Typical range",
+      watch: "Worth watching",
+      discuss: "Worth a conversation",
+      priority_discuss: "Talk soon",
+    };
+    const SEV_RANK = { none: 0, watch: 1, discuss: 2, priority_discuss: 3 };
+
+    function agePhraseFor(result) {
+      const m = Math.round(result.effective_age_months);
+      return result.corrected ? `a child at ${m} months corrected age` : `a child at ${m} months`;
+    }
+
+    function snapshotInput(asked) {
+      const behaviors = {};
+      asked.behaviors.forEach((b) => { behaviors[b.id] = state.behaviors[b.id]; });
+      return {
+        age_months: state.ageMonths,
+        weeks_early: state.weeksEarly,
+        vocab_says: asked.vocab_says ? state.says : null,
+        vocab_understands: asked.vocab_understands ? state.understands : null,
+        behaviors,
+      };
+    }
+
+    function renderReport(asked) {
+      const input = snapshotInput(asked);
+      const result = compile(input, interpretation);
+      const t = result.template;
+
+      root.innerHTML = "";
+      const report = el("div", { class: "cs-report" });
+      report.appendChild(el("span", { class: `cs-sev cs-sev--${result.severity}`, text: SEV_LABEL[result.severity] }));
+      report.appendChild(el("h2", { text: t.headline }));
+      report.appendChild(el("p", { class: "cs-lead", text: t.lead.replace("{age_phrase}", agePhraseFor(result)) }));
+      if (result.invitation) report.appendChild(el("p", { class: "cs-invitation", text: result.invitation }));
+
+      const flags = result.flags.slice().sort((a, b) => SEV_RANK[b.severity] - SEV_RANK[a.severity]);
+      if (flags.length) {
+        const list = el("div", { class: "cs-flags" });
+        flags.forEach((f) => {
+          list.appendChild(el("article", { class: `cs-flag cs-flag--${f.severity}` }, [
+            el("h3", { text: f.title }),
+            el("p", { text: f.body }),
+          ]));
+        });
+        report.appendChild(list);
+      }
+
+      if (result.guidance.length) {
+        const g = el("div", { class: "cs-guidance" });
+        result.guidance.forEach((block, i) => {
+          const d = el("details", i < 2 ? { open: "open" } : {});
+          d.appendChild(el("summary", { text: block.title }));
+          d.appendChild(el("p", { class: "cs-guidance__body", text: block.body }));
+          g.appendChild(d);
+        });
+        report.appendChild(g);
+      }
+
+      /* Recap for parent + print sheet */
+      const strengths = asked.behaviors.filter((b) => state.behaviors[b.id] === "yes" && b.id !== "lost_skills");
+      const recap = el("div", { class: "cs-recap" }, [el("h3", { text: "What you shared" })]);
+      const ul = el("ul");
+      ul.appendChild(el("li", { text: `Age: ${state.ageMonths} months${result.corrected ? ` (${Math.round(result.effective_age_months)} months corrected, born ${state.weeksEarly} weeks early)` : ""}` }));
+      if (asked.vocab_says) ul.appendChild(el("li", { text: `Says: ${state.saysLabel} words · Understands: ${state.understandsLabel || "not asked"}` }));
+      asked.behaviors.forEach((b) => ul.appendChild(el("li", { text: `${b.prompt}: ${VALUE_LABELS[state.behaviors[b.id]]}` })));
+      recap.appendChild(ul);
+      report.appendChild(recap);
+
+      const actions = el("div", { class: "cs-nav", role: "group", "aria-label": "Report actions" }, [
+        el("button", { type: "button", class: "btn btn--primary", text: "Print notes for your visit", onclick: () => printVisit(result, asked, strengths) }),
+      ]);
+      if (window.GMS) {
+        const key = "communication-snapshot:latest";
+        const saveLabel = () => (GMS.shelf.has(key) ? "Saved ✓" : "Save this");
+        const save = el("button", { type: "button", class: "btn btn--ghost", text: saveLabel() });
+        save.addEventListener("click", () => {
+          if (GMS.shelf.has(key)) GMS.shelf.removeByKey(key);
+          else GMS.shelf.add({
+            key, toolSlug: "communication-snapshot", toolTitle: "Communication Snapshot",
+            toolUrl: "/tools/communication-snapshot", title: t.headline,
+            body: flags.length ? flags.map((f) => f.title).join(" · ") : "Nothing crossed a research-backed line.",
+            tryLine: "",
+          });
+          save.textContent = saveLabel();
+        });
+        actions.appendChild(save);
+        const q = flags.length
+          ? `The Communication Snapshot suggested we discuss: ${flags.map((f) => f.title.toLowerCase()).join("; ")}. How can I support communication at home while we wait for the appointment?`
+          : "How can I build my child's language day to day?";
+        actions.appendChild(el("a", { class: "btn btn--ghost", href: GMS.askUrl(q), text: "Ask Growing Minds AI" }));
+      }
+      actions.appendChild(el("button", { type: "button", class: "gms-link", text: "Start over", onclick: () => { state.says = null; state.understands = null; state.behaviors = {}; renderChild(); } }));
+      report.appendChild(actions);
+
+      report.appendChild(el("p", { class: "cs-note", text: "This snapshot reflects only what you reported today. It is educational information, not medical advice, screening, or diagnosis. Children change fast; a snapshot is a photo, not a forecast." }));
+
+      root.appendChild(report);
+      focusTitle();
+      window.scrollTo({ top: root.getBoundingClientRect().top + window.scrollY - 90, behavior: "auto" });
+    }
+
+    function printVisit(result, asked, strengths) {
+      const flags = result.flags.slice().sort((a, b) => SEV_RANK[b.severity] - SEV_RANK[a.severity]);
+      sheet.innerHTML = "";
+      sheet.appendChild(el("h2", { text: "Communication Snapshot — notes for our visit" }));
+      sheet.appendChild(el("p", { text: `Prepared ${new Date().toLocaleDateString()} · Child's age: ${state.ageMonths} months${result.corrected ? ` (about ${Math.round(result.effective_age_months)} months corrected; born ${state.weeksEarly} weeks early)` : ""}` }));
+      sheet.appendChild(el("h3", { text: "What I observe at home" }));
+      const obs = el("ul");
+      if (asked.vocab_says) obs.appendChild(el("li", { text: `Says about ${state.saysLabel} words (all languages combined); understands ${state.understandsLabel}` }));
+      asked.behaviors.forEach((b) => obs.appendChild(el("li", { text: `${b.prompt}: ${VALUE_LABELS[state.behaviors[b.id]]}` })));
+      sheet.appendChild(obs);
+      if (flags.length) {
+        sheet.appendChild(el("h3", { text: "What I'd like to discuss" }));
+        const fl = el("ul");
+        flags.forEach((f) => fl.appendChild(el("li", { text: f.title })));
+        sheet.appendChild(fl);
+      }
+      if (strengths.length) {
+        sheet.appendChild(el("h3", { text: "Going well" }));
+        const st = el("ul");
+        strengths.forEach((b) => st.appendChild(el("li", { text: b.prompt })));
+        sheet.appendChild(st);
+      }
+      sheet.appendChild(el("p", { class: "vs-foot", text: "Parent-reported observations organized by the free Communication Snapshot at growingmindsscience.com. Not a screening result or diagnosis." }));
+
+      document.body.classList.add("printing-visit");
+      const after = () => { document.body.classList.remove("printing-visit"); window.removeEventListener("afterprint", after); };
+      window.addEventListener("afterprint", after);
+      setTimeout(after, 1500);
+      window.print();
+    }
+
+    renderChild();
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

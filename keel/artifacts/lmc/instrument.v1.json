@@ -1,0 +1,130 @@
+{
+  "artifact": "lmc_instrument",
+  "version": "1.0.0",
+  "name": "Communication Snapshot",
+  "status": "drafted_pending_matthew_verification",
+  "semantics": "Defines what the Communication Snapshot asks. Two vocabulary estimates (integers, bucketed in the UI) and 12 behavior items. Behavior values are yes | sometimes | not_yet, except lost_skills which is yes | no. 'sometimes' is a real developmental answer and never counts as absence. Items carry asked_from_months and optional asked_until_months; the UI hides items outside the child's (corrected) age window. Every behavior id referenced by floors.v1.json or interpretation.v1.json must exist here (the floors grader checks referential integrity). No word checklist ships in v1: parents estimate counts directly, which keeps the instrument clear of the CDI item-overlap question entirely (see cdi_exclusion/README.md, which remains the contract for any future checklist version).",
+  "age_range_months": { "min": 6, "max": 36 },
+  "corrected_age": {
+    "weeks_early_gt": 3,
+    "applies_under_months": 24,
+    "note": "If your child was born more than 3 weeks early and is under 24 months, we use their corrected age (age counted from the due date). This is the standard way to look at development for children born early."
+  },
+  "vocab": {
+    "vocab_says": {
+      "asked_from_months": 9,
+      "prompt": "About how many words does your child say?",
+      "help": "Count any word your child uses on purpose to mean something, in any language your family speaks. Word approximations count if they are used consistently, like 'baba' for bottle. Animal sounds used to name the animal count ('moo' for cow). Do not count sounds that don't stand for anything yet.",
+      "buckets": [
+        { "label": "None yet", "value": 0 },
+        { "label": "1 to 5", "value": 3 },
+        { "label": "6 to 9", "value": 7 },
+        { "label": "10 to 24", "value": 15 },
+        { "label": "25 to 49", "value": 35 },
+        { "label": "50 to 99", "value": 70 },
+        { "label": "100 to 199", "value": 150 },
+        { "label": "200 or more, or too many to count", "value": 300 }
+      ],
+      "bucket_note": "Bucket boundaries are aligned to every threshold the interpretation rules use (0, 10, 50), so a bucket can never straddle a red line."
+    },
+    "vocab_understands": {
+      "asked_from_months": 9,
+      "prompt": "About how many words does your child understand?",
+      "help": "Words your child responds to even if they can't say them, like looking at the dog when you say 'dog', or getting excited for 'bath'. Count across every language your family speaks. A rough guess is fine; most children understand far more than they say.",
+      "buckets": [
+        { "label": "Only a few, or not sure", "value": 5 },
+        { "label": "10 to 24", "value": 15 },
+        { "label": "25 to 49", "value": 35 },
+        { "label": "50 to 199", "value": 100 },
+        { "label": "200 or more", "value": 300 }
+      ]
+    }
+  },
+  "behaviors": [
+    {
+      "id": "responds_to_name",
+      "asked_from_months": 6,
+      "prompt": "Responds to their name",
+      "help": "When you say their name from behind or beside them, without touching them, do they look or turn toward you most of the time?",
+      "values": ["yes", "sometimes", "not_yet"]
+    },
+    {
+      "id": "babbles_consonants",
+      "asked_from_months": 6,
+      "asked_until_months": 18,
+      "prompt": "Babbles with consonant sounds",
+      "help": "Strings of sounds like 'ba-ba', 'da-da', 'ma-ma', not just cooing vowel sounds.",
+      "values": ["yes", "sometimes", "not_yet"]
+    },
+    {
+      "id": "takes_turns_vocalizing",
+      "asked_from_months": 6,
+      "prompt": "Takes turns in back-and-forth exchanges",
+      "help": "You make a sound or say something, they respond, you respond back. The exchange can be sounds, smiles, or words; what matters is the back-and-forth.",
+      "values": ["yes", "sometimes", "not_yet"]
+    },
+    {
+      "id": "imitates_sounds_words",
+      "asked_from_months": 8,
+      "prompt": "Tries to copy sounds or words",
+      "help": "Attempts count, even if the copy is not close. What matters is that they try.",
+      "values": ["yes", "sometimes", "not_yet"]
+    },
+    {
+      "id": "shared_enjoyment",
+      "asked_from_months": 8,
+      "prompt": "Looks at your face to share enjoyment",
+      "help": "When something is funny or exciting, do they look at you as if to say 'did you see that?'",
+      "values": ["yes", "sometimes", "not_yet"]
+    },
+    {
+      "id": "waves_gestures",
+      "asked_from_months": 8,
+      "prompt": "Uses everyday gestures",
+      "help": "Waving bye-bye, reaching arms up to be picked up, shaking their head, pushing things away to mean 'no'.",
+      "values": ["yes", "sometimes", "not_yet"]
+    },
+    {
+      "id": "points_request",
+      "asked_from_months": 9,
+      "prompt": "Points to ask for something",
+      "help": "Points at something they want, like a snack or a toy out of reach.",
+      "values": ["yes", "sometimes", "not_yet"]
+    },
+    {
+      "id": "points_show",
+      "asked_from_months": 9,
+      "prompt": "Points to show you something interesting",
+      "help": "This is different from pointing to ask. Here the point means 'look at that!', just to share it with you, like pointing at a dog or a plane.",
+      "values": ["yes", "sometimes", "not_yet"]
+    },
+    {
+      "id": "looks_where_you_point",
+      "asked_from_months": 9,
+      "prompt": "Looks where you point",
+      "help": "When you point at something across the room, do they look at the thing you're pointing at, not just at your finger?",
+      "values": ["yes", "sometimes", "not_yet"]
+    },
+    {
+      "id": "follows_one_step",
+      "asked_from_months": 12,
+      "prompt": "Follows a simple one-step direction",
+      "help": "Something like 'bring me the ball' or 'sit down', said in words alone, without you pointing or gesturing at the same time.",
+      "values": ["yes", "sometimes", "not_yet"]
+    },
+    {
+      "id": "combines_two_words",
+      "asked_from_months": 15,
+      "prompt": "Puts two words together",
+      "help": "Their own combinations, like 'more milk' or 'daddy go'. Memorized chunks used as one unit, like 'all done' or 'thank you', do not count here.",
+      "values": ["yes", "sometimes", "not_yet"]
+    },
+    {
+      "id": "lost_skills",
+      "asked_from_months": 6,
+      "prompt": "Has your child lost words or skills they used to have?",
+      "help": "For example, they used to say words and stopped, or used to wave or respond to their name and no longer do. Any real loss counts, at any age.",
+      "values": ["yes", "no"]
+    }
+  ]
+}

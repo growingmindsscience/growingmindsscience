@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Milestone Navigator - Growing Minds Science</title>
+  <meta name="description" content="Worried about something specific? A calm, research-grounded set of questions about talking, walking, hearing, play, and more, ending in a clear next step you can act on." />
+  <!-- LAUNCH SWITCH (DECISIONS.md D3): attorney review is the Navigator's launch
+       blocker. Built and reviewable at this URL, held from launch. To launch:
+       1) remove the robots meta tag below, 2) add the tool card in
+       tools/index.html (marked NAVIGATOR-LAUNCH there), 3) add the sitemap.xml
+       entry (marked NAVIGATOR-LAUNCH there). The rewrite, smoke tests, and CI
+       gates are already live. -->
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="color-scheme" content="light dark" />
+
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="canonical" href="https://growingmindsscience.com/tools/milestone-navigator" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Milestone Navigator — Growing Minds Science" />
+  <meta property="og:description" content="Worried about something specific? A calm, research-grounded set of questions ending in a clear next step." />
+  <meta property="og:image" content="/assets/img/site/baby-hands.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/refresh.css" />
+  <link rel="stylesheet" href="../assets/css/tools.css" />
+  <script>try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+
+  <style>
+    .tool-hero { padding: clamp(3rem, 6vw, 5rem) 0 2rem; }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr .9fr; gap: var(--space-8); align-items: start; }
+    .tool-lede { font-size: var(--text-md); color: var(--ink-soft); max-width: 44rem; margin: 0 0 var(--space-6); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .hero-card {
+      background: var(--surface); border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-6);
+    }
+    .hero-card h2 { margin: 0 0 .65rem; font-size: var(--text-lg); }
+    .meta-list { list-style: none; padding: 0; margin: var(--space-4) 0 0; display: grid; gap: .85rem; }
+    .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
+    .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
+    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: 999px; background: var(--surface-2); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .small { font-size: var(--text-sm); color: var(--ink-muted); }
+
+    .nv-app { max-width: var(--container-narrow); margin: 0 auto; }
+    .nv-card {
+      background: var(--surface); border: 1px solid var(--border-soft);
+      border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);
+      padding: clamp(1.25rem, 3vw, 2rem);
+    }
+    .nv-progress { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .12em; color: var(--ink-muted); font-weight: 700; margin: 0 0 var(--space-2); font-family: var(--font-display); }
+    .nv-title { margin: 0 0 .5rem; font-size: var(--text-xl); }
+    .nv-lede { color: var(--ink-soft); margin: 0 0 var(--space-5); }
+    .nv-domains { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+    .nv-domain {
+      text-align: left; padding: var(--space-4) var(--space-5); border-radius: var(--radius);
+      border: 1px solid var(--border); background: var(--surface); color: var(--ink);
+      cursor: pointer; font: inherit; min-height: 64px;
+      transition: border-color var(--transition), transform var(--transition), background var(--transition);
+    }
+    .nv-domain:hover { border-color: var(--primary); transform: translateY(-1px); }
+    .nv-domain:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+    .nv-domain strong { display: block; font-family: var(--font-display); margin-bottom: .15rem; }
+    .nv-domain span { display: block; font-size: var(--text-sm); color: var(--ink-muted); line-height: 1.45; }
+
+    .nv-field { display: grid; gap: .4rem; margin: 0 0 var(--space-5); }
+    .nv-field label { font-weight: 600; font-family: var(--font-display); }
+    .nv-field input[type="number"] {
+      width: 7.5rem; padding: .6rem .75rem; border: 1px solid var(--border);
+      border-radius: 8px; background: var(--surface); color: var(--ink); font: inherit;
+    }
+    .nv-field input:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+    .nv-hint { font-size: var(--text-sm); color: var(--ink-muted); }
+
+    .nv-answers { display: grid; gap: var(--space-3); max-width: 30rem; }
+    .nv-answer {
+      text-align: left; padding: .85rem 1.1rem; border-radius: var(--radius);
+      border: 1px solid var(--border); background: var(--surface); color: var(--ink);
+      cursor: pointer; font: inherit; font-family: var(--font-display); font-weight: 600; min-height: 52px;
+      transition: background var(--transition), border-color var(--transition), color var(--transition);
+    }
+    .nv-answer:hover { border-color: var(--primary); }
+    .nv-answer:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+    .nv-help { font-size: var(--text-sm); color: var(--ink-muted); max-width: 46rem; margin: 0 0 var(--space-5); }
+    .nv-nav { display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-6); flex-wrap: wrap; }
+    .nv-error { color: #9C4429; font-size: var(--text-sm); margin: var(--space-3) 0 0; }
+    .nv-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .nv-chip {
+      padding: .55rem .9rem; border-radius: 999px; border: 1px solid var(--border);
+      background: var(--surface); color: var(--ink-soft); cursor: pointer; font: inherit;
+      font-size: var(--text-sm); min-height: 44px;
+      transition: background var(--transition), border-color var(--transition), color var(--transition);
+    }
+    .nv-chip:hover { border-color: var(--primary); }
+    .nv-chip:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+    .nv-chip.is-active { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
+
+    .nv-class {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .4rem .85rem; border-radius: 999px; font-family: var(--font-display);
+      font-weight: 600; font-size: var(--text-sm); margin-bottom: var(--space-4);
+    }
+    .nv-class--typical_range { background: var(--surface-2); color: var(--primary); border: 1px solid color-mix(in srgb, var(--primary) 40%, transparent); }
+    .nv-class--discuss, .nv-class--priority_discuss { background: #F8E7E0; color: #9C4429; border: 1px solid color-mix(in srgb, #9C4429 30%, transparent); }
+    [data-theme="dark"] .nv-class--discuss, [data-theme="dark"] .nv-class--priority_discuss { background: color-mix(in srgb, #DE7356 18%, transparent); color: #E78D6F; border-color: color-mix(in srgb, #E78D6F 35%, transparent); }
+    .nv-invitation { font-style: italic; color: #9C4429; max-width: 48rem; margin: var(--space-4) 0 0; }
+    [data-theme="dark"] .nv-invitation { color: #E78D6F; }
+
+    .nv-flags { margin: var(--space-5) 0 0; padding-left: 1.15rem; display: grid; gap: .4rem; color: var(--ink-soft); }
+    .nv-actions-list { margin: var(--space-5) 0 0; padding-left: 1.15rem; display: grid; gap: .6rem; color: var(--ink-soft); }
+    .nv-notes { display: grid; gap: var(--space-3); margin: var(--space-5) 0 0; }
+    .nv-note { border: 1px solid var(--border-soft); border-radius: var(--radius); background: var(--bg-alt); padding: var(--space-4); font-size: var(--text-sm); color: var(--ink-soft); }
+    .nv-script { border: 1px solid var(--border-soft); border-left: 1px solid var(--border-soft); background: var(--surface-2); border-radius: var(--radius); padding: var(--space-4) var(--space-5); margin: var(--space-5) 0 0; }
+    .nv-script strong { font-family: var(--font-display); display: block; margin-bottom: .3rem; }
+    .nv-fine { font-size: var(--text-xs); color: var(--ink-muted); margin: var(--space-5) 0 0; max-width: 52rem; }
+
+    #nv-sheet { display: none; }
+    @media print {
+      body.printing-nv > :not(#nv-sheet) { display: none !important; }
+      body.printing-nv #nv-sheet { display: block; color: #000; font: 12pt/1.5 Georgia, serif; padding: 1rem; }
+      #nv-sheet h2 { font: 700 16pt/1.2 "Helvetica Neue", sans-serif; margin: 0 0 .3rem; }
+      #nv-sheet h3 { font: 700 12pt/1.2 "Helvetica Neue", sans-serif; margin: 1rem 0 .3rem; }
+      #nv-sheet ul { margin: .2rem 0; padding-left: 1.2rem; }
+      #nv-sheet .vs-foot { margin-top: 1.2rem; font-size: 9pt; color: #444; border-top: 1px solid #999; padding-top: .5rem; }
+    }
+
+    @media (max-width: 920px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .nv-domains { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="container site-header__inner">
+      <a class="brand" href="/" aria-label="Growing Minds Science — home">
+        <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+        <span class="brand__name">Growing Minds Science</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Toggle navigation menu">
+          <span class="nav-toggle__bars"><span></span></span>
+        </button>
+
+        <ul class="nav__list" id="primary-nav-list">
+          <li><a class="nav__link" href="/classes/">Classes</a></li>
+          <li><a class="nav__link" href="/nsc">Number Path</a></li>
+          <li><a class="nav__link" aria-current="page" href="/tools/">Tools</a></li>
+          <li><a class="nav__link" href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
+          <li><a class="nav__link" href="/articles/">Articles</a></li>
+          <li><a class="nav__link" href="/about/">About</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a></li>
+        </ul>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
+          <svg class="theme-toggle__moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="tool-hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Free · Birth to 5 · A few minutes</p>
+          <h1 class="page-hero__title">Milestone Navigator</h1>
+          <p class="tool-lede">Worried about something specific: talking, walking, hearing, play? Pick the worry, answer a few plain questions, and get a clear, research-grounded next step, whether that's genuine reassurance or exactly what to say when you call.</p>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="#navigator">Start with your worry</a>
+            <a class="btn btn--ghost" href="#nv-how">How it works</a>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-labelledby="nv-at-a-glance">
+          <span class="tag">What this is, and isn't</span>
+          <h2 id="nv-at-a-glance">Honest about its job</h2>
+          <ul class="meta-list">
+            <li><span class="dot"></span><span>It turns a vague worry into specific observations, and observations into a next step.</span></li>
+            <li><span class="dot"></span><span>Reassurance here is real: it means nothing you reported crosses a published line.</span></li>
+            <li><span class="dot"></span><span>It is not a screening or diagnostic instrument, and it never labels your child.</span></li>
+            <li><span class="dot"></span><span>Everything stays on this device. Your answers are never sent to us.</span></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="navigator" aria-label="Milestone Navigator">
+      <div class="container nv-app">
+        <div class="nv-card" id="nv-root" aria-live="polite">
+          <noscript><p>The Milestone Navigator needs JavaScript to run. Everything happens on your device; nothing is sent to us.</p></noscript>
+        </div>
+        <p class="nv-fine">This tool offers educational information, not medical advice, diagnosis, or screening. It cannot see your child; it can only organize what you report. Decisions about your child's health belong with you and your child's clinician. If your child is in immediate danger or distress, call your local emergency number.</p>
+      </div>
+    </section>
+
+    <section id="nv-how">
+      <div class="container container--narrow">
+        <h2>How this works</h2>
+        <p class="section-intro">Every path through this tool is checked against a set of published red lines, like <em>not walking by 18 months</em> (AAP motor-delay guidance) or <em>caregiver concern about hearing at any age</em> (Joint Committee on Infant Hearing). An automated check runs on every update to this site and enumerates every possible path: if any answer pattern that crosses a research line would land on a softer result than the research supports, the update fails and cannot ship. The tool can be more careful than the literature; it is never allowed to be less.</p>
+        <p class="section-intro">Loss of skills a child once had is treated as the most important observation at any age, in every category. And hearing is deliberately different from everything else here: your concern alone is enough for a hearing test, with no watch-and-wait step in between.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="nv-sheet" aria-hidden="true"></div>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container site-footer__inner">
+      <div>
+        <a class="brand" href="/" aria-label="Growing Minds Science — home">
+          <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+          <span class="brand__name">Growing Minds Science</span>
+        </a>
+        <p style="margin-top: var(--space-4);">
+          Developmental science, translated for parents.
+        </p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul class="footer-list">
+          <li><a href="/classes/">Classes</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+          <li><a href="/nsc">Number Path</a></li>
+          <li><a href="/tools/">Free tools</a></li>
+          <li><a href="/articles/">Articles</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/milestones">Milestone tracker</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Stay in the loop</h4>
+        <p style="font-size: var(--text-sm);">
+          <a href="/#signup">Join the waitlist</a>
+        </p>
+        <p class="footer-elsewhere" style="margin-top: var(--space-5);">
+          Also on
+          <a href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr"
+             target="_blank" rel="noopener noreferrer">Instagram</a>
+        </p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
+        <span>&copy; <span data-year>2026</span> Growing Minds Science. All rights reserved.</span>
+        <span>Educational content only. Not medical or psychological advice.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/gms-tools.js" defer></script>
+  <script type="module">
+    import { askedQuestions, resolve, correctedAge } from "/keel/lib/navigator.mjs";
+
+    const root = document.getElementById("nv-root");
+    const sheet = document.getElementById("nv-sheet");
+
+    let trees;
+    try {
+      trees = await fetch("/keel/artifacts/navigator/trees.v1.json").then((r) => r.json());
+    } catch (e) {
+      root.innerHTML = "<p>The navigator couldn't load. Please refresh the page to try again.</p>";
+      throw e;
+    }
+
+    const state = { domainKey: null, ageMonths: null, weeksEarly: 0, bornEarly: null, answers: {}, qIndex: 0 };
+
+    function el(tag, attrs, kids) {
+      const n = document.createElement(tag);
+      if (attrs) Object.keys(attrs).forEach((k) => {
+        if (k === "class") n.className = attrs[k];
+        else if (k === "text") n.textContent = attrs[k];
+        else if (k.indexOf("on") === 0) n.addEventListener(k.slice(2), attrs[k]);
+        else if (attrs[k] != null) n.setAttribute(k, attrs[k]);
+      });
+      (kids || []).forEach((c) => { if (c != null) n.appendChild(typeof c === "string" ? document.createTextNode(c) : c); });
+      return n;
+    }
+    function focusTitle() {
+      const h = root.querySelector(".nv-title");
+      if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: false }); }
+    }
+    function effectiveMonths() {
+      return correctedAge(state.ageMonths, state.weeksEarly, trees.corrected_age);
+    }
+    function profileMonths() {
+      try {
+        if (window.GMS && GMS.profile) {
+          const child = GMS.profile.getActive();
+          if (child) return GMS.profile.ageInMonths(child);
+        }
+      } catch (e) {}
+      return null;
+    }
+
+    /* ---------------- pick a worry ---------------- */
+    function renderDomains() {
+      state.answers = {}; state.qIndex = 0; state.domainKey = null;
+      root.innerHTML = "";
+      const wrap = el("div", {}, [
+        el("h2", { class: "nv-title", text: "What's on your mind?" }),
+        el("p", { class: "nv-lede", text: "Pick the area you're wondering about. There are no wrong doors; several worries share the same underlying questions, and this tool asks them wherever you start." }),
+      ]);
+      const grid = el("div", { class: "nv-domains" });
+      Object.keys(trees.domains).forEach((key) => {
+        const d = trees.domains[key];
+        grid.appendChild(el("button", { type: "button", class: "nv-domain", onclick: () => { state.domainKey = key; renderAge(); } }, [
+          el("strong", { text: d.title }),
+          el("span", { text: d.entry }),
+        ]));
+      });
+      wrap.appendChild(grid);
+      root.appendChild(wrap);
+      focusTitle();
+    }
+
+    /* ---------------- age ---------------- */
+    function renderAge() {
+      root.innerHTML = "";
+      const pre = profileMonths();
+      const domain = trees.domains[state.domainKey];
+      const wrap = el("div", {}, [
+        el("p", { class: "nv-progress", text: domain.title }),
+        el("h2", { class: "nv-title", text: "First, your child's age" }),
+        el("p", { class: "nv-lede", text: "The questions and the lines they check move month by month, so age comes first." }),
+      ]);
+
+      wrap.appendChild(el("div", { class: "nv-field" }, [
+        el("label", { for: "nv-age", text: "Age in months" }),
+        el("input", { id: "nv-age", type: "number", min: "0", max: "72", inputmode: "numeric", value: state.ageMonths != null ? String(state.ageMonths) : (pre != null ? String(pre) : "") }),
+        el("p", { class: "nv-hint", text: "For a 2-year-old, that's 24. Anything from birth to about 5 works here." }),
+      ]));
+
+      const earlyField = el("div", { class: "nv-field" }, [
+        el("label", { text: "Was your child born more than 3 weeks early?" }),
+      ]);
+      const chips = el("div", { class: "nv-chips", role: "group" });
+      [{ v: false, label: "No, full term or close" }, { v: true, label: "Yes, more than 3 weeks early" }].forEach((o) => {
+        chips.appendChild(el("button", {
+          type: "button",
+          class: "nv-chip" + (state.bornEarly === o.v ? " is-active" : ""),
+          "aria-pressed": state.bornEarly === o.v ? "true" : "false",
+          text: o.label,
+          onclick: () => { state.bornEarly = o.v; if (!o.v) state.weeksEarly = 0; renderAge(); },
+        }));
+      });
+      earlyField.appendChild(chips);
+      wrap.appendChild(earlyField);
+
+      if (state.bornEarly) {
+        wrap.appendChild(el("div", { class: "nv-field" }, [
+          el("label", { for: "nv-weeks", text: "About how many weeks early?" }),
+          el("input", { id: "nv-weeks", type: "number", min: "4", max: "18", inputmode: "numeric", value: state.weeksEarly ? String(state.weeksEarly) : "" }),
+          el("p", { class: "nv-hint", text: "Under 24 months we use corrected age, counted from the due date. Your pediatrician does the same." }),
+        ]));
+      }
+
+      const err = el("p", { class: "nv-error", hidden: "hidden" });
+      wrap.appendChild(err);
+      wrap.appendChild(el("div", { class: "nv-nav" }, [
+        el("button", {
+          type: "button", class: "btn btn--primary", text: "Continue",
+          onclick: () => {
+            const age = parseInt(document.getElementById("nv-age").value, 10);
+            if (isNaN(age) || age < 0 || age > 72) { err.hidden = false; err.textContent = "Enter your child's age in months (0 to 72)."; return; }
+            if (state.bornEarly == null) { err.hidden = false; err.textContent = "Let us know whether your child was born more than 3 weeks early."; return; }
+            if (state.bornEarly) {
+              const w = parseInt(document.getElementById("nv-weeks").value, 10);
+              if (isNaN(w) || w < 4) { err.hidden = false; err.textContent = "Enter about how many weeks early (4 or more)."; return; }
+              state.weeksEarly = w;
+            }
+            state.ageMonths = age;
+            state.answers = {}; state.qIndex = 0;
+            renderQuestion();
+          },
+        }),
+        el("button", { type: "button", class: "gms-link", text: "← Different worry", onclick: renderDomains }),
+      ]));
+      root.appendChild(wrap);
+      focusTitle();
+    }
+
+    /* ---------------- questions, one at a time ---------------- */
+    function renderQuestion() {
+      const domain = trees.domains[state.domainKey];
+      const eff = effectiveMonths().months;
+      const asked = askedQuestions(domain, eff);
+      if (state.qIndex >= asked.length) { renderResult(asked); return; }
+      const q = asked[state.qIndex];
+
+      root.innerHTML = "";
+      const wrap = el("div", {}, [
+        el("p", { class: "nv-progress", text: `${domain.title} · Question ${state.qIndex + 1} of ${asked.length}` }),
+        el("h2", { class: "nv-title", text: q.prompt }),
+        q.help ? el("p", { class: "nv-help", text: q.help }) : null,
+      ]);
+
+      const answers = el("div", { class: "nv-answers", role: "group" });
+      trees.answer_sets[q.answers].forEach((o) => {
+        answers.appendChild(el("button", {
+          type: "button", class: "nv-answer", text: o.label,
+          onclick: () => { state.answers[q.id] = o.value; state.qIndex += 1; renderQuestion(); },
+        }));
+      });
+      wrap.appendChild(answers);
+
+      wrap.appendChild(el("div", { class: "nv-nav" }, [
+        el("button", {
+          type: "button", class: "gms-link", text: "← Back",
+          onclick: () => { if (state.qIndex === 0) renderAge(); else { state.qIndex -= 1; renderQuestion(); } },
+        }),
+      ]));
+      root.appendChild(wrap);
+      focusTitle();
+    }
+
+    /* ---------------- result ---------------- */
+    const CLASS_LABEL = {
+      typical_range: "Typical range",
+      discuss: "Worth a conversation",
+      priority_discuss: "Talk soon",
+    };
+
+    function renderResult(asked) {
+      const domain = trees.domains[state.domainKey];
+      const result = resolve(trees, state.domainKey, state.ageMonths, state.weeksEarly, state.answers);
+      const t = result.terminal;
+
+      root.innerHTML = "";
+      const wrap = el("div", { class: "nv-result" });
+      wrap.appendChild(el("p", { class: "nv-progress", text: domain.title }));
+      wrap.appendChild(el("span", { class: `nv-class nv-class--${result.class}`, text: CLASS_LABEL[result.class] }));
+      wrap.appendChild(el("h2", { class: "nv-title", text: t.title }));
+      wrap.appendChild(el("p", { class: "nv-lede", style: "margin-bottom:0", text: t.body }));
+      if (result.invitation) wrap.appendChild(el("p", { class: "nv-invitation", text: result.invitation }));
+
+      if (result.corrected) {
+        wrap.appendChild(el("div", { class: "nv-notes" }, [
+          el("p", { class: "nv-note", text: `Because your child was born ${state.weeksEarly} weeks early, everything above uses corrected age: about ${Math.round(result.effective_age_months)} months, counted from the due date. This is the standard approach under 24 months, and your pediatrician will do the same math.` }),
+        ]));
+      }
+
+      if (result.flags.length) {
+        const rec = el("div", {}, [el("h3", { style: "font-size: var(--text-md); margin: var(--space-6) 0 var(--space-2);", text: "What you shared" })]);
+        const ul = el("ul", { class: "nv-flags" });
+        result.flags.forEach((f) => ul.appendChild(el("li", { text: f.label })));
+        rec.appendChild(ul);
+        wrap.appendChild(rec);
+      }
+
+      if (result.notes.length) {
+        const notes = el("div", { class: "nv-notes" });
+        result.notes.forEach((n) => notes.appendChild(el("p", { class: "nv-note", text: n.note })));
+        wrap.appendChild(notes);
+      }
+
+      if (t.actions && result.class !== "typical_range") {
+        wrap.appendChild(el("h3", { style: "font-size: var(--text-md); margin: var(--space-6) 0 var(--space-2);", text: "What to do with this" }));
+        const ol = el("ol", { class: "nv-actions-list" });
+        t.actions.forEach((a) => ol.appendChild(el("li", { text: a })));
+        wrap.appendChild(ol);
+        if (t.script && result.flags.length) {
+          wrap.appendChild(el("div", { class: "nv-script" }, [
+            el("strong", { text: "When you call, you could say:" }),
+            el("span", { text: `"${t.script} ${result.flags.map((f) => f.label.toLowerCase()).join("; ")}."` }),
+          ]));
+        }
+      }
+
+      const actions = el("div", { class: "nv-nav", role: "group", "aria-label": "Result actions" }, []);
+      if (result.class !== "typical_range") {
+        actions.appendChild(el("button", { type: "button", class: "btn btn--primary", text: "Print notes for your visit", onclick: () => printSheet(domain, result) }));
+      }
+      if (window.GMS) {
+        const q = result.class === "typical_range"
+          ? `My ${domain.title.toLowerCase()} check came back typical. What should I expect next at this age?`
+          : `The Milestone Navigator suggested we talk to our pediatrician about: ${result.flags.map((f) => f.label.toLowerCase()).join("; ")}. How do I prepare for that conversation?`;
+        actions.appendChild(el("a", { class: "btn btn--ghost", href: GMS.askUrl(q), text: "Ask Growing Minds AI" }));
+      }
+      actions.appendChild(el("button", { type: "button", class: "gms-link", text: "Check another area", onclick: renderDomains }));
+      wrap.appendChild(actions);
+
+      wrap.appendChild(el("p", { class: "nv-fine", text: "This result reflects only what you reported today. It is educational information, not medical advice, screening, or diagnosis." }));
+
+      root.appendChild(wrap);
+      focusTitle();
+      window.scrollTo({ top: root.getBoundingClientRect().top + window.scrollY - 90, behavior: "auto" });
+    }
+
+    function printSheet(domain, result) {
+      sheet.innerHTML = "";
+      sheet.appendChild(el("h2", { text: `Milestone Navigator (${domain.title}) — notes for our visit` }));
+      sheet.appendChild(el("p", { text: `Prepared ${new Date().toLocaleDateString()} · Child's age: ${state.ageMonths} months${result.corrected ? ` (about ${Math.round(result.effective_age_months)} months corrected; born ${state.weeksEarly} weeks early)` : ""}` }));
+      sheet.appendChild(el("h3", { text: "What I observe at home" }));
+      const obs = el("ul");
+      result.flags.forEach((f) => obs.appendChild(el("li", { text: f.label })));
+      sheet.appendChild(obs);
+      if (result.terminal.actions) {
+        sheet.appendChild(el("h3", { text: "What I'd like to ask about" }));
+        const ask = el("ul");
+        result.terminal.actions.slice(0, 3).forEach((a) => ask.appendChild(el("li", { text: a })));
+        sheet.appendChild(ask);
+      }
+      sheet.appendChild(el("p", { class: "vs-foot", text: "Parent-reported observations organized by the free Milestone Navigator at growingmindsscience.com. Not a screening result or diagnosis." }));
+
+      document.body.classList.add("printing-nv");
+      const after = () => { document.body.classList.remove("printing-nv"); window.removeEventListener("afterprint", after); };
+      window.addEventListener("afterprint", after);
+      setTimeout(after, 1500);
+      window.print();
+    }
+
+    renderDomains();
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

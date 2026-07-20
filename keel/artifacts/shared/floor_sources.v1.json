@@ -1,0 +1,48 @@
+{
+  "version": "1.0.0",
+  "status": "drafted_pending_matthew_verification",
+  "note": "Every source below must be pulled and read by Matthew before any floors file leaves the review queue. Ids are stable and referenced by floors.lmc and floors.navigator. Do not add a floor without a source id; do not delete a source id that a floor references (CI checks referential integrity).",
+  "sources": {
+    "zubler2022": {
+      "citation": "Zubler JM, Wiggins LD, Macias MM, et al. Evidence-Informed Milestones for Developmental Surveillance Tools. Pediatrics. 2022;149(3):e2021052138.",
+      "role": "Backbone for typical-range framing and the 2022 CDC milestone revision (75th-percentile norming). Public-domain checklist derivative (CDC LTSAE).",
+      "doi": "10.1542/peds.2021-052138"
+    },
+    "cdc_ltsae": {
+      "citation": "CDC, Learn the Signs. Act Early. Developmental Milestones (2022 revision).",
+      "role": "Public-domain milestone checklists; citable and reproducible.",
+      "url": "https://www.cdc.gov/ncbddd/actearly/milestones/"
+    },
+    "filipek1999": {
+      "citation": "Filipek PA, Accardo PJ, Baranek GT, et al. The screening and diagnosis of autistic spectrum disorders. J Autism Dev Disord. 1999;29(6):439-484.",
+      "role": "Origin of the canonical absolute red flags: no babbling by 12m, no gesturing by 12m, no single words by 16m, no two-word spontaneous phrases by 24m, any loss of language or social skills at any age."
+    },
+    "aap_referral": {
+      "citation": "AAP / Bright Futures periodicity and developmental surveillance guidance (Lipkin & Macias, Promoting Optimal Development, Pediatrics 2020;145(1):e20193449).",
+      "role": "Surveillance-to-screening-to-referral pathway; supports the always-route-to-conversation posture.",
+      "doi": "10.1542/peds.2019-3449"
+    },
+    "rescorla1989": {
+      "citation": "Rescorla L. The Language Development Survey: a screening tool for delayed language in toddlers. J Speech Hear Disord. 1989;54(4):587-599.",
+      "role": "Late-talker criterion: fewer than 50 expressive words or no word combinations at 24 months."
+    },
+    "noritz2013": {
+      "citation": "Noritz GH, Murphy NA, and AAP Neuromotor Screening Expert Panel. Motor delays: early identification and evaluation. Pediatrics. 2013;131(6):e2016-e2027.",
+      "role": "Motor floors: sitting, weight-bearing, walking outer bounds; early strong hand preference before 12 months as a flag; asymmetry as a priority flag.",
+      "doi": "10.1542/peds.2013-1056"
+    },
+    "jcih2019": {
+      "citation": "Joint Committee on Infant Hearing. Year 2019 Position Statement. Journal of Early Hearing Detection and Intervention. 2019;4(2):1-44.",
+      "role": "Hearing posture: caregiver concern about hearing alone warrants audiological referral at any age; no wait-and-see for hearing."
+    },
+    "flipsen2006": {
+      "citation": "Flipsen P Jr. Measuring the intelligibility of conversational speech in children. Clin Linguist Phon. 2006;20(4):303-312.",
+      "role": "Intelligibility expectations underpinning the stranger-intelligibility floor at 36m+."
+    },
+    "zwaigenbaum2015": {
+      "citation": "Zwaigenbaum L, Bauman ML, Stone WL, et al. Early identification of autism spectrum disorder: recommendations for practice and research. Pediatrics. 2015;136(Suppl 1):S10-S40.",
+      "role": "Response to name by 12m, joint attention and pointing-to-show expectations, regression as a priority flag.",
+      "doi": "10.1542/peds.2014-3667C"
+    }
+  }
+}

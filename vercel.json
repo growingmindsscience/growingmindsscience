@@ -26,6 +26,8 @@
     { "source": "/tools/co-regulation-primer",              "destination": "/tools/co-regulation-primer.html" },
     { "source": "/tools/regulating-yourself-first",         "destination": "/tools/regulating-yourself-first.html" },
     { "source": "/tools/right-now",                         "destination": "/tools/right-now.html" },
+    { "source": "/tools/communication-snapshot",            "destination": "/tools/communication-snapshot.html" },
+    { "source": "/tools/milestone-navigator",               "destination": "/tools/milestone-navigator.html" },
     { "source": "/articles/serve-and-return",               "destination": "/articles/serve-and-return.html" },
     { "source": "/articles/screen-time",                    "destination": "/articles/screen-time.html" },
     { "source": "/articles/toddler-no",                     "destination": "/articles/toddler-no.html" },

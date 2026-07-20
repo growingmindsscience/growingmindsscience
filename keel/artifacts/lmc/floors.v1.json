@@ -1,0 +1,73 @@
+{
+  "artifact": "lmc_floors",
+  "version": "1.0.0",
+  "status": "drafted_pending_matthew_verification",
+  "semantics": "Each floor is a red line. For any snapshot whose computed fields match a floor's condition at or beyond applies_age_months_gte (corrected age where weeks_early > 3 and age < 24m), the compiled report's severity must be at least min_severity. Severity order: none < watch < discuss < priority_discuss. The interpretation artifact may flag earlier or harder than a floor, never later or softer. The floors grader enforces this at compile time by evaluating the interpretation artifact against a generated case grid; any floor-matching case that compiles below min_severity fails the build.",
+  "fields_contract": "Conditions reference only computable snapshot fields: vocab_says (int), vocab_understands (int), and the 12 behavior items by id with values yes | sometimes | not_yet (lost_skills uses yes | no). 'not_yet' matches only 'not_yet'; 'sometimes' never satisfies an absence condition.",
+  "floors": [
+    {
+      "id": "skill_loss_any_age",
+      "applies_age_months_gte": 0,
+      "condition": {"all": [{"behavior": "lost_skills", "op": "eq", "value": "yes"}]},
+      "min_severity": "priority_discuss",
+      "sources": ["filipek1999", "zwaigenbaum2015"],
+      "rationale": "Loss of previously acquired words or skills at any age is the single most established red flag in the early identification literature and short-circuits every other consideration."
+    },
+    {
+      "id": "no_response_to_name_12m",
+      "applies_age_months_gte": 12,
+      "condition": {"all": [{"behavior": "responds_to_name", "op": "eq", "value": "not_yet"}]},
+      "min_severity": "discuss",
+      "sources": ["zwaigenbaum2015", "cdc_ltsae"],
+      "rationale": "Consistent non-response to name by 12 months is an established early social-communication flag and also a hearing flag; the guidance block must mention both routes."
+    },
+    {
+      "id": "no_conventional_gestures_12m",
+      "applies_age_months_gte": 12,
+      "condition": {"all": [{"behavior": "waves_gestures", "op": "eq", "value": "not_yet"}, {"behavior": "points_request", "op": "eq", "value": "not_yet"}]},
+      "min_severity": "discuss",
+      "sources": ["filipek1999"],
+      "rationale": "No gesturing (waving, reaching to be picked up, pointing to request) by 12 months, encoded as absence of both gesture items."
+    },
+    {
+      "id": "no_pointing_to_show_15m",
+      "applies_age_months_gte": 15,
+      "condition": {"all": [{"behavior": "points_show", "op": "eq", "value": "not_yet"}]},
+      "min_severity": "discuss",
+      "sources": ["zwaigenbaum2015"],
+      "rationale": "Declarative pointing (to share interest, not only to request) is expected by 12-15 months; its absence at 15 months warrants a conversation. Floor set at the outer bound of the settled range."
+    },
+    {
+      "id": "no_words_16m",
+      "applies_age_months_gte": 16,
+      "condition": {"all": [{"metric": "vocab_says", "op": "eq", "value": 0}]},
+      "min_severity": "discuss",
+      "sources": ["filipek1999", "cdc_ltsae"],
+      "rationale": "No single words by 16 months, the canonical absolute threshold. Word approximations used consistently count as words per instrument instructions, which keeps this floor conservative in the right direction."
+    },
+    {
+      "id": "late_talker_24m",
+      "applies_age_months_gte": 24,
+      "condition": {"any": [{"metric": "vocab_says", "op": "lt", "value": 50}, {"behavior": "combines_two_words", "op": "eq", "value": "not_yet"}]},
+      "min_severity": "discuss",
+      "sources": ["rescorla1989", "filipek1999"],
+      "rationale": "Fewer than 50 expressive words or no two-word combinations at 24 months, the standard late-talker identification criterion. Note the OR: either condition alone triggers."
+    },
+    {
+      "id": "no_one_step_directions_24m",
+      "applies_age_months_gte": 24,
+      "condition": {"all": [{"behavior": "follows_one_step", "op": "eq", "value": "not_yet"}]},
+      "min_severity": "discuss",
+      "sources": ["cdc_ltsae", "zubler2022"],
+      "rationale": "Not following simple one-step directions without gesture cues by 24 months flags receptive language, which is easy for expressive-focused tools to miss. Receptive concerns are, if anything, more predictive than expressive ones."
+    },
+    {
+      "id": "bilingual_no_discount",
+      "applies_age_months_gte": 0,
+      "condition": {"meta": "policy"},
+      "min_severity": "policy",
+      "sources": ["zwaigenbaum2015"],
+      "rationale": "Policy floor, enforced by lexicon grader rather than case grid: no interpretation output may soften or delay any floor above on the basis of multilingual exposure. Bilingual children hit these floors on total-across-languages counts (the instrument already counts any language), and 'wait because bilingual' is a documented driver of late referral. Guidance may add bilingual context; it may never downgrade severity."
+    }
+  ]
+}

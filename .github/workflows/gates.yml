@@ -77,6 +77,14 @@ jobs:
             echo "::notice::evals/selftest.mjs not present on this ref — skipping"
           fi
 
+      - name: Safety keel — floors grader (planted-violation gate)
+        run: |
+          if [ -f keel/graders/selftest.mjs ]; then
+            node keel/graders/selftest.mjs
+          else
+            echo "::notice::keel/graders/selftest.mjs not present on this ref — skipping"
+          fi
+
       - name: Library grader — planted-violation gate
         run: |
           if [ -f tools/library/selftest.mjs ]; then
