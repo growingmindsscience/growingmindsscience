@@ -1,0 +1,26 @@
+{
+  "slug": "how-much-screen-time-for-a-toddler",
+  "status": "draft",
+  "question": "How much screen time is okay for my toddler?",
+  "ageBand": "13-18 months",
+  "domain": "Sensory & regulation",
+  "shortAnswer": "For toddlers, less screen time is generally better, and what fills the rest of the day matters most. Major guidelines suggest keeping screens limited in the toddler years, but a hard daily number is less useful than the bigger picture.",
+  "sections": [
+    {
+      "h": "What the guidance actually says",
+      "body": "Health guidelines lean toward little to no screen time for the youngest children, and small, chosen amounts as toddlers grow. The reason is not that screens are poison; it is that young children learn language and thinking best from live, back-and-forth interaction, and screens can crowd that out. When screens are used, watching together and talking about what you see turns passive time into shared time."
+    },
+    {
+      "h": "A calmer way to think about it",
+      "body": "Rather than counting minutes with dread, look at the whole day. Is there plenty of talking, play, movement, and rest? A short video while you make dinner is not going to undo any of that. Screens tend to cause more trouble when they replace sleep, meals, or connection, or when they are the main way a child calms down. Aim for balance, not perfection."
+    }
+  ],
+  "tryTonight": [
+    "When a screen is on, sit close and talk about what you both see.",
+    "Keep screens out of meals and the hour before sleep.",
+    "Offer a non-screen wind-down, like a book or quiet play, as the usual calmer."
+  ],
+  "whenToReachOut": "If screens are the only thing that soothes your child, or you are worried about sleep, attention, or how the day is going, your pediatrician can help you think it through. There is no judgment in asking; every family is finding their own balance.",
+  "evidence": ["screen-time-guidance", "language-development"],
+  "related": { "articles": ["screen-time"], "class": "toddlerhood" }
+}

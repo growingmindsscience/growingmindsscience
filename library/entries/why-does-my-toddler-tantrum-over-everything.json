@@ -1,0 +1,26 @@
+{
+  "slug": "why-does-my-toddler-tantrum-over-everything",
+  "status": "draft",
+  "question": "Why does my toddler have a meltdown over everything?",
+  "ageBand": "19-24 months",
+  "domain": "Social-emotional",
+  "shortAnswer": "Around two, a child's wants are big, but the brain systems for waiting, switching gears, and calming down are still under construction. Meltdowns are that gap showing, not bad behavior or a sign you are doing it wrong.",
+  "sections": [
+    {
+      "h": "What is happening in the moment",
+      "body": "A toddler feels things at full volume. The part of the brain that helps with self-control is one of the slowest to mature, so strong feelings arrive long before the brakes do. On top of that, language is still catching up, so a child often cannot yet tell you what is wrong. A meltdown is what overflow looks like when feelings outrun words and control."
+    },
+    {
+      "h": "What actually helps",
+      "body": "During a meltdown, fewer words work better than more. A calm voice and a steady presence help your child borrow your calm until their own returns. Naming the feeling can help: \"You really wanted that.\" Save the teaching for afterward, when everyone is settled. Offering small choices within your limits, like which cup or which shoe first, gives your child some of the control they are reaching for."
+    }
+  ],
+  "tryTonight": [
+    "In the storm, use few words and a calm body; teach later, when it passes.",
+    "Name the feeling out loud: \"You're so frustrated.\"",
+    "Offer two okay choices so your child gets to steer something."
+  ],
+  "whenToReachOut": "Meltdowns are a normal part of these years. If they are extreme, last a very long time, happen almost constantly, or your child often hurts themselves, it can help to talk it through with your pediatrician. There is no harm in asking, and it can bring peace of mind.",
+  "evidence": ["milestone-19-24-social"],
+  "related": { "articles": ["toddler-no", "self-regulation"], "class": "toddlerhood" }
+}

@@ -15,51 +15,40 @@ first flagship class (Toddlerhood) has a dedicated detail page.
 
 ## File tree
 
+High-level shape (not every file — see the directories for the full set):
+
 ```
 growing-minds-science/
 ├─ index.html                      # Sales homepage
-├─ classes/
-│  └─ toddlerhood.html              # Flagship class detail / sales page
-├─ articles/
-│  ├─ index.html                    # Articles hub
-│  ├─ screen-time.html              # Practical screen time guide
-│  └─ serve-and-return.html         # First research explainer
-├─ tools/
-│  ├─ index.html                    # Tools for Parents hub
-│  ├─ growing-minds-ai.html
-│  ├─ limits-without-escalation.html
-│  ├─ repair-after-the-hard-moment.html
-│  ├─ routines-transitions-night-waking.html
-│  ├─ whats-typical-by-stage.html
-│  └─ whats-underneath-the-meltdown.html
+├─ about/ contact/ faq/            # Supporting marketing pages
+├─ classes/                        # 5 class pages (toddlerhood live; others waitlist)
+├─ articles/                       # Articles hub + 8 research/practical explainers
+├─ tools/                          # Tools-for-parents hub + Growing Minds AI + decoders
 ├─ milestones.html                 # Standalone tracker; no framework bundle
 ├─ thank-you.html                  # Waitlist success page
-├─ _redirects                      # Legacy Netlify pretty URLs
-├─ vercel.json                     # Vercel redirects + security headers
-├─ netlify.toml                    # Legacy Netlify config
-├─ robots.txt
-├─ sitemap.xml
-├─ README.md
+├─ api/                            # Vercel functions (AI, waitlist, contact, auth, Stripe)
+│  ├─ growing-minds-ai.js          #   Claude-backed chat (see "Growing Minds AI" below)
+│  ├─ _retrieval.js _knowledge-data.js   # Local grounding corpus + lexical retrieval
+│  └─ …                            #   waitlist, contact, login/session, stripe-webhook, …
+├─ nsc/                            # Number Path — self-contained Next.js app (own README)
+├─ knowledge/                      # Sources + curated cards compiled into _knowledge-data.js
+├─ scripts/                        # build-knowledge, build-structured-data, build-og-cards, …
+├─ vercel.json                     # Vercel redirects + security headers (authoritative)
+├─ robots.txt  sitemap.xml  README.md
 └─ assets/
-   ├─ css/styles.css
-   ├─ js/main.js
+   ├─ css/  js/
    └─ img/
-      ├─ logo.jpeg                 # Source logo (1080x1080)
-      ├─ logo-original.jpeg
-      ├─ logo-full.jpeg
-      ├─ logo-512.jpeg             # OG / hero / large
-      ├─ logo-192.jpeg             # Header / apple-touch-icon
-      ├─ logo-128.png
-      ├─ favicon.svg               # Tab icon
-      ├─ mark.svg                  # Reusable monochrome SVG mark (currentColor)
-      └─ site/                     # Editorial photography
-         ├─ hero-parent-baby.jpg     # Hero image (parent + young child)
-         ├─ baby-hands.jpg           # Birth to 12 months class thumbnail
-         ├─ learning-blocks.jpg      # Toddler class thumbnail
-         ├─ child-learning.jpg       # Preschool class thumbnail
-         ├─ family-reading.jpg       # Family systems class thumbnail
-         └─ notebook-coffee.jpg      # Trust section supporting image
+      ├─ original-logo-mark-no-words-512.png   # Logo mark (header, OG, apple-touch-icon)
+      ├─ favicon.svg                            # Tab icon
+      ├─ og/                                    # Generated per-article social cards (1200x630)
+      └─ site/                                  # Editorial photography
 ```
+
+> **Legacy, not deployed:** `netlify.toml` and `netlify/functions/` are dead
+> config from the pre-Vercel era. `vercel.json` governs and `api/*.js` are the
+> live functions. In particular `netlify/functions/growing-minds-ai.mjs` still
+> references OpenAI/gpt-5.5/vector-store — it is **not** how the AI works today
+> (see below) and is safe to delete.
 
 ## Site imagery
 
@@ -154,26 +143,43 @@ respects an `?interest=...` query string for cross-page preselection.
 ## Growing Minds AI
 
 The Growing Minds AI page at `/tools/growing-minds-ai` includes a working chat
-MVP backed by a Vercel API route:
+backed by a Vercel API route:
 
 - API route: `api/growing-minds-ai.js`
 - Browser endpoint: `/api/growing-minds-ai`
-- Required Vercel environment variable: `OPENAI_API_KEY`
+- Model provider: **Anthropic Claude** (streamed; the SSE is transformed to an
+  OpenAI-compatible shape so the browser needs no change).
+- Required Vercel environment variable: `ANTHROPIC_API_KEY`
+- Optional Vercel environment variable: `ANTHROPIC_MODEL` (defaults to
+  `claude-sonnet-4-6`; set `claude-opus-4-8` for depth or a Haiku id to cut cost)
 - Required Vercel environment variable: `GMS_AI_ACCESS_CODE`
-- Optional Vercel environment variable: `OPENAI_VECTOR_STORE_ID`
-- Optional Vercel environment variable: `OPENAI_MODEL` (defaults to `gpt-5.5`)
+- Optional Vercel environment variable: `GMS_SESSION_SECRET` (verifies AI Pro
+  subscriber tokens; also used elsewhere for the parent-site session cookie)
 
 Set environment variables in Vercel. The API key must never be placed in
 browser JavaScript or committed to the repository.
-`GMS_AI_ACCESS_CODE` should be shared only with enrolled class families; the
-function will not call OpenAI unless the submitted access code matches this
-server-side value.
 
-When `OPENAI_VECTOR_STORE_ID` is present, the function enables OpenAI file
-search so answers can be grounded in uploaded Growing Minds Science course
-material, parent tools, and curated developmental science notes. Without a
-vector store, the tutor still uses the system instructions but will not retrieve
-from a private knowledge base.
+**Grounding is local — no external vector store.** Retrieval runs in-repo:
+`api/_retrieval.js` scores the question against `api/_knowledge-data.js` with
+lexical overlap + light stemming and passes the top cards to the model as
+context. That knowledge base is compiled offline by
+`scripts/build-knowledge.mjs` from three inputs (the 42 milestones in
+`milestones.html`, curated cards in `knowledge/curated.mjs`, and your uploaded
+material in `knowledge/sources/`). Rebuild after changing any input:
+
+```bash
+node scripts/build-knowledge.mjs
+```
+
+There is no embeddings service and no OpenAI dependency; the corpus is small and
+curated, so lexical scoring is a good fit (upgradable to embeddings later
+without touching callers).
+
+**Access tiers.** The server gates every call: unlimited for a matching
+`GMS_AI_ACCESS_CODE` (share only with enrolled class families), for a valid AI
+Pro subscriber token, or for a signed-in account whose Number Path / membership
+session carries an unlimited-AI entitlement; otherwise a per-IP daily free
+allowance applies. The browser counter is UX only — the server is the real gate.
 
 ## Milestone tracker
 

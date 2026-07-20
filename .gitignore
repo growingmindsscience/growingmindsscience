@@ -18,3 +18,9 @@
 node_modules/
 /package.json
 /package-lock.json
+
+# Programmatic developmental library — GENERATED output. Source of truth is
+# library/entries/*.json; regenerate with scripts/build-library.mjs. Drafts stay
+# uncommitted (never deployed) until an entry is flipped to status:"approved" and
+# published — that is the human sign-off. See library/README.md.
+/answers/

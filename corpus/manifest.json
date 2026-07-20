@@ -1,0 +1,29 @@
+{
+  "corpusVersion": 1,
+  "status": "green",
+  "contentHash": "aaea35080df9b1b68c47b73b7c8c78fd7e338d254fae05e92be1dbb75e3ba330",
+  "counts": {
+    "cards": 304,
+    "withExternalSource": 49,
+    "externalSourceCoverage": 0.161,
+    "provenance": {
+      "milestone": 42,
+      "uploaded-source": 244,
+      "curated": 18
+    },
+    "registeredSources": 11,
+    "contestedClaims": 3,
+    "libraryEntries": 6
+  },
+  "consumers": [
+    "api/growing-minds-ai.js (retrieval grounding)",
+    "library/entries → answers/ (developmental library)",
+    "articles/*.html (citations)",
+    "nsc navigator (part_c + citations)",
+    "marketing/carousels (research posts)"
+  ],
+  "checks": {
+    "hardFailures": [],
+    "warnings": []
+  }
+}

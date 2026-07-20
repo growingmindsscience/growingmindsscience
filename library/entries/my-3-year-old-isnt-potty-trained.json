@@ -1,0 +1,26 @@
+{
+  "slug": "my-3-year-old-isnt-potty-trained",
+  "status": "draft",
+  "question": "My 3-year-old still isn't potty trained. Is something wrong?",
+  "ageBand": "25-36 months",
+  "domain": "Adaptive skills",
+  "shortAnswer": "Children get out of diapers across a wide range of ages, and plenty are not fully trained at three. Readiness depends on the body and the brain lining up, which happens on each child's own schedule.",
+  "sections": [
+    {
+      "h": "Readiness matters more than age",
+      "body": "Using the toilet asks a lot of a young child at once: noticing the body's signal, holding on, getting to the potty, and managing clothes. Those pieces come together at different times for different children. Signs of readiness include staying dry for longer stretches, showing interest, telling you when they have gone, and being able to follow simple steps. Pushing before the pieces are ready usually makes it harder, not faster."
+    },
+    {
+      "h": "How to keep it low-pressure",
+      "body": "You can offer chances without making it a battle. Let your child watch and learn the routine, use simple picture steps, and keep your tone easy about accidents, which are part of learning. Comfortable clothes they can pull down themselves help. If it turns into a power struggle, it is fine to pause for a few weeks and try again when things feel calmer."
+    }
+  ],
+  "tryTonight": [
+    "Offer the potty at easy moments, like before bath, with no pressure to perform.",
+    "Keep clothes simple so your child can manage them alone.",
+    "Treat accidents as ordinary: \"Whoops, let's clean up,\" and move on."
+  ],
+  "whenToReachOut": "If your child seems in pain, is holding it in often, has a big setback after doing well, or you simply want guidance, your pediatrician can help. Asking is a normal, low-key step and can rule out simple physical causes.",
+  "evidence": ["milestone-25-36-adaptive"],
+  "related": { "articles": ["milestone-worry"], "class": "toddlerhood" }
+}
