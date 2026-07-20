@@ -147,10 +147,16 @@ function wireMeta(html, cardUrl, alt) {
 
 if (!existsSync(OUT_DIR)) mkdirSync(OUT_DIR, { recursive: true });
 
+// Optional positional slugs limit the run (e.g. `node scripts/build-og-cards.mjs
+// communication-snapshot`) so adding one page doesn't re-render every committed PNG.
+const requested = process.argv.slice(2).filter((a) => !a.startsWith("-"));
+const wants = (slug) => requested.length === 0 || requested.includes(slug);
+
 const dir = join(ROOT, "articles");
 const files = readdirSync(dir).filter((f) => f.endsWith(".html") && f !== "index.html");
 let made = 0;
 for (const file of files) {
+  if (!wants(file.replace(/\.html$/, ""))) continue;
   const path = join(dir, file);
   const html = readFileSync(path, "utf8");
   const rawTitle = decode(pick(html, /<title>([^<]*)<\/title>/i) || "");
@@ -165,5 +171,27 @@ for (const file of files) {
   if (next !== html) writeFileSync(path, next);
   made++;
   console.log(`  ✓ ${slug}.png — [${kicker}] ${title}`);
+}
+
+// Tool pages carry their own cards too; they use an explicit list because their
+// markup has no article-kicker (the kicker here is authored per page).
+const TOOL_PAGES = [
+  { rel: "tools/communication-snapshot.html", kicker: "Free parent tool · 6–36 months" },
+];
+for (const t of TOOL_PAGES) {
+  const slug = t.rel.split("/").pop().replace(/\.html$/, "");
+  if (!wants(slug)) continue;
+  const path = join(ROOT, t.rel);
+  if (!existsSync(path)) continue;
+  const html = readFileSync(path, "utf8");
+  const rawTitle = decode(pick(html, /<title>([^<]*)<\/title>/i) || "");
+  const title = rawTitle.replace(/\s*[-–—]\s*Growing Minds Science\s*$/i, "").trim();
+  const outPng = join(OUT_DIR, `${slug}.png`);
+  render(cardHtml({ title, kicker: t.kicker }), outPng);
+  const cardUrl = `/assets/img/og/${slug}.png`;
+  const next = wireMeta(html, cardUrl, `Growing Minds Science — ${title}`);
+  if (next !== html) writeFileSync(path, next);
+  made++;
+  console.log(`  ✓ ${slug}.png — [${t.kicker}] ${title}`);
 }
 console.log(`\nOG cards: ${made} rendered → assets/img/og/, meta wired.`);

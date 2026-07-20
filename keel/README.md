@@ -58,6 +58,15 @@ certify the artifacts match the literature.
   `NAVIGATOR-LAUNCH` (robots meta in the page, card in `tools/index.html`,
   entry in `sitemap.xml`).
 
+## Review packets
+
+- `REVIEW.md` — Matthew's floors verification checklist (Tier 1 floors,
+  Tier 2 beyond-floor additions, Tier 3 copy claims), source by source.
+- `ATTORNEY-REVIEW.md` + generated `ATTORNEY-REVIEW-copy.md` — the scoped
+  legal review packet for the Navigator launch blocker (D3). Regenerate the
+  copy inventory after artifact edits:
+  `node keel/scripts/copy-inventory.mjs > keel/ATTORNEY-REVIEW-copy.md`
+
 ## Word-list note (CDI exclusion)
 
 v1 deliberately ships with direct count estimates and **no word checklist**, so
