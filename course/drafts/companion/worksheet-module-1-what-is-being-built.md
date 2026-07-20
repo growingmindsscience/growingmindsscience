@@ -15,11 +15,12 @@ schedule, and skipping one costs nothing.
 
 ---
 
-## 1. The eight inch face
+## 1. Close, and high contrast
 
-**What to do.** Once a day, when your baby is calm and alert, hold them at
-roughly the distance from your chest to your face, around eight to twelve inches,
-and just look at them. Talk if you like. Do not perform.
+**What to do.** Once a day, when your baby is calm and alert, bring your face in
+close, roughly the distance it naturally sits when you are holding them against
+your chest, and just look at them. You do not need to measure anything. Close is
+the whole instruction. Talk if you like. Do not perform.
 
 **Write it down.**
 

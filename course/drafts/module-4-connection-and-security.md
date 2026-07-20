@@ -205,14 +205,31 @@ off again. This happens over and over, all day.
 The claim that comes out of that work is that coordinated states are the
 *minority* of interaction time, and that the two partners spend much of their
 time out of sync and repairing. A figure of roughly thirty percent coordination
-is widely quoted.
+is widely quoted, and it is worth attributing carefully, because it gets garbled
+almost every time it is repeated.
 
-> **REVIEW FLAG:** The frequently cited "about 30% of interactions are
-> coordinated" figure derives from a small observational corpus of micro-coded
-> mother-infant dyads, not from a large or meta-analytic base. The qualitative
-> point (mismatch is common and repair is routine) is well supported; the precise
-> percentage should be presented as illustrative rather than as a stable
-> population estimate. Please confirm the hedging here.
+The measurement comes from Tronick and Cohn (1989), who micro-coded 54
+mother-infant pairs, eighteen each at three, six, and nine months, during the
+first two minutes of ordinary face-to-face play. Those pairs spent more than
+seventy percent of the time in mismatched states, and they moved back into
+coordination roughly once every three to five seconds. The familiar phrasing,
+that dyads are coordinated "about thirty percent of the time or less," is
+Tronick's own rounded restatement of that result, from a 1989 paper in
+*American Psychologist*. The account the numbers belong to is the mutual
+regulation model, set out by Gianino and Tronick in 1988.
+
+> **REVIEW FLAG:** The "about 30% coordinated" figure is real, but it is
+> Tronick's own rounded summary (Tronick, 1989, *American Psychologist*) of the
+> greater-than-70%-mismatched result in Tronick & Cohn (1989, *Child
+> Development*), not a value printed in a results table. Verified 2026-07-19.
+> Two traps to hold onto. First, the 70% figure is frequently attributed to a
+> "1975 still-face study," which is wrong on both counts: the data come from
+> 1989, and from the first normal face-to-face episode, not from still-face.
+> Second, Tronick and Gianino (1986) separately reported that about one-third of
+> interactive errors are repaired in the very next step, a different statistic
+> that is routinely conflated with the 30% coordination figure. The qualitative
+> point (mismatch is common and repair is routine) is well supported. Please
+> confirm the hedging here.
 
 Take the specific number lightly. Take the structure seriously, because it
 reframes the entire task. If attunement were about accuracy, parenting would be a
@@ -321,20 +338,30 @@ part with the most theoretical weight behind it.
 Now the question underneath all of this, which many parents are carrying quietly
 and which some have been made to feel guilty about.
 
-The NICHD Early Child Care Research Network followed over a thousand American
-children from infancy in a large longitudinal study, examining childcare
-arrangements alongside attachment security and later outcomes. Its findings on
-this point have been consistent and are worth stating plainly: routine
-non-parental care, in itself, did not determine attachment security. Children in
-childcare were not, as a group, less securely attached to their parents. What
-mattered was the quality of care and the quality of the parenting the child
-received, and the strongest predictors of child outcomes throughout the study were
-family and parenting variables rather than the mere fact of childcare.
+The NICHD Early Child Care Research Network followed a large American cohort from
+infancy, examining childcare arrangements alongside attachment security. The
+first attachment report (1997) covered 1,153 infants and their mothers at ten
+sites, with the Strange Situation run at fifteen months. Its finding is worth
+stating as plainly as the paper did: childcare by itself did not predict
+attachment insecurity. There was no main effect of childcare quality, no main
+effect of the quantity of care, and no main effect of the type of arrangement.
+Children in childcare were not, as a group, less securely attached to their
+parents.
 
-The study did find that risk accumulated in combination: insecure attachment was
-more likely where low parental sensitivity co-occurred with poor-quality,
-unstable, or very extensive care. That is a statement about compounding
-disadvantage, not about the decision to work.
+What the study did find was risk in interaction rather than risk on its own.
+Insecurity became more likely when low maternal sensitivity was combined with
+one of three things: poor-quality care, more than a minimal amount of care, or
+more than one care arrangement. In other words, it took a vulnerability at home
+and a strain in the care setting together. Neither side of that pairing produced
+the effect alone.
+
+The follow-up at thirty-six months (2001) pointed the same way and, if anything,
+sharpened it. Maternal sensitivity was the strongest predictor of attachment at
+that age, and only one interaction survived: low sensitivity combined with more
+hours of care per week, which modestly raised the likelihood of an
+insecure-ambivalent classification. One surviving interaction of modest size, in
+a study of this scale, is a very different claim from "childcare makes babies
+insecure."
 
 Two honest limits. This is a longitudinal correlational design, not a randomized
 one, so it cannot fully separate the effects of care arrangements from the
@@ -613,37 +640,75 @@ with a study behind them.
    between-culture variation. `[supported]`
 4. Tronick, E., Als, H., Adamson, L., Wise, S., & Brazelton, T. B. (1978). The
    infant's response to entrapment between contradictory messages in face-to-face
-   interaction. *Journal of the American Academy of Child Psychiatry*. Original
-   still-face paradigm. `[supported]`
+   interaction. *Journal of the American Academy of Child Psychiatry*, 17(1),
+   1-13. Original still-face paradigm. `[supported]` **Verified 2026-07-19.**
+   Two common miscitations to watch for. This article is frequently cited to
+   *Pediatrics* 62(3), 403, which is an abstract of it rather than the primary
+   article, and occasionally to *Developmental Psychology*, which is simply
+   wrong.
 5. Mesman, J., van IJzendoorn, M. H., & Bakermans-Kranenburg, M. J. (2009). The
    many faces of the still-face paradigm: A review and meta-analysis.
-   *Developmental Review*. Confirms the still-face effect is robust across
-   samples. `[supported]`
-6. Tronick, E., & Gianino, A. The mismatch-and-repair account of normal
-   parent-infant interaction. `[supported]` for the qualitative claim that
-   mismatch is frequent and repair is routine. The often-quoted figure of roughly
-   30% coordinated interaction rests on a small micro-coded observational corpus
-   and should be treated as illustrative, not as a population estimate.
-   `[attenuated]` for the specific percentage.
-7. De Wolff, M. S., & van IJzendoorn, M. H. (1997). Sensitivity and attachment: A
+   *Developmental Review*, 29(2), 120-162. Confirms the still-face effect is
+   robust across samples. `[supported]` **Verified 2026-07-19.** An erratum to
+   this article was published. This module cites it only for the qualitative
+   robustness claim, so the erratum does not bear on the present use, but anyone
+   quoting specific effect sizes from it must read the erratum first.
+6. Tronick, E. Z., & Cohn, J. F. (1989). Infant-mother face-to-face interaction:
+   Age and gender differences in coordination and the occurrence of
+   miscoordination. *Child Development*, 60(1), 85-92. `[supported]` **Verified
+   2026-07-19.** Source of the ">70% of interaction time in mismatched states"
+   measurement. 54 mother-infant dyads, 18 each at 3, 6, and 9 months. Only the
+   first 2-minute normal face-to-face episode was analyzed; these are **not**
+   still-face data. Repair rate roughly once every 3 to 5 seconds. The 70% figure
+   is often wrongly attributed to a "1975 still-face study," which is wrong on
+   both the date and the paradigm.
+7. Tronick, E. Z. (1989). Emotions and emotional communication in infants.
+   *American Psychologist*, 44(2), 112-119. `[supported]` **Verified
+   2026-07-19.** Source of the "about 30% or less" phrasing. This is Tronick's
+   own rounded summary of the Tronick & Cohn (1989) result, not an independently
+   printed results-table value.
+8. Gianino, A., & Tronick, E. Z. (1988). The mutual regulation model: The
+   infant's self and interactive regulation and coping and defensive
+   capacities. In T. Field, P. McCabe, & N. Schneiderman (Eds.), *Stress and
+   Coping Across Development* (pp. 47-68). Erlbaum. `[supported]` **Verified
+   2026-07-19.** The theoretical account behind mismatch and repair. Note that
+   Tronick and Gianino (1986) separately reported that about one-third of
+   interactive errors are repaired in the very next step. That is a different
+   statistic from the 30% coordination figure and the two are frequently
+   conflated.
+9. De Wolff, M. S., & van IJzendoorn, M. H. (1997). Sensitivity and attachment: A
    meta-analysis on parental antecedents of infant attachment. *Child
    Development*. Parental sensitivity predicts attachment security at a modest
    effect size, approximately r = .24. `[supported]`, and the modest magnitude is
    the point.
-8. Bakermans-Kranenburg, M. J., van IJzendoorn, M. H., & Juffer, F. (2003). Less
-   is more: Meta-analyses of sensitivity and attachment interventions in early
-   childhood. *Psychological Bulletin*. Sensitivity-focused interventions work,
-   and brief focused programmes outperform long broad ones. `[supported]`
-9. NICHD Early Child Care Research Network. Studies of early child care,
-   attachment security, and child outcomes. Non-parental care in itself did not
-   determine attachment security; family and parenting quality were the stronger
-   predictors. `[correlational]` (longitudinal, non-randomized).
-10. Nelson, C. A., Zeanah, C. H., Fox, N. A., et al. (2007). Cognitive recovery in
+10. Bakermans-Kranenburg, M. J., van IJzendoorn, M. H., & Juffer, F. (2003). Less
+    is more: Meta-analyses of sensitivity and attachment interventions in early
+    childhood. *Psychological Bulletin*. Sensitivity-focused interventions work,
+    and brief focused programmes outperform long broad ones. `[supported]`
+11. NICHD Early Child Care Research Network. (1997). The effects of infant child
+    care on infant-mother attachment security: Results of the NICHD Study of Early
+    Child Care. *Child Development*, 68(5), 860-879. `[correlational]`
+    (longitudinal, non-randomized). **Verified 2026-07-19.** N = 1,153 infants and
+    mothers across 10 sites, Strange Situation at 15 months. No main effect of
+    childcare quality, quantity, or type on attachment security. Risk appeared
+    only in interaction: low maternal sensitivity combined with poor-quality care,
+    with more than minimal amounts of care, or with more than one care
+    arrangement.
+12. NICHD Early Child Care Research Network. (2001). Child-care and family
+    predictors of preschool attachment and stability from infancy.
+    *Developmental Psychology*, 37(6), 847-862. `[correlational]` **Verified
+    2026-07-19.** Strange Situation at 36 months. Note the journal: this is
+    *Developmental Psychology*, **not** *Child Development*, and the draft
+    previously carried the wrong journal. Maternal sensitivity was the strongest
+    predictor at this age, and only one interaction survived, low sensitivity
+    combined with more hours per week, modestly raising insecure-ambivalent risk.
+    No sample size is stated for the 36-month sample here, deliberately.
+13. Nelson, C. A., Zeanah, C. H., Fox, N. A., et al. (2007). Cognitive recovery in
     socially deprived young children: The Bucharest Early Intervention Project.
     *Science*. Severe institutional deprivation and recovery following foster
     placement. `[supported]`. Applies to severe deprivation only and must not be
     generalized to ordinary caregiving.
-11. Lucca, K., Yuen, F., Wang, Y., Alessandroni, N., ... Hamlin, J. K., et al.
+14. Lucca, K., Yuen, F., Wang, Y., Alessandroni, N., ... Hamlin, J. K., et al.
     (2025). Infants' social evaluation of helpers and hinderers: a large-scale,
     multi-lab, coordinated replication study. *Developmental Science*
     28(1):e13581. `[failed-replication]` **Verified 2026-07-19.** ManyBabies4.

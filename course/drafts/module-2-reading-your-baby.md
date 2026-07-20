@@ -207,7 +207,7 @@ Your baby's temperament is information about how to parent them. It is not a ver
 *If nothing happens:* If your baby stays in one state the entire time, you have learned something useful about their rhythms and you can try again at a different hour. If you cannot tell the states apart yet, watch breathing regularity first. It is the easiest single indicator and it separates quiet sleep from active sleep immediately.
 
 **2. Find quiet alert, and use it.**
-*What to do:* When you catch your baby eyes open, body still, breathing steady, drop what you are doing. Bring your face about eight to twelve inches from theirs and just look at them. Talk quietly, or say nothing. Let them look back.
+*What to do:* When you catch your baby eyes open, body still, breathing steady, drop what you are doing. Bring your face close, near enough that it fills most of what they can see, and just look at them. Talk quietly, or say nothing. Let them look back.
 *What you are looking for:* Sustained gaze at your face, eyebrows lifting, a stilling of the body, maybe a small sound. Note roughly how long it lasts before they look away.
 *If nothing happens:* In the early weeks these windows can be very brief and may not appear at a convenient time for days. A baby who does not lock on is often just not in that state, or is younger than the visual system needs. Try again tomorrow. There is nothing to make up for.
 
