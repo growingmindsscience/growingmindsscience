@@ -643,7 +643,14 @@ with a study behind them.
     *Science*. Severe institutional deprivation and recovery following foster
     placement. `[supported]`. Applies to severe deprivation only and must not be
     generalized to ordinary caregiving.
-11. Lucca, K., et al. (2025). ManyBabies multi-lab replication of infant social
-    evaluation (helper/hinderer), 1,018 infants. Cited in this module only in
-    order to refuse the claim that babies are born moral.
-    `[failed-replication]`
+11. Lucca, K., Yuen, F., Wang, Y., Alessandroni, N., ... Hamlin, J. K., et al.
+    (2025). Infants' social evaluation of helpers and hinderers: a large-scale,
+    multi-lab, coordinated replication study. *Developmental Science*
+    28(1):e13581. `[failed-replication]` **Verified 2026-07-19.** ManyBabies4.
+    1,018 infants tested, 567 meeting inclusion criteria, aged 5.5 to 10.5
+    months, across 37 labs on five continents. Neither the social nor the
+    nonsocial condition differed from chance. J. Kiley Hamlin, author of the
+    original finding, is a co-author on the replication. Cited in this module
+    only in order to refuse the claim that babies are born moral. Note that a
+    null at chance is not a disproof of early social evaluation, so "failed to
+    replicate" is the accurate phrasing.

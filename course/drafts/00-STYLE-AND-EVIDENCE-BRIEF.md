@@ -86,7 +86,7 @@ inherit it directly.
 | Hart & Risley "30 million word gap" | `contested` in the registry. Sperry, Sperry & Miller (2019) failed to replicate. Emphasize interaction quality, never word count. |
 | Marshmallow test as destiny | `attenuated` in the registry. Watts, Duncan & Quan (2018) found the predictive effect largely disappears once background is controlled. |
 | Hamlin helper/hinderer as innate morality | `failed-replication` in the registry. Lucca et al. (2025), ManyBabies, 1,018 infants. |
-| Meltzoff & Moore neonatal imitation | Oostenbroek et al. (2016), 106 infants longitudinal, found no evidence. |
+| Meltzoff & Moore neonatal imitation | **Reclassified 2026-07-19 after verification: `contested`, not a clean ban.** Oostenbroek et al. (2016), 106 infants longitudinal, found no evidence, but a re-analysis dispute followed and Davis et al. (2021) found a significant pooled effect whose heterogeneity tracks researcher affiliation. Do not assert it in either direction. Handled in Module 1. |
 | "Mozart effect" for infants | No supporting evidence in infants. |
 | Baby sign language accelerates speech | Kirk et al. (2013) RCT found no advantage. |
 | Educational baby videos teach words | DeLoache et al. (2010) found no word learning. |
