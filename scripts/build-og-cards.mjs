@@ -177,6 +177,7 @@ for (const file of files) {
 // markup has no article-kicker (the kicker here is authored per page).
 const TOOL_PAGES = [
   { rel: "tools/communication-snapshot.html", kicker: "Free parent tool · 6–36 months" },
+  { rel: "tools/milestone-navigator.html", kicker: "Free parent tool · Birth to 5" },
 ];
 for (const t of TOOL_PAGES) {
   const slug = t.rel.split("/").pop().replace(/\.html$/, "");
