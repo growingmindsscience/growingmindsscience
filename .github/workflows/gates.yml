@@ -85,6 +85,14 @@ jobs:
             echo "::notice::keel/graders/selftest.mjs not present on this ref — skipping"
           fi
 
+      - name: Claims pages match their artifact (drift gate)
+        run: |
+          if [ -f scripts/build-claims.mjs ]; then
+            node scripts/build-claims.mjs --check
+          else
+            echo "::notice::scripts/build-claims.mjs not present on this ref — skipping"
+          fi
+
       - name: Library grader — planted-violation gate
         run: |
           if [ -f tools/library/selftest.mjs ]; then

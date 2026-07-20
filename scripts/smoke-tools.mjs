@@ -145,6 +145,31 @@ try {
   ok(await page.locator('.nv-class--typical_range').count() > 0, 'navigator: clean walking path lands typical_range');
   ok(/bring it up with your pediatrician anyway/i.test(await page.locator('.nv-result').innerText()), 'navigator: typical result carries the standing invitation');
 
+  // --- Activity Library: profile-aware filters + Today's 3 ---
+  await page.goto(`${BASE}/tools/activity-library.html`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(300);
+  ok(await page.locator('#al-grid .al-card').count() >= 8, 'activities: age-filtered grid renders');
+  ok(await page.locator('#al-today-panel:not([hidden]) .al-card').count() === 3, "activities: Today's 3 renders for the profiled child");
+  await page.locator('.al-chip', { hasText: 'All ages' }).click();
+  ok(await page.locator('#al-grid .al-card').count() === 24, 'activities: All ages shows the full sampler');
+  await page.locator('#al-today .al-done').first().click();
+  ok(await page.locator('#al-today .al-done.is-done').count() === 1, 'activities: mark-done toggles');
+
+  // --- Reading Prompt Cards: filters compose ---
+  await page.goto(`${BASE}/tools/reading-prompt-cards.html`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(300);
+  ok(await page.locator('.rp-card').count() > 0, 'prompt cards: deck renders');
+  await page.locator('.rp-chip', { hasText: 'Completion' }).click();
+  const typeBadges = await page.locator('.rp-card .rp-badge--type').allInnerTexts();
+  ok(typeBadges.length > 0 && typeBadges.every(t => /Completion/.test(t)), 'prompt cards: CROWD filter narrows to one type');
+
+  // --- Claims Library: hub + a claim page ---
+  await page.goto(`${BASE}/claims/index.html`, { waitUntil: 'networkidle' });
+  ok(await page.locator('.cl-card').count() === 10, 'claims: hub lists all 10 claims');
+  await page.goto(`${BASE}/claims/teething-fever.html`, { waitUntil: 'networkidle' });
+  ok(/Contradicted by evidence/.test(await page.locator('.cl-badges').first().innerText()), 'claims: grade badge renders');
+  ok(await page.locator('.cl-sources li').count() >= 2, 'claims: sources listed');
+
   // AI ?q= prefill — fills the box, does NOT send, cleans the URL
   await page.goto(`${BASE}/tools/growing-minds-ai.html?q=Why%20does%20my%20toddler%20melt%20down`, { waitUntil: 'networkidle' });
   await page.waitForTimeout(150);

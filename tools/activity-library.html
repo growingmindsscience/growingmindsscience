@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Activity Library - Growing Minds Science</title>
+  <meta name="description" content="A free library of developmental activities for ages 0 to 3, each with the developmental 'why', household materials, and ways to make it easier or harder. Filter by age, domain, mess, and time." />
+  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="color-scheme" content="light dark" />
+
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="canonical" href="https://growingmindsscience.com/tools/activity-library" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Activity Library — Growing Minds Science" />
+  <meta property="og:description" content="Free developmental activities for ages 0 to 3, each with the developmental 'why', household materials, and adaptations." />
+  <meta property="og:image" content="https://growingmindsscience.com/assets/img/og/activity-library.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Growing Minds Science — Activity Library" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://growingmindsscience.com/assets/img/og/activity-library.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/refresh.css" />
+  <link rel="stylesheet" href="../assets/css/tools.css" />
+  <script>try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+
+  <style>
+    .tool-hero { padding: clamp(3rem, 6vw, 5rem) 0 2rem; }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr .9fr; gap: var(--space-8); align-items: start; }
+    .tool-lede { font-size: var(--text-md); color: var(--ink-soft); max-width: 44rem; margin: 0 0 var(--space-6); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .hero-card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-6); }
+    .hero-card h2 { margin: 0 0 .65rem; font-size: var(--text-lg); }
+    .meta-list { list-style: none; padding: 0; margin: var(--space-4) 0 0; display: grid; gap: .85rem; }
+    .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
+    .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
+    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: 999px; background: var(--surface-2); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin-bottom: var(--space-3); }
+
+    .al-wrap { display: grid; gap: var(--space-6); }
+    .al-panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: clamp(1.25rem, 3vw, 1.75rem); }
+    .al-panel h2 { margin: 0 0 .35rem; font-size: var(--text-lg); }
+    .al-panel .al-sub { color: var(--ink-muted); font-size: var(--text-sm); margin: 0 0 var(--space-4); }
+    .al-filters { display: grid; gap: var(--space-4); }
+    .al-filter-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+    .al-filter-label { font-family: var(--font-display); font-weight: 600; font-size: var(--text-sm); min-width: 5.2rem; }
+    .al-chip {
+      padding: .45rem .8rem; border-radius: 999px; border: 1px solid var(--border);
+      background: var(--surface); color: var(--ink-soft); cursor: pointer; font: inherit;
+      font-size: var(--text-xs); min-height: 38px;
+      transition: background var(--transition), border-color var(--transition), color var(--transition);
+    }
+    .al-chip:hover { border-color: var(--primary); }
+    .al-chip:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+    .al-chip.is-active { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
+
+    .al-count { color: var(--ink-muted); font-size: var(--text-sm); margin: var(--space-4) 0 0; }
+    .al-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr)); gap: var(--space-5); margin-top: var(--space-5); }
+    .al-card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-5); display: flex; flex-direction: column; gap: .6rem; }
+    .al-card__meta { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .al-badge { font-size: var(--text-xs); padding: .2rem .55rem; border-radius: 999px; background: var(--surface-2); color: var(--ink-muted); }
+    .al-card h3 { margin: 0; font-size: var(--text-md); }
+    .al-card__intent { color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.6; margin: 0; }
+    .al-card details { margin-top: .3rem; }
+    .al-card summary { cursor: pointer; font-family: var(--font-display); font-weight: 600; font-size: var(--text-sm); color: var(--primary); }
+    .al-card summary:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+    .al-detail h4 { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin: var(--space-4) 0 .3rem; }
+    .al-detail ol, .al-detail ul { margin: 0; padding-left: 1.1rem; display: grid; gap: .35rem; font-size: var(--text-sm); color: var(--ink-soft); }
+    .al-detail p { font-size: var(--text-sm); color: var(--ink-soft); margin: 0; }
+    .al-safety { border-left: 1px solid var(--border-soft); background: var(--bg-alt); border-radius: var(--radius-sm, 8px); padding: .6rem .8rem; }
+    .al-card__foot { margin-top: auto; display: flex; gap: var(--space-3); padding-top: .5rem; }
+
+    .al-today { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: var(--space-4); margin-top: var(--space-4); }
+    .al-today .al-card { background: var(--bg-alt); }
+    .al-done { font-size: var(--text-xs); }
+    .al-done.is-done { color: var(--primary); font-weight: 700; }
+    .al-note { font-size: var(--text-xs); color: var(--ink-muted); margin: var(--space-5) 0 0; max-width: 52rem; }
+
+    #al-pocket { display: none; }
+    @media print {
+      body.printing-al > :not(#al-pocket) { display: none !important; }
+      body.printing-al #al-pocket { display: block; color: #000; font: 12pt/1.5 Georgia, serif; padding: 1rem; }
+      #al-pocket h2 { font: 700 16pt/1.2 "Helvetica Neue", sans-serif; margin: 0 0 .3rem; }
+      #al-pocket h3 { font: 700 11pt/1.2 "Helvetica Neue", sans-serif; margin: .8rem 0 .2rem; }
+      #al-pocket ol, #al-pocket ul { margin: .2rem 0; padding-left: 1.2rem; }
+      #al-pocket .vs-foot { margin-top: 1rem; font-size: 9pt; color: #444; border-top: 1px solid #999; padding-top: .5rem; }
+    }
+    @media (max-width: 920px) { .hero-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="container site-header__inner">
+      <a class="brand" href="/" aria-label="Growing Minds Science — home">
+        <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+        <span class="brand__name">Growing Minds Science</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Toggle navigation menu">
+          <span class="nav-toggle__bars"><span></span></span>
+        </button>
+        <ul class="nav__list" id="primary-nav-list">
+          <li><a class="nav__link" href="/classes/">Classes</a></li>
+          <li><a class="nav__link" href="/nsc">Number Path</a></li>
+          <li><a class="nav__link" aria-current="page" href="/tools/">Tools</a></li>
+          <li><a class="nav__link" href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
+          <li><a class="nav__link" href="/articles/">Articles</a></li>
+          <li><a class="nav__link" href="/about/">About</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a></li>
+        </ul>
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
+          <svg class="theme-toggle__moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="tool-hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Free · Birth to 3 · No account</p>
+          <h1 class="page-hero__title">Activity Library</h1>
+          <p class="tool-lede">Developmental activities built from household stuff, each with the developmental "why" attached, plus a way to make it easier and a way to make it harder. Filter to your child and your tolerance for mess.</p>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="#library">Browse activities</a>
+            <a class="btn btn--ghost" href="#al-method">How these are built</a>
+          </div>
+        </div>
+        <aside class="hero-card" aria-labelledby="al-at-a-glance">
+          <span class="tag">What makes these different</span>
+          <h2 id="al-at-a-glance">The "why" comes attached</h2>
+          <ul class="meta-list">
+            <li><span class="dot"></span><span>Every activity names the developmental mechanism it feeds, not just "fun sensory play".</span></li>
+            <li><span class="dot"></span><span>Household materials only. Nothing to buy, print, or laminate.</span></li>
+            <li><span class="dot"></span><span>Each one adapts down for a younger child and up for an older one.</span></li>
+            <li><span class="dot"></span><span>An automated safety check screens every activity's materials for its age range.</span></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="library">
+      <div class="container al-wrap">
+        <div class="al-panel" id="al-today-panel" hidden>
+          <h2>Today's 3</h2>
+          <p class="al-sub" id="al-today-sub">Three picks for today, rotated so no developmental area gets forgotten. Mark one done and tomorrow adjusts.</p>
+          <div class="al-today" id="al-today"></div>
+        </div>
+
+        <div class="al-panel">
+          <h2>Browse the library</h2>
+          <p class="al-sub">Set the age and anything else you care about. Everything else is optional.</p>
+          <div class="al-filters" id="al-filters"></div>
+          <p class="al-count" id="al-count"></p>
+          <div class="al-grid" id="al-grid"></div>
+        </div>
+
+        <p class="al-note">These activities are educational suggestions, not therapy or medical advice. You know your child; skip anything that doesn't fit their abilities today, and stay close for anything involving water, climbing, or food. Ages are guides, not rules.</p>
+      </div>
+    </section>
+
+    <section id="al-method">
+      <div class="container container--narrow">
+        <h2>How these are built</h2>
+        <p class="section-intro">Each activity is written fresh for this library and passes an automated check before it can ship: required safety notes, a materials screen against choking and strangulation hazards for the age range, and one non-negotiable rule: the intention line must name a real developmental mechanism from a controlled vocabulary, so "boosts brain development" hand-waving can't get through. The library favors ordinary moments over projects; the research consistently finds the developmental value lives in the interaction, not the materials.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="al-pocket" aria-hidden="true"></div>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container site-footer__inner">
+      <div>
+        <a class="brand" href="/" aria-label="Growing Minds Science — home">
+          <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+          <span class="brand__name">Growing Minds Science</span>
+        </a>
+        <p style="margin-top: var(--space-4);">Developmental science, translated for parents.</p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul class="footer-list">
+          <li><a href="/classes/">Classes</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+          <li><a href="/nsc">Number Path</a></li>
+          <li><a href="/tools/">Free tools</a></li>
+          <li><a href="/articles/">Articles</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/milestones">Milestone tracker</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Stay in the loop</h4>
+        <p style="font-size: var(--text-sm);"><a href="/#signup">Join the waitlist</a></p>
+        <p class="footer-elsewhere" style="margin-top: var(--space-5);">
+          Also on
+          <a href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
+        <span>&copy; <span data-year>2026</span> Growing Minds Science. All rights reserved.</span>
+        <span>Educational content only. Not medical or psychological advice.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/gms-tools.js" defer></script>
+  <script type="module">
+    import { activitiesForAge, todaysThree } from "/keel/lib/activities.mjs";
+
+    const grid = document.getElementById("al-grid");
+    const countEl = document.getElementById("al-count");
+    const filtersEl = document.getElementById("al-filters");
+    const pocket = document.getElementById("al-pocket");
+
+    let data;
+    try {
+      data = await fetch("/keel/artifacts/activities/sampler.v1.json").then((r) => r.json());
+    } catch (e) {
+      grid.innerHTML = "<p>The library couldn't load. Please refresh the page.</p>";
+      throw e;
+    }
+
+    const DOMAIN_LABEL = {
+      language: "Language", fine_motor: "Fine motor", gross_motor: "Gross motor",
+      cognitive: "Thinking", social_emotional: "Social-emotional", sensory: "Sensory",
+    };
+    const BANDS = [
+      { key: "all", label: "All ages", min: 0, max: 60 },
+      { key: "0-6", label: "0–6 mo", min: 0, max: 6 },
+      { key: "6-12", label: "6–12 mo", min: 6, max: 12 },
+      { key: "12-18", label: "12–18 mo", min: 12, max: 18 },
+      { key: "18-24", label: "18–24 mo", min: 18, max: 24 },
+      { key: "24-36", label: "2–3 yr", min: 24, max: 36 },
+    ];
+    const MESS = [{ v: 0, label: "Any mess" }, { v: 1, label: "No mess" }, { v: 2, label: "Some mess" }];
+    const TIME = [{ v: 0, label: "Any length" }, { v: 10, label: "10 min or less" }, { v: 15, label: "15 min or less" }];
+
+    const state = { band: "all", domain: "all", mess: 0, time: 0 };
+
+    /* Preselect the band from the shared child profile. */
+    function profileMonths() {
+      try {
+        if (window.GMS && GMS.profile) {
+          const c = GMS.profile.getActive();
+          if (c) return GMS.profile.ageInMonths(c);
+        }
+      } catch (e) {}
+      return null;
+    }
+    const pm = profileMonths();
+    if (pm != null) {
+      const band = BANDS.find((b) => b.key !== "all" && pm >= b.min && pm <= b.max);
+      if (band) state.band = band.key;
+    }
+
+    function el(tag, attrs, kids) {
+      const n = document.createElement(tag);
+      if (attrs) Object.keys(attrs).forEach((k) => {
+        if (k === "class") n.className = attrs[k];
+        else if (k === "text") n.textContent = attrs[k];
+        else if (k.indexOf("on") === 0) n.addEventListener(k.slice(2), attrs[k]);
+        else if (attrs[k] != null) n.setAttribute(k, attrs[k]);
+      });
+      (kids || []).forEach((c) => { if (c != null) n.appendChild(typeof c === "string" ? document.createTextNode(c) : c); });
+      return n;
+    }
+    const pretty = (s) => s.replace(/_/g, " ");
+
+    function chipRow(labelText, options, current, onPick) {
+      const row = el("div", { class: "al-filter-row", role: "group", "aria-label": labelText });
+      row.appendChild(el("span", { class: "al-filter-label", text: labelText }));
+      options.forEach((o) => {
+        row.appendChild(el("button", {
+          type: "button",
+          class: "al-chip" + (current === o.value ? " is-active" : ""),
+          "aria-pressed": current === o.value ? "true" : "false",
+          text: o.label,
+          onclick: () => onPick(o.value),
+        }));
+      });
+      return row;
+    }
+
+    function renderFilters() {
+      filtersEl.innerHTML = "";
+      filtersEl.appendChild(chipRow("Age", BANDS.map((b) => ({ value: b.key, label: b.label })), state.band, (v) => { state.band = v; render(); }));
+      filtersEl.appendChild(chipRow("Area", [{ value: "all", label: "All areas" }, ...data.domains.map((d) => ({ value: d, label: DOMAIN_LABEL[d] || pretty(d) }))], state.domain, (v) => { state.domain = v; render(); }));
+      filtersEl.appendChild(chipRow("Mess", MESS.map((m) => ({ value: m.v, label: m.label })), state.mess, (v) => { state.mess = v; render(); }));
+      filtersEl.appendChild(chipRow("Time", TIME.map((t) => ({ value: t.v, label: t.label })), state.time, (v) => { state.time = v; render(); }));
+    }
+
+    function matches(a) {
+      const band = BANDS.find((b) => b.key === state.band);
+      if (band.key !== "all" && (a.months_max < band.min || a.months_min > band.max)) return false;
+      if (state.domain !== "all" && !a.domains.includes(state.domain)) return false;
+      if (state.mess && a.mess_level > state.mess) return false;
+      if (state.time && a.duration_min > state.time) return false;
+      return true;
+    }
+
+    function activityCard(a, opts) {
+      const card = el("article", { class: "al-card", "data-slug": a.slug });
+      card.appendChild(el("div", { class: "al-card__meta" }, [
+        el("span", { class: "al-badge", text: `${a.months_min}–${a.months_max} mo` }),
+        ...a.domains.map((d) => el("span", { class: "al-badge", text: DOMAIN_LABEL[d] || pretty(d) })),
+        el("span", { class: "al-badge", text: `${a.duration_min} min` }),
+        el("span", { class: "al-badge", text: "mess " + "•".repeat(a.mess_level) }),
+      ]));
+      card.appendChild(el("h3", { text: a.title }));
+      card.appendChild(el("p", { class: "al-card__intent", text: "Why: " + pretty(a.intention) }));
+
+      const d = el("details", {}, [el("summary", { text: "How to do it" })]);
+      const body = el("div", { class: "al-detail" });
+      body.appendChild(el("h4", { text: "You need" }));
+      body.appendChild(el("ul", {}, a.materials.map((m) => el("li", { text: m.item }))));
+      body.appendChild(el("h4", { text: "Steps" }));
+      body.appendChild(el("ol", {}, a.steps.map((s) => el("li", { text: s }))));
+      body.appendChild(el("h4", { text: "Make it easier" }));
+      body.appendChild(el("p", { text: a.adapt_down }));
+      body.appendChild(el("h4", { text: "Make it harder" }));
+      body.appendChild(el("p", { text: a.adapt_up }));
+      if (a.safety_notes && a.safety_notes !== "None.") {
+        body.appendChild(el("h4", { text: "Safety" }));
+        body.appendChild(el("p", { class: "al-safety", text: a.safety_notes }));
+      }
+      body.appendChild(el("h4", { text: "The research angle" }));
+      body.appendChild(el("p", { text: a.evidence_note }));
+      d.appendChild(body);
+      card.appendChild(d);
+
+      const foot = el("div", { class: "al-card__foot" });
+      foot.appendChild(el("button", { type: "button", class: "gms-link", text: "Print card", onclick: () => printActivity(a) }));
+      if (opts && opts.done) {
+        const doneBtn = el("button", { type: "button", class: "gms-link al-done" + (opts.isDone() ? " is-done" : ""), text: opts.isDone() ? "Done today ✓" : "Mark done" });
+        doneBtn.addEventListener("click", () => { opts.toggle(); doneBtn.classList.toggle("is-done"); doneBtn.textContent = doneBtn.classList.contains("is-done") ? "Done today ✓" : "Mark done"; });
+        foot.appendChild(doneBtn);
+      }
+      card.appendChild(foot);
+      return card;
+    }
+
+    function render() {
+      renderFilters();
+      grid.innerHTML = "";
+      const list = data.activities.filter(matches);
+      countEl.textContent = list.length
+        ? `${list.length} ${list.length === 1 ? "activity" : "activities"}`
+        : "Nothing matches those filters; loosen one and good options come back.";
+      list.forEach((a) => grid.appendChild(activityCard(a)));
+    }
+
+    /* ---- Today's 3 (needs a child with an age) ---- */
+    const COMPLETIONS_KEY = "gms-activity-completions-v1";
+    function loadCompletions() {
+      try { return JSON.parse(localStorage.getItem(COMPLETIONS_KEY) || "[]"); } catch (e) { return []; }
+    }
+    function saveCompletions(list) {
+      try { localStorage.setItem(COMPLETIONS_KEY, JSON.stringify(list.slice(-200))); } catch (e) {}
+    }
+
+    function renderToday() {
+      const months = profileMonths();
+      if (months == null || months > 40) return;
+      const panel = document.getElementById("al-today-panel");
+      const host = document.getElementById("al-today");
+      const child = window.GMS && GMS.profile ? GMS.profile.getActive() : null;
+      const childKey = child ? child.id : "anon";
+      const iso = new Date().toISOString().slice(0, 10);
+      const completions = loadCompletions();
+      const picks = todaysThree(data, months, completions, childKey, iso);
+      if (!picks.length) return;
+      panel.hidden = false;
+      if (child && child.name) {
+        document.getElementById("al-today-sub").textContent =
+          `Three picks for ${child.name} today, rotated so no developmental area gets forgotten. Mark one done and tomorrow adjusts.`;
+      }
+      host.innerHTML = "";
+      picks.forEach((a) => {
+        host.appendChild(activityCard(a, {
+          done: true,
+          isDone: () => loadCompletions().some((c) => c.slug === a.slug && c.date === iso),
+          toggle: () => {
+            let list = loadCompletions();
+            if (list.some((c) => c.slug === a.slug && c.date === iso)) {
+              list = list.filter((c) => !(c.slug === a.slug && c.date === iso));
+            } else {
+              list.push({ slug: a.slug, date: iso, domains: a.domains });
+            }
+            saveCompletions(list);
+          },
+        }));
+      });
+    }
+
+    function printActivity(a) {
+      pocket.innerHTML = "";
+      pocket.appendChild(el("h2", { text: a.title }));
+      pocket.appendChild(el("p", { text: `${a.months_min} to ${a.months_max} months · ${a.duration_min} minutes · Why: ${pretty(a.intention)}` }));
+      pocket.appendChild(el("h3", { text: "You need" }));
+      pocket.appendChild(el("ul", {}, a.materials.map((m) => el("li", { text: m.item }))));
+      pocket.appendChild(el("h3", { text: "Steps" }));
+      pocket.appendChild(el("ol", {}, a.steps.map((s) => el("li", { text: s }))));
+      pocket.appendChild(el("h3", { text: "Easier / harder" }));
+      pocket.appendChild(el("ul", {}, [el("li", { text: "Easier: " + a.adapt_down }), el("li", { text: "Harder: " + a.adapt_up })]));
+      if (a.safety_notes && a.safety_notes !== "None.") {
+        pocket.appendChild(el("h3", { text: "Safety" }));
+        pocket.appendChild(el("p", { text: a.safety_notes }));
+      }
+      pocket.appendChild(el("p", { class: "vs-foot", text: "Free Activity Library · growingmindsscience.com/tools/activity-library" }));
+      document.body.classList.add("printing-al");
+      const after = () => { document.body.classList.remove("printing-al"); window.removeEventListener("afterprint", after); };
+      window.addEventListener("afterprint", after);
+      setTimeout(after, 1500);
+      window.print();
+    }
+
+    render();
+    renderToday();
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

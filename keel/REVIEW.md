@@ -133,6 +133,29 @@ Claims a parent could act on that live in guidance text rather than rules:
   months", social smile "6 weeks to 3 months", turning to sounds "5 to 9
   months" (recheck notes; check each against CDC/Zubler).
 
+## Tier 4 — the 2026-07-20 artifact families (activities, claims, prompt cards)
+
+Three more artifact families now ship through the same grader gate
+(`keel/graders/activities.mjs`, `claims.mjs`, `drc.mjs`, all in the one
+selftest). The graders enforce structure, safety lexicon, and honesty rules;
+they cannot verify content truth. That's this pass:
+
+- [ ] **Activity sampler** (`artifacts/activities/sampler.v1.json`, 24
+  activities): read each for age-appropriateness and safety judgment beyond
+  the lexicon (the grader can't know that a specific 9-month-old game is
+  miscalibrated). Check each `evidence_note` against your knowledge; they are
+  deliberately citation-free summaries, so they must not overstate. D1 check:
+  confirm nothing echoes the DML manual's actual content.
+- [ ] **Claims library** (`artifacts/claims/claims.v1.json`, 10 claims): the
+  big one. Per the pipeline, your grade is the grade. For each claim: pull the
+  listed sources, confirm each citation is real and says what the summary
+  uses it for, then confirm or adjust both axis grades. The two most
+  judgment-heavy grades as drafted: sleep-training (contradicted/majority)
+  and pacifiers-speech (insufficient/majority).
+- [ ] **Prompt cards** (`artifacts/drc/prompt-cards.v1.json`, 41 cards): quick
+  read for CROWD fidelity and tone; confirm no card echoes a real book beyond
+  generic scenes.
+
 ## Sign-off
 
 - [ ] All Tier 1 floors verified against pulled sources

@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reading Prompt Cards - Growing Minds Science</title>
+  <meta name="description" content="Free dialogic reading prompt cards: turn any children's book into a back-and-forth language session. The evidence-backed PEER and CROWD method, organized by book type and age." />
+  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="color-scheme" content="light dark" />
+
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="canonical" href="https://growingmindsscience.com/tools/reading-prompt-cards" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Reading Prompt Cards — Growing Minds Science" />
+  <meta property="og:description" content="Turn any children's book into a back-and-forth language session with the evidence-backed dialogic reading method." />
+  <meta property="og:image" content="https://growingmindsscience.com/assets/img/og/reading-prompt-cards.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Growing Minds Science — Reading Prompt Cards" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://growingmindsscience.com/assets/img/og/reading-prompt-cards.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/refresh.css" />
+  <link rel="stylesheet" href="../assets/css/tools.css" />
+  <script>try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+
+  <style>
+    .tool-hero { padding: clamp(3rem, 6vw, 5rem) 0 2rem; }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr .9fr; gap: var(--space-8); align-items: start; }
+    .tool-lede { font-size: var(--text-md); color: var(--ink-soft); max-width: 44rem; margin: 0 0 var(--space-6); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .hero-card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-6); }
+    .hero-card h2 { margin: 0 0 .65rem; font-size: var(--text-lg); }
+    .meta-list { list-style: none; padding: 0; margin: var(--space-4) 0 0; display: grid; gap: .85rem; }
+    .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
+    .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
+    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: 999px; background: var(--surface-2); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin-bottom: var(--space-3); }
+
+    .rp-wrap { display: grid; gap: var(--space-6); }
+    .rp-panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: clamp(1.25rem, 3vw, 1.75rem); }
+    .rp-panel h2 { margin: 0 0 .35rem; font-size: var(--text-lg); }
+    .rp-sub { color: var(--ink-muted); font-size: var(--text-sm); margin: 0 0 var(--space-4); }
+    .rp-peer { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: var(--space-4); }
+    .rp-peer div { background: var(--bg-alt); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: var(--space-4); }
+    .rp-peer strong { font-family: var(--font-display); display: block; margin-bottom: .25rem; }
+    .rp-peer p { margin: 0; font-size: var(--text-sm); color: var(--ink-soft); line-height: 1.6; }
+
+    .rp-filter-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-bottom: var(--space-3); }
+    .rp-filter-label { font-family: var(--font-display); font-weight: 600; font-size: var(--text-sm); min-width: 5.6rem; }
+    .rp-chip {
+      padding: .45rem .8rem; border-radius: 999px; border: 1px solid var(--border);
+      background: var(--surface); color: var(--ink-soft); cursor: pointer; font: inherit;
+      font-size: var(--text-xs); min-height: 38px;
+      transition: background var(--transition), border-color var(--transition), color var(--transition);
+    }
+    .rp-chip:hover { border-color: var(--primary); }
+    .rp-chip:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+    .rp-chip.is-active { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
+
+    .rp-count { color: var(--ink-muted); font-size: var(--text-sm); margin: var(--space-2) 0 0; }
+    .rp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: var(--space-5); margin-top: var(--space-4); }
+    .rp-card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-5); display: flex; flex-direction: column; gap: .55rem; }
+    .rp-card__meta { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .rp-badge { font-size: var(--text-xs); padding: .2rem .55rem; border-radius: 999px; background: var(--surface-2); color: var(--ink-muted); }
+    .rp-badge--type { color: #9C4429; background: #F8E7E0; }
+    [data-theme="dark"] .rp-badge--type { color: #E78D6F; background: color-mix(in srgb, #DE7356 18%, transparent); }
+    .rp-card__prompt { font-family: var(--font-body); font-size: var(--text-md); font-style: italic; margin: 0; color: var(--ink); }
+    .rp-card__follow { font-size: var(--text-sm); color: var(--ink-muted); margin: 0; line-height: 1.6; }
+    .rp-explainers { display: grid; gap: var(--space-3); margin-top: var(--space-4); }
+    .rp-explainers details { border: 1px solid var(--border-soft); border-radius: var(--radius); background: var(--surface); }
+    .rp-explainers summary { cursor: pointer; padding: var(--space-3) var(--space-4); font-weight: 600; font-family: var(--font-display); font-size: var(--text-sm); }
+    .rp-explainers summary:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+    .rp-explainers p { padding: 0 var(--space-4) var(--space-4); margin: 0; color: var(--ink-soft); font-size: var(--text-sm); }
+    .rp-note { font-size: var(--text-xs); color: var(--ink-muted); margin: var(--space-5) 0 0; max-width: 52rem; }
+
+    #rp-deck { display: none; }
+    @media print {
+      body.printing-rp > :not(#rp-deck) { display: none !important; }
+      body.printing-rp #rp-deck { display: block; color: #000; font: 10pt/1.4 Georgia, serif; }
+      #rp-deck .deck-head { font: 700 13pt/1.2 "Helvetica Neue", sans-serif; margin: 0 0 .5rem; }
+      #rp-deck .deck-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .35in; }
+      #rp-deck .deck-card { border: 1px dashed #999; border-radius: 8px; padding: .3in; break-inside: avoid; }
+      #rp-deck .deck-card .t { font: 700 9pt/1.2 "Helvetica Neue", sans-serif; text-transform: uppercase; letter-spacing: .06em; margin: 0 0 .15in; }
+      #rp-deck .deck-card .p { font-style: italic; font-size: 11pt; margin: 0 0 .12in; }
+      #rp-deck .deck-card .f { font-size: 8.5pt; color: #444; margin: 0; }
+      #rp-deck .deck-foot { margin-top: .3in; font-size: 8pt; color: #444; }
+    }
+    @media (max-width: 920px) { .hero-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="container site-header__inner">
+      <a class="brand" href="/" aria-label="Growing Minds Science — home">
+        <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+        <span class="brand__name">Growing Minds Science</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Toggle navigation menu">
+          <span class="nav-toggle__bars"><span></span></span>
+        </button>
+        <ul class="nav__list" id="primary-nav-list">
+          <li><a class="nav__link" href="/classes/">Classes</a></li>
+          <li><a class="nav__link" href="/nsc">Number Path</a></li>
+          <li><a class="nav__link" aria-current="page" href="/tools/">Tools</a></li>
+          <li><a class="nav__link" href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
+          <li><a class="nav__link" href="/articles/">Articles</a></li>
+          <li><a class="nav__link" href="/about/">About</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a></li>
+        </ul>
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
+          <svg class="theme-toggle__moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="tool-hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Free · 18 months to 5 · Works with any book</p>
+          <h1 class="page-hero__title">Reading Prompt Cards</h1>
+          <p class="tool-lede">Dialogic reading is one of the best-evidenced things a parent can do for language: read the book <em>with</em> your child instead of <em>to</em> them. These cards give you the exact prompts, matched to the kind of book in your lap and your child's age.</p>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="#cards">Browse the cards</a>
+            <a class="btn btn--ghost" href="#rp-method">Why this works</a>
+          </div>
+        </div>
+        <aside class="hero-card" aria-labelledby="rp-at-a-glance">
+          <span class="tag">The method in one loop</span>
+          <h2 id="rp-at-a-glance">PEER: the four-beat loop</h2>
+          <ul class="meta-list" id="rp-peer-list"></ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="cards">
+      <div class="container rp-wrap">
+        <div class="rp-panel">
+          <h2>The card deck</h2>
+          <p class="rp-sub">Filter to the book in your lap. One or two prompts per reading is plenty; this is seasoning, not a quiz.</p>
+          <div id="rp-filters"></div>
+          <p class="rp-count" id="rp-count"></p>
+          <div class="rp-grid" id="rp-grid"></div>
+          <div class="cs-nav" style="margin-top: var(--space-5); display:flex; gap: var(--space-4);">
+            <button type="button" class="btn btn--primary" id="rp-print">Print this deck</button>
+          </div>
+          <div class="rp-explainers" id="rp-explainers"></div>
+        </div>
+        <p class="rp-note">Cards reference kinds of books and generic scenes, never specific titles, so they work with whatever is already on your shelf. The same book 400 times is not a rut; familiarity is what frees your child to do the talking.</p>
+      </div>
+    </section>
+
+    <section id="rp-method">
+      <div class="container container--narrow">
+        <h2>Why this works</h2>
+        <p class="section-intro">In the original dialogic reading experiments, parents were taught to prompt, follow the child's answer, expand it by a word, and hand the turn back. Children in those groups showed measurably larger expressive-language gains than children who were simply read to, within weeks (Whitehurst et al., 1988, <em>Developmental Psychology</em>). A meta-analysis later confirmed the added value of the interactive style, strongest for two- and three-year-olds (Mol et al., 2008, <em>Early Education and Development</em>). The mechanism is the same serve-and-return engine behind everything on this site: a book is simply the best conversation-holder ever invented, because the pictures pin joint attention in one place. Read the full evidence grade in our <a href="/claims/shared-reading">claims library</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="rp-deck" aria-hidden="true"></div>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container site-footer__inner">
+      <div>
+        <a class="brand" href="/" aria-label="Growing Minds Science — home">
+          <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+          <span class="brand__name">Growing Minds Science</span>
+        </a>
+        <p style="margin-top: var(--space-4);">Developmental science, translated for parents.</p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul class="footer-list">
+          <li><a href="/classes/">Classes</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+          <li><a href="/nsc">Number Path</a></li>
+          <li><a href="/tools/">Free tools</a></li>
+          <li><a href="/articles/">Articles</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+          <li><a href="/milestones">Milestone tracker</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Stay in the loop</h4>
+        <p style="font-size: var(--text-sm);"><a href="/#signup">Join the waitlist</a></p>
+        <p class="footer-elsewhere" style="margin-top: var(--space-5);">
+          Also on
+          <a href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
+        <span>&copy; <span data-year>2026</span> Growing Minds Science. All rights reserved.</span>
+        <span>Educational content only. Not medical or psychological advice.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/gms-tools.js" defer></script>
+  <script type="module">
+    const grid = document.getElementById("rp-grid");
+    const countEl = document.getElementById("rp-count");
+    const filtersEl = document.getElementById("rp-filters");
+    const deck = document.getElementById("rp-deck");
+
+    let data;
+    try {
+      data = await fetch("/keel/artifacts/drc/prompt-cards.v1.json").then((r) => r.json());
+    } catch (e) {
+      grid.innerHTML = "<p>The cards couldn't load. Please refresh the page.</p>";
+      throw e;
+    }
+
+    const BAND_LABEL = { "18-24": "18–24 mo", "24-36": "2–3 yr", "36-60": "3–5 yr" };
+    const state = { band: "all", type: "all", book: "all" };
+
+    /* Preselect the band from the shared child profile. */
+    try {
+      if (window.GMS && GMS.profile) {
+        const c = GMS.profile.getActive();
+        const m = c ? GMS.profile.ageInMonths(c) : null;
+        if (m != null) {
+          if (m >= 18 && m < 24) state.band = "18-24";
+          else if (m >= 24 && m < 36) state.band = "24-36";
+          else if (m >= 36) state.band = "36-60";
+        }
+      }
+    } catch (e) {}
+
+    function el(tag, attrs, kids) {
+      const n = document.createElement(tag);
+      if (attrs) Object.keys(attrs).forEach((k) => {
+        if (k === "class") n.className = attrs[k];
+        else if (k === "text") n.textContent = attrs[k];
+        else if (k.indexOf("on") === 0) n.addEventListener(k.slice(2), attrs[k]);
+        else if (attrs[k] != null) n.setAttribute(k, attrs[k]);
+      });
+      (kids || []).forEach((c) => { if (c != null) n.appendChild(typeof c === "string" ? document.createTextNode(c) : c); });
+      return n;
+    }
+
+    /* PEER list in the hero */
+    const peerList = document.getElementById("rp-peer-list");
+    data.peer.forEach((p) => {
+      peerList.appendChild(el("li", {}, [
+        el("span", { class: "dot" }),
+        el("span", {}, [el("strong", { text: p.step + ": " }), p.body]),
+      ]));
+    });
+
+    /* CROWD explainers */
+    const expl = document.getElementById("rp-explainers");
+    Object.entries(data.crowd).forEach(([key, c]) => {
+      const d = el("details", {}, [el("summary", { text: `${c.label} prompts, explained` })]);
+      d.appendChild(el("p", { text: c.explainer }));
+      expl.appendChild(d);
+    });
+
+    function chipRow(labelText, options, current, onPick) {
+      const row = el("div", { class: "rp-filter-row", role: "group", "aria-label": labelText });
+      row.appendChild(el("span", { class: "rp-filter-label", text: labelText }));
+      options.forEach((o) => {
+        row.appendChild(el("button", {
+          type: "button",
+          class: "rp-chip" + (current === o.value ? " is-active" : ""),
+          "aria-pressed": current === o.value ? "true" : "false",
+          text: o.label,
+          onclick: () => onPick(o.value),
+        }));
+      });
+      return row;
+    }
+
+    function matches(c) {
+      if (state.band !== "all" && c.age_band !== state.band) return false;
+      if (state.type !== "all" && c.crowd_type !== state.type) return false;
+      if (state.book !== "all" && c.book_type !== state.book && c.book_type !== "any") return false;
+      return true;
+    }
+
+    function render() {
+      filtersEl.innerHTML = "";
+      filtersEl.appendChild(chipRow("Age", [{ value: "all", label: "All ages" }, ...data.age_bands.map((b) => ({ value: b, label: BAND_LABEL[b] || b }))], state.band, (v) => { state.band = v; render(); }));
+      filtersEl.appendChild(chipRow("Book", [{ value: "all", label: "Any book" }, ...Object.entries(data.book_types).filter(([k]) => k !== "any").map(([k, v]) => ({ value: k, label: v }))], state.book, (v) => { state.book = v; render(); }));
+      filtersEl.appendChild(chipRow("Prompt type", [{ value: "all", label: "All types" }, ...Object.entries(data.crowd).map(([k, c]) => ({ value: k, label: c.label }))], state.type, (v) => { state.type = v; render(); }));
+
+      grid.innerHTML = "";
+      const list = data.cards.filter(matches);
+      countEl.textContent = list.length ? `${list.length} ${list.length === 1 ? "card" : "cards"}` : "No cards match; loosen a filter.";
+      list.forEach((c) => {
+        grid.appendChild(el("article", { class: "rp-card" }, [
+          el("div", { class: "rp-card__meta" }, [
+            el("span", { class: "rp-badge rp-badge--type", text: data.crowd[c.crowd_type].label }),
+            el("span", { class: "rp-badge", text: BAND_LABEL[c.age_band] || c.age_band }),
+            el("span", { class: "rp-badge", text: data.book_types[c.book_type] }),
+          ]),
+          el("p", { class: "rp-card__prompt", text: "“" + c.prompt_text + "”" }),
+          el("p", { class: "rp-card__follow", text: c.follow_up }),
+        ]));
+      });
+    }
+
+    document.getElementById("rp-print").addEventListener("click", () => {
+      const list = data.cards.filter(matches);
+      deck.innerHTML = "";
+      deck.appendChild(el("p", { class: "deck-head", text: "Reading Prompt Cards · cut along the dashed lines" }));
+      const g = el("div", { class: "deck-grid" });
+      list.forEach((c) => {
+        g.appendChild(el("div", { class: "deck-card" }, [
+          el("p", { class: "t", text: `${data.crowd[c.crowd_type].label} · ${BAND_LABEL[c.age_band]} · ${data.book_types[c.book_type]}` }),
+          el("p", { class: "p", text: "“" + c.prompt_text + "”" }),
+          el("p", { class: "f", text: c.follow_up }),
+        ]));
+      });
+      deck.appendChild(g);
+      deck.appendChild(el("p", { class: "deck-foot", text: "The PEER loop: Prompt, Evaluate (respond warmly), Expand by one word, Repeat. Free from growingmindsscience.com/tools/reading-prompt-cards" }));
+      document.body.classList.add("printing-rp");
+      const after = () => { document.body.classList.remove("printing-rp"); window.removeEventListener("afterprint", after); };
+      window.addEventListener("afterprint", after);
+      setTimeout(after, 1500);
+      window.print();
+    });
+
+    render();
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
