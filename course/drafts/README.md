@@ -41,7 +41,7 @@ Specifically, before any of this goes anywhere near a learner:
 | `module-2-reading-your-baby.md` | Behavioral states, cues, crying, temperament and goodness of fit. |
 | `module-3-language-ready-baby.md` | Speech perception, statistical learning, babbling, what predicts language. |
 | `module-4-connection-and-security.md` | Attachment, still-face and repair, separation, co-regulation. |
-| `module-5-bodies-in-motion.md` | Motor development, tummy time, sleep, feeding, safety. |
+| `module-5-bodies-in-motion.md` | Motor development, tummy time, sleep, feeding, safety. Five lessons; sleep and feeding are separate. |
 | `module-6-everyday-life.md` | Play, joint attention, routines and stress, screens, caregiver wellbeing. |
 | `REVIEW-FLAGS.md` | Consolidated index of every contested claim flagged for human scrutiny. |
 

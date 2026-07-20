@@ -73,29 +73,36 @@ grep -n "REVIEW FLAG" course/drafts/module-*.md
 | 115 | Madigan et al. (2019) screen time | Correlational, small effects, heavily confounded. Cannot support a causal warning. |
 | 147 | Maternal depression and child outcomes | Correlational. Must not be written in a way that adds guilt to a depressed parent. |
 
-## Queue B: citations to verify before publication
+## Queue B: citation verification
 
-The drafters were instructed never to invent a reference, and to drop to
-authors-and-year when unsure rather than fabricate volume and page numbers.
-They complied, and reported the following as needing a human check against the
-actual sources.
+A verification pass ran on 2026-07-19 against primary sources (journal pages,
+PubMed, publisher and health-body pages). Results below, split into what is now
+closed and what still needs human eyes.
 
-**Numbers stated from memory, verify or soften:**
+### B1. VERIFIED and closed (no further action)
 
-- Wolke, Bilgin and Samara (2017) per-timepoint cry durations (roughly 110 to
-  118 minutes/day at 1 to 2 weeks, roughly 70 minutes at 12 weeks).
-- Kagan's "15 to 20 percent high-reactive" figure, approximate across samples
-  rather than a single reported number.
-- Gradisar et al. (2016) sample described as "roughly forty-three families."
-- Night-waking prevalence at 6 to 12 months described as "a quarter to a third."
-- Perinatal depression prevalence written as "roughly one in seven to one in
-  eight" with no citation attached. Source it or soften it.
-- Newborn focal distance "eight to twelve inches", widely repeated, primary
-  source not identified. Framed as a rough description, not a measurement.
-- BEIP placement-age effects, hedged rather than given a crisp cutoff because
-  the threshold differs by outcome domain.
+| Source | Outcome |
+| --- | --- |
+| **Gradisar et al. (2016), Pediatrics 137(6):e20151486** | Every claim held. N = 43, aged 6 to 16 months, three arms (14/15/14), salivary cortisol and Strange Situation at 12 months, all nulls. Full citation now in Module 5. Caveat added: with ~14 per arm this is undetected harm, not demonstrated safety. |
+| **WHO Multicentre Growth Reference Study Group (2006), Acta Paediatrica 95(Suppl 450):86-95** | Held, and improved. All six windows now given with exact percentile bounds. The non-crawler figure is exact: 35 of 816 children (4.3%) never crawled on hands and knees. Note the draft named Brazil as a motor-data site; Brazil contributed no motor data, so the country list was corrected. |
+| **Price et al. (2012), Pediatrics 130(4):643-651** | Held. 326 children, 225 at follow-up, null on behavior, sleep, relationship quality, cortisol, and parent mood. Full citation added. |
+| **Lucca et al. (2025), Developmental Science 28(1):e13581** | Held. ManyBabies4, 1,018 infants, 567 included, 37 labs. Both conditions at chance. Full citation now in Modules 4 and 6. |
 
-**Volume and page numbers given from memory, spot-check:**
+### B2. CORRECTED in the drafts (verify the fix, not the original)
+
+| Item | What was wrong | What it now says |
+| --- | --- | --- |
+| **Wolke et al. (2017), J Pediatr 185:55-61.e4** | Two errors. Figures were wrong (draft said 110 to 118 min at 1 to 2 weeks; actual is 117.3), and the measure was unlabelled (it is fussing **and** crying combined, so the number reads as roughly double what a parent calls crying). | Correct per-timepoint means, explicitly labelled fuss-plus-cry, with the pooled sample (8,690 infants). |
+| **The six-week crying peak** | **The most serious finding of this pass.** Module 2 asserted Barr's peak-at-six-weeks curve as established and cited Wolke et al. for the numbers, but Wolke et al. explicitly report *no statistical evidence for a universal peak*. The citation was cutting against the claim attached to it. | Lesson 2.3 rewritten: the decline by three months is the solid finding, the peak is presented as the popular framing that the data does not support. Barr reclassified `[contested]` as to the peak. |
+| **Kagan "15 to 20 percent high-reactive"** | Not a figure Kagan reported as a population rate. Across the three Fox et al. (2015) cohorts it ran 20%, 14%, 12%, ~11%. It is a threshold on a continuous distribution, so the proportion is partly an artifact of the cut. | "Between about one in ten and one in five depending on the cohort and where the threshold was drawn." Kagan & Snidman (1991) and Fox et al. (2015) now cited. |
+| **Perinatal depression prevalence** | "One in seven to one in eight" had no citation and conflated two different denominators: one in seven is *perinatal* (pregnancy plus first year), one in eight is *postpartum symptoms* specifically. | Narrowed to the postpartum frame with the CDC PRAMS figure (13.2%, 31 sites) and cited to Bauman et al. (2020), MMWR 69(19):575-581. |
+| **Du Toit et al. (2015), NEJM 372(9):803-813 (LEAP)** | The study is real and the draft's use of it was too broad. LEAP tested **peanut only** and enrolled **high-risk infants only** (severe eczema, egg allergy, or both). The draft implied a general early-allergen-introduction result. | Lesson 5.5 rewritten to state the actual trial, the actual numbers, and both scope limits explicitly, including that egg trials have produced mixed results. |
+| **Hiscock & Wake maternal benefit** | Draft implied the maternal depression benefit persisted. It did not: it was present at the 2-year follow-up and gone by child age 6. | Stated with its expiry date. |
+| **Meltzoff & Moore neonatal imitation** | Was on the hard-ban list as a clean failed replication. It is not. Oostenbroek et al. (2016) found no evidence, but a re-analysis dispute followed, and Davis et al. (2021) found a pooled d = 0.68 across 336 effect sizes with heterogeneity tracking *researcher affiliation*. | Reclassified `contested`. Module 1 now carries a passage that refuses the confident version without asserting the opposite. **If a registry entry is added to `corpus/citations.json`, it must be `contested`, not `failed-replication`.** |
+
+### B3. STILL UNVERIFIED, needs human eyes
+
+**Volume and page numbers given from memory, not yet spot-checked:**
 
 - Goldstein, King and West (2003), PNAS 100:8030-8035.
 - Kirk et al. (2013), Child Development 84:574-590.
@@ -105,22 +112,30 @@ actual sources.
 - Tronick et al. (1978) volume and pages, given as journal only.
 - Mesman, van IJzendoorn and Bakermans-Kranenburg (2009) article title.
 
+**Numbers still stated approximately:**
+
+- Night-waking prevalence at 6 to 12 months, "a quarter to a third."
+- Newborn focal distance "eight to twelve inches", widely repeated, primary
+  source not identified. Framed as a rough description, not a measurement.
+- BEIP placement-age effects, hedged rather than given a crisp cutoff because
+  the threshold differs by outcome domain.
+
 **Cited by author and topic only, needs a specific reference or removal:**
 
 - Tronick and Gianino, mismatch and repair.
 - Adolph and Robinson; Thelen.
-- Diamond (A-not-B), Baillargeon, Barr, Murray and Cooper.
+- Diamond (A-not-B), Baillargeon, Murray and Cooper.
 - NICHD Early Child Care Research Network, cited as a research program rather
   than a specific paper. Pin to one paper before publication.
 
-**Added by a drafter outside the supplied citation spine, verify or cut:**
+**Worth considering:**
 
-- Price et al. (2012), Pediatrics, five-year follow-up of the Hiscock and Wake
-  cohort.
-- Du Toit et al. (2015), NEJM (LEAP trial), supporting early allergen
-  introduction.
-- Lucca et al. (2025) ManyBabies helper/hinderer replication was supplied from
-  the repo's own registry and was not independently re-verified here.
+- A companion commentary to the ManyBabies4 replication, *The Study of Early
+  Social Evaluation: Contextualizing Failures to Replicate and Looking Forward*
+  (Open Mind), exists if the course wants to represent the live debate rather
+  than only the null.
+- ACOG Committee Opinion No. 757 (2018) was replaced in June 2023 by Clinical
+  Practice Guideline No. 4. Do not let 757 appear anywhere as current guidance.
 
 ## Queue C: clinical and legal read
 
