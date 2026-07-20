@@ -1,0 +1,102 @@
+name: gates
+
+# The repo's own quality gates. Everything here is keyless — no ANTHROPIC_API_KEY,
+# no paid API calls, no secrets — so it runs on every push and PR for free.
+#
+# Why this exists: Vercel deploys the static site green regardless of the nsc test
+# suite, so a consistently-failing test sat on main undetected. These gates close
+# that hole.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# A newer push to the same ref supersedes an in-flight run.
+concurrency:
+  group: gates-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  nsc:
+    name: nsc — tests, typecheck, cert
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: nsc/package-lock.json
+
+      - name: Install (nsc)
+        working-directory: nsc
+        run: npm ci
+
+      - name: Tests (vitest)
+        working-directory: nsc
+        run: npm test
+
+      - name: Typecheck (tsc --noEmit)
+        working-directory: nsc
+        run: npm run typecheck
+
+      - name: Cert harness (compiled content artifacts)
+        working-directory: nsc
+        run: npm run cert
+
+  gates:
+    name: keyless gates — evals, library, corpus
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      # These three are dependency-free (relative imports + node: builtins), so
+      # there is deliberately no install step — the repo root carries no
+      # package.json by design.
+      #
+      # They arrive with the site-improvements PR. Each step is guarded so this
+      # workflow is safe to merge before that lands: it reports "not present yet"
+      # instead of failing, then starts enforcing automatically once the files
+      # exist. Remove the guards once they are on main.
+
+      - name: Eval harness — deterministic checks (planted-violation gate)
+        run: |
+          if [ -f evals/selftest.mjs ]; then
+            node evals/selftest.mjs
+          else
+            echo "::notice::evals/selftest.mjs not present on this ref — skipping"
+          fi
+
+      - name: Library grader — planted-violation gate
+        run: |
+          if [ -f tools/library/selftest.mjs ]; then
+            node tools/library/selftest.mjs
+          else
+            echo "::notice::tools/library/selftest.mjs not present on this ref — skipping"
+          fi
+
+      - name: Corpus certification (cross-surface integrity)
+        run: |
+          if [ -f scripts/corpus/certify.mjs ]; then
+            node scripts/corpus/certify.mjs
+          else
+            echo "::notice::scripts/corpus/certify.mjs not present on this ref — skipping"
+          fi
+
+      - name: Library compile — cert gate (no ungraded entry may ship)
+        run: |
+          if [ -f scripts/build-library.mjs ]; then
+            node scripts/build-library.mjs
+          else
+            echo "::notice::scripts/build-library.mjs not present on this ref — skipping"
+          fi
