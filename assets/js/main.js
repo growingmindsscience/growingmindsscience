@@ -154,8 +154,9 @@
 
       var link = document.createElement("a");
       link.className = "nav__link";
-      link.href = session && session.authenticated ? "/account" : "/nsc/login";
-      link.textContent = session && session.authenticated ? "Account" : "Log in";
+      var infantClassPage = window.location.pathname === "/classes/birth-to-12-months.html";
+      link.href = infantClassPage ? "/nsc/app/classes" : (session && session.authenticated ? "/account" : "/nsc/login");
+      link.textContent = infantClassPage ? "My classes" : (session && session.authenticated ? "Account" : "Log in");
       if (window.location.pathname === "/login" || window.location.pathname === "/login.html" || window.location.pathname === "/account" || window.location.pathname === "/account.html") {
         link.setAttribute("aria-current", "page");
       }
