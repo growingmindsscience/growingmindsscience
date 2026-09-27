@@ -23,3 +23,16 @@ export async function requireAdmin(): Promise<User> {
   if (!email || !adminEmails().has(email)) notFound();
   return user;
 }
+
+/** Class media and publishing require an exact Supabase user ID as well. */
+export function isClassAdmin(user: User | null): boolean {
+  if (!user || !user.email || !adminEmails().has(user.email.toLowerCase())) return false;
+  const ids = (process.env.CLASS_ADMIN_USER_IDS ?? "").split(",").map((id) => id.trim());
+  return ids.includes(user.id);
+}
+
+export async function requireClassAdmin(): Promise<User> {
+  const user = await requireAuth();
+  if (!isClassAdmin(user)) notFound();
+  return user;
+}

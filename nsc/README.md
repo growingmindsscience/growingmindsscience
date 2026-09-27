@@ -7,6 +7,16 @@ evidence-tagged plan of household games and daily number-talk prompts.
 
 Full app: assessment → placement → weekly plan → paywall → printables.
 
+## On-site classes
+
+The same Supabase account now has `/app/classes` and a protected Toddlerhood
+lesson area. Admins create lessons and upload MP4s at `/admin/classes`; uploads
+go directly to signed-only Mux assets. Stripe purchases grant `class:toddlerhood`
+plus unlimited AI, and customer progress is stored per lesson. The public class
+sales links remain on Thinkific until the 29 lessons and prior-buyer migration
+are ready. Setup and launch steps are in
+[`docs/on-site-classes-runbook.md`](../docs/on-site-classes-runbook.md).
+
 ## Architecture
 
 - **Zero runtime model calls.** All content is compiled offline into frozen,
