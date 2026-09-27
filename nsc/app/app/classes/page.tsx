@@ -3,6 +3,7 @@ import { requireAuth } from "@/lib/auth";
 import { hasClassAccess, progressForUser, publishedLessons } from "@/lib/classes.server";
 import { INFANT_COURSE, TODDLER_COURSE, lessonPath, type ClassCourseSlug } from "@/lib/classes";
 import { Card, LinkButton } from "@/components/ui";
+import { signoutClasses } from "@/app/auth/actions";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "My classes" };
@@ -24,9 +25,13 @@ export default async function MyClassesPage() {
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-7 px-6 py-10">
       <header>
-        <Link href="/app/account" className="text-sm text-teal-soft underline">← Your account</Link>
+        <Link href="https://growingmindsscience.com/classes/" className="text-sm text-teal-soft underline">← Classes</Link>
         <h1 className="mt-5 text-3xl font-semibold text-ink-deep">My classes</h1>
         <p className="mt-2 text-ink">Your classes and where you left off.</p>
+        <div className="mt-3 flex items-center justify-between gap-3 text-sm text-teal-soft">
+          <span>{user.email}</span>
+          <form action={signoutClasses}><button type="submit" className="underline">Sign out</button></form>
+        </div>
       </header>
       {ownedCourses.length ? ownedCourses.map((courseSlug, index) => {
         const course = courseSlug === "infant" ? INFANT_COURSE : TODDLER_COURSE;
