@@ -79,44 +79,6 @@
     .btn--ghost { background: transparent; color: var(--teal); border-color: var(--teal); }
     .btn--ghost:hover { background: var(--teal); color: var(--white); }
 
-    /* ── Nav ───────────────────────────────────────── */
-    .site-nav {
-      position: sticky; top: 0; z-index: 200;
-      background: var(--cream); border-bottom: 1px solid var(--border);
-    }
-    .site-nav__inner {
-      display: flex; align-items: center; justify-content: space-between;
-      height: 64px; gap: 1.5rem;
-    }
-    .site-nav__logo {
-      display: flex; align-items: center; gap: .625rem; flex-shrink: 0;
-    }
-    .site-nav__logo-mark {
-      width: 26px; height: 26px; border-radius: 50%;
-      background: var(--amber); overflow: hidden;
-    }
-    .site-nav__logo-mark img { width: 100%; height: 100%; object-fit: cover; }
-    .site-nav__logo-text {
-      font-family: 'Bricolage Grotesque', serif; font-weight: 600; font-size: .9375rem; letter-spacing: -.02em;
-    }
-    .site-nav__links { display: flex; align-items: center; gap: 1.75rem; }
-    .site-nav__links a { font-size: .9rem; color: var(--ink-soft); transition: color .2s; }
-    .site-nav__links a:hover, .site-nav__links a[aria-current] { color: var(--teal); }
-    .site-nav__toggle {
-      display: none; background: none; border: none;
-      flex-direction: column; gap: 5px; padding: .5rem;
-    }
-    .site-nav__toggle span { display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 2px; }
-    .site-nav__drawer {
-      display: none; flex-direction: column;
-      background: var(--cream); border-top: 1px solid var(--border);
-      padding: .5rem 0 1.25rem;
-    }
-    .site-nav__drawer.is-open { display: flex; }
-    .site-nav__drawer a { display: block; padding: .75rem 1.5rem; font-size: 1rem; color: var(--ink); }
-    .site-nav__drawer a:hover { background: var(--teal-light); }
-    .site-nav__drawer .btn { margin: .75rem 1.5rem 0; }
-
     /* ── Page header ───────────────────────────────── */
     .ai-page-header {
       background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 100%);
@@ -433,81 +395,58 @@
     .plans-strip__text p { font-size: .9rem; color: var(--ink-soft); max-width: 44ch; }
     .plans-strip__cta { display: flex; gap: .625rem; flex-shrink: 0; flex-wrap: wrap; }
 
-    /* ── Footer ────────────────────────────────────── */
-    .site-footer { background: var(--ink); padding-top: 3.5rem; margin-top: auto; }
-    .site-footer__main {
-      display: flex; justify-content: space-between; align-items: center;
-      gap: 2rem; padding-bottom: 2.5rem;
-      border-bottom: 1px solid rgba(255,255,255,.08); flex-wrap: wrap;
-    }
-    .footer-brand { display: flex; align-items: center; gap: .625rem; }
-    .footer-brand__mark { width: 26px; height: 26px; border-radius: 50%; background: var(--amber); overflow: hidden; }
-    .footer-brand__mark img { width: 100%; height: 100%; object-fit: cover; }
-    .footer-brand__name { font-family: 'Bricolage Grotesque', serif; font-weight: 600; font-size: .9375rem; color: var(--white); }
-    .footer-nav { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-    .footer-nav a { font-size: .875rem; color: rgba(255,255,255,.72); transition: color .2s; }
-    .footer-nav a:hover { color: var(--white); }
-    .site-footer__bottom {
-      display: flex; justify-content: space-between; padding: 1.25rem 0; flex-wrap: wrap; gap: .5rem;
-    }
-    .site-footer__bottom p { font-size: .8rem; color: rgba(255,255,255,.72); }
-
     /* ── Responsive ────────────────────────────────── */
-    @media (max-width: 1050px) {
-      .site-nav__links, .site-nav__cta { display: none; }
-      .site-nav__toggle { display: flex; }
-    }
     @media (max-width: 640px) {
-      .site-nav__links, .site-nav__cta { display: none; }
-      .site-nav__toggle { display: flex; }
       .ai-page-header { padding: 2rem 0 1.5rem; }
       .ai-page-header__inner { flex-direction: column; align-items: flex-start; }
       .chat-messages { max-height: calc(100vh - 440px); min-height: 240px; }
       .topic-cards { grid-template-columns: 1fr; }
       .topic-sheet { max-height: 88vh; padding: 1rem 1.125rem 1.75rem; }
       .plans-strip__card { flex-direction: column; align-items: flex-start; text-align: left; }
-      .site-footer__main { flex-direction: column; align-items: flex-start; }
-      .site-footer__bottom { flex-direction: column; }
     }
   </style>
+  <link rel="stylesheet" href="/assets/css/chrome.css" />
 </head>
 <body>
 
   <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- NAV -->
-  <header class="site-nav">
-    <div class="container site-nav__inner">
-      <a class="site-nav__logo" href="/" aria-label="Growing Minds Science — home">
-        <div class="site-nav__logo-mark">
-          <img src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="26" height="26" loading="eager" decoding="async" />
-        </div>
-        <span class="site-nav__logo-text">Growing Minds Science</span>
+  <header class="site-header" role="banner">
+    <div class="container site-header__inner">
+      <a class="brand" href="/" aria-label="Growing Minds Science — home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+        <span class="brand__name">Growing Minds Science</span>
       </a>
 
-      <nav class="site-nav__links" aria-label="Primary">
-        <a href="/classes/">Classes</a>
-        <a href="/tools/">Tools</a>
-        <a href="/tools/growing-minds-ai.html" aria-current="page">Growing Minds AI</a>
-        <a href="/arcade/">Arcade</a>
-        <a href="/articles/">Articles</a>
-        <a href="/about/">About</a>
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Open menu">
+          <span class="nav-toggle__bars"><span></span></span>
+        </button>
+
+        <ul class="nav__list" id="primary-nav-list">
+          <li><a class="nav__link" href="/classes/">Classes</a></li>
+          <li class="nav__item">
+            <details class="nav__details">
+              <summary class="nav__link nav__summary is-current">Free tools <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary>
+              <div class="nav__menu">
+                <ul class="nav__submenu">
+                  <li><a class="nav__submenu-link" href="/tools/growing-minds-ai.html" aria-current="page"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A ten-minute counting check-in you run at home.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/communication-snapshot.html"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
+                </ul>
+                <a class="nav__menu-all" href="/tools/">All free tools and guides <span aria-hidden="true">&rarr;</span></a>
+              </div>
+            </details>
+          </li>
+          <li><a class="nav__link" href="/articles/">Articles</a></li>
+          <li><a class="nav__link" href="/about/">About</a></li>
+          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">See the class</a></li>
+        </ul>
+
       </nav>
-
-      <a class="btn btn--amber site-nav__cta" href="/classes/toddlerhood.html" style="padding:.625rem 1.25rem; font-size:.875rem;">Enroll now</a>
-
-      <button class="site-nav__toggle" id="navToggle" aria-controls="navDrawer" aria-expanded="false" aria-label="Open navigation menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-    <div class="site-nav__drawer" id="navDrawer" aria-hidden="true">
-      <a href="/classes/">Classes</a>
-      <a href="/tools/">Tools</a>
-      <a href="/tools/growing-minds-ai.html" aria-current="page">Growing Minds AI</a>
-      <a href="/arcade/">Arcade</a>
-      <a href="/articles/">Articles</a>
-      <a href="/about/">About</a>
-      <a class="btn btn--amber" href="/classes/toddlerhood.html">Enroll now</a>
     </div>
   </header>
 
@@ -649,31 +588,59 @@
 
   <!-- FOOTER -->
   <footer class="site-footer" role="contentinfo">
-    <div class="container">
-      <div class="site-footer__main">
-        <a class="footer-brand" href="/" aria-label="Growing Minds Science — home">
-          <div class="footer-brand__mark">
-            <img src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="26" height="26" loading="lazy" decoding="async" />
-          </div>
-          <span class="footer-brand__name">Growing Minds Science</span>
+    <div class="container site-footer__inner">
+      <div class="site-footer__brand">
+        <a class="brand" href="/" aria-label="Growing Minds Science — home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+          <span class="brand__name">Growing Minds Science</span>
         </a>
-        <nav class="footer-nav" aria-label="Footer">
-          <a href="/classes/">Classes</a>
-          <a href="/pricing">Pricing</a>
-          <a href="/tools/">Tools</a>
-          <a href="/articles/">Articles</a>
-          <a href="/about/">About</a>
-          <a href="/faq/">FAQ</a>
-          <a href="/contact/">Contact</a>
-        </nav>
-        <a href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" style="font-size:.875rem; color:rgba(255,255,255,.5); transition:color .2s;">Instagram</a>
+        <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
+        <a class="footer-ig" href="https://www.instagram.com/growingmindsscience/" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
+          Instagram
+        </a>
       </div>
-      <div class="site-footer__bottom">
-        <p>© <span id="currentYear"></span> Growing Minds Science. All rights reserved.</p>
+      <nav class="site-footer__nav" aria-label="Footer">
+        <div>
+          <h2 class="site-footer__heading">Classes</h2>
+          <ul class="footer-list">
+            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
+            <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/preschool.html">Preschool years</a></li>
+            <li><a href="/classes/family-systems.html">Family systems</a></li>
+            <li><a href="/pricing">Pricing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="site-footer__heading">Free tools</h2>
+          <ul class="footer-list">
+            <li><a href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
+            <li><a href="/nsc">Number Path</a></li>
+            <li><a href="/milestones">Milestone tracker</a></li>
+            <li><a href="/tools/communication-snapshot.html">Communication Snapshot</a></li>
+            <li><a href="/tools/">All tools and guides</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="site-footer__heading">About</h2>
+          <ul class="footer-list">
+            <li><a href="/about/">Our approach</a></li>
+            <li><a href="/articles/">Articles</a></li>
+            <li><a href="/faq/">FAQ</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; <span data-year>2026</span> Growing Minds Science &middot; <a href="/arcade/">Arcade</a></p>
         <p>Educational content only. Growing Minds AI does not provide medical, diagnostic, or emergency advice.</p>
       </div>
     </div>
   </footer>
+
+  <script src="/assets/js/chrome.js"></script>
 
   <script>
     /* ── Topic library (training cards) ───────────────── */
@@ -1224,20 +1191,6 @@
     codeSubmit.addEventListener('click', submitAccessCode);
     codeInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitAccessCode(); });
 
-    /* ── Nav toggle ───────────────────────────────────── */
-    const navToggle = document.getElementById('navToggle');
-    const navDrawer = document.getElementById('navDrawer');
-    navToggle.addEventListener('click', () => {
-      const open = navDrawer.classList.toggle('is-open');
-      navToggle.setAttribute('aria-expanded', String(open));
-      navDrawer.setAttribute('aria-hidden', String(!open));
-    });
-    navDrawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-      navDrawer.classList.remove('is-open');
-      navToggle.setAttribute('aria-expanded', 'false');
-      navDrawer.setAttribute('aria-hidden', 'true');
-    }));
-
     /* ── Subscriber login ─────────────────────────────── */
     const subLoginToggle  = document.getElementById('subscriberLoginToggle');
     const subPanel        = document.getElementById('subscriberPanel');
@@ -1427,7 +1380,6 @@
     }
 
     /* ── Init ─────────────────────────────────────────── */
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
     renderAllTopics();
     updateTierBadge();
     maybeRefreshToken();

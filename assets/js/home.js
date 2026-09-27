@@ -1,8 +1,5 @@
-/* Growing Minds Science — home.js (self-contained homepage script)
-   - Theme toggle (shared "gms-theme" key; head script applies before paint)
-   - Sticky header scrolled state (rAF-throttled, passive)
-   - Footer year
-   - Mobile nav toggle
+/* Growing Minds Science — home.js (homepage script; header, menu, theme
+   toggle, and footer year live in chrome.js)
    - Scroll-reveal ([data-animate] / [data-stagger]); gated by <html class="anim">
      so reduced-motion / no-JS always show content
    - Growth-arc stage tabs (proper tabs semantics, arrow keys)
@@ -26,79 +23,6 @@
     if (className) node.className = className;
     if (text != null) node.textContent = text;
     return node;
-  }
-
-  // ------------------------------------------------------------------
-  // Theme toggle (same storage key as main.js so the choice follows
-  // the visitor across pages; head script applies it before paint)
-  // ------------------------------------------------------------------
-  var THEME_KEY = "gms-theme";
-  function initTheme() {
-    var btn = document.querySelector(".theme-toggle");
-    if (!btn) return;
-    btn.addEventListener("click", function () {
-      var dark = document.documentElement.getAttribute("data-theme") === "dark";
-      var next = dark ? "light" : "dark";
-      if (next === "dark") document.documentElement.setAttribute("data-theme", "dark");
-      else document.documentElement.removeAttribute("data-theme");
-      try { localStorage.setItem(THEME_KEY, next); } catch (_) {}
-    });
-  }
-
-  // ------------------------------------------------------------------
-  // Sticky header scrolled state
-  // ------------------------------------------------------------------
-  function initHeader() {
-    var header = document.querySelector(".site-header");
-    if (!header) return;
-    var ticking = false;
-    function update() {
-      header.classList.toggle("is-scrolled", window.scrollY > 6);
-      ticking = false;
-    }
-    update();
-    window.addEventListener("scroll", function () {
-      if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
-    }, { passive: true });
-  }
-
-  // ------------------------------------------------------------------
-  // Footer year
-  // ------------------------------------------------------------------
-  function initYear() {
-    document.querySelectorAll("[data-year]").forEach(function (n) {
-      n.textContent = String(new Date().getFullYear());
-    });
-  }
-
-  // ------------------------------------------------------------------
-  // Mobile nav
-  // ------------------------------------------------------------------
-  function initNav() {
-    var nav = document.querySelector(".nav");
-    var toggle = document.querySelector(".nav-toggle");
-    var list = document.querySelector(".nav__list");
-    if (!nav || !toggle) return;
-
-    function close() {
-      nav.classList.remove("is-open");
-      toggle.setAttribute("aria-expanded", "false");
-    }
-    toggle.addEventListener("click", function () {
-      var open = nav.classList.toggle("is-open");
-      toggle.setAttribute("aria-expanded", open ? "true" : "false");
-    });
-    if (list) {
-      list.addEventListener("click", function (e) {
-        if (e.target.closest("a")) close();
-      });
-    }
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && nav.classList.contains("is-open")) {
-        close();
-        toggle.focus();
-      }
-    });
   }
 
   // ------------------------------------------------------------------
@@ -599,10 +523,6 @@
   }
 
   ready(function () {
-    initTheme();
-    initHeader();
-    initYear();
-    initNav();
     initReveal();
     initArc();
     initChat();
