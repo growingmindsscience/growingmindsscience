@@ -18,6 +18,7 @@ const SCOPE_LABELS: Record<string, string> = {
   numberpath_full: "Number Path — full access",
   "ai:unlimited": "Growing Minds AI — unlimited",
   "class:toddlerhood": "Toddler class — lifetime access",
+  "class:infant": "Infant class — lifetime access",
 };
 
 function scopeLabel(scope: string): string {
@@ -128,8 +129,8 @@ export default async function AccountPage({
         <p className="text-xs font-medium uppercase tracking-widest text-teal">Your learning</p>
         <h2 className="mt-1 text-lg font-semibold text-ink-deep">My classes</h2>
         <p className="mt-2 text-sm text-ink">
-          {summary.scopes.includes("class:toddlerhood")
-            ? "Your Toddler years class and lesson progress are here."
+          {summary.scopes.some((scope) => scope === "class:toddlerhood" || scope === "class:infant")
+            ? "Your classes and lesson progress are here."
             : "Classes you buy here or link through a verified prior purchase will appear here."}
         </p>
         <LinkButton href="/app/classes" className="mt-4 px-4 py-2 text-sm">Open My classes</LinkButton>

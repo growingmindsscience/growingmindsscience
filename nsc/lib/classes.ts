@@ -14,6 +14,32 @@ export const TODDLER_COURSE = {
   ],
 } as const;
 
+export const INFANT_COURSE = {
+  slug: "infant",
+  title: "Birth to 12 months: cues, attachment, and the first year",
+  shortTitle: "Birth to 12 months",
+  scope: "class:infant",
+  modules: [
+    "The Newborn Brain",
+    "Reading Your Baby's Cues",
+    "Attachment in the First Year",
+    "Sleep: What the Science Actually Says",
+    "Language Before Words",
+    "Motor and Sensory Development",
+  ],
+} as const;
+
+export const CLASS_COURSES = {
+  toddlerhood: TODDLER_COURSE,
+  infant: INFANT_COURSE,
+} as const;
+
+export type ClassCourseSlug = keyof typeof CLASS_COURSES;
+
+export function isClassCourseSlug(value: string): value is ClassCourseSlug {
+  return Object.prototype.hasOwnProperty.call(CLASS_COURSES, value);
+}
+
 export interface ClassLesson {
   id: string;
   course_slug: string;
@@ -35,8 +61,8 @@ export function isCourseSlug(slug: string): slug is typeof TODDLER_COURSE.slug {
   return slug === TODDLER_COURSE.slug;
 }
 
-export function lessonPath(slug: string): string {
-  return `/app/classes/${TODDLER_COURSE.slug}/lessons/${slug}`;
+export function lessonPath(slug: string, courseSlug: ClassCourseSlug = TODDLER_COURSE.slug): string {
+  return `/app/classes/${courseSlug}/lessons/${slug}`;
 }
 
 export interface ClassGrantRow {

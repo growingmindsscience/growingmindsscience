@@ -2,20 +2,22 @@
 
 import { useEffect, useRef, useState } from "react";
 import MuxPlayer from "@mux/mux-player-react";
+import type { ClassCourseSlug } from "@/lib/classes";
 
 interface PlaybackInfo { playbackId: string; token: string; expiresAt: number }
 
-export function ClassPlayer({ lessonId, title, startTime, completed = false }: {
+export function ClassPlayer({ lessonId, title, startTime, completed = false, courseSlug = "toddlerhood" }: {
   lessonId: string;
   title: string;
   startTime: number;
   completed?: boolean;
+  courseSlug?: ClassCourseSlug;
 }) {
   const [playback, setPlayback] = useState<PlaybackInfo | null>(null);
   const [error, setError] = useState("");
   const [done, setDone] = useState(completed);
   const lastSaved = useRef(0);
-  const endpoint = `/nsc/api/classes/toddlerhood/lessons/${lessonId}`;
+  const endpoint = `/nsc/api/classes/${courseSlug}/lessons/${lessonId}`;
 
   useEffect(() => {
     let live = true;

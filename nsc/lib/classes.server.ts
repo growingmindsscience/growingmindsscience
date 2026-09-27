@@ -1,23 +1,23 @@
 import "server-only";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
-import { TODDLER_COURSE, ownsToddlerClass, type ClassLesson } from "@/lib/classes";
+import { CLASS_COURSES, TODDLER_COURSE, ownsToddlerClass, type ClassCourseSlug, type ClassLesson } from "@/lib/classes";
 
-export async function hasClassAccess(userId: string): Promise<boolean> {
+export async function hasClassAccess(userId: string, courseSlug: ClassCourseSlug = TODDLER_COURSE.slug): Promise<boolean> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("entitlements")
     .select("expires_at, source, source_ref")
     .eq("user_id", userId)
-    .eq("product_scope", TODDLER_COURSE.scope);
+    .eq("product_scope", CLASS_COURSES[courseSlug].scope);
   if (error) throw new Error(`Could not check class ownership: ${error.message}`);
   return ownsToddlerClass(data ?? [], new Date());
 }
 
-export async function publishedLessons(): Promise<ClassLesson[]> {
+export async function publishedLessons(courseSlug: ClassCourseSlug = TODDLER_COURSE.slug): Promise<ClassLesson[]> {
   const { data, error } = await createServiceClient()
     .from("class_lessons")
     .select("*")
-    .eq("course_slug", TODDLER_COURSE.slug)
+    .eq("course_slug", courseSlug)
     .eq("status", "published")
     .order("module_number")
     .order("position");

@@ -28,7 +28,7 @@ export async function POST(request: Request) {
   const { data: lesson } = await service.from("class_lessons")
     .select("id, mux_upload_id, mux_asset_id, status, transcript")
     .eq("id", lessonId)
-    .eq("course_slug", "toddlerhood")
+    .in("course_slug", ["toddlerhood", "infant"])
     .maybeSingle();
   if (!lesson?.mux_upload_id) return NextResponse.json({ error: "No upload started" }, { status: 404 });
   try {

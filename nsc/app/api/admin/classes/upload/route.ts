@@ -18,9 +18,9 @@ export async function POST(request: Request) {
   if (!lessonId) return NextResponse.json({ error: "Lesson required" }, { status: 400 });
   const service = createServiceClient();
   const { data: lesson } = await service.from("class_lessons")
-    .select("id, title")
+    .select("id, title, course_slug")
     .eq("id", lessonId)
-    .eq("course_slug", "toddlerhood")
+    .in("course_slug", ["toddlerhood", "infant"])
     .maybeSingle();
   if (!lesson) return NextResponse.json({ error: "Lesson not found" }, { status: 404 });
   try {

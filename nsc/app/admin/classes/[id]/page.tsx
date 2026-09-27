@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireClassAdmin } from "@/lib/admin";
 import { createServiceClient } from "@/lib/supabase/server";
-import { TODDLER_COURSE, type ClassLesson } from "@/lib/classes";
+import { CLASS_COURSES, isClassCourseSlug, type ClassLesson } from "@/lib/classes";
 import { Button, Card, Field, Input } from "@/components/ui";
 import { ClassUpload } from "@/components/class-upload";
 import { saveLesson } from "../actions";
@@ -18,17 +18,18 @@ export default async function EditClassLesson({ params, searchParams }: {
   const { data } = await createServiceClient().from("class_lessons")
     .select("*")
     .eq("id", id)
-    .eq("course_slug", TODDLER_COURSE.slug)
     .maybeSingle();
-  if (!data) notFound();
+  const courseSlug: string | undefined = data?.course_slug;
+  if (!data || !courseSlug || !isClassCourseSlug(courseSlug)) notFound();
   const lesson = data as ClassLesson;
+  const course = CLASS_COURSES[courseSlug];
   const { error, saved } = await searchParams;
   return (
     <main className="mx-auto flex min-h-screen max-w-3xl flex-col gap-7 px-6 py-10">
       <header>
-        <Link href="/admin/classes" className="text-sm text-teal-soft underline">← All lessons</Link>
+        <Link href={`/admin/classes?course=${course.slug}`} className="text-sm text-teal-soft underline">← All lessons</Link>
         <h1 className="mt-5 text-2xl font-semibold text-ink-deep">{lesson.title}</h1>
-        <p className="mt-1 text-sm text-teal-soft">{lesson.status} · /{lesson.slug}</p>
+        <p className="mt-1 text-sm text-teal-soft">{course.shortTitle} · {lesson.status} · /{lesson.slug}</p>
       </header>
       {error && <p role="alert" className="rounded-xl bg-rung-glow p-4 text-sm text-[#9C4429]">{error}</p>}
       {saved && <p role="status" className="rounded-xl bg-sea-glass/40 p-4 text-sm text-ink">Lesson saved.</p>}
@@ -53,7 +54,7 @@ export default async function EditClassLesson({ params, searchParams }: {
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="Module" htmlFor="module_number">
               <select id="module_number" name="module_number" defaultValue={lesson.module_number} className="rounded-xl border border-sea-glass bg-surface px-4 py-3 text-ink">
-                {TODDLER_COURSE.modules.map((module, index) => <option key={module} value={index + 1}>{index + 1}. {module}</option>)}
+                {course.modules.map((module, index) => <option key={module} value={index + 1}>{index + 1}. {module}</option>)}
               </select>
             </Field>
             <Field label="Position in module" htmlFor="position"><Input id="position" name="position" type="number" min={1} defaultValue={lesson.position} required /></Field>
