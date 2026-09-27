@@ -24,7 +24,13 @@ export function ClassUpload({ lessonId }: { lessonId: string }) {
       const { url } = await response.json() as { url: string };
       const upload = UpChunk.createUpload({ endpoint: url, file, chunkSize: 5120 });
       upload.on("progress", (event) => setProgress(Math.round(event.detail)));
-      upload.on("error", () => { setMessage("Upload failed. Try again with the same MP4."); setBusy(false); });
+      upload.on("error", (event) => {
+        const detail = event.detail as { message?: string; response?: { statusCode?: number } } | undefined;
+        const status = detail?.response?.statusCode;
+        const reason = detail?.message?.slice(0, 180) || "The video transfer could not finish.";
+        setMessage(`Upload failed${status ? ` (${status})` : ""}: ${reason}`);
+        setBusy(false);
+      });
       upload.on("success", () => {
         setProgress(100);
         setMessage("Upload complete. Mux is processing the video. Select Check video status in a moment.");
