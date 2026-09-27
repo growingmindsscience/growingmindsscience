@@ -799,15 +799,19 @@
   }
 
   ready(function () {
-    var anchor = document.querySelector(".hero__media") ||
-      document.querySelector(".hero .container") ||
-      document.querySelector("main .container");
-    if (!anchor) return;
-    var cs = window.getComputedStyle(anchor);
-    if (cs.position === "static") anchor.style.position = "relative";
+    var arcadeTrigger = document.querySelector('[data-arcade-game="snake"]');
+    var trigger = arcadeTrigger;
+    if (!trigger) {
+      var anchor = document.querySelector(".hero__media") ||
+        document.querySelector(".hero .container") ||
+        document.querySelector("main .container");
+      if (!anchor) return;
+      var cs = window.getComputedStyle(anchor);
+      if (cs.position === "static") anchor.style.position = "relative";
 
-    var trigger = buildTrigger();
-    anchor.appendChild(trigger);
+      trigger = buildTrigger();
+      anchor.appendChild(trigger);
+    }
 
     var overlay = null, opening = false;
     function open() {

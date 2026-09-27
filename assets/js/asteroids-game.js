@@ -1027,15 +1027,19 @@
   }
 
   ready(function () {
-    var anchor = document.querySelector(".about-preview__media--portrait") ||
-      document.querySelector(".about-preview__media") ||
-      document.querySelector(".page-hero .container");
-    if (!anchor) return;
-    var cs = window.getComputedStyle(anchor);
-    if (cs.position === "static") anchor.style.position = "relative";
+    var arcadeTrigger = document.querySelector('[data-arcade-game="asteroids"]');
+    var trigger = arcadeTrigger;
+    if (!trigger) {
+      var anchor = document.querySelector(".about-preview__media--portrait") ||
+        document.querySelector(".about-preview__media") ||
+        document.querySelector(".page-hero .container");
+      if (!anchor) return;
+      var cs = window.getComputedStyle(anchor);
+      if (cs.position === "static") anchor.style.position = "relative";
 
-    var trigger = buildTrigger();
-    anchor.appendChild(trigger);
+      trigger = buildTrigger();
+      anchor.appendChild(trigger);
+    }
 
     var overlay = null, opening = false;
     function open() {

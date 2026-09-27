@@ -453,6 +453,10 @@
     .site-footer__bottom p { font-size: .8rem; color: rgba(255,255,255,.72); }
 
     /* ── Responsive ────────────────────────────────── */
+    @media (max-width: 1050px) {
+      .site-nav__links, .site-nav__cta { display: none; }
+      .site-nav__toggle { display: flex; }
+    }
     @media (max-width: 640px) {
       .site-nav__links, .site-nav__cta { display: none; }
       .site-nav__toggle { display: flex; }
@@ -485,6 +489,7 @@
         <a href="/classes/">Classes</a>
         <a href="/tools/">Tools</a>
         <a href="/tools/growing-minds-ai.html" aria-current="page">Growing Minds AI</a>
+        <a href="/arcade/">Arcade</a>
         <a href="/articles/">Articles</a>
         <a href="/about/">About</a>
       </nav>
@@ -499,6 +504,7 @@
       <a href="/classes/">Classes</a>
       <a href="/tools/">Tools</a>
       <a href="/tools/growing-minds-ai.html" aria-current="page">Growing Minds AI</a>
+      <a href="/arcade/">Arcade</a>
       <a href="/articles/">Articles</a>
       <a href="/about/">About</a>
       <a class="btn btn--amber" href="/classes/toddlerhood.html">Enroll now</a>

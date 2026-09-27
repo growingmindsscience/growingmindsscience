@@ -1,5 +1,8 @@
 # Netlify redirects / rewrites
 
+/arcade                     /arcade/index.html             200
+/arcade/                    /arcade/index.html             200
+
 # Canonical URL for the milestone tracker ("!" forces the redirect over the existing file).
 /milestones.html            /milestones                    301!
 
