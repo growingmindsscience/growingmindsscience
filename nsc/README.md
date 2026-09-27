@@ -163,9 +163,11 @@ Supabase dashboard or wire a confirmation redirect. Leaked-password protection
 recommended ON.
 
 Password reset: `/reset` → email link → `/auth/callback?next=/reset/update`.
-⚠ In the Supabase dashboard (Auth → URL Configuration) add
-`https://growingmindsscience.com/nsc/auth/callback` to the redirect allowlist
-or the recovery links will bounce.
+The Supabase project now uses `https://growingmindsscience.com` as its Site URL.
+Its redirect allowlist includes the exact `/nsc/auth/callback` URL and
+`https://growingmindsscience.com/nsc/auth/callback?next=**` for reset return paths.
+Keep these settings when updating authentication; an unmatched redirect falls
+back to the Site URL.
 
 ## Engagement emails (`app/api/cron/engagement`)
 
