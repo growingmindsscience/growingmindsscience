@@ -1,7 +1,6 @@
 /* Growing Minds Science — main.js
-   - Sticky header scroll state
-   - Mobile nav toggle (closed by default; hidden until opened)
-   - Theme toggle (localStorage with safe fallback, respects system pref)
+   Header, menu, theme toggle, and footer year live in chrome.js.
+   - Theme preference applied on load (localStorage with safe fallback, respects system pref)
    - Class card CTAs preselect interest in waitlist form, then scroll to #signup
    - Waitlist form: client-side feedback only; Vercel API handles delivery
 */
@@ -38,10 +37,6 @@
     if (storage) { try { return storage.getItem(key); } catch (_) {} }
     return Object.prototype.hasOwnProperty.call(memoryStore, key) ? memoryStore[key] : null;
   }
-  function writePref(key, value) {
-    if (storage) { try { storage.setItem(key, value); return; } catch (_) {} }
-    memoryStore[key] = value;
-  }
 
   function applyTheme(theme) {
     if (theme === "dark") root.setAttribute("data-theme", "dark");
@@ -58,33 +53,12 @@
   }
   initTheme();
 
-  function toggleTheme() {
-    var current = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
-    var next = current === "dark" ? "light" : "dark";
-    applyTheme(next);
-    writePref(THEME_KEY, next);
-  }
-
   function ready(fn) {
     if (document.readyState !== "loading") fn();
     else document.addEventListener("DOMContentLoaded", fn);
   }
 
   ready(function () {
-    var header = document.querySelector(".site-header");
-    var nav = document.querySelector(".nav");
-    var navToggle = document.querySelector(".nav-toggle");
-    var navList = document.querySelector(".nav__list");
-    var navDetails = document.querySelectorAll(".nav__details");
-    var themeBtn = document.querySelector(".theme-toggle");
-    var year = document.querySelector("[data-year]");
-
-    // Footer year
-    if (year) year.textContent = String(new Date().getFullYear());
-
-    // Theme toggle
-    if (themeBtn) themeBtn.addEventListener("click", toggleTheme);
-
     function setStatus(node, message, tone) {
       if (!node) return;
       node.textContent = message || "";
@@ -146,37 +120,16 @@
       });
     }
 
-    function updateAuthNav(session) {
-      if (!navList || navList.querySelector("[data-auth-nav]")) return;
-      var item = document.createElement("li");
-      item.className = "nav__auth";
-      item.setAttribute("data-auth-nav", "");
+    var accountPrivate = document.querySelector("[data-account-private]");
+    var accountGuest = document.querySelector("[data-account-guest]");
+    if (accountPrivate || accountGuest) getSession().then(function (session) {
 
-      var link = document.createElement("a");
-      link.className = "nav__link";
-      link.href = session && session.authenticated ? "/account" : "/nsc/login";
-      link.textContent = session && session.authenticated ? "Account" : "Log in";
-      if (window.location.pathname === "/login" || window.location.pathname === "/login.html" || window.location.pathname === "/account" || window.location.pathname === "/account.html") {
-        link.setAttribute("aria-current", "page");
-      }
-
-      item.appendChild(link);
-      navList.appendChild(item);
-    }
-
-    getSession().then(function (session) {
-      updateAuthNav(session);
-
-      var accountPrivate = document.querySelector("[data-account-private]");
-      var accountGuest = document.querySelector("[data-account-guest]");
       var accountName = document.querySelector("[data-account-name]");
-      if (accountPrivate || accountGuest) {
-        if (session.authenticated) {
-          if (accountName && session.profile && session.profile.name) accountName.textContent = session.profile.name;
-          if (accountPrivate) accountPrivate.hidden = false;
-        } else if (accountGuest) {
-          accountGuest.hidden = false;
-        }
+      if (session.authenticated) {
+        if (accountName && session.profile && session.profile.name) accountName.textContent = session.profile.name;
+        if (accountPrivate) accountPrivate.hidden = false;
+      } else if (accountGuest) {
+        accountGuest.hidden = false;
       }
     });
 
@@ -288,83 +241,6 @@
         });
       });
     });
-
-    // Sticky header scrolled state
-    if (header) {
-      var onScroll = function () {
-        if (window.scrollY > 6) header.classList.add("is-scrolled");
-        else header.classList.remove("is-scrolled");
-      };
-      onScroll();
-      window.addEventListener("scroll", onScroll, { passive: true });
-    }
-
-    // Mobile nav: closed by default. CSS hides .nav__list until .nav.is-open is set.
-    if (navToggle && nav) {
-      function getFocusableNavItems() {
-        return Array.prototype.slice.call(
-          nav.querySelectorAll("a, button, [tabindex]:not([tabindex='-1'])")
-        ).filter(function (el) { return !el.closest(".nav__list") || nav.classList.contains("is-open"); });
-      }
-
-      function openMobileNav() {
-        nav.classList.add("is-open");
-        navToggle.setAttribute("aria-expanded", "true");
-        // Move focus into nav list after CSS transition has a chance to render
-        setTimeout(function () {
-          var first = navList && navList.querySelector("a");
-          if (first) first.focus();
-        }, 50);
-      }
-
-      function closeMobileNav() {
-        nav.classList.remove("is-open");
-        navToggle.setAttribute("aria-expanded", "false");
-        navDetails.forEach(function (details) { details.open = false; });
-        navToggle.focus();
-      }
-
-      navToggle.addEventListener("click", function () {
-        if (nav.classList.contains("is-open")) { closeMobileNav(); } else { openMobileNav(); }
-      });
-
-      if (navList) {
-        navList.addEventListener("click", function (e) {
-          var a = e.target.closest("a");
-          if (!a) return;
-          closeMobileNav();
-        });
-      }
-
-      document.addEventListener("click", function (e) {
-        if (!e.target.closest(".nav__details")) {
-          navDetails.forEach(function (details) { details.open = false; });
-        }
-        if (nav.classList.contains("is-open") && !e.target.closest(".nav")) {
-          closeMobileNav();
-        }
-      });
-
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") {
-          navDetails.forEach(function (details) { details.open = false; });
-          if (nav.classList.contains("is-open")) closeMobileNav();
-          return;
-        }
-        // Focus trap: only active on narrow viewports where the overlay is visible
-        if (e.key === "Tab" && nav.classList.contains("is-open") && window.innerWidth < 768) {
-          var items = Array.prototype.slice.call(navList.querySelectorAll("a, button"));
-          if (!items.length) return;
-          var first = items[0];
-          var last = items[items.length - 1];
-          if (e.shiftKey) {
-            if (document.activeElement === first) { e.preventDefault(); last.focus(); }
-          } else {
-            if (document.activeElement === last) { e.preventDefault(); first.focus(); }
-          }
-        }
-      });
-    }
 
     // Class CTA -> preselect waitlist interest, scroll to signup
     var interestSelect = document.getElementById("interest");

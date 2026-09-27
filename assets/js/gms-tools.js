@@ -571,9 +571,14 @@
     if (!host || host.dataset.gmsMounted === "on") return;
     host.dataset.gmsMounted = "on";
 
+    // A wrapping [data-gms-shelf-section] (the tools hub) only shows once
+    // something has been saved; elsewhere the empty-state hint stays visible.
+    var section = host.closest("[data-gms-shelf-section]");
+
     function render() {
       host.innerHTML = "";
       var items = shelf.list();
+      if (section) section.hidden = !items.length;
       if (!items.length) {
         host.appendChild(el("p", { class: "gms-shelf__empty",
           text: "Nothing saved yet. When a tool gives you an answer that fits, tap “Save this” and it will wait for you here." }));

@@ -1,7 +1,5 @@
 /* Arcade landing page. Game overlays retain their own styles in arcade.css. */
 .arcade-page .gms-arcade-title span { display: none; }
-.arcade-page .site-footer a:not(.brand) { color: #cfe8e0; }
-.arcade-page .site-footer a:not(.brand):hover { color: #fff; }
 .arcade-hero {
   padding: clamp(4rem, 8vw, 7rem) 0 clamp(3.5rem, 6vw, 5.5rem);
   background: radial-gradient(circle at 83% 18%, color-mix(in oklab, var(--warm) 13%, transparent), transparent 28%),
