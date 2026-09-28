@@ -79,11 +79,16 @@
 .arcade-card--breakout { --art-color: #efaa86; }
 .arcade-card--asteroids { --art-color: #b8c8fa; }
 .arcade-card--hopper { --art-color: #f7d49c; }
+.arcade-card--blocks { --art-color: #f6b3c8; }
+.arcade-card--echo { --art-color: #d6c1f5; }
+.arcade-card--maze { --art-color: #ffe28a; }
 .arcade-card--snake .arcade-card__art { flex-direction: column; gap: .15rem; }
+.arcade-card--echo .arcade-card__art { flex-direction: column; gap: 0; }
 .arcade-card--dino .arcade-card__art,
 .arcade-card--invaders .arcade-card__art,
 .arcade-card--breakout .arcade-card__art,
-.arcade-card--hopper .arcade-card__art { flex-direction: column; gap: .3rem; }
+.arcade-card--hopper .arcade-card__art,
+.arcade-card--blocks .arcade-card__art { flex-direction: column; gap: .3rem; }
 .arcade-card__body { display: flex; flex: 1; flex-direction: column; padding: var(--space-6); }
 .arcade-card__number {
   color: var(--primary);
