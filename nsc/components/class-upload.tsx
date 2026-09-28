@@ -25,10 +25,11 @@ export function ClassUpload({ lessonId }: { lessonId: string }) {
       const upload = UpChunk.createUpload({ endpoint: url, file, chunkSize: 5120 });
       upload.on("progress", (event) => setProgress(Math.round(event.detail)));
       upload.on("error", (event) => {
-        const detail = event.detail as { message?: string; response?: { statusCode?: number } } | undefined;
+        const detail = event.detail as { message?: string; response?: { statusCode?: number; url?: string } } | undefined;
         const status = detail?.response?.statusCode;
         const reason = detail?.message?.slice(0, 180) || "The video transfer could not finish.";
-        setMessage(`Upload failed${status ? ` (${status})` : ""}: ${reason}`);
+        const host = detail?.response?.url ? new URL(detail.response.url).hostname : "unknown host";
+        setMessage(`Upload failed${status ? ` (${status})` : ""} at ${host}: ${reason}`);
         setBusy(false);
       });
       upload.on("success", () => {
