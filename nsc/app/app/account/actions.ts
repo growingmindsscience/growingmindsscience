@@ -60,15 +60,7 @@ function safeEqual(a: string, b: string): boolean {
   return timingSafeEqual(ba, bb);
 }
 
-/**
- * Redeem a class access code to link lifetime AI + class access to this
- * account. Grandfathers legacy $49 toddler-bundle buyers, whose purchase lives
- * on Thinkific (not Stripe) and so can't be recovered by the email backfill.
- *
- * The shared GMS_AI_ACCESS_CODE is itself the credential (same posture as the
- * parent AI tool's code gate); a correct code grants perpetual `comp` grants.
- * source_ref is a constant so re-redeeming is idempotent (upsert no-op).
- */
+/** Legacy shared code can unlock AI, but cannot prove a class purchase. */
 export async function redeemAccessCode(formData: FormData) {
   const user = await requireAuth();
   const submitted = String(formData.get("code") ?? "").trim();
@@ -81,7 +73,6 @@ export async function redeemAccessCode(formData: FormData) {
 
   const grants: Grant[] = [
     { product_scope: "ai:unlimited", source: "comp", source_ref: "class-access-code", expires_at: null },
-    { product_scope: "class:toddlerhood", source: "comp", source_ref: "class-access-code", expires_at: null },
   ];
   try {
     await applyGrants(createServiceClient(), user.id, grants);

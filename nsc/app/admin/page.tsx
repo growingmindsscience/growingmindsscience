@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { requireAdmin } from "@/lib/admin";
+import { isClassAdmin, requireAdmin } from "@/lib/admin";
 import { createServiceClient } from "@/lib/supabase/server";
 import { Card, Button } from "@/components/ui";
 import { importBatch001 } from "./actions";
@@ -21,7 +21,7 @@ export default async function AdminQueuePage({
 }: {
   searchParams: Promise<{ imported?: string; skipped?: string }>;
 }) {
-  await requireAdmin();
+  const admin = await requireAdmin();
   const { imported, skipped } = await searchParams;
   const service = createServiceClient();
 
@@ -48,6 +48,10 @@ export default async function AdminQueuePage({
           approval here.
         </p>
       </header>
+
+      {isClassAdmin(admin) && <Link href="/admin/classes" className="rounded-xl border border-sea-glass bg-surface px-5 py-4 font-semibold text-teal hover:bg-sea-glass/20">
+        Manage class lessons →
+      </Link>}
 
       {imported !== undefined && (
         <Card className="bg-rung-glow/50">
