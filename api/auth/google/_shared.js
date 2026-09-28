@@ -25,6 +25,12 @@ export function googleConfig() {
   };
 }
 
+// Google sign-in is only for the people named here. With neither variable set
+// it stays off (fails closed) instead of letting in every Google account.
+export function hasGoogleAllowlist(config = googleConfig()) {
+  return config.allowedEmails.length > 0 || Boolean(config.allowedDomain);
+}
+
 export function googleRedirectUri(request) {
   const url = new URL(request.url);
   return `${url.origin}/api/auth/google/callback`;
@@ -94,8 +100,10 @@ export async function exchangeGoogleCode(request, code) {
 
 export function validateGoogleUser(user) {
   const config = googleConfig();
-  const email = normalizeEmail(user.email);
-  const verified = user.email_verified === true || user.email_verified === "true";
+  if (!hasGoogleAllowlist(config)) return null;
+
+  const email = normalizeEmail(user?.email);
+  const verified = user?.email_verified === true || user?.email_verified === "true";
   if (!email || !verified) return null;
 
   if (config.allowedEmails.length && !config.allowedEmails.includes(email)) {

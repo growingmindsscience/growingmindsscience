@@ -1,6 +1,6 @@
 export const config = { runtime: "edge" };
 
-import { jsonResponse, parseJsonBody } from "./_security.js";
+import { jsonResponse, parseJsonBody, sameOriginJsonGuard } from "./_security.js";
 import { createSessionCookie, verifyLogin } from "./_auth.js";
 import { checkRateLimit, rateLimitResponse } from "./_ratelimit.js";
 
@@ -8,6 +8,10 @@ export default async function handler(request) {
   if (request.method !== "POST") {
     return jsonResponse(405, { error: "Use POST to sign in." });
   }
+
+  // Only our own pages post here, as JSON (see sameOriginJsonGuard).
+  const blocked = sameOriginJsonGuard(request);
+  if (blocked) return blocked;
 
   // Throttle credential-guessing per IP (PBKDF2 already slows each attempt server-side).
   const rl = checkRateLimit(request, { key: "login", limit: 10, windowMs: 10 * 60 * 1000 });

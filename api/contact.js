@@ -1,6 +1,6 @@
 export const config = { runtime: "edge" };
 
-import { cleanText, isValidEmail, jsonResponse, normalizeEmail, parseRequestBody } from "./_security.js";
+import { cleanHeaderText, cleanText, isValidEmail, jsonResponse, normalizeEmail, parseRequestBody } from "./_security.js";
 import { checkRateLimit } from "./_ratelimit.js";
 
 const WEB3FORMS_URL = "https://api.web3forms.com/submit";
@@ -68,7 +68,8 @@ export default async function handler(request) {
   const submission = {
     access_key: accessKey,
     subject: "Contact Request — Growing Minds Science",
-    name: cleanText(payload.name, 100),
+    // Header-bound (sender name): no CR/LF or other control characters.
+    name: cleanHeaderText(payload.name, 100),
     email,
     message,
     from_name: "Growing Minds Science Contact Form",

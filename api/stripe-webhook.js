@@ -1,37 +1,17 @@
 export const config = { runtime: "edge" };
 
-import { jsonResponse, constantTimeEqual } from "./_security.js";
+import { cleanHeaderText, isPlainObject, jsonResponse } from "./_security.js";
+import { verifyStripeSignature } from "./_stripe.js";
 
-const TIMESTAMP_TOLERANCE = 300; // 5 minutes
-
-async function verifyStripeSignature(rawBody, header, secret) {
-  const parts = Object.fromEntries(
-    header.split(",").flatMap((p) => {
-      const idx = p.indexOf("=");
-      return idx === -1 ? [] : [[p.slice(0, idx), p.slice(idx + 1)]];
-    })
-  );
-  const timestamp = parts.t;
-  const signature = parts.v1;
-  if (!timestamp || !signature) return false;
-
-  const age = Math.abs(Date.now() / 1000 - Number(timestamp));
-  if (age > TIMESTAMP_TOLERANCE) return false;
-
-  const key = await crypto.subtle.importKey(
-    "raw",
-    new TextEncoder().encode(secret),
-    { name: "HMAC", hash: "SHA-256" },
-    false,
-    ["sign"]
-  );
-  const signedPayload = `${timestamp}.${rawBody}`;
-  const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(signedPayload));
-  const computed = Array.from(new Uint8Array(sig))
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
-  return constantTimeEqual(computed, signature);
-}
+// Checkout events that can complete a purchase. A checkout paid by an
+// asynchronous method (bank debit and similar) completes with payment_status
+// "unpaid"; it is fulfilled later, on checkout.session.async_payment_succeeded.
+// (The Stripe endpoint must be subscribed to both events.)
+const FULFILMENT_EVENTS = new Set([
+  "checkout.session.completed",
+  "checkout.session.async_payment_succeeded",
+]);
+const PAID_STATUSES = new Set(["paid", "no_payment_required"]);
 
 export default async function handler(request) {
   if (request.method !== "POST") {
@@ -43,6 +23,8 @@ export default async function handler(request) {
     return jsonResponse(503, { error: "Webhook not configured." });
   }
 
+  // The signature covers the exact raw bytes, so read the body as text and
+  // verify before parsing.
   const rawBody = await request.text();
   const sigHeader = request.headers.get("stripe-signature") || "";
 
@@ -57,9 +39,18 @@ export default async function handler(request) {
   } catch (_) {
     return jsonResponse(400, { error: "Invalid payload." });
   }
+  if (!isPlainObject(event)) {
+    return jsonResponse(400, { error: "Invalid payload." });
+  }
 
-  if (event.type === "checkout.session.completed") {
-    const session = event.data.object;
+  if (FULFILMENT_EVENTS.has(event.type)) {
+    const session = isPlainObject(event.data?.object) ? event.data.object : {};
+    if (!PAID_STATUSES.has(session.payment_status)) {
+      // Not paid yet (or failed): nothing to fulfil. Acknowledge so Stripe does
+      // not retry; a later async_payment_succeeded event fulfils it.
+      return jsonResponse(200, { received: true, fulfilled: false });
+    }
+
     const email = session.customer_details?.email || session.customer_email || null;
     const sessionId = session.id;
     // Every Stripe Checkout Session and Payment Link that reaches this webhook
@@ -71,8 +62,15 @@ export default async function handler(request) {
     // visible and correctable, not attributed to the wrong course.
     const product = session.metadata?.product || "unknown";
 
+    // The purchase record must be stored before we acknowledge the event. If it
+    // fails, answer 500 so Stripe retries (it retries for up to three days).
+    // The side effects below only run once the record is safe.
+    const stored = await storePurchase(email, sessionId, product);
+    if (!stored) {
+      return jsonResponse(500, { error: "Could not record the purchase. Stripe will retry." });
+    }
+
     await Promise.allSettled([
-      storePurchase(email, sessionId, product),
       subscribeToKit(email),
       notifyOwner(email, product),
     ]);
@@ -81,38 +79,48 @@ export default async function handler(request) {
   return jsonResponse(200, { received: true });
 }
 
+// Returns true when the purchase is stored (or storage is not configured).
 async function storePurchase(email, sessionId, product) {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key || !email) return;
-  await fetch(`${url}/rest/v1/purchases`, {
-    method: "POST",
-    headers: {
-      apikey: key,
-      Authorization: `Bearer ${key}`,
-      "Content-Type": "application/json",
-      Prefer: "return=minimal",
-    },
-    body: JSON.stringify({ email, stripe_session_id: sessionId, product }),
-  });
+  if (!url || !key || !email) return true;
+  let res;
+  try {
+    res = await fetch(`${url}/rest/v1/purchases`, {
+      method: "POST",
+      headers: {
+        apikey: key,
+        Authorization: `Bearer ${key}`,
+        "Content-Type": "application/json",
+        Prefer: "return=minimal",
+      },
+      body: JSON.stringify({ email, stripe_session_id: sessionId, product }),
+    });
+  } catch (_) {
+    return false;
+  }
+  // 409: a unique constraint already holds this checkout, so a retried event
+  // was stored the first time.
+  return res.ok || res.status === 409;
 }
 
 async function subscribeToKit(email) {
   const apiKey = process.env.KIT_API_KEY;
   const formId = process.env.KIT_PAID_FORM_ID || process.env.KIT_FORM_ID;
   if (!apiKey || !formId || !email) return;
-  await fetch(`https://api.convertkit.com/v3/forms/${formId}/subscribe`, {
+  await fetch(`https://api.convertkit.com/v3/forms/${encodeURIComponent(formId)}/subscribe`, {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({ api_key: apiKey, email }),
+    body: JSON.stringify({ api_key: apiKey, email: cleanHeaderText(email, 254) }),
+    signal: AbortSignal.timeout(5000),
   });
 }
 
 async function notifyOwner(email, product) {
   const accessKey = process.env.WEB3FORMS_ACCESS_KEY;
   if (!accessKey) return;
-  const safeEmail = String(email || "unknown").replace(/[<>"]/g, "");
-  const safeProduct = String(product || "unknown").replace(/[<>"]/g, "");
+  const safeEmail = cleanHeaderText(email || "unknown", 254).replace(/[<>"]/g, "");
+  const safeProduct = cleanHeaderText(product || "unknown", 80).replace(/[<>"]/g, "");
   const unlabelledNote =
     safeProduct === "unknown"
       ? `\n\nHEADS UP: this checkout arrived without a product label, so it was recorded as "unknown". Check which product it was, and set metadata.product on the Stripe Checkout Session or Payment Link that produced it (see api/create-checkout-session.js) so future purchases are labelled correctly.`
@@ -126,5 +134,6 @@ async function notifyOwner(email, product) {
       from_name: "Growing Minds Science (Purchase Notification)",
       message: `New purchase received.\n\nEmail: ${safeEmail}\nProduct: ${safeProduct}${unlabelledNote}\n\nIf this is a class purchase, send the AI access code to this customer via your ConvertKit sequence or by replying to their confirmation email. AI Pro (ai_pro) subscriptions unlock automatically, no action needed.`,
     }),
+    signal: AbortSignal.timeout(5000),
   });
 }
