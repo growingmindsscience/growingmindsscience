@@ -23,9 +23,7 @@ export const INFANT_COURSE = {
     "The Newborn Brain",
     "Reading Your Baby's Cues",
     "Attachment in the First Year",
-    "Sleep: What the Science Actually Says",
-    "Language Before Words",
-    "Motor and Sensory Development",
+    "The Explorer: Language, Movement, and Play",
   ],
 } as const;
 

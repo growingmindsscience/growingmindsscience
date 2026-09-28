@@ -21,7 +21,7 @@ export default async function InfantClassPage() {
         <Link href="/app/classes" className="text-sm text-teal-soft underline">← My classes</Link>
         <p className="mt-5 text-xs font-semibold uppercase tracking-widest text-teal">Self-paced class · birth to 12 months</p>
         <h1 className="mt-2 text-3xl font-semibold text-ink-deep">{INFANT_COURSE.title}</h1>
-        <p className="mt-3 text-ink">Six modules on the first year of development and everyday connection.</p>
+        <p className="mt-3 text-ink">Four modules on the first year of development and everyday connection.</p>
       </header>
       {!owned ? (
         <Card>
