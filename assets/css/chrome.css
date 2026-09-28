@@ -167,10 +167,18 @@
 .site-header .nav__summary::-webkit-details-marker { display: none; }
 .site-header .nav__summary::marker { content: ""; }
 .site-header .nav__chev {
+  flex-shrink: 0;
   width: 12px;
   height: 12px;
   opacity: 0.7;
   transition: transform var(--chrome-t);
+}
+
+/* Just above the menu breakpoint the seven top-level items are a little
+   wider than the bar, so the tabs (and their underline) sit closer. */
+@media (min-width: 1001px) and (max-width: 1080px) {
+  .site-header .nav__link { padding-left: 0.5rem; padding-right: 0.5rem; }
+  .site-header .nav__link::after { left: 0.5rem; right: 0.5rem; }
 }
 .site-header .nav__details[open] .nav__chev { transform: rotate(180deg); }
 .site-header .nav__details[open] .nav__summary { color: var(--chrome-ink); }
