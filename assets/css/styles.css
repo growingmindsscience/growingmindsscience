@@ -22,7 +22,7 @@
   --primary-ink: #FFFFFF;
   --accent: #2E7A77;          /* secondary teal accent */
   --accent-soft: #CFE3DE;     /* sea-glass */
-  --accent-brown: #A3492E;    /* coral-deep — warm at text sizes */
+  --accent-brown: #9C4429;    /* coral-deep (DESIGN.md token) — coral at text sizes */
   --warm: #DE7356;            /* coral — the one accent (decor / large text) */
   --leaf: #2E7A77;
   --danger: #A6371F;          /* form error — ~6:1 on mist / surface */
@@ -91,6 +91,9 @@
   --accent-brown: #E78D6F;
   --warm: #E78D6F;
   --leaf: #6FBCAF;
+  /* Status text needs its own dark values: the light ones sit near 3:1 on pine. */
+  --danger: #E78D6F;
+  --success: #8FD0C4;
 
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
   --shadow-md: 0 4px 14px rgba(0,0,0,0.4);
@@ -128,6 +131,25 @@ img, svg { display: block; max-width: 100%; height: auto; }
 a { color: var(--primary); text-decoration: none; transition: color var(--transition); }
 a:hover { color: var(--primary-hover); }
 
+/* Links inside running text carry an underline, not only a colour shift: teal
+   link vs ink-soft body is ~1:1 in luminance, which fails WCAG 1.4.1. Buttons,
+   cards and navigation set a class, so they keep their own treatment. Zero
+   specificity (via :where) so any component rule can still override it. */
+:where(main) :where(p, li, dd, td, figcaption, blockquote) a:where(:not([class])) {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+/* Screen-reader-only text (e.g. "opens in a new tab" hints). */
+.u-visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
 button { font: inherit; cursor: pointer; }
 
 p { margin: 0 0 var(--space-4); }
@@ -152,17 +174,21 @@ h4 { font-size: var(--text-lg); font-family: var(--font-body); font-weight: 600;
 ::selection { background: var(--primary); color: var(--primary-ink); }
 
 /* ---------- Focus ---------- */
+/* DESIGN.md: 2.5px coral-deep outline, 3px offset, never removed (coral-deep
+   resolves to coral-on-dark in the dark theme). */
 :focus-visible {
-  outline: 2px solid var(--primary);
+  outline: 2.5px solid var(--accent-brown);
   outline-offset: 3px;
   border-radius: 4px;
 }
 
 /* ---------- Skip link ---------- */
+/* Parked above the viewport with transform (not `top`), so showing it never
+   animates a layout property. */
 .skip-link {
   position: absolute;
   left: var(--space-4);
-  top: -100px;
+  top: var(--space-4);
   background: var(--ink);
   color: var(--bg);
   padding: var(--space-3) var(--space-5);
@@ -170,9 +196,10 @@ h4 { font-size: var(--text-lg); font-family: var(--font-body); font-weight: 600;
   z-index: 200;
   font-size: var(--text-sm);
   font-weight: 500;
-  transition: top var(--transition);
+  transform: translateY(calc(-100% - 2 * var(--space-4)));
+  transition: transform var(--transition);
 }
-.skip-link:focus { top: var(--space-4); color: var(--bg); }
+.skip-link:focus { transform: none; color: var(--bg); }
 
 /* ---------- Layout ---------- */
 .container {
@@ -1386,9 +1413,7 @@ button:disabled {
 .cred-list strong { color: var(--ink); font-weight: 600; }
 
 /* ---------- Signup tweaks ---------- */
-.signup {
-  background: color-mix(in oklab, var(--warm) 22%, var(--bg-alt));
-}
+/* (The band background lives in refresh.css: a cool sea-glass wash.) */
 .signup__form-title {
   font-family: var(--font-body);
   font-size: var(--text-lg);

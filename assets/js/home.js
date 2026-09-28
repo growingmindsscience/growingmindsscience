@@ -75,7 +75,7 @@
     var tabs = Array.prototype.slice.call(device.querySelectorAll('[role="tab"]'));
     var panels = Array.prototype.slice.call(device.querySelectorAll('[role="tabpanel"]'));
     if (!tabs.length || tabs.length !== panels.length) return;
-    var railFill = device.querySelector(".arc__rail-fill");
+    var rail = device.querySelector(".arc__rail");
 
     function select(index, focus) {
       tabs.forEach(function (tab, i) {
@@ -85,10 +85,11 @@
         panels[i].hidden = !active;
       });
       // Drive the mobile progress rail (harmless on desktop, where it's hidden):
-      // map stage 0..last -> 8%..100% width; the CSS width transition animates it.
-      if (railFill) {
+      // map stage 0..last -> 0.08..1 on --rail-p; CSS slides the fill and tip
+      // with transform (never a layout property).
+      if (rail) {
         var frac = tabs.length > 1 ? index / (tabs.length - 1) : 0;
-        railFill.style.width = (8 + frac * 92) + "%";
+        rail.style.setProperty("--rail-p", (0.08 + frac * 0.92).toFixed(3));
       }
       if (focus) tabs[index].focus();
     }
@@ -259,17 +260,18 @@
     paragraphs.forEach(function (p) { m.appendChild(el("p", null, p)); });
     if (sources && sources.length) {
       var strip = el("div", "msg__source");
-      strip.setAttribute("aria-label", "How this answer is grounded");
       sources.forEach(function (s) { strip.appendChild(el("span", null, s)); });
       m.appendChild(strip);
     }
     return m;
   }
 
+  // Purely visual: the dots are hidden from assistive tech (the finished
+  // message is what matters, and the demo is not a live region).
   function typingMsg() {
     var m = el("div", "msg msg--ai");
+    m.setAttribute("aria-hidden", "true");
     var t = el("div", "typing");
-    t.setAttribute("aria-label", "Growing Minds AI is typing");
     t.appendChild(el("span")); t.appendChild(el("span")); t.appendChild(el("span"));
     m.appendChild(t);
     return m;
@@ -329,7 +331,9 @@
       io.observe(chat);
     }
 
-    // Composer: honest hand-off to the (free) full tutor.
+    // Composer: honest hand-off to the (free) full tutor. The question travels
+    // with the parent via ?q= (the AI page prefills it and never auto-sends),
+    // so nobody has to type it twice.
     if (form && input) {
       form.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -339,21 +343,8 @@
           input.focus();
           return;
         }
-        var typed = userMsg(q); body.appendChild(typed); enter(typed);
-        input.value = "";
-        var reply = function () {
-          var a = aiMsg(
-            ["That’s exactly the kind of question Growing Minds AI is built for — free, grounded in developmental science. Open the full tutor to ask about your specific situation."],
-            ["free · grounded in research"]
-          );
-          body.appendChild(a); enter(a);
-          if (note) note.textContent = "Growing Minds AI is free — use the “Try it free” button to ask your own questions.";
-          body.scrollTop = body.scrollHeight;
-        };
-        if (!animEnabled) { reply(); return; }
-        var typing = typingMsg(); body.appendChild(typing); enter(typing);
-        body.scrollTop = body.scrollHeight;
-        window.setTimeout(function () { body.removeChild(typing); reply(); }, 1100);
+        if (note) note.textContent = "Opening Growing Minds AI with your question…";
+        window.location.assign("/tools/growing-minds-ai?q=" + encodeURIComponent(q.slice(0, 500)));
       });
     }
   }

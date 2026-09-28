@@ -289,8 +289,8 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   padding: 0;
   border: 1px solid var(--chrome-line);
   border-radius: 999px;
@@ -316,13 +316,14 @@
   height: 1.5px;
   border-radius: 2px;
   background: currentColor;
-  transition: transform var(--chrome-t), opacity var(--chrome-t), top var(--chrome-t);
+  /* transform + opacity only: the bars never animate `top` (a layout property). */
+  transition: transform var(--chrome-t), opacity var(--chrome-t);
 }
 .site-header .nav-toggle__bars::before { top: 0; }
 .site-header .nav-toggle__bars span { top: 5px; }
 .site-header .nav-toggle__bars::after { top: 10px; }
-.site-header .nav-toggle[aria-expanded="true"] .nav-toggle__bars::before { top: 5px; transform: rotate(45deg); }
-.site-header .nav-toggle[aria-expanded="true"] .nav-toggle__bars::after { top: 5px; transform: rotate(-45deg); }
+.site-header .nav-toggle[aria-expanded="true"] .nav-toggle__bars::before { transform: translateY(5px) rotate(45deg); }
+.site-header .nav-toggle[aria-expanded="true"] .nav-toggle__bars::after { transform: translateY(-5px) rotate(-45deg); }
 .site-header .nav-toggle[aria-expanded="true"] .nav-toggle__bars span { opacity: 0; }
 
 /* ---------- Header: menu layout below 1000px ---------- */
@@ -403,8 +404,13 @@
   :root { --header-h: 64px; --header-height: 64px; }
 }
 @media (max-width: 420px) {
-  .site-header .brand__name { font-size: 1rem; }
   .site-header .site-header__inner { gap: 0.75rem; }
+  /* Let the wordmark give way on the narrowest screens (320px phones, Display
+     Zoom, 400% browser zoom): the brand may shrink and the name wraps to two
+     lines instead of pushing the menu button off-screen (WCAG 1.4.10). */
+  .site-header .brand { flex-shrink: 1; min-width: 0; gap: 0.5rem; }
+  .site-header .brand__mark { flex-shrink: 0; }
+  .site-header .brand__name { font-size: 1rem; line-height: 1.05; white-space: normal; }
 }
 
 /* ---------- Footer ---------- */

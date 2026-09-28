@@ -112,6 +112,26 @@
 .gms-arcade-envelope-trigger:focus-visible { opacity: 0.92; transform: translateY(-2px); }
 .gms-arcade-envelope-trigger svg { display: block; width: 100%; height: 100%; }
 
+/* A pixel-sprout glyph tucked into the Classes hero photo (Brain Sprint). It
+   replaces the old invisible hotspot in the centre of the theme toggle, where
+   the most natural click on the moon icon launched the game instead. */
+.gms-arcade-sprout-trigger {
+  position: absolute;
+  bottom: 12px; right: 12px;
+  width: 30px; height: 30px;
+  padding: 5px;
+  border: 0;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--surface) 70%, transparent);
+  cursor: pointer;
+  opacity: 0.26;
+  color: var(--primary);
+  transition: opacity var(--transition), transform var(--transition);
+  z-index: 2;
+}
+.gms-arcade-sprout-trigger:hover { opacity: 0.95; transform: scale(1.1); }
+.gms-arcade-sprout-trigger svg { display: block; width: 100%; height: 100%; }
+
 /* ---------- Page tear-away ---------- */
 body.gms-arcade-lock { overflow: hidden; }
 .gms-arcade-falling { will-change: transform, opacity; }
