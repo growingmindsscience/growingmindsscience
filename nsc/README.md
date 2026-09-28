@@ -47,8 +47,10 @@ recipient redeems it at `/redeem`, which grants `numberpath_full` by writing an
 that table and the grant stays idempotent). No new Stripe product — gifting
 reuses the existing `$34` price; buyer needs no account. Public routes: `/gift`,
 `/gift/success`, `/gift/card`, `/redeem` (the redeem action still gates with
-`requireAuth`). The gift email needs `RESEND_API_KEY`; without it the code is
-minted and shown on the success page but not emailed.
+`requireAuth`). Redemption also mirrors a `gift`-source `numberpath_full`
+grant into `entitlements` (best-effort; `nsc_purchases` stays authoritative).
+The gift email needs `RESEND_API_KEY`; without it the code is minted and shown
+on the success page but not emailed.
 
 Migration `0005_spine_entitlements.sql` (⚠ apply to the project — the personal
 org isn't reachable from the CLI/MCP tokens on this machine, so paste it into
@@ -140,17 +142,38 @@ Account: **Growing minds science** (`acct_1Tgtk3LIy3W5wQUy`), LIVE.
 - ✅ Product created: **Number Path — full access** (`prod_UqNqkOL2xt8fWK`)
 - ✅ Price created: **$34 one-time** → `NSC_PRICE_ID=price_1Tqh56LIy3W5wQUy3yLbcd6r`
 - ⚠ **Webhook** (do in the Stripe dashboard): add an endpoint →
-  `https://growingmindsscience.com/nsc/api/stripe-webhook`, event
-  `checkout.session.completed`. Reveal its signing secret and set
-  `STRIPE_WEBHOOK_SECRET` via `vercel env add`.
+  `https://growingmindsscience.com/nsc/api/stripe-webhook`, events
+  `checkout.session.completed` and `checkout.session.async_payment_succeeded`
+  (plus `customer.subscription.created/updated/deleted` once the membership
+  prices exist). Reveal its signing secret and set `STRIPE_WEBHOOK_SECRET` via
+  `vercel env add`.
+- ⚠ **Webhook API version**: pin the endpoint to `2025-08-27.basil` (the
+  version of the `stripe` SDK in package.json) when creating it. The handler
+  reads the billing period from the subscription item (Basil) and falls back
+  to the subscription-level field (older versions), and grants nothing when
+  neither is present, so an unpinned endpoint fails closed rather than open.
 - ⚠ **Secret key**: set `STRIPE_SECRET_KEY` (live `sk_live_…`) via `vercel env add`.
+
+Webhook contract (`lib/stripe-webhook.ts`, tested in
+`tests/stripe-webhook.test.ts`): a session is fulfilled when `payment_status`
+is `paid` or `no_payment_required` (100%-off promotion codes); sessions must be
+`mode=payment` and carry `metadata.product` (or `metadata.kind=gift`), since
+other checkouts on the same account reach this endpoint too. Any failed write
+answers 500 so Stripe retries; every write is an idempotent upsert keyed on a
+Stripe id. A `past_due` membership keeps access for at most 14 days from the
+start of the unpaid period.
 
 ## Supabase auth notes
 
 Email/password via Supabase Auth (12-char minimum enforced in the signup
-action). For a frictionless first run, either disable email confirmation in the
-Supabase dashboard or wire a confirmation redirect. Leaked-password protection
-recommended ON.
+action). Leaked-password protection recommended ON.
+
+Keep Supabase **Auth → Providers → Email → Confirm email** ON. Sign-in and
+sign-up link pre-existing Stripe subscriptions to the account *by email*
+(`lib/backfill.server.ts`), and `/admin` is gated by an email allowlist, so
+both rely on confirmed addresses. Signup passes `emailRedirectTo` (the link
+lands on `/auth/callback`) and shows "check your email" when no session comes
+back.
 
 Password reset: `/reset` → email link → `/auth/callback?next=/reset/update`.
 ⚠ In the Supabase dashboard (Auth → URL Configuration) add
@@ -162,18 +185,31 @@ or the recovery links will bounce.
 `vercel.json` schedules a daily cron (15:00 UTC) that sends, via Resend:
 Mondays a "fresh week of games" note per account, and a one-time "six weeks
 are up" re-check-in reminder per completed placement. Idempotent through
-`nsc_email_log`; per-account opt-out via the unsubscribe link in every email
-(`/api/email/unsubscribe?token=…`). Human steps before it goes live:
+`nsc_email_log`: each send claims its ledger row first and releases it if the
+send fails, so a failure is retried the next day instead of used up. With no
+`RESEND_API_KEY` the cron exits before touching the ledger. Reads are paged
+and chunked (no 1000-row cap). Point and Seek results are never named as a
+rung in any email. Per-account opt-out: the link in every email opens a
+confirm page (`/api/email/unsubscribe?token=…`, POST to unsubscribe), and
+every email carries RFC 8058 one-click `List-Unsubscribe` headers. Human steps
+before it goes live:
 
 1. Apply `supabase/migrations/0003_email_engagement.sql`.
 2. `vercel env add CRON_SECRET` (any long random string; Vercel crons send it
    automatically as `Authorization: Bearer …`).
 3. Create a Resend API key on a verified growingmindsscience.com domain and
-   `vercel env add RESEND_API_KEY`. Until then the cron runs and logs but
-   sends nothing.
+   `vercel env add RESEND_API_KEY`. Until then the cron exits early and sends
+   nothing (no reminder is used up).
 
 Zero-infra fallback that already works: every plan/progress page offers an
 "Add to calendar" `.ics` for the next six-week check-in.
+
+## Parent's time zone
+
+"Today's prompt", "done today", logged plays, and the Monday plan turnover
+follow the parent's calendar day: the browser writes its IANA zone to the
+`nsc_tz` cookie (`components/timezone-sync.tsx`) and the server reads it
+(`lib/tz.server.ts`), falling back to UTC. No schema change.
 
 ## Telemetry
 
@@ -196,9 +232,14 @@ v1: `nsc_assessments` (started/completed, placement, confidence),
 ## Commands
 
 ```bash
-npm run dev        # local dev at localhost:3000/nsc
-npm test           # vitest — titration, routing, cert (52 tests)
-npm run build      # production build
-npm run cert:gold  # cert harness against gold artifacts
-npm run cert:full  # cert against full compiled artifacts
+npm run dev                    # local dev at localhost:3000/nsc
+npm test                       # vitest: engine, routing, webhook, cert, content (CI gate)
+npm run typecheck              # tsc --noEmit (CI gate)
+npm run build                  # production build
+npm run cert                   # cert harness, gold exemplars (CI gate)
+npm run cert -- --mode full    # cert the shipped artifacts; rewrites content/cert/cert.report.full.json
 ```
+
+`tests/content-certified.test.ts` loads every shipped artifact through the
+runtime's own hash check, so a content edit without a recertified full report
+fails `npm test`.

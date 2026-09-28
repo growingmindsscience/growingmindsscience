@@ -1,6 +1,14 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { nextCheckin } from "@/lib/checkin";
+import { siteOrigin } from "@/lib/site";
+import { addDaysISO, localDateISO } from "@/lib/tz";
+import { getTimeZone } from "@/lib/tz.server";
+
+/** RFC 5545 TEXT escaping (backslash, semicolon, comma, newlines). */
+function icsText(s: string): string {
+  return s.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
+}
 
 /**
  * "Add to calendar" for the six-week re-check-in. A plain VEVENT download —
@@ -22,7 +30,7 @@ export async function GET(
     .from("nsc_children")
     .select("nickname")
     .eq("id", id)
-    .single();
+    .maybeSingle();
   if (!child) return new NextResponse("Not found", { status: 404 });
 
   const { data: assessment } = await supabase
@@ -42,8 +50,9 @@ export async function GET(
     new Date(),
     assessment.confidence,
   );
-  const day = (d: Date) => d.toISOString().slice(0, 10).replaceAll("-", "");
-  const dayAfter = new Date(due.getTime() + 24 * 60 * 60 * 1000);
+  // An all-day event on the parent's calendar day, not the UTC one.
+  const dueISO = localDateISO(due, await getTimeZone());
+  const day = (iso: string) => iso.replaceAll("-", "");
   const stamp = new Date().toISOString().replace(/[-:]/g, "").slice(0, 15) + "Z";
 
   const ics = [
@@ -51,14 +60,14 @@ export async function GET(
     "VERSION:2.0",
     "PRODID:-//Growing Minds Science//Number Path//EN",
     "BEGIN:VEVENT",
-    `UID:nsc-checkin-${id}-${day(due)}@growingmindsscience.com`,
+    `UID:nsc-checkin-${id}-${day(dueISO)}@growingmindsscience.com`,
     `DTSTAMP:${stamp}`,
-    `DTSTART;VALUE=DATE:${day(due)}`,
-    `DTEND;VALUE=DATE:${day(dayAfter)}`,
-    `SUMMARY:Number Path check-in — ${child.nickname}`,
+    `DTSTART;VALUE=DATE:${day(dueISO)}`,
+    `DTEND;VALUE=DATE:${day(addDaysISO(dueISO, 1))}`,
+    `SUMMARY:Number Path check-in: ${icsText(child.nickname)}`,
     "DESCRIPTION:Ten minutes\\, a bowl\\, ten blocks\\, and the bear. Re-run " +
       "the counting-ladder check-in and see where things stand: " +
-      "https://growingmindsscience.com/nsc/app",
+      `${siteOrigin()}/nsc/app`,
     "END:VEVENT",
     "END:VCALENDAR",
     "",

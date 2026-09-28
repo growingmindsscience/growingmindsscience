@@ -13,7 +13,7 @@ import { redeemGiftCode } from "@/lib/gift.server";
  */
 export async function redeemGift(formData: FormData) {
   const user = await requireAuth();
-  const code = String(formData.get("code") ?? "");
+  const code = String(formData.get("code") ?? "").slice(0, 64);
   if (!code.trim()) redirect("/redeem?error=Enter+your+code.");
 
   if (await hasFullAccess()) {
@@ -24,10 +24,10 @@ export async function redeemGift(formData: FormData) {
   if (!result.ok) {
     const msg =
       result.reason === "unknown"
-        ? "We couldn't find that code — check it and try again."
+        ? "We couldn't find that code. Check it and try again."
         : result.reason === "already_redeemed"
           ? "That code has already been redeemed."
-          : "This account already has full access.";
+          : "Something went wrong on our side, and the code is still unused. Please try again in a moment.";
     redirect(`/redeem?error=${encodeURIComponent(msg)}`);
   }
 

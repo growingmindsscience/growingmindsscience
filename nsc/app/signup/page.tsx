@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { signup } from "@/app/auth/actions";
-import { Button, Card, Field, Input } from "@/components/ui";
+import { Card, Field, Input } from "@/components/ui";
+import { SubmitButton } from "@/components/submit-button";
 import { brand } from "@/lib/config/brand";
 
 export default async function SignupPage({
@@ -39,9 +40,7 @@ export default async function SignupPage({
               {error}
             </p>
           )}
-          <Button type="submit" className="mt-2">
-            Create account
-          </Button>
+          <SubmitButton className="mt-2">Create account</SubmitButton>
         </form>
       </Card>
       <p className="text-center text-sm text-teal-soft">

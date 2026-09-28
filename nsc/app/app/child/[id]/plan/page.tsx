@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import { requireAuth } from "@/lib/auth";
 import { getPlanContext } from "@/lib/plan.server";
 import { hasFullAccess } from "@/lib/entitlements.server";
 import { dayIndex } from "@/lib/isoweek";
+import { getTimeZone } from "@/lib/tz.server";
+import { teaserGame } from "@/lib/routing";
 import { Card, EnrichmentFooter, LinkButton } from "@/components/ui";
 import { Ladder } from "@/components/ladder";
 import { GameCard } from "@/components/game-card";
@@ -11,6 +12,8 @@ import { brand } from "@/lib/config/brand";
 import { RUNG_LABEL } from "@/lib/labels";
 import { nextCheckin, shortDate } from "@/lib/checkin";
 import { getAudioIds } from "@/lib/audio.server";
+
+const NAV_LINK = "inline-flex min-h-11 items-center";
 
 export default async function PlanPage({
   params,
@@ -20,12 +23,17 @@ export default async function PlanPage({
   const { id } = await params;
   await requireAuth();
   const now = new Date();
-  const ctx = await getPlanContext(id, now);
+  const tz = await getTimeZone();
+  const ctx = await getPlanContext(id, now, tz);
   if (!ctx) {
     // No completed assessment yet — send them to start one.
     return (
       <main className="mx-auto flex min-h-screen max-w-lg flex-col justify-center gap-4 px-6 text-center">
-        <p className="text-ink">No check-in yet for this child.</p>
+        <h1 className="text-2xl font-semibold text-ink-deep">No check-in yet</h1>
+        <p className="text-ink">
+          Play the check-in first, and this week&rsquo;s games will be waiting
+          here.
+        </p>
         <LinkButton href={`/app/child/${id}/prescreen`}>Start the game</LinkButton>
       </main>
     );
@@ -35,7 +43,11 @@ export default async function PlanPage({
   const playedThisWeek = new Map(
     ctx.recentPlays.map((p) => [p.game_id, p.reaction]),
   );
-  const todayPrompt = ctx.plan.prompts[dayIndex(now)] ?? ctx.plan.prompts[0];
+  const today = dayIndex(now, tz);
+  const todayPrompt = ctx.plan.prompts[today] ?? ctx.plan.prompts[0];
+  // Point and Seek is a soft signal: it routes the games but never names a
+  // rung (amendment A5).
+  const pointAndSeek = ctx.instrument === "point_and_seek";
   const rung = RUNG_LABEL(ctx.placement, ctx.nearCP);
   const checkin = nextCheckin(ctx.assessedAt, now, ctx.confidence);
   const audioIds = await getAudioIds();
@@ -44,17 +56,21 @@ export default async function PlanPage({
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-6 py-10">
       <header className="flex items-center justify-between gap-4">
         <div>
-          <Link href="/app" className="text-sm text-teal-soft underline">
+          <Link href="/app" className={`${NAV_LINK} text-sm text-teal-soft underline`}>
             ← All children
           </Link>
           <h1 className="mt-1 text-2xl font-semibold text-ink-deep">
             {ctx.child.nickname}&rsquo;s week
           </h1>
-          <p className="text-sm text-teal-soft">On the ladder: {rung}</p>
+          <p className="text-sm text-teal-soft">
+            {pointAndSeek
+              ? "Starting gently, from Point and Seek"
+              : `On the ladder: ${rung}`}
+          </p>
         </div>
         <Ladder
-          current={ctx.placement}
-          nearCP={ctx.nearCP}
+          current={pointAndSeek ? undefined : ctx.placement}
+          nearCP={!pointAndSeek && ctx.nearCP}
           className="hidden w-28 sm:block"
         />
       </header>
@@ -66,14 +82,14 @@ export default async function PlanPage({
         <Card className="bg-rung-glow/50">
           <p className="text-lg text-ink-deep">{todayPrompt}</p>
           {!full && (
-            <p className="mt-2 text-xs text-teal-soft">
-              A taste. Unlock the plan for a fresh prompt every day.
+            <p className="mt-2 text-xs text-ink-muted">
+              A taste. Unlock the plan to see the whole week of prompts.
             </p>
           )}
         </Card>
         {full && (
           <details className="mt-3 rounded-2xl border border-sea-glass/60 bg-surface px-5 py-4">
-            <summary className="cursor-pointer text-sm font-semibold text-teal">
+            <summary className="flex min-h-11 cursor-pointer items-center text-sm font-semibold text-teal">
               See the whole week
             </summary>
             <p className="mt-1 text-xs text-teal-soft">
@@ -85,13 +101,13 @@ export default async function PlanPage({
                 <li
                   key={i}
                   className={
-                    i === dayIndex(now)
+                    i === today
                       ? "text-ink-deep"
                       : "text-ink-deep/70"
                   }
                 >
                   <span className="mr-2 text-xs text-teal-soft">
-                    {i === dayIndex(now) ? "Today" : `Day ${i + 1}`}
+                    {i === today ? "Today" : `Day ${i + 1}`}
                   </span>
                   {p}
                 </li>
@@ -107,33 +123,45 @@ export default async function PlanPage({
             This week&rsquo;s games
           </h2>
           <p className="mt-1 text-sm text-teal-soft">
-            Three to choose from, matched to {ctx.child.nickname}&rsquo;s rung.
+            {pointAndSeek
+              ? "Three to choose from, picked for where "
+              : "Three to choose from, matched to "}
+            {pointAndSeek ? (
+              <>{ctx.child.nickname} is right now.</>
+            ) : (
+              <>{ctx.child.nickname}&rsquo;s rung.</>
+            )}{" "}
             Even one, played a couple of times, is a real week — no need to do
             them all.
           </p>
         </div>
-        {ctx.plan.games.map((game, i) => (
-          <GameCard
-            key={game.id}
-            game={game}
-            childId={id}
-            childName={ctx.child.nickname}
-            playedReaction={playedThisWeek.get(game.id)}
-            locked={!full && i > 0}
-            audioIds={audioIds}
-          />
-        ))}
+        {ctx.plan.games.map((game, i) => {
+          const locked = !full && i > 0;
+          return (
+            <GameCard
+              key={game.id}
+              // Locked cards get only what they show; the script, materials
+              // and adaptations never leave the server.
+              game={locked ? teaserGame(game) : game}
+              childId={id}
+              childName={ctx.child.nickname}
+              playedReaction={playedThisWeek.get(game.id)}
+              locked={locked}
+              audioIds={locked ? [] : audioIds}
+            />
+          );
+        })}
       </section>
 
       {!full && (
         <Card className="bg-ink-deep text-center text-surface">
           <h2 className="text-lg font-semibold text-white">Unlock the full plan</h2>
           <p className="mt-2 text-sm text-sea-glass">
-            Every game, every daily prompt, re-check-ins as {ctx.child.nickname}{" "}
-            climbs, where they sit in the typical range for their age, and the
-            printable pack. One payment, yours for good.
+            Every game each week, the whole week of prompts to read ahead,
+            where {ctx.child.nickname} sits in the typical range for their age,
+            and the printable pack. One payment, yours for good.
           </p>
-          <LinkButton href="/app/upgrade" className="mt-4 bg-white text-ink-deep hover:bg-sea-glass">
+          <LinkButton href="/app/upgrade" variant="inverse" className="mt-4">
             See the price
           </LinkButton>
         </Card>
@@ -166,8 +194,8 @@ export default async function PlanPage({
               </p>
             </div>
             <a
-              href={`/app/child/${id}/checkin.ics`}
-              className="text-sm font-semibold text-teal underline"
+              href={`/nsc/app/child/${id}/checkin.ics`}
+              className={`${NAV_LINK} text-sm font-semibold text-teal underline`}
             >
               Add to calendar
             </a>
@@ -175,19 +203,19 @@ export default async function PlanPage({
         )}
       </Card>
 
-      <div className="flex flex-wrap justify-between gap-2 text-sm">
-        <Link href={`/app/child/${id}/progress`} className="font-semibold text-teal underline">
+      <div className="flex flex-wrap justify-between gap-x-4 gap-y-1 text-sm">
+        <Link href={`/app/child/${id}/progress`} className={`${NAV_LINK} font-semibold text-teal underline`}>
           Progress &amp; where they stand →
         </Link>
         {full && (
-          <Link href={`/app/child/${id}/printables`} className="font-semibold text-teal underline">
+          <Link href={`/app/child/${id}/printables`} className={`${NAV_LINK} font-semibold text-teal underline`}>
             Printable pack →
           </Link>
         )}
-        <Link href={`/app/child/${id}/prescreen`} className="text-teal-soft underline">
+        <Link href={`/app/child/${id}/prescreen`} className={`${NAV_LINK} text-teal-soft underline`}>
           Play the check-in again
         </Link>
-        <Link href="/evidence" className="text-teal-soft underline">
+        <Link href="/evidence" className={`${NAV_LINK} text-teal-soft underline`}>
           The evidence →
         </Link>
       </div>

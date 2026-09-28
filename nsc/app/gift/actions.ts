@@ -2,13 +2,8 @@
 
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { stripe } from "@/lib/stripe";
-
-function normalizeOrigin(raw: string): string {
-  let origin = raw.trim();
-  if (origin && !/^https?:\/\//i.test(origin)) origin = `https://${origin}`;
-  return origin.replace(/\/+$/, "");
-}
+import { stripe, NSC_PRODUCT } from "@/lib/stripe";
+import { siteOrigin } from "@/lib/site";
 
 /**
  * Start a GIFT checkout. No account required — Stripe collects the buyer's
@@ -20,20 +15,23 @@ export async function startGiftCheckout() {
   if (!priceId) redirect("/gift?error=Gifting+is+not+configured+yet.");
 
   const hdrs = await headers();
-  const origin = normalizeOrigin(
-    process.env.NEXT_PUBLIC_SITE_URL ||
-      `https://${hdrs.get("host") ?? "growingmindsscience.com"}`,
-  );
+  const origin = siteOrigin(`https://${hdrs.get("host") ?? "growingmindsscience.com"}`);
 
-  const session = await stripe().checkout.sessions.create({
-    mode: "payment",
-    line_items: [{ price: priceId, quantity: 1 }],
-    metadata: { kind: "gift" },
-    success_url: `${origin}/nsc/gift/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${origin}/nsc/gift`,
-    allow_promotion_codes: true,
-  });
+  let url: string | null = null;
+  try {
+    const session = await stripe().checkout.sessions.create({
+      mode: "payment",
+      line_items: [{ price: priceId, quantity: 1 }],
+      metadata: { kind: "gift", product: NSC_PRODUCT },
+      success_url: `${origin}/nsc/gift/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/nsc/gift`,
+      allow_promotion_codes: true,
+    });
+    url = session.url;
+  } catch (err) {
+    console.error(`[gift] checkout create failed: ${(err as Error).message}`);
+  }
 
-  if (!session.url) redirect("/gift?error=Could+not+start+checkout.");
-  redirect(session.url);
+  if (!url) redirect("/gift?error=We+couldn%27t+start+checkout.+Please+try+again.");
+  redirect(url);
 }

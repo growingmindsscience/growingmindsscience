@@ -25,7 +25,8 @@
  *   → CP; (c) 18-trial budget or ≥4 skips → best-available + low confidence.
  * - End-on-success: after placement is decided, emit one bonus trial at the
  *   highest credited N ("one last one for bear"); its outcome never changes
- *   placement.
+ *   placement. Not after a skips stop: a child who has stopped playing is
+ *   not asked for one more.
  * - Movement targets the nearest UNRESOLVED N in the direction of travel so
  *   resolved rungs are never re-tested (budget honesty).
  */
@@ -256,12 +257,15 @@ export function applyOutcome(
     next.stopReason = stop;
     // End-on-success: one guaranteed-win bonus trial at a previously
     // credited N — possible only if something was credited and the child
-    // isn't already ending on that exact win.
+    // isn't already ending on that exact win. A skips stop means the child
+    // has disengaged, so the session simply ends there.
     const h = highestCredited(next);
     const last = next.trials[next.trials.length - 1];
     const endedOnWin = last.outcome === "correct" && last.n >= h;
     next.phase =
-      stop === "cp" || h < next.config.minN || endedOnWin ? "done" : "bonus";
+      stop === "cp" || stop === "skips" || h < next.config.minN || endedOnWin
+        ? "done"
+        : "bonus";
     return next;
   }
 

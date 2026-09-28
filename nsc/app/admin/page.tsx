@@ -75,7 +75,7 @@ export default async function AdminQueuePage({
                 Pending ({pending.length})
               </h2>
               <form action={importBatch001}>
-                <Button type="submit" className="px-4 py-2 text-sm">
+                <Button type="submit" size="sm">
                   Import activity batch 001
                 </Button>
               </form>

@@ -47,39 +47,96 @@ const LIVE_SUB_STATUSES = new Set([
   "past_due",
 ]);
 
+const DAY_MS = 24 * 60 * 60 * 1000;
+
 /** Grace beyond current_period_end so a slow renewal webhook never flickers
  * access off. */
-const RENEWAL_GRACE_MS = 3 * 24 * 60 * 60 * 1000;
+const RENEWAL_GRACE_MS = 3 * DAY_MS;
+
+/**
+ * past_due is dunning, not payment. Stripe advances the billing period when
+ * it creates the renewal invoice, so for a past_due subscription
+ * current_period_end is the end of a period nobody has paid for (a whole
+ * year on an annual plan). Access during dunning is capped at this window,
+ * anchored to the start of the unpaid period so webhook replays and repeat
+ * logins can't stretch it.
+ */
+export const PAST_DUE_GRACE_MS = 14 * DAY_MS;
+
+/** Whether a price id is one of the membership SKUs (incl. the absorbed AI Pro). */
+export function isMembershipPrice(priceId: string, prices: PriceConfig): boolean {
+  if (!priceId) return false;
+  return (
+    priceId === prices.membershipMonthly ||
+    priceId === prices.membershipAnnual ||
+    priceId === prices.legacyAiPro
+  );
+}
 
 export function grantsForSubscription(args: {
   subscriptionId: string;
   priceId: string;
   status: string;
   currentPeriodEnd: string | null; // ISO
+  /** ISO start of the current period; anchors the past_due cap. */
+  currentPeriodStart?: string | null;
   prices: PriceConfig;
+  /** Fallback anchor for the past_due cap when the period start is unknown. */
+  now?: Date;
 }): Grant[] {
   const { subscriptionId, priceId, status, currentPeriodEnd, prices } = args;
-  const isMembershipPrice =
-    priceId === prices.membershipMonthly ||
-    priceId === prices.membershipAnnual ||
-    priceId === prices.legacyAiPro;
-  if (!isMembershipPrice) return [];
+  if (!isMembershipPrice(priceId, prices)) return [];
   if (!LIVE_SUB_STATUSES.has(status)) {
     // canceled/unpaid/incomplete: never delete — the existing row's
     // expires_at (last paid period) already expresses the lapse.
     return [];
   }
-  const expires = currentPeriodEnd
-    ? new Date(new Date(currentPeriodEnd).getTime() + RENEWAL_GRACE_MS).toISOString()
-    : null;
+  // Fail closed: with no period end there is no bound on access, and a null
+  // expires_at would mean "perpetual".
+  const periodEndMs = currentPeriodEnd ? new Date(currentPeriodEnd).getTime() : NaN;
+  if (!Number.isFinite(periodEndMs)) return [];
+
+  let expiresMs = periodEndMs + RENEWAL_GRACE_MS;
+  if (status === "past_due") {
+    const startMs = args.currentPeriodStart ? new Date(args.currentPeriodStart).getTime() : NaN;
+    const anchorMs = Number.isFinite(startMs) ? startMs : (args.now ?? new Date()).getTime();
+    expiresMs = Math.min(expiresMs, anchorMs + PAST_DUE_GRACE_MS);
+  }
   return [
     {
       product_scope: "membership",
       source: "stripe_sub",
       source_ref: subscriptionId,
-      expires_at: expires,
+      expires_at: new Date(expiresMs).toISOString(),
     },
   ];
+}
+
+/** The subscription fields that carry the billing period, across API versions. */
+export interface SubscriptionPeriodSource {
+  items?: { data?: { current_period_start?: number | null; current_period_end?: number | null }[] } | null;
+  current_period_start?: number | null;
+  current_period_end?: number | null;
+}
+
+/**
+ * Current billing period as ISO strings (null when absent). The Basil API
+ * (2025-03-31+) moved the period onto each subscription item; older API
+ * versions carry it on the subscription. Read the item first, then fall back,
+ * so an endpoint pinned to either version never loses the bound.
+ */
+export function subscriptionPeriod(sub: SubscriptionPeriodSource): {
+  start: string | null;
+  end: string | null;
+} {
+  const item = sub.items?.data?.[0];
+  const pick = (a?: number | null, b?: number | null) =>
+    typeof a === "number" && a > 0 ? a : typeof b === "number" && b > 0 ? b : null;
+  const toIso = (sec: number | null) => (sec === null ? null : new Date(sec * 1000).toISOString());
+  return {
+    start: toIso(pick(item?.current_period_start, sub.current_period_start)),
+    end: toIso(pick(item?.current_period_end, sub.current_period_end)),
+  };
 }
 
 /** One-time-purchase products this repo grants today or honors from the

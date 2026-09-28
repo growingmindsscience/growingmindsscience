@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Button, Card, EnrichmentFooter } from "@/components/ui";
 import { AudioButton } from "@/components/audio-button";
 import { brand } from "@/lib/config/brand";
 import { interpolate } from "@/lib/assessment";
 import type { AssessmentCopy } from "@/lib/content-types";
 import {
+  PS_PLAN,
   psIsDone,
   psNextTrial,
   psReadoutKey,
@@ -18,6 +19,7 @@ import {
   type Side,
 } from "@/lib/pointandseek";
 import { recordPointPick } from "../actions";
+import { STEP_LOCK_MS, TAP_NOTICE, type TapNotice } from "./step-guard";
 
 /** A card of N dots — big, friendly, deterministic layout. */
 function DotCard({
@@ -36,8 +38,8 @@ function DotCard({
       type="button"
       disabled={disabled}
       onClick={() => onPick(side)}
-      aria-label={`${side} card`}
-      className="flex min-h-40 flex-1 flex-wrap content-center items-center justify-center gap-3 rounded-2xl border-2 border-sea-glass bg-white p-6 shadow-sm transition active:scale-95 disabled:opacity-50"
+      aria-label={`${side === "left" ? "Left" : "Right"} card, ${count} ${count === 1 ? "dot" : "dots"}`}
+      className="flex min-h-40 flex-1 flex-wrap content-center items-center justify-center gap-3 rounded-2xl border-2 border-sea-glass bg-white p-6 shadow-sm transition active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 focus-visible:ring-offset-ground disabled:opacity-50"
     >
       {Array.from({ length: count }, (_, i) => (
         <span
@@ -73,20 +75,52 @@ export function PointSeekRunner({
     initialState.records.length > 0 ? "running" : "setup",
   );
   const [pending, setPending] = useState(false);
+  const [notice, setNotice] = useState<TapNotice | null>(null);
 
   const vars = { name: childName, objects: "" };
   const lines = (k: string, fallback: string[]) =>
     (copy.states[k]?.lines ?? fallback).map((l) => interpolate(l, vars));
 
+  // Same step guard as the bear game: the next pair of cards appears exactly
+  // where the last tap landed, so taps are ignored for a moment after each
+  // change, and focus moves to the step heading.
+  const stepKey = phase === "setup" ? "setup" : `${state.index}:${psIsDone(state) ? "done" : "trial"}`;
+  const readyAt = useRef(0);
+  const inFlight = useRef(false);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const firstStep = useRef(true);
+  useLayoutEffect(() => {
+    readyAt.current = Date.now() + STEP_LOCK_MS;
+    if (firstStep.current) {
+      firstStep.current = false;
+      return;
+    }
+    headingRef.current?.focus({ preventScroll: true });
+  }, [stepKey]);
+
   async function record(pick: PSPick) {
+    if (inFlight.current || Date.now() < readyAt.current) return;
+    inFlight.current = true;
     setPending(true);
+    setNotice(null);
     try {
-      const { state: next } = await recordPointPick(assessmentId, pick);
-      setState(next);
+      const res = await recordPointPick(assessmentId, pick, state.index);
+      if (!res) return; // the action redirected (e.g. signed out)
+      setState(res.state);
+      if (res.status === "stale") setNotice("stale");
+    } catch {
+      setNotice("error");
     } finally {
+      inFlight.current = false;
       setPending(false);
     }
   }
+
+  const noticeLine = notice ? (
+    <p role="status" className="rounded-xl bg-rung-glow px-4 py-3 text-center text-sm text-ink-deep">
+      {TAP_NOTICE[notice]}
+    </p>
+  ) : null;
 
   if (phase === "setup") {
     return (
@@ -120,25 +154,31 @@ export function PointSeekRunner({
 
   if (psIsDone(state)) {
     const result = psResult(state)!;
+    const [headline, ...rest] = lines(psReadoutKey(result.signal), [
+      "All done. Thank you for playing.",
+    ]);
     return (
       <main className="mx-auto flex min-h-screen max-w-lg flex-col justify-center gap-6 px-6 py-12">
         <Card>
           <div className="flex flex-col gap-3">
-            {lines(psReadoutKey(result.signal), [
-              "All done — thank you for playing.",
-            ]).map((l, i) => (
-              <p
-                key={i}
-                className={i === 0 ? "text-lg font-semibold text-ink-deep" : "text-ink"}
-              >
+            <h1
+              ref={headingRef}
+              tabIndex={-1}
+              className="text-lg font-semibold text-ink-deep focus:outline-none"
+            >
+              {headline}
+            </h1>
+            {rest.map((l, i) => (
+              <p key={i} className="text-ink">
                 {l}
               </p>
             ))}
           </div>
         </Card>
+        {noticeLine}
         <Link
           href={`/app/child/${childId}/plan`}
-          className="inline-flex items-center justify-center rounded-full bg-teal px-6 py-3 text-base font-semibold text-white hover:bg-teal-soft"
+          className="inline-flex min-h-12 items-center justify-center rounded-full bg-teal px-6 py-3 text-base font-semibold text-white hover:bg-teal-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 focus-visible:ring-offset-ground"
         >
           See this week&rsquo;s plan
         </Link>
@@ -150,25 +190,33 @@ export function PointSeekRunner({
   const spec = psNextTrial(state)!;
   const leftCount = spec.correctSide === "left" ? spec.target : spec.foil;
   const rightCount = spec.correctSide === "right" ? spec.target : spec.foil;
+  const prompt = lines(psTrialKey(state.index), [`Which card has ${spec.target}?`]);
 
   return (
     <main className="mx-auto flex min-h-screen max-w-lg flex-col justify-between gap-6 px-6 py-10">
       <div className="flex flex-1 flex-col justify-center gap-6">
-        <p className="text-center text-sm font-medium uppercase tracking-widest text-teal">
-          Point and Seek · {state.index + 1} of 8
-        </p>
+        <h1
+          ref={headingRef}
+          tabIndex={-1}
+          className="text-center text-sm font-medium uppercase tracking-widest text-teal focus:outline-none"
+        >
+          Point and Seek · {state.index + 1} of {PS_PLAN.length}
+        </h1>
         <Card className="text-center">
           <div className="flex flex-col gap-2">
-            {lines(psTrialKey(state.index), [
-              `Which card has ${spec.target}?`,
-            ]).map((l, i) => (
-              <div key={i} className="flex items-center justify-center gap-2">
+            {prompt.map((l, i) => (
+              <div key={`${i}:${l}`} className="flex items-center justify-center gap-2">
                 <p className="text-lg text-ink">{l}</p>
-                <AudioButton line={l} available={audioSet} />
+                <AudioButton key={l} line={l} available={audioSet} />
               </div>
             ))}
           </div>
         </Card>
+        <p className="sr-only" aria-live="polite" aria-atomic="true">
+          {`Card pair ${state.index + 1} of ${PS_PLAN.length}. ${prompt.join(" ")}`}
+        </p>
+
+        {noticeLine}
 
         <p className="text-center text-xs text-teal-soft">
           Tap the card {childName} points to
@@ -179,9 +227,10 @@ export function PointSeekRunner({
         </div>
 
         <button
+          type="button"
           disabled={pending}
           onClick={() => record("skip")}
-          className="text-center text-sm text-teal-soft underline disabled:opacity-50"
+          className="inline-flex min-h-11 items-center justify-center px-3 py-2 text-center text-sm text-teal-soft underline disabled:opacity-50"
         >
           No point this time — skip
         </button>

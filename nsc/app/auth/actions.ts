@@ -4,12 +4,18 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { backfillEntitlementsForUser } from "@/lib/backfill.server";
+import { friendlyAuthError } from "@/lib/friendly-error";
+import { safeNextPath } from "@/lib/safe-next";
+import { siteOrigin } from "@/lib/site";
 
 /**
  * Link any pre-existing Stripe purchases (legacy AI Pro subs, bought before
  * this account existed) to the just-authenticated user. Idempotent and
  * best-effort, so running it on every sign-in is safe and self-healing — a
  * grant that appears later (a renewal) gets picked up on the next login.
+ *
+ * The link is keyed on the account email, so it relies on Supabase "Confirm
+ * email" being ON (see the README's auth notes).
  */
 async function safeBackfill(user: { id: string; email?: string | null } | null): Promise<void> {
   try {
@@ -21,21 +27,17 @@ async function safeBackfill(user: { id: string; email?: string | null } | null):
   }
 }
 
-function cleanNext(next: FormDataEntryValue | null): string {
-  const v = typeof next === "string" ? next : "";
-  // Only allow same-app relative paths.
-  return v.startsWith("/") && !v.startsWith("//") ? v : "/app";
-}
-
 export async function login(formData: FormData) {
   const supabase = await createClient();
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
-  const next = cleanNext(formData.get("next"));
+  const next = safeNextPath(formData.get("next"));
 
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) {
-    redirect(`/login?error=${encodeURIComponent(error.message)}&next=${encodeURIComponent(next)}`);
+    redirect(
+      `/login?error=${encodeURIComponent(friendlyAuthError(error.message))}&next=${encodeURIComponent(next)}`,
+    );
   }
   await safeBackfill(data.user);
   revalidatePath("/", "layout");
@@ -46,7 +48,7 @@ export async function signup(formData: FormData) {
   const supabase = await createClient();
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
-  const next = cleanNext(formData.get("next"));
+  const next = safeNextPath(formData.get("next"));
 
   if (password.length < 12) {
     redirect(
@@ -54,24 +56,30 @@ export async function signup(formData: FormData) {
     );
   }
 
-  const { data, error } = await supabase.auth.signUp({ email, password });
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    // Used only when Supabase "Confirm email" is ON: the link lands on the
+    // code exchange, then continues to `next`.
+    options: {
+      emailRedirectTo: `${siteOrigin()}/nsc/auth/callback?next=${encodeURIComponent(next)}`,
+    },
+  });
   if (error) {
-    redirect(`/signup?error=${encodeURIComponent(error.message)}&next=${encodeURIComponent(next)}`);
+    redirect(
+      `/signup?error=${encodeURIComponent(friendlyAuthError(error.message))}&next=${encodeURIComponent(next)}`,
+    );
   }
-  // Only backfill when signup produced a real session (email-confirmation off,
-  // so this IS the verified entry). When confirmation is on, data.session is
-  // null and the email isn't proven yet — backfilling here would let anyone
-  // claim a victim's subscription by signing up with their email. The
-  // post-confirmation auth/callback route handles that case safely instead.
-  await safeBackfill(data.session ? data.user : null);
+  if (!data.session) {
+    // Confirmation is on: there is no session yet, so say so instead of
+    // bouncing the parent silently to the sign-in page.
+    redirect("/login?confirm=1");
+  }
+  // Supabase returned a session straight away; link any earlier purchases
+  // (see the note on safeBackfill).
+  await safeBackfill(data.user);
   revalidatePath("/", "layout");
   redirect(next);
-}
-
-function siteOrigin(): string {
-  let origin = (process.env.NEXT_PUBLIC_SITE_URL ?? "").trim();
-  if (origin && !/^https?:\/\//i.test(origin)) origin = `https://${origin}`;
-  return origin.replace(/\/+$/, "") || "https://growingmindsscience.com";
 }
 
 export async function requestPasswordReset(formData: FormData) {
@@ -96,7 +104,7 @@ export async function updatePassword(formData: FormData) {
   }
   const { error } = await supabase.auth.updateUser({ password });
   if (error) {
-    redirect(`/reset/update?error=${encodeURIComponent(error.message)}`);
+    redirect(`/reset/update?error=${encodeURIComponent(friendlyAuthError(error.message))}`);
   }
   revalidatePath("/", "layout");
   redirect("/app");

@@ -2,8 +2,13 @@ import "server-only";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { stripe } from "@/lib/stripe";
 import { createServiceClient } from "@/lib/supabase/server";
-import { applyGrants } from "@/lib/entitlements.server";
-import { grantsForSubscription, type PriceConfig } from "@/lib/grants";
+import { applyGrants } from "@/lib/entitlement-writes";
+import {
+  grantsForSubscription,
+  subscriptionPeriod,
+  type PriceConfig,
+  type SubscriptionPeriodSource,
+} from "@/lib/grants";
 
 /**
  * Link a user's pre-existing Stripe purchases to their new Supabase account.
@@ -68,35 +73,34 @@ export async function backfillEntitlementsForUser(
       });
 
       for (const sub of subs.data) {
-        const item = sub.items?.data?.[0];
-        const priceId = item?.price?.id ?? "";
-        // Basil-era API: period end lives on the item, in seconds.
-        const periodEndSec =
-          (item as { current_period_end?: number } | undefined)?.current_period_end ?? null;
-        const periodEnd = periodEndSec ? new Date(periodEndSec * 1000).toISOString() : null;
+        const priceId = sub.items?.data?.[0]?.price?.id ?? "";
+        // Item-level period (Basil API) with the subscription-level fallback.
+        const period = subscriptionPeriod(sub as unknown as SubscriptionPeriodSource);
 
         const grants = grantsForSubscription({
           subscriptionId: sub.id,
           priceId,
           status: sub.status,
-          currentPeriodEnd: periodEnd,
+          currentPeriodEnd: period.end,
+          currentPeriodStart: period.start,
           prices,
         });
         if (grants.length === 0) continue; // not a membership price, or lapsed
 
-        await service.from("subscriptions").upsert(
+        const { error: mirrorErr } = await service.from("subscriptions").upsert(
           {
             user_id: userId,
             stripe_subscription_id: sub.id,
             stripe_customer_id: customer.id,
             price_id: priceId,
             status: sub.status,
-            current_period_end: periodEnd,
+            current_period_end: period.end,
             cancel_at_period_end: sub.cancel_at_period_end ?? false,
             updated_at: new Date().toISOString(),
           },
           { onConflict: "stripe_subscription_id" },
         );
+        if (mirrorErr) throw new Error(`subscriptions upsert failed: ${mirrorErr.message}`);
         await applyGrants(service, userId, grants);
         applied += grants.length;
       }

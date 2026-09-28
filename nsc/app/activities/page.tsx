@@ -84,7 +84,7 @@ export default async function ActivitiesPage({
             id="band"
             name="band"
             defaultValue={sp.band ?? ""}
-            className="rounded-xl border border-sea-glass bg-surface px-3 py-2 text-sm text-ink"
+            className="min-h-11 rounded-xl border border-sea-glass bg-surface px-3 py-2 text-sm text-ink"
           >
             <option value="">Any age</option>
             {ACTIVITY_BANDS.map((b) => (
@@ -102,7 +102,7 @@ export default async function ActivitiesPage({
             id="domain"
             name="domain"
             defaultValue={sp.domain ?? ""}
-            className="rounded-xl border border-sea-glass bg-surface px-3 py-2 text-sm text-ink"
+            className="min-h-11 rounded-xl border border-sea-glass bg-surface px-3 py-2 text-sm text-ink"
           >
             <option value="">Any area</option>
             {ACTIVITY_DOMAINS.map((d) => (
@@ -120,7 +120,7 @@ export default async function ActivitiesPage({
             id="mess"
             name="mess"
             defaultValue={sp.mess ?? ""}
-            className="rounded-xl border border-sea-glass bg-surface px-3 py-2 text-sm text-ink"
+            className="min-h-11 rounded-xl border border-sea-glass bg-surface px-3 py-2 text-sm text-ink"
           >
             <option value="">Any mess</option>
             <option value="1">Tidy only</option>
@@ -135,7 +135,7 @@ export default async function ActivitiesPage({
             id="time"
             name="time"
             defaultValue={sp.time ?? ""}
-            className="rounded-xl border border-sea-glass bg-surface px-3 py-2 text-sm text-ink"
+            className="min-h-11 rounded-xl border border-sea-glass bg-surface px-3 py-2 text-sm text-ink"
           >
             <option value="">Any length</option>
             <option value="5">5 minutes or less</option>
@@ -150,7 +150,7 @@ export default async function ActivitiesPage({
             id="setting"
             name="setting"
             defaultValue={sp.setting ?? ""}
-            className="rounded-xl border border-sea-glass bg-surface px-3 py-2 text-sm text-ink"
+            className="min-h-11 rounded-xl border border-sea-glass bg-surface px-3 py-2 text-sm text-ink"
           >
             <option value="">Anywhere</option>
             {ACTIVITY_SETTINGS.map((s) => (
@@ -162,7 +162,7 @@ export default async function ActivitiesPage({
         </div>
         <button
           type="submit"
-          className="rounded-full bg-teal px-5 py-2 text-sm font-semibold text-white hover:bg-teal-soft"
+          className="min-h-11 rounded-full bg-teal px-5 py-2 text-sm font-semibold text-white hover:bg-teal-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2"
         >
           Filter
         </button>

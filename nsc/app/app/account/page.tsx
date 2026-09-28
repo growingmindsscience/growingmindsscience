@@ -3,7 +3,8 @@ import { requireAuth } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { getEntitlementSummary } from "@/lib/entitlements.server";
 import { brand } from "@/lib/config/brand";
-import { Button, Card, Field, Input, LinkButton } from "@/components/ui";
+import { Card, Field, Input, LinkButton } from "@/components/ui";
+import { SubmitButton } from "@/components/submit-button";
 import { signout } from "@/app/auth/actions";
 import { openBillingPortal, redeemAccessCode } from "./actions";
 
@@ -86,7 +87,9 @@ export default async function AccountPage({
           <p className="mt-1 text-sm text-teal-soft">{user.email}</p>
         </div>
         <form action={signout}>
-          <button type="submit" className="text-sm text-teal-soft underline">Sign out</button>
+          <button type="submit" className="inline-flex min-h-11 items-center px-2 text-sm text-teal-soft underline">
+            Sign out
+          </button>
         </form>
       </header>
 
@@ -112,9 +115,9 @@ export default async function AccountPage({
         )}
         {hasBilling && (
           <form action={openBillingPortal} className="mt-4">
-            <Button variant="ghost" type="submit" className="px-4 py-2 text-sm">
+            <SubmitButton variant="ghost" size="sm">
               Manage billing
-            </Button>
+            </SubmitButton>
             {sub?.cancel_at_period_end && (
               <p className="mt-2 text-xs text-teal-soft">
                 Your plan is set to cancel at the end of the current period.
@@ -136,7 +139,7 @@ export default async function AccountPage({
             : "Run the counting check-in free, then unlock games and weekly plans."}
         </p>
         <div className="mt-4">
-          <LinkButton href="/app" className="px-4 py-2 text-sm">
+          <LinkButton href="/app" size="sm">
             Open Number Path
           </LinkButton>
         </div>
@@ -155,13 +158,13 @@ export default async function AccountPage({
             href={THINKIFIC_CLASS}
             target="_blank"
             rel="noopener"
-            className="inline-flex items-center justify-center rounded-full bg-teal px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-teal-soft"
+            className="inline-flex min-h-11 items-center justify-center rounded-full bg-teal px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-teal-soft"
           >
             Go to my class
           </a>
           <a
             href="https://growingmindsscience.com/tools/growing-minds-ai"
-            className="inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-semibold text-teal transition-colors hover:bg-sea-glass/40"
+            className="inline-flex min-h-11 items-center justify-center rounded-full px-4 py-2 text-sm font-semibold text-teal transition-colors hover:bg-sea-glass/40"
           >
             Open Growing Minds AI
           </a>
@@ -177,7 +180,7 @@ export default async function AccountPage({
               <Field label="Class access code" htmlFor="code">
                 <Input id="code" name="code" autoComplete="off" placeholder="Your access code" />
               </Field>
-              <Button type="submit" className="px-4 py-2 text-sm">Link it</Button>
+              <SubmitButton size="sm">Link it</SubmitButton>
             </form>
           </div>
         )}
