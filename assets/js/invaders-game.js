@@ -971,7 +971,9 @@
       A.tearPageAway(function () { openOverlay(overlay); });
     }
 
+    // Click only (a tap still fires click on touch screens). A touchstart
+    // handler with preventDefault launched the game whenever a scroll gesture
+    // merely began on the small trigger, and blocked that scroll.
     trigger.addEventListener("click", function (e) { e.preventDefault(); open(); });
-    trigger.addEventListener("touchstart", function (e) { e.preventDefault(); open(); }, { passive: false });
   });
 })();

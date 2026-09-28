@@ -16,7 +16,7 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Screens, language, and attention — Growing Minds Science" />
   <meta property="og:description" content="What the research suggests about how different kinds of screen use interact with language and attention in the early years." />
-  <meta property="og:image" content="/assets/img/site/family-reading.jpg" />
+  <meta property="og:image" content="https://growingmindsscience.com/assets/img/site/family-reading.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -59,15 +59,6 @@
     .what-block__label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .1em; color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
     .what-block__text { margin: 0; color: var(--ink-soft); line-height: 1.65; }
 
-    .decoder { display: grid; grid-template-columns: .95fr 1.05fr; gap: var(--space-5); align-items: start; }
-    .decoder-buttons { display: grid; gap: .75rem; }
-    .decoder-btn { padding: .8rem 1rem; text-align: left; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); cursor: pointer; transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition); }
-    .decoder-btn.is-active { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
-    .decoder-output { padding: var(--space-6); border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--border-soft); box-shadow: var(--shadow-sm); }
-    .decoder-output[hidden] { display: none; }
-    .decoder-output h3 { margin: 0 0 .6rem; font-size: var(--text-lg); }
-    .decoder-output p { color: var(--ink-soft); }
-
     .response-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); }
     .response-card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: var(--space-5); }
     .response-card__num { width: 34px; height: 34px; border-radius: 999px; display: grid; place-items: center; background: var(--primary); color: var(--primary-ink); font-weight: 700; margin-bottom: var(--space-4); }
@@ -94,7 +85,6 @@
 
     @media (max-width: 920px) {
       .hero-grid,
-      .decoder,
       .response-grid,
       .compare-grid,
       .cta-strip { grid-template-columns: 1fr; }
@@ -220,35 +210,35 @@
           </div>
 
           <div>
-            <article class="decoder-output" data-output="background">
+            <article class="decoder-output" data-output="background" data-ai-question="The TV is on in the background most of the day. How does that affect my child's language?">
               <span class="tag">Mostly touches: language</span>
               <h3>This one is about the talk it quietly crowds out.</h3>
               <p>A TV running in the background pulls a surprising amount out of a room. Christakis and Schmidt found it lowers both how much parents and children talk and how rich that talk is, even when no one is watching. Your child isn't being harmed by the pictures so much as missing the conversation those minutes would have held.</p>
               <p class="small">One tweak: turn it off when no one is actually watching. Quiet rooms leave more room for your child to say something and for you to answer.</p>
             </article>
 
-            <article class="decoder-output" data-output="fast" hidden>
+            <article class="decoder-output" data-output="fast" data-ai-question="Do fast-paced cartoons affect my child's attention?" hidden>
               <span class="tag">Mostly touches: attention (briefly)</span>
               <h3>Likely a short-term wobble, not lasting damage.</h3>
               <p>Lillard and Peterson found a fast, frantic cartoon left preschoolers temporarily worse at focus and self-control right afterward. The key word is temporarily. It was measured minutes later, and the claim that fast shows permanently rewire attention is not well supported. Pacing and what comes next matter more than banning cartoons.</p>
               <p class="small">One tweak: if you notice a rough patch after a particular show, follow it with something calm (blocks, a snack, outside time) rather than straight into the next demand.</p>
             </article>
 
-            <article class="decoder-output" data-output="coview" hidden>
+            <article class="decoder-output" data-output="coview" data-ai-question="We watch a slow, interactive show together. How can I use it to support language?" hidden>
               <span class="tag">Can support: language</span>
               <h3>This is closer to how kids actually learn.</h3>
               <p>Watching together and talking about what's happening, joint media engagement, is one of the few screen setups research treats kindly for vocabulary. A slower show gives your child time to notice things, and your comments turn a passive minute into a small conversation.</p>
               <p class="small">One tweak: narrate and connect it to real life. "That's a tractor. We saw one at the farm, remember?" The bridge to the real world is where the learning sticks.</p>
             </article>
 
-            <article class="decoder-output" data-output="app" hidden>
+            <article class="decoder-output" data-output="app" data-ai-question="Is a solo educational app good for my child's learning?" hidden>
               <span class="tag">Mixed: depends on what it replaces</span>
               <h3>"Educational" is a label, not a guarantee.</h3>
               <p>Some apps are thoughtfully built; plenty are mostly stimulation with a learning sticker. For young kids, even good content usually teaches more when an adult connects it to the real world. The bigger question is what the solo time is replacing. Free play and conversation are where a lot of early attention and language get built.</p>
               <p class="small">One tweak: now and then, sit alongside and talk about what they're doing, and keep an eye that the app isn't eating the play and talk it sits next to.</p>
             </article>
 
-            <article class="decoder-output" data-output="videocall" hidden>
+            <article class="decoder-output" data-output="videocall" data-ai-question="Do video calls with family help my child's language?" hidden>
               <span class="tag">The friendly exception</span>
               <h3>This one is real interaction that happens to be on a screen.</h3>
               <p>Video chat is the partial exception to the video deficit. When a grandparent laughs back, answers, and responds to what your child just did, the exchange behaves like a real conversation: contingent and back-and-forth. That's the ingredient passive video is missing.</p>
@@ -360,18 +350,6 @@
       </div>
     </section>
 
-    <section style="padding-top:0;">
-      <div class="container container--narrow">
-        <div class="promo-banner">
-          <div>
-            <p class="eyebrow">Now available · $49</p>
-            <p class="promo-banner__body">Toddler class · Unlimited Growing Minds AI · Milestone tracker · Lifetime access</p>
-          </div>
-          <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now →</a>
-        </div>
-      </div>
-    </section>
-
     <section>
       <div class="container container--narrow">
         <div class="cta-strip">
@@ -381,7 +359,7 @@
             <p class="small" style="max-width:38rem; margin:0;">How language actually grows through ordinary conversation, what supports focus in the early years, and how to think about screens without shame, all grounded in the same research as this page. $49 for lifetime access.</p>
           </div>
           <div class="hero-actions">
-            <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a>
+            <a class="btn btn--primary" href="/classes/toddlerhood.html">See the toddler class</a>
             <a class="btn btn--ghost" href="/tools/">Back to tools</a>
           </div>
         </div>

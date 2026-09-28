@@ -16,7 +16,7 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="What's underneath the meltdown — Growing Minds Science" />
   <meta property="og:description" content="A practical parent reference that translates toddler tantrums from bad behavior into nervous-system events, with research-aligned responses for the hard moment." />
-  <meta property="og:image" content="/assets/img/site/family-reading.jpg" />
+  <meta property="og:image" content="https://growingmindsscience.com/assets/img/site/family-reading.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -59,15 +59,6 @@
     .what-block__label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .1em; color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
     .what-block__text { margin: 0; color: var(--ink-soft); line-height: 1.65; }
 
-    .decoder { display: grid; grid-template-columns: .95fr 1.05fr; gap: var(--space-5); align-items: start; }
-    .decoder-buttons { display: grid; gap: .75rem; }
-    .decoder-btn { padding: .8rem 1rem; text-align: left; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); cursor: pointer; transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition); }
-    .decoder-btn.is-active { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
-    .decoder-output { padding: var(--space-6); border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--border-soft); box-shadow: var(--shadow-sm); }
-    .decoder-output[hidden] { display: none; }
-    .decoder-output h3 { margin: 0 0 .6rem; font-size: var(--text-lg); }
-    .decoder-output p { color: var(--ink-soft); }
-
     .response-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }
     .response-card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: var(--space-5); }
     .response-card__num { width: 34px; height: 34px; border-radius: 999px; display: grid; place-items: center; background: var(--primary); color: var(--primary-ink); font-weight: 700; margin-bottom: var(--space-4); }
@@ -89,7 +80,6 @@
 
     @media (max-width: 920px) {
       .hero-grid,
-      .decoder,
       .response-grid,
       .compare-grid,
       .cta-strip { grid-template-columns: 1fr; }
@@ -215,35 +205,35 @@
           </div>
 
           <div>
-            <article class="decoder-output" data-output="overloaded">
+            <article class="decoder-output" data-output="overloaded" data-ai-question="My child's meltdowns are sudden and huge. How do I help them come back down?">
               <span class="tag">Likely state: flooded</span>
               <h3>Start with regulation, not reasoning.</h3>
               <p>The child may not be able to use language, choices, or logic yet. Reduce input, stay nearby, keep your voice low, and wait for signs that the body is coming back down before teaching.</p>
               <p class="small">Try: "I'm here. You're safe. We can wait."</p>
             </article>
 
-            <article class="decoder-output" data-output="limit" hidden>
+            <article class="decoder-output" data-output="limit" data-ai-question="My child melts down after I say no. How do I hold the limit and stay calm?" hidden>
               <span class="tag">Likely state: frustration plus boundary</span>
               <h3>Hold the limit and make room for protest.</h3>
               <p>A meltdown after a limit does not always mean the limit was wrong. Keep the boundary simple, acknowledge the feeling, and avoid adding new arguments while the feeling is peaking.</p>
               <p class="small">Try: "You really wanted that. I won't let you hit."</p>
             </article>
 
-            <article class="decoder-output" data-output="tired" hidden>
+            <article class="decoder-output" data-output="tired" data-ai-question="My child's meltdowns happen most when they're tired, hungry, or rushed. What helps?" hidden>
               <span class="tag">Likely state: depleted capacity</span>
               <h3>Simplify the task and lower the demand.</h3>
               <p>Fatigue and hunger shrink the child's ability to cope. This is a setup problem as much as a behavior problem. Use fewer steps, more help, and less teaching until the child is fed, rested, or through the transition.</p>
               <p class="small">Try: "This is hard right now. I'm going to help your body get to the car."</p>
             </article>
 
-            <article class="decoder-output" data-output="sensory" hidden>
+            <article class="decoder-output" data-output="sensory" data-ai-question="Noise, clothing, crowds, or transitions set off my child's meltdowns. How can I help?" hidden>
               <span class="tag">Likely state: sensory overload</span>
               <h3>Change the environment before you correct the behavior.</h3>
               <p>If the trigger is sound, texture, crowding, light, or rapid transitions, the child may need less input before they can cooperate. Move to a quieter place, loosen the demand, or give predictable sensory support.</p>
               <p class="small">Try: "Too much noise. Let's step over here."</p>
             </article>
 
-            <article class="decoder-output" data-output="unsafe" hidden>
+            <article class="decoder-output" data-output="unsafe" data-ai-question="My child hits, throws, bites, or runs during meltdowns. How do I keep everyone safe without adding intensity?" hidden>
               <span class="tag">Likely state: dysregulated and unsafe</span>
               <h3>Block harm with as little extra intensity as possible.</h3>
               <p>Safety comes first. Move objects, block hits, pick up only when necessary, and use very short language. The adult body becomes the boundary while the child's brain is not able to use words well.</p>
@@ -348,18 +338,6 @@
       </div>
     </section>
 
-    <section style="padding-top:0;">
-      <div class="container container--narrow">
-        <div class="promo-banner">
-          <div>
-            <p class="eyebrow">Now available · $49</p>
-            <p class="promo-banner__body">Toddler class · Unlimited Growing Minds AI · Milestone tracker · Lifetime access</p>
-          </div>
-          <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now →</a>
-        </div>
-      </div>
-    </section>
-
     <section>
       <div class="container container--narrow">
         <div class="cta-strip">
@@ -369,7 +347,7 @@
             <p class="small" style="max-width:38rem; margin:0;">What is actually happening in a toddler's nervous system during a meltdown, why co-regulation comes first, and what that looks like in practice. $49 for lifetime access.</p>
           </div>
           <div class="hero-actions">
-            <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a>
+            <a class="btn btn--primary" href="/classes/toddlerhood.html">See the toddler class</a>
             <a class="btn btn--ghost" href="/tools/">Back to tools</a>
           </div>
         </div>

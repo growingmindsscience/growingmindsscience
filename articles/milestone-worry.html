@@ -67,11 +67,18 @@
     .figure-steps h4 { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); }
     .figure-steps p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
     .figure-foot { margin: var(--space-5) 0 0; padding-top: var(--space-4); border-top: 1px dashed var(--border-soft); color: var(--accent-brown); font-style: italic; font-size: var(--text-md); }
+    /* The TOC comes first in the DOM, so on phones it sits above the article
+       (and keyboard order matches what is on screen); wide screens keep it in
+       the right-hand column. */
+    .article-body .article-toc { grid-column: 2; grid-row: 1; }
+    .article-body .article-layout > article { grid-column: 1; grid-row: 1; }
     @media (max-width: 920px) {
       .article-layout, .translation-grid { grid-template-columns: 1fr; }
       .article-cta { flex-direction: column; align-items: stretch; }
       .article-cta .hero__ctas { justify-content: flex-start; }
       .article-toc { position: static; }
+      .article-body .article-toc,
+      .article-body .article-layout > article { grid-column: auto; grid-row: auto; }
       .article-title { max-width: 12ch; }
     }
   </style>
@@ -205,6 +212,18 @@
 
     <section class="article-body">
       <div class="container article-layout">
+        <aside class="article-toc" aria-label="Article navigation">
+          <h2>In this article</h2>
+          <ol>
+            <li><a href="#what-milestones-are">What a milestone is</a></li>
+            <li><a href="#late-talkers">The late-talker example</a></li>
+            <li><a href="#cost-of-worry">The cost of worry</a></li>
+            <li><a href="#when-to-ask">When to bring it up</a></li>
+            <li><a href="#using-a-tracker">Using a tracker</a></li>
+            <li><a href="#bottom-line">Bottom line</a></li>
+          </ol>
+        </aside>
+
         <article>
           <p>Here is a scene that plays out constantly. A parent is at the park, watching their fourteen-month-old, who is happily not walking. Across the grass, another fourteen-month-old is striding around like a tiny commuter. The first parent's stomach drops. By the time they get home, they've typed "should my baby be walking by now" into a search bar, found a chart, and started counting weeks.</p>
 
@@ -334,18 +353,6 @@
             </ul>
           </div>
         </article>
-
-        <aside class="article-toc" aria-label="Article navigation">
-          <h2>In this article</h2>
-          <ol>
-            <li><a href="#what-milestones-are">What a milestone is</a></li>
-            <li><a href="#late-talkers">The late-talker example</a></li>
-            <li><a href="#cost-of-worry">The cost of worry</a></li>
-            <li><a href="#when-to-ask">When to bring it up</a></li>
-            <li><a href="#using-a-tracker">Using a tracker</a></li>
-            <li><a href="#bottom-line">Bottom line</a></li>
-          </ol>
-        </aside>
       </div>
     </section>
 
@@ -359,7 +366,7 @@
           </div>
           <div class="hero__ctas">
             <a class="btn btn--primary" href="/milestones">Open the milestone tracker</a>
-            <a class="btn btn--ghost" href="/tools/whats-typical-by-stage">What's typical, by stage</a>
+            <a class="btn btn--ghost" href="/tools/communication-snapshot">Try the Communication Snapshot</a>
           </div>
         </div>
       </div>

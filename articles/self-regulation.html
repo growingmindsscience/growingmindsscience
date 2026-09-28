@@ -67,11 +67,18 @@
     .figure-steps h4 { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); }
     .figure-steps p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
     .figure-foot { margin: var(--space-5) 0 0; padding-top: var(--space-4); border-top: 1px dashed var(--border-soft); color: var(--accent-brown); font-style: italic; font-size: var(--text-md); }
+    /* The TOC comes first in the DOM, so on phones it sits above the article
+       (and keyboard order matches what is on screen); wide screens keep it in
+       the right-hand column. */
+    .article-body .article-toc { grid-column: 2; grid-row: 1; }
+    .article-body .article-layout > article { grid-column: 1; grid-row: 1; }
     @media (max-width: 920px) {
       .article-layout, .translation-grid { grid-template-columns: 1fr; }
       .article-cta { flex-direction: column; align-items: stretch; }
       .article-cta .hero__ctas { justify-content: flex-start; }
       .article-toc { position: static; }
+      .article-body .article-toc,
+      .article-body .article-layout > article { grid-column: auto; grid-row: auto; }
       .article-title { max-width: 12ch; }
     }
   </style>
@@ -205,6 +212,17 @@
 
     <section class="article-body">
       <div class="container article-layout">
+        <aside class="article-toc" aria-label="Article navigation">
+          <h2>In this article</h2>
+          <ol>
+            <li><a href="#what-regulation-means">What regulation actually means</a></li>
+            <li><a href="#co-regulation-first">Co-regulation comes first</a></li>
+            <li><a href="#the-developmental-timeline">The developmental timeline</a></li>
+            <li><a href="#what-it-implies">What it implies day-to-day</a></li>
+            <li><a href="#bottom-line">Bottom line</a></li>
+          </ol>
+        </aside>
+
         <article>
           <p>"Self-regulation" is one of those terms that shows up everywhere in early childhood literature and parenting advice. It is almost always used in a way that misrepresents what the research actually says.</p>
 
@@ -335,17 +353,6 @@
             </ul>
           </div>
         </article>
-
-        <aside class="article-toc" aria-label="Article navigation">
-          <h2>In this article</h2>
-          <ol>
-            <li><a href="#what-regulation-means">What regulation actually means</a></li>
-            <li><a href="#co-regulation-first">Co-regulation comes first</a></li>
-            <li><a href="#the-developmental-timeline">The developmental timeline</a></li>
-            <li><a href="#what-it-implies">What it implies day-to-day</a></li>
-            <li><a href="#bottom-line">Bottom line</a></li>
-          </ol>
-        </aside>
       </div>
     </section>
 
@@ -358,7 +365,7 @@
             <p class="small" style="max-width:38rem; margin:0;">What's happening in a toddler's nervous system during a meltdown, how your calm becomes their scaffold, and what actually helps versus what makes it worse. $49 for lifetime access.</p>
           </div>
           <div class="hero__ctas">
-            <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a>
+            <a class="btn btn--primary" href="/classes/toddlerhood.html">See the toddler class</a>
             <a class="btn btn--ghost" href="/tools/whats-underneath-the-meltdown">Meltdown tool</a>
           </div>
         </div>

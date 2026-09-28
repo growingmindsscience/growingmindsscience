@@ -16,7 +16,7 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Routines, transitions, and night-waking — Growing Minds Science" />
   <meta property="og:description" content="A toddler sleep guide for parents: why sleep changes from ages 1–3, what routines help, and how to read night-waking without panic." />
-  <meta property="og:image" content="/assets/img/site/family-reading.jpg" />
+  <meta property="og:image" content="https://growingmindsscience.com/assets/img/site/family-reading.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -202,7 +202,7 @@
         <h2>Read the pattern</h2>
         <p class="section-intro">Choose the closest pattern. Start with curiosity: what changed, what repeats, and what helps without making the next night harder?</p>
 
-        <div class="pattern-wrap">
+        <div class="pattern-wrap" data-decoder>
           <div class="pattern-buttons" role="group" aria-label="Toddler sleep patterns">
             <button class="pattern-btn is-active" type="button" data-pattern="stalling" aria-pressed="true"><strong>Bedtime stalling</strong><span>Water, one more book, another hug, one more question.</span></button>
             <button class="pattern-btn" type="button" data-pattern="separation" aria-pressed="false"><strong>Separation distress</strong><span>Your child panics, cries, or needs you close to settle.</span></button>
@@ -212,7 +212,7 @@
           </div>
 
           <div>
-            <article class="pattern-output" data-output="stalling">
+            <article class="pattern-output" data-output="stalling" data-ai-question="My child stalls at bedtime with water, one more book, and one more hug. What helps?">
               <span class="tag">Bedtime stalling</span>
               <h3>Autonomy often shows up at the doorway.</h3>
               <p>Stalling can be a toddler's way of seeking control, connection, or clarity when the day is ending. The goal isn't to remove all protest, but to make the sequence predictable enough that the protest has less room to grow.</p>
@@ -223,7 +223,7 @@
               </div>
             </article>
 
-            <article class="pattern-output" data-output="separation" hidden>
+            <article class="pattern-output" data-output="separation" data-ai-question="My child panics or needs me close to settle at bedtime. How do I help?" hidden>
               <span class="tag">Separation distress</span>
               <h3>The need is connection plus a clear ending.</h3>
               <p>Separation gets more complicated as toddlers understand distance, absence, and return. Comfort matters, but comfort works best when it comes with a consistent path toward sleep.</p>
@@ -234,7 +234,7 @@
               </div>
             </article>
 
-            <article class="pattern-output" data-output="waking" hidden>
+            <article class="pattern-output" data-output="waking" data-ai-question="My child wakes in the night and needs help getting back to sleep. What might be going on?" hidden>
               <span class="tag">Middle-of-night waking</span>
               <h3>Ask what changed before deciding what it means.</h3>
               <p>Night-waking can reflect illness, discomfort, hunger, overtiredness, a new skill, fear, schedule mismatch, or a learned pattern around how sleep resumes. One bad night is information. A repeating pattern is a map.</p>
@@ -245,7 +245,7 @@
               </div>
             </article>
 
-            <article class="pattern-output" data-output="nap" hidden>
+            <article class="pattern-output" data-output="nap" data-ai-question="My child's nap is changing and bedtime has gotten harder. What helps?" hidden>
               <span class="tag">Nap transition trouble</span>
               <h3>Nap changes can make bedtime look mysterious.</h3>
               <p>A toddler dropping or shifting a nap may seem tired and wired at the same time. Too little daytime sleep can lead to overtiredness; a nap too late can make bedtime harder.</p>
@@ -256,7 +256,7 @@
               </div>
             </article>
 
-            <article class="pattern-output" data-output="fear" hidden>
+            <article class="pattern-output" data-output="fear" data-ai-question="My child has new fears and bad dreams at night. How do I comfort them?" hidden>
               <span class="tag">Fears and bad dreams</span>
               <h3>Comfort first, then return to the sleep path.</h3>
               <p>Fear at night is not manipulation. Imagination is growing, and toddlers may not easily separate dream, shadow, story, and real danger. Comfort them, keep the environment boring, and avoid accidentally making the fear the center of the night.</p>
@@ -364,18 +364,6 @@
       </div>
     </section>
 
-    <section style="padding-top:0;">
-      <div class="container container--narrow">
-        <div class="promo-banner">
-          <div>
-            <p class="eyebrow">Now available · $49</p>
-            <p class="promo-banner__body">Toddler class · Unlimited Growing Minds AI · Milestone tracker · Lifetime access</p>
-          </div>
-          <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now →</a>
-        </div>
-      </div>
-    </section>
-
     <section>
       <div class="container container--narrow">
       <div class="cta-strip">
@@ -385,7 +373,7 @@
             <p class="small" style="max-width:38rem; margin:0;">Why toddlers rely so much on predictability, how transitions trigger resistance, and what simple routines can do for the nervous system, all grounded in the research. $49 for lifetime access.</p>
           </div>
           <div class="hero-actions">
-            <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a>
+            <a class="btn btn--primary" href="/classes/toddlerhood.html">See the toddler class</a>
             <a class="btn btn--ghost" href="/tools/">Back to tools</a>
           </div>
         </div>
@@ -451,21 +439,6 @@
   <script src="../assets/js/main.js" defer></script>
   <script src="../assets/js/gms-tools.js" defer></script>
   <script src="../assets/js/decor.js" defer></script>
-  <script>
-    (function(){
-      var patternButtons = document.querySelectorAll('.pattern-btn');
-      var outputs = document.querySelectorAll('.pattern-output');
-      patternButtons.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          var key = btn.dataset.pattern;
-          patternButtons.forEach(function(b) { b.classList.remove('is-active'); b.setAttribute('aria-pressed', 'false'); });
-          btn.classList.add('is-active');
-          btn.setAttribute('aria-pressed', 'true');
-          outputs.forEach(function(o) { o.hidden = o.dataset.output !== key; });
-        });
-      });
-    })();
-  </script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

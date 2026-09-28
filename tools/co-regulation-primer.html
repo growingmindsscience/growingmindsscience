@@ -16,7 +16,7 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="A nervous-system primer for parents — Growing Minds Science" />
   <meta property="og:description" content="A short reference that explains co-regulation in plain language: what it actually is, why a child borrows calm from a steady adult, and why your state matters more than any perfect script." />
-  <meta property="og:image" content="/assets/img/site/family-reading.jpg" />
+  <meta property="og:image" content="https://growingmindsscience.com/assets/img/site/family-reading.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -59,15 +59,6 @@
     .what-block__label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .1em; color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
     .what-block__text { margin: 0; color: var(--ink-soft); line-height: 1.65; }
 
-    .decoder { display: grid; grid-template-columns: .95fr 1.05fr; gap: var(--space-5); align-items: start; }
-    .decoder-buttons { display: grid; gap: .75rem; }
-    .decoder-btn { padding: .8rem 1rem; text-align: left; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); cursor: pointer; transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition); }
-    .decoder-btn.is-active { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
-    .decoder-output { padding: var(--space-6); border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--border-soft); box-shadow: var(--shadow-sm); }
-    .decoder-output[hidden] { display: none; }
-    .decoder-output h3 { margin: 0 0 .6rem; font-size: var(--text-lg); }
-    .decoder-output p { color: var(--ink-soft); }
-
     .response-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }
     .response-card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: var(--space-5); }
     .response-card__num { width: 34px; height: 34px; border-radius: 999px; display: grid; place-items: center; background: var(--primary); color: var(--primary-ink); font-weight: 700; margin-bottom: var(--space-4); }
@@ -94,7 +85,6 @@
 
     @media (max-width: 920px) {
       .hero-grid,
-      .decoder,
       .response-grid,
       .compare-grid,
       .cta-strip { grid-template-columns: 1fr; }
@@ -220,35 +210,35 @@
           </div>
 
           <div>
-            <article class="decoder-output" data-output="revved">
+            <article class="decoder-output" data-output="revved" data-ai-question="My child gets revved up and silly past the point of fun. How do I help them settle?">
               <span class="tag">Their system needs: a slower one to match</span>
               <h3>Bring your pace down, and they&rsquo;ll drift toward it.</h3>
               <p>Wound-up, giddy energy is still dysregulation. The child isn&rsquo;t going to find the brakes on their own. They&rsquo;ll borrow your tempo, so slow your own body first: quieter voice, slower movements, less stimulation around you both.</p>
               <p class="small">Move: drop your volume and slow down rather than getting louder and faster to be heard over them.</p>
             </article>
 
-            <article class="decoder-output" data-output="meltdown" hidden>
+            <article class="decoder-output" data-output="meltdown" data-ai-question="My child is melting down and can't hear me. What does co-regulation look like right now?" hidden>
               <span class="tag">Their system needs: steady presence, not words</span>
               <h3>Be the calm body in the room, and talk less.</h3>
               <p>A flooded child can&rsquo;t process language or logic. This isn&rsquo;t the moment to explain. Get low, stay near, keep your face and voice soft, and let your steadiness do the work while the wave passes.</p>
               <p class="small">Move: less talking, more presence. Your regulated body is the message.</p>
             </article>
 
-            <article class="decoder-output" data-output="frozen" hidden>
+            <article class="decoder-output" data-output="frozen" data-ai-question="My child shuts down and goes quiet when upset. How do I help?" hidden>
               <span class="tag">Their system needs: safety and no pressure</span>
               <h3>Come close gently and lower the demand to zero.</h3>
               <p>Going quiet or limp is a stress response too, not stubbornness or calm. Pushing harder makes a frozen system retreat further. Offer a soft, unhurried presence, drop any demand for now, and give them time to come back.</p>
               <p class="small">Move: get close and quiet, wait, and let them re-engage at their own pace.</p>
             </article>
 
-            <article class="decoder-output" data-output="testing" hidden>
+            <article class="decoder-output" data-output="testing" data-ai-question="My child is frustrated and testing a limit. How do I stay calm and firm?" hidden>
               <span class="tag">Their system needs: a calm, steady edge</span>
               <h3>Hold the limit with a regulated body.</h3>
               <p>Frustration plus a boundary is normal, and you can be calm and firm at the same time. Steady is not soft. Keep the limit simple, let the feeling exist, and don&rsquo;t add new arguments or match the intensity coming at you.</p>
               <p class="small">Move: keep your voice level and the limit unchanged, even while they protest.</p>
             </article>
 
-            <article class="decoder-output" data-output="scared" hidden>
+            <article class="decoder-output" data-output="scared" data-ai-question="My child is scared or overwhelmed by something new. How can I help them feel safe?" hidden>
               <span class="tag">Their system needs: your steadiness as a reference</span>
               <h3>Be the signal that this is safe.</h3>
               <p>A child meeting something new checks your face and tone to decide how alarmed to be. If your body reads calm and unhurried, that&rsquo;s the cue their system uses. Stay close, narrate gently, and let them approach the new thing from the safety of you.</p>
@@ -353,18 +343,6 @@
       </div>
     </section>
 
-    <section style="padding-top:0;">
-      <div class="container container--narrow">
-        <div class="promo-banner">
-          <div>
-            <p class="eyebrow">Now available · $49</p>
-            <p class="promo-banner__body">Toddler class · Unlimited Growing Minds AI · Milestone tracker · Lifetime access</p>
-          </div>
-          <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now →</a>
-        </div>
-      </div>
-    </section>
-
     <section>
       <div class="container container--narrow">
         <div class="cta-strip">
@@ -374,7 +352,7 @@
             <p class="small" style="max-width:38rem; margin:0;">What&rsquo;s happening in a toddler&rsquo;s nervous system, why your calm becomes their scaffold, and what that looks like in practice. $49 for lifetime access.</p>
           </div>
           <div class="hero-actions">
-            <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a>
+            <a class="btn btn--primary" href="/classes/toddlerhood.html">See the toddler class</a>
             <a class="btn btn--ghost" href="/tools/regulating-yourself-first">Regulating yourself first</a>
           </div>
         </div>

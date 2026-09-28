@@ -176,7 +176,7 @@
           <h2>Browse the library</h2>
           <p class="al-sub">Set the age and anything else you care about. Everything else is optional.</p>
           <div class="al-filters" id="al-filters"></div>
-          <p class="al-count" id="al-count"></p>
+          <p class="al-count" id="al-count" role="status"></p>
           <div class="al-grid" id="al-grid"></div>
         </div>
 
@@ -321,6 +321,7 @@
           type: "button",
           class: "al-chip" + (current === o.value ? " is-active" : ""),
           "aria-pressed": current === o.value ? "true" : "false",
+          "data-key": labelText + ":" + String(o.value),
           text: o.label,
           onclick: () => onPick(o.value),
         }));
@@ -387,7 +388,15 @@
     }
 
     function render() {
+      // The chips are rebuilt on every change; put keyboard focus back on the
+      // same chip so a keyboard or screen-reader user keeps their place.
+      const focused = document.activeElement;
+      const keep = focused && filtersEl.contains(focused) ? focused.getAttribute("data-key") : null;
       renderFilters();
+      if (keep) {
+        const again = Array.from(filtersEl.querySelectorAll("[data-key]")).find((b) => b.getAttribute("data-key") === keep);
+        if (again) again.focus();
+      }
       grid.innerHTML = "";
       const list = data.activities.filter(matches);
       countEl.textContent = list.length

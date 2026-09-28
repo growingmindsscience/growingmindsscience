@@ -94,7 +94,8 @@
     .nv-answer:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
     .nv-help { font-size: var(--text-sm); color: var(--ink-muted); max-width: 46rem; margin: 0 0 var(--space-5); }
     .nv-nav { display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-6); flex-wrap: wrap; }
-    .nv-error { color: #9C4429; font-size: var(--text-sm); margin: var(--space-3) 0 0; }
+    .nv-error { color: var(--accent-brown); font-size: var(--text-sm); margin: var(--space-3) 0 0; }
+    .nv-field__label { margin: 0; font-weight: 600; font-family: var(--font-display); }
     .nv-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
     .nv-chip {
       padding: .55rem .9rem; border-radius: 999px; border: 1px solid var(--border);
@@ -215,7 +216,7 @@
 
     <section id="navigator" aria-label="Milestone Navigator">
       <div class="container nv-app">
-        <div class="nv-card" id="nv-root" aria-live="polite">
+        <div class="nv-card" id="nv-root">
           <noscript><p>The Milestone Navigator needs JavaScript to run. Everything happens on your device; nothing is sent to us.</p></noscript>
         </div>
         <p class="nv-fine">This tool offers educational information, not medical advice, diagnosis, or screening. It cannot see your child; it can only organize what you report. Decisions about your child's health belong with you and your child's clinician. If your child is in immediate danger or distress, call your local emergency number.</p>
@@ -324,18 +325,19 @@
     function effectiveMonths() {
       return correctedAge(state.ageMonths, state.weeksEarly, trees.corrected_age);
     }
+    // Only a saved birthday gives an exact age; a saved stage is too coarse to prefill.
     function profileMonths() {
       try {
         if (window.GMS && GMS.profile) {
           const child = GMS.profile.getActive();
-          if (child) return GMS.profile.ageInMonths(child);
+          if (child && child.birthdate) return GMS.profile.ageInMonths(child);
         }
       } catch (e) {}
       return null;
     }
 
     /* ---------------- pick a worry ---------------- */
-    function renderDomains() {
+    function renderDomains(opts) {
       state.answers = {}; state.qIndex = 0; state.domainKey = null;
       root.innerHTML = "";
       const wrap = el("div", {}, [
@@ -352,7 +354,8 @@
       });
       wrap.appendChild(grid);
       root.appendChild(wrap);
-      focusTitle();
+      // On first load, leave focus where the visitor is (top of the page).
+      if (!(opts && opts.initial)) focusTitle();
     }
 
     /* ---------------- age ---------------- */
@@ -366,37 +369,49 @@
         el("p", { class: "nv-lede", text: "The questions and the lines they check move month by month, so age comes first." }),
       ]);
 
+      const prefilled = state.ageMonths == null && pre != null;
       wrap.appendChild(el("div", { class: "nv-field" }, [
         el("label", { for: "nv-age", text: "Age in months" }),
-        el("input", { id: "nv-age", type: "number", min: "0", max: "72", inputmode: "numeric", value: state.ageMonths != null ? String(state.ageMonths) : (pre != null ? String(pre) : "") }),
-        el("p", { class: "nv-hint", text: "For a 2-year-old, that's 24. Anything from birth to about 5 works here." }),
+        el("input", { id: "nv-age", type: "number", min: "0", max: "72", inputmode: "numeric", "aria-describedby": "nv-age-hint", value: state.ageMonths != null ? String(state.ageMonths) : (prefilled ? String(pre) : "") }),
+        el("p", { class: "nv-hint", id: "nv-age-hint", text: prefilled
+          ? "For a 2-year-old, that's 24. Anything from birth to about 5 works here. Filled in from your saved profile; change it if it's not right."
+          : "For a 2-year-old, that's 24. Anything from birth to about 5 works here." }),
       ]));
 
+      // The chips update in place (no re-render), so a typed age is kept.
+      const earlyQuestion = "Was your child born more than 3 weeks early?";
       const earlyField = el("div", { class: "nv-field" }, [
-        el("label", { text: "Was your child born more than 3 weeks early?" }),
+        el("p", { class: "nv-field__label", text: earlyQuestion }),
       ]);
-      const chips = el("div", { class: "nv-chips", role: "group" });
+      const weeksField = el("div", { class: "nv-field", style: state.bornEarly ? "" : "display:none" }, [
+        el("label", { for: "nv-weeks", text: "About how many weeks early?" }),
+        el("input", { id: "nv-weeks", type: "number", min: "4", max: "18", inputmode: "numeric", value: state.weeksEarly ? String(state.weeksEarly) : "" }),
+        el("p", { class: "nv-hint", text: "Under 24 months we use corrected age, counted from the due date. Your pediatrician does the same." }),
+      ]);
+      const chips = el("div", { class: "nv-chips", role: "group", "aria-label": earlyQuestion });
       [{ v: false, label: "No, full term or close" }, { v: true, label: "Yes, more than 3 weeks early" }].forEach((o) => {
-        chips.appendChild(el("button", {
+        const chip = el("button", {
           type: "button",
           class: "nv-chip" + (state.bornEarly === o.v ? " is-active" : ""),
           "aria-pressed": state.bornEarly === o.v ? "true" : "false",
           text: o.label,
-          onclick: () => { state.bornEarly = o.v; if (!o.v) state.weeksEarly = 0; renderAge(); },
-        }));
+          onclick: () => {
+            state.bornEarly = o.v;
+            if (!o.v) state.weeksEarly = 0;
+            chips.querySelectorAll(".nv-chip").forEach((c) => {
+              c.classList.toggle("is-active", c === chip);
+              c.setAttribute("aria-pressed", c === chip ? "true" : "false");
+            });
+            weeksField.style.display = o.v ? "" : "none";
+          },
+        });
+        chips.appendChild(chip);
       });
       earlyField.appendChild(chips);
       wrap.appendChild(earlyField);
+      wrap.appendChild(weeksField);
 
-      if (state.bornEarly) {
-        wrap.appendChild(el("div", { class: "nv-field" }, [
-          el("label", { for: "nv-weeks", text: "About how many weeks early?" }),
-          el("input", { id: "nv-weeks", type: "number", min: "4", max: "18", inputmode: "numeric", value: state.weeksEarly ? String(state.weeksEarly) : "" }),
-          el("p", { class: "nv-hint", text: "Under 24 months we use corrected age, counted from the due date. Your pediatrician does the same." }),
-        ]));
-      }
-
-      const err = el("p", { class: "nv-error", hidden: "hidden" });
+      const err = el("p", { class: "nv-error", role: "alert", hidden: "hidden" });
       wrap.appendChild(err);
       wrap.appendChild(el("div", { class: "nv-nav" }, [
         el("button", {
@@ -513,9 +528,15 @@
         actions.appendChild(el("button", { type: "button", class: "btn btn--primary", text: "Print notes for your visit", onclick: () => printSheet(domain, result) }));
       }
       if (window.GMS) {
-        const q = result.class === "typical_range"
+        // The AI page keeps a prefilled question to 500 characters: name at most
+        // three observations so the actual question at the end always survives.
+        const ask = " How do I prepare for that conversation?";
+        let named = result.flags.slice(0, 3).map((f) => f.label.toLowerCase());
+        const build = () => `The Milestone Navigator suggested we talk to our pediatrician about: ${named.join("; ")}.${ask}`;
+        let q = result.class === "typical_range"
           ? `My ${domain.title.toLowerCase()} check came back typical. What should I expect next at this age?`
-          : `The Milestone Navigator suggested we talk to our pediatrician about: ${result.flags.map((f) => f.label.toLowerCase()).join("; ")}. How do I prepare for that conversation?`;
+          : build();
+        while (result.class !== "typical_range" && q.length > 440 && named.length > 1) { named = named.slice(0, -1); q = build(); }
         actions.appendChild(el("a", { class: "btn btn--ghost", href: GMS.askUrl(q), text: "Ask Growing Minds AI" }));
       }
       actions.appendChild(el("button", { type: "button", class: "gms-link", text: "Check another area", onclick: renderDomains }));
@@ -551,7 +572,7 @@
       window.print();
     }
 
-    renderDomains();
+    renderDomains({ initial: true });
   </script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
