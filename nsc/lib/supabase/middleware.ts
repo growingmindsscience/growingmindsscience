@@ -11,6 +11,8 @@ const PUBLIC_EXACT = new Set(["/", "/evidence"]);
 const PUBLIC_PREFIXES = [
   "/login",
   "/signup",
+  "/class-login",
+  "/class-signup",
   "/auth",
   "/reset",
   "/gift", // gifting needs no account; buy + printable card are public
@@ -21,6 +23,7 @@ const PUBLIC_PREFIXES = [
   "/api/cron", // guarded by its own CRON_SECRET bearer check
   "/api/email/unsubscribe", // token-authenticated, clicked from mail clients
   "/api/entitlements", // self-gating: returns authenticated:false, never redirects
+  "/api/classes", // class playback/progress handlers return JSON auth errors themselves
 ];
 // /admin is intentionally NOT public: middleware sends signed-out visitors to
 // /login, and requireAdmin 404s any signed-in non-admin.
@@ -60,7 +63,8 @@ export async function updateSession(request: NextRequest) {
 
   if (!user && !isPublic) {
     const url = request.nextUrl.clone();
-    url.pathname = "/login";
+    url.pathname = path.startsWith("/app/classes") || path.startsWith("/admin/classes")
+      ? "/class-login" : "/login";
     url.searchParams.set("next", path);
     return NextResponse.redirect(url);
   }

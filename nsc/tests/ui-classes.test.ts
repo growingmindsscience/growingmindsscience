@@ -5,6 +5,28 @@ import { buttonClasses } from "../components/ui";
 
 const root = join(__dirname, "..");
 
+/** The opening tag that starts at `start`: up to its first `>` outside
+ *  braces and quotes (a `>` in `() => x` or in a string is not the end). */
+function openingTag(src: string, start: number): string {
+  let depth = 0;
+  let quote: string | null = null;
+  for (let i = start; i < src.length; i++) {
+    const ch = src[i];
+    if (quote) {
+      if (ch === quote) quote = null;
+    } else if (ch === '"' || ch === "'" || ch === "`") {
+      quote = ch;
+    } else if (ch === "{") {
+      depth++;
+    } else if (ch === "}") {
+      depth--;
+    } else if (ch === ">" && depth === 0) {
+      return src.slice(start, i + 1);
+    }
+  }
+  return src.slice(start);
+}
+
 function tsxFiles(dir: string): string[] {
   return readdirSync(dir).flatMap((name) => {
     const p = join(dir, name);
@@ -41,9 +63,7 @@ describe("button variants (N10)", () => {
       const re = /<(Button|LinkButton|SubmitButton)\b/g;
       let m: RegExpExecArray | null;
       while ((m = re.exec(src))) {
-        const end = src.indexOf(">\n", m.index);
-        const tag = src.slice(m.index, end === -1 ? undefined : end);
-        const cls = /className="([^"]*)"/.exec(tag)?.[1];
+        const cls = /className="([^"]*)"/.exec(openingTag(src, m.index))?.[1];
         if (cls && CONFLICT.test(cls)) offenders.push(`${relative(root, file)}: ${cls}`);
       }
     }

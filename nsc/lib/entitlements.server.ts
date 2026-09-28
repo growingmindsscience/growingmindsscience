@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { requireAuth } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { unlocksNumberPath } from "@/lib/grants";
+import { ownsToddlerClass } from "@/lib/classes";
 
 /**
  * Entitlements. The original one-time SKU (`numberpath_full` in
@@ -123,10 +124,26 @@ export async function getEntitlementSummary(): Promise<EntitlementSummary> {
     .select("product_scope, expires_at")
     .eq("user_id", user.id);
   for (const row of ent ?? []) {
+    if (row.product_scope === "class:toddlerhood" || row.product_scope === "class:infant") continue;
     if (row.expires_at === null || new Date(row.expires_at) > now) {
       scopes.add(row.product_scope);
     }
   }
+
+  // Class ownership excludes legacy shared-code grants. Keep this check in
+  // one place so the account page never labels a shared code as a paid class.
+  const { data: classGrants } = await supabase
+    .from("entitlements")
+    .select("expires_at, source, source_ref")
+    .eq("user_id", user.id)
+    .eq("product_scope", "class:toddlerhood");
+  if (ownsToddlerClass(classGrants ?? [], now)) scopes.add("class:toddlerhood");
+  const { data: infantGrants } = await supabase
+    .from("entitlements")
+    .select("expires_at, source, source_ref")
+    .eq("user_id", user.id)
+    .eq("product_scope", "class:infant");
+  if (ownsToddlerClass(infantGrants ?? [], now)) scopes.add("class:infant");
 
   const membership = scopes.has("membership");
   return {

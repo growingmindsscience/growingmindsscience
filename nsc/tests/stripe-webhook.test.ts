@@ -17,6 +17,11 @@ function deps(db: FakeDb, over: Partial<WebhookDeps> = {}): WebhookDeps {
     sendEmail: vi.fn(async () => ({ ok: true })),
     prices: { membershipMonthly: "price_mo", membershipAnnual: "price_yr" },
     site: "https://growingmindsscience.com",
+    classes: {
+      fulfill: vi.fn(async () => {}),
+      revokeRefunded: vi.fn(async () => {}),
+      revokeDisputed: vi.fn(async () => {}),
+    },
     ...over,
   };
 }
@@ -67,6 +72,65 @@ describe("checkout fulfillment plan (pure)", () => {
   it("never defaults the product: unlabeled or unknown sessions are ignored", () => {
     expect(planCheckout({ ...base, metadata: {} })).toEqual({ kind: "ignore", reason: "no product metadata" });
     expect(planCheckout({ ...base, metadata: { product: "ai_pro" } }).kind).toBe("ignore");
+  });
+});
+
+describe("stripe webhook: on-site classes", () => {
+  const classSession = { metadata: { product: "class_bundle_toddlerhood", owner_id: "user-1" } };
+
+  it("hands a paid class checkout to class fulfilment, not the generic grant", async () => {
+    const db = new FakeDb({ uniques });
+    const d = deps(db);
+    for (const type of ["checkout.session.completed", "checkout.session.async_payment_succeeded"]) {
+      const out = await handleStripeEvent(checkout(classSession, type), d);
+      expect(out.status).toBe(200);
+    }
+    expect(d.classes.fulfill).toHaveBeenCalledTimes(2);
+    expect(vi.mocked(d.classes.fulfill).mock.calls[0][0]).toMatchObject({ id: "cs_1" });
+    expect(db.rows("nsc_purchases")).toEqual([]);
+    expect(db.rows("entitlements")).toEqual([]);
+  });
+
+  it("waits on an unpaid class checkout", async () => {
+    const d = deps(new FakeDb({ uniques }));
+    const out = await handleStripeEvent(checkout({ ...classSession, payment_status: "unpaid" }), d);
+    expect(out.status).toBe(200);
+    expect(d.classes.fulfill).not.toHaveBeenCalled();
+  });
+
+  it("answers 500 when class fulfilment fails, so Stripe retries", async () => {
+    const d = deps(new FakeDb({ uniques }), {
+      classes: {
+        fulfill: vi.fn(async () => {
+          throw new Error("Class checkout did not pass owner and price verification");
+        }),
+        revokeRefunded: vi.fn(async () => {}),
+        revokeDisputed: vi.fn(async () => {}),
+      },
+    });
+    const out = await handleStripeEvent(checkout(classSession), d);
+    expect(out.status).toBe(500);
+  });
+
+  it("revokes on a refund or a dispute, and retries when that fails", async () => {
+    const d = deps(new FakeDb({ uniques }));
+    const refund = { id: "evt_r", type: "charge.refunded", data: { object: { id: "ch_1", refunded: true, payment_intent: "pi_1" } } } as unknown as Stripe.Event;
+    const dispute = { id: "evt_d", type: "charge.dispute.created", data: { object: { id: "dp_1", payment_intent: "pi_1" } } } as unknown as Stripe.Event;
+    expect((await handleStripeEvent(refund, d)).status).toBe(200);
+    expect((await handleStripeEvent(dispute, d)).status).toBe(200);
+    expect(d.classes.revokeRefunded).toHaveBeenCalledWith(expect.objectContaining({ id: "ch_1" }));
+    expect(d.classes.revokeDisputed).toHaveBeenCalledWith(expect.objectContaining({ id: "dp_1" }));
+
+    const failing = deps(new FakeDb({ uniques }), {
+      classes: {
+        fulfill: vi.fn(async () => {}),
+        revokeRefunded: vi.fn(async () => {
+          throw new Error("Could not revoke class grant");
+        }),
+        revokeDisputed: vi.fn(async () => {}),
+      },
+    });
+    expect((await handleStripeEvent(refund, failing)).status).toBe(500);
   });
 });
 

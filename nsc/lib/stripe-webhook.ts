@@ -1,6 +1,7 @@
 import type Stripe from "stripe";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { applyGrants } from "@/lib/entitlement-writes";
+import { TODDLER_COURSE } from "@/lib/classes";
 import {
   grantsForOneTimePurchase,
   grantsForSubscription,
@@ -38,6 +39,13 @@ export interface WebhookDeps {
   prices: PriceConfig;
   /** Public origin for links in emails (lib/site siteOrigin()). */
   site: string;
+  /** On-site class purchases (lib/class-orders.server.ts). Each throws on a
+   *  failed check or write, which answers 500 so Stripe retries. */
+  classes: {
+    fulfill(session: Stripe.Checkout.Session): Promise<void>;
+    revokeRefunded(charge: Stripe.Charge): Promise<void>;
+    revokeDisputed(dispute: Stripe.Dispute): Promise<void>;
+  };
 }
 
 export interface WebhookOutcome {
@@ -83,6 +91,7 @@ export function isFulfillable(session: Pick<CheckoutSessionLike, "payment_status
 
 export type CheckoutPlan =
   | { kind: "gift" }
+  | { kind: "class" }
   | { kind: "purchase"; ownerId: string; product: string }
   | { kind: "ignore"; reason: string };
 
@@ -91,6 +100,9 @@ export function planCheckout(session: CheckoutSessionLike): CheckoutPlan {
   if (session.mode !== "payment") return { kind: "ignore", reason: "not a one-time payment" };
   if (!isFulfillable(session)) return { kind: "ignore", reason: "payment not settled yet" };
   if (session.metadata?.kind === "gift") return { kind: "gift" };
+  // On-site classes have their own fulfilment: owner and price verification,
+  // a class_orders row, and revocation on a refund or dispute.
+  if (session.metadata?.product === TODDLER_COURSE.product) return { kind: "class" };
 
   // Never guess the product: every session this app creates labels it, and
   // other checkouts on the same Stripe account reach this endpoint too.
@@ -133,6 +145,11 @@ async function handleCheckout(
 ): Promise<WebhookOutcome> {
   const plan = planCheckout(session);
   if (plan.kind === "ignore") return ok({ received: true, ignored: plan.reason });
+
+  if (plan.kind === "class") {
+    await deps.classes.fulfill(session as Stripe.Checkout.Session);
+    return ok({ received: true, class: TODDLER_COURSE.slug });
+  }
 
   if (plan.kind === "gift") {
     const email = session.customer_details?.email ?? session.customer_email ?? null;
@@ -248,6 +265,15 @@ export async function handleStripeEvent(
     }
     if (SUBSCRIPTION_EVENTS.has(event.type)) {
       return await handleSubscription(event, deps);
+    }
+    // A refund or dispute takes back that payment's class grant, and only it.
+    if (event.type === "charge.refunded") {
+      await deps.classes.revokeRefunded(event.data.object as Stripe.Charge);
+      return ok({ received: true, revoked: "refund" });
+    }
+    if (event.type === "charge.dispute.created") {
+      await deps.classes.revokeDisputed(event.data.object as Stripe.Dispute);
+      return ok({ received: true, revoked: "dispute" });
     }
     return ok({ received: true, ignored: event.type });
   } catch (err) {

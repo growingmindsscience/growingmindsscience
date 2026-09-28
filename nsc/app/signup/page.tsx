@@ -45,7 +45,7 @@ export default async function SignupPage({
       </Card>
       <p className="text-center text-sm text-teal-soft">
         Already have an account?{" "}
-        <Link href="/login" className="font-semibold text-teal underline">
+        <Link href={`/login?next=${encodeURIComponent(next ?? "/app")}`} className="font-semibold text-teal underline">
           Sign in
         </Link>
       </p>

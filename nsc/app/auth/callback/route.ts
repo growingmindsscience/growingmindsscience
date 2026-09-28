@@ -32,10 +32,11 @@ export async function GET(req: Request) {
       return NextResponse.redirect(new URL(`/nsc${next}`, origin));
     }
   }
-  return NextResponse.redirect(
-    new URL(
-      `/nsc/login?error=${encodeURIComponent("That link expired. Please request a fresh one.")}`,
-      origin,
-    ),
-  );
+  const classFlow = next.startsWith("/reset/update?class=1") ||
+    next.startsWith("/app/classes") || next.startsWith("/admin/classes");
+  const loginPath = classFlow ? "/nsc/class-login" : "/nsc/login";
+  return NextResponse.redirect(new URL(
+    `${loginPath}?error=${encodeURIComponent("That link expired. Please request a fresh one.")}`,
+    origin,
+  ));
 }

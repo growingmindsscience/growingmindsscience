@@ -8,19 +8,20 @@ import { brand } from "@/lib/config/brand";
 export default async function UpdatePasswordPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; class?: string }>;
 }) {
-  const { error } = await searchParams;
+  const { error, class: classParam } = await searchParams;
+  const classFlow = classParam === "1";
   // The recovery link signs the parent in via /auth/callback first; with no
   // session there is nothing to update.
   const user = await getUser();
-  if (!user) redirect("/reset?error=That+link+expired+%E2%80%94+request+a+fresh+one.");
+  if (!user) redirect(`/reset?error=That+link+expired+%E2%80%94+request+a+fresh+one.${classFlow ? "&class=1" : ""}`);
 
   return (
     <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center gap-6 px-6 py-12">
       <div className="text-center">
         <p className="text-sm font-medium uppercase tracking-widest text-teal">
-          {brand.productName}
+          {classFlow ? "Growing Minds Science · Classes" : brand.productName}
         </p>
         <h1 className="mt-1 text-3xl font-semibold text-ink-deep">
           Choose a new password
@@ -28,6 +29,7 @@ export default async function UpdatePasswordPage({
       </div>
       <Card>
         <form action={updatePassword} className="flex flex-col gap-4">
+          {classFlow && <input type="hidden" name="class_flow" value="1" />}
           <Field label="New password" htmlFor="password" hint="At least 12 characters">
             <Input
               id="password"

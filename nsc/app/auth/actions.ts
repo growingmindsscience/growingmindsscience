@@ -27,6 +27,11 @@ async function safeBackfill(user: { id: string; email?: string | null } | null):
   }
 }
 
+function classAuthPath(next: string, page: "login" | "signup") {
+  const forClasses = next.startsWith("/app/classes") || next.startsWith("/admin/classes");
+  return forClasses ? `/class-${page}` : `/${page}`;
+}
+
 export async function login(formData: FormData) {
   const supabase = await createClient();
   const email = String(formData.get("email") ?? "").trim();
@@ -36,7 +41,7 @@ export async function login(formData: FormData) {
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) {
     redirect(
-      `/login?error=${encodeURIComponent(friendlyAuthError(error.message))}&next=${encodeURIComponent(next)}`,
+      `${classAuthPath(next, "login")}?error=${encodeURIComponent(friendlyAuthError(error.message))}&next=${encodeURIComponent(next)}`,
     );
   }
   await safeBackfill(data.user);
@@ -52,7 +57,7 @@ export async function signup(formData: FormData) {
 
   if (password.length < 12) {
     redirect(
-      `/signup?error=${encodeURIComponent("Password must be at least 12 characters.")}&next=${encodeURIComponent(next)}`,
+      `${classAuthPath(next, "signup")}?error=${encodeURIComponent("Password must be at least 12 characters.")}&next=${encodeURIComponent(next)}`,
     );
   }
 
@@ -67,13 +72,14 @@ export async function signup(formData: FormData) {
   });
   if (error) {
     redirect(
-      `/signup?error=${encodeURIComponent(friendlyAuthError(error.message))}&next=${encodeURIComponent(next)}`,
+      `${classAuthPath(next, "signup")}?error=${encodeURIComponent(friendlyAuthError(error.message))}&next=${encodeURIComponent(next)}`,
     );
   }
   if (!data.session) {
     // Confirmation is on: there is no session yet, so say so instead of
-    // bouncing the parent silently to the sign-in page.
-    redirect("/login?confirm=1");
+    // bouncing the parent silently to the sign-in page. Class sign-ups go
+    // back to the class sign-in, which keeps its destination.
+    redirect(`${classAuthPath(next, "login")}?confirm=1&next=${encodeURIComponent(next)}`);
   }
   // Supabase returned a session straight away; link any earlier purchases
   // (see the note on safeBackfill).
@@ -85,29 +91,33 @@ export async function signup(formData: FormData) {
 export async function requestPasswordReset(formData: FormData) {
   const supabase = await createClient();
   const email = String(formData.get("email") ?? "").trim();
-  if (!email) redirect("/reset?error=Please+enter+your+email.");
+  const classFlow = formData.get("class_flow") === "1";
+  const classQuery = classFlow ? "&class=1" : "";
+  if (!email) redirect(`/reset?error=Please+enter+your+email.${classQuery}`);
 
   await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${siteOrigin()}/nsc/auth/callback?next=${encodeURIComponent("/reset/update")}`,
+    redirectTo: `${siteOrigin()}/nsc/auth/callback?next=${encodeURIComponent(classFlow ? "/reset/update?class=1" : "/reset/update")}`,
   });
   // Always confirm — never reveal whether an account exists.
-  redirect("/reset?sent=1");
+  redirect(`/reset?sent=1${classQuery}`);
 }
 
 export async function updatePassword(formData: FormData) {
   const supabase = await createClient();
   const password = String(formData.get("password") ?? "");
+  const classFlow = formData.get("class_flow") === "1";
+  const classQuery = classFlow ? "&class=1" : "";
   if (password.length < 12) {
     redirect(
-      `/reset/update?error=${encodeURIComponent("Password must be at least 12 characters.")}`,
+      `/reset/update?error=${encodeURIComponent("Password must be at least 12 characters.")}${classQuery}`,
     );
   }
   const { error } = await supabase.auth.updateUser({ password });
   if (error) {
-    redirect(`/reset/update?error=${encodeURIComponent(friendlyAuthError(error.message))}`);
+    redirect(`/reset/update?error=${encodeURIComponent(friendlyAuthError(error.message))}${classQuery}`);
   }
   revalidatePath("/", "layout");
-  redirect("/app");
+  redirect(classFlow ? "/app/classes" : "/app");
 }
 
 export async function signout() {
@@ -115,4 +125,11 @@ export async function signout() {
   await supabase.auth.signOut();
   revalidatePath("/", "layout");
   redirect("/");
+}
+
+export async function signoutClasses() {
+  const supabase = await createClient();
+  await supabase.auth.signOut();
+  revalidatePath("/", "layout");
+  redirect("/class-login");
 }

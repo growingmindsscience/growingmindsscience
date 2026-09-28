@@ -6,6 +6,11 @@ import { mintGiftCode } from "@/lib/gift.server";
 import { sendEmail } from "@/lib/email.server";
 import { siteOrigin } from "@/lib/site";
 import { handleStripeEvent } from "@/lib/stripe-webhook";
+import {
+  fulfillClassCheckout,
+  revokeDisputedClassPurchase,
+  revokeRefundedClassPurchase,
+} from "@/lib/class-orders.server";
 import type { PriceConfig } from "@/lib/grants";
 
 /** Membership price wiring (plan 2.2). Unset env → no subscription grants,
@@ -62,6 +67,11 @@ export async function POST(req: NextRequest) {
     sendEmail,
     prices: pricesFromEnv(),
     site: siteOrigin(),
+    classes: {
+      fulfill: fulfillClassCheckout,
+      revokeRefunded: revokeRefundedClassPurchase,
+      revokeDisputed: revokeDisputedClassPurchase,
+    },
   });
   return NextResponse.json(outcome.body, { status: outcome.status });
 }
