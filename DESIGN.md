@@ -233,7 +233,11 @@ Mostly flat, with low, long, diffuse shadows tinted toward pine. Depth comes mor
 - **Focus:** visible `:focus-visible` — `2.5px` coral-deep outline, `3px` offset (coral on dark bands). Never removed.
 
 ### Navigation
-- **Style:** sticky header (70px), Bricolage Grotesque links, teal hover; primary "See the class" pill CTA. Theme toggle. Mobile: off-canvas, fully hidden until toggled, closes on link click / Escape.
+- **One header and footer everywhere.** Styles live only in `assets/css/chrome.css` (loaded last on every page) and behavior only in `assets/js/chrome.js`. Don't restyle `.site-header` / `.site-footer` in page stylesheets.
+- **Structure:** four section links (Classes · Free tools · Articles · About), then a divider, Log in, and one teal pill CTA ("See the class"; "Enroll now" to checkout on the toddler page; "Join waitlist" on waitlist class pages), then the theme toggle.
+- **Free tools menu:** a `<details>` dropdown listing the four interactive tools (Growing Minds AI, Number Path, Milestone tracker, Communication Snapshot) with one-line descriptions, plus "All free tools and guides". New tools go here, not into the top bar.
+- **Style:** sticky 72px header (64px under 720px), Bricolage Grotesque links, coral underline for hover/current. Below 1000px the links collapse into a full-width panel; the current page gets a coral dot.
+- **Footer:** brand + Instagram, then Classes / Free tools / About columns. Arcade lives in the bottom line only; it's an easter egg, not a section.
 
 ### Signature: Growth Arc & Chat Demo
 - **Growth Arc:** a custom `role="tablist"` of five developmental stages over an SVG curve, with arrow/Home/End keys, `aria-selected`, and a coral active dot. The brand's centerpiece interaction.

@@ -1,0 +1,81 @@
+#pong-orb {
+      position: fixed;
+      top: 86px;
+      right: 22px;
+      z-index: 60;
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border-radius: 50%;
+      border: 1px solid var(--border-soft);
+      background:
+        radial-gradient(circle at 32% 30%, color-mix(in oklab, var(--surface) 96%, white) 0%, var(--surface) 60%);
+      box-shadow: var(--shadow-sm), 0 10px 24px -16px color-mix(in oklab, var(--primary) 70%, black);
+      cursor: pointer;
+      color: var(--primary);
+      animation: pong-orb-float 5.5s ease-in-out infinite;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    #pong-orb:hover { transform: scale(1.12) rotate(8deg); }
+    #pong-orb:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+    #pong-orb .pong-orb__dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 22%, transparent);
+      animation: pong-orb-pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pong-orb-float { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-7px); } }
+    @keyframes pong-orb-pulse { 0%,100%{ transform: scale(1); opacity: 1; } 50%{ transform: scale(.7); opacity: .7; } }
+
+    .pong-piece { will-change: transform, opacity; }
+
+    #pong-game {
+      position: fixed; inset: 0; z-index: 90;
+      display: flex; flex-direction: column;
+      background: #0c0f0e;
+      color: #eef3ef;
+      font-family: var(--font-display, system-ui), sans-serif;
+    }
+    #pong-game[hidden] { display: none; }
+    .pong-hud {
+      display: flex; align-items: center; justify-content: center; gap: clamp(1.5rem, 6vw, 5rem);
+      padding: 1.1rem 1rem .4rem;
+      letter-spacing: .18em; text-transform: uppercase; font-size: .8rem;
+      color: #9fb3a6;
+    }
+    .pong-hud b { display: inline-block; min-width: 1.4ch; font-size: 1.7rem; color: #eef3ef; letter-spacing: 0; }
+    .pong-hud .pong-brand { color: #6f8f7b; font-weight: 700; letter-spacing: .32em; }
+    .pong-stage { position: relative; flex: 1; min-height: 0; padding: .25rem clamp(.5rem, 3vw, 2rem) .25rem; }
+    #pong-canvas {
+      display: block; width: 100%; height: 100%;
+      border-radius: 10px;
+      background: #0c0f0e;
+      touch-action: none;
+    }
+    .pong-msg {
+      position: absolute; inset: 0; display: grid; place-items: center; text-align: center;
+      pointer-events: none;
+    }
+    .pong-msg[hidden] { display: none; }
+    .pong-msg > div { background: color-mix(in oklab, #0c0f0e 70%, transparent); padding: 1.4rem 2rem; border-radius: 12px; }
+    .pong-msg h2 { margin: 0 0 .4rem; font-size: clamp(1.6rem, 5vw, 2.6rem); }
+    .pong-msg p { margin: 0; color: #9fb3a6; font-size: .95rem; }
+    .pong-msg .btn { pointer-events: auto; margin-top: 1rem; }
+    .pong-foot {
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      padding: .6rem clamp(.8rem, 3vw, 2rem) calc(1rem + env(safe-area-inset-bottom, 0px));
+      font-family: var(--font-body, system-ui), sans-serif;
+    }
+    .pong-foot__left { display: flex; align-items: center; gap: .85rem; min-width: 0; }
+    .pong-foot .pong-hint { color: #9fb3a6; font-size: .82rem; }
+    .pong-foot button {
+      font: inherit; font-size: .85rem; cursor: pointer;
+      color: #eef3ef; background: transparent;
+      border: 1px solid #34433b; border-radius: 999px; padding: .5rem 1rem;
+      transition: background .15s ease, border-color .15s ease;
+    }
+    .pong-foot button:hover { background: #16201a; border-color: #6f8f7b; }
+    @media (max-width: 540px) { #pong-orb { top: 74px; right: 16px; } .pong-foot .pong-hint { display: none; } }
+    @media (prefers-reduced-motion: reduce) { #pong-orb { animation: none; } #pong-orb .pong-orb__dot { animation: none; } }

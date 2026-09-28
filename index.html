@@ -59,6 +59,7 @@
     }
   ]
   </script>
+  <link rel="stylesheet" href="/assets/css/chrome.css" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -66,28 +67,40 @@
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
       <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
       <nav class="nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Open menu">
+          <span class="nav-toggle__bars"><span></span></span>
+        </button>
+
         <ul class="nav__list" id="primary-nav-list">
           <li><a class="nav__link" href="/classes/">Classes</a></li>
-          <li><a class="nav__link" href="/nsc">Number Path</a></li>
-          <li><a class="nav__link" href="/tools/">Tools</a></li>
-          <li><a class="nav__link" href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
+          <li class="nav__item">
+            <details class="nav__details">
+              <summary class="nav__link nav__summary">Free tools <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary>
+              <div class="nav__menu">
+                <ul class="nav__submenu">
+                  <li><a class="nav__submenu-link" href="/tools/growing-minds-ai.html"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A ten-minute counting check-in you run at home.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/communication-snapshot.html"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
+                </ul>
+                <a class="nav__menu-all" href="/tools/">All free tools and guides <span aria-hidden="true">&rarr;</span></a>
+              </div>
+            </details>
+          </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
+          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
           <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">See the class</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
           <svg class="theme-toggle__moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
-        </button>
-
-        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Toggle navigation menu">
-          <span class="nav-toggle__bars"><span></span></span>
         </button>
       </nav>
     </div>
@@ -413,46 +426,31 @@
       </svg>
       <div class="container">
         <div class="section-head" data-animate>
-          <h2 id="ways-heading">Five ways to understand your child better.</h2>
+          <h2 id="ways-heading">Three ways to understand your child better.</h2>
         </div>
 
-        <ol class="ways__list" data-stagger>
+        <ul class="ways__list" data-stagger>
           <li class="way" data-animate>
-            <span class="way__num" aria-hidden="true">1</span>
-            <div class="way__body">
-              <h3><a class="way__link" href="/classes/">Classes</a></h3>
-              <p>Self-paced courses built around developmental windows: language, autonomy, big feelings, and what your child needs at each stage.</p>
+            <h3><a class="way__link" href="/classes/">Classes</a></h3>
+            <p>Self-paced video courses built around developmental windows: language, autonomy, big feelings, and what your child needs at each stage. The toddler class is open now.</p>
+          </li>
+          <li class="way" data-animate>
+            <h3><a class="way__link" href="/tools/">Free tools</a></h3>
+            <div>
+              <p>Interactive tools and short guides for everyday moments like meltdowns, sleep, and limits. Free, with no account needed.</p>
+              <ul class="way__tools" aria-label="Featured free tools">
+                <li><a href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
+                <li><a href="/nsc">Number Path</a></li>
+                <li><a href="/milestones">Milestone tracker</a></li>
+                <li><a href="/tools/communication-snapshot.html">Communication Snapshot</a></li>
+              </ul>
             </div>
           </li>
           <li class="way" data-animate>
-            <span class="way__num" aria-hidden="true">2</span>
-            <div class="way__body">
-              <h3><a class="way__link" href="/tools/">Free tools</a></h3>
-              <p>Practical references for everyday moments: meltdowns, sleep, limits, repair, and the milestone tracker. Free, no account needed.</p>
-            </div>
+            <h3><a class="way__link" href="/articles/">Articles</a></h3>
+            <p>Research explained without buzzwords or parenting shame: serve-and-return, screen time, self-regulation, and what to do with it.</p>
           </li>
-          <li class="way" data-animate>
-            <span class="way__num" aria-hidden="true">3</span>
-            <div class="way__body">
-              <h3><a class="way__link" href="/articles/">Articles</a></h3>
-              <p>Research explained without buzzwords or parenting shame: serve-and-return, screen time, self-regulation, and what to do with it.</p>
-            </div>
-          </li>
-          <li class="way" data-animate>
-            <span class="way__num" aria-hidden="true">4</span>
-            <div class="way__body">
-              <h3><a class="way__link" href="/tools/growing-minds-ai.html">Growing Minds AI</a></h3>
-              <p>Ask a parenting question and get an answer drawn from a curated developmental-science library, with its sources shown. A private AI tutor, free to try.</p>
-            </div>
-          </li>
-          <li class="way" data-animate>
-            <span class="way__num" aria-hidden="true">5</span>
-            <div class="way__body">
-              <h3><a class="way__link" href="/nsc">Number Path</a></h3>
-              <p>A ten-minute counting check-in you run at home &mdash; a bowl, ten blocks, and a stuffed bear. It&rsquo;s the only at-home version of the lab task researchers use to place a child on the counting ladder, and the check-in is free. See where your child is, then unlock games and daily number talk matched to that spot.</p>
-            </div>
-          </li>
-        </ol>
+        </ul>
       </div>
     </section>
 
@@ -474,11 +472,6 @@
           <p class="eyebrow eyebrow--on-dark">Now enrolling</p>
           <h2>The toddler class is <em class="hl">live.</em></h2>
           <p>The flagship toddler class is available now: $49 for lifetime access, with Growing Minds AI and the free milestone tracker included. The infant, preschool, and family-systems classes are still in development, so leave your email and we'll tell you the moment each one opens.</p>
-          <ul class="signup__perks">
-            <li>Toddler years (ages 1–3): $49, lifetime access, AI included</li>
-            <li>The free milestone tracker for the first three years, no account required</li>
-            <li>Early word when the infant, preschool, and family classes open</li>
-          </ul>
           <p style="margin-top: var(--space-5);">
             <a class="btn btn--primary btn--lg" href="https://matthew-s-site-de0b.thinkific.com/products/courses/ToddlerYears" target="_blank" rel="noopener">Enroll in the toddler class</a>
           </p>
@@ -570,45 +563,56 @@
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
         <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
+        <a class="footer-ig" href="https://www.instagram.com/growingmindsscience/" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
+          Instagram
+        </a>
       </div>
-      <div>
-        <h4>Explore</h4>
-        <ul class="footer-list">
-          <li><a href="/classes/">Classes</a></li>
-          <li><a href="/pricing">Pricing</a></li>
-          <li><a href="/nsc">Number Path</a></li>
-          <li><a href="/tools/">Free tools</a></li>
-          <li><a href="/articles/">Articles</a></li>
-          <li><a href="/about/">About</a></li>
-          <li><a href="/faq/">FAQ</a></li>
-          <li><a href="/milestones">Milestone tracker</a></li>
-          <li><a href="/contact/">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Stay in the loop</h4>
-        <ul class="footer-list">
-          <li><a href="/classes/toddlerhood.html">See the toddler class →</a></li>
-          <li>
-            <a class="footer-ig" href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
-              Instagram
-            </a>
-          </li>
-        </ul>
-      </div>
+      <nav class="site-footer__nav" aria-label="Footer">
+        <div>
+          <h2 class="site-footer__heading">Classes</h2>
+          <ul class="footer-list">
+            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
+            <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/preschool.html">Preschool years</a></li>
+            <li><a href="/classes/family-systems.html">Family systems</a></li>
+            <li><a href="/pricing">Pricing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="site-footer__heading">Free tools</h2>
+          <ul class="footer-list">
+            <li><a href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
+            <li><a href="/nsc">Number Path</a></li>
+            <li><a href="/milestones">Milestone tracker</a></li>
+            <li><a href="/tools/communication-snapshot.html">Communication Snapshot</a></li>
+            <li><a href="/tools/">All tools and guides</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="site-footer__heading">About</h2>
+          <ul class="footer-list">
+            <li><a href="/about/">Our approach</a></li>
+            <li><a href="/articles/">Articles</a></li>
+            <li><a href="/faq/">FAQ</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
     </div>
     <div class="container">
       <div class="footer-bottom">
-        <span>© <span data-year>2026</span> Growing Minds Science</span>
-        <span>Educational content only. Not medical or psychological advice.</span>
+        <p>&copy; <span data-year>2026</span> Growing Minds Science &middot; <a href="/arcade/">Arcade</a></p>
+        <p>Educational content only. Not medical or psychological advice.</p>
       </div>
     </div>
   </footer>
+
+  <script src="/assets/js/chrome.js"></script>
 
   <script src="assets/js/home.js" defer></script>
   <script src="assets/js/decor.js" defer></script>

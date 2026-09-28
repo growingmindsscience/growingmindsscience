@@ -1050,13 +1050,16 @@
   }
 
   ready(function () {
-    var toggle = document.querySelector(".theme-toggle");
-    if (!toggle) return;
-
-    var hotspot = document.createElement("span");
-    hotspot.className = "gms-arcade-hotspot";
-    hotspot.setAttribute("aria-hidden", "true");
-    toggle.appendChild(hotspot);
+    var arcadeTrigger = document.querySelector('[data-arcade-game="dino"]');
+    var hotspot = arcadeTrigger;
+    if (!hotspot) {
+      var toggle = document.querySelector(".theme-toggle");
+      if (!toggle) return;
+      hotspot = document.createElement("span");
+      hotspot.className = "gms-arcade-hotspot";
+      hotspot.setAttribute("aria-hidden", "true");
+      toggle.appendChild(hotspot);
+    }
 
     var overlay = null, opening = false;
     function open() {
@@ -1064,6 +1067,11 @@
       opening = true;
       if (!overlay) overlay = buildOverlay();
       A.tearPageAway(function () { openOverlay(overlay); });
+    }
+
+    if (arcadeTrigger) {
+      hotspot.addEventListener("click", function (e) { e.preventDefault(); open(); });
+      return;
     }
 
     ["click", "mousedown", "touchstart"].forEach(function (evt) {
