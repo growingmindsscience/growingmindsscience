@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <title>Arcade — Growing Minds Science</title>
-  <meta name="description" content="Play all seven Growing Minds Science arcade games in one place: Snake, Pong, Brain Sprint, Invaders, Breakout, Synapse Drift, and Special Delivery." />
+  <meta name="description" content="Play all ten Growing Minds Science arcade games in one place: Snake, Pong, Brain Sprint, Invaders, Breakout, Synapse Drift, Special Delivery, Tidy Up, Serve &amp; Return, and Crumb Chase." />
   <meta name="theme-color" content="#6F8F7B" />
   <meta name="color-scheme" content="light dark" />
   <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
@@ -13,7 +13,7 @@
   <link rel="canonical" href="https://growingmindsscience.com/arcade/" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Arcade — Growing Minds Science" />
-  <meta property="og:description" content="Seven little games, all in one place. Pick one and play." />
+  <meta property="og:description" content="Ten little games, all in one place. Pick one and play." />
   <meta property="og:image" content="/assets/img/original-logo-mark-no-words-512.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -75,7 +75,7 @@
       <div class="container">
         <p class="eyebrow">A little room to play</p>
         <h1>Welcome to the arcade.</h1>
-        <p>All seven games that were tucked around the site are here together. Pick one, play a round, and come back for another.</p>
+        <p>The seven games tucked around the site are all here, plus three you&rsquo;ll only find in the arcade. Pick one, play a round, and come back for another.</p>
         <a class="arcade-hero__jump" href="#games">Choose a game <span aria-hidden="true">↓</span></a>
       </div>
     </section>
@@ -84,7 +84,7 @@
       <div class="container">
         <div class="arcade-gallery__heading">
           <div>
-            <p class="eyebrow">Seven games</p>
+            <p class="eyebrow">Ten games</p>
             <h2 id="games-heading">Pick your next round</h2>
           </div>
           <p>Each game opens here and has its own controls. Close a game to return to the arcade.</p>
@@ -92,31 +92,43 @@
         <div class="arcade-grid">
           <article class="arcade-card arcade-card--snake">
             <div class="arcade-card__art" aria-hidden="true"><span>●</span><span>▪ ▪ ▪ ▪</span></div>
-            <div class="arcade-card__body"><span class="arcade-card__number">01 / 07</span><h3>Synapse Snake</h3><p>Collect sparks, grow your path, and avoid tangles.</p><button class="arcade-card__play" type="button" data-arcade-game="snake" aria-label="Play Synapse Snake">Play Snake <span aria-hidden="true">↗</span></button></div>
+            <div class="arcade-card__body"><span class="arcade-card__number">01 / 10</span><h3>Synapse Snake</h3><p>Collect sparks, grow your path, and avoid tangles.</p><button class="arcade-card__play" type="button" data-arcade-game="snake" aria-label="Play Synapse Snake">Play Snake <span aria-hidden="true">↗</span></button></div>
           </article>
           <article class="arcade-card arcade-card--pong">
             <div class="arcade-card__art" aria-hidden="true"><span>▌</span><span>•</span><span>▐</span></div>
-            <div class="arcade-card__body"><span class="arcade-card__number">02 / 07</span><h3>Pong</h3><p>Take the right paddle and be first to seven.</p><button class="arcade-card__play" type="button" data-arcade-game="pong" aria-label="Play Pong">Play Pong <span aria-hidden="true">↗</span></button></div>
+            <div class="arcade-card__body"><span class="arcade-card__number">02 / 10</span><h3>Pong</h3><p>Take the right paddle and be first to seven.</p><button class="arcade-card__play" type="button" data-arcade-game="pong" aria-label="Play Pong">Play Pong <span aria-hidden="true">↗</span></button></div>
           </article>
           <article class="arcade-card arcade-card--dino">
             <div class="arcade-card__art" aria-hidden="true"><span>◕</span><span>▁ ▁ ▂</span></div>
-            <div class="arcade-card__body"><span class="arcade-card__number">03 / 07</span><h3>Brain Sprint</h3><p>Jump, duck, and keep the little sprout moving.</p><button class="arcade-card__play" type="button" data-arcade-game="dino" aria-label="Play Brain Sprint">Play Brain Sprint <span aria-hidden="true">↗</span></button></div>
+            <div class="arcade-card__body"><span class="arcade-card__number">03 / 10</span><h3>Brain Sprint</h3><p>Jump, duck, and keep the little sprout moving.</p><button class="arcade-card__play" type="button" data-arcade-game="dino" aria-label="Play Brain Sprint">Play Brain Sprint <span aria-hidden="true">↗</span></button></div>
           </article>
           <article class="arcade-card arcade-card--invaders">
             <div class="arcade-card__art" aria-hidden="true"><span>✦ ✦ ✦</span><span>▲</span></div>
-            <div class="arcade-card__body"><span class="arcade-card__number">04 / 07</span><h3>GMS Invaders</h3><p>Steer, fire, and clear the incoming wave.</p><button class="arcade-card__play" type="button" data-arcade-game="invaders" aria-label="Play GMS Invaders">Play Invaders <span aria-hidden="true">↗</span></button></div>
+            <div class="arcade-card__body"><span class="arcade-card__number">04 / 10</span><h3>GMS Invaders</h3><p>Steer, fire, and clear the incoming wave.</p><button class="arcade-card__play" type="button" data-arcade-game="invaders" aria-label="Play GMS Invaders">Play Invaders <span aria-hidden="true">↗</span></button></div>
           </article>
           <article class="arcade-card arcade-card--breakout">
             <div class="arcade-card__art" aria-hidden="true"><span>▦ ▦ ▦</span><span>●</span><span>━━━━</span></div>
-            <div class="arcade-card__body"><span class="arcade-card__number">05 / 07</span><h3>Myth Buster</h3><p>Keep the ball alive and break through parenting myths.</p><button class="arcade-card__play" type="button" data-arcade-game="breakout" aria-label="Play Myth Buster">Play Myth Buster <span aria-hidden="true">↗</span></button></div>
+            <div class="arcade-card__body"><span class="arcade-card__number">05 / 10</span><h3>Myth Buster</h3><p>Keep the ball alive and break through parenting myths.</p><button class="arcade-card__play" type="button" data-arcade-game="breakout" aria-label="Play Myth Buster">Play Myth Buster <span aria-hidden="true">↗</span></button></div>
           </article>
           <article class="arcade-card arcade-card--asteroids">
             <div class="arcade-card__art" aria-hidden="true"><span>✧</span><span>△</span><span>✦</span></div>
-            <div class="arcade-card__body"><span class="arcade-card__number">06 / 07</span><h3>Synapse Drift</h3><p>Drift through space and dodge the asteroids.</p><button class="arcade-card__play" type="button" data-arcade-game="asteroids" aria-label="Play Synapse Drift">Play Synapse Drift <span aria-hidden="true">↗</span></button></div>
+            <div class="arcade-card__body"><span class="arcade-card__number">06 / 10</span><h3>Synapse Drift</h3><p>Drift through space and dodge the asteroids.</p><button class="arcade-card__play" type="button" data-arcade-game="asteroids" aria-label="Play Synapse Drift">Play Synapse Drift <span aria-hidden="true">↗</span></button></div>
           </article>
           <article class="arcade-card arcade-card--hopper">
             <div class="arcade-card__art" aria-hidden="true"><span>✉</span><span>▤ ▤ ▤</span></div>
-            <div class="arcade-card__body"><span class="arcade-card__number">07 / 07</span><h3>Special Delivery</h3><p>Carry your letter through the crossing.</p><button class="arcade-card__play" type="button" data-arcade-game="hopper" aria-label="Play Special Delivery">Play Special Delivery <span aria-hidden="true">↗</span></button></div>
+            <div class="arcade-card__body"><span class="arcade-card__number">07 / 10</span><h3>Special Delivery</h3><p>Carry your letter through the crossing.</p><button class="arcade-card__play" type="button" data-arcade-game="hopper" aria-label="Play Special Delivery">Play Special Delivery <span aria-hidden="true">↗</span></button></div>
+          </article>
+          <article class="arcade-card arcade-card--blocks">
+            <div class="arcade-card__art" aria-hidden="true"><span>▣</span><span>▣▣▣</span></div>
+            <div class="arcade-card__body"><span class="arcade-card__number">08 / 10</span><h3>Tidy Up</h3><p>Stack the falling toy blocks and fill a row to put it away.</p><button class="arcade-card__play" type="button" data-arcade-game="blocks" aria-label="Play Tidy Up">Play Tidy Up <span aria-hidden="true">↗</span></button></div>
+          </article>
+          <article class="arcade-card arcade-card--echo">
+            <div class="arcade-card__art" aria-hidden="true"><span>●</span><span>● ♪ ●</span><span>●</span></div>
+            <div class="arcade-card__body"><span class="arcade-card__number">09 / 10</span><h3>Serve &amp; Return</h3><p>Watch the pattern, echo it back, and see how long the conversation goes.</p><button class="arcade-card__play" type="button" data-arcade-game="echo" aria-label="Play Serve and Return">Play Serve &amp; Return <span aria-hidden="true">↗</span></button></div>
+          </article>
+          <article class="arcade-card arcade-card--maze">
+            <div class="arcade-card__art" aria-hidden="true"><span>●</span><span>• • •</span><span>✺</span></div>
+            <div class="arcade-card__body"><span class="arcade-card__number">10 / 10</span><h3>Crumb Chase</h3><p>Sweep up every crumb in the playroom and stay ahead of the dust bunnies.</p><button class="arcade-card__play" type="button" data-arcade-game="maze" aria-label="Play Crumb Chase">Play Crumb Chase <span aria-hidden="true">↗</span></button></div>
           </article>
         </div>
       </div>
@@ -193,6 +205,9 @@
   <script src="../assets/js/breakout-game.js" defer></script>
   <script src="../assets/js/asteroids-game.js" defer></script>
   <script src="../assets/js/hopper-game.js" defer></script>
+  <script src="../assets/js/blocks-game.js" defer></script>
+  <script src="../assets/js/echo-game.js" defer></script>
+  <script src="../assets/js/maze-game.js" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

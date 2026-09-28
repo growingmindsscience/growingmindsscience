@@ -175,7 +175,7 @@ A few function-only values, documented so they're intentional, not drift:
 - **Shadows** are pine-tinted (`rgba(14,42,45,…)` / `rgba(21,57,60,…)`) across all stylesheets; the legacy warm-gray shadow rgbas (`rgba(28,34,31,…)`) have been migrated out.
 
 ### Arcade easter-egg palettes
-The hidden arcade games (Pong on Tools, Brain Sprint on Classes, GMS Invaders on Articles, Asteroids on About, plus Snake/Breakout/Dino/Hopper) intentionally use their own **isolated retro palettes** (dark cabinets, phosphor greens, etc.) that sit *outside* Tidepool — e.g. `#0c0f0e`, `#9fb3a6`, `#6f8f7b`. This is deliberate: an arcade cabinet should not look like the marketing site. These values are scoped to the game canvases/inline game styles only and are **not** design-system drift. Everywhere outside the games, the One-Coral Rule and the documented palette hold.
+The hidden arcade games (Pong on Tools, Brain Sprint on Classes, GMS Invaders on Articles, Asteroids on About, plus Snake/Breakout/Dino/Hopper, and the arcade-only Tidy Up, Serve & Return, and Crumb Chase) intentionally use their own **isolated retro palettes** (dark cabinets, phosphor greens, etc.) that sit *outside* Tidepool — e.g. `#0c0f0e`, `#9fb3a6`, `#6f8f7b`. This is deliberate: an arcade cabinet should not look like the marketing site. These values are scoped to the game canvases/inline game styles only and are **not** design-system drift. Everywhere outside the games, the One-Coral Rule and the documented palette hold.
 
 ### Radius scale
 `xs 4 · sm 8 · control 10 · md 14 · card 16 · lg 20 · pill 999`, plus the `arch`. Small controls (chips, toggles, inputs) sit on the 4–14 end; cards and panels on 14–20. Treat 2px as a hairline detail only.
