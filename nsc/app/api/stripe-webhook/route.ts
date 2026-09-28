@@ -5,6 +5,8 @@ import { createServiceClient } from "@/lib/supabase/server";
 import { mintGiftCode } from "@/lib/gift.server";
 import { sendEmail } from "@/lib/email.server";
 import { applyGrants } from "@/lib/entitlements.server";
+import { fulfillClassCheckout, revokeDisputedClassPurchase, revokeRefundedClassPurchase } from "@/lib/class-orders.server";
+import { TODDLER_COURSE } from "@/lib/classes";
 import {
   grantsForOneTimePurchase,
   grantsForSubscription,
@@ -56,7 +58,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  if (event.type === "checkout.session.completed") {
+  if (event.type === "checkout.session.completed" || event.type === "checkout.session.async_payment_succeeded") {
     const session = event.data.object as Stripe.Checkout.Session;
 
     // Gift purchase: mint a redemption code instead of granting the buyer
@@ -93,6 +95,11 @@ export async function POST(req: NextRequest) {
     const ownerId = session.client_reference_id ?? session.metadata?.owner_id;
     const product = session.metadata?.product ?? NSC_PRODUCT;
 
+    if (product === TODDLER_COURSE.product) {
+      await fulfillClassCheckout(session);
+      return NextResponse.json({ received: true });
+    }
+
     if (ownerId && session.payment_status === "paid") {
       const supabase = createServiceClient();
       // upsert on the unique session id → double-delivery is a no-op
@@ -118,6 +125,13 @@ export async function POST(req: NextRequest) {
         grantsForOneTimePurchase({ sessionId: session.id, product }),
       );
     }
+  }
+
+  if (event.type === "charge.refunded") {
+    await revokeRefundedClassPurchase(event.data.object as Stripe.Charge);
+  }
+  if (event.type === "charge.dispute.created") {
+    await revokeDisputedClassPurchase(event.data.object as Stripe.Dispute);
   }
 
   if (SUBSCRIPTION_EVENTS.has(event.type)) {

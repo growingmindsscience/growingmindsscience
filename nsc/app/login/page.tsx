@@ -50,7 +50,7 @@ export default async function LoginPage({
       </Card>
       <p className="text-center text-sm text-teal-soft">
         New here?{" "}
-        <Link href="/signup" className="font-semibold text-teal underline">
+        <Link href={`/signup?next=${encodeURIComponent(next ?? "/app")}`} className="font-semibold text-teal underline">
           Create an account
         </Link>
       </p>

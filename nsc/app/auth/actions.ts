@@ -27,6 +27,11 @@ function cleanNext(next: FormDataEntryValue | null): string {
   return v.startsWith("/") && !v.startsWith("//") ? v : "/app";
 }
 
+function classAuthPath(next: string, page: "login" | "signup") {
+  const forClasses = next.startsWith("/app/classes") || next.startsWith("/admin/classes");
+  return forClasses ? `/class-${page}` : `/${page}`;
+}
+
 export async function login(formData: FormData) {
   const supabase = await createClient();
   const email = String(formData.get("email") ?? "").trim();
@@ -35,7 +40,7 @@ export async function login(formData: FormData) {
 
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) {
-    redirect(`/login?error=${encodeURIComponent(error.message)}&next=${encodeURIComponent(next)}`);
+    redirect(`${classAuthPath(next, "login")}?error=${encodeURIComponent(error.message)}&next=${encodeURIComponent(next)}`);
   }
   await safeBackfill(data.user);
   revalidatePath("/", "layout");
@@ -50,13 +55,13 @@ export async function signup(formData: FormData) {
 
   if (password.length < 12) {
     redirect(
-      `/signup?error=${encodeURIComponent("Password must be at least 12 characters.")}&next=${encodeURIComponent(next)}`,
+      `${classAuthPath(next, "signup")}?error=${encodeURIComponent("Password must be at least 12 characters.")}&next=${encodeURIComponent(next)}`,
     );
   }
 
   const { data, error } = await supabase.auth.signUp({ email, password });
   if (error) {
-    redirect(`/signup?error=${encodeURIComponent(error.message)}&next=${encodeURIComponent(next)}`);
+    redirect(`${classAuthPath(next, "signup")}?error=${encodeURIComponent(error.message)}&next=${encodeURIComponent(next)}`);
   }
   // Only backfill when signup produced a real session (email-confirmation off,
   // so this IS the verified entry). When confirmation is on, data.session is
@@ -77,29 +82,33 @@ function siteOrigin(): string {
 export async function requestPasswordReset(formData: FormData) {
   const supabase = await createClient();
   const email = String(formData.get("email") ?? "").trim();
-  if (!email) redirect("/reset?error=Please+enter+your+email.");
+  const classFlow = formData.get("class_flow") === "1";
+  const classQuery = classFlow ? "&class=1" : "";
+  if (!email) redirect(`/reset?error=Please+enter+your+email.${classQuery}`);
 
   await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${siteOrigin()}/nsc/auth/callback?next=${encodeURIComponent("/reset/update")}`,
+    redirectTo: `${siteOrigin()}/nsc/auth/callback?next=${encodeURIComponent(classFlow ? "/reset/update?class=1" : "/reset/update")}`,
   });
   // Always confirm — never reveal whether an account exists.
-  redirect("/reset?sent=1");
+  redirect(`/reset?sent=1${classQuery}`);
 }
 
 export async function updatePassword(formData: FormData) {
   const supabase = await createClient();
   const password = String(formData.get("password") ?? "");
+  const classFlow = formData.get("class_flow") === "1";
+  const classQuery = classFlow ? "&class=1" : "";
   if (password.length < 12) {
     redirect(
-      `/reset/update?error=${encodeURIComponent("Password must be at least 12 characters.")}`,
+      `/reset/update?error=${encodeURIComponent("Password must be at least 12 characters.")}${classQuery}`,
     );
   }
   const { error } = await supabase.auth.updateUser({ password });
   if (error) {
-    redirect(`/reset/update?error=${encodeURIComponent(error.message)}`);
+    redirect(`/reset/update?error=${encodeURIComponent(error.message)}${classQuery}`);
   }
   revalidatePath("/", "layout");
-  redirect("/app");
+  redirect(classFlow ? "/app/classes" : "/app");
 }
 
 export async function signout() {
@@ -107,4 +116,11 @@ export async function signout() {
   await supabase.auth.signOut();
   revalidatePath("/", "layout");
   redirect("/");
+}
+
+export async function signoutClasses() {
+  const supabase = await createClient();
+  await supabase.auth.signOut();
+  revalidatePath("/", "layout");
+  redirect("/class-login");
 }

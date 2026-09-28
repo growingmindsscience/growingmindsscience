@@ -11,6 +11,8 @@ const PUBLIC_EXACT = new Set(["/", "/evidence"]);
 const PUBLIC_PREFIXES = [
   "/login",
   "/signup",
+  "/class-login",
+  "/class-signup",
   "/auth",
   "/reset",
   "/gift", // gifting needs no account; buy + printable card are public
@@ -60,7 +62,8 @@ export async function updateSession(request: NextRequest) {
 
   if (!user && !isPublic) {
     const url = request.nextUrl.clone();
-    url.pathname = "/login";
+    url.pathname = path.startsWith("/app/classes") || path.startsWith("/admin/classes")
+      ? "/class-login" : "/login";
     url.searchParams.set("next", path);
     return NextResponse.redirect(url);
   }
