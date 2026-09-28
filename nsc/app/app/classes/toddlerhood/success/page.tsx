@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { requireAuth } from "@/lib/auth";
+import { requireClassAuth } from "@/lib/auth";
 import { hasClassAccess } from "@/lib/classes.server";
 import { Card, LinkButton } from "@/components/ui";
 import { AwaitClassAccess } from "./wait";
@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 export default async function ClassSuccessPage({ searchParams }: {
   searchParams: Promise<{ session_id?: string }>;
 }) {
-  const user = await requireAuth();
+  const user = await requireClassAuth("/app/classes/toddlerhood/success");
   const { session_id: sessionId } = await searchParams;
   if (sessionId?.startsWith("cs_") && sessionId.length < 200) {
     try {

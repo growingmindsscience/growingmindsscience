@@ -12,6 +12,13 @@ export async function requireAuth(): Promise<User> {
   return user;
 }
 
+/** Keep class visitors in the class-branded sign-in flow. */
+export async function requireClassAuth(next: string): Promise<User> {
+  const user = await getUser();
+  if (!user) redirect(`/class-login?next=${encodeURIComponent(next)}`);
+  return user;
+}
+
 /** Returns the signed-in user or null (no redirect) — for pages that render differently when logged out. */
 export async function getUser(): Promise<User | null> {
   const supabase = await createClient();

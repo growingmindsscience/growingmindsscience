@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { requireAuth } from "@/lib/auth";
+import { requireClassAuth } from "@/lib/auth";
 import { classSalesOpen, hasClassAccess, progressForUser, publishedLessons } from "@/lib/classes.server";
 import { TODDLER_COURSE, lessonPath } from "@/lib/classes";
 import { Card, Button, LinkButton } from "@/components/ui";
@@ -11,7 +11,7 @@ export const metadata = { title: "Toddler years class" };
 export default async function ToddlerClassPage({ searchParams }: {
   searchParams: Promise<{ error?: string }>;
 }) {
-  const user = await requireAuth();
+  const user = await requireClassAuth("/app/classes/toddlerhood");
   const owned = await hasClassAccess(user.id);
   const [lessons, progress] = owned
     ? await Promise.all([publishedLessons(), progressForUser(user.id)])

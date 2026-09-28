@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
-import { requireAuth } from "@/lib/auth";
+import { requireClassAuth } from "@/lib/auth";
 import { hasClassAccess, progressForUser, publishedLessons } from "@/lib/classes.server";
 import { INFANT_COURSE, lessonPath } from "@/lib/classes";
 import { ClassPlayer } from "@/components/class-player";
@@ -9,9 +9,9 @@ import { Card } from "@/components/ui";
 export const dynamic = "force-dynamic";
 
 export default async function InfantLessonPage({ params }: { params: Promise<{ slug: string }> }) {
-  const user = await requireAuth();
-  if (!(await hasClassAccess(user.id, "infant"))) redirect("/app/classes/infant");
   const { slug } = await params;
+  const user = await requireClassAuth(`/app/classes/infant/lessons/${slug}`);
+  if (!(await hasClassAccess(user.id, "infant"))) redirect("/app/classes/infant");
   const [lessons, progress] = await Promise.all([publishedLessons("infant"), progressForUser(user.id)]);
   const index = lessons.findIndex((item) => item.slug === slug);
   if (index < 0) notFound();

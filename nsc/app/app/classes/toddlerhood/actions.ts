@@ -1,13 +1,13 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { requireAuth } from "@/lib/auth";
+import { requireClassAuth } from "@/lib/auth";
 import { classSalesOpen, hasClassAccess } from "@/lib/classes.server";
 import { TODDLER_COURSE } from "@/lib/classes";
 import { stripe } from "@/lib/stripe";
 
 export async function startClassCheckout() {
-  const user = await requireAuth();
+  const user = await requireClassAuth("/app/classes/toddlerhood");
   if (await hasClassAccess(user.id)) redirect("/app/classes/toddlerhood");
   if (!(await classSalesOpen())) redirect("/app/classes/toddlerhood?error=not-open");
   const priceId = process.env.TODDLER_CLASS_PRICE_ID;

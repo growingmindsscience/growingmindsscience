@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { requireAuth } from "@/lib/auth";
+import { requireClassAuth } from "@/lib/auth";
 import { hasClassAccess, progressForUser, publishedLessons } from "@/lib/classes.server";
 import { INFANT_COURSE, lessonPath } from "@/lib/classes";
 import { Card, LinkButton } from "@/components/ui";
@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 export const metadata = { title: "Birth to 12 months class" };
 
 export default async function InfantClassPage() {
-  const user = await requireAuth();
+  const user = await requireClassAuth("/app/classes/infant");
   const owned = await hasClassAccess(user.id, "infant");
   const [lessons, progress] = owned
     ? await Promise.all([publishedLessons("infant"), progressForUser(user.id)])
