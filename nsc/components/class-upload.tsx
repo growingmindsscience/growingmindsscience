@@ -22,13 +22,14 @@ export function ClassUpload({ lessonId }: { lessonId: string }) {
       });
       if (!response.ok) throw new Error("Could not create an upload link.");
       const { url } = await response.json() as { url: string };
+      const uploadHost = new URL(url).hostname;
       const upload = UpChunk.createUpload({ endpoint: url, file, chunkSize: 5120 });
       upload.on("progress", (event) => setProgress(Math.round(event.detail)));
       upload.on("error", (event) => {
         const detail = event.detail as { message?: string; response?: { statusCode?: number; url?: string } } | undefined;
         const status = detail?.response?.statusCode;
         const reason = detail?.message?.slice(0, 180) || "The video transfer could not finish.";
-        const host = detail?.response?.url ? new URL(detail.response.url).hostname : "unknown host";
+        const host = detail?.response?.url ? new URL(detail.response.url).hostname : uploadHost;
         setMessage(`Upload failed${status ? ` (${status})` : ""} at ${host}: ${reason}`);
         setBusy(false);
       });
