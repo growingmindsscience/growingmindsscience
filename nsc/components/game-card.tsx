@@ -8,6 +8,8 @@ import { interpolate } from "@/lib/assessment";
 import type { Game } from "@/lib/content-types";
 import { logPlay } from "@/app/app/child/[id]/plan/actions";
 
+type Reaction = "loved" | "fine" | "flopped";
+
 export function GameCard({
   game,
   childId,
@@ -25,16 +27,27 @@ export function GameCard({
 }) {
   const [open, setOpen] = useState(false);
   const [reaction, setReaction] = useState<string | null>(playedReaction ?? null);
+  const [saveFailed, setSaveFailed] = useState(false);
   const [pending, startTransition] = useTransition();
   const audioSet = useMemo(() => new Set(audioIds), [audioIds]);
   // Game copy carries {name} placeholders; interpolate for display but hand
   // AudioButton the raw line — clip ids key off the uninterpolated template.
   const vars = { name: childName, objects: "" };
 
-  function react(r: "loved" | "fine" | "flopped") {
+  function react(r: Reaction) {
+    const previous = reaction;
     setReaction(r);
-    startTransition(() => logPlay(childId, game.id, r));
+    setSaveFailed(false);
+    startTransition(async () => {
+      const res = await logPlay(childId, game.id, r).catch(() => null);
+      if (!res?.ok) {
+        setReaction(previous);
+        setSaveFailed(true);
+      }
+    });
   }
+
+  const panelId = `how-${game.id}`;
 
   return (
     <Card>
@@ -55,21 +68,23 @@ export function GameCard({
       <p className="mt-2 text-ink">{game.goal}</p>
 
       {locked ? (
-        <p className="mt-4 rounded-xl bg-sea-glass/30 px-4 py-3 text-sm text-teal-soft">
+        <p className="mt-4 rounded-xl bg-sea-glass/30 px-4 py-3 text-sm text-ink-muted">
           Unlock the full plan to play this one.
         </p>
       ) : (
         <>
           <button
+            type="button"
             onClick={() => setOpen((o) => !o)}
             aria-expanded={open}
-            className="mt-4 text-sm font-semibold text-teal underline"
+            aria-controls={panelId}
+            className="mt-2 inline-flex min-h-11 items-center text-sm font-semibold text-teal underline"
           >
             {open ? "Hide how to play" : "How to play"}
           </button>
 
           {open && (
-            <div className="mt-4 flex flex-col gap-4">
+            <div id={panelId} className="mt-2 flex flex-col gap-4">
               {game.materials.length > 0 && (
                 <p className="text-sm text-ink">
                   <span className="font-semibold">You need:</span>{" "}
@@ -79,9 +94,9 @@ export function GameCard({
               <ol className="flex list-decimal flex-col gap-2 pl-5 text-ink">
                 {game.script.map((line, i) => (
                   <li key={i}>
-                    <span className="inline-flex items-start gap-2">
+                    <span className="inline-flex items-center gap-1">
                       <span>{interpolate(line, vars)}</span>
-                      <AudioButton line={line} available={audioSet} className="h-6 w-6" />
+                      <AudioButton key={line} line={line} available={audioSet} />
                     </span>
                   </li>
                 ))}
@@ -104,15 +119,17 @@ export function GameCard({
             </div>
           )}
 
-          <div className="mt-5 flex flex-wrap items-center gap-2">
+          <div className="mt-4 flex flex-wrap items-center gap-2" role="group" aria-label="How did it go?">
             <span className="text-sm text-teal-soft">We played it:</span>
             {(["loved", "fine", "flopped"] as const).map((r) => (
               <button
+                type="button"
                 key={r}
                 disabled={pending}
+                aria-pressed={reaction === r}
                 onClick={() => react(r)}
                 className={[
-                  "rounded-full border px-3 py-1 text-sm transition-colors disabled:opacity-50",
+                  "inline-flex min-h-11 items-center rounded-full border px-4 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal disabled:opacity-50",
                   reaction === r
                     ? "border-teal bg-rung-glow font-semibold text-ink-deep"
                     : "border-sea-glass text-ink hover:bg-sea-glass/30",
@@ -122,15 +139,19 @@ export function GameCard({
               </button>
             ))}
           </div>
-          {reaction && (
-            <p className="mt-2 text-xs text-teal-soft">
-              {reaction === "loved"
-                ? "Great — it stays in the rotation so you can keep playing it."
-                : reaction === "flopped"
-                  ? "No worries — we'll swap it out and rest it for a few weeks."
-                  : "Got it — something new will rotate in next."}
+          {saveFailed ? (
+            <p role="status" className="mt-2 text-xs text-ink-muted">
+              That didn&rsquo;t save. Please tap it again in a moment.
             </p>
-          )}
+          ) : reaction ? (
+            <p role="status" className="mt-2 text-xs text-teal-soft">
+              {reaction === "loved"
+                ? "Great. It stays in the rotation so you can keep playing it."
+                : reaction === "flopped"
+                  ? "No worries. From next week it rests for a while."
+                  : "Got it. Something new rotates in next week."}
+            </p>
+          ) : null}
         </>
       )}
     </Card>

@@ -67,11 +67,18 @@
     .figure-steps h4 { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); }
     .figure-steps p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
     .figure-foot { margin: var(--space-5) 0 0; padding-top: var(--space-4); border-top: 1px dashed var(--border-soft); color: var(--accent-brown); font-style: italic; font-size: var(--text-md); }
+    /* The TOC comes first in the DOM, so on phones it sits above the article
+       (and keyboard order matches what is on screen); wide screens keep it in
+       the right-hand column. */
+    .article-body .article-toc { grid-column: 2; grid-row: 1; }
+    .article-body .article-layout > article { grid-column: 1; grid-row: 1; }
     @media (max-width: 920px) {
       .article-layout, .translation-grid { grid-template-columns: 1fr; }
       .article-cta { flex-direction: column; align-items: stretch; }
       .article-cta .hero__ctas { justify-content: flex-start; }
       .article-toc { position: static; }
+      .article-body .article-toc,
+      .article-body .article-layout > article { grid-column: auto; grid-row: auto; }
       .article-title { max-width: 12ch; }
     }
   </style>
@@ -169,6 +176,7 @@
               </div>
             </details>
           </li>
+          <li><a class="nav__link" href="/arcade/">Arcade</a></li>
           <li><a class="nav__link" href="/articles/" aria-current="page">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
           <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
@@ -205,6 +213,17 @@
 
     <section class="article-body">
       <div class="container article-layout">
+        <aside class="article-toc" aria-label="Article navigation">
+          <h2>In this article</h2>
+          <ol>
+            <li><a href="#what-it-means">What it means</a></li>
+            <li><a href="#why-it-matters">Why it matters</a></li>
+            <li><a href="#what-it-is-not">What it is not</a></li>
+            <li><a href="#what-to-do">What to do</a></li>
+            <li><a href="#bottom-line">Bottom line</a></li>
+          </ol>
+        </aside>
+
         <article>
           <p>Some research phrases escape the lab and start living ordinary lives. "Serve and return" is one of them.</p>
 
@@ -348,17 +367,6 @@
             </ul>
           </div>
         </article>
-
-        <aside class="article-toc" aria-label="Article navigation">
-          <h2>In this article</h2>
-          <ol>
-            <li><a href="#what-it-means">What it means</a></li>
-            <li><a href="#why-it-matters">Why it matters</a></li>
-            <li><a href="#what-it-is-not">What it is not</a></li>
-            <li><a href="#what-to-do">What to do</a></li>
-            <li><a href="#bottom-line">Bottom line</a></li>
-          </ol>
-        </aside>
       </div>
     </section>
 
@@ -371,7 +379,7 @@
             <p class="small" style="max-width:38rem; margin:0;">The toddler class goes further: how language actually grows through ordinary conversation, what supports the vocabulary explosion, and what the research says about talking with your toddler (without turning your home into a lesson plan). $49 for lifetime access.</p>
           </div>
           <div class="hero__ctas">
-            <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a>
+            <a class="btn btn--primary" href="/classes/toddlerhood.html">See the toddler class</a>
             <a class="btn btn--ghost" href="/tools/growing-minds-ai.html">Ask a follow-up question →</a>
           </div>
         </div>

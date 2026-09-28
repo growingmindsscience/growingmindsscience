@@ -6,7 +6,7 @@
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <title>Classes — Growing Minds Science</title>
   <meta name="description" content="Self-paced parent classes from Growing Minds Science: toddler years (available now), birth to 12 months, preschool, and family systems & stress." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#15393C" />
   <meta name="color-scheme" content="light dark" />
 
   <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
@@ -14,20 +14,25 @@
   <link rel="canonical" href="https://growingmindsscience.com/classes/" />
 
   <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Growing Minds Science" />
+  <meta property="og:url" content="https://growingmindsscience.com/classes/" />
   <meta property="og:title" content="Classes — Growing Minds Science" />
-  <meta property="og:description" content="Self-paced parent classes built around developmental windows, with the toddler years launching first and infant, preschool, and family-systems classes to follow." />
-  <meta property="og:image" content="/assets/img/site/toddler-blocks.jpg" />
+  <meta property="og:description" content="Self-paced parent classes built around developmental windows. The toddler class is available now; the infant, preschool, and family-systems classes are in development." />
+  <meta property="og:image" content="https://growingmindsscience.com/assets/img/og/site-classes.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="A toddler stacking soft letter blocks." />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://growingmindsscience.com/assets/img/og/site-classes.jpg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />
   <link rel="stylesheet" href="../assets/css/styles.css" />
   <link rel="stylesheet" href="../assets/css/refresh.css" />
-  <link rel="stylesheet" href="../assets/css/arcade.css" />
   <link rel="stylesheet" href="/assets/css/chrome.css" />
 </head>
-<body>
+<body data-arcade-egg="dino">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" role="banner">
@@ -49,19 +54,20 @@
               <summary class="nav__link nav__summary">Free tools <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary>
               <div class="nav__menu">
                 <ul class="nav__submenu">
-                  <li><a class="nav__submenu-link" href="/tools/growing-minds-ai.html"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/growing-minds-ai"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
                   <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A ten-minute counting check-in you run at home.</span></a></li>
                   <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/tools/communication-snapshot.html"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/communication-snapshot"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
                 </ul>
                 <a class="nav__menu-all" href="/tools/">All free tools and guides <span aria-hidden="true">&rarr;</span></a>
               </div>
             </details>
           </li>
+          <li><a class="nav__link" href="/arcade/">Arcade</a></li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
           <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">See the class</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood">See the class</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -76,17 +82,17 @@
 
     <section class="page-hero page-hero--visual">
       <div class="container">
-        <div class="page-hero__copy" data-stagger>
-          <p class="eyebrow" data-animate>Classes</p>
-          <h1 class="page-hero__title" data-animate>Self-paced classes for the early years.</h1>
-          <p class="page-hero__lede" data-animate>
+        <div class="page-hero__copy">
+          <p class="eyebrow">Classes</p>
+          <h1 class="page-hero__title">Self-paced classes for the early years.</h1>
+          <p class="page-hero__lede">
             Each class is built around a developmental window. The toddler class is
             available now; the infant class is in active development. Preschool
             and family-systems classes are next. All classes are self-paced and
             translate developmental research into language you can actually use.
           </p>
         </div>
-        <figure class="page-hero__visual" data-animate style="--anim-delay: 200ms">
+        <figure class="page-hero__visual">
           <img src="../assets/img/site/toddler-blocks.jpg"
                alt="A young child reaching for a tall stack of wooden letter blocks."
                width="1400" height="933" loading="eager" fetchpriority="high" decoding="async" />
@@ -115,8 +121,8 @@
               </p>
               <p class="product-card__price"><strong>$49</strong> · Lifetime access · AI included</p>
               <p class="product-card__cta product-card__cta--row">
-                <a class="btn btn--primary" href="https://matthew-s-site-de0b.thinkific.com/products/courses/ToddlerYears" target="_blank" rel="noopener">Enroll now</a>
-                <a class="btn btn--ghost" href="/classes/toddlerhood.html">See class details</a>
+                <a class="btn btn--primary" href="https://matthew-s-site-de0b.thinkific.com/products/courses/ToddlerYears" target="_blank" rel="noopener">Enroll now<span class="u-visually-hidden"> (opens in a new tab)</span></a>
+                <a class="btn btn--ghost" href="/classes/toddlerhood">See class details</a>
               </p>
             </div>
           </article>
@@ -180,7 +186,7 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
+            <li><a href="/classes/toddlerhood">Toddler years</a></li>
             <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
             <li><a href="/classes/preschool.html">Preschool years</a></li>
             <li><a href="/classes/family-systems.html">Family systems</a></li>
@@ -190,10 +196,10 @@
         <div>
           <h2 class="site-footer__heading">Free tools</h2>
           <ul class="footer-list">
-            <li><a href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
+            <li><a href="/tools/growing-minds-ai">Growing Minds AI</a></li>
             <li><a href="/nsc">Number Path</a></li>
             <li><a href="/milestones">Milestone tracker</a></li>
-            <li><a href="/tools/communication-snapshot.html">Communication Snapshot</a></li>
+            <li><a href="/tools/communication-snapshot">Communication Snapshot</a></li>
             <li><a href="/tools/">All tools and guides</a></li>
           </ul>
         </div>
@@ -221,8 +227,6 @@
   <script src="../assets/js/main.js" defer></script>
   <script src="../assets/js/decor.js" defer></script>
   <script src="../assets/js/animate.js" defer></script>
-  <script src="../assets/js/arcade-core.js" defer></script>
-  <script src="../assets/js/dino-game.js" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

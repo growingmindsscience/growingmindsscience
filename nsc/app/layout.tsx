@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import { brand } from "@/lib/config/brand";
+import { TimeZoneSync } from "@/components/timezone-sync";
 
 // Brand fonts, matching the parent site (assets/css: --font-display/--font-body).
 const bricolage = Bricolage_Grotesque({
@@ -35,6 +36,7 @@ export default function RootLayout({
         <div id="main-content" tabIndex={-1}>
           {children}
         </div>
+        <TimeZoneSync />
       </body>
     </html>
   );

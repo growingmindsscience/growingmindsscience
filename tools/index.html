@@ -16,7 +16,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Tools for Parents — Growing Minds Science" />
   <meta property="og:description" content="A free, growing library of practical developmental tools for parents: milestone tracker, behavior guides, sleep references, and more." />
-  <meta property="og:image" content="/assets/img/site/baby-crawling.jpg" />
+  <meta property="og:image" content="https://growingmindsscience.com/assets/img/site/baby-crawling.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -59,6 +59,7 @@
               </div>
             </details>
           </li>
+          <li><a class="nav__link" href="/arcade/">Arcade</a></li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
           <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
@@ -89,6 +90,7 @@
             <strong>Having a hard moment right now?</strong>
             <span>Open the one-tap guide <span aria-hidden="true">&rarr;</span></span>
           </a>
+          <a class="tools-saved" href="#saved" data-gms-shelf-link hidden>Saved for you (<span data-gms-shelf-count>0</span>)</a>
         </div>
         <figure class="page-hero__visual page-hero__visual--graphic" data-animate style="--anim-delay: 200ms">
           <img src="../assets/img/tools-library-graphic.svg"
@@ -112,7 +114,7 @@
               <h3 class="toolkit__title"><a class="toolkit__link" href="/tools/growing-minds-ai.html">Growing Minds AI</a></h3>
               <p class="toolkit__meta">Any age &middot; 5 free questions a day</p>
             </div>
-            <p class="toolkit__desc">Ask any developmental question and get a calm answer drawn from a curated research library, with its sources shown. Unlimited with the toddler class.</p>
+            <p class="toolkit__desc">Ask any developmental question and get a calm answer drawn from a curated research library. Unlimited with the toddler class.</p>
             <span class="toolkit__cta" aria-hidden="true">Ask a question <span>&rarr;</span></span>
           </article>
           <article class="toolkit__item" id="number-path" data-animate>
@@ -128,7 +130,7 @@
               <h3 class="toolkit__title"><a class="toolkit__link" href="/milestones">Milestone tracker</a></h3>
               <p class="toolkit__meta">Birth to 36 months</p>
             </div>
-            <p class="toolkit__desc">What&rsquo;s typical at each age across six developmental domains, drawn from the 2022 CDC/AAP milestone revision. Saved in your browser and printable for checkups.</p>
+            <p class="toolkit__desc">What&rsquo;s typical at each age across six developmental domains, drawn from ZERO TO THREE, Pathways.org, NAEYC, and the Child Development Institute. Saved in your browser and printable for checkups.</p>
             <span class="toolkit__cta" aria-hidden="true">Open the tracker <span>&rarr;</span></span>
           </article>
           <article class="toolkit__item" id="activity-library" data-animate>
@@ -284,7 +286,7 @@
     </section>
 
     <!-- SAVED FOR YOU (local shelf; stays hidden until something is saved) -->
-    <section data-gms-shelf-section hidden>
+    <section id="saved" data-gms-shelf-section hidden>
       <div class="container">
         <div class="tools-head">
           <h2>Saved for you</h2>

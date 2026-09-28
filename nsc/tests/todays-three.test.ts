@@ -133,6 +133,18 @@ describe("Today's 3 (plan 2.1 PR3 acceptance)", () => {
     expect(picks[0].id).toBe(tiny[2].id);
   });
 
+  it("marking a pick done today keeps today's three unchanged (N9)", () => {
+    const before = todaysThree({ ...base, isoDate: dateAt(0) });
+    const doneToday: CompletionLite[] = [
+      { activity_id: before[0].id, completed_on: dateAt(0), domains: before[0].domains },
+    ];
+    const after = todaysThree({ ...base, completions: doneToday, isoDate: dateAt(0) });
+    expect(after.map((a) => a.id)).toEqual(before.map((a) => a.id));
+    // Tomorrow it counts as recent, so it rests.
+    const tomorrow = todaysThree({ ...base, completions: doneToday, isoDate: dateAt(1) });
+    expect(tomorrow.map((a) => a.id)).not.toContain(before[0].id);
+  });
+
   it("only ever serves age-appropriate activities", () => {
     const picks = todaysThree({ ...base, ageMonths: 30, isoDate: dateAt(0) });
     expect(picks).toHaveLength(0); // catalog is 12-24m only

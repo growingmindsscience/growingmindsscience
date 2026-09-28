@@ -6,7 +6,11 @@ import { listActivities } from "@/lib/activities.server";
 import { hasMembership } from "@/lib/entitlements.server";
 import { todaysThree, type CompletionLite } from "@/lib/todays-three";
 import { ageInMonths } from "@/lib/age";
-import { Button, Card, Field, Input, LinkButton } from "@/components/ui";
+import { addDaysISO, localDateISO } from "@/lib/tz";
+import { getTimeZone } from "@/lib/tz.server";
+import { Card, Field, Input, LinkButton } from "@/components/ui";
+import { SubmitButton } from "@/components/submit-button";
+import { BirthMonthField } from "@/components/birth-month-field";
 import { markDone, createLibraryChild } from "./actions";
 
 export const dynamic = "force-dynamic";
@@ -55,7 +59,10 @@ export default async function TodaysThreePage({
         </div>
         <div className="flex flex-col items-center gap-3">
           <LinkButton href="/login?next=/activities/today">Sign in</LinkButton>
-          <Link href="/signup" className="text-sm text-teal-soft underline">
+          <Link
+            href="/signup?next=/activities/today"
+            className="inline-flex min-h-11 items-center text-sm text-teal-soft underline"
+          >
             New here? Create a free account
           </Link>
         </div>
@@ -65,7 +72,8 @@ export default async function TodaysThreePage({
   const { error } = await searchParams;
   const supabase = await createClient();
   const now = new Date();
-  const isoDate = now.toISOString().slice(0, 10);
+  // The parent's calendar day: "today" and "done today" follow their clock.
+  const isoDate = localDateISO(now, await getTimeZone());
 
   const [{ data: childRows }, activities, member] = await Promise.all([
     supabase
@@ -77,9 +85,7 @@ export default async function TodaysThreePage({
   ]);
   const children = (childRows ?? []) as ChildRow[];
 
-  const cutoff = new Date(now.getTime() - 28 * 86_400_000)
-    .toISOString()
-    .slice(0, 10);
+  const cutoff = addDaysISO(isoDate, -28);
   const { data: completionRows } = children.length
     ? await supabase
         .from("activity_completions")
@@ -156,12 +162,8 @@ export default async function TodaysThreePage({
             <Field label="Nickname" htmlFor="nickname">
               <Input id="nickname" name="nickname" maxLength={30} required />
             </Field>
-            <Field label="Birth month" htmlFor="birth_month" hint="Month only — never the exact day.">
-              <Input id="birth_month" name="birth_month" type="month" required />
-            </Field>
-            <Button type="submit" className="self-start">
-              Save
-            </Button>
+            <BirthMonthField idPrefix="bm1" todayISO={isoDate} />
+            <SubmitButton className="self-start">Save</SubmitButton>
           </form>
         </Card>
       )}
@@ -192,7 +194,7 @@ export default async function TodaysThreePage({
                       : "No age-matched activities yet — new batches are on the way."}
                 </p>
                 {months >= 36 && activities.length > 0 && (
-                  <Link href="/" className="mt-2 inline-block text-sm font-semibold text-teal underline">
+                  <Link href="/" className="mt-1 inline-flex min-h-11 items-center text-sm font-semibold text-teal underline">
                     Meet Number Path →
                   </Link>
                 )}
@@ -226,7 +228,7 @@ export default async function TodaysThreePage({
                     <div className="mt-4 flex items-center gap-3">
                       <Link
                         href={`/activities/${a.slug}`}
-                        className="text-sm font-semibold text-teal underline"
+                        className="inline-flex min-h-11 items-center text-sm font-semibold text-teal underline"
                       >
                         How it goes →
                       </Link>
@@ -234,12 +236,9 @@ export default async function TodaysThreePage({
                         <span className="text-sm text-teal-soft">Done today ✓</span>
                       ) : (
                         <form action={markDone.bind(null, child.id, a.id)}>
-                          <button
-                            type="submit"
-                            className="rounded-full border border-sea-glass px-3 py-1 text-sm text-ink transition-colors hover:bg-sea-glass/30"
-                          >
+                          <SubmitButton variant="ghost" size="sm" className="border border-sea-glass">
                             We did this
-                          </button>
+                          </SubmitButton>
                         </form>
                       )}
                     </div>
@@ -253,19 +252,15 @@ export default async function TodaysThreePage({
 
       {children.length > 0 && (
         <details className="rounded-2xl border border-sea-glass/60 bg-surface px-5 py-4">
-          <summary className="cursor-pointer text-sm font-semibold text-teal">
+          <summary className="flex min-h-11 cursor-pointer items-center text-sm font-semibold text-teal">
             Add another child
           </summary>
           <form action={createLibraryChild} className="mt-4 flex flex-col gap-4">
             <Field label="Nickname" htmlFor="nickname2">
               <Input id="nickname2" name="nickname" maxLength={30} required />
             </Field>
-            <Field label="Birth month" htmlFor="birth_month2" hint="Month only — never the exact day.">
-              <Input id="birth_month2" name="birth_month" type="month" required />
-            </Field>
-            <Button type="submit" className="self-start">
-              Save
-            </Button>
+            <BirthMonthField idPrefix="bm2" todayISO={isoDate} />
+            <SubmitButton className="self-start">Save</SubmitButton>
           </form>
         </details>
       )}

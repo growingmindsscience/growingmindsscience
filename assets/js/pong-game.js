@@ -18,7 +18,10 @@
 
     // ---- Calm synth soundtrack (Web Audio, no files) ----
     var audioCtx = null, masterGain = null, musicTimer = null;
-    var musicOn = (localStorage.getItem('gms_pong_mute') !== '1');
+    // Storage can throw (blocked site data / private modes); never let that
+    // stop the rest of the game from wiring up.
+    var musicOn = true;
+    try { musicOn = (window.localStorage.getItem('gms_pong_mute') !== '1'); } catch (e) {}
     var nextNoteTime = 0, stepIndex = 0;
     var STEP_DUR = 0.42; // seconds per arpeggio note — slow and calm
     var PENTA = [0, 3, 5, 7, 10, 12]; // A minor pentatonic (+octave)
@@ -85,7 +88,7 @@
     }
     if (muteBtn) muteBtn.addEventListener('click', function () {
       musicOn = !musicOn;
-      localStorage.setItem('gms_pong_mute', musicOn ? '0' : '1');
+      try { window.localStorage.setItem('gms_pong_mute', musicOn ? '0' : '1'); } catch (e) {}
       ensureAudio();
       applyMute();
       if (musicOn) startMusic();

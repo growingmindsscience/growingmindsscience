@@ -7,7 +7,7 @@ import { getGamesCatalog } from "@/lib/content.server";
 import { Card, EnrichmentFooter } from "@/components/ui";
 import { Ladder } from "@/components/ladder";
 import { brand } from "@/lib/config/brand";
-import { RUNG_LABEL } from "@/lib/labels";
+import { isRungReading, RUNG_LABEL } from "@/lib/labels";
 import { ageInMonths } from "@/lib/age";
 import { isoWeek } from "@/lib/isoweek";
 import { formatAge, NORMS_NOTE, standingSummary } from "@/lib/norms";
@@ -61,12 +61,11 @@ export default async function ProgressPage({
   const latest = history?.[history.length - 1];
   const months = ageInMonths(String(child.birth_month).slice(0, 7), now);
 
-  // "For their age" — the placement against the published typical range.
-  // Give-N reads only: a Point-and-Seek result is a soft routing signal, not
-  // a measured rung, and by design it is never named as a knower level.
-  const latestGiveN = [...(history ?? [])]
-    .reverse()
-    .find((h) => h.instrument === "give_n" && h.placement && h.placement !== "CPX");
+  // Rungs, climbs and "for their age" use Give-N reads only: a Point and Seek
+  // result is a soft routing signal, not a measured rung, and by design it is
+  // never named as a knower level or compared (amendment A5).
+  const giveNHistory = (history ?? []).filter(isRungReading);
+  const latestGiveN = giveNHistory[giveNHistory.length - 1];
   const summary = latestGiveN
     ? standingSummary({
         months,
@@ -108,17 +107,26 @@ export default async function ProgressPage({
     if (title) favorite = { title, count };
   }
 
-  // Climb summary across the whole history.
-  const first = history?.[0];
+  // Climb summary across the Give-N history.
+  const first = giveNHistory[0];
   const rungsClimbed =
-    first?.placement && latest?.placement
-      ? (RANK[latest.placement] ?? 0) - (RANK[first.placement] ?? 0)
+    first?.placement && latestGiveN?.placement
+      ? (RANK[latestGiveN.placement] ?? 0) - (RANK[first.placement] ?? 0)
       : 0;
+  // Each Give-N read compares with the previous Give-N read, never with a
+  // Point and Seek entry in between.
+  const prevGiveN = new Map<(typeof giveNHistory)[number], (typeof giveNHistory)[number]>();
+  giveNHistory.forEach((h, i) => {
+    if (i > 0) prevGiveN.set(h, giveNHistory[i - 1]);
+  });
 
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-6 py-10">
       <header>
-        <Link href={`/app/child/${id}/plan`} className="text-sm text-teal-soft underline">
+        <Link
+          href={`/app/child/${id}/plan`}
+          className="inline-flex min-h-11 items-center text-sm text-teal-soft underline"
+        >
           ← This week
         </Link>
         <h1 className="mt-1 text-2xl font-semibold text-ink-deep">
@@ -127,10 +135,10 @@ export default async function ProgressPage({
         <p className="text-sm text-teal-soft">{formatAge(months)}</p>
       </header>
 
-      {latest?.placement && (
+      {latestGiveN?.placement && (
         <Ladder
-          current={latest.placement as Placement}
-          nearCP={latest.near_cp ?? false}
+          current={latestGiveN.placement as Placement}
+          nearCP={latestGiveN.near_cp ?? false}
           className="w-full"
         />
       )}
@@ -146,7 +154,7 @@ export default async function ProgressPage({
             </p>
             <p className="mt-1 text-ink">{summary.detail}</p>
             {summary.caveat && (
-              <p className="mt-2 text-sm text-teal-soft">{summary.caveat}</p>
+              <p className="mt-2 text-sm text-ink-muted">{summary.caveat}</p>
             )}
             <p className="mt-3 text-xs leading-relaxed text-teal-soft">
               {NORMS_NOTE}{" "}
@@ -167,7 +175,7 @@ export default async function ProgressPage({
             </p>
             <Link
               href="/app/upgrade"
-              className="mt-3 inline-block font-semibold text-teal underline"
+              className="mt-2 inline-flex min-h-11 items-center font-semibold text-teal underline"
             >
               Unlock the full plan →
             </Link>
@@ -209,7 +217,7 @@ export default async function ProgressPage({
           <p className="mt-1 text-lg font-semibold text-ink-deep">
             {favorite.title}
           </p>
-          <p className="text-sm text-teal-soft">
+          <p className="text-sm text-ink-muted">
             Marked &ldquo;loved it&rdquo; {favorite.count}{" "}
             {favorite.count === 1 ? "time" : "times"} — a game they love is
             worth three they tolerate.
@@ -221,7 +229,7 @@ export default async function ProgressPage({
         <h2 className="text-sm font-semibold uppercase tracking-wide text-teal">
           Check-in history
         </h2>
-        {(history?.length ?? 0) > 1 && first?.completed_at && (
+        {giveNHistory.length > 1 && first?.completed_at && (
           <p className="text-sm text-teal-soft">
             {rungsClimbed > 0
               ? `${rungsClimbed} ${rungsClimbed === 1 ? "rung" : "rungs"} climbed since ${shortDate(new Date(first.completed_at))}.`
@@ -229,7 +237,8 @@ export default async function ProgressPage({
           </p>
         )}
         {(history ?? []).map((h, i) => {
-          const prev = i > 0 ? history![i - 1] : null;
+          const rungRead = isRungReading(h);
+          const prev = rungRead ? prevGiveN.get(h) : undefined;
           const delta =
             prev?.placement && h.placement
               ? (RANK[h.placement] ?? 0) - (RANK[prev.placement] ?? 0)
@@ -238,19 +247,21 @@ export default async function ProgressPage({
             <Card key={i}>
               <div className="flex items-center justify-between gap-3">
                 <span className="font-medium text-ink">
-                  {RUNG_LABEL(h.placement as string, h.near_cp ?? false)}
+                  {rungRead
+                    ? RUNG_LABEL(h.placement as string, h.near_cp ?? false)
+                    : "Point and Seek played"}
                   {delta != null && delta > 0 && (
                     <span className="ml-2 rounded-full bg-rung-glow px-2 py-0.5 text-xs font-semibold text-teal">
                       ↑ climbed
                     </span>
                   )}
                   {delta === 0 && (
-                    <span className="ml-2 rounded-full bg-sea-glass/60 px-2 py-0.5 text-xs font-semibold text-teal-soft">
+                    <span className="ml-2 rounded-full bg-sea-glass/60 px-2 py-0.5 text-xs font-semibold text-ink-muted">
                       steady — rungs take months
                     </span>
                   )}
                   {delta != null && delta < 0 && (
-                    <span className="ml-2 rounded-full bg-sea-glass/60 px-2 py-0.5 text-xs font-semibold text-teal-soft">
+                    <span className="ml-2 rounded-full bg-sea-glass/60 px-2 py-0.5 text-xs font-semibold text-ink-muted">
                       a wiggly read — it happens
                     </span>
                   )}
@@ -288,7 +299,7 @@ export default async function ProgressPage({
                 </p>
                 <Link
                   href={`/app/child/${id}/prescreen`}
-                  className="font-semibold text-teal underline"
+                  className="inline-flex min-h-11 items-center font-semibold text-teal underline"
                 >
                   Re-run the check-in →
                 </Link>
@@ -305,8 +316,9 @@ export default async function ProgressPage({
                     : " — the six-week rhythm."}
                 </p>
                 <a
-                  href={`/app/child/${id}/checkin.ics`}
-                  className="text-sm font-semibold text-teal underline"
+                  // A plain <a> gets no basePath from Next, so it's explicit.
+                  href={`/nsc/app/child/${id}/checkin.ics`}
+                  className="inline-flex min-h-11 items-center text-sm font-semibold text-teal underline"
                 >
                   Add to calendar
                 </a>

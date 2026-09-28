@@ -16,7 +16,7 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Repair after the hard moment — Growing Minds Science" />
   <meta property="og:description" content="A practical parent tool on repair after hard parenting moments: what helps the child, what helps the adult, and how to come back without giving up the boundary." />
-  <meta property="og:image" content="/assets/img/site/family-reading.jpg" />
+  <meta property="og:image" content="https://growingmindsscience.com/assets/img/site/family-reading.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -132,6 +132,7 @@
               </div>
             </details>
           </li>
+          <li><a class="nav__link" href="/arcade/">Arcade</a></li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
           <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
@@ -249,7 +250,7 @@
         <h2>Repair builder</h2>
         <p class="section-intro">Choose the closest version of what happened. The goal is a repair that is small enough to actually use in real life.</p>
 
-        <div class="scenario-wrap">
+        <div class="scenario-wrap" data-decoder>
           <div class="scenario-buttons" role="group" aria-label="Repair situations">
             <button class="scenario-btn is-active" type="button" data-scenario="yelled" aria-pressed="true">I yelled or got too intense.</button>
             <button class="scenario-btn" type="button" data-scenario="unfair" aria-pressed="false">I was unfair or too harsh.</button>
@@ -259,35 +260,35 @@
           </div>
 
           <div>
-            <article class="scenario-output" data-output="yelled">
+            <article class="scenario-output" data-output="yelled" data-ai-question="I yelled at my child or got too intense. How do I repair it?">
               <span class="tag">When your intensity scared or overwhelmed them</span>
               <h3>Repair the tone first.</h3>
               <p>The child needs to know the adult is safe again. Keep it short, own your part, and avoid explaining why you lost it while the child is still activated.</p>
               <div class="script-line">Try: "I got too loud. That was my job to handle. I am sorry. I am here now."</div>
             </article>
 
-            <article class="scenario-output" data-output="unfair" hidden>
+            <article class="scenario-output" data-output="unfair" data-ai-question="I was unfair or too harsh with my child. How do I apologize well?" hidden>
               <span class="tag">When your response did not fit the moment</span>
               <h3>Name the miss without making the child manage you.</h3>
               <p>Children do not need a perfect parent. They do need a parent who can say, "I see that I got that wrong," without asking the child to reassure the adult.</p>
               <div class="script-line">Try: "I was too harsh. You did need help, and I reacted like you were trying to make things hard. I am sorry."</div>
             </article>
 
-            <article class="scenario-output" data-output="upset" hidden>
+            <article class="scenario-output" data-output="upset" data-ai-question="My child is still upset after a hard moment between us. What should I do?" hidden>
               <span class="tag">When the child is not ready to move on</span>
               <h3>Do not rush forgiveness.</h3>
               <p>Repair is an offer, not a demand. If the child pulls away, cries, or stays angry, you can stay warm and steady without forcing a hug, a smile, or an "it's okay."</p>
               <div class="script-line">Try: "You are still upset. I understand. I will stay close, and you can come to me when you are ready."</div>
             </article>
 
-            <article class="scenario-output" data-output="boundary" hidden>
+            <article class="scenario-output" data-output="boundary" data-ai-question="How do I repair with my child when the boundary still needs to hold?" hidden>
               <span class="tag">When the limit was right but the delivery was not</span>
               <h3>Separate the boundary from the rupture.</h3>
               <p>A useful repair keeps both truths in the room: the adult's reaction needs repair, and the unsafe or impossible behavior still cannot continue.</p>
               <div class="script-line">Try: "I am sorry I yelled. I will work on that. And I still cannot let you throw the truck."</div>
             </article>
 
-            <article class="scenario-output" data-output="guilt" hidden>
+            <article class="scenario-output" data-output="guilt" data-ai-question="I feel stuck in guilt after a hard moment with my child. How do I move forward?" hidden>
               <span class="tag">When the adult is flooded with shame</span>
               <h3>Move from self-attack to responsibility.</h3>
               <p>Guilt can point you toward repair. Shame often traps you in collapse. A steadier adult question is: "What needs repair, and what support do I need so this pattern is less likely next time?"</p>
@@ -367,18 +368,6 @@
       </div>
     </section>
 
-    <section style="padding-top:0;">
-      <div class="container container--narrow">
-        <div class="promo-banner">
-          <div>
-            <p class="eyebrow">Now available · $49</p>
-            <p class="promo-banner__body">Toddler class · Unlimited Growing Minds AI · Milestone tracker · Lifetime access</p>
-          </div>
-          <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now →</a>
-        </div>
-      </div>
-    </section>
-
     <section>
       <div class="container container--narrow">
       <div class="cta-strip">
@@ -388,7 +377,7 @@
             <p class="small" style="max-width:38rem; margin:0;">What the research says about parent repair after hard moments, why it matters for trust and development, and how patterns over time matter more than any single difficult day. $49 for lifetime access.</p>
           </div>
           <div class="hero-actions">
-            <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a>
+            <a class="btn btn--primary" href="/classes/toddlerhood.html">See the toddler class</a>
             <a class="btn btn--ghost" href="/tools/">Back to tools</a>
           </div>
         </div>
@@ -452,22 +441,8 @@
   <script src="/assets/js/chrome.js"></script>
 
   <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/gms-tools.js" defer></script>
   <script src="../assets/js/decor.js" defer></script>
-  <script>
-    (function(){
-      var scenarioButtons = document.querySelectorAll('.scenario-btn');
-      var outputs = document.querySelectorAll('.scenario-output');
-      scenarioButtons.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          var key = btn.dataset.scenario;
-          scenarioButtons.forEach(function(b) { b.classList.remove('is-active'); b.setAttribute('aria-pressed', 'false'); });
-          btn.classList.add('is-active');
-          btn.setAttribute('aria-pressed', 'true');
-          outputs.forEach(function(o) { o.hidden = o.dataset.output !== key; });
-        });
-      });
-    })();
-  </script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

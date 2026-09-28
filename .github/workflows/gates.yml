@@ -69,6 +69,10 @@ jobs:
       # instead of failing, then starts enforcing automatically once the files
       # exist. Remove the guards once they are on main.
 
+      # Keyless: every network call is mocked, and an unexpected one fails the test.
+      - name: "API functions: unit tests (node --test, mocked fetch)"
+        run: node --test "tests/api/*.test.mjs"
+
       - name: Eval harness — deterministic checks (planted-violation gate)
         run: |
           if [ -f evals/selftest.mjs ]; then

@@ -16,7 +16,7 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Limits without escalation — Growing Minds Science" />
   <meta property="og:description" content="A practical parent tool on holding a no calmly when a toddler or preschooler is testing autonomy, without scripts and without losing your footing." />
-  <meta property="og:image" content="/assets/img/site/family-reading.jpg" />
+  <meta property="og:image" content="https://growingmindsscience.com/assets/img/site/family-reading.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -126,6 +126,7 @@
               </div>
             </details>
           </li>
+          <li><a class="nav__link" href="/arcade/">Arcade</a></li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
           <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
@@ -308,7 +309,7 @@
       <div class="container container--narrow">
         <h2>Choose the closest scenario</h2>
         <p class="section-intro">This isn't about finding the perfect script. It's about noticing what kind of moment you're in, so your response can get simpler and steadier.</p>
-        <div class="scenario-wrap">
+        <div class="scenario-wrap" data-decoder>
           <div class="scenario-buttons" role="group" aria-label="Scenario choices">
             <button class="scenario-btn is-active" type="button" data-scenario="repeat" aria-pressed="true">My child keeps doing it after I said no.</button>
             <button class="scenario-btn" type="button" data-scenario="meltdown" aria-pressed="false">My child melts down when I hold the limit.</button>
@@ -317,28 +318,28 @@
           </div>
 
           <div>
-            <article class="scenario-output" data-output="repeat">
+            <article class="scenario-output" data-output="repeat" data-ai-question="My child keeps doing it after I say no. What should I do instead of repeating myself?">
               <span class="tag">When the child repeats the behavior</span>
               <h3>Focus on follow-through, not stronger language.</h3>
               <p>If the child keeps doing it after a clear no, the next move is usually less talking and more action. Move closer, block what needs blocking, remove what needs removing, or help the child transition out of the setup that is not working.</p>
               <p class="small">Try: "I'm not letting you throw that. I'm moving it."</p>
             </article>
 
-            <article class="scenario-output" data-output="meltdown" hidden>
+            <article class="scenario-output" data-output="meltdown" data-ai-question="My child melts down when I hold a limit. How do I stay calm and keep the boundary?" hidden>
               <span class="tag">When the limit triggers big feelings</span>
               <h3>Keep the limit and make room for the feeling.</h3>
               <p>A child falling apart does not automatically mean the limit was too harsh. If the boundary is reasonable and necessary, the job is to stay nearby, keep the limit intact, and avoid arguing with the feeling.</p>
               <p class="small">Try: "You're mad. I'm still not letting you hit."</p>
             </article>
 
-            <article class="scenario-output" data-output="escalated" hidden>
+            <article class="scenario-output" data-output="escalated" data-ai-question="I already raised my voice during a limit. How do I come back from that?" hidden>
               <span class="tag">When the adult already escalated</span>
               <h3>Repair the tone, not the boundary.</h3>
               <p>If you yelled, threatened, or got pulled into a power struggle, you can come back without pretending the limit disappeared. Lower your voice, simplify, and return to the clearest version of the boundary.</p>
               <p class="small">Try: "I got too loud. I'm going to say it again more clearly. I'm not letting you climb there."</p>
             </article>
 
-            <article class="scenario-output" data-output="unclear" hidden>
+            <article class="scenario-output" data-output="unclear" data-ai-question="How can I tell whether this is a limit issue or a regulation issue with my child?" hidden>
               <span class="tag">When you are unsure what kind of moment this is</span>
               <h3>Ask whether the child can use the limit right now.</h3>
               <p>If the child is exhausted, dysregulated, sick, overloaded, or moving toward panic, the first task may be reducing stimulation and helping the system settle. If the child is organized enough to keep testing, the limit likely needs steadier follow-through.</p>
@@ -394,18 +395,6 @@
       </div>
     </section>
 
-    <section style="padding-top:0;">
-      <div class="container container--narrow">
-        <div class="promo-banner">
-          <div>
-            <p class="eyebrow">Now available · $49</p>
-            <p class="promo-banner__body">Toddler class · Unlimited Growing Minds AI · Milestone tracker · Lifetime access</p>
-          </div>
-          <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now →</a>
-        </div>
-      </div>
-    </section>
-
     <section>
       <div class="container container--narrow">
         <div class="cta-strip">
@@ -415,7 +404,7 @@
             <p class="small" style="max-width:38rem; margin:0;">Why toddlers test limits, how the developing brain drives this, and what the research supports for steady, calm follow-through. $49 for lifetime access.</p>
           </div>
           <div class="hero-actions">
-            <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a>
+            <a class="btn btn--primary" href="/classes/toddlerhood.html">See the toddler class</a>
             <a class="btn btn--ghost" href="/tools/">Back to tools</a>
           </div>
         </div>
@@ -491,18 +480,6 @@
           tabPanels.forEach(function(p) { p.hidden = true; });
           btn.setAttribute('aria-selected', 'true');
           document.getElementById(btn.getAttribute('aria-controls')).hidden = false;
-        });
-      });
-
-      var scenarioButtons = document.querySelectorAll('.scenario-btn');
-      var outputs = document.querySelectorAll('.scenario-output');
-      scenarioButtons.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          var key = btn.dataset.scenario;
-          scenarioButtons.forEach(function(b) { b.classList.remove('is-active'); b.setAttribute('aria-pressed', 'false'); });
-          btn.classList.add('is-active');
-          btn.setAttribute('aria-pressed', 'true');
-          outputs.forEach(function(o) { o.hidden = o.dataset.output !== key; });
         });
       });
     })();

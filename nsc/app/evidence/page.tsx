@@ -67,11 +67,11 @@ export default async function EvidencePage() {
           The evidence
         </h1>
         <p className="max-w-xl text-lg text-ink">
-          Number Path makes narrow claims on purpose. This page is the full
-          receipt: every study the product leans on, what each one actually
-          shows, and the one popular idea we examined and left out. Every entry
-          below was verified by a human against the published record before it
-          shipped.
+          Number Path makes narrow claims on purpose. This page is the receipt
+          for the check-in and the games: the studies they lean on, what each
+          one actually shows, and the one popular idea we examined and left
+          out. Every entry below was verified by a human against the published
+          record before it shipped.
         </p>
       </header>
 

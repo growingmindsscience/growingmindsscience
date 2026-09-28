@@ -153,11 +153,16 @@ h3 { font-size: var(--text-xl); }
 }
 .trust :focus-visible,
 .signup :focus-visible { outline-color: var(--coral); }
+/* The signup form is a white card inside the pine band: plain coral is only
+   2.85:1 against white, so the card goes back to coral-deep (6:1). */
+.signup__form :focus-visible { outline-color: var(--coral-deep); }
 
+/* Parked above the viewport with transform (not `top`) so the reveal never
+   animates a layout property. */
 .skip-link {
   position: absolute;
   left: var(--space-4);
-  top: -120px;
+  top: var(--space-4);
   z-index: 200;
   background: var(--pine);
   color: var(--on-dark);
@@ -166,9 +171,10 @@ h3 { font-size: var(--text-xl); }
   font-family: var(--font-display);
   font-size: var(--text-sm);
   text-decoration: none;
-  transition: top var(--t);
+  transform: translateY(calc(-100% - 2 * var(--space-4)));
+  transition: transform var(--t);
 }
-.skip-link:focus { top: var(--space-4); color: var(--on-dark); }
+.skip-link:focus { transform: none; color: var(--on-dark); }
 
 .u-visually-hidden {
   position: absolute !important;
@@ -301,6 +307,7 @@ h3 { font-size: var(--text-xl); }
 .hero__ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); }
 
 .hero__media { position: relative; margin: 0; }
+.hero__media picture { display: block; }
 .hero__media img {
   width: 100%;
   aspect-ratio: 4 / 5;
@@ -514,12 +521,14 @@ h3 { font-size: var(--text-xl); }
 /* Mobile-only coral progress rail — the growth-line's phone counterpart.
    Desktop hides it (the scroll-driven curve is the show there). On mobile the
    curve is hidden, so this rail carries the motion: a coral fill glides to the
-   selected stage with a glowing dot at its tip. Driven purely by :has() on the
-   live aria-selected state, so tapping a chip animates it with no JS. */
+   selected stage with a glowing dot at its tip. home.js sets --rail-p (0.08 at
+   stage 0 up to 1 at the last stage) on the rail; the fill and the tip both
+   slide with transform, so no layout property is ever animated. */
 .arc__rail { display: none; }
 
 @media (max-width: 720px) {
   .arc__rail {
+    --rail-p: 0.08;
     display: block;
     position: relative;
     height: 5px;
@@ -527,20 +536,24 @@ h3 { font-size: var(--text-xl); }
     border-radius: var(--radius-pill);
     background: color-mix(in oklab, var(--teal) 20%, transparent);
   }
-  .arc__rail-fill {
+  .arc__rail-clip {
     position: absolute;
-    inset: 0 auto 0 0;
-    /* home.js sets this element's width inline per selected stage; 8% is the
-       stage-0 default so the rail reads right before JS runs. */
-    width: 8%;
-    border-radius: var(--radius-pill);
-    background: var(--coral);
-    transition: width 0.55s var(--ease);
+    inset: 0;
+    border-radius: inherit;
+    overflow: hidden;
   }
-  .arc__rail-fill::after {
+  .arc__rail-fill,
+  .arc__rail-tip {
+    position: absolute;
+    inset: 0;
+    transform: translateX(calc((var(--rail-p) - 1) * 100%));
+    transition: transform 0.55s var(--ease);
+  }
+  .arc__rail-fill { background: var(--coral); }
+  .arc__rail-tip::after {
     content: "";
     position: absolute;
-    right: -5px; top: 50%;
+    right: -6.5px; top: 50%;
     width: 13px; height: 13px;
     transform: translateY(-50%);
     border-radius: 50%;
@@ -551,7 +564,8 @@ h3 { font-size: var(--text-xl); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .arc__rail-fill { transition: none; }
+  .arc__rail-fill,
+  .arc__rail-tip { transition: none; }
 }
 
 /* ---------- Flagship class ---------- */
@@ -854,6 +868,8 @@ h3 { font-size: var(--text-xl); }
 .signup__pitch h2 { color: #fff; margin-bottom: var(--space-4); }
 .signup__pitch .hl { color: var(--coral); }
 .signup__pitch p { color: var(--on-dark-soft); max-width: 46ch; }
+/* `.signup__pitch p` outranks `.eyebrow--on-dark`; restore the coral eyebrow. */
+.signup__pitch .eyebrow--on-dark { color: var(--coral-on-dark); }
 .signup__form {
   background: var(--surface);
   border: 1px solid var(--line);
@@ -905,6 +921,9 @@ h3 { font-size: var(--text-xl); }
   align-items: center;
   gap: 0.4em;
 }
+/* `display: flex` above would otherwise beat the [hidden] attribute and paint
+   the "!" icon under an untouched field. */
+.field__error[hidden] { display: none; }
 .field__error::before {
   content: "";
   flex: none;
@@ -1017,7 +1036,9 @@ html.anim .signup__success:not([hidden]) {
 /* ---------- Reveal motion ----------
    Active only when <html class="anim"> — set synchronously in the head, and
    only when the user has NOT requested reduced motion. With no JS or with
-   reduced motion, .anim is never added, so all content stays visible. */
+   reduced motion, .anim is never added, so all content stays visible.
+   The hero copy and hero photo carry no [data-animate]: the first screen (and
+   the LCP image) never waits on a script. */
 html.anim [data-animate] {
   opacity: 0;
   transform: translateY(18px);
@@ -1027,16 +1048,36 @@ html.anim [data-animate] {
 html.anim [data-animate="fade"] { transform: none; }
 html.anim [data-animate].is-visible { opacity: 1; transform: none; }
 
+/* Failsafe: the reveal is an enhancement, never a gate. If home.js is slow,
+   blocked, or throws, anything it has not revealed shows itself after 2.5s. */
+html.anim [data-animate]:not(.is-visible) {
+  animation: gms-reveal-failsafe 0s linear 2.5s forwards;
+}
+@keyframes gms-reveal-failsafe {
+  to { opacity: 1; transform: none; }
+}
+
 /* Signature moment: the coral highlight phrase ("Here's why.") comes into focus
-   a beat after the black headline has arrived, so it lands last. Hero-scoped,
-   enhancement only — with no JS / reduced motion the phrase is simply present. */
-html.anim .hero__title .hl { opacity: 0; display: inline-block; }
-html.anim .hero__title.is-visible .hl {
-  animation: hl-settle 860ms var(--ease) 620ms both;
+   a beat after the headline has painted, so it lands last. Pure CSS, so it can
+   never get stuck waiting on a script; with reduced motion (no .anim) the
+   phrase is simply present. */
+html.anim .hero__title .hl {
+  display: inline-block;
+  animation: hl-settle 860ms var(--ease) 350ms both;
 }
 @keyframes hl-settle {
   from { opacity: 0; filter: blur(6px); transform: translateY(0.18em); }
   to   { opacity: 1; filter: blur(0); transform: none; }
+}
+
+@media print {
+  [data-animate],
+  html.anim .hero__title .hl {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    animation: none !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1075,9 +1116,16 @@ html.anim .hero__title.is-visible .hl {
     border-top: 1px solid var(--line);
     box-shadow: 0 -10px 28px -18px rgba(14, 42, 45, 0.35);
     transform: translateY(130%);
-    transition: transform 340ms var(--ease);
+    /* Parked off-screen it must also leave the tab order and the a11y tree;
+       visibility flips only after the slide-out finishes. */
+    visibility: hidden;
+    transition: transform 340ms var(--ease), visibility 0s linear 340ms;
   }
-  .mobile-cta.is-visible { transform: translateY(0); }
+  .mobile-cta.is-visible {
+    transform: translateY(0);
+    visibility: visible;
+    transition: transform 340ms var(--ease), visibility 0s;
+  }
   .mobile-cta .btn { min-height: 52px; }
 
   /* Arc: curve hidden, tabs become a scroll-snap row of stage chips */

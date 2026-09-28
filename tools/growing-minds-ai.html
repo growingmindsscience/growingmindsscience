@@ -24,16 +24,24 @@
   <style>
     /* ── Variables ─────────────────────────────────── */
     :root {
+      /* Tidepool tokens (DESIGN.md). Muted and soft ink are solid colours so
+         meta text stays AA on mist and white; coral text uses coral-deep on
+         light grounds and coral-on-dark on pine. */
       --teal:        #1E5F62;
       --teal-dark:   #15393C;
       --teal-hover:  #185053;
       --teal-light:  rgba(30,95,98,.08);
-      --amber:       #DE7356;
-      --amber-dark:  #A3492E;
+      --pine:        #15393C;
+      --pine-deep:   #0E2A2D;
+      --coral:       #DE7356;
+      --coral-deep:  #9C4429;
+      --coral-on-dark: #E78D6F;
+      --on-dark:     #EDF4F1;
+      --on-dark-soft: #BCD2CC;
       --cream:       #F0F5F3;
       --ink:         #15393C;
-      --ink-soft:    rgba(21,57,60,.72);
-      --ink-muted:   rgba(21,57,60,.55);
+      --ink-soft:    #3D5A5A;
+      --ink-muted:   #4E6564;
       --blush:       #F8E7E0;
       --white:       #ffffff;
       --border:      rgba(21,57,60,.12);
@@ -74,14 +82,14 @@
       line-height: 1; white-space: nowrap;
       transition: background .2s, color .2s, border-color .2s;
     }
-    .btn--amber { background: var(--amber); color: var(--white); border-color: var(--amber); }
-    .btn--amber:hover { background: var(--amber-dark); border-color: var(--amber-dark); }
+    .btn--teal { background: var(--teal); color: var(--white); border-color: var(--teal); }
+    .btn--teal:hover { background: var(--teal-hover); border-color: var(--teal-hover); }
     .btn--ghost { background: transparent; color: var(--teal); border-color: var(--teal); }
     .btn--ghost:hover { background: var(--teal); color: var(--white); }
 
     /* ── Page header ───────────────────────────────── */
     .ai-page-header {
-      background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 100%);
+      background: linear-gradient(135deg, var(--pine-deep) 0%, var(--pine) 100%);
       padding: 2.5rem 0 2rem;
     }
     .ai-page-header__inner {
@@ -90,7 +98,8 @@
     .ai-badge {
       display: inline-flex; align-items: center; gap: .375rem;
       font-size: .6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
-      color: var(--amber); background: rgba(196,103,42,.18);
+      color: var(--coral-on-dark); background: transparent;
+      border: 1px solid rgba(231,141,111,.45);
       padding: .3rem .75rem; border-radius: 100px; margin-bottom: 1rem;
     }
     .ai-badge__dot { width: 6px; height: 6px; background: #5FBF8E; border-radius: 50%; }
@@ -99,13 +108,13 @@
       margin-bottom: .625rem;
     }
     .ai-page-header p {
-      font-size: .9375rem; color: rgba(255,255,255,.7); max-width: 52ch;
+      font-size: .9375rem; color: var(--on-dark-soft); max-width: 52ch;
     }
     .ai-tier-badge {
       display: inline-flex; align-items: center; gap: .5rem;
-      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.22);
       border-radius: 8px; padding: .625rem 1rem;
-      font-size: .8125rem; color: rgba(255,255,255,.85); white-space: nowrap;
+      font-size: .8125rem; color: var(--on-dark); white-space: nowrap;
       flex-shrink: 0;
     }
     .ai-tier-badge__icon { font-size: 1rem; }
@@ -124,9 +133,9 @@
       display: flex; flex-direction: column; gap: 1.125rem;
       min-height: 300px; max-height: calc(100vh - 380px);
     }
-    /* In the welcome state, let the topic browser breathe instead of
-       scrolling inside the short messages box. */
-    .chat-messages.is-welcome { max-height: none; overflow: visible; }
+    /* Before the first question the log is empty; the welcome and topic
+       browser sit above it, outside the live region. */
+    .chat-messages.is-empty { min-height: 0; padding: 0; }
     .chat-messages::-webkit-scrollbar { width: 4px; }
     .chat-messages::-webkit-scrollbar-track { background: transparent; }
     .chat-messages::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 4px; }
@@ -135,7 +144,7 @@
     .chat-welcome { text-align: center; padding: 2rem 0 1rem; }
     .chat-welcome__icon {
       width: 56px; height: 56px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--teal) 0%, var(--amber) 100%);
+      background: linear-gradient(135deg, var(--teal) 0%, var(--coral) 100%);
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 1.25rem;
       font-family: 'Bricolage Grotesque', serif; font-weight: 700; font-size: .875rem; color: var(--white);
@@ -180,7 +189,9 @@
     .topic-cards {
       display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem;
     }
+    .topic-cards > li { display: flex; }
     .topic-card {
+      width: 100%;
       background: var(--white); border: 1px solid var(--border);
       border-radius: 12px; padding: .9rem 1rem;
       font-size: .9rem; line-height: 1.45; color: var(--ink);
@@ -205,6 +216,7 @@
     }
     .chat-toolbar.is-visible { display: flex; }
     .chat-toolbar__label { font-size: .8rem; color: var(--ink-muted); }
+    .chat-toolbar__actions { display: flex; gap: .5rem; flex-wrap: wrap; }
     .chat-pill-btn {
       display: inline-flex; align-items: center; gap: .4rem;
       background: var(--white); border: 1px solid var(--border-mid);
@@ -226,10 +238,17 @@
       background: var(--cream); border-radius: 16px 16px 0 0;
       max-height: 80vh; overflow-y: auto;
       padding: 1.25rem 1.5rem 2rem;
-      transform: translateY(100%); transition: transform .25s ease;
+      transform: translateY(100%);
+      /* Hidden (and inert, set in the script) while closed, so its tabs and
+         cards are not in the Tab order; visibility flips after the slide-out. */
+      visibility: hidden;
+      transition: transform .25s ease, visibility 0s linear .25s;
       box-shadow: 0 -8px 40px rgba(21,57,60,.18);
     }
-    .topic-sheet.is-open { transform: translateY(0); }
+    .topic-sheet.is-open {
+      transform: translateY(0); visibility: visible;
+      transition: transform .25s ease, visibility 0s linear 0s;
+    }
     .topic-sheet__bar {
       display: flex; align-items: center; justify-content: space-between;
       margin-bottom: 1rem; position: sticky; top: -1.25rem;
@@ -269,7 +288,8 @@
     .msg__bubble ul { padding-left: 1.25rem; list-style: disc; margin: .5rem 0; display: flex; flex-direction: column; gap: .25rem; }
     .msg__bubble li { line-height: 1.5; }
     .msg__bubble p + p { margin-top: .625rem; }
-    .msg__bubble .error { color: #c0392b; }
+    .msg__bubble .error { color: var(--coral-deep); }
+    .msg__note { font-size: .8125rem; color: var(--ink-muted); margin-top: .625rem; }
 
     /* Typing cursor */
     .cursor {
@@ -334,7 +354,13 @@
       margin-top: .625rem; gap: 1rem; flex-wrap: wrap;
     }
     .chat-meta__left { font-size: .8rem; color: var(--ink-muted); }
-    .chat-meta__right { display: flex; align-items: center; gap: .75rem; }
+    .chat-meta__right { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
+    .chat-about { margin-top: .25rem; }
+    .chat-about summary {
+      display: inline; cursor: pointer; color: var(--ink-muted);
+      text-decoration: underline; text-underline-offset: 2px;
+    }
+    .chat-about p { margin-top: .5rem; max-width: 62ch; color: var(--ink-soft); line-height: 1.55; }
     .access-code-toggle {
       font-size: .8rem; color: var(--teal); background: none; border: none;
       padding: 0; font-family: inherit; cursor: pointer; text-decoration: underline;
@@ -344,20 +370,19 @@
 
     /* Limit reached */
     .chat-limit {
-      background: var(--blush); border: 1px solid rgba(196,103,42,.3);
-      border-radius: 10px; padding: 1rem 1.25rem;
+      background: var(--blush); border: 1px solid rgba(156,68,41,.3);
+      border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: .75rem;
       display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
     }
     .chat-limit p { font-size: .875rem; color: var(--ink); }
-    .chat-limit strong { color: var(--amber); }
+    .chat-limit strong { color: var(--coral-deep); }
+    .chat-limit .btn { white-space: nowrap; font-size: .875rem; padding: .625rem 1.125rem; }
 
     /* ── Access code panel ─────────────────────────── */
     .access-panel {
       background: var(--white); border: 1px solid var(--border-mid);
       border-radius: 10px; padding: 1.25rem; margin-bottom: 1rem;
-      display: none;
     }
-    .access-panel.is-open { display: block; }
     .access-panel h3 { font-size: 1rem; margin-bottom: .375rem; }
     .access-panel p { font-size: .8375rem; color: var(--ink-soft); margin-bottom: .875rem; }
     .access-panel__row { display: flex; gap: .625rem; align-items: stretch; }
@@ -374,8 +399,8 @@
     }
     .access-btn:hover { background: var(--teal-hover); }
     .access-status { font-size: .8rem; margin-top: .5rem; }
-    .access-status--success { color: #16a34a; }
-    .access-status--error { color: #c0392b; }
+    .access-status--success { color: var(--teal); }
+    .access-status--error { color: var(--coral-deep); }
 
     /* ── Plans strip (gentle pointer to /pricing) ──── */
     .plans-strip {
@@ -399,10 +424,32 @@
     @media (max-width: 640px) {
       .ai-page-header { padding: 2rem 0 1.5rem; }
       .ai-page-header__inner { flex-direction: column; align-items: flex-start; }
-      .chat-messages { max-height: calc(100vh - 440px); min-height: 240px; }
+      /* Phones: no inner scroll box; the conversation scrolls with the page. */
+      .chat-messages { max-height: none; overflow: visible; min-height: 0; }
       .topic-cards { grid-template-columns: 1fr; }
       .topic-sheet { max-height: 88vh; padding: 1rem 1.125rem 1.75rem; }
       .plans-strip__card { flex-direction: column; align-items: flex-start; text-align: left; }
+    }
+
+    /* ── Utilities and accessibility ───────────────── */
+    .chat-shell [hidden], .topic-sheet [hidden] { display: none !important; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+    .topic-tab:focus-visible, .topic-card:focus-visible, .chat-pill-btn:focus-visible,
+    .access-code-toggle:focus-visible, .access-btn:focus-visible, .chat-send:focus-visible,
+    .topic-sheet__close:focus-visible, .chat-about summary:focus-visible,
+    .chat-shell .btn:focus-visible, .plans-strip .btn:focus-visible {
+      outline: 2.5px solid var(--coral-deep); outline-offset: 3px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .cursor { animation: none; }
+      .msg__thinking span { animation: none; opacity: .7; }
+      .topic-sheet, .topic-sheet.is-open, .topic-sheet-backdrop { transition: none; }
+      .btn, .topic-tab, .topic-card, .topic-card__arrow, .chat-pill-btn, .chat-send, .access-btn { transition: none; }
+      .topic-card:active, .topic-card:hover .topic-card__arrow { transform: none; }
     }
   </style>
   <link rel="stylesheet" href="/assets/css/chrome.css" />
@@ -440,6 +487,7 @@
               </div>
             </details>
           </li>
+          <li><a class="nav__link" href="/arcade/">Arcade</a></li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
           <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
@@ -464,7 +512,7 @@
           <p>Get a calm, research-grounded answer, not generic internet advice and not judgment. Grounded in developmental neuroscience and 50+ years of published research.</p>
         </div>
         <div class="ai-tier-badge" id="tierBadge" aria-live="polite">
-          <span class="ai-tier-badge__icon">💬</span>
+          <span class="ai-tier-badge__icon" aria-hidden="true">💬</span>
           <span id="tierText">Free · <strong id="questionsLeft">5</strong> questions today</span>
         </div>
       </div>
@@ -475,9 +523,9 @@
 
       <!-- Toolbar (appears once a conversation starts) -->
       <div class="chat-toolbar" id="chatToolbar">
-        <span class="chat-toolbar__label">Your conversation stays private to this browser.</span>
-        <div style="display:flex; gap:.5rem;">
-          <button class="chat-pill-btn" type="button" id="browseTopicsBtn">
+        <span class="chat-toolbar__label">We don't save this conversation. It clears when you start over or leave the page.</span>
+        <div class="chat-toolbar__actions">
+          <button class="chat-pill-btn" type="button" id="browseTopicsBtn" aria-haspopup="dialog" aria-controls="topicSheet" aria-expanded="false">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
             Browse questions
           </button>
@@ -488,25 +536,27 @@
         </div>
       </div>
 
-      <!-- Messages -->
-      <div class="chat-messages is-welcome" id="chatMessages" role="log" aria-label="Conversation" aria-live="polite">
-        <div class="chat-welcome" id="chatWelcome">
-          <div class="chat-welcome__icon" aria-hidden="true">GM</div>
-          <h2>What's on your mind today?</h2>
-          <p>Ask anything about your child's behavior, feelings, sleep, language, or development. You'll get a calm, research-grounded answer — no judgment, and never a diagnosis.</p>
+      <!-- Welcome and topic browser. Kept outside the conversation log so
+           screen readers do not announce the topic cards as chat. -->
+      <div class="chat-welcome" id="chatWelcome">
+        <div class="chat-welcome__icon" aria-hidden="true">GM</div>
+        <h2>What's on your mind today?</h2>
+        <p>Ask anything about your child's behavior, feelings, sleep, language, or development. You'll get a calm, research-grounded answer — no judgment, and never a diagnosis.</p>
 
-          <!-- Topic browser (data-driven training cards) -->
-          <div class="topic-browser" id="topicBrowser">
-            <p class="topic-browser__hint">Not sure where to start? Pick a stage or topic, then tap a question.</p>
-            <div class="topic-tabs" id="topicTabs" role="tablist" aria-label="Question topics"></div>
-            <div class="topic-cards" id="topicCards" role="list"></div>
-          </div>
+        <!-- Topic browser (data-driven training cards) -->
+        <div class="topic-browser" id="topicBrowser">
+          <p class="topic-browser__hint">Not sure where to start? Pick a stage or topic, then tap a question.</p>
+          <div class="topic-tabs" id="topicTabs" role="tablist" aria-label="Question topics"></div>
+          <div class="topic-panel" id="topicPanel" role="tabpanel"></div>
         </div>
       </div>
 
+      <!-- Messages -->
+      <div class="chat-messages is-empty" id="chatMessages" role="log" aria-label="Conversation" aria-live="polite" aria-busy="false"></div>
+
       <!-- Access code panel -->
-      <div class="access-panel" id="accessPanel" role="region" aria-label="Class access code">
-        <h3>Enter your class access code</h3>
+      <div class="access-panel" id="accessPanel" role="region" aria-labelledby="accessPanelTitle" hidden>
+        <h3 id="accessPanelTitle">Enter your class access code</h3>
         <p>Class members get unlimited questions. Your access code is in your class confirmation email.</p>
         <div class="access-panel__row">
           <input class="access-input" type="password" id="accessCodeInput" placeholder="Your access code" autocomplete="off" aria-label="Access code" />
@@ -516,8 +566,8 @@
       </div>
 
       <!-- Subscriber login panel -->
-      <div class="access-panel" id="subscriberPanel" style="display:none;" role="region" aria-label="Subscriber login">
-        <h3>AI Pro subscriber</h3>
+      <div class="access-panel" id="subscriberPanel" role="region" aria-labelledby="subscriberPanelTitle" hidden>
+        <h3 id="subscriberPanelTitle">AI Pro subscriber</h3>
         <p>Enter the email you used when you subscribed to unlock unlimited access.</p>
         <div class="access-panel__row">
           <input class="access-input" type="email" id="subscriberEmailInput" placeholder="Your email address" autocomplete="email" aria-label="Subscriber email" />
@@ -528,9 +578,9 @@
 
       <!-- Input -->
       <div class="chat-input-wrap">
-        <div id="limitReached" class="chat-limit" style="display:none;">
+        <div id="limitReached" class="chat-limit" hidden>
           <p>You've used your <strong>5 free questions</strong> for today. Go unlimited with a class or AI Pro, or come back tomorrow.</p>
-          <a class="btn btn--amber" href="/pricing" style="white-space:nowrap; font-size:.875rem; padding:.625rem 1.125rem;">See plans →</a>
+          <a class="btn btn--teal" href="/pricing">See plans <span aria-hidden="true">→</span></a>
         </div>
         <div id="inputArea">
           <div class="chat-input-box">
@@ -545,12 +595,20 @@
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
             </button>
           </div>
-          <div class="chat-meta">
-            <p class="chat-meta__left">Not medical advice. <a href="/about/" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">About this tool</a></p>
-            <div class="chat-meta__right">
-              <button class="access-code-toggle" type="button" id="accessCodeToggle">Have a class access code?</button>
-              <button class="access-code-toggle" type="button" id="subscriberLoginToggle">AI&nbsp;Pro subscriber?</button>
-            </div>
+        </div>
+        <!-- Outside #inputArea, so the unlock links stay visible when the free
+             questions run out and the input is hidden. -->
+        <div class="chat-meta">
+          <div class="chat-meta__left">
+            <p>Not medical advice.</p>
+            <details class="chat-about">
+              <summary>How this works</summary>
+              <p>Answers are written by Claude, an AI model from Anthropic, using a curated library of developmental research and Growing Minds class material. To write each answer, your question and the recent part of this conversation are sent to our server and on to Anthropic. We don't save your conversation: it stays in this browser tab and clears when you start over or leave the page. Please leave out names and other details that could identify your child.</p>
+            </details>
+          </div>
+          <div class="chat-meta__right" id="unlockLinks">
+            <button class="access-code-toggle" type="button" id="accessCodeToggle" aria-expanded="false" aria-controls="accessPanel">Have a class access code?</button>
+            <button class="access-code-toggle" type="button" id="subscriberLoginToggle" aria-expanded="false" aria-controls="subscriberPanel">AI&nbsp;Pro subscriber?</button>
           </div>
         </div>
       </div>
@@ -565,7 +623,7 @@
             <p>Want unlimited? A class bundle or a simple $9/month plan opens it all up — see what fits.</p>
           </div>
           <div class="plans-strip__cta">
-            <a class="btn btn--amber" href="/pricing">See plans &amp; pricing →</a>
+            <a class="btn btn--teal" href="/pricing">See plans &amp; pricing <span aria-hidden="true">→</span></a>
           </div>
         </div>
       </div>
@@ -573,16 +631,16 @@
 
   </main>
 
-  <!-- TOPIC SHEET (browse questions anytime) -->
+  <!-- TOPIC SHEET (browse questions anytime). Inert and hidden while closed. -->
   <div class="topic-sheet-backdrop" id="topicSheetBackdrop"></div>
-  <div class="topic-sheet" id="topicSheet" role="dialog" aria-modal="true" aria-labelledby="topicSheetTitle" aria-hidden="true">
+  <div class="topic-sheet" id="topicSheet" role="dialog" aria-modal="true" aria-labelledby="topicSheetTitle" inert>
     <div class="topic-sheet__bar">
       <h2 class="topic-sheet__title" id="topicSheetTitle">Browse questions</h2>
       <button class="topic-sheet__close" type="button" id="topicSheetClose" aria-label="Close">×</button>
     </div>
     <div class="topic-browser">
       <div class="topic-tabs" id="sheetTabs" role="tablist" aria-label="Question topics"></div>
-      <div class="topic-cards" id="sheetCards" role="list"></div>
+      <div class="topic-panel" id="sheetPanel" role="tabpanel"></div>
     </div>
   </div>
 
@@ -643,8 +701,11 @@
   <script src="/assets/js/chrome.js"></script>
 
   <script>
+  (function () {
+    'use strict';
+
     /* ── Topic library (training cards) ───────────────── */
-    /* Add or edit topics here — the browser and the bottom sheet both
+    /* Add or edit topics here: the browser and the bottom sheet both
        render from this single source, so new questions appear everywhere. */
     const TOPICS = [
       {
@@ -746,77 +807,148 @@
         ],
       },
     ];
-    let activeTopicId = TOPICS[0].id;
+
+    /* ── Limits ───────────────────────────────────────── */
+    /* A copy of LIMITS in api/_ai-chat.js, so the page only sends what the
+       server keeps. tests/api/limits.test.mjs fails if the two drift apart. */
+    const LIMITS = {
+      QUESTION_MAX_CHARS: 1200,
+      HISTORY_MAX_TURNS: 8,
+      HISTORY_TURN_MAX_CHARS: 2000,
+      BODY_MAX_CHARS: 24000,
+      FREE_DAILY_LIMIT: 5,
+    };
+
+    /* ── Safe storage ─────────────────────────────────── */
+    /* Same shape as assets/js/gms-tools.js: when storage is blocked (private
+       modes, strict settings) every read and write falls back to memory, so
+       the chat still works for this visit. */
+    function safeStore(kind) {
+      let store = null;
+      try {
+        const candidate = window[kind];
+        const probe = '__gm_probe__';
+        candidate.setItem(probe, '1');
+        candidate.removeItem(probe);
+        store = candidate;
+      } catch (_) { store = null; }
+      const memory = new Map();
+      return {
+        get(key) {
+          if (store) { try { return store.getItem(key); } catch (_) {} }
+          return memory.has(key) ? memory.get(key) : null;
+        },
+        set(key, value) {
+          if (store) { try { store.setItem(key, value); return; } catch (_) {} }
+          memory.set(key, String(value));
+        },
+        remove(key) {
+          if (store) { try { store.removeItem(key); return; } catch (_) {} }
+          memory.delete(key);
+        },
+      };
+    }
+    const local = safeStore('localStorage');
+    const session = safeStore('sessionStorage');
 
     /* ── State ────────────────────────────────────────── */
-    const FREE_LIMIT = 5;
-    const STORAGE_KEY = 'gm_ai_usage';
+    const USAGE_KEY = 'gm_ai_usage';
     const SUB_TOKEN_KEY = 'gm_sub_token';
+    const ACCESS_CODE_KEY = 'gm_access_code';
     let conversationHistory = [];
-    let accessCode = sessionStorage.getItem('gm_access_code') || '';
-    let subscriberToken = localStorage.getItem(SUB_TOKEN_KEY) || '';
+    let conversationId = 0;      // bumped by "New conversation", so a late answer is dropped
+    let activeRequest = null;    // { controller } for the question being answered
+    let accessCode = session.get(ACCESS_CODE_KEY) || '';
+    let subscriberToken = local.get(SUB_TOKEN_KEY) || '';
     // Unlimited via a signed-in Growing Minds account (membership or the
     // legacy class bundle). Resolved async from the shared session; the
     // server re-checks independently, so this only drives the UI.
     let sessionUnlimited = false;
     let isStreaming = false;
+    let activeTopicId = TOPICS[0].id;
 
-    /* ── Free tier tracking ───────────────────────────── */
-    function getUsage() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return { date: today(), count: 0 };
-        const data = JSON.parse(raw);
-        if (data.date !== today()) return { date: today(), count: 0 };
-        return data;
-      } catch { return { date: today(), count: 0 }; }
-    }
+    /* ── Free tier tracking (UX only; the server is the gate) ── */
     function today() {
       return new Date().toISOString().slice(0, 10);
     }
+    function getUsage() {
+      try {
+        const data = JSON.parse(local.get(USAGE_KEY) || 'null');
+        if (data && data.date === today() && Number.isFinite(data.count)) {
+          return { date: data.date, count: Math.max(0, data.count) };
+        }
+      } catch (_) {}
+      return { date: today(), count: 0 };
+    }
+    function setUsageCount(count) {
+      local.set(USAGE_KEY, JSON.stringify({ date: today(), count }));
+    }
     function incrementUsage() {
-      const usage = getUsage();
-      usage.count++;
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(usage)); } catch {}
+      setUsageCount(getUsage().count + 1);
     }
     function isUnlimited() {
       return Boolean(accessCode || subscriberToken || sessionUnlimited);
     }
     function questionsRemaining() {
       if (isUnlimited()) return Infinity;
-      return Math.max(0, FREE_LIMIT - getUsage().count);
+      return Math.max(0, LIMITS.FREE_DAILY_LIMIT - getUsage().count);
+    }
+
+    /* ── DOM ──────────────────────────────────────────── */
+    const messagesEl   = document.getElementById('chatMessages');
+    const welcomeEl    = document.getElementById('chatWelcome');
+    const toolbarEl    = document.getElementById('chatToolbar');
+    const inputEl      = document.getElementById('chatInput');
+    const sendBtn      = document.getElementById('sendBtn');
+    const inputArea    = document.getElementById('inputArea');
+    const limitEl      = document.getElementById('limitReached');
+    const tierTextEl   = document.getElementById('tierText');
+    const unlockLinks  = document.getElementById('unlockLinks');
+    const accessToggle = document.getElementById('accessCodeToggle');
+    const accessPanel  = document.getElementById('accessPanel');
+    const codeInput    = document.getElementById('accessCodeInput');
+    const codeSubmit   = document.getElementById('accessCodeSubmit');
+    const codeStatus   = document.getElementById('accessStatus');
+    const subToggle    = document.getElementById('subscriberLoginToggle');
+    const subPanel     = document.getElementById('subscriberPanel');
+    const subEmailInput = document.getElementById('subscriberEmailInput');
+    const subSubmitBtn = document.getElementById('subscriberEmailSubmit');
+    const subStatus    = document.getElementById('subscriberStatus');
+
+    function prefersReducedMotion() {
+      return Boolean(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    }
+    function scrollBehavior() {
+      return prefersReducedMotion() ? 'auto' : 'smooth';
+    }
+
+    /* ── Tier badge and composer ──────────────────────── */
+    function setTierText(label, strongText, trailing) {
+      const strong = document.createElement('strong');
+      strong.textContent = strongText;
+      tierTextEl.replaceChildren(label + ' · ', strong);
+      if (trailing) tierTextEl.append(trailing);
     }
     function updateTierBadge() {
-      const rem = questionsRemaining();
-      const textEl = document.getElementById('tierText');
-      const limitEl = document.getElementById('limitReached');
-      const inputArea = document.getElementById('inputArea');
-      const accessToggle = document.getElementById('accessCodeToggle');
-      const subToggle = document.getElementById('subscriberLoginToggle');
+      const unlimited = isUnlimited();
+      const remaining = questionsRemaining();
+      if (subscriberToken) setTierText('AI Pro', 'Unlimited');
+      else if (sessionUnlimited) setTierText('Signed in', 'Unlimited');
+      else if (accessCode) setTierText('Class member', 'Unlimited');
+      else if (remaining > 0) setTierText('Free', String(remaining), remaining === 1 ? ' question today' : ' questions today');
+      else setTierText('Free', 'Limit reached');
 
-      if (subscriberToken) {
-        textEl.innerHTML = '🔓 AI Pro · <strong>Unlimited</strong>';
-        if (accessToggle) accessToggle.style.display = 'none';
-        if (subToggle) subToggle.style.display = 'none';
-      } else if (sessionUnlimited) {
-        textEl.innerHTML = '🔓 Signed in · <strong>Unlimited</strong>';
-        if (accessToggle) accessToggle.style.display = 'none';
-        if (subToggle) subToggle.style.display = 'none';
-      } else if (accessCode) {
-        textEl.innerHTML = '🔓 Class member · <strong>Unlimited</strong>';
-        if (accessToggle) accessToggle.style.display = 'none';
-        if (subToggle) subToggle.style.display = 'none';
-      } else if (rem > 0) {
-        textEl.innerHTML = `Free · <strong id="questionsLeft">${rem}</strong> question${rem === 1 ? '' : 's'} today`;
-        if (accessToggle) accessToggle.style.display = '';
-        if (subToggle) subToggle.style.display = '';
-      } else {
-        textEl.innerHTML = 'Free · <strong>Limit reached</strong>';
-        limitEl.style.display = 'flex';
-        inputArea.style.display = 'none';
-        if (accessToggle) accessToggle.style.display = '';
-        if (subToggle) subToggle.style.display = '';
-      }
+      // The unlock links live outside the input area, so they stay reachable
+      // when the free questions run out; they go away once unlimited.
+      unlockLinks.hidden = unlimited;
+      const canAsk = unlimited || remaining > 0;
+      inputArea.hidden = !canAsk;
+      limitEl.hidden = canAsk;
+    }
+
+    function setStatus(el, text, kind) {
+      el.textContent = text;
+      el.className = 'access-status' + (kind ? ' access-status--' + kind : '');
     }
 
     /* ── Markdown renderer ────────────────────────────── */
@@ -871,105 +1003,150 @@
         .replace(/`(.+?)`/g, '<code>$1</code>');
     }
 
-    /* ── DOM helpers ──────────────────────────────────── */
-    const messagesEl = document.getElementById('chatMessages');
-    const welcomeEl  = document.getElementById('chatWelcome');
-    const inputEl    = document.getElementById('chatInput');
-    const sendBtn    = document.getElementById('sendBtn');
-
-    const toolbarEl = document.getElementById('chatToolbar');
-
+    /* ── Messages ─────────────────────────────────────── */
     function hideWelcome() {
-      if (welcomeEl) welcomeEl.style.display = 'none';
-      messagesEl.classList.remove('is-welcome');
-      if (toolbarEl) toolbarEl.classList.add('is-visible');
+      welcomeEl.hidden = true;
+      messagesEl.classList.remove('is-empty');
+      toolbarEl.classList.add('is-visible');
     }
 
-    function resetConversation() {
-      conversationHistory = [];
-      // Remove every message bubble, keep the welcome node
-      messagesEl.querySelectorAll('.msg, #thinking').forEach(el => el.remove());
-      if (welcomeEl) welcomeEl.style.display = '';
-      messagesEl.classList.add('is-welcome');
-      if (toolbarEl) toolbarEl.classList.remove('is-visible');
-      activeTopicId = TOPICS[0].id;
-      renderAllTopics();
-      inputEl.value = '';
-      inputEl.style.height = 'auto';
-      inputEl.focus({ preventScroll: true });
-      welcomeEl?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    function addMessage(role, html) {
+    function addMessage(role, html, { disclaimer = role === 'assistant' } = {}) {
       const wrap = document.createElement('div');
       wrap.className = `msg msg--${role}`;
       const bubble = document.createElement('div');
       bubble.className = 'msg__bubble';
-      bubble.innerHTML = html;
+      bubble.innerHTML = html;  // always from renderMarkdown (escaped) or static markup
       wrap.appendChild(bubble);
-      if (role === 'assistant') {
+      if (disclaimer) {
         const disc = document.createElement('p');
         disc.className = 'msg__disclaimer';
         disc.textContent = 'Not medical advice.';
         wrap.appendChild(disc);
       }
       messagesEl.appendChild(wrap);
-      scrollToBottom();
-      return bubble;
+      return { wrap, bubble };
+    }
+
+    function addNote(bubble, text, className) {
+      const note = document.createElement('p');
+      note.className = className || 'msg__note';
+      note.textContent = text;
+      bubble.appendChild(note);
     }
 
     function addThinkingIndicator() {
       const wrap = document.createElement('div');
       wrap.className = 'msg msg--assistant';
-      wrap.id = 'thinking';
       const dots = document.createElement('div');
       dots.className = 'msg__thinking';
-      dots.innerHTML = '<span></span><span></span><span></span>';
+      dots.innerHTML = '<span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><span class="sr-only">Writing an answer</span>';
       wrap.appendChild(dots);
       messagesEl.appendChild(wrap);
-      scrollToBottom();
       return wrap;
     }
 
-    function scrollToBottom() {
-      messagesEl.scrollTop = messagesEl.scrollHeight;
+    // Following the answer as it streams: only when the reader is already at
+    // the bottom, so someone rereading an earlier part is never pulled away.
+    function messagesScrollInside() {
+      return messagesEl.scrollHeight > messagesEl.clientHeight + 1
+        && getComputedStyle(messagesEl).overflowY !== 'visible';
+    }
+    function isAtBottom() {
+      if (messagesScrollInside()) {
+        return messagesEl.scrollHeight - messagesEl.scrollTop - messagesEl.clientHeight < 48;
+      }
+      return messagesEl.getBoundingClientRect().bottom <= window.innerHeight + 48;
+    }
+    function followToBottom() {
+      if (messagesScrollInside()) {
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+        return;
+      }
+      const overflow = messagesEl.getBoundingClientRect().bottom - window.innerHeight;
+      if (overflow > 0) window.scrollBy(0, overflow + 16);
+    }
+    function reveal(el) {
+      el.scrollIntoView({ block: 'nearest', behavior: scrollBehavior() });
+    }
+
+    function setStreaming(on) {
+      isStreaming = on;
+      messagesEl.setAttribute('aria-busy', on ? 'true' : 'false');
+      sendBtn.disabled = on || !inputEl.value.trim();
+    }
+
+    function autoResize() {
+      inputEl.style.height = 'auto';
+      inputEl.style.height = Math.min(inputEl.scrollHeight, 140) + 'px';
+      sendBtn.disabled = !inputEl.value.trim() || isStreaming;
+    }
+
+    /* ── Request body ─────────────────────────────────── */
+    // Only what the server keeps: the newest turns, each cut to the per-turn
+    // cap. If JSON escaping still pushes the body past the server's cap, the
+    // oldest exchange is dropped until it fits.
+    function buildRequestBody(question) {
+      let history = conversationHistory
+        .slice(-LIMITS.HISTORY_MAX_TURNS)
+        .map((m) => ({ role: m.role, content: m.content.slice(0, LIMITS.HISTORY_TURN_MAX_CHARS) }));
+      const make = () => JSON.stringify({ question, history, accessCode, subscriberToken });
+      let body = make();
+      while (body.length > LIMITS.BODY_MAX_CHARS && history.length) {
+        history = history.slice(2);
+        body = make();
+      }
+      return body;
+    }
+
+    function forgetAccessCode() {
+      accessCode = '';
+      session.remove(ACCESS_CODE_KEY);
+    }
+
+    // What the page does after a failed question, keyed by the server's code.
+    function handleErrorCode(code) {
+      if (code === 'invalid_access_code') {
+        // A saved code that no longer works: forget it and offer the field again.
+        forgetAccessCode();
+      } else if (code === 'free_limit_reached') {
+        // The server is the gate: bring the counter in line with it.
+        setUsageCount(LIMITS.FREE_DAILY_LIMIT);
+      }
+      updateTierBadge();
     }
 
     /* ── Send message ─────────────────────────────────── */
-    async function sendMessage(question) {
-      if (isStreaming || !question.trim()) return;
-      if (questionsRemaining() <= 0) return;
+    async function sendMessage(rawQuestion) {
+      const question = String(rawQuestion || '').trim().slice(0, LIMITS.QUESTION_MAX_CHARS);
+      if (isStreaming || !question) return;
+      if (questionsRemaining() <= 0) { updateTierBadge(); return; }
 
-      isStreaming = true;
-      sendBtn.disabled = true;
+      const myConversation = conversationId;
+      const controller = new AbortController();
+      activeRequest = { controller };
       inputEl.value = '';
-      inputEl.style.height = 'auto';
-      inputEl.dispatchEvent(new Event('input'));
+      autoResize();
+      setStreaming(true);
 
       hideWelcome();
-      addMessage('user', renderMarkdown(question));
-
+      const userMessage = addMessage('user', renderMarkdown(question));
+      reveal(userMessage.wrap);
       const thinkingEl = addThinkingIndicator();
+      reveal(thinkingEl);
 
-      let assistantBubble = null;
+      let answer = null;       // { wrap, bubble } once text arrives
       let fullText = '';
+      let finishReason = null;
+      let gotDone = false;
+      let failure = null;      // { message, code }
 
       try {
         const res = await fetch('/api/growing-minds-ai', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            question,
-            history: conversationHistory,
-            accessCode,
-            subscriberToken,
-          }),
+          body: buildRequestBody(question),
+          signal: controller.signal,
         });
-
-        // Replace thinking dots with empty assistant bubble
-        thinkingEl.remove();
-        assistantBubble = addMessage('assistant', '<span class="cursor"></span>');
-
         if (!res.body) throw new Error('No response body.');
 
         const reader = res.body.getReader();
@@ -986,231 +1163,359 @@
           for (const line of lines) {
             if (!line.startsWith('data: ')) continue;
             const raw = line.slice(6).trim();
-            if (raw === '[DONE]') break outer;
+            if (raw === '[DONE]') { gotDone = true; break outer; }
 
             let parsed;
             try { parsed = JSON.parse(raw); } catch { continue; }
 
             if (parsed.error) {
-              assistantBubble.innerHTML = `<span class="error">${parsed.error}</span>`;
-              isStreaming = false;
-              sendBtn.disabled = false;
-              return;
+              failure = { message: String(parsed.error), code: String(parsed.code || '') };
+              break outer;
             }
 
-            const chunk = parsed.choices?.[0]?.delta?.content;
+            const choice = parsed.choices && parsed.choices[0];
+            if (!choice) continue;
+            if (choice.finish_reason) finishReason = choice.finish_reason;
+            const chunk = choice.delta && choice.delta.content;
             if (chunk) {
+              if (!answer) {
+                thinkingEl.remove();
+                answer = addMessage('assistant', '');
+                reveal(answer.wrap);   // bring the start of the new answer into view once
+              }
+              const follow = isAtBottom();
               fullText += chunk;
-              assistantBubble.innerHTML = renderMarkdown(fullText) + '<span class="cursor"></span>';
-              scrollToBottom();
+              answer.bubble.innerHTML = renderMarkdown(fullText) + '<span class="cursor" aria-hidden="true"></span>';
+              if (follow) followToBottom();
             }
           }
         }
+        reader.cancel().catch(() => {});
+      } catch (err) {
+        if (!(err && err.name === 'AbortError')) {
+          failure = failure || { message: 'Something went wrong. Please try again.', code: 'network' };
+        }
+      }
 
-        // Streaming done — remove cursor
-        assistantBubble.innerHTML = renderMarkdown(fullText);
+      // "New conversation" was pressed while this was streaming: it already
+      // reset the page, and this question and answer must not land in the
+      // new conversation.
+      if (myConversation !== conversationId) return;
+      activeRequest = null;
+      thinkingEl.remove();
 
-        // Update history
+      const finished = gotDone || finishReason !== null;
+      const answered = !failure && finished && fullText.trim().length > 0;
+
+      if (answered) {
+        answer.bubble.innerHTML = renderMarkdown(fullText);
+        if (finishReason === 'length') {
+          addNote(answer.bubble, 'This answer was cut short. Ask a follow-up to hear the rest.');
+        } else if (finishReason === 'content_filter') {
+          addNote(answer.bubble, "Growing Minds AI couldn't finish this answer. Try asking in a different way.");
+        }
         conversationHistory.push({ role: 'user', content: question });
         conversationHistory.push({ role: 'assistant', content: fullText });
-
-        // Decrement free tier
-        if (!isUnlimited()) {
-          incrementUsage();
-          updateTierBadge();
-        }
-
-      } catch (err) {
-        thinkingEl?.remove();
-        if (assistantBubble) {
-          assistantBubble.innerHTML = `<span class="error">Something went wrong. Please try again.</span>`;
+        if (!isUnlimited()) incrementUsage();
+      } else {
+        // A failed or empty answer is not counted and not kept as context;
+        // the question goes back in the box so it can be sent again.
+        const message = failure ? failure.message
+          : fullText.trim() ? 'The answer was interrupted before it finished. Please try again.'
+          : "Growing Minds AI didn't send an answer. Please try again.";
+        if (answer) {
+          answer.bubble.innerHTML = renderMarkdown(fullText);
+          addNote(answer.bubble, message, 'error');
         } else {
-          addMessage('assistant', `<span class="error">Something went wrong. Please try again.</span>`);
+          const box = addMessage('assistant', '', { disclaimer: false });
+          addNote(box.bubble, message, 'error');
         }
-      } finally {
-        isStreaming = false;
-        sendBtn.disabled = false;
-        inputEl.focus();
+        if (!inputEl.value.trim()) inputEl.value = question;
+        handleErrorCode(failure && failure.code);
       }
+
+      setStreaming(false);
+      autoResize();
+      updateTierBadge();
+      if (!inputArea.hidden) inputEl.focus({ preventScroll: true });
     }
 
     /* ── Input behaviour ──────────────────────────────── */
-    inputEl.addEventListener('input', () => {
-      // Auto-resize
-      inputEl.style.height = 'auto';
-      inputEl.style.height = Math.min(inputEl.scrollHeight, 140) + 'px';
-      // Enable/disable send
-      sendBtn.disabled = !inputEl.value.trim() || isStreaming;
-    });
+    inputEl.addEventListener('input', autoResize);
 
     inputEl.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
+      if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) {
         e.preventDefault();
-        if (!sendBtn.disabled) sendMessage(inputEl.value.trim());
+        if (!sendBtn.disabled) sendMessage(inputEl.value);
       }
     });
 
     sendBtn.addEventListener('click', () => {
-      if (!sendBtn.disabled) sendMessage(inputEl.value.trim());
+      if (!sendBtn.disabled) sendMessage(inputEl.value);
     });
 
-    /* ── Topic browser rendering ──────────────────────── */
+    /* ── Topic browsers (welcome and sheet) ───────────── */
     const ARROW_SVG = '<svg class="topic-card__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
 
-    function renderTopics(tabsEl, cardsEl) {
-      // Tabs
-      tabsEl.innerHTML = '';
-      TOPICS.forEach(topic => {
+    const topicBrowsers = [
+      { prefix: 'topic', tablist: document.getElementById('topicTabs'), panel: document.getElementById('topicPanel'), tabs: [] },
+      { prefix: 'sheet', tablist: document.getElementById('sheetTabs'), panel: document.getElementById('sheetPanel'), tabs: [] },
+    ];
+
+    function tabId(browser, id) {
+      return `${browser.prefix}-tab-${id}`;
+    }
+
+    // Tabs are built once; selecting one only updates aria-selected and the
+    // roving tabindex in place, so keyboard focus never gets lost in a redraw.
+    function buildTabs(browser) {
+      browser.tabs = TOPICS.map((topic) => {
         const tab = document.createElement('button');
         tab.type = 'button';
         tab.className = 'topic-tab';
+        tab.id = tabId(browser, topic.id);
         tab.setAttribute('role', 'tab');
-        tab.setAttribute('aria-selected', String(topic.id === activeTopicId));
-        tab.dataset.topic = topic.id;
-        tab.innerHTML = `<span class="topic-tab__emoji" aria-hidden="true">${topic.emoji}</span>${topic.label}`;
-        tab.addEventListener('click', () => {
-          activeTopicId = topic.id;
-          // Re-render both surfaces so they stay in sync
-          renderTopics(document.getElementById('topicTabs'), document.getElementById('topicCards'));
-          renderTopics(document.getElementById('sheetTabs'), document.getElementById('sheetCards'));
-        });
-        tabsEl.appendChild(tab);
-      });
-
-      // Cards for active topic
-      const active = TOPICS.find(t => t.id === activeTopicId) || TOPICS[0];
-      cardsEl.innerHTML = '';
-      active.questions.forEach(q => {
-        const card = document.createElement('button');
-        card.type = 'button';
-        card.className = 'topic-card';
-        card.setAttribute('role', 'listitem');
-        card.innerHTML = `<span>${q}</span>${ARROW_SVG}`;
-        card.addEventListener('click', () => {
-          closeTopicSheet();
-          sendMessage(q);
-        });
-        cardsEl.appendChild(card);
+        tab.setAttribute('aria-controls', browser.panel.id);
+        const emoji = document.createElement('span');
+        emoji.className = 'topic-tab__emoji';
+        emoji.setAttribute('aria-hidden', 'true');
+        emoji.textContent = topic.emoji;
+        tab.append(emoji, topic.label);
+        tab.addEventListener('click', () => selectTopic(topic.id));
+        tab.addEventListener('keydown', (event) => onTabKeydown(event, browser, topic.id));
+        browser.tablist.appendChild(tab);
+        return { tab, topic };
       });
     }
 
-    function renderAllTopics() {
-      renderTopics(document.getElementById('topicTabs'), document.getElementById('topicCards'));
-      renderTopics(document.getElementById('sheetTabs'), document.getElementById('sheetCards'));
+    function renderCards(browser) {
+      const topic = TOPICS.find((t) => t.id === activeTopicId) || TOPICS[0];
+      const list = document.createElement('ul');
+      list.className = 'topic-cards';
+      for (const question of topic.questions) {
+        const item = document.createElement('li');
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'topic-card';
+        const text = document.createElement('span');
+        text.textContent = question;
+        card.appendChild(text);
+        card.insertAdjacentHTML('beforeend', ARROW_SVG);
+        card.addEventListener('click', () => {
+          closeTopicSheet({ returnFocus: false });
+          sendMessage(question);
+        });
+        item.appendChild(card);
+        list.appendChild(item);
+      }
+      browser.panel.replaceChildren(list);
+    }
+
+    function selectTopic(id, focusIn) {
+      activeTopicId = id;
+      for (const browser of topicBrowsers) {
+        for (const { tab, topic } of browser.tabs) {
+          const selected = topic.id === id;
+          tab.setAttribute('aria-selected', String(selected));
+          tab.tabIndex = selected ? 0 : -1;
+        }
+        browser.panel.setAttribute('aria-labelledby', tabId(browser, id));
+        renderCards(browser);
+      }
+      if (focusIn) document.getElementById(tabId(focusIn, id)).focus();
+    }
+
+    // Left/Right move between topics (wrapping), Home/End jump to the ends.
+    function onTabKeydown(event, browser, id) {
+      const ids = TOPICS.map((t) => t.id);
+      const index = ids.indexOf(id);
+      let next;
+      if (event.key === 'ArrowRight') next = ids[(index + 1) % ids.length];
+      else if (event.key === 'ArrowLeft') next = ids[(index - 1 + ids.length) % ids.length];
+      else if (event.key === 'Home') next = ids[0];
+      else if (event.key === 'End') next = ids[ids.length - 1];
+      else return;
+      event.preventDefault();
+      selectTopic(next, browser);
     }
 
     /* ── Topic sheet (browse anytime) ─────────────────── */
     const sheet         = document.getElementById('topicSheet');
     const sheetBackdrop = document.getElementById('topicSheetBackdrop');
     const sheetClose    = document.getElementById('topicSheetClose');
+    const browseBtn     = document.getElementById('browseTopicsBtn');
+    let sheetOpener = null;
+
+    function sheetFocusables() {
+      return Array.from(sheet.querySelectorAll('button, [href], input, textarea, select, [tabindex]'))
+        .filter((el) => el.tabIndex >= 0 && !el.disabled && el.getClientRects().length > 0);
+    }
+
+    function onSheetKeydown(event) {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeTopicSheet();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+      // Keep focus inside the open sheet.
+      const items = sheetFocusables();
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      const inside = sheet.contains(document.activeElement);
+      if (event.shiftKey && (!inside || document.activeElement === first)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (!inside || document.activeElement === last)) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
 
     function openTopicSheet() {
+      sheetOpener = document.activeElement instanceof HTMLElement ? document.activeElement : browseBtn;
+      sheet.removeAttribute('inert');
       sheetBackdrop.classList.add('is-open');
       sheet.classList.add('is-open');
-      sheet.setAttribute('aria-hidden', 'false');
+      browseBtn.setAttribute('aria-expanded', 'true');
+      document.addEventListener('keydown', onSheetKeydown);
       sheetClose.focus();
     }
-    function closeTopicSheet() {
+
+    function closeTopicSheet({ returnFocus = true } = {}) {
+      if (!sheet.classList.contains('is-open')) return;
       sheetBackdrop.classList.remove('is-open');
       sheet.classList.remove('is-open');
-      sheet.setAttribute('aria-hidden', 'true');
+      sheet.setAttribute('inert', '');
+      browseBtn.setAttribute('aria-expanded', 'false');
+      document.removeEventListener('keydown', onSheetKeydown);
+      if (returnFocus && sheetOpener && document.contains(sheetOpener)) sheetOpener.focus();
+      sheetOpener = null;
     }
 
-    document.getElementById('browseTopicsBtn').addEventListener('click', openTopicSheet);
-    sheetClose.addEventListener('click', closeTopicSheet);
-    sheetBackdrop.addEventListener('click', closeTopicSheet);
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && sheet.classList.contains('is-open')) closeTopicSheet();
-    });
+    browseBtn.addEventListener('click', openTopicSheet);
+    sheetClose.addEventListener('click', () => closeTopicSheet());
+    sheetBackdrop.addEventListener('click', () => closeTopicSheet());
 
     /* ── New conversation ─────────────────────────────── */
+    function resetConversation() {
+      // Stop any answer still streaming; its late text must not land here.
+      if (activeRequest) activeRequest.controller.abort();
+      activeRequest = null;
+      conversationId += 1;
+      conversationHistory = [];
+      messagesEl.replaceChildren();
+      messagesEl.classList.add('is-empty');
+      welcomeEl.hidden = false;
+      toolbarEl.classList.remove('is-visible');
+      closeTopicSheet({ returnFocus: false });
+      selectTopic(TOPICS[0].id);
+      inputEl.value = '';
+      setStreaming(false);
+      autoResize();
+      updateTierBadge();
+      if (!inputArea.hidden) inputEl.focus({ preventScroll: true });
+      welcomeEl.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
+    }
+
     document.getElementById('newChatBtn').addEventListener('click', resetConversation);
 
-    /* ── Access code ──────────────────────────────────── */
-    const toggleBtn  = document.getElementById('accessCodeToggle');
-    const panel      = document.getElementById('accessPanel');
-    const codeInput  = document.getElementById('accessCodeInput');
-    const codeSubmit = document.getElementById('accessCodeSubmit');
-    const codeStatus = document.getElementById('accessStatus');
+    /* ── Unlock panels ────────────────────────────────── */
+    function setPanelOpen(panel, toggle, open) {
+      panel.hidden = !open;
+      toggle.setAttribute('aria-expanded', String(open));
+    }
 
-    toggleBtn.addEventListener('click', () => {
-      const open = panel.classList.toggle('is-open');
-      if (open) codeInput.focus();
+    accessToggle.addEventListener('click', () => {
+      const open = accessPanel.hidden;
+      setPanelOpen(accessPanel, accessToggle, open);
+      if (open) {
+        setPanelOpen(subPanel, subToggle, false);
+        codeInput.focus();
+      }
     });
 
+    subToggle.addEventListener('click', () => {
+      const open = subPanel.hidden;
+      setPanelOpen(subPanel, subToggle, open);
+      if (open) {
+        setPanelOpen(accessPanel, accessToggle, false);
+        subEmailInput.focus();
+      }
+    });
+
+    function closePanelSoon(panel, toggle) {
+      setTimeout(() => {
+        setPanelOpen(panel, toggle, false);
+        if (!inputArea.hidden) inputEl.focus({ preventScroll: true });
+      }, 1400);
+    }
+
+    /* ── Access code ──────────────────────────────────── */
+    // Asks the server whether the code is right without asking the model
+    // anything. Only an explicit yes unlocks; any other answer (a wrong code,
+    // a rate limit, a network error) leaves the page locked and the field open.
     async function submitAccessCode() {
       const code = codeInput.value.trim();
-      if (!code) return;
+      if (!code) {
+        setStatus(codeStatus, 'Please enter your access code.', 'error');
+        codeInput.focus();
+        return;
+      }
       codeSubmit.disabled = true;
-      codeStatus.textContent = 'Checking…';
-      codeStatus.className = 'access-status';
+      setStatus(codeStatus, 'Checking…');
 
-      // Validate by trying a ping request
+      let valid = false;
+      let message = '';
       try {
         const res = await fetch('/api/growing-minds-ai', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ question: 'ping', accessCode: code, history: [] }),
+          body: JSON.stringify({ validateOnly: true, accessCode: code }),
         });
+        let data = null;
+        try { data = await res.json(); } catch (_) {}
+        valid = res.ok && Boolean(data) && data.ok === true;
+        if (!valid && data && typeof data.error === 'string') message = data.error;
+      } catch (_) {}
+      codeSubmit.disabled = false;
 
-        // Read first chunk to check for error
-        const reader = res.body.getReader();
-        const decoder = new TextDecoder();
-        const { value } = await reader.read();
-        reader.cancel();
-
-        const text = decoder.decode(value || new Uint8Array());
-        const firstLine = text.split('\n').find(l => l.startsWith('data: '));
-        if (firstLine) {
-          try {
-            const parsed = JSON.parse(firstLine.slice(6));
-            if (parsed.error && parsed.error.includes("access code")) {
-              codeStatus.textContent = parsed.error;
-              codeStatus.className = 'access-status access-status--error';
-              codeSubmit.disabled = false;
-              return;
-            }
-          } catch {}
-        }
-
-        // Valid — save it
-        accessCode = code;
-        sessionStorage.setItem('gm_access_code', code);
-        codeStatus.textContent = '✓ Access unlocked. Unlimited questions.';
-        codeStatus.className = 'access-status access-status--success';
-        updateTierBadge();
-        panel.classList.remove('is-open');
-      } catch {
-        codeStatus.textContent = 'Could not verify. Please try again.';
-        codeStatus.className = 'access-status access-status--error';
-      } finally {
-        codeSubmit.disabled = false;
+      if (!valid) {
+        setStatus(codeStatus, message || "We couldn't check that code right now. Please try again in a moment.", 'error');
+        codeInput.focus();
+        return;
       }
+
+      accessCode = code;
+      session.set(ACCESS_CODE_KEY, code);
+      codeInput.value = '';
+      setStatus(codeStatus, 'Access unlocked. Unlimited questions.', 'success');
+      updateTierBadge();
+      closePanelSoon(accessPanel, accessToggle);
     }
 
     codeSubmit.addEventListener('click', submitAccessCode);
     codeInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitAccessCode(); });
 
     /* ── Subscriber login ─────────────────────────────── */
-    const subLoginToggle  = document.getElementById('subscriberLoginToggle');
-    const subPanel        = document.getElementById('subscriberPanel');
-    const subEmailInput   = document.getElementById('subscriberEmailInput');
-    const subSubmitBtn    = document.getElementById('subscriberEmailSubmit');
-    const subStatus       = document.getElementById('subscriberStatus');
+    function saveSubscriberToken(token) {
+      subscriberToken = token;
+      local.set(SUB_TOKEN_KEY, token);
+      updateTierBadge();
+    }
 
-    if (subLoginToggle) {
-      subLoginToggle.addEventListener('click', () => {
-        subPanel.style.display = subPanel.style.display === 'none' ? 'block' : 'none';
-        if (subPanel.style.display === 'block') subEmailInput.focus();
-      });
+    function forgetSubscriberToken() {
+      subscriberToken = '';
+      local.remove(SUB_TOKEN_KEY);
+      updateTierBadge();
     }
 
     async function submitSubscriberEmail() {
       const email = subEmailInput.value.trim();
       if (!email) return;
       subSubmitBtn.disabled = true;
-      subStatus.textContent = 'Checking…';
-      subStatus.className = 'access-status';
+      setStatus(subStatus, 'Checking…');
 
       try {
         const res = await fetch('/api/verify-subscription', {
@@ -1218,138 +1523,92 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email }),
         });
-        const data = await res.json();
+        const data = await res.json().catch(() => ({}));
 
         if (!res.ok || !data.token) {
-          subStatus.textContent = data.error || 'No active subscription found for that email.';
-          subStatus.className = 'access-status access-status--error';
-          subSubmitBtn.disabled = false;
+          setStatus(subStatus, data.error || 'No active subscription found for that email.', 'error');
           return;
         }
 
-        subscriberToken = data.token;
-        try { localStorage.setItem(SUB_TOKEN_KEY, data.token); } catch {}
-        subStatus.textContent = '✓ Unlimited access unlocked!';
-        subStatus.className = 'access-status access-status--success';
-        updateTierBadge();
-        setTimeout(() => { subPanel.style.display = 'none'; }, 1200);
-
-        // Restore input area if it was hidden
-        const inputArea = document.getElementById('inputArea');
-        const limitEl   = document.getElementById('limitReached');
-        if (inputArea) inputArea.style.display = '';
-        if (limitEl)   limitEl.style.display = 'none';
-
+        saveSubscriberToken(data.token);
+        setStatus(subStatus, 'Unlimited access unlocked.', 'success');
+        closePanelSoon(subPanel, subToggle);
       } catch {
-        subStatus.textContent = 'Could not verify. Please try again.';
-        subStatus.className = 'access-status access-status--error';
+        setStatus(subStatus, 'Could not verify. Please try again.', 'error');
       } finally {
         subSubmitBtn.disabled = false;
       }
     }
 
-    if (subSubmitBtn) subSubmitBtn.addEventListener('click', submitSubscriberEmail);
-    if (subEmailInput) subEmailInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitSubscriberEmail(); });
+    subSubmitBtn.addEventListener('click', submitSubscriberEmail);
+    subEmailInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitSubscriberEmail(); });
 
     // Fresh from Stripe Checkout: the session id proves the purchase, so we
-    // can unlock automatically — no email re-entry, no site login needed.
+    // can unlock automatically, with no email re-entry and no site login.
     async function unlockFromCheckout(checkoutSessionId) {
-      if (subStatus) {
-        subStatus.textContent = 'Confirming your subscription…';
-        subStatus.className = 'access-status';
-      }
+      setStatus(subStatus, 'Confirming your subscription…');
       try {
         const res = await fetch('/api/verify-subscription', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ sessionId: checkoutSessionId }),
         });
-        const data = await res.json();
+        const data = await res.json().catch(() => ({}));
 
         if (!res.ok || !data.token) {
-          if (subStatus) {
-            subStatus.textContent = data.error || 'Could not confirm automatically. Enter your email below to unlock.';
-            subStatus.className = 'access-status access-status--error';
-          }
-          if (subEmailInput) subEmailInput.focus();
+          setStatus(subStatus, data.error || 'Could not confirm automatically. Enter your email below to unlock.', 'error');
+          subEmailInput.focus();
           return;
         }
 
-        subscriberToken = data.token;
-        try { localStorage.setItem(SUB_TOKEN_KEY, data.token); } catch {}
-        if (subStatus) {
-          subStatus.textContent = '✓ Unlimited access unlocked. Welcome!';
-          subStatus.className = 'access-status access-status--success';
-        }
-        updateTierBadge();
-        setTimeout(() => { subPanel.style.display = 'none'; }, 1800);
-
-        const inputArea = document.getElementById('inputArea');
-        const limitEl   = document.getElementById('limitReached');
-        if (inputArea) inputArea.style.display = '';
-        if (limitEl)   limitEl.style.display = 'none';
+        saveSubscriberToken(data.token);
+        setStatus(subStatus, 'Unlimited access unlocked. Welcome!', 'success');
+        closePanelSoon(subPanel, subToggle);
       } catch {
-        if (subStatus) {
-          subStatus.textContent = 'Could not confirm automatically. Enter your email below to unlock.';
-          subStatus.className = 'access-status access-status--error';
-        }
-        if (subEmailInput) subEmailInput.focus();
-      }
-    }
-
-    /* ── Post-subscribe welcome ────────────────────────── */
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('subscribed') === '1') {
-      const checkoutSessionId = urlParams.get('session_id') || '';
-      // Show subscriber panel and clean the URL (drops the one-time checkout id)
-      if (subPanel) subPanel.style.display = 'block';
-      history.replaceState(null, '', window.location.pathname);
-      if (checkoutSessionId) {
-        unlockFromCheckout(checkoutSessionId);
-      } else if (subEmailInput) {
+        setStatus(subStatus, 'Could not confirm automatically. Enter your email below to unlock.', 'error');
         subEmailInput.focus();
       }
     }
 
-    // Seed a question from ?q= (e.g. an "Ask about this" link from a tool or the
-    // right-now guide). Prefill only — never auto-send — so the free-question
-    // limit is respected and the parent can edit before asking.
-    const seededQuestion = urlParams.get('q');
-    if (seededQuestion) {
-      inputEl.value = seededQuestion.slice(0, 500);
-      inputEl.dispatchEvent(new Event('input'));
-      history.replaceState(null, '', window.location.pathname);
+    /* ── Token auto-refresh ───────────────────────────── */
+    function tokenExpiry(token) {
+      try {
+        const [payload] = token.split('.');
+        const data = JSON.parse(atob(payload.replace(/-/g, '+').replace(/_/g, '/')));
+        return typeof data.exp === 'number' ? data.exp : null;
+      } catch (_) {
+        return null;
+      }
     }
 
-    /* ── Token auto-refresh ───────────────────────────── */
     async function maybeRefreshToken() {
       if (!subscriberToken) return;
+      const exp = tokenExpiry(subscriberToken);
+      if (exp === null) return;
+      const now = Math.floor(Date.now() / 1000);
+      if (exp <= now) {
+        // Already expired: nothing can renew it, so there is no need to ask.
+        forgetSubscriberToken();
+        return;
+      }
+      // Refresh when it expires within 7 days. The still-valid token itself
+      // is the credential, so this works without a site login.
+      if (exp - now >= 60 * 60 * 24 * 7) return;
       try {
-        const [payload] = subscriberToken.split('.');
-        const data = JSON.parse(atob(payload.replace(/-/g, '+').replace(/_/g, '/')));
-        const sevenDays = 60 * 60 * 24 * 7;
-        const now = Math.floor(Date.now() / 1000);
-        // Refresh if expiring within 7 days. The still-valid token itself is
-        // the credential, so this works without a site login.
-        if (data.exp && data.exp - now < sevenDays) {
-          const res = await fetch('/api/verify-subscription', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ token: subscriberToken }),
-          });
-          if (res.ok) {
-            const json = await res.json();
-            if (json.token) {
-              subscriberToken = json.token;
-              try { localStorage.setItem(SUB_TOKEN_KEY, json.token); } catch {}
-            }
-          } else if (res.status === 401 || res.status === 403 || res.status === 404) {
-            // Definitively rejected (expired token or cancelled sub) — clear it.
-            // Transient failures (rate limit, network, 5xx) keep the token.
-            subscriberToken = '';
-            try { localStorage.removeItem(SUB_TOKEN_KEY); } catch {}
-            updateTierBadge();
-          }
+        const res = await fetch('/api/verify-subscription', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: subscriberToken }),
+        });
+        if (res.ok) {
+          const json = await res.json().catch(() => null);
+          if (json && json.token) saveSubscriberToken(json.token);
+        } else if (res.status === 404 || res.status === 401) {
+          // Only a definitive answer clears the token: 404 means no active
+          // subscription, 401 means the token itself failed its check. A rate
+          // limit (429), payment-provider trouble (502) or a network error
+          // keeps it, and it is tried again on the next visit.
+          forgetSubscriberToken();
         }
       } catch {}
     }
@@ -1370,21 +1629,54 @@
         const data = await res.json();
         if (data && data.unlimitedAi === true) {
           sessionUnlimited = true;
-          const inputArea = document.getElementById('inputArea');
-          const limitEl   = document.getElementById('limitReached');
-          if (inputArea) inputArea.style.display = '';
-          if (limitEl)   limitEl.style.display = 'none';
           updateTierBadge();
         }
       } catch {}
     }
 
+    /* ── Arrival from links ───────────────────────────── */
+    const urlParams = new URLSearchParams(window.location.search);
+    let prefilled = false;
+
+    if (urlParams.get('subscribed') === '1') {
+      const checkoutSessionId = urlParams.get('session_id') || '';
+      // Show the subscriber panel and drop the one-time checkout id from the URL.
+      setPanelOpen(subPanel, subToggle, true);
+      window.history.replaceState(null, '', window.location.pathname);
+      if (checkoutSessionId) unlockFromCheckout(checkoutSessionId);
+      else subEmailInput.focus();
+    }
+
+    // Seed a question from ?q= (e.g. an "Ask about this" link from a tool or the
+    // right-now guide). Prefill only, never auto-send, so the free-question
+    // limit is respected and the parent can edit before asking.
+    const seededQuestion = urlParams.get('q');
+    if (seededQuestion) {
+      inputEl.value = seededQuestion.slice(0, LIMITS.QUESTION_MAX_CHARS);
+      window.history.replaceState(null, '', window.location.pathname);
+      prefilled = true;
+    }
+
     /* ── Init ─────────────────────────────────────────── */
-    renderAllTopics();
+    for (const browser of topicBrowsers) buildTabs(browser);
+    selectTopic(activeTopicId);
+    autoResize();
     updateTierBadge();
     maybeRefreshToken();
     checkSessionEntitlement();
-    inputEl.focus({ preventScroll: true });
+    if (prefilled && !inputArea.hidden) {
+      // Jump (not glide) to the prefilled question: the page's smooth
+      // scrolling is suspended for this one call.
+      inputEl.focus({ preventScroll: true });
+      const root = document.documentElement;
+      const previous = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto';
+      inputEl.scrollIntoView({ block: 'center' });
+      root.style.scrollBehavior = previous;
+    } else if (!inputArea.hidden && urlParams.get('subscribed') !== '1') {
+      inputEl.focus({ preventScroll: true });
+    }
+  })();
   </script>
 
   <script defer src="/_vercel/insights/script.js"></script>

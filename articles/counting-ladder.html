@@ -67,11 +67,18 @@
     .figure-steps h4 { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); }
     .figure-steps p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
     .figure-foot { margin: var(--space-5) 0 0; padding-top: var(--space-4); border-top: 1px dashed var(--border-soft); color: var(--accent-brown); font-style: italic; font-size: var(--text-md); }
+    /* The TOC comes first in the DOM, so on phones it sits above the article
+       (and keyboard order matches what is on screen); wide screens keep it in
+       the right-hand column. */
+    .article-body .article-toc { grid-column: 2; grid-row: 1; }
+    .article-body .article-layout > article { grid-column: 1; grid-row: 1; }
     @media (max-width: 920px) {
       .article-layout, .translation-grid { grid-template-columns: 1fr; }
       .article-cta { flex-direction: column; align-items: stretch; }
       .article-cta .hero__ctas { justify-content: flex-start; }
       .article-toc { position: static; }
+      .article-body .article-toc,
+      .article-body .article-layout > article { grid-column: auto; grid-row: auto; }
       .article-title { max-width: 12ch; }
     }
   </style>
@@ -169,6 +176,7 @@
               </div>
             </details>
           </li>
+          <li><a class="nav__link" href="/arcade/">Arcade</a></li>
           <li><a class="nav__link" href="/articles/" aria-current="page">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
           <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
@@ -205,6 +213,16 @@
 
     <section class="article-body">
       <div class="container article-layout">
+        <aside class="article-toc" aria-label="Article navigation">
+          <h2>In this article</h2>
+          <ol>
+            <li><a href="#the-ladder">The ladder, one rung at a time</a></li>
+            <li><a href="#why-the-rung-matters">Why the rung matters</a></li>
+            <li><a href="#at-home">What it looks like at home</a></li>
+            <li><a href="#number-path">A ten-minute version</a></li>
+          </ol>
+        </aside>
+
         <article>
           <p>Almost every parent of a young child has witnessed the party trick. You ask your two-year-old to count, and out it comes: &ldquo;one, two, three, four, five, six, seven, eight, nine, ten!&rdquo; It is delightful, and it feels like evidence that the numbers have landed. Then you put four crackers on the table, ask how many there are, and get a cheerful &ldquo;seven!&rdquo; or a hand that grabs all of them when you asked for two.</p>
 
@@ -301,16 +319,6 @@
             </ul>
           </div>
         </article>
-
-        <aside class="article-toc" aria-label="Article navigation">
-          <h2>In this article</h2>
-          <ol>
-            <li><a href="#the-ladder">The ladder, one rung at a time</a></li>
-            <li><a href="#why-the-rung-matters">Why the rung matters</a></li>
-            <li><a href="#at-home">What it looks like at home</a></li>
-            <li><a href="#number-path">A ten-minute version</a></li>
-          </ol>
-        </aside>
       </div>
     </section>
 

@@ -65,7 +65,8 @@ export default async function ReviewItemPage({
       {errorKey && (
         <Card className="bg-rung-glow">
           <p className="text-ink-deep">
-            {ERROR_COPY[errorKey] ?? decodeURIComponent(errorKey)}
+            {/* searchParams arrive decoded; decoding again threw on a "%". */}
+            {ERROR_COPY[errorKey] ?? errorKey}
           </p>
         </Card>
       )}

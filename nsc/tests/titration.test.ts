@@ -203,6 +203,30 @@ describe("end-on-success bonus (§2.2)", () => {
     const s = play(["incorrect", "incorrect"]);
     expect(s.phase).toBe("done");
   });
+
+  it("skips the bonus after a skips stop (a disengaged child isn't asked again)", () => {
+    // 1✓ 2✓ 3✗ 2✓ credits 2 (clean), then four skips at 3: something is
+    // credited (so a bonus used to be offered) but the child has stopped.
+    const s = play(["correct", "correct", "incorrect", "correct", "skip", "skip", "skip", "skip"]);
+    expect(s.stopReason).toBe("skips");
+    expect(s.phase).toBe("done");
+    expect(nextRequest(s)).toBeNull();
+    expect(getResult(s)!.placement).toBe("L2");
+    expect(s.trials.some((t) => t.isBonus)).toBe(false);
+  });
+
+  it("the result is available at the stop, before the bonus is played", () => {
+    let s = createSession();
+    while (s.phase === "trial") {
+      s = applyOutcome(s, nextRequest(s)!.n <= 2 ? "correct" : "incorrect");
+    }
+    expect(s.phase).toBe("bonus");
+    // Persisting at the stop relies on this: the bonus can never move it.
+    const atStop = getResult(s)!;
+    for (const o of ["correct", "incorrect", "skip"] as const) {
+      expect(getResult(applyOutcome(s, o))).toEqual(atStop);
+    }
+  });
 });
 
 describe("confidence tiers (§2.2)", () => {

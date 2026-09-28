@@ -1,8 +1,20 @@
 import { NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/server";
-import { emailEnabled, renderEmail, sendEmail } from "@/lib/email.server";
-import { nextCheckin, shortDate } from "@/lib/checkin";
-import { RUNG_LABEL } from "@/lib/labels";
+import { emailEnabled, sendEmail } from "@/lib/email.server";
+import { nextCheckin } from "@/lib/checkin";
+import { rungLabelFor } from "@/lib/labels";
+import { isoWeekKey } from "@/lib/isoweek";
+import { siteOrigin } from "@/lib/site";
+import {
+  checkinEmail,
+  chunk,
+  claimSendRelease,
+  latestCompletedByChild,
+  mapLimit,
+  weeklyEmail,
+  type CompletedCheckin,
+  type RenderedEmail,
+} from "@/lib/engagement";
 
 /**
  * Daily engagement cron (vercel.json). Two jobs, both idempotent via
@@ -14,22 +26,38 @@ import { RUNG_LABEL } from "@/lib/labels";
  *    completed check-in crosses the re-check interval (period_key = the
  *    assessment id, so each placement triggers at most one reminder ever).
  *
+ * A ledger row is claimed before sending and released if the send fails, so
+ * a failed or skipped send never uses up a one-time reminder. With email
+ * unconfigured the cron exits before touching the ledger at all.
+ *
  * Tone: an invitation that something new is ready. Never urgency, never
  * comparison — same rules as the certified content.
  */
 
 export const dynamic = "force-dynamic";
+/** Safe on every Vercel plan (Hobby caps non-fluid functions at 60s). */
+export const maxDuration = 60;
 
-const SITE =
-  (process.env.NEXT_PUBLIC_SITE_URL ?? "https://growingmindsscience.com").replace(/\/+$/, "");
+/** Rows per page; PostgREST caps a single response at max_rows (1000). */
+const PAGE = 1000;
+/** Ids per `in.(…)` filter, well under URL length limits. */
+const IN_CHUNK = 100;
+/** Parallel auth-admin lookups. */
+const LOOKUP_CONCURRENCY = 8;
 
-function isoWeekKey(d: Date): string {
-  const t = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
-  t.setUTCDate(t.getUTCDate() + 4 - (t.getUTCDay() || 7));
-  const yearStart = new Date(Date.UTC(t.getUTCFullYear(), 0, 1));
-  const week = Math.ceil(((t.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
-  return `${t.getUTCFullYear()}-W${String(week).padStart(2, "0")}`;
+interface ChildRow {
+  id: string;
+  owner_id: string;
+  nickname: string;
 }
+interface PrefsRow {
+  owner_id: string;
+  weekly_plan_emails: boolean;
+  checkin_emails: boolean;
+  unsub_token: string;
+}
+
+const failure = (msg: string) => NextResponse.json({ error: msg }, { status: 500 });
 
 export async function GET(req: Request) {
   const secret = process.env.CRON_SECRET;
@@ -37,74 +65,122 @@ export async function GET(req: Request) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
 
+  const results = { weekly: 0, checkin: 0, failed: 0, skipped: false };
+  if (!emailEnabled()) {
+    // Nothing can be sent. Exit before claiming any ledger row, so no
+    // one-time reminder is used up while email isn't configured.
+    return NextResponse.json({ ...results, skipped: true });
+  }
+
   const supabase = createServiceClient();
   const now = new Date();
-  const results = { weekly: 0, checkin: 0, skipped: !emailEnabled() };
+  const site = siteOrigin();
 
-  // Latest completed assessment per child, with owner + nickname.
-  const { data: rows, error } = await supabase
-    .from("nsc_assessments")
-    .select("id, child_id, owner_id, placement, near_cp, completed_at, confidence")
-    .eq("status", "complete")
-    .order("completed_at", { ascending: false });
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-
-  const latestByChild = new Map<string, (typeof rows)[number]>();
-  for (const r of rows ?? []) {
-    if (r.completed_at && !latestByChild.has(r.child_id)) {
-      latestByChild.set(r.child_id, r);
-    }
+  // --- Every completed check-in, paged ---
+  const rows: CompletedCheckin[] = [];
+  for (let from = 0; ; from += PAGE) {
+    const { data, error } = await supabase
+      .from("nsc_assessments")
+      .select("id, child_id, owner_id, placement, near_cp, completed_at, confidence, instrument")
+      .eq("status", "complete")
+      .not("completed_at", "is", null)
+      .order("completed_at", { ascending: false })
+      .order("id", { ascending: true })
+      .range(from, from + PAGE - 1);
+    if (error) return failure(error.message);
+    rows.push(...((data ?? []) as CompletedCheckin[]));
+    if (!data || data.length < PAGE) break;
   }
+  const latestByChild = latestCompletedByChild(rows);
   if (latestByChild.size === 0) return NextResponse.json(results);
 
-  const childIds = [...latestByChild.keys()];
-  const { data: children } = await supabase
-    .from("nsc_children")
-    .select("id, owner_id, nickname")
-    .in("id", childIds);
-  const childById = new Map((children ?? []).map((c) => [c.id, c]));
+  // --- Children (for nicknames), chunked ---
+  const childById = new Map<string, ChildRow>();
+  for (const ids of chunk([...latestByChild.keys()], IN_CHUNK)) {
+    const { data, error } = await supabase
+      .from("nsc_children")
+      .select("id, owner_id, nickname")
+      .in("id", ids);
+    if (error) return failure(error.message);
+    for (const c of (data ?? []) as ChildRow[]) childById.set(c.id, c);
+  }
 
-  // Owner emails + prefs (prefs row may not exist yet → defaults on).
+  // --- Prefs (a missing row means defaults on), chunked ---
   const ownerIds = [...new Set([...latestByChild.values()].map((r) => r.owner_id))];
-  const { data: prefsRows } = await supabase
-    .from("nsc_email_prefs")
-    .select("owner_id, weekly_plan_emails, checkin_emails, unsub_token")
-    .in("owner_id", ownerIds);
-  const prefsByOwner = new Map((prefsRows ?? []).map((p) => [p.owner_id, p]));
+  const prefsByOwner = new Map<string, PrefsRow>();
+  for (const ids of chunk(ownerIds, IN_CHUNK)) {
+    const { data, error } = await supabase
+      .from("nsc_email_prefs")
+      .select("owner_id, weekly_plan_emails, checkin_emails, unsub_token")
+      .in("owner_id", ids);
+    if (error) return failure(error.message);
+    for (const p of (data ?? []) as PrefsRow[]) prefsByOwner.set(p.owner_id, p);
+  }
 
-  async function ownerPrefs(ownerId: string) {
+  async function ownerPrefs(ownerId: string): Promise<PrefsRow | null> {
     const existing = prefsByOwner.get(ownerId);
     if (existing) return existing;
-    const { data: created } = await supabase
+    const { data: created, error } = await supabase
       .from("nsc_email_prefs")
       .upsert({ owner_id: ownerId }, { onConflict: "owner_id" })
       .select("owner_id, weekly_plan_emails, checkin_emails, unsub_token")
       .single();
-    if (created) prefsByOwner.set(ownerId, created);
-    return created;
+    if (error || !created) return null;
+    prefsByOwner.set(ownerId, created as PrefsRow);
+    return created as PrefsRow;
   }
 
+  // --- Owner emails, bounded concurrency ---
   const emailByOwner = new Map<string, string>();
-  for (const ownerId of ownerIds) {
+  await mapLimit(ownerIds, LOOKUP_CONCURRENCY, async (ownerId) => {
     const { data } = await supabase.auth.admin.getUserById(ownerId);
     if (data?.user?.email) emailByOwner.set(ownerId, data.user.email);
-  }
+  });
 
-  const unsubUrl = (token: string) =>
-    `${SITE}/nsc/api/email/unsubscribe?token=${token}`;
+  const unsubUrl = (token: string) => `${site}/nsc/api/email/unsubscribe?token=${token}`;
+  const ctaUrl = `${site}/nsc/app`;
+
+  /** Claim the ledger key, send, and release the claim if the send fails. */
+  const sendOnce = (
+    key: { owner_id: string; child_id: string | null; kind: string; period_key: string },
+    to: string,
+    mail: RenderedEmail,
+    unsub: string,
+  ) =>
+    claimSendRelease<number | string>({
+      claim: async () => {
+        const { data, error } = await supabase
+          .from("nsc_email_log")
+          .insert(key)
+          .select("id")
+          .single();
+        if (error) return error.code === "23505" ? "exists" : "error";
+        return { id: (data as { id: number | string }).id };
+      },
+      send: () =>
+        sendEmail({
+          to,
+          ...mail,
+          // RFC 8058 one-click unsubscribe (the endpoint accepts POST).
+          headers: {
+            "List-Unsubscribe": `<${unsub}>`,
+            "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+          },
+        }),
+      release: async (id) => {
+        await supabase.from("nsc_email_log").delete().eq("id", id);
+      },
+    });
 
   // --- Job 1: Monday weekly-plan note (one per owner) ---
   if (now.getUTCDay() === 1) {
     const week = isoWeekKey(now);
-    const byOwner = new Map<string, { nickname: string; rung: string }[]>();
+    const byOwner = new Map<string, { nickname: string; rung: string | null }[]>();
     for (const [childId, a] of latestByChild) {
       const c = childById.get(childId);
       if (!c) continue;
       const list = byOwner.get(c.owner_id) ?? [];
-      list.push({
-        nickname: c.nickname,
-        rung: RUNG_LABEL(a.placement as string, a.near_cp ?? false),
-      });
+      list.push({ nickname: c.nickname, rung: rungLabelFor(a) });
       byOwner.set(c.owner_id, list);
     }
 
@@ -112,30 +188,15 @@ export async function GET(req: Request) {
       const to = emailByOwner.get(ownerId);
       const prefs = await ownerPrefs(ownerId);
       if (!to || !prefs?.weekly_plan_emails) continue;
-
-      const { error: logErr } = await supabase.from("nsc_email_log").insert({
-        owner_id: ownerId,
-        child_id: null,
-        kind: "weekly_plan",
-        period_key: week,
-      });
-      if (logErr) continue; // already sent this week
-
-      const names = kids.map((k) => k.nickname).join(" and ");
-      const { html, text } = renderEmail({
-        heading: `A fresh week of games is ready`,
-        paragraphs: [
-          `Three new games landed for ${names} this morning — picked for ${
-            kids.length > 1 ? "each child's rung" : `the ${kids[0].rung} rung`
-          }, plus a fresh number-talk prompt for every day.`,
-          `Ten relaxed minutes here and there is the whole assignment.`,
-        ],
-        ctaLabel: "See this week's plan",
-        ctaUrl: `${SITE}/nsc/app`,
-        unsubUrl: unsubUrl(prefs.unsub_token),
-      });
-      const sent = await sendEmail({ to, subject: `New games for ${names} this week`, html, text });
-      if (sent.ok && !sent.skipped) results.weekly++;
+      const unsub = unsubUrl(prefs.unsub_token);
+      const outcome = await sendOnce(
+        { owner_id: ownerId, child_id: null, kind: "weekly_plan", period_key: week },
+        to,
+        weeklyEmail(kids, { ctaUrl, unsubUrl: unsub }),
+        unsub,
+      );
+      if (outcome === "sent") results.weekly++;
+      else if (outcome === "failed") results.failed++;
     }
   }
 
@@ -143,39 +204,21 @@ export async function GET(req: Request) {
   for (const [childId, a] of latestByChild) {
     const c = childById.get(childId);
     const to = c && emailByOwner.get(c.owner_id);
-    if (!c || !to) continue;
-    const { ready } = nextCheckin(a.completed_at!, now, a.confidence);
+    if (!c || !to || !a.completed_at) continue;
+    const { ready } = nextCheckin(a.completed_at, now, a.confidence);
     if (!ready) continue;
 
     const prefs = await ownerPrefs(c.owner_id);
     if (!prefs?.checkin_emails) continue;
-
-    const { error: logErr } = await supabase.from("nsc_email_log").insert({
-      owner_id: c.owner_id,
-      child_id: childId,
-      kind: "checkin_ready",
-      period_key: a.id,
-    });
-    if (logErr) continue; // already reminded for this assessment
-
-    const rung = RUNG_LABEL(a.placement as string, a.near_cp ?? false);
-    const { html, text } = renderEmail({
-      heading: `Time for ${c.nickname}'s next check-in`,
-      paragraphs: [
-        `The last check-in was ${shortDate(new Date(a.completed_at!))} (${rung}). Rungs move on the scale of months — some check-ins show a climb, many show a rung settling in, and both are the ladder working.`,
-        `Ten minutes, a bowl, ten blocks, and the bear — run it again and this week's games follow whatever you find.`,
-      ],
-      ctaLabel: `Re-run ${c.nickname}'s check-in`,
-      ctaUrl: `${SITE}/nsc/app`,
-      unsubUrl: unsubUrl(prefs.unsub_token),
-    });
-    const sent = await sendEmail({
+    const unsub = unsubUrl(prefs.unsub_token);
+    const outcome = await sendOnce(
+      { owner_id: c.owner_id, child_id: childId, kind: "checkin_ready", period_key: a.id },
       to,
-      subject: `${c.nickname}'s next check-in is ready`,
-      html,
-      text,
-    });
-    if (sent.ok && !sent.skipped) results.checkin++;
+      checkinEmail(c, { completedAt: a.completed_at, rung: rungLabelFor(a) }, { ctaUrl, unsubUrl: unsub }),
+      unsub,
+    );
+    if (outcome === "sent") results.checkin++;
+    else if (outcome === "failed") results.failed++;
   }
 
   return NextResponse.json(results);

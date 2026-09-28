@@ -1,20 +1,35 @@
 export const config = { runtime: "edge" };
 
-import { cleanText, isValidEmail, jsonResponse, normalizeEmail, parseRequestBody } from "./_security.js";
+import { cleanHeaderText, isValidEmail, jsonResponse, normalizeEmail, parseRequestBody } from "./_security.js";
 import { checkRateLimit } from "./_ratelimit.js";
 
 const WEB3FORMS_URL = "https://api.web3forms.com/submit";
 const KIT_API_URL = "https://api.convertkit.com/v3/forms";
 
+// The notification subject is chosen here, not taken from the request. Each
+// signup form sends a hidden `subject` naming the page it lives on; only these
+// known labels are used, anything else gets the default.
+const DEFAULT_SUBJECT = "New Waitlist Signup - Growing Minds Science";
+const KNOWN_SUBJECTS = new Set([
+  "New Class Notify Signup — Growing Minds Science",
+  "Articles Email Signup — Growing Minds Science",
+  "Birth to 12 Months Waitlist — Growing Minds Science",
+  "Preschool Class Waitlist — Growing Minds Science",
+  "Family Systems Class Waitlist — Growing Minds Science",
+]);
+
+// Awaited (with a timeout) rather than fired and forgotten: an Edge function
+// can stop as soon as its response is returned, which would drop the request.
 async function subscribeToKit(email, firstName) {
   const apiKey = process.env.KIT_API_KEY;
   const formId = process.env.KIT_FORM_ID;
   if (!apiKey || !formId) return;
   try {
-    await fetch(`${KIT_API_URL}/${formId}/subscribe`, {
+    await fetch(`${KIT_API_URL}/${encodeURIComponent(formId)}/subscribe`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ api_key: apiKey, email, first_name: firstName || "" }),
+      signal: AbortSignal.timeout(4000),
     });
   } catch (_) {
     // Kit failure is non-blocking; Web3Forms submission already succeeded
@@ -78,7 +93,7 @@ export default async function handler(request) {
   }
 
   if (payload.botcheck || payload["bot-field"]) {
-    return acceptsHtml(request) ? redirectResponse("/thank-you.html") : jsonResponse(200, { ok: true });
+    return acceptsHtml(request) ? redirectResponse("/thank-you") : jsonResponse(200, { ok: true });
   }
 
   const email = normalizeEmail(payload.email);
@@ -86,12 +101,13 @@ export default async function handler(request) {
     return errorResponse(request, 400, "Please enter a valid email address.");
   }
 
+  const requestedSubject = cleanHeaderText(payload.subject, 120);
   const submission = {
     access_key: accessKey,
-    subject: cleanText(payload.subject || "New Waitlist Signup - Growing Minds Science", 120),
-    name: cleanText(payload.name, 100),
+    subject: KNOWN_SUBJECTS.has(requestedSubject) ? requestedSubject : DEFAULT_SUBJECT,
+    name: cleanHeaderText(payload.name, 100),
     email,
-    interest: cleanText(payload.interest || "General waitlist", 120),
+    interest: cleanHeaderText(payload.interest, 120) || "General waitlist",
     from_name: "Growing Minds Science",
   };
 
@@ -111,8 +127,8 @@ export default async function handler(request) {
   }
 
   const firstName = submission.name ? submission.name.split(" ")[0] : "";
-  subscribeToKit(email, firstName);
+  await subscribeToKit(email, firstName);
 
-  if (acceptsHtml(request)) return redirectResponse("/thank-you.html");
+  if (acceptsHtml(request)) return redirectResponse("/thank-you");
   return jsonResponse(200, { ok: true });
 }

@@ -32,14 +32,22 @@
     var themeBtn = header.querySelector(".theme-toggle");
     var menus = Array.prototype.slice.call(header.querySelectorAll(".nav__details"));
 
-    // Theme
+    // Theme. A toggle button with a stable name and a pressed state, so screen
+    // readers hear "Dark theme, toggle button, pressed / not pressed".
     if (themeBtn) {
+      var syncThemeBtn = function () {
+        var dark = document.documentElement.getAttribute("data-theme") === "dark";
+        themeBtn.setAttribute("aria-label", "Dark theme");
+        themeBtn.setAttribute("aria-pressed", dark ? "true" : "false");
+      };
+      syncThemeBtn();
       themeBtn.addEventListener("click", function () {
         var root = document.documentElement;
         var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
         if (next === "dark") root.setAttribute("data-theme", "dark");
         else root.removeAttribute("data-theme");
         try { window.localStorage.setItem(THEME_KEY, next); } catch (_) {}
+        syncThemeBtn();
       });
     }
 

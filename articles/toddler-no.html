@@ -65,13 +65,21 @@
     .figure-steps li { display: grid; grid-template-columns: 44px 1fr; gap: var(--space-4); align-items: start; }
     .figure-step__num { display: grid; place-items: center; width: 44px; height: 44px; border: 2px solid var(--primary); border-radius: 999px; color: var(--primary); background: var(--bg-alt); font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
     .figure-steps h4 { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); }
+    .figure-steps .figure-step__title { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); font-weight: 600; line-height: 1.12; color: var(--ink); text-wrap: balance; }
     .figure-steps p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
     .figure-foot { margin: var(--space-5) 0 0; padding-top: var(--space-4); border-top: 1px dashed var(--border-soft); color: var(--accent-brown); font-style: italic; font-size: var(--text-md); }
+    /* The TOC comes first in the DOM, so on phones it sits above the article
+       (and keyboard order matches what is on screen); wide screens keep it in
+       the right-hand column. */
+    .article-body .article-toc { grid-column: 2; grid-row: 1; }
+    .article-body .article-layout > article { grid-column: 1; grid-row: 1; }
     @media (max-width: 920px) {
       .article-layout, .translation-grid { grid-template-columns: 1fr; }
       .article-cta { flex-direction: column; align-items: stretch; }
       .article-cta .hero__ctas { justify-content: flex-start; }
       .article-toc { position: static; }
+      .article-body .article-toc,
+      .article-body .article-layout > article { grid-column: auto; grid-row: auto; }
       .article-title { max-width: 12ch; }
     }
   </style>
@@ -169,6 +177,7 @@
               </div>
             </details>
           </li>
+          <li><a class="nav__link" href="/arcade/">Arcade</a></li>
           <li><a class="nav__link" href="/articles/" aria-current="page">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
           <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
@@ -205,6 +214,17 @@
 
     <section class="article-body">
       <div class="container article-layout">
+        <aside class="article-toc" aria-label="Article navigation">
+          <h2>In this article</h2>
+          <ol>
+            <li><a href="#whats-happening">What's actually happening</a></li>
+            <li><a href="#why-it-lands-hard">Why it lands so hard</a></li>
+            <li><a href="#what-helps">What actually helps</a></li>
+            <li><a href="#what-it-means">What it means</a></li>
+            <li><a href="#bottom-line">Bottom line</a></li>
+          </ol>
+        </aside>
+
         <article>
           <p>A pattern comes up repeatedly in parent coaching: someone describes a toddler who refuses everything. Gets dressed? No. Eats breakfast? No. Leaves the park? No. Puts on shoes? An absolute, full-body no. Sometimes with floor involvement.</p>
 
@@ -252,21 +272,21 @@
               <li>
                 <span class="figure-step__num" aria-hidden="true">1</span>
                 <div>
-                  <h4>Choices within limits, not unlimited choice</h4>
+                  <p class="figure-step__title">Choices within limits, not unlimited choice</p>
                   <p>&#8220;Left shoe first, or right shoe?&#8221; The shoes are going on &mdash; the child exercises real agency inside that boundary.</p>
                 </div>
               </li>
               <li>
                 <span class="figure-step__num" aria-hidden="true">2</span>
                 <div>
-                  <h4>Connection before direction</h4>
+                  <p class="figure-step__title">Connection before direction</p>
                   <p>Drop to their level, make eye contact, acknowledge &mdash; &#8220;You don't want to stop. I hear you.&#8221; &mdash; then redirect.</p>
                 </div>
               </li>
               <li>
                 <span class="figure-step__num" aria-hidden="true">3</span>
                 <div>
-                  <h4>Fewer battles, held more calmly</h4>
+                  <p class="figure-step__title">Fewer battles, held more calmly</p>
                   <p>Reserve firm limits for safety, basic functioning, and the routines that matter. Let the rest go.</p>
                 </div>
               </li>
@@ -338,17 +358,6 @@
             </ul>
           </div>
         </article>
-
-        <aside class="article-toc" aria-label="Article navigation">
-          <h2>In this article</h2>
-          <ol>
-            <li><a href="#whats-happening">What's actually happening</a></li>
-            <li><a href="#why-it-lands-hard">Why it lands so hard</a></li>
-            <li><a href="#what-helps">What actually helps</a></li>
-            <li><a href="#what-it-means">What it means</a></li>
-            <li><a href="#bottom-line">Bottom line</a></li>
-          </ol>
-        </aside>
       </div>
     </section>
 
@@ -361,7 +370,7 @@
             <p class="small" style="max-width:38rem; margin:0;">Why autonomy develops the way it does, how to offer choices that work, how to hold limits without power struggles, and the research behind all of it. $49 for lifetime access.</p>
           </div>
           <div class="hero__ctas">
-            <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a>
+            <a class="btn btn--primary" href="/classes/toddlerhood.html">See the toddler class</a>
             <a class="btn btn--ghost" href="/tools/limits-without-escalation">Limits tool</a>
           </div>
         </div>

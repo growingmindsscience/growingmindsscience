@@ -126,6 +126,7 @@
               </div>
             </details>
           </li>
+          <li><a class="nav__link" href="/arcade/">Arcade</a></li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
           <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
@@ -166,7 +167,7 @@
           <h2>The card deck</h2>
           <p class="rp-sub">Filter to the book in your lap. One or two prompts per reading is plenty; this is seasoning, not a quiz.</p>
           <div id="rp-filters"></div>
-          <p class="rp-count" id="rp-count"></p>
+          <p class="rp-count" id="rp-count" role="status"></p>
           <div class="rp-grid" id="rp-grid"></div>
           <div class="cs-nav" style="margin-top: var(--space-5); display:flex; gap: var(--space-4);">
             <button type="button" class="btn btn--primary" id="rp-print">Print this deck</button>
@@ -311,6 +312,7 @@
           type: "button",
           class: "rp-chip" + (current === o.value ? " is-active" : ""),
           "aria-pressed": current === o.value ? "true" : "false",
+          "data-key": labelText + ":" + String(o.value),
           text: o.label,
           onclick: () => onPick(o.value),
         }));
@@ -326,10 +328,18 @@
     }
 
     function render() {
+      // The chips are rebuilt on every change; put keyboard focus back on the
+      // same chip so a keyboard or screen-reader user keeps their place.
+      const focused = document.activeElement;
+      const keep = focused && filtersEl.contains(focused) ? focused.getAttribute("data-key") : null;
       filtersEl.innerHTML = "";
       filtersEl.appendChild(chipRow("Age", [{ value: "all", label: "All ages" }, ...data.age_bands.map((b) => ({ value: b, label: BAND_LABEL[b] || b }))], state.band, (v) => { state.band = v; render(); }));
       filtersEl.appendChild(chipRow("Book", [{ value: "all", label: "Any book" }, ...Object.entries(data.book_types).filter(([k]) => k !== "any").map(([k, v]) => ({ value: k, label: v }))], state.book, (v) => { state.book = v; render(); }));
       filtersEl.appendChild(chipRow("Prompt type", [{ value: "all", label: "All types" }, ...Object.entries(data.crowd).map(([k, c]) => ({ value: k, label: c.label }))], state.type, (v) => { state.type = v; render(); }));
+      if (keep) {
+        const again = Array.from(filtersEl.querySelectorAll("[data-key]")).find((b) => b.getAttribute("data-key") === keep);
+        if (again) again.focus();
+      }
 
       grid.innerHTML = "";
       const list = data.cards.filter(matches);

@@ -4,6 +4,10 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireAuth } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
+import { birthMonthFromForm } from "@/lib/birth-month";
+import { SAVE_FAILED } from "@/lib/friendly-error";
+import { localDateISO } from "@/lib/tz";
+import { getTimeZone } from "@/lib/tz.server";
 
 /** Child creation for the library (same spine table as Number Path). */
 export async function createLibraryChild(formData: FormData) {
@@ -11,21 +15,22 @@ export async function createLibraryChild(formData: FormData) {
   const supabase = await createClient();
 
   const nickname = String(formData.get("nickname") ?? "").trim().slice(0, 30);
-  const birthMonth = String(formData.get("birth_month") ?? ""); // yyyy-mm
-  if (!nickname || !/^\d{4}-\d{2}$/.test(birthMonth)) {
+  const birth = birthMonthFromForm(formData, localDateISO(new Date(), await getTimeZone()));
+  if (!nickname || (!birth.ok && birth.reason === "missing")) {
     redirect("/activities/today?error=Please+add+a+name+and+birth+month.");
   }
-  if (birthMonth > new Date().toISOString().slice(0, 7)) {
+  if (!birth.ok) {
     redirect("/activities/today?error=That+birth+month+is+in+the+future.");
   }
 
   const { error } = await supabase.from("nsc_children").insert({
     owner_id: user.id,
     nickname,
-    birth_month: `${birthMonth}-01`,
+    birth_month: `${birth.value}-01`,
   });
   if (error) {
-    redirect(`/activities/today?error=${encodeURIComponent(error.message)}`);
+    console.error(`[library] child insert failed: ${error.message}`);
+    redirect(`/activities/today?error=${encodeURIComponent(SAVE_FAILED)}`);
   }
   revalidatePath("/activities/today");
   redirect("/activities/today");
@@ -45,14 +50,19 @@ export async function markDone(childId: string, activityId: string) {
     .maybeSingle();
   if (!child) return;
 
-  await supabase.from("activity_completions").upsert(
+  const { error } = await supabase.from("activity_completions").upsert(
     {
       user_id: user.id,
       child_id: childId,
       activity_id: activityId,
-      completed_on: new Date().toISOString().slice(0, 10),
+      // The parent's calendar day, so "done today" matches their today.
+      completed_on: localDateISO(new Date(), await getTimeZone()),
     },
     { onConflict: "child_id,activity_id,completed_on", ignoreDuplicates: true },
   );
+  if (error) {
+    console.error(`[library] completion failed: ${error.message}`);
+    redirect(`/activities/today?error=${encodeURIComponent(SAVE_FAILED)}`);
+  }
   revalidatePath("/activities/today");
 }

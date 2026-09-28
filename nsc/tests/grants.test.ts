@@ -3,6 +3,7 @@ import {
   grantForGiftRedemption,
   grantsForOneTimePurchase,
   grantsForSubscription,
+  subscriptionPeriod,
   unlocksNumberPath,
   type PriceConfig,
 } from "../lib/grants";
@@ -56,6 +57,70 @@ describe("subscription grants (plan 2.2 reconciliation)", () => {
     expect(
       grantsForSubscription({ ...base, priceId: "price_something_else" }),
     ).toHaveLength(0);
+  });
+
+  it("fails closed without a period end (never a perpetual membership)", () => {
+    for (const currentPeriodEnd of [null, "not-a-date"]) {
+      expect(
+        grantsForSubscription({ ...base, priceId: "price_member_yr", currentPeriodEnd }),
+      ).toEqual([]);
+    }
+  });
+
+  it("caps past_due at 14 days from the start of the unpaid period (N11)", () => {
+    const [g] = grantsForSubscription({
+      subscriptionId: "sub_annual",
+      priceId: "price_member_yr",
+      status: "past_due",
+      // Stripe already advanced to the new (unpaid) annual period.
+      currentPeriodStart: "2026-07-01T00:00:00.000Z",
+      currentPeriodEnd: "2027-07-01T00:00:00.000Z",
+      prices,
+      now: new Date("2026-09-30T00:00:00.000Z"), // a late replay can't extend it
+    });
+    expect(g.expires_at).toBe("2026-07-15T00:00:00.000Z");
+  });
+
+  it("past_due without a period start is capped from now", () => {
+    const [g] = grantsForSubscription({
+      subscriptionId: "sub_1",
+      priceId: "price_member_mo",
+      status: "past_due",
+      currentPeriodEnd: "2027-07-01T00:00:00.000Z",
+      prices,
+      now: new Date("2026-07-02T00:00:00.000Z"),
+    });
+    expect(g.expires_at).toBe("2026-07-16T00:00:00.000Z");
+  });
+
+  it("an active subscription still runs to period end plus the renewal grace", () => {
+    const [g] = grantsForSubscription({
+      ...base,
+      priceId: "price_member_mo",
+      currentPeriodStart: "2026-07-01T00:00:00.000Z",
+    });
+    expect(g.expires_at).toBe("2026-08-04T00:00:00.000Z");
+  });
+});
+
+describe("subscription period across Stripe API versions", () => {
+  const jul1 = Date.UTC(2026, 6, 1) / 1000;
+  const aug1 = Date.UTC(2026, 7, 1) / 1000;
+
+  it("reads the Basil item-level period", () => {
+    expect(
+      subscriptionPeriod({ items: { data: [{ current_period_start: jul1, current_period_end: aug1 }] } }),
+    ).toEqual({ start: "2026-07-01T00:00:00.000Z", end: "2026-08-01T00:00:00.000Z" });
+  });
+
+  it("falls back to the pre-Basil subscription-level period", () => {
+    expect(
+      subscriptionPeriod({ items: { data: [{}] }, current_period_start: jul1, current_period_end: aug1 }),
+    ).toEqual({ start: "2026-07-01T00:00:00.000Z", end: "2026-08-01T00:00:00.000Z" });
+  });
+
+  it("reports null when neither shape carries it", () => {
+    expect(subscriptionPeriod({})).toEqual({ start: null, end: null });
   });
 });
 

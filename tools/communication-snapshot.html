@@ -61,7 +61,8 @@
     .cs-step-title { margin: 0 0 .5rem; font-size: var(--text-xl); }
     .cs-step-lede { color: var(--ink-soft); margin: 0 0 var(--space-5); }
     .cs-field { display: grid; gap: .4rem; margin: 0 0 var(--space-5); }
-    .cs-field label { font-weight: 600; font-family: var(--font-display); }
+    .cs-field label, .cs-field__label { font-weight: 600; font-family: var(--font-display); }
+    .cs-field__label { margin: 0; }
     .cs-field input[type="number"] {
       width: 7.5rem; padding: .6rem .75rem; border: 1px solid var(--border);
       border-radius: var(--radius-sm, 8px); background: var(--surface); color: var(--ink);
@@ -85,10 +86,10 @@
     .cs-item:first-of-type { border-top: 0; }
     .cs-item__prompt { font-weight: 600; font-family: var(--font-display); margin: 0 0 .2rem; }
     .cs-item__help { font-size: var(--text-sm); color: var(--ink-muted); margin: 0 0 .7rem; max-width: 46rem; }
-    .cs-item.is-missing .cs-item__prompt::after { content: " · needs an answer"; color: var(--warm-deep, #9C4429); font-size: var(--text-xs); font-family: var(--font-display); }
+    .cs-item.is-missing .cs-item__prompt::after { content: " · needs an answer"; color: var(--accent-brown); font-size: var(--text-xs); font-family: var(--font-display); }
 
     .cs-nav { display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-6); flex-wrap: wrap; }
-    .cs-error { color: #9C4429; font-size: var(--text-sm); margin: var(--space-3) 0 0; }
+    .cs-error { color: var(--accent-brown); font-size: var(--text-sm); margin: var(--space-3) 0 0; }
 
     /* --- Report --- */
     .cs-sev {
@@ -169,6 +170,7 @@
               </div>
             </details>
           </li>
+          <li><a class="nav__link" href="/arcade/">Arcade</a></li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
           <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
@@ -211,7 +213,7 @@
 
     <section id="snapshot" aria-label="Communication Snapshot">
       <div class="container cs-app">
-        <div class="cs-card" id="cs-root" aria-live="polite">
+        <div class="cs-card" id="cs-root">
           <noscript><p>The Communication Snapshot needs JavaScript to run. Everything happens on your device; nothing is sent to us.</p></noscript>
         </div>
         <p class="cs-note">This tool offers educational information, not medical advice, diagnosis, or screening. It cannot see your child; it can only organize what you report. Decisions about your child's health belong with you and your child's clinician.</p>
@@ -324,12 +326,14 @@
       behaviors: {},            // id -> value
     };
 
-    /* Prefill age from the shared child profile when one exists. */
+    /* Prefill age from the shared child profile when one exists. Only a saved
+       birthday gives an exact age; a saved stage (for example 25–36 months) is
+       too coarse for month-by-month lines, so it never prefills a number. */
     function profileMonths() {
       try {
         if (window.GMS && GMS.profile) {
           const child = GMS.profile.getActive();
-          if (child) return { months: GMS.profile.ageInMonths(child), name: child.name || "" };
+          if (child) return { months: child.birthdate ? GMS.profile.ageInMonths(child) : null, name: child.name || "" };
         }
       } catch (e) {}
       return null;
@@ -352,15 +356,23 @@
       if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: false }); }
     }
 
-    function chipRow(options, current, onPick) {
-      const row = el("div", { class: "cs-chips", role: "group" });
+    /* Chips update in place (no re-render), so a typed age is never wiped and
+       keyboard focus stays on the chip that was just chosen. */
+    function chipRow(options, current, onPick, label) {
+      const row = el("div", { class: "cs-chips", role: "group", "aria-label": label || null });
       options.forEach((o) => {
         const b = el("button", {
           type: "button",
           class: "cs-chip" + (current === o.value ? " is-active" : ""),
           "aria-pressed": current === o.value ? "true" : "false",
           text: o.label,
-          onclick: () => onPick(o),
+          onclick: () => {
+            row.querySelectorAll(".cs-chip").forEach((c) => {
+              c.classList.toggle("is-active", c === b);
+              c.setAttribute("aria-pressed", c === b ? "true" : "false");
+            });
+            onPick(o);
+          },
         });
         row.appendChild(b);
       });
@@ -372,7 +384,7 @@
     }
 
     /* ---------------- Step 1: your child ---------------- */
-    function renderChild() {
+    function renderChild(opts) {
       root.innerHTML = "";
       const pre = profileMonths();
       const wrap = el("div", {}, [
@@ -381,15 +393,19 @@
         el("p", { class: "cs-step-lede", text: "Age drives everything here. The lines this snapshot draws move month by month, so we start with where your child is." }),
       ]);
 
+      const prefilled = state.ageMonths == null && pre && pre.months != null;
       const ageField = el("div", { class: "cs-field" }, [
         el("label", { for: "cs-age", text: "Age in months" }),
-        el("input", { id: "cs-age", type: "number", min: "0", max: "72", inputmode: "numeric", value: state.ageMonths != null ? String(state.ageMonths) : (pre && pre.months != null ? String(pre.months) : "") }),
-        el("p", { class: "cs-hint", text: "This snapshot covers 6 to 36 months." }),
+        el("input", { id: "cs-age", type: "number", min: "0", max: "72", inputmode: "numeric", "aria-describedby": "cs-age-hint", value: state.ageMonths != null ? String(state.ageMonths) : (prefilled ? String(pre.months) : "") }),
+        el("p", { class: "cs-hint", id: "cs-age-hint", text: prefilled
+          ? "This snapshot covers 6 to 36 months. Filled in from your saved profile; change it if it's not right."
+          : "This snapshot covers 6 to 36 months." }),
       ]);
       wrap.appendChild(ageField);
 
+      const earlyQuestion = "Was your child born more than 3 weeks early?";
       const earlyField = el("div", { class: "cs-field" }, [
-        el("label", { text: "Was your child born more than 3 weeks early?" }),
+        el("p", { class: "cs-field__label", text: earlyQuestion }),
       ]);
       const weeksField = el("div", { class: "cs-field", style: state.bornEarly ? "" : "display:none" }, [
         el("label", { for: "cs-weeks", text: "About how many weeks early?" }),
@@ -399,12 +415,17 @@
       earlyField.appendChild(chipRow(
         [{ value: false, label: "No, full term or close" }, { value: true, label: "Yes, more than 3 weeks early" }],
         state.bornEarly,
-        (o) => { state.bornEarly = o.value; if (!o.value) state.weeksEarly = 0; renderChild(); }
+        (o) => {
+          state.bornEarly = o.value;
+          if (!o.value) state.weeksEarly = 0;
+          weeksField.style.display = o.value ? "" : "none";
+        },
+        earlyQuestion
       ));
       wrap.appendChild(earlyField);
       wrap.appendChild(weeksField);
 
-      const err = el("p", { class: "cs-error", hidden: "hidden" });
+      const err = el("p", { class: "cs-error", role: "alert", hidden: "hidden" });
       wrap.appendChild(err);
       wrap.appendChild(el("div", { class: "cs-nav" }, [
         el("button", {
@@ -426,7 +447,8 @@
         }),
       ]));
       root.appendChild(wrap);
-      focusTitle();
+      // On first load, leave focus where the visitor is (top of the page).
+      if (!(opts && opts.initial)) focusTitle();
     }
 
     function renderOutOfRange(eff) {
@@ -436,10 +458,13 @@
         el("h2", { class: "cs-step-title", text: young ? "A little young for this snapshot" : "Past the range this snapshot covers" }),
         el("p", { class: "cs-step-lede", text: young
           ? "This snapshot is built for 6 to 36 months (corrected age), because that's where its research lines live. Two things are true at any age, though: if you ever feel your baby doesn't hear well, that feeling alone is reason enough to ask for a hearing test. And if something feels off to you, bring it to your pediatrician; your sense of your child is real information."
-          : "This snapshot's research lines run through 36 months. Past that age, the right move is simpler: bring specific observations straight to your pediatrician, and consider asking about a speech-language evaluation if talking is the worry. Our milestone tracker covers ages up to five." }),
+          : "This snapshot's research lines run through 36 months. Past that age, the right move is simpler: bring specific observations straight to your pediatrician, and consider asking about a speech-language evaluation if talking is the worry." }),
         el("div", { class: "cs-nav" }, [
-          el("a", { class: "btn btn--primary", href: "/milestones", text: "Open the milestone tracker" }),
-          el("button", { type: "button", class: "gms-link", text: "← Change age", onclick: renderChild }),
+          // The milestone tracker covers birth to 36 months, so it is only offered below that range.
+          young
+            ? el("a", { class: "btn btn--primary", href: "/milestones", text: "Open the milestone tracker" })
+            : el("a", { class: "btn btn--primary", href: "/tools/", text: "See all free tools and guides" }),
+          el("button", { type: "button", class: "gms-link", text: "← Change age", onclick: () => renderChild() }),
         ]),
       ]));
       focusTitle();
@@ -463,7 +488,7 @@
         el("p", { class: "cs-item__prompt", text: says.prompt }),
         el("p", { class: "cs-item__help", text: says.help }),
       ]);
-      saysItem.appendChild(chipRow(says.buckets, state.says, (o) => { state.says = o.value; state.saysLabel = o.label; renderWords(); }));
+      saysItem.appendChild(chipRow(says.buckets, state.says, (o) => { state.says = o.value; state.saysLabel = o.label; }, says.prompt));
       wrap.appendChild(saysItem);
 
       const und = instrument.vocab.vocab_understands;
@@ -471,10 +496,10 @@
         el("p", { class: "cs-item__prompt", text: und.prompt }),
         el("p", { class: "cs-item__help", text: und.help }),
       ]);
-      undItem.appendChild(chipRow(und.buckets, state.understands, (o) => { state.understands = o.value; state.understandsLabel = o.label; renderWords(); }));
+      undItem.appendChild(chipRow(und.buckets, state.understands, (o) => { state.understands = o.value; state.understandsLabel = o.label; }, und.prompt));
       wrap.appendChild(undItem);
 
-      const err = el("p", { class: "cs-error", hidden: "hidden" });
+      const err = el("p", { class: "cs-error", role: "alert", hidden: "hidden" });
       wrap.appendChild(err);
       wrap.appendChild(el("div", { class: "cs-nav" }, [
         el("button", {
@@ -484,7 +509,7 @@
             renderBehaviors();
           },
         }),
-        el("button", { type: "button", class: "gms-link", text: "← Back", onclick: renderChild }),
+        el("button", { type: "button", class: "gms-link", text: "← Back", onclick: () => renderChild() }),
       ]));
       root.appendChild(wrap);
       focusTitle();
@@ -514,14 +539,13 @@
           (o) => {
             state.behaviors[b.id] = o.value;
             item.classList.remove("is-missing");
-            const row = item.querySelector(".cs-chips");
-            row.querySelectorAll(".cs-chip").forEach((c) => { c.classList.toggle("is-active", c.textContent === o.label); c.setAttribute("aria-pressed", c.textContent === o.label ? "true" : "false"); });
-          }
+          },
+          b.prompt
         ));
         wrap.appendChild(item);
       });
 
-      const err = el("p", { class: "cs-error", hidden: "hidden" });
+      const err = el("p", { class: "cs-error", role: "alert", hidden: "hidden" });
       wrap.appendChild(err);
       wrap.appendChild(el("div", { class: "cs-nav" }, [
         el("button", {
@@ -533,7 +557,12 @@
               missing.forEach((b) => { const n = wrap.querySelector(`[data-behavior="${b.id}"]`); if (n) n.classList.add("is-missing"); });
               err.hidden = false; err.textContent = "A few questions still need an answer. 'Not yet' is a completely normal one.";
               const first = wrap.querySelector(".cs-item.is-missing");
-              if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+              if (first) {
+                const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                first.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
+                const chip = first.querySelector(".cs-chip");
+                if (chip) chip.focus({ preventScroll: true });
+              }
               return;
             }
             renderReport(asked);
@@ -622,7 +651,7 @@
       if (window.GMS) {
         const key = "communication-snapshot:latest";
         const saveLabel = () => (GMS.shelf.has(key) ? "Saved ✓" : "Save this");
-        const save = el("button", { type: "button", class: "btn btn--ghost", text: saveLabel() });
+        const save = el("button", { type: "button", class: "btn btn--ghost", "aria-pressed": GMS.shelf.has(key) ? "true" : "false", text: saveLabel() });
         save.addEventListener("click", () => {
           if (GMS.shelf.has(key)) GMS.shelf.removeByKey(key);
           else GMS.shelf.add({
@@ -632,12 +661,10 @@
             tryLine: "",
           });
           save.textContent = saveLabel();
+          save.setAttribute("aria-pressed", GMS.shelf.has(key) ? "true" : "false");
         });
         actions.appendChild(save);
-        const q = flags.length
-          ? `The Communication Snapshot suggested we discuss: ${flags.map((f) => f.title.toLowerCase()).join("; ")}. How can I support communication at home while we wait for the appointment?`
-          : "How can I build my child's language day to day?";
-        actions.appendChild(el("a", { class: "btn btn--ghost", href: GMS.askUrl(q), text: "Ask Growing Minds AI" }));
+        actions.appendChild(el("a", { class: "btn btn--ghost", href: GMS.askUrl(askQuestion(flags)), text: "Ask Growing Minds AI" }));
       }
       actions.appendChild(el("button", { type: "button", class: "gms-link", text: "Start over", onclick: () => { state.says = null; state.understands = null; state.behaviors = {}; renderChild(); } }));
       report.appendChild(actions);
@@ -647,6 +674,21 @@
       root.appendChild(report);
       focusTitle();
       window.scrollTo({ top: root.getBoundingClientRect().top + window.scrollY - 90, behavior: "auto" });
+    }
+
+    /* The AI page keeps a prefilled question to 500 characters, so name at
+       most the three highest-priority flags (already sorted) and keep the
+       actual question at the end, where a cut would otherwise land. */
+    function askQuestion(flags) {
+      if (!flags.length) return "How can I build my child's language day to day?";
+      const ask = " How can I support communication at home while we wait for the appointment?";
+      let named = flags.slice(0, 3).map((f) => f.title.toLowerCase());
+      let q = `The Communication Snapshot suggested we discuss: ${named.join("; ")}.${ask}`;
+      while (q.length > 440 && named.length > 1) {
+        named = named.slice(0, -1);
+        q = `The Communication Snapshot suggested we discuss: ${named.join("; ")}.${ask}`;
+      }
+      return q;
     }
 
     function printVisit(result, asked, strengths) {
@@ -680,7 +722,7 @@
       window.print();
     }
 
-    renderChild();
+    renderChild({ initial: true });
   </script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>

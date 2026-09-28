@@ -4,7 +4,9 @@ import { getUser } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { listActivities } from "@/lib/activities.server";
 import { weeklyActivityPlan } from "@/lib/weekly-activity-plan";
-import { weekSeed } from "@/lib/isoweek";
+import { weekSeed, weekStartISO } from "@/lib/isoweek";
+import { calendarDay } from "@/lib/tz";
+import { getTimeZone } from "@/lib/tz.server";
 import { ageInMonths } from "@/lib/age";
 import { Card, LinkButton } from "@/components/ui";
 import { PrintButton } from "@/components/print-button";
@@ -23,13 +25,6 @@ interface ChildRow {
   id: string;
   nickname: string;
   birth_month: string;
-}
-
-function mondayOf(now: Date): Date {
-  const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
-  const day = d.getUTCDay() || 7;
-  d.setUTCDate(d.getUTCDate() - (day - 1));
-  return d;
 }
 
 export default async function WeeklyPlanPage({
@@ -52,7 +47,10 @@ export default async function WeeklyPlanPage({
         </div>
         <div className="flex flex-col items-center gap-3">
           <LinkButton href="/login?next=/activities/week">Sign in</LinkButton>
-          <Link href="/signup" className="text-sm text-teal-soft underline">
+          <Link
+            href="/signup?next=/activities/week"
+            className="inline-flex min-h-11 items-center text-sm text-teal-soft underline"
+          >
             New here? Create a free account
           </Link>
         </div>
@@ -66,7 +64,9 @@ export default async function WeeklyPlanPage({
 
   const supabase = await createClient();
   const now = new Date();
-  const monday = mondayOf(now);
+  // The parent's week: it turns over at their Monday, not UTC's.
+  const tz = await getTimeZone();
+  const monday = calendarDay(weekStartISO(now, tz));
   const weekLabel = monday.toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
@@ -110,7 +110,7 @@ export default async function WeeklyPlanPage({
             id="mess"
             name="mess"
             defaultValue={sp.mess ?? ""}
-            className="rounded-xl border border-sea-glass bg-surface px-3 py-2 text-sm text-ink"
+            className="min-h-11 rounded-xl border border-sea-glass bg-surface px-3 py-2 text-sm text-ink"
           >
             <option value="">Any mess</option>
             <option value="1">Tidy only</option>
@@ -125,7 +125,7 @@ export default async function WeeklyPlanPage({
             id="time"
             name="time"
             defaultValue={sp.time ?? ""}
-            className="rounded-xl border border-sea-glass bg-surface px-3 py-2 text-sm text-ink"
+            className="min-h-11 rounded-xl border border-sea-glass bg-surface px-3 py-2 text-sm text-ink"
           >
             <option value="">Any length</option>
             <option value="5">5 minutes a day</option>
@@ -135,7 +135,7 @@ export default async function WeeklyPlanPage({
         </div>
         <button
           type="submit"
-          className="rounded-full bg-teal px-5 py-2 text-sm font-semibold text-white hover:bg-teal-soft"
+          className="min-h-11 rounded-full bg-teal px-5 py-2 text-sm font-semibold text-white hover:bg-teal-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2"
         >
           Rebuild the week
         </button>
@@ -159,7 +159,7 @@ export default async function WeeklyPlanPage({
         const plan = weeklyActivityPlan({
           activities,
           ageMonths: months,
-          seed: weekSeed(child.id, now),
+          seed: weekSeed(child.id, now, tz),
           maxMess,
           maxDuration,
         });

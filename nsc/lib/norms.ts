@@ -71,8 +71,6 @@ const NORMS: { upTo: number; low: Placement; high: Placement }[] = [
   { upTo: Infinity, low: "L4", high: "CP" }, // 54m+
 ];
 
-export const MIN_NORMS_MONTHS = 24;
-
 /** The typical knower-level range at an age. Ages below 24m clamp to the first band. */
 export function typicalRangeForMonths(months: number): TypicalRange {
   for (const row of NORMS) {

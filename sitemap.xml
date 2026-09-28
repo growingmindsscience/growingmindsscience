@@ -2,115 +2,133 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://growingmindsscience.com/</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/classes/</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://growingmindsscience.com/classes/toddlerhood.html</loc>
-    <lastmod>2026-06-10</lastmod>
+    <loc>https://growingmindsscience.com/classes/toddlerhood</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://growingmindsscience.com/classes/birth-to-12-months.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://growingmindsscience.com/classes/family-systems.html</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://growingmindsscience.com/classes/preschool.html</loc>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/tools/growing-minds-ai</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/tools/right-now</loc>
-    <lastmod>2026-07-06</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/tools/activity-library</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/tools/reading-prompt-cards</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/claims/</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/claims/sleep-training-attachment</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/claims/bilingual-confusion</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/claims/baby-walkers</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/claims/tummy-time</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/claims/screen-time-language</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/claims/pacifiers-speech</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/claims/talking-to-baby</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/claims/teething-fever</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/claims/baby-led-weaning</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/claims/shared-reading</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/tools/communication-snapshot</loc>
-    <lastmod>2026-07-19</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -118,19 +136,19 @@
        attorney review (DECISIONS.md D3) and its noindex tag is removed. -->
   <url>
     <loc>https://growingmindsscience.com/pricing</loc>
-    <lastmod>2026-06-13</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/about/</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/tools/</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -142,73 +160,97 @@
   </url>
   <url>
     <loc>https://growingmindsscience.com/articles/</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/articles/serve-and-return</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/articles/screen-time</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/articles/toddler-no</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/articles/self-regulation</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/faq/</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/tools/limits-without-escalation</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/tools/whats-underneath-the-meltdown</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/tools/repair-after-the-hard-moment</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/tools/whats-typical-by-stage</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/tools/routines-transitions-night-waking</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://growingmindsscience.com/tools/beyond-less-is-better</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://growingmindsscience.com/tools/co-regulation-primer</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://growingmindsscience.com/tools/regulating-yourself-first</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://growingmindsscience.com/tools/screens-language-attention</loc>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/milestones</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -226,19 +268,31 @@
   </url>
   <url>
     <loc>https://growingmindsscience.com/articles/counting-ladder</loc>
-    <lastmod>2026-07-10</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/articles/cliff-at-three</loc>
-    <lastmod>2026-07-15</lastmod>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://growingmindsscience.com/articles/milestone-worry</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://growingmindsscience.com/articles/parents-nervous-system</loc>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://growingmindsscience.com/contact/</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
