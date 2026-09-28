@@ -1,71 +1,25 @@
-# The First Year: course draft
+# Birth to 12 Months: course drafts
 
-**Status: DRAFT. Not published. Not merged. Not wired into the knowledge base.**
+**Current plan: v2, 4 modules, 16 lessons, about 3 hours.** The v2 lesson drafts
+have not been written yet.
 
-Branch: `course/first-year-2026-07-19`
-Drafted: 2026-07-19
+The public class page (`classes/birth-to-12-months.html`) already shows the v2
+structure:
 
-## What this is
+| Module | Lessons | Length |
+| --- | --- | --- |
+| 01 The Newborn Brain | 5 | about 1 hour |
+| 02 Reading Your Baby's Cues | 4 | about 40 minutes |
+| 03 Attachment in the First Year | 3 | about 30 minutes |
+| 04 The Explorer: Language, Movement, and Play | 4 | about 40 minutes |
 
-A complete six-module parent-facing course on the first twelve months of life.
-Full lesson prose, not outlines. Every module carries parent-facing activities,
-an explicit list of the overclaims it refuses to make, a summary, and a
-citation list with replication-status markers.
+## Archive
 
-## What this is not, yet
+`archive-v1/` holds the earlier six-module draft (full lesson prose, companion
+worksheets, quizzes, onboarding emails, and review flags). **v2 supersedes it.**
+It stays here as source material for the v2 rework: most of the research,
+citations, and review flags still apply, but the module structure, lesson
+lengths, and cross-references do not.
 
-This has had **no human review pass**. It is a draft written to the repo's
-evidence standard, but the standard includes a requirement that a person
-scrutinize every contested claim before anything reaches a parent. That pass
-has not happened.
-
-Specifically, before any of this goes anywhere near a learner:
-
-1. **Verify every citation.** The drafts were written to a citation spine of
-   references chosen for being real and well known, but authors, years, journals,
-   and especially volume and page numbers need checking against the actual
-   sources. Treat any unverified reference as unverified.
-2. **Work the review flags.** Every place the evidence is mixed is marked
-   inline. See `REVIEW-FLAGS.md` for the consolidated index.
-3. **Clinical and legal read.** Modules 2, 5, and 6 contain safety content
-   (crying and abusive head trauma, safe sleep, perinatal mental health and
-   crisis routing). That content should be reviewed by someone qualified before
-   publication, on the same principle as the `keel/` attorney review gate.
-
-## Files
-
-| File | Contents |
-| --- | --- |
-| `00-STYLE-AND-EVIDENCE-BRIEF.md` | The governing voice and evidence rules all six modules were written to. |
-| `module-1-what-is-being-built.md` | Brain architecture, plasticity, the developmental sequence, serve and return. |
-| `module-2-reading-your-baby.md` | Behavioral states, cues, crying, temperament and goodness of fit. |
-| `module-3-language-ready-baby.md` | Speech perception, statistical learning, babbling, what predicts language. |
-| `module-4-connection-and-security.md` | Attachment, still-face and repair, separation, co-regulation. |
-| `module-5-bodies-in-motion.md` | Motor development, tummy time, sleep, feeding, safety. Five lessons; sleep and feeding are separate. |
-| `module-6-everyday-life.md` | Play, joint attention, routines and stress, screens, caregiver wellbeing. |
-| `REVIEW-FLAGS.md` | Consolidated index of every contested claim flagged for human scrutiny. |
-| `companion/` | The surround: six parent worksheets, a 12-email onboarding sequence, six quizzes, and a landing page draft. See `companion/README.md`. |
-
-## How this honors the repo's existing evidence standard
-
-`corpus/citations.json` and `marketing/carousels/daily-log.md` already record
-which popular findings this project refuses to repeat. Those bans are carried
-into the course as hard constraints, and each is named explicitly in the
-relevant module's "what this module is not saying" section rather than merely
-being omitted, so a reader who has heard the claim elsewhere gets the
-correction rather than a silence.
-
-Claims banned outright: the Hart & Risley 30-million-word gap, the marshmallow
-test as destiny, Hamlin helper/hinderer as innate morality, Meltzoff & Moore
-neonatal imitation, the infant Mozart effect, baby sign as a speech
-accelerator, and educational baby videos as a teaching medium.
-
-## Not done here, on purpose
-
-- No merge to `main`.
-- No publish.
-- No changes to `knowledge/sources/`, so `scripts/build-knowledge.mjs` output
-  and the certified corpus are untouched. If this course is eventually approved,
-  promoting it into the AI's retrieval corpus is a separate, gated decision that
-  runs the certifier and the eval harness, exactly like the corpus cutover plan
-  in `corpus/README.md` describes.
+`archive-v1/00-STYLE-AND-EVIDENCE-BRIEF.md` still governs voice and evidence
+standards for v2. Its references to "six modules" describe v1 only.
