@@ -121,8 +121,7 @@ Confidence: HIGH for the study facts.
 
 Finding: Proportions: about 40% easy, 10% difficult, 15% slow-to-warm-up; more than a third fit no type.
 Sources: Thomas & Chess (1977), Temperament and Development (classic figures). 'More than one-third could not be classified': McDevitt et al. (2026), Behavioral Psychology, DOI 10.31083/bp45740.
-Confidence: MODERATE. The classic percentages are widely cited from the 1977 book; confirm against the book before publishing. The script rounds 15% to 'about one in seven.'
-Status: pending verification (a detail in this entry is still being checked).
+Confidence: MODERATE. Confirmed 2026-10-03 against a secondary source (OpenStax Lifespan Development 4.2, citing Chess & Thomas 1986): easy 40%, difficult 10%, slow to warm up 15%, about 35% unclassified. The script rounds 15% to 'about one in seven.'
 
 Finding: Three broad dimensions: negative emotionality, surgency/positive approach, regulation (orienting/effortful control).
 Sources: Casalin et al. (2012), Infant Behavior and Development, DOI 10.1016/j.infbeh.2011.08.004; Bornstein et al. (2015), Child Development, DOI 10.1111/cdev.12367. Note: regulation factor does not always appear at 6 months (Schmidt et al. 2024; Sieber et al. 2022).
@@ -184,8 +183,7 @@ Confidence: MODERATE. n = 102; effect held for mother-child, not father-child, r
 
 Finding: Randomized sensitivity program (6 to 9 months) for lower-income mothers of irritable newborns: more sociable, better self-soothing, more exploration, less crying at 9 months.
 Sources: van den Boom (1994), Child Development, DOI 10.1111/j.1467-8624.1994.tb00829.x; follow-up van den Boom (1995), DOI 10.1111/j.1467-8624.1995.tb00966.x.
-Confidence: HIGH. Randomized trial with four groups; confirm sample size (commonly cited as 100 dyads) before publishing. Attachment result is left for Module 3.
-Status: pending verification (a detail in this entry is still being checked).
+Confidence: HIGH. Randomized; confirmed 2026-10-03: N = 100 (50 intervention, 50 control). Attachment result is in Module 3, Lesson 1.
 
 Finding: Parenting interventions worked best for the most reactive or irritable infants.
 Sources: Klein Velderman et al. (2006), Journal of Family Psychology, DOI 10.1037/0893-3200.20.2.266; Cassidy et al. (2011), Development and Psychopathology, DOI 10.1017/S0954579410000696.
@@ -194,8 +192,5 @@ Confidence: MODERATE. Not universal: Kalinauskiene et al. (2009) found no differ
 ## Research behind this lesson (continued)
 
 Finding: Infant negative emotionality at 6 months predicted lower maternal sensitivity at 14 months only among mothers higher in emotion dysregulation.
-Sources: Bailes et al. (2023), Journal of Family Psychology, DOI 10.1037/fam0001060.
-Confidence: MODERATE. n = 259; transactional model. Confirm author list.
-Status: pending verification (a detail in this entry is still being checked).
-
-Pending verification: these citation details are still being checked before publishing, so treat them as provisional: NYLS percentages against Thomas and Chess 1977; van den Boom sample size; Bailes 2023 author list.
+Sources: Bailes, L. G., & Leerkes, E. M. (2023), Transactional associations between infant negative emotionality and maternal sensitivity: Maternal emotion dysregulation as a moderator, Journal of Family Psychology 37(3), 369-379, DOI 10.1037/fam0001060.
+Confidence: MODERATE. n = 259; transactional model. Author list confirmed 2026-10-03 (two authors).

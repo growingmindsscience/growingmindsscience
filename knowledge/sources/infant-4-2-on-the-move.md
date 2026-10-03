@@ -174,8 +174,7 @@ Confidence: MODERATE. Observational; the catch-up comparison is with US norms.
 
 Finding: Clinical conventions: check with the pediatrician if a baby is beyond a window or loses a skill; use corrected (due-date) age for babies born early.
 Sources: Standard pediatric guidance (CDC 'Learn the Signs. Act Early.'; AAP). The WHO paper recommends the windows 'to signal the need for appropriate screening when individual children appear to be late'. Preterm delay: Krombholz (2025), Global Pediatrics, DOI 10.1016/j.gpeds.2025.100254.
-Confidence: MODERATE. Confirm wording against current CDC/AAP pages before publishing; not from a Consensus search.
-Status: pending verification (a detail in this entry is still being checked).
+Confidence: MODERATE. Confirmed 2026-10-03: CDC Act Early ('has lost skills he or she once had... act early', 'Talk with your child's doctor'); CDC Milestone Tracker uses corrected age for babies born early; AAP HealthyChildren recommends corrected age for the first 2 years.
 
 ## Research behind this lesson (continued)
 
@@ -201,20 +200,17 @@ Confidence: HIGH for this sample; other studies report lower figures (e.g., 37.8
 
 Finding: Prevalence of plagiocephaly/brachycephaly: 16.0% at 6 weeks, 19.7% at 4 months, 9.2% at 8 months, 6.8% at 12 months, 3.3% at 2 years (200 infants followed from birth).
 Sources: Hutchison et al. (2004), Plagiocephaly and brachycephaly in the first two years of life, Pediatrics, DOI 10.1542/peds.2003-0668-f; Vladusic/Bialocerkowski (2008) systematic review, Developmental Medicine & Child Neurology, DOI 10.1111/j.1469-8749.2008.03029.x.
-Confidence: HIGH. Confirm the 2008 review's first author (Consensus lists 'S. Vladusic'; the review is usually cited as Bialocerkowski, Vladusic & Wei Ng).
-Status: pending verification (a detail in this entry is still being checked).
+Confidence: HIGH. Confirmed 2026-10-03: Bialocerkowski, Vladusic & Ng (2008), Developmental Medicine and Child Neurology 50(8), 577-586, DOI 10.1111/j.1469-8749.2008.03029.x.
 
 Finding: Risk factors: head position preference (pooled OR 4.75), reduced tummy time (OR 3.51), supine sleep; advice to vary head position early; limited neck rotation is a risk factor.
 Sources: Hillyar et al. (2024), Interactive Journal of Medical Research, DOI 10.2196/55695; Mawji et al. (2014), Paediatrics & Child Health, DOI 10.1093/pch/19.8.423; Hutchison et al. (2004).
-Confidence: MODERATE. Observational. 'Tight neck muscle is common and treatable' (torticollis) is standard clinical guidance, not from these searches; confirm wording.
-Status: pending verification (a detail in this entry is still being checked).
+Confidence: MODERATE. Observational. Torticollis wording checked 2026-10-03 (AAP HealthyChildren: the most common cause of head tilt; stretching resolves the vast majority); 'common and treatable' is a fair paraphrase.
 
 ## Research behind this lesson (continued)
 
 Finding: Guidelines: at least 30 minutes of tummy time a day, spread through the day, for infants not yet mobile; not restrained for more than 1 hour at a time.
 Sources: WHO (2019), Guidelines on physical activity, sedentary behaviour and sleep for children under 5 years of age; Canadian 24-Hour Movement Guidelines, as summarized in Carson et al. (2022), IJBNP, DOI 10.1186/s12966-022-01397-8 (few infants met all guidelines).
-Confidence: HIGH for the guideline content. Confirm exact WHO wording before publishing.
-Status: pending verification (a detail in this entry is still being checked).
+Confidence: HIGH. WHO wording confirmed 2026-10-03: 'at least 30 minutes in prone position (tummy time) spread throughout the day while awake' and 'Not be restrained for more than 1 hour at a time'.
 
 Finding: Tummy time preference, bout frequency and bout length all increased from 2 to 6 months; at 2 months, 30 to 44 minutes a day linked with higher total development scores than under 15 minutes.
 Sources: Zhang et al. (2022), Characteristics of tummy time and dose-response relationships with development in infants, European Journal of Pediatrics, DOI 10.1007/s00431-022-04647-w.
@@ -293,8 +289,7 @@ Confidence: MODERATE. Single observational study.
 
 Finding: 12- to 19-month-olds averaged 2,368 steps and 17 falls per hour during free play; novice walkers traveled farther and faster than expert crawlers with comparable fall rates.
 Sources: Adolph et al. (2012), How do you learn to walk? Thousands of steps and dozens of falls per day, Psychological Science, DOI 10.1177/0956797612446346.
-Confidence: HIGH. Consensus lists 'Gladys L. Y. Chan et al.'; the paper's first author is Karen Adolph. Confirm before publishing.
-Status: pending verification (a detail in this entry is still being checked).
+Confidence: HIGH. Confirmed 2026-10-03: Adolph, Cole, Komati, Garciaguirre, Badaly, Lingeman, Chan & Sotsky (2012), Psychological Science 23(11), 1387-1394, DOI 10.1177/0956797612446346.
 
 ## Research behind this lesson (continued)
 
@@ -325,5 +320,3 @@ Confidence: MODERATE. Observational.
 Finding: Counter-evidence: pointing, not walking, linked to vocabulary in one sample; walk onset predicted language at 2 years but not 3 or 4.
 Sources: Moore, Dailey, Garrison, Amatuni & Bergelson (2019), Point, walk, talk, Developmental Psychology, DOI 10.1037/dev0000738; Lüke et al. (2019), Journal of Child Language, DOI 10.1017/s0305000919000394.
 Confidence: HIGH that the link is contested, which the script says.
-
-Pending verification: these citation details are still being checked before publishing, so treat them as provisional: Adolph 2012 first author (Consensus lists Chan); Kretch 2014 and Karasik 2014 journal years; exact WHO 2019 guideline wording; CDC/AAP wording for 'loses a skill', corrected age, and torticollis; first author of the 2008 plagiocephaly review.

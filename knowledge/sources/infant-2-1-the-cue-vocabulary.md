@@ -115,8 +115,7 @@ What the research shows: No one can. Babies differ in how clearly they signal, p
 
 Finding: Engagement and disengagement cue families; subtle versus potent cues.
 Sources: NCAST Parent-Child Interaction scales (Kathryn Barnard and colleagues, University of Washington); cue list as applied in Shloim et al. (2016), Appetite, DOI 10.1016/j.appet.2016.09.020, and Shloim et al. (2018), Appetite, DOI 10.1016/j.appet.2018.05.144.
-Confidence: HIGH as a widely used clinical and research framework. Confirm the NCAST manual citation (Sumner & Spietz) before publishing. The cue examples on the slide are the standard NCAST-style examples, not a quote.
-Status: pending verification (a detail in this entry is still being checked).
+Confidence: HIGH as a widely used clinical and research framework. Manuals confirmed 2026-10-03: Sumner & Spietz (1994), NCAST Caregiver/Parent-Child Interaction Teaching Manual and Feeding Manual, NCAST Publications, University of Washington School of Nursing. The cue examples on the slide are the standard NCAST-style examples, not a quote.
 
 Finding: 22 different cues identified in filmed milk feeds (3 to 22 weeks); disengagement cues more frequent than engagement cues.
 Sources: Shloim et al. (2016), Looking for cues: infant communication of hunger and satiation during milk feeding, Appetite, DOI 10.1016/j.appet.2016.09.020.
@@ -180,25 +179,22 @@ Finding: From about 4 months, infant satiation signals and maternal feeding beha
 Sources: Ventura et al. (2025), Co-development of infant satiation cues and maternal feeding behaviors during infancy, Current Developments in Nutrition, DOI 10.1016/j.cdnut.2025.107542.
 Confidence: MODERATE. Bottle-feeding interactions only; correlations modest (r about 0.2 to 0.46).
 
-## Research behind this lesson (continued)
-
 Finding: Preverbal infants whose messages fail repeat, modify, and add signals until understood.
-Sources: Golinkoff et al., 'I beg your pardon?': the preverbal negotiation of failed messages, Journal of Child Language, DOI 10.1017/S0305000900006826. Supporting: Liszkowski et al. (2007), Journal of Child Language, DOI 10.1017/S0305000906007689 (12-month-olds repair pointing).
-Confidence: HIGH for the phenomenon. Consensus lists this paper as 1984; it is often cited as 1986. Confirm year and author list before publishing. Ages are not stated in the script.
-Status: pending verification (a detail in this entry is still being checked).
+Sources: Golinkoff, R. M. (1986), 'I beg your pardon?': The preverbal negotiation of failed messages, Journal of Child Language 13(3), 455-476, DOI 10.1017/S0305000900006826.
+Confidence: HIGH for the phenomenon. Confirmed 2026-10-03: sole author, 1986 (not 1984). Ages are not stated in the script.
+
+## Research behind this lesson (continued)
 
 Finding: Appropriate mind-related comments to 6-month-olds predict children's theory of mind at about age 4.
 Sources: Meins et al. (2003), Pathways to understanding mind, Child Development, DOI 10.1111/1467-8624.00601. Later support: Meins et al. (2013), Child Development, DOI 10.1111/cdev.12061; Kirk et al. (2015), BJDP, DOI 10.1111/bjdp.12104. Review: McMahon et al. (2017), Developmental Review, DOI 10.1016/j.dr.2017.07.001.
 Confidence: MODERATE. Correlational; original sample 52. The script says 'a link, not proof of cause.' The attachment findings for mind-mindedness are left to Lesson 3.1.
 
-## Research behind this lesson (continued)
-
 Finding: Mothers' accurate (appropriate) mind-minded comments increase from the first week to 3 months.
 Sources: Bigelow et al. (2023), Maternal mind-mindedness over infants' first three months, Infant Behavior and Development, DOI 10.1016/j.infbeh.2023.101864.
 Confidence: MODERATE.
 
+## Research behind this lesson (continued)
+
 Finding: Infants differ in clarity of cues; clearer cues accompany more maternal sensitivity to cues.
 Sources: Ventura et al. (2019), Exploring correlates of infant clarity of cues during early feeding interactions, Journal of the Academy of Nutrition and Dietetics, DOI 10.1016/j.jand.2019.03.014.
 Confidence: MODERATE. Cross-sectional (86 dyads), so direction can't be told. Note: in this study cue clarity was NOT related to temperament ratings, so the script does not claim that link; the bridge to Lesson 2.2 is general.
-
-Pending verification: these citation details are still being checked before publishing, so treat them as provisional: NCAST manual citation (Sumner and Spietz), Golinkoff paper year (1984 vs 1986) and author list.

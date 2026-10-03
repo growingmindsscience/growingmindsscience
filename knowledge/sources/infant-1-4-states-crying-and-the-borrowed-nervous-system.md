@@ -177,8 +177,7 @@ Confidence: MODERATE to HIGH. Small sample, but consistent with the maturational
 
 Finding: Persistent crying at six weeks usually occurs despite optimal maternal sensitivity and affection; most heavy criers at 5 to 6 weeks are settled at night by 12 weeks.
 Sources: St James-Roberts, Conroy & Wilsher, Links between maternal care and persistent infant crying in the early months, Child: Care, Health and Development, DOI 10.1046/j.1365-2214.2002.00089.x. St James-Roberts & Peachey (2011), Archives of Disease in Childhood, DOI 10.1136/adc.2010.200204.
-Confidence: HIGH. Primary abstracts checked. (The database lists the first paper as 1998; its DOI points to the journal's 2002 volume. Confirm the year before citing it publicly.)
-Status: pending verification (a detail in this entry is still being checked).
+Confidence: HIGH. Primary abstracts checked. Year confirmed 2026-10-03: Child: Care, Health and Development 24(5):353-376, 1998; the '2002' in DOI 10.1046/j.1365-2214.2002.00089.x is the date it was posted online.
 
 ## Research behind this lesson (continued)
 

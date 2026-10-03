@@ -180,19 +180,18 @@ Confidence: HIGH. Randomized trial.
 ## Research behind this lesson (continued)
 
 Finding: INSIGHT follow-up to age 9: difference persisted but narrowed over time, clearer in girls.
-Sources: Paul et al. (2025), JAMA Pediatrics, DOI 10.1001/jamapediatrics.2024.6897.
-Confidence: MODERATE. Confirm wording against the paper before publishing.
-Status: pending verification (a detail in this entry is still being checked).
+Sources: Paul et al. (2025), Long-term effects of a responsive parenting intervention on child weight outcomes through age 9 years: the INSIGHT randomized clinical trial, JAMA Pediatrics, DOI 10.1001/jamapediatrics.2024.6897.
+Confidence: MODERATE. Checked 2026-10-03: BMI was lower across ages 3 to 9 taken together (16.64 vs 17.07, P = .049), driven by girls (no difference in boys); cross-sectional differences were not significant at 5, 6, or 9. The script's 'shrinking over time, and clearer in girls' is fair but generous; 'faded by age nine, and held only in girls' would be tighter. A later JAMA correction notice concerns effect sizes; check it before quoting numbers.
 
 Finding: NOURISH (698 first-time mothers): more responsive feeding; no significant effect on child weight; small effects on eating behavior.
 Sources: Daniels et al. (2013), Pediatrics (outcomes at age 2); Daniels et al. (2015), Pediatrics (outcomes at age 5); Daniels et al. (2014), Obesity, DOI 10.1002/oby.20693.
 Confidence: HIGH. Randomized trial. Add the two Pediatrics DOIs before publishing.
 
+## Research behind this lesson (continued)
+
 Finding: Solids around 6 months (AAP, WHO); before 4 months too early.
 Sources: AAP guidance as summarized in Chiang et al. (2023), MMWR, DOI 10.15585/mmwr.mm6953a1; WHO guidance as summarized in Langley-Evans (2022), Journal of Human Nutrition and Dietetics, DOI 10.1111/jhn.12988.
 Confidence: HIGH as current guidance.
-
-## Research behind this lesson (continued)
 
 Finding: Readiness signs: sitting with little support, head control, hand to mouth, interest in food, opening for the spoon, fading tongue-thrust reflex.
 Sources: Langley-Evans (2022), DOI 10.1111/jhn.12988; Perez-Escamilla et al. (2017), Nutrition Today, DOI 10.1097/NT.0000000000000234; Putnick et al. (2025), Journal of Pediatrics, DOI 10.1016/j.jpeds.2025.114722.
@@ -202,11 +201,11 @@ Finding: Skills for purees can appear at 3 to 4 months, finger foods more often 
 Sources: EFSA NDA Panel, Castenmiller et al. (2019), EFSA Journal, DOI 10.2903/j.efsa.2019.5780; preterm point in Langley-Evans (2022).
 Confidence: HIGH. Expert panel review.
 
+## Research behind this lesson (continued)
+
 Finding: Green beans daily for 8 days (4 to 8 months): intake about 57 g to 94 g; distaste faces persisted in many; mothers largely unaware.
 Sources: Forestell & Mennella (2007), Early determinants of fruit and vegetable acceptance, Pediatrics, DOI 10.1542/peds.2007-0858.
 Confidence: HIGH. Randomized; n = 45. Distaste faces decreased only in the green-beans-plus-peaches group, so the script says 'many kept making faces.'
-
-## Research behind this lesson (continued)
 
 Finding: Initially disliked vegetable offered every other day: 39 g to 174 g by the 8th exposure, similar to a liked vegetable; 63% still eating and liking it 9 months later.
 Sources: Maier et al. (2007), Food Quality and Preference, DOI 10.1016/j.foodqual.2007.04.005.
@@ -216,11 +215,11 @@ Finding: About 8 to 10 exposures increase acceptance in infants and toddlers.
 Sources: Spill et al. (2019), American Journal of Clinical Nutrition, DOI 10.1093/ajcn/nqy308 (systematic review); Nekitsing et al. (2018), Appetite, DOI 10.1016/j.appet.2018.04.019.
 Confidence: HIGH. 'Moderate' evidence grade in the USDA review.
 
+## Research behind this lesson (continued)
+
 Finding: Babies learn about food by touching and handling it as well as tasting.
 Sources: Lutter et al. (2021), Nutrition Reviews, DOI 10.1093/nutrit/nuaa143; Caton et al. (2017), Frontiers in Psychology, DOI 10.3389/fpsyg.2017.01046; Nicklaus (2016), Appetite, DOI 10.1016/j.appet.2015.08.022.
 Confidence: MODERATE. Consensus in reviews; little direct experimental work on mess itself.
-
-## Research behind this lesson (continued)
 
 Finding: BLISS (206 families): no difference in BMI z at 12 or 24 months; parent-reported less food fussiness and more enjoyment at 12 months.
 Sources: Taylor et al. (2017), JAMA Pediatrics, DOI 10.1001/jamapediatrics.2017.1284.
@@ -230,19 +229,16 @@ Finding: Most families assigned to strict spoon or strict baby-led feeding shift
 Sources: Moreira et al. (2022), Revista Paulista de Pediatria, DOI 10.1590/1984-0462/2023/41/2021235.
 Confidence: MODERATE. Brazilian trial, n = 139.
 
+## Research behind this lesson (continued)
+
 Finding: Gagging common (about 80% in one trial); about 35% had a choking episode between 6 and 8 months, no difference between baby-led and spoon-fed groups.
 Sources: Fangupo et al. (2016), A baby-led approach to eating solids and risk of choking, Pediatrics, DOI 10.1542/peds.2016-0772; de Paiva et al. (2023), Jornal de Pediatria, DOI 10.1016/j.jped.2023.05.011; Correia et al. (2024) systematic review, DOI 10.1002/jpn3.12298.
 Confidence: HIGH that method does not change choking rate. 'Choking is often quiet' and the food-safety basics are standard guidance, not from these trials. Parent-reported episodes.
-
-## Research behind this lesson (continued)
 
 Finding: Toddlers (14 to 20 months) put a new food in their mouths more when the adult was also eating, especially mothers.
 Sources: Harper & Sanders (1975), Journal of Experimental Child Psychology, DOI 10.1016/0022-0965(75)90098-3.
 Confidence: MODERATE. Classic, older study; the script says 'young toddlers.'
 
 Finding: 12-month-olds chose the food eaten by a speaker of their native language.
-Sources: Shutts et al. (2009), Social information guides infants' selection of foods, Journal of Cognition and Development.
-Confidence: MODERATE. Lab choice task. Confirm year and DOI before publishing (Consensus listing lacked them).
-Status: pending verification (a detail in this entry is still being checked).
-
-Pending verification: these citation details are still being checked before publishing, so treat them as provisional: NOURISH Pediatrics DOIs; Shutts year and DOI; INSIGHT age-9 wording (Paul 2025).
+Sources: Shutts, Kinzler, McKee & Spelke (2009), Social information guides infants' selection of foods, Journal of Cognition and Development 10(1-2), 1-17, DOI 10.1080/15248370902966636.
+Confidence: MODERATE. Lab choice task. Year and DOI confirmed 2026-10-03.
