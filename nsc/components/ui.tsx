@@ -90,6 +90,7 @@ export function Field({
   label: string;
   htmlFor: string;
   children: ReactNode;
+  /** Rendered with id `${htmlFor}-hint`; point the input's aria-describedby at it. */
   hint?: string;
 }) {
   return (
@@ -98,7 +99,7 @@ export function Field({
         {label}
       </label>
       {children}
-      {hint && <p className="text-xs text-teal-soft">{hint}</p>}
+      {hint && <p id={`${htmlFor}-hint`} className="text-xs text-teal-soft">{hint}</p>}
     </div>
   );
 }
@@ -107,7 +108,7 @@ export function Input({ className, ...props }: ComponentProps<"input">) {
   return (
     <input
       className={cx(
-        "min-h-11 rounded-xl border border-sea-glass bg-surface px-4 py-3 text-base text-ink placeholder:text-teal-soft/60 focus:border-teal focus:outline-none focus:ring-2 focus:ring-teal/30",
+        "min-h-11 rounded-xl border border-field-line bg-surface px-4 py-3 text-base text-ink placeholder:text-teal-soft/60 focus:border-teal focus:outline-none focus:ring-2 focus:ring-teal/30",
         className,
       )}
       {...props}

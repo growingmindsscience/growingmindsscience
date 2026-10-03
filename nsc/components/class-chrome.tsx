@@ -61,7 +61,7 @@ export function ClassAuthFrame({ title, lede, children, footer }: {
         </div>
       </div>
       {children}
-      <div className="flex flex-col items-center gap-3 text-center text-sm text-ink-soft">
+      <div className="flex flex-col items-center gap-1 text-center text-sm text-ink-soft">
         {footer}
         <a href={sitePath("/classes/")} className="inline-flex min-h-11 items-center underline">
           Back to the class catalog

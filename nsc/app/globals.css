@@ -13,6 +13,8 @@
   --color-coral: #de7356;
   --color-coral-deep: #9c4429;
   --color-line: #d4e0dc;
+  /* Input outlines: 3.2:1 on white, so a field edge is visible (WCAG 1.4.11). */
+  --color-field-line: #789690;
   /* DESIGN.md text tiers. teal-soft (#2e7a77) is AA only on plain mist or
      white; on tinted cards (sea-glass, rung-glow) secondary text uses these,
      which stay above 4.5:1 on every tint the app uses. */

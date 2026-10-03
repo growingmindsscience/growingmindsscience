@@ -1,8 +1,20 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { requestPasswordReset } from "@/app/auth/actions";
 import { Card, Field, Input } from "@/components/ui";
 import { SubmitButton } from "@/components/submit-button";
 import { brand } from "@/lib/config/brand";
+
+export async function generateMetadata({ searchParams }: {
+  searchParams: Promise<{ class?: string }>;
+}): Promise<Metadata> {
+  // Class visitors stay on class branding; everyone else keeps the default.
+  if ((await searchParams).class !== "1") return {};
+  return {
+    title: "Reset your password — Growing Minds Science",
+    description: "Reset the password for your Growing Minds Science classes account.",
+  };
+}
 
 export default async function ResetPage({
   searchParams,

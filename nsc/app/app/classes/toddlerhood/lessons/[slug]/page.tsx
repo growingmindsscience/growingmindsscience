@@ -1,12 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { requireClassAuth } from "@/lib/auth";
-import { hasClassAccess, progressForUser, publishedLessons } from "@/lib/classes.server";
+import { hasClassAccess, progressForUser, publishedLessonTitle, publishedLessons } from "@/lib/classes.server";
 import { TODDLER_COURSE, lessonPath } from "@/lib/classes";
 import { ClassPlayer } from "@/components/class-player";
 import { Card } from "@/components/ui";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const title = await publishedLessonTitle("toddlerhood", (await params).slug);
+  return title ? { title } : {};
+}
 
 export default async function ClassLessonPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
