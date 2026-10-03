@@ -26,3 +26,13 @@ export function siteOrigin(fallback: string = DEFAULT_SITE_ORIGIN): string {
     DEFAULT_SITE_ORIGIN
   );
 }
+
+/**
+ * Absolute link to a page on the static site (the class catalog, the AI
+ * tool). Built from the configured origin so preview deployments are not
+ * sent to production by a hard-coded host. Not for in-app routes: those
+ * are relative and Next adds the /nsc base path.
+ */
+export function sitePath(path: string): string {
+  return `${siteOrigin()}${path.startsWith("/") ? path : `/${path}`}`;
+}

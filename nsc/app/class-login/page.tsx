@@ -1,36 +1,47 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { login } from "@/app/auth/actions";
-import { Button, Card, Field, Input } from "@/components/ui";
+import { Card, Field, Input } from "@/components/ui";
+import { SubmitButton } from "@/components/submit-button";
+import { ClassAuthFrame } from "@/components/class-chrome";
+import { getUser } from "@/lib/auth";
+import { classDestination } from "@/lib/class-paths";
 
 export const metadata = { title: "Sign in to your classes — Growing Minds Science" };
 
 export default async function ClassLoginPage({ searchParams }: {
-  searchParams: Promise<{ error?: string; next?: string }>;
+  searchParams: Promise<{ error?: string; next?: string; confirm?: string }>;
 }) {
-  const { error, next } = await searchParams;
-  const destination = next?.startsWith("/app/classes") || next?.startsWith("/admin/classes")
-    ? next : "/app/classes";
+  const { error, next, confirm } = await searchParams;
+  const destination = classDestination(next);
+  // Already signed in (for example through Number Path): go straight to classes.
+  if (await getUser()) redirect(destination);
   return (
-    <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center gap-6 px-6 py-12">
-      <div className="text-center">
-        <p className="text-sm font-medium uppercase tracking-widest text-teal">Growing Minds Science · Classes</p>
-        <h1 className="mt-1 text-3xl font-semibold text-ink-deep">Sign in to your classes</h1>
-        <p className="mt-2 text-sm text-teal-soft">Your classes and lesson progress live in your Growing Minds Science account.</p>
-      </div>
+    <ClassAuthFrame
+      title="Sign in to your classes"
+      lede="Your classes and lesson progress live in your Growing Minds Science account."
+      footer={
+        <p>New here?{" "}
+          <Link href={`/class-signup?next=${encodeURIComponent(destination)}`} className="font-semibold text-teal underline">Create an account</Link>
+        </p>
+      }
+    >
+      {confirm && (
+        <p role="status" className="rounded-xl bg-sea-glass/40 px-4 py-3 text-center text-sm text-ink">
+          Check your email for a link to confirm your account. It brings you straight to your classes.
+        </p>
+      )}
       <Card>
         <form action={login} className="flex flex-col gap-4">
+          <input type="hidden" name="flow" value="class" />
           <input type="hidden" name="next" value={destination} />
           <Field label="Email" htmlFor="email"><Input id="email" name="email" type="email" autoComplete="email" required /></Field>
           <Field label="Password" htmlFor="password"><Input id="password" name="password" type="password" autoComplete="current-password" required /></Field>
-          {error && <p className="text-sm text-[#9C4429]" role="alert">{error}</p>}
-          <Button type="submit" className="mt-2">Sign in</Button>
-          <Link href="/reset?class=1" className="text-center text-sm text-teal-soft underline">Forgot your password?</Link>
+          {error && <p className="text-sm text-coral-deep" role="alert">{error}</p>}
+          <SubmitButton className="mt-2" pendingLabel="Signing in…">Sign in</SubmitButton>
+          <Link href="/reset?class=1" className="mx-auto inline-flex min-h-11 items-center text-sm text-ink-soft underline">Forgot your password?</Link>
         </form>
       </Card>
-      <p className="text-center text-sm text-teal-soft">New here?{" "}
-        <Link href={`/class-signup?next=${encodeURIComponent(destination)}`} className="font-semibold text-teal underline">Create an account</Link>
-      </p>
-      <Link href="https://growingmindsscience.com/classes/" className="text-center text-sm text-teal-soft underline">Back to classes</Link>
-    </main>
+    </ClassAuthFrame>
   );
 }

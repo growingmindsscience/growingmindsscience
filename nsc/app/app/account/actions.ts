@@ -10,15 +10,13 @@ import { applyGrants } from "@/lib/entitlement-writes";
 import { siteOrigin } from "@/lib/site";
 import type { Grant } from "@/lib/grants";
 
-const ACCOUNT_URL = () => `${siteOrigin()}/nsc/app/account`;
-
 /**
  * Open the Stripe billing portal so a subscriber can update or cancel their
  * plan. Requires a stored Stripe customer id — only subscription buyers have
  * one (one-time Number Path purchases don't). Redirects back to the account
  * page with a flag if there's nothing to manage.
  */
-export async function openBillingPortal() {
+async function billingPortal(returnPath: string) {
   const user = await requireAuth();
 
   const supabase = await createClient();
@@ -32,19 +30,28 @@ export async function openBillingPortal() {
     .maybeSingle();
 
   const customer = data?.stripe_customer_id;
-  if (!customer) redirect("/app/account?billing=none");
+  if (!customer) redirect(`${returnPath}?billing=none`);
 
   let url: string;
   try {
     const session = await stripe().billingPortal.sessions.create({
       customer,
-      return_url: ACCOUNT_URL(),
+      return_url: `${siteOrigin()}/nsc${returnPath}`,
     });
     url = session.url;
   } catch {
-    redirect("/app/account?billing=error");
+    redirect(`${returnPath}?billing=error`);
   }
   redirect(url);
+}
+
+export async function openBillingPortal() {
+  await billingPortal("/app/account");
+}
+
+/** Same portal, returning to the class account page. */
+export async function openClassBillingPortal() {
+  await billingPortal("/app/classes/account");
 }
 
 /** Constant-time string compare that tolerates differing lengths. */

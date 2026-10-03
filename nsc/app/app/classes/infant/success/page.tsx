@@ -25,7 +25,7 @@ export default async function InfantClassSuccessPage({ searchParams }: {
   }
   const ready = await hasClassAccess(user.id, INFANT_COURSE.slug);
   return (
-    <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-6 py-12 text-center">
+    <main className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-6 py-12 text-center">
       <Card>
         <h1 className="text-2xl font-semibold text-ink-deep">{ready ? "Your class is ready" : "Thank you for enrolling"}</h1>
         <p className="mt-3 text-ink">{ready ? "Birth to 12 months is in My classes." : "We're confirming your payment and adding the class to your account."}</p>

@@ -1,6 +1,9 @@
 import "server-only";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
-import { CLASS_COURSES, INFANT_COURSE, TODDLER_COURSE, ownsToddlerClass, type ClassCourseSlug, type ClassLesson } from "@/lib/classes";
+import {
+  CLASS_COURSES, INFANT_COURSE, INFANT_MODULE_LESSON_COUNTS, TODDLER_COURSE, infantSalesGate, ownsToddlerClass,
+  type ClassCourseSlug, type ClassLesson,
+} from "@/lib/classes";
 
 export async function hasClassAccess(userId: string, courseSlug: ClassCourseSlug = TODDLER_COURSE.slug): Promise<boolean> {
   const supabase = await createClient();
@@ -11,6 +14,20 @@ export async function hasClassAccess(userId: string, courseSlug: ClassCourseSlug
     .eq("product_scope", CLASS_COURSES[courseSlug].scope);
   if (error) throw new Error(`Could not check class ownership: ${error.message}`);
   return ownsToddlerClass(data ?? [], new Date());
+}
+
+/** Every class this account owns, in one read. */
+export async function ownedClassSlugs(userId: string): Promise<ClassCourseSlug[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("entitlements")
+    .select("product_scope, expires_at, source, source_ref")
+    .eq("user_id", userId)
+    .in("product_scope", Object.values(CLASS_COURSES).map((course) => course.scope));
+  if (error) throw new Error(`Could not check class ownership: ${error.message}`);
+  const now = new Date();
+  return (Object.keys(CLASS_COURSES) as ClassCourseSlug[]).filter((slug) =>
+    ownsToddlerClass((data ?? []).filter((row) => row.product_scope === CLASS_COURSES[slug].scope), now));
 }
 
 export async function publishedLessons(courseSlug: ClassCourseSlug = TODDLER_COURSE.slug): Promise<ClassLesson[]> {
@@ -28,12 +45,18 @@ export async function publishedLessons(courseSlug: ClassCourseSlug = TODDLER_COU
 /** Open sales only after every promised lesson is published. */
 export async function classSalesOpen(courseSlug: ClassCourseSlug = TODDLER_COURSE.slug, userId?: string): Promise<boolean> {
   if (courseSlug === INFANT_COURSE.slug) {
-    if (process.env.INFANT_CLASS_SALES_ENABLED !== "1") return false;
-    if (process.env.VERCEL_ENV === "preview" &&
-        (!process.env.INFANT_CLASS_PREVIEW_USER_ID || userId !== process.env.INFANT_CLASS_PREVIEW_USER_ID)) return false;
     const lessons = await publishedLessons(courseSlug);
-    return [5, 4, 3, 4].every((count, index) =>
-      lessons.filter((lesson) => lesson.module_number === index + 1).length === count);
+    const gate = infantSalesGate({
+      salesFlag: process.env.INFANT_CLASS_SALES_ENABLED,
+      vercelEnv: process.env.VERCEL_ENV,
+      previewUserId: process.env.INFANT_CLASS_PREVIEW_USER_ID,
+      userId,
+      moduleCounts: INFANT_MODULE_LESSON_COUNTS.map((_, index) =>
+        lessons.filter((lesson) => lesson.module_number === index + 1).length),
+    });
+    // The reason names the failing condition only; it never holds a value.
+    if (!gate.open) console.warn(`[class-sales] infant enrollment closed: ${gate.reason}`);
+    return gate.open;
   }
   if (process.env.TODDLER_CLASS_SALES_ENABLED !== "1") return false;
   return (await publishedLessons()).length >= 29;

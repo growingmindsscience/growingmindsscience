@@ -5,6 +5,9 @@ export const TODDLER_COURSE = {
   scope: "class:toddlerhood",
   product: "class_bundle_toddlerhood",
   priceDisplay: "$49",
+  ages: "Ages 1 to 3",
+  blurb: "Five modules of developmental science and practical guidance for everyday family life.",
+  detailsPath: "/classes/toddlerhood.html",
   modules: [
     "The Toddler Brain, Briefly",
     "Language: The Everyday Version",
@@ -21,6 +24,9 @@ export const INFANT_COURSE = {
   scope: "class:infant",
   product: "class_infant",
   priceDisplay: "$49",
+  ages: "Birth to 12 months",
+  blurb: "Four modules on the first year of development and everyday connection.",
+  detailsPath: "/classes/birth-to-12-months.html",
   modules: [
     "The Newborn Brain",
     "Reading Your Baby's Cues",
@@ -67,6 +73,65 @@ export function isCourseSlug(slug: string): slug is typeof TODDLER_COURSE.slug {
 
 export function lessonPath(slug: string, courseSlug: ClassCourseSlug = TODDLER_COURSE.slug): string {
   return `/app/classes/${courseSlug}/lessons/${slug}`;
+}
+
+/** Published lessons each infant module must have before sales open. */
+export const INFANT_MODULE_LESSON_COUNTS = [5, 4, 3, 4] as const;
+
+export type SalesGate = { open: true } | { open: false; reason: string };
+
+/**
+ * Whether infant enrollment is open, and if not, which condition failed.
+ * Pure so it can be tested; `reason` is written to server logs, so it
+ * describes each value (set or not, length) and never includes the value.
+ */
+export function infantSalesGate(input: {
+  salesFlag: string | undefined;
+  vercelEnv: string | undefined;
+  previewUserId: string | undefined;
+  userId: string | undefined;
+  /** Published lesson count per module, module 1 first. */
+  moduleCounts: number[];
+}): SalesGate {
+  // Env values pasted into a dashboard or piped from a shell often carry a
+  // trailing newline or space; compare the trimmed value.
+  const flag = input.salesFlag?.trim().toLowerCase();
+  if (flag !== "1" && flag !== "true") {
+    return {
+      open: false,
+      reason: input.salesFlag === undefined
+        ? "INFANT_CLASS_SALES_ENABLED is not set for this deployment"
+        : `INFANT_CLASS_SALES_ENABLED is set but is not "1" (length ${input.salesFlag.length})`,
+    };
+  }
+  if (input.vercelEnv === "preview") {
+    const allowed = input.previewUserId?.trim().toLowerCase();
+    if (!allowed) {
+      return { open: false, reason: "preview deployment and INFANT_CLASS_PREVIEW_USER_ID is not set" };
+    }
+    const viewer = input.userId?.trim().toLowerCase();
+    if (!viewer) {
+      return { open: false, reason: "preview deployment and no signed-in user id was passed" };
+    }
+    if (viewer !== allowed) {
+      return {
+        open: false,
+        reason: "preview deployment and the signed-in user is not INFANT_CLASS_PREVIEW_USER_ID " +
+          `(configured length ${allowed.length}, a user id is ${viewer.length} characters)`,
+      };
+    }
+  }
+  const short = INFANT_MODULE_LESSON_COUNTS
+    .map((need, index) => ({ module: index + 1, need, have: input.moduleCounts[index] ?? 0 }))
+    .filter((row) => row.have !== row.need);
+  if (short.length) {
+    return {
+      open: false,
+      reason: "published lesson counts do not match: " +
+        short.map((row) => `module ${row.module} has ${row.have}, needs ${row.need}`).join("; "),
+    };
+  }
+  return { open: true };
 }
 
 export interface ClassGrantRow {

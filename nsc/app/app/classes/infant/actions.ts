@@ -5,6 +5,7 @@ import { requireClassAuth } from "@/lib/auth";
 import { classSalesOpen, hasClassAccess } from "@/lib/classes.server";
 import { INFANT_COURSE } from "@/lib/classes";
 import { stripe } from "@/lib/stripe";
+import { siteOrigin } from "@/lib/site";
 
 export async function startInfantClassCheckout() {
   const user = await requireClassAuth("/app/classes/infant");
@@ -12,7 +13,7 @@ export async function startInfantClassCheckout() {
   if (!(await classSalesOpen(INFANT_COURSE.slug, user.id))) redirect("/app/classes/infant?error=not-open");
   const priceId = process.env.INFANT_CLASS_PRICE_ID;
   if (!priceId) redirect("/app/classes/infant?error=checkout-unavailable");
-  const origin = (process.env.NEXT_PUBLIC_SITE_URL || "https://growingmindsscience.com").replace(/\/+$/, "");
+  const origin = siteOrigin();
   const session = await stripe().checkout.sessions.create({
     mode: "payment",
     line_items: [{ price: priceId, quantity: 1 }],

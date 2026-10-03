@@ -19,7 +19,7 @@ export default async function ClassLessonPage({ params }: { params: Promise<{ sl
   const place = progress.find((row) => row.lesson_id === lesson.id);
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-3xl flex-col gap-7 px-6 py-10">
+    <main className="mx-auto flex max-w-3xl flex-col gap-7 px-6 py-10">
       <header>
         <Link href="/app/classes/toddlerhood" className="text-sm text-teal-soft underline">← All lessons</Link>
         <p className="mt-5 text-xs font-semibold uppercase tracking-widest text-teal">

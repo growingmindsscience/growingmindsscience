@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { backfillEntitlementsForUser } from "@/lib/backfill.server";
 import { safeNextPath } from "@/lib/safe-next";
 import { siteOrigin } from "@/lib/site";
+import { isClassPath } from "@/lib/class-paths";
 
 /**
  * Auth code exchange for email links (password recovery, and any future
@@ -32,8 +33,7 @@ export async function GET(req: Request) {
       return NextResponse.redirect(new URL(`/nsc${next}`, origin));
     }
   }
-  const classFlow = next.startsWith("/reset/update?class=1") ||
-    next.startsWith("/app/classes") || next.startsWith("/admin/classes");
+  const classFlow = next.startsWith("/reset/update?class=1") || isClassPath(next);
   const loginPath = classFlow ? "/nsc/class-login" : "/nsc/login";
   return NextResponse.redirect(new URL(
     `${loginPath}?error=${encodeURIComponent("That link expired. Please request a fresh one.")}`,
