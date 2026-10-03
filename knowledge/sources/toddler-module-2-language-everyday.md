@@ -1,4 +1,5 @@
 <!-- Growing Minds Science class script · Module 2 — Language, The Everyday Version -->
+<!-- age-bands: 13-18 months, 19-24 months, 25-36 months -->
 
 ## Module 2 · Lesson 1 — The Language-Ready Brain How the brain prepares for language — and why you are the most im
 

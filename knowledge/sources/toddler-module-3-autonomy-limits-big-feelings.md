@@ -1,4 +1,5 @@
 <!-- Growing Minds Science class script · Module 3 — Autonomy, Limits, and Big Feelings -->
+<!-- age-bands: 13-18 months, 19-24 months, 25-36 months -->
 
 ## Module 3 · Lesson 1 — "Mine," "No," and the Emergence of Self Understanding toddler refusal, ownership, and inde
 
