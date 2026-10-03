@@ -1,4 +1,5 @@
 <!-- Growing Minds Science class script · Module 1 — The Toddler Brain -->
+<!-- age-bands: 13-18 months, 19-24 months, 25-36 months -->
 
 ## Module 1 · Lesson 1 — Building the Toddler Brain Why toddler behavior makes sense and how to respond
 

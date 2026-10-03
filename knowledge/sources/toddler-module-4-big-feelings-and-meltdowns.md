@@ -1,4 +1,5 @@
 <!-- Growing Minds Science class script · Module 4 — Big Feelings and Meltdowns -->
+<!-- age-bands: 13-18 months, 19-24 months, 25-36 months -->
 
 ## Module 4 · Lesson 1 — Inside a Meltdown What you're seeing, what you're not seeing, and why logic disappears
 

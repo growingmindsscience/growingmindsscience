@@ -158,6 +158,23 @@ function loadSources() {
       ? labelMatch[1].trim()
       : `Growing Minds class material — ${niceName}`;
 
+    // Optional "age-bands:" directive (comma-separated, using the retrieval
+    // bands, e.g. "0-3 months, 4-6 months") gives every chunk from this file
+    // ageBands, so questions that mention an age get the same boost milestone
+    // and curated cards get. Files without it keep ageBands: [] as before.
+    const bandsMatch = rawFile.match(/<!--[\s\S]*?age-bands:\s*(.+?)\s*(?:-->|\n)/i);
+    const fileAgeBands = bandsMatch
+      ? bandsMatch[1].split(",").map((b) => b.trim()).filter(Boolean)
+      : [];
+
+    // Optional "tags:" directive (comma-separated) adds file-level search terms
+    // to every chunk, for words parents use that the text may not (e.g.
+    // "clingy" for a lesson on attachment).
+    const tagsMatch = rawFile.match(/<!--[\s\S]*?\btags:\s*(.+?)\s*(?:-->|\n)/i);
+    const fileTags = tagsMatch
+      ? tagsMatch[1].split(",").map((t) => t.trim().toLowerCase()).filter(Boolean)
+      : [];
+
     // Strip HTML comments so directives/notes aren't ingested as content.
     const raw = rawFile.replace(/<!--[\s\S]*?-->/g, "").trim();
     const chunks = chunkText(raw);
@@ -173,8 +190,9 @@ function loadSources() {
           "growing minds material",
           ...niceName.toLowerCase().split(/\s+/),
           ...heading.toLowerCase().split(/[\s,]+/).filter((w) => w.length > 3),
+          ...fileTags,
         ],
-        ageBands: [],
+        ageBands: fileAgeBands,
         source: { label: sourceLabel },
         text: body,
       });
