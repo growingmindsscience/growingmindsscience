@@ -50,6 +50,7 @@ export async function classSalesOpen(courseSlug: ClassCourseSlug = TODDLER_COURS
       salesFlag: process.env.INFANT_CLASS_SALES_ENABLED,
       vercelEnv: process.env.VERCEL_ENV,
       previewUserId: process.env.INFANT_CLASS_PREVIEW_USER_ID,
+      testUserId: process.env.INFANT_CLASS_TEST_USER_ID,
       userId,
       moduleCounts: INFANT_MODULE_LESSON_COUNTS.map((_, index) =>
         lessons.filter((lesson) => lesson.module_number === index + 1).length),

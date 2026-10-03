@@ -89,6 +89,8 @@ export function infantSalesGate(input: {
   salesFlag: string | undefined;
   vercelEnv: string | undefined;
   previewUserId: string | undefined;
+  /** One account allowed to buy before sales open, for a live test purchase. */
+  testUserId?: string | undefined;
   userId: string | undefined;
   /** Published lesson count per module, module 1 first. */
   moduleCounts: number[];
@@ -96,12 +98,16 @@ export function infantSalesGate(input: {
   // Env values pasted into a dashboard or piped from a shell often carry a
   // trailing newline or space; compare the trimmed value.
   const flag = input.salesFlag?.trim().toLowerCase();
-  if (flag !== "1" && flag !== "true") {
+  const viewerId = input.userId?.trim().toLowerCase();
+  const tester = input.testUserId?.trim().toLowerCase();
+  const isTester = Boolean(tester) && viewerId === tester;
+  if (flag !== "1" && flag !== "true" && !isTester) {
     return {
       open: false,
-      reason: input.salesFlag === undefined
+      reason: (input.salesFlag === undefined
         ? "INFANT_CLASS_SALES_ENABLED is not set for this deployment"
-        : `INFANT_CLASS_SALES_ENABLED is set but is not "1" (length ${input.salesFlag.length})`,
+        : `INFANT_CLASS_SALES_ENABLED is set but is not "1" (length ${input.salesFlag.length})`) +
+        (tester ? "; the signed-in user is not INFANT_CLASS_TEST_USER_ID" : "; INFANT_CLASS_TEST_USER_ID is not set"),
     };
   }
   if (input.vercelEnv === "preview") {
@@ -109,7 +115,7 @@ export function infantSalesGate(input: {
     if (!allowed) {
       return { open: false, reason: "preview deployment and INFANT_CLASS_PREVIEW_USER_ID is not set" };
     }
-    const viewer = input.userId?.trim().toLowerCase();
+    const viewer = viewerId;
     if (!viewer) {
       return { open: false, reason: "preview deployment and no signed-in user id was passed" };
     }

@@ -31,6 +31,16 @@ describe("infant sales gate", () => {
     });
   });
 
+  it("lets only the test account buy while sales are closed", () => {
+    const closed = { ...ready, salesFlag: undefined, testUserId: `${USER}\n` };
+    expect(infantSalesGate(closed)).toEqual({ open: true });
+    expect(infantSalesGate({ ...closed, userId: "someone-else" }).open).toBe(false);
+    expect(infantSalesGate({ ...closed, userId: undefined }).open).toBe(false);
+    expect(infantSalesGate({ ...closed, testUserId: "" , userId: "" }).open).toBe(false);
+    // The test account still waits for every lesson to be published.
+    expect(infantSalesGate({ ...closed, moduleCounts: [5, 4, 3, 0] }).open).toBe(false);
+  });
+
   it("never writes a configured value into the logged reason", () => {
     const secret = "9a8b7c6d-1111-2222-3333-444455556666";
     for (const input of [
