@@ -155,6 +155,15 @@ describe("one-time purchase grants", () => {
     }
   });
 
+  it("infant purchase grants only infant lifetime access", () => {
+    expect(grantsForOneTimePurchase({ sessionId: "cs_infant", product: "class_infant" })).toEqual([{
+      product_scope: "class:infant",
+      source: "stripe_otp",
+      source_ref: "cs_infant",
+      expires_at: null,
+    }]);
+  });
+
   it("gift redemption grants perpetual Number Path from source gift", () => {
     const g = grantForGiftRedemption({ giftCodeId: "gc_1" });
     expect(g.product_scope).toBe("numberpath_full");

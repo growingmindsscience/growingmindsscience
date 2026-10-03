@@ -12,6 +12,7 @@
  * | Membership monthly/annual    | membership (expires with the paid period)    |
  * | Legacy AI Pro $9/mo          | membership at the same price (absorption)     |
  * | Legacy $49 class bundle      | class:toddlerhood + ai:unlimited, perpetual   |
+ * | Infant class $49 one-time    | class:infant, perpetual                       |
  * | Number Path $34 one-time     | numberpath_full, perpetual (kept standalone)  |
  * | Number Path gift redemption  | numberpath_full, perpetual, source gift       |
  */
@@ -167,6 +168,15 @@ export function grantsForOneTimePurchase(args: {
         {
           product_scope: "ai:unlimited",
           source: "stripe_otp_legacy",
+          source_ref: sessionId,
+          expires_at: null,
+        },
+      ];
+    case "class_infant":
+      return [
+        {
+          product_scope: "class:infant",
+          source: "stripe_otp",
           source_ref: sessionId,
           expires_at: null,
         },

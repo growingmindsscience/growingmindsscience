@@ -1,19 +1,24 @@
 import Link from "next/link";
 import { requireClassAuth } from "@/lib/auth";
-import { hasClassAccess, progressForUser, publishedLessons } from "@/lib/classes.server";
+import { classSalesOpen, hasClassAccess, progressForUser, publishedLessons } from "@/lib/classes.server";
 import { INFANT_COURSE, lessonPath } from "@/lib/classes";
-import { Card, LinkButton } from "@/components/ui";
+import { Button, Card, LinkButton } from "@/components/ui";
+import { startInfantClassCheckout } from "./actions";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Birth to 12 months class" };
 
-export default async function InfantClassPage() {
+export default async function InfantClassPage({ searchParams }: {
+  searchParams: Promise<{ error?: string }>;
+}) {
   const user = await requireClassAuth("/app/classes/infant");
   const owned = await hasClassAccess(user.id, "infant");
   const [lessons, progress] = owned
     ? await Promise.all([publishedLessons("infant"), progressForUser(user.id)])
     : [[], []];
+  const salesOpen = owned ? false : await classSalesOpen("infant");
   const complete = new Set(progress.filter((row) => row.completed_at).map((row) => row.lesson_id));
+  const { error } = await searchParams;
 
   return (
     <main className="mx-auto flex min-h-screen max-w-3xl flex-col gap-7 px-6 py-10">
@@ -25,8 +30,12 @@ export default async function InfantClassPage() {
       </header>
       {!owned ? (
         <Card>
-          <h2 className="text-xl font-semibold text-ink-deep">This class is being built</h2>
-          <p className="mt-2 text-sm text-ink">Enrollment is not open yet. The lessons will appear here after the class is ready and your purchase is linked to your account.</p>
+          <h2 className="text-xl font-semibold text-ink-deep">Get lifetime access</h2>
+          <p className="mt-2 text-sm text-ink">One payment of {INFANT_COURSE.priceDisplay} includes all 16 lessons and lifetime access.</p>
+          {error === "checkout-unavailable" && <p role="alert" className="mt-3 text-sm text-[#9C4429]">Checkout is unavailable right now. Please try again later.</p>}
+          {salesOpen ? <form action={startInfantClassCheckout} className="mt-5"><Button type="submit">Enroll now</Button></form> : (
+            <p className="mt-4 text-sm text-teal-soft">Enrollment opens after all 16 lessons and captions are ready.</p>
+          )}
           <LinkButton href="/classes/birth-to-12-months.html" className="mt-5">View class details</LinkButton>
         </Card>
       ) : (
