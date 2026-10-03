@@ -2,18 +2,24 @@ import Link from "next/link";
 import { type ReactNode } from "react";
 import { signoutClasses } from "@/app/auth/actions";
 import { sitePath } from "@/lib/site";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const NAV_LINK =
   "inline-flex min-h-11 items-center rounded-full px-3 text-sm font-semibold text-ink transition-colors hover:bg-sea-glass/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal";
 
 export function ClassWordmark({ href = "/app/classes" }: { href?: string }) {
   return (
-    <Link href={href} className="flex flex-col leading-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal">
-      <span className="font-[family-name:var(--font-display)] text-base font-semibold tracking-tight text-ink-deep">
-        Growing Minds Science
-      </span>
-      <span className="font-[family-name:var(--font-display)] text-xs font-semibold uppercase tracking-[0.18em] text-coral-deep">
-        Classes
+    <Link href={href} className="flex items-center gap-2.5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal">
+      {/* The same mark as the main site's header. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/nsc/logo-mark.png" alt="" width={36} height={36} className="size-9 shrink-0" />
+      <span className="flex flex-col leading-tight">
+        <span className="font-[family-name:var(--font-display)] text-base font-semibold tracking-tight text-ink-deep">
+          Growing Minds Science
+        </span>
+        <span className="font-[family-name:var(--font-display)] text-xs font-semibold uppercase tracking-[0.18em] text-coral-deep">
+          Classes
+        </span>
       </span>
     </Link>
   );
@@ -44,6 +50,39 @@ export function ClassHeader({ email, showNumberPath }: { email?: string; showNum
   );
 }
 
+const FOOTER_LINK =
+  "inline-flex min-h-11 items-center rounded-full px-3 font-semibold text-ink-soft underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal";
+
+/** Slim footer for every class page: a way to get help, and the way back out. */
+export function ClassFooter() {
+  return (
+    <footer className="border-t border-line">
+      <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-3 py-3 text-sm sm:px-6">
+        <nav aria-label="Help and site" className="flex flex-wrap items-center">
+          <a href={sitePath("/contact/")} className={FOOTER_LINK}>Contact</a>
+          <a href={sitePath("/")} className={FOOTER_LINK}>Growing Minds Science home</a>
+          <ThemeToggle className={FOOTER_LINK} />
+        </nav>
+        <p className="px-3 text-xs text-ink-muted">Educational content only. Not medical or psychological advice.</p>
+      </div>
+    </footer>
+  );
+}
+
+/**
+ * Wraps every class page: paints the themed ground (see .class-theme in
+ * globals.css) and keeps the footer at the bottom of short pages.
+ */
+export function ClassShell({ header, children }: { header?: ReactNode; children: ReactNode }) {
+  return (
+    <div className="class-theme flex min-h-screen flex-col">
+      {header}
+      <div className="flex flex-1 flex-col">{children}</div>
+      <ClassFooter />
+    </div>
+  );
+}
+
 /** Shared frame for the class sign-in and sign-up pages. */
 export function ClassAuthFrame({ title, lede, children, footer, context }: {
   title: string;
@@ -54,7 +93,8 @@ export function ClassAuthFrame({ title, lede, children, footer, context }: {
   context?: ReactNode;
 }) {
   return (
-    <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center gap-7 px-6 py-12">
+    <ClassShell>
+    <main className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center gap-7 px-6 py-12">
       <div className="flex flex-col items-center gap-5 text-center">
         <ClassWordmark href="/class-login" />
         <div>
@@ -71,12 +111,14 @@ export function ClassAuthFrame({ title, lede, children, footer, context }: {
         </a>
       </div>
     </main>
+    </ClassShell>
   );
 }
 
-export function Eyebrow({ children }: { children: ReactNode }) {
+/** The one eyebrow style for the classes area. `className` is for spacing only. */
+export function Eyebrow({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <p className="font-[family-name:var(--font-display)] text-xs font-semibold uppercase tracking-[0.18em] text-coral-deep">
+    <p className={`font-[family-name:var(--font-display)] text-xs font-semibold uppercase tracking-[0.18em] text-coral-deep ${className ?? ""}`}>
       {children}
     </p>
   );

@@ -7,6 +7,8 @@
   --color-ink-deep: #0e2a2d;
   --color-teal: #1e5f62;
   --color-teal-soft: #2e7a77;
+  /* Text on a teal fill (primary buttons). Dark flips teal light, so this flips too. */
+  --color-on-teal: #ffffff;
   --color-rung-glow: #f8e7e0;
   --color-sea-glass: #cfe3de;
   /* The one warm accent (DESIGN.md). coral-deep is the text-size tier. */
@@ -30,6 +32,38 @@ body {
   background: var(--color-ground);
   color: var(--color-ink);
   font-family: var(--font-body);
+}
+
+/* Classes area. `.class-theme` wraps every class page (sign-in, catalog,
+   classroom, lessons) and paints its own ground, so the dark values below
+   never reach Number Path, which has no dark design. Values mirror the main
+   site's [data-theme="dark"] tokens (assets/css/home.css); the attribute is
+   set before paint by the script in app/layout.tsx. */
+.class-theme {
+  background: var(--color-ground);
+  color: var(--color-ink);
+}
+html[data-theme="dark"] .class-theme {
+  color-scheme: dark;
+  --color-ground: #0f1a18;
+  --color-surface: #152421;
+  --color-ink: #e8efeb;
+  --color-ink-deep: #f4f8f6;
+  --color-ink-soft: #c2cfc9;
+  --color-ink-muted: #8ca09a;
+  --color-teal: #6fbcaf;
+  --color-teal-soft: #8fd0c4;
+  --color-on-teal: #07211e;
+  --color-sea-glass: #28403b;
+  --color-line: #28403b;
+  --color-field-line: #6b8a83;
+  --color-rung-glow: #2e211c;
+  --color-coral: #e78d6f;
+  --color-coral-deep: #e78d6f;
+}
+/* Overscroll and short pages show the body, so match it. */
+html[data-theme="dark"] body:has(.class-theme) {
+  background: #0f1a18;
 }
 
 /* Headings and controls carry the display face, as on the parent site. */

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { requireClassAuth } from "@/lib/auth";
 import { classSalesOpen, hasClassAccess, progressForUser, publishedLessons } from "@/lib/classes.server";
 import { INFANT_COURSE } from "@/lib/classes";
+import { Eyebrow } from "@/components/class-chrome";
 import { ClassOutline, ClassResume } from "@/components/class-outline";
 import { Card, buttonClasses } from "@/components/ui";
 import { SubmitButton } from "@/components/submit-button";
@@ -26,7 +27,7 @@ export default async function InfantClassPage({ searchParams }: {
     <main className="mx-auto flex max-w-3xl flex-col gap-7 px-6 py-10">
       <header>
         <Link href="/app/classes" className="text-sm text-teal-soft underline">← My classes</Link>
-        <p className="mt-5 font-[family-name:var(--font-display)] text-xs font-semibold uppercase tracking-[0.18em] text-coral-deep">Self-paced class · birth to 12 months</p>
+        <Eyebrow className="mt-5">Self-paced class · birth to 12 months</Eyebrow>
         <h1 className="mt-2 text-3xl font-semibold text-ink-deep">{INFANT_COURSE.title}</h1>
         <p className="mt-3 text-ink">Four modules on the first year of development and everyday connection.</p>
       </header>

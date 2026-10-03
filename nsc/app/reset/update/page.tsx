@@ -4,6 +4,7 @@ import { getUser } from "@/lib/auth";
 import { Card, Field, Input } from "@/components/ui";
 import { SubmitButton } from "@/components/submit-button";
 import { brand } from "@/lib/config/brand";
+import { ClassShell, Eyebrow } from "@/components/class-chrome";
 import { classDestination } from "@/lib/class-paths";
 
 export default async function UpdatePasswordPage({
@@ -18,12 +19,12 @@ export default async function UpdatePasswordPage({
   const user = await getUser();
   if (!user) redirect(`/reset?error=That+link+expired+%E2%80%94+request+a+fresh+one.${classFlow ? "&class=1" : ""}`);
 
-  return (
-    <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center gap-6 px-6 py-12">
+  const page = (
+    <main className={`mx-auto flex w-full max-w-md flex-col justify-center gap-6 px-6 py-12 ${classFlow ? "flex-1" : "min-h-screen"}`}>
       <div className="text-center">
-        <p className="text-sm font-medium uppercase tracking-widest text-teal">
-          {classFlow ? "Growing Minds Science · Classes" : brand.productName}
-        </p>
+        {classFlow
+          ? <Eyebrow>Growing Minds Science · Classes</Eyebrow>
+          : <p className="text-sm font-medium uppercase tracking-widest text-teal">{brand.productName}</p>}
         <h1 className="mt-1 text-3xl font-semibold text-ink-deep">
           Choose a new password
         </h1>
@@ -43,7 +44,7 @@ export default async function UpdatePasswordPage({
             />
           </Field>
           {error && (
-            <p className="text-sm text-[#9C4429]" role="alert">
+            <p className="text-sm text-coral-deep" role="alert">
               {error}
             </p>
           )}
@@ -52,4 +53,6 @@ export default async function UpdatePasswordPage({
       </Card>
     </main>
   );
+  // Class visitors keep the class look (and its dark theme) through a reset.
+  return classFlow ? <ClassShell>{page}</ClassShell> : page;
 }

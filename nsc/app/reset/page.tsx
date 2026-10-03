@@ -4,6 +4,7 @@ import { requestPasswordReset } from "@/app/auth/actions";
 import { Card, Field, Input } from "@/components/ui";
 import { SubmitButton } from "@/components/submit-button";
 import { brand } from "@/lib/config/brand";
+import { ClassShell, Eyebrow } from "@/components/class-chrome";
 import { classDestination } from "@/lib/class-paths";
 
 export async function generateMetadata({ searchParams }: {
@@ -26,12 +27,12 @@ export default async function ResetPage({
   const classFlow = classParam === "1";
   // A parent who resets partway through enrolling returns to the same place.
   const destination = classDestination(next);
-  return (
-    <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center gap-6 px-6 py-12">
+  const page = (
+    <main className={`mx-auto flex w-full max-w-md flex-col justify-center gap-6 px-6 py-12 ${classFlow ? "flex-1" : "min-h-screen"}`}>
       <div className="text-center">
-        <p className="text-sm font-medium uppercase tracking-widest text-teal">
-          {classFlow ? "Growing Minds Science · Classes" : brand.productName}
-        </p>
+        {classFlow
+          ? <Eyebrow>Growing Minds Science · Classes</Eyebrow>
+          : <p className="text-sm font-medium uppercase tracking-widest text-teal">{brand.productName}</p>}
         <h1 className="mt-1 text-3xl font-semibold text-ink-deep">
           Reset your password
         </h1>
@@ -52,7 +53,7 @@ export default async function ResetPage({
               <Input id="email" name="email" type="email" autoComplete="email" required />
             </Field>
             {error && (
-              <p className="text-sm text-[#9C4429]" role="alert">
+              <p className="text-sm text-coral-deep" role="alert">
                 {error}
               </p>
             )}
@@ -68,4 +69,6 @@ export default async function ResetPage({
       </p>
     </main>
   );
+  // Class visitors keep the class look (and its dark theme) through a reset.
+  return classFlow ? <ClassShell>{page}</ClassShell> : page;
 }

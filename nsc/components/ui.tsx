@@ -18,7 +18,7 @@ const BUTTON_SIZE: Record<ButtonSize, string> = {
 };
 
 const BUTTON_VARIANT: Record<ButtonVariant, string> = {
-  primary: "bg-teal text-white hover:bg-teal-soft",
+  primary: "bg-teal text-on-teal hover:bg-teal-soft",
   ghost: "bg-transparent text-teal hover:bg-sea-glass/40",
   // A light pill for dark (pine) cards.
   inverse: "bg-white text-ink-deep hover:bg-sea-glass",

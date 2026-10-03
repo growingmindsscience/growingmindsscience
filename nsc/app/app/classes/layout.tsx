@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { ClassHeader } from "@/components/class-chrome";
+import { ClassHeader, ClassShell } from "@/components/class-chrome";
 import { getUser } from "@/lib/auth";
 import { ownedClassSlugs } from "@/lib/classes.server";
 import { hasFullAccess } from "@/lib/entitlements.server";
@@ -21,9 +21,8 @@ export default async function ClassesLayout({ children }: { children: ReactNode 
     ownsBoth = classes.length > 0 && numberPath;
   }
   return (
-    <>
-      <ClassHeader email={user?.email} showNumberPath={ownsBoth} />
+    <ClassShell header={<ClassHeader email={user?.email} showNumberPath={ownsBoth} />}>
       {children}
-    </>
+    </ClassShell>
   );
 }

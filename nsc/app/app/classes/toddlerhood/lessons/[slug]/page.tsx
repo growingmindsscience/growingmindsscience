@@ -4,6 +4,7 @@ import { notFound, redirect } from "next/navigation";
 import { requireClassAuth } from "@/lib/auth";
 import { hasClassAccess, progressForUser, publishedLessonTitle, publishedLessons } from "@/lib/classes.server";
 import { TODDLER_COURSE, lessonPath } from "@/lib/classes";
+import { Eyebrow } from "@/components/class-chrome";
 import { ClassPlayer } from "@/components/class-player";
 import { Card } from "@/components/ui";
 
@@ -39,9 +40,9 @@ export default async function ClassLessonPage({ params }: { params: Promise<{ sl
     <main className="mx-auto flex max-w-3xl flex-col gap-7 px-6 py-10">
       <header>
         <Link href="/app/classes/toddlerhood" className="text-sm text-teal-soft underline">← All lessons</Link>
-        <p className="mt-5 text-xs font-semibold uppercase tracking-widest text-teal">
+        <Eyebrow className="mt-5">
           Module {lesson.module_number}: {TODDLER_COURSE.modules[lesson.module_number - 1]} · Lesson {index + 1} of {lessons.length}
-        </p>
+        </Eyebrow>
         <h1 className="mt-2 text-3xl font-semibold text-ink-deep">{lesson.title}</h1>
         {lesson.summary && <p className="mt-3 text-ink">{lesson.summary}</p>}
       </header>
