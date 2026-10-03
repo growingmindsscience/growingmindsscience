@@ -201,41 +201,38 @@ Confidence: MODERATE. Observational.
 ## Research behind this lesson (continued)
 
 Finding: Early 'everyday words' (hi, uh-oh, more, all gone) are among the first in infants' vocabularies.
-Sources: Casey et al., Moving beyond nouns in the lab: using naturalistic data to understand why infants' first words include uh-oh and hi, Developmental Psychology (Consensus lists 2021 with preprint DOI 10.31234/osf.io/xbyr3); Fenson et al. (1994).
-Confidence: MODERATE. Confirm the journal year and DOI. 'Ba for ball counts' follows the CDI convention that consistent approximations count as words.
-Status: pending verification (a detail in this entry is still being checked).
+Sources: Casey, Potter, Lew-Williams & Wojcik (2023), Moving beyond 'nouns in the lab': Using naturalistic data to understand why infants' first words include uh-oh and hi, Developmental Psychology 59(11), 2162-2173, DOI 10.1037/dev0001630; Fenson et al. (1994).
+Confidence: MODERATE. Year and DOI confirmed 2026-10-03. 'Ba for ball counts' follows the CDI convention that consistent approximations count as words.
 
 Finding: Parent gesture training at 10 to 12 months increased parents' declarative pointing; parents' declarative points at 12 months predicted child vocabulary comprehension at 18 months.
 Sources: Choi et al. (2021), A parent gesture intervention as a means to increase parent declarative pointing and child vocabulary, Infancy, DOI 10.1111/infa.12418.
 Confidence: MODERATE. Small randomized trial; the script says 'a small trial'.
 
-## Research behind this lesson (continued)
-
 Finding: Six-month-olds looked at the video of the named parent for 'mommy' and 'daddy', not at unfamiliar parents.
 Sources: Tincoff & Jusczyk (1999), Some beginnings of word comprehension in 6-month-olds, Psychological Science, DOI 10.1111/1467-9280.00127.
 Confidence: MODERATE. Single study, widely cited.
 
+## Research behind this lesson (continued)
+
 Finding: Six- to nine-month-olds understand common nouns (foods and body parts).
 Sources: Bergelson & Swingley (2012), At 6 to 9 months, human infants know the meanings of many common nouns, PNAS, DOI 10.1073/pnas.1113380109; replication and extension, Bergelson & Swingley (2015), Language Learning and Development, DOI 10.1080/15475441.2014.979387.
-Confidence: MODERATE. The abstract confirms foods and body parts; 'banana, mouth, hand' are cited as items in a later summary (Koshelev 2025). Confirm against the item list.
-Status: pending verification (a detail in this entry is still being checked).
-
-## Research behind this lesson (continued)
+Confidence: MODERATE. Confirmed 2026-10-03: the item list (Table 1) includes banana, mouth and hand.
 
 Finding: Some non-English replications found weaker or later evidence; comprehension improves sharply around 14 months.
 Sources: Kartushina & Mayor (2019), Royal Society Open Science, DOI 10.1098/rsos.180711 (Norwegian); Steil et al. (2021), Frontiers in Psychology, DOI 10.3389/fpsyg.2021.718742 (German); Bergelson (2020), Child Development Perspectives, DOI 10.1111/cdep.12373.
 Confidence: HIGH that the early findings are contested in other languages; stated in the script.
 
+## Research behind this lesson (continued)
+
 Finding: Comprehension precedes production; wide variability between children (CDI norms, 1,803 children).
 Sources: Fenson et al. (1994), Variability in early communicative development, Monographs of the SRCD, DOI 10.2307/1166093; Frank et al. (2017), Wordbank, Journal of Child Language, DOI 10.1017/s0305000916000209.
 Confidence: HIGH. The script gives no specific word counts.
 
-## Research behind this lesson (continued)
-
 Finding: Show and give gestures emerge before pointing; at 10 months show+give better predicted 18-month language; at 14 months pointing did.
-Sources: Choi et al. (2021), Show, give, and point gestures across infancy differentially predict language development, Developmental Psychology, DOI 10.1037/dev0001195.
-Confidence: MODERATE. 47 infants. The 'around ten months' timing is the study's first wave; confirm onset ages if quoting precisely.
-Status: pending verification (a detail in this entry is still being checked).
+Sources: Choi, Wei & Rowe (2021), Show, give, and point gestures across infancy differentially predict language development, Developmental Psychology 57(6), 851-862, DOI 10.1037/dev0001195; onset timing: Salter & Carpendale (2022), Phil Trans R Soc B, DOI 10.1098/rstb.2021.0102 (conventional show and give by about 10 months, incipient forms from 7); Leung & Rheingold (1981), Developmental Psychology, DOI 10.1037/0012-1649.17.2.215 (most infants pointing by 12.5 months).
+Confidence: MODERATE. 47 infants. Onset timing checked 2026-10-03 against the two added sources; 'around ten months' and 'around the first birthday' hold.
+
+## Research behind this lesson (continued)
 
 Finding: Index-finger pointing typically begins around the first birthday.
 Sources: Kirk et al. (2022), The relationship between infant pointing and language development: a meta-analytic review, Developmental Review, DOI 10.1016/j.dr.2022.101023.
@@ -245,8 +242,6 @@ Finding: Declarative (not imperative) pointing relates to language.
 Sources: Colonnesi et al. (2010), The relation between pointing and language development: a meta-analysis, Developmental Review, DOI 10.1016/j.dr.2010.10.001; Bruckner et al. (2021), Paideia, DOI 10.1590/1982-4327e3117.
 Confidence: HIGH.
 
-## Research behind this lesson (continued)
-
 Finding: Child gesture at 14 months predicted vocabulary at 42 months beyond parent and child word use, SES controlled (53 families).
 Sources: Rowe, Ozcaliskan & Goldin-Meadow (2008), Learning words by hand, First Language, DOI 10.1177/0142723707088310.
 Confidence: MODERATE. Single sample; the script says 'in a study that recorded families at home'.
@@ -255,11 +250,11 @@ Finding: Pointing and language: concurrent r = .52, longitudinal r = .35 (25 stu
 Sources: Colonnesi et al. (2010); Kirk et al. (2022).
 Confidence: HIGH. The script calls the first 'moderate' and the second 'smaller'.
 
+## Research behind this lesson (continued)
+
 Finding: Infants' points (9 to 11 months) elicited many verbal responses, related to later receptive vocabulary; infant behaviors that drew no response were negatively related to vocabulary (114 dyads, outcomes at 2 to 4 years).
 Sources: van der Klis et al. (2024), The role of dyadic combinations of infants' behaviors and caregivers' responses in predicting vocabulary outcomes, Infancy, DOI 10.1111/infa.12626.
 Confidence: MODERATE. Correlational.
-
-## Research behind this lesson (continued)
 
 Finding: 18-month-olds mapped labels to objects better when they had pointed at them first.
 Sources: Lucca & Wilbourn (2018), Communicating to learn: infants' pointing gestures result in optimal learning, Child Development, DOI 10.1111/cdev.12707.
@@ -269,11 +264,11 @@ Finding: Gaze following at 10 to 11 months predicted faster vocabulary growth to
 Sources: Brooks & Meltzoff (2008), Infant gaze following and pointing predict accelerated vocabulary growth through two years of age, Journal of Child Language, DOI 10.1017/s030500090700829x; Morales et al. (2000), DOI 10.1016/s0193-3973(99)00040-4.
 Confidence: HIGH.
 
+## Research behind this lesson (continued)
+
 Finding: Mothers' references to objects already in the child's focus correlated with vocabulary at 21 months; redirecting references correlated negatively; experimentally, 17-month-olds learned words better for objects already in focus.
 Sources: Tomasello & Farrar (1986), Joint attention and early language, Child Development, DOI 10.2307/1130423; Dunham et al. (1993), Developmental Psychology, DOI 10.1037/0012-1649.29.5.827.
 Confidence: HIGH. Toddler studies; the script says 'toddlers'.
-
-## Research behind this lesson (continued)
 
 Finding: Infant studies: sustained attention within joint attention at 9 months predicted vocabulary at 12 and 15 months; at 14 months, naming during infant-led looks boosted word learning.
 Sources: Yu, Suanda & Smith (2019), Developmental Science, DOI 10.1111/desc.12735; Goupil et al. (2024), PNAS, DOI 10.1073/pnas.2321008121.
@@ -283,24 +278,21 @@ Finding: Joint attention is not necessary for word learning; mixed findings.
 Sources: Akhtar & Gernsbacher (2007), Joint attention and vocabulary development: a critical look, Language and Linguistics Compass, DOI 10.1111/j.1749-818x.2007.00014.x; Wengman et al. (2025), Infancy, DOI 10.1111/infa.70004.
 Confidence: HIGH that the evidence is mixed; stated in the script.
 
+## Research behind this lesson (continued)
+
 Finding: Growing Up in Ireland (N = 9,171): about 80% read to at 9 months; reading at 9 months predicted expressive vocabulary at 36 months after covariates.
 Sources: Leech et al. (2022), Unique effects of book-reading at 9-months on vocabulary development at 36-months, Early Childhood Research Quarterly, DOI 10.1016/j.ecresq.2021.09.009.
-Confidence: HIGH for the association; observational. Consensus lists the year as 2021 (online first); confirm.
-Status: pending verification (a detail in this entry is still being checked).
-
-## Research behind this lesson (continued)
+Confidence: HIGH for the association; observational. Confirmed 2026-10-03: Leech, McNally, Daly & Corriveau, ECRQ 58, 2022.
 
 Finding: Book sharing (9 to 18 months) produced more parent talk, child talk, and interaction than other activities in daylong recordings.
 Sources: Clemens et al. (2021), Unique contribution of shared book reading on adult-child language interaction, Journal of Child Language, DOI 10.1017/s0305000920000331.
-Confidence: MODERATE. 43 infants. Consensus lists 2020; confirm year and author list.
-Status: pending verification (a detail in this entry is still being checked).
+Confidence: MODERATE. 43 infants, 9 to 18 months. Confirmed 2026-10-03: Clemens & Kegel, Journal of Child Language 48(2), 373-386, 2021 (online 2020).
+
+## Research behind this lesson (continued)
 
 Finding: Book-sharing RCTs: expressive d = 0.41, receptive d = 0.26 (19 RCTs, ages 1 to 6); a broader meta-analysis found g = 0.22, negligible against active controls.
 Sources: Dowdall et al. (2020), Child Development, DOI 10.1111/cdev.13225; Noble et al. (2019), Educational Research Review, DOI 10.1016/j.edurev.2019.100290.
-Confidence: HIGH. Mostly older children; the script calls effects 'real but modest'. Confirm publication years (Consensus lists 2019 and 2018).
-Status: pending verification (a detail in this entry is still being checked).
-
-## Research behind this lesson (continued)
+Confidence: HIGH. Mostly older children; the script calls effects 'real but modest'. Confirmed 2026-10-03: Dowdall et al., Child Development 91, 2020; Noble et al., Educational Research Review 28, 2019.
 
 Finding: Maternal questions and child interest during reading at 10 months predicted language at 18 months, controlling for earlier skills and maternal education (44 dyads).
 Sources: Muhinyi & Rowe (2019), Shared reading with preverbal infants and later language development, Journal of Applied Developmental Psychology, DOI 10.1016/j.appdev.2019.101053.
@@ -309,5 +301,3 @@ Confidence: MODERATE.
 Finding: 'A few minutes, often' and chewing books.
 Sources: Practical guidance consistent with Chen et al. (2024), Infant and Child Development, DOI 10.1002/icd.2516 (frequency of reading at 9 months predicted 18-month language).
 Confidence: MODERATE as framing; not a tested dose.
-
-Pending verification: these citation details are still being checked before publishing, so treat them as provisional: Bergelson item examples (banana, mouth, hand); Leech, Clemens, Dowdall, Noble, and Casey years; Choi 2021 show/give onset ages.

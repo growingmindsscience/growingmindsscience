@@ -1,14 +1,14 @@
 {
   "corpusVersion": 1,
   "status": "green",
-  "contentHash": "b02677906f385c9d6f809b6f0ed0a2a21960cb772fb96c8d26453dc0d781a2a6",
+  "contentHash": "a46cc19ca4c3c5522b7ff0d08361e35b6343456936df0abb8c2f05ae1d517975",
   "counts": {
-    "cards": 674,
+    "cards": 693,
     "withExternalSource": 49,
-    "externalSourceCoverage": 0.073,
+    "externalSourceCoverage": 0.071,
     "provenance": {
       "milestone": 42,
-      "uploaded-source": 614,
+      "uploaded-source": 633,
       "curated": 18
     },
     "registeredSources": 11,

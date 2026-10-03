@@ -187,11 +187,11 @@ Finding: Night-waking frequency unstable within children from 3 to 42 months (ac
 Sources: Scher et al. (2004), Stability and changes in sleep regulation, International Journal of Behavioral Development, DOI 10.1080/01650250344000505 (50 infants).
 Confidence: MODERATE. Small sample. Instability refers to children's rank order across ages, which is how the script words it.
 
+## Research behind this lesson (continued)
+
 Finding: RCT (405 mothers; 7 to 36 months): bath, massage, quiet activities, lights out within 30 min; faster sleep onset, fewer and shorter wakings, better continuity, improved maternal mood.
 Sources: Mindell et al. (2009), A nightly bedtime routine: impact on sleep in young children and maternal mood, Sleep, DOI 10.1093/sleep/32.5.599.
-Confidence: HIGH. Randomized; short (3-week) study. The script says 'after two weeks.' Check funding disclosure before publishing.
-
-## Research behind this lesson (continued)
+Confidence: HIGH. Randomized; short (3-week) study. The script says 'after two weeks.' Funding checked 2026-10-03: supported by Johnson & Johnson Consumer Companies (which makes bath and massage products used in the routine); two authors were company employees. Worth naming in any written materials; the trial is still randomized.
 
 Finding: Most improvement in the first three nights of a routine.
 Sources: Mindell et al. (2017), Infant Behavior and Development, DOI 10.1016/j.infbeh.2017.09.013 (134 infants, 8 to 18 months).
@@ -201,6 +201,8 @@ Finding: Dose-dependent association between routine frequency and sleep outcomes
 Sources: Mindell et al. (2015), Bedtime routines for young children: a dose-dependent association with sleep outcomes, Sleep, DOI 10.5665/sleep.4662.
 Confidence: MODERATE. Cross-sectional survey.
 
+## Research behind this lesson (continued)
+
 Finding: 62% of parents of 1-to-15-week-olds had a bedtime routine; associated with longer overnight stretches.
 Sources: Mindell et al. (2025), Bedtime and naptime routines for young infants, Sleep Health, DOI 10.1016/j.sleh.2025.04.001 (135 infants).
 Confidence: MODERATE. Cross-sectional, small.
@@ -209,11 +211,11 @@ Finding: By 3 months, infants put in crib awake at bedtime more often returned t
 Sources: Anders et al. (1992), Sleeping through the night: a developmental perspective, Pediatrics, DOI 10.1542/peds.90.4.554.
 Confidence: MODERATE. Videosomnography; observational.
 
-## Research behind this lesson (continued)
-
 Finding: Parental presence at sleep onset among the strongest predictors of night waking (29,287 children, 17 countries).
 Sources: Mindell et al. (2010), Parental behaviors and sleep outcomes in infants and toddlers: a cross-cultural comparison, Sleep Medicine, DOI 10.1016/j.sleep.2009.11.011; Adair et al. (1991), Pediatrics, DOI 10.1542/peds.87.4.500.
 Confidence: MODERATE. Observational; falling asleep independently 57% in predominantly Caucasian regions vs 4% in predominantly Asian regions.
+
+## Research behind this lesson (continued)
 
 Finding: Relationship likely bidirectional.
 Sources: Sadeh et al. (2010), Sleep Medicine Reviews, DOI 10.1016/j.smrv.2009.05.003; Matzliach et al. (2025), Sleep Medicine, DOI 10.1016/j.sleep.2025.02.017 (found mostly parent-to-infant links).
@@ -223,21 +225,19 @@ Finding: At 12 months, 50% of infants typically needed parental help to return t
 Sources: Goodlin-Jones et al. (2001), Journal of Developmental and Behavioral Pediatrics, DOI 10.1097/00004703-200108000-00003 (80 infants).
 Confidence: MODERATE.
 
-## Research behind this lesson (continued)
-
 Finding: 69.5% of mothers typically fed infants to sleep; 27.1% put infants to bed awake (6 to 24 weeks).
 Sources: Adams et al. (2022), Sleep Medicine, DOI 10.1016/j.sleep.2022.04.018 (20 families).
 Confidence: LOW to MODERATE. Very small sample; used only to show the practice is common.
 
 Finding: Infant sleep pressure builds and clears faster than adults'.
 Sources: Webb et al. (2024), Mapping the physiological changes in sleep regulation across infancy and young childhood, PLOS Computational Biology, DOI 10.1371/journal.pcbi.1012541.
-Confidence: MODERATE. Model fitted to longitudinal data; mechanism, not a timing prescription.
+Confidence: MODERATE. Model fitted to longitudinal data; mechanism, not a timing prescription. Year confirmed 2026-10-03: published October 2024.
+
+## Research behind this lesson (continued)
 
 Finding: No research testing wake-window charts.
 Sources: Consensus search on infant wake windows returned modeling and adult homeostasis papers, no tests of wake-window schedules (searched 2026-09-28). Tired cues: Lesson 2.1 sources.
 Confidence: LOW/CONTESTED as a claim of absence.
-
-## Research behind this lesson (continued)
 
 Finding: German panel (2,541 women, 2,118 men): sleep lowest in first 3 months; mothers about 62 min less, fathers about 13 min; not fully recovered up to 6 years after first child.
 Sources: Richter et al. (2019), Long-term effects of pregnancy and childbirth on sleep satisfaction and duration of first-time and experienced mothers and fathers, Sleep, DOI 10.1093/sleep/zsz015.
@@ -247,11 +247,11 @@ Finding: Mothers averaged about 7.2 h nocturnal sleep in weeks 2 to 16, but high
 Sources: Montgomery-Downs et al. (2010), Normative longitudinal maternal sleep: the first four postpartum months, American Journal of Obstetrics and Gynecology, DOI 10.1016/j.ajog.2010.06.057.
 Confidence: MODERATE. 50 mothers, actigraphy.
 
+## Research behind this lesson (continued)
+
 Finding: Sleep quality at 6 months predicted later depressive symptoms in mothers and fathers (711 couples).
 Sources: Saxbe et al. (2016), Annals of Behavioral Medicine, DOI 10.1007/s12160-016-9815-7.
 Confidence: MODERATE. Longitudinal, observational.
-
-## Research behind this lesson (continued)
 
 Finding: Postpartum sleep interventions reduced depressive symptom severity (small effect).
 Sources: Khan-Afridi et al. (2025), British Journal of Sports Medicine, DOI 10.1136/bjsports-2024-109604 (5 RCTs, n = 992; SMD -0.27).
@@ -260,5 +260,3 @@ Confidence: HIGH per the review's grading; small effect.
 Finding: Splitting the night so each adult gets a protected stretch.
 Sources: Practical suggestion based on the fragmentation findings above; not itself tested in a trial.
 Confidence: LOW as tested evidence. Framed as a practical suggestion.
-
-Pending verification: these citation details are still being checked before publishing, so treat them as provisional: Mindell 2009 funding disclosure; Webb year (2023 vs 2024).

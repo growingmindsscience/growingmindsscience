@@ -172,30 +172,25 @@ Finding: Research on other partners (non-father second parents) is thin; same in
 Sources: No studies located in this search; recommendation extends the sensitivity findings (Madigan et al. 2024) and is framed as a best bet.
 Confidence: LOW as direct evidence. Stated plainly in the script.
 
-## Research behind this lesson (continued)
-
 Finding: Double-insecure children had more behavior problems at 6.5 and 8 years; security with either parent offset the risk; security with both conferred no additional benefit (N = 101).
 Sources: Kochanska & Kim (2013), Early attachment organization with both parents and future behavior problems: from infancy to middle childhood, Child Development, DOI 10.1111/j.1467-8624.2012.01852.x.
-Confidence: MODERATE. Single study; Consensus lists year as 2012 (online first); confirm citation year.
-Status: pending verification (a detail in this entry is still being checked).
+Confidence: MODERATE. Single study. Confirmed 2026-10-03: Child Development 84(1), 283-296, 2013.
+
+## Research behind this lesson (continued)
 
 Finding: IPD meta-analysis (9 studies, N = 1,097): insecure with one or both parents raised internalizing risk vs secure with both; disorganized with both raised externalizing risk.
 Sources: Dagan et al. (2022), Configurations of mother-child and father-child attachment as predictors of internalizing and externalizing behavioral problems, New Directions for Child and Adolescent Development, DOI 10.1002/cad.20450; Verschueren & Marcoen (1999), Child Development, DOI 10.1111/1467-8624.00014 (buffering not complete).
 Confidence: HIGH for the pattern; modest effects.
 
-## Research behind this lesson (continued)
-
 Finding: Grandparent care: 44% of ALSPAC children (8,752 families) regularly cared for by grandparents at 8, 15, and 24 months; modest behavioral differences at age 4 largely attributable to family differences.
-Sources: Fergusson, Maughan & Golding (2008), Which children receive grandparental care and what effect does it have?, Journal of Child Psychology and Psychiatry, DOI 10.1111/j.1469-7610.2007.01840.x.
-Confidence: HIGH for prevalence in that cohort; MODERATE for outcomes. Consensus lists 2007 (online first); confirm year.
-Status: pending verification (a detail in this entry is still being checked).
+Sources: Fergusson, Maughan & Golding (2008), Which children receive grandparental care and what effect does it have?, Journal of Child Psychology and Psychiatry 49(2), 161-169, DOI 10.1111/j.1469-7610.2007.01840.x.
+Confidence: HIGH for prevalence in that cohort; MODERATE for outcomes. Year confirmed 2026-10-03 (2008; online January 2008).
+
+## Research behind this lesson (continued)
 
 Finding: UK Millennium Cohort: grandparent-cared children better at naming objects, worse on some concept and reasoning tests vs formal care.
-Sources: Del Boca, Piazzalunga & Pronzato (2018), The role of grandparenting in early childcare and child outcomes, Review of Economics of the Household, DOI 10.1007/s11150-017-9379-8.
-Confidence: MODERATE. Consensus lists 2017; confirm year. Effects vary by family advantage.
-Status: pending verification (a detail in this entry is still being checked).
-
-## Research behind this lesson (continued)
+Sources: Del Boca, Piazzalunga & Pronzato (2018), The role of grandparenting in early childcare and child outcomes, Review of Economics of the Household 16(2), 477-512, DOI 10.1007/s11150-017-9379-8.
+Confidence: MODERATE. Year confirmed 2026-10-03 (print 2018, online 2017). Effects vary by family advantage.
 
 Finding: Meta-analysis of Chinese samples (22 studies, N = 30,822): more grandparent care associated with poorer child self-control (g = -0.38); positive parent-grandparent coparenting associated with better self-control (r = .22).
 Sources: Zheng et al. (2025), Does grandparental care play a role in Chinese children's self-control? Evidence from meta-analyses, Journal of Family Psychology, DOI 10.1037/fam0001334; Xu et al. (2024), DOI 10.1037/fam0001199.
@@ -205,21 +200,21 @@ Finding: Safe sleep guidance for all caregivers.
 Sources: Module 1, Lesson 4 (Moon et al. 2022, AAP).
 Confidence: HIGH. Callback only.
 
+## Research behind this lesson (continued)
+
 Finding: NICHD Study of Early Child Care: 1,364 children followed from birth; families chose their own care.
 Sources: NICHD ECCRN (2001 overview, Allhusen et al.), Journal of Applied Developmental Psychology, DOI 10.1016/S0193-3973(01)00092-2; Vandell et al. (2010), Child Development, DOI 10.1111/j.1467-8624.2010.01431.x; age 26 follow-up, Bustamante et al. (2021).
 Confidence: HIGH.
-
-## Research behind this lesson (continued)
 
 Finding: No main effects of child care quality, amount, age of entry, stability, or type on attachment security at 15 months (N = 1,153); maternal sensitivity predicted security; lower security when low maternal sensitivity combined with poor-quality care, more than minimal hours, or more than one arrangement.
 Sources: NICHD ECCRN (1997), The effects of infant child care on infant-mother attachment security, Child Development, DOI 10.1111/j.1467-8624.1997.tb01967.x.
 Confidence: HIGH. Other studies differ (Belsky & Rovine 1988; Sagi et al. 2002 in low-quality Israeli centers), which is why the script says 'in the largest childcare study.'
 
+## Research behind this lesson (continued)
+
 Finding: Family factors (maternal sensitivity, home environment, income) more consistent predictors than child care; parenting stronger predictor than child care through grade 6.
 Sources: Allhusen et al. (2001) overview; Belsky et al. (2007), Are there long-term effects of early child care?, Child Development, DOI 10.1111/j.1467-8624.2007.01021.x; NICHD ECCRN (2005), Child Care and Child Development (chapter 'Families Matter, Even for Kids in Child Care').
 Confidence: HIGH.
-
-## Research behind this lesson (continued)
 
 Finding: Higher-quality care linked to better cognitive, language, and preacademic outcomes at every age; at 15, higher achievement and less externalizing.
 Sources: Belsky et al. (2006), Child-care effect sizes for the NICHD SECCYD, American Psychologist, DOI 10.1037/0003-066X.61.2.99; Vandell et al. (2010).
@@ -229,42 +224,41 @@ Finding: More hours of care: more caregiver-reported behavior problems; at 15, m
 Sources: Belsky et al. (2006); Vandell et al. (2010); Burchinal et al. (2013), Developmental Psychology, DOI 10.1037/a0033709.
 Confidence: HIGH for the association; small effects; causal direction not established.
 
+## Research behind this lesson (continued)
+
 Finding: Compliance with all four AAP/APHA standards (ratio, group size, caregiver training, education) about 10% of classes at 6 months; more standards met, better outcomes at 36 months.
 Sources: NICHD ECCRN (1999), Child outcomes when child care center classes meet recommended standards for quality, American Journal of Public Health, DOI 10.2105/AJPH.89.7.1072.
-Confidence: MODERATE. Data from the early 1990s; confirm that the 10% figure refers to meeting all four standards.
-Status: pending verification (a detail in this entry is still being checked).
-
-## Research behind this lesson (continued)
+Confidence: MODERATE. Data from the early 1990s. Confirmed 2026-10-03 (NICHD release): compliance with all four standards ranged from 10% for infant classrooms to 34% for 3-year-olds.
 
 Finding: Process quality (interactions) predicts outcomes; structural indicators alone did not significantly predict outcomes (small effects overall).
 Sources: von Suchodoletz et al. (2023), Early childhood education and care quality and associations with child outcomes: a meta-analysis, PLOS ONE, DOI 10.1371/journal.pone.0285985.
 Confidence: MODERATE. Kelly et al. (2025) found weaker process-outcome links in pre-K; the script says 'better than structural features on their own.'
 
+## Research behind this lesson (continued)
+
 Finding: Recommended standard for infants under 12 months: about 3 infants per caregiver, maximum group size 6.
 Sources: AAP, APHA & NRC, Caring for Our Children (national health and safety standards); as used in NICHD ECCRN (1999).
-Confidence: MODERATE. Confirm against the current edition before publishing.
-Status: pending verification (a detail in this entry is still being checked).
+Confidence: MODERATE. Confirmed 2026-10-03: Caring for Our Children, 4th edition (2019; online database is the current version), Standard 1.1.1.2: centers, 12 months and under, 3:1, maximum group size 6.
 
 Finding: Research on exact ratios is thin.
 Sources: Dalgaard et al. (2022), Campbell Systematic Reviews, DOI 10.1002/cl2.1239; Perlman et al. (2017), PLOS ONE, DOI 10.1371/journal.pone.0170256.
 Confidence: HIGH that evidence is limited.
 
-## Research behind this lesson (continued)
-
 Finding: Fewer sequential caregivers (stability) from 6 to 36 months predicted better kindergarten social skills (N = 1,055).
 Sources: Bratsch-Hines et al. (2020), Infant and toddler child-care quality and stability in relation to proximal and distal academic and social outcomes, Child Development, DOI 10.1111/cdev.13389.
 Confidence: MODERATE.
 
+## Research behind this lesson (continued)
+
 Finding: Childcare entry: cortisol 75 to 100% above home levels in first days of separation; attachments remained or became secure when mothers spent more days in the adaptation phase (70 infants, 15 months).
 Sources: Ahnert, Gunnar, Lamb & Barthel (2004), Transition to child care: associations with infant-mother attachment, infant negative emotion, and cortisol elevations, Child Development, DOI 10.1111/j.1467-8624.2004.00698.x.
-Confidence: MODERATE. Small sample. Confirm the study location (Germany) against the full text.
-Status: pending verification (a detail in this entry is still being checked).
-
-## Research behind this lesson (continued)
+Confidence: MODERATE. Small sample. Confirmed 2026-10-03: Berlin, Germany, 37 child care centers; Child Development 75(3), 639-650, DOI 10.1111/j.1467-8624.2004.00698.x.
 
 Finding: Norwegian toddlers: cortisol low with parent present, peaked in separation phase, returned to low by 3 months; under-14-month-olds had higher levels at follow-up.
 Sources: Nystad et al. (2021), European Early Childhood Education Research Journal, DOI 10.1080/1350293X.2021.1895269; Drugli et al. (2023), Frontiers in Psychology, DOI 10.3389/fpsyg.2023.1165788.
 Confidence: MODERATE.
+
+## Research behind this lesson (continued)
 
 Finding: Intense protest on the first separation day predicted later secure attachment to care providers.
 Sources: Ahnert et al. (2021), Infants' stress responses and protest behaviors at childcare entry and the role of care providers, Developmental Psychobiology, DOI 10.1002/dev.22156.
@@ -273,5 +267,3 @@ Confidence: MODERATE. Same 70-infant sample.
 Finding: Goodbye routines.
 Sources: Taught in Module 3, Lesson 3.
 Confidence: Pointer only.
-
-Pending verification: these citation details are still being checked before publishing, so treat them as provisional: Kochanska year (2012 online, 2013 issue); Fergusson year; Del Boca year; NICHD 1999 'all four standards' wording; Caring for Our Children current ratios; Ahnert 2004 location.

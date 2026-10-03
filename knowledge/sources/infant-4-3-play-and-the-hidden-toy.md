@@ -154,69 +154,65 @@ What the research shows: Babies track who should reappear and where, take turns 
 
 Finding: Piaget: infants under about 8 months do not search for a toy hidden under a cloth; the A-not-B error at 8 to 12 months.
 Sources: Piaget (1954), The Construction of Reality in the Child; summarized in Baillargeon (1987), Developmental Psychology, DOI 10.1037/0012-1649.23.5.655; Baillargeon et al. (1990), Why do young infants fail to search for hidden objects?, Cognition, DOI 10.1016/0010-0277(90)90059-s ('fail to search until 7 to 8 months').
-Confidence: HIGH. 'Nearly a century ago' refers to Piaget's observations of his own children in the 1920s and 1930s (book published 1937, English 1954); confirm the wording if precision matters.
-Status: pending verification (a detail in this entry is still being checked).
+Confidence: HIGH. 'Nearly a century ago' checked 2026-10-03: Piaget's observations of his own children date from the mid-1920s to early 1930s (book 1937), about 95 to 100 years ago.
 
 Finding: A-not-B is robust but depends on age, delay, and number of locations (meta-analyses).
 Sources: Wellman, Cross & Bartsch (1986), Monographs of the SRCD, DOI 10.2307/1166103; Marcovitch & Zelazo (1999), Child Development, DOI 10.1111/1467-8624.00095.
 Confidence: HIGH.
 
-## Research behind this lesson (continued)
-
 Finding: 25 infants tested every 2 weeks: the delay needed to produce the A-not-B error rose from under 2 s at 7.5 months to over 10 s at 12 months.
 Sources: Diamond (1985), Development of the ability to use recall to guide action, as indicated by infants' performance on AB, Child Development, DOI 10.1111/j.1467-8624.1985.tb00160.x.
 Confidence: HIGH.
+
+## Research behind this lesson (continued)
 
 Finding: Drawbridge studies: 5-month-olds, then 4.5-month-olds and fast-habituating 3.5-month-olds, looked longer at the screen rotating through the space of the hidden box.
 Sources: Baillargeon, Spelke & Wasserman (1985), Object permanence in five-month-old infants, Cognition, DOI 10.1016/0010-0277(85)90008-3; Baillargeon (1987), DOI 10.1037/0012-1649.23.5.655; converging evidence, Baillargeon & DeVos (1991), Child Development, DOI 10.1111/j.1467-8624.1991.tb01602.x.
 Confidence: MODERATE. Classic but contested (next rows). The script says 'some three-and-a-half-month-olds' because only fast habituators showed the effect.
 
-## Research behind this lesson (continued)
-
 Finding: Nonsearch tasks: 8-month-olds remembered a hidden object's location for 15 s, and in a follow-up 30 and 70 s, though they make A-not-B errors at about 3 s in search tasks.
 Sources: Baillargeon & Graber (1988), Developmental Psychology, DOI 10.1037/0012-1649.24.4.502; Baillargeon, DeVos & Graber (1989), Cognitive Development, DOI 10.1016/s0885-2014(89)90040-3; Ahmed & Ruffman (1998), Developmental Psychology, DOI 10.1037/0012-1649.34.3.441.
 Confidence: MODERATE. Looking-time evidence, so the same caveats apply. 'More than a minute' is the 70 s condition.
+
+## Research behind this lesson (continued)
 
 Finding: Critiques: longer looking at 180-degree rotations even with no box (perceptual preference for more motion); novelty and familiarity effects; computer-animated replications found no possibility effect; pupillometry at 10 months favored a perceptual account.
 Sources: Rivera, Wakeley & Langer (1999), Developmental Psychology, DOI 10.1037//0012-1649.35.2.427; Bogartz, Shinskey & Schilling (2000), Infancy, DOI 10.1207/s15327078in0104_3; Cashon & Cohen (2000), Infancy, DOI 10.1207/s15327078in0104_4; Sirois & Jackson (2012), Infancy, DOI 10.1111/j.1532-7078.2011.00096.x.
 Confidence: HIGH that the drawbridge finding is contested.
 
-## Research behind this lesson (continued)
-
 Finding: Meta-analysis: 76 studies, 1,899 infants aged 3 to 12 months; violation-of-expectation effect SMD 0.29, perceptual novelty effect 0.24; independent; age predicted the VOE effect.
 Sources: Kunin et al. (2024), Perceptual and conceptual novelty independently guide infant looking behaviour, Nature Human Behaviour, DOI 10.1038/s41562-024-01965-x; overview, Margoni et al. (2023), Psychological Review, DOI 10.1037/rev0000450.
 Confidence: HIGH. Covers physical and psychological reasoning studies, not only object permanence; the script says 'unexpected events' for that reason.
+
+## Research behind this lesson (continued)
 
 Finding: Pupil dilation to unexpected disappearance of a hidden toy at 10 and 12 months (N = 82).
 Sources: Mayer et al. (2024), Journal of Experimental Child Psychology, DOI 10.1016/j.jecp.2024.106060; contrast Pätzold & Liszkowski (2020), PLOS ONE, DOI 10.1371/journal.pone.0230913 (no effect at 10 months).
 Confidence: MODERATE. Mixed pupillometry findings; the script says 'one recent study'.
 
-## Research behind this lesson (continued)
-
 Finding: Summary view: perception of object persistence strengthens gradually; search failures reflect memory, inhibition, and action dynamics, not only a missing concept.
 Sources: Bremner, Slater & Johnson (2015), Child Development Perspectives, DOI 10.1111/cdep.12098; Smith, Thelen et al. (1999), Psychological Review, DOI 10.1037/0033-295x.106.2.235; Diamond (1985); Munakata PDP model.
 Confidence: MODERATE. A synthesis; the script frames it as 'a fair summary'.
 
+## Research behind this lesson (continued)
+
 Finding: 110 11-month-olds: objects that violated expectations were learned about better and explored more; babies banged the object that passed through a wall and dropped the one that defied support.
 Sources: Stahl & Feigenson (2015), Observing the unexpected enhances infants' learning and exploration, Science, DOI 10.1126/science.aaa3799; commentary, Schulz (2015), Science, DOI 10.1126/science.aab0582.
 Confidence: HIGH. The support violation was an object rolling over a gap or ledge without falling; the script says 'roll off a ledge without falling'.
-
-## Research behind this lesson (continued)
 
 Finding: Stronger VOE responses at 11 months predicted explanation-based curiosity at 3 years.
 Sources: Perez & Feigenson (2021), Stable individual differences in infants' responses to violations of intuitive physics, PNAS, DOI 10.1073/pnas.2103805118.
 Confidence: MODERATE. Single longitudinal sample.
 
 Finding: Peekaboo played across cultures (Xhosa, Japanese examples) with similar rhythm and structure.
-Sources: Fernald & O'Neill (1993), Peekaboo across cultures, in MacDonald (Ed.), Parent-Child Play.
-Confidence: MODERATE. Book chapter; confirm citation details.
-Status: pending verification (a detail in this entry is still being checked).
+Sources: Fernald, A., & O'Neill, D. K. (1993), Peekaboo across cultures: How mothers and infants play with voices, faces, and expectations, in K. MacDonald (Ed.), Parent-child play: Descriptions and implications (pp. 259-286), State University of New York Press.
+Confidence: MODERATE. Book chapter; details confirmed 2026-10-03.
+
+## Research behind this lesson (continued)
 
 Finding: 4- and 6-month-olds (not 2-month-olds) smiled more and gazed less in organized than disorganized peekaboo; 4-month-olds took turns in peekaboo, participation increased at 6 months (19 Polish dyads).
 Sources: Rochat, Querido & Striano (1999), Developmental Psychology, DOI 10.1037/0012-1649.35.4.950; Nomikou et al. (2017), Frontiers in Psychology, DOI 10.3389/fpsyg.2017.01656.
 Confidence: MODERATE. Small samples.
-
-## Research behind this lesson (continued)
 
 Finding: 6- to 8-month-olds smiled less when a different adult, or the same adult in a different location, reappeared.
 Sources: Parrott & Gleitman (1989), Infants' expectations in play: the joy of peek-a-boo, Cognition & Emotion, DOI 10.1080/02699938908412710.
@@ -226,11 +222,11 @@ Finding: Home observations at 6, 8, 12 months: games became more frequent, infan
 Sources: Gustafson, Green & West (1979), Infant Behavior & Development, DOI 10.1016/s0163-6383(79)80039-9; Rome-Flanders & Cronk (1995), International Journal of Behavioral Development, DOI 10.1177/016502549501800105.
 Confidence: MODERATE. 14 families.
 
+## Research behind this lesson (continued)
+
 Finding: Infants performed uncovering in games before similar behaviors in cognitive tests (maternal scaffolding).
 Sources: Hodapp, Goldfield & Boyatzis (1984), The use and effectiveness of maternal scaffolding in mother-infant games, Child Development, DOI 10.2307/1130128.
 Confidence: MODERATE. 17 dyads.
-
-## Research behind this lesson (continued)
 
 Finding: Age ideas for hiding games (face, partly hidden then fully hidden toy, cups, child hides).
 Sources: Practice suggestions built from the findings above; partial-to-full hiding reflects Piaget's sequence and Hodapp's scaffolding.
@@ -240,11 +236,11 @@ Finding: Play progression: 7-month-olds examine and mouth single objects; relati
 Sources: Fenson, Kagan, Kearsley & Zelazo (1976), Child Development, DOI 10.2307/1128304; Zelazo & Kearsley (1980), Journal of Applied Developmental Psychology, DOI 10.1016/0193-3973(80)90002-7; Lifter et al. (2022), Acta Psychologica, DOI 10.1016/j.actpsy.2022.103524.
 Confidence: HIGH for the order; ages are approximate.
 
+## Research behind this lesson (continued)
+
 Finding: Mouthing followed by a look functions as exploration (5- to 11-month-olds).
 Sources: Ruff et al. (1992), The differentiation of activity in infants' exploration of objects, Developmental Psychology, DOI 10.1037/0012-1649.28.5.851.
 Confidence: MODERATE.
-
-## Research behind this lesson (continued)
 
 Finding: Home video of 13- to 23-month-olds: object bouts median 9.8 s, transitions among dozens of toys and non-toys, most of infants' time.
 Sources: Herzberg et al. (2021), Infant exuberant object play at home, Child Development, DOI 10.1111/cdev.13669.
@@ -254,12 +250,11 @@ Finding: Choking hazard: keep small objects out of reach.
 Sources: Standard safety guidance (AAP); feeding-related choking is covered in Module 2, Lesson 3.
 Confidence: HIGH. One sentence, not a new topic.
 
+## Research behind this lesson (continued)
+
 Finding: 26 dyads, 10 to 16 months, at home: electronic toys produced fewer adult words, turns, parent responses, and content words; infants vocalized less than with books; traditional toys in between.
 Sources: Sosa (2016), Association of the type of toy used during play with the quantity and quality of parent-infant communication, JAMA Pediatrics, DOI 10.1001/jamapediatrics.2015.3753.
-Confidence: MODERATE. Small sample. Confirm the traditional toy set (the paper describes wooden puzzles, a shape sorter, and rubber blocks); the script says 'blocks and puzzles'.
-Status: pending verification (a detail in this entry is still being checked).
-
-## Research behind this lesson (continued)
+Confidence: MODERATE. Small sample. Confirmed 2026-10-03: traditional toys were a wooden puzzle, a shape sorter, and rubber blocks; the script's 'blocks and puzzles' fits.
 
 Finding: Traditional shape sorter prompted more spatial language than an electronic one; feedback toys held attention longer but infants directed fewer vocalizations and gestures to parents, who responded less.
 Sources: Zosh et al. (2015), Mind, Brain, and Education, DOI 10.1111/mbe.12082; Miller et al. (2017), First Language, DOI 10.1177/0142723717714947; Wooldridge & Shapka (2012), Journal of Applied Developmental Psychology, DOI 10.1016/j.appdev.2012.05.005.
@@ -269,26 +264,25 @@ Finding: Toy box claims shifted caregivers toward electronic toys.
 Sources: Hassinger-Das et al. (2021), Infant Behavior & Development, DOI 10.1016/j.infbeh.2021.101529.
 Confidence: MODERATE. Not narrated; supports Appendix B.
 
+## Research behind this lesson (continued)
+
 Finding: 36 toddlers (18 to 30 months): with 4 toys versus 16, longer play per toy and more varied play.
 Sources: Dauch et al. (2018), The influence of the number of toys in the environment on toddlers' play, Infant Behavior & Development, DOI 10.1016/j.infbeh.2017.11.005.
 Confidence: MODERATE. Older than this course's age range; the script says 'toddlers'.
-
-## Research behind this lesson (continued)
 
 Finding: 12-month-olds and mothers with 5 versus 12 toys: joint attention less frequent but longer, more often initiated by maternal following, more coordinated.
 Sources: Koskulu, Küntay & Uzundag (2021), Number and type of toys affect joint attention of mothers and infants, Infant Behavior & Development, DOI 10.1016/j.infbeh.2021.101589.
 Confidence: MODERATE. Between-groups design (48 and 33 dyads).
 
 Finding: Mothers of 6-month-olds told to teach became more intrusive; told to learn did not change (N = 66, randomized within the session).
-Sources: King et al. (2021), Teaching or learning from baby, Developmental Psychology (preprint DOI 10.31234/osf.io/g9rvn).
-Confidence: MODERATE. Preregistered experiment; confirm the journal DOI.
-Status: pending verification (a detail in this entry is still being checked).
+Sources: King, Hill, Rangel, Gotlib & Humphreys (2023), Teaching or learning from baby: Inducing explicit parenting goals influences caregiver intrusiveness, Developmental Psychology 59(11), 1951-1961, DOI 10.1037/dev0001592.
+Confidence: MODERATE. Preregistered experiment (66 dyads). Corrected 2026-10-03: published 2023, not 2021; slide source line updated.
+
+## Research behind this lesson (continued)
 
 Finding: Year-old infants' play was more advanced within joint attention with mother.
 Sources: Bigelow, MacLean & Proctor (2004), The role of joint attention in the development of infants' play with objects, Developmental Science, DOI 10.1111/j.1467-7687.2004.00375.x.
 Confidence: MODERATE.
-
-## Research behind this lesson (continued)
 
 Finding: Mothers' multimodal input (touch or gesture plus talk about the object) corresponded with longer, more complex play bouts at home.
 Sources: Schatz, Suarez-Rivera, Kaplan & Tamis-LeMonda (2022), Developmental Science, DOI 10.1111/desc.13239.
@@ -297,5 +291,3 @@ Confidence: MODERATE. 13- to 23-month-olds; observational.
 Finding: Redirection is not always harmful: maternal redirection of bids predicted lower distractibility and better receptive language; intrusive directives often followed infant disengagement and preceded more toy interest.
 Sources: Testa et al. (2026), Infancy, DOI 10.1111/infa.70084; Masur, Flynn & Lloyd (2013), First Language, DOI 10.1177/0142723713490603; Lloyd & Masur (2014), DOI 10.1016/j.infbeh.2014.04.004.
 Confidence: MODERATE. Stated as 'some studies find'.
-
-Pending verification: these citation details are still being checked before publishing, so treat them as provisional: Sosa's traditional toy set; King 2021 journal DOI; Fernald & O'Neill chapter details; 'nearly a century ago' for Piaget's observations.

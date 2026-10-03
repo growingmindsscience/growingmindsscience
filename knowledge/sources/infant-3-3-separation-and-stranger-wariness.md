@@ -239,46 +239,38 @@ Confidence: MODERATE. Review; the language data are from 20 months on, so the sc
 
 Finding: 10-month-olds (N = 87) friendlier to a stranger when mothers gave a positive message directly to the infant.
 Sources: Feinman & Lewis (1983), Social referencing at ten months: a second-order effect on infants' responses to strangers, Child Development, DOI 10.1111/j.1467-8624.1983.tb00509.x.
-Confidence: MODERATE. Effect only for direct messages, which the script reflects ('spoke positively to them'). Consensus lists Lewis as sole author; confirm Feinman as first author.
-Status: pending verification (a detail in this entry is still being checked).
-
-## Research behind this lesson (continued)
+Confidence: MODERATE. Effect only for direct messages, which the script reflects ('spoke positively to them'). Confirmed 2026-10-03: Feinman & Lewis (1983), Child Development 54(4), 878-887.
 
 Finding: 110 ten-month-olds: almost half looked puzzled at mother on discovering the stranger; positive maternal responses linked to more positive infant responses to the stranger.
 Sources: Hagekull, Stenberg & Bohlin (1993), Infant-mother social referencing interactions, Early Development and Parenting, DOI 10.1002/edp.2430020306.
 Confidence: MODERATE. Correlational.
 
+## Research behind this lesson (continued)
+
 Finding: Mothers trained to act socially anxious with a stranger: 12 to 14-month-olds more fearful and avoidant (N = 24, experimental).
 Sources: de Rosnay, Cooper, Tsigaras & Murray (2006), Behaviour Research and Therapy, DOI 10.1016/j.brat.2005.09.003; Murray et al. (2008), Child Development, DOI 10.1111/j.1467-8624.2008.01175.x; Aktar et al. (2013), JCPP, DOI 10.1111/j.1469-7610.2012.02601.x (fathers too).
 Confidence: HIGH for the direction (experimental plus replications); effects strongest in inhibited infants.
 
-## Research behind this lesson (continued)
-
 Finding: Maternal intrusiveness at 12 months predicted increases in toddlers' stranger fear 6 months later; encouragement had the opposite, weaker effect (168 Hong Kong dyads).
-Sources: Wang, Chan & Lin (2021), What mothers can do about their toddlers' stranger anxiety, Social Development, DOI 10.1111/sode.12545.
-Confidence: MODERATE. Single sample; the script names Hong Kong. Confirm author list.
-Status: pending verification (a detail in this entry is still being checked).
+Sources: Wang, Hung & Au (2022), What mothers can do about their toddlers' stranger anxiety, Social Development 31(1), 93-108, DOI 10.1111/sode.12545.
+Confidence: MODERATE. Single sample; the script names Hong Kong. Confirmed 2026-10-03: 168 dyads at 12 months, 160 retested; print 2022 (online 2021).
+
+## Research behind this lesson (continued)
 
 Finding: Separation protest often peaks around the first birthday; eases through the toddler years.
 Sources: Hartmann et al. (1975); Super et al. (2012); Klette et al. (2019), Early Child Development and Care, DOI 10.1080/03004430.2018.1424150 ('around the age of one, when separation anxiety normally peaks'); Gullone (2000), Clinical Psychology Review, DOI 10.1016/s0272-7358(99)00034-3 (normal fears are transitory).
 Confidence: MODERATE. The exact decline age varies by study and measure; the script gives no fixed end date.
 
-## Research behind this lesson (continued)
-
 Finding: Stranger fear 6 to 36 months (N = 1,285 twins): four distinct trajectories.
 Sources: Brooker et al. (2013), The development of stranger fear in infancy and toddlerhood, Developmental Science, DOI 10.1111/desc.12058.
-Confidence: HIGH. The script names only the two paths the abstract describes (sharp increase, stable high); confirm wording against the paper.
-Status: pending verification (a detail in this entry is still being checked).
-
-Finding: More sensitive mothers: slower increases in infant fear reactivity (4 to 16 months, N = 143); higher sensitivity predicted lower observed fear (6 to 12 months, N = 148).
-Sources: Braungart-Rieker et al. (2010), Developmental Psychology, DOI 10.1037/a0019673; Gartstein et al. (2017), Child Development, DOI 10.1111/cdev.12843.
-Confidence: MODERATE. Observational; 'soften it' is the script's modest framing. Gartstein appeared online in 2017; confirm print year.
-Status: pending verification (a detail in this entry is still being checked).
+Confidence: HIGH. Confirmed 2026-10-03: four trajectories, slow increase (32.9%), steep increase (42.3%), high and steady (11.8%), decreasing (12.1%). The script names only 'four different paths'.
 
 ## Research behind this lesson (continued)
+
+Finding: More sensitive mothers: slower increases in infant fear reactivity (4 to 16 months, N = 143); higher sensitivity predicted lower observed fear (6 to 12 months, N = 148).
+Sources: Braungart-Rieker et al. (2010), Developmental Psychology, DOI 10.1037/a0019673; Gartstein, Hancock & Iverson (2018), Positive affectivity and fear trajectories in infancy, Child Development 89(5), 1519-1534, DOI 10.1111/cdev.12843.
+Confidence: MODERATE. Observational; 'soften it' is the script's modest framing. Corrected 2026-10-03: Gartstein 2018 covers 4 to 12 months, N = 148 (print 2018, online 2017).
 
 Finding: When to check in: rising rather than easing fear; fear in low-threat situations; interference with daily life.
 Sources: Buss (2011), Which fearful toddlers should we worry about?, Developmental Psychology, DOI 10.1037/a0023227; Van Hulle et al. (2017), Development and Psychopathology, DOI 10.1017/s0954579417000311.
 Confidence: MODERATE. Risk markers, not diagnoses; the script frames it as 'worth a conversation.'
-
-Pending verification: these citation details are still being checked before publishing, so treat them as provisional: Fox 1979 age range; Feinman as first author (Consensus lists Lewis); Wang 2021 author list; Gartstein print year; Brooker trajectory labels.

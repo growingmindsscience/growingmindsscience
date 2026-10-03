@@ -200,7 +200,7 @@ Confidence: HIGH for the association; observational (mothers were treated, child
 
 Finding: National Maternal Mental Health Hotline, 1-833-TLC-MAMA (1-833-852-6262): free, confidential, 24/7, call or text, for pregnant and new parents and families. 988 Suicide and Crisis Lifeline. Postpartum Support International help for dads.
 Sources: HRSA Maternal and Child Health Bureau hotline page (mchb.hrsa.gov); HHS press release, May 2023. Postpartum Support International, postpartum.net (Help for Dads).
-Confidence: HIGH as of the 2023 HHS announcement. Recheck both numbers and the PSI page right before publishing the lesson.
+Confidence: HIGH. Rechecked 2026-10-03: HRSA hotline page (1-833-852-6262; free, confidential, 24/7, call, text or chat; Military OneSource notes it also supports partners and family), PSI Help for Dads page (dad support group, peer mentors), SAMHSA 988 page (call or text 988). Recheck again before any re-release.
 Status: pending verification (a detail in this entry is still being checked).
 
 Finding: Superbaby products (flashcards, baby videos) and the Mozart effect do not hold up.

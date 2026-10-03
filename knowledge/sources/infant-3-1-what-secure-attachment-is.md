@@ -60,7 +60,7 @@ Is sensitivity a cause, or just something that travels with security? Here we ha
 
 ## Real, but Modest (continued)
 
-Remember the Dutch study from Module 2, Lesson 2, with the highly irritable newborns? Here's what else it changed. At twelve months, about two in three babies whose mothers had the coaching were securely attached, compared with fewer than one in three of the others.
+Remember the Dutch study from Module 2, Lesson 2, with the highly irritable newborns? Here's what else it changed. At twelve months, about three in five babies whose mothers had the coaching were securely attached, compared with about one in four of the others.
 
 So the fair summary is this: how you respond matters, and it can be learned. But it's one ingredient, and no parent controls all of them.
 
@@ -221,19 +221,20 @@ Confidence: HIGH.
 ## Research behind this lesson (continued)
 
 Finding: van den Boom: irritable newborns, lower-income Dutch families, sensitivity coaching 6 to 9 months; at 12 months significantly more intervention dyads secure (commonly reported 68% vs 28%).
-Sources: van den Boom (1994), Child Development, DOI 10.1111/j.1467-8624.1994.tb00829.x; follow-up van den Boom (1995), DOI 10.1111/j.1467-8624.1995.tb00966.x.
-Confidence: MODERATE. Randomized, n = 100. Abstract confirms 'significantly more'; confirm the 68% vs 28% figures against the full text before publishing (also on the Lesson 2.2 check list).
-Status: pending verification (a detail in this entry is still being checked).
+Sources: van den Boom (1994), The influence of temperament and mothering on attachment and exploration, Child Development 65(5), 1457-1477, DOI 10.1111/j.1467-8624.1994.tb00829.x.
+Confidence: MODERATE. Checked 2026-10-03 against the full text: secure at 12 months 62% intervention (31/50); the text says 28% of controls, while Table 5 counts give 22% (11/50). The commonly repeated 68% vs 28% is not what the paper reports. Slide and narration changed to 'about three in five' versus 'about one in four' (re-take approved by Matthew 2026-10-03).
+
+## Research behind this lesson (continued)
 
 Finding: Security and later outcomes: peer competence d = 0.39; externalizing d = 0.31; internalizing d = 0.15; cognition r = .17 and language r = .16.
 Sources: Groh et al. (2014), Attachment & Human Development, DOI 10.1080/14616734.2014.883636; Fearon et al. (2010), Child Development, DOI 10.1111/j.1467-8624.2009.01405.x; Groh et al. (2012), Child Development, DOI 10.1111/j.1467-8624.2011.01711.x; Groh et al. (2017), Child Development Perspectives, DOI 10.1111/cdep.12213; Deneault et al. (2023), Developmental Review, DOI 10.1016/j.dr.2023.101093.
 Confidence: HIGH for the pattern. Publication bias noted in these literatures.
 
-## Research behind this lesson (continued)
-
 Finding: Registered reanalysis of the Minnesota study and NICHD SECCYD: after demographic covariates, partial correlations about r = .10 to .15.
 Sources: Nivison et al. (2023), The predictive validity of the Strange Situation Procedure, Development and Psychopathology, DOI 10.1017/S0954579423001487.
 Confidence: HIGH. The script says 'small correlations.'
+
+## Research behind this lesson (continued)
 
 Finding: Attachment only moderately stable across early childhood (secure/insecure r = .28); security most stable.
 Sources: Opie et al. (2020), Early childhood attachment stability and change: a meta-analysis, Attachment & Human Development, DOI 10.1080/14616734.2020.1800769.
@@ -243,11 +244,11 @@ Finding: Attachment parenting practices (babywearing, bedsharing, extended breas
 Sources: Green & Groves (2008), Early Child Development and Care, DOI 10.1080/03004430600851199; Hulen (2021), Journal of Family Issues, DOI 10.1177/0192513X21993885.
 Confidence: HIGH for the distinction.
 
-## Research behind this lesson (continued)
-
 Finding: Breastfeeding and attachment: some studies link longer duration with more security; effect likely small; more prospective research needed.
 Sources: Linde et al. (2019), The association between breastfeeding and attachment: a systematic review, Midwifery, DOI 10.1016/j.midw.2019.102592.
 Confidence: MODERATE. Observational, 11 studies.
+
+## Research behind this lesson (continued)
 
 Finding: Infant carrying RCT with adolescent mothers (n = 33): more secure, less disorganized at 7 months.
 Sources: Williams et al. (2019), Infant Behavior and Development, DOI 10.1016/j.infbeh.2019.101413.
@@ -257,17 +258,15 @@ Finding: Safe sleep: room-sharing without bed-sharing.
 Sources: Module 1, Lesson 4 (Moon et al. 2022, AAP).
 Confidence: HIGH. Callback only.
 
-## Research behind this lesson (continued)
-
 Finding: Klaus and Kennell's early-contact 'sensitive period' hypothesis (1970s); later review found weak methods and no demonstrated long-term effects.
 Sources: Lamb (1982), Early contact and maternal-infant bonding: one decade later, Pediatrics, DOI 10.1542/peds.70.5.763; Crowell (2022), JAACAP editorial, DOI 10.1016/j.jaac.2022.03.007.
 Confidence: HIGH that no long-term effect on the relationship has been established. Note: some later trials report interaction benefits at one year (Bystrova et al. 2009, DOI 10.1111/j.1523-536x.2009.00307.x), so the script says 'helpful, not necessary.'
 
+## Research behind this lesson (continued)
+
 Finding: Early skin-to-skin contact improves breastfeeding outcomes; newborn stabilization.
 Sources: Moore et al. (2016), Cochrane Review, DOI 10.1002/14651858.CD003519.pub4; Module 1, Lesson 1.
 Confidence: MODERATE (Cochrane GRADE moderate for breastfeeding).
-
-## Research behind this lesson (continued)
 
 Finding: Children adopted before 12 months as securely attached as non-adopted peers (observational measures).
 Sources: van den Dries, Juffer, van IJzendoorn & Bakermans-Kranenburg (2009), Fostering security? A meta-analysis of attachment in adopted children, Children and Youth Services Review, DOI 10.1016/j.childyouth.2008.09.008.
@@ -277,10 +276,8 @@ Finding: Joint statement: disorganized attachment does not reliably indicate mal
 Sources: Granqvist et al. (2017), DOI 10.1080/14616734.2017.1354040; Reijman et al. (2018), Social Science & Medicine, DOI 10.1016/j.socscimed.2017.12.034; Duschinsky et al. (2017), DOI 10.1177/1359104516685602.
 Confidence: HIGH.
 
+## Research behind this lesson (continued)
+
 Finding: Online 'attachment style' quizzes for babies.
 Sources: No research validating such quizzes was found; the point rests on Granqvist et al. (2017) above.
 Confidence: LOW/CONTESTED as a claim of absence; framed as a caution, not a finding.
-
-## Research behind this lesson (continued)
-
-Pending verification: these citation details are still being checked before publishing, so treat them as provisional: van den Boom 68% vs 28% figures in full text.
