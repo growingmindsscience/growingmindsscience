@@ -9,7 +9,7 @@ const NAV_LINK =
 
 export function ClassWordmark({ href = "/app/classes" }: { href?: string }) {
   return (
-    <Link href={href} className="flex items-center gap-2.5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal">
+    <Link href={href} className="flex min-h-11 items-center gap-2.5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal">
       {/* The same mark as the main site's header. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/nsc/logo-mark.png" alt="" width={36} height={36} className="size-9 shrink-0" />
@@ -84,19 +84,21 @@ export function ClassShell({ header, children }: { header?: ReactNode; children:
 }
 
 /** Shared frame for the class sign-in and sign-up pages. */
-export function ClassAuthFrame({ title, lede, children, footer, context }: {
+export function ClassAuthFrame({ title, lede, children, footer, context, wordmarkHref = "/class-login" }: {
   title: string;
   lede: string;
   children: ReactNode;
   footer: ReactNode;
   /** Shown above the form, e.g. what the parent is on the way to buying. */
   context?: ReactNode;
+  /** Keeps the page's `next` when the wordmark is tapped mid-enrollment. */
+  wordmarkHref?: string;
 }) {
   return (
     <ClassShell>
     <main className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center gap-7 px-6 py-12">
       <div className="flex flex-col items-center gap-5 text-center">
-        <ClassWordmark href="/class-login" />
+        <ClassWordmark href={wordmarkHref} />
         <div>
           <h1 className="text-3xl font-semibold tracking-tight text-ink-deep">{title}</h1>
           <p className="mt-2 text-base text-ink-soft">{lede}</p>
@@ -116,11 +118,11 @@ export function ClassAuthFrame({ title, lede, children, footer, context }: {
 }
 
 /** The one eyebrow style for the classes area. `className` is for spacing only. */
-export function Eyebrow({ children, className }: { children: ReactNode; className?: string }) {
+export function Eyebrow({ children, className, as: Tag = "p" }: { children: ReactNode; className?: string; as?: "p" | "h2" }) {
   return (
-    <p className={`font-[family-name:var(--font-display)] text-xs font-semibold uppercase tracking-[0.18em] text-coral-deep ${className ?? ""}`}>
+    <Tag className={`font-[family-name:var(--font-display)] text-xs font-semibold uppercase tracking-[0.18em] text-coral-deep ${className ?? ""}`}>
       {children}
-    </p>
+    </Tag>
   );
 }
 

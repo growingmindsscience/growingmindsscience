@@ -26,8 +26,8 @@ export default async function InfantClassPage({ searchParams }: {
   return (
     <main className="mx-auto flex max-w-3xl flex-col gap-7 px-6 py-10">
       <header>
-        <Link href="/app/classes" className="text-sm text-teal-soft underline">← My classes</Link>
-        <Eyebrow className="mt-5">Self-paced class · birth to 12 months</Eyebrow>
+        <Link href="/app/classes" className="inline-flex min-h-11 items-center text-sm text-teal-soft underline">← My classes</Link>
+        <Eyebrow className="mt-2">Self-paced class · birth to 12 months</Eyebrow>
         <h1 className="mt-2 text-3xl font-semibold text-ink-deep">{INFANT_COURSE.title}</h1>
         <p className="mt-3 text-ink">Four modules on the first year of development and everyday connection.</p>
       </header>
@@ -38,7 +38,7 @@ export default async function InfantClassPage({ searchParams }: {
           {error === "not-open" && <p role="alert" className="mt-3 text-sm text-coral-deep">Enrollment is not open for this account yet.</p>}
           {error === "checkout-unavailable" && <p role="alert" className="mt-3 text-sm text-coral-deep">Checkout is unavailable right now. Please try again later.</p>}
           {salesOpen ? <form action={startInfantClassCheckout} className="mt-5"><SubmitButton pendingLabel="Opening checkout…">Enroll now</SubmitButton></form> : (
-            <p className="mt-4 text-sm text-ink-muted">Enrollment is not open yet.</p>
+            error !== "not-open" && <p className="mt-4 text-sm text-ink-muted">Enrollment is not open yet.</p>
           )}
           <a href={sitePath(INFANT_COURSE.detailsPath)} className={buttonClasses("ghost", "md", "mt-4 border border-line")}>View class details</a>
         </Card>

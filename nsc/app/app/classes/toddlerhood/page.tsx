@@ -24,8 +24,8 @@ export default async function ToddlerClassPage({ searchParams }: {
   return (
     <main className="mx-auto flex max-w-3xl flex-col gap-7 px-6 py-10">
       <header>
-        <Link href="/app/classes" className="text-sm text-teal-soft underline">← My classes</Link>
-        <Eyebrow className="mt-5">Self-paced class · ages 1–3</Eyebrow>
+        <Link href="/app/classes" className="inline-flex min-h-11 items-center text-sm text-teal-soft underline">← My classes</Link>
+        <Eyebrow className="mt-2">Self-paced class · ages 1–3</Eyebrow>
         <h1 className="mt-2 text-3xl font-semibold text-ink-deep">{TODDLER_COURSE.title}</h1>
         <p className="mt-3 text-ink">Five modules of developmental science and practical guidance for everyday family life.</p>
       </header>

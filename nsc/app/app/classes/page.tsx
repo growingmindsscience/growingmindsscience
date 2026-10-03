@@ -77,7 +77,7 @@ export default async function MyClassesPage() {
                     <LinkButton href={next ? lessonPath(next.slug, slug) : `/app/classes/${slug}`}>
                       {!lessons.length ? "Open class" : !next ? "Review class" : started ? "Continue" : "Start class"}
                     </LinkButton>
-                    <LinkButton href={`/app/classes/${slug}`} variant="ghost">All lessons</LinkButton>
+                    {next && <LinkButton href={`/app/classes/${slug}`} variant="ghost">All lessons</LinkButton>}
                   </div>
                 </Card>
               );
@@ -109,7 +109,7 @@ export default async function MyClassesPage() {
                   <p className="mt-1 text-sm text-ink-soft">{course.blurb}</p>
                   <p className="mt-4 text-ink">
                     <span className="font-[family-name:var(--font-display)] text-2xl font-semibold text-ink-deep">{course.priceDisplay}</span>
-                    <span className="ml-2 text-sm text-ink-muted">one payment, lifetime access</span>
+                    <span className="ml-2 text-sm text-ink-muted">one payment, lifetime access. All sales are final.</span>
                   </p>
                   <div className="mt-auto flex flex-wrap items-center gap-2 pt-5">
                     {salesOpen[index] ? (

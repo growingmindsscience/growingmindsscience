@@ -24,6 +24,7 @@ export default async function ClassSignupPage({ searchParams }: {
     <ClassAuthFrame
       context={enrolling && <EnrollContext course={enrolling} step="sign-up" />}
       title="Create your class account"
+      wordmarkHref={`/class-signup?next=${encodeURIComponent(destination)}`}
       lede="One place for the classes you own, your lesson progress, and everything else in your account."
       footer={
         <p>Already have an account?{" "}

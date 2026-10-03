@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation";
 import { updatePassword } from "@/app/auth/actions";
 import { getUser } from "@/lib/auth";
-import { Card, Field, Input } from "@/components/ui";
+import { Card, Field } from "@/components/ui";
+import { PasswordInput } from "@/components/password-input";
 import { SubmitButton } from "@/components/submit-button";
 import { brand } from "@/lib/config/brand";
 import { ClassShell, Eyebrow } from "@/components/class-chrome";
@@ -17,7 +18,7 @@ export default async function UpdatePasswordPage({
   // The recovery link signs the parent in via /auth/callback first; with no
   // session there is nothing to update.
   const user = await getUser();
-  if (!user) redirect(`/reset?error=That+link+expired+%E2%80%94+request+a+fresh+one.${classFlow ? "&class=1" : ""}`);
+  if (!user) redirect(`/reset?error=${encodeURIComponent("That link expired. Please request a fresh one.")}${classFlow ? `&class=1&next=${encodeURIComponent(classDestination(next))}` : ""}`);
 
   const page = (
     <main className={`mx-auto flex w-full max-w-md flex-col justify-center gap-6 px-6 py-12 ${classFlow ? "flex-1" : "min-h-screen"}`}>
@@ -33,15 +34,8 @@ export default async function UpdatePasswordPage({
         <form action={updatePassword} className="flex flex-col gap-4">
           {classFlow && <input type="hidden" name="class_flow" value="1" />}
           {classFlow && <input type="hidden" name="next" value={classDestination(next)} />}
-          <Field label="New password" htmlFor="password" hint="At least 12 characters">
-            <Input
-              id="password"
-              name="password"
-              type="password"
-              autoComplete="new-password"
-              minLength={12}
-              required
-            />
+          <Field label="New password" htmlFor="password" hint="At least 12 characters.">
+            <PasswordInput id="password" name="password" autoComplete="new-password" minLength={12} aria-describedby="password-hint" required />
           </Field>
           {error && (
             <p className="text-sm text-coral-deep" role="alert">

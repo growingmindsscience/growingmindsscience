@@ -35,8 +35,13 @@ export async function GET(req: Request) {
   }
   const classFlow = next.startsWith("/reset/update?class=1") || isClassPath(next);
   const loginPath = classFlow ? "/nsc/class-login" : "/nsc/login";
+  // A class link that fails (opened in another browser, or expired) still
+  // knows where the parent was headed.
+  const keepNext = isClassPath(next) ? `&next=${encodeURIComponent(next)}` : "";
   return NextResponse.redirect(new URL(
-    `${loginPath}?error=${encodeURIComponent("That link expired. Please request a fresh one.")}`,
+    `${loginPath}?error=${encodeURIComponent(isClassPath(next)
+      ? "That link did not work here. Sign in below, or open the link on the device where you signed up."
+      : "That link expired. Please request a fresh one.")}${keepNext}`,
     origin,
   ));
 }

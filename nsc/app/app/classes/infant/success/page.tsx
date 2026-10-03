@@ -8,6 +8,7 @@ import { stripe } from "@/lib/stripe";
 import { fulfillClassCheckout } from "@/lib/class-orders.server";
 
 export const dynamic = "force-dynamic";
+export const metadata = { title: "Welcome to Birth to 12 months" };
 
 export default async function InfantClassSuccessPage({ searchParams }: {
   searchParams: Promise<{ session_id?: string }>;

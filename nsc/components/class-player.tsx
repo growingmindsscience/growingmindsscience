@@ -28,6 +28,9 @@ export function ClassPlayer({ lessonId, title, startTime, completed = false, cou
   const [done, setDone] = useState(completed);
   const [saving, setSaving] = useState(false);
   const [saveFailed, setSaveFailed] = useState(false);
+  // Where the player starts when it (re)loads its source. A token refresh
+  // reloads the source, so it must resume from where the parent is now.
+  const [resumeAt, setResumeAt] = useState(startTime);
   const lastSaved = useRef(0);
   const position = useRef(startTime);
   const endpoint = `/nsc/api/classes/${courseSlug}/lessons/${lessonId}`;
@@ -49,6 +52,7 @@ export function ClassPlayer({ lessonId, title, startTime, completed = false, cou
         }
         const result = await response.json() as PlaybackInfo;
         if (!live) return;
+        if (loaded) setResumeAt(position.current);
         loaded = true;
         setPlayback(result);
         const untilRefresh = Math.max(60_000, result.expiresAt * 1000 - Date.now() - 300_000);
@@ -88,17 +92,17 @@ export function ClassPlayer({ lessonId, title, startTime, completed = false, cou
     setSaveFailed(!saved);
   }
 
+  let media;
   if (loadError === "signed-out") {
-    return (
+    media = (
       <div role="alert" className="rounded-2xl bg-rung-glow p-5 text-ink">
         <p className="font-semibold text-ink-deep">Your sign-in has expired.</p>
         <p className="mt-1 text-sm">Sign in again and this lesson will pick up where you left off.</p>
         <Button size="sm" className="mt-4" onClick={() => window.location.reload()}>Sign in again</Button>
       </div>
     );
-  }
-  if (loadError) {
-    return (
+  } else if (loadError) {
+    media = (
       <div role="alert" className="rounded-2xl bg-rung-glow p-5 text-ink">
         <p className="font-semibold text-ink-deep">We could not load this video.</p>
         <p className="mt-1 text-sm">
@@ -108,39 +112,50 @@ export function ClassPlayer({ lessonId, title, startTime, completed = false, cou
         <Button size="sm" className="mt-4" onClick={() => { setLoadError(null); setAttempt((count) => count + 1); }}>Try again</Button>
       </div>
     );
-  }
-  if (!playback) {
+  } else if (!playback) {
     // Same 16:9 box as the player, so the page does not jump when it arrives.
-    return (
+    media = (
       <div role="status" className="flex aspect-video w-full items-center justify-center rounded-2xl bg-sea-glass/40 text-sm text-ink-soft motion-safe:animate-pulse">
         Loading your video…
       </div>
     );
-  }
-  return (
-    <div>
+  } else {
+    media = (
       <MuxPlayer
         className="aspect-video w-full overflow-hidden rounded-2xl"
         playbackId={playback.playbackId}
         tokens={{ playback: playback.token }}
         poster=""
-        startTime={startTime}
+        startTime={resumeAt}
         videoTitle={title}
         accentColor="#1E5F62"
         onTimeUpdate={(event) => {
           const seconds = (event.target as HTMLMediaElement).currentTime;
           position.current = seconds;
-          if (seconds - lastSaved.current >= 15) {
+          // Absolute, so scrubbing backward is saved too.
+          if (Math.abs(seconds - lastSaved.current) >= 15) {
             lastSaved.current = seconds;
             void save(seconds);
           }
         }}
-        onPause={(event) => { void save((event.target as HTMLMediaElement).currentTime); }}
+        onPause={(event) => {
+          const video = event.target as HTMLMediaElement;
+          // A video also pauses as it ends; that save belongs to onEnded.
+          if (!video.ended) void save(video.currentTime);
+        }}
         onEnded={(event) => {
           position.current = (event.target as HTMLMediaElement).currentTime;
           void markComplete();
         }}
       />
+    );
+  }
+
+  // The completion control sits outside the player on purpose: a parent who
+  // reads the lesson, or whose video will not load, can still finish it.
+  return (
+    <div>
+      {media}
       {done ? (
         <div role="status" className="mt-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-4 rounded-2xl border border-sea-glass bg-surface p-5">
           <div className="min-w-0">
@@ -160,7 +175,7 @@ export function ClassPlayer({ lessonId, title, startTime, completed = false, cou
         </div>
       ) : (
         <>
-          <p className="mt-2 text-xs text-teal-soft">Your place is saved as you watch.</p>
+          {playback && !loadError && <p className="mt-2 text-xs text-teal-soft">Your place is saved as you watch.</p>}
           <Button variant="ghost" size="sm" className="mt-3 border border-teal" disabled={saving} onClick={() => void markComplete()}>
             {saving ? "Saving…" : "Mark lesson complete"}
           </Button>

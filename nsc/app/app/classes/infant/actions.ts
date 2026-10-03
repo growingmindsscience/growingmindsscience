@@ -14,16 +14,22 @@ export async function startInfantClassCheckout() {
   const priceId = process.env.INFANT_CLASS_PRICE_ID;
   if (!priceId) redirect("/app/classes/infant?error=checkout-unavailable");
   const origin = siteOrigin();
-  const session = await stripe().checkout.sessions.create({
-    mode: "payment",
-    line_items: [{ price: priceId, quantity: 1 }],
-    client_reference_id: user.id,
-    customer_email: user.email,
-    metadata: { product: INFANT_COURSE.product, owner_id: user.id },
-    success_url: `${origin}/nsc/app/classes/infant/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${origin}/nsc/app/classes/infant`,
-    allow_promotion_codes: true,
-  });
+  let session;
+  try {
+    session = await stripe().checkout.sessions.create({
+      mode: "payment",
+      line_items: [{ price: priceId, quantity: 1 }],
+      client_reference_id: user.id,
+      customer_email: user.email,
+      metadata: { product: INFANT_COURSE.product, owner_id: user.id },
+      success_url: `${origin}/nsc/app/classes/infant/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/nsc/app/classes/infant`,
+      allow_promotion_codes: true,
+    });
+  } catch (cause) {
+    console.error("[class-checkout] could not create a checkout session", cause);
+    redirect("/app/classes/infant?error=checkout-unavailable");
+  }
   if (!session.url) redirect("/app/classes/infant?error=checkout-unavailable");
   redirect(session.url);
 }

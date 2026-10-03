@@ -63,7 +63,7 @@ export default async function ResetPage({
       )}
       <p className="text-center text-sm text-teal-soft">
         Remembered it?{" "}
-        <Link href={classFlow ? `/class-login?next=${encodeURIComponent(destination)}` : "/login"} className="font-semibold text-teal underline">
+        <Link href={classFlow ? `/class-login?next=${encodeURIComponent(destination)}` : "/login"} className="inline-flex min-h-11 items-center font-semibold text-teal underline">
           Sign in
         </Link>
       </p>

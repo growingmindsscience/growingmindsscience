@@ -7,6 +7,7 @@ import { SubmitButton } from "@/components/submit-button";
 import { ClassAuthFrame, EnrollContext } from "@/components/class-chrome";
 import { getUser } from "@/lib/auth";
 import { classDestination, enrollingCourse } from "@/lib/class-paths";
+import { sitePath } from "@/lib/site";
 
 export const metadata = {
   title: "Sign in to your classes — Growing Minds Science",
@@ -23,20 +24,26 @@ export default async function ClassLoginPage({ searchParams }: {
   const enrolling = enrollingCourse(destination);
   return (
     <ClassAuthFrame
-      context={enrolling && <EnrollContext course={enrolling} step="sign-in" />}
-      title="Sign in to your classes"
-      lede="Your classes and lesson progress live in your Growing Minds Science account."
+      context={enrolling && !confirm && <EnrollContext course={enrolling} step="sign-in" />}
+      title={confirm ? "Check your email" : "Sign in to your classes"}
+      lede={confirm
+        ? `We sent you a link to confirm your account. Open it on this device and it takes you straight to ${enrolling ? "checkout" : "your classes"}.`
+        : "Your classes and lesson progress live in your Growing Minds Science account."}
+      wordmarkHref={`/class-login?next=${encodeURIComponent(destination)}`}
       footer={
         <p>New here?{" "}
           <Link href={`/class-signup?next=${encodeURIComponent(destination)}`} className="inline-flex min-h-11 items-center font-semibold text-teal underline">Create an account</Link>
         </p>
       }
     >
-      {confirm && (
-        <p role="status" className="rounded-xl bg-sea-glass/40 px-4 py-3 text-center text-sm text-ink">
-          Check your email for a link to confirm your account. {enrolling ? "It takes you straight to checkout." : "It brings you straight to your classes."}
+      {confirm ? (
+        <p role="status" className="rounded-2xl bg-sea-glass/40 px-5 py-4 text-center text-sm text-ink">
+          Nothing in your inbox after a minute or two? Check spam, then{" "}
+          <a href={sitePath("/contact/")} className="font-semibold text-teal underline">contact us</a> and we will help.{" "}
+          Already confirmed?{" "}
+          <Link href={`/class-login?next=${encodeURIComponent(destination)}`} className="font-semibold text-teal underline">Sign in</Link>.
         </p>
-      )}
+      ) : (
       <Card>
         <form action={login} className="flex flex-col gap-4">
           <input type="hidden" name="flow" value="class" />
@@ -48,6 +55,7 @@ export default async function ClassLoginPage({ searchParams }: {
           <Link href={`/reset?class=1&next=${encodeURIComponent(destination)}`} className="mx-auto inline-flex min-h-11 items-center text-sm text-ink-soft underline">Forgot your password?</Link>
         </form>
       </Card>
+      )}
     </ClassAuthFrame>
   );
 }
