@@ -19,6 +19,8 @@ export const INFANT_COURSE = {
   title: "Birth to 12 months: cues, attachment, and the first year",
   shortTitle: "Birth to 12 months",
   scope: "class:infant",
+  product: "class_infant",
+  priceDisplay: "$49",
   modules: [
     "The Newborn Brain",
     "Reading Your Baby's Cues",
@@ -33,6 +35,10 @@ export const CLASS_COURSES = {
 } as const;
 
 export type ClassCourseSlug = keyof typeof CLASS_COURSES;
+
+export function courseForProduct(product: string | undefined) {
+  return Object.values(CLASS_COURSES).find((course) => course.product === product);
+}
 
 export function isClassCourseSlug(value: string): value is ClassCourseSlug {
   return Object.prototype.hasOwnProperty.call(CLASS_COURSES, value);
@@ -81,15 +87,18 @@ export function ownsToddlerClass(grants: ClassGrantRow[], now: Date): boolean {
 export function validClassPayment(input: {
   mode: string | null;
   paymentStatus: string;
+  amountTotal: number | null;
   product: string | undefined;
   ownerId: string | null;
   metadataOwnerId: string | undefined;
   lineItems: { priceId: string | undefined; quantity: number | null }[];
   expectedPriceId: string;
+  expectedProduct: string;
 }): boolean {
   return input.mode === "payment" &&
-    input.paymentStatus === "paid" &&
-    input.product === TODDLER_COURSE.product &&
+    (input.paymentStatus === "paid" ||
+      (input.paymentStatus === "no_payment_required" && input.amountTotal === 0)) &&
+    input.product === input.expectedProduct &&
     Boolean(input.ownerId) && input.ownerId === input.metadataOwnerId &&
     Boolean(input.expectedPriceId) &&
     input.lineItems.length === 1 &&

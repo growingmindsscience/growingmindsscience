@@ -1,6 +1,6 @@
 import "server-only";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
-import { CLASS_COURSES, TODDLER_COURSE, ownsToddlerClass, type ClassCourseSlug, type ClassLesson } from "@/lib/classes";
+import { CLASS_COURSES, INFANT_COURSE, TODDLER_COURSE, ownsToddlerClass, type ClassCourseSlug, type ClassLesson } from "@/lib/classes";
 
 export async function hasClassAccess(userId: string, courseSlug: ClassCourseSlug = TODDLER_COURSE.slug): Promise<boolean> {
   const supabase = await createClient();
@@ -25,8 +25,14 @@ export async function publishedLessons(courseSlug: ClassCourseSlug = TODDLER_COU
   return (data ?? []) as ClassLesson[];
 }
 
-/** The existing offer promises 29 lessons immediately. Never sell an empty shell. */
-export async function classSalesOpen(): Promise<boolean> {
+/** Open sales only after every promised lesson is published. */
+export async function classSalesOpen(courseSlug: ClassCourseSlug = TODDLER_COURSE.slug): Promise<boolean> {
+  if (courseSlug === INFANT_COURSE.slug) {
+    if (process.env.INFANT_CLASS_SALES_ENABLED !== "1") return false;
+    const lessons = await publishedLessons(courseSlug);
+    return [5, 4, 3, 4].every((count, index) =>
+      lessons.filter((lesson) => lesson.module_number === index + 1).length === count);
+  }
   if (process.env.TODDLER_CLASS_SALES_ENABLED !== "1") return false;
   return (await publishedLessons()).length >= 29;
 }

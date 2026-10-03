@@ -3,25 +3,29 @@ import type Stripe from "stripe";
 import { createServiceClient } from "@/lib/supabase/server";
 import { applyGrants } from "@/lib/entitlements.server";
 import { grantsForOneTimePurchase } from "@/lib/grants";
-import { TODDLER_COURSE, validClassPayment } from "@/lib/classes";
+import { INFANT_COURSE, TODDLER_COURSE, courseForProduct, validClassPayment } from "@/lib/classes";
 import { stripe } from "@/lib/stripe";
 
 /** A signed Stripe event is necessary; price verification is an additional guard. */
 export async function fulfillClassCheckout(session: Stripe.Checkout.Session) {
-  if (session.metadata?.product !== TODDLER_COURSE.product) return;
-  if (session.payment_status !== "paid") return;
+  const course = courseForProduct(session.metadata?.product);
+  if (!course) return;
+  if (session.payment_status !== "paid" && session.payment_status !== "no_payment_required") return;
   const userId = session.client_reference_id;
-  const expectedPrice = process.env.TODDLER_CLASS_PRICE_ID;
-  if (!expectedPrice) throw new Error("TODDLER_CLASS_PRICE_ID is not configured");
+  const priceVariable = course.slug === INFANT_COURSE.slug ? "INFANT_CLASS_PRICE_ID" : "TODDLER_CLASS_PRICE_ID";
+  const expectedPrice = process.env[priceVariable];
+  if (!expectedPrice) throw new Error(`${priceVariable} is not configured`);
   const items = await stripe().checkout.sessions.listLineItems(session.id, { limit: 10 });
   if (!validClassPayment({
     mode: session.mode,
     paymentStatus: session.payment_status,
+    amountTotal: session.amount_total,
     product: session.metadata?.product,
     ownerId: userId,
     metadataOwnerId: session.metadata?.owner_id,
     lineItems: items.data.map((item) => ({ priceId: item.price?.id, quantity: item.quantity })),
     expectedPriceId: expectedPrice,
+    expectedProduct: course.product,
   })) {
     throw new Error("Class checkout did not pass owner and price verification");
   }
@@ -46,7 +50,7 @@ export async function fulfillClassCheckout(session: Stripe.Checkout.Session) {
   const { error } = await service.from("class_orders").upsert({
     stripe_checkout_session_id: session.id,
     user_id: userId,
-    course_slug: TODDLER_COURSE.slug,
+    course_slug: course.slug,
     stripe_payment_intent_id: paymentIntent,
     amount_cents: session.amount_total,
     status: "paid",
@@ -54,7 +58,7 @@ export async function fulfillClassCheckout(session: Stripe.Checkout.Session) {
   }, { onConflict: "stripe_checkout_session_id" });
   if (error) throw new Error(`Could not save class order: ${error.message}`);
   await applyGrants(service, userId, grantsForOneTimePurchase({
-    sessionId: session.id, product: TODDLER_COURSE.product,
+    sessionId: session.id, product: course.product,
   }));
 }
 
@@ -62,18 +66,21 @@ export async function fulfillClassCheckout(session: Stripe.Checkout.Session) {
 async function revokeClassPayment(paymentIntent: string, status: "refunded" | "disputed") {
   const service = createServiceClient();
   const { data: orders, error } = await service.from("class_orders")
-    .select("stripe_checkout_session_id, user_id")
+    .select("stripe_checkout_session_id, user_id, course_slug")
     .eq("stripe_payment_intent_id", paymentIntent)
     .eq("status", "paid");
   if (error) throw new Error(`Could not find class order: ${error.message}`);
   for (const order of orders ?? []) {
+    const infant = order.course_slug === INFANT_COURSE.slug;
+    const scopes = infant ? [INFANT_COURSE.scope] : [TODDLER_COURSE.scope, "ai:unlimited"];
+    const source = infant ? "stripe_otp" : "stripe_otp_legacy";
     const now = new Date().toISOString();
     const { error: grantError } = await service.from("entitlements")
       .update({ expires_at: now, updated_at: now })
       .eq("user_id", order.user_id)
       .eq("source_ref", order.stripe_checkout_session_id)
-      .eq("source", "stripe_otp_legacy")
-      .in("product_scope", [TODDLER_COURSE.scope, "ai:unlimited"]);
+      .eq("source", source)
+      .in("product_scope", scopes);
     if (grantError) throw new Error(`Could not revoke class grant: ${grantError.message}`);
     const { error: orderError } = await service.from("class_orders")
       .update({ status, updated_at: now })
