@@ -1,0 +1,13 @@
+Your baby is not bored. They are budgeting.
+
+At the University of Rochester, researchers sat 7- and 8-month-olds in front of animated boxes that rose to reveal a toy, or nothing, in sequences with fixed odds. Each sequence played until the baby looked away for one full second, and an ideal-learner model scored every event for how surprising it was given everything the baby had already seen.
+
+The result was a U-curve. Babies looked away most when the next event was either almost certain or wildly unpredictable, and stayed locked in for events in between, with a sweet spot near 1.25 bits of information. Not too simple, not too complex. The researchers called it the Goldilocks effect.
+
+It is not an averaging artifact: the U-curve holds within individual infants. The same lab found it again with sound sequences, and an independent lab has since shown that infants allocate attention in ways that maximize learning.
+
+So when your baby turns away from the rattle, they may simply be finished with it. Attention goes wherever the information rate is just right, which is worth remembering before you run the same game an eleventh time, or swap it for something entirely new.
+
+Kidd, Piantadosi and Aslin, PLOS ONE 7(5):e36399 (2012), open access. Auditory replication: Kidd et al., Child Development (2014). Within-infant confirmation: Piantadosi et al., Developmental Science (2014). Independent support: Poli et al., Science Advances (2020).
+
+#childdevelopment #parenting #babies #infantdevelopment #developmentalpsychology #cognitivescience #earlylearning #sciencebasedparenting #growingmindsscience
