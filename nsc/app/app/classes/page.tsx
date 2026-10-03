@@ -43,7 +43,7 @@ export default async function MyClassesPage() {
       <section aria-labelledby="owned-heading" className="flex flex-col gap-4">
         <h2 id="owned-heading" className="text-xl font-semibold text-ink-deep">Your classes</h2>
         {ownedCourses.length ? (
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className={`grid gap-4 ${ownedCourses.length > 1 ? "sm:grid-cols-2" : ""}`}>
             {ownedCourses.map((slug, index) => {
               const course = CLASS_COURSES[slug];
               const lessons = lessonGroups[index];
@@ -99,7 +99,7 @@ export default async function MyClassesPage() {
           <h2 id="more-heading" className="text-xl font-semibold text-ink-deep">
             {ownedCourses.length ? "More classes" : "Available classes"}
           </h2>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className={`grid gap-4 ${otherCourses.length > 1 ? "sm:grid-cols-2" : ""}`}>
             {otherCourses.map((slug, index) => {
               const course = CLASS_COURSES[slug];
               return (

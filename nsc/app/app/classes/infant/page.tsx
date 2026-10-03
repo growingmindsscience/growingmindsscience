@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { requireClassAuth } from "@/lib/auth";
 import { classSalesOpen, hasClassAccess, progressForUser, publishedLessons } from "@/lib/classes.server";
-import { INFANT_COURSE, lessonPath } from "@/lib/classes";
-import { Card, LinkButton, buttonClasses } from "@/components/ui";
+import { INFANT_COURSE } from "@/lib/classes";
+import { ClassOutline, ClassResume } from "@/components/class-outline";
+import { Card, buttonClasses } from "@/components/ui";
 import { SubmitButton } from "@/components/submit-button";
 import { sitePath } from "@/lib/site";
 import { startInfantClassCheckout } from "./actions";
@@ -15,11 +16,10 @@ export default async function InfantClassPage({ searchParams }: {
 }) {
   const user = await requireClassAuth("/app/classes/infant");
   const owned = await hasClassAccess(user.id, "infant");
-  const [lessons, progress] = owned
-    ? await Promise.all([publishedLessons("infant"), progressForUser(user.id)])
-    : [[], []];
+  const [lessons, progress] = await Promise.all([
+    publishedLessons("infant"), owned ? progressForUser(user.id) : [],
+  ]);
   const salesOpen = owned ? false : await classSalesOpen("infant", user.id);
-  const complete = new Set(progress.filter((row) => row.completed_at).map((row) => row.lesson_id));
   const { error } = await searchParams;
 
   return (
@@ -33,40 +33,21 @@ export default async function InfantClassPage({ searchParams }: {
       {!owned ? (
         <Card>
           <h2 className="text-xl font-semibold text-ink-deep">Get lifetime access</h2>
-          <p className="mt-2 text-sm text-ink">One payment of {INFANT_COURSE.priceDisplay} includes all 16 lessons and lifetime access.</p>
+          <p className="mt-2 text-sm text-ink">One payment of {INFANT_COURSE.priceDisplay} includes {lessons.length ? `all ${lessons.length} lessons` : "every lesson"} and lifetime access.</p>
           {error === "not-open" && <p role="alert" className="mt-3 text-sm text-coral-deep">Enrollment is not open for this account yet.</p>}
           {error === "checkout-unavailable" && <p role="alert" className="mt-3 text-sm text-coral-deep">Checkout is unavailable right now. Please try again later.</p>}
           {salesOpen ? <form action={startInfantClassCheckout} className="mt-5"><SubmitButton pendingLabel="Opening checkout…">Enroll now</SubmitButton></form> : (
-            <p className="mt-4 text-sm text-teal-soft">Enrollment opens after all 16 lessons and captions are ready.</p>
+            <p className="mt-4 text-sm text-ink-muted">Enrollment is not open yet.</p>
           )}
           <a href={sitePath(INFANT_COURSE.detailsPath)} className={buttonClasses("ghost", "md", "mt-4 border border-line")}>View class details</a>
         </Card>
       ) : (
-        <p className="text-sm text-teal-soft">{complete.size} of {lessons.length} available lessons complete · lifetime access</p>
+        <ClassResume lessons={lessons} progress={progress} courseSlug="infant" modules={INFANT_COURSE.modules} />
       )}
-      {owned && INFANT_COURSE.modules.map((title, index) => {
-        const moduleLessons = lessons.filter((lesson) => lesson.module_number === index + 1);
-        return (
-          <section key={title} aria-labelledby={`module-${index + 1}`}>
-            <h2 id={`module-${index + 1}`} className="mb-3 text-xl font-semibold text-ink-deep">
-              <span className="mr-2 text-sm text-teal">{String(index + 1).padStart(2, "0")}</span>{title}
-            </h2>
-            {moduleLessons.length ? (
-              <ol className="flex flex-col gap-2">
-                {moduleLessons.map((lesson) => (
-                  <li key={lesson.id}>
-                    <Link href={lessonPath(lesson.slug, "infant")} className="flex items-center justify-between gap-4 rounded-xl border border-sea-glass/60 bg-surface px-5 py-4 text-ink hover:bg-sea-glass/20">
-                      <span><strong className="block font-semibold">{lesson.title}</strong>{lesson.summary && <span className="block text-sm text-teal-soft">{lesson.summary}</span>}</span>
-                      <span className="shrink-0 text-sm text-teal">{complete.has(lesson.id) ? "✓ Done" : "Open →"}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ol>
-            ) : <p className="text-sm text-teal-soft">Lessons are being prepared.</p>}
-          </section>
-        );
-      })}
-      <LinkButton href="/app/classes" variant="ghost" className="self-start">Back to My classes</LinkButton>
+      {!owned && lessons.length > 0 && <p className="-mb-3 text-sm font-semibold text-ink-muted">What is inside</p>}
+      {(owned || lessons.length > 0) && (
+        <ClassOutline modules={INFANT_COURSE.modules} lessons={lessons} progress={progress} courseSlug="infant" locked={!owned} />
+      )}
     </main>
   );
 }
