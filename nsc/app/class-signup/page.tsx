@@ -4,9 +4,9 @@ import { signup } from "@/app/auth/actions";
 import { Card, Field, Input } from "@/components/ui";
 import { PasswordInput } from "@/components/password-input";
 import { SubmitButton } from "@/components/submit-button";
-import { ClassAuthFrame } from "@/components/class-chrome";
+import { ClassAuthFrame, EnrollContext } from "@/components/class-chrome";
 import { getUser } from "@/lib/auth";
-import { classDestination } from "@/lib/class-paths";
+import { classDestination, enrollingCourse } from "@/lib/class-paths";
 
 export const metadata = {
   title: "Create your class account — Growing Minds Science",
@@ -19,8 +19,10 @@ export default async function ClassSignupPage({ searchParams }: {
   const { error, next } = await searchParams;
   const destination = classDestination(next);
   if (await getUser()) redirect(destination);
+  const enrolling = enrollingCourse(destination);
   return (
     <ClassAuthFrame
+      context={enrolling && <EnrollContext course={enrolling} step="sign-up" />}
       title="Create your class account"
       lede="One place for the classes you own, your lesson progress, and everything else in your account."
       footer={

@@ -4,13 +4,14 @@ import { getUser } from "@/lib/auth";
 import { Card, Field, Input } from "@/components/ui";
 import { SubmitButton } from "@/components/submit-button";
 import { brand } from "@/lib/config/brand";
+import { classDestination } from "@/lib/class-paths";
 
 export default async function UpdatePasswordPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string; class?: string }>;
+  searchParams: Promise<{ error?: string; class?: string; next?: string }>;
 }) {
-  const { error, class: classParam } = await searchParams;
+  const { error, class: classParam, next } = await searchParams;
   const classFlow = classParam === "1";
   // The recovery link signs the parent in via /auth/callback first; with no
   // session there is nothing to update.
@@ -30,6 +31,7 @@ export default async function UpdatePasswordPage({
       <Card>
         <form action={updatePassword} className="flex flex-col gap-4">
           {classFlow && <input type="hidden" name="class_flow" value="1" />}
+          {classFlow && <input type="hidden" name="next" value={classDestination(next)} />}
           <Field label="New password" htmlFor="password" hint="At least 12 characters">
             <Input
               id="password"

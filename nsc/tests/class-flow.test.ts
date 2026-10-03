@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from "vitest";
 import { infantSalesGate } from "@/lib/classes";
-import { classDestination, isClassPath } from "@/lib/class-paths";
+import { INFANT_ENROLL_PATH, classDestination, enrollingCourse, isClassPath } from "@/lib/class-paths";
 import { sitePath } from "@/lib/site";
 
 const USER = "3f2b8c1e-0d4a-4b6f-9a7e-1c2d3e4f5a6b";
@@ -87,5 +87,17 @@ describe("static-site links", () => {
     expect(sitePath("/classes/")).toBe("https://preview.example/classes/");
     delete process.env.NEXT_PUBLIC_SITE_URL;
     expect(sitePath("classes/")).toBe("https://growingmindsscience.com/classes/");
+  });
+});
+
+describe("enroll intent", () => {
+  it("survives sign-in as a class destination", () => {
+    expect(classDestination(INFANT_ENROLL_PATH)).toBe(INFANT_ENROLL_PATH);
+  });
+
+  it("names the class only for an enroll destination", () => {
+    expect(enrollingCourse(INFANT_ENROLL_PATH)?.slug).toBe("infant");
+    expect(enrollingCourse("/app/classes/infant")).toBeNull();
+    expect(enrollingCourse("/app/classes")).toBeNull();
   });
 });

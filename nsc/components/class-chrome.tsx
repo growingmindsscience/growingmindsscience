@@ -45,11 +45,13 @@ export function ClassHeader({ email, showNumberPath }: { email?: string; showNum
 }
 
 /** Shared frame for the class sign-in and sign-up pages. */
-export function ClassAuthFrame({ title, lede, children, footer }: {
+export function ClassAuthFrame({ title, lede, children, footer, context }: {
   title: string;
   lede: string;
   children: ReactNode;
   footer: ReactNode;
+  /** Shown above the form, e.g. what the parent is on the way to buying. */
+  context?: ReactNode;
 }) {
   return (
     <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center gap-7 px-6 py-12">
@@ -60,6 +62,7 @@ export function ClassAuthFrame({ title, lede, children, footer }: {
           <p className="mt-2 text-base text-ink-soft">{lede}</p>
         </div>
       </div>
+      {context}
       {children}
       <div className="flex flex-col items-center gap-1 text-center text-sm text-ink-soft">
         {footer}
@@ -76,5 +79,25 @@ export function Eyebrow({ children }: { children: ReactNode }) {
     <p className="font-[family-name:var(--font-display)] text-xs font-semibold uppercase tracking-[0.18em] text-coral-deep">
       {children}
     </p>
+  );
+}
+
+/**
+ * Reminder on the sign-in and sign-up pages that the parent is partway
+ * through buying a class, with what comes after this step.
+ */
+export function EnrollContext({ course, step }: {
+  course: { shortTitle: string; priceDisplay: string };
+  step: "sign-in" | "sign-up";
+}) {
+  return (
+    <div className="rounded-2xl bg-sea-glass/40 px-5 py-4 text-center">
+      <p className="font-[family-name:var(--font-display)] font-semibold text-ink-deep">
+        {course.shortTitle} class
+      </p>
+      <p className="mt-1 text-sm text-ink-soft [text-wrap:balance]">
+        {course.priceDisplay}, one payment. {step === "sign-up" ? "Create your account" : "Sign in"}, then pay securely at checkout.
+      </p>
+    </div>
   );
 }
