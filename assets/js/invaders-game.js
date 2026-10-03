@@ -950,14 +950,18 @@
   }
 
   ready(function () {
-    // Anchor the trigger into the first hero container (Articles page).
-    var hero = document.querySelector(".page-hero .container") || document.querySelector("main .container");
-    if (!hero) return;
-    var cs = window.getComputedStyle(hero);
-    if (cs.position === "static") hero.style.position = "relative";
+    var arcadeTrigger = document.querySelector('[data-arcade-game="invaders"]');
+    var trigger = arcadeTrigger;
+    if (!trigger) {
+      // Anchor the trigger into the first hero container (Articles page).
+      var hero = document.querySelector(".page-hero .container") || document.querySelector("main .container");
+      if (!hero) return;
+      var cs = window.getComputedStyle(hero);
+      if (cs.position === "static") hero.style.position = "relative";
 
-    var trigger = buildTrigger();
-    hero.appendChild(trigger);
+      trigger = buildTrigger();
+      hero.appendChild(trigger);
+    }
 
     var overlay = null, opening = false;
     function open() {
@@ -967,7 +971,9 @@
       A.tearPageAway(function () { openOverlay(overlay); });
     }
 
+    // Click only (a tap still fires click on touch screens). A touchstart
+    // handler with preventDefault launched the game whenever a scroll gesture
+    // merely began on the small trigger, and blocked that scroll.
     trigger.addEventListener("click", function (e) { e.preventDefault(); open(); });
-    trigger.addEventListener("touchstart", function (e) { e.preventDefault(); open(); }, { passive: false });
   });
 })();

@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation";
 import { updatePassword } from "@/app/auth/actions";
 import { getUser } from "@/lib/auth";
-import { Button, Card, Field, Input } from "@/components/ui";
+import { Card, Field, Input } from "@/components/ui";
+import { SubmitButton } from "@/components/submit-button";
 import { brand } from "@/lib/config/brand";
 
 export default async function UpdatePasswordPage({
@@ -44,9 +45,7 @@ export default async function UpdatePasswordPage({
               {error}
             </p>
           )}
-          <Button type="submit" className="mt-2">
-            Save and continue
-          </Button>
+          <SubmitButton className="mt-2">Save and continue</SubmitButton>
         </form>
       </Card>
     </main>

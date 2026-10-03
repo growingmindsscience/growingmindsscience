@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <title>Arcade — Growing Minds Science</title>
+  <meta name="description" content="Play all ten Growing Minds Science arcade games in one place: Snake, Pong, Brain Sprint, Invaders, Breakout, Synapse Drift, Special Delivery, Tidy Up, Serve &amp; Return, and Crumb Chase." />
+  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="canonical" href="https://growingmindsscience.com/arcade/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Arcade — Growing Minds Science" />
+  <meta property="og:description" content="Ten little games, all in one place. Pick one and play." />
+  <meta property="og:image" content="/assets/img/original-logo-mark-no-words-512.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <link rel="stylesheet" href="../assets/css/refresh.css" />
+  <link rel="stylesheet" href="../assets/css/arcade.css" />
+  <link rel="stylesheet" href="../assets/css/pong.css" />
+  <link rel="stylesheet" href="../assets/css/arcade-page.css" />
+  <link rel="stylesheet" href="/assets/css/chrome.css" />
+</head>
+<body class="arcade-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" role="banner">
+    <div class="container site-header__inner">
+      <a class="brand" href="/" aria-label="Growing Minds Science — home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+        <span class="brand__name">Growing Minds Science</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Open menu">
+          <span class="nav-toggle__bars"><span></span></span>
+        </button>
+
+        <ul class="nav__list" id="primary-nav-list">
+          <li><a class="nav__link" href="/classes/">Classes</a></li>
+          <li class="nav__item">
+            <details class="nav__details">
+              <summary class="nav__link nav__summary">Free tools <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary>
+              <div class="nav__menu">
+                <ul class="nav__submenu">
+                  <li><a class="nav__submenu-link" href="/tools/growing-minds-ai"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A ten-minute counting check-in you run at home.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/communication-snapshot"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
+                </ul>
+                <a class="nav__menu-all" href="/tools/">All free tools and guides <span aria-hidden="true">&rarr;</span></a>
+              </div>
+            </details>
+          </li>
+          <li><a class="nav__link" href="/arcade/" aria-current="page">Arcade</a></li>
+          <li><a class="nav__link" href="/articles/">Articles</a></li>
+          <li><a class="nav__link" href="/about/">About</a></li>
+          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood">See the class</a></li>
+        </ul>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
+          <svg class="theme-toggle__moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="arcade-hero">
+      <div class="container">
+        <p class="eyebrow">A little room to play</p>
+        <h1>Welcome to the arcade.</h1>
+        <p>The seven games tucked around the site are all here, plus three you&rsquo;ll only find in the arcade. Pick one, play a round, and come back for another.</p>
+        <a class="arcade-hero__jump" href="#games">Choose a game <span aria-hidden="true">↓</span></a>
+      </div>
+    </section>
+
+    <section class="arcade-gallery" id="games" aria-labelledby="games-heading">
+      <div class="container">
+        <div class="arcade-gallery__heading">
+          <div>
+            <p class="eyebrow">Ten games</p>
+            <h2 id="games-heading">Pick your next round</h2>
+          </div>
+          <p>Each game opens here and has its own controls. Close a game to return to the arcade.</p>
+        </div>
+        <div class="arcade-grid">
+          <article class="arcade-card arcade-card--snake">
+            <div class="arcade-card__art" aria-hidden="true"><span>●</span><span>▪ ▪ ▪ ▪</span></div>
+            <div class="arcade-card__body"><span class="arcade-card__number">01 / 10</span><h3>Synapse Snake</h3><p>Collect sparks, grow your path, and avoid tangles.</p><button class="arcade-card__play" type="button" data-arcade-game="snake">Play Synapse Snake <span aria-hidden="true">↗</span></button></div>
+          </article>
+          <article class="arcade-card arcade-card--pong">
+            <div class="arcade-card__art" aria-hidden="true"><span>▌</span><span>•</span><span>▐</span></div>
+            <div class="arcade-card__body"><span class="arcade-card__number">02 / 10</span><h3>Pong</h3><p>Take the right paddle and be first to seven.</p><button class="arcade-card__play" type="button" data-arcade-game="pong" aria-label="Play Pong">Play Pong <span aria-hidden="true">↗</span></button></div>
+          </article>
+          <article class="arcade-card arcade-card--dino">
+            <div class="arcade-card__art" aria-hidden="true"><span>◕</span><span>▁ ▁ ▂</span></div>
+            <div class="arcade-card__body"><span class="arcade-card__number">03 / 10</span><h3>Brain Sprint</h3><p>Jump, duck, and keep the little sprout moving.</p><button class="arcade-card__play" type="button" data-arcade-game="dino" aria-label="Play Brain Sprint">Play Brain Sprint <span aria-hidden="true">↗</span></button></div>
+          </article>
+          <article class="arcade-card arcade-card--invaders">
+            <div class="arcade-card__art" aria-hidden="true"><span>✦ ✦ ✦</span><span>▲</span></div>
+            <div class="arcade-card__body"><span class="arcade-card__number">04 / 10</span><h3>GMS Invaders</h3><p>Steer, fire, and clear the incoming wave.</p><button class="arcade-card__play" type="button" data-arcade-game="invaders">Play GMS Invaders <span aria-hidden="true">↗</span></button></div>
+          </article>
+          <article class="arcade-card arcade-card--breakout">
+            <div class="arcade-card__art" aria-hidden="true"><span>▦ ▦ ▦</span><span>●</span><span>━━━━</span></div>
+            <div class="arcade-card__body"><span class="arcade-card__number">05 / 10</span><h3>Myth Buster</h3><p>Keep the ball alive and break through parenting myths.</p><button class="arcade-card__play" type="button" data-arcade-game="breakout" aria-label="Play Myth Buster">Play Myth Buster <span aria-hidden="true">↗</span></button></div>
+          </article>
+          <article class="arcade-card arcade-card--asteroids">
+            <div class="arcade-card__art" aria-hidden="true"><span>✧</span><span>△</span><span>✦</span></div>
+            <div class="arcade-card__body"><span class="arcade-card__number">06 / 10</span><h3>Synapse Drift</h3><p>Drift through space and dodge the asteroids.</p><button class="arcade-card__play" type="button" data-arcade-game="asteroids" aria-label="Play Synapse Drift">Play Synapse Drift <span aria-hidden="true">↗</span></button></div>
+          </article>
+          <article class="arcade-card arcade-card--hopper">
+            <div class="arcade-card__art" aria-hidden="true"><span>✉</span><span>▤ ▤ ▤</span></div>
+            <div class="arcade-card__body"><span class="arcade-card__number">07 / 10</span><h3>Special Delivery</h3><p>Carry your letter through the crossing.</p><button class="arcade-card__play" type="button" data-arcade-game="hopper" aria-label="Play Special Delivery">Play Special Delivery <span aria-hidden="true">↗</span></button></div>
+          </article>
+          <article class="arcade-card arcade-card--blocks">
+            <div class="arcade-card__art" aria-hidden="true"><span>▣</span><span>▣▣▣</span></div>
+            <div class="arcade-card__body"><span class="arcade-card__number">08 / 10</span><h3>Tidy Up</h3><p>Stack the falling toy blocks and fill a row to put it away.</p><button class="arcade-card__play" type="button" data-arcade-game="blocks" aria-label="Play Tidy Up">Play Tidy Up <span aria-hidden="true">↗</span></button></div>
+          </article>
+          <article class="arcade-card arcade-card--echo">
+            <div class="arcade-card__art" aria-hidden="true"><span>●</span><span>● ♪ ●</span><span>●</span></div>
+            <div class="arcade-card__body"><span class="arcade-card__number">09 / 10</span><h3>Serve &amp; Return</h3><p>Watch the pattern, echo it back, and see how long the conversation goes.</p><button class="arcade-card__play" type="button" data-arcade-game="echo">Play Serve &amp; Return <span aria-hidden="true">↗</span></button></div>
+          </article>
+          <article class="arcade-card arcade-card--maze">
+            <div class="arcade-card__art" aria-hidden="true"><span>●</span><span>• • •</span><span>✺</span></div>
+            <div class="arcade-card__body"><span class="arcade-card__number">10 / 10</span><h3>Crumb Chase</h3><p>Sweep up every crumb in the playroom and stay ahead of the dust bunnies.</p><button class="arcade-card__play" type="button" data-arcade-game="maze" aria-label="Play Crumb Chase">Play Crumb Chase <span aria-hidden="true">↗</span></button></div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container site-footer__inner">
+      <div class="site-footer__brand">
+        <a class="brand" href="/" aria-label="Growing Minds Science — home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+          <span class="brand__name">Growing Minds Science</span>
+        </a>
+        <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
+        <a class="footer-ig" href="https://www.instagram.com/growingmindsscience/" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
+          Instagram
+        </a>
+      </div>
+      <nav class="site-footer__nav" aria-label="Footer">
+        <div>
+          <h2 class="site-footer__heading">Classes</h2>
+          <ul class="footer-list">
+            <li><a href="/classes/toddlerhood">Toddler years</a></li>
+            <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/preschool.html">Preschool years</a></li>
+            <li><a href="/classes/family-systems.html">Family systems</a></li>
+            <li><a href="/pricing">Pricing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="site-footer__heading">Free tools</h2>
+          <ul class="footer-list">
+            <li><a href="/tools/growing-minds-ai">Growing Minds AI</a></li>
+            <li><a href="/nsc">Number Path</a></li>
+            <li><a href="/milestones">Milestone tracker</a></li>
+            <li><a href="/tools/communication-snapshot">Communication Snapshot</a></li>
+            <li><a href="/tools/">All tools and guides</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="site-footer__heading">About</h2>
+          <ul class="footer-list">
+            <li><a href="/about/">Our approach</a></li>
+            <li><a href="/articles/">Articles</a></li>
+            <li><a href="/faq/">FAQ</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; <span data-year>2026</span> Growing Minds Science &middot; <a href="/arcade/">Arcade</a></p>
+        <p>Educational content only. Not medical or psychological advice.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/chrome.js"></script>
+
+  <div id="pong-game" hidden role="dialog" aria-label="Pong game" aria-modal="true">
+    <div class="pong-hud"><span><b id="pong-score-cpu">0</b> CPU</span><span class="pong-brand">PONG</span><span>YOU <b id="pong-score-you">0</b></span></div>
+    <div class="pong-stage"><canvas id="pong-canvas"></canvas><div class="pong-msg" id="pong-msg" hidden><div><h2 id="pong-msg-title">Ready?</h2><p id="pong-msg-text">Move your mouse or use ↑ ↓ to play.</p><button class="btn btn--primary" id="pong-msg-btn" type="button">Start</button></div></div></div>
+    <div class="pong-foot"><div class="pong-foot__left"><button id="pong-mute" type="button" aria-pressed="false">♪ Music: on</button><span class="pong-hint">You control the right paddle · mouse, touch, or ↑ ↓ / W S · first to 7 wins</span></div><button id="pong-exit" type="button">← Back to arcade</button></div>
+  </div>
+
+  <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/arcade-core.js" defer></script>
+  <script src="../assets/js/snake-game.js" defer></script>
+  <script src="../assets/js/pong-game.js" defer></script>
+  <script src="../assets/js/dino-game.js" defer></script>
+  <script src="../assets/js/invaders-game.js" defer></script>
+  <script src="../assets/js/breakout-game.js" defer></script>
+  <script src="../assets/js/asteroids-game.js" defer></script>
+  <script src="../assets/js/hopper-game.js" defer></script>
+  <script src="../assets/js/blocks-game.js" defer></script>
+  <script src="../assets/js/echo-game.js" defer></script>
+  <script src="../assets/js/maze-game.js" defer></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

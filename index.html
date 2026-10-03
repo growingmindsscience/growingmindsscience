@@ -5,16 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Enable scroll-reveal only when motion is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
   /* Apply saved/system theme before paint (same key as main.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>Growing Minds Science — Self-paced classes &amp; tools for parents of children 0–5</title>
-  <meta name="description" content="Developmental science translated for parents. Self-paced video classes, free parent tools, research-backed articles, and a research-grounded AI tutor for the first five years of life." />
+  <title>Growing Minds Science: parent classes and tools for ages 0–5</title>
+  <meta name="description" content="Developmental science for parents of children 0–5: self-paced video classes, free tools, research-backed articles, and an AI tutor that shows its sources." />
   <meta name="theme-color" content="#15393C" />
   <meta name="color-scheme" content="light dark" />
 
   <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Growing Minds Science" />
+  <meta property="og:url" content="https://growingmindsscience.com/" />
   <meta property="og:title" content="Growing Minds Science" />
   <meta property="og:description" content="Developmental science made usable for parents. Classes, free tools, articles, an early-math check-in, and a research-grounded AI tutor for the early years." />
-  <meta property="og:image" content="assets/img/original-logo-mark-no-words-solid.png" />
+  <meta property="og:image" content="https://growingmindsscience.com/assets/img/og/site-home.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Two parents smiling down at their newborn." />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://growingmindsscience.com/assets/img/og/site-home.jpg" />
 
   <link rel="icon" type="image/png" href="assets/img/original-logo-mark-no-words-512.png" />
   <link rel="apple-touch-icon" href="assets/img/original-logo-mark-no-words-512.png" />
@@ -24,10 +30,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />
   <link rel="stylesheet" href="assets/css/home.css" />
-  <link rel="stylesheet" href="assets/css/arcade.css" />
   <style>
-    /* Token bridge: the shared arcade styles use the styles.css names, the
-       home stylesheet has its own. Mapped vars flip with data-theme. */
+    /* Token bridge: the shared arcade styles (arcade.css, loaded on demand by
+       decor.js for the hidden game) use the styles.css names, the home
+       stylesheet has its own. Mapped vars flip with data-theme. */
     :root {
       --bg: var(--mist);
       --surface-2: var(--sea-glass);
@@ -59,35 +65,49 @@
     }
   ]
   </script>
+  <link rel="stylesheet" href="/assets/css/chrome.css" />
 </head>
-<body>
+<body data-arcade-egg="snake">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
       <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
       <nav class="nav" aria-label="Primary">
+        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Open menu">
+          <span class="nav-toggle__bars"><span></span></span>
+        </button>
+
         <ul class="nav__list" id="primary-nav-list">
           <li><a class="nav__link" href="/classes/">Classes</a></li>
-          <li><a class="nav__link" href="/nsc">Number Path</a></li>
-          <li><a class="nav__link" href="/tools/">Tools</a></li>
-          <li><a class="nav__link" href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
+          <li class="nav__item">
+            <details class="nav__details">
+              <summary class="nav__link nav__summary">Free tools <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary>
+              <div class="nav__menu">
+                <ul class="nav__submenu">
+                  <li><a class="nav__submenu-link" href="/tools/growing-minds-ai"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A ten-minute counting check-in you run at home.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/communication-snapshot"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
+                </ul>
+                <a class="nav__menu-all" href="/tools/">All free tools and guides <span aria-hidden="true">&rarr;</span></a>
+              </div>
+            </details>
+          </li>
+          <li><a class="nav__link" href="/arcade/">Arcade</a></li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">See the class</a></li>
+          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood">See the class</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
           <svg class="theme-toggle__moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
-        </button>
-
-        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Toggle navigation menu">
-          <span class="nav-toggle__bars"><span></span></span>
         </button>
       </nav>
     </div>
@@ -120,32 +140,41 @@
         </svg>
       </div>
       <div class="container hero__inner">
-        <div class="hero__content" data-stagger>
-          <p class="eyebrow" data-animate>Developmental science · Ages 0–5</p>
-          <h1 class="hero__title" data-animate>Your child's behavior makes sense. <em class="hl">Here's why.</em></h1>
-          <p class="hero__lede" data-animate>
+        <!-- The first screen never waits on a script: no [data-animate] here,
+             so the headline, CTAs and the LCP photo paint immediately. -->
+        <div class="hero__content">
+          <p class="eyebrow">Developmental science · Ages 0–5</p>
+          <h1 class="hero__title">Your child's behavior makes sense. <em class="hl">Here's why.</em></h1>
+          <p class="hero__lede">
             Short, self-paced video classes built from peer-reviewed developmental science, so you can understand what your child is actually doing and respond with confidence instead of guessing.
           </p>
 
-          <div class="hero__cred" data-animate>
-            <img class="hero__cred-photo" src="assets/img/matthew-photo.jpeg" alt="Matthew McArthur, founder of Growing Minds Science." width="48" height="48" loading="eager" decoding="async" />
+          <div class="hero__cred">
+            <img class="hero__cred-photo" src="assets/img/matthew-avatar-96.jpg" srcset="assets/img/matthew-avatar-96.jpg 2x, assets/img/matthew-avatar-144.jpg 3x" alt="Matthew McArthur, founder of Growing Minds Science." width="48" height="48" decoding="async" />
             <p class="hero__cred-text">
               Built by <strong>Matthew McArthur</strong>, Child Development Specialist, with graduate training in developmental psychology and 100+ families coached in Los Angeles.
             </p>
           </div>
 
-          <div class="hero__ctas" data-animate>
-            <a class="btn btn--primary btn--lg" href="/classes/toddlerhood.html">See the toddler class</a>
+          <div class="hero__ctas">
+            <a class="btn btn--primary btn--lg" href="/classes/toddlerhood">See the toddler class</a>
             <a class="btn btn--quiet btn--lg" href="/tools/">Explore the free tools</a>
           </div>
         </div>
 
-        <figure class="hero__media" data-animate style="--anim-delay: 200ms">
-          <img
-            src="assets/img/site/hero-parent-baby.jpg"
-            alt="A parent and a young child together at home in warm, natural light."
-            width="800" height="1000"
-            loading="eager" fetchpriority="high" decoding="async" />
+        <figure class="hero__media">
+          <picture>
+            <source type="image/webp"
+              srcset="assets/img/site/hero-parent-baby-640.webp 640w, assets/img/site/hero-parent-baby-1000.webp 1000w"
+              sizes="(max-width: 960px) min(28rem, 92vw), min(40vw, 480px)" />
+            <img
+              src="assets/img/site/hero-parent-baby.jpg"
+              srcset="assets/img/site/hero-parent-baby-640.jpg 640w, assets/img/site/hero-parent-baby.jpg 1000w"
+              sizes="(max-width: 960px) min(28rem, 92vw), min(40vw, 480px)"
+              alt="A parent and a young child together at home in warm, natural light."
+              width="800" height="1000"
+              loading="eager" fetchpriority="high" decoding="async" />
+          </picture>
         </figure>
       </div>
     </section>
@@ -201,9 +230,9 @@
           </svg>
 
           <!-- Mobile-only coral progress rail (the desktop growth-line's phone
-               counterpart). Pure CSS: the fill width reacts to which stage is
-               aria-selected via :has(), and glides on tap. -->
-          <div class="arc__rail" aria-hidden="true"><span class="arc__rail-fill"></span></div>
+               counterpart). home.js sets --rail-p for the selected stage; the
+               fill and its glowing tip slide there with transform. -->
+          <div class="arc__rail" aria-hidden="true"><span class="arc__rail-clip"><span class="arc__rail-fill"></span></span><span class="arc__rail-tip"></span></div>
 
           <div class="arc__tabs" role="tablist" aria-label="Developmental stages, birth to five">
             <button class="arc__tab" role="tab" id="arc-tab-0" aria-controls="arc-panel-0" aria-selected="true" type="button">
@@ -324,8 +353,8 @@
               <div><dt>Price</dt><dd><strong>$49</strong> · AI tutor included</dd></div>
             </dl>
             <div class="class__rail-ctas">
-              <a class="btn btn--primary btn--block" href="https://matthew-s-site-de0b.thinkific.com/products/courses/ToddlerYears" target="_blank" rel="noopener">Enroll now</a>
-              <a class="btn btn--quiet btn--block" href="/classes/toddlerhood.html">See class details</a>
+              <a class="btn btn--primary btn--block" href="https://matthew-s-site-de0b.thinkific.com/products/courses/ToddlerYears" target="_blank" rel="noopener">Enroll now<span class="u-visually-hidden"> (opens in a new tab)</span></a>
+              <a class="btn btn--quiet btn--block" href="/classes/toddlerhood">See class details</a>
             </div>
           </aside>
 
@@ -377,21 +406,24 @@
           <p class="eyebrow" data-animate>Growing Minds AI · Free · Answers show their sources</p>
           <h2 id="ai-heading" data-animate>Ask a parenting question. Get an answer from a <em class="hl">curated science library</em>.</h2>
           <p data-animate>Growing Minds AI now answers from a curated knowledge base, built from peer-reviewed developmental research, the milestone data behind our tracker, and our own class curriculum, instead of generic internet knowledge. Every answer shows where it's grounded, in plain language. Free to try, no account needed. Educational only; never medical advice.</p>
-          <p data-animate><a class="btn btn--primary" href="/tools/growing-minds-ai.html">Try it free</a></p>
+          <p data-animate><a class="btn btn--primary" href="/tools/growing-minds-ai">Try it free</a></p>
         </div>
 
         <div class="ai__demo" data-animate style="--anim-delay: 150ms">
-          <div class="chat" data-chat aria-label="Example conversation with Growing Minds AI">
+          <!-- A scripted example, not a live chat: no live region, so screen
+               readers are not interrupted by a conversation nobody started.
+               Asking a question opens the real tutor with it prefilled. -->
+          <div class="chat" data-chat role="group" aria-label="Example conversation with Growing Minds AI">
             <div class="chat__top">
               <span class="chat__avatar" aria-hidden="true">G</span>
               <span class="chat__name">Growing Minds AI</span>
               <span class="chat__live"><span class="chat__live-dot"></span>online · free</span>
             </div>
-            <div class="chat__body" data-chat-body role="log" aria-live="polite"></div>
-            <form class="chat__composer" data-chat-form>
-              <label class="u-visually-hidden" for="ai-demo-input">Ask a developmental question</label>
-              <input class="chat__input" id="ai-demo-input" data-chat-input type="text" placeholder="Ask your own question…" autocomplete="off" />
-              <button class="chat__send" type="submit" aria-label="Send question">
+            <div class="chat__body" data-chat-body></div>
+            <form class="chat__composer" data-chat-form action="/tools/growing-minds-ai" method="get">
+              <label class="u-visually-hidden" for="ai-demo-input">Ask Growing Minds AI a question</label>
+              <input class="chat__input" id="ai-demo-input" name="q" maxlength="500" data-chat-input type="text" placeholder="Ask your own question…" autocomplete="off" />
+              <button class="chat__send" type="submit" aria-label="Ask Growing Minds AI">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
               </button>
             </form>
@@ -413,46 +445,31 @@
       </svg>
       <div class="container">
         <div class="section-head" data-animate>
-          <h2 id="ways-heading">Five ways to understand your child better.</h2>
+          <h2 id="ways-heading">Three ways to understand your child better.</h2>
         </div>
 
-        <ol class="ways__list" data-stagger>
+        <ul class="ways__list" data-stagger>
           <li class="way" data-animate>
-            <span class="way__num" aria-hidden="true">1</span>
-            <div class="way__body">
-              <h3><a class="way__link" href="/classes/">Classes</a></h3>
-              <p>Self-paced courses built around developmental windows: language, autonomy, big feelings, and what your child needs at each stage.</p>
+            <h3><a class="way__link" href="/classes/">Classes</a></h3>
+            <p>Self-paced video courses built around developmental windows: language, autonomy, big feelings, and what your child needs at each stage. The toddler class is open now.</p>
+          </li>
+          <li class="way" data-animate>
+            <h3><a class="way__link" href="/tools/">Free tools</a></h3>
+            <div>
+              <p>Interactive tools and short guides for everyday moments like meltdowns, sleep, and limits. Free, with no account needed.</p>
+              <ul class="way__tools" aria-label="Featured free tools">
+                <li><a href="/tools/growing-minds-ai">Growing Minds AI</a></li>
+                <li><a href="/nsc">Number Path</a></li>
+                <li><a href="/milestones">Milestone tracker</a></li>
+                <li><a href="/tools/communication-snapshot">Communication Snapshot</a></li>
+              </ul>
             </div>
           </li>
           <li class="way" data-animate>
-            <span class="way__num" aria-hidden="true">2</span>
-            <div class="way__body">
-              <h3><a class="way__link" href="/tools/">Free tools</a></h3>
-              <p>Practical references for everyday moments: meltdowns, sleep, limits, repair, and the milestone tracker. Free, no account needed.</p>
-            </div>
+            <h3><a class="way__link" href="/articles/">Articles</a></h3>
+            <p>Research explained without buzzwords or parenting shame: serve-and-return, screen time, self-regulation, and what to do with it.</p>
           </li>
-          <li class="way" data-animate>
-            <span class="way__num" aria-hidden="true">3</span>
-            <div class="way__body">
-              <h3><a class="way__link" href="/articles/">Articles</a></h3>
-              <p>Research explained without buzzwords or parenting shame: serve-and-return, screen time, self-regulation, and what to do with it.</p>
-            </div>
-          </li>
-          <li class="way" data-animate>
-            <span class="way__num" aria-hidden="true">4</span>
-            <div class="way__body">
-              <h3><a class="way__link" href="/tools/growing-minds-ai.html">Growing Minds AI</a></h3>
-              <p>Ask a parenting question and get an answer drawn from a curated developmental-science library, with its sources shown. A private AI tutor, free to try.</p>
-            </div>
-          </li>
-          <li class="way" data-animate>
-            <span class="way__num" aria-hidden="true">5</span>
-            <div class="way__body">
-              <h3><a class="way__link" href="/nsc">Number Path</a></h3>
-              <p>A ten-minute counting check-in you run at home &mdash; a bowl, ten blocks, and a stuffed bear. It&rsquo;s the only at-home version of the lab task researchers use to place a child on the counting ladder, and the check-in is free. See where your child is, then unlock games and daily number talk matched to that spot.</p>
-            </div>
-          </li>
-        </ol>
+        </ul>
       </div>
     </section>
 
@@ -474,16 +491,11 @@
           <p class="eyebrow eyebrow--on-dark">Now enrolling</p>
           <h2>The toddler class is <em class="hl">live.</em></h2>
           <p>The flagship toddler class is available now: $49 for lifetime access, with Growing Minds AI and the free milestone tracker included. The infant, preschool, and family-systems classes are still in development, so leave your email and we'll tell you the moment each one opens.</p>
-          <ul class="signup__perks">
-            <li>Toddler years (ages 1–3): $49, lifetime access, AI included</li>
-            <li>The free milestone tracker for the first three years, no account required</li>
-            <li>Early word when the infant, preschool, and family classes open</li>
-          </ul>
           <p style="margin-top: var(--space-5);">
-            <a class="btn btn--primary btn--lg" href="https://matthew-s-site-de0b.thinkific.com/products/courses/ToddlerYears" target="_blank" rel="noopener">Enroll in the toddler class</a>
+            <a class="btn btn--primary btn--lg" href="https://matthew-s-site-de0b.thinkific.com/products/courses/ToddlerYears" target="_blank" rel="noopener">Enroll in the toddler class<span class="u-visually-hidden"> (opens in a new tab)</span></a>
           </p>
 
-          <div class="faq" aria-label="Common questions before signing up">
+          <div class="faq" role="group" aria-label="Common questions before signing up">
             <details class="faq__item">
               <summary class="faq__q">What happens after I sign up?</summary>
               <p class="faq__a">You'll get the free milestone tracker right away, plus a short note whenever a new class opens. No drip funnel, no sales sequence.</p>
@@ -556,64 +568,76 @@
       </div>
     </section>
 
-  </main>
+    <!-- Mobile-only sticky shortcut to the class. Slides in once the hero CTAs
+         scroll away and hides again when the signup band / footer (own CTA) is
+         in view, so it's never redundant. JS toggles .is-visible; CSS keeps it
+         display:none on desktop and visibility:hidden while parked, so it is
+         only in the tab order and the a11y tree while it is on screen. -->
+    <div class="mobile-cta" data-mobile-cta>
+      <a class="btn btn--primary btn--block" href="/classes/toddlerhood">See the toddler class</a>
+    </div>
 
-  <!-- Mobile-only sticky shortcut to enrollment. Slides in once the hero CTAs
-       scroll away and hides again when the signup band / footer (own CTA) is in
-       view, so it's never redundant. JS toggles .is-visible; CSS keeps it
-       display:none on desktop, so it's out of the a11y tree there. -->
-  <div class="mobile-cta" data-mobile-cta>
-    <a class="btn btn--primary btn--block" href="/classes/toddlerhood.html">See the toddler class</a>
-  </div>
+  </main>
 
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
         <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
+        <a class="footer-ig" href="https://www.instagram.com/growingmindsscience/" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
+          Instagram
+        </a>
       </div>
-      <div>
-        <h4>Explore</h4>
-        <ul class="footer-list">
-          <li><a href="/classes/">Classes</a></li>
-          <li><a href="/pricing">Pricing</a></li>
-          <li><a href="/nsc">Number Path</a></li>
-          <li><a href="/tools/">Free tools</a></li>
-          <li><a href="/articles/">Articles</a></li>
-          <li><a href="/about/">About</a></li>
-          <li><a href="/faq/">FAQ</a></li>
-          <li><a href="/milestones">Milestone tracker</a></li>
-          <li><a href="/contact/">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Stay in the loop</h4>
-        <ul class="footer-list">
-          <li><a href="/classes/toddlerhood.html">See the toddler class →</a></li>
-          <li>
-            <a class="footer-ig" href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
-              Instagram
-            </a>
-          </li>
-        </ul>
-      </div>
+      <nav class="site-footer__nav" aria-label="Footer">
+        <div>
+          <h2 class="site-footer__heading">Classes</h2>
+          <ul class="footer-list">
+            <li><a href="/classes/toddlerhood">Toddler years</a></li>
+            <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/preschool.html">Preschool years</a></li>
+            <li><a href="/classes/family-systems.html">Family systems</a></li>
+            <li><a href="/pricing">Pricing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="site-footer__heading">Free tools</h2>
+          <ul class="footer-list">
+            <li><a href="/tools/growing-minds-ai">Growing Minds AI</a></li>
+            <li><a href="/nsc">Number Path</a></li>
+            <li><a href="/milestones">Milestone tracker</a></li>
+            <li><a href="/tools/communication-snapshot">Communication Snapshot</a></li>
+            <li><a href="/tools/">All tools and guides</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="site-footer__heading">About</h2>
+          <ul class="footer-list">
+            <li><a href="/about/">Our approach</a></li>
+            <li><a href="/articles/">Articles</a></li>
+            <li><a href="/faq/">FAQ</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
     </div>
     <div class="container">
       <div class="footer-bottom">
-        <span>© <span data-year>2026</span> Growing Minds Science</span>
-        <span>Educational content only. Not medical or psychological advice.</span>
+        <p>&copy; <span data-year>2026</span> Growing Minds Science &middot; <a href="/arcade/">Arcade</a></p>
+        <p>Educational content only. Not medical or psychological advice.</p>
       </div>
     </div>
   </footer>
 
+  <script src="/assets/js/chrome.js"></script>
+
   <script src="assets/js/home.js" defer></script>
+  <!-- decor.js also places the hidden Snake glyph (body[data-arcade-egg]) and
+       loads the arcade code only on its first click. -->
   <script src="assets/js/decor.js" defer></script>
-  <script src="assets/js/arcade-core.js" defer></script>
-  <script src="assets/js/snake-game.js" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

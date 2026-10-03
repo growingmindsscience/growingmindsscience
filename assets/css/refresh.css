@@ -27,22 +27,6 @@ h4,
   letter-spacing: 0;
 }
 
-.site-header {
-  background: color-mix(in oklab, var(--bg) 92%, transparent);
-}
-
-.brand__mark {
-  border-radius: var(--radius);
-  box-shadow: none;
-  border: 1px solid var(--border-soft);
-  background: color-mix(in oklab, var(--surface) 86%, var(--bg));
-  padding: 5px;
-}
-
-.nav__link[aria-current="page"] {
-  color: var(--ink);
-  background: color-mix(in oklab, var(--primary) 10%, transparent);
-}
 
 .btn {
   border-radius: var(--radius);
@@ -684,31 +668,6 @@ h4,
   max-width: 760px;
 }
 
-.site-footer {
-  background: #0E2A2D;
-  color: #EDF4F1;
-}
-
-.site-footer .brand,
-.site-footer .brand:hover,
-.site-footer h4,
-.site-footer a:hover {
-  color: #FFFFFF;
-}
-
-.site-footer p,
-.site-footer .footer-list a,
-.site-footer .footer-bottom,
-.site-footer .footer-elsewhere,
-.site-footer .footer-elsewhere a {
-  color: color-mix(in oklab, #EDF4F1 72%, transparent);
-}
-
-.site-footer,
-.site-footer .footer-bottom {
-  border-color: color-mix(in oklab, #EDF4F1 14%, transparent);
-}
-
 @media (max-width: 880px) {
   .hero__media {
     aspect-ratio: 4 / 3;
@@ -813,11 +772,6 @@ h4,
 /* ---------- About preview with photo on homepage ---------- */
 .about-preview {
   align-items: center;
-}
-
-/* ---------- Cleaner footer links ---------- */
-.footer-list a {
-  transition: color var(--transition);
 }
 
 /* ---------- Page-hero layout for 2-col pages ---------- */
@@ -1058,13 +1012,16 @@ h4,
       var(--surface) 55%);
 }
 
-/* 13. Waitlist section — stronger warm gradient */
+/* 13. Waitlist / enroll band — a cool sea-glass wash. Cool-Ground Rule: warmth
+   comes from coral marks, the serif and imagery, never a warm-tinted ground
+   (the old 28% coral wash also dropped the eyebrow below 4.5:1). */
 .signup {
   background:
     linear-gradient(160deg,
-      color-mix(in oklab, var(--warm) 28%, var(--bg-alt)) 0%,
+      color-mix(in oklab, var(--accent-soft) 45%, var(--bg-alt)) 0%,
       color-mix(in oklab, var(--primary) 8%, var(--bg-alt)) 100%);
 }
+.signup .eyebrow { color: var(--ink-soft); }
 
 /* dark mode adjustments for belief section */
 [data-theme="dark"] .belief {
@@ -1094,12 +1051,6 @@ h4,
   object-position: center 12%;
 }
 
-/* Scrolled header: stronger shadow for clear elevation */
-.site-header.is-scrolled {
-  background: color-mix(in oklab, var(--bg) 96%, transparent);
-  box-shadow: 0 1px 0 var(--border-soft), 0 4px 20px rgba(21, 57, 60, 0.07);
-}
-
 /* Page-hero visual frame: slight warm tint as background while image loads */
 .page-hero__visual {
   background: color-mix(in oklab, var(--warm) 18%, var(--surface-2));
@@ -1125,19 +1076,6 @@ h4,
   }
 }
 
-/* Brand mark in header: slightly larger and with a more polished pad */
-.site-header .brand__mark {
-  width: 38px;
-  height: 38px;
-}
-
-/* Dark mode: swap to transparent logo so the white fill doesn't show */
-[data-theme="dark"] .brand__mark {
-  background: transparent;
-  border-color: transparent;
-  content: url("/assets/img/original-logo-mark-no-words-transparent.png");
-}
-
 /* Tools SVG graphic — constrain and center it nicely inside its frame */
 .page-hero__visual--graphic img {
   padding: clamp(8px, 4%, 24px);
@@ -1155,10 +1093,14 @@ h4,
    Scroll animations — animate.js companion styles
    ========================================================= */
 
+/* The hidden state only exists under <html class="anim">, which a page's head
+   script adds when motion is welcome (animate.js adds it itself on pages without
+   that script). No JS, reduced motion, or a missing class: content is simply
+   visible. The reveal is an enhancement, never a gate on content. */
 @media (prefers-reduced-motion: no-preference) {
 
   /* Base hidden state — fade up. Easing matches the homepage (ease-out-quint). */
-  [data-animate] {
+  html.anim [data-animate] {
     opacity: 0;
     transform: translateY(18px);
     transition:
@@ -1168,26 +1110,34 @@ h4,
   }
 
   /* Fade-only variant: data-animate="fade" */
-  [data-animate="fade"] {
+  html.anim [data-animate="fade"] {
     transform: none;
   }
 
   /* Revealed state — JS adds .is-visible */
-  [data-animate].is-visible {
+  html.anim [data-animate].is-visible {
     opacity: 1;
     transform: none;
   }
 
+  /* Failsafe: if animate.js is slow, blocked, or throws, anything it has not
+     revealed shows itself after 2.5s. */
+  html.anim [data-animate]:not(.is-visible) {
+    animation: gms-reveal-failsafe 0s linear 2.5s forwards;
+  }
+
 }
 
-/* No-JS safety net: the reveal can only fire from JS (IntersectionObserver adds
-   .is-visible). If scripting is unavailable the reveal never runs, so keep
-   [data-animate] content visible by default — the animation is enhancement,
-   never a gate on content. Mirrors the homepage's html.anim guard. */
-@media (scripting: none) {
+@keyframes gms-reveal-failsafe {
+  to { opacity: 1; transform: none; }
+}
+
+/* Print / PDF / reader renderers never scroll, so never print a hidden block. */
+@media print {
   [data-animate] {
-    opacity: 1;
-    transform: none;
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
   }
 }
 
@@ -1243,46 +1193,6 @@ h4,
 .btn:active {
   transform: translateY(0) scale(0.985);
   transition-duration: 0.08s;
-}
-
-/* =========================================================
-   Hover transitions — nav links (sliding underline)
-   ========================================================= */
-
-.nav__link {
-  position: relative;
-  transition: color 0.18s ease;
-}
-
-.nav__link::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  right: 0;
-  height: 1.5px;
-  background: var(--primary);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.22s cubic-bezier(0.25, 0.1, 0.25, 1);
-}
-
-.nav__link:hover::after {
-  transform: scaleX(1);
-}
-
-/* Keep the active-page underline visible but static */
-.nav__link[aria-current="page"]::after {
-  transform: scaleX(1);
-}
-
-/* =========================================================
-   Hover transitions — footer & inline links
-   ========================================================= */
-
-.footer-list a,
-.footer-elsewhere a {
-  transition: color 0.15s ease;
 }
 
 /* =========================================================
@@ -1444,6 +1354,10 @@ h4,
   text-align: center;
   min-height: 1.25em;
 }
+/* Status tones come from tokens (dark-theme aware), never hard-coded hex. */
+.inline-signup__status[data-tone="error"] { color: var(--danger); font-weight: 600; }
+.inline-signup__status[data-tone="success"] { color: var(--success); font-weight: 600; }
+.inline-signup__input[aria-invalid="true"] { border-color: var(--danger); }
 .inline-signup__disclaimer {
   margin-top: var(--space-4);
   font-size: var(--text-xs);

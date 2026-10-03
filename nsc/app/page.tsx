@@ -37,7 +37,7 @@ const FAQ = [
   },
   {
     q: "What do I get free?",
-    a: `The whole check-in and your child's ladder placement, free. One payment of ${PRICE} unlocks every game, a fresh prompt daily, re-check-ins as they climb, and the printable pack — yours for good, no subscription.`,
+    a: `The whole check-in (and every re-check-in), your child's place on the ladder, one matched game each week, and a daily number-talk prompt, all free. One payment of ${PRICE} unlocks every game, the whole week of prompts to read ahead, the for-their-age view, and the printable pack. Yours for good, no subscription.`,
   },
 ];
 
@@ -175,11 +175,14 @@ export default async function Home() {
             No red flags, ever
           </h3>
           <p className="text-ink">
-            Number Path never compares your child to other children, and the
-            words it will never use are enforced by a mechanical check on every
-            line of content — not an editor&rsquo;s good intentions. Every rung
-            is a real stage of a climb every child makes; the readout tells you
-            where the climb is, and what makes a good next week.
+            Number Path never ranks your child, gives a score, or sounds an
+            alarm. The for-their-age view shows only a wide typical range from
+            published studies, never a percentile. The words it will never use
+            are enforced by a mechanical check on every line of the check-in,
+            game and prompt content, not an editor&rsquo;s good intentions.
+            Every rung is a real stage of a climb every child makes; the
+            readout tells you where the climb is, and what makes a good next
+            week.
           </p>
         </Card>
         <p className="text-sm text-teal-soft">
@@ -208,8 +211,9 @@ export default async function Home() {
             The whole thing · {PRICE} once
           </p>
           <p className="mt-1 text-ink">
-            Every game matched to the exact rung, a fresh prompt every day,
-            re-check-ins as they climb, and the printable pack. Yours for good.
+            Every game matched to the exact rung, the whole week of prompts
+            to read ahead, where they sit for their age, and the printable
+            pack. Yours for good.
           </p>
           <LinkButton href={start} className="mt-6">
             Start the free check-in

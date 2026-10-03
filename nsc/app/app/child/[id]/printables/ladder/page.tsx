@@ -19,14 +19,17 @@ export default async function LadderSheet({
     .from("nsc_children")
     .select("nickname")
     .eq("id", id)
-    .single();
+    .maybeSingle();
   if (!child) notFound();
 
+  // The poster marks a measured Give-N rung only; a Point and Seek read is
+  // a soft signal and is never shown as a rung (amendment A5).
   const { data: latest } = await supabase
     .from("nsc_assessments")
     .select("placement, near_cp")
     .eq("child_id", id)
     .eq("status", "complete")
+    .eq("instrument", "give_n")
     .order("completed_at", { ascending: false })
     .limit(1)
     .maybeSingle();

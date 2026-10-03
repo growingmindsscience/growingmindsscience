@@ -1,9 +1,8 @@
 import "server-only";
 import { redirect } from "next/navigation";
-import type { SupabaseClient } from "@supabase/supabase-js";
 import { requireAuth } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
-import { unlocksNumberPath, type Grant } from "@/lib/grants";
+import { unlocksNumberPath } from "@/lib/grants";
 import { ownsToddlerClass } from "@/lib/classes";
 
 /**
@@ -62,30 +61,10 @@ export async function hasMembership(): Promise<boolean> {
 }
 
 /**
- * Write a set of grants for a user (service-role client required — the
- * entitlements table has no user write policies). Additive by construction:
- * upsert on the (user, scope, source, ref) identity only ever refreshes
- * expires_at, never removes a row.
+ * Grant writes live in lib/entitlement-writes (client injected, throws on a
+ * failed write). Re-exported here so server callers keep one import path.
  */
-export async function applyGrants(
-  service: SupabaseClient,
-  userId: string,
-  grants: Grant[],
-): Promise<void> {
-  if (grants.length === 0) return;
-  const { error } = await service.from("entitlements").upsert(
-    grants.map((g) => ({
-      user_id: userId,
-      product_scope: g.product_scope,
-      source: g.source,
-      source_ref: g.source_ref,
-      expires_at: g.expires_at,
-      updated_at: new Date().toISOString(),
-    })),
-    { onConflict: "user_id,product_scope,source,source_ref" },
-  );
-  if (error) throw new Error(`Could not apply entitlement grants: ${error.message}`);
-}
+export { applyGrants } from "@/lib/entitlement-writes";
 
 /** Gate for paid-only pages (printables). Redirects to /app/upgrade if not entitled. */
 export async function requirePaid(): Promise<void> {

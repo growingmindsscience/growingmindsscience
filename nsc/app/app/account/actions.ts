@@ -6,14 +6,9 @@ import { revalidatePath } from "next/cache";
 import { requireAuth } from "@/lib/auth";
 import { stripe } from "@/lib/stripe";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
-import { applyGrants } from "@/lib/entitlements.server";
+import { applyGrants } from "@/lib/entitlement-writes";
+import { siteOrigin } from "@/lib/site";
 import type { Grant } from "@/lib/grants";
-
-function siteOrigin(): string {
-  let origin = (process.env.NEXT_PUBLIC_SITE_URL ?? "").trim();
-  if (origin && !/^https?:\/\//i.test(origin)) origin = `https://${origin}`;
-  return origin.replace(/\/+$/, "") || "https://growingmindsscience.com";
-}
 
 const ACCOUNT_URL = () => `${siteOrigin()}/nsc/app/account`;
 
@@ -74,11 +69,16 @@ export async function redeemAccessCode(formData: FormData) {
   const grants: Grant[] = [
     { product_scope: "ai:unlimited", source: "comp", source_ref: "class-access-code", expires_at: null },
   ];
+  // applyGrants throws when the write fails, so "accepted" below is only
+  // shown once the grants are actually stored.
+  let stored = false;
   try {
     await applyGrants(createServiceClient(), user.id, grants);
-  } catch {
-    redirect("/app/account?code=error");
+    stored = true;
+  } catch (err) {
+    console.error(`[account] access-code grant failed: ${(err as Error).message}`);
   }
+  if (!stored) redirect("/app/account?code=error");
   revalidatePath("/app/account");
   redirect("/app/account?code=ok");
 }

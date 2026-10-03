@@ -44,11 +44,11 @@ growing-minds-science/
       └─ site/                                  # Editorial photography
 ```
 
-> **Legacy code:** `netlify/functions/` is dead code from the pre-Vercel era
-> (`netlify.toml` is already gone). `vercel.json` governs and `api/*.js` are the
-> live functions. In particular `netlify/functions/growing-minds-ai.mjs` still
-> references OpenAI/gpt-5.5/vector-store — it is **not** how the AI works today
-> (see below) and is safe to delete.
+> **Legacy code removed:** the pre-Vercel `netlify/functions/` directory (an old
+> OpenAI-based `growing-minds-ai.mjs`) has been deleted, and `netlify.toml` was
+> already gone. `vercel.json` governs and `api/*.js` are the live functions.
+> When the Netlify sites are disconnected, also clear their environment
+> variables.
 >
 > ⚠️ **Netlify is still connected to this repo**, despite the config being gone —
 > it builds on every PR and publishes at least two live, crawlable mirrors
@@ -118,8 +118,12 @@ Optional Google sign-in environment variables:
 
 - `GOOGLE_CLIENT_ID`
 - `GOOGLE_CLIENT_SECRET`
-- `GOOGLE_ALLOWED_EMAILS` — comma-separated allowlist, optional
-- `GOOGLE_ALLOWED_DOMAIN` — single allowed email domain, optional
+- `GOOGLE_ALLOWED_EMAILS`: comma-separated allowlist
+- `GOOGLE_ALLOWED_DOMAIN`: single allowed email domain
+
+At least one of the two allowlist variables is required (when both are set, an
+account must match both). With neither set, Google sign-in stays off instead of
+letting in every Google account.
 
 Use this authorized redirect URI in Google Cloud for the OAuth client:
 
@@ -143,12 +147,13 @@ This is a single-account login for member access on a static site. Use a real
 identity provider or database-backed auth before adding public self-service
 registration, password reset, or per-customer entitlements.
 
-## Class CTA / waitlist preselection
+## Waitlist interest
 
-The class product cards on the homepage preselect the class-of-interest in the
-waitlist signup form before scrolling to it. The class detail page also
-includes a hidden `interest=Toddlerhood` field, and the homepage form
-respects an `?interest=...` query string for cross-page preselection.
+The homepage signup form asks which class the visitor is interested in with a
+plain `interest` select; nothing preselects it (the old `?interest=` query
+string and class-card preselect were removed with the unused `main.js`
+handlers). Each waitlist class page and the articles page send a fixed hidden
+`interest` value instead.
 
 ## Growing Minds AI
 
@@ -162,9 +167,15 @@ backed by a Vercel API route:
 - Required Vercel environment variable: `ANTHROPIC_API_KEY`
 - Optional Vercel environment variable: `ANTHROPIC_MODEL` (defaults to
   `claude-sonnet-4-6`; set `claude-opus-4-8` for depth or a Haiku id to cut cost)
-- Required Vercel environment variable: `GMS_AI_ACCESS_CODE`
+- Required Vercel environment variable: `GMS_AI_ACCESS_CODE`. Use a long
+  random value (for example `openssl rand -hex 8`), not a word, and rotate it
+  if it leaks.
 - Optional Vercel environment variable: `GMS_SESSION_SECRET` (verifies AI Pro
-  subscriber tokens; also used elsewhere for the parent-site session cookie)
+  subscriber tokens; also used elsewhere for the parent-site session cookie,
+  under a separately derived key)
+- AI Pro checkout (`api/create-checkout-session.js`) reads `STRIPE_SECRET_KEY`
+  and `AI_PRO_PRICE_ID` (falls back to the live price id in that file); the
+  webhook reads `STRIPE_WEBHOOK_SECRET`. See `.env.example` for the full list.
 
 Set environment variables in Vercel. The API key must never be placed in
 browser JavaScript or committed to the repository.
@@ -185,11 +196,24 @@ There is no embeddings service and no OpenAI dependency; the corpus is small and
 curated, so lexical scoring is a good fit (upgradable to embeddings later
 without touching callers).
 
-**Access tiers.** The server gates every call: unlimited for a matching
+**Access tiers.** The server checks every call: unlimited for a matching
 `GMS_AI_ACCESS_CODE` (share only with enrolled class families), for a valid AI
 Pro subscriber token, or for a signed-in account whose Number Path / membership
-session carries an unlimited-AI entitlement; otherwise a per-IP daily free
-allowance applies. The browser counter is UX only — the server is the real gate.
+session carries an unlimited-AI entitlement; otherwise a free allowance of 5
+questions a day applies. The browser counter is UX only. The chat page checks a
+code with a `{ "validateOnly": true, "accessCode": "..." }` request, which never
+calls the model. The endpoint accepts only same-origin JSON (`Content-Type:
+application/json`; requests marked `Sec-Fetch-Site: cross-site` are refused).
+
+**These limits are soft.** The free allowance, the burst limit (10 requests a
+minute) and the wrong-code limit (8 an hour) are counted in the memory of each
+Edge isolate, per IPv4 address or IPv6 /64. They reset on cold start and are not
+shared between isolates or regions, so a determined client can get past them;
+they are not a spending cap. The real fix is a shared store with an atomic
+counter (Vercel KV, Upstash Redis or a Supabase table) behind
+`api/_ratelimit.js`, plus a monthly spend limit on the Anthropic workspace that
+owns `ANTHROPIC_API_KEY`. Until a shared store exists, that spend limit is the
+only hard cap on what the free tier can cost.
 
 ## Milestone tracker
 

@@ -26,8 +26,8 @@ export default async function WorriedIndexPage() {
           A few concrete questions about what you actually see your child do.
           Then a clear next step: what&rsquo;s typical at this age, the exact
           sentences to say to your pediatrician, and how free early
-          intervention works. No account needed, nothing stored about your
-          child.
+          intervention works. No account needed, and we never ask for your
+          child&rsquo;s name.
         </p>
       </header>
 
@@ -44,7 +44,7 @@ export default async function WorriedIndexPage() {
           ) : (
             <Card key={d.slug} className="h-full bg-sea-glass/20">
               <h2 className="font-semibold text-ink-deep/70">{d.label}</h2>
-              <p className="mt-1 text-sm text-teal-soft">On the way</p>
+              <p className="mt-1 text-sm text-ink-muted">On the way</p>
             </Card>
           );
         })}

@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <title>What's typical, by stage - Growing Minds Science</title>
   <meta name="description" content="A calm infant sleep guide for the first year: what changes by stage, what varies, and what developmental sleep research can and cannot tell parents." />
   <meta name="theme-color" content="#6F8F7B" />
@@ -15,7 +16,7 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="What's typical, by stage — Growing Minds Science" />
   <meta property="og:description" content="A calm infant sleep guide for the first year: what changes by stage, what varies, and what developmental sleep research can and cannot tell parents." />
-  <meta property="og:image" content="/assets/img/site/baby-crawling.jpg" />
+  <meta property="og:image" content="https://growingmindsscience.com/assets/img/site/baby-crawling.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -95,6 +96,7 @@
       .cta-strip { grid-template-columns: 1fr; }
     }
   </style>
+  <link rel="stylesheet" href="/assets/css/chrome.css" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -102,23 +104,36 @@
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
       <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
       <nav class="nav" aria-label="Primary">
-        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Toggle navigation menu">
+        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Open menu">
           <span class="nav-toggle__bars"><span></span></span>
         </button>
 
-                <ul class="nav__list" id="primary-nav-list">
+        <ul class="nav__list" id="primary-nav-list">
           <li><a class="nav__link" href="/classes/">Classes</a></li>
-          <li><a class="nav__link" href="/nsc">Number Path</a></li>
-          <li><a class="nav__link" aria-current="page" href="/tools/">Tools</a></li>
-          <li><a class="nav__link" href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
+          <li class="nav__item">
+            <details class="nav__details">
+              <summary class="nav__link nav__summary is-current">Free tools <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary>
+              <div class="nav__menu">
+                <ul class="nav__submenu">
+                  <li><a class="nav__submenu-link" href="/tools/growing-minds-ai.html"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A ten-minute counting check-in you run at home.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/communication-snapshot.html"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
+                </ul>
+                <a class="nav__menu-all" href="/tools/">All free tools and guides <span aria-hidden="true">&rarr;</span></a>
+              </div>
+            </details>
+          </li>
+          <li><a class="nav__link" href="/arcade/">Arcade</a></li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a></li>
+          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">See the class</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -182,7 +197,7 @@
         <h2>Stage guide</h2>
         <p class="section-intro">Choose your baby's closest stage. Use this as orientation, not a prescription.</p>
 
-        <div class="stage-wrap">
+        <div class="stage-wrap" data-decoder data-ai-personalize="false">
           <div class="stage-buttons" role="group" aria-label="Infant sleep stages">
             <button class="stage-btn is-active" type="button" data-stage="newborn" aria-pressed="true"><strong>0–2 months</strong><span>Newborn sleep is fragmented and feeding-driven.</span></button>
             <button class="stage-btn" type="button" data-stage="early" aria-pressed="false"><strong>2–4 months</strong><span>Day-night rhythm begins to organize, unevenly.</span></button>
@@ -192,7 +207,7 @@
           </div>
 
           <div>
-            <article class="stage-output" data-output="newborn">
+            <article class="stage-output" data-output="newborn" data-ai-question="Is it normal for my newborn's sleep to be so fragmented?">
               <span class="tag">0-2 months</span>
               <h3>Fragmented sleep is expected.</h3>
               <p>Newborns do not yet have mature circadian rhythms. Sleep is spread across day and night, and feeding needs usually drive the pattern.</p>
@@ -203,7 +218,7 @@
               </div>
             </article>
 
-            <article class="stage-output" data-output="early" hidden>
+            <article class="stage-output" data-output="early" data-ai-question="My baby is 2 to 4 months old and sleep is still uneven. What's typical at this age?" hidden>
               <span class="tag">2-4 months</span>
               <h3>Rhythm starts to emerge, but it is fragile.</h3>
               <p>Some babies begin giving longer stretches, especially at night, while others remain highly variable. Growth, feeding, reflux, temperament, and family routines can all matter.</p>
@@ -214,7 +229,7 @@
               </div>
             </article>
 
-            <article class="stage-output" data-output="middle" hidden>
+            <article class="stage-output" data-output="middle" data-ai-question="What's typical for baby sleep at 4 to 6 months?" hidden>
               <span class="tag">4-6 months</span>
               <h3>Total sleep range becomes more useful.</h3>
               <p>From 4 months onward, the AASM-supported benchmark is 12-16 total hours per 24 hours, including naps. Some babies begin more predictable nap and bedtime patterns here.</p>
@@ -225,7 +240,7 @@
               </div>
             </article>
 
-            <article class="stage-output" data-output="older" hidden>
+            <article class="stage-output" data-output="older" data-ai-question="Can crawling practice or separation awareness affect my baby's sleep at 6 to 9 months?" hidden>
               <span class="tag">6-9 months</span>
               <h3>Development can show up at night.</h3>
               <p>Rolling, sitting, crawling practice, new foods, illness, teething discomfort, and separation awareness can all disturb sleep. More skills can mean more night activity for a while.</p>
@@ -236,7 +251,7 @@
               </div>
             </article>
 
-            <article class="stage-output" data-output="late" hidden>
+            <article class="stage-output" data-output="late" data-ai-question="Is night waking still normal at 9 to 12 months?" hidden>
               <span class="tag">9-12 months</span>
               <h3>More pattern does not mean no waking.</h3>
               <p>By the end of the first year, many babies have more predictable sleep, but normal variation remains wide. Travel, illness, separation, feeding changes, and nap transitions can still disrupt nights.</p>
@@ -327,28 +342,16 @@
       </div>
     </section>
 
-    <section style="padding-top:0;">
-      <div class="container container--narrow">
-        <div class="promo-banner">
-          <div>
-            <p class="eyebrow">Now available · $49</p>
-            <p class="promo-banner__body">Toddler class · Unlimited Growing Minds AI · Milestone tracker · Lifetime access</p>
-          </div>
-          <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now →</a>
-        </div>
-      </div>
-    </section>
-
     <section>
       <div class="container container--narrow">
       <div class="cta-strip">
           <div>
             <p class="eyebrow">Toddler class · now available</p>
-            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Want the research behind these milestones?</h2>
+            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Looking ahead to the toddler years?</h2>
             <p class="small" style="max-width:38rem; margin:0;">The toddler class explains what's happening in the brain and body across ages 1–3: not only what children can do, but why development unfolds the way it does. $49 for lifetime access.</p>
           </div>
           <div class="hero-actions">
-            <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a>
+            <a class="btn btn--primary" href="/classes/toddlerhood.html">See the toddler class</a>
             <a class="btn btn--ghost" href="/tools/">Back to tools</a>
           </div>
         </div>
@@ -358,67 +361,62 @@
 
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
-      <div>
+      <div class="site-footer__brand">
         <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
-        <p style="margin-top: var(--space-4);">
-          Developmental science, translated for parents.
-        </p>
+        <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
+        <a class="footer-ig" href="https://www.instagram.com/growingmindsscience/" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
+          Instagram
+        </a>
       </div>
-      <div>
-        <h4>Site</h4>
-        <ul class="footer-list">
-          <li><a href="/classes/">Classes</a></li>
-          <li><a href="/pricing">Pricing</a></li>
-          <li><a href="/nsc">Number Path</a></li>
-          <li><a href="/tools/">Free tools</a></li>
-          <li><a href="/articles/">Articles</a></li>
-          <li><a href="/about/">About</a></li>
-          <li><a href="/faq/">FAQ</a></li>
-          <li><a href="/milestones">Milestone tracker</a></li>
-          <li><a href="/contact/">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Stay in the loop</h4>
-        <p style="font-size: var(--text-sm);">
-          <a href="/#signup">Join the waitlist</a>
-        </p>
-        <p class="footer-elsewhere" style="margin-top: var(--space-5);">
-          Also on
-          <a href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr"
-             target="_blank" rel="noopener noreferrer">Instagram</a>
-        </p>
-      </div>
+      <nav class="site-footer__nav" aria-label="Footer">
+        <div>
+          <h2 class="site-footer__heading">Classes</h2>
+          <ul class="footer-list">
+            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
+            <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/preschool.html">Preschool years</a></li>
+            <li><a href="/classes/family-systems.html">Family systems</a></li>
+            <li><a href="/pricing">Pricing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="site-footer__heading">Free tools</h2>
+          <ul class="footer-list">
+            <li><a href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
+            <li><a href="/nsc">Number Path</a></li>
+            <li><a href="/milestones">Milestone tracker</a></li>
+            <li><a href="/tools/communication-snapshot.html">Communication Snapshot</a></li>
+            <li><a href="/tools/">All tools and guides</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="site-footer__heading">About</h2>
+          <ul class="footer-list">
+            <li><a href="/about/">Our approach</a></li>
+            <li><a href="/articles/">Articles</a></li>
+            <li><a href="/faq/">FAQ</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
     </div>
     <div class="container">
       <div class="footer-bottom">
-        <span>&copy; <span data-year>2026</span> Growing Minds Science. All rights reserved.</span>
-        <span>Educational content only. Not medical or psychological advice.</span>
+        <p>&copy; <span data-year>2026</span> Growing Minds Science &middot; <a href="/arcade/">Arcade</a></p>
+        <p>Educational content only. Not medical or psychological advice.</p>
       </div>
     </div>
   </footer>
 
+  <script src="/assets/js/chrome.js"></script>
+
   <script src="../assets/js/main.js" defer></script>
   <script src="../assets/js/gms-tools.js" defer></script>
   <script src="../assets/js/decor.js" defer></script>
-  <script>
-    (function(){
-      var stageButtons = document.querySelectorAll('.stage-btn');
-      var outputs = document.querySelectorAll('.stage-output');
-      stageButtons.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          var key = btn.dataset.stage;
-          stageButtons.forEach(function(b) { b.classList.remove('is-active'); b.setAttribute('aria-pressed', 'false'); });
-          btn.classList.add('is-active');
-          btn.setAttribute('aria-pressed', 'true');
-          outputs.forEach(function(o) { o.hidden = o.dataset.output !== key; });
-        });
-      });
-    })();
-  </script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

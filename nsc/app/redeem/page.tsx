@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { getUser } from "@/lib/auth";
 import { redeemGift } from "./actions";
-import { Button, Card, EnrichmentFooter, Field, Input } from "@/components/ui";
+import { Card, EnrichmentFooter, Field, Input } from "@/components/ui";
+import { SubmitButton } from "@/components/submit-button";
 import { brand } from "@/lib/config/brand";
 
 export const metadata = { title: "Redeem a gift — Number Path" };
@@ -43,9 +44,7 @@ export default async function RedeemPage({
                 {error}
               </p>
             )}
-            <Button type="submit" className="mt-2">
-              Unlock the full plan
-            </Button>
+            <SubmitButton className="mt-2">Unlock the full plan</SubmitButton>
           </form>
         </Card>
       ) : (

@@ -1,8 +1,5 @@
-/* Growing Minds Science — home.js (self-contained homepage script)
-   - Theme toggle (shared "gms-theme" key; head script applies before paint)
-   - Sticky header scrolled state (rAF-throttled, passive)
-   - Footer year
-   - Mobile nav toggle
+/* Growing Minds Science — home.js (homepage script; header, menu, theme
+   toggle, and footer year live in chrome.js)
    - Scroll-reveal ([data-animate] / [data-stagger]); gated by <html class="anim">
      so reduced-motion / no-JS always show content
    - Growth-arc stage tabs (proper tabs semantics, arrow keys)
@@ -26,79 +23,6 @@
     if (className) node.className = className;
     if (text != null) node.textContent = text;
     return node;
-  }
-
-  // ------------------------------------------------------------------
-  // Theme toggle (same storage key as main.js so the choice follows
-  // the visitor across pages; head script applies it before paint)
-  // ------------------------------------------------------------------
-  var THEME_KEY = "gms-theme";
-  function initTheme() {
-    var btn = document.querySelector(".theme-toggle");
-    if (!btn) return;
-    btn.addEventListener("click", function () {
-      var dark = document.documentElement.getAttribute("data-theme") === "dark";
-      var next = dark ? "light" : "dark";
-      if (next === "dark") document.documentElement.setAttribute("data-theme", "dark");
-      else document.documentElement.removeAttribute("data-theme");
-      try { localStorage.setItem(THEME_KEY, next); } catch (_) {}
-    });
-  }
-
-  // ------------------------------------------------------------------
-  // Sticky header scrolled state
-  // ------------------------------------------------------------------
-  function initHeader() {
-    var header = document.querySelector(".site-header");
-    if (!header) return;
-    var ticking = false;
-    function update() {
-      header.classList.toggle("is-scrolled", window.scrollY > 6);
-      ticking = false;
-    }
-    update();
-    window.addEventListener("scroll", function () {
-      if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
-    }, { passive: true });
-  }
-
-  // ------------------------------------------------------------------
-  // Footer year
-  // ------------------------------------------------------------------
-  function initYear() {
-    document.querySelectorAll("[data-year]").forEach(function (n) {
-      n.textContent = String(new Date().getFullYear());
-    });
-  }
-
-  // ------------------------------------------------------------------
-  // Mobile nav
-  // ------------------------------------------------------------------
-  function initNav() {
-    var nav = document.querySelector(".nav");
-    var toggle = document.querySelector(".nav-toggle");
-    var list = document.querySelector(".nav__list");
-    if (!nav || !toggle) return;
-
-    function close() {
-      nav.classList.remove("is-open");
-      toggle.setAttribute("aria-expanded", "false");
-    }
-    toggle.addEventListener("click", function () {
-      var open = nav.classList.toggle("is-open");
-      toggle.setAttribute("aria-expanded", open ? "true" : "false");
-    });
-    if (list) {
-      list.addEventListener("click", function (e) {
-        if (e.target.closest("a")) close();
-      });
-    }
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && nav.classList.contains("is-open")) {
-        close();
-        toggle.focus();
-      }
-    });
   }
 
   // ------------------------------------------------------------------
@@ -151,7 +75,7 @@
     var tabs = Array.prototype.slice.call(device.querySelectorAll('[role="tab"]'));
     var panels = Array.prototype.slice.call(device.querySelectorAll('[role="tabpanel"]'));
     if (!tabs.length || tabs.length !== panels.length) return;
-    var railFill = device.querySelector(".arc__rail-fill");
+    var rail = device.querySelector(".arc__rail");
 
     function select(index, focus) {
       tabs.forEach(function (tab, i) {
@@ -161,10 +85,11 @@
         panels[i].hidden = !active;
       });
       // Drive the mobile progress rail (harmless on desktop, where it's hidden):
-      // map stage 0..last -> 8%..100% width; the CSS width transition animates it.
-      if (railFill) {
+      // map stage 0..last -> 0.08..1 on --rail-p; CSS slides the fill and tip
+      // with transform (never a layout property).
+      if (rail) {
         var frac = tabs.length > 1 ? index / (tabs.length - 1) : 0;
-        railFill.style.width = (8 + frac * 92) + "%";
+        rail.style.setProperty("--rail-p", (0.08 + frac * 0.92).toFixed(3));
       }
       if (focus) tabs[index].focus();
     }
@@ -335,17 +260,18 @@
     paragraphs.forEach(function (p) { m.appendChild(el("p", null, p)); });
     if (sources && sources.length) {
       var strip = el("div", "msg__source");
-      strip.setAttribute("aria-label", "How this answer is grounded");
       sources.forEach(function (s) { strip.appendChild(el("span", null, s)); });
       m.appendChild(strip);
     }
     return m;
   }
 
+  // Purely visual: the dots are hidden from assistive tech (the finished
+  // message is what matters, and the demo is not a live region).
   function typingMsg() {
     var m = el("div", "msg msg--ai");
+    m.setAttribute("aria-hidden", "true");
     var t = el("div", "typing");
-    t.setAttribute("aria-label", "Growing Minds AI is typing");
     t.appendChild(el("span")); t.appendChild(el("span")); t.appendChild(el("span"));
     m.appendChild(t);
     return m;
@@ -405,7 +331,9 @@
       io.observe(chat);
     }
 
-    // Composer: honest hand-off to the (free) full tutor.
+    // Composer: honest hand-off to the (free) full tutor. The question travels
+    // with the parent via ?q= (the AI page prefills it and never auto-sends),
+    // so nobody has to type it twice.
     if (form && input) {
       form.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -415,21 +343,8 @@
           input.focus();
           return;
         }
-        var typed = userMsg(q); body.appendChild(typed); enter(typed);
-        input.value = "";
-        var reply = function () {
-          var a = aiMsg(
-            ["That’s exactly the kind of question Growing Minds AI is built for — free, grounded in developmental science. Open the full tutor to ask about your specific situation."],
-            ["free · grounded in research"]
-          );
-          body.appendChild(a); enter(a);
-          if (note) note.textContent = "Growing Minds AI is free — use the “Try it free” button to ask your own questions.";
-          body.scrollTop = body.scrollHeight;
-        };
-        if (!animEnabled) { reply(); return; }
-        var typing = typingMsg(); body.appendChild(typing); enter(typing);
-        body.scrollTop = body.scrollHeight;
-        window.setTimeout(function () { body.removeChild(typing); reply(); }, 1100);
+        if (note) note.textContent = "Opening Growing Minds AI with your question…";
+        window.location.assign("/tools/growing-minds-ai?q=" + encodeURIComponent(q.slice(0, 500)));
       });
     }
   }
@@ -599,10 +514,6 @@
   }
 
   ready(function () {
-    initTheme();
-    initHeader();
-    initYear();
-    initNav();
     initReveal();
     initArc();
     initChat();

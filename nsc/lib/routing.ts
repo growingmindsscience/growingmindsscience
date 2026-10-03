@@ -160,3 +160,71 @@ export function oneRungLower(placement: Placement): Placement {
   if (idx <= 0) return "L0";
   return LADDER_ORDER[idx - 1] as Placement;
 }
+
+/**
+ * Fill the child's nickname into plan copy. Prompts carry "{name}"; the
+ * plan is built from the raw text (so ordering never depends on the name)
+ * and personalized after.
+ */
+export function fillName(text: string, name: string): string {
+  return text.replaceAll("{name}", name);
+}
+
+export function personalizePrompts(prompts: readonly string[], name: string): string[] {
+  return prompts.map((p) => fillName(p, name));
+}
+
+/**
+ * What a locked game card may carry to the browser: only what the locked
+ * card shows (title, time, goal). The script, materials, and adaptations
+ * are the paid content and stay on the server. Built field by field, so a
+ * new Game field has to be classified here before it can ship.
+ */
+export function teaserGame(game: Game): Game {
+  return {
+    id: game.id,
+    title: game.title,
+    levels: game.levels,
+    age_bands: game.age_bands,
+    goal: game.goal,
+    duration_min: game.duration_min,
+    frequency_rx: game.frequency_rx,
+    materials: [],
+    script: [],
+    level_up: "",
+    level_down: "",
+    bilingual_note: "",
+    evidence: { tag_ids: [], strength: game.evidence.strength, consensus: game.evidence.consensus },
+    printable_id: null,
+  };
+}
+
+const DAY_MS = 86_400_000;
+/** "Fine" (or unrated) games rest two weeks. */
+const REST_DAYS = 14;
+/** "Flopped" games rest six weeks, so a flop really removes them. */
+const FLOP_REST_DAYS = 42;
+
+/**
+ * Games to rest in this week's plan, from the play log. Only plays from
+ * before this week's Monday count: the week's plan is fixed on Monday, so a
+ * reaction logged mid-week never swaps a game out from under the parent
+ * (and can't rotate a different game into the free sample slot).
+ *   flopped → rest 6 weeks · fine / unrated → rest 2 weeks · loved → never
+ */
+export function suppressedGameIds(
+  plays: readonly { game_id: string; played_at: string; reaction: string | null }[],
+  weekStartISO: string,
+): string[] {
+  const start = Date.parse(`${weekStartISO}T00:00:00Z`);
+  const out = new Set<string>();
+  for (const p of plays) {
+    const at = Date.parse(`${p.played_at.slice(0, 10)}T00:00:00Z`);
+    if (!Number.isFinite(at) || at >= start) continue;
+    const daysBefore = (start - at) / DAY_MS;
+    if (p.reaction === "loved") continue;
+    const rest = p.reaction === "flopped" ? FLOP_REST_DAYS : REST_DAYS;
+    if (daysBefore <= rest) out.add(p.game_id);
+  }
+  return [...out];
+}

@@ -9,6 +9,11 @@
   --color-teal-soft: #2e7a77;
   --color-rung-glow: #f8e7e0;
   --color-sea-glass: #cfe3de;
+  /* DESIGN.md text tiers. teal-soft (#2e7a77) is AA only on plain mist or
+     white; on tinted cards (sea-glass, rung-glow) secondary text uses these,
+     which stay above 4.5:1 on every tint the app uses. */
+  --color-ink-soft: #3d5a5a;
+  --color-ink-muted: #4e6564;
   /* Brand pairing, mirroring the parent site's --font-display/--font-body. */
   --font-display: var(--font-bricolage), "Avenir Next", "Helvetica Neue",
     sans-serif;

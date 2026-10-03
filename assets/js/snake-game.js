@@ -779,11 +779,16 @@
   }
 
   // Pixel-spark trigger, tucked into the hero photo arch on the home page.
+  // Only used if this file is loaded without a [data-arcade-game="snake"]
+  // hook (the home page lazy-loads it through decor.js, the arcade page has a
+  // card button). It is an easter egg: mouse/touch only, out of the tab order
+  // and hidden from assistive tech (the /arcade page is the accessible way in).
   function buildTrigger() {
     var btn = document.createElement("button");
     btn.type = "button";
     btn.className = "gms-arcade-snake-trigger";
-    btn.setAttribute("aria-label", "Hidden game");
+    btn.tabIndex = -1;
+    btn.setAttribute("aria-hidden", "true");
     btn.title = "~";
     btn.innerHTML =
       '<svg viewBox="0 0 12 12" aria-hidden="true" shape-rendering="crispEdges">' +
@@ -799,15 +804,19 @@
   }
 
   ready(function () {
-    var anchor = document.querySelector(".hero__media") ||
-      document.querySelector(".hero .container") ||
-      document.querySelector("main .container");
-    if (!anchor) return;
-    var cs = window.getComputedStyle(anchor);
-    if (cs.position === "static") anchor.style.position = "relative";
+    var arcadeTrigger = document.querySelector('[data-arcade-game="snake"]');
+    var trigger = arcadeTrigger;
+    if (!trigger) {
+      var anchor = document.querySelector(".hero__media") ||
+        document.querySelector(".hero .container") ||
+        document.querySelector("main .container");
+      if (!anchor) return;
+      var cs = window.getComputedStyle(anchor);
+      if (cs.position === "static") anchor.style.position = "relative";
 
-    var trigger = buildTrigger();
-    anchor.appendChild(trigger);
+      trigger = buildTrigger();
+      anchor.appendChild(trigger);
+    }
 
     var overlay = null, opening = false;
     function open() {
@@ -816,7 +825,8 @@
       if (!overlay) overlay = buildOverlay();
       A.tearPageAway(function () { openOverlay(overlay); });
     }
+    // Click only: a touchstart handler here opened the game whenever a scroll
+    // gesture happened to start on the trigger.
     trigger.addEventListener("click", function (e) { e.preventDefault(); open(); });
-    trigger.addEventListener("touchstart", function (e) { e.preventDefault(); open(); }, { passive: false });
   });
 })();

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { requestPasswordReset } from "@/app/auth/actions";
-import { Button, Card, Field, Input } from "@/components/ui";
+import { Card, Field, Input } from "@/components/ui";
+import { SubmitButton } from "@/components/submit-button";
 import { brand } from "@/lib/config/brand";
 
 export default async function ResetPage({
@@ -39,9 +40,7 @@ export default async function ResetPage({
                 {error}
               </p>
             )}
-            <Button type="submit" className="mt-2">
-              Send reset link
-            </Button>
+            <SubmitButton className="mt-2">Send reset link</SubmitButton>
           </form>
         </Card>
       )}

@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <title>Screens, language, and attention — Growing Minds Science</title>
   <meta name="description" content="A quick-reference guide for parents on how different kinds of screen use interact with language development and attention in toddlers and preschoolers." />
   <meta name="theme-color" content="#6F8F7B" />
@@ -15,7 +16,7 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="Screens, language, and attention — Growing Minds Science" />
   <meta property="og:description" content="What the research suggests about how different kinds of screen use interact with language and attention in the early years." />
-  <meta property="og:image" content="/assets/img/site/family-reading.jpg" />
+  <meta property="og:image" content="https://growingmindsscience.com/assets/img/site/family-reading.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -58,15 +59,6 @@
     .what-block__label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .1em; color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
     .what-block__text { margin: 0; color: var(--ink-soft); line-height: 1.65; }
 
-    .decoder { display: grid; grid-template-columns: .95fr 1.05fr; gap: var(--space-5); align-items: start; }
-    .decoder-buttons { display: grid; gap: .75rem; }
-    .decoder-btn { padding: .8rem 1rem; text-align: left; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); cursor: pointer; transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition); }
-    .decoder-btn.is-active { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
-    .decoder-output { padding: var(--space-6); border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--border-soft); box-shadow: var(--shadow-sm); }
-    .decoder-output[hidden] { display: none; }
-    .decoder-output h3 { margin: 0 0 .6rem; font-size: var(--text-lg); }
-    .decoder-output p { color: var(--ink-soft); }
-
     .response-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); }
     .response-card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: var(--space-5); }
     .response-card__num { width: 34px; height: 34px; border-radius: 999px; display: grid; place-items: center; background: var(--primary); color: var(--primary-ink); font-weight: 700; margin-bottom: var(--space-4); }
@@ -93,12 +85,12 @@
 
     @media (max-width: 920px) {
       .hero-grid,
-      .decoder,
       .response-grid,
       .compare-grid,
       .cta-strip { grid-template-columns: 1fr; }
     }
   </style>
+  <link rel="stylesheet" href="/assets/css/chrome.css" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -106,23 +98,36 @@
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
       <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
       <nav class="nav" aria-label="Primary">
-        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Toggle navigation menu">
+        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Open menu">
           <span class="nav-toggle__bars"><span></span></span>
         </button>
 
-                <ul class="nav__list" id="primary-nav-list">
+        <ul class="nav__list" id="primary-nav-list">
           <li><a class="nav__link" href="/classes/">Classes</a></li>
-          <li><a class="nav__link" href="/nsc">Number Path</a></li>
-          <li><a class="nav__link" aria-current="page" href="/tools/">Tools</a></li>
-          <li><a class="nav__link" href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
+          <li class="nav__item">
+            <details class="nav__details">
+              <summary class="nav__link nav__summary is-current">Free tools <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary>
+              <div class="nav__menu">
+                <ul class="nav__submenu">
+                  <li><a class="nav__submenu-link" href="/tools/growing-minds-ai.html"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A ten-minute counting check-in you run at home.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/communication-snapshot.html"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
+                </ul>
+                <a class="nav__menu-all" href="/tools/">All free tools and guides <span aria-hidden="true">&rarr;</span></a>
+              </div>
+            </details>
+          </li>
+          <li><a class="nav__link" href="/arcade/">Arcade</a></li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a></li>
+          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">See the class</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -206,35 +211,35 @@
           </div>
 
           <div>
-            <article class="decoder-output" data-output="background">
+            <article class="decoder-output" data-output="background" data-ai-question="The TV is on in the background most of the day. How does that affect my child's language?">
               <span class="tag">Mostly touches: language</span>
               <h3>This one is about the talk it quietly crowds out.</h3>
               <p>A TV running in the background pulls a surprising amount out of a room. Christakis and Schmidt found it lowers both how much parents and children talk and how rich that talk is, even when no one is watching. Your child isn't being harmed by the pictures so much as missing the conversation those minutes would have held.</p>
               <p class="small">One tweak: turn it off when no one is actually watching. Quiet rooms leave more room for your child to say something and for you to answer.</p>
             </article>
 
-            <article class="decoder-output" data-output="fast" hidden>
+            <article class="decoder-output" data-output="fast" data-ai-question="Do fast-paced cartoons affect my child's attention?" hidden>
               <span class="tag">Mostly touches: attention (briefly)</span>
               <h3>Likely a short-term wobble, not lasting damage.</h3>
               <p>Lillard and Peterson found a fast, frantic cartoon left preschoolers temporarily worse at focus and self-control right afterward. The key word is temporarily. It was measured minutes later, and the claim that fast shows permanently rewire attention is not well supported. Pacing and what comes next matter more than banning cartoons.</p>
               <p class="small">One tweak: if you notice a rough patch after a particular show, follow it with something calm (blocks, a snack, outside time) rather than straight into the next demand.</p>
             </article>
 
-            <article class="decoder-output" data-output="coview" hidden>
+            <article class="decoder-output" data-output="coview" data-ai-question="We watch a slow, interactive show together. How can I use it to support language?" hidden>
               <span class="tag">Can support: language</span>
               <h3>This is closer to how kids actually learn.</h3>
               <p>Watching together and talking about what's happening, joint media engagement, is one of the few screen setups research treats kindly for vocabulary. A slower show gives your child time to notice things, and your comments turn a passive minute into a small conversation.</p>
               <p class="small">One tweak: narrate and connect it to real life. "That's a tractor. We saw one at the farm, remember?" The bridge to the real world is where the learning sticks.</p>
             </article>
 
-            <article class="decoder-output" data-output="app" hidden>
+            <article class="decoder-output" data-output="app" data-ai-question="Is a solo educational app good for my child's learning?" hidden>
               <span class="tag">Mixed: depends on what it replaces</span>
               <h3>"Educational" is a label, not a guarantee.</h3>
               <p>Some apps are thoughtfully built; plenty are mostly stimulation with a learning sticker. For young kids, even good content usually teaches more when an adult connects it to the real world. The bigger question is what the solo time is replacing. Free play and conversation are where a lot of early attention and language get built.</p>
               <p class="small">One tweak: now and then, sit alongside and talk about what they're doing, and keep an eye that the app isn't eating the play and talk it sits next to.</p>
             </article>
 
-            <article class="decoder-output" data-output="videocall" hidden>
+            <article class="decoder-output" data-output="videocall" data-ai-question="Do video calls with family help my child's language?" hidden>
               <span class="tag">The friendly exception</span>
               <h3>This one is real interaction that happens to be on a screen.</h3>
               <p>Video chat is the partial exception to the video deficit. When a grandparent laughs back, answers, and responds to what your child just did, the exchange behaves like a real conversation: contingent and back-and-forth. That's the ingredient passive video is missing.</p>
@@ -346,18 +351,6 @@
       </div>
     </section>
 
-    <section style="padding-top:0;">
-      <div class="container container--narrow">
-        <div class="promo-banner">
-          <div>
-            <p class="eyebrow">Now available · $49</p>
-            <p class="promo-banner__body">Toddler class · Unlimited Growing Minds AI · Milestone tracker · Lifetime access</p>
-          </div>
-          <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now →</a>
-        </div>
-      </div>
-    </section>
-
     <section>
       <div class="container container--narrow">
         <div class="cta-strip">
@@ -367,7 +360,7 @@
             <p class="small" style="max-width:38rem; margin:0;">How language actually grows through ordinary conversation, what supports focus in the early years, and how to think about screens without shame, all grounded in the same research as this page. $49 for lifetime access.</p>
           </div>
           <div class="hero-actions">
-            <a class="btn btn--primary" href="/classes/toddlerhood.html">Enroll now</a>
+            <a class="btn btn--primary" href="/classes/toddlerhood.html">See the toddler class</a>
             <a class="btn btn--ghost" href="/tools/">Back to tools</a>
           </div>
         </div>
@@ -377,48 +370,58 @@
 
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
-      <div>
+      <div class="site-footer__brand">
         <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
-        <p style="margin-top: var(--space-4);">
-          Developmental science, translated for parents.
-        </p>
+        <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
+        <a class="footer-ig" href="https://www.instagram.com/growingmindsscience/" target="_blank" rel="noopener noreferrer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
+          Instagram
+        </a>
       </div>
-      <div>
-        <h4>Site</h4>
-        <ul class="footer-list">
-          <li><a href="/classes/">Classes</a></li>
-          <li><a href="/pricing">Pricing</a></li>
-          <li><a href="/nsc">Number Path</a></li>
-          <li><a href="/tools/">Free tools</a></li>
-          <li><a href="/articles/">Articles</a></li>
-          <li><a href="/about/">About</a></li>
-          <li><a href="/faq/">FAQ</a></li>
-          <li><a href="/milestones">Milestone tracker</a></li>
-          <li><a href="/contact/">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Stay in the loop</h4>
-        <p style="font-size: var(--text-sm);">
-          <a href="/#signup">Join the waitlist →</a>
-        </p>
-        <p class="footer-elsewhere" style="margin-top: var(--space-5);">
-          Also on
-          <a href="https://www.instagram.com/growingmindsscience?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr"
-             target="_blank" rel="noopener noreferrer">Instagram</a>
-        </p>
-      </div>
+      <nav class="site-footer__nav" aria-label="Footer">
+        <div>
+          <h2 class="site-footer__heading">Classes</h2>
+          <ul class="footer-list">
+            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
+            <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/preschool.html">Preschool years</a></li>
+            <li><a href="/classes/family-systems.html">Family systems</a></li>
+            <li><a href="/pricing">Pricing</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="site-footer__heading">Free tools</h2>
+          <ul class="footer-list">
+            <li><a href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
+            <li><a href="/nsc">Number Path</a></li>
+            <li><a href="/milestones">Milestone tracker</a></li>
+            <li><a href="/tools/communication-snapshot.html">Communication Snapshot</a></li>
+            <li><a href="/tools/">All tools and guides</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="site-footer__heading">About</h2>
+          <ul class="footer-list">
+            <li><a href="/about/">Our approach</a></li>
+            <li><a href="/articles/">Articles</a></li>
+            <li><a href="/faq/">FAQ</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
     </div>
     <div class="container">
       <div class="footer-bottom">
-        <span>&copy; <span data-year>2026</span> Growing Minds Science. All rights reserved.</span>
-        <span>Educational content only. Not medical or psychological advice.</span>
+        <p>&copy; <span data-year>2026</span> Growing Minds Science &middot; <a href="/arcade/">Arcade</a></p>
+        <p>Educational content only. Not medical or psychological advice.</p>
       </div>
     </div>
   </footer>
+
+  <script src="/assets/js/chrome.js"></script>
 
   <script src="../assets/js/main.js" defer></script>
   <script src="../assets/js/gms-tools.js" defer></script>

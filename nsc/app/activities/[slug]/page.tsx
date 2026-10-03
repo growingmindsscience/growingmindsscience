@@ -117,8 +117,9 @@ export default async function ActivityPage({
           </h2>
           <p className="mt-2 text-sm text-ink">
             Every activity comes with step-by-step wording, easier and harder
-            versions, and the science behind it in one plain sentence. Twenty
-            activities are free — this one is in the full library.
+            versions, and the science behind it in one plain sentence. Some
+            activities are free for everyone; this one is part of the full
+            library.
           </p>
           <LinkButton href="/activities?band=&domain=" className="mt-4">
             See the free activities

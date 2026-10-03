@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { startGiftCheckout } from "./actions";
-import { Button, Card, EnrichmentFooter } from "@/components/ui";
+import { Card, EnrichmentFooter } from "@/components/ui";
+import { SubmitButton } from "@/components/submit-button";
 import { brand } from "@/lib/config/brand";
 import { PRICE_DISPLAY } from "@/lib/stripe";
 
@@ -43,9 +44,9 @@ export default async function GiftPage({
           renews, nothing to remember.
         </p>
         <form action={startGiftCheckout}>
-          <Button type="submit" className="mt-5">
+          <SubmitButton className="mt-5" pendingLabel="Opening checkout…">
             Buy a gift &middot; {PRICE_DISPLAY}
-          </Button>
+          </SubmitButton>
         </form>
         {error && (
           <p className="mt-3 text-sm text-[#9C4429]" role="alert">

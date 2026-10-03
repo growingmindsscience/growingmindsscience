@@ -2,11 +2,9 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { audioClipId, voiceableText } from "../lib/audio";
-
-// Mirrors lib/assessment.ts interpolate() — kept inline so the test doesn't
-// pull that module's @/ alias imports through vitest.
-const interpolate = (line: string, v: { name: string; objects: string }) =>
-  line.replaceAll("{name}", v.name).replaceAll("{objects}", v.objects);
+// The runtime's own interpolate() (vitest resolves the @/ alias), so this
+// test can't drift from what the screen renders — including "one block".
+import { interpolate } from "../lib/assessment";
 
 const root = join(__dirname, "..");
 const manifest = JSON.parse(
@@ -32,6 +30,14 @@ describe("audio clip ids", () => {
     // (generator) so the id matches and audio is found.
     const raw = "Can you feed the bear three {objects}? Put three in the bowl.";
     const rendered = interpolate(raw, { name: "Mia", objects: "blocks" });
+    expect(rendered).toBe(voiceableText(raw));
+    expect(ids.has(audioClipId(rendered))).toBe(true);
+  });
+
+  it("N=1 lines render the singular and still find their clip", () => {
+    const raw = "Can you feed the bear one {objects}? Put one in the bowl.";
+    const rendered = interpolate(raw, { name: "Mia", objects: "blocks", objectsSingular: "block" });
+    expect(rendered).toBe("Can you feed the bear one block? Put one in the bowl.");
     expect(rendered).toBe(voiceableText(raw));
     expect(ids.has(audioClipId(rendered))).toBe(true);
   });

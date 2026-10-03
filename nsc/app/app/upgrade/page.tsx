@@ -2,17 +2,18 @@ import Link from "next/link";
 import { requireAuth } from "@/lib/auth";
 import { hasFullAccess } from "@/lib/entitlements.server";
 import { startCheckout } from "./actions";
-import { Button, Card, LinkButton } from "@/components/ui";
+import { Card, LinkButton } from "@/components/ui";
+import { SubmitButton } from "@/components/submit-button";
 import { PRICE_DISPLAY } from "@/lib/stripe";
 import { brand } from "@/lib/config/brand";
 
+/** What the purchase unlocks (the check-in, re-check-ins, one weekly game
+ * and today's prompt are free for everyone). */
 const INCLUDED = [
-  "The full Feed-the-Bear check-in, as often as you like",
-  "Every game matched to your child's exact rung",
-  "A fresh number-talk prompt every day",
-  "Re-check-ins as they climb the ladder",
-  "Where they sit in the typical range for their age — and how it moves",
-  "The printable pack: board game, dot cards, ladder poster",
+  "Every game matched to your child's exact rung, fresh each week",
+  "The whole week of number-talk prompts, to read ahead",
+  "Where they sit in the typical range for their age, and how it moves",
+  "The printable pack: board game, dot cards, ladder poster, prompt cards",
 ];
 
 export default async function UpgradePage({
@@ -56,19 +57,22 @@ export default async function UpgradePage({
             </li>
           ))}
         </ul>
+        <p className="mt-4 text-sm text-teal-soft">
+          The check-in, every re-check-in, and today&rsquo;s prompt stay free.
+        </p>
         {error && (
           <p className="mt-4 text-sm text-[#9C4429]" role="alert">
             {error}
           </p>
         )}
         <form action={startCheckout} className="mt-6">
-          <Button type="submit" className="w-full">
+          <SubmitButton className="w-full" pendingLabel="Opening checkout…">
             Get {brand.productName}
-          </Button>
+          </SubmitButton>
         </form>
       </Card>
 
-      <Link href="/app" className="text-center text-sm text-teal-soft underline">
+      <Link href="/app" className="mx-auto inline-flex min-h-11 items-center text-sm text-teal-soft underline">
         Maybe later
       </Link>
       <p className="text-center text-xs text-teal-soft">

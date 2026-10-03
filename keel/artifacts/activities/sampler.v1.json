@@ -1,0 +1,594 @@
+{
+  "artifact": "activity_sampler",
+  "version": "1.0.0",
+  "status": "drafted_pending_matthew_verification",
+  "semantics": "The free Activity Library sampler (portfolio plan Layer 1: 20+ sample activities spanning every age band). Every activity is fresh authorship per D1: the DML manual's method (theme organization, intention lines, up/down adaptations) is reused; no manual content is ported. The activities grader (keel/graders/activities.mjs) hard-fails on missing fields, safety-lexicon violations for the age range, intentions that name no mechanism from the controlled vocabulary, non-household materials without a flag, and water steps without an arms-reach supervision note. Ages are integer months; activities surface for a child when their age falls inside [months_min, months_max].",
+  "mechanism_vocabulary": [
+    "serve_and_return", "joint_attention", "labeling", "parallel_talk", "expansion",
+    "object_permanence", "cause_effect", "imitation", "turn_taking", "gesture_modeling",
+    "vocabulary_building", "narrative_skills", "prediction", "categorization",
+    "spatial_reasoning", "symbolic_play", "emotional_labeling", "self_regulation",
+    "working_memory", "inhibitory_control", "fine_motor_grasp", "pincer_practice",
+    "bilateral_coordination", "hand_eye_coordination", "visual_tracking",
+    "core_strength", "balance", "proprioception", "vestibular_input",
+    "sensory_exploration", "tummy_time", "crossing_midline", "phonological_awareness",
+    "dialogic_reading", "delayed_gratification"
+  ],
+  "domains": ["language", "fine_motor", "gross_motor", "cognitive", "social_emotional", "sensory"],
+  "themes": ["everyday_home", "food", "outdoors", "water", "animals", "music_rhythm", "books", "pretend"],
+  "activities": [
+    {
+      "slug": "face-time-conversations",
+      "title": "First conversations",
+      "months_min": 0, "months_max": 6,
+      "themes": ["everyday_home"],
+      "domains": ["language", "social_emotional"],
+      "intention": "Build serve_and_return exchanges, the back-and-forth turn_taking that early language grows from.",
+      "mechanism_tags": ["serve_and_return", "turn_taking"],
+      "materials": [{ "item": "just the two of you", "household_common": true }],
+      "steps": [
+        "Hold your baby 8 to 12 inches from your face, the distance young babies see best.",
+        "When they make any sound or expression, treat it as their conversational turn: respond with a sound, a word, or an exaggerated expression.",
+        "Then pause, visibly, and wait for their next turn. The waiting is the activity.",
+        "Keep going as long as they stay interested; looking away means the conversation is over for now."
+      ],
+      "adapt_down": "With a sleepy newborn, just hold the gaze and narrate softly. Any quiet alert time counts.",
+      "adapt_up": "Start imitating their exact sounds back to them and see if they repeat, the first round of vocal copying.",
+      "evidence_note": "Contingent responsiveness in the first months predicts later language across many longitudinal studies; the serve-and-return frame comes from the Harvard Center on the Developing Child.",
+      "duration_min": 5, "mess_level": 1,
+      "setting": ["indoor", "on_the_go"],
+      "safety_notes": "None beyond ordinary holding support for a young baby's head and neck."
+    },
+    {
+      "slug": "tummy-time-theater",
+      "title": "Tummy time theater",
+      "months_min": 1, "months_max": 6,
+      "themes": ["everyday_home"],
+      "domains": ["gross_motor", "sensory"],
+      "intention": "Build the core_strength and head control that rolling, sitting, and crawling all stand on, using tummy_time your baby actually tolerates.",
+      "mechanism_tags": ["core_strength", "tummy_time", "visual_tracking"],
+      "materials": [
+        { "item": "a firm blanket on the floor", "household_common": true },
+        { "item": "one high-contrast object or an unbreakable mirror", "household_common": true }
+      ],
+      "steps": [
+        "Lay your baby on their tummy on a firm surface, and get down on the floor face to face with them.",
+        "Place the mirror or object just at the edge of their view and move it slowly side to side.",
+        "Narrate what they do: 'You lifted your head! You found your own face!'",
+        "Stop while it's still going well. Three good minutes beat ten miserable ones."
+      ],
+      "adapt_down": "Start with tummy-on-your-chest while you recline; it counts, and your face is the best motivator there is.",
+      "adapt_up": "Place the object slightly out of reach to invite pivoting and the first creeping movements.",
+      "evidence_note": "Prone play time is associated with earlier motor milestones in systematic reviews; short frequent sessions total the same benefit as long ones.",
+      "duration_min": 5, "mess_level": 1,
+      "setting": ["indoor"],
+      "safety_notes": "Awake and supervised only, always on a firm surface, never for sleep. Move to the back for sleep, every time."
+    },
+    {
+      "slug": "kitchen-narrator",
+      "title": "The kitchen narrator",
+      "months_min": 0, "months_max": 12,
+      "themes": ["everyday_home", "food"],
+      "domains": ["language", "cognitive"],
+      "intention": "Flood the ordinary day with parallel_talk, the running narration that builds receptive vocabulary long before first words.",
+      "mechanism_tags": ["parallel_talk", "labeling", "vocabulary_building"],
+      "materials": [{ "item": "whatever you were already doing", "household_common": true }],
+      "steps": [
+        "Set your baby somewhere safe where they can watch you work: bouncer, high chair, or a blanket on the floor.",
+        "Narrate what you're doing in short, warm sentences: 'I'm washing the apple. Brrr, cold! Now I'm cutting it.'",
+        "Name objects as you hold them up, then pause and watch their face.",
+        "When they vocalize back, answer as if it was a comment: 'You think so too?'"
+      ],
+      "adapt_down": "Slow the pace and exaggerate the melody of your voice; young babies tune to the music of speech before the words.",
+      "adapt_up": "Start offering choices with the objects: 'Apple, or banana?' and honor whichever they look at or reach for.",
+      "evidence_note": "The quantity and especially the conversational quality of speech directed to infants predicts vocabulary growth; narration is the lowest-effort way to raise both.",
+      "duration_min": 10, "mess_level": 1,
+      "setting": ["indoor"],
+      "safety_notes": "Keep the baby's seat well back from counters, cords, and anything hot."
+    },
+    {
+      "slug": "peekaboo-plus",
+      "title": "Peekaboo, three ways",
+      "months_min": 4, "months_max": 14,
+      "themes": ["everyday_home"],
+      "domains": ["social_emotional", "cognitive"],
+      "intention": "Practice object_permanence and anticipation inside the turn_taking game babies love most.",
+      "mechanism_tags": ["object_permanence", "turn_taking", "prediction"],
+      "materials": [{ "item": "a light cloth or burp rag", "household_common": true }],
+      "steps": [
+        "Classic round: hide your face behind your hands, wait a beat, reveal with a warm 'peekaboo!'",
+        "Object round: hide a favorite toy under the cloth in plain view and ask 'Where did it go?' Let them pull the cloth.",
+        "Reversal round: drape the cloth lightly over their head and let them yank it off to 'find' you.",
+        "Stretch the pause a little longer each round; the anticipation is where the learning lives."
+      ],
+      "adapt_down": "Keep part of the toy peeking out from under the cloth so the 'finding' always succeeds.",
+      "adapt_up": "Hide the toy under one of two cups and switch slowly while they watch.",
+      "evidence_note": "Search-for-hidden-object play tracks the classic object permanence findings; the anticipation structure also exercises early prediction.",
+      "duration_min": 5, "mess_level": 1,
+      "setting": ["indoor", "on_the_go"],
+      "safety_notes": "Use a light, breathable cloth and stay face to face for the whole game."
+    },
+    {
+      "slug": "basket-of-real-things",
+      "title": "The basket of real things",
+      "months_min": 6, "months_max": 14,
+      "themes": ["everyday_home"],
+      "domains": ["sensory", "fine_motor", "cognitive"],
+      "intention": "Offer safe sensory_exploration of real textures and weights, which holds attention far longer than most toys.",
+      "mechanism_tags": ["sensory_exploration", "fine_motor_grasp", "cause_effect"],
+      "materials": [
+        { "item": "a low basket or mixing bowl", "household_common": true },
+        { "item": "6 to 8 baby-safe household objects, each bigger than their fist: wooden spoon, silicone spatula, clean sponge, fabric napkin, sturdy plastic cup, hairbrush", "household_common": true }
+      ],
+      "steps": [
+        "Sit your baby up with support and set the basket in reach.",
+        "Let them pull things out, mouth them, bang them, and drop them; that IS the activity.",
+        "Name each object as it comes out, and describe the texture: 'Bumpy brush. Soft napkin.'",
+        "Rotate a couple of new objects in every few days to refresh the novelty."
+      ],
+      "adapt_down": "Hand them one object at a time and let them explore it on their back or side.",
+      "adapt_up": "Ask for objects back by name, 'Can you give me the spoon?', and make the handover a game.",
+      "evidence_note": "Heuristic play with everyday objects supports grasp development and sustained attention; object naming during joint play is a reliable vocabulary builder.",
+      "duration_min": 10, "mess_level": 1,
+      "setting": ["indoor"],
+      "safety_notes": "Every object must be larger than your baby's fist with no detachable parts, and this stays a together-activity, within arm's reach."
+    },
+    {
+      "slug": "point-and-gasp-walk",
+      "title": "The point-and-gasp walk",
+      "months_min": 8, "months_max": 20,
+      "themes": ["outdoors"],
+      "domains": ["language", "social_emotional"],
+      "intention": "Build joint_attention, the shared looking that language rides on, by pointing at the world together.",
+      "mechanism_tags": ["joint_attention", "gesture_modeling", "labeling"],
+      "materials": [{ "item": "a stroller or carrier and somewhere to walk", "household_common": true }],
+      "steps": [
+        "On a slow walk, point at one interesting thing at a time: 'Look! A dog!'",
+        "Make your point big and hold it, glancing between the thing and your child's face.",
+        "When they look where you pointed, celebrate it: 'You saw it!'",
+        "When they point at anything, follow it immediately and name what they found, with real enthusiasm."
+      ],
+      "adapt_down": "Tap the object itself while naming it, then back up to pointing from a short distance.",
+      "adapt_up": "Add one detail after the label: 'A dog! A wet dog!' That one-word stretch is an expansion, the single best-evidenced language move there is.",
+      "evidence_note": "Following and producing points sits at the center of the joint-attention literature; caregiver responsiveness to infant pointing predicts vocabulary months later.",
+      "duration_min": 15, "mess_level": 1,
+      "setting": ["outdoor", "on_the_go"],
+      "safety_notes": "None beyond ordinary street awareness."
+    },
+    {
+      "slug": "muffin-tin-drop",
+      "title": "Muffin tin drop",
+      "months_min": 9, "months_max": 18,
+      "themes": ["everyday_home"],
+      "domains": ["fine_motor", "cognitive"],
+      "intention": "Practice controlled release, the harder half of fine_motor_grasp, with a satisfying clink as the built-in reward.",
+      "mechanism_tags": ["fine_motor_grasp", "hand_eye_coordination", "cause_effect"],
+      "materials": [
+        { "item": "a muffin tin", "household_common": true },
+        { "item": "large silicone muffin liners or big wooden blocks, each bigger than their fist", "household_common": true }
+      ],
+      "steps": [
+        "Show one slow demonstration: pick up, hover, drop into a cup. Let the clink land.",
+        "Hand them one object at a time and let them drop it anywhere in the tin.",
+        "Narrate the physics: 'In! You dropped it in the cup!'",
+        "Then flip the game: hold out your hand and ask for the object back."
+      ],
+      "adapt_down": "Use a big mixing bowl instead; a larger target makes the release easier to land.",
+      "adapt_up": "Assign colors to cups or ask them to fill every cup before dumping the whole tin, which they will, joyfully.",
+      "evidence_note": "Voluntary release matures months after grasping; container play with oversized objects is the standard practice format in fine-motor guidance.",
+      "duration_min": 10, "mess_level": 1,
+      "setting": ["indoor"],
+      "safety_notes": "Objects must be bigger than your child's fist; skip actual muffin-sized foods for this one."
+    },
+    {
+      "slug": "cruising-course",
+      "title": "The cruising course",
+      "months_min": 9, "months_max": 16,
+      "themes": ["everyday_home"],
+      "domains": ["gross_motor"],
+      "intention": "Invite supported stepping and balance practice along furniture your child already pulls up on.",
+      "mechanism_tags": ["balance", "core_strength", "proprioception"],
+      "materials": [
+        { "item": "a couch and a sturdy low table, moved a short gap apart", "household_common": true },
+        { "item": "one irresistible toy", "household_common": true }
+      ],
+      "steps": [
+        "Arrange two stable pieces of furniture so there's a small gap between them.",
+        "Park the toy at the far end of the second piece, visible from the first.",
+        "Let your child pull up and cruise toward it; stay close behind.",
+        "Widen the gap an inch or two across days as their reach-and-step gets confident."
+      ],
+      "adapt_down": "No gap at all: one long couch edge with the toy at the far end.",
+      "adapt_up": "Offer one hand for a walk across open floor to the toy, then try letting go for the last step.",
+      "evidence_note": "Cruising is the standard bridge between pulling to stand and independent steps; practice opportunity, not equipment, is what the motor literature supports.",
+      "duration_min": 10, "mess_level": 1,
+      "setting": ["indoor"],
+      "safety_notes": "Furniture must not tip when pulled on; clear hard corners from the landing zone and stay within arm's reach."
+    },
+    {
+      "slug": "pots-and-pans-band",
+      "title": "The pots-and-pans band",
+      "months_min": 10, "months_max": 30,
+      "themes": ["music_rhythm", "everyday_home"],
+      "domains": ["sensory", "social_emotional", "cognitive"],
+      "intention": "Explore cause_effect and rhythm in a loud, joyful round of imitation you take turns leading.",
+      "mechanism_tags": ["cause_effect", "imitation", "turn_taking"],
+      "materials": [
+        { "item": "two pots and a wooden spoon each", "household_common": true }
+      ],
+      "steps": [
+        "Give them a pot and spoon, keep one set yourself, and let the banging begin.",
+        "Copy their rhythm exactly, then wait; being imitated is electric for toddlers.",
+        "Take a leader turn: two slow bangs, then pause and see if they copy you back.",
+        "End with a big finish and a 'The end!' bow, so the game gets a shape."
+      ],
+      "adapt_down": "Put their hand over yours while you tap slowly, or switch to a soft surface if the noise startles them.",
+      "adapt_up": "Play loud-quiet-loud on command; stopping on 'quiet!' is genuine inhibitory-control practice dressed up as a joke.",
+      "evidence_note": "Mutual imitation games build the imitation and turn-taking base that later conversation uses; rhythm play adds auditory pattern practice.",
+      "duration_min": 10, "mess_level": 2,
+      "setting": ["indoor"],
+      "safety_notes": "Wooden spoons, not metal, spare everyone's ears and knuckles."
+    },
+    {
+      "slug": "wash-the-dishes",
+      "title": "Wash the (unbreakable) dishes",
+      "months_min": 14, "months_max": 36,
+      "themes": ["water", "everyday_home", "pretend"],
+      "domains": ["sensory", "fine_motor", "social_emotional"],
+      "intention": "Give real-work sensory_exploration with water, the most reliable attention-holder in the toddler world.",
+      "mechanism_tags": ["sensory_exploration", "bilateral_coordination", "symbolic_play"],
+      "materials": [
+        { "item": "a dish tub or large bowl with two inches of water", "household_common": true },
+        { "item": "plastic cups and bowls, a sponge, a towel on the floor", "household_common": true }
+      ],
+      "steps": [
+        "Set the tub on the towel, roll up their sleeves, and hand over the sponge.",
+        "Show one wash: dunk, scrub, and set the cup on the towel to dry.",
+        "Let them run the operation their way; pouring counts, splashing counts.",
+        "Close by wringing the sponge together and hanging up the towel: real work has an ending."
+      ],
+      "adapt_down": "Skip the tub: a damp sponge and one cup to 'clean' on the high chair tray.",
+      "adapt_up": "Add a two-tub system, wash and rinse, and a drying rack; sequenced jobs are executive-function practice.",
+      "evidence_note": "Water and practical-life play sustain long focused engagement; two-handed pouring and wringing build bilateral coordination.",
+      "duration_min": 15, "mess_level": 3,
+      "setting": ["indoor", "outdoor"],
+      "safety_notes": "Stay within arm's reach the entire time and drain the tub the moment you're done; a toddler can drown in a few inches of water, so never leave them alone with it."
+    },
+    {
+      "slug": "snack-sorting",
+      "title": "Snack sorting, then eating",
+      "months_min": 12, "months_max": 30,
+      "themes": ["food"],
+      "domains": ["fine_motor", "cognitive"],
+      "intention": "Turn snack time into pincer_practice and first categorization, with the snack as its own reward.",
+      "mechanism_tags": ["pincer_practice", "categorization", "labeling"],
+      "materials": [
+        { "item": "two kinds of safe, age-appropriate snack pieces your child already eats (for example, puffs and soft blueberry halves)", "household_common": true },
+        { "item": "two cups or bowl sections", "household_common": true }
+      ],
+      "steps": [
+        "Scatter a small mixed handful on the high chair tray.",
+        "Show one sort: 'Puffs in this cup, berries in that one,' with one slow example each.",
+        "Let them pick up and sort; eating the inventory mid-sort is allowed and expected.",
+        "Name the categories as they work: 'Another puff! You found all the puffs.'"
+      ],
+      "adapt_down": "One category only: pick up pieces and drop them into one wide cup.",
+      "adapt_up": "Sort by color with three cups, or count the pieces into the cup one by one aloud.",
+      "evidence_note": "Fingertip food pickup is the everyday form of the pincer grasp, and early sorting is the concrete root of category formation.",
+      "duration_min": 10, "mess_level": 2,
+      "setting": ["indoor"],
+      "safety_notes": "Use only foods your child already handles safely, sized and softened per your usual choking-safety rules, seated, and always with you there."
+    },
+    {
+      "slug": "animal-sounds-safari",
+      "title": "Animal sounds safari",
+      "months_min": 12, "months_max": 30,
+      "themes": ["animals", "books"],
+      "domains": ["language"],
+      "intention": "Practice vocabulary_building and imitation with animal sounds, the easiest first 'words' there are.",
+      "mechanism_tags": ["imitation", "vocabulary_building", "labeling"],
+      "materials": [
+        { "item": "any animal picture book or a handful of animal toys", "household_common": true }
+      ],
+      "steps": [
+        "Point to an animal, name it, and make its sound with full commitment: 'Cow! Moooo.'",
+        "Pause and look expectant; any attempt at the sound gets a delighted echo back.",
+        "Once a sound is solid, flip the order: make the sound and ask 'Who says moo?'",
+        "Let them lead: whatever animal they point at is the next stop on the safari."
+      ],
+      "adapt_down": "Stick to two favorite animals and repeat them across days; repetition is the feature.",
+      "adapt_up": "Add where-does-it-live and what-does-it-eat questions, and accept pointing as a full answer.",
+      "evidence_note": "Animal sounds function as early words and consistent sound-object mapping practice; child-led book pointing doubles as joint attention.",
+      "duration_min": 10, "mess_level": 1,
+      "setting": ["indoor", "on_the_go"],
+      "safety_notes": "None."
+    },
+    {
+      "slug": "big-pillow-mountain",
+      "title": "Pillow mountain",
+      "months_min": 12, "months_max": 30,
+      "themes": ["everyday_home"],
+      "domains": ["gross_motor", "sensory"],
+      "intention": "Build climbing strength, balance, and proprioception on a soft mountain you control the size of.",
+      "mechanism_tags": ["core_strength", "proprioception", "vestibular_input", "balance"],
+      "materials": [
+        { "item": "couch cushions and pillows piled on a carpeted floor", "household_common": true }
+      ],
+      "steps": [
+        "Stack cushions two or three high on carpet, away from furniture edges.",
+        "Invite the climb: up, over, and a soft roll down the far side.",
+        "Narrate the effort words: up, over, down, big climb, plop.",
+        "Rebuild the mountain together; hauling cushions is half the workout."
+      ],
+      "adapt_down": "One cushion, crawled over, with your hands spotting their hips.",
+      "adapt_up": "Build a short course: over the mountain, under a blanket bridge, around the ottoman, and back.",
+      "evidence_note": "Uneven-surface climbing recruits balance and body-position sense in exactly the dose toddlers seek on their own.",
+      "duration_min": 15, "mess_level": 2,
+      "setting": ["indoor"],
+      "safety_notes": "Soft landing zone all around, clear of table corners, and stay within arm's reach; this is a spotting job, not a watching-from-the-couch job."
+    },
+    {
+      "slug": "feed-the-bear",
+      "title": "Feed the bear",
+      "months_min": 15, "months_max": 36,
+      "themes": ["pretend", "food"],
+      "domains": ["social_emotional", "language", "cognitive"],
+      "intention": "Open symbolic_play with the classic first pretend script: feeding someone who isn't hungry.",
+      "mechanism_tags": ["symbolic_play", "imitation", "narrative_skills"],
+      "materials": [
+        { "item": "a stuffed animal and a spoon and bowl", "household_common": true }
+      ],
+      "steps": [
+        "Announce the situation: 'Bear is SO hungry.' Give Bear one dramatic spoonful yourself.",
+        "Hand over the spoon and let your child take over the feeding.",
+        "Add small plot points as they play: Bear wants more, Bear spilled, Bear is full and sleepy.",
+        "Follow their script wherever it goes; the goal is their pretend, not your plot."
+      ],
+      "adapt_down": "Feed Bear real cracker crumbs first; the bridge from real to pretend can be literal.",
+      "adapt_up": "Give Bear feelings to solve: 'Bear is sad, his tower fell.' Comfort-the-bear is emotional rehearsal.",
+      "evidence_note": "Simple pretend with a doll or animal around this age is a canonical milestone, and pretend feeding is its most common first form.",
+      "duration_min": 10, "mess_level": 1,
+      "setting": ["indoor", "on_the_go"],
+      "safety_notes": "None."
+    },
+    {
+      "slug": "laundry-helper",
+      "title": "The laundry apprentice",
+      "months_min": 15, "months_max": 36,
+      "themes": ["everyday_home"],
+      "domains": ["cognitive", "gross_motor", "language"],
+      "intention": "Practice categorization and working_memory inside a real job that visibly matters to the household.",
+      "mechanism_tags": ["categorization", "working_memory", "labeling", "bilateral_coordination"],
+      "materials": [
+        { "item": "a laundry basket of clean laundry", "household_common": true }
+      ],
+      "steps": [
+        "Give a real job with a clear spec: 'Find all the socks and put them in this pile.'",
+        "Narrate the sort as it happens: 'A sock! That's Daddy's big sock. A tiny sock, that's yours.'",
+        "Add a delivery mission: 'Carry the towels to the bathroom.' Watch the proud walk.",
+        "Thank them like a colleague, because they were one."
+      ],
+      "adapt_down": "One-step version: pull everything out of the basket, then put everything back in.",
+      "adapt_up": "Two-step directions ('Get the red shirt and bring it to me') and matching sock pairs.",
+      "evidence_note": "Household participation pairs one-step direction practice with real purpose; toddlers work harder for genuine contribution than for praise.",
+      "duration_min": 10, "mess_level": 2,
+      "setting": ["indoor"],
+      "safety_notes": "None."
+    },
+    {
+      "slug": "puddle-physics",
+      "title": "Puddle physics",
+      "months_min": 15, "months_max": 36,
+      "themes": ["outdoors", "water"],
+      "domains": ["gross_motor", "sensory", "cognitive"],
+      "intention": "Run cause_effect experiments with the best free lab there is: weather.",
+      "mechanism_tags": ["cause_effect", "vestibular_input", "sensory_exploration", "prediction"],
+      "materials": [
+        { "item": "boots or shoes you don't mind soaking, and weather", "household_common": true }
+      ],
+      "steps": [
+        "Find a shallow puddle and let the first stomp happen; splash radius is data.",
+        "Experiment together: big stomp versus little toe-tap, one foot versus two-foot jump.",
+        "Drop things in: a leaf floats, a pebble sinks. Ask 'What do you think this one will do?'",
+        "Name everything: splash, ripple, float, sink, soaked."
+      ],
+      "adapt_down": "Hold both their hands for two-foot splash jumps, or let them stir the puddle with a stick from the edge.",
+      "adapt_up": "Predict-then-test out loud for each object, and hunt for the deepest puddle by testing with a stick first.",
+      "evidence_note": "Outdoor loose-parts and water play combine motor challenge with cause-effect testing; prediction questions layer early scientific thinking onto it.",
+      "duration_min": 15, "mess_level": 3,
+      "setting": ["outdoor"],
+      "safety_notes": "Shallow puddles only, away from traffic, and stay within arm's reach around any standing water."
+    },
+    {
+      "slug": "tower-demolition-inc",
+      "title": "Tower Demolition, Inc.",
+      "months_min": 12, "months_max": 30,
+      "themes": ["everyday_home"],
+      "domains": ["fine_motor", "cognitive", "social_emotional"],
+      "intention": "Build hand_eye_coordination through stacking, and turn_taking through the knock-down everyone actually came for.",
+      "mechanism_tags": ["hand_eye_coordination", "spatial_reasoning", "turn_taking", "cause_effect"],
+      "materials": [
+        { "item": "blocks, or stackable cups and containers", "household_common": true }
+      ],
+      "steps": [
+        "Build a tower together, alternating turns: your block, their block.",
+        "Count the levels out loud as it grows.",
+        "When it's tall or wobbling, give the ceremonial go-ahead: 'Ready... demolish!'",
+        "Rebuild immediately; the build-destroy-rebuild loop is the whole game."
+      ],
+      "adapt_down": "You build, they demolish; then hand-over-hand a two-block stack of their own.",
+      "adapt_up": "Copy-my-tower challenges: build a small shape and have them build a matching one next to it.",
+      "evidence_note": "Block stacking tracks visuomotor development closely, and structured knock-down turns make the game cooperative instead of chaotic.",
+      "duration_min": 10, "mess_level": 2,
+      "setting": ["indoor"],
+      "safety_notes": "Blocks bigger than a fist for anyone still mouthing them."
+    },
+    {
+      "slug": "flashlight-hide-and-seek",
+      "title": "Flashlight hide-and-seek",
+      "months_min": 18, "months_max": 36,
+      "themes": ["everyday_home"],
+      "domains": ["cognitive", "language"],
+      "intention": "Practice visual_tracking, spatial words, and shared suspense in the dark, which toddlers find hilarious.",
+      "mechanism_tags": ["visual_tracking", "joint_attention", "labeling", "spatial_reasoning"],
+      "materials": [
+        { "item": "a flashlight or phone light", "household_common": true }
+      ],
+      "steps": [
+        "Dim the room, lie on the floor together, and sweep the light slowly across the ceiling.",
+        "Land the beam on something and ask 'What did the light find?'",
+        "Hand over the flashlight and hunt for things they light up: 'You found the door! The light is ON the door.'",
+        "Play spotlight-tag: they shine, you 'catch' the dot with your hand, and swap."
+      ],
+      "adapt_down": "You drive the light the whole time and keep the sweeps slow and predictable.",
+      "adapt_up": "Give location clues: 'Shine it under the table... now behind the plant.' Prepositions in the dark stick.",
+      "evidence_note": "Light-beam pointing is joint attention with a built-in pointer, and preposition games in a novel format hold attention long enough to teach.",
+      "duration_min": 10, "mess_level": 1,
+      "setting": ["indoor"],
+      "safety_notes": "Keep a dim lamp on so nobody trips, and keep beams out of eyes."
+    },
+    {
+      "slug": "freeze-dance-conductor",
+      "title": "Freeze dance, conductor's edition",
+      "months_min": 20, "months_max": 36,
+      "themes": ["music_rhythm"],
+      "domains": ["gross_motor", "cognitive", "social_emotional"],
+      "intention": "Practice inhibitory_control, stopping a body that wants to keep going, inside a game worth stopping for.",
+      "mechanism_tags": ["inhibitory_control", "vestibular_input", "imitation", "self_regulation"],
+      "materials": [
+        { "item": "music from any speaker or your own singing", "household_common": true }
+      ],
+      "steps": [
+        "Dance together while the music plays; big moves, full commitment.",
+        "Stop the music and freeze like statues, holding whatever ridiculous shape you were in.",
+        "Trade the conductor job: let them control the music and freeze YOU.",
+        "Add styles: slow-motion dancing, tiny-mouse dancing, stompy-giant dancing."
+      ],
+      "adapt_down": "You call 'freeze!' with the music still going and hold their hands through the stop.",
+      "adapt_up": "Opposite day: freeze when the music PLAYS, dance in the silence. Rule reversal is executive-function work in disguise.",
+      "evidence_note": "Freeze games are the classic behavioral measure and training format for early inhibitory control; the reversal variant adds cognitive flexibility.",
+      "duration_min": 10, "mess_level": 1,
+      "setting": ["indoor", "outdoor"],
+      "safety_notes": "Clear the dance floor of trip hazards; enthusiasm will exceed coordination."
+    },
+    {
+      "slug": "playdough-bakery",
+      "title": "The playdough bakery",
+      "months_min": 20, "months_max": 36,
+      "themes": ["pretend", "food"],
+      "domains": ["fine_motor", "social_emotional", "language"],
+      "intention": "Strengthen hands for later pencil work while running a pretend shop that practices narrative_skills.",
+      "mechanism_tags": ["fine_motor_grasp", "bilateral_coordination", "symbolic_play", "narrative_skills"],
+      "materials": [
+        { "item": "playdough, homemade or store-bought", "household_common": true },
+        { "item": "a child-safe rolling pin or sturdy cup, and a plastic plate", "household_common": true }
+      ],
+      "steps": [
+        "Open the bakery: roll, squash, and pinch the dough into 'cookies' and 'cakes' together.",
+        "Place orders as the customer: 'One giant birthday cake, please, with three dots on top.'",
+        "Let them serve you and pay with pretend money or high-fives.",
+        "Swap roles: they order, you bake badly, they correct you. Being the expert is the best part."
+      ],
+      "adapt_down": "Just squeeze, poke, and tear; hand strength first, bakery later.",
+      "adapt_up": "Roll snakes and coil them, cut with a plastic knife, and take multi-item orders from memory.",
+      "evidence_note": "Dough play is a standard hand-strengthening medium, and role-based pretend around a familiar script grows narrative and perspective skills.",
+      "duration_min": 20, "mess_level": 2,
+      "setting": ["indoor"],
+      "safety_notes": "Playdough is for hands, not mouths; sit with children who still taste-test, and make a taste-safe homemade batch if needed."
+    },
+    {
+      "slug": "sink-or-float-lab",
+      "title": "The sink-or-float lab",
+      "months_min": 24, "months_max": 36,
+      "themes": ["water"],
+      "domains": ["cognitive", "language"],
+      "intention": "Run real prediction experiments: guess, test, and talk about why, with results you can see instantly.",
+      "mechanism_tags": ["prediction", "cause_effect", "categorization", "labeling"],
+      "materials": [
+        { "item": "a large bowl of water on a towel", "household_common": true },
+        { "item": "5 or 6 waterproof objects bigger than a fist: wooden spoon, plastic cup, orange, sponge, sealed container", "household_common": true }
+      ],
+      "steps": [
+        "Hold up each object and take a vote: 'Sink or float?' Honor every guess seriously.",
+        "Let them drop it in and call the result: 'Float! You were right!'",
+        "Sort tested objects into a sink pile and a float pile.",
+        "Ask one why question at the end, and offer a simple answer: 'The sponge has air hiding inside.'"
+      ],
+      "adapt_down": "Skip predictions; just drop, watch, and name sink and float.",
+      "adapt_up": "Find one object that can do both (a cup floats until it fills), and let them hunt the house for one more thing to test.",
+      "evidence_note": "Predict-observe-explain is the foundational science-talk pattern, and sink-or-float is its canonical toddler-safe version.",
+      "duration_min": 15, "mess_level": 3,
+      "setting": ["indoor", "outdoor"],
+      "safety_notes": "Stay within arm's reach of the water bowl for the whole activity and empty it as soon as the lab closes."
+    },
+    {
+      "slug": "story-of-our-day",
+      "title": "The story of our day",
+      "months_min": 24, "months_max": 36,
+      "themes": ["books", "everyday_home"],
+      "domains": ["language", "social_emotional", "cognitive"],
+      "intention": "Build narrative_skills and memory by co-telling the day's story at bedtime, with your child as the author.",
+      "mechanism_tags": ["narrative_skills", "working_memory", "expansion", "emotional_labeling"],
+      "materials": [{ "item": "a quiet moment at bedtime", "household_common": true }],
+      "steps": [
+        "Start the frame: 'Once upon a time, this morning, you woke up and...'",
+        "Pause and let them fill in anything; whatever they say becomes canon.",
+        "Stretch each contribution by one beat: 'Yes! The park! And what did you climb?'",
+        "Include one feeling in the story: 'You were SO frustrated when the tower fell. Then what happened?'"
+      ],
+      "adapt_down": "You tell the whole two-minute story and let them supply single words or the animal sounds.",
+      "adapt_up": "Add 'What was your favorite part? What do you want in tomorrow's story?' First drafts of planning.",
+      "evidence_note": "Elaborative reminiscing, expanding a child's memory talk with open questions, has one of the strongest evidence bases in the narrative-development literature.",
+      "duration_min": 5, "mess_level": 1,
+      "setting": ["indoor"],
+      "safety_notes": "None."
+    },
+    {
+      "slug": "obstacle-errands",
+      "title": "Obstacle errands",
+      "months_min": 24, "months_max": 36,
+      "themes": ["everyday_home"],
+      "domains": ["gross_motor", "cognitive"],
+      "intention": "Combine a movement course with two-step directions, so the body and working_memory train in the same game.",
+      "mechanism_tags": ["working_memory", "balance", "crossing_midline", "proprioception"],
+      "materials": [
+        { "item": "painter's tape for a floor line, plus a pillow and a chair", "household_common": true },
+        { "item": "a small basket of stuffed animals", "household_common": true }
+      ],
+      "steps": [
+        "Lay a tape line to walk, a pillow to hop over, and a chair to crawl under.",
+        "Give a two-part mission: 'Walk the line, go under the chair, and bring me the bear.'",
+        "Cheer the delivery, then send the next mission with a new animal and a new route.",
+        "Let them build and assign a mission for you; course designer is the senior role."
+      ],
+      "adapt_down": "One instruction at a time, with you walking the course alongside as the narrator.",
+      "adapt_up": "Three-part missions, backwards routes, or 'carry the bear on your head' style constraints.",
+      "evidence_note": "Multi-step direction games are the play form of working-memory span tasks, and varied-surface courses feed balance and motor planning.",
+      "duration_min": 15, "mess_level": 2,
+      "setting": ["indoor"],
+      "safety_notes": "Tape lines on carpet or textured floor, socks off for grip, and keep the crawl-under chair sturdy."
+    },
+    {
+      "slug": "big-feelings-weather-report",
+      "title": "The feelings weather report",
+      "months_min": 24, "months_max": 36,
+      "themes": ["everyday_home"],
+      "domains": ["social_emotional", "language"],
+      "intention": "Practice emotional_labeling in calm moments, so the words exist before the storm they'll be needed in.",
+      "mechanism_tags": ["emotional_labeling", "self_regulation", "vocabulary_building"],
+      "materials": [{ "item": "faces: yours and theirs, plus a mirror if handy", "household_common": true }],
+      "steps": [
+        "At a calm moment, deliver your own weather report: 'My inside weather is sunny today. This morning it was a little grumpy-cloudy.'",
+        "Ask for theirs: 'What's your inside weather?' Accept any answer, including 'dinosaur.'",
+        "Make weather faces together in the mirror: stormy face, sunny face, surprised-wind face.",
+        "During the day, narrate weather changes gently as they happen: 'Ooh, a storm rolled in when the block tower fell.'"
+      ],
+      "adapt_down": "Just name feelings in others: point out happy and sad faces in books and label them.",
+      "adapt_up": "Add sizes and forecasts: 'A little mad or a BIG mad? What might help the storm pass?'",
+      "evidence_note": "Emotion labeling by caregivers predicts children's later emotion regulation; the weather frame gives feelings a shared, unashamed vocabulary.",
+      "duration_min": 5, "mess_level": 1,
+      "setting": ["indoor", "on_the_go"],
+      "safety_notes": "None."
+    }
+  ]
+}

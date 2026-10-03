@@ -3,6 +3,7 @@ import {
   correctedAgeMonths,
   entryNode,
   stepNode,
+  validateWalk,
 } from "../lib/navigator";
 import type {
   NavigatorTree,
@@ -84,5 +85,49 @@ describe("Talking tree walk", () => {
     };
     expect(walk(13).tier).toBe("monitor");
     expect(walk(17).tier).toBe("discuss");
+  });
+});
+
+describe("walk log validation (N16: only enumerated answers from a real walk)", () => {
+  // Walk the tree by always taking the first answer.
+  function firstAnswerWalk(age: number) {
+    let node = entryNode(talking, age);
+    const path: { node: string; answer: string }[] = [];
+    while (node.kind === "question") {
+      const q = node as QuestionNode;
+      path.push({ node: q.id, answer: q.options[0].label });
+      node = stepNode(talking, q, 0, age);
+    }
+    const t = node as TerminalNode;
+    return { domain: "talking", ageMonths: age, corrected: false, path, terminalId: t.id, tier: t.tier };
+  }
+
+  it("accepts a genuine walk and returns it normalized", () => {
+    for (const age of [8, 13, 20, 26, 33, 40]) {
+      const walk = firstAnswerWalk(age);
+      const r = validateWalk(talking, walk);
+      expect(r.ok, `age ${age}`).toBe(true);
+      if (r.ok) expect(r.value).toEqual(walk);
+    }
+  });
+
+  it("refuses free text, invented nodes, and mismatched endings", () => {
+    const walk = firstAnswerWalk(20);
+    const bad = [
+      { ...walk, domain: "hearing" },
+      { ...walk, ageMonths: 20.5 },
+      { ...walk, ageMonths: 999 },
+      { ...walk, corrected: "no" },
+      { ...walk, path: [{ node: walk.path[0].node, answer: "my child's name is Sam" }, ...walk.path.slice(1)] },
+      { ...walk, path: [{ node: "q.invented", answer: "Yes" }, ...walk.path.slice(1)] },
+      { ...walk, tier: "typical_range", terminalId: walk.terminalId },
+      { ...walk, terminalId: "t.somewhere.else" },
+      { ...walk, path: Array.from({ length: 40 }, () => walk.path[0]) },
+      null,
+      "walk",
+    ].filter((w) => JSON.stringify(w) !== JSON.stringify(walk));
+    for (const w of bad) {
+      expect(validateWalk(talking, w).ok, JSON.stringify(w).slice(0, 80)).toBe(false);
+    }
   });
 });

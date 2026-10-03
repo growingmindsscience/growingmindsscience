@@ -56,13 +56,15 @@ export default async function AssessPage({
   if (!child) notFound();
   const months = ageInMonths(String(child.birth_month).slice(0, 7), new Date());
 
-  // Previous completed placement — lets the readout frame a re-run honestly
-  // (held steady / climbed / read lower) instead of repeating itself.
+  // Previous completed Give-N placement — lets the readout frame a re-run
+  // honestly (held steady / climbed / read lower). Point and Seek results
+  // are soft signals and are never compared as rungs (amendment A5).
   const { data: prior } = await supabase
     .from("nsc_assessments")
     .select("placement")
     .eq("child_id", assessment.child_id)
     .eq("status", "complete")
+    .eq("instrument", "give_n")
     .not("id", "eq", assessment.id)
     .order("completed_at", { ascending: false })
     .limit(1)

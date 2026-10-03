@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Button, Card } from "@/components/ui";
 import { PrintButton } from "@/components/print-button";
@@ -75,6 +75,13 @@ export function NavigatorWalker({
   const [node, setNode] = useState<QuestionNode | TerminalNode | null>(null);
   const [path, setPath] = useState<Step[]>([]);
   const [history, setHistory] = useState<(QuestionNode | TerminalNode)[]>([]);
+  // Each new question (or the result) takes focus, so keyboard and
+  // screen-reader users land on it, and a repeated Enter can't answer the
+  // next question with the previous one's button.
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  useEffect(() => {
+    if (phase === "walk") headingRef.current?.focus();
+  }, [phase, node?.id]);
 
   function begin() {
     const chrono = years * 12 + months;
@@ -144,7 +151,7 @@ export function NavigatorWalker({
             <select
               value={years}
               onChange={(e) => setYears(Number(e.target.value))}
-              className="rounded-xl border border-sea-glass bg-surface px-3 py-2"
+              className="min-h-11 rounded-xl border border-sea-glass bg-surface px-3 py-2"
             >
               {[0, 1, 2, 3].map((y) => (
                 <option key={y} value={y}>
@@ -158,7 +165,7 @@ export function NavigatorWalker({
             <select
               value={months}
               onChange={(e) => setMonths(Number(e.target.value))}
-              className="rounded-xl border border-sea-glass bg-surface px-3 py-2"
+              className="min-h-11 rounded-xl border border-sea-glass bg-surface px-3 py-2"
             >
               {Array.from({ length: 12 }, (_, m) => (
                 <option key={m} value={m}>
@@ -168,12 +175,12 @@ export function NavigatorWalker({
             </select>
           </label>
         </div>
-        <label className="mt-4 flex items-center gap-2 text-sm text-ink">
+        <label className="mt-4 flex min-h-11 items-center gap-2 text-sm text-ink">
           <input
             type="checkbox"
             checked={early}
             onChange={(e) => setEarly(e.target.checked)}
-            className="h-4 w-4 accent-teal"
+            className="h-5 w-5 accent-teal"
           />
           Born more than 3 weeks early
         </label>
@@ -183,7 +190,7 @@ export function NavigatorWalker({
             <select
               value={weeksEarly}
               onChange={(e) => setWeeksEarly(Number(e.target.value))}
-              className="w-32 rounded-xl border border-sea-glass bg-surface px-3 py-2"
+              className="min-h-11 w-32 rounded-xl border border-sea-glass bg-surface px-3 py-2"
             >
               {[4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map((w) => (
                 <option key={w} value={w}>
@@ -213,21 +220,33 @@ export function NavigatorWalker({
           Question {path.length + 1}
         </p>
         <Card>
-          <h2 className="text-xl font-semibold text-ink-deep">{node.text}</h2>
+          <h2
+            ref={headingRef}
+            tabIndex={-1}
+            className="text-xl font-semibold text-ink-deep focus:outline-none"
+          >
+            {node.text}
+          </h2>
           {node.help && <p className="mt-2 text-sm text-teal-soft">{node.help}</p>}
           <div className="mt-5 flex flex-col gap-2">
             {node.options.map((o, i) => (
               <button
-                key={i}
+                type="button"
+                // Keyed by question: every question gets fresh buttons.
+                key={`${node.id}:${i}`}
                 onClick={() => answer(i)}
-                className="rounded-xl border border-sea-glass bg-surface px-4 py-3 text-left text-ink transition-colors hover:border-teal hover:bg-sea-glass/20"
+                className="min-h-11 rounded-xl border border-sea-glass bg-surface px-4 py-3 text-left text-ink transition-colors hover:border-teal hover:bg-sea-glass/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal"
               >
                 {o.label}
               </button>
             ))}
           </div>
         </Card>
-        <button onClick={back} className="self-start text-sm text-teal-soft underline">
+        <button
+          type="button"
+          onClick={back}
+          className="inline-flex min-h-11 items-center self-start text-sm text-teal-soft underline"
+        >
           ← Back
         </button>
       </div>
@@ -250,7 +269,13 @@ export function NavigatorWalker({
         >
           {TIER_LABEL[t.tier]}
         </span>
-        <h2 className="mt-2 text-2xl font-semibold text-ink-deep">{t.headline}</h2>
+        <h2
+          ref={headingRef}
+          tabIndex={-1}
+          className="mt-2 text-2xl font-semibold text-ink-deep focus:outline-none"
+        >
+          {t.headline}
+        </h2>
         {corrected && (
           <p className="mt-1 text-sm text-teal-soft">
             Because your child was born early, this compares against their
@@ -381,17 +406,18 @@ export function NavigatorWalker({
       <div className="flex flex-wrap items-center gap-4 print:hidden">
         <PrintButton label="Print / save this plan" />
         <button
+          type="button"
           onClick={() => {
             setPhase("age");
             setNode(null);
             setPath([]);
             setHistory([]);
           }}
-          className="text-sm text-teal-soft underline"
+          className="inline-flex min-h-11 items-center text-sm text-teal-soft underline"
         >
           Start over
         </button>
-        <Link href="/worried" className="text-sm text-teal-soft underline">
+        <Link href="/worried" className="inline-flex min-h-11 items-center text-sm text-teal-soft underline">
           Other guides
         </Link>
       </div>
@@ -415,7 +441,7 @@ function StatePicker({ rows }: { rows: PartCRow[] }) {
         <select
           value={state}
           onChange={(e) => setState(e.target.value)}
-          className="w-64 rounded-xl border border-sea-glass bg-surface px-3 py-2"
+          className="min-h-11 w-64 max-w-full rounded-xl border border-sea-glass bg-surface px-3 py-2"
         >
           <option value="">Choose a state</option>
           {rows.map((r) => (
@@ -435,7 +461,7 @@ function StatePicker({ rows }: { rows: PartCRow[] }) {
             </a>
           )}
           {stale && (
-            <p className="mt-1 text-xs text-teal-soft">
+            <p className="mt-1 text-xs text-ink-muted">
               Last checked {row.last_verified} — confirm on the ECTA directory
               if anything looks off.
             </p>

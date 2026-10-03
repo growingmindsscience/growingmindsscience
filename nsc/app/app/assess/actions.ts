@@ -5,22 +5,14 @@ import { redirect } from "next/navigation";
 import { requireAuth } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { ARTIFACT_VERSION } from "@/lib/content.server";
-import {
-  applyOutcome,
-  createSession,
-  getResult,
-  type Outcome,
-  type TitrationState,
-} from "@/lib/titration";
-import {
-  createPointSession,
-  psApplyPick,
-  psIsDone,
-  psResult,
-  type PSPick,
-  type PSState,
-} from "@/lib/pointandseek";
+import { createSession, type Outcome, type TitrationState } from "@/lib/titration";
+import { createPointSession, type PSPick, type PSState } from "@/lib/pointandseek";
+import { recordGiveNTap, recordPointTap, type TapResult } from "@/lib/assessment-store";
 import { ageInMonths, MIN_ASSESSMENT_MONTHS, RESUME_WINDOW_MS } from "@/lib/age";
+import { birthMonthFromForm } from "@/lib/birth-month";
+import { SAVE_FAILED } from "@/lib/friendly-error";
+import { localDateISO } from "@/lib/tz";
+import { getTimeZone } from "@/lib/tz.server";
 
 /** Below this age Point and Seek replaces Give-N as the default instrument (A5). */
 const POINT_AND_SEEK_MAX_MONTHS = 30;
@@ -31,16 +23,17 @@ export async function createChild(formData: FormData) {
   const supabase = await createClient();
 
   const nickname = String(formData.get("nickname") ?? "").trim().slice(0, 30);
-  const birthMonth = String(formData.get("birth_month") ?? ""); // yyyy-mm
   const languages = String(formData.get("home_languages") ?? "")
     .split(",")
-    .map((s) => s.trim())
-    .filter(Boolean);
+    .map((s) => s.trim().slice(0, 40))
+    .filter(Boolean)
+    .slice(0, 6);
+  const birth = birthMonthFromForm(formData, localDateISO(new Date(), await getTimeZone()));
 
-  if (!nickname || !/^\d{4}-\d{2}$/.test(birthMonth)) {
+  if (!nickname || (!birth.ok && birth.reason === "missing")) {
     redirect("/app/child/new?error=Please+add+a+name+and+birth+month.");
   }
-  if (birthMonth > new Date().toISOString().slice(0, 7)) {
+  if (!birth.ok) {
     redirect("/app/child/new?error=That+birth+month+is+in+the+future.");
   }
 
@@ -49,15 +42,35 @@ export async function createChild(formData: FormData) {
     .insert({
       owner_id: user.id,
       nickname,
-      birth_month: `${birthMonth}-01`,
+      birth_month: `${birth.value}-01`,
       home_languages: languages,
     })
     .select("id")
     .single();
 
-  if (error) redirect(`/app/child/new?error=${encodeURIComponent(error.message)}`);
+  if (error || !data) {
+    console.error(`[child] insert failed: ${error?.message}`);
+    redirect(`/app/child/new?error=${encodeURIComponent(SAVE_FAILED)}`);
+  }
   revalidatePath("/app");
-  redirect(`/app/child/${data!.id}/prescreen`);
+  redirect(`/app/child/${data.id}/prescreen`);
+}
+
+/**
+ * The child row, visible only to its owner through RLS. Used as an
+ * ownership check before writing rows that reference the child: the table
+ * policies check owner_id, not that child_id belongs to the caller.
+ */
+async function ownChild(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  childId: string,
+): Promise<{ id: string; birth_month: string } | null> {
+  const { data } = await supabase
+    .from("nsc_children")
+    .select("id, birth_month")
+    .eq("id", childId)
+    .maybeSingle();
+  return (data as { id: string; birth_month: string } | null) ?? null;
 }
 
 /** Persist pre-screen answers, open a fresh assessment, and start the game. */
@@ -65,13 +78,18 @@ export async function beginAssessment(childId: string, formData: FormData) {
   const user = await requireAuth();
   const supabase = await createClient();
 
+  const child = await ownChild(supabase, childId);
+  if (!child) redirect("/app");
+
+  const answer = (name: string, fallback = "") =>
+    String(formData.get(name) ?? fallback).slice(0, 32);
   const prescreen = {
-    count_band: String(formData.get("count_band") ?? ""),
-    gives_one: String(formData.get("gives_one") ?? ""),
-    points_counts: String(formData.get("points_counts") ?? ""),
+    count_band: answer("count_band"),
+    gives_one: answer("gives_one"),
+    points_counts: answer("points_counts"),
     // Small number words are learned per-language (Wagner, Kimura & Barner
     // 2015) — the check-in should run in the child's counting language.
-    number_language: String(formData.get("number_language") ?? "english"),
+    number_language: answer("number_language", "english"),
   };
 
   // Resume an in-flight assessment for this child inside the 48h window.
@@ -94,14 +112,7 @@ export async function beginAssessment(childId: string, formData: FormData) {
   // Instrument routing (amendment A5): under ~30 months, Give-N compliance
   // is poor and these families previously got no assessment at all — the
   // Point-to-X-style "Point and Seek" runs instead (ev.protocol.silver2021).
-  const { data: childRow } = await supabase
-    .from("nsc_children")
-    .select("birth_month")
-    .eq("id", childId)
-    .single();
-  const months = childRow
-    ? ageInMonths(String(childRow.birth_month).slice(0, 7), new Date())
-    : POINT_AND_SEEK_MAX_MONTHS;
+  const months = ageInMonths(String(child.birth_month).slice(0, 7), new Date());
   // Under ~2 there is no assessment at all — the prescreen page shows the
   // "just talk" guidance instead; this guard is defense in depth.
   if (months < MIN_ASSESSMENT_MONTHS) {
@@ -125,8 +136,11 @@ export async function beginAssessment(childId: string, formData: FormData) {
     .select("id")
     .single();
 
-  if (error) redirect(`/app/child/${childId}/prescreen?error=${encodeURIComponent(error.message)}`);
-  redirect(`/app/assess/${data!.id}`);
+  if (error || !data) {
+    console.error(`[assess] insert failed: ${error?.message}`);
+    redirect(`/app/child/${childId}/prescreen?error=${encodeURIComponent(SAVE_FAILED)}`);
+  }
+  redirect(`/app/assess/${data.id}`);
 }
 
 /**
@@ -137,6 +151,7 @@ export async function beginAssessment(childId: string, formData: FormData) {
 export async function startPointAndSeek(childId: string) {
   const user = await requireAuth();
   const supabase = await createClient();
+  if (!(await ownChild(supabase, childId))) redirect("/app");
 
   const { data: latest } = await supabase
     .from("nsc_assessments")
@@ -160,73 +175,31 @@ export async function startPointAndSeek(childId: string) {
     .select("id")
     .single();
 
-  if (error) redirect(`/app?error=${encodeURIComponent(error.message)}`);
-  redirect(`/app/assess/${data!.id}`);
-}
-
-async function loadAssessment(assessmentId: string) {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("nsc_assessments")
-    .select("id, child_id, status, engine_state, confidence")
-    .eq("id", assessmentId)
-    .single();
-  if (error || !data) throw new Error("Assessment not found");
-  return { supabase, data };
-}
-
-export interface OutcomeResult {
-  state: TitrationState;
+  if (error || !data) {
+    console.error(`[assess] point-and-seek insert failed: ${error?.message}`);
+    redirect(`/app?error=${encodeURIComponent(SAVE_FAILED)}`);
+  }
+  redirect(`/app/assess/${data.id}`);
 }
 
 /**
- * Record one trial outcome. Loads the authoritative engine state (RLS scopes
- * to the owner), applies the pure FSM, persists the trial row + updated state,
- * and finalizes placement/confidence when the session ends. Returns the new
- * state so the client re-renders from the server's authority, never its own.
+ * Record one Give-N answer. `expectedTrials` is how many answers the
+ * parent's screen had seen; a mismatch returns the saved state untouched
+ * (status "stale") so a lost response or a stale tab can't record an answer
+ * against a different number. Throws when the save fails (the runner shows
+ * a calm "didn't save" note and the parent taps again).
  */
 export async function recordOutcome(
   assessmentId: string,
   outcome: Outcome,
+  expectedTrials: number,
   selfCorrected?: boolean,
-): Promise<OutcomeResult> {
+): Promise<TapResult<TitrationState>> {
   await requireAuth();
-  const { supabase, data } = await loadAssessment(assessmentId);
-  if (data.status === "complete") {
-    return { state: data.engine_state as TitrationState };
-  }
-
-  const prev = data.engine_state as TitrationState;
-  const next = applyOutcome(prev, outcome, /* postCheck */ true);
-  const seq = next.trials.length;
-  const last = next.trials[next.trials.length - 1];
-  if (selfCorrected !== undefined) last.selfCorrected = selfCorrected;
-
-  await supabase.from("nsc_trials").insert({
-    assessment_id: assessmentId,
-    seq,
-    requested_n: last.n,
-    outcome: last.outcome,
-    post_check: last.postCheck,
-    is_bonus: last.isBonus,
-  });
-
-  const result = next.phase === "done" ? getResult(next) : null;
-  await supabase
-    .from("nsc_assessments")
-    .update({
-      engine_state: next as unknown as object,
-      trial_count: next.trials.filter((t) => !t.isBonus).length,
-      status: result ? "complete" : "in_progress",
-      placement: result?.placement ?? null,
-      near_cp: result?.nearCP ?? false,
-      confidence: result?.confidence ?? null,
-      completed_at: result ? new Date().toISOString() : null,
-    })
-    .eq("id", assessmentId);
-
-  if (result) revalidatePath("/app");
-  return { state: next };
+  const supabase = await createClient();
+  const result = await recordGiveNTap(supabase, assessmentId, outcome, expectedTrials, selfCorrected);
+  if (result.finalized) revalidatePath("/app");
+  return result;
 }
 
 /**
@@ -236,18 +209,29 @@ export async function recordOutcome(
  * re-run invitation keeps its normal time gate — an instant "bad day, go
  * again" button would ratchet placements up through retest familiarity.
  */
-export async function flagOffDay(assessmentId: string) {
+export async function flagOffDay(assessmentId: string): Promise<{ ok: boolean }> {
   await requireAuth();
-  const { supabase, data } = await loadAssessment(assessmentId);
-  if (data.status !== "complete") return;
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("nsc_assessments")
+    .select("id, status, engine_state, confidence")
+    .eq("id", assessmentId)
+    .maybeSingle();
+  if (error || !data) return { ok: false };
+  if (data.status !== "complete") return { ok: false };
 
   const state = data.engine_state as TitrationState & { offDay?: boolean };
   const update: Record<string, unknown> = {
     engine_state: { ...state, offDay: true },
   };
   if (data.confidence === "high") update.confidence = "medium";
-  await supabase.from("nsc_assessments").update(update).eq("id", assessmentId);
+  const { error: saveErr } = await supabase
+    .from("nsc_assessments")
+    .update(update)
+    .eq("id", assessmentId);
+  if (saveErr) return { ok: false };
   revalidatePath("/app");
+  return { ok: true };
 }
 
 export async function pauseAssessment(assessmentId: string) {
@@ -262,54 +246,20 @@ export async function pauseAssessment(assessmentId: string) {
   redirect("/app");
 }
 
-export interface PointPickResult {
-  state: PSState;
-}
-
 /**
  * Record one Point and Seek tap. Same authority pattern as recordOutcome:
- * load server-side state, apply the pure module, persist trial + state,
- * finalize the soft signal when done. Point and Seek NEVER writes a rung
- * above L1 and never better than medium confidence (amendment A5).
+ * `expectedIndex` is the card pair the parent's screen showed. Point and
+ * Seek NEVER writes a rung above L1 and never better than medium confidence
+ * (amendment A5).
  */
 export async function recordPointPick(
   assessmentId: string,
   pick: PSPick,
-): Promise<PointPickResult> {
+  expectedIndex: number,
+): Promise<TapResult<PSState>> {
   await requireAuth();
-  const { supabase, data } = await loadAssessment(assessmentId);
-  if (data.status === "complete") {
-    return { state: data.engine_state as PSState };
-  }
-
-  const prev = data.engine_state as PSState;
-  const next = psApplyPick(prev, pick);
-  const last = next.records[next.records.length - 1];
-
-  await supabase.from("nsc_trials").insert({
-    assessment_id: assessmentId,
-    seq: last.seq,
-    requested_n: last.target,
-    outcome: last.pick === "skip" ? "skip" : last.correct ? "correct" : "incorrect",
-    post_check: false,
-    is_bonus: false,
-  });
-
-  const result = psIsDone(next) ? psResult(next) : null;
-  await supabase
-    .from("nsc_assessments")
-    .update({
-      engine_state: next as unknown as object,
-      trial_count: next.records.length,
-      status: result ? "complete" : "in_progress",
-      placement: result?.routePlacement ?? null,
-      near_cp: false,
-      confidence: result?.routeConfidence ?? null,
-      ps_signal: result?.signal ?? null,
-      completed_at: result ? new Date().toISOString() : null,
-    })
-    .eq("id", assessmentId);
-
-  if (result) revalidatePath("/app");
-  return { state: next };
+  const supabase = await createClient();
+  const result = await recordPointTap(supabase, assessmentId, pick, expectedIndex);
+  if (result.finalized) revalidatePath("/app");
+  return result;
 }

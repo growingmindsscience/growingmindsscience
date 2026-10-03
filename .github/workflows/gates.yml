@@ -69,6 +69,10 @@ jobs:
       # instead of failing, then starts enforcing automatically once the files
       # exist. Remove the guards once they are on main.
 
+      # Keyless: every network call is mocked, and an unexpected one fails the test.
+      - name: "API functions: unit tests (node --test, mocked fetch)"
+        run: node --test "tests/api/*.test.mjs"
+
       - name: Eval harness — deterministic checks (planted-violation gate)
         run: |
           if [ -f evals/selftest.mjs ]; then
@@ -83,6 +87,14 @@ jobs:
             node keel/graders/selftest.mjs
           else
             echo "::notice::keel/graders/selftest.mjs not present on this ref — skipping"
+          fi
+
+      - name: Claims pages match their artifact (drift gate)
+        run: |
+          if [ -f scripts/build-claims.mjs ]; then
+            node scripts/build-claims.mjs --check
+          else
+            echo "::notice::scripts/build-claims.mjs not present on this ref — skipping"
           fi
 
       - name: Library grader — planted-violation gate

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Button, Card, EnrichmentFooter } from "@/components/ui";
 import { AudioButton } from "@/components/audio-button";
 import { Ladder } from "@/components/ladder";
@@ -12,11 +12,16 @@ import { interpolate } from "@/lib/assessment";
 import { getResult, type Outcome, type Placement, type TitrationState } from "@/lib/titration";
 import { standingSummary } from "@/lib/norms";
 import { flagOffDay, pauseAssessment, recordOutcome, startPointAndSeek } from "../actions";
+import { STEP_LOCK_MS, TAP_NOTICE, type TapNotice } from "./step-guard";
 
 const NUMWORDS = ["zero", "one", "two", "three", "four", "five", "six"];
 
 /** Rung height, for framing a re-run against the previous placement. */
 const RANK: Record<string, number> = { L0: 0, L1: 1, L2: 2, L3: 3, L4: 4, CP: 5 };
+
+/** Text-style buttons still get a 44px tap target. */
+const LINK_BUTTON =
+  "inline-flex min-h-11 items-center justify-center px-3 py-2 text-sm text-teal-soft underline disabled:opacity-50";
 
 export function TrialRunner({
   assessmentId,
@@ -55,22 +60,56 @@ export function TrialRunner({
   const [confirmPause, setConfirmPause] = useState(false);
   const [showResumeNote, setShowResumeNote] = useState(resumed);
   const [offDayMarked, setOffDayMarked] = useState(false);
+  const [notice, setNotice] = useState<TapNotice | null>(null);
 
   const vars = { name: childName, objects, objectsSingular };
   const view = stepView(state, copy, vars, showCheck);
 
+  // One key per on-screen step. Each change re-arms the tap lockout (a
+  // double tap, or a toddler's tap, can't answer a prompt nobody read) and
+  // moves focus to the step heading so keyboard and screen-reader users
+  // aren't left on a button that no longer exists.
+  const stepKey =
+    phase === "setup"
+      ? "setup"
+      : confirmPause
+        ? "pause"
+        : `${state.trials.length}:${view.kind}`;
+  const readyAt = useRef(0);
+  const inFlight = useRef(false);
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const firstStep = useRef(true);
+  useLayoutEffect(() => {
+    readyAt.current = Date.now() + STEP_LOCK_MS;
+    if (firstStep.current) {
+      firstStep.current = false;
+      return;
+    }
+    headingRef.current?.focus({ preventScroll: true });
+  }, [stepKey]);
+  const canTap = () => !inFlight.current && Date.now() >= readyAt.current;
+
   async function record(outcome: Outcome, selfCorrected?: boolean) {
+    if (!canTap()) return;
+    inFlight.current = true;
     setPending(true);
+    setNotice(null);
     try {
-      const { state: next } = await recordOutcome(
+      const res = await recordOutcome(
         assessmentId,
         outcome,
+        state.trials.length,
         selfCorrected,
       );
-      setState(next);
+      if (!res) return; // the action redirected (e.g. signed out)
+      setState(res.state);
       setShowCheck(false);
       setShowResumeNote(false);
+      if (res.status === "stale") setNotice("stale");
+    } catch {
+      setNotice("error");
     } finally {
+      inFlight.current = false;
       setPending(false);
     }
   }
@@ -85,6 +124,12 @@ export function TrialRunner({
 
   const rules = copy.states["setup:rules"]?.lines ?? [];
   const checklist = copy.states["setup:checklist"]?.lines ?? [];
+
+  const noticeLine = notice ? (
+    <p role="status" className="rounded-xl bg-rung-glow px-4 py-3 text-center text-sm text-ink-deep">
+      {TAP_NOTICE[notice]}
+    </p>
+  ) : null;
 
   if (phase === "setup") {
     return (
@@ -155,13 +200,21 @@ export function TrialRunner({
       prevPlacement != null && view.placement != null
         ? (RANK[view.placement] ?? 0) - (RANK[prevPlacement] ?? 0)
         : null;
+    const [headline, ...rest] = view.lines;
     return (
       <main className="mx-auto flex min-h-screen max-w-lg flex-col justify-center gap-6 px-6 py-12">
         <Ladder current={view.placement} nearCP={view.nearCP} animate />
         <Card>
           <div className="flex flex-col gap-3">
-            {view.lines.map((l, i) => (
-              <p key={i} className={i === 0 ? "text-lg font-semibold text-ink-deep" : "text-ink"}>
+            <h1
+              ref={headingRef}
+              tabIndex={-1}
+              className="text-lg font-semibold text-ink-deep focus:outline-none"
+            >
+              {headline || "All done. Thank you for playing."}
+            </h1>
+            {rest.map((l, i) => (
+              <p key={i} className="text-ink">
                 {l}
               </p>
             ))}
@@ -211,9 +264,9 @@ export function TrialRunner({
               {ageSummary.detail}
             </p>
             {ageSummary.caveat && (
-              <p className="mt-2 text-xs text-teal-soft">{ageSummary.caveat}</p>
+              <p className="mt-2 text-xs text-ink-muted">{ageSummary.caveat}</p>
             )}
-            <p className="mt-2 text-xs text-teal-soft">
+            <p className="mt-2 text-xs text-ink-muted">
               Typical ranges are wide — a map, never a race.{" "}
               <Link
                 href={`/app/child/${childId}/progress`}
@@ -231,19 +284,26 @@ export function TrialRunner({
             rung low — that&rsquo;s the language, not the ladder.
           </p>
         )}
+        {noticeLine}
         {result?.confidence === "high" &&
           (offDayMarked ? (
-            <p className="text-center text-sm text-teal-soft">
+            <p role="status" className="text-center text-sm text-teal-soft">
               Marked. We&rsquo;ll treat today as a rougher estimate — the
               plan stays the same, and the next check-in will tell you more.
             </p>
           ) : (
             <button
+              type="button"
               onClick={async () => {
                 setOffDayMarked(true);
-                await flagOffDay(assessmentId);
+                setNotice(null);
+                const r = await flagOffDay(assessmentId).catch(() => null);
+                if (!r?.ok) {
+                  setOffDayMarked(false);
+                  setNotice("flag");
+                }
               }}
-              className="text-center text-sm text-teal-soft underline"
+              className="min-h-11 px-3 py-2 text-center text-sm text-teal-soft underline"
             >
               Was today an off day — tired, distracted, bear mobbed? Tap to
               mark it, and we&rsquo;ll read today gently.
@@ -251,7 +311,7 @@ export function TrialRunner({
           ))}
         <Link
           href={`/app/child/${childId}/plan`}
-          className="inline-flex items-center justify-center rounded-full bg-teal px-6 py-3 text-base font-semibold text-white hover:bg-teal-soft"
+          className="inline-flex min-h-12 items-center justify-center rounded-full bg-teal px-6 py-3 text-base font-semibold text-white hover:bg-teal-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 focus-visible:ring-offset-ground"
         >
           See this week&rsquo;s plan
         </Link>
@@ -259,7 +319,7 @@ export function TrialRunner({
           <form action={startPointAndSeek.bind(null, childId)}>
             <button
               type="submit"
-              className="w-full text-center text-sm text-teal-soft underline"
+              className="min-h-11 w-full px-3 py-2 text-center text-sm text-teal-soft underline"
             >
               The bear got mobbed? Try Point and Seek — a two-minute watching
               game, no setup
@@ -276,13 +336,21 @@ export function TrialRunner({
   const resumeLine = copy.states["resume"]?.lines?.[0];
 
   if (confirmPause) {
+    const [pauseHeadline, ...pauseRest] = pauseLines.map((l) => interpolate(l, vars));
     return (
       <main className="mx-auto flex min-h-screen max-w-lg flex-col justify-center gap-6 px-6 py-12">
         <Card className="text-center">
           <div className="flex flex-col gap-3">
-            {pauseLines.map((l, i) => (
-              <p key={i} className={i === 0 ? "text-lg font-semibold text-ink-deep" : "text-ink"}>
-                {interpolate(l, vars)}
+            <h1
+              ref={headingRef}
+              tabIndex={-1}
+              className="text-lg font-semibold text-ink-deep focus:outline-none"
+            >
+              {pauseHeadline ?? "Good stopping point."}
+            </h1>
+            {pauseRest.map((l, i) => (
+              <p key={i} className="text-ink">
+                {l}
               </p>
             ))}
           </div>
@@ -325,39 +393,56 @@ export function TrialRunner({
               </ul>
             )}
             <button
+              type="button"
               onClick={() => setShowResumeNote(false)}
-              className="mt-3 text-sm font-semibold text-teal underline"
+              className="mt-2 inline-flex min-h-11 items-center text-sm font-semibold text-teal underline"
             >
               Got it
             </button>
           </Card>
         )}
-        <p className="text-center text-sm font-medium uppercase tracking-widest text-teal">
+        <h1
+          ref={headingRef}
+          tabIndex={-1}
+          className="text-center text-sm font-medium uppercase tracking-widest text-teal focus:outline-none"
+        >
           {view.kind === "bonus" ? "One last one" : "Feed the bear"}
-        </p>
+        </h1>
         <Card className="text-center">
           <p aria-hidden className="mb-2 text-6xl font-bold text-teal">
             {bigN}
           </p>
           <div className="flex flex-col gap-2">
             {view.lines.map((l, i) => (
-              <div key={i} className="flex items-center justify-center gap-2">
+              <div key={`${i}:${l}`} className="flex items-center justify-center gap-2">
                 <p className="text-lg text-ink">{l}</p>
-                <AudioButton line={l} available={audioSet} />
+                <AudioButton key={l} line={l} available={audioSet} />
               </div>
             ))}
           </div>
         </Card>
+        {/* The new prompt, announced once per step for screen readers. */}
+        <p className="sr-only" aria-live="polite" aria-atomic="true">
+          {view.lines.join(" ")}
+        </p>
+
+        {noticeLine}
 
         {view.kind === "trial" && (
           <div className="flex flex-col gap-3">
-            <Button disabled={pending} onClick={() => setShowCheck(true)}>
+            <Button
+              disabled={pending}
+              onClick={() => {
+                if (canTap()) setShowCheck(true);
+              }}
+            >
               They&rsquo;re done &mdash; let&rsquo;s check
             </Button>
             <button
+              type="button"
               disabled={pending}
               onClick={() => record("skip")}
-              className="text-sm text-teal-soft underline disabled:opacity-50"
+              className={LINK_BUTTON}
             >
               Skip &mdash; {childName} didn&rsquo;t try this one
             </button>
@@ -381,9 +466,10 @@ export function TrialRunner({
               Not quite
             </Button>
             <button
+              type="button"
               disabled={pending}
               onClick={() => record("skip")}
-              className="text-sm text-teal-soft underline disabled:opacity-50"
+              className={LINK_BUTTON}
             >
               Skip this one
             </button>
@@ -391,9 +477,22 @@ export function TrialRunner({
         )}
 
         {view.kind === "bonus" && (
-          <Button disabled={pending} onClick={() => record("correct")}>
-            They did it!
-          </Button>
+          <div className="flex flex-col gap-3">
+            <Button disabled={pending} onClick={() => record("correct")}>
+              They did it!
+            </Button>
+            <Button variant="ghost" disabled={pending} onClick={() => record("incorrect")}>
+              Not this time
+            </Button>
+            <button
+              type="button"
+              disabled={pending}
+              onClick={() => record("skip")}
+              className={LINK_BUTTON}
+            >
+              Skip the last one
+            </button>
+          </div>
         )}
       </div>
 
@@ -409,8 +508,9 @@ export function TrialRunner({
               within two days and pick up right here.
             </p>
             <button
+              type="button"
               onClick={() => setConfirmPause(true)}
-              className="mt-2 text-sm font-semibold text-teal underline"
+              className="mt-1 inline-flex min-h-11 items-center text-sm font-semibold text-teal underline"
             >
               Pause for now
             </button>
@@ -423,8 +523,9 @@ export function TrialRunner({
             ` Number words go in ${childName}'s counting language.`}
         </p>
         <button
+          type="button"
           onClick={() => setConfirmPause(true)}
-          className="w-full text-center text-sm text-teal-soft underline"
+          className={`${LINK_BUTTON} w-full`}
         >
           Pause and come back later
         </button>

@@ -3,6 +3,7 @@ import { requirePaid } from "@/lib/entitlements.server";
 import { createClient } from "@/lib/supabase/server";
 import { getPromptsDeck } from "@/lib/content.server";
 import { ageBand } from "@/lib/age";
+import { personalizePrompts } from "@/lib/routing";
 import { PrintButton } from "@/components/print-button";
 
 /** Number-talk cards for the child's current band, personalized and cut-ready. */
@@ -19,14 +20,12 @@ export default async function PromptsSheet({
     .from("nsc_children")
     .select("nickname, birth_month")
     .eq("id", id)
-    .single();
+    .maybeSingle();
   if (!child) notFound();
 
   const band = ageBand(child.birth_month, new Date());
   const deck = await getPromptsDeck();
-  const prompts = (deck.bands[band] ?? [])
-    .slice(0, 24)
-    .map((p) => p.replaceAll("{name}", child.nickname));
+  const prompts = personalizePrompts((deck.bands[band] ?? []).slice(0, 24), child.nickname);
 
   return (
     <main className="min-h-screen bg-white p-8 text-ink-deep">

@@ -49,7 +49,11 @@ export function todaysThree(args: {
   childId: string;
   isoDate: string; // YYYY-MM-DD, the parent's day
 }): ActivityRow[] {
-  const { activities, ageMonths, completions, childId, isoDate } = args;
+  const { activities, ageMonths, childId, isoDate } = args;
+  // Today's picks are fixed for the day: only completions from before today
+  // shape them, so marking one done keeps it on screen ("Done today") instead
+  // of swapping it for a new activity.
+  const completions = args.completions.filter((c) => c.completed_on < isoDate);
 
   const pool = activities.filter(
     (a) => a.months_min <= ageMonths && ageMonths < a.months_max,

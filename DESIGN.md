@@ -175,7 +175,7 @@ A few function-only values, documented so they're intentional, not drift:
 - **Shadows** are pine-tinted (`rgba(14,42,45,…)` / `rgba(21,57,60,…)`) across all stylesheets; the legacy warm-gray shadow rgbas (`rgba(28,34,31,…)`) have been migrated out.
 
 ### Arcade easter-egg palettes
-The hidden arcade games (Pong on Tools, Brain Sprint on Classes, GMS Invaders on Articles, Asteroids on About, plus Snake/Breakout/Dino/Hopper) intentionally use their own **isolated retro palettes** (dark cabinets, phosphor greens, etc.) that sit *outside* Tidepool — e.g. `#0c0f0e`, `#9fb3a6`, `#6f8f7b`. This is deliberate: an arcade cabinet should not look like the marketing site. These values are scoped to the game canvases/inline game styles only and are **not** design-system drift. Everywhere outside the games, the One-Coral Rule and the documented palette hold.
+The hidden arcade games (Pong on Tools, Brain Sprint on Classes, GMS Invaders on Articles, Asteroids on About, plus Snake/Breakout/Dino/Hopper, and the arcade-only Tidy Up, Serve & Return, and Crumb Chase) intentionally use their own **isolated retro palettes** (dark cabinets, phosphor greens, etc.) that sit *outside* Tidepool — e.g. `#0c0f0e`, `#9fb3a6`, `#6f8f7b`. This is deliberate: an arcade cabinet should not look like the marketing site. These values are scoped to the game canvases/inline game styles only and are **not** design-system drift. Everywhere outside the games, the One-Coral Rule and the documented palette hold.
 
 ### Radius scale
 `xs 4 · sm 8 · control 10 · md 14 · card 16 · lg 20 · pill 999`, plus the `arch`. Small controls (chips, toggles, inputs) sit on the 4–14 end; cards and panels on 14–20. Treat 2px as a hairline detail only.
@@ -233,7 +233,11 @@ Mostly flat, with low, long, diffuse shadows tinted toward pine. Depth comes mor
 - **Focus:** visible `:focus-visible` — `2.5px` coral-deep outline, `3px` offset (coral on dark bands). Never removed.
 
 ### Navigation
-- **Style:** sticky header (70px), Bricolage Grotesque links, teal hover; primary "See the class" pill CTA. Theme toggle. Mobile: off-canvas, fully hidden until toggled, closes on link click / Escape.
+- **One header and footer everywhere.** Styles live only in `assets/css/chrome.css` (loaded last on every page) and behavior only in `assets/js/chrome.js`. Don't restyle `.site-header` / `.site-footer` in page stylesheets.
+- **Structure:** four section links (Classes · Free tools · Articles · About), then a divider, Log in, and one teal pill CTA ("See the class"; "Enroll now" to checkout on the toddler page; "Join waitlist" on waitlist class pages), then the theme toggle.
+- **Free tools menu:** a `<details>` dropdown listing the four interactive tools (Growing Minds AI, Number Path, Milestone tracker, Communication Snapshot) with one-line descriptions, plus "All free tools and guides". New tools go here, not into the top bar.
+- **Style:** sticky 72px header (64px under 720px), Bricolage Grotesque links, coral underline for hover/current. Below 1000px the links collapse into a full-width panel; the current page gets a coral dot.
+- **Footer:** brand + Instagram, then Classes / Free tools / About columns. Arcade lives in the bottom line only; it's an easter egg, not a section.
 
 ### Signature: Growth Arc & Chat Demo
 - **Growth Arc:** a custom `role="tablist"` of five developmental stages over an SVG curve, with arrow/Home/End keys, `aria-selected`, and a coral active dot. The brand's centerpiece interaction.

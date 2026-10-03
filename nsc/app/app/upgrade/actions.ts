@@ -4,23 +4,13 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { requireAuth } from "@/lib/auth";
 import { stripe, NSC_PRODUCT } from "@/lib/stripe";
-
-/**
- * Coerce a configured site origin into a valid absolute URL. Guards against a
- * misconfigured NEXT_PUBLIC_SITE_URL (missing scheme, stray whitespace, or a
- * trailing slash) that would otherwise make Stripe reject success_url/cancel_url
- * with `url_invalid`.
- */
-function normalizeOrigin(raw: string): string {
-  let origin = raw.trim();
-  if (origin && !/^https?:\/\//i.test(origin)) origin = `https://${origin}`;
-  return origin.replace(/\/+$/, "");
-}
+import { siteOrigin } from "@/lib/site";
 
 /**
  * Create a one-time Stripe Checkout session for the full-access SKU and send
  * the parent to Stripe. client_reference_id carries the user id so the webhook
- * can grant the entitlement to the right owner.
+ * can grant the entitlement to the right owner; metadata.product labels the
+ * session (the webhook never guesses a product).
  */
 export async function startCheckout() {
   const user = await requireAuth();
@@ -31,22 +21,25 @@ export async function startCheckout() {
   }
 
   const hdrs = await headers();
-  const origin = normalizeOrigin(
-    process.env.NEXT_PUBLIC_SITE_URL ||
-      `https://${hdrs.get("host") ?? "growingmindsscience.com"}`,
-  );
+  const origin = siteOrigin(`https://${hdrs.get("host") ?? "growingmindsscience.com"}`);
 
-  const session = await stripe().checkout.sessions.create({
-    mode: "payment",
-    line_items: [{ price: priceId, quantity: 1 }],
-    client_reference_id: user.id,
-    customer_email: user.email,
-    metadata: { product: NSC_PRODUCT, owner_id: user.id },
-    success_url: `${origin}/nsc/app/upgrade/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${origin}/nsc/app/upgrade`,
-    allow_promotion_codes: true,
-  });
+  let url: string | null = null;
+  try {
+    const session = await stripe().checkout.sessions.create({
+      mode: "payment",
+      line_items: [{ price: priceId, quantity: 1 }],
+      client_reference_id: user.id,
+      customer_email: user.email,
+      metadata: { product: NSC_PRODUCT, owner_id: user.id },
+      success_url: `${origin}/nsc/app/upgrade/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${origin}/nsc/app/upgrade`,
+      allow_promotion_codes: true,
+    });
+    url = session.url;
+  } catch (err) {
+    console.error(`[checkout] session create failed: ${(err as Error).message}`);
+  }
 
-  if (!session.url) redirect("/app/upgrade?error=Could+not+start+checkout.");
-  redirect(session.url);
+  if (!url) redirect("/app/upgrade?error=We+couldn%27t+start+checkout.+Please+try+again.");
+  redirect(url);
 }

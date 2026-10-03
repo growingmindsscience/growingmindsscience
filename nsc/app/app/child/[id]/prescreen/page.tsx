@@ -5,7 +5,8 @@ import { beginAssessment } from "@/app/app/assess/actions";
 import { getAssessmentCopy } from "@/lib/content.server";
 import { ageInMonths, MIN_ASSESSMENT_MONTHS } from "@/lib/age";
 import { brand } from "@/lib/config/brand";
-import { Button, Card, EnrichmentFooter, LinkButton } from "@/components/ui";
+import { Card, EnrichmentFooter, LinkButton } from "@/components/ui";
+import { SubmitButton } from "@/components/submit-button";
 
 interface Q {
   name: string;
@@ -15,10 +16,13 @@ interface Q {
 
 export default async function PrescreenPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ error?: string }>;
 }) {
   const { id } = await params;
+  const { error } = await searchParams;
   await requireAuth();
   const supabase = await createClient();
 
@@ -26,7 +30,7 @@ export default async function PrescreenPage({
     .from("nsc_children")
     .select("id, nickname, birth_month")
     .eq("id", id)
-    .single();
+    .maybeSingle();
   if (!child) notFound();
 
   // Under ~2 there's no check-in — the best number input at this age is
@@ -113,9 +117,17 @@ export default async function PrescreenPage({
       <div className="text-center">
         <h1 className="text-2xl font-semibold text-ink-deep">A few quick taps</h1>
         <p className="mt-2 text-sm text-teal-soft">
-          {line("prescreen:intro", "This helps us read today's play. Nothing more.")}
+          {/* The certified intro line says "Three quick taps", but the form
+              now has four questions (the counting-language one was added
+              in-app), so the page states the count-free part only. */}
+          This helps us read today&rsquo;s play, nothing more.
         </p>
       </div>
+      {error && (
+        <p role="alert" className="rounded-xl bg-rung-glow px-4 py-3 text-sm text-ink-deep">
+          {error}
+        </p>
+      )}
       <form action={beginAssessment.bind(null, id)} className="flex flex-col gap-5">
         {questions.map((q) => (
           <Card key={q.name}>
@@ -125,7 +137,7 @@ export default async function PrescreenPage({
                 {q.options.map((o, i) => (
                   <label
                     key={o.value}
-                    className="cursor-pointer rounded-full border border-sea-glass px-4 py-2 text-sm text-ink has-[:checked]:border-teal has-[:checked]:bg-rung-glow has-[:checked]:font-semibold"
+                    className="inline-flex min-h-11 cursor-pointer items-center rounded-full border border-sea-glass px-4 py-2 text-sm text-ink has-[:checked]:border-teal has-[:checked]:bg-rung-glow has-[:checked]:font-semibold has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-teal has-[:focus-visible]:ring-offset-2 has-[:focus-visible]:ring-offset-ground"
                   >
                     <input
                       type="radio"
@@ -141,7 +153,7 @@ export default async function PrescreenPage({
             </fieldset>
           </Card>
         ))}
-        <Button type="submit">Start the game</Button>
+        <SubmitButton>Start the game</SubmitButton>
       </form>
     </main>
   );

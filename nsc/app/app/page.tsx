@@ -4,13 +4,18 @@ import { createClient } from "@/lib/supabase/server";
 import { signout } from "@/app/auth/actions";
 import { Card, LinkButton } from "@/components/ui";
 import { brand } from "@/lib/config/brand";
-import { RUNG_LABEL } from "@/lib/labels";
+import { rungLabelFor } from "@/lib/labels";
 import { nextCheckin, shortDate } from "@/lib/checkin";
 import { ageInMonths, RESUME_WINDOW_MS } from "@/lib/age";
 import { formatAge } from "@/lib/norms";
 
-export default async function AppHome() {
-  const user = await requireAuth();
+export default async function AppHome({
+  searchParams,
+}: {
+  searchParams: Promise<{ redeemed?: string; error?: string }>;
+}) {
+  await requireAuth();
+  const { redeemed, error } = await searchParams;
   const supabase = await createClient();
 
   const { data: children } = await supabase
@@ -20,7 +25,7 @@ export default async function AppHome() {
 
   const { data: assessments } = await supabase
     .from("nsc_assessments")
-    .select("id, child_id, status, placement, near_cp, started_at, completed_at, confidence")
+    .select("id, child_id, status, placement, near_cp, started_at, completed_at, confidence, instrument")
     .order("started_at", { ascending: false });
 
   const latestByChild = new Map<
@@ -31,6 +36,7 @@ export default async function AppHome() {
       placement: string | null;
       near_cp: boolean;
       started_at: string;
+      instrument: string | null;
     }
   >();
   const latestCompleteByChild = new Map<
@@ -62,16 +68,29 @@ export default async function AppHome() {
           <h1 className="text-2xl font-semibold text-ink-deep">Your children</h1>
         </div>
         <form action={signout}>
-          <button className="text-sm text-teal-soft underline">Sign out</button>
+          <button type="submit" className="inline-flex min-h-11 items-center px-2 text-sm text-teal-soft underline">
+            Sign out
+          </button>
         </form>
       </header>
+
+      {redeemed && (
+        <p role="status" className="rounded-xl bg-sea-glass/40 px-4 py-3 text-sm text-ink">
+          The gift is unlocked. Every game and the printable pack are yours for good.
+        </p>
+      )}
+      {error && (
+        <p role="alert" className="rounded-xl bg-rung-glow px-4 py-3 text-sm text-ink-deep">
+          {error}
+        </p>
+      )}
 
       <div className="flex flex-col gap-4">
         {(children ?? []).map((c) => {
           const latest = latestByChild.get(c.id);
-          const rung =
-            latest?.placement &&
-            RUNG_LABEL(latest.placement, latest.near_cp ?? false);
+          // Point and Seek routes content but never names a rung (A5).
+          const rung = latest ? rungLabelFor(latest) : null;
+          const pointAndSeek = latest?.instrument === "point_and_seek";
           const lastComplete = latestCompleteByChild.get(c.id);
           const checkin = lastComplete
             ? nextCheckin(lastComplete.completed_at, now, lastComplete.confidence)
@@ -94,10 +113,10 @@ export default async function AppHome() {
                       {formatAge(ageInMonths(String(c.birth_month).slice(0, 7), now))}
                     </span>
                   </div>
-                  {latest?.status === "complete" && rung ? (
+                  {latest?.status === "complete" && (rung || pointAndSeek) ? (
                     <>
                       <p className="text-sm text-teal-soft">
-                        On the ladder: {rung} ·{" "}
+                        {rung ? `On the ladder: ${rung}` : "Point and Seek played"} ·{" "}
                         <Link
                           href={`/app/child/${c.id}/progress`}
                           className="underline"
@@ -164,6 +183,7 @@ export default async function AppHome() {
       >
         + Add a child
       </Link>
+
     </main>
   );
 }

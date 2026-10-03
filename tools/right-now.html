@@ -12,6 +12,12 @@
   <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
   <link rel="canonical" href="https://growingmindsscience.com/tools/right-now" />
 
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="It's hard right now | Growing Minds Science" />
+  <meta property="og:description" content="A calm, one-tap guide for the hard moment: meltdowns, limits, sleep, losing your patience, or repairing after things went sideways." />
+  <meta property="og:image" content="https://growingmindsscience.com/assets/img/site/family-reading.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />
@@ -31,7 +37,7 @@
     <a href="/tools/">← All tools</a>
   </header>
 
-  <main id="rn-main" class="rn-main" aria-live="polite"></main>
+  <main id="rn-main" class="rn-main"></main>
 
   <!-- Situation → short answer. Shared source of truth for this page. -->
   <script id="router-data" type="application/json">
@@ -51,7 +57,7 @@
         ],
         "tryLine": "I'm here. You're safe. We can wait.",
         "toolSlug": "whats-underneath-the-meltdown",
-        "aiQuestion": "My toddler is having a meltdown right now — how do I help them calm down?"
+        "aiQuestion": "My child is having a meltdown right now. How do I help them calm down?"
       },
       {
         "id": "limit",
@@ -67,7 +73,7 @@
         ],
         "tryLine": "You really wanted that. I won't let you hit.",
         "toolSlug": "limits-without-escalation",
-        "aiQuestion": "My child is melting down because I set a limit — how do I hold it calmly?"
+        "aiQuestion": "My child is melting down because I set a limit. How do I hold it calmly?"
       },
       {
         "id": "sleep",
@@ -83,7 +89,7 @@
         ],
         "tryLine": "It's still nighttime. I'll help you get cozy, and then your body can rest.",
         "toolSlug": "routines-transitions-night-waking",
-        "aiQuestion": "My child won't settle to sleep right now — what can I try tonight?"
+        "aiQuestion": "My child won't settle to sleep right now. What can I try tonight?"
       },
       {
         "id": "patience",
@@ -99,7 +105,7 @@
         ],
         "tryLine": "I'm going to take a slow breath. We're okay.",
         "toolSlug": "regulating-yourself-first",
-        "aiQuestion": "I'm losing my patience with my child — how do I calm myself down in the moment?"
+        "aiQuestion": "I'm losing my patience with my child. How do I calm myself down in the moment?"
       },
       {
         "id": "repair",
@@ -115,7 +121,7 @@
         ],
         "tryLine": "That was hard. I'm sorry I got loud. I love you, and I'm here.",
         "toolSlug": "repair-after-the-hard-moment",
-        "aiQuestion": "Things just went badly between me and my child — how do I repair it?"
+        "aiQuestion": "Things just went badly between me and my child. How do I repair it?"
       }
     ]
   }
@@ -157,7 +163,7 @@
       DATA.situations.forEach(function (s) {
         choices.appendChild(el('button', {
           type: 'button', class: 'rn-choice',
-          onclick: function () { renderAnswer(s.id); }
+          onclick: function () { go(s.id); }
         }, [
           document.createTextNode(s.choice),
           el('span', { class: 'rn-choice__hint', text: s.hint })
@@ -174,25 +180,27 @@
       var row = el('div', { class: 'rn-actions', role: 'group', 'aria-label': 'Save, listen, or ask' });
 
       // Save
-      function saveLabel() { return (window.GMS && GMS.shelf.has(key)) ? 'Saved ✓' : 'Save this'; }
-      var save = el('button', { type: 'button', class: 'btn btn--ghost', text: saveLabel() });
+      function isSaved() { return !!(window.GMS && GMS.shelf.has(key)); }
+      var save = el('button', { type: 'button', class: 'btn btn--ghost', 'aria-pressed': isSaved() ? 'true' : 'false', text: isSaved() ? 'Saved ✓' : 'Save this' });
       save.addEventListener('click', function () {
         if (!window.GMS) return;
         if (GMS.shelf.has(key)) GMS.shelf.removeByKey(key);
         else GMS.shelf.add({ key: key, toolSlug: 'right-now', toolTitle: 'It\'s hard right now',
-          toolUrl: '/tools/right-now', title: s.title, body: s.body, tryLine: s.tryLine });
-        save.textContent = saveLabel();
+          toolUrl: '/tools/right-now#' + s.id, title: s.title, body: s.body, tryLine: s.tryLine });
+        save.textContent = isSaved() ? 'Saved ✓' : 'Save this';
+        save.setAttribute('aria-pressed', isSaved() ? 'true' : 'false');
       });
       row.appendChild(save);
 
       // Listen
       if (window.GMS && GMS.speechSupported) {
         var speaking = false;
-        var listen = el('button', { type: 'button', class: 'btn btn--ghost', text: 'Listen' });
+        var listen = el('button', { type: 'button', class: 'btn btn--ghost', 'aria-pressed': 'false', text: 'Listen' });
         var text = [s.title, s.body, s.seq.join('. '), 'Try saying: ' + s.tryLine].join('. ');
+        var stopped = function () { speaking = false; listen.textContent = 'Listen'; listen.setAttribute('aria-pressed', 'false'); };
         listen.addEventListener('click', function () {
-          if (speaking) { GMS.stopSpeaking(); speaking = false; listen.textContent = 'Listen'; return; }
-          if (GMS.speak(text, function () { speaking = false; listen.textContent = 'Listen'; })) { speaking = true; listen.textContent = 'Stop'; }
+          if (speaking) { GMS.stopSpeaking(); stopped(); return; }
+          if (GMS.speak(text, stopped)) { speaking = true; listen.textContent = 'Stop'; listen.setAttribute('aria-pressed', 'true'); }
         });
         row.appendChild(listen);
       }
@@ -251,7 +259,7 @@
       main.appendChild(card);
 
       var back = el('div', { class: 'rn-back' }, [
-        el('button', { type: 'button', class: 'gms-link', text: '← Something else is happening', onclick: renderStart })
+        el('button', { type: 'button', class: 'gms-link', text: '← Something else is happening', onclick: goBack })
       ]);
       main.appendChild(back);
 
@@ -260,7 +268,26 @@
       window.scrollTo({ top: 0, behavior: 'auto' });
     }
 
-    GMSready(renderStart);
+    // Each answer gets its own history entry (#meltdown, #sleep, ...), so the
+    // phone's Back gesture returns to "What's happening?" instead of leaving,
+    // and a saved answer can be reopened directly from the shelf.
+    function go(id) {
+      try { history.pushState({ rn: id }, '', '#' + id); } catch (e) {}
+      renderAnswer(id);
+    }
+    function goBack() {
+      if (history.state && history.state.rn) { history.back(); return; } // popstate renders the start
+      try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+      renderStart();
+    }
+    function fromHash() {
+      var id = (location.hash || '').replace(/^#/, '');
+      try { id = decodeURIComponent(id); } catch (e) {}
+      if (id && byId(id)) renderAnswer(id); else renderStart();
+    }
+    window.addEventListener('popstate', fromHash);
+
+    GMSready(fromHash);
   })();
   </script>
   <script defer src="/_vercel/insights/script.js"></script>
