@@ -9,7 +9,7 @@ export type ButtonVariant = "primary" | "ghost" | "inverse";
 export type ButtonSize = "md" | "sm";
 
 const BUTTON_BASE =
-  "inline-flex items-center justify-center rounded-full font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 focus-visible:ring-offset-ground disabled:opacity-50";
+  "inline-flex items-center justify-center rounded-full font-[family-name:var(--font-display)] font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 focus-visible:ring-offset-ground disabled:opacity-50";
 
 // Pills are 48px (DESIGN.md); the compact size still clears a 44px target.
 const BUTTON_SIZE: Record<ButtonSize, string> = {

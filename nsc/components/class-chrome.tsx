@@ -77,7 +77,7 @@ export function ClassShell({ header, children }: { header?: ReactNode; children:
   return (
     <div className="class-theme flex min-h-screen flex-col">
       {header}
-      <div className="flex flex-1 flex-col">{children}</div>
+      <div className="flex flex-1 flex-col *:w-full">{children}</div>
       <ClassFooter />
     </div>
   );

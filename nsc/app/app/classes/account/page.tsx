@@ -57,7 +57,7 @@ export default async function ClassAccountPage({ searchParams }: {
         <p className="mt-1 text-ink-soft">{user.email}</p>
       </header>
 
-      {notice && <p role="status" className="rounded-xl bg-rung-glow px-4 py-3 text-sm text-coral-deep">{notice}</p>}
+      {notice && <p role="alert" className="rounded-xl bg-rung-glow px-4 py-3 text-sm text-coral-deep">{notice}</p>}
 
       <Card>
         <Eyebrow>What you have</Eyebrow>
