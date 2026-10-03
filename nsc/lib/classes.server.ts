@@ -26,9 +26,11 @@ export async function publishedLessons(courseSlug: ClassCourseSlug = TODDLER_COU
 }
 
 /** Open sales only after every promised lesson is published. */
-export async function classSalesOpen(courseSlug: ClassCourseSlug = TODDLER_COURSE.slug): Promise<boolean> {
+export async function classSalesOpen(courseSlug: ClassCourseSlug = TODDLER_COURSE.slug, userId?: string): Promise<boolean> {
   if (courseSlug === INFANT_COURSE.slug) {
     if (process.env.INFANT_CLASS_SALES_ENABLED !== "1") return false;
+    if (process.env.VERCEL_ENV === "preview" &&
+        (!process.env.INFANT_CLASS_PREVIEW_USER_ID || userId !== process.env.INFANT_CLASS_PREVIEW_USER_ID)) return false;
     const lessons = await publishedLessons(courseSlug);
     return [5, 4, 3, 4].every((count, index) =>
       lessons.filter((lesson) => lesson.module_number === index + 1).length === count);

@@ -16,7 +16,7 @@ export default async function InfantClassPage({ searchParams }: {
   const [lessons, progress] = owned
     ? await Promise.all([publishedLessons("infant"), progressForUser(user.id)])
     : [[], []];
-  const salesOpen = owned ? false : await classSalesOpen("infant");
+  const salesOpen = owned ? false : await classSalesOpen("infant", user.id);
   const complete = new Set(progress.filter((row) => row.completed_at).map((row) => row.lesson_id));
   const { error } = await searchParams;
 
