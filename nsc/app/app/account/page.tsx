@@ -3,6 +3,7 @@ import { requireAuth } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { getEntitlementSummary } from "@/lib/entitlements.server";
 import { brand } from "@/lib/config/brand";
+import { sitePath } from "@/lib/site";
 import { Card, Field, Input, LinkButton } from "@/components/ui";
 import { SubmitButton } from "@/components/submit-button";
 import { signout } from "@/app/auth/actions";
@@ -128,16 +129,15 @@ export default async function AccountPage({
         )}
       </Card>
 
-      <Card>
-        <p className="text-xs font-medium uppercase tracking-widest text-teal">Your learning</p>
-        <h2 className="mt-1 text-lg font-semibold text-ink-deep">My classes</h2>
-        <p className="mt-2 text-sm text-ink">
-          {summary.scopes.some((scope) => scope === "class:toddlerhood" || scope === "class:infant")
-            ? "Your classes and lesson progress are here."
-            : "Classes you buy here or link through a verified prior purchase will appear here."}
-        </p>
-        <LinkButton href="/app/classes" size="sm" className="mt-4">Open My classes</LinkButton>
-      </Card>
+      {/* Classes are a separate product: linked here only when owned. */}
+      {summary.scopes.some((scope) => scope === "class:toddlerhood" || scope === "class:infant") && (
+        <Card>
+          <p className="text-xs font-medium uppercase tracking-widest text-teal">Your learning</p>
+          <h2 className="mt-1 text-lg font-semibold text-ink-deep">My classes</h2>
+          <p className="mt-2 text-sm text-ink">Your classes and lesson progress are here.</p>
+          <LinkButton href="/app/classes" size="sm" className="mt-4">Open My classes</LinkButton>
+        </Card>
+      )}
 
       {/* Number Path */}
       <Card>
@@ -175,7 +175,7 @@ export default async function AccountPage({
             Open Thinkific class
           </a>
           <a
-            href="https://growingmindsscience.com/tools/growing-minds-ai"
+            href={sitePath("/tools/growing-minds-ai")}
             className="inline-flex min-h-11 items-center justify-center rounded-full px-4 py-2 text-sm font-semibold text-teal transition-colors hover:bg-sea-glass/40"
           >
             Open Growing Minds AI

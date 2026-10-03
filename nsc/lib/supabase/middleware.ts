@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { isClassPath } from "@/lib/class-paths";
 
 /**
  * Refreshes the Supabase session on every request and guards the app.
@@ -63,8 +64,7 @@ export async function updateSession(request: NextRequest) {
 
   if (!user && !isPublic) {
     const url = request.nextUrl.clone();
-    url.pathname = path.startsWith("/app/classes") || path.startsWith("/admin/classes")
-      ? "/class-login" : "/login";
+    url.pathname = isClassPath(path) ? "/class-login" : "/login";
     url.searchParams.set("next", path);
     return NextResponse.redirect(url);
   }

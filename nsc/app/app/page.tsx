@@ -2,6 +2,8 @@ import Link from "next/link";
 import { requireAuth } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { signout } from "@/app/auth/actions";
+import { ownedClassSlugs } from "@/lib/classes.server";
+import { hasFullAccess } from "@/lib/entitlements.server";
 import { Card, LinkButton } from "@/components/ui";
 import { brand } from "@/lib/config/brand";
 import { rungLabelFor } from "@/lib/labels";
@@ -14,7 +16,12 @@ export default async function AppHome({
 }: {
   searchParams: Promise<{ redeemed?: string; error?: string }>;
 }) {
-  await requireAuth();
+  const user = await requireAuth();
+  // Classes are a separate product; link across only when this account owns both.
+  const [classes, fullAccess] = await Promise.all([
+    ownedClassSlugs(user.id).catch(() => []), hasFullAccess(),
+  ]);
+  const ownsClass = classes.length > 0 && fullAccess;
   const { redeemed, error } = await searchParams;
   const supabase = await createClient();
 
@@ -67,11 +74,18 @@ export default async function AppHome({
           </p>
           <h1 className="text-2xl font-semibold text-ink-deep">Your children</h1>
         </div>
-        <form action={signout}>
-          <button type="submit" className="inline-flex min-h-11 items-center px-2 text-sm text-teal-soft underline">
-            Sign out
-          </button>
-        </form>
+        <div className="flex items-center gap-2">
+          {ownsClass && (
+            <Link href="/app/classes" className="inline-flex min-h-11 items-center px-2 text-sm text-teal-soft underline">
+              My classes
+            </Link>
+          )}
+          <form action={signout}>
+            <button type="submit" className="inline-flex min-h-11 items-center px-2 text-sm text-teal-soft underline">
+              Sign out
+            </button>
+          </form>
+        </div>
       </header>
 
       {redeemed && (

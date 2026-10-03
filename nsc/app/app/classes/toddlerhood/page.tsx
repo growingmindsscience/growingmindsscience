@@ -21,10 +21,10 @@ export default async function ToddlerClassPage({ searchParams }: {
   const { error } = await searchParams;
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-3xl flex-col gap-7 px-6 py-10">
+    <main className="mx-auto flex max-w-3xl flex-col gap-7 px-6 py-10">
       <header>
         <Link href="/app/classes" className="text-sm text-teal-soft underline">← My classes</Link>
-        <p className="mt-5 text-xs font-semibold uppercase tracking-widest text-teal">Self-paced class · ages 1–3</p>
+        <p className="mt-5 font-[family-name:var(--font-display)] text-xs font-semibold uppercase tracking-[0.18em] text-coral-deep">Self-paced class · ages 1–3</p>
         <h1 className="mt-2 text-3xl font-semibold text-ink-deep">{TODDLER_COURSE.title}</h1>
         <p className="mt-3 text-ink">Five modules of developmental science and practical guidance for everyday family life.</p>
       </header>
@@ -32,7 +32,8 @@ export default async function ToddlerClassPage({ searchParams }: {
         <Card>
           <h2 className="text-xl font-semibold text-ink-deep">Get lifetime access</h2>
           <p className="mt-2 text-sm text-ink">One payment of {TODDLER_COURSE.priceDisplay} includes the class and unlimited Growing Minds AI.</p>
-          {error === "checkout-unavailable" && <p role="alert" className="mt-3 text-sm text-[#9C4429]">Checkout is unavailable right now. Please try again later.</p>}
+          {error === "not-open" && <p role="alert" className="mt-3 text-sm text-coral-deep">Enrollment is not open for this account yet.</p>}
+          {error === "checkout-unavailable" && <p role="alert" className="mt-3 text-sm text-coral-deep">Checkout is unavailable right now. Please try again later.</p>}
           {salesOpen ? <form action={startClassCheckout} className="mt-5"><Button type="submit">Enroll now</Button></form> : (
             <p className="mt-4 text-sm text-teal-soft">On-site enrollment opens after all 29 lessons have been prepared. You can still enroll through the current class page.</p>
           )}

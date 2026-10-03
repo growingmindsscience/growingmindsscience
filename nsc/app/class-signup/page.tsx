@@ -1,6 +1,11 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { signup } from "@/app/auth/actions";
-import { Button, Card, Field, Input } from "@/components/ui";
+import { Card, Field, Input } from "@/components/ui";
+import { SubmitButton } from "@/components/submit-button";
+import { ClassAuthFrame } from "@/components/class-chrome";
+import { getUser } from "@/lib/auth";
+import { classDestination } from "@/lib/class-paths";
 
 export const metadata = { title: "Create your class account — Growing Minds Science" };
 
@@ -8,28 +13,28 @@ export default async function ClassSignupPage({ searchParams }: {
   searchParams: Promise<{ error?: string; next?: string }>;
 }) {
   const { error, next } = await searchParams;
-  const destination = next?.startsWith("/app/classes") || next?.startsWith("/admin/classes")
-    ? next : "/app/classes";
+  const destination = classDestination(next);
+  if (await getUser()) redirect(destination);
   return (
-    <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center gap-6 px-6 py-12">
-      <div className="text-center">
-        <p className="text-sm font-medium uppercase tracking-widest text-teal">Growing Minds Science · Classes</p>
-        <h1 className="mt-1 text-3xl font-semibold text-ink-deep">Create your class account</h1>
-        <p className="mt-2 text-sm text-teal-soft">One place for the classes you own and the lessons you have completed.</p>
-      </div>
+    <ClassAuthFrame
+      title="Create your class account"
+      lede="One place for the classes you own, your lesson progress, and everything else in your account."
+      footer={
+        <p>Already have an account?{" "}
+          <Link href={`/class-login?next=${encodeURIComponent(destination)}`} className="font-semibold text-teal underline">Sign in</Link>
+        </p>
+      }
+    >
       <Card>
         <form action={signup} className="flex flex-col gap-4">
+          <input type="hidden" name="flow" value="class" />
           <input type="hidden" name="next" value={destination} />
           <Field label="Email" htmlFor="email"><Input id="email" name="email" type="email" autoComplete="email" required /></Field>
           <Field label="Password" htmlFor="password" hint="At least 12 characters."><Input id="password" name="password" type="password" autoComplete="new-password" minLength={12} required /></Field>
-          {error && <p className="text-sm text-[#9C4429]" role="alert">{error}</p>}
-          <Button type="submit" className="mt-2">Create account</Button>
+          {error && <p className="text-sm text-coral-deep" role="alert">{error}</p>}
+          <SubmitButton className="mt-2" pendingLabel="Creating your account…">Create account</SubmitButton>
         </form>
       </Card>
-      <p className="text-center text-sm text-teal-soft">Already have an account?{" "}
-        <Link href={`/class-login?next=${encodeURIComponent(destination)}`} className="font-semibold text-teal underline">Sign in</Link>
-      </p>
-      <Link href="https://growingmindsscience.com/classes/" className="text-center text-sm text-teal-soft underline">Back to classes</Link>
-    </main>
+    </ClassAuthFrame>
   );
 }

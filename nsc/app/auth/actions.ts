@@ -7,6 +7,7 @@ import { backfillEntitlementsForUser } from "@/lib/backfill.server";
 import { friendlyAuthError } from "@/lib/friendly-error";
 import { safeNextPath } from "@/lib/safe-next";
 import { siteOrigin } from "@/lib/site";
+import { CLASS_HOME, classDestination, isClassPath } from "@/lib/class-paths";
 
 /**
  * Link any pre-existing Stripe purchases (legacy AI Pro subs, bought before
@@ -27,21 +28,31 @@ async function safeBackfill(user: { id: string; email?: string | null } | null):
   }
 }
 
-function classAuthPath(next: string, page: "login" | "signup") {
-  const forClasses = next.startsWith("/app/classes") || next.startsWith("/admin/classes");
-  return forClasses ? `/class-${page}` : `/${page}`;
+/**
+ * Classes and Number Path share one account but not one destination. The
+ * class forms post `flow=class`, which pins the landing page to a class
+ * path even when `next` is missing or points at the Number Path dashboard.
+ */
+function authTarget(formData: FormData) {
+  const classFlow = formData.get("flow") === "class";
+  const next = classFlow ? classDestination(formData.get("next")) : safeNextPath(formData.get("next"));
+  return { next, classFlow: classFlow || isClassPath(next) };
+}
+
+function authPath(classFlow: boolean, page: "login" | "signup") {
+  return classFlow ? `/class-${page}` : `/${page}`;
 }
 
 export async function login(formData: FormData) {
   const supabase = await createClient();
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
-  const next = safeNextPath(formData.get("next"));
+  const { next, classFlow } = authTarget(formData);
 
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) {
     redirect(
-      `${classAuthPath(next, "login")}?error=${encodeURIComponent(friendlyAuthError(error.message))}&next=${encodeURIComponent(next)}`,
+      `${authPath(classFlow, "login")}?error=${encodeURIComponent(friendlyAuthError(error.message))}&next=${encodeURIComponent(next)}`,
     );
   }
   await safeBackfill(data.user);
@@ -53,11 +64,11 @@ export async function signup(formData: FormData) {
   const supabase = await createClient();
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
-  const next = safeNextPath(formData.get("next"));
+  const { next, classFlow } = authTarget(formData);
 
   if (password.length < 12) {
     redirect(
-      `${classAuthPath(next, "signup")}?error=${encodeURIComponent("Password must be at least 12 characters.")}&next=${encodeURIComponent(next)}`,
+      `${authPath(classFlow, "signup")}?error=${encodeURIComponent("Password must be at least 12 characters.")}&next=${encodeURIComponent(next)}`,
     );
   }
 
@@ -72,14 +83,14 @@ export async function signup(formData: FormData) {
   });
   if (error) {
     redirect(
-      `${classAuthPath(next, "signup")}?error=${encodeURIComponent(friendlyAuthError(error.message))}&next=${encodeURIComponent(next)}`,
+      `${authPath(classFlow, "signup")}?error=${encodeURIComponent(friendlyAuthError(error.message))}&next=${encodeURIComponent(next)}`,
     );
   }
   if (!data.session) {
     // Confirmation is on: there is no session yet, so say so instead of
     // bouncing the parent silently to the sign-in page. Class sign-ups go
     // back to the class sign-in, which keeps its destination.
-    redirect(`${classAuthPath(next, "login")}?confirm=1&next=${encodeURIComponent(next)}`);
+    redirect(`${authPath(classFlow, "login")}?confirm=1&next=${encodeURIComponent(next)}`);
   }
   // Supabase returned a session straight away; link any earlier purchases
   // (see the note on safeBackfill).
@@ -117,7 +128,7 @@ export async function updatePassword(formData: FormData) {
     redirect(`/reset/update?error=${encodeURIComponent(friendlyAuthError(error.message))}${classQuery}`);
   }
   revalidatePath("/", "layout");
-  redirect(classFlow ? "/app/classes" : "/app");
+  redirect(classFlow ? CLASS_HOME : "/app");
 }
 
 export async function signout() {
