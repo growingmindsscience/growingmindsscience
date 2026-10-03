@@ -163,14 +163,19 @@ function injectHead(html, jsonBlocks) {
   return html.replace(/<\/head>/i, script + "\n</head>");
 }
 
-// Waitlist / in-development classes. Course markup WITHOUT an offer node — the
-// commerce layer owns pricing, and these classes are not yet purchasable, so we
-// assert the course entity but make no price/availability claim. Toddlerhood is
-// already live with its own hand-authored Course + Offer block and is left alone.
+// Class pages. A class that is not yet purchasable gets Course markup WITHOUT
+// an offer node, so it makes no price/availability claim. A class on sale sets
+// `offer`, which must match the price and enroll link on its page. Toddlerhood
+// has its own hand-authored Course + Offer block and is left alone.
 const CLASSES = {
   "birth-to-12-months.html": {
     name: "Birth to 12 Months: Cues, Attachment, and the First Year",
     audience: "Parents of infants aged 0–12 months",
+    offer: {
+      price: "49.00",
+      url: `${ORIGIN}/nsc/app/classes/infant`,
+      description: "$49 one time with lifetime access to all 16 lessons",
+    },
   },
   "family-systems.html": {
     name: "Family Systems & Stress: How the Whole Family Shapes the Developing Child",
@@ -206,6 +211,18 @@ function buildClassLd(file, html, meta) {
       courseMode: "online",
       courseSchedule: { "@type": "Schedule", repeatFrequency: "self-paced" },
     },
+    ...(meta.offer
+      ? {
+          offers: {
+            "@type": "Offer",
+            price: meta.offer.price,
+            priceCurrency: "USD",
+            availability: "https://schema.org/InStock",
+            url: meta.offer.url,
+            description: meta.offer.description,
+          },
+        }
+      : {}),
   };
   const breadcrumb = {
     "@context": "https://schema.org",
@@ -246,7 +263,7 @@ const a = processDir(
   (f) => f.endsWith(".html") && f !== "index.html",
 );
 
-console.log("\nClasses (waitlist — Course entity, no offer):");
+console.log("\nClasses (Course entity; offer only when on sale):");
 const c = processDir(
   "classes",
   (f, h) => buildClassLd(f, h, CLASSES[f]),

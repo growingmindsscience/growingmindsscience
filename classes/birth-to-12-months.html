@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <title>Birth to 12 months: cues, attachment, and the first year — Growing Minds Science</title>
-  <meta name="description" content="A self-paced first-year parenting class with 4 modules, 16 short lessons, captions, and lifetime access. Enrollment opens soon at $49 one time." />
+  <meta name="description" content="A self-paced first-year parenting class with 4 modules, 16 short lessons, captions, and lifetime access. Enrollment is open: $49 one time." />
   <meta name="theme-color" content="#6F8F7B" />
   <meta name="color-scheme" content="light dark" />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Birth to 12 months: cues, attachment, and the first year" />
-  <meta property="og:description" content="A self-paced parent class for the first year of life. Four modules, 16 captioned lessons, and lifetime access for $49 one time. Enrollment opens soon." />
+  <meta property="og:description" content="A self-paced parent class for the first year of life. Four modules, 16 captioned lessons, and lifetime access for $49 one time. Enrollment is open." />
   <meta property="og:site_name" content="Growing Minds Science" />
   <meta property="og:url" content="https://growingmindsscience.com/classes/birth-to-12-months.html" />
   <meta property="og:image" content="https://growingmindsscience.com/assets/img/og/site-birth-to-12-months.jpg" />
@@ -37,7 +37,7 @@
       "@context": "https://schema.org",
       "@type": "Course",
       "name": "Birth to 12 Months: Cues, Attachment, and the First Year",
-      "description": "A self-paced first-year parenting class with 4 modules, 16 short lessons, captions, and lifetime access. Enrollment opens soon at $49 one time.",
+      "description": "A self-paced first-year parenting class with 4 modules, 16 short lessons, captions, and lifetime access. Enrollment is open: $49 one time.",
       "inLanguage": "en",
       "url": "https://growingmindsscience.com/classes/birth-to-12-months.html",
       "provider": {
@@ -64,6 +64,14 @@
           "@type": "Schedule",
           "repeatFrequency": "self-paced"
         }
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "49.00",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "url": "https://growingmindsscience.com/nsc/app/classes/infant",
+        "description": "$49 one time with lifetime access to all 16 lessons"
       }
     },
     {
@@ -130,7 +138,7 @@
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
           <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/app/classes" data-auth-static>My classes</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="#waitlist">Join waitlist</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/nsc/app/classes/infant">Enroll now</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -146,13 +154,13 @@
     <!-- HERO -->
     <section class="class-hero">
       <div class="container">
-        <p class="eyebrow"><span class="badge badge--coming" style="margin-right: var(--space-2);">Enrollment opens soon</span> Self-paced · Ages 0–12 months</p>
+        <p class="eyebrow"><span class="badge badge--open" style="margin-right: var(--space-2);">Enrollment open</span> Self-paced · Ages 0–12 months</p>
         <h1 class="class-hero__title">Birth to 12 months: cues, attachment, and the first year.</h1>
         <p class="class-hero__lede">
           A calm, research-based picture of what infants are actually doing in the first year.
         </p>
         <div class="hero__ctas">
-          <a class="btn btn--primary btn--lg" href="#waitlist">Join the waitlist</a>
+          <a class="btn btn--primary btn--lg" href="/nsc/app/classes/infant">Enroll now, $49</a>
           <a class="btn btn--ghost btn--lg" href="#whats-inside">See what's inside</a>
         </div>
       </div>
@@ -347,12 +355,12 @@
 
           <details class="faq-class-item">
             <summary>When does enrollment open?</summary>
-            <p>All 16 lessons are ready. Enrollment opens after we finish checking the purchase process. Join the waitlist and we will email you when it opens.</p>
+            <p>Enrollment is open now. All 16 lessons are ready, and you can start as soon as you <a href="/nsc/app/classes/infant">enroll</a>. You will sign in or create a free account first, then the class appears in your My classes page.</p>
           </details>
 
           <details class="faq-class-item">
             <summary>How much does the class cost?</summary>
-            <p>The class will be $49 one time for lifetime access to all 16 lessons. Joining the waitlist is free; you decide whether to purchase when enrollment opens.</p>
+            <p>The class is $49 one time for lifetime access to all 16 lessons. There is no subscription and nothing renews.</p>
           </details>
 
           <details class="faq-class-item">
@@ -369,56 +377,35 @@
       </div>
     </section>
 
-    <!-- WAITLIST CTA BLOCK -->
-    <section id="waitlist" class="signup">
+    <!-- ENROLL CTA BLOCK -->
+    <section id="enroll" class="signup">
       <div class="container signup__inner">
         <div>
-          <p class="eyebrow">Enrollment update</p>
-          <h2>Get an email when enrollment opens.</h2>
+          <p class="eyebrow">Enrollment is open</p>
+          <h2>Start the first-year class today.</h2>
           <p class="lede">
-            Join the waitlist and we will send one short email when enrollment opens.
-            The class will cost $49 one time.
+            One payment of $49 gives you every lesson for as long as you want it.
           </p>
           <ul class="value-checklist">
             <li>4 modules · 16 short lessons · about 3 hours · lifetime access</li>
             <li>Self-paced: watch on any device, any time</li>
             <li>English captions and written lesson transcripts</li>
-            <li>Lessons appear in your personal My classes page after purchase</li>
+            <li>Lessons appear in your personal My classes page right after purchase</li>
           </ul>
           <p class="muted" style="font-size: var(--text-sm); margin-top: var(--space-3);">
             <a href="/classes/">← Back to all classes</a>
           </p>
         </div>
 
-        <form
-          class="signup__form"
-          data-newsletter
-          method="POST"
-          action="/api/waitlist"
-          aria-labelledby="waitlist-heading">
-          <h3 id="waitlist-heading" class="signup__form-title">Join the waitlist</h3>
-
-          <input type="hidden" name="subject" value="Birth to 12 Months Waitlist — Growing Minds Science" />
-          <input type="hidden" name="interest" value="Birth to 12 months" />
-          <input type="checkbox" name="botcheck" style="display:none" />
-
-          <div class="form-row">
-            <label class="form-label" for="name">Your name <span class="muted">(optional)</span></label>
-            <input class="form-input" type="text" id="name" name="name" autocomplete="name" placeholder="Your name" />
-          </div>
-
-          <div class="form-row">
-            <label class="form-label" for="email">Your email</label>
-            <input class="form-input" type="email" id="email" name="email" autocomplete="email" required placeholder="you@example.com" />
-            <p class="form-help">Unsubscribe anytime. We don't share your email.</p>
-          </div>
-
-          <button class="btn btn--primary btn--block btn--lg" type="submit">Join the waitlist</button>
-          <p class="form-status" role="status" aria-live="polite"></p>
+        <div class="signup__form" aria-labelledby="enroll-heading">
+          <h3 id="enroll-heading" class="signup__form-title">Birth to 12 months</h3>
+          <p style="margin: 0 0 var(--space-4);"><strong style="font-size: var(--text-2xl);">$49</strong> one time · lifetime access</p>
+          <a class="btn btn--primary btn--block btn--lg" href="/nsc/app/classes/infant">Enroll now, $49</a>
           <p class="muted" style="font-size: var(--text-xs); margin-top: var(--space-3);">
-            We'll email you once when enrollment opens. Unsubscribe anytime.
+            You will sign in or create a free account first, then pay securely with Stripe.
+            Already enrolled? <a href="/nsc/app/classes">Open My classes</a>.
           </p>
-        </form>
+        </div>
       </div>
     </section>
 
