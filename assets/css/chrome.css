@@ -471,6 +471,8 @@
   transition: color var(--chrome-t);
 }
 .site-footer .footer-ig:hover { color: #FFFFFF; }
+/* 44px touch targets for the brand links and the Instagram link. */
+.site-header .brand, .site-footer .brand, .site-footer .footer-ig { min-height: 44px; }
 
 .site-footer .site-footer__nav {
   display: grid;
