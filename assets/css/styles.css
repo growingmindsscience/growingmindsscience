@@ -1594,12 +1594,11 @@ button:disabled {
   width: min(100%, 220px);
   justify-self: end;
   align-self: center;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 1122 / 1402;
   background: var(--bg-alt);
 }
 .about-preview__media--reference img {
-  object-fit: contain;
-  object-position: center center;
+  object-fit: cover;
 }
 .about-preview--text-only {
   display: block;
