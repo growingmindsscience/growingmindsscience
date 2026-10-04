@@ -42,6 +42,18 @@ export async function publishedLessons(courseSlug: ClassCourseSlug = TODDLER_COU
   return (data ?? []) as ClassLesson[];
 }
 
+/** A published lesson's title, for the browser tab; null when there is none. */
+export async function publishedLessonTitle(courseSlug: ClassCourseSlug, slug: string): Promise<string | null> {
+  const { data } = await createServiceClient()
+    .from("class_lessons")
+    .select("title")
+    .eq("course_slug", courseSlug)
+    .eq("slug", slug)
+    .eq("status", "published")
+    .maybeSingle();
+  return (data?.title as string | undefined) ?? null;
+}
+
 /** Open sales only after every promised lesson is published. */
 export async function classSalesOpen(courseSlug: ClassCourseSlug = TODDLER_COURSE.slug, userId?: string): Promise<boolean> {
   if (courseSlug === INFANT_COURSE.slug) {

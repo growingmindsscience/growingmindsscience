@@ -34,11 +34,15 @@ export async function POST(request: Request, context: { params: Promise<{ id: st
     .eq("lesson_id", id)
     .maybeSingle();
   if (readError) return NextResponse.json({ error: "Progress unavailable" }, { status: 503 });
+  // completed_at is written only by the save that completes the lesson. A
+  // position save leaves the column alone, so one that races a completion
+  // (the pause that fires as a video ends) cannot undo it.
+  const completing = body.complete === true && !existing?.completed_at;
   const { error } = await supabase.from("class_progress").upsert({
     user_id: user.id,
     lesson_id: id,
     position_seconds: Math.floor(position),
-    completed_at: existing?.completed_at ?? (body.complete === true ? new Date().toISOString() : null),
+    ...(completing ? { completed_at: new Date().toISOString() } : {}),
     updated_at: new Date().toISOString(),
   }, { onConflict: "user_id,lesson_id" });
   if (error) return NextResponse.json({ error: "Could not save progress" }, { status: 503 });

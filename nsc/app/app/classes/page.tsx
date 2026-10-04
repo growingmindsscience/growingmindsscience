@@ -43,7 +43,7 @@ export default async function MyClassesPage() {
       <section aria-labelledby="owned-heading" className="flex flex-col gap-4">
         <h2 id="owned-heading" className="text-xl font-semibold text-ink-deep">Your classes</h2>
         {ownedCourses.length ? (
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className={`grid gap-4 ${ownedCourses.length > 1 ? "sm:grid-cols-2" : ""}`}>
             {ownedCourses.map((slug, index) => {
               const course = CLASS_COURSES[slug];
               const lessons = lessonGroups[index];
@@ -77,7 +77,7 @@ export default async function MyClassesPage() {
                     <LinkButton href={next ? lessonPath(next.slug, slug) : `/app/classes/${slug}`}>
                       {!lessons.length ? "Open class" : !next ? "Review class" : started ? "Continue" : "Start class"}
                     </LinkButton>
-                    <LinkButton href={`/app/classes/${slug}`} variant="ghost">All lessons</LinkButton>
+                    {next && <LinkButton href={`/app/classes/${slug}`} variant="ghost">All lessons</LinkButton>}
                   </div>
                 </Card>
               );
@@ -99,7 +99,7 @@ export default async function MyClassesPage() {
           <h2 id="more-heading" className="text-xl font-semibold text-ink-deep">
             {ownedCourses.length ? "More classes" : "Available classes"}
           </h2>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className={`grid gap-4 ${otherCourses.length > 1 ? "sm:grid-cols-2" : ""}`}>
             {otherCourses.map((slug, index) => {
               const course = CLASS_COURSES[slug];
               return (
@@ -109,7 +109,7 @@ export default async function MyClassesPage() {
                   <p className="mt-1 text-sm text-ink-soft">{course.blurb}</p>
                   <p className="mt-4 text-ink">
                     <span className="font-[family-name:var(--font-display)] text-2xl font-semibold text-ink-deep">{course.priceDisplay}</span>
-                    <span className="ml-2 text-sm text-ink-muted">one payment, lifetime access</span>
+                    <span className="ml-2 text-sm text-ink-muted">one payment, lifetime access. All sales are final.</span>
                   </p>
                   <div className="mt-auto flex flex-wrap items-center gap-2 pt-5">
                     {salesOpen[index] ? (

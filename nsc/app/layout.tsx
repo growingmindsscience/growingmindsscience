@@ -15,6 +15,9 @@ const sourceSerif = Source_Serif_4({
   variable: "--font-source-serif",
 });
 
+const THEME_SCRIPT =
+  "try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}";
+
 export const metadata: Metadata = {
   title: `${brand.productName} — ${brand.parentSite}`,
   description:
@@ -25,7 +28,12 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${bricolage.variable} ${sourceSerif.variable}`}>
+    <html lang="en" className={`${bricolage.variable} ${sourceSerif.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Apply the saved or system theme before paint, with the main site's
+            key. Only the classes area styles it (see .class-theme). */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body className="min-h-screen antialiased">
         {/* Skip link, matching the parent static site (every page there has one).
             Pages render their own <main> landmark, so this targets a focusable

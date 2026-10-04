@@ -471,6 +471,8 @@
   transition: color var(--chrome-t);
 }
 .site-footer .footer-ig:hover { color: #FFFFFF; }
+/* 44px touch targets for the brand links and the Instagram link. */
+.site-header .brand, .site-footer .brand, .site-footer .footer-ig { min-height: 44px; }
 
 .site-footer .site-footer__nav {
   display: grid;
@@ -503,6 +505,11 @@
   line-height: 1.35;
   text-decoration: none;
   transition: color var(--chrome-t);
+}
+/* 44px touch targets on phones; the taller links carry the row spacing. */
+@media (max-width: 720px) {
+  .site-footer .footer-list { gap: 0; }
+  .site-footer .footer-list a { display: flex; align-items: center; min-height: 44px; }
 }
 .site-footer .footer-list a:hover,
 .site-footer .footer-list a[aria-current="page"] { color: #FFFFFF; }

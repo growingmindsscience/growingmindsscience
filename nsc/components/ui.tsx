@@ -9,7 +9,7 @@ export type ButtonVariant = "primary" | "ghost" | "inverse";
 export type ButtonSize = "md" | "sm";
 
 const BUTTON_BASE =
-  "inline-flex items-center justify-center rounded-full font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 focus-visible:ring-offset-ground disabled:opacity-50";
+  "inline-flex items-center justify-center rounded-full font-[family-name:var(--font-display)] font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 focus-visible:ring-offset-ground disabled:opacity-50";
 
 // Pills are 48px (DESIGN.md); the compact size still clears a 44px target.
 const BUTTON_SIZE: Record<ButtonSize, string> = {
@@ -18,7 +18,7 @@ const BUTTON_SIZE: Record<ButtonSize, string> = {
 };
 
 const BUTTON_VARIANT: Record<ButtonVariant, string> = {
-  primary: "bg-teal text-white hover:bg-teal-soft",
+  primary: "bg-teal text-on-teal hover:bg-teal-soft",
   ghost: "bg-transparent text-teal hover:bg-sea-glass/40",
   // A light pill for dark (pine) cards.
   inverse: "bg-white text-ink-deep hover:bg-sea-glass",
@@ -90,6 +90,7 @@ export function Field({
   label: string;
   htmlFor: string;
   children: ReactNode;
+  /** Rendered with id `${htmlFor}-hint`; point the input's aria-describedby at it. */
   hint?: string;
 }) {
   return (
@@ -98,7 +99,7 @@ export function Field({
         {label}
       </label>
       {children}
-      {hint && <p className="text-xs text-teal-soft">{hint}</p>}
+      {hint && <p id={`${htmlFor}-hint`} className="text-xs text-teal-soft">{hint}</p>}
     </div>
   );
 }
@@ -107,7 +108,7 @@ export function Input({ className, ...props }: ComponentProps<"input">) {
   return (
     <input
       className={cx(
-        "min-h-11 rounded-xl border border-sea-glass bg-surface px-4 py-3 text-base text-ink placeholder:text-teal-soft/60 focus:border-teal focus:outline-none focus:ring-2 focus:ring-teal/30",
+        "min-h-11 rounded-xl border border-field-line bg-surface px-4 py-3 text-base text-ink placeholder:text-teal-soft/60 focus:border-teal focus:outline-none focus:ring-2 focus:ring-teal/30",
         className,
       )}
       {...props}

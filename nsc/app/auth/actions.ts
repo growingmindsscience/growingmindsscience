@@ -7,7 +7,7 @@ import { backfillEntitlementsForUser } from "@/lib/backfill.server";
 import { friendlyAuthError } from "@/lib/friendly-error";
 import { safeNextPath } from "@/lib/safe-next";
 import { siteOrigin } from "@/lib/site";
-import { CLASS_HOME, classDestination, isClassPath } from "@/lib/class-paths";
+import { classDestination, isClassPath } from "@/lib/class-paths";
 
 /**
  * Link any pre-existing Stripe purchases (legacy AI Pro subs, bought before
@@ -103,11 +103,14 @@ export async function requestPasswordReset(formData: FormData) {
   const supabase = await createClient();
   const email = String(formData.get("email") ?? "").trim();
   const classFlow = formData.get("class_flow") === "1";
-  const classQuery = classFlow ? "&class=1" : "";
+  // Class resets carry their destination through the email link and back.
+  const classQuery = classFlow
+    ? `&class=1&next=${encodeURIComponent(classDestination(formData.get("next")))}`
+    : "";
   if (!email) redirect(`/reset?error=Please+enter+your+email.${classQuery}`);
 
   await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${siteOrigin()}/nsc/auth/callback?next=${encodeURIComponent(classFlow ? "/reset/update?class=1" : "/reset/update")}`,
+    redirectTo: `${siteOrigin()}/nsc/auth/callback?next=${encodeURIComponent(classFlow ? `/reset/update?${classQuery.slice(1)}` : "/reset/update")}`,
   });
   // Always confirm — never reveal whether an account exists.
   redirect(`/reset?sent=1${classQuery}`);
@@ -117,7 +120,8 @@ export async function updatePassword(formData: FormData) {
   const supabase = await createClient();
   const password = String(formData.get("password") ?? "");
   const classFlow = formData.get("class_flow") === "1";
-  const classQuery = classFlow ? "&class=1" : "";
+  const destination = classDestination(formData.get("next"));
+  const classQuery = classFlow ? `&class=1&next=${encodeURIComponent(destination)}` : "";
   if (password.length < 12) {
     redirect(
       `/reset/update?error=${encodeURIComponent("Password must be at least 12 characters.")}${classQuery}`,
@@ -128,7 +132,7 @@ export async function updatePassword(formData: FormData) {
     redirect(`/reset/update?error=${encodeURIComponent(friendlyAuthError(error.message))}${classQuery}`);
   }
   revalidatePath("/", "layout");
-  redirect(classFlow ? CLASS_HOME : "/app");
+  redirect(classFlow ? destination : "/app");
 }
 
 export async function signout() {

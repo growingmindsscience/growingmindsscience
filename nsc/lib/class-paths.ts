@@ -1,3 +1,4 @@
+import { INFANT_COURSE } from "@/lib/classes";
 import { safeNextPath } from "@/lib/safe-next";
 
 export const CLASS_HOME = "/app/classes";
@@ -15,4 +16,15 @@ export function isClassPath(path: string): boolean {
 export function classDestination(raw: unknown): string {
   const next = safeNextPath(raw, CLASS_HOME);
   return isClassPath(next) ? next : CLASS_HOME;
+}
+
+/** Sends a signed-in parent straight to Stripe Checkout for the infant class. */
+export const INFANT_ENROLL_PATH = "/app/classes/infant/enroll";
+
+/**
+ * The class a sign-in or sign-up is on the way to buying, when its
+ * destination is an enroll path; null for an ordinary class sign-in.
+ */
+export function enrollingCourse(destination: string) {
+  return destination === INFANT_ENROLL_PATH ? INFANT_COURSE : null;
 }

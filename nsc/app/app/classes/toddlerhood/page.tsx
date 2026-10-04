@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { requireClassAuth } from "@/lib/auth";
 import { classSalesOpen, hasClassAccess, progressForUser, publishedLessons } from "@/lib/classes.server";
-import { TODDLER_COURSE, lessonPath } from "@/lib/classes";
-import { Card, Button, LinkButton } from "@/components/ui";
+import { TODDLER_COURSE } from "@/lib/classes";
+import { Eyebrow } from "@/components/class-chrome";
+import { ClassOutline, ClassResume } from "@/components/class-outline";
+import { Card, Button } from "@/components/ui";
 import { startClassCheckout } from "./actions";
 
 export const dynamic = "force-dynamic";
@@ -13,18 +15,17 @@ export default async function ToddlerClassPage({ searchParams }: {
 }) {
   const user = await requireClassAuth("/app/classes/toddlerhood");
   const owned = await hasClassAccess(user.id);
-  const [lessons, progress] = owned
-    ? await Promise.all([publishedLessons(), progressForUser(user.id)])
-    : [[], []];
+  const [lessons, progress] = await Promise.all([
+    publishedLessons(), owned ? progressForUser(user.id) : [],
+  ]);
   const salesOpen = owned ? false : await classSalesOpen();
-  const complete = new Set(progress.filter((row) => row.completed_at).map((row) => row.lesson_id));
   const { error } = await searchParams;
 
   return (
     <main className="mx-auto flex max-w-3xl flex-col gap-7 px-6 py-10">
       <header>
-        <Link href="/app/classes" className="text-sm text-teal-soft underline">← My classes</Link>
-        <p className="mt-5 font-[family-name:var(--font-display)] text-xs font-semibold uppercase tracking-[0.18em] text-coral-deep">Self-paced class · ages 1–3</p>
+        <Link href="/app/classes" className="inline-flex min-h-11 items-center text-sm text-teal-soft underline">← My classes</Link>
+        <Eyebrow className="mt-2">Self-paced class · ages 1–3</Eyebrow>
         <h1 className="mt-2 text-3xl font-semibold text-ink-deep">{TODDLER_COURSE.title}</h1>
         <p className="mt-3 text-ink">Five modules of developmental science and practical guidance for everyday family life.</p>
       </header>
@@ -40,31 +41,12 @@ export default async function ToddlerClassPage({ searchParams }: {
           <p className="mt-3 text-xs text-teal-soft">Already bought this on Thinkific? Your purchase will be linked during migration.</p>
         </Card>
       ) : (
-        <p className="text-sm text-teal-soft">{complete.size} of {lessons.length} available lessons complete · lifetime access</p>
+        <ClassResume lessons={lessons} progress={progress} courseSlug="toddlerhood" modules={TODDLER_COURSE.modules} />
       )}
-      {owned && TODDLER_COURSE.modules.map((title, index) => {
-        const moduleLessons = lessons.filter((lesson) => lesson.module_number === index + 1);
-        return (
-          <section key={title} aria-labelledby={`module-${index + 1}`}>
-            <h2 id={`module-${index + 1}`} className="mb-3 text-xl font-semibold text-ink-deep">
-              <span className="mr-2 text-sm text-teal">{String(index + 1).padStart(2, "0")}</span>{title}
-            </h2>
-            {moduleLessons.length ? (
-              <ol className="flex flex-col gap-2">
-                {moduleLessons.map((lesson) => (
-                  <li key={lesson.id}>
-                    <Link href={lessonPath(lesson.slug)} className="flex items-center justify-between gap-4 rounded-xl border border-sea-glass/60 bg-surface px-5 py-4 text-ink hover:bg-sea-glass/20">
-                      <span><strong className="block font-semibold">{lesson.title}</strong>{lesson.summary && <span className="block text-sm text-teal-soft">{lesson.summary}</span>}</span>
-                      <span className="shrink-0 text-sm text-teal">{complete.has(lesson.id) ? "✓ Done" : "Open →"}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ol>
-            ) : <p className="text-sm text-teal-soft">Lessons are being prepared.</p>}
-          </section>
-        );
-      })}
-      <LinkButton href="/app/classes" variant="ghost" className="self-start">Back to My classes</LinkButton>
+      {!owned && lessons.length > 0 && <p className="-mb-3 text-sm font-semibold text-ink-muted">What is inside</p>}
+      {(owned || lessons.length > 0) && (
+        <ClassOutline modules={TODDLER_COURSE.modules} lessons={lessons} progress={progress} courseSlug="toddlerhood" locked={!owned} />
+      )}
     </main>
   );
 }
