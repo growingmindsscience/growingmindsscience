@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { ownsToddlerClass, validClassPayment } from "@/lib/classes";
+import { ownsToddlerClass, transcriptParagraphs, validClassPayment } from "@/lib/classes";
 
 const now = new Date("2026-09-27T12:00:00Z");
 
@@ -45,5 +45,38 @@ describe("class checkout proof", () => {
     expect(validClassPayment(infant)).toBe(true);
     expect(validClassPayment({ ...infant, paymentStatus: "no_payment_required", amountTotal: 0 })).toBe(true);
     expect(validClassPayment({ ...infant, paymentStatus: "no_payment_required", amountTotal: 4900 })).toBe(false);
+  });
+});
+
+describe("transcript paragraphs", () => {
+  const captions = [
+    "Welcome. If you're here, you are probably somewhere in the first year with a",
+    "baby or about to be.",
+    "Maybe you're watching this at three in the morning with a sleeping infant on",
+    "your chest.",
+    "Maybe you're watching it in pieces five minutes at a time between feeds.",
+    "However, you got here,",
+    "I'm glad you're here. This class is about the first year of life. And it starts",
+    "with a simple",
+    "question. What is actually going on inside a newborn?",
+  ].join("\n");
+
+  it("reflows caption lines into paragraphs with no mid-sentence breaks", () => {
+    const paragraphs = transcriptParagraphs(captions);
+    expect(paragraphs.length).toBeGreaterThan(1);
+    expect(paragraphs.join(" ")).not.toContain("\n");
+    expect(paragraphs[0].startsWith("Welcome. If you're here, you are probably somewhere in the first year with a baby or about to be.")).toBe(true);
+    // No words lost or added.
+    expect(paragraphs.join(" ")).toBe(captions.replace(/\n/g, " "));
+    for (const paragraph of paragraphs) expect(/[.?!]$/.test(paragraph)).toBe(true);
+  });
+
+  it("keeps an author's blank-line paragraph breaks", () => {
+    expect(transcriptParagraphs("One line\nwrapped.\n\nSecond paragraph.")).toEqual(["One line wrapped.", "Second paragraph."]);
+  });
+
+  it("returns nothing for an empty transcript", () => {
+    expect(transcriptParagraphs("")).toEqual([]);
+    expect(transcriptParagraphs(null)).toEqual([]);
   });
 });

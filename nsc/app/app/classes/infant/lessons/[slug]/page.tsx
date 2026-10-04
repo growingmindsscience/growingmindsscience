@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { requireClassAuth } from "@/lib/auth";
 import { hasClassAccess, progressForUser, publishedLessonTitle, publishedLessons } from "@/lib/classes.server";
-import { INFANT_COURSE, lessonPath } from "@/lib/classes";
+import { INFANT_COURSE, lessonPath, transcriptParagraphs } from "@/lib/classes";
 import { Eyebrow } from "@/components/class-chrome";
 import { ClassPlayer } from "@/components/class-player";
 import { Card } from "@/components/ui";
@@ -50,7 +50,9 @@ export default async function InfantLessonPage({ params }: { params: Promise<{ s
       {lessonNav("Lesson navigation", "-my-3")}
       <Card>
         <h2 className="text-xl font-semibold text-ink-deep">Read this lesson</h2>
-        <div className="mt-4 max-w-[68ch] whitespace-pre-wrap text-base leading-relaxed text-ink">{lesson.transcript}</div>
+        <div className="mt-4 flex max-w-[68ch] flex-col gap-4 text-base leading-relaxed text-ink [text-wrap:pretty]">
+          {transcriptParagraphs(lesson.transcript).map((paragraph, i) => <p key={i}>{paragraph}</p>)}
+        </div>
       </Card>
       {lessonNav("Lesson navigation, end of page", "border-t border-sea-glass pt-3")}
     </main>
