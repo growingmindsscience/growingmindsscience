@@ -9,10 +9,11 @@ Full app: assessment → placement → weekly plan → paywall → printables.
 
 ## On-site classes
 
-The same Supabase account now has `/app/classes` and a protected Toddlerhood
-lesson area. Admins create lessons and upload MP4s at `/admin/classes`; uploads
-go directly to signed-only Mux assets. Stripe purchases grant `class:toddlerhood`
-plus unlimited AI, and customer progress is stored per lesson. The public class
+The same Supabase account now has `/app/classes` and protected infant and Toddlerhood
+lesson areas. Admins create lessons and upload MP4s at `/admin/classes`; uploads
+go directly to signed-only Mux assets. Infant Stripe purchases grant `class:infant`;
+Toddlerhood purchases grant `class:toddlerhood` plus unlimited AI. Customer
+progress is stored per lesson. The public class
 sales links remain on Thinkific until the 29 lessons and prior-buyer migration
 are ready. Setup and launch steps are in
 [`docs/on-site-classes-runbook.md`](../docs/on-site-classes-runbook.md).
