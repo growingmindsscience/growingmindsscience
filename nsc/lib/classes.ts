@@ -176,3 +176,34 @@ export function validClassPayment(input: {
     input.lineItems[0].priceId === input.expectedPriceId &&
     input.lineItems[0].quantity === 1;
 }
+
+/**
+ * A lesson transcript as readable paragraphs. Transcripts come from caption
+ * files, so they arrive as short lines broken mid-sentence with no paragraph
+ * breaks. Blank lines, when an author has added them, are kept as the
+ * paragraph breaks; otherwise the text is reflowed and grouped a few
+ * sentences at a time.
+ */
+export function transcriptParagraphs(transcript: string | null | undefined): string[] {
+  const text = (transcript ?? "").replace(/\r\n?/g, "\n").trim();
+  if (!text) return [];
+  const unwrap = (block: string) => block.replace(/\s*\n\s*/g, " ").replace(/[ \t]{2,}/g, " ").trim();
+  if (/\n[ \t]*\n/.test(text)) {
+    return text.split(/\n[ \t]*\n+/).map(unwrap).filter(Boolean);
+  }
+  const sentences = unwrap(text).split(/(?<=[.?!]["\u201d\u2019)]?)\s+(?=["\u201c\u2018(]?[A-Z])/);
+  const paragraphs: string[] = [];
+  let current: string[] = [];
+  let length = 0;
+  for (const sentence of sentences) {
+    current.push(sentence);
+    length += sentence.length;
+    if (current.length >= 4 || length >= 420) {
+      paragraphs.push(current.join(" "));
+      current = [];
+      length = 0;
+    }
+  }
+  if (current.length) paragraphs.push(current.join(" "));
+  return paragraphs;
+}
