@@ -3,7 +3,7 @@ import type Stripe from "stripe";
 import { createServiceClient } from "@/lib/supabase/server";
 import { applyGrants } from "@/lib/entitlements.server";
 import { grantsForOneTimePurchase } from "@/lib/grants";
-import { INFANT_COURSE, TODDLER_COURSE, courseForProduct, validClassPayment } from "@/lib/classes";
+import { CLASS_COURSES, TODDLER_COURSE, courseForProduct, isClassCourseSlug, validClassPayment } from "@/lib/classes";
 import { stripe } from "@/lib/stripe";
 
 /** A signed Stripe event is necessary; price verification is an additional guard. */
@@ -12,7 +12,11 @@ export async function fulfillClassCheckout(session: Stripe.Checkout.Session) {
   if (!course) return;
   if (session.payment_status !== "paid" && session.payment_status !== "no_payment_required") return;
   const userId = session.client_reference_id;
-  const priceVariable = course.slug === INFANT_COURSE.slug ? "INFANT_CLASS_PRICE_ID" : "TODDLER_CLASS_PRICE_ID";
+  const priceVariable = ({
+    toddlerhood: "TODDLER_CLASS_PRICE_ID",
+    infant: "INFANT_CLASS_PRICE_ID",
+    preschool: "PRESCHOOL_CLASS_PRICE_ID",
+  } as const)[course.slug];
   const expectedPrice = process.env[priceVariable];
   if (!expectedPrice) throw new Error(`${priceVariable} is not configured`);
   const items = await stripe().checkout.sessions.listLineItems(session.id, { limit: 10 });
@@ -71,9 +75,11 @@ async function revokeClassPayment(paymentIntent: string, status: "refunded" | "d
     .eq("status", "paid");
   if (error) throw new Error(`Could not find class order: ${error.message}`);
   for (const order of orders ?? []) {
-    const infant = order.course_slug === INFANT_COURSE.slug;
-    const scopes = infant ? [INFANT_COURSE.scope] : [TODDLER_COURSE.scope, "ai:unlimited"];
-    const source = infant ? "stripe_otp" : "stripe_otp_legacy";
+    // Only the legacy toddler bundle also granted unlimited AI.
+    const single = isClassCourseSlug(order.course_slug) && order.course_slug !== TODDLER_COURSE.slug
+      ? CLASS_COURSES[order.course_slug] : null;
+    const scopes = single ? [single.scope] : [TODDLER_COURSE.scope, "ai:unlimited"];
+    const source = single ? "stripe_otp" : "stripe_otp_legacy";
     const now = new Date().toISOString();
     const { error: grantError } = await service.from("entitlements")
       .update({ expires_at: now, updated_at: now })

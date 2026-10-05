@@ -31,6 +31,7 @@ export default async function ClassAdminPage({ searchParams }: {
         <nav aria-label="Choose class" className="mt-4 flex gap-4 text-sm">
           <Link href="/admin/classes?course=infant" className="text-teal underline">Infant course</Link>
           <Link href="/admin/classes?course=toddlerhood" className="text-teal underline">Toddler course</Link>
+          <Link href="/admin/classes?course=preschool" className="text-teal underline">Preschool course</Link>
         </nav>
       </header>
       {(error || params.error) && <p role="alert" className="rounded-xl bg-rung-glow p-4 text-sm text-[#9C4429]">{params.error || `Class tables unavailable: ${error?.message}`}</p>}

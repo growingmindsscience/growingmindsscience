@@ -91,6 +91,13 @@ describe("stripe webhook: on-site classes", () => {
     expect(db.rows("entitlements")).toEqual([]);
   });
 
+  it("routes a preschool checkout to class fulfilment", async () => {
+    const d = deps(new FakeDb({ uniques }));
+    const out = await handleStripeEvent(checkout({ metadata: { product: "class_preschool", owner_id: "user-1" } }), d);
+    expect(out).toEqual({ status: 200, body: { received: true, class: "preschool" } });
+    expect(d.classes.fulfill).toHaveBeenCalledTimes(1);
+  });
+
   it("routes an infant checkout to class fulfilment", async () => {
     const d = deps(new FakeDb({ uniques }));
     const out = await handleStripeEvent(checkout({ metadata: { product: "class_infant", owner_id: "user-1" } }), d);

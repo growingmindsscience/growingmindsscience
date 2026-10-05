@@ -1,4 +1,4 @@
-import { INFANT_COURSE } from "@/lib/classes";
+import { INFANT_COURSE, PRESCHOOL_COURSE } from "@/lib/classes";
 import { safeNextPath } from "@/lib/safe-next";
 
 export const CLASS_HOME = "/app/classes";
@@ -20,11 +20,14 @@ export function classDestination(raw: unknown): string {
 
 /** Sends a signed-in parent straight to Stripe Checkout for the infant class. */
 export const INFANT_ENROLL_PATH = "/app/classes/infant/enroll";
+/** The same for the preschool class. */
+export const PRESCHOOL_ENROLL_PATH = "/app/classes/preschool/enroll";
 
 /**
  * The class a sign-in or sign-up is on the way to buying, when its
  * destination is an enroll path; null for an ordinary class sign-in.
  */
 export function enrollingCourse(destination: string) {
-  return destination === INFANT_ENROLL_PATH ? INFANT_COURSE : null;
+  if (destination === INFANT_ENROLL_PATH) return INFANT_COURSE;
+  return destination === PRESCHOOL_ENROLL_PATH ? PRESCHOOL_COURSE : null;
 }

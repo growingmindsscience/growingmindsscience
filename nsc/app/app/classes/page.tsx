@@ -8,14 +8,17 @@ import { Card, LinkButton, buttonClasses } from "@/components/ui";
 import { SubmitButton } from "@/components/submit-button";
 import { Eyebrow } from "@/components/class-chrome";
 import { startInfantClassCheckout } from "./infant/actions";
+import { startPreschoolClassCheckout } from "./preschool/actions";
 import { startClassCheckout } from "./toddlerhood/actions";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "My classes" };
 
 /** Catalog order: youngest age first. */
-const COURSE_ORDER: ClassCourseSlug[] = ["infant", "toddlerhood"];
-const CHECKOUT = { infant: startInfantClassCheckout, toddlerhood: startClassCheckout } as const;
+const COURSE_ORDER: ClassCourseSlug[] = ["infant", "toddlerhood", "preschool"];
+const CHECKOUT = {
+  infant: startInfantClassCheckout, toddlerhood: startClassCheckout, preschool: startPreschoolClassCheckout,
+} as const;
 /** Mirrors FREE_DAILY_LIMIT in the static site's api/_ai-chat.js. */
 const FREE_AI_QUESTIONS_PER_DAY = 5;
 
