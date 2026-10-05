@@ -21,6 +21,7 @@ const SCOPE_LABELS: Record<string, string> = {
   "ai:unlimited": "Growing Minds AI — unlimited",
   "class:toddlerhood": "Toddler class — lifetime access",
   "class:infant": "Infant class — lifetime access",
+  "class:preschool": "Preschool class — lifetime access",
 };
 
 function scopeLabel(scope: string): string {
@@ -130,7 +131,7 @@ export default async function AccountPage({
       </Card>
 
       {/* Classes are a separate product: linked here only when owned. */}
-      {summary.scopes.some((scope) => scope === "class:toddlerhood" || scope === "class:infant") && (
+      {summary.scopes.some((scope) => scope.startsWith("class:")) && (
         <Card>
           <p className="text-xs font-medium uppercase tracking-widest text-teal">Your learning</p>
           <h2 className="mt-1 text-lg font-semibold text-ink-deep">My classes</h2>

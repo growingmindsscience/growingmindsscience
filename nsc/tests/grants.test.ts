@@ -155,6 +155,15 @@ describe("one-time purchase grants", () => {
     }
   });
 
+  it("preschool purchase grants only preschool lifetime access", () => {
+    expect(grantsForOneTimePurchase({ sessionId: "cs_preschool", product: "class_preschool" })).toEqual([{
+      product_scope: "class:preschool",
+      source: "stripe_otp",
+      source_ref: "cs_preschool",
+      expires_at: null,
+    }]);
+  });
+
   it("infant purchase grants only infant lifetime access", () => {
     expect(grantsForOneTimePurchase({ sessionId: "cs_infant", product: "class_infant" })).toEqual([{
       product_scope: "class:infant",

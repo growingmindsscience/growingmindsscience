@@ -35,9 +35,28 @@ export const INFANT_COURSE = {
   ],
 } as const;
 
+export const PRESCHOOL_COURSE = {
+  slug: "preschool",
+  title: "Preschool Years (3 to 5)",
+  shortTitle: "Preschool years",
+  scope: "class:preschool",
+  product: "class_preschool",
+  priceDisplay: "$49",
+  ages: "Ages 3 to 5",
+  blurb: "Four modules on thinking, play, friendships, and getting ready for school.",
+  detailsPath: "/classes/preschool.html",
+  modules: [
+    "The Thinking Preschooler",
+    "Play as the Work",
+    "Friends and Feelings",
+    "Ready for School",
+  ],
+} as const;
+
 export const CLASS_COURSES = {
   toddlerhood: TODDLER_COURSE,
   infant: INFANT_COURSE,
+  preschool: PRESCHOOL_COURSE,
 } as const;
 
 export type ClassCourseSlug = keyof typeof CLASS_COURSES;
@@ -77,15 +96,12 @@ export function lessonPath(slug: string, courseSlug: ClassCourseSlug = TODDLER_C
 
 /** Published lessons each infant module must have before sales open. */
 export const INFANT_MODULE_LESSON_COUNTS = [5, 4, 3, 4] as const;
+/** Published lessons each preschool module must have before sales open. */
+export const PRESCHOOL_MODULE_LESSON_COUNTS = [4, 4, 3, 4] as const;
 
 export type SalesGate = { open: true } | { open: false; reason: string };
 
-/**
- * Whether infant enrollment is open, and if not, which condition failed.
- * Pure so it can be tested; `reason` is written to server logs, so it
- * describes each value (set or not, length) and never includes the value.
- */
-export function infantSalesGate(input: {
+export interface SalesGateInput {
   salesFlag: string | undefined;
   vercelEnv: string | undefined;
   previewUserId: string | undefined;
@@ -94,7 +110,23 @@ export function infantSalesGate(input: {
   userId: string | undefined;
   /** Published lesson count per module, module 1 first. */
   moduleCounts: number[];
-}): SalesGate {
+}
+
+/**
+ * Whether infant enrollment is open, and if not, which condition failed.
+ * Pure so it can be tested; `reason` is written to server logs, so it
+ * describes each value (set or not, length) and never includes the value.
+ */
+export function infantSalesGate(input: SalesGateInput): SalesGate {
+  return salesGate("INFANT", INFANT_MODULE_LESSON_COUNTS, input);
+}
+
+/** The same gate for the preschool class, read from the PRESCHOOL_CLASS_* variables. */
+export function preschoolSalesGate(input: SalesGateInput): SalesGate {
+  return salesGate("PRESCHOOL", PRESCHOOL_MODULE_LESSON_COUNTS, input);
+}
+
+function salesGate(prefix: "INFANT" | "PRESCHOOL", required: readonly number[], input: SalesGateInput): SalesGate {
   // Env values pasted into a dashboard or piped from a shell often carry a
   // trailing newline or space; compare the trimmed value.
   const flag = input.salesFlag?.trim().toLowerCase();
@@ -105,15 +137,15 @@ export function infantSalesGate(input: {
     return {
       open: false,
       reason: (input.salesFlag === undefined
-        ? "INFANT_CLASS_SALES_ENABLED is not set for this deployment"
-        : `INFANT_CLASS_SALES_ENABLED is set but is not "1" (length ${input.salesFlag.length})`) +
-        (tester ? "; the signed-in user is not INFANT_CLASS_TEST_USER_ID" : "; INFANT_CLASS_TEST_USER_ID is not set"),
+        ? `${prefix}_CLASS_SALES_ENABLED is not set for this deployment`
+        : `${prefix}_CLASS_SALES_ENABLED is set but is not "1" (length ${input.salesFlag.length})`) +
+        (tester ? `; the signed-in user is not ${prefix}_CLASS_TEST_USER_ID` : `; ${prefix}_CLASS_TEST_USER_ID is not set`),
     };
   }
   if (input.vercelEnv === "preview") {
     const allowed = input.previewUserId?.trim().toLowerCase();
     if (!allowed) {
-      return { open: false, reason: "preview deployment and INFANT_CLASS_PREVIEW_USER_ID is not set" };
+      return { open: false, reason: `preview deployment and ${prefix}_CLASS_PREVIEW_USER_ID is not set` };
     }
     const viewer = viewerId;
     if (!viewer) {
@@ -122,12 +154,12 @@ export function infantSalesGate(input: {
     if (viewer !== allowed) {
       return {
         open: false,
-        reason: "preview deployment and the signed-in user is not INFANT_CLASS_PREVIEW_USER_ID " +
+        reason: `preview deployment and the signed-in user is not ${prefix}_CLASS_PREVIEW_USER_ID ` +
           `(configured length ${allowed.length}, a user id is ${viewer.length} characters)`,
       };
     }
   }
-  const short = INFANT_MODULE_LESSON_COUNTS
+  const short = required
     .map((need, index) => ({ module: index + 1, need, have: input.moduleCounts[index] ?? 0 }))
     .filter((row) => row.have !== row.need);
   if (short.length) {

@@ -20,7 +20,7 @@ export async function POST(request: Request) {
   const { data: lesson } = await service.from("class_lessons")
     .select("id, title, course_slug")
     .eq("id", lessonId)
-    .in("course_slug", ["toddlerhood", "infant"])
+    .in("course_slug", ["toddlerhood", "infant", "preschool"])
     .maybeSingle();
   if (!lesson) return NextResponse.json({ error: "Lesson not found" }, { status: 404 });
   try {

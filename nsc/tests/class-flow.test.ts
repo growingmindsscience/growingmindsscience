@@ -1,10 +1,28 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { infantSalesGate } from "@/lib/classes";
-import { INFANT_ENROLL_PATH, classDestination, enrollingCourse, isClassPath } from "@/lib/class-paths";
+import { infantSalesGate, preschoolSalesGate } from "@/lib/classes";
+import { INFANT_ENROLL_PATH, PRESCHOOL_ENROLL_PATH, classDestination, enrollingCourse, isClassPath } from "@/lib/class-paths";
 import { sitePath } from "@/lib/site";
 
 const USER = "3f2b8c1e-0d4a-4b6f-9a7e-1c2d3e4f5a6b";
 const ready = { salesFlag: "1", vercelEnv: "production", previewUserId: undefined, userId: USER, moduleCounts: [5, 4, 3, 4] };
+
+describe("preschool sales gate", () => {
+  const preschoolReady = { ...ready, moduleCounts: [4, 4, 3, 4] };
+
+  it("stays closed until its own flag is on and all 15 lessons are published", () => {
+    expect(preschoolSalesGate({ ...preschoolReady, salesFlag: undefined })).toEqual({
+      open: false,
+      reason: "PRESCHOOL_CLASS_SALES_ENABLED is not set for this deployment; PRESCHOOL_CLASS_TEST_USER_ID is not set",
+    });
+    expect(preschoolSalesGate({ ...preschoolReady, moduleCounts: [4, 3, 0, 0] })).toEqual({
+      open: false,
+      reason: "published lesson counts do not match: module 2 has 3, needs 4; module 3 has 0, needs 3; module 4 has 0, needs 4",
+    });
+    // The infant lesson counts do not satisfy the preschool gate.
+    expect(preschoolSalesGate(ready).open).toBe(false);
+    expect(preschoolSalesGate(preschoolReady)).toEqual({ open: true });
+  });
+});
 
 describe("infant sales gate", () => {
   it("opens in production once the flag is on and every lesson is published", () => {
@@ -98,6 +116,8 @@ describe("enroll intent", () => {
   it("names the class only for an enroll destination", () => {
     expect(enrollingCourse(INFANT_ENROLL_PATH)?.slug).toBe("infant");
     expect(enrollingCourse("/app/classes/infant")).toBeNull();
+    expect(enrollingCourse(PRESCHOOL_ENROLL_PATH)?.slug).toBe("preschool");
+    expect(enrollingCourse("/app/classes/preschool")).toBeNull();
     expect(enrollingCourse("/app/classes")).toBeNull();
   });
 });
