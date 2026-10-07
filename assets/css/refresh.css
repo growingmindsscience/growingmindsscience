@@ -187,7 +187,7 @@ h4,
 .mission .eyebrow,
 .mission .check-list li,
 .mission__quote p {
-  color: color-mix(in oklab, #EDF4F1 88%, transparent);
+  color: color-mix(in oklab, #EEF4F3 88%, transparent);
 }
 
 .mission__title,
@@ -861,7 +861,7 @@ h4,
 }
 
 .proof-strip .proof-strip__item strong {
-  color: #EDF4F1;
+  color: #EEF4F3;
   font-family: var(--font-display);
   font-weight: 400;
   font-size: var(--text-md);
@@ -912,7 +912,7 @@ h4,
 }
 .how-grid--four .how-card:nth-child(2) .how-card__icon {
   background: color-mix(in oklab, var(--warm) 22%, var(--surface));
-  color: #A3492E;
+  color: #7F5008;
 }
 
 .how-grid--four .how-card:nth-child(3) {
@@ -955,7 +955,7 @@ h4,
   font-size: clamp(1.8rem, 1rem + 3vw, 3rem);
   font-weight: 400;
   line-height: 1.18;
-  color: #EDF4F1;
+  color: #EEF4F3;
   letter-spacing: 0;
   font-style: italic;
 }
@@ -1025,10 +1025,10 @@ h4,
 
 /* dark mode adjustments for belief section */
 [data-theme="dark"] .belief {
-  background: #0E2A2D;
+  background: #0E2129;
 }
 [data-theme="dark"] .belief__quote {
-  color: #EDF4F1;
+  color: #EEF4F3;
 }
 [data-theme="dark"] #about {
   background: linear-gradient(180deg,

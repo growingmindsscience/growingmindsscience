@@ -1,71 +1,68 @@
 ---
 name: Growing Minds Science
-description: Research-based parenting classes for families of children 0–5 — warm, credible, calm.
+description: A developmental-science education for parents of children 0–5. Deep ink, paper-white, one amber highlighter.
 colors:
-  mist: "#F0F5F3"
+  ground: "#F6F9F8"
   surface: "#FFFFFF"
-  sea-glass: "#CFE3DE"
-  pine: "#15393C"
-  pine-deep: "#0E2A2D"
+  tint: "#E6EFED"
+  ink: "#12262C"
+  ink-800: "#14323A"
+  ink-900: "#0E2129"
+  ink-soft: "#3A5058"
+  ink-muted: "#52676C"
   teal: "#1E5F62"
   teal-soft: "#2E7A77"
-  coral: "#DE7356"
-  coral-deep: "#9C4429"
-  coral-on-dark: "#E78D6F"
-  coral-tint: "#F8E7E0"
-  ink-soft: "#3D5A5A"
-  ink-muted: "#4E6564"
-  line: "#D4E0DC"
-  line-soft: "#E2EAE7"
-  on-dark: "#EDF4F1"
-  on-dark-soft: "#BCD2CC"
-  on-dark-muted: "#8BA59F"
+  teal-light: "#7FC4BC"
+  amber: "#F2A93B"
+  amber-deep: "#7F5008"
+  amber-tint: "#FBEBC8"
+  line: "#D3DEDC"
+  line-soft: "#E3EBE9"
+  on-dark: "#EEF4F3"
+  on-dark-soft: "#BCCFD3"
+  on-dark-muted: "#8DA6AC"
 typography:
   display:
-    fontFamily: "Bricolage Grotesque, Avenir Next, Helvetica Neue, sans-serif"
-    fontSize: "clamp(2.45rem, 1.3rem + 4.6vw, 4.1rem)"
-    fontWeight: 600
-    lineHeight: 1.06
-    letterSpacing: "-0.015em"
+    fontFamily: "Besley, Georgia, Times New Roman, serif"
+    fontSize: "clamp(2.3rem, 0.1rem + 3.75vw, 3.4rem)"
+    fontWeight: 500
+    lineHeight: 1.04
+    letterSpacing: "-0.005em"
   headline:
-    fontFamily: "Bricolage Grotesque, Avenir Next, Helvetica Neue, sans-serif"
-    fontSize: "clamp(1.9rem, 1.2rem + 2.8vw, 3rem)"
-    fontWeight: 600
-    lineHeight: 1.06
-    letterSpacing: "-0.015em"
+    fontFamily: "Besley, Georgia, Times New Roman, serif"
+    fontSize: "clamp(2rem, 1.3rem + 3vw, 3.1rem)"
+    fontWeight: 500
+    lineHeight: 1.08
+    letterSpacing: "-0.005em"
   title:
-    fontFamily: "Bricolage Grotesque, Avenir Next, Helvetica Neue, sans-serif"
-    fontSize: "clamp(1.45rem, 1.1rem + 1.4vw, 1.9rem)"
-    fontWeight: 600
-    lineHeight: 1.1
-    letterSpacing: "-0.015em"
+    fontFamily: "Besley, Georgia, Times New Roman, serif"
+    fontSize: "clamp(1.5rem, 1.1rem + 1.6vw, 2.125rem)"
+    fontWeight: 500
+    lineHeight: 1.12
+    letterSpacing: "-0.005em"
   body:
-    fontFamily: "Source Serif 4, Georgia, Times New Roman, serif"
+    fontFamily: "Atkinson Hyperlegible Next, Helvetica Neue, Arial, sans-serif"
     fontSize: "1.0625rem"
     fontWeight: 400
-    lineHeight: 1.65
+    lineHeight: 1.6
     letterSpacing: "normal"
   highlight:
-    fontFamily: "Source Serif 4, Georgia, serif"
+    fontFamily: "inherit"
     fontSize: "inherit"
-    fontWeight: 500
-    lineHeight: 1.06
-    letterSpacing: "0"
-  eyebrow:
-    fontFamily: "Bricolage Grotesque, Avenir Next, sans-serif"
-    fontSize: "0.75rem"
-    fontWeight: 600
-    lineHeight: 1.4
-    letterSpacing: "0.18em"
+    fontWeight: "inherit"
+    lineHeight: "inherit"
+    letterSpacing: "inherit"
+  caption:
+    fontFamily: "Atkinson Hyperlegible Next, Helvetica Neue, Arial, sans-serif"
+    fontSize: "0.9375rem"
+    fontWeight: 400
+    lineHeight: 1.55
+    letterSpacing: "normal"
 rounded:
-  xs: "4px"
-  sm: "8px"
+  sm: "6px"
   control: "10px"
-  md: "14px"
-  card: "16px"
-  lg: "20px"
-  pill: "999px"
-  arch: "999px 999px 20px 20px"
+  card: "14px"
+  lg: "18px"
 spacing:
   xs: "0.5rem"
   sm: "0.75rem"
@@ -77,19 +74,25 @@ components:
   button-primary:
     backgroundColor: "{colors.teal}"
     textColor: "{colors.surface}"
-    rounded: "{rounded.pill}"
-    padding: "0.8rem 1.5rem"
+    rounded: "{rounded.control}"
+    padding: "0.8rem 1.4rem"
+    height: "48px"
+  button-amber:
+    backgroundColor: "{colors.amber}"
+    textColor: "{colors.ink-900}"
+    rounded: "{rounded.control}"
+    padding: "0.8rem 1.4rem"
     height: "48px"
   button-quiet:
-    backgroundColor: "{colors.mist}"
-    textColor: "{colors.pine}"
-    rounded: "{rounded.pill}"
-    padding: "0.8rem 1.5rem"
+    backgroundColor: "transparent"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.control}"
+    padding: "0.8rem 1.4rem"
     height: "48px"
   card:
     backgroundColor: "{colors.surface}"
-    textColor: "{colors.pine}"
-    rounded: "{rounded.md}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.card}"
     padding: "{spacing.lg}"
 ---
 
@@ -97,167 +100,175 @@ components:
 
 ## 1. Overview
 
-**Creative North Star: "Tidepool"**
+**Creative North Star: "Seminar"**
 
-A calm, clear pool of teal lit by a single warm coral. The homepage runs on
-deep teal-ink (`#15393C`) text and dark bands, a cool aqua-mist ground
-(`#F0F5F3` — deliberately *not* cream), brand teal for action, and exactly one
-warm accent: coral. The voice is a knowledgeable friend who happens to be a
-developmental scientist — reassurance and competence in equal measure. A tired,
-skeptical parent should arrive and exhale.
+A parent at the kitchen table at 9:40 pm, one lamp on, kid finally asleep,
+laptop open, wanting to understand why bedtime fell apart tonight and wanting
+to feel like a capable student rather than a failing caregiver. That scene
+sets everything: deep ink bands where the lamp-lit study happens (the hero,
+office hours, enrolment), a cool paper-white ground for reading, and one amber
+accent that behaves like a highlighter across the phrase that matters.
 
-The type pairing carries the personality: **Bricolage Grotesque** (a humanist
-grotesque with character) for display, set tight and confident, over
-**Source Serif 4** for body — and the signature move lives in the seam between
-them: a coral serif-italic phrase (`.hl`) dropped inside an otherwise grotesque
-headline ("Your child's behavior makes sense. *Here's why.*"). Warmth is carried
-by that coral, the serif body, and editorial photography behind soft arch
-shapes — never by pastels. The palette tilts cool-green where most parenting
-brands tilt nursery-pastel, which is what keeps it adult and trustworthy.
+The brand teaches. Its native imagery is the **textbook figure**: an inline
+SVG diagram with a numbered caption and a stated source ("Fig. 1 · Windows of
+heightened plasticity by domain. Schematic after Nelson (2000)."). Photos are
+reserved for the curriculum, where they show the developmental window a class
+covers. A faint graph-paper texture sits behind the ink bands; it carries
+"science" without a stock photo.
 
-This system explicitly rejects two things. It is **not a generic SaaS/startup
-launch page** — no gradient hero, no big-number hero-metric template, no endless
-identical icon-card grids, no purple-on-white. And it is **not clinical or
-medical** — no sterile hospital-blue, no fear-based "is your child behind?"
-deficit framing.
+Type carries the voice: **Besley**, a Clarendon-flavored serif with textbook
+authority, for display, over **Atkinson Hyperlegible Next**, a sans designed
+for legibility, for everything a tired reader has to actually read. The
+pairing is serif-vs-sans on purpose; it should feel like a well-set course
+reader, not a magazine and not a SaaS launch.
+
+This system explicitly rejects three things. Not **generic SaaS/startup** (no
+gradient hero, hero-metric template, identical icon cards). Not
+**clinical/medical** (no hospital-blue, no deficit framing). Not **nursery
+pastel / stock-baby** (the parent is the student; the imagery is the course).
 
 **Key Characteristics:**
-- Cool aqua-mist ground + deep teal-ink, with one coral accent — adult, not pastel.
-- Bricolage Grotesque display (tight, 600) over Source Serif 4 body (17px, 1.65).
-- Signature `.hl`: coral serif-italic phrase inside grotesque headlines.
-- Pill buttons (48px min), soft 14–20px card radii, an "arch" doorway motif for hero imagery.
-- Diffuse, low, long shadows; depth from tonal layering (mist → surface → pine bands).
-- Custom SVG decor (orbital rings, botanical sprigs) and a bespoke interactive Growth Arc.
-- Full light/dark theming via `[data-theme]`, persisted and system-aware; reduced-motion honored.
+- Committed color: ink-800 drenches roughly 40% of the homepage; the rest is paper-white.
+- One amber accent drawn from the logo's brain mark: highlighter, large text on ink, decor.
+- Besley 500 display over Atkinson Hyperlegible Next 17px body.
+- Signature `.hl` highlighter mark inside headlines; signature figures with captions.
+- Rounded-rectangle controls (10px), not pills; full 1px hairline rules, not cards.
+- Full light/dark theming via `[data-theme]`; in dark the ground (#15262C) stays lighter than the ink bands so the band structure survives.
+- Motion is three signatures (hero choreography, two figure draw-ins) plus a fade on the chat demo; rows are simply present.
 
 ## 2. Colors
 
-A cool teal foundation — mist ground, deep pine ink, brand teal action — punctuated by a single warm coral. Restraint on the warm side is the point.
-
 ### Primary
-- **Brand Teal** (`#1E5F62`): the action color — primary buttons (white text, AA), links, focus. `teal-soft` (`#2E7A77`) for hover and large decorative strokes.
+- **Ink** (`#12262C`): dominant text on light grounds.
+- **Ink-800** (`#14323A`): the drenched hero and the office-hours band. **Ink-900** (`#0E2129`): the enrol band and footer floor.
+- **Brand Teal** (`#1E5F62`): the action color on light grounds (primary buttons, links). `teal-soft` (`#2E7A77`) for hover; `teal-light` (`#7FC4BC`) for teal at text size on ink.
 
 ### Secondary
-- **Coral** (`#DE7356`): the one warm accent — decorative SVG marks, the milestone dot, large `.hl` text on dark bands, `::selection`. Reserved; rarity is its power.
-- **Coral-Deep** (`#9C4429`): coral at text sizes — the `.hl` highlight on light grounds and eyebrows. AA on mist, white, and sea-glass.
-- **Coral-on-Dark** (`#E78D6F`): the lighter coral required for *small* coral text on pine bands (eyebrow--on-dark, trust attribution, chat avatar). AA on pine.
+- **Amber** (`#F2A93B`): the one accent. The highlighter behind a phrase, amber buttons on ink bands, figure strokes, decor seeds. Text-size amber on ink is AA (6.8:1).
+- **Amber-Deep** (`#7F5008`): amber at text sizes on light grounds (6.5:1 on ground, 5.8:1 on amber-tint): figure labels, "Class 1" numerals, status pills, focus rings.
+- **Amber-Tint** (`#FBEBC8`): pale band for status pills and the research node in Figure 2.
 
 ### Neutral
-- **Mist** (`#F0F5F3`): the page ground — cool aqua, not cream.
-- **Surface** (`#FFFFFF`) / **Sea-Glass** (`#CFE3DE`): card surface and tinted section bands (the AI section).
-- **Pine** (`#15393C`) / **Pine-Deep** (`#0E2A2D`): dominant text, dark feature bands (trust, waitlist), footer floor.
-- **Ink-Soft** (`#3D5A5A`): secondary body copy. **Ink-Muted** (`#4E6564`): meta/labels only — now AA on mist, white, surface-2, **and** sea-glass (≥4.6:1), so the old "don't use on sea-glass" caveat is lifted. Still reserve it for meta/labels, not long body copy.
-- **Line** (`#D4E0DC`) / **Line-Soft** (`#E2EAE7`): full borders and hairline dividers.
-- **On-Dark** (`#EDF4F1`) / **On-Dark-Soft** (`#BCD2CC`) / **On-Dark-Muted** (`#8BA59F`): text tiers on pine bands (all AA on pine).
+- **Ground** (`#F6F9F8`): the page ground. Cool paper-white, chroma toward the teal, never cream.
+- **Surface** (`#FFFFFF`) / **Tint** (`#E6EFED`): white bands and tinted chips.
+- **Ink-Soft** (`#3A5058`): secondary copy (8:1). **Ink-Muted** (`#52676C`): meta and labels (≥5:1 on ground, surface, tint, and amber-tint).
+- **Line** (`#D3DEDC`) / **Line-Soft** (`#E3EBE9`): rules and borders.
+- **On-Dark** (`#EEF4F3`) / **On-Dark-Soft** (`#BCCFD3`) / **On-Dark-Muted** (`#8DA6AC`): text tiers on ink bands (12:1, 8.4:1, 5.3:1).
 
 ### Named Rules
-**The One-Coral Rule.** Coral is the only warm color and it appears sparingly — a mark, a highlighted phrase, a focus ring. If coral is doing more than punctuating, it's doing too much.
+**The Highlighter Rule.** Amber is a highlighter, not a paint. It marks one phrase per headline at most, fills a button only on ink bands, and otherwise appears as a stroke or a seed. If amber is doing more than marking, it is doing too much.
 
-**The Coral-Size Rule.** Coral text must match its background: `coral-deep` on light grounds, `coral-on-dark` on pine. Plain `--coral` (#DE7356) is for decor and large display text only — it fails AA as small body text on both mist (2.85:1) and pine (3.98:1).
+**The Amber-Size Rule.** `amber` for marks, buttons, decor, and text on ink. `amber-deep` for any text on a light ground. Plain amber as small text on light fails AA.
 
-**The Cool-Ground Rule.** The body ground is cool aqua-mist, never cream/sand. Warmth comes from coral, the serif, and imagery — not from a warm-tinted background.
+**The Paper Rule.** The ground is cool paper-white, never cream, sand, or beige. Warmth lives in amber, in Besley, and in the curriculum photos.
 
 ### Domain Palette (data-viz only)
-The milestone tracker color-codes its six developmental domains for scanning. This is the one sanctioned place for a fuller palette (data-viz), kept muted so it still reads as Tidepool. Each is a light tint with an AA-on-white deep text color, used only on the domain badge:
-- **Cognitive** — tint `#DBEAE6`, text `#1A565A` (teal)
-- **Social-emotional** — tint `#F7E5DE`, text `#9C4429` (coral-deep)
-- **Motor** — tint `#DCE8DB`, text `#3C6B45` (moss)
-- **Language** — tint `#F1E6CD`, text `#785618` (ochre)
-- **Sensory & regulation** — tint `#E1E9F1`, text `#3C5E78` (slate-blue)
-- **Adaptive skills** — tint `#F1E2EA`, text `#7A4660` (plum)
-
-**The Domains-Only Rule.** This six-hue palette appears *only* as milestone-domain badges. Everywhere else, the One-Coral Rule holds — don't borrow these hues for general UI.
+The milestone tracker color-codes its six developmental domains for scanning. This remains the one sanctioned fuller palette, kept muted. Each is a light tint with an AA-on-white deep text color, used only on the domain badge:
+- **Cognitive** — tint `#DBEAE6`, text `#1A565A`
+- **Social-emotional** — tint `#F7E5DE`, text `#7F5008`
+- **Motor** — tint `#DCE8DB`, text `#3C6B45`
+- **Language** — tint `#F1E6CD`, text `#785618`
+- **Sensory & regulation** — tint `#E1E9F1`, text `#3C5E78`
+- **Adaptive skills** — tint `#F1E2EA`, text `#7A4660`
 
 ### Utility & status colors
-A few function-only values, documented so they're intentional, not drift:
-- **Available green** `#5FBF8E` — the Growing Minds AI "online" status dot. A calm Tidepool-family green (never neon/generic-SaaS green like `#4ade80`).
-- **Selection** `#2B130B` text on `--coral` — the `::selection` highlight.
-- **Shadows** are pine-tinted (`rgba(14,42,45,…)` / `rgba(21,57,60,…)`) across all stylesheets; the legacy warm-gray shadow rgbas (`rgba(28,34,31,…)`) have been migrated out.
+- **Available green** `#5FBF8E`: the Growing Minds AI "online" dot only.
+- **Danger** `#A6371F` light / `#F0907E` dark: form errors.
+- **Selection**: `#0E2129` text on `amber`.
+- **Shadows** are ink-tinted (`rgba(14,33,41,…)`).
 
 ### Arcade easter-egg palettes
-The hidden arcade games (Pong on Tools, Brain Sprint on Classes, GMS Invaders on Articles, Asteroids on About, plus Snake/Breakout/Dino/Hopper, and the arcade-only Tidy Up, Serve & Return, and Crumb Chase) intentionally use their own **isolated retro palettes** (dark cabinets, phosphor greens, etc.) that sit *outside* Tidepool — e.g. `#0c0f0e`, `#9fb3a6`, `#6f8f7b`. This is deliberate: an arcade cabinet should not look like the marketing site. These values are scoped to the game canvases/inline game styles only and are **not** design-system drift. Everywhere outside the games, the One-Coral Rule and the documented palette hold.
+The hidden arcade games keep their own isolated retro palettes (dark cabinets, phosphor greens). Scoped to the game canvases and arcade stylesheets only; not design-system drift.
 
 ### Radius scale
-`xs 4 · sm 8 · control 10 · md 14 · card 16 · lg 20 · pill 999`, plus the `arch`. Small controls (chips, toggles, inputs) sit on the 4–14 end; cards and panels on 14–20. Treat 2px as a hairline detail only.
+`sm 6 · control 10 · card 14 · lg 18`. Pills are retired outside the arcade; the seminar is rectangular with softened corners.
 
 ## 3. Typography
 
-**Display Font:** Bricolage Grotesque (with Avenir Next, Helvetica Neue)
-**Body Font:** Source Serif 4 (with Georgia)
+**Display Font:** Besley (fallback Georgia)
+**Body Font:** Atkinson Hyperlegible Next (fallback Helvetica Neue, Arial)
 
-**Character:** A humanist grotesque with personality, set tight (−0.015em) and heavy (600), paired against a readable optical serif. The contrast axis (grotesque vs. serif) is real, so the pairing reads designed; the serif keeps long copy warm and human.
+**Character:** Besley is a Clarendon with warmth: textbook headings, confident at weight 500, normal tracking (−0.005em; never tighter than −0.01em, Clarendons cramp). Atkinson Hyperlegible Next was designed for low-vision legibility, which is exactly right for a tired parent reading at night; it sets body, UI, labels, and figure text.
 
 ### Hierarchy
-- **Display** (600, `clamp(2.45rem → 4.1rem)`, 1.06, −0.015em): hero headline.
-- **Headline** (600, `clamp(1.9rem → 3rem)`, 1.06): section h2s.
-- **Title** (600, `clamp(1.45rem → 1.9rem)`, 1.1): card/module/way headings (h3).
-- **Body** (400, `1.0625rem` / 17px, 1.65): all running text in Source Serif 4. Cap measure ~60–72ch (the project uses `max-width: 60ch` on prose).
-- **Highlight `.hl`** (Source Serif 4 italic, 500): the signature coral phrase inside grotesque headlines. `coral-deep` on light, `coral` on dark bands.
-- **Eyebrow** (Bricolage Grotesque, `0.75rem`, 600, uppercase, `0.18em`): section kicker. `coral-deep` on light, `coral-on-dark` on pine.
+- **Display** (Besley 500, `clamp(2.3rem → 3.4rem)` above 1100px, 1.04): hero headline, sized so each sentence holds one line in the two-column hero.
+- **Headline** (Besley 500, `clamp(2rem → 3.1rem)`, 1.08): section h2s.
+- **Title** (Besley 500, `clamp(1.5rem → 2.125rem)`, 1.12): class titles, lens names, shelf headings.
+- **Body** (Atkinson 400, 17px, 1.6): all running text. Measure ≤ 60ch.
+- **Caption** (Atkinson 400, 15px, 1.55, ink-muted): figure captions; the "Fig. N" label is Besley 600 italic in amber-deep.
+- **Class numeral** (Besley 500 italic, 15px, amber-deep): "Class 1 · Birth to 12 months".
+- **Figure text** (Atkinson 500, 15px / 13px inside the SVG viewBox).
 
 ### Named Rules
-**The Signature-Phrase Rule.** The coral serif-italic `.hl` is the brand's one typographic flourish. Use it on the headlines that most deserve emphasis — not on every section, or it becomes a tic.
+**The Highlighter-Phrase Rule.** The `.hl` mark is the brand's one typographic flourish. One phrase, on the headline that most deserves it; the hero, the thesis, office hours, and enrol each carry one. Never on every heading.
 
-**The Eyebrow-Earns-It Rule.** An eyebrow appears only when it carries real information (age range, "Free · sources shown", enrolling status) — not as automatic scaffolding above every section.
+**The Figure Rule.** Every diagram is a `<figure>` with an SVG `<title>` and `<desc>`, a visible "Fig. N" caption, and its source named when it is adapted from published work.
+
+**No eyebrows.** Small uppercase tracked kickers are retired. Where a label is needed (hero, office hours) it is sentence-case, 15px, amber or amber-deep, and carries real information.
 
 ## 4. Elevation
 
-Mostly flat, with low, long, diffuse shadows tinted toward pine. Depth comes more from tonal layering — mist ground, white surfaces, and dark pine feature bands — than from drop shadows. Buttons and the chat card lift slightly; most surfaces rest near-flat.
+Mostly flat. Depth comes from tonal bands (ground → surface → ink-800 → ink-900) and from hairline rules, not from drop shadows. The chat card, the enrol form, and the Figure 2 panel are the only lifted surfaces.
 
 ### Shadow Vocabulary
-- **sm** (`box-shadow: 0 1px 2px rgba(14,42,45,0.06)`): resting hairline lift.
-- **md** (`box-shadow: 0 16px 36px -20px rgba(14,42,45,0.32)`): cards, dropdowns.
-- **lg** (`box-shadow: 0 32px 64px -30px rgba(14,42,45,0.4)`): the chat demo, prominent floats.
-- **button-primary** (`0 14px 28px -16px rgba(30,95,98,0.55)`): soft teal-tinted glow under primary buttons.
+- **sm** (`0 1px 2px rgba(14,33,41,0.06)`): resting lift.
+- **md** (`0 16px 36px -20px rgba(14,33,41,0.32)`): dropdowns.
+- **lg** (`0 24px 44px -26px rgba(14,33,41,0.42)`): the chat card and the Figure 2 panel.
+- **button-primary** (`0 14px 28px -16px rgba(30,95,98,0.55)`); **button-amber** (`0 16px 30px -18px rgba(242,169,59,0.7)`).
 
-### Named Rules
-**The Tonal-Depth Rule.** Reach for a darker pine band before reaching for a heavier shadow. The page's depth is its bands, not its drop shadows.
+**The Band Rule.** Reach for a darker band before a heavier shadow.
 
 ## 5. Components
 
 ### Buttons
-- **Shape:** pills (`border-radius: 999px`), `min-height: 48px`, `0.8rem 1.5rem` padding, Bricolage Grotesque 600, `1.5px` transparent border baseline.
-- **Primary:** teal fill (`#1E5F62`), white text, soft teal glow; hover deepens. Lifts ~140ms on `transform`.
-- **Quiet (`--quiet`):** transparent/mist background, `line` border, pine text — the secondary action.
-- **`--lg` / `--block`:** larger padding / full width.
+- **Shape:** 10px radius, `min-height: 48px`, `0.8rem 1.4rem`, Atkinson 600, 1.5px transparent border.
+- **Primary (light grounds):** teal fill, white text. Hover deepens to ink-800 and lifts 2px.
+- **Amber (ink bands only):** amber fill, ink-900 text. The hero, office hours, and enrol CTAs.
+- **Quiet:** transparent, `line` border, ink text. **Ghost-dark:** transparent, 32% on-dark border, for secondary actions on ink.
+- `--lg` / `--block` for size and width.
 
-### Cards & List Rows (modules, ways, class rail)
-- **Corner Style:** 14–20px radii (`--radius` / `--radius-lg`).
-- **Background:** white `surface` on mist; the class rail and AI band use `sea-glass`.
-- **Border:** full 1px `line` — never a single colored side-stripe.
-- **Shadow:** `sm` at rest, `md` on hover where lift is used.
-- **Numbered rows:** modules carry `01–05` because the curriculum is an ordered sequence; this is intentional, not decorative scaffolding.
+### Rows, not cards
+Lenses, curriculum units, principles, and shelf links are ruled rows (1px `line` top and bottom), with a hover wash of the ground color. The curriculum is a numbered `<ol>` because the classes are a developmental sequence; the numbers carry information.
+
+### Curriculum unit
+`thumb (7.25rem square photo) | numeral + title + "After this class you can explain …" | status pill + meta dl + CTA`. Status pills: `--open` is amber-tint / amber-deep, `--soon` is tint / ink-muted. Open units get a primary button; upcoming units get a quiet "Join the waitlist".
+
+### Figures
+Inline SVG inside `<figure class="fig">`. Fig. 1 (hero) is the plasticity-windows chart on ink; Fig. 2 (how it's taught) is the research → model → moment → noticing loop on a white panel. Curves use `pathLength="1"` so they draw in with a dash offset; labels fade after. Strokes distinguish by dash pattern as well as color.
+
+### Instructor block
+Portrait (4:5, 11rem column) beside name, role, four fact bullets with amber seeds, and a link to About. Sits under the three lenses so the thesis is attributed to a face, not a thumbnail. Never fabricate testimonials; proof is credentials, the coaching count, and the free material.
+
+### Enrol band
+The page's closing beat is the purchase, not the waitlist: H2 with the price in the highlighter, a four-item "included" list with amber check marks, then `.enrol-list` rows (class numeral, title, format, price, amber CTA) beside a product FAQ ("Before you enroll": try first, background, access, refund, medical). The waitlist is one quiet row underneath with a single email field and a quiet-dark button.
+
+### Chat demo
+Labelled "Example conversation" with a bordered tag; no fake "online" status and no perpetual pulse (Calm by default). Source chips are 13px minimum.
 
 ### Inputs / Fields
-- **Style:** white surface, `line` border, soft radius, Source Serif 4.
-- **Focus:** visible `:focus-visible` — `2.5px` coral-deep outline, `3px` offset (coral on dark bands). Never removed.
+Ground-colored field on a white card, `line` border, 10px radius, teal focus ring. Errors use `danger`, never amber (amber is the accent, not a warning).
 
 ### Navigation
-- **One header and footer everywhere.** Styles live only in `assets/css/chrome.css` (loaded last on every page) and behavior only in `assets/js/chrome.js`. Don't restyle `.site-header` / `.site-footer` in page stylesheets.
-- **Structure:** four section links (Classes · Free tools · Articles · About), then a divider, Log in, and one teal pill CTA ("See the class"; "Enroll now" to checkout on the toddler page; "Join waitlist" on waitlist class pages), then the theme toggle.
-- **Free tools menu:** a `<details>` dropdown listing the four interactive tools (Growing Minds AI, Number Path, Milestone tracker, Communication Snapshot) with one-line descriptions, plus "All free tools and guides". New tools go here, not into the top bar.
-- **Style:** sticky 72px header (64px under 720px), Bricolage Grotesque links, coral underline for hover/current. Below 1000px the links collapse into a full-width panel; the current page gets a coral dot.
-- **Footer:** brand + Instagram, then Classes / Free tools / About columns. Arcade lives in the bottom line only; it's an easter egg, not a section.
-
-### Signature: Growth Arc & Chat Demo
-- **Growth Arc:** a custom `role="tablist"` of five developmental stages over an SVG curve, with arrow/Home/End keys, `aria-selected`, and a coral active dot. The brand's centerpiece interaction.
-- **Chat demo:** an embedded Growing Minds AI preview — white card, `lg` shadow, pine avatar, live status. Demonstrates the product, not decoration.
+- **One header and footer everywhere.** Styles live only in `assets/css/chrome.css`, behavior only in `assets/js/chrome.js`. Don't restyle `.site-header` / `.site-footer` in page stylesheets.
+- **Ink variant:** a page that opens on an ink hero adds `site-header--ink`; the bar reads as part of the hero, links go on-dark, and the CTA turns amber. The homepage uses it. Inner pages keep the light bar.
+- **Structure:** Classes · Free tools (details menu) · Articles · About, divider, Log in, one CTA, theme toggle. The arcade lives inside the Free tools menu with a one-line description, and on the homepage as a single "Need a break?" row under the reading list: it exists so stressed parents can stop thinking for five minutes, and the copy says so. Nav links are Atkinson 500; the wordmark is Besley 600. Amber underline for hover/current.
+- **Footer:** ink-900, brand + Instagram, Classes / Free tools / About columns in Atkinson, Besley column headings.
 
 ## 6. Do's and Don'ts
 
 ### Do:
-- **Do** keep the cool aqua-mist (`#F0F5F3`) ground — warmth comes from coral, serif, and imagery (The Cool-Ground Rule).
-- **Do** size coral text to its background: `coral-deep` on light, `coral-on-dark` on pine, `coral` for decor/large only (The Coral-Size Rule).
-- **Do** reserve the coral serif-italic `.hl` for headlines that earn emphasis.
-- **Do** use full 1px `line` borders on cards; let dark pine bands carry depth.
-- **Do** keep primary CTAs as teal pills (48px min) and "Enroll" labels pointing only to checkout.
-- **Do** honor `prefers-reduced-motion`, keep content visible by default (reveal is enhancement, never a gate), and keep the light/dark toggle working on every surface.
+- **Do** keep the cool paper-white ground and let ink-800 / ink-900 bands carry the drama (The Paper Rule, The Band Rule).
+- **Do** size amber to its ground: `amber` on ink, `amber-deep` on light (The Amber-Size Rule).
+- **Do** reach for a captioned figure before a stock photo when the section explains something.
+- **Do** use ruled rows for lists of parallel things; reserve raised white panels for the few surfaces that need lift.
+- **Do** keep every SVG figure accessible: `<title>`, `<desc>`, visible caption, dash patterns as well as color.
+- **Do** honor `prefers-reduced-motion`, keep content visible by default, and keep the theme toggle working on every surface.
 
 ### Don't:
-- **Don't** ship a **generic SaaS/startup** look: no gradient hero, no big-number hero-metric template, no identical icon-card grids, no purple-on-white.
-- **Don't** go **clinical/medical**: no sterile hospital-blue, no fear-based "is your child behind?" messaging.
-- **Don't** revert to a cream/sand/warm-tinted body ground — Tidepool is cool by design.
-- **Don't** use a `border-left`/`border-right` greater than 1px as a colored accent stripe (it was removed from the hero credibility callout — keep it gone).
-- **Don't** animate layout properties (padding/width/height) for motion — use `transform`/`opacity`.
-- **Don't** put an eyebrow above every section, and don't let the `.hl` highlight land on every heading.
-- **Don't** use gradient text or default glassmorphism.
+- **Don't** ship a **generic SaaS/startup** look: no gradient hero, hero-metric template, identical icon-card grids, purple-on-white.
+- **Don't** go **clinical** or **nursery**: no hospital-blue, no deficit framing, no pastels, no stock-baby as brand imagery.
+- **Don't** put the highlighter on every heading, or use amber as small text on light grounds.
+- **Don't** bring back pills, uppercase tracked eyebrows, or numbered section markers as scaffolding.
+- **Don't** use `border-left`/`border-right` > 1px as a colored accent stripe.
+- **Don't** animate layout properties; use `transform`, `opacity`, `background-size`, and `stroke-dashoffset`.
+- **Don't** use gradient text or decorative glassmorphism.
