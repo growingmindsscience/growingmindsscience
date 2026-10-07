@@ -890,6 +890,40 @@ h3 { font-size: var(--text-xl); }
 }
 .shelf__more:hover { text-decoration: underline; text-underline-offset: 0.2em; }
 
+/* A deliberate pause, not a tool: the arcade exists so stressed parents can
+   stop thinking for five minutes. One full-width row, same rule language. */
+.shelf-break {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--space-4) var(--space-5);
+  align-items: center;
+  margin-top: clamp(var(--space-10), 5vw, var(--space-16));
+  padding: var(--space-5) var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color var(--t), background var(--t);
+}
+.shelf-break:hover { border-color: var(--amber); color: var(--ink); }
+.shelf-break .shelf__arrow { grid-row: auto; grid-column: 3; }
+.shelf-break:hover .shelf__arrow { transform: translateX(4px); }
+.shelf-break__glyph {
+  display: grid;
+  place-items: center;
+  width: 52px; height: 52px;
+  border-radius: var(--radius);
+  background: var(--amber-tint);
+  color: var(--amber-deep);
+}
+.shelf-break__title { display: block; font-family: var(--font-display); font-weight: 500; font-size: var(--text-md); line-height: 1.25; }
+.shelf-break__desc { display: block; margin-top: 0.2rem; font-size: var(--text-sm); color: var(--ink-muted); max-width: 60ch; text-wrap: pretty; }
+@media (max-width: 560px) {
+  .shelf-break { grid-template-columns: auto minmax(0, 1fr); }
+  .shelf-break .shelf__arrow { display: none; }
+}
+
 /* ---------- Enrol (ink band) ---------- */
 .signup {
   position: relative;

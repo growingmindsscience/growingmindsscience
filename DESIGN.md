@@ -251,7 +251,7 @@ Ground-colored field on a white card, `line` border, 10px radius, teal focus rin
 ### Navigation
 - **One header and footer everywhere.** Styles live only in `assets/css/chrome.css`, behavior only in `assets/js/chrome.js`. Don't restyle `.site-header` / `.site-footer` in page stylesheets.
 - **Ink variant:** a page that opens on an ink hero adds `site-header--ink`; the bar reads as part of the hero, links go on-dark, and the CTA turns amber. The homepage uses it. Inner pages keep the light bar.
-- **Structure:** Classes · Free tools (details menu) · Arcade · Articles · About, divider, Log in, one CTA, theme toggle. Nav links are Atkinson 500; the wordmark is Besley 600. Amber underline for hover/current.
+- **Structure:** Classes · Free tools (details menu) · Articles · About, divider, Log in, one CTA, theme toggle. The arcade lives inside the Free tools menu with a one-line description, and on the homepage as a single "Need a break?" row under the reading list: it exists so stressed parents can stop thinking for five minutes, and the copy says so. Nav links are Atkinson 500; the wordmark is Besley 600. Amber underline for hover/current.
 - **Footer:** ink-900, brand + Instagram, Classes / Free tools / About columns in Atkinson, Besley column headings.
 
 ## 6. Do's and Don'ts
