@@ -10,8 +10,8 @@ first flagship class (Toddlerhood) has a dedicated detail page.
 - Marketing homepage at `/` (`index.html`) — pure HTML/CSS/JS, no build step
 - Flagship class page at `/classes/toddlerhood.html` (pretty URL: `/classes/toddlerhood`)
 - Standalone milestone tracker at `/milestones.html` (pretty URL: `/milestones`)
-- Brand: warm off-white, dark ink, teal CTAs, muted gold/brown accents
-- Type: Instrument Serif (display) + Work Sans (body) via Google Fonts
+- Brand ("Seminar"): paper-white ground, deep ink bands, teal CTAs, one amber highlighter accent
+- Type: Besley (display) + Atkinson Hyperlegible Next (body) via Google Fonts
 
 ## File tree
 

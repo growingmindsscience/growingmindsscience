@@ -19,7 +19,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet" />
 
   <style>
     /* ── Variables ─────────────────────────────────── */
@@ -28,21 +28,21 @@
          meta text stays AA on mist and white; coral text uses coral-deep on
          light grounds and coral-on-dark on pine. */
       --teal:        #1E5F62;
-      --teal-dark:   #15393C;
+      --teal-dark:   #12262C;
       --teal-hover:  #185053;
       --teal-light:  rgba(30,95,98,.08);
-      --pine:        #15393C;
-      --pine-deep:   #0E2A2D;
-      --coral:       #DE7356;
-      --coral-deep:  #9C4429;
-      --coral-on-dark: #E78D6F;
-      --on-dark:     #EDF4F1;
-      --on-dark-soft: #BCD2CC;
-      --cream:       #F0F5F3;
-      --ink:         #15393C;
-      --ink-soft:    #3D5A5A;
-      --ink-muted:   #4E6564;
-      --blush:       #F8E7E0;
+      --pine:        #12262C;
+      --pine-deep:   #0E2129;
+      --coral:       #F2A93B;
+      --coral-deep:  #7F5008;
+      --coral-on-dark: #F3B649;
+      --on-dark:     #EEF4F3;
+      --on-dark-soft: #BCCFD3;
+      --cream:       #F6F9F8;
+      --ink:         #12262C;
+      --ink-soft:    #3A5058;
+      --ink-muted:   #52676C;
+      --blush:       #FBEBC8;
       --white:       #ffffff;
       --border:      rgba(21,57,60,.12);
       --border-mid:  rgba(21,57,60,.18);
@@ -52,13 +52,13 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body {
-      font-family: 'Source Serif 4', Georgia, serif;
+      font-family: 'Atkinson Hyperlegible Next', 'Helvetica Neue', Arial, sans-serif;
       font-size: 1rem; line-height: 1.7; color: var(--ink);
       background: var(--cream);
       -webkit-font-smoothing: antialiased;
       display: flex; flex-direction: column; min-height: 100vh;
     }
-    h1,h2,h3 { font-family: 'Bricolage Grotesque', Georgia, serif; letter-spacing: -.02em; line-height: 1.2; }
+    h1,h2,h3 { font-family: 'Besley', Georgia, serif; letter-spacing: -.005em; line-height: 1.2; }
     a { color: inherit; text-decoration: none; }
     img { max-width: 100%; height: auto; display: block; }
     ul, ol { list-style: none; }
@@ -147,7 +147,7 @@
       background: linear-gradient(135deg, var(--teal) 0%, var(--coral) 100%);
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 1.25rem;
-      font-family: 'Bricolage Grotesque', serif; font-weight: 700; font-size: .875rem; color: var(--white);
+      font-family: 'Besley', serif; font-weight: 700; font-size: .875rem; color: var(--white);
     }
     .chat-welcome h2 { font-size: 1.1875rem; color: var(--ink); margin-bottom: .5rem; }
     .chat-welcome p { font-size: .9rem; color: var(--ink-soft); max-width: 42ch; margin: 0 auto; }

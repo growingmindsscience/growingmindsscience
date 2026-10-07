@@ -1,36 +1,43 @@
 /* =========================================================
    Growing Minds Science
-   Stylesheet — "Tidepool": cool teal/mist, deep pine ink, one coral accent.
-   Palette: cool aqua-mist ground, deep pine ink, brand teal CTAs, coral accent.
-   Type: Bricolage Grotesque (display) + Source Serif 4 (body).
+   Stylesheet — "Seminar": deep ink drench + paper-white ground,
+   one amber highlighter accent (drawn from the logo's brain),
+   brand teal for action. Besley (display) + Atkinson Hyperlegible
+   Next (body). Shared by every inner page; chrome.css reads these
+   tokens for the header and footer.
    ========================================================= */
 
 /* ---------- Tokens ---------- */
 :root {
-  /* Color — Tidepool (cool aqua-mist ground, one coral accent) */
-  --bg: #F0F5F3;             /* mist — cool aqua page ground */
-  --bg-alt: #E4EEEA;          /* alternate section */
+  /* Color — Seminar (paper-white ground, deep ink bands, one amber accent) */
+  --bg: #F6F9F8;              /* ground: cool paper-white, chroma toward the teal */
+  --bg-alt: #ECF2F0;          /* alternate section */
   --surface: #FFFFFF;         /* card surface */
-  --surface-2: #E9F1ED;       /* sea-glass-tinted surface / chips */
-  --border: #D4E0DC;          /* line */
-  --border-soft: #E2EAE7;
-  --ink: #15393C;             /* pine: dominant text */
-  --ink-soft: #3D5A5A;
-  --ink-muted: #4E6564;       /* muted text — AA on mist/surface/sea-glass (>=4.6:1) */
+  --surface-2: #E6EFED;       /* tinted surface / chips */
+  --border: #D3DEDC;          /* line */
+  --border-soft: #E3EBE9;
+  --ink: #12262C;             /* deep ink: dominant text */
+  --ink-soft: #3A5058;
+  --ink-muted: #52676C;       /* muted text — AA on bg / surface / surface-2 / amber-tint (>=5:1) */
+  --ink-800: #14323A;         /* drenched hero + dark bands */
+  --ink-900: #0E2129;         /* footer floor */
   --primary: #1E5F62;         /* brand teal (AA with white text) */
-  --primary-hover: #2E7A77;   /* teal-soft */
+  --primary-hover: #2E7A77;
   --primary-ink: #FFFFFF;
-  --accent: #2E7A77;          /* secondary teal accent */
-  --accent-soft: #CFE3DE;     /* sea-glass */
-  --accent-brown: #9C4429;    /* coral-deep (DESIGN.md token) — coral at text sizes */
-  --warm: #DE7356;            /* coral — the one accent (decor / large text) */
+  --accent: #2E7A77;          /* secondary teal accent (decor strokes) */
+  --accent-soft: #CFE3DE;     /* sea-glass tint (decor fills) */
+  --amber: #F2A93B;           /* the one accent: highlighter marks, decor, large text on ink */
+  --amber-deep: #7F5008;      /* amber at text sizes on light grounds (>=5.8:1) */
+  --amber-tint: #FBEBC8;      /* the highlighter band behind a phrase */
+  --accent-brown: var(--amber-deep); /* legacy name, kept for inner pages */
+  --warm: var(--amber);              /* legacy name, kept for inner pages */
   --leaf: #2E7A77;
-  --danger: #A6371F;          /* form error — ~6:1 on mist / surface */
+  --danger: #A6371F;          /* form error — ~6:1 on bg / surface */
   --success: #2F6B4A;         /* form success */
 
   /* Type */
-  --font-display: "Bricolage Grotesque", "Avenir Next", "Helvetica Neue", sans-serif;
-  --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-display: "Besley", Georgia, "Times New Roman", serif;
+  --font-body: "Atkinson Hyperlegible Next", "Helvetica Neue", Arial, sans-serif;
 
   --text-xs: 0.8125rem;   /* 13px */
   --text-sm: 0.9375rem;   /* 15px */
@@ -56,14 +63,14 @@
   --space-24: 6rem;
   --space-32: 8rem;
 
-  --radius-sm: 8px;
-  --radius: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 22px;
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
 
-  --shadow-sm: 0 1px 2px rgba(14, 42, 45, 0.06);
-  --shadow-md: 0 16px 36px -20px rgba(14, 42, 45, 0.30);
-  --shadow-lg: 0 32px 64px -30px rgba(14, 42, 45, 0.38);
+  --shadow-sm: 0 1px 2px rgba(14, 33, 41, 0.06);
+  --shadow-md: 0 16px 36px -20px rgba(14, 33, 41, 0.30);
+  --shadow-lg: 0 32px 64px -30px rgba(14, 33, 41, 0.38);
 
   --container: 1200px;
   --container-narrow: 880px;
@@ -74,26 +81,28 @@
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --bg: #0F1A18;
-  --bg-alt: #11302F;
-  --surface: #152421;
-  --surface-2: #1C3733;
-  --border: #28403B;
-  --border-soft: #1E322E;
-  --ink: #E8EFEB;
-  --ink-soft: #C2CFC9;
-  --ink-muted: #8CA09A;
-  --primary: #6FBCAF;
-  --primary-hover: #8FD0C4;
+  --bg: #0F1C20;
+  --bg-alt: #14323A;
+  --surface: #162830;
+  --surface-2: #1C343B;
+  --border: #2A4249;
+  --border-soft: #1F343A;
+  --ink: #E8EFED;
+  --ink-soft: #C0CFD2;
+  --ink-muted: #8FA6AB;
+  --ink-800: #0C171B;
+  --ink-900: #081215;
+  --primary: #7FC4BC;
+  --primary-hover: #9AD5CD;
   --primary-ink: #07211E;
-  --accent: #8FD0C4;
-  --accent-soft: #1C3733;
-  --accent-brown: #E78D6F;
-  --warm: #E78D6F;
-  --leaf: #6FBCAF;
-  /* Status text needs its own dark values: the light ones sit near 3:1 on pine. */
-  --danger: #E78D6F;
-  --success: #8FD0C4;
+  --accent: #7FC4BC;
+  --accent-soft: #1C343B;
+  --amber: #F3B649;
+  --amber-deep: #F3B649;
+  --amber-tint: #3A2C12;
+  /* Status text needs its own dark values: the light ones sit near 3:1 on ink. */
+  --danger: #F0907E;
+  --success: #9AD5CD;
 
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
   --shadow-md: 0 4px 14px rgba(0,0,0,0.4);
@@ -158,9 +167,9 @@ li { margin-bottom: var(--space-2); }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.12;
-  letter-spacing: 0;
+  letter-spacing: -0.005em;
   color: var(--ink);
   margin: 0 0 var(--space-4);
   text-wrap: balance;
@@ -2196,14 +2205,14 @@ button:disabled {
 }
 
 .mission {
-  background: #15393C;
-  color: #EDF4F1;
+  background: #12262C;
+  color: #EEF4F3;
 }
 
 .mission .eyebrow,
 .mission .check-list li,
 .mission__quote p {
-  color: color-mix(in oklab, #EDF4F1 88%, transparent);
+  color: color-mix(in oklab, #EEF4F3 88%, transparent);
 }
 
 .mission__title,

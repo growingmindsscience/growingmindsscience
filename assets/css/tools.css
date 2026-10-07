@@ -332,13 +332,13 @@
   body.printing-pocket > :not(.pocket-card) { display: none !important; }
   body.printing-pocket .pocket-card {
     display: block; padding: 1.5rem;
-    color: #15393c; background: #fff; font-family: var(--font-body);
+    color: #12262C; background: #fff; font-family: var(--font-body);
   }
   .pocket-card h2 { font-family: var(--font-display); margin: 0 0 .5rem; }
   .pocket-card .pocket-seq { list-style: none; padding: 0; margin: .5rem 0; }
   .pocket-card .pocket-seq li { margin: .35rem 0; break-inside: avoid; }
-  .pocket-card .pocket-try { margin-top: .75rem; padding: .5rem .75rem; border: 1px solid #d4e0dc; border-radius: 8px; }
-  .pocket-card .pocket-foot { margin-top: 1rem; font-size: .8rem; color: #4e6564; }
+  .pocket-card .pocket-try { margin-top: .75rem; padding: .5rem .75rem; border: 1px solid #D3DEDC; border-radius: 8px; }
+  .pocket-card .pocket-foot { margin-top: 1rem; font-size: .8rem; color: #52676C; }
 }
 
 /* Respect reduced motion — remove the small transforms/transitions above. */

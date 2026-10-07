@@ -3,40 +3,40 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script>/* Enable scroll-reveal only when motion is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
-  /* Apply saved/system theme before paint (same key as main.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>Growing Minds Science: parent classes and tools for ages 0–5</title>
-  <meta name="description" content="Developmental science for parents of children 0–5: self-paced video classes, free tools, research-backed articles, and an AI tutor that shows its sources." />
-  <meta name="theme-color" content="#15393C" />
+  <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
+  /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <title>Growing Minds Science: a developmental-science education for parents</title>
+  <meta name="description" content="Understand your child, yourself, and your influence. Self-paced classes in child development and developmental psychology for parents of children 0 to 5, built from peer-reviewed research." />
+  <meta name="theme-color" content="#14323A" />
   <meta name="color-scheme" content="light dark" />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Growing Minds Science" />
   <meta property="og:url" content="https://growingmindsscience.com/" />
-  <meta property="og:title" content="Growing Minds Science" />
-  <meta property="og:description" content="Developmental science made usable for parents. Classes, free tools, articles, an early-math check-in, and a research-grounded AI tutor for the early years." />
+  <meta property="og:title" content="Growing Minds Science: a developmental-science education for parents" />
+  <meta property="og:description" content="Understand your child, yourself, and your influence. Self-paced classes in child development and developmental psychology, built from peer-reviewed research." />
   <meta property="og:image" content="https://growingmindsscience.com/assets/img/og/site-home.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Two parents smiling down at their newborn." />
+  <meta property="og:image:alt" content="Growing Minds Science: a developmental-science education for parents." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://growingmindsscience.com/assets/img/og/site-home.jpg" />
 
-  <link rel="icon" type="image/png" href="assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="assets/img/original-logo-mark-no-words-512.png" />
   <link rel="canonical" href="https://growingmindsscience.com/" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/assets/img/original-logo-mark-no-words-512.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400..800&display=swap" />
   <link rel="stylesheet" href="assets/css/home.css" />
   <style>
     /* Token bridge: the shared arcade styles (arcade.css, loaded on demand by
-       decor.js for the hidden game) use the styles.css names, the home
+       decor.js for the hidden game) use the styles.css names; the home
        stylesheet has its own. Mapped vars flip with data-theme. */
     :root {
-      --bg: var(--mist);
-      --surface-2: var(--sea-glass);
+      --bg: var(--ground);
+      --surface-2: var(--tint);
       --border: var(--line);
       --primary: var(--teal);
       --primary-ink: var(--btn-primary-ink);
@@ -54,14 +54,14 @@
       "logo": "https://growingmindsscience.com/assets/img/original-logo-mark-no-words-512.png",
       "founder": { "@type": "Person", "name": "Matthew McArthur", "jobTitle": "Child Development Specialist" },
       "sameAs": ["https://www.instagram.com/growingmindsscience"],
-      "description": "Developmental science made usable for parents. Self-paced classes, free tools, articles, and a curated AI tutor for the first five years."
+      "description": "A developmental-science education for parents: self-paced classes in child development and developmental psychology, free tools, articles, and a research-grounded AI tutor for the first five years."
     },
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "url": "https://growingmindsscience.com",
       "name": "Growing Minds Science",
-      "description": "Developmental science translated for parents of children 0–5."
+      "description": "Developmental science, taught to the people raising children 0 to 5."
     }
   ]
   </script>
@@ -70,7 +70,7 @@
 <body data-arcade-egg="snake">
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header" role="banner">
+  <header class="site-header site-header--ink" role="banner">
     <div class="container site-header__inner">
       <a class="brand" href="/" aria-label="Growing Minds Science — home">
         <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
@@ -102,7 +102,7 @@
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
           <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood">See the class</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -115,298 +115,315 @@
 
   <main id="main">
 
-    <!-- HERO -->
+    <!-- HERO: the thesis, and Figure 1 -->
     <section class="hero">
-      <div class="hero__decor gms-reveal" aria-hidden="true">
-        <svg class="hero__decor-rings" data-drift="0.16" viewBox="0 0 460 460" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g class="gms-float">
-            <circle cx="318" cy="150" r="206" stroke="#CFE3DE" stroke-width="2"/>
-            <circle cx="318" cy="150" r="160" stroke="#BFD8D1" stroke-width="2"/>
-            <circle class="gms-spin" cx="318" cy="150" r="116" stroke="#2E7A77" stroke-opacity="0.28" stroke-width="2" stroke-dasharray="3 11"/>
-            <circle cx="318" cy="150" r="74" stroke="#CFE3DE" stroke-width="2"/>
-            <path d="M70 360 C 150 322, 232 300, 318 244" stroke="#DE7356" stroke-opacity="0.32" stroke-width="2.5" stroke-linecap="round"/>
-            <circle cx="112" cy="338" r="6" fill="#DE7356" fill-opacity="0.55"/>
-            <circle cx="206" cy="300" r="5" fill="#2E7A77" fill-opacity="0.5"/>
-            <circle cx="318" cy="150" r="6" fill="#DE7356" fill-opacity="0.7"/>
-          </g>
-        </svg>
-        <svg class="hero__decor-sprig" data-drift="-0.09" viewBox="0 0 90 130" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g class="gms-float gms-float--slow">
-            <path d="M45 128 C 44 92, 42 70, 56 40" stroke="#2E7A77" stroke-width="3.5" stroke-linecap="round" stroke-opacity="0.6"/>
-            <path d="M48 86 C 28 82, 16 70, 14 50 C 38 50, 52 64, 48 86 Z" fill="#CFE3DE"/>
-            <path d="M50 64 C 70 58, 82 44, 82 24 C 60 26, 46 42, 50 64 Z" fill="#BFD8D1"/>
-            <circle cx="56" cy="40" r="6" fill="#DE7356" fill-opacity="0.7"/>
-          </g>
-        </svg>
-      </div>
       <div class="container hero__inner">
-        <!-- The first screen never waits on a script: no [data-animate] here,
-             so the headline, CTAs and the LCP photo paint immediately. -->
+        <!-- The first screen never waits on a script: hero motion is CSS-only
+             and gated by html.anim, so the headline paints immediately. -->
         <div class="hero__content">
-          <p class="eyebrow">Developmental science · Ages 0–5</p>
-          <h1 class="hero__title">Your child's behavior makes sense. <em class="hl">Here's why.</em></h1>
+          <p class="hero__kicker">A developmental-science education for parents</p>
+          <h1 class="hero__title"><span class="hero__line">Understand your child.</span><span class="hero__line">Understand yourself.</span><span class="hero__line">Understand <mark class="hl">your influence.</mark></span></h1>
           <p class="hero__lede">
-            Short, self-paced video classes built from peer-reviewed developmental science, so you can understand what your child is actually doing and respond with confidence instead of guessing.
+            Self-paced classes in child development and developmental psychology for parents of children 0 to 5, built from peer-reviewed research. The understanding that used to require a graduate program, finished in evenings instead of semesters.
           </p>
+
+          <div class="hero__ctas">
+            <a class="btn btn--amber btn--lg" href="/classes/">Browse the classes</a>
+            <a class="hero__link" href="#taught">How it&rsquo;s taught <span aria-hidden="true">&darr;</span></a>
+          </div>
 
           <div class="hero__cred">
             <img class="hero__cred-photo" src="assets/img/matthew-avatar-96.jpg" srcset="assets/img/matthew-avatar-96.jpg 2x, assets/img/matthew-avatar-144.jpg 3x" alt="Matthew McArthur, founder of Growing Minds Science." width="48" height="48" decoding="async" />
             <p class="hero__cred-text">
-              Built by <strong>Matthew McArthur</strong>, Child Development Specialist, with graduate training in developmental psychology and 100+ families coached in Los Angeles.
+              Taught by <strong>Matthew McArthur</strong>, Child Development Specialist. M.A. in Developmental Psychology (SDSU), B.A. in Psychology (UCLA), and 100+ families coached in Los Angeles.
             </p>
-          </div>
-
-          <div class="hero__ctas">
-            <a class="btn btn--primary btn--lg" href="/classes/toddlerhood">See the toddler class</a>
-            <a class="btn btn--quiet btn--lg" href="/tools/">Explore the free tools</a>
           </div>
         </div>
 
-        <figure class="hero__media">
-          <picture>
-            <source type="image/webp"
-              srcset="assets/img/site/hero-parent-baby-640.webp 640w, assets/img/site/hero-parent-baby-1000.webp 1000w"
-              sizes="(max-width: 960px) min(28rem, 92vw), min(40vw, 480px)" />
-            <img
-              src="assets/img/site/hero-parent-baby.jpg"
-              srcset="assets/img/site/hero-parent-baby-640.jpg 640w, assets/img/site/hero-parent-baby.jpg 1000w"
-              sizes="(max-width: 960px) min(28rem, 92vw), min(40vw, 480px)"
-              alt="A parent and a young child together at home in warm, natural light."
-              width="800" height="1000"
-              loading="eager" fetchpriority="high" decoding="async" />
-          </picture>
+        <figure class="hero__media fig fig--hero" aria-labelledby="fig1-caption">
+          <svg viewBox="0 0 640 400" role="img" aria-describedby="fig1-desc" xmlns="http://www.w3.org/2000/svg">
+            <title>Figure 1. Windows of heightened plasticity by domain, birth to five.</title>
+            <desc id="fig1-desc">A line chart with age from birth to five years on the horizontal axis and plasticity on the vertical axis. Three curves rise and fall at different ages: sensing pathways peak in the first months, language peaks around the end of the first year, and higher cognitive function peaks around two to four years and declines gradually.</desc>
+            <!-- grid -->
+            <g class="fig-grid" fill="none" stroke-width="1">
+              <line x1="164.8" y1="50" x2="164.8" y2="340"/>
+              <line x1="273.6" y1="50" x2="273.6" y2="340"/>
+              <line x1="382.4" y1="50" x2="382.4" y2="340"/>
+              <line x1="491.2" y1="50" x2="491.2" y2="340"/>
+              <line x1="600" y1="50" x2="600" y2="340"/>
+              <line x1="56" y1="122" x2="600" y2="122"/>
+              <line x1="56" y1="195" x2="600" y2="195"/>
+              <line x1="56" y1="268" x2="600" y2="268"/>
+            </g>
+            <!-- axes -->
+            <g class="fig-axis" fill="none" stroke-width="1.5" stroke-linecap="round">
+              <line x1="56" y1="50" x2="56" y2="340"/>
+              <line x1="56" y1="340" x2="600" y2="340"/>
+            </g>
+            <!-- curves (pathLength=1 so the draw-in is a 0→1 dash offset) -->
+            <path class="fig-curve fig-curve--cog" pathLength="1" d="M56 338 C 160 336, 250 150, 360 130 S 540 220, 600 258"/>
+            <path class="fig-curve fig-curve--lang" pathLength="1" d="M56 338 C 100 338, 118 96, 150 96 S 240 250, 330 300 S 520 338, 600 336"/>
+            <path class="fig-curve fig-curve--sense" pathLength="1" d="M56 336 C 70 330, 86 70, 104 70 C 124 70, 150 250, 200 300 C 260 345, 420 340, 600 340"/>
+            <!-- peaks -->
+            <circle class="fig-peak fig-peak--sense" cx="104" cy="70" r="5.5"/>
+            <circle class="fig-peak fig-peak--lang" cx="150" cy="96" r="5.5"/>
+            <circle class="fig-peak fig-peak--cog" cx="360" cy="130" r="5.5"/>
+            <!-- labels -->
+            <text class="fig-text fig-label fig-label--sense" x="118" y="63">Sensing pathways (vision, hearing)</text>
+            <text class="fig-text fig-label fig-label--lang" x="164" y="104">Language</text>
+            <text class="fig-text fig-label fig-label--cog" x="374" y="126">Higher cognitive function</text>
+            <!-- axis labels -->
+            <g class="fig-text fig-text--sm">
+              <text x="56" y="366" text-anchor="middle">Birth</text>
+              <text x="164.8" y="366" text-anchor="middle">1 yr</text>
+              <text x="273.6" y="366" text-anchor="middle">2</text>
+              <text x="382.4" y="366" text-anchor="middle">3</text>
+              <text x="491.2" y="366" text-anchor="middle">4</text>
+              <text x="600" y="366" text-anchor="middle">5 yrs</text>
+              <text transform="translate(26 195) rotate(-90)" text-anchor="middle">Plasticity</text>
+              <text x="600" y="390" text-anchor="end">Age</text>
+            </g>
+          </svg>
+          <figcaption class="fig__caption" id="fig1-caption"><b>Fig. 1</b> &middot; Windows of heightened plasticity by domain, birth to five. The curves peak at different ages, which is why each class is built around one developmental window. Schematic after Nelson (2000).</figcaption>
         </figure>
       </div>
     </section>
 
-    <!-- TRUST BAND -->
-    <section class="trust" aria-label="Why parents trust Growing Minds Science">
-      <svg class="trust__decor gms-reveal" data-drift="-0.12" viewBox="0 0 320 320" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-        <g class="gms-float gms-float--slow">
-          <circle cx="232" cy="84" r="150" stroke="#356E69" stroke-width="2"/>
-          <circle class="gms-spin" cx="232" cy="84" r="108" stroke="#2E7A77" stroke-width="2" stroke-dasharray="3 12"/>
-          <circle cx="232" cy="84" r="70" stroke="#3E827C" stroke-width="2"/>
-          <path d="M44 268 C 108 240, 170 196, 232 138" stroke="#DE7356" stroke-opacity="0.45" stroke-width="2.5" stroke-linecap="round"/>
-          <circle cx="44" cy="268" r="5" fill="#DE7356" fill-opacity="0.8"/>
-          <circle cx="140" cy="220" r="4" fill="#5FA39C" fill-opacity="0.7"/>
-          <circle cx="232" cy="138" r="5" fill="#E08A6F" fill-opacity="0.85"/>
-        </g>
-      </svg>
-      <div class="container trust__inner">
-        <blockquote class="trust__quote" data-animate="fade">
-          “The research on early childhood is clear and consistent, yet almost entirely absent from mainstream parenting content. Every class here exists to close that gap.”
+    <!-- THESIS + THE THREE LENSES -->
+    <section class="thesis section" aria-labelledby="thesis-heading">
+      <div class="container thesis__inner">
+        <blockquote class="thesis__quote" data-animate="fade">
+          <h2 id="thesis-heading" class="thesis__quote-text">The parents who do best are, almost without exception, the ones who <mark class="hl">understand the&nbsp;science.</mark></h2>
+          <footer class="thesis__attr"><span><strong>Matthew McArthur</strong>, founder</span></footer>
         </blockquote>
-        <p class="trust__attr" data-animate="fade">Matthew McArthur · Founder, Growing Minds Science</p>
-        <ul class="trust__proofs" data-stagger>
-          <li data-animate>Every lesson is grounded in <strong>50+ years of peer-reviewed research</strong>, not trends or opinion.</li>
-          <li data-animate>Shaped by <strong>direct coaching with 100+ families</strong> in Los Angeles.</li>
-          <li data-animate>Educational, never shaming, and <strong>never a substitute for medical advice</strong>.</li>
-        </ul>
+
+        <div class="thesis__body prose">
+          <p>Six years studying developmental psychology and two years coaching families in Los Angeles taught me one consistent thing. Parents who know how development works stay calmer, read their children more accurately, and change the things that actually matter. Not because they memorized scripts, but because they can see what is happening in front of them.</p>
+          <p>That knowledge has lived inside graduate programs and academic journals. It should not require either. Growing Minds Science is the course in child development every parent should have been offered, taught for people with a job, a household, and about forty minutes after bedtime.</p>
+
+          <h3>Every class teaches you to see three things.</h3>
+          <dl class="lenses">
+            <div class="lens">
+              <dt>Your child</dt>
+              <dd>What is being built at this age, what is typical and what is not, and why the hardest behaviors are so often the development itself, showing up on schedule.</dd>
+            </div>
+            <div class="lens">
+              <dt>Yourself</dt>
+              <dd>How your own nervous system, history, and stress enter the room, and what regulation actually looks like in an adult, because a child&rsquo;s calm is borrowed before it is owned.</dd>
+            </div>
+            <div class="lens">
+              <dt>Your influence</dt>
+              <dd>Which parts of the environment shape development (conversation, routines, serve and return) and which worries the research lets you set down for good.</dd>
+            </div>
+          </dl>
+
+          <div class="instructor" id="instructor">
+            <img class="instructor__photo" src="assets/img/matthew-photo.jpeg" alt="Matthew McArthur, founder of Growing Minds Science." width="1122" height="1402" loading="lazy" decoding="async" />
+            <div class="instructor__body">
+              <p class="instructor__label">Your instructor</p>
+              <h3 class="instructor__name">Matthew McArthur</h3>
+              <p class="instructor__role">Child Development Specialist and parent coach, Los Angeles</p>
+              <ul class="instructor__facts">
+                <li>M.A. in Developmental Psychology, San Diego State University</li>
+                <li>B.A. in Psychology, UCLA</li>
+                <li>Six years studying developmental science; two years coaching it directly with 100+ families</li>
+                <li>Teaches an Infant and Toddler Socialization class in Los Angeles</li>
+              </ul>
+              <a class="instructor__more" href="/about/">About Growing Minds Science &rarr;</a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- SIGNATURE: GROWTH ARC -->
-    <section class="arc section" aria-labelledby="arc-heading">
-      <svg class="arc__decor gms-reveal" data-drift="0.1" viewBox="0 0 150 110" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-        <g class="gms-float">
-          <path d="M10 96 C 48 80, 92 52, 138 18" stroke="#DE7356" stroke-opacity="0.35" stroke-width="2.5" stroke-linecap="round"/>
-          <circle cx="10" cy="96" r="5" fill="#DE7356" fill-opacity="0.55"/>
-          <circle cx="72" cy="62" r="4" fill="#2E7A77" fill-opacity="0.5"/>
-          <circle cx="138" cy="18" r="6" fill="#DE7356" fill-opacity="0.7"/>
-        </g>
-      </svg>
+    <!-- THE CURRICULUM -->
+    <section id="classes" class="curriculum section" aria-labelledby="curriculum-heading">
       <div class="container">
-        <div class="section-head" data-animate>
-          <h2 id="arc-heading">Five years, five seasons of growth.</h2>
-          <p class="section-head__lede">Each stage has its own logic. Choose one to see what's growing right now, and what actually helps.</p>
+        <div class="curriculum__head">
+          <div class="section-head">
+            <h2 id="curriculum-heading">The curriculum, in developmental order.</h2>
+            <p class="section-head__lede">Four classes, each built around one developmental window. Start with the one your family is in now, or take them in sequence as your child grows. Every class is self-paced and yours for life.</p>
+          </div>
+          <a class="btn btn--quiet curriculum__all" href="/classes/">All classes</a>
         </div>
 
-        <div class="arc__scroll">
-        <div class="arc__device" data-arc data-animate>
-          <svg class="arc__curve" viewBox="0 0 1000 110" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-            <path class="arc__curve-line" d="M10 100 C 220 96, 420 78, 600 50 S 920 14, 990 8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
-            <path class="arc__curve-trail" d="M10 100 C 220 96, 420 78, 600 50 S 920 14, 990 8" fill="none" stroke-width="3" stroke-linecap="round" pathLength="1" />
-            <circle class="arc__runner" r="9" aria-hidden="true" />
+        <ol class="units">
+          <li class="unit">
+            <figure class="unit__thumb">
+              <img src="assets/img/site/baby-hands.jpg" alt="An infant's hands wrapped around a parent's finger." width="400" height="400" loading="lazy" decoding="async" />
+            </figure>
+            <div class="unit__body">
+              <p class="unit__num">Class 1 &middot; Birth to 12 months</p>
+              <h3 class="unit__title"><a href="/classes/birth-to-12-months">Cues, attachment, and the first year</a></h3>
+              <p class="unit__promise"><b>After this class you can explain</b> why responsive care builds security rather than spoiling, what infant sleep actually looks like across the first year, and how language begins long before the first word.</p>
+            </div>
+            <div class="unit__side">
+              <p class="unit__status unit__status--open">Open now</p>
+              <dl class="unit__meta">
+                <div><dt>Ages</dt><dd>0 to 12 months</dd></div>
+                <div><dt>Format</dt><dd>4 modules, 16 lessons, about 3 hours</dd></div>
+                <div><dt>Price</dt><dd>$49 once, lifetime access</dd></div>
+              </dl>
+              <p class="unit__cta"><a class="btn btn--primary" href="/classes/birth-to-12-months">See the class</a></p>
+            </div>
+          </li>
+
+          <li class="unit">
+            <figure class="unit__thumb">
+              <img src="assets/img/site/learning-blocks.jpg" alt="A toddler stacking wooden blocks on the floor." width="400" height="400" loading="lazy" decoding="async" />
+            </figure>
+            <div class="unit__body">
+              <p class="unit__num">Class 2 &middot; Toddler years</p>
+              <h3 class="unit__title"><a href="/classes/toddlerhood">Language, autonomy, and big feelings</a></h3>
+              <p class="unit__promise"><b>After this class you can explain</b> why &ldquo;no&rdquo; is a milestone rather than defiance, what a meltdown is neurologically, and how your calm becomes the scaffold their regulation is built on.</p>
+            </div>
+            <div class="unit__side">
+              <p class="unit__status unit__status--open">Open now</p>
+              <dl class="unit__meta">
+                <div><dt>Ages</dt><dd>1 to 3 years</dd></div>
+                <div><dt>Format</dt><dd>5 modules, 29 lessons, about 5 hours</dd></div>
+                <div><dt>Price</dt><dd>$49 once, lifetime access</dd></div>
+              </dl>
+              <p class="unit__cta"><a class="btn btn--primary" href="/classes/toddlerhood">See the class</a></p>
+            </div>
+          </li>
+
+          <li class="unit">
+            <figure class="unit__thumb">
+              <img src="assets/img/site/child-learning.jpg" alt="A preschooler concentrating on a drawing at a low table." width="400" height="400" loading="lazy" decoding="async" />
+            </figure>
+            <div class="unit__body">
+              <p class="unit__num">Class 3 &middot; Preschool years</p>
+              <h3 class="unit__title"><a href="/classes/preschool">Self-regulation, play, and readiness</a></h3>
+              <p class="unit__promise"><b>After this class you can explain</b> why pretend play is serious cognitive work, how executive function develops on a wide normal range, and what kindergarten readiness means in the research rather than in the brochure.</p>
+            </div>
+            <div class="unit__side">
+              <p class="unit__status unit__status--soon">In development</p>
+              <dl class="unit__meta">
+                <div><dt>Ages</dt><dd>3 to 5 years</dd></div>
+                <div><dt>Format</dt><dd>Self-paced video, in development</dd></div>
+                <div><dt>Price</dt><dd>Announced at launch</dd></div>
+              </dl>
+              <p class="unit__cta"><a class="btn btn--quiet" href="/classes/preschool">Join the waitlist</a></p>
+            </div>
+          </li>
+
+          <li class="unit">
+            <figure class="unit__thumb">
+              <img src="assets/img/site/family-reading.jpg" alt="A family reading together on a sofa." width="400" height="400" loading="lazy" decoding="async" />
+            </figure>
+            <div class="unit__body">
+              <p class="unit__num">Class 4 &middot; Family systems and stress</p>
+              <h3 class="unit__title"><a href="/classes/family-systems">How the whole family shapes the developing child</a></h3>
+              <p class="unit__promise"><b>After this class you can explain</b> how household stress reaches a child&rsquo;s nervous system, why your own regulation is a developmental variable, and which protective factors hold up inside real families.</p>
+            </div>
+            <div class="unit__side">
+              <p class="unit__status unit__status--soon">In development</p>
+              <dl class="unit__meta">
+                <div><dt>Ages</dt><dd>Any age</dd></div>
+                <div><dt>Format</dt><dd>Self-paced video, in development</dd></div>
+                <div><dt>Price</dt><dd>Announced at launch</dd></div>
+              </dl>
+              <p class="unit__cta"><a class="btn btn--quiet" href="/classes/family-systems">Join the waitlist</a></p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- HOW IT'S TAUGHT + Figure 2 -->
+    <section id="taught" class="taught section" aria-labelledby="taught-heading">
+      <div class="container taught__inner">
+        <div>
+          <div class="section-head">
+            <h2 id="taught-heading">Taught like a seminar. Built for a Tuesday night.</h2>
+            <p class="section-head__lede">Short video lessons with full transcripts, watched in any order at any hour. The research is shown rather than hidden, and the goal is a mental model you can carry, not a script to recite.</p>
+            <ul class="taught__facts" aria-label="Class format">
+              <li>Self-paced, lifetime access</li>
+              <li>Full transcripts</li>
+              <li>Sources cited</li>
+              <li>Growing Minds AI included</li>
+            </ul>
+          </div>
+
+          <ul class="principles">
+            <li class="principle">
+              <h3>Translate the research, don&rsquo;t replace it</h3>
+              <p>Plain language, with honesty about what the evidence is and is not. No invented certainty, no oversimplified hooks.</p>
+            </li>
+            <li class="principle">
+              <h3>Mental models over scripts</h3>
+              <p>A clear way to understand what is happening travels to the situations no script anticipated. Scripts don&rsquo;t.</p>
+            </li>
+            <li class="principle">
+              <h3>Respect the parent</h3>
+              <p>You are an adult who is already trying hard and already paying attention. The work assumes nuance, not compliance.</p>
+            </li>
+            <li class="principle">
+              <h3>Calm by default</h3>
+              <p>No urgency manufactured for engagement, no shame. Educational content, and never a substitute for medical advice.</p>
+            </li>
+            <li class="principle">
+              <h3>Built for ordinary days</h3>
+              <p>Every recommendation has to survive a normal weekday, between transitions, meals, work, and the real capacity of tired adults.</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="taught__aside">
+        <figure class="taught__photo">
+          <img src="assets/img/site/study-notebook.jpg" srcset="assets/img/site/study-notebook-640.jpg 640w, assets/img/site/study-notebook-1000.jpg 1000w, assets/img/site/study-notebook.jpg 1536w" sizes="(max-width: 960px) min(36rem, 92vw), 34vw" alt="A parent's open notebook on a kitchen table at night: a hand-drawn serve-and-return loop and a growth curve, one line highlighted in amber." width="1536" height="1024" loading="lazy" decoding="async" />
+          <figcaption class="fig__caption">The notes a parent keeps after a lesson: the serve-and-return loop, the early-growth curve, and the one line worth remembering.</figcaption>
+        </figure>
+        <figure class="taught__fig fig fig--loop" data-animate="fade" aria-labelledby="fig2-caption">
+          <svg viewBox="0 0 460 420" role="img" aria-describedby="fig2-desc" xmlns="http://www.w3.org/2000/svg">
+            <title>Figure 2. How a lesson is built: a loop from research to a mental model to an ordinary moment to what you notice next.</title>
+            <desc id="fig2-desc">Four labeled boxes arranged in a circle, connected by arrows running clockwise: peer-reviewed research, then a mental model you can hold, then what you do at 6:40 pm, then what you notice next week, which points back to the research.</desc>
+            <g class="fig-grid" fill="none" stroke-width="1">
+              <line x1="230" y1="20" x2="230" y2="420"/>
+              <line x1="30" y1="220" x2="430" y2="220"/>
+            </g>
+            <!-- arrows, clockwise -->
+            <path class="fig-arrow fig-arrow--amber" pathLength="1" d="M300 96 C 352 112, 370 140, 370 186"/>
+            <polygon class="fig-head fig-head--amber" points="370,192 363,180 377,180"/>
+            <path class="fig-arrow" pathLength="1" d="M370 254 C 370 312, 344 338, 310 350"/>
+            <polygon class="fig-head" points="304,352 314,342 318,356"/>
+            <path class="fig-arrow" pathLength="1" d="M160 390 C 110 376, 90 330, 90 254"/>
+            <polygon class="fig-head" points="90,248 97,260 83,260"/>
+            <path class="fig-arrow" pathLength="1" d="M90 186 C 90 128, 116 100, 152 88"/>
+            <polygon class="fig-head" points="158,86 148,96 144,82"/>
+            <!-- nodes -->
+            <rect class="fig-node fig-node--amber" x="154" y="36" width="152" height="60" rx="10"/>
+            <text class="fig-text" x="230" y="61" text-anchor="middle">Peer-reviewed</text>
+            <text class="fig-text" x="230" y="80" text-anchor="middle">research</text>
+
+            <rect class="fig-node" x="294" y="190" width="152" height="60" rx="10"/>
+            <text class="fig-text" x="370" y="215" text-anchor="middle">A mental model</text>
+            <text class="fig-text" x="370" y="234" text-anchor="middle">you can hold</text>
+
+            <rect class="fig-node" x="154" y="344" width="152" height="60" rx="10"/>
+            <text class="fig-text" x="230" y="369" text-anchor="middle">What you do</text>
+            <text class="fig-text" x="230" y="388" text-anchor="middle">at 6:40 pm</text>
+
+            <rect class="fig-node" x="14" y="190" width="152" height="60" rx="10"/>
+            <text class="fig-text" x="90" y="215" text-anchor="middle">What you notice</text>
+            <text class="fig-text" x="90" y="234" text-anchor="middle">next week</text>
           </svg>
-
-          <!-- Mobile-only coral progress rail (the desktop growth-line's phone
-               counterpart). home.js sets --rail-p for the selected stage; the
-               fill and its glowing tip slide there with transform. -->
-          <div class="arc__rail" aria-hidden="true"><span class="arc__rail-clip"><span class="arc__rail-fill"></span></span><span class="arc__rail-tip"></span></div>
-
-          <div class="arc__tabs" role="tablist" aria-label="Developmental stages, birth to five">
-            <button class="arc__tab" role="tab" id="arc-tab-0" aria-controls="arc-panel-0" aria-selected="true" type="button">
-              <span class="arc__dot" aria-hidden="true"></span>
-              <span class="arc__tab-age">0–1</span>
-              <span class="arc__tab-name">Foundations</span>
-            </button>
-            <button class="arc__tab" role="tab" id="arc-tab-1" aria-controls="arc-panel-1" aria-selected="false" tabindex="-1" type="button">
-              <span class="arc__dot" aria-hidden="true"></span>
-              <span class="arc__tab-age">1–2</span>
-              <span class="arc__tab-name">First words</span>
-            </button>
-            <button class="arc__tab" role="tab" id="arc-tab-2" aria-controls="arc-panel-2" aria-selected="false" tabindex="-1" type="button">
-              <span class="arc__dot" aria-hidden="true"></span>
-              <span class="arc__tab-age">2–3</span>
-              <span class="arc__tab-name">Autonomy</span>
-            </button>
-            <button class="arc__tab" role="tab" id="arc-tab-3" aria-controls="arc-panel-3" aria-selected="false" tabindex="-1" type="button">
-              <span class="arc__dot" aria-hidden="true"></span>
-              <span class="arc__tab-age">3–4</span>
-              <span class="arc__tab-name">Imagination</span>
-            </button>
-            <button class="arc__tab" role="tab" id="arc-tab-4" aria-controls="arc-panel-4" aria-selected="false" tabindex="-1" type="button">
-              <span class="arc__dot" aria-hidden="true"></span>
-              <span class="arc__tab-age">4–5</span>
-              <span class="arc__tab-name">Self-control</span>
-            </button>
-          </div>
-
-          <div class="arc__panels">
-            <div class="arc__panel" role="tabpanel" id="arc-panel-0" aria-labelledby="arc-tab-0" tabindex="0">
-              <h3>Birth to one: the foundations year</h3>
-              <div class="arc__cols">
-                <div>
-                  <h4>What's growing now</h4>
-                  <p>Researchers estimate the infant brain forms about a million new neural connections every second. Attachment, sensory maps, and the rhythm of back-and-forth interaction are the main work of this year.</p>
-                </div>
-                <div>
-                  <h4>What helps</h4>
-                  <p>Serve and return: when your baby babbles or looks at something, respond. That ordinary loop, not flashcards, is what builds the architecture.</p>
-                </div>
-              </div>
-            </div>
-            <div class="arc__panel" role="tabpanel" id="arc-panel-1" aria-labelledby="arc-tab-1" tabindex="0">
-              <h3>One to two: first words, first steps</h3>
-              <div class="arc__cols">
-                <div>
-                  <h4>What's growing now</h4>
-                  <p>Walking opens the world, and language understanding races far ahead of speech. Joint attention, the act of looking at something <em>together</em>, is how words get attached to things.</p>
-                </div>
-                <div>
-                  <h4>What helps</h4>
-                  <p>Narrate the ordinary. Name what your child is already looking at. Conversation, not instruction, is how vocabulary grows at this age.</p>
-                </div>
-              </div>
-            </div>
-            <div class="arc__panel" role="tabpanel" id="arc-panel-2" aria-labelledby="arc-tab-2" tabindex="0">
-              <h3>Two to three: autonomy and big feelings</h3>
-              <div class="arc__cols">
-                <div>
-                  <h4>What's growing now</h4>
-                  <p>“No” is a developmental milestone, not defiance. Toddlers are practicing self-determination while the prefrontal cortex is still profoundly immature, so big feelings outrun the brakes.</p>
-                </div>
-                <div>
-                  <h4>What helps</h4>
-                  <p>Real choices where you can, calm limits where you must. Your steadiness during a meltdown is the scaffold their regulation is built on.</p>
-                </div>
-              </div>
-            </div>
-            <div class="arc__panel" role="tabpanel" id="arc-panel-3" aria-labelledby="arc-tab-3" tabindex="0">
-              <h3>Three to four: the imagination years</h3>
-              <div class="arc__cols">
-                <div>
-                  <h4>What's growing now</h4>
-                  <p>Pretend play takes off, and it's serious cognitive work: holding two realities at once, taking perspectives, rehearsing social roles. Early self-regulation begins here.</p>
-                </div>
-                <div>
-                  <h4>What helps</h4>
-                  <p>Protect unstructured play. Join the pretend world on your child's terms sometimes, because following their lead is what makes it developmentally rich.</p>
-                </div>
-              </div>
-            </div>
-            <div class="arc__panel" role="tabpanel" id="arc-panel-4" aria-labelledby="arc-tab-4" tabindex="0">
-              <h3>Four to five: self-control, slowly</h3>
-              <div class="arc__cols">
-                <div>
-                  <h4>What's growing now</h4>
-                  <p>Executive function (working memory, flexible thinking, impulse control) is under construction, and it develops on a wide, normal range. Readiness is a window, not a race.</p>
-                </div>
-                <div>
-                  <h4>What helps</h4>
-                  <p>Games with rules, real responsibilities, and routines they can predict. Practice, not pressure, is how self-control grows.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+          <figcaption class="fig__caption" id="fig2-caption"><b>Fig. 2</b> &middot; How a lesson is built. The research becomes a model you can hold, the model becomes something you do on an ordinary evening, and what you notice afterward is where the next lesson starts.</figcaption>
+        </figure>
         </div>
       </div>
     </section>
 
-    <!-- FLAGSHIP CLASS -->
-    <section id="classes" class="class section" aria-labelledby="class-heading">
-      <div class="container">
-        <div class="section-head" data-animate>
-          <h2 id="class-heading">The toddler years, explained.</h2>
-          <p class="section-head__lede">A self-paced class for parents of 1–3 year olds. Five short modules turn the research into a clearer mental model of what your toddler is doing, and why. No scripts, no shame, no graduate seminar.</p>
-        </div>
-
-        <div class="class__inner">
-          <aside class="class__rail" data-animate>
-            <p class="class__flag">Now available</p>
-            <h3 class="class__title">Toddler years: language, autonomy &amp; big feelings</h3>
-            <dl class="class__meta">
-              <div><dt>Ages</dt><dd>1–3 years</dd></div>
-              <div><dt>Format</dt><dd>5 modules · 29 lessons</dd></div>
-              <div><dt>Access</dt><dd>Self-paced · lifetime</dd></div>
-              <div><dt>Price</dt><dd><strong>$49</strong> · AI tutor included</dd></div>
-            </dl>
-            <div class="class__rail-ctas">
-              <a class="btn btn--primary btn--block" href="https://matthew-s-site-de0b.thinkific.com/products/courses/ToddlerYears" target="_blank" rel="noopener">Enroll now<span class="u-visually-hidden"> (opens in a new tab)</span></a>
-              <a class="btn btn--quiet btn--block" href="/classes/toddlerhood">See class details</a>
-            </div>
-          </aside>
-
-          <ol class="modules" data-stagger>
-            <li class="module" data-animate>
-              <span class="module__num" aria-hidden="true">01</span>
-              <div class="module__body">
-                <h3>The toddler brain, briefly</h3>
-                <p>Why toddlers need far more support than their behavior seems to suggest.</p>
-              </div>
-            </li>
-            <li class="module" data-animate>
-              <span class="module__num" aria-hidden="true">02</span>
-              <div class="module__body">
-                <h3>Language: the everyday version</h3>
-                <p>How language grows through ordinary conversation, not lesson plans.</p>
-              </div>
-            </li>
-            <li class="module" data-animate>
-              <span class="module__num" aria-hidden="true">03</span>
-              <div class="module__body">
-                <h3>Autonomy and “no”</h3>
-                <p>Why “no” is healthy, and how to hold limits without power struggles.</p>
-              </div>
-            </li>
-            <li class="module" data-animate>
-              <span class="module__num" aria-hidden="true">04</span>
-              <div class="module__body">
-                <h3>Big feelings, meltdowns, and repair</h3>
-                <p>What's actually happening, why your calm is their scaffold, and how to reconnect afterward.</p>
-              </div>
-            </li>
-            <li class="module" data-animate>
-              <span class="module__num" aria-hidden="true">05</span>
-              <div class="module__body">
-                <h3>Transitions and routines</h3>
-                <p>Why predictability matters and how to make daily shifts less explosive.</p>
-              </div>
-            </li>
-          </ol>
-        </div>
-      </div>
-    </section>
-
-    <!-- AI -->
+    <!-- OFFICE HOURS: Growing Minds AI -->
     <section class="ai section" aria-labelledby="ai-heading">
       <div class="container ai__inner">
         <div class="ai__aside">
-          <p class="eyebrow" data-animate>Growing Minds AI · Free · Answers show their sources</p>
-          <h2 id="ai-heading" data-animate>Ask a parenting question. Get an answer from a <em class="hl">curated science library</em>.</h2>
-          <p data-animate>Growing Minds AI now answers from a curated knowledge base, built from peer-reviewed developmental research, the milestone data behind our tracker, and our own class curriculum, instead of generic internet knowledge. Every answer shows where it's grounded, in plain language. Free to try, no account needed. Educational only; never medical advice.</p>
-          <p data-animate><a class="btn btn--primary" href="/tools/growing-minds-ai">Try it free</a></p>
+          <p class="ai__kicker">Growing Minds AI &middot; Included with every class</p>
+          <h2 id="ai-heading">Office hours, <mark class="hl">any hour.</mark></h2>
+          <p>Ask the question that came up at bedtime. Growing Minds AI answers from a curated library: peer-reviewed developmental research, the milestone data behind our tracker, and the class curriculum itself. Every answer shows where it is grounded, and points you to the lesson that covers it in depth.</p>
+          <p class="ai__fine">Free to try with no account. Educational only; never medical advice.</p>
+          <p><a class="btn btn--amber" href="/tools/growing-minds-ai">Ask a question</a></p>
         </div>
 
         <div class="ai__demo" data-animate style="--anim-delay: 150ms">
@@ -417,7 +434,7 @@
             <div class="chat__top">
               <span class="chat__avatar" aria-hidden="true">G</span>
               <span class="chat__name">Growing Minds AI</span>
-              <span class="chat__live"><span class="chat__live-dot"></span>online · free</span>
+              <span class="chat__tag">Example conversation</span>
             </div>
             <div class="chat__body" data-chat-body></div>
             <form class="chat__composer" data-chat-form action="/tools/growing-minds-ai" method="get">
@@ -433,81 +450,104 @@
       </div>
     </section>
 
-    <!-- FIVE WAYS -->
-    <section class="ways section" aria-labelledby="ways-heading">
-      <svg class="ways__decor gms-reveal" data-drift="-0.07" viewBox="0 0 90 130" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-        <g class="gms-float gms-float--slow">
-          <path d="M45 128 C 44 92, 42 70, 56 40" stroke="#2E7A77" stroke-width="3.5" stroke-linecap="round" stroke-opacity="0.6"/>
-          <path d="M48 86 C 28 82, 16 70, 14 50 C 38 50, 52 64, 48 86 Z" fill="#CFE3DE"/>
-          <path d="M50 64 C 70 58, 82 44, 82 24 C 60 26, 46 42, 50 64 Z" fill="#BFD8D1"/>
-          <circle cx="56" cy="40" r="6" fill="#DE7356" fill-opacity="0.7"/>
-        </g>
-      </svg>
+    <!-- BETWEEN CLASSES: reading list + lab -->
+    <section class="between section" aria-labelledby="between-heading">
       <div class="container">
-        <div class="section-head" data-animate>
-          <h2 id="ways-heading">Three ways to understand your child better.</h2>
+        <div class="section-head">
+          <h2 id="between-heading">Free reading and tools, between classes.</h2>
+          <p class="section-head__lede">Written and built the same way the classes are taught. No account needed, so you can see whether the approach fits your family before you enroll.</p>
         </div>
+        <div class="between__inner">
+          <div class="shelf">
+            <h3>Reading</h3>
+            <p class="shelf__lede">Research explained without buzzwords or parenting shame.</p>
+            <ol class="shelf__list">
+              <li><a class="shelf__link" href="/articles/serve-and-return"><span class="shelf__title">What &ldquo;serve and return&rdquo; actually means</span><span class="shelf__desc">The ordinary loop that builds the architecture.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
+              <li><a class="shelf__link" href="/articles/toddler-no"><span class="shelf__title">The toddler &ldquo;no&rdquo; is not the war you think it is</span><span class="shelf__desc">Autonomy, on schedule.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
+              <li><a class="shelf__link" href="/articles/parents-nervous-system"><span class="shelf__title">When your own nervous system is the variable</span><span class="shelf__desc">Co-regulation, from the adult side.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
+              <li><a class="shelf__link" href="/articles/self-regulation"><span class="shelf__title">Self-regulation, briefly</span><span class="shelf__desc">What it is, when it develops, what helps.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
+              <li><a class="shelf__link" href="/articles/screen-time"><span class="shelf__title">A short, honest take on screen time</span><span class="shelf__desc">What the evidence supports, and what it doesn&rsquo;t.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
+            </ol>
+            <a class="shelf__more" href="/articles/">All articles &rarr;</a>
+          </div>
 
-        <ul class="ways__list" data-stagger>
-          <li class="way" data-animate>
-            <h3><a class="way__link" href="/classes/">Classes</a></h3>
-            <p>Self-paced video courses built around developmental windows: language, autonomy, big feelings, and what your child needs at each stage. The toddler class is open now.</p>
-          </li>
-          <li class="way" data-animate>
-            <h3><a class="way__link" href="/tools/">Free tools</a></h3>
-            <div>
-              <p>Interactive tools and short guides for everyday moments like meltdowns, sleep, and limits. Free, with no account needed.</p>
-              <ul class="way__tools" aria-label="Featured free tools">
-                <li><a href="/tools/growing-minds-ai">Growing Minds AI</a></li>
-                <li><a href="/nsc">Number Path</a></li>
-                <li><a href="/milestones">Milestone tracker</a></li>
-                <li><a href="/tools/communication-snapshot">Communication Snapshot</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="way" data-animate>
-            <h3><a class="way__link" href="/articles/">Articles</a></h3>
-            <p>Research explained without buzzwords or parenting shame: serve-and-return, screen time, self-regulation, and what to do with it.</p>
-          </li>
-        </ul>
+          <div class="shelf">
+            <h3>Tools</h3>
+            <p class="shelf__lede">Interactive tools for the moments between lessons.</p>
+            <ul class="shelf__list">
+              <li><a class="shelf__link" href="/tools/growing-minds-ai"><span class="shelf__title">Growing Minds AI</span><span class="shelf__desc">Ask a parenting question. Every answer shows its sources.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
+              <li><a class="shelf__link" href="/nsc"><span class="shelf__title">Number Path</span><span class="shelf__desc">A ten-minute counting check-in you run at home.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
+              <li><a class="shelf__link" href="/milestones"><span class="shelf__title">Milestone tracker</span><span class="shelf__desc">What is typical at each age, birth to three.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
+              <li><a class="shelf__link" href="/tools/communication-snapshot"><span class="shelf__title">Communication Snapshot</span><span class="shelf__desc">Turn what you notice about talking into notes for a checkup.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
+              <li><a class="shelf__link" href="/claims/"><span class="shelf__title">Claims library</span><span class="shelf__desc">Common parenting claims, checked against the research.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
+            </ul>
+            <a class="shelf__more" href="/tools/">All free tools and guides &rarr;</a>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- WAITLIST -->
+    <!-- ENROL -->
     <section id="signup" class="signup section" aria-labelledby="signup-heading">
-      <svg class="signup__decor gms-reveal" data-drift="0.12" viewBox="0 0 380 380" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-        <g class="gms-float gms-float--slow">
-          <circle cx="120" cy="260" r="190" stroke="#356E69" stroke-width="2"/>
-          <circle class="gms-spin" cx="120" cy="260" r="146" stroke="#2E7A77" stroke-width="2" stroke-dasharray="3 12"/>
-          <circle cx="120" cy="260" r="102" stroke="#3E827C" stroke-width="2"/>
-          <path d="M120 70 C 170 96, 206 150, 214 214" stroke="#DE7356" stroke-opacity="0.5" stroke-width="2.5" stroke-linecap="round"/>
-          <circle cx="120" cy="70" r="6" fill="#DE7356"/>
-          <circle cx="214" cy="214" r="5" fill="#2E7A77"/>
-          <circle cx="120" cy="260" r="5" fill="#E08A6F" fill-opacity="0.8"/>
-        </g>
-      </svg>
-      <div class="container signup__inner">
-        <div class="signup__pitch" data-animate>
-          <p class="eyebrow eyebrow--on-dark">Now enrolling</p>
-          <h2>The toddler class is <em class="hl">live.</em></h2>
-          <p>The flagship toddler class is available now: $49 for lifetime access, with Growing Minds AI and the free milestone tracker included. The infant, preschool, and family-systems classes are still in development, so leave your email and we'll tell you the moment each one opens.</p>
-          <p style="margin-top: var(--space-5);">
-            <a class="btn btn--primary btn--lg" href="https://matthew-s-site-de0b.thinkific.com/products/courses/ToddlerYears" target="_blank" rel="noopener">Enroll in the toddler class<span class="u-visually-hidden"> (opens in a new tab)</span></a>
-          </p>
+      <div class="container">
+        <div class="signup__inner">
+          <div class="signup__pitch">
+            <h2 id="signup-heading">Two classes are open now. <mark class="hl">$49 each, for life.</mark></h2>
+            <p>One payment, no subscription. Enroll and start the first lesson tonight, on any device.</p>
 
-          <div class="faq" role="group" aria-label="Common questions before signing up">
-            <details class="faq__item">
-              <summary class="faq__q">What happens after I sign up?</summary>
-              <p class="faq__a">You'll get the free milestone tracker right away, plus a short note whenever a new class opens. No drip funnel, no sales sequence.</p>
-            </details>
-            <details class="faq__item">
-              <summary class="faq__q">Is the milestone tracker really free?</summary>
-              <p class="faq__a">Yes. No account, no card. It's the same tracker enrolled families use, free for everyone.</p>
-            </details>
-            <details class="faq__item">
-              <summary class="faq__q">How often will you email me?</summary>
-              <p class="faq__a">Only when something's genuinely new: a class opening or a major update. Once a month at most, and you can unsubscribe any time.</p>
-            </details>
+            <ul class="included" aria-label="What every class includes">
+              <li>Every lesson with a full written transcript</li>
+              <li>Lifetime access, at your own pace</li>
+              <li>Growing Minds AI, grounded in the class material</li>
+              <li>The free milestone tracker</li>
+            </ul>
+
+            <ol class="enrol-list">
+              <li class="enrol-item">
+                <div class="enrol-item__body">
+                  <p class="enrol-item__num">Class 1</p>
+                  <h3 class="enrol-item__title">Birth to 12 months</h3>
+                  <p class="enrol-item__meta">4 modules &middot; 16 lessons &middot; about 3 hours</p>
+                </div>
+                <p class="enrol-item__price">$49</p>
+                <a class="btn btn--amber enrol-item__cta" href="/classes/birth-to-12-months">See the class</a>
+              </li>
+              <li class="enrol-item">
+                <div class="enrol-item__body">
+                  <p class="enrol-item__num">Class 2</p>
+                  <h3 class="enrol-item__title">Toddler years, 1 to 3</h3>
+                  <p class="enrol-item__meta">5 modules &middot; 29 lessons &middot; about 5 hours</p>
+                </div>
+                <p class="enrol-item__price">$49</p>
+                <a class="btn btn--amber enrol-item__cta" href="/classes/toddlerhood">See the class</a>
+              </li>
+            </ol>
+          </div>
+
+          <div class="signup__faq">
+            <h3 class="signup__faq-title">Before you enroll</h3>
+            <div class="faq" role="group" aria-label="Common questions before enrolling">
+              <details class="faq__item">
+                <summary class="faq__q">Can I try the approach before I pay?</summary>
+                <p class="faq__a">Yes. The articles, the free tools, and Growing Minds AI are written and built the same way the classes are taught, with no account needed. If they fit your family, the classes will.</p>
+              </details>
+              <details class="faq__item">
+                <summary class="faq__q">Do I need any background in psychology?</summary>
+                <p class="faq__a">No. The classes assume you are intelligent and busy, not that you have read the literature. Every term is explained the first time it appears.</p>
+              </details>
+              <details class="faq__item">
+                <summary class="faq__q">How long do I have access?</summary>
+                <p class="faq__a">For life. One payment, no subscription, no deadlines. Watch on your phone, tablet, or laptop, in any order.</p>
+              </details>
+              <details class="faq__item">
+                <summary class="faq__q">Can I get a refund?</summary>
+                <p class="faq__a">All sales are final, which is why everything free on this site is written in the same voice as the classes: use it first. If something goes wrong with your access, <a href="/contact/">get in touch</a> and it goes directly to Matthew.</p>
+              </details>
+              <details class="faq__item">
+                <summary class="faq__q">Is this medical or psychological advice?</summary>
+                <p class="faq__a">No. The classes are educational. For concerns about your own child, your pediatrician and your child&rsquo;s clinicians are the right people to ask, and the classes will help you ask better questions.</p>
+              </details>
+            </div>
           </div>
         </div>
 
@@ -516,65 +556,52 @@
           data-newsletter
           method="POST"
           action="/api/waitlist"
-          aria-labelledby="signup-form-heading"
-          data-animate style="--anim-delay: 120ms">
+          aria-labelledby="signup-form-heading">
 
           <div class="signup__form-fields" data-form-fields>
-            <h3 id="signup-form-heading" class="signup__form-title">Be first to know about new classes</h3>
-            <p class="signup__form-sub">For the infant, preschool, and family classes. No spam, unsubscribe any time.</p>
+            <div class="signup__form-copy">
+              <h3 id="signup-form-heading" class="signup__form-title">Waiting for the preschool or family-systems class?</h3>
+              <p class="signup__form-sub">Both are in development. Leave your email and you will hear the moment one opens, and nothing else.</p>
+            </div>
 
             <input type="hidden" name="subject" value="New Class Notify Signup — Growing Minds Science" />
             <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
-            <div class="field">
-              <label class="field__label" for="email">Email address</label>
-              <input class="field__input" type="email" id="email" name="email" autocomplete="email" required
-                placeholder="you@example.com" aria-describedby="email-hint email-error" />
-              <span class="field__hint" id="email-hint">We'll only email about new classes.</span>
-              <span class="field__error" id="email-error" role="alert" hidden></span>
+            <div class="signup__form-row">
+              <div class="field">
+                <label class="field__label u-visually-hidden" for="email">Email address</label>
+                <input class="field__input" type="email" id="email" name="email" autocomplete="email" required maxlength="254"
+                  placeholder="you@example.com" aria-describedby="email-hint email-error" />
+                <span class="field__hint u-visually-hidden" id="email-hint">We only email when a class opens.</span>
+                <span class="field__error" id="email-error" role="alert" hidden></span>
+              </div>
+              <button class="btn btn--quiet-dark" type="submit" data-submit>
+                <span class="btn__spinner" aria-hidden="true"></span>
+                <span class="btn__label">Notify me</span>
+              </button>
             </div>
-
-            <div class="field">
-              <label class="field__label" for="name">Your name <span class="opt">optional</span></label>
-              <input class="field__input" type="text" id="name" name="name" autocomplete="name" placeholder="Your name" />
-            </div>
-
-            <div class="field">
-              <label class="field__label" for="interest">Which class are you most interested in?</label>
-              <select class="field__select" id="interest" name="interest">
-                <option value="">No preference yet</option>
-                <option value="Birth to 12 months">Birth to 12 months</option>
-                <option value="Preschool">Preschool years (ages 3–5)</option>
-                <option value="Family systems &amp; stress">Family systems &amp; stress</option>
-              </select>
-            </div>
-
-            <button class="btn btn--primary btn--block btn--lg" type="submit" data-submit>
-              <span class="btn__spinner" aria-hidden="true"></span>
-              <span class="btn__label">Notify me</span>
-            </button>
             <p class="form-status" data-form-status role="status" aria-live="polite"></p>
           </div>
 
           <div class="signup__success" data-form-success hidden>
             <span class="signup__success-mark" aria-hidden="true">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
             </span>
-            <h3 class="signup__success-title" data-success-title tabindex="-1">You're on the list.</h3>
-            <p class="signup__success-text">Watch your inbox. We'll send the free milestone tracker and tell you the moment the next class opens. Nothing else.</p>
-            <button class="btn btn--quiet" type="button" data-form-reset>Add another email</button>
+            <div>
+              <h3 class="signup__success-title" data-success-title tabindex="-1">You&rsquo;re on the list.</h3>
+              <p class="signup__success-text">We will email you once, when the next class opens.</p>
+            </div>
+            <button class="btn btn--quiet-dark" type="button" data-form-reset>Add another email</button>
           </div>
         </form>
       </div>
     </section>
 
-    <!-- Mobile-only sticky shortcut to the class. Slides in once the hero CTAs
+    <!-- Mobile-only sticky shortcut to the classes. Slides in once the hero CTAs
          scroll away and hides again when the signup band / footer (own CTA) is
-         in view, so it's never redundant. JS toggles .is-visible; CSS keeps it
-         display:none on desktop and visibility:hidden while parked, so it is
-         only in the tab order and the a11y tree while it is on screen. -->
+         in view, so it's never redundant. -->
     <div class="mobile-cta" data-mobile-cta>
-      <a class="btn btn--primary btn--block" href="/classes/toddlerhood">See the toddler class</a>
+      <a class="btn btn--primary btn--block" href="/classes/">Browse the classes</a>
     </div>
 
   </main>
@@ -586,7 +613,7 @@
           <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
-        <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
+        <p class="site-footer__tag">A developmental-science education for parents of children 0 to 5.</p>
         <a class="footer-ig" href="https://www.instagram.com/growingmindsscience/" target="_blank" rel="noopener noreferrer">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
           Instagram
@@ -596,10 +623,10 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
+            <li><a href="/classes/birth-to-12-months">Birth to 12 months</a></li>
             <li><a href="/classes/toddlerhood">Toddler years</a></li>
-            <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
-            <li><a href="/classes/preschool.html">Preschool years</a></li>
-            <li><a href="/classes/family-systems.html">Family systems</a></li>
+            <li><a href="/classes/preschool">Preschool years</a></li>
+            <li><a href="/classes/family-systems">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>
           </ul>
         </div>
