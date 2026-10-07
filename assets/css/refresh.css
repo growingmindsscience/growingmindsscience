@@ -265,13 +265,13 @@ h4,
   position: relative;
 }
 .page-hero__visual:not(.page-hero__visual--graphic) img {
-  filter: saturate(0.94) contrast(1.03) brightness(1.02) sepia(0.05);
+  filter: saturate(0.94) contrast(1.03);
 }
 .page-hero__visual:not(.page-hero__visual--graphic)::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(165deg, rgba(222,115,86,0.06) 0%, rgba(21,57,60,0.04) 45%, rgba(21,57,60,0.12) 100%);
+  background: linear-gradient(165deg, transparent 0%, rgba(18,38,44,0.04) 45%, rgba(18,38,44,0.12) 100%);
   pointer-events: none;
 }
 
@@ -1398,3 +1398,359 @@ h4,
   white-space: nowrap;
   flex-shrink: 0;
 }
+
+/* =========================================================
+   Seminar alignment layer (inner pages)
+   Loaded after every component rule above and before chrome.css, so this
+   is the one place the inner pages are brought onto the homepage's system:
+   sentence-case amber kickers instead of uppercase tracked eyebrows,
+   rounded-rectangle controls instead of pills, calm bordered surfaces
+   instead of lifting cards, the amber highlighter on emphasised words,
+   paper ground with faint graph paper under page heroes, fade-only reveals.
+   See DESIGN.md.
+   ========================================================= */
+
+/* Kickers and small labels: one voice, no uppercase, no pill */
+.eyebrow,
+.section-head__eyebrow,
+.page-hero .eyebrow,
+.hero__eyebrow,
+.card__eyebrow,
+.tool-card__eyebrow,
+.featured-tool__eyebrow,
+.featured-tool__panel-label,
+.article-card__kicker,
+.topic-section__count,
+.proof-strip__label,
+.library-intro__label,
+.gms-shelf__tool,
+.rn-step__eyebrow,
+.rn-answer__state,
+.gms-profile__label {
+  display: block;
+  padding: 0;
+  margin-bottom: var(--space-3);
+  background: none;
+  border: 0;
+  border-radius: 0;
+  text-transform: none;
+  letter-spacing: normal;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--accent-brown);
+}
+.eyebrow::before { display: none; }
+.proof-strip .proof-strip__label { color: #F3B649; }
+.signup .eyebrow { color: var(--accent-brown); }
+
+/* Meta labels stay quiet: sentence case, muted, not tracked */
+.product-card__meta dt,
+.product-card__included-label,
+.product-card__age {
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--ink-muted);
+}
+.product-card__age { color: var(--accent-brown); font-weight: 600; margin: 0; }
+
+/* Sequence numerals (modules, steps) match the homepage's class numerals */
+.module-card__number,
+.how-card__num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: var(--text-sm);
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--accent-brown);
+}
+
+/* Buttons: rounded rectangles in the body sans, 48px tall */
+.btn {
+  min-height: 48px;
+  padding: 0.8rem 1.4rem;
+  border-radius: var(--radius);
+  border-width: 1.5px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.1;
+}
+.btn--lg { min-height: 54px; padding: 1rem 1.7rem; font-size: 1rem; }
+.btn--primary { box-shadow: 0 14px 28px -16px rgba(30, 95, 98, 0.55); }
+.btn--primary:hover { box-shadow: 0 20px 34px -16px rgba(14, 33, 41, 0.5); }
+.btn--ghost { border-color: var(--border); }
+.btn--ghost:hover { border-color: var(--primary); color: var(--primary); background: transparent; }
+
+/* Badges: status pills become status tags with a dot */
+.badge {
+  gap: var(--space-2);
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-sm);
+  border-color: transparent;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: 0.01em;
+}
+.badge--open::before,
+.badge--dev::before,
+.badge--coming::before {
+  content: "";
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.badge--open { background: var(--amber-tint); color: var(--amber-deep); }
+.badge--dev,
+.badge--coming,
+.badge--muted { background: var(--surface-2); color: var(--ink-muted); font-style: normal; }
+.badge--soft,
+.badge--accent { background: var(--surface-2); color: var(--ink-soft); }
+
+/* Surfaces: bordered and still. Depth comes from bands, not lift. */
+.card,
+.product-card,
+.tool-card,
+.module-card,
+.how-card,
+.product-card--featured {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: none;
+}
+.card:hover,
+.product-card:hover,
+.tool-card:hover,
+.module-card:hover,
+.how-card:hover,
+.product-card--featured:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--primary);
+}
+.how-grid--four .how-card,
+.how-grid--four .how-card:nth-child(1),
+.how-grid--four .how-card:nth-child(2),
+.how-grid--four .how-card:nth-child(3),
+.how-grid--four .how-card:nth-child(4) { border-top: 1px solid var(--border); }
+.how-grid--four .how-card .how-card__icon,
+.how-card__icon,
+.card__icon {
+  background: var(--amber-tint);
+  color: var(--amber-deep);
+  border-radius: var(--radius);
+}
+.section--alt .how-grid--three .how-card { background: var(--surface); border-color: var(--border); }
+
+/* Heroes: paper ground with faint graph paper, no warm wash */
+.hero,
+.page-hero {
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(180deg, transparent 0%, var(--bg) 88%),
+    linear-gradient(rgba(18, 38, 44, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 38, 44, 0.045) 1px, transparent 1px);
+  background-size: auto, 44px 44px, 44px 44px;
+  background-position: center top;
+}
+[data-theme="dark"] .hero,
+[data-theme="dark"] .page-hero {
+  background-image:
+    linear-gradient(180deg, transparent 0%, var(--bg) 88%),
+    linear-gradient(rgba(238, 244, 243, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(238, 244, 243, 0.05) 1px, transparent 1px);
+}
+.hero__credential { background: var(--surface); border: 1px solid var(--border-soft); }
+.hero__media,
+.page-hero__visual,
+.about-preview__media { background: var(--surface-2); }
+#about { background: var(--bg-alt); }
+[data-theme="dark"] #about { background: var(--bg-alt); }
+.classes { background: var(--bg); }
+.signup {
+  background: var(--bg-alt);
+  border-top: 1px solid var(--border-soft);
+}
+
+/* The highlighter: the one emphasis move, replacing italic-teal words */
+.hero__title em,
+.page-hero__title em,
+.section-head__title em,
+.belief__quote em {
+  font-style: normal;
+  color: var(--ink);
+  background-image: linear-gradient(color-mix(in oklab, var(--amber) 62%, var(--surface)), color-mix(in oklab, var(--amber) 62%, var(--surface)));
+  background-repeat: no-repeat;
+  background-position: 0 56%;
+  background-size: 100% 0.74em;
+  padding: 0 0.1em;
+  margin: 0 -0.1em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+[data-theme="dark"] .hero__title em,
+[data-theme="dark"] .page-hero__title em,
+[data-theme="dark"] .section-head__title em {
+  color: #0E2129;
+  background-image: linear-gradient(var(--amber), var(--amber));
+  background-size: 100% 1.06em;
+  background-position: 0 50%;
+}
+.belief__quote em {
+  color: #0E2129;
+  background-image: linear-gradient(var(--amber), var(--amber));
+  background-size: 100% 1.06em;
+  background-position: 0 50%;
+}
+.belief__quote { font-style: normal; font-weight: 500; }
+.belief__attr { color: #BCCFD3; letter-spacing: normal; }
+
+/* Headings: Besley wants normal tracking */
+h1, h2, h3, .page-hero__title, .section-head__title, .product-card__title, .card__title, .tool-card__title, .article-card__title {
+  letter-spacing: -0.005em;
+  font-weight: 500;
+}
+
+/* Reveal: fade only. Rows and cards do not rise; the figure draws, the chat fades. */
+@media (prefers-reduced-motion: no-preference) {
+  html.anim [data-animate] { transform: none; }
+}
+
+/* Tool chrome (tools.css) follows the same radius language */
+.gms-action,
+.gms-chip,
+.gms-band,
+.rn-bar a { border-radius: var(--radius-sm); }
+
+/* Tidepool's botanical motifs (rings, sprig, seeds) belong to the old system.
+   decor.js still injects them; the Seminar pages carry graph paper instead. */
+.gms-decor { display: none; }
+
+/* Reveal failsafe: the fade is an enhancement, never a gate. Anything the
+   observer has not reached shows itself after 2.5s (print, bots, fast scroll). */
+@media (prefers-reduced-motion: no-preference) {
+  html.anim [data-animate]:not(.is-visible) { animation: gms-reveal-failsafe 0s linear 2.5s forwards; }
+}
+@keyframes gms-reveal-failsafe { to { opacity: 1; transform: none; } }
+
+/* Graph paper under every page-level hero variant */
+.class-hero,
+.article-hero,
+.tool-hero {
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(180deg, transparent 0%, var(--bg) 88%),
+    linear-gradient(rgba(18, 38, 44, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 38, 44, 0.045) 1px, transparent 1px);
+  background-size: auto, 44px 44px, 44px 44px;
+  background-position: center top;
+}
+[data-theme="dark"] .class-hero,
+[data-theme="dark"] .article-hero,
+[data-theme="dark"] .tool-hero {
+  background-image:
+    linear-gradient(180deg, transparent 0%, var(--bg) 88%),
+    linear-gradient(rgba(238, 244, 243, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(238, 244, 243, 0.05) 1px, transparent 1px);
+}
+.class-hero .container > *:not(.hero__ctas) { max-width: 62ch; }
+
+/* Rows, not cards: modules, articles, approach points, FAQs */
+.module-grid,
+.module-grid--pairs { grid-template-columns: minmax(0, 1fr); gap: 0; }
+.module-card {
+  display: grid;
+  grid-template-columns: minmax(0, 9rem) minmax(0, 1fr);
+  gap: var(--space-1) clamp(var(--space-5), 3vw, var(--space-10));
+  align-items: baseline;
+  padding: var(--space-6) 0;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  box-shadow: none;
+}
+.module-card:last-child { border-bottom: 1px solid var(--border); }
+.module-card:hover { border-color: var(--border); }
+.module-card > * { grid-column: 2; margin: 0; }
+.module-card .module-card__number { grid-column: 1; grid-row: 1 / span 4; margin: 0; }
+.module-card h3 { font-size: var(--text-lg); line-height: 1.15; }
+.module-card p { color: var(--ink-soft); max-width: 60ch; text-wrap: pretty; }
+.module-card p.muted { color: var(--ink-muted); font-size: var(--text-sm); }
+
+.article-grid { grid-template-columns: minmax(0, 1fr); gap: 0; }
+.article-card {
+  display: grid;
+  grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
+  gap: var(--space-1) clamp(var(--space-5), 3vw, var(--space-10));
+  align-items: baseline;
+  padding: var(--space-5) 0;
+  border-top: 1px solid var(--border);
+}
+.article-grid .article-card:last-child { border-bottom: 1px solid var(--border); }
+.article-card > * { grid-column: 2; margin: 0; }
+.article-card .article-card__kicker { grid-column: 1; grid-row: 1 / span 4; margin: 0; }
+.article-card__title { font-size: var(--text-md); }
+.article-card__dek { color: var(--ink-soft); max-width: 60ch; text-wrap: pretty; }
+.article-card__meta { color: var(--ink-muted); font-size: var(--text-sm); }
+
+.diff-grid { grid-template-columns: minmax(0, 1fr); gap: 0; }
+.diff-item {
+  display: grid;
+  grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+  gap: var(--space-1) clamp(var(--space-5), 3vw, var(--space-10));
+  align-items: baseline;
+  padding: var(--space-5) 0;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  box-shadow: none;
+}
+.diff-item:last-child { border-bottom: 1px solid var(--border); }
+.diff-item h3 { margin: 0; font-size: var(--text-lg); line-height: 1.15; }
+.diff-item p { margin: 0; color: var(--ink-soft); max-width: 56ch; text-wrap: pretty; }
+
+.faq details,
+.faq details[open] {
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  padding: var(--space-4) 0;
+}
+.faq details:last-child { border-bottom: 1px solid var(--border); }
+.faq summary { font-family: var(--font-body); font-weight: 600; }
+
+@media (max-width: 720px) {
+  .module-card,
+  .article-card,
+  .diff-item { grid-template-columns: minmax(0, 1fr); }
+  .module-card .module-card__number,
+  .article-card .article-card__kicker { grid-column: 1; grid-row: auto; }
+  .module-card > *,
+  .article-card > * { grid-column: 1; }
+}
+
+/* About: the teaching principles are a set, not a sequence. Ruled rows, no numerals. */
+.philosophy-list { display: grid; }
+.philosophy-list li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  padding: var(--space-5) 0;
+  border-top: 1px solid var(--border);
+}
+.philosophy-list li:last-child { border-bottom: 1px solid var(--border); }
+.philosophy-list .num { display: none; }
+.philosophy-list strong { display: block; font-family: var(--font-display); font-weight: 500; font-size: var(--text-lg); line-height: 1.15; margin-bottom: var(--space-2); }
+.philosophy-list li > div > span { color: var(--ink-soft); max-width: 60ch; display: block; text-wrap: pretty; }
+
+/* Standalone tool bar: the wordmark is Besley everywhere */
+.rn-bar .brand__name { font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; color: var(--ink); }

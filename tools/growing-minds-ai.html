@@ -89,7 +89,7 @@
 
     /* ── Page header ───────────────────────────────── */
     .ai-page-header {
-      background: linear-gradient(135deg, var(--pine-deep) 0%, var(--pine) 100%);
+      background: var(--pine);
       padding: 2.5rem 0 2rem;
     }
     .ai-page-header__inner {
@@ -97,10 +97,10 @@
     }
     .ai-badge {
       display: inline-flex; align-items: center; gap: .375rem;
-      font-size: .6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
+      font-size: .875rem; font-weight: 600;
       color: var(--coral-on-dark); background: transparent;
       border: 1px solid rgba(231,141,111,.45);
-      padding: .3rem .75rem; border-radius: 100px; margin-bottom: 1rem;
+      padding: .3rem .75rem; border-radius: 8px; margin-bottom: 1rem;
     }
     .ai-badge__dot { width: 6px; height: 6px; background: #5FBF8E; border-radius: 50%; }
     .ai-page-header h1 {
@@ -143,11 +143,11 @@
     /* Welcome state */
     .chat-welcome { text-align: center; padding: 2rem 0 1rem; }
     .chat-welcome__icon {
-      width: 56px; height: 56px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--teal) 0%, var(--coral) 100%);
+      width: 56px; height: 56px; border-radius: 12px;
+      background: var(--pine);
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 1.25rem;
-      font-family: 'Besley', serif; font-weight: 700; font-size: .875rem; color: var(--white);
+      font-family: 'Besley', serif; font-weight: 600; font-size: 1.25rem; color: var(--coral-on-dark);
     }
     .chat-welcome h2 { font-size: 1.1875rem; color: var(--ink); margin-bottom: .5rem; }
     .chat-welcome p { font-size: .9rem; color: var(--ink-soft); max-width: 42ch; margin: 0 auto; }
@@ -175,7 +175,7 @@
     }
     .topic-tab {
       background: var(--white); border: 1px solid var(--border-mid);
-      border-radius: 100px; padding: .5rem .9rem;
+      border-radius: 8px; padding: .5rem .9rem;
       font-size: .8125rem; font-weight: 600; color: var(--ink-soft);
       display: inline-flex; align-items: center; gap: .4rem;
       transition: background .15s, border-color .15s, color .15s;
@@ -220,7 +220,7 @@
     .chat-pill-btn {
       display: inline-flex; align-items: center; gap: .4rem;
       background: var(--white); border: 1px solid var(--border-mid);
-      border-radius: 100px; padding: .4rem .85rem;
+      border-radius: 8px; padding: .4rem .85rem;
       font-size: .8125rem; font-weight: 600; color: var(--teal);
       transition: background .15s, border-color .15s;
     }
@@ -370,7 +370,7 @@
 
     /* Limit reached */
     .chat-limit {
-      background: var(--blush); border: 1px solid rgba(156,68,41,.3);
+      background: var(--blush); border: 1px solid rgba(127,80,8,.3);
       border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: .75rem;
       display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
     }
@@ -491,7 +491,7 @@
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
           <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">See the class</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
       </nav>
@@ -620,7 +620,7 @@
         <div class="plans-strip__card">
           <div class="plans-strip__text">
             <h2 id="plans-strip-title">Free gives you 5 questions a day.</h2>
-            <p>Want unlimited? A class bundle or a simple $9/month plan opens it all up — see what fits.</p>
+            <p>Want unlimited? Any class includes it for life, or there is a simple $9 a month plan. See what fits.</p>
           </div>
           <div class="plans-strip__cta">
             <a class="btn btn--teal" href="/pricing">See plans &amp; pricing <span aria-hidden="true">→</span></a>
@@ -652,7 +652,7 @@
           <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
-        <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
+        <p class="site-footer__tag">A developmental-science education for parents of children 0 to 5.</p>
         <a class="footer-ig" href="https://www.instagram.com/growingmindsscience/" target="_blank" rel="noopener noreferrer">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
           Instagram
