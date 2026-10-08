@@ -4,17 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>Routines, transitions, and night-waking - Growing Minds Science</title>
+  <title>Routines, transitions, and night-waking | Growing Minds Science</title>
   <meta name="description" content="A toddler sleep guide for parents: why sleep changes from ages 1-3, what routines help, and how to read night-waking without panic." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/tools/routines-transitions-night-waking" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Routines, transitions, and night-waking — Growing Minds Science" />
+  <meta property="og:title" content="Routines, transitions, and night-waking | Growing Minds Science" />
   <meta property="og:description" content="A toddler sleep guide for parents: why sleep changes from ages 1–3, what routines help, and how to read night-waking without panic." />
   <meta property="og:image" content="https://growingmindsscience.com/assets/img/site/family-reading.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -49,7 +50,7 @@
     .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
     .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
 
-    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: 999px; background: var(--surface-2); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: var(--radius-sm); background: var(--surface-2); font-size: var(--text-xs); color: var(--ink-muted); margin-bottom: var(--space-3); }
     .section-intro { color: var(--ink-soft); max-width: 45rem; margin: 0 0 var(--space-6); }
     .small { font-size: var(--text-sm); color: var(--ink-muted); }
 
@@ -109,8 +110,8 @@
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -138,8 +139,8 @@
           </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">See the class</a></li>
+          <li class="nav__auth"><a class="nav__link" href="/nsc/app/classes">My classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -154,7 +155,7 @@
     <section class="tool-hero">
       <div class="container hero-grid">
         <div>
-          <p class="eyebrow">Toddler · 1-3 · Sleep development</p>
+          <p class="eyebrow">Toddler · 1–3 · Sleep development</p>
           <h1 class="page-hero__title">Routines, transitions, and night-waking</h1>
           <p class="tool-lede">Why toddler sleep changes, what routines help, and how to read night-waking without panic.</p>
           <div class="hero-actions">
@@ -224,7 +225,7 @@
               </div>
             </article>
 
-            <article class="pattern-output" data-output="separation" data-ai-question="My child panics or needs me close to settle at bedtime. How do I help?" hidden>
+            <article class="pattern-output" data-output="separation" data-ai-question="My child panics or needs me close to settle at bedtime. How do I help?">
               <span class="tag">Separation distress</span>
               <h3>The need is connection plus a clear ending.</h3>
               <p>Separation gets more complicated as toddlers understand distance, absence, and return. Comfort matters, but comfort works best when it comes with a consistent path toward sleep.</p>
@@ -235,7 +236,7 @@
               </div>
             </article>
 
-            <article class="pattern-output" data-output="waking" data-ai-question="My child wakes in the night and needs help getting back to sleep. What might be going on?" hidden>
+            <article class="pattern-output" data-output="waking" data-ai-question="My child wakes in the night and needs help getting back to sleep. What might be going on?">
               <span class="tag">Middle-of-night waking</span>
               <h3>Ask what changed before deciding what it means.</h3>
               <p>Night-waking can reflect illness, discomfort, hunger, overtiredness, a new skill, fear, schedule mismatch, or a learned pattern around how sleep resumes. One bad night is information. A repeating pattern is a map.</p>
@@ -246,7 +247,7 @@
               </div>
             </article>
 
-            <article class="pattern-output" data-output="nap" data-ai-question="My child's nap is changing and bedtime has gotten harder. What helps?" hidden>
+            <article class="pattern-output" data-output="nap" data-ai-question="My child's nap is changing and bedtime has gotten harder. What helps?">
               <span class="tag">Nap transition trouble</span>
               <h3>Nap changes can make bedtime look mysterious.</h3>
               <p>A toddler dropping or shifting a nap may seem tired and wired at the same time. Too little daytime sleep can lead to overtiredness; a nap too late can make bedtime harder.</p>
@@ -257,7 +258,7 @@
               </div>
             </article>
 
-            <article class="pattern-output" data-output="fear" data-ai-question="My child has new fears and bad dreams at night. How do I comfort them?" hidden>
+            <article class="pattern-output" data-output="fear" data-ai-question="My child has new fears and bad dreams at night. How do I comfort them?">
               <span class="tag">Fears and bad dreams</span>
               <h3>Comfort first, then return to the sleep path.</h3>
               <p>Fear at night is not manipulation. Imagination is growing, and toddlers may not easily separate dream, shadow, story, and real danger. Comfort them, keep the environment boring, and avoid accidentally making the fear the center of the night.</p>
@@ -369,8 +370,7 @@
       <div class="container container--narrow">
       <div class="cta-strip">
           <div>
-            <p class="eyebrow">Toddler class · now available</p>
-            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Module 5 covers transitions and routines in full.</h2>
+            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Module 5 of the toddler class covers transitions and routines in full.</h2>
             <p class="small" style="max-width:38rem; margin:0;">Why toddlers rely so much on predictability, how transitions trigger resistance, and what simple routines can do for the nervous system, all grounded in the research. $49 for lifetime access.</p>
           </div>
           <div class="hero-actions">
@@ -385,8 +385,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
@@ -399,8 +399,8 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/preschool.html">Preschool years</a></li>
             <li><a href="/classes/family-systems.html">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>

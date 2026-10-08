@@ -387,7 +387,13 @@
       [].forEach.call(buttons, function (b) {
         b.addEventListener("click", function () { activate(btnKey(b), "click"); });
       });
+      // Every answer ships visible in the HTML (so nothing is lost without
+      // JS); collapse to the pressed one here.
+      var pressed = [].filter.call(buttons, function (b) {
+        return b.getAttribute("aria-pressed") === "true";
+      })[0] || buttons[0];
       if (wanted && outputFor(wanted)) activate(wanted, "link");
+      else if (pressed) activate(btnKey(pressed), "init");
     });
 
     // 2) Save / Listen / Ask: injected into every output article on the page.
@@ -445,8 +451,7 @@
     // Save
     var saved = shelf.has(cfg.key);
     var saveBtn = el("button", {
-      type: "button", class: "gms-action gms-action--save" + (saved ? " is-saved" : ""),
-      "aria-pressed": saved ? "true" : "false"
+      type: "button", class: "gms-action gms-action--save" + (saved ? " is-saved" : "")
     }, [saved ? "Saved ✓" : "Save this"]);
     saveBtn.addEventListener("click", function () {
       if (shelf.has(cfg.key)) {
@@ -464,7 +469,6 @@
     var syncSave = function () {
       var on = shelf.has(cfg.key);
       saveBtn.classList.toggle("is-saved", on);
-      saveBtn.setAttribute("aria-pressed", on ? "true" : "false");
       saveBtn.textContent = on ? "Saved ✓" : "Save this";
       viewLink.hidden = !on;
     };
@@ -475,15 +479,15 @@
     // Listen
     if (speechSupported) {
       var speaking = false;
-      var listenBtn = el("button", { type: "button", class: "gms-action gms-action--listen", "aria-pressed": "false" }, ["Listen"]);
+      var listenBtn = el("button", { type: "button", class: "gms-action gms-action--listen" }, ["Listen"]);
       var toText = function () {
         return [cfg.content.title, cfg.content.body, cfg.content.tryLine ? ("Try saying: " + cfg.content.tryLine) : ""]
           .filter(Boolean).join(". ");
       };
-      var reset = function () { speaking = false; listenBtn.textContent = "Listen"; listenBtn.setAttribute("aria-pressed", "false"); };
+      var reset = function () { speaking = false; listenBtn.textContent = "Listen"; };
       listenBtn.addEventListener("click", function () {
         if (speaking) { stopSpeaking(); reset(); return; }
-        if (speak(toText(), reset)) { speaking = true; listenBtn.textContent = "Stop"; listenBtn.setAttribute("aria-pressed", "true"); }
+        if (speak(toText(), reset)) { speaking = true; listenBtn.textContent = "Stop"; }
       });
       row.appendChild(listenBtn);
     }

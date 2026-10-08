@@ -1,8 +1,8 @@
 #pong-orb {
-      position: fixed;
-      top: 86px;
-      right: 22px;
-      z-index: 60;
+      position: absolute;
+      bottom: 24px;
+      right: clamp(1.75rem, 4vw, 3rem);
+      z-index: 2;
       width: 46px;
       height: 46px;
       display: grid;
@@ -15,7 +15,9 @@
       box-shadow: var(--shadow-sm), 0 10px 24px -16px color-mix(in oklab, var(--primary) 70%, black);
       cursor: pointer;
       color: var(--primary);
-      animation: pong-orb-float 5.5s ease-in-out infinite;
+      /* One float that comes back to rest (WCAG 2.2.2: nothing moves for
+         more than ~5s on its own). */
+      animation: pong-orb-float 4.6s ease-in-out 1;
       transition: transform .2s ease, box-shadow .2s ease;
     }
     #pong-orb:hover { transform: scale(1.12) rotate(8deg); }
@@ -24,12 +26,15 @@
       width: 12px; height: 12px; border-radius: 50%;
       background: var(--primary);
       box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 22%, transparent);
-      animation: pong-orb-pulse 2.4s ease-in-out infinite;
+      animation: pong-orb-pulse 2.4s ease-in-out 2; /* two pulses, then still */
     }
     @keyframes pong-orb-float { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-7px); } }
     @keyframes pong-orb-pulse { 0%,100%{ transform: scale(1); opacity: 1; } 50%{ transform: scale(.7); opacity: .7; } }
 
-    .pong-piece { will-change: transform, opacity; }
+    /* Page tear-away + scroll lock while the game is open (GMSArcade).
+       Repeated here because /tools does not load arcade.css. */
+    .gms-arcade-falling { will-change: transform, opacity; }
+    body.gms-arcade-lock { overflow: hidden; }
 
     #pong-game {
       position: fixed; inset: 0; z-index: 90;
@@ -53,14 +58,18 @@
       border-radius: 10px;
       background: #0c0f0e;
       touch-action: none;
+      /* Transparent (not none) so Windows forced-colors still draws focus. */
+      outline: 2px solid transparent;
+      outline-offset: 2px;
     }
+    #pong-canvas:focus-visible { outline-color: var(--amber, #F2A93B); }
     .pong-msg {
       position: absolute; inset: 0; display: grid; place-items: center; text-align: center;
       pointer-events: none;
     }
     .pong-msg[hidden] { display: none; }
     .pong-msg > div { background: color-mix(in oklab, #0c0f0e 70%, transparent); padding: 1.4rem 2rem; border-radius: 12px; }
-    .pong-msg h2 { margin: 0 0 .4rem; font-size: clamp(1.6rem, 5vw, 2.6rem); }
+    .pong-msg h2 { margin: 0 0 .4rem; font-size: clamp(1.6rem, 5vw, 2.6rem); color: #eef3ef; }
     .pong-msg p { margin: 0; color: #9fb3a6; font-size: .95rem; }
     .pong-msg .btn { pointer-events: auto; margin-top: 1rem; }
     .pong-foot {
@@ -77,5 +86,9 @@
       transition: background .15s ease, border-color .15s ease;
     }
     .pong-foot button:hover { background: #16201a; border-color: #6f8f7b; }
-    @media (max-width: 540px) { #pong-orb { top: 74px; right: 16px; } .pong-foot .pong-hint { display: none; } }
+    .pong-foot button:focus-visible { outline: 2px solid var(--amber, #F2A93B); outline-offset: 2px; }
+    /* Music toggle: lit when on, struck through when off (label stays "Music"). */
+    #pong-mute[aria-pressed="true"] { background: #16201a; border-color: #6f8f7b; }
+    #pong-mute[aria-pressed="false"] { color: #9fb3a6; text-decoration: line-through; }
+    @media (max-width: 540px) { #pong-orb { bottom: 16px; right: 28px; } .pong-foot .pong-hint { display: none; } }
     @media (prefers-reduced-motion: reduce) { #pong-orb { animation: none; } #pong-orb .pong-orb__dot { animation: none; } }

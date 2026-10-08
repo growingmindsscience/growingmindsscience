@@ -188,6 +188,8 @@ The hidden arcade games keep their own isolated retro palettes (dark cabinets, p
 **Display Font:** Besley (fallback Georgia)
 **Body Font:** Atkinson Hyperlegible Next (fallback Helvetica Neue, Arial)
 
+The fallbacks are metric-matched: `Besley Fallback` (local Georgia, size-adjust 114.5%) and `Atkinson Fallback` (local Arial, 99.3%) are declared in `styles.css` and `home.css` and sit second in each stack, so lines wrap the same way before and after the web fonts swap in and the page does not jump.
+
 **Character:** Besley is a Clarendon with warmth: textbook headings, confident at weight 500, normal tracking (−0.005em; never tighter than −0.01em, Clarendons cramp). Atkinson Hyperlegible Next was designed for low-vision legibility, which is exactly right for a tired parent reading at night; it sets body, UI, labels, and figure text.
 
 ### Hierarchy
@@ -231,10 +233,13 @@ Mostly flat. Depth comes from tonal bands (ground → surface → ink-800 → in
 Lenses, curriculum units, principles, and shelf links are ruled rows (1px `line` top and bottom), with a hover wash of the ground color. The curriculum is a numbered `<ol>` because the classes are a developmental sequence; the numbers carry information.
 
 ### Curriculum unit
-`thumb (7.25rem square photo) | numeral + title + "After this class you can explain …" | status pill + meta dl + CTA`. Status pills: `--open` is amber-tint / amber-deep, `--soon` is tint / ink-muted. Open units get a primary button; upcoming units get a quiet "Join the waitlist".
+`thumb (7.25rem square photo) | numeral + title + "After this class you can explain …" | status pill + meta dl + CTA`. Status pills: `--open` is amber-tint / amber-deep, `--soon` is tint / ink-muted. Open units get a primary button; upcoming units get a quiet "Join the waitlist". The unit, figure, syllabus, reading-list, and price-sheet styles live in `assets/css/seminar.css`, shared by the homepage and the inner pages (styles.css aliases `--line`, `--ground`, `--tint`, `--teal` to its own names). On `/classes/` an open unit carries two actions, "Enroll, $49" and "See the class", with a one-line note under them saying where checkout happens and that sales are final.
+
+### Class pages
+Every class page opens the same way: a numeral line ("Class 2 · Ages 1 to 3"), the full title as H1, a facts `dl` (format, length or status, price), two buttons, one line of fine print, and on the right either a captioned figure from inside the class (open classes) or the commissioned class photo (classes in development). Below it: outcomes, the syllabus as a ruled `<ol>` of modules (lesson titles listed when they exist), who it's for, who teaches it, a reading list of free material for that age, the FAQ, and the enroll band. Class names are always "Short name: subtitle" in full and "Class N · Short name" over the subtitle in rows, in developmental order (infant first).
 
 ### Figures
-Inline SVG inside `<figure class="fig">`. Fig. 1 (hero) is the plasticity-windows chart on ink; Fig. 2 (how it's taught) is the research → model → moment → noticing loop on a white panel. Curves use `pathLength="1"` so they draw in with a dash offset; labels fade after. Strokes distinguish by dash pattern as well as color.
+Inline SVG inside `<figure class="fig">`. Fig. 1 (hero) is the plasticity-windows chart on ink; Fig. 2 (how it's taught) is the research → model → moment → noticing loop on a white panel. Curves use `pathLength="1"` so they draw in with a dash offset; labels fade after. Strokes distinguish by dash pattern as well as color. Figure text must render at 14px or more: draw on a narrow viewBox (480 wide), set labels at 16 units, and step them to 20 units below 560px, checking that labels don't collide at phone width. Curves that fall after a peak taper to a level above zero unless the data says otherwise. On paper (`.fig--plate`) the figure sits in a white, 14px-radius frame with a key in real text when two line styles need naming. Article figures use the same "Fig. N" caption label as the homepage.
 
 ### Instructor block
 Portrait (4:5, 11rem column) beside name, role, four fact bullets with amber seeds, and a link to About. Sits under the three lenses so the thesis is attributed to a face, not a thumbnail. Never fabricate testimonials; proof is credentials, the coaching count, and the free material.
@@ -251,7 +256,7 @@ Ground-colored field on a white card, `line` border, 10px radius, teal focus rin
 ### Navigation
 - **One header and footer everywhere.** Styles live only in `assets/css/chrome.css`, behavior only in `assets/js/chrome.js`. Don't restyle `.site-header` / `.site-footer` in page stylesheets.
 - **Ink variant:** a page that opens on an ink hero adds `site-header--ink`; the bar reads as part of the hero, links go on-dark, and the CTA turns amber. The homepage uses it. Inner pages keep the light bar.
-- **Structure:** Classes · Free tools (details menu) · Articles · About, divider, Log in, one CTA, theme toggle. The arcade lives inside the Free tools menu with a one-line description, and on the homepage as a single "Need a break?" row under the reading list: it exists so stressed parents can stop thinking for five minutes, and the copy says so. Nav links are Atkinson 500; the wordmark is Besley 600. Amber underline for hover/current.
+- **Structure:** Classes · Free tools (details menu) · Articles · About, divider, My classes, one CTA, theme toggle. "My classes" (to `/nsc/app/classes`) is the one account link on every page; it says what the account is for. The arcade lives inside the Free tools menu with a one-line description, and on the homepage as a single "Need a break?" row under the reading list: it exists so stressed parents can stop thinking for five minutes, and the copy says so. Nav links are Atkinson 500; the wordmark is Besley 600. Amber underline for hover/current.
 - **Footer:** ink-900, brand + Instagram, Classes / Free tools / About columns in Atkinson, Besley column headings.
 
 ## 6. Do's and Don'ts

@@ -4,17 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>Screens, language, and attention — Growing Minds Science</title>
+  <title>Screens, language, and attention | Growing Minds Science</title>
   <meta name="description" content="A quick-reference guide for parents on how different kinds of screen use interact with language development and attention in toddlers and preschoolers." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/tools/screens-language-attention" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Screens, language, and attention — Growing Minds Science" />
+  <meta property="og:title" content="Screens, language, and attention | Growing Minds Science" />
   <meta property="og:description" content="What the research suggests about how different kinds of screen use interact with language and attention in the early years." />
   <meta property="og:image" content="https://growingmindsscience.com/assets/img/site/family-reading.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -49,14 +50,14 @@
     .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
     .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
 
-    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: 999px; background: var(--surface-2); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: var(--radius-sm); background: var(--surface-2); font-size: var(--text-xs); color: var(--ink-muted); margin-bottom: var(--space-3); }
     .section-intro { color: var(--ink-soft); max-width: 44rem; margin: 0 0 var(--space-6); }
     .small { font-size: var(--text-sm); color: var(--ink-muted); }
 
     .what-panel__blocks { display: grid; gap: var(--space-4); }
     .what-block { position: relative; padding-left: var(--space-5); }
     .what-block::before { content: ""; position: absolute; left: 2px; top: .58em; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
-    .what-block__label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .1em; color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
+    .what-block__label { font-size: var(--text-xs); color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
     .what-block__text { margin: 0; color: var(--ink-soft); line-height: 1.65; }
 
     .response-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); }
@@ -97,8 +98,8 @@
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -126,8 +127,8 @@
           </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">See the class</a></li>
+          <li class="nav__auth"><a class="nav__link" href="/nsc/app/classes">My classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -142,7 +143,7 @@
     <section class="tool-hero">
       <div class="container hero-grid">
         <div>
-          <p class="eyebrow">Toddler &amp; Preschool · Screen time guide</p>
+          <p class="eyebrow">Toddler &amp; preschool · Screen time guide</p>
           <h1 class="page-hero__title">Screens, language, and attention</h1>
           <p class="tool-lede">Screen time is not one thing, and it does not act on a child like a spell. This is a short reference for the two worries parents bring up most: language and focus. What the research actually shows, and what it doesn't.</p>
           <div class="hero-actions">
@@ -218,28 +219,28 @@
               <p class="small">One tweak: turn it off when no one is actually watching. Quiet rooms leave more room for your child to say something and for you to answer.</p>
             </article>
 
-            <article class="decoder-output" data-output="fast" data-ai-question="Do fast-paced cartoons affect my child's attention?" hidden>
+            <article class="decoder-output" data-output="fast" data-ai-question="Do fast-paced cartoons affect my child's attention?">
               <span class="tag">Mostly touches: attention (briefly)</span>
               <h3>Likely a short-term wobble, not lasting damage.</h3>
               <p>Lillard and Peterson found a fast, frantic cartoon left preschoolers temporarily worse at focus and self-control right afterward. The key word is temporarily. It was measured minutes later, and the claim that fast shows permanently rewire attention is not well supported. Pacing and what comes next matter more than banning cartoons.</p>
               <p class="small">One tweak: if you notice a rough patch after a particular show, follow it with something calm (blocks, a snack, outside time) rather than straight into the next demand.</p>
             </article>
 
-            <article class="decoder-output" data-output="coview" data-ai-question="We watch a slow, interactive show together. How can I use it to support language?" hidden>
+            <article class="decoder-output" data-output="coview" data-ai-question="We watch a slow, interactive show together. How can I use it to support language?">
               <span class="tag">Can support: language</span>
               <h3>This is closer to how kids actually learn.</h3>
               <p>Watching together and talking about what's happening, joint media engagement, is one of the few screen setups research treats kindly for vocabulary. A slower show gives your child time to notice things, and your comments turn a passive minute into a small conversation.</p>
               <p class="small">One tweak: narrate and connect it to real life. "That's a tractor. We saw one at the farm, remember?" The bridge to the real world is where the learning sticks.</p>
             </article>
 
-            <article class="decoder-output" data-output="app" data-ai-question="Is a solo educational app good for my child's learning?" hidden>
+            <article class="decoder-output" data-output="app" data-ai-question="Is a solo educational app good for my child's learning?">
               <span class="tag">Mixed: depends on what it replaces</span>
               <h3>"Educational" is a label, not a guarantee.</h3>
               <p>Some apps are thoughtfully built; plenty are mostly stimulation with a learning sticker. For young kids, even good content usually teaches more when an adult connects it to the real world. The bigger question is what the solo time is replacing. Free play and conversation are where a lot of early attention and language get built.</p>
               <p class="small">One tweak: now and then, sit alongside and talk about what they're doing, and keep an eye that the app isn't eating the play and talk it sits next to.</p>
             </article>
 
-            <article class="decoder-output" data-output="videocall" data-ai-question="Do video calls with family help my child's language?" hidden>
+            <article class="decoder-output" data-output="videocall" data-ai-question="Do video calls with family help my child's language?">
               <span class="tag">The friendly exception</span>
               <h3>This one is real interaction that happens to be on a screen.</h3>
               <p>Video chat is the partial exception to the video deficit. When a grandparent laughs back, answers, and responds to what your child just did, the exchange behaves like a real conversation: contingent and back-and-forth. That's the ingredient passive video is missing.</p>
@@ -314,11 +315,11 @@
           <span class="tag">One-minute summary</span>
           <h2 style="font-size:var(--text-xl); margin-top:0;">When you need the short version</h2>
           <ul>
-            <li>Screens mostly don't teach language to very young kids the way a responding person does — that's the "video deficit."</li>
+            <li>Screens mostly don't teach language to very young kids the way a responding person does. That's the "video deficit."</li>
             <li>The clearest documented effect is displacement: background TV cuts the quantity and quality of parent-child talk.</li>
             <li>Co-viewing and video calls are the friendlier cases, because they keep some back-and-forth.</li>
             <li>Fast cartoons can dent focus briefly right afterward, but the "permanent rewiring" claim isn't well supported.</li>
-            <li>Old links between heavy TV and later attention problems are correlational and confounded — not proof of cause.</li>
+            <li>Old links between heavy TV and later attention problems are correlational and confounded, not proof of cause.</li>
             <li>Protect talk, sleep, and play; favor slower, shared content; don't panic about the occasional fast show.</li>
           </ul>
         </div>
@@ -355,7 +356,6 @@
       <div class="container container--narrow">
         <div class="cta-strip">
           <div>
-            <p class="eyebrow">Toddler class · now available</p>
             <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Language and attention are covered in depth in the toddler class.</h2>
             <p class="small" style="max-width:38rem; margin:0;">How language actually grows through ordinary conversation, what supports focus in the early years, and how to think about screens without shame, all grounded in the same research as this page. $49 for lifetime access.</p>
           </div>
@@ -371,8 +371,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
@@ -385,8 +385,8 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/preschool.html">Preschool years</a></li>
             <li><a href="/classes/family-systems.html">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>

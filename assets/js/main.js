@@ -271,4 +271,33 @@
       });
     }
   });
+
+  // Class pages, phones: a slim enroll bar appears once the hero buttons have
+  // scrolled away, and steps aside for the enroll section and the footer.
+  ready(function () {
+    var bar = document.querySelector("[data-enroll-bar]");
+    var hero = document.querySelector(".class-hero .hero__ctas");
+    if (!bar || !hero || !("IntersectionObserver" in window)) return;
+    var seen = { hero: true, end: false };
+    var ends = [document.getElementById("enroll"), document.querySelector(".site-footer")].filter(Boolean);
+    var visibleEnds = new Set();
+    function update() {
+      var show = !seen.hero && !seen.end;
+      if (show) bar.hidden = false;
+      bar.classList.toggle("is-visible", show);
+      bar.inert = !show;
+    }
+    new IntersectionObserver(function (entries) {
+      seen.hero = entries[0].isIntersecting || entries[0].boundingClientRect.top > 0;
+      update();
+    }).observe(hero);
+    var endObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) visibleEnds.add(entry.target); else visibleEnds.delete(entry.target);
+      });
+      seen.end = visibleEnds.size > 0;
+      update();
+    });
+    ends.forEach(function (node) { endObserver.observe(node); });
+  });
 })();

@@ -173,13 +173,14 @@
   // ------------------------------------------------------------------
   // Hidden arcade easter eggs, loaded on demand
   // A page opts in with <body data-arcade-egg="snake|dino|breakout|
-  // asteroids|invaders|hopper">. Nothing game-related loads with the page:
-  // once it is idle we fetch arcade.css (for the glyph's style) and place the
-  // small trigger; arcade-core.js and the game load only on the first click.
-  // The trigger is click-only (a touchstart handler opened games mid-scroll),
-  // out of the tab order and hidden from assistive tech; /arcade is the
-  // accessible way in. Game files bind to a hidden [data-arcade-game] proxy,
-  // so their own triggers and touch handlers never reach the page.
+  // asteroids|invaders|hopper|pong">. Nothing game-related loads with the
+  // page: once it is idle we fetch the egg's stylesheet (arcade.css, or
+  // pong.css for the Pong orb) and place the trigger; arcade-core.js loads
+  // on the first click and GMSArcade.play() then fetches the game itself.
+  // Triggers are click-only (a touchstart handler opened games mid-scroll).
+  // The pixel glyphs are out of the tab order and hidden from assistive
+  // tech (/arcade is the accessible way in); the Pong orb on /tools is a
+  // labeled button. Closing a game returns focus to its trigger.
   // ------------------------------------------------------------------
   var PIXEL = ' aria-hidden="true" shape-rendering="crispEdges"><g fill="currentColor">';
   var EGGS = {
@@ -193,7 +194,7 @@
     },
     dino: {
       cls: "gms-arcade-sprout-trigger", title: "?",
-      anchors: [".page-hero__visual", ".page-hero .container", "main .container"],
+      anchors: [".classes-list .container", ".page-hero__visual", ".page-hero .container", "main .container"],
       svg: '<svg viewBox="0 0 12 12"' + PIXEL +
         '<rect x="5" y="5" width="2" height="6"/><rect x="1" y="3" width="2" height="2"/>' +
         '<rect x="2" y="4" width="3" height="2"/><rect x="9" y="1" width="2" height="2"/>' +
@@ -239,7 +240,10 @@
         '<rect x="3" y="3" width="2" height="1"/><rect x="7" y="3" width="2" height="1"/>' +
         '<rect x="5" y="4" width="2" height="1"/>' +
         '<rect x="0" y="8" width="12" height="1"/></g></svg>'
-    }
+    },
+    // /tools: an orb (styled by pong.css) tucked into the corner of the hero
+    // art. It is a visible, labeled, keyboard-reachable button.
+    pong: { orb: true, css: "pong.css", anchors: [".page-hero .container", "main .container"] }
   };
 
   function loadScript(src, done, fail) {
@@ -247,7 +251,8 @@
     s.src = src;
     s.async = false;
     s.onload = done;
-    s.onerror = fail;
+    // Drop a failed tag so the next click can try again.
+    s.onerror = function () { if (s.parentNode) s.parentNode.removeChild(s); if (fail) fail(); };
     document.head.appendChild(s);
   }
 
@@ -265,56 +270,54 @@
     var egg = key && Object.prototype.hasOwnProperty.call(EGGS, key) ? EGGS[key] : null;
     if (!egg) return;
     var anchor = null;
-    for (var i = 0; i < egg.anchors.length && !anchor; i++) anchor = document.querySelector(egg.anchors[i]);
+    for (var i = 0; !anchor && i < egg.anchors.length; i++) anchor = document.querySelector(egg.anchors[i]);
     if (!anchor) return;
+    var cssFile = egg.css || "arcade.css";
 
-    function placeTrigger() {
-      if (window.getComputedStyle(anchor).position === "static") anchor.style.position = "relative";
+    function buildTrigger() {
       var btn = document.createElement("button");
       btn.type = "button";
+      if (window.getComputedStyle(anchor).position === "static") anchor.style.position = "relative";
+      if (egg.orb) {
+        btn.id = "pong-orb";
+        btn.setAttribute("aria-label", "Hidden game: play Pong");
+        btn.title = "Play?";
+        btn.innerHTML = '<span class="pong-orb__dot" aria-hidden="true"></span>';
+        return btn;
+      }
       btn.className = egg.cls;
       btn.tabIndex = -1;
       btn.setAttribute("aria-hidden", "true");
       btn.title = egg.title;
       btn.innerHTML = egg.svg;
+      return btn;
+    }
+
+    function placeTrigger() {
+      var btn = buildTrigger();
       anchor.appendChild(btn);
 
-      var proxy = null, loading = false;
+      // First click loads arcade-core.js; GMSArcade.play() loads the game
+      // (and shows it). The button is passed along so focus returns to it.
+      var loading = false;
       btn.addEventListener("click", function (e) {
         e.preventDefault();
-        if (proxy && proxy.getAttribute("data-ready")) { proxy.click(); return; }
+        if (window.GMSArcade && window.GMSArcade.play) { window.GMSArcade.play(key, btn); return; }
         if (loading) return;
         loading = true;
-        proxy = document.createElement("button");
-        proxy.type = "button";
-        proxy.hidden = true;
-        proxy.tabIndex = -1;
-        proxy.setAttribute("aria-hidden", "true");
-        proxy.setAttribute("data-arcade-game", key);
-        document.body.appendChild(proxy);
-        var fail = function () {
+        loadScript("/assets/js/arcade-core.js", function () {
           loading = false;
-          if (proxy && proxy.parentNode) proxy.parentNode.removeChild(proxy);
-          proxy = null;
-        };
-        var loadGame = function () {
-          loadScript("/assets/js/" + key + "-game.js", function () {
-            loading = false;
-            proxy.setAttribute("data-ready", "true");
-            proxy.click();
-          }, fail);
-        };
-        if (window.GMSArcade) loadGame();
-        else loadScript("/assets/js/arcade-core.js", loadGame, fail);
+          if (window.GMSArcade) window.GMSArcade.play(key, btn);
+        }, function () { loading = false; });
       });
     }
 
     whenIdle(function () {
-      if (document.querySelector('link[href$="assets/css/arcade.css"]')) { placeTrigger(); return; }
+      if (document.querySelector('link[href$="assets/css/' + cssFile + '"]')) { placeTrigger(); return; }
       var link = document.createElement("link");
       link.rel = "stylesheet";
-      link.href = "/assets/css/arcade.css";
-      link.onload = placeTrigger; // style first, so the glyph never flashes unstyled
+      link.href = "/assets/css/" + cssFile;
+      link.onload = placeTrigger; // style first, so the trigger never flashes unstyled
       document.head.appendChild(link);
     });
   }

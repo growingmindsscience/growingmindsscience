@@ -4,19 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>About — Growing Minds Science</title>
+  <title>About | Growing Minds Science</title>
   <meta name="description" content="Growing Minds Science helps parents understand the science behind their children's minds and behavior. Founded by Matthew McArthur, Child Development Specialist and parent coach." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/about/" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="About — Growing Minds Science" />
+  <meta property="og:title" content="About | Growing Minds Science" />
   <meta property="og:description" content="Developmental science made usable for parents, built by Matthew McArthur, a child development specialist and parent coach in Los Angeles." />
-  <meta property="og:image" content="/assets/img/matthew-photo.jpeg" />
+  <meta property="og:image" content="https://growingmindsscience.com/assets/img/matthew-photo.jpeg" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,7 +25,6 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400..800&display=swap" />
   <link rel="stylesheet" href="../assets/css/styles.css" />
   <link rel="stylesheet" href="../assets/css/refresh.css" />
-  <link rel="stylesheet" href="../assets/css/arcade.css" />
 
   <!-- Author / E-E-A-T entity. Keep in sync with the About bio; claims here must
        match visible page content. -->
@@ -74,13 +74,13 @@
   </script>
   <link rel="stylesheet" href="/assets/css/chrome.css" />
 </head>
-<body>
+<body data-arcade-egg="asteroids">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -108,8 +108,8 @@
           </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/" aria-current="page">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood">See the class</a></li>
+          <li class="nav__auth"><a class="nav__link" href="/nsc/app/classes">My classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -125,7 +125,6 @@
     <!-- MISSION -->
     <section class="page-hero">
       <div class="container" data-stagger>
-        <p class="eyebrow" data-animate>About</p>
         <h1 class="page-hero__title" data-animate>Helping parents understand the science behind their children's minds and behavior.</h1>
         <p class="page-hero__lede" data-animate>
           Growing Minds Science exists so parents can raise strong, happy, healthy,
@@ -138,7 +137,6 @@
     <!-- WHY GMS EXISTS -->
     <section class="section--alt">
       <div class="container container--narrow" data-animate>
-        <p class="section-head__eyebrow">Why this exists</p>
         <h2>Parents don't need more pressure. They need better explanations.</h2>
         <p style="color: var(--ink-soft); font-size: var(--text-md);">
           Most parenting content is either rigid scripts, vague slogans, or a
@@ -186,50 +184,51 @@
             </p>
           </div>
           <figure class="about-preview__media about-preview__media--portrait about-preview__media--reference">
-            <img src="../assets/img/matthew-photo.jpeg"
+            <img src="../assets/img/matthew-photo-400.jpg"
+                 srcset="../assets/img/matthew-photo-400.jpg 400w, ../assets/img/matthew-photo-600.jpg 600w"
+                 sizes="220px"
                  alt="Matthew McArthur, founder of Growing Minds Science."
-                 width="1122" height="1402" loading="lazy" decoding="async" />
+                 width="400" height="500" loading="lazy" decoding="async" />
           </figure>
         </div>
       </div>
     </section>
 
     <!-- EDUCATIONAL PHILOSOPHY -->
-    <section class="section--alt">
+    <section id="how-we-teach" class="section--alt">
       <div class="container container--narrow">
-        <p class="section-head__eyebrow">Educational philosophy</p>
         <h2>How Growing Minds Science teaches.</h2>
         <ul class="philosophy-list" data-stagger>
           <li data-animate>
-            <span class="num">01</span>
+            <span class="num" aria-hidden="true"></span>
             <div>
               <strong>Translate the research, don't replace it</strong>
               <span>Plain language, with honesty about what the evidence is and isn't. No invented certainty, no oversimplified hooks.</span>
             </div>
           </li>
           <li data-animate>
-            <span class="num">02</span>
+            <span class="num" aria-hidden="true"></span>
             <div>
               <strong>Respect the parent</strong>
               <span>Parents are adults. The work assumes you're already trying hard, already paying attention, and already capable of nuance.</span>
             </div>
           </li>
           <li data-animate>
-            <span class="num">03</span>
+            <span class="num" aria-hidden="true"></span>
             <div>
               <strong>Mental models over scripts</strong>
               <span>The goal is a clear way to understand what's happening, not memorized phrases for every situation. Mental models travel; scripts don't.</span>
             </div>
           </li>
           <li data-animate>
-            <span class="num">04</span>
+            <span class="num" aria-hidden="true"></span>
             <div>
               <strong>Calm by default</strong>
               <span>No urgency manufactured for engagement. No shame. The tone is what a thoughtful friend who happens to know the research would sound like.</span>
             </div>
           </li>
           <li data-animate>
-            <span class="num">05</span>
+            <span class="num" aria-hidden="true"></span>
             <div>
               <strong>Built for ordinary days</strong>
               <span>Every recommendation has to work on a normal weekday, between transitions, meals, work, and the actual capacity of tired adults.</span>
@@ -242,7 +241,6 @@
     <!-- EDUCATION -->
     <section>
       <div class="container container--narrow">
-        <p class="section-head__eyebrow">Education</p>
         <h2>Background.</h2>
         <ul class="cred-list">
           <li><strong>UCLA</strong>: B.A. in Psychology</li>
@@ -258,12 +256,12 @@
     <!-- LIGHT CTA -->
     <section class="section--alt">
       <div class="container container--narrow center">
-        <h2 style="max-width: 24ch; margin-inline: auto;">The toddler class is live.</h2>
+        <h2 style="max-width: 24ch; margin-inline: auto;">Two classes are open now.</h2>
         <p class="lede" style="max-width: 56ch; margin-inline: auto;">
-          Ages 1–3, self-paced, $49 for lifetime access, with Growing Minds AI and the free milestone tracker included.
+          Birth to 12 months and the toddler years: self-paced, $49 each, with lifetime access.
         </p>
         <p style="margin-top: var(--space-5);">
-          <a class="btn btn--primary" href="/classes/toddlerhood">See the toddler class</a>
+          <a class="btn btn--primary" href="/classes/">See the classes</a>
           <a class="btn btn--ghost" style="margin-left: var(--space-3);" href="/tools/">See parent tools</a>
         </p>
       </div>
@@ -274,8 +272,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
@@ -288,8 +286,8 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood">Toddler years</a></li>
             <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood">Toddler years</a></li>
             <li><a href="/classes/preschool.html">Preschool years</a></li>
             <li><a href="/classes/family-systems.html">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>
@@ -329,8 +327,6 @@
   <script src="../assets/js/main.js" defer></script>
   <script src="../assets/js/decor.js" defer></script>
   <script src="../assets/js/animate.js" defer></script>
-  <script src="../assets/js/arcade-core.js" defer></script>
-  <script src="../assets/js/asteroids-game.js" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

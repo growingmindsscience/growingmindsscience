@@ -4,19 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>FAQ — Growing Minds Science</title>
+  <title>FAQ | Growing Minds Science</title>
   <meta name="description" content="Common questions about Growing Minds Science classes, tools, and how the work is built, answered in reassuring, plain language." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/faq/" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="FAQ — Growing Minds Science" />
+  <meta property="og:title" content="FAQ | Growing Minds Science" />
   <meta property="og:description" content="Common questions about Growing Minds Science classes, tools, and how the work is built, answered in reassuring, plain language." />
-  <meta property="og:image" content="/assets/img/site/hero-parent-baby.jpg" />
+  <meta property="og:image" content="https://growingmindsscience.com/assets/img/og/site-home.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,7 +25,6 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400..800&display=swap" />
   <link rel="stylesheet" href="../assets/css/styles.css" />
   <link rel="stylesheet" href="../assets/css/refresh.css" />
-  <link rel="stylesheet" href="../assets/css/arcade.css" />
 
   <script type="application/ld+json">
   {
@@ -100,7 +100,7 @@
         "name": "Which classes are available?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The toddler class (ages 1–3) is available now: $49 for lifetime access, with Growing Minds AI and the free milestone tracker included. The infant, preschool, and family-systems classes are still in development. Leave your email and you'll get a short note when each one opens. We don't run launch-date countdowns or urgency tactics, just one calm email when something is genuinely ready."
+          "text": "Two are open now, at $49 each for lifetime access: the birth-to-12-months class and the toddler class (ages 1–3). The preschool and family-systems classes are still in development. Leave your email and you'll get a short note when each one opens. We don't run launch-date countdowns or urgency tactics, just one calm email when something is genuinely ready."
         }
       }
     ]
@@ -108,13 +108,13 @@
   </script>
   <link rel="stylesheet" href="/assets/css/chrome.css" />
 </head>
-<body>
+<body data-arcade-egg="breakout">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -142,8 +142,8 @@
           </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood">See the class</a></li>
+          <li class="nav__auth"><a class="nav__link" href="/nsc/app/classes">My classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -158,7 +158,6 @@
 
     <section class="page-hero">
       <div class="container">
-        <p class="eyebrow">FAQ</p>
         <h1 class="page-hero__title">Common questions, in plain language.</h1>
         <p class="page-hero__lede">
           A short, reassuring overview of how the classes work, who they're for,
@@ -231,11 +230,10 @@
           <details>
             <summary>Which classes are available?</summary>
             <p>
-              The
-              <a href="/classes/toddlerhood">toddler class</a>
-              (ages 1–3) is available now: $49 for lifetime access, with Growing
-              Minds AI and the free milestone tracker included. The infant,
-              preschool, and family-systems classes are still in development.
+              Two are open now, at $49 each for lifetime access: the
+              <a href="/classes/birth-to-12-months">birth-to-12-months class</a>
+              and the <a href="/classes/toddlerhood">toddler class</a> (ages 1–3).
+              The preschool and family-systems classes are still in development.
               Leave your email and you'll get one calm note when each opens, with
               no launch-date countdowns or urgency tactics.
             </p>
@@ -332,8 +330,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
@@ -346,8 +344,8 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood">Toddler years</a></li>
             <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood">Toddler years</a></li>
             <li><a href="/classes/preschool.html">Preschool years</a></li>
             <li><a href="/classes/family-systems.html">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>
@@ -386,8 +384,6 @@
 
   <script src="../assets/js/main.js" defer></script>
   <script src="../assets/js/decor.js" defer></script>
-  <script src="../assets/js/arcade-core.js" defer></script>
-  <script src="../assets/js/breakout-game.js" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

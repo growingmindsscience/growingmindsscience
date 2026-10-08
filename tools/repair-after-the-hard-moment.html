@@ -4,17 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>Repair after the hard moment - Growing Minds Science</title>
+  <title>Repair after the hard moment | Growing Minds Science</title>
   <meta name="description" content="A practical parent tool on repair after hard parenting moments - what helps the child, what helps the adult, and how to come back without giving up the boundary." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/tools/repair-after-the-hard-moment" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Repair after the hard moment — Growing Minds Science" />
+  <meta property="og:title" content="Repair after the hard moment | Growing Minds Science" />
   <meta property="og:description" content="A practical parent tool on repair after hard parenting moments: what helps the child, what helps the adult, and how to come back without giving up the boundary." />
   <meta property="og:image" content="https://growingmindsscience.com/assets/img/site/family-reading.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -48,14 +49,14 @@
     .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
     .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
 
-    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: 999px; background: var(--surface-2); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: var(--radius-sm); background: var(--surface-2); font-size: var(--text-xs); color: var(--ink-muted); margin-bottom: var(--space-3); }
     .section-intro { color: var(--ink-soft); max-width: 44rem; margin: 0 0 var(--space-6); }
     .small { font-size: var(--text-sm); color: var(--ink-muted); }
 
     .what-panel__blocks { display: grid; gap: var(--space-4); }
     .what-block { position: relative; padding-left: var(--space-5); }
     .what-block::before { content: ""; position: absolute; left: 2px; top: .58em; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
-    .what-block__label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .1em; color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
+    .what-block__label { font-size: var(--text-xs); color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
     .what-block__text { margin: 0; color: var(--ink-soft); line-height: 1.65; }
 
     .repair-steps { counter-reset: repair-step; display: grid; gap: var(--space-4); margin: 0; padding: 0; list-style: none; }
@@ -106,8 +107,8 @@
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -135,8 +136,8 @@
           </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">See the class</a></li>
+          <li class="nav__auth"><a class="nav__link" href="/nsc/app/classes">My classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -267,28 +268,28 @@
               <div class="script-line">Try: "I got too loud. That was my job to handle. I am sorry. I am here now."</div>
             </article>
 
-            <article class="scenario-output" data-output="unfair" data-ai-question="I was unfair or too harsh with my child. How do I apologize well?" hidden>
+            <article class="scenario-output" data-output="unfair" data-ai-question="I was unfair or too harsh with my child. How do I apologize well?">
               <span class="tag">When your response did not fit the moment</span>
               <h3>Name the miss without making the child manage you.</h3>
               <p>Children do not need a perfect parent. They do need a parent who can say, "I see that I got that wrong," without asking the child to reassure the adult.</p>
               <div class="script-line">Try: "I was too harsh. You did need help, and I reacted like you were trying to make things hard. I am sorry."</div>
             </article>
 
-            <article class="scenario-output" data-output="upset" data-ai-question="My child is still upset after a hard moment between us. What should I do?" hidden>
+            <article class="scenario-output" data-output="upset" data-ai-question="My child is still upset after a hard moment between us. What should I do?">
               <span class="tag">When the child is not ready to move on</span>
               <h3>Do not rush forgiveness.</h3>
               <p>Repair is an offer, not a demand. If the child pulls away, cries, or stays angry, you can stay warm and steady without forcing a hug, a smile, or an "it's okay."</p>
               <div class="script-line">Try: "You are still upset. I understand. I will stay close, and you can come to me when you are ready."</div>
             </article>
 
-            <article class="scenario-output" data-output="boundary" data-ai-question="How do I repair with my child when the boundary still needs to hold?" hidden>
+            <article class="scenario-output" data-output="boundary" data-ai-question="How do I repair with my child when the boundary still needs to hold?">
               <span class="tag">When the limit was right but the delivery was not</span>
               <h3>Separate the boundary from the rupture.</h3>
               <p>A useful repair keeps both truths in the room: the adult's reaction needs repair, and the unsafe or impossible behavior still cannot continue.</p>
               <div class="script-line">Try: "I am sorry I yelled. I will work on that. And I still cannot let you throw the truck."</div>
             </article>
 
-            <article class="scenario-output" data-output="guilt" data-ai-question="I feel stuck in guilt after a hard moment with my child. How do I move forward?" hidden>
+            <article class="scenario-output" data-output="guilt" data-ai-question="I feel stuck in guilt after a hard moment with my child. How do I move forward?">
               <span class="tag">When the adult is flooded with shame</span>
               <h3>Move from self-attack to responsibility.</h3>
               <p>Guilt can point you toward repair. Shame often traps you in collapse. A steadier adult question is: "What needs repair, and what support do I need so this pattern is less likely next time?"</p>
@@ -372,8 +373,7 @@
       <div class="container container--narrow">
       <div class="cta-strip">
           <div>
-            <p class="eyebrow">Toddler class · now available</p>
-            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Module 4 covers repair in depth, alongside big feelings and meltdowns.</h2>
+            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Module 4 of the toddler class covers repair in depth, alongside big feelings and meltdowns.</h2>
             <p class="small" style="max-width:38rem; margin:0;">What the research says about parent repair after hard moments, why it matters for trust and development, and how patterns over time matter more than any single difficult day. $49 for lifetime access.</p>
           </div>
           <div class="hero-actions">
@@ -388,8 +388,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
@@ -402,8 +402,8 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/preschool.html">Preschool years</a></li>
             <li><a href="/classes/family-systems.html">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>

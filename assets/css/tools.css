@@ -42,7 +42,7 @@
 .gms-action {
   display: inline-flex; align-items: center; gap: .4rem;
   font: inherit; font-size: var(--text-sm); line-height: 1;
-  padding: .5rem .85rem; border-radius: 999px; cursor: pointer;
+  padding: .5rem .85rem; border-radius: var(--radius); cursor: pointer;
   border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft);
   text-decoration: none;
   transition: background var(--transition), border-color var(--transition), color var(--transition);
@@ -69,14 +69,14 @@
 }
 .gms-profile__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); }
 .gms-profile__label {
-  font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .1em;
+  font-size: var(--text-xs);
   color: var(--primary); font-weight: 700;
 }
 .gms-profile__lede { color: var(--ink-soft); margin: var(--space-2) 0 var(--space-4); }
 .gms-profile__chips { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-3); }
 .gms-chip {
   font: inherit; font-size: var(--text-sm); cursor: pointer;
-  padding: .5rem .9rem; border-radius: 999px;
+  padding: .5rem .9rem; border-radius: var(--radius);
   border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft);
   transition: background var(--transition), border-color var(--transition), color var(--transition);
 }
@@ -113,7 +113,7 @@
 .gms-bands { display: flex; flex-wrap: wrap; gap: var(--space-2); }
 .gms-band {
   font: inherit; font-size: var(--text-sm); cursor: pointer;
-  padding: .45rem .8rem; border-radius: 999px;
+  padding: .45rem .8rem; border-radius: var(--radius);
   border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft);
   transition: background var(--transition), border-color var(--transition), color var(--transition);
 }
@@ -127,7 +127,7 @@
   display: inline-block; margin-bottom: var(--space-2);
   font-size: var(--text-xs); font-weight: 700; letter-spacing: .04em;
   color: var(--primary); background: var(--surface-2);
-  border-radius: 999px; padding: .2rem .6rem;
+  border-radius: var(--radius-sm); padding: .2rem .6rem;
 }
 .tool-card.is-foryou { border-color: color-mix(in srgb, var(--primary) 45%, var(--border-soft)); }
 
@@ -140,7 +140,7 @@
   background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm); padding: var(--space-5); display: flex; flex-direction: column; gap: .5rem;
 }
-.gms-shelf__tool { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--primary); font-weight: 700; margin: 0; }
+.gms-shelf__tool { font-size: var(--text-xs); color: var(--primary); font-weight: 700; margin: 0; }
 .gms-shelf__title { font-size: var(--text-md); margin: 0; }
 .gms-shelf__body {
   font-size: var(--text-sm); color: var(--ink-soft); margin: 0;
@@ -160,7 +160,7 @@
 .rn-bar a { color: var(--ink-soft); text-decoration: none; font-size: var(--text-sm); }
 .rn-bar a:hover { color: var(--ink); }
 .rn-main { max-width: var(--container-narrow); margin: 0 auto; padding: var(--space-6) var(--space-5) var(--space-20); }
-.rn-step__eyebrow { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .12em; color: var(--primary); font-weight: 700; margin: 0 0 var(--space-3); }
+.rn-step__eyebrow { font-size: var(--text-sm); color: var(--amber-deep); font-weight: 600; margin: 0 0 var(--space-3); }
 .rn-step__title { font-size: var(--text-xl); margin: 0 0 var(--space-6); line-height: 1.15; }
 .rn-choices { display: grid; gap: var(--space-3); }
 .rn-choice {
@@ -177,7 +177,7 @@
   background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md); padding: var(--space-8);
 }
-.rn-answer__state { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--primary); font-weight: 700; }
+.rn-answer__state { font-size: var(--text-xs); color: var(--primary); font-weight: 700; }
 .rn-answer__title { font-size: var(--text-lg); margin: var(--space-2) 0 var(--space-4); }
 .rn-answer__body { color: var(--ink-soft); }
 .rn-answer__try { margin-top: var(--space-4); padding: var(--space-4) var(--space-5); background: var(--surface-2); border-radius: var(--radius); color: var(--ink); }
@@ -301,6 +301,48 @@
 .guide-card__link:focus-visible { outline: none; }
 .guide-card__link:focus-visible::after { outline: 2px solid var(--primary); outline-offset: 2px; }
 .guide-card__cta { margin-top: auto; padding-top: var(--space-2); }
+
+/* Guides by topic read as ruled rows, like the toolkit list above
+   (DESIGN.md "Rows, not cards"): meta | title + summary | cta. These
+   override the shared .tool-grid / .tool-card card layout and its lift. */
+.topic-section .tool-grid { display: block; }
+.topic-section .tool-card.guide-card {
+  display: grid;
+  grid-template-columns: minmax(0, 11rem) minmax(0, 1fr) auto;
+  grid-template-areas:
+    "meta title cta"
+    "meta desc  cta";
+  gap: var(--space-2) clamp(var(--space-5), 3vw, var(--space-10));
+  align-items: baseline;
+  padding: var(--space-5) var(--space-3);
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--border-soft);
+  border-radius: 0;
+  box-shadow: none;
+  transform: none;
+  transition: background-color var(--transition);
+}
+.topic-section .tool-card.guide-card:hover {
+  background: color-mix(in oklab, var(--surface) 60%, transparent);
+  box-shadow: none;
+  transform: none;
+}
+.topic-section .guide-card .tool-card__eyebrow { grid-area: meta; }
+.topic-section .guide-card .tool-card__title { grid-area: title; }
+.topic-section .guide-card .tool-card__desc { grid-area: desc; max-width: 62ch; }
+.topic-section .guide-card .guide-card__cta { grid-area: cta; align-self: center; margin: 0; padding: 0; }
+.topic-section .guide-card__link::after { border-radius: var(--radius-sm); }
+@media (max-width: 760px) {
+  .topic-section .tool-card.guide-card {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "meta" "title" "desc" "cta";
+    gap: var(--space-2);
+    padding: var(--space-5) 0;
+  }
+  .topic-section .tool-card.guide-card:hover { background: none; }
+  .topic-section .guide-card .guide-card__cta { align-self: start; padding-top: var(--space-1); }
+}
 
 /* Closing class note */
 .tools-class__inner {

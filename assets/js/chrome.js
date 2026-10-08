@@ -120,23 +120,5 @@
       }
       if (nav) closeNav(true);
     });
-
-    // Log in -> Account once the shared session says so. Links marked
-    // data-auth-static (the private infant class) keep their own destination.
-    var authLink = header.querySelector("[data-auth-nav] a");
-    if (authLink && !authLink.hasAttribute("data-auth-static") && window.fetch) {
-      window.fetch("/nsc/api/entitlements/me", {
-        method: "GET",
-        credentials: "same-origin",
-        headers: { accept: "application/json" }
-      }).then(function (response) {
-        return response.ok ? response.json() : {};
-      }).then(function (session) {
-        if (session && session.authenticated) {
-          authLink.href = "/account";
-          authLink.textContent = "Account";
-        }
-      }).catch(function () {});
-    }
   });
 })();

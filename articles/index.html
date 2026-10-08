@@ -4,19 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>Articles — Growing Minds Science</title>
+  <title>Articles | Growing Minds Science</title>
   <meta name="description" content="Developmental science in plain language: new research explained, lessons from coaching parents, and practical reminders for the early years." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/articles/" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Articles — Growing Minds Science" />
+  <meta property="og:title" content="Articles | Growing Minds Science" />
   <meta property="og:description" content="Developmental science in plain language: new research explained, lessons from parent coaching, and practical reminders for the early years." />
-  <meta property="og:image" content="/assets/img/site/family-reading.jpg" />
+  <meta property="og:image" content="https://growingmindsscience.com/assets/img/site/family-reading.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,16 +25,15 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400..800&display=swap" />
   <link rel="stylesheet" href="../assets/css/styles.css" />
   <link rel="stylesheet" href="../assets/css/refresh.css" />
-  <link rel="stylesheet" href="../assets/css/arcade.css" />
   <link rel="stylesheet" href="/assets/css/chrome.css" />
 </head>
-<body>
+<body data-arcade-egg="invaders">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -61,8 +61,8 @@
           </li>
           <li><a class="nav__link" href="/articles/" aria-current="page">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood">See the class</a></li>
+          <li class="nav__auth"><a class="nav__link" href="/nsc/app/classes">My classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -78,7 +78,6 @@
     <section class="page-hero page-hero--visual">
       <div class="container">
         <div class="page-hero__copy" data-stagger>
-          <p class="eyebrow" data-animate>Articles</p>
           <h1 class="page-hero__title" data-animate>Developmental science, in plain language.</h1>
           <p class="page-hero__lede" data-animate>
             Short pieces for parents and professionals who want the research without
@@ -89,7 +88,7 @@
         <figure class="page-hero__visual" data-animate style="--anim-delay: 200ms">
           <img src="../assets/img/site/family-reading.jpg"
                alt="A parent and a young child reading a picture book together on the floor."
-               width="1400" height="935" loading="eager" fetchpriority="high" decoding="async" />
+               width="1000" height="563" loading="eager" fetchpriority="high" decoding="async" />
         </figure>
       </div>
     </section>
@@ -183,21 +182,21 @@
           </div>
           <ul class="philosophy-list" style="margin-top: 0;" data-stagger>
             <li data-animate>
-              <span class="num">·</span>
+              <span class="num" aria-hidden="true"></span>
               <div>
                 <strong>New research, explained simply</strong>
                 <span>Translations of recent developmental studies into plain language, with honesty about what's strong and what's still uncertain.</span>
               </div>
             </li>
             <li data-animate>
-              <span class="num">·</span>
+              <span class="num" aria-hidden="true"></span>
               <div>
                 <strong>Notes from coaching</strong>
                 <span>Patterns that come up over and over in parent coaching, written carefully so the lesson is portable to other families.</span>
               </div>
             </li>
             <li data-animate>
-              <span class="num">·</span>
+              <span class="num" aria-hidden="true"></span>
               <div>
                 <strong>Practical reminders</strong>
                 <span>Short pieces for the moments when you don't have time to read a paper but want a calmer way to think about something.</span>
@@ -219,7 +218,8 @@
           class="inline-signup"
           method="POST"
           action="/api/waitlist"
-          novalidate>
+          data-newsletter
+          data-success="You're in. We'll send new articles when they're ready.">
           <input type="hidden" name="subject" value="Articles Email Signup — Growing Minds Science" />
           <input type="hidden" name="interest" value="Articles" />
           <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
@@ -227,57 +227,29 @@
             type="email"
             name="email"
             required
+            autocomplete="email"
             placeholder="your@email.com"
             class="inline-signup__input"
-            aria-label="Email address" />
+            aria-label="Email address"
+            aria-describedby="articlesEmailError" />
           <button
             type="submit"
             class="btn btn--primary">Send me articles</button>
+          <p id="articlesEmailError" class="field-error" role="alert"></p>
           <p id="articlesFormStatus" role="status" aria-live="polite" class="inline-signup__status"></p>
         </form>
         <p class="inline-signup__disclaimer">Unsubscribe anytime. No spam.</p>
       </div>
     </section>
 
-    <script>
-      (function() {
-        var form = document.getElementById('articlesSignupForm');
-        var status = document.getElementById('articlesFormStatus');
-        form.addEventListener('submit', async function(e) {
-          e.preventDefault();
-          var btn = form.querySelector('button[type="submit"]');
-          btn.disabled = true;
-          btn.textContent = 'Sending…';
-          status.textContent = '';
-          try {
-            var res = await fetch('/api/waitlist', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(Object.fromEntries(new FormData(form)))
-            });
-            if (res.ok) {
-              status.textContent = "You're in. We'll send new articles when they're ready.";
-              status.style.color = 'var(--primary)';
-              form.reset();
-            } else { throw new Error(); }
-          } catch {
-            status.textContent = 'Something went wrong. Please try again.';
-            status.style.color = '#c0392b';
-          } finally {
-            btn.disabled = false;
-            btn.textContent = 'Send me articles';
-          }
-        });
-      })();
-    </script>
 
   </main>
 
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
@@ -290,8 +262,8 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood">Toddler years</a></li>
             <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood">Toddler years</a></li>
             <li><a href="/classes/preschool.html">Preschool years</a></li>
             <li><a href="/classes/family-systems.html">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>
@@ -331,8 +303,6 @@
   <script src="../assets/js/main.js" defer></script>
   <script src="../assets/js/decor.js" defer></script>
   <script src="../assets/js/animate.js" defer></script>
-  <script src="../assets/js/arcade-core.js" defer></script>
-  <script src="../assets/js/invaders-game.js" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

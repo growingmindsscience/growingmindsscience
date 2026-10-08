@@ -4,17 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>Regulating yourself first — Growing Minds Science</title>
+  <title>Regulating yourself first | Growing Minds Science</title>
   <meta name="description" content="Tools for the adult side of the room: noticing your own activation, what helps in the moment, and why regulating yourself isn't selfish." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/tools/regulating-yourself-first" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Regulating yourself first — Growing Minds Science" />
+  <meta property="og:title" content="Regulating yourself first | Growing Minds Science" />
   <meta property="og:description" content="The adult side of the room: how to notice your own activation earlier and have a few real options before you react." />
   <meta property="og:image" content="https://growingmindsscience.com/assets/img/site/family-reading.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -49,14 +50,14 @@
     .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
     .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
 
-    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: 999px; background: var(--surface-2); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: var(--radius-sm); background: var(--surface-2); font-size: var(--text-xs); color: var(--ink-muted); margin-bottom: var(--space-3); }
     .section-intro { color: var(--ink-soft); max-width: 44rem; margin: 0 0 var(--space-6); }
     .small { font-size: var(--text-sm); color: var(--ink-muted); }
 
     .what-panel__blocks { display: grid; gap: var(--space-4); }
     .what-block { position: relative; padding-left: var(--space-5); }
     .what-block::before { content: ""; position: absolute; left: 2px; top: .58em; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
-    .what-block__label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .1em; color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
+    .what-block__label { font-size: var(--text-xs); color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
     .what-block__text { margin: 0; color: var(--ink-soft); line-height: 1.65; }
 
     .response-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); }
@@ -98,8 +99,8 @@
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -127,8 +128,8 @@
           </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">See the class</a></li>
+          <li class="nav__auth"><a class="nav__link" href="/nsc/app/classes">My classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -220,35 +221,35 @@
               <p class="small">Try: "I need a second." Then one long exhale before you say anything else.</p>
             </article>
 
-            <article class="decoder-output" data-output="body" data-ai-question="My jaw gets tight and heat rises when my child pushes back. How do I calm my body down?" hidden>
+            <article class="decoder-output" data-output="body" data-ai-question="My jaw gets tight and heat rises when my child pushes back. How do I calm my body down?">
               <span class="tag">You caught it early</span>
               <h3>Good. That noticing is the skill.</h3>
               <p>If you can feel the jaw and the heat, you are ahead of where most people are, which is already mid-yell. Unclench your jaw, let your shoulders drop, and make your out-breath longer than your in-breath. A slower exhale is one of the few quick ways to nudge your own body off the gas.</p>
               <p class="small">Try: a slow breath out, shoulders down, hands unclenched, before you respond.</p>
             </article>
 
-            <article class="decoder-output" data-output="disrespected" data-ai-question="I feel disrespected when my child defies me. How do I stay steady?" hidden>
+            <article class="decoder-output" data-output="disrespected" data-ai-question="I feel disrespected when my child defies me. How do I stay steady?">
               <span class="tag">An old thread, not the child</span>
               <h3>This one is usually about you, and that's okay.</h3>
               <p>Feeling defied or disrespected can hit hard, because it touches your own history and your sense of authority. But a young child saying no is doing their developmental job, not staging a coup. Naming it to yourself takes some of the charge out: this is my trigger, not their crime.</p>
               <p class="small">Try internally: "They're not trying to disrespect me. I can hold the limit without the heat."</p>
             </article>
 
-            <article class="decoder-output" data-output="rushed" data-ai-question="I lose my patience when we're rushed and out of time. What helps in that moment?" hidden>
+            <article class="decoder-output" data-output="rushed" data-ai-question="I lose my patience when we're rushed and out of time. What helps in that moment?">
               <span class="tag">The clock is the trigger</span>
               <h3>Lower the demand before you raise your voice.</h3>
               <p>The 7:45am shoe standoff is rarely about the shoes. It's the deadline pressing on you. You can't add minutes, but you can cut the task: do it for them, drop a step, carry the shoes to the car. Getting there a little late and a little connected usually beats getting there on time and blown up.</p>
               <p class="small">Try: "I'm going to help your body get to the car. We'll finish the shoes there."</p>
             </article>
 
-            <article class="decoder-output" data-output="nosleep" data-ai-question="I'm running on no sleep and my patience is thin. How do I get through today with my child?" hidden>
+            <article class="decoder-output" data-output="nosleep" data-ai-question="I'm running on no sleep and my patience is thin. How do I get through today with my child?">
               <span class="tag">Running on empty</span>
               <h3>Lower the bar for today, on purpose.</h3>
               <p>On no sleep, your reserves are gone before the day starts. This is not the day to teach the big lesson or win the standoff. Aim for safe and connected, keep the demands small, and let some things slide that you'd normally hold. Doing less today isn't giving up. It's parenting from the floor you actually have.</p>
               <p class="small">Try: pick the one limit that truly matters right now, and let the rest be easy.</p>
             </article>
 
-            <article class="decoder-output" data-output="lostit" data-ai-question="I already lost my temper with my child. How do I repair it?" hidden>
+            <article class="decoder-output" data-output="lostit" data-ai-question="I already lost my temper with my child. How do I repair it?">
               <span class="tag">It already happened</span>
               <h3>Now the move is repair, not shame.</h3>
               <p>You yelled, or you got too harsh, and now you feel awful. That feeling means you care; it doesn't mean you broke anything that can't be mended. Once your own body settles, come back, name your part briefly, and reconnect. Repair is what protects the relationship, and your child learns from watching you do it.</p>
@@ -370,8 +371,7 @@
       <div class="container container--narrow">
         <div class="cta-strip">
           <div>
-            <p class="eyebrow">Toddler class · now available</p>
-            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Module 4 covers co-regulation and the adult's role in full.</h2>
+            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Module 4 of the toddler class covers co-regulation and the adult's role in full.</h2>
             <p class="small" style="max-width:38rem; margin:0;">Why your state lands on your child, how to notice your own activation earlier, and what to do with it in the hard moment. $49 for lifetime access.</p>
           </div>
           <div class="hero-actions">
@@ -386,8 +386,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
@@ -400,8 +400,8 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/preschool.html">Preschool years</a></li>
             <li><a href="/classes/family-systems.html">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>

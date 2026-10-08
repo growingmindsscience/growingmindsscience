@@ -4,17 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>Tools for Parents — Growing Minds Science</title>
+  <title>Tools for Parents | Growing Minds Science</title>
   <meta name="description" content="A small but growing library of practical developmental tools for parents: milestone tracker, behavior guides, sleep references, and regulation tools." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/tools/" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Tools for Parents — Growing Minds Science" />
+  <meta property="og:title" content="Tools for Parents | Growing Minds Science" />
   <meta property="og:description" content="A free, growing library of practical developmental tools for parents: milestone tracker, behavior guides, sleep references, and more." />
   <meta property="og:image" content="https://growingmindsscience.com/assets/img/site/baby-crawling.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -25,16 +26,15 @@
   <link rel="stylesheet" href="../assets/css/styles.css" />
   <link rel="stylesheet" href="../assets/css/refresh.css" />
   <link rel="stylesheet" href="../assets/css/tools.css" />
-  <link rel="stylesheet" href="../assets/css/pong.css" />
   <link rel="stylesheet" href="/assets/css/chrome.css" />
 </head>
-<body>
+<body data-arcade-egg="pong">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -62,8 +62,8 @@
           </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">See the class</a></li>
+          <li class="nav__auth"><a class="nav__link" href="/nsc/app/classes">My classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -203,7 +203,7 @@
               <span class="guide-card__cta" aria-hidden="true">Read the guide <span>&rarr;</span></span>
             </article>
             <article class="tool-card guide-card" data-animate data-age-min="12" data-age-max="60">
-              <span class="tool-card__eyebrow">Toddler &amp; Preschool</span>
+              <span class="tool-card__eyebrow">Toddler &amp; preschool</span>
               <h4 class="tool-card__title"><a class="guide-card__link" href="/tools/limits-without-escalation">Limits without escalation</a></h4>
               <p class="tool-card__desc">Holding a &ldquo;no&rdquo; calmly when a child is testing autonomy, without scripts and without losing your own footing.</p>
               <span class="guide-card__cta" aria-hidden="true">Read the guide <span>&rarr;</span></span>
@@ -245,7 +245,7 @@
               <span class="guide-card__cta" aria-hidden="true">Read the guide <span>&rarr;</span></span>
             </article>
             <article class="tool-card guide-card" data-animate data-age-min="12" data-age-max="60">
-              <span class="tool-card__eyebrow">Toddler &amp; Preschool</span>
+              <span class="tool-card__eyebrow">Toddler &amp; preschool</span>
               <h4 class="tool-card__title"><a class="guide-card__link" href="/tools/screens-language-attention">Screens, language, and attention</a></h4>
               <p class="tool-card__desc">What the research suggests about how different kinds of screen use interact with language and attention in the early years.</p>
               <span class="guide-card__cta" aria-hidden="true">Read the guide <span>&rarr;</span></span>
@@ -314,8 +314,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
@@ -328,8 +328,8 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/preschool.html">Preschool years</a></li>
             <li><a href="/classes/family-systems.html">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>
@@ -366,11 +366,9 @@
 
   <script src="/assets/js/chrome.js"></script>
 
-  <!-- ===== Easter egg: floating orb → Pong ===== -->
-
-  <button id="pong-orb" type="button" aria-label="Hidden game — start Pong" title="Play?">
-    <span class="pong-orb__dot" aria-hidden="true"></span>
-  </button>
+  <!-- ===== Easter egg: floating orb → Pong =====
+       decor.js (body[data-arcade-egg="pong"]) loads pong.css and places the
+       orb once the page is idle; the game code loads on the first click. -->
 
   <div id="pong-game" hidden role="dialog" aria-label="Pong game" aria-modal="true">
     <div class="pong-hud">
@@ -390,14 +388,12 @@
     </div>
     <div class="pong-foot">
       <div class="pong-foot__left">
-        <button id="pong-mute" type="button" aria-pressed="false">♪ Music: on</button>
+        <button id="pong-mute" type="button" aria-pressed="true">♪ Music</button>
         <span class="pong-hint">You control the right paddle · mouse, touch, or ↑ ↓ / W S · first to 7 wins</span>
       </div>
       <button id="pong-exit" type="button">← Back to tools</button>
     </div>
   </div>
-
-  <script src="../assets/js/pong-game.js" defer></script>
 
   <script src="../assets/js/main.js" defer></script>
   <script src="../assets/js/gms-tools.js" defer></script>

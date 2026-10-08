@@ -629,7 +629,7 @@
         '<div class="gms-arcade-panel__head">' +
           '<p class="gms-arcade-title">Synapse Snake <span>— you found it!</span></p>' +
           '<div style="display:flex;gap:8px;align-items:center">' +
-            '<button type="button" class="gms-arcade-close" data-egg-mute aria-label="Toggle sound">♪</button>' +
+            '<button type="button" class="gms-arcade-close" data-egg-mute aria-label="Sound">♪</button>' +
             '<button type="button" class="gms-arcade-close" data-egg-close aria-label="Close game">&times;</button>' +
           '</div>' +
         '</div>' +
@@ -639,7 +639,7 @@
           '<span>BEST <strong data-egg-best>00000</strong></span>' +
         '</div>' +
         '<div class="gms-arcade-stage gms-arcade-stage--snake">' +
-          '<canvas class="gms-arcade-canvas" tabindex="0"></canvas>' +
+          '<canvas class="gms-arcade-canvas" tabindex="0" role="application" aria-label="Synapse Snake play area. Arrow keys or W A S D steer, Space starts, M mutes."></canvas>' +
           '<div class="gms-arcade-prompt" data-egg-prompt hidden>' +
             '<p class="gms-arcade-prompt__title" data-egg-prompt-title></p>' +
             '<p class="gms-arcade-prompt__text" data-egg-prompt-text></p>' +
@@ -683,7 +683,7 @@
     });
 
     var muteBtn = overlay.querySelector("[data-egg-mute]");
-    function syncMute() { muteBtn.textContent = game.isMuted() ? "♪̶" : "♪"; muteBtn.setAttribute("aria-pressed", game.isMuted() ? "true" : "false"); }
+    function syncMute() { muteBtn.textContent = game.isMuted() ? "♪̶" : "♪"; muteBtn.setAttribute("aria-pressed", game.isMuted() ? "false" : "true"); }
     muteBtn.addEventListener("click", function () { game.toggleMute(); syncMute(); });
     syncMute();
 
@@ -743,7 +743,7 @@
 
     function onKeydown(e) {
       // While typing initials, leave all keys (incl. Escape/Enter) to the form
-      // so a stray Escape never reloads the page and drops the high score.
+      // so a stray Escape never closes the game and drops the high score.
       if (e.target && e.target.tagName === "INPUT") return;
       if (e.key === "Escape") { closeOverlay(overlay); return; }
       if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") { e.preventDefault(); game.queueDir(-1, 0); }
@@ -761,27 +761,14 @@
     return overlay;
   }
 
-  function closeOverlay(overlay) {
-    // Best-effort: the reload tears everything down anyway.
-    if (overlay._unViewport) { overlay._unViewport(); overlay._unViewport = null; }
-    overlay.game.deactivate();
-    window.location.reload();
-  }
-  function openOverlay(overlay) {
-    overlay.classList.add("is-open");
-    document.body.classList.add("gms-arcade-lock");
-    overlay._fitCanvas();
-    document.addEventListener("keydown", overlay._onKeydown);
-    // resize alone misses iOS URL-bar collapse and rotation.
-    overlay._unViewport = A.onViewportChange(overlay._fitCanvas);
-    overlay.game.activate();
-    window.requestAnimationFrame(function () { overlay._canvas.focus(); });
-  }
+  // Close in place: GMSArcade runs the teardown (loop, wake lock, audio,
+  // listeners), puts the page back and returns focus to the opener.
+  function closeOverlay() { A.closeGame(); }
 
   // Pixel-spark trigger, tucked into the hero photo arch on the home page.
-  // Only used if this file is loaded without a [data-arcade-game="snake"]
-  // hook (the home page lazy-loads it through decor.js, the arcade page has a
-  // card button). It is an easter egg: mouse/touch only, out of the tab order
+  // Only used if this file is loaded on a page with no other way in (the
+  // home page lazy-loads it through decor.js, the arcade page has a card
+  // button). It is an easter egg: mouse/touch only, out of the tab order
   // and hidden from assistive tech (the /arcade page is the accessible way in).
   function buildTrigger() {
     var btn = document.createElement("button");
@@ -804,29 +791,20 @@
   }
 
   ready(function () {
-    var arcadeTrigger = document.querySelector('[data-arcade-game="snake"]');
-    var trigger = arcadeTrigger;
-    if (!trigger) {
-      var anchor = document.querySelector(".hero__media") ||
-        document.querySelector(".hero .container") ||
-        document.querySelector("main .container");
-      if (!anchor) return;
-      var cs = window.getComputedStyle(anchor);
-      if (cs.position === "static") anchor.style.position = "relative";
+    A.defineGame("snake", buildOverlay);
+    if (A.hasLauncher("snake")) return;
 
-      trigger = buildTrigger();
-      anchor.appendChild(trigger);
-    }
+    var anchor = document.querySelector(".hero__media") ||
+      document.querySelector(".hero .container") ||
+      document.querySelector("main .container");
+    if (!anchor) return;
+    var cs = window.getComputedStyle(anchor);
+    if (cs.position === "static") anchor.style.position = "relative";
 
-    var overlay = null, opening = false;
-    function open() {
-      if (opening) return;
-      opening = true;
-      if (!overlay) overlay = buildOverlay();
-      A.tearPageAway(function () { openOverlay(overlay); });
-    }
+    var trigger = buildTrigger();
+    anchor.appendChild(trigger);
     // Click only: a touchstart handler here opened the game whenever a scroll
     // gesture happened to start on the trigger.
-    trigger.addEventListener("click", function (e) { e.preventDefault(); open(); });
+    trigger.addEventListener("click", function (e) { e.preventDefault(); A.play("snake", trigger); });
   });
 })();

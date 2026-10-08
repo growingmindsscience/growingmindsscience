@@ -4,17 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>Arcade — Growing Minds Science</title>
+  <title>Arcade | Growing Minds Science</title>
   <meta name="description" content="Play all ten Growing Minds Science arcade games in one place: Snake, Pong, Brain Sprint, Invaders, Breakout, Synapse Drift, Special Delivery, Tidy Up, Serve &amp; Return, and Crumb Chase." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/arcade/" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Arcade — Growing Minds Science" />
+  <meta property="og:title" content="Arcade | Growing Minds Science" />
   <meta property="og:description" content="Ten little games, all in one place. Pick one and play." />
-  <meta property="og:image" content="/assets/img/original-logo-mark-no-words-512.png" />
+  <meta property="og:image" content="https://growingmindsscience.com/assets/img/og/site-home.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,7 +23,6 @@
   <link rel="stylesheet" href="../assets/css/styles.css" />
   <link rel="stylesheet" href="../assets/css/refresh.css" />
   <link rel="stylesheet" href="../assets/css/arcade.css" />
-  <link rel="stylesheet" href="../assets/css/pong.css" />
   <link rel="stylesheet" href="../assets/css/arcade-page.css" />
   <link rel="stylesheet" href="/assets/css/chrome.css" />
 </head>
@@ -30,8 +30,8 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -59,8 +59,8 @@
           </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood">See the class</a></li>
+          <li class="nav__auth"><a class="nav__link" href="/nsc/app/classes">My classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -139,8 +139,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
@@ -153,8 +153,8 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood">Toddler years</a></li>
             <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood">Toddler years</a></li>
             <li><a href="/classes/preschool.html">Preschool years</a></li>
             <li><a href="/classes/family-systems.html">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>
@@ -194,21 +194,13 @@
   <div id="pong-game" hidden role="dialog" aria-label="Pong game" aria-modal="true">
     <div class="pong-hud"><span><b id="pong-score-cpu">0</b> CPU</span><span class="pong-brand">PONG</span><span>YOU <b id="pong-score-you">0</b></span></div>
     <div class="pong-stage"><canvas id="pong-canvas"></canvas><div class="pong-msg" id="pong-msg" hidden><div><h2 id="pong-msg-title">Ready?</h2><p id="pong-msg-text">Move your mouse or use ↑ ↓ to play.</p><button class="btn btn--primary" id="pong-msg-btn" type="button">Start</button></div></div></div>
-    <div class="pong-foot"><div class="pong-foot__left"><button id="pong-mute" type="button" aria-pressed="false">♪ Music: on</button><span class="pong-hint">You control the right paddle · mouse, touch, or ↑ ↓ / W S · first to 7 wins</span></div><button id="pong-exit" type="button">← Back to arcade</button></div>
+    <div class="pong-foot"><div class="pong-foot__left"><button id="pong-mute" type="button" aria-pressed="true">♪ Music</button><span class="pong-hint">You control the right paddle · mouse, touch, or ↑ ↓ / W S · first to 7 wins</span></div><button id="pong-exit" type="button">← Back to arcade</button></div>
   </div>
 
   <script src="../assets/js/main.js" defer></script>
+  <!-- arcade-core.js binds the Play buttons and loads each game (and
+       pong.css for Pong) only when its button is pressed. -->
   <script src="../assets/js/arcade-core.js" defer></script>
-  <script src="../assets/js/snake-game.js" defer></script>
-  <script src="../assets/js/pong-game.js" defer></script>
-  <script src="../assets/js/dino-game.js" defer></script>
-  <script src="../assets/js/invaders-game.js" defer></script>
-  <script src="../assets/js/breakout-game.js" defer></script>
-  <script src="../assets/js/asteroids-game.js" defer></script>
-  <script src="../assets/js/hopper-game.js" defer></script>
-  <script src="../assets/js/blocks-game.js" defer></script>
-  <script src="../assets/js/echo-game.js" defer></script>
-  <script src="../assets/js/maze-game.js" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

@@ -4,17 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>What's underneath the meltdown — Growing Minds Science</title>
+  <title>What's underneath the meltdown | Growing Minds Science</title>
   <meta name="description" content="A practical parent reference that translates toddler tantrums from bad behavior into nervous-system events, with research-aligned responses for the hard moment." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/tools/whats-underneath-the-meltdown" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="What's underneath the meltdown — Growing Minds Science" />
+  <meta property="og:title" content="What's underneath the meltdown | Growing Minds Science" />
   <meta property="og:description" content="A practical parent reference that translates toddler tantrums from bad behavior into nervous-system events, with research-aligned responses for the hard moment." />
   <meta property="og:image" content="https://growingmindsscience.com/assets/img/site/family-reading.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -49,14 +50,14 @@
     .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
     .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
 
-    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: 999px; background: var(--surface-2); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: var(--radius-sm); background: var(--surface-2); font-size: var(--text-xs); color: var(--ink-muted); margin-bottom: var(--space-3); }
     .section-intro { color: var(--ink-soft); max-width: 44rem; margin: 0 0 var(--space-6); }
     .small { font-size: var(--text-sm); color: var(--ink-muted); }
 
     .what-panel__blocks { display: grid; gap: var(--space-4); }
     .what-block { position: relative; padding-left: var(--space-5); }
     .what-block::before { content: ""; position: absolute; left: 2px; top: .58em; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
-    .what-block__label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .1em; color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
+    .what-block__label { font-size: var(--text-xs); color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
     .what-block__text { margin: 0; color: var(--ink-soft); line-height: 1.65; }
 
     .response-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }
@@ -92,8 +93,8 @@
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -121,8 +122,8 @@
           </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">See the class</a></li>
+          <li class="nav__auth"><a class="nav__link" href="/nsc/app/classes">My classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -137,7 +138,7 @@
     <section class="tool-hero">
       <div class="container hero-grid">
         <div>
-          <p class="eyebrow">Toddler · 1-3 · Behavior guide</p>
+          <p class="eyebrow">Toddler · 1–3 · Behavior guide</p>
           <h1 class="page-hero__title">What's underneath the meltdown</h1>
           <p class="tool-lede">A short reference that translates a tantrum from "bad behavior" into a nervous-system event, then helps you choose a response that fits the child's state.</p>
           <div class="hero-actions">
@@ -213,28 +214,28 @@
               <p class="small">Try: "I'm here. You're safe. We can wait."</p>
             </article>
 
-            <article class="decoder-output" data-output="limit" data-ai-question="My child melts down after I say no. How do I hold the limit and stay calm?" hidden>
+            <article class="decoder-output" data-output="limit" data-ai-question="My child melts down after I say no. How do I hold the limit and stay calm?">
               <span class="tag">Likely state: frustration plus boundary</span>
               <h3>Hold the limit and make room for protest.</h3>
               <p>A meltdown after a limit does not always mean the limit was wrong. Keep the boundary simple, acknowledge the feeling, and avoid adding new arguments while the feeling is peaking.</p>
               <p class="small">Try: "You really wanted that. I won't let you hit."</p>
             </article>
 
-            <article class="decoder-output" data-output="tired" data-ai-question="My child's meltdowns happen most when they're tired, hungry, or rushed. What helps?" hidden>
+            <article class="decoder-output" data-output="tired" data-ai-question="My child's meltdowns happen most when they're tired, hungry, or rushed. What helps?">
               <span class="tag">Likely state: depleted capacity</span>
               <h3>Simplify the task and lower the demand.</h3>
               <p>Fatigue and hunger shrink the child's ability to cope. This is a setup problem as much as a behavior problem. Use fewer steps, more help, and less teaching until the child is fed, rested, or through the transition.</p>
               <p class="small">Try: "This is hard right now. I'm going to help your body get to the car."</p>
             </article>
 
-            <article class="decoder-output" data-output="sensory" data-ai-question="Noise, clothing, crowds, or transitions set off my child's meltdowns. How can I help?" hidden>
+            <article class="decoder-output" data-output="sensory" data-ai-question="Noise, clothing, crowds, or transitions set off my child's meltdowns. How can I help?">
               <span class="tag">Likely state: sensory overload</span>
               <h3>Change the environment before you correct the behavior.</h3>
               <p>If the trigger is sound, texture, crowding, light, or rapid transitions, the child may need less input before they can cooperate. Move to a quieter place, loosen the demand, or give predictable sensory support.</p>
               <p class="small">Try: "Too much noise. Let's step over here."</p>
             </article>
 
-            <article class="decoder-output" data-output="unsafe" data-ai-question="My child hits, throws, bites, or runs during meltdowns. How do I keep everyone safe without adding intensity?" hidden>
+            <article class="decoder-output" data-output="unsafe" data-ai-question="My child hits, throws, bites, or runs during meltdowns. How do I keep everyone safe without adding intensity?">
               <span class="tag">Likely state: dysregulated and unsafe</span>
               <h3>Block harm with as little extra intensity as possible.</h3>
               <p>Safety comes first. Move objects, block hits, pick up only when necessary, and use very short language. The adult body becomes the boundary while the child's brain is not able to use words well.</p>
@@ -321,9 +322,9 @@
       <div class="pocket-card" aria-hidden="true">
         <h2>Meltdown: the 3-step sequence</h2>
         <ul class="pocket-seq">
-          <li>1. Make it safe — block harm, move breakable things, lower the audience.</li>
-          <li>2. Regulate first — lower your voice, slow your body, fewer words, stay close.</li>
-          <li>3. Teach after recovery — briefly name what happened and one next step.</li>
+          <li>1. Make it safe: block harm, move breakable things, lower the audience.</li>
+          <li>2. Regulate first: lower your voice, slow your body, fewer words, stay close.</li>
+          <li>3. Teach after recovery: briefly name what happened and one next step.</li>
         </ul>
         <div class="pocket-try">Try saying: “I'm here. You're safe. We can wait.”</div>
         <p class="pocket-foot">Growing Minds Science · growingmindsscience.com</p>
@@ -343,8 +344,7 @@
       <div class="container container--narrow">
         <div class="cta-strip">
           <div>
-            <p class="eyebrow">Toddler class · now available</p>
-            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Module 4 covers big feelings, meltdowns, and repair in full.</h2>
+            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Module 4 of the toddler class covers big feelings, meltdowns, and repair in full.</h2>
             <p class="small" style="max-width:38rem; margin:0;">What is actually happening in a toddler's nervous system during a meltdown, why co-regulation comes first, and what that looks like in practice. $49 for lifetime access.</p>
           </div>
           <div class="hero-actions">
@@ -359,8 +359,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
@@ -373,8 +373,8 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/preschool.html">Preschool years</a></li>
             <li><a href="/classes/family-systems.html">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>

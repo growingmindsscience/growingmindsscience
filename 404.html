@@ -4,14 +4,15 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>Page not found — Growing Minds Science</title>
+  <title>Page not found | Growing Minds Science</title>
   <meta name="description" content="The page you were looking for doesn't exist. Find classes, free parent tools, articles, and the milestone tracker at Growing Minds Science." />
   <meta name="robots" content="noindex, follow" />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="/assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="/assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="/assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="/assets/img/original-logo-mark-no-words-180.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,8 +26,8 @@
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -54,8 +55,8 @@
           </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood">See the class</a></li>
+          <li class="nav__auth"><a class="nav__link" href="/nsc/app/classes">My classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -69,7 +70,7 @@
   <main id="main">
     <section class="page-hero">
       <div class="container">
-        <p class="eyebrow">404 — Page not found</p>
+        <p class="eyebrow">Error 404: page not found</p>
         <h1 class="page-hero__title">This page doesn't exist.</h1>
         <p class="page-hero__lede">
           The link may have moved or been mistyped. Here are a few places to find what you're looking for.
@@ -83,16 +84,15 @@
 
     <section class="section--alt">
       <div class="container container--narrow">
-        <p class="section-head__eyebrow">Try one of these</p>
         <h2>Places worth visiting.</h2>
         <ul class="check-list">
-          <li><a href="/classes/">Classes</a> — self-paced developmental science courses for parents.</li>
-          <li><a href="/articles/">Articles</a> — research explained without buzzwords or parenting shame.</li>
-          <li><a href="/tools/">Free tools</a> — milestone tracker, meltdown guide, limits, repair, and more.</li>
-          <li><a href="/tools/growing-minds-ai">Growing Minds AI</a> — ask a parenting question, grounded in a curated science library.</li>
-          <li><a href="/milestones">Milestone tracker</a> — what&rsquo;s typical at each age, birth to three.</li>
-          <li><a href="/faq/">FAQ</a> — common questions about Growing Minds Science.</li>
-          <li><a href="/contact/">Contact</a> — reach Matthew directly.</li>
+          <li><a href="/classes/">Classes</a>: self-paced developmental science courses for parents.</li>
+          <li><a href="/articles/">Articles</a>: research explained without buzzwords or parenting shame.</li>
+          <li><a href="/tools/">Free tools</a>: milestone tracker, meltdown guide, limits, repair, and more.</li>
+          <li><a href="/tools/growing-minds-ai">Growing Minds AI</a>: ask a parenting question, grounded in a curated science library.</li>
+          <li><a href="/milestones">Milestone tracker</a>: what&rsquo;s typical at each age, birth to three.</li>
+          <li><a href="/faq/">FAQ</a>: common questions about Growing Minds Science.</li>
+          <li><a href="/contact/">Contact</a>: reach Matthew directly.</li>
         </ul>
       </div>
     </section>
@@ -101,8 +101,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
@@ -115,8 +115,8 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood">Toddler years</a></li>
             <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood">Toddler years</a></li>
             <li><a href="/classes/preschool.html">Preschool years</a></li>
             <li><a href="/classes/family-systems.html">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>

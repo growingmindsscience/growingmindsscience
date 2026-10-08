@@ -820,7 +820,7 @@
         '<div class="gms-arcade-panel__head">' +
           '<p class="gms-arcade-title">Synapse Drift <span>- you found it!</span></p>' +
           '<div style="display:flex;gap:8px;align-items:center">' +
-            '<button type="button" class="gms-arcade-close" data-egg-mute aria-label="Toggle sound">♪</button>' +
+            '<button type="button" class="gms-arcade-close" data-egg-mute aria-label="Sound">♪</button>' +
             '<button type="button" class="gms-arcade-close" data-egg-close aria-label="Close game">&times;</button>' +
           '</div>' +
         '</div>' +
@@ -831,7 +831,7 @@
           '<span>BEST <strong data-egg-best>000000</strong></span>' +
         '</div>' +
         '<div class="gms-arcade-stage gms-arcade-stage--asteroids">' +
-          '<canvas class="gms-arcade-canvas" tabindex="0"></canvas>' +
+          '<canvas class="gms-arcade-canvas" tabindex="0" role="application" aria-label="Synapse Drift play area. Left and right arrows turn, Up thrusts, Space fires, Shift blinks, M mutes."></canvas>' +
           '<div class="gms-arcade-prompt" data-egg-prompt hidden>' +
             '<p class="gms-arcade-prompt__title" data-egg-prompt-title></p>' +
             '<p class="gms-arcade-prompt__text" data-egg-prompt-text></p>' +
@@ -879,7 +879,7 @@
     var muteBtn = overlay.querySelector("[data-egg-mute]");
     function syncMute() {
       muteBtn.textContent = game.isMuted() ? "x" : "♪";
-      muteBtn.setAttribute("aria-pressed", game.isMuted() ? "true" : "false");
+      muteBtn.setAttribute("aria-pressed", game.isMuted() ? "false" : "true");
     }
     muteBtn.addEventListener("click", function () { game.toggleMute(); syncMute(); });
     syncMute();
@@ -989,28 +989,19 @@
     return overlay;
   }
 
-  function closeOverlay(overlay) {
-    if (overlay._unViewport) { overlay._unViewport(); overlay._unViewport = null; }
-    overlay.game.deactivate();
-    window.location.reload();
-  }
-  function openOverlay(overlay) {
-    overlay.classList.add("is-open");
-    document.body.classList.add("gms-arcade-lock");
-    overlay._fitCanvas();
-    document.addEventListener("keydown", overlay._onKeydown);
-    document.addEventListener("keyup", overlay._onKeyup);
-    // resize alone misses iOS URL-bar collapse and orientation quirks.
-    overlay._unViewport = A.onViewportChange(overlay._fitCanvas);
-    overlay.game.activate();
-    window.requestAnimationFrame(function () { overlay._canvas.focus(); });
-  }
+  // Close in place: GMSArcade runs the teardown (loop, wake lock, audio,
+  // listeners), puts the page back and returns focus to the opener.
+  function closeOverlay() { A.closeGame(); }
 
+  // Easter-egg trigger, used only when this file is loaded on a page with no
+  // other way in. Mouse/touch only: out of the tab order and hidden from
+  // assistive tech, like the Snake glyph (/arcade is the accessible way in).
   function buildTrigger() {
     var btn = document.createElement("button");
     btn.type = "button";
     btn.className = "gms-arcade-asteroid-trigger";
-    btn.setAttribute("aria-label", "Hidden game");
+    btn.tabIndex = -1;
+    btn.setAttribute("aria-hidden", "true");
     btn.title = ".";
     btn.innerHTML =
       '<svg viewBox="0 0 34 34" aria-hidden="true" shape-rendering="crispEdges">' +
@@ -1027,28 +1018,19 @@
   }
 
   ready(function () {
-    var arcadeTrigger = document.querySelector('[data-arcade-game="asteroids"]');
-    var trigger = arcadeTrigger;
-    if (!trigger) {
-      var anchor = document.querySelector(".about-preview__media--portrait") ||
-        document.querySelector(".about-preview__media") ||
-        document.querySelector(".page-hero .container");
-      if (!anchor) return;
-      var cs = window.getComputedStyle(anchor);
-      if (cs.position === "static") anchor.style.position = "relative";
+    A.defineGame("asteroids", buildOverlay);
+    if (A.hasLauncher("asteroids")) return;
 
-      trigger = buildTrigger();
-      anchor.appendChild(trigger);
-    }
+    var anchor = document.querySelector(".about-preview__media--portrait") ||
+      document.querySelector(".about-preview__media") ||
+      document.querySelector(".page-hero .container");
+    if (!anchor) return;
+    var cs = window.getComputedStyle(anchor);
+    if (cs.position === "static") anchor.style.position = "relative";
 
-    var overlay = null, opening = false;
-    function open() {
-      if (opening) return;
-      opening = true;
-      if (!overlay) overlay = buildOverlay();
-      A.tearPageAway(function () { openOverlay(overlay); });
-    }
-    trigger.addEventListener("click", function (e) { e.preventDefault(); open(); });
-    trigger.addEventListener("touchstart", function (e) { e.preventDefault(); open(); }, { passive: false });
+    var trigger = buildTrigger();
+    anchor.appendChild(trigger);
+    // Click only (a tap still fires click); touchstart opened it mid-scroll.
+    trigger.addEventListener("click", function (e) { e.preventDefault(); A.play("asteroids", trigger); });
   });
 })();

@@ -4,17 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>Beyond &quot;less is better&quot; — Growing Minds Science</title>
+  <title>Beyond &quot;less is better&quot; | Growing Minds Science</title>
   <meta name="description" content="A calmer, more accurate way to think about screen time than a raw time limit: what the content is, the context it's used in, and the child it's for." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/tools/beyond-less-is-better" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Beyond &quot;less is better&quot; — Growing Minds Science" />
+  <meta property="og:title" content="Beyond &quot;less is better&quot; | Growing Minds Science" />
   <meta property="og:description" content="A calmer, more accurate way to think about screen time than a raw time limit: content, context, and the child." />
   <meta property="og:image" content="https://growingmindsscience.com/assets/img/site/family-reading.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -49,14 +50,14 @@
     .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
     .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
 
-    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: 999px; background: var(--surface-2); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: var(--radius-sm); background: var(--surface-2); font-size: var(--text-xs); color: var(--ink-muted); margin-bottom: var(--space-3); }
     .section-intro { color: var(--ink-soft); max-width: 44rem; margin: 0 0 var(--space-6); }
     .small { font-size: var(--text-sm); color: var(--ink-muted); }
 
     .what-panel__blocks { display: grid; gap: var(--space-4); }
     .what-block { position: relative; padding-left: var(--space-5); }
     .what-block::before { content: ""; position: absolute; left: 2px; top: .58em; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
-    .what-block__label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .1em; color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
+    .what-block__label { font-size: var(--text-xs); color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
     .what-block__text { margin: 0; color: var(--ink-soft); line-height: 1.65; }
 
     .response-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }
@@ -97,8 +98,8 @@
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -126,8 +127,8 @@
           </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">See the class</a></li>
+          <li class="nav__auth"><a class="nav__link" href="/nsc/app/classes">My classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -218,28 +219,28 @@
               <p class="small">One adjustment: turn it off when no one is actively watching. The quiet usually fills back up with talk on its own.</p>
             </article>
 
-            <article class="decoder-output" data-output="together" data-ai-question="We watch shows together and talk about them. How can I make that time more useful?" hidden>
+            <article class="decoder-output" data-output="together" data-ai-question="We watch shows together and talk about them. How can I make that time more useful?">
               <span class="tag">Doing real work</span>
               <h3>This is close to reading a book together.</h3>
               <p>When an adult watches alongside and talks about what's happening, screens shift toward what researchers call joint media engagement. The video deficit shrinks, because the screen now sits inside a real conversation. You're the bridge between what's on screen and the world.</p>
               <p class="small">One adjustment: keep narrating in plain turns. "What do you think happens next?" does more than the show does alone.</p>
             </article>
 
-            <article class="decoder-output" data-output="reset" data-ai-question="Is it okay to hand my child a tablet to reset during a meltdown?" hidden>
+            <article class="decoder-output" data-output="reset" data-ai-question="Is it okay to hand my child a tablet to reset during a meltdown?">
               <span class="tag">A tool, used on purpose</span>
               <h3>A reset in a hard moment is allowed.</h3>
               <p>Handing over a tablet to help a flooded child settle is a reasonable tool, not a failure. It only becomes worth a second look if it's the main way big feelings get resolved most days, because then it can crowd out practice with frustration. One hard afternoon is not a pattern.</p>
               <p class="small">One adjustment: notice what happens afterward. If transitions off the device are rough, give a clear ending up front next time.</p>
             </article>
 
-            <article class="decoder-output" data-output="grandparents" data-ai-question="Do video calls with grandparents count as screen time?" hidden>
+            <article class="decoder-output" data-output="grandparents" data-ai-question="Do video calls with grandparents count as screen time?">
               <span class="tag">In a category of its own</span>
               <h3>A real-time call is barely "screen time" at all.</h3>
               <p>Bidirectional video calls work differently from passive video. When a grandparent responds in real time to what your child does and says, the exchange resembles a real conversation, the contingent, back-and-forth quality that early learning is built on. The AAP treats live video chat as a reasonable exception even for the youngest children.</p>
               <p class="small">One adjustment: nothing needed. Maybe hand the child something to show the screen, so the call stays a two-way thing.</p>
             </article>
 
-            <article class="decoder-output" data-output="bedtime" data-ai-question="My child uses a fast-paced app right before bed. Could that affect sleep?" hidden>
+            <article class="decoder-output" data-output="bedtime" data-ai-question="My child uses a fast-paced app right before bed. Could that affect sleep?">
               <span class="tag">Working against the night</span>
               <h3>The timing is the part to look at.</h3>
               <p>A fast-paced app close to bedtime tends to make winding down harder: the content is exciting and the device is hard to put away. The concern here is less the app itself than what it's displacing, which is sleep. Protecting the wind-down is one of the higher-value moves you can make.</p>
@@ -336,11 +337,11 @@
           <h2 style="font-size:var(--text-xl); margin-top:0;">Research anchors</h2>
           <div class="sources-panel">
             <ul class="source-list">
-              <li>Anderson &amp; Pempek (2005). Television and Very Young Children. <em>American Behavioral Scientist</em> — the review that named the "video deficit."</li>
-              <li>Kuhl, Tsao &amp; Liu (2003). Foreign-Language Experience in Infancy: Effects of Short-Term Exposure and Social Interaction on Phonetic Learning. <em>PNAS</em> — live tutoring produced learning; the same content on video did not.</li>
+              <li>Anderson &amp; Pempek (2005). Television and Very Young Children. <em>American Behavioral Scientist</em>. The review that named the "video deficit."</li>
+              <li>Kuhl, Tsao &amp; Liu (2003). Foreign-Language Experience in Infancy: Effects of Short-Term Exposure and Social Interaction on Phonetic Learning. <em>PNAS</em>. Live tutoring produced learning; the same content on video did not.</li>
               <li>Schmidt, Pempek, Kirkorian, Lund &amp; Anderson (2008). The Effects of Background Television on the Toy Play Behavior of Very Young Children. <em>Child Development</em>.</li>
               <li>Kirkorian, Pempek, Murphy, Schmidt &amp; Anderson (2009). The Impact of Background Television on Parent-Child Interaction. <em>Child Development</em>.</li>
-              <li><a href="https://www.aap.org/en/patient-care/media-and-children/center-of-excellence-on-social-media-and-youth-mental-health/qa-portal/qa-portal-library/qa-portal-library-questions/screen-time-guidelines" target="_blank" rel="noopener noreferrer">American Academy of Pediatrics: media and screen time guidance</a> — emphasis on content quality, co-viewing, and protecting sleep, play, and interaction.</li>
+              <li><a href="https://www.aap.org/en/patient-care/media-and-children/center-of-excellence-on-social-media-and-youth-mental-health/qa-portal/qa-portal-library/qa-portal-library-questions/screen-time-guidelines" target="_blank" rel="noopener noreferrer">American Academy of Pediatrics: media and screen time guidance</a>, with its emphasis on content quality, co-viewing, and protecting sleep, play, and interaction.</li>
             </ul>
           </div>
         </div>
@@ -351,7 +352,6 @@
       <div class="container container--narrow">
         <div class="cta-strip">
           <div>
-            <p class="eyebrow">Toddler class · now available</p>
             <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Want the bigger picture of early development?</h2>
             <p class="small" style="max-width:38rem; margin:0;">The toddler class covers language, attention, big feelings, and what actually shapes the first three years, grounded in the same research as this tool. $49 for lifetime access.</p>
           </div>
@@ -367,8 +367,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
@@ -381,8 +381,8 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/preschool.html">Preschool years</a></li>
             <li><a href="/classes/family-systems.html">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>

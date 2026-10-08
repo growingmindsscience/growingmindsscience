@@ -1,8 +1,15 @@
-/* Shared Pong game for Tools and Arcade. */
+/* Shared Pong game for Tools and Arcade.
+   The dialog markup (#pong-game) lives in the host page. Opening goes
+   through GMSArcade (arcade-core.js): the page tears away and goes inert,
+   focus moves to Start, and closing (Esc or the exit button) stops the loop
+   and music, puts the page back and returns focus to the opener (the orb on
+   /tools, the Play button on /arcade). No reload.
+   Openers: decor.js places the orb on /tools and calls GMSArcade.play("pong");
+   the /arcade Play button does the same. */
 (function () {
-    var orb = document.getElementById('pong-orb') || document.querySelector('[data-arcade-game="pong"]');
+    var A = window.GMSArcade;
     var game = document.getElementById('pong-game');
-    if (!orb || !game) return;
+    if (!A || !game) return;
 
     var canvas = document.getElementById('pong-canvas');
     var ctx = canvas.getContext('2d');
@@ -74,10 +81,17 @@
       nextNoteTime = audioCtx.currentTime + 0.1;
       musicScheduler();
     }
+    // Stop the soundtrack outright (on close); startMusic() builds it again.
+    function stopMusic() {
+      if (musicTimer) { clearTimeout(musicTimer); musicTimer = null; }
+      if (audioCtx) { try { audioCtx.close(); } catch (e) {} }
+      audioCtx = null; masterGain = null;
+    }
+    // A toggle keeps one label; aria-pressed says whether music is on.
     function applyMute() {
       if (muteBtn) {
-        muteBtn.textContent = musicOn ? '♪ Music: on' : '♪ Music: off';
-        muteBtn.setAttribute('aria-pressed', musicOn ? 'false' : 'true');
+        muteBtn.textContent = '♪ Music';
+        muteBtn.setAttribute('aria-pressed', musicOn ? 'true' : 'false');
       }
       if (masterGain) {
         var now = audioCtx.currentTime;
@@ -95,41 +109,23 @@
     });
     applyMute();
 
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // The court is the keyboard play area: give it a name and a focus stop.
+    canvas.setAttribute('tabindex', '0');
+    canvas.setAttribute('role', 'application');
+    canvas.setAttribute('aria-label', 'Pong court. Up and down arrows or W and S move your paddle.');
 
-    // ---- Tear the page off, then open the game ----
-    orb.addEventListener('click', function () {
-      orb.style.display = 'none';
-      var main = document.getElementById('main');
-      var pieces = [];
-      var header = document.querySelector('.site-header');
-      if (header) pieces.push(header);
-      if (main) [].forEach.call(main.children, function (c) { pieces.push(c); });
-      var footer = document.querySelector('.site-footer');
-      if (footer) pieces.push(footer);
-
-      if (reduce) {
-        pieces.forEach(function (p) { p.style.visibility = 'hidden'; });
-        openGame();
-        return;
-      }
-
-      var maxDelay = 0;
-      pieces.forEach(function (p, i) {
-        var delay = i * 70;
-        maxDelay = Math.max(maxDelay, delay);
-        var dx = (Math.random() * 220 - 110);
-        var rot = (Math.random() * 60 - 30);
-        p.classList.add('pong-piece');
-        p.style.transition = 'transform .95s cubic-bezier(.55,.06,.68,.19) ' + delay + 'ms, opacity .95s ease-in ' + delay + 'ms';
-        requestAnimationFrame(function () {
-          requestAnimationFrame(function () {
-            p.style.transform = 'translate(' + dx.toFixed(0) + 'px, 125vh) rotate(' + rot.toFixed(0) + 'deg)';
-            p.style.opacity = '0';
-          });
-        });
+    // ---- Open: tear the page off (GMSArcade), then show the game ----
+    // The orb (on /tools) leaves with the page and comes back on close.
+    function setOrbShown(shown) {
+      var orb = document.getElementById('pong-orb');
+      if (orb) orb.style.display = shown ? '' : 'none';
+    }
+    A.registerGame('pong', function (opener) {
+      var launched = A.launch({
+        opener: opener, dialog: game, show: openGame, hide: closeGame,
+        prompt: msg, canvas: canvas, focus: function () { return msgBtn; }
       });
-      setTimeout(openGame, maxDelay + 1050);
+      if (launched) setOrbShown(false);
     });
 
     // ---- Game state ----
@@ -302,17 +298,39 @@
       rafId = requestAnimationFrame(loop);
     }
 
+    // show(): GMSArcade has already torn the page away and locked scrolling.
     function openGame() {
       game.hidden = false;
-      document.body.style.overflow = 'hidden';
       fit();
       draw();
       showMsg('Ready?', 'You take the right paddle. Mouse, touch, or ↑ ↓ / W S. First to 7.', 'Start');
+      window.addEventListener('keydown', onKeydown);
+      window.addEventListener('keyup', onKeyup);
+      window.addEventListener('resize', onResize);
+    }
+    // hide(): undo everything openGame() and a match started.
+    function closeGame() {
+      running = false;
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = null;
+      ball = null;
+      stopMusic();
+      keyUp = false; keyDown = false; pointerActive = false;
+      window.removeEventListener('keydown', onKeydown);
+      window.removeEventListener('keyup', onKeyup);
+      window.removeEventListener('resize', onResize);
+      msg.hidden = true;
+      if (hint) hint.style.visibility = '';
+      game.hidden = true;
+      setOrbShown(true);
     }
 
     // ---- Controls ----
-    msgBtn.addEventListener('click', startMatch);
-    exitBtn.addEventListener('click', function () { location.reload(); });
+    msgBtn.addEventListener('click', function () {
+      startMatch();
+      try { canvas.focus({ preventScroll: true }); } catch (e) { canvas.focus(); }
+    });
+    exitBtn.addEventListener('click', function () { A.closeGame(); });
 
     function onPointer(e) {
       var rect = canvas.getBoundingClientRect();
@@ -325,15 +343,17 @@
     canvas.addEventListener('touchstart', function (e) { onPointer(e); e.preventDefault(); }, { passive: false });
     canvas.addEventListener('touchmove', function (e) { onPointer(e); e.preventDefault(); }, { passive: false });
 
-    window.addEventListener('keydown', function (e) {
+    // Window listeners exist only while the game is open (added in
+    // openGame, removed in closeGame).
+    function onKeydown(e) {
       if (game.hidden) return;
       if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') { keyUp = true; pointerActive = false; e.preventDefault(); }
       if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') { keyDown = true; pointerActive = false; e.preventDefault(); }
-      if (e.key === 'Escape') location.reload();
-    });
-    window.addEventListener('keyup', function (e) {
+      if (e.key === 'Escape') { e.preventDefault(); A.closeGame(); }
+    }
+    function onKeyup(e) {
       if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') keyUp = false;
       if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') keyDown = false;
-    });
-    window.addEventListener('resize', function () { if (!game.hidden) { fit(); draw(); } });
+    }
+    function onResize() { if (!game.hidden) { fit(); draw(); } }
   })();

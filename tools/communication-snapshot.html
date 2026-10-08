@@ -3,22 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Communication Snapshot - Growing Minds Science</title>
+  <title>Communication Snapshot | Growing Minds Science</title>
   <meta name="description" content="A calm, research-grounded snapshot of your child's early communication (6 to 36 months): words, gestures, and understanding, with a clear read on what's typical and what's worth a pediatrician conversation." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/tools/communication-snapshot" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Communication Snapshot — Growing Minds Science" />
+  <meta property="og:title" content="Communication Snapshot | Growing Minds Science" />
   <meta property="og:description" content="A calm, research-grounded snapshot of your child's early communication, with a clear read on what's typical and what's worth a pediatrician conversation." />
   <meta property="og:image" content="https://growingmindsscience.com/assets/img/og/communication-snapshot.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Growing Minds Science — Communication Snapshot" />
+  <meta property="og:image:alt" content="Growing Minds Science | Communication Snapshot" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://growingmindsscience.com/assets/img/og/communication-snapshot.png" />
 
@@ -47,7 +48,7 @@
     .meta-list { list-style: none; padding: 0; margin: var(--space-4) 0 0; display: grid; gap: .85rem; }
     .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
     .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
-    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: 999px; background: var(--surface-2); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: var(--radius-sm); background: var(--surface-2); font-size: var(--text-xs); color: var(--ink-muted); margin-bottom: var(--space-3); }
     .small { font-size: var(--text-sm); color: var(--ink-muted); }
 
     /* --- Snapshot wizard --- */
@@ -57,7 +58,7 @@
       border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);
       padding: clamp(1.25rem, 3vw, 2rem);
     }
-    .cs-progress { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .12em; color: var(--ink-muted); font-weight: 700; margin: 0 0 var(--space-2); font-family: var(--font-display); }
+    .cs-progress { font-size: var(--text-xs); color: var(--ink-muted); font-weight: 700; margin: 0 0 var(--space-2); font-family: var(--font-display); }
     .cs-step-title { margin: 0 0 .5rem; font-size: var(--text-xl); }
     .cs-step-lede { color: var(--ink-soft); margin: 0 0 var(--space-5); }
     .cs-field { display: grid; gap: .4rem; margin: 0 0 var(--space-5); }
@@ -73,7 +74,7 @@
 
     .cs-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
     .cs-chip {
-      padding: .55rem .9rem; border-radius: 999px; border: 1px solid var(--border);
+      padding: .55rem .9rem; border-radius: var(--radius); border: 1px solid var(--border);
       background: var(--surface); color: var(--ink-soft); cursor: pointer; font: inherit;
       font-size: var(--text-sm); min-height: 44px;
       transition: background var(--transition), border-color var(--transition), color var(--transition);
@@ -94,7 +95,7 @@
     /* --- Report --- */
     .cs-sev {
       display: inline-flex; align-items: center; gap: .5rem;
-      padding: .4rem .85rem; border-radius: 999px; font-family: var(--font-display);
+      padding: .4rem .85rem; border-radius: var(--radius-sm); font-family: var(--font-display);
       font-weight: 600; font-size: var(--text-sm); margin-bottom: var(--space-4);
     }
     .cs-sev--none, .cs-sev--watch { background: var(--surface-2); color: var(--primary); border: 1px solid color-mix(in srgb, var(--primary) 40%, transparent); }
@@ -144,8 +145,8 @@
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -173,8 +174,8 @@
           </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">See the class</a></li>
+          <li class="nav__auth"><a class="nav__link" href="/nsc/app/classes">My classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -244,8 +245,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
@@ -258,8 +259,8 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/preschool.html">Preschool years</a></li>
             <li><a href="/classes/family-systems.html">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>
@@ -694,7 +695,7 @@
     function printVisit(result, asked, strengths) {
       const flags = result.flags.slice().sort((a, b) => SEV_RANK[b.severity] - SEV_RANK[a.severity]);
       sheet.innerHTML = "";
-      sheet.appendChild(el("h2", { text: "Communication Snapshot — notes for our visit" }));
+      sheet.appendChild(el("h2", { text: "Communication Snapshot: notes for our visit" }));
       sheet.appendChild(el("p", { text: `Prepared ${new Date().toLocaleDateString()} · Child's age: ${state.ageMonths} months${result.corrected ? ` (about ${Math.round(result.effective_age_months)} months corrected; born ${state.weeksEarly} weeks early)` : ""}` }));
       sheet.appendChild(el("h3", { text: "What I observe at home" }));
       const obs = el("ul");

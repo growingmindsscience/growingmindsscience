@@ -3,7 +3,12 @@
    (Brain Sprint on /classes, GMS Invaders on /articles).
 
    Exposes a single global, window.GMSArcade, with:
+     - play(key, opener)             load a game on demand (JS + any game CSS), then open it
+     - defineGame(key, build)        register a game's overlay with the open/close lifecycle
+     - launch(opts) / closeGame()    tear the page away, make it inert, focus the dialog;
+                                     close in place: teardown, restore page, scroll and focus
      - tearPageAway(done)            tumble the page off-screen, then run done()
+     - announce(text)                polite live-region message
      - leaderboard                   local (localStorage) top-scores, per game key
      - mountInitialsEntry(...)       3-letter initials capture for a new high score
      - renderLeaderboard(...)        small ranked table of local top scores
@@ -15,6 +20,16 @@
   "use strict";
 
   var NS = "gms-arcade";
+
+  // Where the game files live: next to this script, whichever page loaded it
+  // (pages use both "../assets/js/" and "/assets/js/").
+  var JS_BASE = (function () {
+    var s = document.currentScript;
+    var src = s && s.src;
+    if (src && /arcade-core\.js/.test(src)) return src.replace(/arcade-core\.js.*$/, "");
+    return "/assets/js/";
+  })();
+  var CSS_BASE = JS_BASE.replace(/js\/$/, "css/");
 
   // ---------- Local leaderboard ----------
   // Stored as { "<gameKey>": [ { initials, score, at }, ... ] } under one key.
@@ -192,6 +207,8 @@
     catch (e) { return false; }
   }
 
+  // Returns what it changed (each piece's original inline styles) so
+  // restorePage() can put the page back exactly when the game closes.
   function tearPageAway(done) {
     var pieces = [];
     var header = document.querySelector(".site-header");
@@ -201,12 +218,27 @@
     var footer = document.querySelector(".site-footer");
     if (footer) pieces.push(footer);
 
+    var saved = pieces.map(function (p) {
+      return {
+        el: p,
+        transition: p.style.transition,
+        transform: p.style.transform,
+        opacity: p.style.opacity,
+        visibility: p.style.visibility
+      };
+    });
+
     document.body.classList.add(NS + "-lock");
 
-    if (prefersReducedMotion() || !pieces.length) {
+    // Once the page is gone it is hidden outright, not just transparent.
+    function finish() {
       pieces.forEach(function (p) { p.style.visibility = "hidden"; });
       done();
-      return;
+    }
+
+    if (prefersReducedMotion() || !pieces.length) {
+      finish();
+      return saved;
     }
 
     var maxDelay = 0;
@@ -227,7 +259,32 @@
         });
       });
     });
-    window.setTimeout(done, maxDelay + 1000);
+    window.setTimeout(finish, maxDelay + 1000);
+    return saved;
+  }
+
+  // Put the torn-away pieces back. With motion allowed they fade in briefly
+  // in place (no fall-back-up); with reduced motion it is instant.
+  function restorePage(saved) {
+    var reduce = prefersReducedMotion();
+    saved.forEach(function (s) {
+      var p = s.el;
+      p.classList.remove(NS + "-falling");
+      p.style.transition = "none";
+      p.style.transform = s.transform;
+      p.style.visibility = s.visibility;
+      if (reduce) { p.style.opacity = s.opacity; p.style.transition = s.transition; }
+    });
+    document.body.classList.remove(NS + "-lock");
+    if (reduce || !saved.length) return;
+    void document.body.offsetWidth; // commit the reset before fading back in
+    saved.forEach(function (s, i) {
+      s.el.style.transition = "opacity 260ms ease " + Math.min(i * 30, 150) + "ms";
+      s.el.style.opacity = s.opacity;
+    });
+    window.setTimeout(function () {
+      saved.forEach(function (s) { s.el.style.transition = s.transition; });
+    }, 460);
   }
 
   function ready(fn) {
@@ -606,11 +663,369 @@
     };
   }
 
+  // ======================================================================
+  //  Game sessions: open in place, close in place
+  //  One game at a time. launch() tears the page away, then makes everything
+  //  behind the dialog inert, shows the game and moves focus into it.
+  //  closeGame() runs the game's own teardown, puts the page back, restores
+  //  the scroll position and returns focus to whatever opened the game. No
+  //  reload, so the reader keeps their place.
+  // ======================================================================
+  var session = null;
+  var live = null, liveTimer = null;
+  var SR_ONLY = "position:absolute;width:1px;height:1px;margin:-1px;padding:0;" +
+    "overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0";
+
+  // Polite live region (same idea as Echo's): game over, scores, load errors.
+  function liveRegion() {
+    if (live && live.parentNode) return live;
+    live = document.createElement("div");
+    live.className = NS + "-live";
+    live.setAttribute("role", "status");
+    live.setAttribute("aria-live", "polite");
+    live.style.cssText = SR_ONLY;
+    document.body.appendChild(live);
+    return live;
+  }
+  function announce(text) {
+    var el = liveRegion();
+    el.textContent = "";
+    if (liveTimer) window.clearTimeout(liveTimer);
+    // Clear first, then set, so a repeated phrase is announced again.
+    liveTimer = window.setTimeout(function () { el.textContent = text; }, 80);
+  }
+
+  function isShown(el) {
+    return !!(el && el.getClientRects && el.getClientRects().length);
+  }
+  function canFocus(el) {
+    return !!(el && typeof el.focus === "function" && document.documentElement.contains(el) &&
+      !(el.closest && el.closest("[inert]")) && isShown(el));
+  }
+  function focusEl(el) {
+    if (!el) return;
+    try { el.focus({ preventScroll: true }); } catch (e) { try { el.focus(); } catch (e2) {} }
+  }
+  function scrollBack(s) {
+    try { window.scrollTo({ left: s.x, top: s.y, behavior: "instant" }); }
+    catch (e) { window.scrollTo(s.x, s.y); }
+  }
+
+  // Everything on the page except the dialog (and the live region) goes
+  // inert: no focus, no clicks, hidden from assistive tech.
+  var supportsInert = typeof HTMLElement !== "undefined" && "inert" in HTMLElement.prototype;
+  function inertPage(s) {
+    [].forEach.call(document.body.children, function (el) {
+      if (el === live || el.contains(s.dialog) || el.hasAttribute("inert")) return;
+      if (/^(SCRIPT|STYLE|LINK|TEMPLATE|NOSCRIPT)$/.test(el.tagName)) return;
+      el.setAttribute("inert", "");
+      s.inerted.push(el);
+      if (!supportsInert && !el.hasAttribute("aria-hidden")) {
+        el.setAttribute("aria-hidden", "true");
+        s.ariaHidden.push(el);
+      }
+    });
+  }
+  function uninertPage(s) {
+    s.inerted.forEach(function (el) { el.removeAttribute("inert"); });
+    s.ariaHidden.forEach(function (el) { el.removeAttribute("aria-hidden"); });
+    s.inerted = []; s.ariaHidden = [];
+  }
+
+  // The dialog's help line (controls) becomes its description.
+  var helpSeq = 0;
+  function describeDialog(dialog) {
+    if (dialog.hasAttribute("aria-describedby")) return;
+    var help = dialog.querySelector("." + NS + "-help");
+    if (!help) return;
+    if (!help.id) help.id = NS + "-help-" + (++helpSeq);
+    dialog.setAttribute("aria-describedby", help.id);
+  }
+
+  // First sensible control: the prompt's Start/Play button when it shows,
+  // else the play area.
+  function initialFocus(s) {
+    if (s.opts.focus) {
+      var f = typeof s.opts.focus === "function" ? s.opts.focus() : s.opts.focus;
+      if (canFocus(f)) return f;
+    }
+    var primary = s.dialog.querySelectorAll(".btn--primary");
+    for (var i = 0; i < primary.length; i++) if (canFocus(primary[i])) return primary[i];
+    return fallbackFocus(s);
+  }
+  function fallbackFocus(s) {
+    var c = s.opts.canvas || s.dialog.querySelector("canvas[tabindex]");
+    if (canFocus(c)) return c;
+    var any = s.dialog.querySelectorAll("button, [href], input, [tabindex]:not([tabindex='-1'])");
+    for (var i = 0; i < any.length; i++) if (canFocus(any[i])) return any[i];
+    return null;
+  }
+  // When the focused control disappears (Start hides with its prompt, the
+  // initials form is replaced) focus would fall to <body>. Pull it back to
+  // the play area so keys and Tab stay inside the dialog.
+  function keepFocus(s) {
+    if (session !== s || !s.open) return;
+    var a = document.activeElement;
+    if (a && a !== document.body && s.dialog.contains(a) && isShown(a)) return;
+    focusEl(fallbackFocus(s));
+  }
+
+  function promptText(prompt) {
+    var title = prompt.querySelector("[data-egg-prompt-title], h2");
+    var text = prompt.querySelector("[data-egg-prompt-text]") || prompt.querySelector("h2 ~ p");
+    return [title, text].map(function (el) { return el ? el.textContent.trim() : ""; })
+      .filter(Boolean).join(". ");
+  }
+  // Watch the start / pause / game-over prompt: rescue focus when its
+  // buttons vanish, and announce it (final score included) when it appears.
+  // Dialogs with their own live region (Echo) announce for themselves.
+  function watchDialog(s) {
+    var prompt = s.opts.prompt || s.dialog.querySelector("[data-egg-prompt]");
+    if (!prompt || typeof MutationObserver === "undefined") return;
+    var speaks = !s.dialog.querySelector("[aria-live]");
+    var wasShown = !prompt.hidden;
+    var queued = false;
+    s.observer = new MutationObserver(function () {
+      var shown = !prompt.hidden;
+      if (shown && !wasShown && speaks) announce(promptText(prompt));
+      wasShown = shown;
+      if (queued) return;
+      queued = true;
+      window.requestAnimationFrame(function () { queued = false; keepFocus(s); });
+    });
+    s.observer.observe(prompt, { attributes: true, attributeFilter: ["hidden"], childList: true, subtree: true });
+  }
+
+  /** Open a game. opts: { dialog, show, hide, opener, prompt?, canvas?, focus? }.
+      show() makes the dialog visible and starts the game; hide() must undo
+      everything show() did (loop, timers, listeners, audio). Returns false
+      when another game is already open or opening. */
+  function launch(opts) {
+    if (session) return false;
+    var opener = opts.opener;
+    if (!opener || opener === document.body) opener = document.activeElement;
+    var s = session = {
+      opts: opts, dialog: opts.dialog, opener: opener,
+      x: window.pageXOffset || 0, y: window.pageYOffset || 0,
+      inerted: [], ariaHidden: [], saved: [], open: false, closing: false,
+      observer: null, keeper: null
+    };
+    liveRegion();
+    s.saved = tearPageAway(function () {
+      if (session !== s) return;
+      inertPage(s);
+      describeDialog(s.dialog);
+      opts.show();
+      s.open = true;
+      watchDialog(s);
+      s.keeper = function () { keepFocus(s); };
+      document.addEventListener("keydown", s.keeper, true);
+      // Focus right away (the dialog is laid out now), and check again on
+      // the next frame in case the game was still building its prompt.
+      focusEl(initialFocus(s));
+      window.requestAnimationFrame(function () { keepFocus(s); });
+    });
+    return true;
+  }
+
+  /** Close the open game in place and hand the page back. */
+  function closeGame() {
+    var s = session;
+    if (!s || !s.open || s.closing) return;
+    s.closing = true;
+    document.removeEventListener("keydown", s.keeper, true);
+    if (s.observer) { s.observer.disconnect(); s.observer = null; }
+    try { s.opts.hide(); }
+    catch (err) { window.setTimeout(function () { throw err; }); } // still restore the page
+    uninertPage(s);
+    restorePage(s.saved);
+    scrollBack(s);
+    if (canFocus(s.opener)) focusEl(s.opener);
+    scrollBack(s); // in case focusing nudged the page
+    session = null;
+  }
+
+  function isOpen() { return !!session; }
+
+  // ---------- Game registry + on-demand loader ----------
+  // Game files register an opener; play() loads a game's script (and any
+  // game-only stylesheet) the first time it is asked for, then opens it.
+  var registry = {};
+  var busy = {};
+  var GAME_CSS = { pong: ["pong.css"] };
+
+  function registerGame(key, open) { registry[key] = open; }
+
+  /** The usual arcade-overlay game: build() returns the overlay element with
+      .game (activate/deactivate), ._onKeydown, optional ._onKeyup, ._canvas
+      and ._fitCanvas. Core owns showing, hiding and listener bookkeeping. */
+  function defineGame(key, build) {
+    var overlay = null;
+    function show() {
+      if (overlay.parentNode !== document.body) document.body.appendChild(overlay);
+      overlay.classList.add("is-open");
+      if (overlay._fitCanvas) overlay._fitCanvas();
+      document.addEventListener("keydown", overlay._onKeydown);
+      if (overlay._onKeyup) document.addEventListener("keyup", overlay._onKeyup);
+      // resize alone misses iOS URL-bar collapse and rotation.
+      if (overlay._fitCanvas) overlay._gmsOffViewport = onViewportChange(overlay._fitCanvas);
+      overlay.game.activate();
+    }
+    function hide() {
+      document.removeEventListener("keydown", overlay._onKeydown);
+      if (overlay._onKeyup) document.removeEventListener("keyup", overlay._onKeyup);
+      if (overlay._gmsOffViewport) { overlay._gmsOffViewport(); overlay._gmsOffViewport = null; }
+      overlay.game.deactivate();
+      // Keys released after the listener is gone must not stay "held".
+      var held = overlay.game.held;
+      if (held) for (var k in held) { if (held.hasOwnProperty(k) && held[k] === true) held[k] = false; }
+      overlay.classList.remove("is-open");
+      if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+    }
+    registerGame(key, function (opener) {
+      if (session) return;
+      if (!overlay) overlay = build();
+      launch({
+        opener: opener, dialog: overlay, show: show, hide: hide,
+        prompt: overlay.querySelector("[data-egg-prompt]"), canvas: overlay._canvas
+      });
+    });
+  }
+
+  /** True when a page already offers its own way into this game (an arcade
+      Play button or a decor.js egg), so a game file must not add a trigger. */
+  function hasLauncher(key) {
+    return !!document.querySelector('[data-arcade-game="' + key + '"]') ||
+      !!(document.body && document.body.hasAttribute("data-arcade-egg"));
+  }
+
+  function loadScript(src, ok, fail) {
+    var s = document.createElement("script");
+    s.src = src;
+    s.async = false;
+    s.onload = ok;
+    s.onerror = function () { if (s.parentNode) s.parentNode.removeChild(s); fail(); };
+    document.head.appendChild(s);
+  }
+  function loadCss(href, ok, fail) {
+    var a = document.createElement("a");
+    a.href = href;
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+    for (var i = 0; i < links.length; i++) {
+      if (links[i].href !== a.href) continue;
+      if (links[i].sheet) { ok(); return; }
+      links[i].addEventListener("load", ok);
+      links[i].addEventListener("error", fail);
+      return;
+    }
+    var link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = href;
+    link.onload = ok;
+    link.onerror = function () { if (link.parentNode) link.parentNode.removeChild(link); fail(); };
+    document.head.appendChild(link);
+  }
+
+  var NO_UI = {
+    start: function () {},
+    stop: function () {},
+    error: function () { announce("The game did not load. Please try again in a moment."); }
+  };
+
+  /** Open game `key`, loading it first if needed. `opener` gets focus back
+      on close; `ui` ({start, stop, error}) shows loading and failure. */
+  function play(key, opener, ui) {
+    if (!/^[a-z]+$/.test(key || "") || busy[key] || session) return;
+    ui = ui || NO_UI;
+    busy[key] = true;
+    var css = GAME_CSS[key] || [];
+    var waiting = css.length + 1;
+    var failed = false;
+    function done() {
+      if (failed || --waiting > 0) return;
+      busy[key] = false;
+      ui.stop();
+      if (registry[key]) registry[key](opener);
+      else fail();
+    }
+    function fail() {
+      if (failed) return;
+      failed = true;
+      busy[key] = false;
+      ui.stop();
+      ui.error();
+    }
+    ui.start();
+    css.forEach(function (name) { loadCss(CSS_BASE + name, done, fail); });
+    if (registry[key]) done();
+    else loadScript(JS_BASE + key + "-game.js", done, fail);
+  }
+
+  // Loading / failure state for a visible Play button (the /arcade cards).
+  // The loading label only appears if the fetch takes a noticeable moment.
+  function buttonUi(btn) {
+    var timer = null;
+    function clearError() {
+      var next = btn.nextElementSibling;
+      if (next && next.classList.contains(NS + "-load-error")) next.parentNode.removeChild(next);
+    }
+    function stop() {
+      if (timer) { window.clearTimeout(timer); timer = null; }
+      btn.classList.remove("is-loading");
+      btn.removeAttribute("aria-busy");
+    }
+    return {
+      start: function () {
+        clearError();
+        timer = window.setTimeout(function () {
+          timer = null;
+          btn.classList.add("is-loading");
+          btn.setAttribute("aria-busy", "true");
+          announce("Loading the game.");
+        }, 180);
+      },
+      stop: stop,
+      error: function () {
+        stop();
+        clearError();
+        var msg = document.createElement("p");
+        msg.className = NS + "-load-error";
+        msg.setAttribute("role", "alert");
+        msg.textContent = "This game did not load. Check your connection, then press Play to try again.";
+        btn.parentNode.insertBefore(msg, btn.nextSibling);
+      }
+    };
+  }
+
+  // Any [data-arcade-game] button on the page opens its game on click
+  // (click already fires on tap, and never on a scroll that starts there).
+  function bindPlayButtons() {
+    [].forEach.call(document.querySelectorAll("button[data-arcade-game]"), function (btn) {
+      if (btn.hasAttribute("data-arcade-bound")) return;
+      btn.setAttribute("data-arcade-bound", "");
+      var ui = buttonUi(btn);
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        play(btn.getAttribute("data-arcade-game"), btn, ui);
+      });
+    });
+  }
+  ready(bindPlayButtons);
+
   window.GMSArcade = {
     ns: NS,
     ready: ready,
     prefersReducedMotion: prefersReducedMotion,
     tearPageAway: tearPageAway,
+    // Open / close lifecycle + loader
+    launch: launch,
+    closeGame: closeGame,
+    isOpen: isOpen,
+    defineGame: defineGame,
+    registerGame: registerGame,
+    hasLauncher: hasLauncher,
+    play: play,
+    announce: announce,
     leaderboard: leaderboard,
     mountInitialsEntry: mountInitialsEntry,
     renderLeaderboard: renderLeaderboard,

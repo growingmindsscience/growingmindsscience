@@ -4,13 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>The cliff at three: what happens when early intervention ends - Growing Minds Science</title>
+  <title>The cliff at three: what happens when early intervention ends | Growing Minds Science</title>
   <meta name="description" content="Turning three moves a child from IDEA Part C early intervention to Part B preschool special education. It is a real transition, not a paperwork event. Here is why the timing is hard, what can go wrong at the IFSP-to-IEP handoff, and the exact questions to ask before your child's third birthday." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/articles/cliff-at-three" />
 
   <meta property="og:type" content="article" />
@@ -19,7 +20,7 @@
   <meta property="og:image" content="https://growingmindsscience.com/assets/img/og/cliff-at-three.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Growing Minds Science — The cliff at three: what happens when early intervention ends" />
+  <meta property="og:image:alt" content="Growing Minds Science | The cliff at three: what happens when early intervention ends" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://growingmindsscience.com/assets/img/og/cliff-at-three.png" />
 
@@ -32,12 +33,13 @@
   <style>
     .article-hero { padding: clamp(3.5rem, 7vw, 6rem) 0 var(--space-10); background: linear-gradient(180deg, color-mix(in oklab, var(--accent-soft) 22%, var(--bg)) 0%, var(--bg) 100%); border-bottom: 1px solid var(--border-soft); }
     .article-layout { display: grid; grid-template-columns: minmax(0, .72fr) minmax(240px, .28fr); gap: clamp(var(--space-8), 6vw, var(--space-16)); align-items: start; }
-    .article-kicker { color: var(--primary); font-size: var(--text-xs); font-weight: 700; letter-spacing: .12em; line-height: 1.3; margin: 0 0 var(--space-4); text-transform: uppercase; }
-    .article-title { max-width: 20ch; margin: 0 0 var(--space-5); font-family: var(--font-display); font-size: clamp(2.6rem, 7vw, 5rem); font-weight: 400; letter-spacing: 0; line-height: .98; }
+    .article-kicker { color: var(--amber-deep); font-size: var(--text-sm); font-weight: 600; line-height: 1.3; margin: 0 0 var(--space-4); }
+    .article-title { max-width: 22ch; margin: 0 0 var(--space-5); font-family: var(--font-display); font-size: clamp(2.3rem, 1.2rem + 3vw, 3.4rem); font-weight: 400; letter-spacing: 0; line-height: 1.04; text-wrap: balance; }
     .article-dek { max-width: 48rem; color: var(--ink-soft); font-size: var(--text-lg); line-height: 1.55; margin: 0; }
     .article-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); color: var(--ink-muted); font-size: var(--text-sm); margin-top: var(--space-6); }
     .article-cardlet, .article-toc, .article-callout, .sources-panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-5); }
-    .article-cardlet h2, .article-toc h2 { font-size: var(--text-md); margin: 0 0 var(--space-3); }
+    /* Scoped under .article-body so the article h2 rule below cannot inflate the sidebar headings. */
+    .article-body .article-cardlet h2, .article-body .article-toc h2, .article-cardlet h2, .article-toc h2 { font-size: var(--text-md); margin: 0 0 var(--space-3); }
     .article-cardlet p, .article-toc a { color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.6; }
     .article-toc { position: sticky; top: calc(var(--header-height) + var(--space-6)); }
     .article-toc ol { display: grid; gap: var(--space-2); list-style: none; margin: 0; padding: 0; }
@@ -63,7 +65,7 @@
     .checklist > p { font-size: var(--text-sm); color: var(--ink-muted); margin: 0 0 var(--space-5); }
     .checklist ol { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-5); }
     .checklist li { display: grid; gap: var(--space-1); }
-    .checklist .when { color: var(--primary); font-size: var(--text-xs); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .checklist .when { color: var(--primary); font-size: var(--text-xs); font-weight: 700; }
     .checklist .ask { color: var(--ink-soft); font-size: var(--text-md); line-height: 1.7; margin: 0; }
     .sources-panel { margin-top: var(--space-10); }
     .sources-panel ul { margin-bottom: 0; }
@@ -71,9 +73,10 @@
     .article-figure { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-6); margin: var(--space-8) 0; }
     .article-figure svg { display: block; width: 100%; height: auto; }
     .article-figure figcaption { color: var(--ink-muted); font-size: var(--text-sm); line-height: 1.6; margin-top: var(--space-4); }
+    .article-figure figcaption b { font-family: var(--font-display); font-style: italic; font-weight: 600; color: var(--amber-deep); }
+    .article-figure .article-figure__head { margin: 0 0 var(--space-4); }
     .figure-steps { display: grid; gap: var(--space-5); margin: 0; padding: 0; list-style: none; }
     .figure-steps li { display: grid; grid-template-columns: 44px 1fr; gap: var(--space-4); align-items: start; }
-    .figure-step__num { display: grid; place-items: center; width: 44px; height: 44px; border: 2px solid var(--primary); border-radius: 999px; color: var(--primary); background: var(--bg-alt); font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
     .figure-steps h4 { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); }
     .figure-steps p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
     .figure-foot { margin: var(--space-5) 0 0; padding-top: var(--space-4); border-top: 1px dashed var(--border-soft); color: var(--accent-brown); font-style: italic; font-size: var(--text-md); }
@@ -89,7 +92,6 @@
       .article-toc { position: static; }
       .article-body .article-toc,
       .article-body .article-layout > article { grid-column: auto; grid-row: auto; }
-      .article-title { max-width: 16ch; }
     }
   </style>
   <!-- STRUCTURED-DATA:start (generated by scripts/build-structured-data.mjs) -->
@@ -124,7 +126,7 @@
       "url": "https://growingmindsscience.com/articles/cliff-at-three",
       "image": "https://growingmindsscience.com/assets/img/og/cliff-at-three.png",
       "datePublished": "2026-07-15T17:24:33-07:00",
-      "dateModified": "2026-07-19T18:04:14-07:00"
+      "dateModified": "2026-10-07T08:57:31-04:00"
     },
     {
       "@context": "https://schema.org",
@@ -160,8 +162,8 @@
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -189,8 +191,8 @@
           </li>
           <li><a class="nav__link" href="/articles/" aria-current="page">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">See the class</a></li>
+          <li class="nav__auth"><a class="nav__link" href="/nsc/app/classes">My classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -346,8 +348,9 @@
           <p>This is the part to screenshot. None of it requires you to become an expert or a lawyer. It's a handful of specific questions, asked early, in writing where you can. Working backward from the third birthday:</p>
 
           <figure class="article-figure">
-            <p class="article-kicker" style="margin-bottom: var(--space-4);">The transition timeline</p>
-            <svg viewBox="0 0 720 232" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Timeline working backward from the third birthday: around nine months before, transition planning can begin; at least 90 days before, the transition conference must be held and the plan written; by the third birthday itself, an eligible child's IEP must be in place.">
+            <svg viewBox="0 0 720 232" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig-cliff-at-three-title" aria-describedby="fig-cliff-at-three-desc">
+              <title id="fig-cliff-at-three-title">The early-intervention transition timeline, counted back from the third birthday.</title>
+              <desc id="fig-cliff-at-three-desc">Timeline working backward from the third birthday: around nine months before, transition planning can begin; at least 90 days before, the transition conference must be held and the plan written; by the third birthday itself, an eligible child's IEP must be in place.</desc>
               <line x1="40" y1="140" x2="680" y2="140" stroke="var(--ink-muted)" stroke-opacity=".55" stroke-width="2" />
               <polygon points="678,133 694,140 678,147" fill="var(--ink-muted)" fill-opacity=".7" />
               <rect x="80" y="133" width="373" height="14" rx="7" fill="var(--primary)" fill-opacity=".18" />
@@ -364,10 +367,10 @@
               <line x1="640" y1="98" x2="640" y2="124" stroke="var(--warm)" stroke-opacity=".5" stroke-width="1.5" />
               <circle cx="640" cy="140" r="11" fill="var(--warm)" />
               <text x="700" y="52" text-anchor="end" font-family="var(--font-display)" font-weight="600" font-size="17" fill="var(--accent-brown)">the 3rd birthday</text>
-              <text x="700" y="73" text-anchor="end" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">IEP must be in place —</text>
+              <text x="700" y="73" text-anchor="end" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">IEP must be in place:</text>
               <text x="700" y="91" text-anchor="end" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">the deadline, not the start</text>
             </svg>
-            <figcaption>The federal timeline runs backward from the birthday: planning can start nine months out, the transition conference must happen at least 90 days out, and an eligible child's IEP must be in place the day they turn three.</figcaption>
+            <figcaption><b>Fig. 1</b> &middot; The transition timeline. The federal timeline runs backward from the birthday: planning can start nine months out, the transition conference must happen at least 90 days out, and an eligible child's IEP must be in place the day they turn three.</figcaption>
           </figure>
 
           <div class="checklist">
@@ -453,8 +456,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
@@ -467,8 +470,8 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/preschool.html">Preschool years</a></li>
             <li><a href="/classes/family-systems.html">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>

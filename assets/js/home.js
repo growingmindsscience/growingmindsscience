@@ -235,13 +235,13 @@
     { who: "user", text: "My toddler says “no” to everything. Is something wrong?" },
     {
       who: "ai",
-      text: ["Not at all — this is actually a healthy sign. Between 18 months and 3 years, toddlers are building autonomy. “No” is how they practice self-determination while their prefrontal cortex is still very immature.", "The key is to offer real choices where you can, and hold the line calmly where you need to."],
-      sources: ["autonomy · ages 1–3", "developmental science", "not medical advice"]
+      text: ["Not at all. This is actually a healthy sign. Between 18 months and 3 years, toddlers are building autonomy. “No” is how they practice self-determination while their prefrontal cortex is still very immature.", "The key is to offer real choices where you can, and hold the line calmly where you need to."],
+      sources: ["Kuczynski & Kochanska, 1990", "Kopp, 1982"]
     },
     { who: "user", text: "So I shouldn’t try to stop it?" },
     {
       who: "ai",
-      text: ["The goal isn’t to stop it — it’s to channel it. When you offer choices (“the red cup or the blue cup?”), your toddler gets to say yes to something, which satisfies the autonomy drive without a battle."]
+      text: ["The goal isn’t to stop it; it’s to channel it. When you offer choices (“the red cup or the blue cup?”), your toddler gets to say yes to something, which satisfies the autonomy drive without a battle."]
     }
   ];
 
@@ -268,13 +268,11 @@
 
   // Purely visual: the dots are hidden from assistive tech (the finished
   // message is what matters, and the demo is not a live region).
-  function typingMsg() {
-    var m = el("div", "msg msg--ai");
-    m.setAttribute("aria-hidden", "true");
+  function typingDots() {
     var t = el("div", "typing");
+    t.setAttribute("aria-hidden", "true");
     t.appendChild(el("span")); t.appendChild(el("span")); t.appendChild(el("span"));
-    m.appendChild(t);
-    return m;
+    return t;
   }
 
   function initChat() {
@@ -288,25 +286,41 @@
 
     var played = false;
 
-    function playStatic() {
-      SCRIPT.forEach(function (step) {
-        body.appendChild(step.who === "user" ? userMsg(step.text) : aiMsg(step.text, step.sources));
-      });
-    }
+    // The whole conversation is built up front, so the card is laid out at
+    // its final height before anyone sees it. The animated version only
+    // reveals messages that already occupy their space: nothing below the
+    // card moves as the demo plays (no layout shift).
+    var nodes = SCRIPT.map(function (s) {
+      if (s.who === "user") return userMsg(s.text);
+      var a = aiMsg(s.text, s.sources);
+      a.appendChild(typingDots());
+      return a;
+    });
+    nodes.forEach(function (n) { body.appendChild(n); });
 
-    function playAnimated() {
+    // Phones get the finished conversation: nobody should wait on a demo
+    // mid-scroll on a small screen.
+    var animate = animEnabled && ("IntersectionObserver" in window) &&
+      !window.matchMedia("(max-width: 720px)").matches;
+    if (!animate) return wireComposer();
+
+    function show(n) { n.classList.remove("is-pending", "is-typing"); enter(n); }
+
+    function play() {
+      if (played) return;
+      played = true;
       var i = 0;
       function step() {
-        if (i >= SCRIPT.length) return;
-        var s = SCRIPT[i];
-        if (s.who === "user") {
-          var u = userMsg(s.text); body.appendChild(u); enter(u);
+        if (i >= nodes.length) return;
+        var n = nodes[i];
+        if (SCRIPT[i].who === "user") {
+          show(n);
           i++; window.setTimeout(step, 850);
         } else {
-          var typing = typingMsg(); body.appendChild(typing); enter(typing);
+          n.classList.remove("is-pending");
+          n.classList.add("is-typing");
           window.setTimeout(function () {
-            var a = aiMsg(s.text, s.sources);
-            body.replaceChild(a, typing); enter(a);
+            show(n);
             i++; window.setTimeout(step, 1100);
           }, 1500);
         }
@@ -314,38 +328,53 @@
       step();
     }
 
-    function play() {
-      if (played) return;
-      played = true;
-      if (animEnabled) playAnimated(); else playStatic();
-    }
+    // The finished conversation is the default. Only a card that is still
+    // below the fold is hidden, just before it arrives, so it can play in.
+    // If that never happens (a reload mid-page, a fast jump, a renderer that
+    // never scrolls), the messages simply stay visible.
+    var armed = false;
+    var arm = new IntersectionObserver(function (entries) {
+      var e = entries[0];
+      if (!e.isIntersecting) return;
+      arm.disconnect();
+      if (e.boundingClientRect.top < window.innerHeight) return;
+      armed = true;
+      nodes.forEach(function (n) { n.classList.add("is-pending"); });
+      // Failsafe: if the reader stops short of the card, don't leave it blank.
+      window.setTimeout(function () {
+        if (played) return;
+        played = true;
+        nodes.forEach(show);
+      }, 6000);
+    }, { rootMargin: "0px 0px 240px 0px" });
+    var go = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting && armed) { play(); go.disconnect(); }
+    }, { threshold: 0.3 });
+    arm.observe(chat);
+    go.observe(chat);
+    wireComposer();
 
-    if (!animEnabled || !("IntersectionObserver" in window)) {
-      play();
-    } else {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) { play(); io.disconnect(); }
+    function wireComposer() {
+      // Composer: honest hand-off to the (free) full tutor. The question rides
+      // along in sessionStorage, not the URL, so a parent's question about their
+      // child never lands in browser history or a server log. The AI page
+      // prefills it and never auto-sends, so nobody has to type it twice.
+      if (form && input) {
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          var q = input.value.trim();
+          if (!q) {
+            if (note) note.textContent = "Type a question to see how it works.";
+            input.focus();
+            return;
+          }
+          if (note) note.textContent = "Opening Growing Minds AI with your question…";
+          var target = "/tools/growing-minds-ai";
+          try { window.sessionStorage.setItem("gms-ai-question", q.slice(0, 500)); }
+          catch (e) { target += "?q=" + encodeURIComponent(q.slice(0, 500)); }
+          window.location.assign(target);
         });
-      }, { threshold: 0.3 });
-      io.observe(chat);
-    }
-
-    // Composer: honest hand-off to the (free) full tutor. The question travels
-    // with the parent via ?q= (the AI page prefills it and never auto-sends),
-    // so nobody has to type it twice.
-    if (form && input) {
-      form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        var q = input.value.trim();
-        if (!q) {
-          if (note) note.textContent = "Type a question to see how it works.";
-          input.focus();
-          return;
-        }
-        if (note) note.textContent = "Opening Growing Minds AI with your question…";
-        window.location.assign("/tools/growing-minds-ai?q=" + encodeURIComponent(q.slice(0, 500)));
-      });
+      }
     }
   }
 
@@ -463,9 +492,19 @@
           showSuccess();
         })
         .catch(function (error) {
-          // Network failure: fall back to a native full-page POST (server redirects to /thank-you).
-          if (error && error.name === "TypeError") { form.submit(); return; }
-          setStatus(error.message || "Something went wrong — please try again. Your details are still here.", "error");
+          if (error && error.name === "TypeError") {
+            // Offline: a native POST would only reach the browser's error page and
+            // lose what they typed, so keep them here with their details intact.
+            if (navigator.onLine === false) {
+              setStatus("You seem to be offline. Your details are still here; send it again once you're back online.", "error");
+              return;
+            }
+            // Any other network failure: fall back to a native full-page POST
+            // (the server redirects to /thank-you).
+            form.submit();
+            return;
+          }
+          setStatus(error.message || "That didn\u2019t go through. Your details are still here, so try again in a moment.", "error");
         })
         .finally(function () {
           setLoading(false);
@@ -486,11 +525,13 @@
     if (!bar || !heroCtas || !("IntersectionObserver" in window)) return;
 
     var pastHero = false;
-    var endEls = [document.querySelector(".signup"), document.querySelector(".site-footer")].filter(Boolean);
-    var visibleEnds = 0;
+    // The bar steps aside wherever the page already offers the same choice:
+    // the curriculum (its own buttons), the enroll band, and the footer.
+    var endEls = [document.getElementById("classes"), document.querySelector(".signup"), document.querySelector(".site-footer")].filter(Boolean);
+    var visibleEnds = new Set();
 
     function update() {
-      bar.classList.toggle("is-visible", pastHero && visibleEnds === 0);
+      bar.classList.toggle("is-visible", pastHero && visibleEnds.size === 0);
     }
 
     new IntersectionObserver(function (entries) {
@@ -504,9 +545,8 @@
     if (endEls.length) {
       var endObserver = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
-          visibleEnds += e.isIntersecting ? 1 : -1;
+          if (e.isIntersecting) visibleEnds.add(e.target); else visibleEnds.delete(e.target);
         });
-        if (visibleEnds < 0) visibleEnds = 0;
         update();
       }, { threshold: 0 });
       endEls.forEach(function (el) { endObserver.observe(el); });

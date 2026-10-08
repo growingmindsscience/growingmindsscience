@@ -32,10 +32,9 @@ const strengthClass = (s) => (s === "contradicted" ? "badge--contra" : s === "st
 const SHARED_CSS = `
     .claim-hero { padding: clamp(3rem, 6vw, 4.5rem) 0 2rem; }
     .cl-badges { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 var(--space-4); }
-    .cl-badge { display: inline-flex; align-items: center; padding: .35rem .8rem; border-radius: 999px; font-family: var(--font-display); font-weight: 600; font-size: var(--text-xs); border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); }
+    .cl-badge { display: inline-flex; align-items: center; padding: .35rem .7rem; border-radius: var(--radius-sm); font-family: var(--font-display); font-weight: 600; font-size: var(--text-xs); border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); }
     .cl-badge.badge--solid { background: var(--surface-2); color: var(--primary); border-color: color-mix(in srgb, var(--primary) 40%, transparent); }
-    .cl-badge.badge--contra { background: #F8E7E0; color: #9C4429; border-color: color-mix(in srgb, #9C4429 30%, transparent); }
-    [data-theme="dark"] .cl-badge.badge--contra { background: color-mix(in srgb, #DE7356 18%, transparent); color: #E78D6F; border-color: color-mix(in srgb, #E78D6F 35%, transparent); }
+    .cl-badge.badge--contra { background: var(--amber-tint); color: var(--amber-deep); border-color: color-mix(in srgb, var(--amber-deep) 30%, transparent); }
     .cl-verdict { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-6); margin: var(--space-6) 0; }
     .cl-verdict p { margin: 0; font-size: var(--text-lg); font-weight: 500; }
     .cl-summary { max-width: 46rem; color: var(--ink-soft); font-size: var(--text-md); line-height: 1.78; }
@@ -46,7 +45,7 @@ const SHARED_CSS = `
     .cl-note { font-size: var(--text-xs); color: var(--ink-muted); max-width: 52rem; margin: var(--space-7) 0 0; }
     .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr)); gap: var(--space-5); margin-top: var(--space-6); }
     .cl-card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-5); display: flex; flex-direction: column; gap: .6rem; }
-    .cl-card h3 { margin: 0; font-size: var(--text-md); line-height: 1.35; }
+    .cl-card h2 { margin: 0; font-size: var(--text-md); line-height: 1.35; }
     .cl-card .cl-verdict-line { color: var(--ink-soft); font-size: var(--text-sm); margin: 0; line-height: 1.6; }
     .cl-card .cl-open { margin-top: auto; padding-top: .5rem; }
     .cl-method { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-6); margin-top: var(--space-7); }
@@ -60,24 +59,25 @@ function shell({ title, description, canonicalPath, body, extraHead = "" }) {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${esc(title)} - Growing Minds Science</title>
+  <title>${esc(title)} | Growing Minds Science</title>
   <meta name="description" content="${esc(description)}" />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="/assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="/assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="/assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="/assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="${ORIGIN}${canonicalPath}" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="${esc(title)} — Growing Minds Science" />
+  <meta property="og:title" content="${esc(title)} | Growing Minds Science" />
   <meta property="og:description" content="${esc(description)}" />
   <meta property="og:image" content="${ORIGIN}/assets/img/og/claims-library.png" />
   <meta name="twitter:card" content="summary_large_image" />
 ${extraHead}
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400..800&display=swap" />
   <link rel="stylesheet" href="/assets/css/styles.css" />
   <link rel="stylesheet" href="/assets/css/refresh.css" />
   <link rel="stylesheet" href="/assets/css/tools.css" />
@@ -90,8 +90,8 @@ ${extraHead}
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -111,16 +111,16 @@ ${extraHead}
                   <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A ten-minute counting check-in you run at home.</span></a></li>
                   <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
                   <li><a class="nav__submenu-link" href="/tools/communication-snapshot.html"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/arcade/"><span class="nav__submenu-title">Arcade</span><span class="nav__submenu-desc">Silly games for a five-minute break between lessons.</span></a></li>
                 </ul>
                 <a class="nav__menu-all" href="/tools/">All free tools and guides <span aria-hidden="true">&rarr;</span></a>
               </div>
             </details>
           </li>
-          <li><a class="nav__link" href="/arcade/">Arcade</a></li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">See the class</a></li>
+          <li class="nav__auth"><a class="nav__link" href="/nsc/app/classes">My classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -138,8 +138,8 @@ ${body}
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
@@ -152,8 +152,8 @@ ${body}
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/preschool.html">Preschool years</a></li>
             <li><a href="/classes/family-systems.html">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>
@@ -246,7 +246,7 @@ ${METHOD_HTML}
       </div>
     </section>`;
   return shell({
-    title: `${c.claim_text.replace(/\.$/, "")} — graded`,
+    title: `${c.claim_text.replace(/\.$/, "")} (graded)`,
     description: `${a.strength_labels[c.grade_strength]}, ${a.consensus_labels[c.grade_consensus].toLowerCase()}: ${c.verdict_label}`,
     canonicalPath: `/claims/${c.slug}`,
     extraHead: `  <script type="application/ld+json">${JSON.stringify(jsonld)}</script>\n`,
@@ -260,7 +260,7 @@ function hubPage() {
               <span class="cl-badge ${strengthClass(c.grade_strength)}">${esc(a.strength_labels[c.grade_strength])}</span>
               <span class="cl-badge">${esc(DOMAIN_LABEL[c.domain] || c.domain)}</span>
             </div>
-            <h3>&ldquo;${esc(c.claim_text)}&rdquo;</h3>
+            <h2>&ldquo;${esc(c.claim_text)}&rdquo;</h2>
             <p class="cl-verdict-line">${esc(c.verdict_label)}</p>
             <p class="cl-open"><a class="btn btn--primary" href="/claims/${esc(c.slug)}">Read the grade</a></p>
           </article>`).join("\n");

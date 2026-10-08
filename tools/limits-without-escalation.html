@@ -4,17 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>Limits without escalation — Growing Minds Science</title>
+  <title>Limits without escalation | Growing Minds Science</title>
   <meta name="description" content="A practical parent tool on holding a no calmly when a toddler or preschooler is testing autonomy, without scripts and without losing your footing." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/tools/limits-without-escalation" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Limits without escalation — Growing Minds Science" />
+  <meta property="og:title" content="Limits without escalation | Growing Minds Science" />
   <meta property="og:description" content="A practical parent tool on holding a no calmly when a toddler or preschooler is testing autonomy, without scripts and without losing your footing." />
   <meta property="og:image" content="https://growingmindsscience.com/assets/img/site/family-reading.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -39,18 +40,18 @@
     .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
     .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
 
-    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: 999px; background: var(--surface-2); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: var(--radius-sm); background: var(--surface-2); font-size: var(--text-xs); color: var(--ink-muted); margin-bottom: var(--space-3); }
 
     .what-panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-6); }
     .what-panel__blocks { display: grid; gap: var(--space-4); }
     .what-block { position: relative; padding-left: var(--space-5); }
     .what-block::before { content: ""; position: absolute; left: 2px; top: .58em; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
-    .what-block__label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .1em; color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
+    .what-block__label { font-size: var(--text-xs); color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
     .what-block__text { margin: 0; color: var(--ink-soft); line-height: 1.65; }
 
     .panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-6); }
     .tabs { display: flex; flex-wrap: wrap; gap: .75rem; margin: 0 0 var(--space-5); }
-    .tab-btn { padding: .8rem 1rem; border-radius: 999px; border: 1px solid var(--border); background: var(--bg-alt); color: var(--ink-soft); cursor: pointer; transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition); }
+    .tab-btn { padding: .8rem 1rem; border-radius: var(--radius); border: 1px solid var(--border); background: var(--bg-alt); color: var(--ink-soft); cursor: pointer; transition: background var(--transition), border-color var(--transition), color var(--transition), transform var(--transition); }
     .tab-btn[aria-selected="true"] { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
     .tab-panel[hidden] { display: none; }
     .tab-panel h3 { margin: 0 0 var(--space-4); font-size: var(--text-lg); }
@@ -60,7 +61,7 @@
     .tip-item__body { color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; margin: 0; }
 
     .tab-tip { margin-top: var(--space-5); padding: var(--space-4) var(--space-5); background: var(--surface-2); border-radius: var(--radius); border: 1px solid var(--border-soft); }
-    .tab-tip__label { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .1em; color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
+    .tab-tip__label { font-size: var(--text-xs); color: var(--primary); font-weight: 700; margin: 0 0 .3rem; }
     .tab-tip p { margin: 0; font-size: var(--text-sm); color: var(--ink-soft); }
 
     .scenario-wrap { display: grid; grid-template-columns: .95fr 1.05fr; gap: var(--space-5); align-items: start; }
@@ -100,8 +101,8 @@
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -129,8 +130,8 @@
           </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">See the class</a></li>
+          <li class="nav__auth"><a class="nav__link" href="/nsc/app/classes">My classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -145,7 +146,7 @@
     <section class="tool-hero">
       <div class="container hero-grid">
         <div>
-          <p class="eyebrow">Toddler &amp; Preschool &middot; Behavior guide</p>
+          <p class="eyebrow">Toddler &amp; preschool &middot; Behavior guide</p>
           <h1 class="page-hero__title">Limits without escalation</h1>
           <p class="tool-lede">Holding a "no" calmly when a child is testing autonomy, without scripts and without losing your own footing. This guide is built for the ordinary moments when a child pushes, refuses, or falls apart after a limit.</p>
           <div class="hero-actions">
@@ -240,7 +241,7 @@
             </ul>
           </section>
 
-          <section class="tab-panel" id="tab-during" role="tabpanel" aria-labelledby="btn-during" hidden>
+          <section class="tab-panel" id="tab-during" role="tabpanel" aria-labelledby="btn-during">
             <h3>During the moment</h3>
             <ul class="tip-list">
               <li class="tip-item">
@@ -271,7 +272,7 @@
             </div>
           </section>
 
-          <section class="tab-panel" id="tab-after" role="tabpanel" aria-labelledby="btn-after" hidden>
+          <section class="tab-panel" id="tab-after" role="tabpanel" aria-labelledby="btn-after">
             <h3>After the moment</h3>
             <ul class="tip-list">
               <li class="tip-item">
@@ -325,21 +326,21 @@
               <p class="small">Try: "I'm not letting you throw that. I'm moving it."</p>
             </article>
 
-            <article class="scenario-output" data-output="meltdown" data-ai-question="My child melts down when I hold a limit. How do I stay calm and keep the boundary?" hidden>
+            <article class="scenario-output" data-output="meltdown" data-ai-question="My child melts down when I hold a limit. How do I stay calm and keep the boundary?">
               <span class="tag">When the limit triggers big feelings</span>
               <h3>Keep the limit and make room for the feeling.</h3>
               <p>A child falling apart does not automatically mean the limit was too harsh. If the boundary is reasonable and necessary, the job is to stay nearby, keep the limit intact, and avoid arguing with the feeling.</p>
               <p class="small">Try: "You're mad. I'm still not letting you hit."</p>
             </article>
 
-            <article class="scenario-output" data-output="escalated" data-ai-question="I already raised my voice during a limit. How do I come back from that?" hidden>
+            <article class="scenario-output" data-output="escalated" data-ai-question="I already raised my voice during a limit. How do I come back from that?">
               <span class="tag">When the adult already escalated</span>
               <h3>Repair the tone, not the boundary.</h3>
               <p>If you yelled, threatened, or got pulled into a power struggle, you can come back without pretending the limit disappeared. Lower your voice, simplify, and return to the clearest version of the boundary.</p>
               <p class="small">Try: "I got too loud. I'm going to say it again more clearly. I'm not letting you climb there."</p>
             </article>
 
-            <article class="scenario-output" data-output="unclear" data-ai-question="How can I tell whether this is a limit issue or a regulation issue with my child?" hidden>
+            <article class="scenario-output" data-output="unclear" data-ai-question="How can I tell whether this is a limit issue or a regulation issue with my child?">
               <span class="tag">When you are unsure what kind of moment this is</span>
               <h3>Ask whether the child can use the limit right now.</h3>
               <p>If the child is exhausted, dysregulated, sick, overloaded, or moving toward panic, the first task may be reducing stimulation and helping the system settle. If the child is organized enough to keep testing, the limit likely needs steadier follow-through.</p>
@@ -399,8 +400,7 @@
       <div class="container container--narrow">
         <div class="cta-strip">
           <div>
-            <p class="eyebrow">Toddler class · now available</p>
-            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Module 3 covers autonomy, limits, and the toddler "no" in full.</h2>
+            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Module 3 of the toddler class covers autonomy, limits, and the toddler "no" in full.</h2>
             <p class="small" style="max-width:38rem; margin:0;">Why toddlers test limits, how the developing brain drives this, and what the research supports for steady, calm follow-through. $49 for lifetime access.</p>
           </div>
           <div class="hero-actions">
@@ -415,8 +415,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
@@ -429,8 +429,8 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/preschool.html">Preschool years</a></li>
             <li><a href="/classes/family-systems.html">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>
@@ -471,17 +471,33 @@
   <script src="../assets/js/gms-tools.js" defer></script>
   <script src="../assets/js/decor.js" defer></script>
   <script>
+    // Tabs (WAI-ARIA pattern): one tab stop, arrow keys / Home / End move
+    // between tabs. All panels ship visible so the guide reads without JS.
     (function(){
-      var tabButtons = document.querySelectorAll('.tab-btn');
-      var tabPanels = document.querySelectorAll('.tab-panel');
-      tabButtons.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          tabButtons.forEach(function(b) { b.setAttribute('aria-selected', 'false'); });
-          tabPanels.forEach(function(p) { p.hidden = true; });
-          btn.setAttribute('aria-selected', 'true');
-          document.getElementById(btn.getAttribute('aria-controls')).hidden = false;
+      var tabButtons = Array.prototype.slice.call(document.querySelectorAll('.tab-btn'));
+      if (!tabButtons.length) return;
+      function select(btn, focus) {
+        tabButtons.forEach(function(b) {
+          var on = b === btn;
+          b.setAttribute('aria-selected', on ? 'true' : 'false');
+          b.tabIndex = on ? 0 : -1;
+          document.getElementById(b.getAttribute('aria-controls')).hidden = !on;
+        });
+        if (focus) btn.focus();
+      }
+      tabButtons.forEach(function(btn, i) {
+        btn.addEventListener('click', function() { select(btn, false); });
+        btn.addEventListener('keydown', function(e) {
+          var next = null;
+          if (e.key === 'ArrowRight') next = tabButtons[(i + 1) % tabButtons.length];
+          else if (e.key === 'ArrowLeft') next = tabButtons[(i - 1 + tabButtons.length) % tabButtons.length];
+          else if (e.key === 'Home') next = tabButtons[0];
+          else if (e.key === 'End') next = tabButtons[tabButtons.length - 1];
+          if (next) { e.preventDefault(); select(next, true); }
         });
       });
+      var current = tabButtons.filter(function(b) { return b.getAttribute('aria-selected') === 'true'; })[0] || tabButtons[0];
+      select(current, false);
     })();
   </script>
   <script defer src="/_vercel/insights/script.js"></script>

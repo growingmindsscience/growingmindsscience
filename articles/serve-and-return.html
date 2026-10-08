@@ -4,22 +4,23 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>What "serve and return" actually means - Growing Minds Science</title>
+  <title>What “serve and return” actually means | Growing Minds Science</title>
   <meta name="description" content="A clear, research-backed translation of serve and return: what it means, why it matters for early language, and where the idea gets over-applied." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/articles/serve-and-return" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="What &quot;serve and return&quot; actually means — Growing Minds Science" />
+  <meta property="og:title" content="What &quot;serve and return&quot; actually means | Growing Minds Science" />
   <meta property="og:description" content="A clear translation of one of the most cited ideas in early-language research, including where it's been over-applied." />
   <meta property="og:image" content="https://growingmindsscience.com/assets/img/og/serve-and-return.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Growing Minds Science — What &quot;serve and return&quot; actually means" />
+  <meta property="og:image:alt" content="Growing Minds Science | What &quot;serve and return&quot; actually means" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://growingmindsscience.com/assets/img/og/serve-and-return.png" />
 
@@ -32,12 +33,13 @@
   <style>
     .article-hero { padding: clamp(3.5rem, 7vw, 6rem) 0 var(--space-10); background: linear-gradient(180deg, color-mix(in oklab, var(--accent-soft) 22%, var(--bg)) 0%, var(--bg) 100%); border-bottom: 1px solid var(--border-soft); }
     .article-layout { display: grid; grid-template-columns: minmax(0, .72fr) minmax(240px, .28fr); gap: clamp(var(--space-8), 6vw, var(--space-16)); align-items: start; }
-    .article-kicker { color: var(--primary); font-size: var(--text-xs); font-weight: 700; letter-spacing: .12em; line-height: 1.3; margin: 0 0 var(--space-4); text-transform: uppercase; }
-    .article-title { max-width: 18ch; margin: 0 0 var(--space-5); font-family: var(--font-display); font-size: clamp(3rem, 8vw, 5.6rem); font-weight: 400; letter-spacing: 0; line-height: .95; }
+    .article-kicker { color: var(--amber-deep); font-size: var(--text-sm); font-weight: 600; line-height: 1.3; margin: 0 0 var(--space-4); }
+    .article-title { max-width: 22ch; margin: 0 0 var(--space-5); font-family: var(--font-display); font-size: clamp(2.3rem, 1.2rem + 3vw, 3.4rem); font-weight: 400; letter-spacing: 0; line-height: 1.04; text-wrap: balance; }
     .article-dek { max-width: 48rem; color: var(--ink-soft); font-size: var(--text-lg); line-height: 1.55; margin: 0; }
     .article-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); color: var(--ink-muted); font-size: var(--text-sm); margin-top: var(--space-6); }
     .article-cardlet, .article-toc, .article-callout, .sources-panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-5); }
-    .article-cardlet h2, .article-toc h2 { font-size: var(--text-md); margin: 0 0 var(--space-3); }
+    /* Scoped under .article-body so the article h2 rule below cannot inflate the sidebar headings. */
+    .article-body .article-cardlet h2, .article-body .article-toc h2, .article-cardlet h2, .article-toc h2 { font-size: var(--text-md); margin: 0 0 var(--space-3); }
     .article-cardlet p, .article-toc a { color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.6; }
     .article-toc { position: sticky; top: calc(var(--header-height) + var(--space-6)); }
     .article-toc ol { display: grid; gap: var(--space-2); list-style: none; margin: 0; padding: 0; }
@@ -61,9 +63,10 @@
     .article-figure { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-6); margin: var(--space-8) 0; }
     .article-figure svg { display: block; width: 100%; height: auto; }
     .article-figure figcaption { color: var(--ink-muted); font-size: var(--text-sm); line-height: 1.6; margin-top: var(--space-4); }
+    .article-figure figcaption b { font-family: var(--font-display); font-style: italic; font-weight: 600; color: var(--amber-deep); }
+    .article-figure .article-figure__head { margin: 0 0 var(--space-4); }
     .figure-steps { display: grid; gap: var(--space-5); margin: 0; padding: 0; list-style: none; }
     .figure-steps li { display: grid; grid-template-columns: 44px 1fr; gap: var(--space-4); align-items: start; }
-    .figure-step__num { display: grid; place-items: center; width: 44px; height: 44px; border: 2px solid var(--primary); border-radius: 999px; color: var(--primary); background: var(--bg-alt); font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
     .figure-steps h4 { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); }
     .figure-steps p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
     .figure-foot { margin: var(--space-5) 0 0; padding-top: var(--space-4); border-top: 1px dashed var(--border-soft); color: var(--accent-brown); font-style: italic; font-size: var(--text-md); }
@@ -79,7 +82,6 @@
       .article-toc { position: static; }
       .article-body .article-toc,
       .article-body .article-layout > article { grid-column: auto; grid-row: auto; }
-      .article-title { max-width: 12ch; }
     }
   </style>
   <!-- STRUCTURED-DATA:start (generated by scripts/build-structured-data.mjs) -->
@@ -88,7 +90,7 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "What \"serve and return\" actually means",
+      "headline": "What “serve and return” actually means",
       "description": "A clear, research-backed translation of serve and return: what it means, why it matters for early language, and where the idea gets over-applied.",
       "inLanguage": "en",
       "isAccessibleForFree": true,
@@ -114,7 +116,7 @@
       "url": "https://growingmindsscience.com/articles/serve-and-return",
       "image": "https://growingmindsscience.com/assets/img/og/serve-and-return.png",
       "datePublished": "2026-05-26T18:27:33-07:00",
-      "dateModified": "2026-07-19T18:04:14-07:00"
+      "dateModified": "2026-10-07T08:57:31-04:00"
     },
     {
       "@context": "https://schema.org",
@@ -135,7 +137,7 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "What \"serve and return\" actually means",
+          "name": "What “serve and return” actually means",
           "item": "https://growingmindsscience.com/articles/serve-and-return"
         }
       ]
@@ -150,8 +152,8 @@
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -179,8 +181,8 @@
           </li>
           <li><a class="nav__link" href="/articles/" aria-current="page">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood.html">See the class</a></li>
+          <li class="nav__auth"><a class="nav__link" href="/nsc/app/classes">My classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -196,7 +198,7 @@
       <div class="container article-layout">
         <div>
           <p class="article-kicker">Research, explained</p>
-          <h1 class="article-title">What "serve and return" actually means - and what it doesn't</h1>
+          <h1 class="article-title">What &ldquo;serve and return&rdquo; actually means, and what it doesn&rsquo;t</h1>
           <p class="article-dek">A clear translation of one of the most cited ideas in early-language research, including where it has been over-applied.</p>
           <p class="article-meta">
             <span>By Matthew McArthur</span>
@@ -248,8 +250,9 @@
           <p>Harvard's Center on the Developing Child describes serve and return as contingent, reciprocal interaction: a back-and-forth exchange where the adult response is linked to the child's signal. That contingent part matters. It means the adult is not simply broadcasting language into the room. The adult is responding to the child in front of them.</p>
 
           <figure class="article-figure">
-            <p class="article-kicker" style="margin-bottom: var(--space-4);">The loop</p>
-            <svg viewBox="0 0 720 345" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A circular loop with four beats: the child serves with a babble, a point, or a look; you return it in the same neighborhood of their attention; you add a little, one new word rather than a lecture; then you wait, leaving space for the child's next turn — and the loop begins again.">
+            <svg viewBox="0 0 720 345" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig-serve-and-return-title" aria-describedby="fig-serve-and-return-desc">
+              <title id="fig-serve-and-return-title">The serve-and-return loop, in four beats.</title>
+              <desc id="fig-serve-and-return-desc">A circular loop with four beats: the child serves with a babble, a point, or a look; you return it in the same neighborhood of their attention; you add a little, one new word rather than a lecture; then you wait, leaving space for the child's next turn. Then the loop begins again.</desc>
               <defs>
                 <marker id="sr-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
                   <path d="M0 0 L10 5 L0 10 z" fill="var(--primary)" />
@@ -276,7 +279,7 @@
               <text x="360" y="172" text-anchor="middle" font-family="var(--font-body)" font-style="italic" font-size="15" fill="var(--accent-brown)">a responsive loop,</text>
               <text x="360" y="193" text-anchor="middle" font-family="var(--font-body)" font-style="italic" font-size="15" fill="var(--accent-brown)">not a script</text>
             </svg>
-            <figcaption>The return is connected to what the child is already attending to &mdash; and the wait matters as much as the words, because it hands the next turn back.</figcaption>
+            <figcaption><b>Fig. 1</b> &middot; The loop. The return is connected to what the child is already attending to. The wait matters as much as the words, because it hands the next turn back.</figcaption>
           </figure>
 
           <p>Michael Tomasello's research on joint attention offers an early window into why contingency matters. When an adult follows a child's gaze or pointing gesture and names what the child is already attending to, vocabulary acquisition is measurably stronger than when an adult tries to redirect the child's attention elsewhere. The child has already initiated an interest. A return that connects to that initiative lands differently than language delivered independently of it.</p>
@@ -374,8 +377,7 @@
       <div class="container container--narrow">
         <div class="article-cta">
           <div>
-            <p class="article-kicker">Toddler class · now available</p>
-            <h2 style="margin:0 0 .35rem; font-size:var(--text-lg);">Language and serve-and-return are covered in depth in Module 2.</h2>
+            <h2 style="margin:0 0 .35rem; font-size:var(--text-lg);">Module 2 of the toddler class covers language and serve-and-return in depth.</h2>
             <p class="small" style="max-width:38rem; margin:0;">The toddler class goes further: how language actually grows through ordinary conversation, what supports the vocabulary explosion, and what the research says about talking with your toddler (without turning your home into a lesson plan). $49 for lifetime access.</p>
           </div>
           <div class="hero__ctas">
@@ -390,8 +392,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
@@ -404,8 +406,8 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
             <li><a href="/classes/preschool.html">Preschool years</a></li>
             <li><a href="/classes/family-systems.html">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>

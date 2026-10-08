@@ -24,12 +24,13 @@
 
   <link rel="canonical" href="https://growingmindsscience.com/" />
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="/assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="apple-touch-icon" href="/assets/img/original-logo-mark-no-words-180.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400..800&display=swap" />
   <link rel="stylesheet" href="assets/css/home.css" />
+  <link rel="stylesheet" href="assets/css/seminar.css" />
   <style>
     /* Token bridge: the shared arcade styles (arcade.css, loaded on demand by
        decor.js for the hidden game) use the styles.css names; the home
@@ -72,8 +73,8 @@
 
   <header class="site-header site-header--ink" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -101,7 +102,7 @@
           </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
+          <li class="nav__auth"><a class="nav__link" href="/nsc/app/classes">My classes</a></li>
           <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
@@ -141,50 +142,51 @@
         </div>
 
         <figure class="hero__media fig fig--hero" aria-labelledby="fig1-caption">
-          <svg viewBox="0 0 640 400" role="img" aria-describedby="fig1-desc" xmlns="http://www.w3.org/2000/svg">
-            <title>Figure 1. Windows of heightened plasticity by domain, birth to five.</title>
-            <desc id="fig1-desc">A line chart with age from birth to five years on the horizontal axis and plasticity on the vertical axis. Three curves rise and fall at different ages: sensing pathways peak in the first months, language peaks around the end of the first year, and higher cognitive function peaks around two to four years and declines gradually.</desc>
+          <svg viewBox="0 0 480 340" role="img" aria-labelledby="fig1-title" aria-describedby="fig1-desc" xmlns="http://www.w3.org/2000/svg">
+            <title id="fig1-title">Figure 1. Windows of heightened plasticity by domain, birth to five.</title>
+            <desc id="fig1-desc">A line chart with age from birth to five years on the horizontal axis and plasticity on the vertical axis. Three curves rise and fall at different ages: sensing pathways peak in the first months, language peaks before the first birthday, and higher cognition peaks around two to three years. After each peak the curve tapers to a lower level but never reaches zero: the window narrows, it does not close.</desc>
             <!-- grid -->
             <g class="fig-grid" fill="none" stroke-width="1">
-              <line x1="164.8" y1="50" x2="164.8" y2="340"/>
-              <line x1="273.6" y1="50" x2="273.6" y2="340"/>
-              <line x1="382.4" y1="50" x2="382.4" y2="340"/>
-              <line x1="491.2" y1="50" x2="491.2" y2="340"/>
-              <line x1="600" y1="50" x2="600" y2="340"/>
-              <line x1="56" y1="122" x2="600" y2="122"/>
-              <line x1="56" y1="195" x2="600" y2="195"/>
-              <line x1="56" y1="268" x2="600" y2="268"/>
+              <line x1="130.4" y1="30" x2="130.4" y2="280"/>
+              <line x1="212.8" y1="30" x2="212.8" y2="280"/>
+              <line x1="295.2" y1="30" x2="295.2" y2="280"/>
+              <line x1="377.6" y1="30" x2="377.6" y2="280"/>
+              <line x1="460" y1="30" x2="460" y2="280"/>
+              <line x1="48" y1="92" x2="460" y2="92"/>
+              <line x1="48" y1="155" x2="460" y2="155"/>
+              <line x1="48" y1="218" x2="460" y2="218"/>
             </g>
             <!-- axes -->
             <g class="fig-axis" fill="none" stroke-width="1.5" stroke-linecap="round">
-              <line x1="56" y1="50" x2="56" y2="340"/>
-              <line x1="56" y1="340" x2="600" y2="340"/>
+              <line x1="48" y1="30" x2="48" y2="280"/>
+              <line x1="48" y1="280" x2="460" y2="280"/>
             </g>
-            <!-- curves (pathLength=1 so the draw-in is a 0→1 dash offset) -->
-            <path class="fig-curve fig-curve--cog" pathLength="1" d="M56 338 C 160 336, 250 150, 360 130 S 540 220, 600 258"/>
-            <path class="fig-curve fig-curve--lang" pathLength="1" d="M56 338 C 100 338, 118 96, 150 96 S 240 250, 330 300 S 520 338, 600 336"/>
-            <path class="fig-curve fig-curve--sense" pathLength="1" d="M56 336 C 70 330, 86 70, 104 70 C 124 70, 150 250, 200 300 C 260 345, 420 340, 600 340"/>
+            <!-- curves (pathLength=1 so the draw-in is a 0 to 1 dash offset); each tail stays above zero -->
+            <path class="fig-curve fig-curve--cog" pathLength="1" d="M48 278 C 140 276, 200 98, 279 96 S 400 140, 460 158"/>
+            <path class="fig-curve fig-curve--lang" pathLength="1" d="M48 278 C 78 276, 96 72, 119 72 S 180 170, 240 200 S 380 222, 460 224"/>
+            <path class="fig-curve fig-curve--sense" pathLength="1" d="M48 276 C 58 268, 68 50, 84 50 C 100 50, 118 170, 150 205 C 190 228, 300 230, 460 232"/>
             <!-- peaks -->
-            <circle class="fig-peak fig-peak--sense" cx="104" cy="70" r="5.5"/>
-            <circle class="fig-peak fig-peak--lang" cx="150" cy="96" r="5.5"/>
-            <circle class="fig-peak fig-peak--cog" cx="360" cy="130" r="5.5"/>
+            <circle class="fig-peak fig-peak--sense" cx="84" cy="50" r="5.5"/>
+            <circle class="fig-peak fig-peak--lang" cx="119" cy="72" r="5.5"/>
+            <circle class="fig-peak fig-peak--cog" cx="279" cy="96" r="5.5"/>
             <!-- labels -->
-            <text class="fig-text fig-label fig-label--sense" x="118" y="63">Sensing pathways (vision, hearing)</text>
-            <text class="fig-text fig-label fig-label--lang" x="164" y="104">Language</text>
-            <text class="fig-text fig-label fig-label--cog" x="374" y="126">Higher cognitive function</text>
+            <text class="fig-text fig-label fig-label--sense" x="95" y="46">Sensing</text>
+            <text class="fig-text fig-label fig-label--lang" x="134" y="64">Language</text>
+            <text class="fig-text fig-label fig-label--cog" x="290" y="86">Higher cognition</text>
+            <text class="fig-text fig-text--sm fig-label fig-note" x="460" y="198" text-anchor="end">Narrower, still open</text>
             <!-- axis labels -->
             <g class="fig-text fig-text--sm">
-              <text x="56" y="366" text-anchor="middle">Birth</text>
-              <text x="164.8" y="366" text-anchor="middle">1 yr</text>
-              <text x="273.6" y="366" text-anchor="middle">2</text>
-              <text x="382.4" y="366" text-anchor="middle">3</text>
-              <text x="491.2" y="366" text-anchor="middle">4</text>
-              <text x="600" y="366" text-anchor="middle">5 yrs</text>
-              <text transform="translate(26 195) rotate(-90)" text-anchor="middle">Plasticity</text>
-              <text x="600" y="390" text-anchor="end">Age</text>
+              <text x="48" y="304" text-anchor="middle">Birth</text>
+              <text x="130.4" y="304" text-anchor="middle">1 yr</text>
+              <text x="212.8" y="304" text-anchor="middle">2</text>
+              <text x="295.2" y="304" text-anchor="middle">3</text>
+              <text x="377.6" y="304" text-anchor="middle">4</text>
+              <text x="460" y="304" text-anchor="end">5 yrs</text>
+              <text transform="translate(20 155) rotate(-90)" text-anchor="middle">Plasticity</text>
+              <text x="460" y="328" text-anchor="end">Age</text>
             </g>
           </svg>
-          <figcaption class="fig__caption" id="fig1-caption"><b>Fig. 1</b> &middot; Windows of heightened plasticity by domain, birth to five. The curves peak at different ages, which is why each class is built around one developmental window. Schematic after Nelson (2000).</figcaption>
+          <figcaption class="fig__caption" id="fig1-caption"><b>Fig. 1</b> &middot; Windows of heightened plasticity by domain, birth to five. Each domain peaks at a different age, which is why each class is built around one developmental window. After a peak, plasticity tapers; it does not switch off. Schematic after Nelson (2000).</figcaption>
         </figure>
       </div>
     </section>
@@ -193,7 +195,7 @@
     <section class="thesis section" aria-labelledby="thesis-heading">
       <div class="container thesis__inner">
         <blockquote class="thesis__quote" data-animate="fade">
-          <h2 id="thesis-heading" class="thesis__quote-text">The parents who do best are, almost without exception, the ones who <mark class="hl">understand the&nbsp;science.</mark></h2>
+          <h2 id="thesis-heading" class="thesis__quote-text">In my work with families, the parents who do best are, almost without exception, the ones who <mark class="hl">understand the&nbsp;science.</mark></h2>
           <footer class="thesis__attr"><span><strong>Matthew McArthur</strong>, founder</span></footer>
         </blockquote>
 
@@ -218,7 +220,7 @@
           </dl>
 
           <div class="instructor" id="instructor">
-            <img class="instructor__photo" src="assets/img/matthew-photo.jpeg" alt="Matthew McArthur, founder of Growing Minds Science." width="1122" height="1402" loading="lazy" decoding="async" />
+            <img class="instructor__photo" src="assets/img/matthew-photo-400.jpg" srcset="assets/img/matthew-photo-400.jpg 400w, assets/img/matthew-photo-600.jpg 600w" sizes="(max-width: 720px) 12rem, 11rem" alt="Matthew McArthur, founder of Growing Minds Science." width="400" height="500" loading="lazy" decoding="async" />
             <div class="instructor__body">
               <p class="instructor__label">Your instructor</p>
               <h3 class="instructor__name">Matthew McArthur</h3>
@@ -250,7 +252,7 @@
         <ol class="units">
           <li class="unit">
             <figure class="unit__thumb">
-              <img src="assets/img/site/class-infant.jpg" srcset="assets/img/site/class-infant-400.jpg 400w, assets/img/site/class-infant.jpg 800w" sizes="(max-width: 720px) 5.5rem, (max-width: 1040px) 6rem, 7.25rem" alt="An infant's hand gripping a parent's finger on a blanket, lit by a bedside lamp." width="800" height="800" loading="lazy" decoding="async" />
+              <img src="assets/img/site/class-infant-400.jpg" srcset="assets/img/site/class-infant-240.jpg 240w, assets/img/site/class-infant-400.jpg 400w, assets/img/site/class-infant.jpg 800w" sizes="(max-width: 720px) 5.5rem, (max-width: 1040px) 6rem, 7.25rem" alt="An infant's hand gripping a parent's finger on a blanket, lit by a bedside lamp." width="800" height="800" loading="lazy" decoding="async" />
             </figure>
             <div class="unit__body">
               <p class="unit__num">Class 1 &middot; Birth to 12 months</p>
@@ -270,7 +272,7 @@
 
           <li class="unit">
             <figure class="unit__thumb">
-              <img src="assets/img/site/class-toddler.jpg" srcset="assets/img/site/class-toddler-400.jpg 400w, assets/img/site/class-toddler.jpg 800w" sizes="(max-width: 720px) 5.5rem, (max-width: 1040px) 6rem, 7.25rem" alt="A toddler at the table pushing a sippy cup away while a parent's hand rests calmly nearby." width="800" height="800" loading="lazy" decoding="async" />
+              <img src="assets/img/site/class-toddler-400.jpg" srcset="assets/img/site/class-toddler-240.jpg 240w, assets/img/site/class-toddler-400.jpg 400w, assets/img/site/class-toddler.jpg 800w" sizes="(max-width: 720px) 5.5rem, (max-width: 1040px) 6rem, 7.25rem" alt="A toddler at the table pushing a sippy cup away while a parent's hand rests calmly nearby." width="800" height="800" loading="lazy" decoding="async" />
             </figure>
             <div class="unit__body">
               <p class="unit__num">Class 2 &middot; Toddler years</p>
@@ -290,7 +292,7 @@
 
           <li class="unit">
             <figure class="unit__thumb">
-              <img src="assets/img/site/class-preschool.jpg" srcset="assets/img/site/class-preschool-400.jpg 400w, assets/img/site/class-preschool.jpg 800w" sizes="(max-width: 720px) 5.5rem, (max-width: 1040px) 6rem, 7.25rem" alt="A preschooler, back to the camera, stirring a pot at a wooden toy kitchen in the evening." width="800" height="800" loading="lazy" decoding="async" />
+              <img src="assets/img/site/class-preschool-400.jpg" srcset="assets/img/site/class-preschool-240.jpg 240w, assets/img/site/class-preschool-400.jpg 400w, assets/img/site/class-preschool.jpg 800w" sizes="(max-width: 720px) 5.5rem, (max-width: 1040px) 6rem, 7.25rem" alt="A preschooler, back to the camera, stirring a pot at a wooden toy kitchen in the evening." width="800" height="800" loading="lazy" decoding="async" />
             </figure>
             <div class="unit__body">
               <p class="unit__num">Class 3 &middot; Preschool years</p>
@@ -301,7 +303,7 @@
               <p class="unit__status unit__status--soon">In development</p>
               <dl class="unit__meta">
                 <div><dt>Ages</dt><dd>3 to 5 years</dd></div>
-                <div><dt>Format</dt><dd>Self-paced video, in development</dd></div>
+                <div><dt>Format</dt><dd>4 modules, 15 lessons</dd></div>
                 <div><dt>Price</dt><dd>Announced at launch</dd></div>
               </dl>
               <p class="unit__cta"><a class="btn btn--quiet" href="/classes/preschool">Join the waitlist</a></p>
@@ -310,7 +312,7 @@
 
           <li class="unit">
             <figure class="unit__thumb">
-              <img src="assets/img/site/class-family.jpg" srcset="assets/img/site/class-family-400.jpg 400w, assets/img/site/class-family.jpg 800w" sizes="(max-width: 720px) 5.5rem, (max-width: 1040px) 6rem, 7.25rem" alt="A kitchen table after dinner: two adults' hands, a child's crayon drawing of the family, and a phone face down." width="800" height="800" loading="lazy" decoding="async" />
+              <img src="assets/img/site/class-family-400.jpg" srcset="assets/img/site/class-family-240.jpg 240w, assets/img/site/class-family-400.jpg 400w, assets/img/site/class-family.jpg 800w" sizes="(max-width: 720px) 5.5rem, (max-width: 1040px) 6rem, 7.25rem" alt="A kitchen table after dinner: two adults' hands, a child's crayon drawing of the family, and a phone face down." width="800" height="800" loading="lazy" decoding="async" />
             </figure>
             <div class="unit__body">
               <p class="unit__num">Class 4 &middot; Family systems and stress</p>
@@ -356,18 +358,11 @@
               <p>A clear way to understand what is happening travels to the situations no script anticipated. Scripts don&rsquo;t.</p>
             </li>
             <li class="principle">
-              <h3>Respect the parent</h3>
-              <p>You are an adult who is already trying hard and already paying attention. The work assumes nuance, not compliance.</p>
-            </li>
-            <li class="principle">
-              <h3>Calm by default</h3>
-              <p>No urgency manufactured for engagement, no shame. Educational content, and never a substitute for medical advice.</p>
-            </li>
-            <li class="principle">
               <h3>Built for ordinary days</h3>
               <p>Every recommendation has to survive a normal weekday, between transitions, meals, work, and the real capacity of tired adults.</p>
             </li>
           </ul>
+          <p class="principles__more"><a href="/about/#how-we-teach">All five teaching principles</a></p>
         </div>
 
         <div class="taught__aside">
@@ -517,22 +512,23 @@
               <li class="enrol-item">
                 <div class="enrol-item__body">
                   <p class="enrol-item__num">Class 1</p>
-                  <h3 class="enrol-item__title">Birth to 12 months</h3>
+                  <h3 class="enrol-item__title"><a href="/classes/birth-to-12-months">Birth to 12 months</a></h3>
                   <p class="enrol-item__meta">4 modules &middot; 16 lessons &middot; about 3 hours</p>
                 </div>
                 <p class="enrol-item__price">$49</p>
-                <a class="btn btn--amber enrol-item__cta" href="/classes/birth-to-12-months">See the class</a>
+                <a class="btn btn--amber enrol-item__cta" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Finfant%2Fenroll">Enroll<span class="u-visually-hidden"> in Birth to 12 months</span></a>
               </li>
               <li class="enrol-item">
                 <div class="enrol-item__body">
                   <p class="enrol-item__num">Class 2</p>
-                  <h3 class="enrol-item__title">Toddler years, 1 to 3</h3>
+                  <h3 class="enrol-item__title"><a href="/classes/toddlerhood">Toddler years, 1 to 3</a></h3>
                   <p class="enrol-item__meta">5 modules &middot; 29 lessons &middot; about 5 hours</p>
                 </div>
                 <p class="enrol-item__price">$49</p>
-                <a class="btn btn--amber enrol-item__cta" href="/classes/toddlerhood">See the class</a>
+                <a class="btn btn--amber enrol-item__cta" href="https://matthew-s-site-de0b.thinkific.com/products/courses/ToddlerYears" target="_blank" rel="noopener">Enroll<span class="u-visually-hidden"> in Toddler years (opens Thinkific in a new tab)</span></a>
               </li>
             </ol>
+            <p class="enrol-fine">Class 1 checks out on this site with Stripe. Class 2 checks out on Thinkific, our course platform, in a new tab. All sales are final, so the free tools are the place to try the teaching first.</p>
           </div>
 
           <div class="signup__faq">
@@ -620,8 +616,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">A developmental-science education for parents of children 0 to 5.</p>

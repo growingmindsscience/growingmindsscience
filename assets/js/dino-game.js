@@ -869,7 +869,7 @@
         '<div class="gms-arcade-panel__head">' +
           '<p class="gms-arcade-title">Brain Sprint <span>— you found it!</span></p>' +
           '<div style="display:flex;gap:8px;align-items:center">' +
-            '<button type="button" class="gms-arcade-close" data-egg-mute aria-label="Toggle sound">♪</button>' +
+            '<button type="button" class="gms-arcade-close" data-egg-mute aria-label="Sound">♪</button>' +
             '<button type="button" class="gms-arcade-close" data-egg-close aria-label="Close game">&times;</button>' +
           '</div>' +
         '</div>' +
@@ -878,7 +878,7 @@
           '<span>BEST <strong data-egg-best>00000</strong></span>' +
         '</div>' +
         '<div class="gms-arcade-stage gms-arcade-stage--runner">' +
-          '<canvas class="gms-arcade-canvas" tabindex="0"></canvas>' +
+          '<canvas class="gms-arcade-canvas" tabindex="0" role="application" aria-label="Brain Sprint play area. Space or Up jumps, Down ducks, M mutes."></canvas>' +
           '<div class="gms-arcade-prompt" data-egg-prompt hidden>' +
             '<p class="gms-arcade-prompt__title" data-egg-prompt-title></p>' +
             '<p class="gms-arcade-prompt__text" data-egg-prompt-text></p>' +
@@ -919,7 +919,7 @@
     });
 
     var muteBtn = overlay.querySelector("[data-egg-mute]");
-    function syncMute() { muteBtn.textContent = game.isMuted() ? "♪̶" : "♪"; muteBtn.setAttribute("aria-pressed", game.isMuted() ? "true" : "false"); }
+    function syncMute() { muteBtn.textContent = game.isMuted() ? "♪̶" : "♪"; muteBtn.setAttribute("aria-pressed", game.isMuted() ? "false" : "true"); }
     muteBtn.addEventListener("click", function () { game.toggleMute(); syncMute(); });
     syncMute();
 
@@ -1006,7 +1006,7 @@
 
     function onKeydown(e) {
       // While typing initials, leave all keys (incl. Escape/Enter) to the form
-      // so a stray Escape never reloads the page and drops the high score.
+      // so a stray Escape never closes the game and drops the high score.
       if (e.target && e.target.tagName === "INPUT") return;
       if (e.key === "Escape") { closeOverlay(overlay); return; }
       if (e.code === "Space" || e.key === " " || e.key === "ArrowUp" || e.key === "w" || e.key === "W") {
@@ -1031,54 +1031,29 @@
     return overlay;
   }
 
-  function closeOverlay(overlay) {
-    if (overlay._offViewport) { overlay._offViewport(); overlay._offViewport = null; }
-    overlay.game.deactivate();
-    window.location.reload();
-  }
-  function openOverlay(overlay) {
-    overlay.classList.add("is-open");
-    document.body.classList.add("gms-arcade-lock");
-    overlay._fitCanvas();
-    document.addEventListener("keydown", overlay._onKeydown);
-    document.addEventListener("keyup", overlay._onKeyup);
-    // Bare window.resize misses iOS URL-bar collapse and rotation; the shared
-    // watcher covers visualViewport + orientationchange too.
-    overlay._offViewport = A.onViewportChange(overlay._fitCanvas);
-    overlay.game.activate();
-    window.requestAnimationFrame(function () { overlay._canvas.focus(); });
-  }
+  // Close in place: GMSArcade runs the teardown (loop, wake lock, audio,
+  // listeners), puts the page back and returns focus to the opener.
+  function closeOverlay() { A.closeGame(); }
 
   ready(function () {
-    var arcadeTrigger = document.querySelector('[data-arcade-game="dino"]');
-    var hotspot = arcadeTrigger;
-    if (!hotspot) {
-      var toggle = document.querySelector(".theme-toggle");
-      if (!toggle) return;
-      hotspot = document.createElement("span");
-      hotspot.className = "gms-arcade-hotspot";
-      hotspot.setAttribute("aria-hidden", "true");
-      toggle.appendChild(hotspot);
-    }
+    A.defineGame("dino", buildOverlay);
+    if (A.hasLauncher("dino")) return;
 
-    var overlay = null, opening = false;
-    function open() {
-      if (opening) return;
-      opening = true;
-      if (!overlay) overlay = buildOverlay();
-      A.tearPageAway(function () { openOverlay(overlay); });
-    }
+    // Only when this file is loaded on a page with no other way in: an
+    // invisible hotspot dead-center of the theme toggle.
+    var toggle = document.querySelector(".theme-toggle");
+    if (!toggle) return;
+    var hotspot = document.createElement("span");
+    hotspot.className = "gms-arcade-hotspot";
+    hotspot.setAttribute("aria-hidden", "true");
+    toggle.appendChild(hotspot);
 
-    if (arcadeTrigger) {
-      hotspot.addEventListener("click", function (e) { e.preventDefault(); open(); });
-      return;
-    }
-
+    // Swallow the press so the theme toggle underneath does not also fire.
     ["click", "mousedown", "touchstart"].forEach(function (evt) {
       hotspot.addEventListener(evt, function (e) {
         e.stopPropagation();
-        if (evt === "click") { e.preventDefault(); open(); }
-      }, evt === "touchstart" ? { passive: false } : false);
+        if (evt === "click") { e.preventDefault(); A.play("dino", toggle); }
+      }, evt === "touchstart" ? { passive: true } : false);
     });
   });
 })();

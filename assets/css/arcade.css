@@ -278,9 +278,13 @@ body.gms-arcade-lock { overflow: hidden; }
   image-rendering: crisp-edges;
   image-rendering: pixelated;
   cursor: pointer;
-  outline: none;
+  /* Transparent (not none) so Windows forced-colors still draws focus. Inset
+     because the stage clips anything outside the canvas. */
+  outline: 2px solid transparent;
+  outline-offset: -2px;
   touch-action: none;
 }
+.gms-arcade-canvas:focus-visible { outline-color: var(--amber, #F2A93B); }
 
 /* ---------- Overlay messages (start / game over) ---------- */
 .gms-arcade-prompt[hidden] { display: none; }

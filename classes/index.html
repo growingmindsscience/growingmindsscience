@@ -4,19 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>Classes — Growing Minds Science</title>
+  <title>Classes | Growing Minds Science</title>
   <meta name="description" content="Self-paced parent classes from Growing Minds Science: toddler years and birth to 12 months (both available now), preschool, and family systems & stress." />
-  <meta name="theme-color" content="#12262C" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/classes/" />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Growing Minds Science" />
   <meta property="og:url" content="https://growingmindsscience.com/classes/" />
-  <meta property="og:title" content="Classes — Growing Minds Science" />
+  <meta property="og:title" content="Classes | Growing Minds Science" />
   <meta property="og:description" content="Self-paced parent classes built around developmental windows. The toddler and infant classes are available now; the preschool and family-systems classes are in development." />
   <meta property="og:image" content="https://growingmindsscience.com/assets/img/og/site-classes.jpg" />
   <meta property="og:image:width" content="1200" />
@@ -30,6 +31,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400..800&display=swap" />
   <link rel="stylesheet" href="../assets/css/styles.css" />
   <link rel="stylesheet" href="../assets/css/refresh.css" />
+  <link rel="stylesheet" href="/assets/css/seminar.css" />
   <link rel="stylesheet" href="/assets/css/chrome.css" />
 </head>
 <body data-arcade-egg="dino">
@@ -37,8 +39,8 @@
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -66,8 +68,8 @@
           </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/app/classes" data-auth-static>My classes</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/toddlerhood">See the class</a></li>
+          <li class="nav__auth"><a class="nav__link" href="/nsc/app/classes">My classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -83,99 +85,134 @@
     <section class="page-hero page-hero--visual">
       <div class="container">
         <div class="page-hero__copy">
-          <p class="eyebrow">Classes</p>
-          <h1 class="page-hero__title">Self-paced classes for the early years.</h1>
+          <h1 class="page-hero__title">Four classes, one for each developmental window.</h1>
           <p class="page-hero__lede">
-            Each class is built around a developmental window. The toddler and infant classes
-            are available now. Preschool and family-systems classes are next. All classes are self-paced and
-            translate developmental research into language you can actually use.
+            Each class is a self-paced course in what your child is building during one stretch
+            of the first five years, taught from the research in plain language. Start with the
+            one your family is in now, or take them in order as your child grows.
           </p>
         </div>
-        <figure class="page-hero__visual">
-          <img src="../assets/img/site/toddler-blocks.jpg"
-               alt="A young child reaching for a tall stack of wooden letter blocks."
-               width="1400" height="933" loading="eager" fetchpriority="high" decoding="async" />
+        <figure class="fig fig--plate" aria-labelledby="map-caption">
+          <ol class="course-map">
+            <li class="course-map__row">
+              <span class="course-map__name">Class 1 &middot; Birth to 12 months</span>
+              <span class="course-map__track" aria-hidden="true"><span class="course-map__bar" style="--from: 0; --to: 1"></span></span>
+            </li>
+            <li class="course-map__row">
+              <span class="course-map__name">Class 2 &middot; Toddler years, 1 to 3</span>
+              <span class="course-map__track" aria-hidden="true"><span class="course-map__bar" style="--from: 1; --to: 3"></span></span>
+            </li>
+            <li class="course-map__row">
+              <span class="course-map__name">Class 3 &middot; Preschool years, 3 to 5 <em>(in development)</em></span>
+              <span class="course-map__track" aria-hidden="true"><span class="course-map__bar course-map__bar--soon" style="--from: 3; --to: 5"></span></span>
+            </li>
+            <li class="course-map__row">
+              <span class="course-map__name">Class 4 &middot; Family systems and stress, any age <em>(in development)</em></span>
+              <span class="course-map__track" aria-hidden="true"><span class="course-map__bar course-map__bar--soon" style="--from: 0; --to: 5"></span></span>
+            </li>
+          </ol>
+          <div class="course-map__axis" aria-hidden="true"><span>Birth</span><span>1 yr</span><span>2</span><span>3</span><span>4</span><span>5 yrs</span></div>
+          <figcaption class="fig__caption" id="map-caption"><b>Fig. 1</b> &middot; The curriculum across the first five years. Solid bars are open now; outlined bars are in development. The family-systems class applies at every age.</figcaption>
         </figure>
       </div>
     </section>
 
-    <section style="padding-top: 0;">
+    <section class="classes-list" aria-label="The classes">
       <div class="container">
-        <div class="product-grid product-grid--featured-first" data-stagger>
-
-          <!-- TODDLER — flagship -->
-          <article class="product-card product-card--featured" data-animate data-class-id="toddler-years">
-            <div class="product-card__body">
-              <p class="product-card__status">
-                <span class="badge badge--open">Now available</span>
-                <span class="product-card__status-text">Self-paced</span>
-              </p>
-              <h2 class="product-card__title">Toddler years: language, autonomy, and big feelings</h2>
-              <p class="product-card__age">Ages 1–3</p>
-              <p class="product-card__promise">
-                The flagship class. What toddlers are actually practicing, from language
-                to autonomy to emotion regulation, and what helps adults respond to
-                meltdowns, "no," and the vocabulary explosion. Designed to give you a
-                clearer mental model and a few responses you can use this week.
-              </p>
-              <p class="product-card__price"><strong>$49</strong> · Lifetime access · AI included</p>
-              <p class="product-card__cta product-card__cta--row">
-                <a class="btn btn--primary" href="https://matthew-s-site-de0b.thinkific.com/products/courses/ToddlerYears" target="_blank" rel="noopener">Enroll now<span class="u-visually-hidden"> (opens in a new tab)</span></a>
-                <a class="btn btn--ghost" href="/classes/toddlerhood">See class details</a>
-              </p>
+        <ol class="units">
+          <li class="unit">
+            <figure class="unit__thumb">
+              <img src="/assets/img/site/class-infant-400.jpg" srcset="/assets/img/site/class-infant-240.jpg 240w, /assets/img/site/class-infant-400.jpg 400w, /assets/img/site/class-infant.jpg 800w" sizes="(max-width: 720px) 4.5rem, (max-width: 1040px) 6rem, 7.25rem" alt="An infant's hand gripping a parent's finger on a blanket, lit by a bedside lamp." width="800" height="800" decoding="async" />
+            </figure>
+            <div class="unit__body">
+              <p class="unit__num">Class 1 &middot; Birth to 12 months</p>
+              <h2 class="unit__title"><a href="/classes/birth-to-12-months">Cues, attachment, and the first year</a></h2>
+              <p class="unit__promise"><b>After this class you can explain</b> why responsive care builds security rather than spoiling, what infant sleep actually looks like across the first year, and how language begins long before the first word.</p>
             </div>
-          </article>
-
-          <!-- INFANT -->
-          <article class="product-card product-card--featured" data-animate data-class-id="birth-to-12-months">
-            <div class="product-card__body">
-              <p class="product-card__status">
-                <span class="badge badge--open">Now available</span>
-                <span class="product-card__status-text">Self-paced</span>
+            <div class="unit__side">
+              <p class="unit__status unit__status--open">Open now</p>
+              <dl class="unit__meta">
+                <div><dt>Ages</dt><dd>0 to 12 months</dd></div>
+                <div><dt>Format</dt><dd>4 modules, 16 lessons, about 3 hours</dd></div>
+                <div><dt>Price</dt><dd>$49 once, lifetime access</dd></div>
+              </dl>
+              <p class="unit__cta">
+                <a class="btn btn--primary" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Finfant%2Fenroll">Enroll, $49</a>
+                <a class="btn btn--ghost" href="/classes/birth-to-12-months">See the class</a>
               </p>
-              <h2 class="product-card__title">Birth to 12 months: cues, attachment, and the first year</h2>
-              <p class="product-card__age">Ages 0&ndash;12 months</p>
-              <p class="product-card__promise">
-                A calm picture of the first year: reading cues, building attachment,
-                infant sleep science, and how language starts long before words.
-              </p>
-              <p class="product-card__price"><strong>$49</strong> · Lifetime access · 16 lessons</p>
-              <p class="product-card__cta product-card__cta--row">
-                <a class="btn btn--primary" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Finfant%2Fenroll">Enroll now</a>
-                <a class="btn btn--ghost" href="/classes/birth-to-12-months.html">See class details</a>
-              </p>
+              <p class="unit__fine">Checkout is on this site, with Stripe. All sales are final.</p>
             </div>
-          </article>
+          </li>
 
-        </div>
+          <li class="unit">
+            <figure class="unit__thumb">
+              <img src="/assets/img/site/class-toddler-400.jpg" srcset="/assets/img/site/class-toddler-240.jpg 240w, /assets/img/site/class-toddler-400.jpg 400w, /assets/img/site/class-toddler.jpg 800w" sizes="(max-width: 720px) 4.5rem, (max-width: 1040px) 6rem, 7.25rem" alt="A toddler at the table pushing a sippy cup away while a parent's hand rests calmly nearby." width="800" height="800" decoding="async" />
+            </figure>
+            <div class="unit__body">
+              <p class="unit__num">Class 2 &middot; Toddler years</p>
+              <h2 class="unit__title"><a href="/classes/toddlerhood">Language, autonomy, and big feelings</a></h2>
+              <p class="unit__promise"><b>After this class you can explain</b> why &ldquo;no&rdquo; is a milestone rather than defiance, what a meltdown is neurologically, and how your calm becomes the scaffold their regulation is built on.</p>
+            </div>
+            <div class="unit__side">
+              <p class="unit__status unit__status--open">Open now</p>
+              <dl class="unit__meta">
+                <div><dt>Ages</dt><dd>1 to 3 years</dd></div>
+                <div><dt>Format</dt><dd>5 modules, 29 lessons, about 5 hours</dd></div>
+                <div><dt>Price</dt><dd>$49 once, lifetime access</dd></div>
+              </dl>
+              <p class="unit__cta">
+                <a class="btn btn--primary" href="https://matthew-s-site-de0b.thinkific.com/products/courses/ToddlerYears" target="_blank" rel="noopener">Enroll, $49<span class="u-visually-hidden"> (opens Thinkific in a new tab)</span></a>
+                <a class="btn btn--ghost" href="/classes/toddlerhood">See the class</a>
+              </p>
+              <p class="unit__fine">Checkout opens Thinkific, our course platform, in a new tab. All sales are final.</p>
+            </div>
+          </li>
 
-        <div class="classes-next">
-          <div class="classes-next__head">
-            <h2 id="classes-next-title">Coming next</h2>
-            <p>Join the waitlist on any class page and you&rsquo;ll hear the moment it opens.</p>
-          </div>
-          <div class="classes-next__grid" data-stagger>
-            <article class="product-card product-card--dev" data-animate data-class-id="preschool-years">
-              <p class="product-card__status"><span class="badge badge--dev">In development</span></p>
-              <h3 class="product-card__title"><a class="classes-next__link" href="/classes/preschool.html">Preschool years</a></h3>
-              <p class="product-card__age">Ages 3&ndash;5</p>
-              <p class="product-card__promise">Self-regulation, social skills, play as development, and what kindergarten readiness really means in the research.</p>
-              <span class="classes-next__cta" aria-hidden="true">Details and waitlist <span>&rarr;</span></span>
-            </article>
-            <article class="product-card product-card--dev" data-animate data-class-id="family-systems">
-              <p class="product-card__status"><span class="badge badge--dev">In development</span></p>
-              <h3 class="product-card__title"><a class="classes-next__link" href="/classes/family-systems.html">Family systems &amp; stress</a></h3>
-              <p class="product-card__age">Any age</p>
-              <p class="product-card__promise">How couples, siblings, work, and household stress shape a child&rsquo;s nervous system, and what protective factors actually help inside real families.</p>
-              <span class="classes-next__cta" aria-hidden="true">Details and waitlist <span>&rarr;</span></span>
-            </article>
-          </div>
-        </div>
+          <li class="unit">
+            <figure class="unit__thumb">
+              <img src="/assets/img/site/class-preschool-400.jpg" srcset="/assets/img/site/class-preschool-240.jpg 240w, /assets/img/site/class-preschool-400.jpg 400w, /assets/img/site/class-preschool.jpg 800w" sizes="(max-width: 720px) 4.5rem, (max-width: 1040px) 6rem, 7.25rem" alt="A preschooler, back to the camera, stirring a pot at a wooden toy kitchen in the evening." width="800" height="800" loading="lazy" decoding="async" />
+            </figure>
+            <div class="unit__body">
+              <p class="unit__num">Class 3 &middot; Preschool years</p>
+              <h2 class="unit__title"><a href="/classes/preschool">Self-regulation, play, and readiness</a></h2>
+              <p class="unit__promise"><b>After this class you can explain</b> why pretend play is serious cognitive work, how executive function develops on a wide normal range, and what kindergarten readiness means in the research rather than in the brochure.</p>
+            </div>
+            <div class="unit__side">
+              <p class="unit__status unit__status--soon">In development</p>
+              <dl class="unit__meta">
+                <div><dt>Ages</dt><dd>3 to 5 years</dd></div>
+                <div><dt>Format</dt><dd>4 modules, 15 lessons</dd></div>
+                <div><dt>Price</dt><dd>Announced at launch</dd></div>
+              </dl>
+              <p class="unit__cta"><a class="btn btn--ghost" href="/classes/preschool#waitlist">Join the waitlist</a></p>
+            </div>
+          </li>
 
-        <p style="margin-top: var(--space-12); max-width: 60ch; color: var(--ink-soft);">
-          Looking for the milestone tracker? It's a free standalone tool you can use
-          right now, no class required.
-          <a href="/milestones">Open the milestone tracker →</a>
+          <li class="unit">
+            <figure class="unit__thumb">
+              <img src="/assets/img/site/class-family-400.jpg" srcset="/assets/img/site/class-family-240.jpg 240w, /assets/img/site/class-family-400.jpg 400w, /assets/img/site/class-family.jpg 800w" sizes="(max-width: 720px) 4.5rem, (max-width: 1040px) 6rem, 7.25rem" alt="A kitchen table after dinner: two adults' hands, a child's crayon drawing of the family, and a phone face down." width="800" height="800" loading="lazy" decoding="async" />
+            </figure>
+            <div class="unit__body">
+              <p class="unit__num">Class 4 &middot; Family systems and stress</p>
+              <h2 class="unit__title"><a href="/classes/family-systems">How the whole family shapes the developing child</a></h2>
+              <p class="unit__promise"><b>After this class you can explain</b> how household stress reaches a child&rsquo;s nervous system, why your own regulation is a developmental variable, and which protective factors hold up inside real families.</p>
+            </div>
+            <div class="unit__side">
+              <p class="unit__status unit__status--soon">In development</p>
+              <dl class="unit__meta">
+                <div><dt>Ages</dt><dd>Any age</dd></div>
+                <div><dt>Format</dt><dd>Self-paced video, in development</dd></div>
+                <div><dt>Price</dt><dd>Announced at launch</dd></div>
+              </dl>
+              <p class="unit__cta"><a class="btn btn--ghost" href="/classes/family-systems#waitlist">Join the waitlist</a></p>
+            </div>
+          </li>
+        </ol>
+
+        <p class="classes-list__note">
+          Not ready for a class? The <a href="/articles/">articles</a> and <a href="/tools/">free tools</a> are
+          written the way the classes are taught, and the <a href="/milestones">milestone tracker</a> is free
+          with no account.
         </p>
       </div>
     </section>
@@ -185,8 +222,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
@@ -199,8 +236,8 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood">Toddler years</a></li>
             <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood">Toddler years</a></li>
             <li><a href="/classes/preschool.html">Preschool years</a></li>
             <li><a href="/classes/family-systems.html">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>
