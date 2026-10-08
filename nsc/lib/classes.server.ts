@@ -44,6 +44,11 @@ export async function publishedLessons(courseSlug: ClassCourseSlug = TODDLER_COU
   return (data ?? []) as ClassLesson[];
 }
 
+/** The class's free sample lesson, if it has a published one with a video. */
+export function freePreviewLesson(courseSlug: ClassCourseSlug): Promise<FreePreviewLesson | null> {
+  return freePreviewLessonWith(createServiceClient(), courseSlug);
+}
+
 /** A published lesson's title, for the browser tab; null when there is none. */
 export async function publishedLessonTitle(courseSlug: ClassCourseSlug, slug: string): Promise<string | null> {
   const { data } = await createServiceClient()
@@ -54,11 +59,6 @@ export async function publishedLessonTitle(courseSlug: ClassCourseSlug, slug: st
     .eq("status", "published")
     .maybeSingle();
   return (data?.title as string | undefined) ?? null;
-}
-
-/** The class's free sample lesson, if it has a published one with a video. */
-export function freePreviewLesson(courseSlug: ClassCourseSlug): Promise<FreePreviewLesson | null> {
-  return freePreviewLessonWith(createServiceClient(), courseSlug);
 }
 
 /** Open sales only after every promised lesson is published. */
