@@ -454,6 +454,88 @@ h3 { font-size: var(--text-xl); }
 }
 .fig--hero .fig-band { fill: rgba(242, 169, 59, 0.07); }
 
+/* ---------- Open now: the two classes you can start tonight ----------
+   One ruled shelf under the hero, so the offer is a glance away instead of
+   three screens down. Same status chip and thumbnails as the class rows. */
+.open-now { background: var(--surface); border-bottom: 1px solid var(--line-soft); }
+.open-now__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) clamp(var(--space-5), 3vw, var(--space-10));
+  padding-block: var(--space-4);
+}
+.open-now__label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-sm);
+  background: var(--amber-tint);
+  color: var(--amber-deep);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+}
+.open-now__label::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.open-now__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.open-now__item {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4) var(--space-2) var(--space-2);
+  border-radius: var(--radius);
+  color: var(--ink);
+  text-decoration: none;
+  transition: background var(--t);
+}
+.open-now__item:hover { background: var(--ground); }
+.open-now__thumb {
+  width: 3rem; height: 3rem;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  border: 1px solid var(--line-soft);
+  background: var(--tint);
+}
+.open-now__name { display: block; font-family: var(--font-display); font-weight: 600; font-size: var(--text-md); line-height: 1.2; }
+.open-now__meta { display: block; margin-top: 2px; font-size: var(--text-sm); color: var(--ink-muted); }
+.open-now__arrow { color: var(--teal); transition: transform var(--t); }
+.open-now__item:hover .open-now__arrow { transform: translateX(3px); }
+.open-now__all {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  margin-left: auto;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--teal);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.open-now__all:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+@media (max-width: 720px) {
+  .open-now__inner { display: grid; gap: var(--space-2); padding-block: var(--space-5) var(--space-3); }
+  .open-now__label { justify-self: start; margin-bottom: var(--space-1); }
+  .open-now__list { display: grid; gap: 0; }
+  .open-now__list li + li { border-top: 1px solid var(--line-soft); }
+  .open-now__item { padding-inline: 0; border-radius: 0; }
+  .open-now__item:hover { background: none; }
+  .open-now__all { margin-left: 0; }
+}
+
 /* ---------- Thesis + the three lenses ---------- */
 .thesis { background: var(--ground); }
 .thesis__inner {
@@ -537,7 +619,6 @@ h3 { font-size: var(--text-xl); }
   padding: var(--space-6) 0;
   border-top: 1px solid var(--line);
 }
-.lens:last-child { border-bottom: 1px solid var(--line); }
 .lens dt {
   font-family: var(--font-display);
   font-weight: 600;
@@ -614,7 +695,10 @@ h3 { font-size: var(--text-xl); }
 }
 .fig--loop .fig-node { fill: var(--surface); stroke: var(--ink); stroke-width: 1.75; }
 .fig--loop .fig-node--amber { fill: var(--amber-tint); stroke: var(--amber-deep); }
-.fig--loop .fig-text { fill: var(--ink); }
+/* Drawn 400 wide with 19-unit labels so they stay at 14px or more at the
+   narrowest the aside gets (about 300px at 1024 and on phones). */
+.fig--loop .fig-text { fill: var(--ink); font-size: 19px; }
+.fig--loop svg { max-width: 26rem; margin-inline: auto; }
 .fig--loop .fig-text--sm { fill: var(--ink-muted); }
 .fig--loop .fig-arrow { fill: none; stroke: var(--ink-soft); stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 .fig--loop .fig-arrow--amber { stroke: var(--amber-deep); }
@@ -861,40 +945,6 @@ h3 { font-size: var(--text-xl); }
 }
 .shelf__more:hover { text-decoration: underline; text-underline-offset: 0.2em; }
 
-/* A deliberate pause, not a tool: the arcade exists so stressed parents can
-   stop thinking for five minutes. One full-width row, same rule language. */
-.shelf-break {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  gap: var(--space-4) var(--space-5);
-  align-items: center;
-  margin-top: clamp(var(--space-10), 5vw, var(--space-16));
-  padding: var(--space-5) var(--space-4);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  background: var(--surface);
-  color: var(--ink);
-  text-decoration: none;
-  transition: border-color var(--t), background var(--t);
-}
-.shelf-break:hover { border-color: var(--amber); color: var(--ink); }
-.shelf-break .shelf__arrow { grid-row: auto; grid-column: 3; }
-.shelf-break:hover .shelf__arrow { transform: translateX(4px); }
-.shelf-break__glyph {
-  display: grid;
-  place-items: center;
-  width: 52px; height: 52px;
-  border-radius: var(--radius);
-  background: var(--amber-tint);
-  color: var(--amber-deep);
-}
-.shelf-break__title { display: block; font-family: var(--font-display); font-weight: 500; font-size: var(--text-md); line-height: 1.25; }
-.shelf-break__desc { display: block; margin-top: 0.2rem; font-size: var(--text-sm); color: var(--ink-muted); max-width: 60ch; text-wrap: pretty; }
-@media (max-width: 560px) {
-  .shelf-break { grid-template-columns: auto minmax(0, 1fr); }
-  .shelf-break .shelf__arrow { display: none; }
-}
-
 /* ---------- Enrol (ink band) ---------- */
 .signup {
   position: relative;
@@ -919,23 +969,6 @@ h3 { font-size: var(--text-xl); }
 .signup__pitch h2 { color: #fff; margin-bottom: var(--space-4); }
 .signup__pitch h2 .hl { --hl-bg: var(--amber); --hl-ink: #0E2129; }
 .signup__pitch > p { color: var(--on-dark-soft); max-width: 48ch; text-wrap: pretty; font-size: var(--text-md); }
-.included {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-2) var(--space-6);
-  margin: var(--space-6) 0 var(--space-8);
-  color: var(--on-dark-soft);
-  font-size: var(--text-sm);
-}
-.included li { position: relative; padding-left: var(--space-5); }
-.included li::before {
-  content: "";
-  position: absolute; left: 0; top: 0.3em;
-  width: 14px; height: 14px;
-  background: var(--amber);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 6 9 17l-5-5' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
-  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 6 9 17l-5-5' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
-}
 .enrol-list { display: grid; }
 .enrol-item {
   display: grid;
@@ -949,8 +982,19 @@ h3 { font-size: var(--text-xl); }
 .enrol-item__num { margin: 0 0 var(--space-1); font-family: var(--font-display); font-style: italic; font-size: var(--text-sm); color: var(--amber); }
 .enrol-item__title { margin: 0 0 var(--space-1); font-size: var(--text-lg); color: #fff; line-height: 1.15; }
 .enrol-item__meta { margin: 0; font-size: var(--text-sm); color: var(--on-dark-muted); }
+.enrol-item__perk { margin: var(--space-1) 0 0; font-size: var(--text-sm); color: var(--on-dark-soft); }
+.enrol-item__cta .btn__ext { margin-left: 0.15em; font-weight: 400; }
+.enrol-fine a { color: var(--on-dark); text-decoration: underline; text-decoration-color: var(--amber); text-underline-offset: 0.2em; }
+.enrol-fine a:hover { color: #fff; }
 .enrol-item__price { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: var(--text-xl); color: #fff; }
 .enrol-item__cta { min-height: 44px; }
+/* Wider screens: the rows share one set of columns, so the prices and the two
+   buttons line up even though "Enroll on Thinkific" is the longer label. */
+@media (min-width: 721px) {
+  .enrol-list { grid-template-columns: minmax(0, 1fr) auto auto; column-gap: var(--space-6); }
+  .enrol-item { grid-column: 1 / -1; grid-template-columns: subgrid; }
+  .enrol-item__cta { justify-self: stretch; }
+}
 .enrol-item__title a { color: inherit; text-decoration: none; }
 .enrol-item__title a:hover { text-decoration: underline; text-decoration-color: var(--amber); text-underline-offset: 0.2em; }
 .enrol-fine { margin: var(--space-4) 0 0; max-width: 56ch; font-size: var(--text-sm); line-height: 1.55; color: var(--on-dark-muted); }
@@ -1315,7 +1359,6 @@ html.anim .fig--loop[data-animate].is-visible .fig-arrow:nth-of-type(4) { animat
   .principle h3 { font-size: var(--text-md); }
   .instructor { grid-template-columns: minmax(0, 1fr); }
   .instructor__photo { max-width: 12rem; }
-  .included { grid-template-columns: minmax(0, 1fr); }
   .enrol-item { grid-template-columns: minmax(0, 1fr) auto; }
   .enrol-item__cta { grid-column: 1 / -1; }
   .signup__form-row { flex-wrap: wrap; }

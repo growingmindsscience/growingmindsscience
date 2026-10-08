@@ -1364,18 +1364,30 @@ h1, h2, h3, .page-hero__title, .section-head__title, .product-card__title, .card
   .article-card > * { grid-column: 1; }
 }
 
-/* About: the teaching principles are a set, not a sequence. Ruled rows, no numerals. */
-.philosophy-list { display: grid; }
+/* About: the teaching principles are a set, not a sequence. Ruled rows, no
+   numerals, one rule between rows (styles.css's bottom rules and gap are reset). */
+.philosophy-list { display: grid; gap: 0; }
 .philosophy-list li {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   padding: var(--space-5) 0;
   border-top: 1px solid var(--border);
+  border-bottom: 0;
 }
-.philosophy-list li:last-child { border-bottom: 1px solid var(--border); }
+.philosophy-list li:last-child { border-bottom: 1px solid var(--border); padding-bottom: var(--space-5); }
 .philosophy-list .num { display: none; }
 .philosophy-list strong { display: block; font-family: var(--font-display); font-weight: 500; font-size: var(--text-lg); line-height: 1.15; margin-bottom: var(--space-2); }
 .philosophy-list li > div > span { color: var(--ink-soft); max-width: 60ch; display: block; text-wrap: pretty; }
 
 /* Standalone tool bar: the wordmark is Besley everywhere */
 .rn-bar .brand__name { font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; color: var(--ink); }
+
+/* About: body copy, the founder's role line, and the closing call to action
+   (formerly inline styles). */
+.about-copy p { color: var(--ink-soft); max-width: 62ch; text-wrap: pretty; }
+.about-copy .lede { font-size: var(--text-md); }
+.about-copy .about-role { margin: calc(-1 * var(--space-2)) 0 var(--space-5); font-size: var(--text-sm); font-weight: 600; color: var(--amber-deep); }
+.about-fine { margin-top: var(--space-6); max-width: 60ch; font-size: var(--text-sm); color: var(--ink-muted); }
+.about-cta h2 { max-width: 24ch; margin-inline: auto; }
+.about-cta .lede { max-width: 56ch; margin-inline: auto; }
+.about-cta__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-3); margin-top: var(--space-5); }

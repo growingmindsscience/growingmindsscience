@@ -513,9 +513,9 @@
   }
 
   // ------------------------------------------------------------------
-  // Mobile sticky enrollment CTA
-  // Visible only after the hero CTAs scroll away AND before the signup /
-  // footer bands (which carry their own CTA) come into view — so the shortcut
+  // Mobile sticky enrollment CTA (jumps to the enrol band)
+  // Visible only after the hero CTAs scroll away AND while no band that
+  // carries its own CTA is in view — so the shortcut
   // is always reachable without ever duplicating a CTA already on screen.
   // Pure enhancement: CSS keeps it hidden on desktop and off-screen with no JS.
   // ------------------------------------------------------------------
@@ -526,8 +526,9 @@
 
     var pastHero = false;
     // The bar steps aside wherever the page already offers the same choice:
-    // the curriculum (its own buttons), the enroll band, and the footer.
-    var endEls = [document.getElementById("classes"), document.querySelector(".signup"), document.querySelector(".site-footer")].filter(Boolean);
+    // the open-now strip, the curriculum (its own buttons), the enroll band,
+    // and the footer.
+    var endEls = [document.querySelector(".open-now"), document.getElementById("classes"), document.querySelector(".signup"), document.querySelector(".site-footer")].filter(Boolean);
     var visibleEnds = new Set();
 
     function update() {

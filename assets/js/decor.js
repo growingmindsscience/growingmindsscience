@@ -210,7 +210,7 @@
     },
     asteroids: {
       cls: "gms-arcade-asteroid-trigger", title: ".",
-      anchors: [".about-preview__media--portrait", ".about-preview__media", ".page-hero .container"],
+      anchors: [".page-hero .container", "main .container"],
       svg: '<svg viewBox="0 0 34 34" aria-hidden="true" shape-rendering="crispEdges">' +
         '<circle cx="17" cy="17" r="11" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".45"/>' +
         '<g fill="currentColor"><rect x="15" y="4" width="4" height="4"/><rect x="23" y="21" width="3" height="3"/>' +

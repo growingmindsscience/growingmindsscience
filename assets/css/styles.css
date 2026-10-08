@@ -93,8 +93,8 @@
   --radius-xl: 18px;
 
   --shadow-sm: 0 1px 2px rgba(14, 33, 41, 0.06);
-  --shadow-md: 0 16px 36px -20px rgba(14, 33, 41, 0.30);
-  --shadow-lg: 0 32px 64px -30px rgba(14, 33, 41, 0.38);
+  --shadow-md: 0 16px 36px -20px rgba(14, 33, 41, 0.32);
+  --shadow-lg: 0 24px 44px -26px rgba(14, 33, 41, 0.42);
 
   --container: 1200px;
   --container-narrow: 880px;
@@ -140,8 +140,8 @@
   --success: #9AD5CD;
 
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
-  --shadow-md: 0 4px 14px rgba(0,0,0,0.4);
-  --shadow-lg: 0 18px 40px rgba(0,0,0,0.5);
+  --shadow-md: 0 16px 36px -20px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 24px 44px -26px rgba(0, 0, 0, 0.7);
 }
 
 /* ---------- Reset ---------- */
@@ -913,10 +913,12 @@ button:disabled {
 .check-list li {
   position: relative;
   padding-left: 1.75rem;
+  max-width: 62ch;
   font-size: var(--text-base);
   color: var(--ink-soft);
   line-height: 1.55;
   margin: 0;
+  text-wrap: pretty;
 }
 .check-list li::before {
   content: "";
@@ -1034,6 +1036,7 @@ button:disabled {
 .faq details[open] summary::after { content: "−"; }
 .faq details p {
   margin: var(--space-3) 0 0;
+  max-width: 62ch;
   color: var(--ink-soft);
   font-size: var(--text-sm);
   line-height: 1.6;
@@ -1866,6 +1869,7 @@ button:disabled {
 
 .faq-class-item > p {
   padding: 0 0 var(--space-5);
+  max-width: 62ch;
   color: var(--ink-soft);
   font-size: var(--text-base);
   line-height: 1.65;
@@ -1904,7 +1908,7 @@ button:disabled {
   gap: var(--space-5);
   margin-top: var(--space-5);
 }
-.educator p { margin: 0; color: var(--ink-soft); }
+.educator p { margin: 0; max-width: 62ch; color: var(--ink-soft); text-wrap: pretty; }
 .educator__photo {
   flex: none;
   width: 72px;

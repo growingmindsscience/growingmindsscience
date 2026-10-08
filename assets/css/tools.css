@@ -262,7 +262,7 @@
 .toolkit__cta,
 .guide-card__cta {
   color: var(--primary);
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: var(--text-sm);
   font-weight: 600;
   white-space: nowrap;
