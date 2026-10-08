@@ -4,6 +4,7 @@ import {
   CLASS_COURSES, TODDLER_COURSE, infantSalesGate, ownsToddlerClass, preschoolSalesGate, toddlerSalesGate,
   type ClassCourseSlug, type ClassLesson, type SalesGate, type SalesGateInput,
 } from "@/lib/classes";
+import { freePreviewLessonWith, type FreePreviewLesson } from "@/lib/class-preview";
 
 export async function hasClassAccess(userId: string, courseSlug: ClassCourseSlug = TODDLER_COURSE.slug): Promise<boolean> {
   const supabase = await createClient();
@@ -40,6 +41,11 @@ export async function publishedLessons(courseSlug: ClassCourseSlug = TODDLER_COU
     .order("position");
   if (error) throw new Error(`Could not load lessons: ${error.message}`);
   return (data ?? []) as ClassLesson[];
+}
+
+/** The class's free sample lesson, if it has a published one with a video. */
+export function freePreviewLesson(courseSlug: ClassCourseSlug): Promise<FreePreviewLesson | null> {
+  return freePreviewLessonWith(createServiceClient(), courseSlug);
 }
 
 /** A published lesson's title, for the browser tab; null when there is none. */

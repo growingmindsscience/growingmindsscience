@@ -83,6 +83,22 @@ becomes available, it can be added later with a clear caption.
 Deploy the repository on Vercel. The domain can still be managed in Netlify DNS,
 but page hosting and API routes are expected to run on Vercel.
 
+### CSS/JS cache-busting
+
+`vercel.json` serves `/assets/css/*` and `/assets/js/*` as immutable for a year,
+so every reference carries a content hash (`chrome.css?v=6f2055b923`). After
+editing any file in `assets/css` or `assets/js`, or adding a page that links one:
+
+```bash
+node scripts/stamp-assets.mjs
+```
+
+Commit what it rewrites. CI runs `node scripts/stamp-assets.mjs --check` and
+fails on any stale or missing stamp. Two rules keep it working: write
+lazy-loaded asset URLs in JS as one whole literal (`"/assets/js/x-game.js"`,
+never built from a variable), and on a merge conflict in a `?v=` value take
+either side and re-run the script. It is deterministic.
+
 ## Forms
 
 The waitlist posts to the Vercel API route at `/api/waitlist`, which forwards

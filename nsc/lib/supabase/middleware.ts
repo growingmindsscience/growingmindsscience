@@ -1,6 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { isClassPath } from "@/lib/class-paths";
+import { INFANT_PREVIEW_PATH } from "@/lib/class-preview";
 
 /**
  * Refreshes the Supabase session on every request and guards the app.
@@ -8,7 +9,11 @@ import { isClassPath } from "@/lib/class-paths";
  * routes are redirected to /login. Paths here are relative to basePath (/nsc).
  */
 // Exact-match public routes plus prefix-match public sections.
-const PUBLIC_EXACT = new Set(["/", "/evidence"]);
+const PUBLIC_EXACT = new Set([
+  "/",
+  "/evidence",
+  INFANT_PREVIEW_PATH, // the free class lesson; it serves only the flagged lesson
+]);
 const PUBLIC_PREFIXES = [
   "/login",
   "/signup",
@@ -28,6 +33,12 @@ const PUBLIC_PREFIXES = [
 ];
 // /admin is intentionally NOT public: middleware sends signed-out visitors to
 // /login, and requireAdmin 404s any signed-in non-admin.
+
+/** Whether a signed-out visitor may open `path` (relative to /nsc). */
+export function isPublicPath(path: string): boolean {
+  return PUBLIC_EXACT.has(path) ||
+    PUBLIC_PREFIXES.some((p) => path === p || path.startsWith(p + "/"));
+}
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
@@ -58,11 +69,7 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   const path = request.nextUrl.pathname;
-  const isPublic =
-    PUBLIC_EXACT.has(path) ||
-    PUBLIC_PREFIXES.some((p) => path === p || path.startsWith(p + "/"));
-
-  if (!user && !isPublic) {
+  if (!user && !isPublicPath(path)) {
     const url = request.nextUrl.clone();
     url.pathname = isClassPath(path) ? "/class-login" : "/login";
     url.searchParams.set("next", path);
