@@ -13,7 +13,7 @@
  * | Legacy AI Pro $9/mo          | membership at the same price (absorption)     |
  * | Legacy $49 class bundle      | class:toddlerhood + ai:unlimited, perpetual   |
  * | Infant class $49 one-time    | class:infant, perpetual                       |
- * | Preschool class $49 one-time | class:preschool, perpetual                    |
+ * | Preschool class $35 one-time | class:preschool, perpetual                    |
  * | Number Path $34 one-time     | numberpath_full, perpetual (kept standalone)  |
  * | Number Path gift redemption  | numberpath_full, perpetual, source gift       |
  */
