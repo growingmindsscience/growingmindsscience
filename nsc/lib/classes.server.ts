@@ -1,9 +1,8 @@
 import "server-only";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
 import {
-  CLASS_COURSES, INFANT_COURSE, INFANT_MODULE_LESSON_COUNTS, PRESCHOOL_COURSE, PRESCHOOL_MODULE_LESSON_COUNTS,
-  TODDLER_COURSE, infantSalesGate, ownsToddlerClass, preschoolSalesGate,
-  type ClassCourseSlug, type ClassLesson,
+  CLASS_COURSES, TODDLER_COURSE, infantSalesGate, ownsToddlerClass, preschoolSalesGate, toddlerSalesGate,
+  type ClassCourseSlug, type ClassLesson, type SalesGate, type SalesGateInput,
 } from "@/lib/classes";
 
 export async function hasClassAccess(userId: string, courseSlug: ClassCourseSlug = TODDLER_COURSE.slug): Promise<boolean> {
@@ -55,27 +54,28 @@ export async function publishedLessonTitle(courseSlug: ClassCourseSlug, slug: st
   return (data?.title as string | undefined) ?? null;
 }
 
+const SALES_GATES: Record<ClassCourseSlug, { env: string; gate: (input: SalesGateInput) => SalesGate }> = {
+  toddlerhood: { env: "TODDLER", gate: toddlerSalesGate },
+  infant: { env: "INFANT", gate: infantSalesGate },
+  preschool: { env: "PRESCHOOL", gate: preschoolSalesGate },
+};
+
 /** Open sales only after every promised lesson is published. */
 export async function classSalesOpen(courseSlug: ClassCourseSlug = TODDLER_COURSE.slug, userId?: string): Promise<boolean> {
-  if (courseSlug === INFANT_COURSE.slug || courseSlug === PRESCHOOL_COURSE.slug) {
-    const infant = courseSlug === INFANT_COURSE.slug;
-    const required = infant ? INFANT_MODULE_LESSON_COUNTS : PRESCHOOL_MODULE_LESSON_COUNTS;
-    const lessons = await publishedLessons(courseSlug);
-    const gate = (infant ? infantSalesGate : preschoolSalesGate)({
-      salesFlag: infant ? process.env.INFANT_CLASS_SALES_ENABLED : process.env.PRESCHOOL_CLASS_SALES_ENABLED,
-      vercelEnv: process.env.VERCEL_ENV,
-      previewUserId: infant ? process.env.INFANT_CLASS_PREVIEW_USER_ID : process.env.PRESCHOOL_CLASS_PREVIEW_USER_ID,
-      testUserId: infant ? process.env.INFANT_CLASS_TEST_USER_ID : process.env.PRESCHOOL_CLASS_TEST_USER_ID,
-      userId,
-      moduleCounts: required.map((_, index) =>
-        lessons.filter((lesson) => lesson.module_number === index + 1).length),
-    });
-    // The reason names the failing condition only; it never holds a value.
-    if (!gate.open) console.warn(`[class-sales] ${courseSlug} enrollment closed: ${gate.reason}`);
-    return gate.open;
-  }
-  if (process.env.TODDLER_CLASS_SALES_ENABLED !== "1") return false;
-  return (await publishedLessons()).length >= 29;
+  const { env, gate: salesGate } = SALES_GATES[courseSlug];
+  const lessons = await publishedLessons(courseSlug);
+  const gate = salesGate({
+    salesFlag: process.env[`${env}_CLASS_SALES_ENABLED`],
+    vercelEnv: process.env.VERCEL_ENV,
+    previewUserId: process.env[`${env}_CLASS_PREVIEW_USER_ID`],
+    testUserId: process.env[`${env}_CLASS_TEST_USER_ID`],
+    userId,
+    moduleCounts: CLASS_COURSES[courseSlug].modules.map((_, index) =>
+      lessons.filter((lesson) => lesson.module_number === index + 1).length),
+  });
+  // The reason names the failing condition only; it never holds a value.
+  if (!gate.open) console.warn(`[class-sales] ${courseSlug} enrollment closed: ${gate.reason}`);
+  return gate.open;
 }
 
 export async function progressForUser(userId: string) {

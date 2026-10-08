@@ -98,6 +98,16 @@ export function lessonPath(slug: string, courseSlug: ClassCourseSlug = TODDLER_C
 export const INFANT_MODULE_LESSON_COUNTS = [5, 4, 3, 4] as const;
 /** Published lessons each preschool module must have before sales open. */
 export const PRESCHOOL_MODULE_LESSON_COUNTS = [4, 4, 3, 4] as const;
+/**
+ * Published lessons the toddler class promises ("5 modules, 29 lessons").
+ * Its per-module split is not recorded here yet, so the gate checks the
+ * total and that no module is empty. Swap in per-module counts, like the
+ * other classes, once the lesson outline is final.
+ */
+export const TODDLER_LESSON_REQUIREMENT = { total: 29, modules: TODDLER_COURSE.modules.length } as const;
+
+/** Per-module counts, or a total spread over a number of non-empty modules. */
+type LessonRequirement = readonly number[] | { total: number; modules: number };
 
 export type SalesGate = { open: true } | { open: false; reason: string };
 
@@ -126,7 +136,12 @@ export function preschoolSalesGate(input: SalesGateInput): SalesGate {
   return salesGate("PRESCHOOL", PRESCHOOL_MODULE_LESSON_COUNTS, input);
 }
 
-function salesGate(prefix: "INFANT" | "PRESCHOOL", required: readonly number[], input: SalesGateInput): SalesGate {
+/** The same gate for the toddler class, read from the TODDLER_CLASS_* variables. */
+export function toddlerSalesGate(input: SalesGateInput): SalesGate {
+  return salesGate("TODDLER", TODDLER_LESSON_REQUIREMENT, input);
+}
+
+function salesGate(prefix: "INFANT" | "PRESCHOOL" | "TODDLER", required: LessonRequirement, input: SalesGateInput): SalesGate {
   // Env values pasted into a dashboard or piped from a shell often carry a
   // trailing newline or space; compare the trimmed value.
   const flag = input.salesFlag?.trim().toLowerCase();
@@ -159,17 +174,27 @@ function salesGate(prefix: "INFANT" | "PRESCHOOL", required: readonly number[], 
       };
     }
   }
-  const short = required
-    .map((need, index) => ({ module: index + 1, need, have: input.moduleCounts[index] ?? 0 }))
-    .filter((row) => row.have !== row.need);
+  const short = lessonShortfall(required, input.moduleCounts);
   if (short.length) {
-    return {
-      open: false,
-      reason: "published lesson counts do not match: " +
-        short.map((row) => `module ${row.module} has ${row.have}, needs ${row.need}`).join("; "),
-    };
+    return { open: false, reason: "published lesson counts do not match: " + short.join("; ") };
   }
   return { open: true };
+}
+
+function lessonShortfall(required: LessonRequirement, moduleCounts: number[]): string[] {
+  if (!("total" in required)) {
+    return required
+      .map((need, index) => ({ module: index + 1, need, have: moduleCounts[index] ?? 0 }))
+      .filter((row) => row.have !== row.need)
+      .map((row) => `module ${row.module} has ${row.have}, needs ${row.need}`);
+  }
+  const { total, modules } = required;
+  const counts = Array.from({ length: modules }, (_, index) => moduleCounts[index] ?? 0);
+  const have = counts.reduce((sum, count) => sum + count, 0);
+  return [
+    ...(have === total ? [] : [`${have} published in all, needs ${total}`]),
+    ...counts.flatMap((count, index) => (count ? [] : [`module ${index + 1} has none`])),
+  ];
 }
 
 export interface ClassGrantRow {

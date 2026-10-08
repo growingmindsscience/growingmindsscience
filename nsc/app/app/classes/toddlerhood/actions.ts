@@ -7,10 +7,10 @@ import { TODDLER_COURSE } from "@/lib/classes";
 import { stripe } from "@/lib/stripe";
 import { siteOrigin } from "@/lib/site";
 
-export async function startClassCheckout() {
+export async function startToddlerClassCheckout() {
   const user = await requireClassAuth("/app/classes/toddlerhood");
-  if (await hasClassAccess(user.id)) redirect("/app/classes/toddlerhood");
-  if (!(await classSalesOpen())) redirect("/app/classes/toddlerhood?error=not-open");
+  if (await hasClassAccess(user.id, TODDLER_COURSE.slug)) redirect("/app/classes/toddlerhood");
+  if (!(await classSalesOpen(TODDLER_COURSE.slug, user.id))) redirect("/app/classes/toddlerhood?error=not-open");
   const priceId = process.env.TODDLER_CLASS_PRICE_ID;
   if (!priceId) redirect("/app/classes/toddlerhood?error=checkout-unavailable");
   const origin = siteOrigin();
