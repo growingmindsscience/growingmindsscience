@@ -51,7 +51,7 @@ export default async function Home() {
     <main className="mx-auto flex min-h-screen max-w-3xl flex-col gap-20 px-6 py-16">
       {/* Hero */}
       <section className="flex flex-col items-center gap-6 text-center">
-        <p className="text-sm font-medium uppercase tracking-widest text-teal">
+        <p className="text-[0.9375rem] font-semibold text-amber-deep">
           {brand.parentSite}
         </p>
         <h1 className="text-4xl font-semibold text-ink-deep sm:text-5xl">
@@ -62,9 +62,9 @@ export default async function Home() {
           counting ladder, then hands you a week of playful, evidence-backed
           games.
         </p>
-        <p className="text-sm text-teal-soft">Ten minutes. A bowl. A bear.</p>
+        <p className="text-sm text-ink-muted">Ten minutes. A bowl. A bear.</p>
         <LinkButton href={start}>Start the game</LinkButton>
-        <p className="text-sm text-teal-soft">
+        <p className="text-sm text-ink-muted">
           The check-in is free.{" "}
           {!user && (
             <>
@@ -86,7 +86,7 @@ export default async function Home() {
         <div className="mt-2 grid gap-4 sm:grid-cols-3">
           {STEPS.map((s, i) => (
             <Card key={s.title}>
-              <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-teal">
+              <p className="mb-2 text-[0.9375rem] font-semibold text-amber-deep">
                 {i + 1} · {s.title}
               </p>
               <p className="text-sm leading-relaxed text-ink">{s.body}</p>
@@ -185,7 +185,7 @@ export default async function Home() {
             week.
           </p>
         </Card>
-        <p className="text-sm text-teal-soft">
+        <p className="text-sm text-ink-muted">
           Every claim above has a citation behind it.{" "}
           <Link href="/evidence" className="font-semibold text-teal underline">
             Read the evidence table →
@@ -199,7 +199,7 @@ export default async function Home() {
           One price, no subscription
         </h2>
         <Card className="text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-teal">
+          <p className="text-[0.9375rem] font-semibold text-amber-deep">
             Free
           </p>
           <p className="mt-1 text-ink">
@@ -207,7 +207,7 @@ export default async function Home() {
             ladder, one matched game, and a number-talk prompt.
           </p>
           <div className="mx-auto my-5 h-px w-24 bg-sea-glass" />
-          <p className="text-sm font-semibold uppercase tracking-wide text-teal">
+          <p className="text-[0.9375rem] font-semibold text-amber-deep">
             The whole thing · {PRICE} once
           </p>
           <p className="mt-1 text-ink">
@@ -218,7 +218,7 @@ export default async function Home() {
           <LinkButton href={start} className="mt-6">
             Start the free check-in
           </LinkButton>
-          <p className="mt-4 text-sm text-teal-soft">
+          <p className="mt-4 text-sm text-ink-muted">
             Or{" "}
             <Link href="/gift" className="font-semibold text-teal underline">
               give it as a gift

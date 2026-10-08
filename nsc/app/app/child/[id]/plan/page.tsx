@@ -56,13 +56,13 @@ export default async function PlanPage({
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-6 py-10">
       <header className="flex items-center justify-between gap-4">
         <div>
-          <Link href="/app" className={`${NAV_LINK} text-sm text-teal-soft underline`}>
+          <Link href="/app" className={`${NAV_LINK} text-sm text-ink-muted underline`}>
             ← All children
           </Link>
           <h1 className="mt-1 text-2xl font-semibold text-ink-deep">
             {ctx.child.nickname}&rsquo;s week
           </h1>
-          <p className="text-sm text-teal-soft">
+          <p className="text-sm text-ink-muted">
             {pointAndSeek
               ? "Starting gently, from Point and Seek"
               : `On the ladder: ${rung}`}
@@ -76,7 +76,7 @@ export default async function PlanPage({
       </header>
 
       <section>
-        <h2 className="mb-1 text-sm font-semibold uppercase tracking-wide text-teal">
+        <h2 className="mb-1 text-[0.9375rem] font-semibold text-amber-deep">
           Today&rsquo;s number talk
         </h2>
         <Card className="bg-rung-glow/50">
@@ -88,11 +88,11 @@ export default async function PlanPage({
           )}
         </Card>
         {full && (
-          <details className="mt-3 rounded-2xl border border-sea-glass/60 bg-surface px-5 py-4">
+          <details className="mt-3 rounded-2xl border border-line bg-surface px-5 py-4">
             <summary className="flex min-h-11 cursor-pointer items-center text-sm font-semibold text-teal">
               See the whole week
             </summary>
-            <p className="mt-1 text-xs text-teal-soft">
+            <p className="mt-1 text-xs text-ink-muted">
               Read ahead and pick whichever fits your day — there&rsquo;s
               nothing to check off.
             </p>
@@ -106,7 +106,7 @@ export default async function PlanPage({
                       : "text-ink-deep/70"
                   }
                 >
-                  <span className="mr-2 text-xs text-teal-soft">
+                  <span className="mr-2 text-xs text-ink-muted">
                     {i === today ? "Today" : `Day ${i + 1}`}
                   </span>
                   {p}
@@ -119,10 +119,10 @@ export default async function PlanPage({
 
       <section className="flex flex-col gap-4">
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-teal">
+          <h2 className="text-[0.9375rem] font-semibold text-amber-deep">
             This week&rsquo;s games
           </h2>
-          <p className="mt-1 text-sm text-teal-soft">
+          <p className="mt-1 text-sm text-ink-muted">
             {pointAndSeek
               ? "Three to choose from, picked for where "
               : "Three to choose from, matched to "}
@@ -154,14 +154,14 @@ export default async function PlanPage({
       </section>
 
       {!full && (
-        <Card className="bg-ink-deep text-center text-surface">
+        <Card className="ink-band bg-ink-deep text-center text-surface">
           <h2 className="text-lg font-semibold text-white">Unlock the full plan</h2>
           <p className="mt-2 text-sm text-sea-glass">
             Every game each week, the whole week of prompts to read ahead,
             where {ctx.child.nickname} sits in the typical range for their age,
             and the printable pack. One payment, yours for good.
           </p>
-          <LinkButton href="/app/upgrade" variant="inverse" className="mt-4">
+          <LinkButton href="/app/upgrade" variant="amber" className="mt-4">
             See the price
           </LinkButton>
         </Card>
@@ -212,10 +212,10 @@ export default async function PlanPage({
             Printable pack →
           </Link>
         )}
-        <Link href={`/app/child/${id}/prescreen`} className={`${NAV_LINK} text-teal-soft underline`}>
+        <Link href={`/app/child/${id}/prescreen`} className={`${NAV_LINK} text-ink-muted underline`}>
           Play the check-in again
         </Link>
-        <Link href="/evidence" className={`${NAV_LINK} text-teal-soft underline`}>
+        <Link href="/evidence" className={`${NAV_LINK} text-ink-muted underline`}>
           The evidence →
         </Link>
       </div>

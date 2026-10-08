@@ -13,11 +13,11 @@ export default function NotFound() {
         <div className="mt-6 flex flex-col items-center gap-2">
           <Link
             href="/app"
-            className="inline-flex min-h-12 items-center justify-center rounded-full bg-teal px-6 py-3 text-base font-semibold text-white hover:bg-teal-soft"
+            className="inline-flex min-h-12 items-center justify-center rounded-control bg-teal px-6 py-3 text-base font-semibold text-white hover:bg-teal-hover"
           >
             Back to your children
           </Link>
-          <Link href="/" className="inline-flex min-h-11 items-center text-sm text-teal-soft underline">
+          <Link href="/" className="inline-flex min-h-11 items-center text-sm text-ink-muted underline">
             Number Path home
           </Link>
         </div>

@@ -30,7 +30,7 @@ export default function RouteError({
         </p>
         <div className="mt-6 flex flex-col items-center gap-3">
           <Button onClick={() => reset()}>Try again</Button>
-          <Link href="/app" className="inline-flex min-h-11 items-center text-sm text-teal-soft underline">
+          <Link href="/app" className="inline-flex min-h-11 items-center text-sm text-ink-muted underline">
             Back to your children
           </Link>
         </div>

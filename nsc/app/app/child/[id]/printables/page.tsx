@@ -20,11 +20,11 @@ export default async function PrintablesIndex({
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-6 px-6 py-10">
       <header>
-        <Link href={`/app/child/${id}/plan`} className="text-sm text-teal-soft underline">
+        <Link href={`/app/child/${id}/plan`} className="text-sm text-ink-muted underline">
           ← This week
         </Link>
         <h1 className="mt-1 text-2xl font-semibold text-ink-deep">Printable pack</h1>
-        <p className="text-sm text-teal-soft">
+        <p className="text-sm text-ink-muted">
           Open a sheet, then use Print / Save as PDF.
         </p>
       </header>

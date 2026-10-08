@@ -22,7 +22,7 @@ export default async function GiftCardPage({
         </div>
 
         <div className="rounded-3xl border-2 border-[#1E5F62] p-10 text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#1E5F62]">
+          <p className="text-[0.9375rem] font-semibold text-[#1E5F62]">
             A gift for you
           </p>
           <h2 className="mt-4 text-3xl font-semibold">Number Path</h2>

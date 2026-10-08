@@ -26,10 +26,10 @@ export function EvidenceChips({
 }) {
   return (
     <div className="flex flex-wrap gap-2">
-      <span className="rounded-full bg-sea-glass/60 px-3 py-1 text-xs font-medium text-ink">
+      <span className="rounded-sm bg-sea-glass/60 px-3 py-1 text-xs font-medium text-ink">
         {STRENGTH_LABEL[strength]}
       </span>
-      <span className="rounded-full border border-sea-glass px-3 py-1 text-xs font-medium text-teal">
+      <span className="rounded-sm border border-line px-3 py-1 text-xs font-medium text-teal">
         {CONSENSUS_LABEL[consensus]}
       </span>
     </div>

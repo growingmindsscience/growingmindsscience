@@ -49,7 +49,7 @@ export default async function ActivitiesPage({
   return (
     <main className="mx-auto flex min-h-screen max-w-3xl flex-col gap-8 px-6 py-10">
       <header>
-        <p className="text-sm font-medium uppercase tracking-widest text-teal">
+        <p className="text-[0.9375rem] font-semibold text-amber-deep">
           Growing Minds Science
         </p>
         <h1 className="mt-1 text-3xl font-semibold text-ink-deep">
@@ -77,14 +77,14 @@ export default async function ActivitiesPage({
 
       <form method="get" className="flex flex-wrap items-end gap-3">
         <div className="flex flex-col gap-1">
-          <label htmlFor="band" className="text-xs font-medium text-teal-soft">
+          <label htmlFor="band" className="text-xs font-medium text-ink-muted">
             Age
           </label>
           <select
             id="band"
             name="band"
             defaultValue={sp.band ?? ""}
-            className="min-h-11 rounded-xl border border-sea-glass bg-surface px-3 py-2 text-sm text-ink"
+            className="min-h-11 rounded-xl border border-line bg-surface px-3 py-2 text-sm text-ink"
           >
             <option value="">Any age</option>
             {ACTIVITY_BANDS.map((b) => (
@@ -95,14 +95,14 @@ export default async function ActivitiesPage({
           </select>
         </div>
         <div className="flex flex-col gap-1">
-          <label htmlFor="domain" className="text-xs font-medium text-teal-soft">
+          <label htmlFor="domain" className="text-xs font-medium text-ink-muted">
             Area
           </label>
           <select
             id="domain"
             name="domain"
             defaultValue={sp.domain ?? ""}
-            className="min-h-11 rounded-xl border border-sea-glass bg-surface px-3 py-2 text-sm text-ink"
+            className="min-h-11 rounded-xl border border-line bg-surface px-3 py-2 text-sm text-ink"
           >
             <option value="">Any area</option>
             {ACTIVITY_DOMAINS.map((d) => (
@@ -113,14 +113,14 @@ export default async function ActivitiesPage({
           </select>
         </div>
         <div className="flex flex-col gap-1">
-          <label htmlFor="mess" className="text-xs font-medium text-teal-soft">
+          <label htmlFor="mess" className="text-xs font-medium text-ink-muted">
             Mess
           </label>
           <select
             id="mess"
             name="mess"
             defaultValue={sp.mess ?? ""}
-            className="min-h-11 rounded-xl border border-sea-glass bg-surface px-3 py-2 text-sm text-ink"
+            className="min-h-11 rounded-xl border border-line bg-surface px-3 py-2 text-sm text-ink"
           >
             <option value="">Any mess</option>
             <option value="1">Tidy only</option>
@@ -128,14 +128,14 @@ export default async function ActivitiesPage({
           </select>
         </div>
         <div className="flex flex-col gap-1">
-          <label htmlFor="time" className="text-xs font-medium text-teal-soft">
+          <label htmlFor="time" className="text-xs font-medium text-ink-muted">
             Time
           </label>
           <select
             id="time"
             name="time"
             defaultValue={sp.time ?? ""}
-            className="min-h-11 rounded-xl border border-sea-glass bg-surface px-3 py-2 text-sm text-ink"
+            className="min-h-11 rounded-xl border border-line bg-surface px-3 py-2 text-sm text-ink"
           >
             <option value="">Any length</option>
             <option value="5">5 minutes or less</option>
@@ -143,14 +143,14 @@ export default async function ActivitiesPage({
           </select>
         </div>
         <div className="flex flex-col gap-1">
-          <label htmlFor="setting" className="text-xs font-medium text-teal-soft">
+          <label htmlFor="setting" className="text-xs font-medium text-ink-muted">
             Where
           </label>
           <select
             id="setting"
             name="setting"
             defaultValue={sp.setting ?? ""}
-            className="min-h-11 rounded-xl border border-sea-glass bg-surface px-3 py-2 text-sm text-ink"
+            className="min-h-11 rounded-xl border border-line bg-surface px-3 py-2 text-sm text-ink"
           >
             <option value="">Anywhere</option>
             {ACTIVITY_SETTINGS.map((s) => (
@@ -162,7 +162,7 @@ export default async function ActivitiesPage({
         </div>
         <button
           type="submit"
-          className="min-h-11 rounded-full bg-teal px-5 py-2 text-sm font-semibold text-white hover:bg-teal-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2"
+          className="min-h-11 rounded-control bg-teal px-5 py-2 text-sm font-semibold text-white hover:bg-teal-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2"
         >
           Filter
         </button>
@@ -178,7 +178,7 @@ export default async function ActivitiesPage({
         </Card>
       ) : (
         <section className="flex flex-col gap-4">
-          <p className="text-sm text-teal-soft">
+          <p className="text-sm text-ink-muted">
             {activities.length}{" "}
             {activities.length === 1 ? "activity" : "activities"}
           </p>
@@ -191,14 +191,14 @@ export default async function ActivitiesPage({
                       {a.title}
                     </h2>
                     <p className="mt-1 text-sm text-ink">{a.intention}</p>
-                    <p className="mt-2 text-xs text-teal-soft">
+                    <p className="mt-2 text-xs text-ink-muted">
                       {a.months_min}–{a.months_max} months ·{" "}
                       {a.domains.map((d) => DOMAIN_LABEL[d]).join(", ")} ·{" "}
                       {a.duration_min} min
                     </p>
                   </div>
                   {a.is_free && (
-                    <span className="shrink-0 rounded-full bg-rung-glow px-3 py-1 text-xs font-medium text-ink-deep">
+                    <span className="shrink-0 rounded-sm bg-rung-glow px-3 py-1 text-xs font-medium text-ink-deep">
                       Free
                     </span>
                   )}

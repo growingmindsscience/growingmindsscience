@@ -1,7 +1,7 @@
 import { birthYearOptions, MONTH_NAMES } from "@/lib/birth-month";
 
 const SELECT =
-  "min-h-11 rounded-xl border border-sea-glass bg-surface px-3 py-2 text-base text-ink focus:border-teal focus:outline-none focus:ring-2 focus:ring-teal/30";
+  "min-h-11 rounded-xl border border-line bg-surface px-3 py-2 text-base text-ink focus:border-teal focus:outline-none focus:ring-2 focus:ring-teal/30";
 
 /**
  * Month + year pickers for a child's birth month. Works the same in every
@@ -59,7 +59,7 @@ export function BirthMonthField({
           </select>
         </label>
       </div>
-      <p id={hintId} className="text-xs text-teal-soft">
+      <p id={hintId} className="text-xs text-ink-muted">
         Month and year only. We never ask for the exact day.
       </p>
     </fieldset>

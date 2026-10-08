@@ -24,9 +24,9 @@ export default async function ToddlerClassPage({ searchParams }: {
   return (
     <main className="mx-auto flex max-w-3xl flex-col gap-7 px-6 py-10">
       <header>
-        <Link href="/app/classes" className="inline-flex min-h-11 items-center text-sm text-teal-soft underline">← My classes</Link>
+        <Link href="/app/classes" className="inline-flex min-h-11 items-center text-sm text-ink-muted underline">← My classes</Link>
         <Eyebrow className="mt-2">Self-paced class · ages 1–3</Eyebrow>
-        <h1 className="mt-2 text-3xl font-semibold text-ink-deep">{TODDLER_COURSE.title}</h1>
+        <h1 className="mt-2 text-3xl text-ink-deep sm:text-4xl">{TODDLER_COURSE.title}</h1>
         <p className="mt-3 text-ink">Five modules of developmental science and practical guidance for everyday family life.</p>
       </header>
       {!owned ? (
@@ -36,9 +36,9 @@ export default async function ToddlerClassPage({ searchParams }: {
           {error === "not-open" && <p role="alert" className="mt-3 text-sm text-coral-deep">Enrollment is not open for this account yet.</p>}
           {error === "checkout-unavailable" && <p role="alert" className="mt-3 text-sm text-coral-deep">Checkout is unavailable right now. Please try again later.</p>}
           {salesOpen ? <form action={startClassCheckout} className="mt-5"><Button type="submit">Enroll now</Button></form> : (
-            <p className="mt-4 text-sm text-teal-soft">On-site enrollment opens after all 29 lessons have been prepared. You can still enroll through the current class page.</p>
+            <p className="mt-4 text-sm text-ink-muted">On-site enrollment opens after all 29 lessons have been prepared. You can still enroll through the current class page.</p>
           )}
-          <p className="mt-3 text-xs text-teal-soft">Already bought this on Thinkific? Your purchase will be linked during migration.</p>
+          <p className="mt-3 text-xs text-ink-muted">Already bought this on Thinkific? Your purchase will be linked during migration.</p>
         </Card>
       ) : (
         <ClassResume lessons={lessons} progress={progress} courseSlug="toddlerhood" modules={TODDLER_COURSE.modules} />

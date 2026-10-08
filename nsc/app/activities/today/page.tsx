@@ -61,7 +61,7 @@ export default async function TodaysThreePage({
           <LinkButton href="/login?next=/activities/today">Sign in</LinkButton>
           <Link
             href="/signup?next=/activities/today"
-            className="inline-flex min-h-11 items-center text-sm text-teal-soft underline"
+            className="inline-flex min-h-11 items-center text-sm text-ink-muted underline"
           >
             New here? Create a free account
           </Link>
@@ -126,7 +126,7 @@ export default async function TodaysThreePage({
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-6 py-10">
       <header>
-        <Link href="/activities" className="text-sm text-teal-soft underline">
+        <Link href="/activities" className="text-sm text-ink-muted underline">
           ← Activity Library
         </Link>
         <h1 className="mt-1 text-3xl font-semibold text-ink-deep">
@@ -155,7 +155,7 @@ export default async function TodaysThreePage({
       {children.length === 0 && (
         <Card>
           <h2 className="font-semibold text-ink-deep">Add a child</h2>
-          <p className="mt-1 text-sm text-teal-soft">
+          <p className="mt-1 text-sm text-ink-muted">
             Just a nickname and a birth month. We keep nothing else.
           </p>
           <form action={createLibraryChild} className="mt-4 flex flex-col gap-4">
@@ -180,7 +180,7 @@ export default async function TodaysThreePage({
         return (
           <section key={child.id} className="flex flex-col gap-4">
             <div>
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-teal">
+              <h2 className="text-[0.9375rem] font-semibold text-amber-deep">
                 For {child.nickname} · {months} months
               </h2>
             </div>
@@ -213,14 +213,14 @@ export default async function TodaysThreePage({
                           </Link>
                         </h3>
                         <p className="mt-1 text-sm text-ink">{a.intention}</p>
-                        <p className="mt-2 text-xs text-teal-soft">
+                        <p className="mt-2 text-xs text-ink-muted">
                           {a.domains.map((d) => DOMAIN_LABEL[d] ?? d).join(", ")} ·{" "}
                           {a.duration_min} min · mess {a.mess_level}/3
                           {!unlocked && " · full steps with membership"}
                         </p>
                       </div>
                       {a.is_free && (
-                        <span className="shrink-0 rounded-full bg-rung-glow px-3 py-1 text-xs font-medium text-ink-deep">
+                        <span className="shrink-0 rounded-sm bg-rung-glow px-3 py-1 text-xs font-medium text-ink-deep">
                           Free
                         </span>
                       )}
@@ -233,10 +233,10 @@ export default async function TodaysThreePage({
                         How it goes →
                       </Link>
                       {done ? (
-                        <span className="text-sm text-teal-soft">Done today ✓</span>
+                        <span className="text-sm text-ink-muted">Done today ✓</span>
                       ) : (
                         <form action={markDone.bind(null, child.id, a.id)}>
-                          <SubmitButton variant="ghost" size="sm" className="border border-sea-glass">
+                          <SubmitButton variant="ghost" size="sm" className="border border-line">
                             We did this
                           </SubmitButton>
                         </form>
@@ -251,7 +251,7 @@ export default async function TodaysThreePage({
       })}
 
       {children.length > 0 && (
-        <details className="rounded-2xl border border-sea-glass/60 bg-surface px-5 py-4">
+        <details className="rounded-2xl border border-line bg-surface px-5 py-4">
           <summary className="flex min-h-11 cursor-pointer items-center text-sm font-semibold text-teal">
             Add another child
           </summary>

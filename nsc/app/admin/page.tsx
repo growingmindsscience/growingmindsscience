@@ -37,19 +37,19 @@ export default async function AdminQueuePage({
   return (
     <main className="mx-auto flex min-h-screen max-w-3xl flex-col gap-8 px-6 py-10">
       <header>
-        <p className="text-sm font-medium uppercase tracking-widest text-teal">
+        <p className="text-[0.9375rem] font-semibold text-amber-deep">
           Growing Minds — internal
         </p>
         <h1 className="mt-1 text-2xl font-semibold text-ink-deep">
           Review queue
         </h1>
-        <p className="mt-1 text-sm text-teal-soft">
+        <p className="mt-1 text-sm text-ink-muted">
           The model proposes, you dispose. Nothing publishes without an
           approval here.
         </p>
       </header>
 
-      {isClassAdmin(admin) && <Link href="/admin/classes" className="rounded-xl border border-sea-glass bg-surface px-5 py-4 font-semibold text-teal hover:bg-sea-glass/20">
+      {isClassAdmin(admin) && <Link href="/admin/classes" className="rounded-xl border border-line bg-surface px-5 py-4 font-semibold text-teal hover:bg-sea-glass/20">
         Manage class lessons →
       </Link>}
 
@@ -75,7 +75,7 @@ export default async function AdminQueuePage({
         <>
           <section className="flex flex-col gap-3">
             <div className="flex items-center justify-between">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-teal">
+              <h2 className="text-[0.9375rem] font-semibold text-amber-deep">
                 Pending ({pending.length})
               </h2>
               <form action={importBatch001}>
@@ -99,14 +99,14 @@ export default async function AdminQueuePage({
                       <p className="font-semibold text-ink-deep">
                         {r.payload.title ?? r.payload.slug ?? r.payload.claim_text ?? r.id}
                       </p>
-                      <p className="mt-0.5 text-xs text-teal-soft">
+                      <p className="mt-0.5 text-xs text-ink-muted">
                         {r.content_type} · {r.batch_id || "no batch"} ·{" "}
                         {new Date(r.created_at).toLocaleDateString()}
                       </p>
                     </div>
                     <span
                       className={[
-                        "rounded-full px-3 py-1 text-xs font-medium",
+                        "rounded-sm px-3 py-1 text-xs font-medium",
                         r.grader_report?.pass
                           ? "bg-sea-glass/50 text-ink-deep"
                           : "bg-rung-glow text-ink-deep",
@@ -122,20 +122,20 @@ export default async function AdminQueuePage({
 
           {decided.length > 0 && (
             <section className="flex flex-col gap-3">
-              <h2 className="text-sm font-semibold uppercase tracking-wide text-teal">
+              <h2 className="text-[0.9375rem] font-semibold text-amber-deep">
                 Recently decided
               </h2>
               {decided.map((r) => (
                 <div
                   key={r.id}
-                  className="flex items-center justify-between rounded-xl border border-sea-glass/60 bg-surface px-4 py-2 text-sm"
+                  className="flex items-center justify-between rounded-xl border border-line bg-surface px-4 py-2 text-sm"
                 >
                   <span className="text-ink">
                     {r.payload.title ?? r.payload.slug ?? r.id}
                   </span>
                   <span
                     className={
-                      r.status === "approved" ? "text-teal" : "text-teal-soft"
+                      r.status === "approved" ? "text-teal" : "text-ink-muted"
                     }
                   >
                     {r.status}

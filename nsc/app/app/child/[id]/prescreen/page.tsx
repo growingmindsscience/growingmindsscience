@@ -116,7 +116,7 @@ export default async function PrescreenPage({
     <main className="mx-auto flex min-h-screen max-w-lg flex-col justify-center gap-6 px-6 py-12">
       <div className="text-center">
         <h1 className="text-2xl font-semibold text-ink-deep">A few quick taps</h1>
-        <p className="mt-2 text-sm text-teal-soft">
+        <p className="mt-2 text-sm text-ink-muted">
           {/* The certified intro line says "Three quick taps", but the form
               now has four questions (the counting-language one was added
               in-app), so the page states the count-free part only. */}
@@ -137,7 +137,7 @@ export default async function PrescreenPage({
                 {q.options.map((o, i) => (
                   <label
                     key={o.value}
-                    className="inline-flex min-h-11 cursor-pointer items-center rounded-full border border-sea-glass px-4 py-2 text-sm text-ink has-[:checked]:border-teal has-[:checked]:bg-rung-glow has-[:checked]:font-semibold has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-teal has-[:focus-visible]:ring-offset-2 has-[:focus-visible]:ring-offset-ground"
+                    className="inline-flex min-h-11 cursor-pointer items-center rounded-control border border-line px-4 py-2 text-sm text-ink has-[:checked]:border-teal has-[:checked]:bg-rung-glow has-[:checked]:font-semibold has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-teal has-[:focus-visible]:ring-offset-2 has-[:focus-visible]:ring-offset-ground"
                   >
                     <input
                       type="radio"

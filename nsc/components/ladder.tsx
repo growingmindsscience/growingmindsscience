@@ -60,7 +60,7 @@ export function Ladder({
                     ? "bg-rung-glow/50 text-ink-deep ring-1 ring-teal/50"
                     : done
                       ? "bg-sea-glass/50 text-ink"
-                      : "bg-surface text-teal-soft",
+                      : "bg-surface text-ink-muted",
                 isCurrent && animate ? "motion-safe:animate-pulse" : "",
               ].join(" ")}
             >

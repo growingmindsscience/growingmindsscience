@@ -36,21 +36,38 @@ function tsxFiles(dir: string): string[] {
 }
 
 describe("button variants (N10)", () => {
-  it("the inverse variant is dark text on a light pill, with no competing colors", () => {
-    const c = buttonClasses("inverse").split(" ");
-    expect(c).toContain("bg-white");
-    expect(c).toContain("text-ink-deep");
+  it("the amber variant is ink text on an amber fill, with no competing colors", () => {
+    const c = buttonClasses("amber").split(" ");
+    expect(c).toContain("bg-amber");
+    expect(c).toContain("text-ink-900");
     expect(c).not.toContain("text-white");
     expect(c).not.toContain("bg-teal");
   });
 
-  it("each size sets exactly one padding and a 44px+ minimum height", () => {
+  it("every button is a 10px-radius rectangle, never a pill", () => {
+    for (const variant of ["primary", "ghost", "amber"] as const) {
+      for (const size of ["md", "sm"] as const) {
+        const c = buttonClasses(variant, size).split(" ");
+        expect(c).toContain("rounded-control");
+        expect(c).not.toContain("rounded-full");
+      }
+    }
+  });
+
+  it("each border color comes from exactly one utility", () => {
+    for (const variant of ["primary", "ghost", "amber"] as const) {
+      const colors = buttonClasses(variant).split(" ").filter((k) => /^border-(?!\[)/.test(k));
+      expect(colors).toHaveLength(1);
+    }
+  });
+
+  it("each size sets exactly one padding and a 48px minimum height", () => {
     const md = buttonClasses("primary", "md").split(" ");
     const sm = buttonClasses("primary", "sm").split(" ");
-    expect(md.filter((k) => /^px-/.test(k))).toEqual(["px-6"]);
+    expect(md.filter((k) => /^px-/.test(k))).toEqual(["px-[1.4rem]"]);
     expect(sm.filter((k) => /^px-/.test(k))).toEqual(["px-4"]);
     expect(md).toContain("min-h-12");
-    expect(sm).toContain("min-h-11");
+    expect(sm).toContain("min-h-12");
   });
 
   // Tailwind orders utilities by stylesheet position, not attribute order, so

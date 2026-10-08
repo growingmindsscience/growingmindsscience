@@ -25,7 +25,7 @@ export default async function ClassAdminPage({ searchParams }: {
   return (
     <main className="mx-auto flex min-h-screen max-w-3xl flex-col gap-8 px-6 py-10">
       <header>
-        <Link href="/admin" className="text-sm text-teal-soft underline">← Admin</Link>
+        <Link href="/admin" className="text-sm text-ink-muted underline">← Admin</Link>
         <h1 className="mt-5 text-2xl font-semibold text-ink-deep">{course.shortTitle} lessons</h1>
         <p className="mt-2 text-sm text-ink">Create a lesson, upload its MP4, review captions and written text, then publish it.</p>
         <nav aria-label="Choose class" className="mt-4 flex gap-4 text-sm">
@@ -34,7 +34,7 @@ export default async function ClassAdminPage({ searchParams }: {
           <Link href="/admin/classes?course=preschool" className="text-teal underline">Preschool course</Link>
         </nav>
       </header>
-      {(error || params.error) && <p role="alert" className="rounded-xl bg-rung-glow p-4 text-sm text-[#9C4429]">{params.error || `Class tables unavailable: ${error?.message}`}</p>}
+      {(error || params.error) && <p role="alert" className="rounded-xl bg-rung-glow p-4 text-sm text-danger">{params.error || `Class tables unavailable: ${error?.message}`}</p>}
 
       <Card>
         <h2 className="text-lg font-semibold text-ink-deep">Add a lesson</h2>
@@ -42,7 +42,7 @@ export default async function ClassAdminPage({ searchParams }: {
           <input type="hidden" name="course_slug" value={courseSlug} />
           <div className="sm:col-span-2"><Field label="Lesson title" htmlFor="title"><Input id="title" name="title" required maxLength={160} className="w-full" /></Field></div>
           <Field label="Module" htmlFor="module_number">
-            <select id="module_number" name="module_number" required className="rounded-xl border border-sea-glass bg-surface px-4 py-3 text-ink">
+            <select id="module_number" name="module_number" required className="rounded-xl border border-line bg-surface px-4 py-3 text-ink">
               {course.modules.map((module, index) => <option key={module} value={index + 1}>{index + 1}. {module}</option>)}
             </select>
           </Field>
@@ -58,13 +58,13 @@ export default async function ClassAdminPage({ searchParams }: {
           <ul className="flex flex-col gap-2">
             {lessons.filter((lesson) => lesson.module_number === index + 1).map((lesson) => (
               <li key={lesson.id}>
-                <Link href={`/admin/classes/${lesson.id}`} className="flex items-center justify-between rounded-xl border border-sea-glass bg-surface px-5 py-4 hover:bg-sea-glass/20">
+                <Link href={`/admin/classes/${lesson.id}`} className="flex items-center justify-between rounded-xl border border-line bg-surface px-5 py-4 hover:bg-sea-glass/20">
                   <span className="font-semibold text-ink">{lesson.position}. {lesson.title}</span>
-                  <span className="text-sm text-teal-soft">{lesson.status} · {lesson.mux_playback_id ? "video ready" : "needs video"}</span>
+                  <span className="text-sm text-ink-muted">{lesson.status} · {lesson.mux_playback_id ? "video ready" : "needs video"}</span>
                 </Link>
               </li>
             ))}
-            {!lessons.some((lesson) => lesson.module_number === index + 1) && <li className="text-sm text-teal-soft">No lessons yet.</li>}
+            {!lessons.some((lesson) => lesson.module_number === index + 1) && <li className="text-sm text-ink-muted">No lessons yet.</li>}
           </ul>
         </section>
       ))}
