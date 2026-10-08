@@ -38,13 +38,12 @@ export default async function MyClassesPage() {
   return (
     <main className="mx-auto flex max-w-4xl flex-col gap-12 px-6 py-10">
       <header>
-        <Eyebrow>Your account</Eyebrow>
-        <h1 className="mt-2 text-4xl font-semibold tracking-tight text-ink-deep">My classes</h1>
+        <h1 className="text-4xl text-ink-deep">My classes</h1>
         <p className="mt-2 text-ink-soft">Everything you own, and where you left off.</p>
       </header>
 
       <section aria-labelledby="owned-heading" className="flex flex-col gap-4">
-        <h2 id="owned-heading" className="text-xl font-semibold text-ink-deep">Your classes</h2>
+        <h2 id="owned-heading" className="text-xl text-ink-deep">Your classes</h2>
         {ownedCourses.length ? (
           <div className={`grid gap-4 ${ownedCourses.length > 1 ? "sm:grid-cols-2" : ""}`}>
             {ownedCourses.map((slug, index) => {
@@ -57,16 +56,16 @@ export default async function MyClassesPage() {
               return (
                 <Card key={slug} className="flex flex-col">
                   <Eyebrow>{course.ages} · Lifetime access</Eyebrow>
-                  <h3 className="mt-2 text-xl font-semibold text-ink-deep">{course.shortTitle}</h3>
+                  <h3 className="mt-2 text-xl text-ink-deep">{course.shortTitle}</h3>
                   <p className="mt-1 text-sm text-ink-soft">{course.blurb}</p>
                   {lessons.length ? (
                     <div className="mt-5">
                       <div
                         role="progressbar" aria-valuemin={0} aria-valuemax={lessons.length} aria-valuenow={complete}
                         aria-label={`${course.shortTitle} progress`}
-                        className="h-2 overflow-hidden rounded-full bg-sea-glass"
+                        className="h-2 overflow-hidden rounded-sm bg-sea-glass"
                       >
-                        <div className="h-full rounded-full bg-teal" style={{ width: `${percent}%` }} />
+                        <div className="h-full rounded-sm bg-teal" style={{ width: `${percent}%` }} />
                       </div>
                       <p className="mt-2 text-sm text-ink-muted">
                         {complete} of {lessons.length} lessons complete
@@ -88,7 +87,7 @@ export default async function MyClassesPage() {
           </div>
         ) : (
           <Card>
-            <h3 className="text-lg font-semibold text-ink-deep">No classes yet</h3>
+            <h3 className="text-lg text-ink-deep">No classes yet</h3>
             <p className="mt-2 text-sm text-ink-soft">
               A class appears here as soon as you enroll. If you bought a class before and do not
               see it, it will be added once that purchase has been verified and moved over.
@@ -99,7 +98,7 @@ export default async function MyClassesPage() {
 
       {otherCourses.length > 0 && (
         <section aria-labelledby="more-heading" className="flex flex-col gap-4">
-          <h2 id="more-heading" className="text-xl font-semibold text-ink-deep">
+          <h2 id="more-heading" className="text-xl text-ink-deep">
             {ownedCourses.length ? "More classes" : "Available classes"}
           </h2>
           <div className={`grid gap-4 ${otherCourses.length > 1 ? "sm:grid-cols-2" : ""}`}>
@@ -108,7 +107,7 @@ export default async function MyClassesPage() {
               return (
                 <Card key={slug} className="flex flex-col">
                   <Eyebrow>{course.ages}</Eyebrow>
-                  <h3 className="mt-2 text-xl font-semibold text-ink-deep">{course.shortTitle}</h3>
+                  <h3 className="mt-2 text-xl text-ink-deep">{course.shortTitle}</h3>
                   <p className="mt-1 text-sm text-ink-soft">{course.blurb}</p>
                   <p className="mt-4 text-ink">
                     <span className="font-[family-name:var(--font-display)] text-2xl font-semibold text-ink-deep">{course.priceDisplay}</span>
@@ -132,11 +131,11 @@ export default async function MyClassesPage() {
       )}
 
       <section aria-labelledby="also-heading" className="flex flex-col gap-4">
-        <h2 id="also-heading" className="text-xl font-semibold text-ink-deep">Also in your account</h2>
+        <h2 id="also-heading" className="text-xl text-ink-deep">Also in your account</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           <Card className="flex flex-col">
             <Eyebrow>Growing Minds AI</Eyebrow>
-            <h3 className="mt-2 text-lg font-semibold text-ink-deep">
+            <h3 className="mt-2 text-lg text-ink-deep">
               {summary.unlimitedAi ? "Unlimited questions" : `${FREE_AI_QUESTIONS_PER_DAY} free questions a day`}
             </h3>
             <p className="mt-1 text-sm text-ink-soft">
@@ -153,7 +152,7 @@ export default async function MyClassesPage() {
           {summary.membership && (
             <Card className="flex flex-col">
               <Eyebrow>Membership</Eyebrow>
-              <h3 className="mt-2 text-lg font-semibold text-ink-deep">Active</h3>
+              <h3 className="mt-2 text-lg text-ink-deep">Active</h3>
               <p className="mt-1 text-sm text-ink-soft">Includes unlimited Growing Minds AI and Number Path.</p>
               <div className="mt-auto pt-5">
                 <LinkButton href="/app/classes/account" variant="ghost" size="sm" className="border border-line">Manage in Account</LinkButton>
@@ -163,7 +162,7 @@ export default async function MyClassesPage() {
           {summary.numberPath && (
             <Card className="flex flex-col">
               <Eyebrow>Number Path</Eyebrow>
-              <h3 className="mt-2 text-lg font-semibold text-ink-deep">Full access</h3>
+              <h3 className="mt-2 text-lg text-ink-deep">Full access</h3>
               <p className="mt-1 text-sm text-ink-soft">The early-math check-in, games, and weekly plans.</p>
               <div className="mt-auto pt-5">
                 <LinkButton href="/app" variant="ghost" size="sm" className="border border-line">Open Number Path</LinkButton>

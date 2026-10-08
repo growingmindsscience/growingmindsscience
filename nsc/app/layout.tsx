@@ -1,18 +1,23 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Source_Serif_4 } from "next/font/google";
+import { Atkinson_Hyperlegible_Next, Besley } from "next/font/google";
 import "./globals.css";
 import { brand } from "@/lib/config/brand";
 import { TimeZoneSync } from "@/components/timezone-sync";
 
-// Brand fonts, matching the parent site (assets/css: --font-display/--font-body).
-const bricolage = Bricolage_Grotesque({
-  subsets: ["latin"],
-  variable: "--font-bricolage",
-});
-const sourceSerif = Source_Serif_4({
+// Brand fonts, matching the parent site (DESIGN.md): Besley for display,
+// Atkinson Hyperlegible Next for everything a parent has to read. next/font
+// downloads them at build time and serves them from this origin, which the
+// CSP (font-src 'self') requires. Both are variable fonts, so any weight works.
+const besley = Besley({
   subsets: ["latin"],
   style: ["normal", "italic"],
-  variable: "--font-source-serif",
+  display: "swap",
+  variable: "--font-besley",
+});
+const atkinson = Atkinson_Hyperlegible_Next({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-atkinson",
 });
 
 const THEME_SCRIPT =
@@ -28,7 +33,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${bricolage.variable} ${sourceSerif.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${besley.variable} ${atkinson.variable}`} suppressHydrationWarning>
       <head>
         {/* Apply the saved or system theme before paint, with the main site's
             key. Only the classes area styles it (see .class-theme). */}

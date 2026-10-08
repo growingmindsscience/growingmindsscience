@@ -26,9 +26,9 @@ export default async function InfantClassPage({ searchParams }: {
   return (
     <main className="mx-auto flex max-w-3xl flex-col gap-7 px-6 py-10">
       <header>
-        <Link href="/app/classes" className="inline-flex min-h-11 items-center text-sm text-teal-soft underline">← My classes</Link>
+        <Link href="/app/classes" className="inline-flex min-h-11 items-center text-sm text-ink-muted underline">← My classes</Link>
         <Eyebrow className="mt-2">Self-paced class · birth to 12 months</Eyebrow>
-        <h1 className="mt-2 text-3xl font-semibold text-ink-deep">{INFANT_COURSE.title}</h1>
+        <h1 className="mt-2 text-3xl text-ink-deep sm:text-4xl">{INFANT_COURSE.title}</h1>
         <p className="mt-3 text-ink">Four modules on the first year of development and everyday connection.</p>
       </header>
       {!owned ? (

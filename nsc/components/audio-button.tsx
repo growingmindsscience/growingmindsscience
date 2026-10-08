@@ -57,13 +57,13 @@ export function AudioButton({
       aria-pressed={playing}
       className={[
         // 44px tap target around a smaller visible circle.
-        "group inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal",
+        "group inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-control text-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal",
         className ?? "",
       ].join(" ")}
     >
       <span
         aria-hidden
-        className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-sea-glass text-sm transition-colors group-hover:bg-sea-glass/40"
+        className="inline-flex h-8 w-8 items-center justify-center rounded-control border border-line text-sm transition-colors group-hover:bg-sea-glass/40"
       >
         {playing ? "❚❚" : "▶"}
       </span>

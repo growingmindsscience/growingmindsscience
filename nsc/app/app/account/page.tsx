@@ -45,7 +45,7 @@ function Notice({ kind }: { kind: string | undefined }) {
       className={
         m.tone === "ok"
           ? "rounded-xl bg-sea-glass/40 px-4 py-3 text-sm text-ink"
-          : "rounded-xl bg-rung-glow px-4 py-3 text-sm text-[#9C4429]"
+          : "rounded-xl bg-rung-glow px-4 py-3 text-sm text-danger"
       }
     >
       {m.text}
@@ -83,14 +83,14 @@ export default async function AccountPage({
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-6 py-10">
       <header className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-sm font-medium uppercase tracking-widest text-teal">
+          <p className="text-[0.9375rem] font-semibold text-amber-deep">
             {brand.productName}
           </p>
           <h1 className="mt-1 text-2xl font-semibold text-ink-deep">Your account</h1>
-          <p className="mt-1 text-sm text-teal-soft">{user.email}</p>
+          <p className="mt-1 text-sm text-ink-muted">{user.email}</p>
         </div>
         <form action={signout}>
-          <button type="submit" className="inline-flex min-h-11 items-center px-2 text-sm text-teal-soft underline">
+          <button type="submit" className="inline-flex min-h-11 items-center px-2 text-sm text-ink-muted underline">
             Sign out
           </button>
         </form>
@@ -111,7 +111,7 @@ export default async function AccountPage({
             ))}
           </ul>
         ) : (
-          <p className="mt-3 text-sm text-teal-soft">
+          <p className="mt-3 text-sm text-ink-muted">
             You're on the free tier. The counting check-in, one sample game, and five
             Growing Minds AI questions a day are yours with no purchase.
           </p>
@@ -122,7 +122,7 @@ export default async function AccountPage({
               Manage billing
             </SubmitButton>
             {sub?.cancel_at_period_end && (
-              <p className="mt-2 text-xs text-teal-soft">
+              <p className="mt-2 text-xs text-ink-muted">
                 Your plan is set to cancel at the end of the current period.
               </p>
             )}
@@ -133,7 +133,7 @@ export default async function AccountPage({
       {/* Classes are a separate product: linked here only when owned. */}
       {summary.scopes.some((scope) => scope.startsWith("class:")) && (
         <Card>
-          <p className="text-xs font-medium uppercase tracking-widest text-teal">Your learning</p>
+          <p className="text-[0.9375rem] font-semibold text-amber-deep">Your learning</p>
           <h2 className="mt-1 text-lg font-semibold text-ink-deep">My classes</h2>
           <p className="mt-2 text-sm text-ink">Your classes and lesson progress are here.</p>
           <LinkButton href="/app/classes" size="sm" className="mt-4">Open My classes</LinkButton>
@@ -142,7 +142,7 @@ export default async function AccountPage({
 
       {/* Number Path */}
       <Card>
-        <p className="text-xs font-medium uppercase tracking-widest text-teal">Number Path</p>
+        <p className="text-[0.9375rem] font-semibold text-amber-deep">Number Path</p>
         <h2 className="mt-1 text-lg font-semibold text-ink-deep">
           {summary.numberPath ? "Full access" : "Free check-in"}
         </h2>
@@ -160,7 +160,7 @@ export default async function AccountPage({
 
       {/* Class + AI */}
       <Card>
-        <p className="text-xs font-medium uppercase tracking-widest text-teal">Previous Thinkific enrollment &amp; AI</p>
+        <p className="text-[0.9375rem] font-semibold text-amber-deep">Previous Thinkific enrollment &amp; AI</p>
         <h2 className="mt-1 text-lg font-semibold text-ink-deep">Your existing class link</h2>
         <p className="mt-2 text-sm text-ink">
           If you enrolled through Thinkific, you can continue using that login while
@@ -171,20 +171,20 @@ export default async function AccountPage({
             href={THINKIFIC_CLASS}
             target="_blank"
             rel="noopener"
-            className="inline-flex min-h-11 items-center justify-center rounded-full bg-teal px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-teal-soft"
+            className="inline-flex min-h-11 items-center justify-center rounded-control bg-teal px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-teal-hover"
           >
             Open Thinkific class
           </a>
           <a
             href={sitePath("/tools/growing-minds-ai")}
-            className="inline-flex min-h-11 items-center justify-center rounded-full px-4 py-2 text-sm font-semibold text-teal transition-colors hover:bg-sea-glass/40"
+            className="inline-flex min-h-11 items-center justify-center rounded-control px-4 py-2 text-sm font-semibold text-teal transition-colors hover:bg-sea-glass/40"
           >
             Open Growing Minds AI
           </a>
         </div>
 
         {!summary.unlimitedAi && (
-          <div className="mt-5 border-t border-sea-glass/60 pt-5">
+          <div className="mt-5 border-t border-line pt-5">
             <p className="text-sm text-ink">
               Have a previous AI access code? Enter it to link unlimited Growing
               Minds AI to this account. Class access is linked from a verified purchase.
@@ -199,7 +199,7 @@ export default async function AccountPage({
         )}
       </Card>
 
-      <p className="text-center text-sm text-teal-soft">
+      <p className="text-center text-sm text-ink-muted">
         <Link href="/" className="underline">Back to Number Path home</Link>
       </p>
     </main>

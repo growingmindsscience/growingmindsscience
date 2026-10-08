@@ -54,12 +54,12 @@ export function GameCard({
       <div className="flex items-start justify-between gap-3">
         <div>
           <h3 className="text-lg font-semibold text-ink-deep">{game.title}</h3>
-          <p className="mt-1 text-sm text-teal-soft">
+          <p className="mt-1 text-sm text-ink-muted">
             {game.duration_min} min · {game.frequency_rx}
           </p>
         </div>
         {reaction && (
-          <span className="rounded-full bg-rung-glow px-3 py-1 text-xs font-medium text-ink-deep">
+          <span className="rounded-sm bg-rung-glow px-3 py-1 text-xs font-medium text-ink-deep">
             {reaction === "loved" ? "Loved it" : reaction === "fine" ? "Played" : "Not today"}
           </span>
         )}
@@ -111,7 +111,7 @@ export function GameCard({
                   {interpolate(game.level_down, vars)}
                 </p>
               </div>
-              <p className="text-sm text-teal-soft">{game.bilingual_note}</p>
+              <p className="text-sm text-ink-muted">{game.bilingual_note}</p>
               <EvidenceChips
                 strength={game.evidence.strength}
                 consensus={game.evidence.consensus}
@@ -120,7 +120,7 @@ export function GameCard({
           )}
 
           <div className="mt-4 flex flex-wrap items-center gap-2" role="group" aria-label="How did it go?">
-            <span className="text-sm text-teal-soft">We played it:</span>
+            <span className="text-sm text-ink-muted">We played it:</span>
             {(["loved", "fine", "flopped"] as const).map((r) => (
               <button
                 type="button"
@@ -129,10 +129,10 @@ export function GameCard({
                 aria-pressed={reaction === r}
                 onClick={() => react(r)}
                 className={[
-                  "inline-flex min-h-11 items-center rounded-full border px-4 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal disabled:opacity-50",
+                  "inline-flex min-h-11 items-center rounded-control border px-4 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal disabled:opacity-50",
                   reaction === r
                     ? "border-teal bg-rung-glow font-semibold text-ink-deep"
-                    : "border-sea-glass text-ink hover:bg-sea-glass/30",
+                    : "border-line text-ink hover:bg-sea-glass/30",
                 ].join(" ")}
               >
                 {r === "loved" ? "Loved" : r === "fine" ? "Fine" : "Flopped"}
@@ -144,7 +144,7 @@ export function GameCard({
               That didn&rsquo;t save. Please tap it again in a moment.
             </p>
           ) : reaction ? (
-            <p role="status" className="mt-2 text-xs text-teal-soft">
+            <p role="status" className="mt-2 text-xs text-ink-muted">
               {reaction === "loved"
                 ? "Great. It stays in the rotation so you can keep playing it."
                 : reaction === "flopped"

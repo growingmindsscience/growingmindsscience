@@ -69,19 +69,19 @@ export default async function AppHome({
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-6 py-10">
       <header className="flex items-center justify-between">
         <div>
-          <p className="text-sm font-medium uppercase tracking-widest text-teal">
+          <p className="text-[0.9375rem] font-semibold text-amber-deep">
             {brand.productName}
           </p>
           <h1 className="text-2xl font-semibold text-ink-deep">Your children</h1>
         </div>
         <div className="flex items-center gap-2">
           {ownsClass && (
-            <Link href="/app/classes" className="inline-flex min-h-11 items-center px-2 text-sm text-teal-soft underline">
+            <Link href="/app/classes" className="inline-flex min-h-11 items-center px-2 text-sm text-ink-muted underline">
               My classes
             </Link>
           )}
           <form action={signout}>
-            <button type="submit" className="inline-flex min-h-11 items-center px-2 text-sm text-teal-soft underline">
+            <button type="submit" className="inline-flex min-h-11 items-center px-2 text-sm text-ink-muted underline">
               Sign out
             </button>
           </form>
@@ -123,13 +123,13 @@ export default async function AppHome({
                 <div>
                   <div className="flex items-baseline gap-2">
                     <h2 className="text-lg font-semibold text-ink-deep">{c.nickname}</h2>
-                    <span className="text-xs text-teal-soft">
+                    <span className="text-xs text-ink-muted">
                       {formatAge(ageInMonths(String(c.birth_month).slice(0, 7), now))}
                     </span>
                   </div>
                   {latest?.status === "complete" && (rung || pointAndSeek) ? (
                     <>
-                      <p className="text-sm text-teal-soft">
+                      <p className="text-sm text-ink-muted">
                         {rung ? `On the ladder: ${rung}` : "Point and Seek played"} ·{" "}
                         <Link
                           href={`/app/child/${c.id}/progress`}
@@ -143,23 +143,23 @@ export default async function AppHome({
                           Time for the next check-in — see where things stand.{" "}
                           <Link
                             href={`/app/child/${c.id}/plan`}
-                            className="font-normal text-teal-soft underline"
+                            className="font-normal text-ink-muted underline"
                           >
                             This week&rsquo;s plan →
                           </Link>
                         </p>
                       ) : checkin ? (
-                        <p className="mt-1 text-sm text-teal-soft">
+                        <p className="mt-1 text-sm text-ink-muted">
                           Next check-in around {shortDate(checkin.due)}
                         </p>
                       ) : null}
                     </>
                   ) : inFlight ? (
-                    <p className="text-sm text-teal-soft">
+                    <p className="text-sm text-ink-muted">
                       Check-in in progress — the bear is napping
                     </p>
                   ) : (
-                    <p className="text-sm text-teal-soft">No check-in yet</p>
+                    <p className="text-sm text-ink-muted">No check-in yet</p>
                   )}
                 </div>
                 {latest?.status === "complete" ? (

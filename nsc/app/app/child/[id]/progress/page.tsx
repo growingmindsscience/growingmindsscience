@@ -125,14 +125,14 @@ export default async function ProgressPage({
       <header>
         <Link
           href={`/app/child/${id}/plan`}
-          className="inline-flex min-h-11 items-center text-sm text-teal-soft underline"
+          className="inline-flex min-h-11 items-center text-sm text-ink-muted underline"
         >
           ← This week
         </Link>
         <h1 className="mt-1 text-2xl font-semibold text-ink-deep">
           {child.nickname}&rsquo;s climb
         </h1>
-        <p className="text-sm text-teal-soft">{formatAge(months)}</p>
+        <p className="text-sm text-ink-muted">{formatAge(months)}</p>
       </header>
 
       {latestGiveN?.placement && (
@@ -146,7 +146,7 @@ export default async function ProgressPage({
       {summary &&
         (full ? (
           <Card>
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-teal">
+            <h2 className="text-[0.9375rem] font-semibold text-amber-deep">
               For their age
             </h2>
             <p className="mt-2 text-lg font-semibold text-ink-deep">
@@ -156,7 +156,7 @@ export default async function ProgressPage({
             {summary.caveat && (
               <p className="mt-2 text-sm text-ink-muted">{summary.caveat}</p>
             )}
-            <p className="mt-3 text-xs leading-relaxed text-teal-soft">
+            <p className="mt-3 text-xs leading-relaxed text-ink-muted">
               {NORMS_NOTE}{" "}
               <Link href="/evidence" className="underline">
                 The evidence →
@@ -185,17 +185,17 @@ export default async function ProgressPage({
       <section className="grid grid-cols-2 gap-4">
         <Card className="text-center">
           <p className="text-3xl font-bold text-teal">{history?.length ?? 0}</p>
-          <p className="text-sm text-teal-soft">check-ins</p>
+          <p className="text-sm text-ink-muted">check-ins</p>
         </Card>
         <Card className="text-center">
           <p className="text-3xl font-bold text-teal">{plays?.length ?? 0}</p>
-          <p className="text-sm text-teal-soft">games played</p>
+          <p className="text-sm text-ink-muted">games played</p>
         </Card>
         <Card className="text-center">
           <p className="text-3xl font-bold text-teal">
             {latestGiveN?.placement ? GIVES[latestGiveN.placement] ?? "—" : "—"}
           </p>
-          <p className="text-sm text-teal-soft">
+          <p className="text-sm text-ink-muted">
             can hand you exactly this many
           </p>
         </Card>
@@ -205,13 +205,13 @@ export default async function ProgressPage({
           <p className="text-3xl font-bold text-teal">
             {(plays?.length ?? 0) > 0 ? `${weeksPlayed} of 6` : "—"}
           </p>
-          <p className="text-sm text-teal-soft">recent weeks with play</p>
+          <p className="text-sm text-ink-muted">recent weeks with play</p>
         </Card>
       </section>
 
       {favorite && (
         <Card className="bg-rung-glow/30">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-teal">
+          <h2 className="text-[0.9375rem] font-semibold text-amber-deep">
             Most loved game
           </h2>
           <p className="mt-1 text-lg font-semibold text-ink-deep">
@@ -226,11 +226,11 @@ export default async function ProgressPage({
       )}
 
       <section className="flex flex-col gap-2">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-teal">
+        <h2 className="text-[0.9375rem] font-semibold text-amber-deep">
           Check-in history
         </h2>
         {giveNHistory.length > 1 && first?.completed_at && (
-          <p className="text-sm text-teal-soft">
+          <p className="text-sm text-ink-muted">
             {rungsClimbed > 0
               ? `${rungsClimbed} ${rungsClimbed === 1 ? "rung" : "rungs"} climbed since ${shortDate(new Date(first.completed_at))}.`
               : `Holding steady since ${shortDate(new Date(first.completed_at))} — rungs move on the scale of months.`}
@@ -251,22 +251,22 @@ export default async function ProgressPage({
                     ? RUNG_LABEL(h.placement as string, h.near_cp ?? false)
                     : "Point and Seek played"}
                   {delta != null && delta > 0 && (
-                    <span className="ml-2 rounded-full bg-rung-glow px-2 py-0.5 text-xs font-semibold text-teal">
+                    <span className="ml-2 rounded-sm bg-rung-glow px-2 py-0.5 text-xs font-semibold text-teal">
                       ↑ climbed
                     </span>
                   )}
                   {delta === 0 && (
-                    <span className="ml-2 rounded-full bg-sea-glass/60 px-2 py-0.5 text-xs font-semibold text-ink-muted">
+                    <span className="ml-2 rounded-sm bg-sea-glass/60 px-2 py-0.5 text-xs font-semibold text-ink-muted">
                       steady — rungs take months
                     </span>
                   )}
                   {delta != null && delta < 0 && (
-                    <span className="ml-2 rounded-full bg-sea-glass/60 px-2 py-0.5 text-xs font-semibold text-ink-muted">
+                    <span className="ml-2 rounded-sm bg-sea-glass/60 px-2 py-0.5 text-xs font-semibold text-ink-muted">
                       a wiggly read — it happens
                     </span>
                   )}
                 </span>
-                <span className="text-sm text-teal-soft">
+                <span className="text-sm text-ink-muted">
                   {h.completed_at
                     ? shortDate(new Date(h.completed_at))
                     : ""}
@@ -276,7 +276,7 @@ export default async function ProgressPage({
           );
         })}
         {(history?.length ?? 0) === 0 && (
-          <p className="text-sm text-teal-soft">No check-ins recorded yet.</p>
+          <p className="text-sm text-ink-muted">No check-ins recorded yet.</p>
         )}
       </section>
 
@@ -328,7 +328,7 @@ export default async function ProgressPage({
         </Card>
       )}
 
-      <p className="text-center text-sm text-teal-soft">
+      <p className="text-center text-sm text-ink-muted">
         Every child climbs at their own pace. Typical ranges are wide — a map
         of the ladder, never a race up it.
       </p>

@@ -32,15 +32,15 @@ export function ClassResume({ lessons, progress, courseSlug, modules }: {
       <div
         role="progressbar" aria-valuemin={0} aria-valuemax={lessons.length} aria-valuenow={complete}
         aria-label="Class progress"
-        className="h-2 overflow-hidden rounded-full bg-sea-glass"
+        className="h-2 overflow-hidden rounded-sm bg-tint"
       >
-        <div className="h-full rounded-full bg-teal" style={{ width: `${Math.round((complete / lessons.length) * 100)}%` }} />
+        <div className="h-full rounded-sm bg-teal" style={{ width: `${Math.round((complete / lessons.length) * 100)}%` }} />
       </div>
       <p className="mt-2 text-sm text-ink-muted">{complete} of {lessons.length} lessons complete</p>
       {next ? (
         <div className="mt-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-4">
           <div className="min-w-0">
-            <h2 className="text-xl font-semibold text-ink-deep">{started ? "Continue" : "Start here"}: {next.title}</h2>
+            <h2 className="text-xl text-ink-deep">{started ? "Continue" : "Start here"}: {next.title}</h2>
             <p className="mt-1 text-sm text-ink-soft">
               Module {next.module_number}: {modules[next.module_number - 1]}
               {left ? ` · about ${left} min left` : length ? ` · ${length} min` : ""}
@@ -50,7 +50,7 @@ export function ClassResume({ lessons, progress, courseSlug, modules }: {
         </div>
       ) : (
         <div className="mt-4">
-          <h2 className="text-xl font-semibold text-ink-deep">You have finished the class</h2>
+          <h2 className="text-xl text-ink-deep">You have finished the class</h2>
           <p className="mt-1 text-sm text-ink-soft">Every lesson stays here for you. Come back to any of them whenever you need it.</p>
         </div>
       )}
@@ -71,19 +71,21 @@ export function ClassOutline({ modules, lessons, progress = [], courseSlug, lock
   locked?: boolean;
 }) {
   const byLesson = new Map(progress.map((row) => [row.lesson_id, row]));
-  // Linked rows get a white fill; locked rows stay flat so they do not look pressable.
-  const row = "flex items-center justify-between gap-4 rounded-xl border border-sea-glass/60 px-5 py-4 text-ink";
+  // Ruled rows, not cards (DESIGN.md): a hairline above each lesson and one
+  // below the last. Linked rows wash to the tint on hover; locked rows stay flat.
+  const row = "flex items-center justify-between gap-4 border-t border-line px-3 py-4 text-ink";
   return (
     <>
       {modules.map((title, index) => {
         const moduleLessons = lessons.filter((lesson) => lesson.module_number === index + 1);
         return (
           <section key={title} aria-labelledby={`module-${index + 1}`}>
-            <h2 id={`module-${index + 1}`} className="mb-3 text-xl font-semibold text-ink-deep">
-              <span className="mr-2 text-sm text-teal">{String(index + 1).padStart(2, "0")}</span>{title}
+            <p aria-hidden="true" className="font-display text-[0.9375rem] font-medium italic text-amber-deep">Module {index + 1}</p>
+            <h2 id={`module-${index + 1}`} className="mb-3 text-xl text-ink-deep">
+              <span className="sr-only">Module {index + 1}: </span>{title}
             </h2>
             {moduleLessons.length ? (
-              <ol className="flex flex-col gap-2">
+              <ol className="flex flex-col border-b border-line">
                 {moduleLessons.map((lesson) => {
                   const place = byLesson.get(lesson.id);
                   const length = minutes(lesson.duration_seconds);
@@ -105,7 +107,7 @@ export function ClassOutline({ modules, lessons, progress = [], courseSlug, lock
                     <li key={lesson.id}>
                       {locked
                         ? <div className={row}>{body}</div>
-                        : <Link href={lessonPath(lesson.slug, courseSlug)} className={`${row} bg-surface hover:bg-sea-glass/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal`}>{body}</Link>}
+                        : <Link href={lessonPath(lesson.slug, courseSlug)} className={`${row} transition-colors hover:bg-tint/60`}>{body}</Link>}
                     </li>
                   );
                 })}

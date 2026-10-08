@@ -14,7 +14,7 @@ export default function ClassRouteError({ error, reset }: { error: Error & { dig
   return (
     <main className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center gap-6 px-6 py-12 text-center">
       <Card>
-        <h1 className="text-2xl font-semibold text-ink-deep">This page didn&rsquo;t load</h1>
+        <h1 className="text-2xl text-ink-deep sm:text-3xl">This page didn&rsquo;t load</h1>
         <p className="mt-3 text-ink">
           That&rsquo;s on our side, not yours. Your classes and your place in each lesson are saved.
         </p>

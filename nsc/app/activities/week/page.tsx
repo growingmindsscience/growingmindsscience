@@ -49,7 +49,7 @@ export default async function WeeklyPlanPage({
           <LinkButton href="/login?next=/activities/week">Sign in</LinkButton>
           <Link
             href="/signup?next=/activities/week"
-            className="inline-flex min-h-11 items-center text-sm text-teal-soft underline"
+            className="inline-flex min-h-11 items-center text-sm text-ink-muted underline"
           >
             New here? Create a free account
           </Link>
@@ -85,7 +85,7 @@ export default async function WeeklyPlanPage({
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-6 py-10">
       <header className="print:hidden">
-        <Link href="/activities" className="text-sm text-teal-soft underline">
+        <Link href="/activities" className="text-sm text-ink-muted underline">
           ← Activity Library
         </Link>
         <h1 className="mt-1 text-3xl font-semibold text-ink-deep">
@@ -103,14 +103,14 @@ export default async function WeeklyPlanPage({
 
       <form method="get" className="flex flex-wrap items-end gap-3 print:hidden">
         <div className="flex flex-col gap-1">
-          <label htmlFor="mess" className="text-xs font-medium text-teal-soft">
+          <label htmlFor="mess" className="text-xs font-medium text-ink-muted">
             Mess budget
           </label>
           <select
             id="mess"
             name="mess"
             defaultValue={sp.mess ?? ""}
-            className="min-h-11 rounded-xl border border-sea-glass bg-surface px-3 py-2 text-sm text-ink"
+            className="min-h-11 rounded-xl border border-line bg-surface px-3 py-2 text-sm text-ink"
           >
             <option value="">Any mess</option>
             <option value="1">Tidy only</option>
@@ -118,14 +118,14 @@ export default async function WeeklyPlanPage({
           </select>
         </div>
         <div className="flex flex-col gap-1">
-          <label htmlFor="time" className="text-xs font-medium text-teal-soft">
+          <label htmlFor="time" className="text-xs font-medium text-ink-muted">
             Time budget
           </label>
           <select
             id="time"
             name="time"
             defaultValue={sp.time ?? ""}
-            className="min-h-11 rounded-xl border border-sea-glass bg-surface px-3 py-2 text-sm text-ink"
+            className="min-h-11 rounded-xl border border-line bg-surface px-3 py-2 text-sm text-ink"
           >
             <option value="">Any length</option>
             <option value="5">5 minutes a day</option>
@@ -135,7 +135,7 @@ export default async function WeeklyPlanPage({
         </div>
         <button
           type="submit"
-          className="min-h-11 rounded-full bg-teal px-5 py-2 text-sm font-semibold text-white hover:bg-teal-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2"
+          className="min-h-11 rounded-control bg-teal px-5 py-2 text-sm font-semibold text-white hover:bg-teal-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2"
         >
           Rebuild the week
         </button>
@@ -165,7 +165,7 @@ export default async function WeeklyPlanPage({
         });
         return (
           <section key={child.id} className="flex flex-col gap-3">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-teal">
+            <h2 className="text-[0.9375rem] font-semibold text-amber-deep">
               {child.nickname} · {months} months
             </h2>
             {plan.days.length === 0 ? (
@@ -179,13 +179,13 @@ export default async function WeeklyPlanPage({
                 </p>
               </Card>
             ) : (
-              <div className="overflow-hidden rounded-2xl border border-sea-glass/60 bg-surface">
+              <div className="overflow-hidden rounded-2xl border border-line bg-surface">
                 {plan.days.map((day, i) => (
                   <div
                     key={i}
                     className={[
                       "flex flex-col gap-1 px-5 py-3 sm:flex-row sm:items-baseline sm:gap-4",
-                      i > 0 ? "border-t border-sea-glass/40" : "",
+                      i > 0 ? "border-t border-line" : "",
                     ].join(" ")}
                   >
                     <span className="w-24 shrink-0 text-sm font-semibold text-teal">
@@ -198,12 +198,12 @@ export default async function WeeklyPlanPage({
                       >
                         {day.anchor.title}
                       </Link>
-                      <span className="text-xs text-teal-soft">
+                      <span className="text-xs text-ink-muted">
                         {" "}
                         · {day.anchor.duration_min} min
                       </span>
                       {day.backup && (
-                        <span className="block text-sm text-teal-soft">
+                        <span className="block text-sm text-ink-muted">
                           backup:{" "}
                           <Link
                             href={`/activities/${day.backup.slug}`}
@@ -222,7 +222,7 @@ export default async function WeeklyPlanPage({
         );
       })}
 
-      <p className="text-sm text-teal-soft print:hidden">
+      <p className="text-sm text-ink-muted print:hidden">
         Missing a day costs nothing — the backup exists for flops, not for
         doing both.
       </p>

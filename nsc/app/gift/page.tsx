@@ -20,7 +20,7 @@ export default async function GiftPage({
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-10 px-6 py-16">
       <section className="flex flex-col items-center gap-5 text-center">
-        <p className="text-sm font-medium uppercase tracking-widest text-teal">
+        <p className="text-[0.9375rem] font-semibold text-amber-deep">
           {brand.parentSite}
         </p>
         <h1 className="text-4xl font-semibold text-ink-deep">
@@ -34,7 +34,7 @@ export default async function GiftPage({
       </section>
 
       <Card className="text-center">
-        <p className="text-sm font-semibold uppercase tracking-wide text-teal">
+        <p className="text-[0.9375rem] font-semibold text-amber-deep">
           A gift, not a subscription
         </p>
         <p className="mt-2 text-ink">
@@ -49,17 +49,17 @@ export default async function GiftPage({
           </SubmitButton>
         </form>
         {error && (
-          <p className="mt-3 text-sm text-[#9C4429]" role="alert">
+          <p className="mt-3 text-sm text-danger" role="alert">
             {error}
           </p>
         )}
-        <p className="mt-3 text-xs text-teal-soft">
+        <p className="mt-3 text-xs text-ink-muted">
           No account needed to buy. We&rsquo;ll email your code and a card to
           print.
         </p>
       </Card>
 
-      <p className="text-center text-sm text-teal-soft">
+      <p className="text-center text-sm text-ink-muted">
         Have a code to redeem?{" "}
         <Link href="/redeem" className="font-semibold text-teal underline">
           Redeem it here
