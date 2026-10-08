@@ -1,6 +1,8 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { infantSalesGate, preschoolSalesGate } from "@/lib/classes";
-import { INFANT_ENROLL_PATH, PRESCHOOL_ENROLL_PATH, classDestination, enrollingCourse, isClassPath } from "@/lib/class-paths";
+import { infantSalesGate, preschoolSalesGate, toddlerSalesGate } from "@/lib/classes";
+import {
+  INFANT_ENROLL_PATH, PRESCHOOL_ENROLL_PATH, TODDLER_ENROLL_PATH, classDestination, enrollingCourse, isClassPath,
+} from "@/lib/class-paths";
 import { sitePath } from "@/lib/site";
 
 const USER = "3f2b8c1e-0d4a-4b6f-9a7e-1c2d3e4f5a6b";
@@ -21,6 +23,42 @@ describe("preschool sales gate", () => {
     // The infant lesson counts do not satisfy the preschool gate.
     expect(preschoolSalesGate(ready).open).toBe(false);
     expect(preschoolSalesGate(preschoolReady)).toEqual({ open: true });
+  });
+});
+
+describe("toddler sales gate", () => {
+  const toddlerReady = { ...ready, moduleCounts: [6, 6, 6, 6, 5] };
+
+  it("stays closed until its own flag is on and all 29 lessons are published", () => {
+    expect(toddlerSalesGate({ ...toddlerReady, salesFlag: undefined })).toEqual({
+      open: false,
+      reason: "TODDLER_CLASS_SALES_ENABLED is not set for this deployment; TODDLER_CLASS_TEST_USER_ID is not set",
+    });
+    // The infant flag and lessons do not open the toddler class.
+    expect(toddlerSalesGate(ready).open).toBe(false);
+    expect(toddlerSalesGate({ ...toddlerReady, moduleCounts: [6, 6, 6, 6, 4] })).toEqual({
+      open: false, reason: "published lesson counts do not match: 28 published in all, needs 29",
+    });
+    expect(toddlerSalesGate(toddlerReady)).toEqual({ open: true });
+  });
+
+  it("needs every module, not just the total", () => {
+    expect(toddlerSalesGate({ ...toddlerReady, moduleCounts: [8, 8, 8, 5, 0] })).toEqual({
+      open: false, reason: "published lesson counts do not match: module 5 has none",
+    });
+    expect(toddlerSalesGate({ ...toddlerReady, moduleCounts: [29] })).toEqual({
+      open: false,
+      reason: "published lesson counts do not match: module 2 has none; module 3 has none; module 4 has none; module 5 has none",
+    });
+  });
+
+  it("follows the same preview, test-account, and pasted-value rules as the other classes", () => {
+    expect(toddlerSalesGate({ ...toddlerReady, salesFlag: " 1\n" })).toEqual({ open: true });
+    expect(toddlerSalesGate({ ...toddlerReady, vercelEnv: "preview" }).open).toBe(false);
+    expect(toddlerSalesGate({ ...toddlerReady, vercelEnv: "preview", previewUserId: USER })).toEqual({ open: true });
+    const tester = { ...toddlerReady, salesFlag: undefined, testUserId: USER };
+    expect(toddlerSalesGate(tester)).toEqual({ open: true });
+    expect(toddlerSalesGate({ ...tester, userId: "someone-else" }).open).toBe(false);
   });
 });
 
@@ -111,6 +149,7 @@ describe("static-site links", () => {
 describe("enroll intent", () => {
   it("survives sign-in as a class destination", () => {
     expect(classDestination(INFANT_ENROLL_PATH)).toBe(INFANT_ENROLL_PATH);
+    expect(classDestination(TODDLER_ENROLL_PATH)).toBe(TODDLER_ENROLL_PATH);
   });
 
   it("names the class only for an enroll destination", () => {
@@ -118,6 +157,8 @@ describe("enroll intent", () => {
     expect(enrollingCourse("/app/classes/infant")).toBeNull();
     expect(enrollingCourse(PRESCHOOL_ENROLL_PATH)?.slug).toBe("preschool");
     expect(enrollingCourse("/app/classes/preschool")).toBeNull();
+    expect(enrollingCourse(TODDLER_ENROLL_PATH)?.slug).toBe("toddlerhood");
+    expect(enrollingCourse("/app/classes/toddlerhood")).toBeNull();
     expect(enrollingCourse("/app/classes")).toBeNull();
   });
 });

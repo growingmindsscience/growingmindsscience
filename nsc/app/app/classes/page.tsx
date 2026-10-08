@@ -9,7 +9,7 @@ import { SubmitButton } from "@/components/submit-button";
 import { Eyebrow } from "@/components/class-chrome";
 import { startInfantClassCheckout } from "./infant/actions";
 import { startPreschoolClassCheckout } from "./preschool/actions";
-import { startClassCheckout } from "./toddlerhood/actions";
+import { startToddlerClassCheckout } from "./toddlerhood/actions";
 import { CLASS_REFUND_POLICY } from "@/lib/refund-policy";
 
 export const dynamic = "force-dynamic";
@@ -18,10 +18,27 @@ export const metadata = { title: "My classes" };
 /** Catalog order: youngest age first. */
 const COURSE_ORDER: ClassCourseSlug[] = ["infant", "toddlerhood", "preschool"];
 const CHECKOUT = {
-  infant: startInfantClassCheckout, toddlerhood: startClassCheckout, preschool: startPreschoolClassCheckout,
+  infant: startInfantClassCheckout, toddlerhood: startToddlerClassCheckout, preschool: startPreschoolClassCheckout,
 } as const;
 /** Mirrors FREE_DAILY_LIMIT in the static site's api/_ai-chat.js. */
 const FREE_AI_QUESTIONS_PER_DAY = 5;
+const THINKIFIC_SIGN_IN = "https://matthew-s-site-de0b.thinkific.com/users/sign_in";
+
+/**
+ * Until the Thinkific import covers every toddler buyer, a buyer whose
+ * purchase is not linked yet needs a way back to their lessons. Remove with
+ * the marketing switch to on-site toddler checkout.
+ */
+function ThinkificNote({ lead }: { lead: string }) {
+  return (
+    <p className="mt-3 text-sm text-ink-muted">
+      {lead} Your lessons are there for now:{" "}
+      <a href={THINKIFIC_SIGN_IN} target="_blank" rel="noopener" className="font-semibold text-teal underline">
+        Log in on Thinkific<span className="sr-only"> (opens in a new tab)</span>
+      </a>
+    </p>
+  );
+}
 
 export default async function MyClassesPage() {
   const user = await requireClassAuth("/app/classes");
@@ -93,6 +110,7 @@ export default async function MyClassesPage() {
               A class appears here as soon as you enroll. If you bought a class before and do not
               see it, it will be added once that purchase has been verified and moved over.
             </p>
+            <ThinkificNote lead="Bought the Toddler years class on Thinkific?" />
           </Card>
         )}
       </section>
@@ -114,6 +132,7 @@ export default async function MyClassesPage() {
                     <span className="font-[family-name:var(--font-display)] text-2xl font-semibold text-ink-deep">{course.priceDisplay}</span>
                     <span className="ml-2 text-sm text-ink-muted">one payment, lifetime access. {CLASS_REFUND_POLICY}</span>
                   </p>
+                  {slug === "toddlerhood" && <ThinkificNote lead="Bought this class on Thinkific?" />}
                   <div className="mt-auto flex flex-wrap items-center gap-2 pt-5">
                     {salesOpen[index] ? (
                       <form action={CHECKOUT[slug]}>
