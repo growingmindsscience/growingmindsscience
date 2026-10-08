@@ -10,7 +10,7 @@ Completed on 2026-09-27 for Growing Minds Science (`kxljngtmnqarvsawakmf`). Appl
 
 Apply [`nsc/supabase/migrations/0008_classes.sql`](../nsc/supabase/migrations/0008_classes.sql) to the same Supabase project used by `/nsc`. It adds private lesson records, per-customer progress, and a service-written class order ledger. Confirm RLS is enabled and that `class_lessons` has no browser-readable policy.
 
-Before importing Thinkific buyers, also apply [`nsc/supabase/migrations/0016_thinkific_buyers.sql`](../nsc/supabase/migrations/0016_thinkific_buyers.sql). It adds `class_legacy_purchases`, which holds buyer emails, with RLS on and no policies.
+Before importing Thinkific buyers, also apply [`nsc/supabase/migrations/0016_thinkific_buyers.sql`](../nsc/supabase/migrations/0016_thinkific_buyers.sql). It adds `class_legacy_purchases`, which holds buyer emails, with RLS on and no policies. Production already has `0017` (free preview lesson) and `0018` (infant transcript corrections), so 0016 lands after them. That order is safe: 0016 only creates its own new table, referencing `auth.users`, and neither 0017 nor 0018 touches it.
 
 ## 2. Set up Mux
 
