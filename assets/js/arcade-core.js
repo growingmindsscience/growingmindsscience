@@ -21,15 +21,6 @@
 
   var NS = "gms-arcade";
 
-  // Where the game files live: next to this script, whichever page loaded it
-  // (pages use both "../assets/js/" and "/assets/js/").
-  var JS_BASE = (function () {
-    var s = document.currentScript;
-    var src = s && s.src;
-    if (src && /arcade-core\.js/.test(src)) return src.replace(/arcade-core\.js.*$/, "");
-    return "/assets/js/";
-  })();
-  var CSS_BASE = JS_BASE.replace(/js\/$/, "css/");
 
   // ---------- Local leaderboard ----------
   // Stored as { "<gameKey>": [ { initials, score, at }, ... ] } under one key.
@@ -852,7 +843,22 @@
   // game-only stylesheet) the first time it is asked for, then opens it.
   var registry = {};
   var busy = {};
-  var GAME_CSS = { pong: ["pong.css"] };
+  // Each game file and game-only stylesheet is one whole URL literal, so
+  // scripts/stamp-assets.mjs can version it: /assets is served immutable, and a
+  // URL that never changes would keep serving a stale game.
+  var GAME_JS = {
+    asteroids: "/assets/js/asteroids-game.js?v=c093bd7261",
+    blocks: "/assets/js/blocks-game.js?v=28dd8fcd62",
+    breakout: "/assets/js/breakout-game.js?v=77cfb33063",
+    dino: "/assets/js/dino-game.js?v=18db2ec0fa",
+    echo: "/assets/js/echo-game.js?v=7d68dc5c21",
+    hopper: "/assets/js/hopper-game.js?v=ea6dbaae6c",
+    invaders: "/assets/js/invaders-game.js?v=a9c60a9cac",
+    maze: "/assets/js/maze-game.js?v=eb5fa5046d",
+    pong: "/assets/js/pong-game.js?v=c0a21fbc3c",
+    snake: "/assets/js/snake-game.js?v=5049d8caa8"
+  };
+  var GAME_CSS = { pong: ["/assets/css/pong.css?v=f1fc5dceb6"] };
 
   function registerGame(key, open) { registry[key] = open; }
 
@@ -956,9 +962,10 @@
       ui.error();
     }
     ui.start();
-    css.forEach(function (name) { loadCss(CSS_BASE + name, done, fail); });
+    css.forEach(function (href) { loadCss(href, done, fail); });
     if (registry[key]) done();
-    else loadScript(JS_BASE + key + "-game.js", done, fail);
+    else if (GAME_JS[key]) loadScript(GAME_JS[key], done, fail);
+    else fail();
   }
 
   // Loading / failure state for a visible Play button (the /arcade cards).

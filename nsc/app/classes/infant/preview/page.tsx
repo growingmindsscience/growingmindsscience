@@ -4,7 +4,7 @@ import { cache } from "react";
 import { getUser } from "@/lib/auth";
 import { freePreviewLesson, hasClassAccess } from "@/lib/classes.server";
 import { INFANT_COURSE, INFANT_MODULE_LESSON_COUNTS, lessonPath, transcriptParagraphs } from "@/lib/classes";
-import { INFANT_PREVIEW_PATH } from "@/lib/class-preview";
+import { INFANT_PREVIEW_PATH, classLessonNumber } from "@/lib/class-preview";
 import { INFANT_ENROLL_PATH } from "@/lib/class-paths";
 import { sitePath } from "@/lib/site";
 import { ClassHeader, ClassShell, Eyebrow } from "@/components/class-chrome";
@@ -19,6 +19,7 @@ const loadPreview = cache(() => freePreviewLesson(INFANT_COURSE.slug));
 const ENROLL_HREF = `/class-signup?next=${encodeURIComponent(INFANT_ENROLL_PATH)}`;
 const ENROLL_LABEL = `Enroll in the full class, ${INFANT_COURSE.priceDisplay}`;
 const LESSON_COUNT = INFANT_MODULE_LESSON_COUNTS.reduce((sum, count) => sum + count, 0);
+const SYLLABUS_HREF = sitePath(`${INFANT_COURSE.detailsPath}#syllabus`);
 
 export async function generateMetadata(): Promise<Metadata> {
   const lesson = await loadPreview();
@@ -76,12 +77,18 @@ export default async function InfantPreviewPage() {
           </header>
           <ClassPlayer lessonId={lesson.id} title={lesson.title} startTime={0} courseSlug={INFANT_COURSE.slug} preview />
           <Card>
-            <h2 className="text-xl font-semibold text-ink-deep">This is one of {LESSON_COUNT} lessons in the class</h2>
+            <h2 className="text-xl font-semibold text-ink-deep">
+              This is lesson {classLessonNumber(INFANT_MODULE_LESSON_COUNTS, lesson.module_number, lesson.position)} of {LESSON_COUNT}
+            </h2>
             <p className="mt-2 max-w-[60ch] text-ink">
-              The full class walks through the first year in four modules: the newborn brain, reading your baby&rsquo;s cues,
-              attachment, and language, movement, and play. Every lesson has captions and a written version, and it is yours for life.
+              The class is {INFANT_COURSE.priceDisplay} once, with lifetime access. It walks through the first year in four modules:
+              the newborn brain, reading your baby&rsquo;s cues, attachment, and language, movement, and play. Every lesson has
+              captions and a written version.
             </p>
-            <LinkButton href={ENROLL_HREF} className="mt-5">{ENROLL_LABEL}</LinkButton>
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              <LinkButton href={ENROLL_HREF}>{ENROLL_LABEL}</LinkButton>
+              <a href={SYLLABUS_HREF} className={buttonClasses("ghost", "md", "border border-teal")}>See the syllabus</a>
+            </div>
           </Card>
           <Card>
             <h2 className="text-xl font-semibold text-ink-deep">Read this lesson</h2>

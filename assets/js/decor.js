@@ -298,7 +298,7 @@
     },
     // /tools: an orb (styled by pong.css) tucked into the corner of the hero
     // art. It is a visible, labeled, keyboard-reachable button.
-    pong: { orb: true, css: "pong.css", anchors: [".page-hero .container", "main .container"] }
+    pong: { orb: true, css: "/assets/css/pong.css?v=f1fc5dceb6", anchors: [".page-hero .container", "main .container"] }
   };
 
   function loadScript(src, done, fail) {
@@ -327,7 +327,9 @@
     var anchor = null;
     for (var i = 0; !anchor && i < egg.anchors.length; i++) anchor = document.querySelector(egg.anchors[i]);
     if (!anchor) return;
-    var cssFile = egg.css || "arcade.css";
+    // Whole URL literals, so scripts/stamp-assets.mjs can version them.
+    var cssHref = egg.css || "/assets/css/arcade.css?v=f6ad26ab9d";
+    var cssPath = cssHref.replace(/^\//, "").replace(/\?.*$/, "");
 
     function buildTrigger() {
       var btn = document.createElement("button");
@@ -360,7 +362,7 @@
         if (window.GMSArcade && window.GMSArcade.play) { window.GMSArcade.play(key, btn); return; }
         if (loading) return;
         loading = true;
-        loadScript("/assets/js/arcade-core.js", function () {
+        loadScript("/assets/js/arcade-core.js?v=b1a39b8c1e", function () {
           loading = false;
           if (window.GMSArcade) window.GMSArcade.play(key, btn);
         }, function () { loading = false; });
@@ -368,10 +370,10 @@
     }
 
     whenIdle(function () {
-      if (document.querySelector('link[href$="assets/css/' + cssFile + '"]')) { placeTrigger(); return; }
+      if (document.querySelector('link[href*="' + cssPath + '"]')) { placeTrigger(); return; }
       var link = document.createElement("link");
       link.rel = "stylesheet";
-      link.href = "/assets/css/" + cssFile;
+      link.href = cssHref;
       link.onload = placeTrigger; // style first, so the trigger never flashes unstyled
       document.head.appendChild(link);
     });

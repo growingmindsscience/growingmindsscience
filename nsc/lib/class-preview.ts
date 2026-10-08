@@ -5,7 +5,12 @@ import type { ClassCourseSlug, ClassLesson } from "@/lib/classes";
 export const INFANT_PREVIEW_PATH = "/classes/infant/preview";
 
 export type FreePreviewLesson = Pick<ClassLesson,
-  "id" | "module_number" | "slug" | "title" | "summary" | "transcript" | "duration_seconds" | "mux_playback_id">;
+  "id" | "module_number" | "position" | "slug" | "title" | "summary" | "transcript" | "duration_seconds" | "mux_playback_id">;
+
+/** A lesson's number across the whole class, counting every lesson in the modules before it. */
+export function classLessonNumber(moduleCounts: readonly number[], moduleNumber: number, position: number): number {
+  return moduleCounts.slice(0, moduleNumber - 1).reduce((sum, count) => sum + count, 0) + position;
+}
 
 /**
  * The one lesson of a class anyone may watch before buying, or null when
@@ -17,7 +22,7 @@ export type FreePreviewLesson = Pick<ClassLesson,
  */
 export async function freePreviewLessonWith(db: SupabaseClient, courseSlug: ClassCourseSlug): Promise<FreePreviewLesson | null> {
   const { data, error } = await db.from("class_lessons")
-    .select("id, module_number, slug, title, summary, transcript, duration_seconds, mux_playback_id")
+    .select("id, module_number, position, slug, title, summary, transcript, duration_seconds, mux_playback_id")
     .eq("course_slug", courseSlug)
     .eq("is_free_preview", true)
     .eq("status", "published")

@@ -2,7 +2,8 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { INFANT_PREVIEW_PATH, freePreviewLessonWith } from "../lib/class-preview";
+import { INFANT_PREVIEW_PATH, classLessonNumber, freePreviewLessonWith } from "../lib/class-preview";
+import { INFANT_MODULE_LESSON_COUNTS } from "../lib/classes";
 import { isPublicPath } from "../lib/supabase/middleware";
 import { FakeDb, type Row } from "./fake-supabase";
 
@@ -28,6 +29,7 @@ describe("free preview lesson", () => {
     ]);
     const found = await freePreviewLessonWith(asDb(db), "infant");
     expect(found?.id).toBe("b");
+    expect(found?.position).toBe(3);
     expect(found?.mux_playback_id).toBe("playback-serve-and-return");
     expect(await freePreviewLessonWith(asDb(db), "preschool")).toBeNull();
   });
@@ -48,6 +50,12 @@ describe("free preview lesson", () => {
     const db = new FakeDb().fail("class_lessons", "select", { code: "42703", message: "column class_lessons.is_free_preview does not exist" });
     expect(await freePreviewLessonWith(asDb(db), "infant")).toBeNull();
     expect(warn).toHaveBeenCalledWith("[class-preview] infant preview unavailable: 42703");
+  });
+
+  it("numbers a lesson across the whole class for the end card", () => {
+    expect(classLessonNumber(INFANT_MODULE_LESSON_COUNTS, 1, 3)).toBe(3);
+    expect(classLessonNumber(INFANT_MODULE_LESSON_COUNTS, 2, 1)).toBe(6);
+    expect(classLessonNumber(INFANT_MODULE_LESSON_COUNTS, 4, 4)).toBe(16);
   });
 });
 
