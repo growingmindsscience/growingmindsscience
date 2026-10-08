@@ -67,9 +67,9 @@ Tests: `python3 -m unittest discover -s nsc/tools/infant-captions`
   held its misheard version. A word the transcriber dropped joins the cue before it, unless a
   new sentence starts there.
 - **Numbers.** Where the caption track shows a number as digits, the corrected cue keeps
-  digits; where it shows a word, a word. A sentence never starts with a numeral. Each case
-  where this differs from 0018 is listed in `CHANGES.md`. To match the written version
-  exactly instead, run `correct --numbers 0018`.
+  digits; where it shows a word, a word. A sentence never starts with a numeral. Matthew chose
+  this on 2026-10-08, so use the default. Each case where it differs from 0018 is listed in
+  `CHANGES.md`. (`correct --numbers 0018` would match the written version instead.)
 - **Layout.** One line if the cue fits in 42 characters, otherwise two, breaking after a full
   stop or comma where possible. If a correction makes a cue too long for two 42-character
   lines, its edge word moves to a neighbouring cue with room. A cue Mux already made that long
