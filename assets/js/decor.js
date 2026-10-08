@@ -180,10 +180,13 @@
   // out of the tab order and hidden from assistive tech; /arcade is the
   // accessible way in. Game files bind to a hidden [data-arcade-game] proxy,
   // so their own triggers and touch handlers never reach the page.
+  // Each asset URL is one whole string literal, never built from the key,
+  // so scripts/stamp-assets.mjs can version it.
   // ------------------------------------------------------------------
   var PIXEL = ' aria-hidden="true" shape-rendering="crispEdges"><g fill="currentColor">';
   var EGGS = {
     snake: {
+      game: "/assets/js/snake-game.js?v=1ea5ff5fc1",
       cls: "gms-arcade-snake-trigger", title: "~",
       anchors: [".hero__media", ".hero .container", "main .container"],
       svg: '<svg viewBox="0 0 12 12"' + PIXEL +
@@ -192,6 +195,7 @@
         '<rect x="8" y="1" width="3" height="2"/><rect x="9" y="4" width="1" height="1"/></g></svg>'
     },
     dino: {
+      game: "/assets/js/dino-game.js?v=609d0d80b9",
       cls: "gms-arcade-sprout-trigger", title: "?",
       anchors: [".page-hero__visual", ".page-hero .container", "main .container"],
       svg: '<svg viewBox="0 0 12 12"' + PIXEL +
@@ -200,6 +204,7 @@
         '<rect x="7" y="2" width="3" height="2"/><rect x="3" y="10" width="6" height="1"/></g></svg>'
     },
     breakout: {
+      game: "/assets/js/breakout-game.js?v=3ffc23003b",
       cls: "gms-arcade-brick-trigger", title: "?",
       anchors: [".page-hero .container", "main .container"],
       svg: '<svg viewBox="0 0 12 8"' + PIXEL +
@@ -208,6 +213,7 @@
         '<rect x="0" y="6" width="5" height="2"/><rect x="6" y="6" width="4" height="2"/></g></svg>'
     },
     asteroids: {
+      game: "/assets/js/asteroids-game.js?v=7d17f15e71",
       cls: "gms-arcade-asteroid-trigger", title: ".",
       anchors: [".about-preview__media--portrait", ".about-preview__media", ".page-hero .container"],
       svg: '<svg viewBox="0 0 34 34" aria-hidden="true" shape-rendering="crispEdges">' +
@@ -217,6 +223,7 @@
         '<rect x="18" y="13" width="2" height="2"/><rect x="12" y="17" width="2" height="2"/></g></svg>'
     },
     invaders: {
+      game: "/assets/js/invaders-game.js?v=0b4db17059",
       cls: "gms-arcade-invader-trigger", title: "?",
       anchors: [".page-hero .container", "main .container"],
       svg: '<svg viewBox="0 0 11 9"' + PIXEL +
@@ -230,6 +237,7 @@
         '<rect x="3" y="7" width="1" height="1"/><rect x="7" y="7" width="1" height="1"/></g></svg>'
     },
     hopper: {
+      game: "/assets/js/hopper-game.js?v=c974d2aaf7",
       cls: "gms-arcade-envelope-trigger", title: "✉",
       anchors: [".page-hero .container", "main .container"],
       svg: '<svg viewBox="0 0 12 9"' + PIXEL +
@@ -298,22 +306,22 @@
           proxy = null;
         };
         var loadGame = function () {
-          loadScript("/assets/js/" + key + "-game.js", function () {
+          loadScript(egg.game, function () {
             loading = false;
             proxy.setAttribute("data-ready", "true");
             proxy.click();
           }, fail);
         };
         if (window.GMSArcade) loadGame();
-        else loadScript("/assets/js/arcade-core.js", loadGame, fail);
+        else loadScript("/assets/js/arcade-core.js?v=e956d94cf9", loadGame, fail);
       });
     }
 
     whenIdle(function () {
-      if (document.querySelector('link[href$="assets/css/arcade.css"]')) { placeTrigger(); return; }
+      if (document.querySelector('link[href*="assets/css/arcade.css"]')) { placeTrigger(); return; }
       var link = document.createElement("link");
       link.rel = "stylesheet";
-      link.href = "/assets/css/arcade.css";
+      link.href = "/assets/css/arcade.css?v=fa047e2bdb";
       link.onload = placeTrigger; // style first, so the glyph never flashes unstyled
       document.head.appendChild(link);
     });

@@ -97,6 +97,20 @@ jobs:
             echo "::notice::scripts/build-claims.mjs not present on this ref — skipping"
           fi
 
+      # vercel.json serves /assets/css and /assets/js as immutable for a year, so a
+      # page that links a changed file without a fresh ?v= hash would keep serving
+      # the old copy to returning visitors. Fails if any reference is stale.
+      - name: CSS/JS references carry current content hashes (cache-bust gate)
+        run: |
+          if [ -f scripts/stamp-assets.mjs ]; then
+            node scripts/stamp-assets.mjs --check || {
+              echo "::error::CSS/JS changed without re-stamping. Run: node scripts/stamp-assets.mjs, then commit the result."
+              exit 1
+            }
+          else
+            echo "::notice::scripts/stamp-assets.mjs not present on this ref — skipping"
+          fi
+
       - name: Library grader — planted-violation gate
         run: |
           if [ -f tools/library/selftest.mjs ]; then
