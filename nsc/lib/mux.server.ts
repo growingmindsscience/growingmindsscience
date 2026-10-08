@@ -17,6 +17,7 @@ export async function muxApi<T>(path: string, init: RequestInit = {}): Promise<T
     cache: "no-store",
   });
   if (!response.ok) throw new Error(`Mux API returned ${response.status}`);
+  if (response.status === 204) return null as T;
   return response.json() as Promise<T>;
 }
 
