@@ -1036,7 +1036,7 @@ h3 { font-size: var(--text-xl); }
 .signup__form-sub { font-size: var(--text-sm); color: var(--on-dark-soft); margin: 0; max-width: 52ch; }
 .signup__form-row { display: flex; gap: var(--space-3); align-items: flex-start; }
 .signup__form-row .field { flex: 1 1 auto; margin: 0; }
-.signup__form-row .btn { flex: none; min-height: 50px; }
+.signup__form-row .btn { flex: none; min-height: 48px; }
 .signup__form .form-status { grid-column: 2; margin-top: 0; }
 .signup__form .field__input {
   background: rgba(238, 244, 243, 0.06);
@@ -1200,6 +1200,14 @@ html.anim .signup__success:not([hidden]) { animation: success-in 420ms var(--eas
   text-underline-offset: 0.2em;  padding-block: 0.7em; /* taller hit area; inline padding doesn't move the text */
 }
 .faq__a a:hover { color: var(--on-dark); }
+
+/* Waitlist: the last FAQ row, collapsed, so the band ends on the open classes
+   rather than on a form for classes that do not exist yet. */
+.faq__item--waitlist .signup__form { margin: 0; padding: 0 var(--space-4) var(--space-4); border-top: 0; }
+.faq__item--waitlist .signup__form-fields { grid-template-columns: minmax(0, 1fr); gap: var(--space-3); }
+.faq__item--waitlist .signup__form .form-status { grid-column: 1; }
+.faq__item--waitlist .signup__form-sub { max-width: none; }
+.faq__item--waitlist .signup__success { margin: 0; }
 
 /* ---------- Shared motif (decor.js) ----------
    decor.js drops one ring motif into section.signup on every page. Here it

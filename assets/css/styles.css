@@ -1525,7 +1525,7 @@ button:disabled {
 .page-hero__lede {
   font-size: var(--text-md);
   color: var(--ink-soft);
-  max-width: 60ch;
+  max-width: 50ch;
   margin: 0;
   line-height: 1.6;
 }
@@ -1908,6 +1908,7 @@ button:disabled {
   margin-top: var(--space-5);
 }
 .educator p { margin: 0; max-width: 50ch; color: var(--ink-soft); text-wrap: pretty; }
+.educator__body { display: grid; gap: var(--space-3); }
 .educator__photo {
   flex: none;
   width: 72px;
