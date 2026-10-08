@@ -13,7 +13,7 @@ type LoadError = "signed-out" | "unavailable";
 
 export interface NextLesson { href: string; title: string; minutes?: number | null }
 
-export function ClassPlayer({ lessonId, title, startTime, completed = false, courseSlug = "toddlerhood", next }: {
+export function ClassPlayer({ lessonId, title, startTime, completed = false, courseSlug = "toddlerhood", next, preview = false }: {
   lessonId: string;
   title: string;
   startTime: number;
@@ -21,6 +21,12 @@ export function ClassPlayer({ lessonId, title, startTime, completed = false, cou
   courseSlug?: ClassCourseSlug;
   /** The lesson after this one; omitted on the last lesson of the class. */
   next?: NextLesson;
+  /**
+   * The free lesson, for visitors who have not bought the class: playback
+   * comes from the preview route, and nothing is saved, so there is no
+   * progress note or completion control.
+   */
+  preview?: boolean;
 }) {
   const [playback, setPlayback] = useState<PlaybackInfo | null>(null);
   const [loadError, setLoadError] = useState<LoadError | null>(null);
@@ -34,6 +40,7 @@ export function ClassPlayer({ lessonId, title, startTime, completed = false, cou
   const lastSaved = useRef(0);
   const position = useRef(startTime);
   const endpoint = `/nsc/api/classes/${courseSlug}/lessons/${lessonId}`;
+  const playbackUrl = preview ? `/nsc/api/classes/${courseSlug}/preview/playback` : `${endpoint}/playback`;
 
   useEffect(() => {
     let live = true;
@@ -41,7 +48,7 @@ export function ClassPlayer({ lessonId, title, startTime, completed = false, cou
     let timer: ReturnType<typeof setTimeout>;
     async function load() {
       try {
-        const response = await fetch(`${endpoint}/playback`, { credentials: "same-origin", cache: "no-store" });
+        const response = await fetch(playbackUrl, { credentials: "same-origin", cache: "no-store" });
         if (!live) return;
         if (!response.ok) {
           // A token refresh that fails must not take a playing video away:
@@ -65,10 +72,10 @@ export function ClassPlayer({ lessonId, title, startTime, completed = false, cou
     }
     void load();
     return () => { live = false; clearTimeout(timer); };
-  }, [endpoint, attempt]);
+  }, [playbackUrl, attempt]);
 
   async function save(positionSeconds: number, complete = false): Promise<boolean> {
-    if (!Number.isFinite(positionSeconds)) return false;
+    if (preview || !Number.isFinite(positionSeconds)) return false;
     try {
       const response = await fetch(`${endpoint}/progress`, {
         method: "POST",
@@ -145,11 +152,13 @@ export function ClassPlayer({ lessonId, title, startTime, completed = false, cou
         }}
         onEnded={(event) => {
           position.current = (event.target as HTMLMediaElement).currentTime;
-          void markComplete();
+          if (!preview) void markComplete();
         }}
       />
     );
   }
+
+  if (preview) return <div>{media}</div>;
 
   // The completion control sits outside the player on purpose: a parent who
   // reads the lesson, or whose video will not load, can still finish it.
