@@ -1,8 +1,9 @@
 /* Growing Minds Science - asteroids-game.js
-   "Synapse Drift" - a hidden Asteroids-style easter egg on the About page.
+   "Synapse Drift" - an Asteroids-style game on the Arcade page.
 
-   Trigger: a tiny orbit glyph tucked into the About portrait. Opening tears
-   the page away (GMSArcade) and reveals a fullscreen pixel-canvas game.
+   Trigger: the Synapse Drift card on /arcade ([data-arcade-game="asteroids"]).
+   Opening tears the page away (GMSArcade) and reveals a fullscreen
+   pixel-canvas game.
 */
 (function () {
   "use strict";
@@ -993,44 +994,9 @@
   // listeners), puts the page back and returns focus to the opener.
   function closeOverlay() { A.closeGame(); }
 
-  // Easter-egg trigger, used only when this file is loaded on a page with no
-  // other way in. Mouse/touch only: out of the tab order and hidden from
-  // assistive tech, like the Snake glyph (/arcade is the accessible way in).
-  function buildTrigger() {
-    var btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "gms-arcade-asteroid-trigger";
-    btn.tabIndex = -1;
-    btn.setAttribute("aria-hidden", "true");
-    btn.title = ".";
-    btn.innerHTML =
-      '<svg viewBox="0 0 34 34" aria-hidden="true" shape-rendering="crispEdges">' +
-      '<circle cx="17" cy="17" r="11" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".45"/>' +
-      '<g fill="currentColor">' +
-      '<rect x="15" y="4" width="4" height="4"/>' +
-      '<rect x="23" y="21" width="3" height="3"/>' +
-      '<rect x="8" y="20" width="2" height="2"/>' +
-      '<rect x="15" y="15" width="4" height="4"/>' +
-      '<rect x="18" y="13" width="2" height="2"/>' +
-      '<rect x="12" y="17" width="2" height="2"/>' +
-      '</g></svg>';
-    return btn;
-  }
-
+  // Arcade-only: no hidden trigger elsewhere on the site. The Play button on
+  // /arcade opens it through GMSArcade.play().
   ready(function () {
     A.defineGame("asteroids", buildOverlay);
-    if (A.hasLauncher("asteroids")) return;
-
-    var anchor = document.querySelector(".about-preview__media--portrait") ||
-      document.querySelector(".about-preview__media") ||
-      document.querySelector(".page-hero .container");
-    if (!anchor) return;
-    var cs = window.getComputedStyle(anchor);
-    if (cs.position === "static") anchor.style.position = "relative";
-
-    var trigger = buildTrigger();
-    anchor.appendChild(trigger);
-    // Click only (a tap still fires click); touchstart opened it mid-scroll.
-    trigger.addEventListener("click", function (e) { e.preventDefault(); A.play("asteroids", trigger); });
   });
 })();

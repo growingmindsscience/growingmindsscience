@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="../assets/css/tools.css?v=7fce784071" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=d3e859b994" />
 </head>
-<body data-arcade-egg="pong">
+<body>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" role="banner">
@@ -366,38 +366,9 @@
 
   <script src="/assets/js/chrome.js?v=1413c22959"></script>
 
-  <!-- ===== Easter egg: floating orb → Pong =====
-       decor.js (body[data-arcade-egg="pong"]) loads pong.css and places the
-       orb once the page is idle; the game code loads on the first click. -->
-
-  <div id="pong-game" hidden role="dialog" aria-label="Pong game" aria-modal="true">
-    <div class="pong-hud">
-      <span><b id="pong-score-cpu">0</b> CPU</span>
-      <span class="pong-brand">PONG</span>
-      <span>YOU <b id="pong-score-you">0</b></span>
-    </div>
-    <div class="pong-stage">
-      <canvas id="pong-canvas"></canvas>
-      <div class="pong-msg" id="pong-msg" hidden>
-        <div>
-          <h2 id="pong-msg-title">Ready?</h2>
-          <p id="pong-msg-text">Move your mouse or use ↑ ↓ to play.</p>
-          <button class="btn btn--primary" id="pong-msg-btn" type="button">Start</button>
-        </div>
-      </div>
-    </div>
-    <div class="pong-foot">
-      <div class="pong-foot__left">
-        <button id="pong-mute" type="button" aria-pressed="true">♪ Music</button>
-        <span class="pong-hint">You control the right paddle · mouse, touch, or ↑ ↓ / W S · first to 7 wins</span>
-      </div>
-      <button id="pong-exit" type="button">← Back to tools</button>
-    </div>
-  </div>
-
   <script src="../assets/js/main.js?v=742e637d07" defer></script>
   <script src="../assets/js/gms-tools.js?v=390738ac9e" defer></script>
-  <script src="../assets/js/decor.js?v=56fac8aa2b" defer></script>
+  <script src="../assets/js/decor.js?v=09ff05457d" defer></script>
   <script src="../assets/js/animate.js?v=be9ad1568e" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>

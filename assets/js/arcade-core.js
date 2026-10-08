@@ -1,6 +1,6 @@
 /* Growing Minds Science — arcade-core.js
-   Shared plumbing for the site's hidden 8-bit easter-egg games
-   (Brain Sprint on /classes, GMS Invaders on /articles).
+   Shared plumbing for the site's 8-bit arcade games, which live only on
+   /arcade (each opens from its Play button; there are no triggers elsewhere).
 
    Exposes a single global, window.GMSArcade, with:
      - play(key, opener)             load a game on demand (JS + any game CSS), then open it
@@ -847,18 +847,18 @@
   // scripts/stamp-assets.mjs can version it: /assets is served immutable, and a
   // URL that never changes would keep serving a stale game.
   var GAME_JS = {
-    asteroids: "/assets/js/asteroids-game.js?v=c093bd7261",
+    asteroids: "/assets/js/asteroids-game.js?v=3f98d07fcc",
     blocks: "/assets/js/blocks-game.js?v=28dd8fcd62",
-    breakout: "/assets/js/breakout-game.js?v=77cfb33063",
-    dino: "/assets/js/dino-game.js?v=18db2ec0fa",
+    breakout: "/assets/js/breakout-game.js?v=0605709d07",
+    dino: "/assets/js/dino-game.js?v=1686f36596",
     echo: "/assets/js/echo-game.js?v=7d68dc5c21",
-    hopper: "/assets/js/hopper-game.js?v=ea6dbaae6c",
-    invaders: "/assets/js/invaders-game.js?v=a9c60a9cac",
+    hopper: "/assets/js/hopper-game.js?v=ff1902f10d",
+    invaders: "/assets/js/invaders-game.js?v=5602abb99f",
     maze: "/assets/js/maze-game.js?v=eb5fa5046d",
-    pong: "/assets/js/pong-game.js?v=c0a21fbc3c",
-    snake: "/assets/js/snake-game.js?v=5049d8caa8"
+    pong: "/assets/js/pong-game.js?v=ec48566888",
+    snake: "/assets/js/snake-game.js?v=92c90cc71a"
   };
-  var GAME_CSS = { pong: ["/assets/css/pong.css?v=f1fc5dceb6"] };
+  var GAME_CSS = { pong: ["/assets/css/pong.css?v=08e7f7f61f"] };
 
   function registerGame(key, open) { registry[key] = open; }
 
@@ -896,13 +896,6 @@
         prompt: overlay.querySelector("[data-egg-prompt]"), canvas: overlay._canvas
       });
     });
-  }
-
-  /** True when a page already offers its own way into this game (an arcade
-      Play button or a decor.js egg), so a game file must not add a trigger. */
-  function hasLauncher(key) {
-    return !!document.querySelector('[data-arcade-game="' + key + '"]') ||
-      !!(document.body && document.body.hasAttribute("data-arcade-egg"));
   }
 
   function loadScript(src, ok, fail) {
@@ -1030,7 +1023,6 @@
     isOpen: isOpen,
     defineGame: defineGame,
     registerGame: registerGame,
-    hasLauncher: hasLauncher,
     play: play,
     announce: announce,
     leaderboard: leaderboard,

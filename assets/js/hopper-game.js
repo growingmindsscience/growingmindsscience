@@ -1,8 +1,8 @@
 /* Growing Minds Science — hopper-game.js
-   "Special Delivery" — the hidden Frogger-style easter egg on the Contact page.
+   "Special Delivery" — a Frogger-style game on the Arcade page.
 
-   Trigger: a pixel-envelope glyph tucked into the Contact hero. Opening tears
-   the page away (GMSArcade) then shows the game. You carry a letter from the
+   Trigger: the Special Delivery card on /arcade ([data-arcade-game="hopper"]).
+   Opening tears the page away (GMSArcade) then shows the game. You carry a letter from the
    bottom of the screen to one of five mailboxes at the top: first across a
    playroom floor of rolling toys, then across a story stream you can only
    cross by hopping along drifting books. Deliver all five letters to move to
@@ -918,42 +918,9 @@
   // listeners), puts the page back and returns focus to the opener.
   function closeOverlay() { A.closeGame(); }
 
-  // Pixel-envelope trigger, tucked into the Contact hero. Used only when this
-  // file is loaded on a page with no other way in. Mouse/touch only: out of
-  // the tab order and hidden from assistive tech, like the Snake glyph
-  // (/arcade is the accessible way in).
-  function buildTrigger() {
-    var btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "gms-arcade-envelope-trigger";
-    btn.tabIndex = -1;
-    btn.setAttribute("aria-hidden", "true");
-    btn.title = "✉";
-    btn.innerHTML =
-      '<svg viewBox="0 0 12 9" aria-hidden="true" shape-rendering="crispEdges">' +
-      '<g fill="currentColor">' +
-      '<rect x="0" y="0" width="12" height="1"/>' +
-      '<rect x="0" y="1" width="1" height="7"/><rect x="11" y="1" width="1" height="7"/>' +
-      '<rect x="1" y="2" width="2" height="1"/><rect x="9" y="2" width="2" height="1"/>' +
-      '<rect x="3" y="3" width="2" height="1"/><rect x="7" y="3" width="2" height="1"/>' +
-      '<rect x="5" y="4" width="2" height="1"/>' +
-      '<rect x="0" y="8" width="12" height="1"/>' +
-      '</g></svg>';
-    return btn;
-  }
-
+  // Arcade-only: no hidden trigger elsewhere on the site. The Play button on
+  // /arcade opens it through GMSArcade.play().
   ready(function () {
     A.defineGame("hopper", buildOverlay);
-    if (A.hasLauncher("hopper")) return;
-
-    var hero = document.querySelector(".page-hero .container") || document.querySelector("main .container");
-    if (!hero) return;
-    var cs = window.getComputedStyle(hero);
-    if (cs.position === "static") hero.style.position = "relative";
-
-    var trigger = buildTrigger();
-    hero.appendChild(trigger);
-    // Click only (a tap still fires click); touchstart opened it mid-scroll.
-    trigger.addEventListener("click", function (e) { e.preventDefault(); A.play("hopper", trigger); });
   });
 })();

@@ -1,38 +1,5 @@
-#pong-orb {
-      position: absolute;
-      bottom: 24px;
-      right: clamp(1.75rem, 4vw, 3rem);
-      z-index: 2;
-      width: 46px;
-      height: 46px;
-      display: grid;
-      place-items: center;
-      padding: 0;
-      border-radius: 50%;
-      border: 1px solid var(--border-soft);
-      background:
-        radial-gradient(circle at 32% 30%, color-mix(in oklab, var(--surface) 96%, white) 0%, var(--surface) 60%);
-      box-shadow: var(--shadow-sm), 0 10px 24px -16px color-mix(in oklab, var(--primary) 70%, black);
-      cursor: pointer;
-      color: var(--primary);
-      /* One float that comes back to rest (WCAG 2.2.2: nothing moves for
-         more than ~5s on its own). */
-      animation: pong-orb-float 4.6s ease-in-out 1;
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
-    #pong-orb:hover { transform: scale(1.12) rotate(8deg); }
-    #pong-orb:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
-    #pong-orb .pong-orb__dot {
-      width: 12px; height: 12px; border-radius: 50%;
-      background: var(--primary);
-      box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 22%, transparent);
-      animation: pong-orb-pulse 2.4s ease-in-out 2; /* two pulses, then still */
-    }
-    @keyframes pong-orb-float { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-7px); } }
-    @keyframes pong-orb-pulse { 0%,100%{ transform: scale(1); opacity: 1; } 50%{ transform: scale(.7); opacity: .7; } }
-
     /* Page tear-away + scroll lock while the game is open (GMSArcade).
-       Repeated here because /tools does not load arcade.css. */
+       Same rules as arcade.css, kept here so the Pong sheet stands alone. */
     .gms-arcade-falling { will-change: transform, opacity; }
     body.gms-arcade-lock { overflow: hidden; }
 
@@ -90,5 +57,4 @@
     /* Music toggle: lit when on, struck through when off (label stays "Music"). */
     #pong-mute[aria-pressed="true"] { background: #16201a; border-color: #6f8f7b; }
     #pong-mute[aria-pressed="false"] { color: #9fb3a6; text-decoration: line-through; }
-    @media (max-width: 540px) { #pong-orb { bottom: 16px; right: 28px; } .pong-foot .pong-hint { display: none; } }
-    @media (prefers-reduced-motion: reduce) { #pong-orb { animation: none; } #pong-orb .pong-orb__dot { animation: none; } }
+    @media (max-width: 540px) { .pong-foot .pong-hint { display: none; } }

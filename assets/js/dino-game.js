@@ -1,8 +1,8 @@
 /* Growing Minds Science — dino-game.js
-   "Brain Sprint: Sprout Run" — the hidden endless runner on the Classes page.
+   "Brain Sprint: Sprout Run" — an endless runner on the Arcade page.
 
-   Trigger: the dead-center of the theme-toggle circle. Opening tears the page
-   away (GMSArcade) then shows the game. The GMS brain-sprout mascot auto-runs,
+   Trigger: the Brain Sprint card on /arcade ([data-arcade-game="dino"]).
+   Opening tears the page away (GMSArcade) then shows the game. The GMS brain-sprout mascot auto-runs,
    jumping book stacks and ducking flying toys.
 
    Built on window.GMSArcade (arcade-core.js) for the page-tear, the local
@@ -1035,25 +1035,9 @@
   // listeners), puts the page back and returns focus to the opener.
   function closeOverlay() { A.closeGame(); }
 
+  // Arcade-only: no hidden trigger elsewhere on the site. The Play button on
+  // /arcade opens it through GMSArcade.play().
   ready(function () {
     A.defineGame("dino", buildOverlay);
-    if (A.hasLauncher("dino")) return;
-
-    // Only when this file is loaded on a page with no other way in: an
-    // invisible hotspot dead-center of the theme toggle.
-    var toggle = document.querySelector(".theme-toggle");
-    if (!toggle) return;
-    var hotspot = document.createElement("span");
-    hotspot.className = "gms-arcade-hotspot";
-    hotspot.setAttribute("aria-hidden", "true");
-    toggle.appendChild(hotspot);
-
-    // Swallow the press so the theme toggle underneath does not also fire.
-    ["click", "mousedown", "touchstart"].forEach(function (evt) {
-      hotspot.addEventListener(evt, function (e) {
-        e.stopPropagation();
-        if (evt === "click") { e.preventDefault(); A.play("dino", toggle); }
-      }, evt === "touchstart" ? { passive: true } : false);
-    });
   });
 })();

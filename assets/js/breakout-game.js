@@ -1,8 +1,8 @@
 /* Growing Minds Science — breakout-game.js
-   "Myth Buster" — the hidden brick-breaker easter egg on the FAQ page.
+   "Myth Buster" — a brick-breaker game on the Arcade page.
 
-   Trigger: a pixel-brick glyph tucked into the FAQ hero. Opening tears the
-   page away (GMSArcade) then shows the game. The wall is built from parenting
+   Trigger: the "Play Myth Buster" card on /arcade ([data-arcade-game="breakout"]).
+   Opening tears the page away (GMSArcade) then shows the game. The wall is built from parenting
    myths — the wide, stubborn bricks carry the myth labels and take two hits —
    and you bounce a spark of curiosity off a paddle of patience to bust them.
    Some bricks drop help: CALM slows the ball, WIDE stretches the paddle,
@@ -873,39 +873,9 @@
   // listeners), puts the page back and returns focus to the opener.
   function closeOverlay() { A.closeGame(); }
 
-  // Pixel-brick trigger, tucked into the FAQ hero. Used only when this file
-  // is loaded on a page with no other way in. Mouse/touch only: out of the
-  // tab order and hidden from assistive tech, like the Snake glyph (/arcade
-  // is the accessible way in).
-  function buildTrigger() {
-    var btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "gms-arcade-brick-trigger";
-    btn.tabIndex = -1;
-    btn.setAttribute("aria-hidden", "true");
-    btn.title = "?";
-    btn.innerHTML =
-      '<svg viewBox="0 0 12 8" aria-hidden="true" shape-rendering="crispEdges">' +
-      '<g fill="currentColor">' +
-      '<rect x="0" y="0" width="5" height="2"/><rect x="6" y="0" width="6" height="2"/>' +
-      '<rect x="0" y="3" width="2" height="2"/><rect x="3" y="3" width="6" height="2"/><rect x="10" y="3" width="2" height="2"/>' +
-      '<rect x="0" y="6" width="5" height="2"/><rect x="6" y="6" width="4" height="2"/>' +
-      '</g></svg>';
-    return btn;
-  }
-
+  // Arcade-only: no hidden trigger elsewhere on the site. The Play button on
+  // /arcade opens it through GMSArcade.play().
   ready(function () {
     A.defineGame("breakout", buildOverlay);
-    if (A.hasLauncher("breakout")) return;
-
-    var hero = document.querySelector(".page-hero .container") || document.querySelector("main .container");
-    if (!hero) return;
-    var cs = window.getComputedStyle(hero);
-    if (cs.position === "static") hero.style.position = "relative";
-
-    var trigger = buildTrigger();
-    hero.appendChild(trigger);
-    // Click only (a tap still fires click); touchstart opened it mid-scroll.
-    trigger.addEventListener("click", function (e) { e.preventDefault(); A.play("breakout", trigger); });
   });
 })();

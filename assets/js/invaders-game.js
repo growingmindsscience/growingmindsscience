@@ -1,9 +1,8 @@
 /* Growing Minds Science — invaders-game.js
-   "GMS Invaders: Curiosity Drift" — the hidden Space-Invaders easter egg on the
-   Articles page.
+   "GMS Invaders: Curiosity Drift" — a Space-Invaders game on the Arcade page.
 
-   A themed pixel-invader glyph tucked into the hero is the trigger. Opening
-   tears the page away (GMSArcade) then shows the game. The GMS mascot-ship
+   Trigger: the GMS Invaders card on /arcade ([data-arcade-game="invaders"]).
+   Opening tears the page away (GMSArcade) then shows the game. The GMS mascot-ship
    sits at the bottom of a 220x260 canvas and fires "sparks of insight" upward
    to answer a descending lockstep formation of childlike question marks before
    they reach the nursery floor. Six escalating waves end on a "Headline" boss.
@@ -913,47 +912,9 @@
   // listeners), puts the page back and returns focus to the opener.
   function closeOverlay() { A.closeGame(); }
 
-  // Themed pixel-invader trigger, tucked into the Articles hero. Used only
-  // when this file is loaded on a page with no other way in. Mouse/touch
-  // only: out of the tab order and hidden from assistive tech, like the
-  // Snake glyph (/arcade is the accessible way in).
-  function buildTrigger() {
-    var btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "gms-arcade-invader-trigger";
-    btn.tabIndex = -1;
-    btn.setAttribute("aria-hidden", "true");
-    btn.title = "?";
-    btn.innerHTML =
-      '<svg viewBox="0 0 11 9" aria-hidden="true" shape-rendering="crispEdges">' +
-      '<g fill="currentColor">' +
-      '<rect x="2" y="0" width="1" height="1"/><rect x="8" y="0" width="1" height="1"/>' +
-      '<rect x="3" y="1" width="1" height="1"/><rect x="7" y="1" width="1" height="1"/>' +
-      '<rect x="2" y="2" width="7" height="1"/>' +
-      '<rect x="1" y="3" width="2" height="1"/><rect x="4" y="3" width="3" height="1"/><rect x="8" y="3" width="2" height="1"/>' +
-      '<rect x="0" y="4" width="11" height="1"/>' +
-      '<rect x="0" y="5" width="1" height="1"/><rect x="3" y="5" width="5" height="1"/><rect x="10" y="5" width="1" height="1"/>' +
-      '<rect x="0" y="6" width="1" height="1"/><rect x="2" y="6" width="1" height="1"/><rect x="8" y="6" width="1" height="1"/><rect x="10" y="6" width="1" height="1"/>' +
-      '<rect x="3" y="7" width="1" height="1"/><rect x="7" y="7" width="1" height="1"/>' +
-      '</g></svg>';
-    return btn;
-  }
-
+  // Arcade-only: no hidden trigger elsewhere on the site. The Play button on
+  // /arcade opens it through GMSArcade.play().
   ready(function () {
     A.defineGame("invaders", buildOverlay);
-    if (A.hasLauncher("invaders")) return;
-
-    // Anchor the trigger into the first hero container (Articles page).
-    var hero = document.querySelector(".page-hero .container") || document.querySelector("main .container");
-    if (!hero) return;
-    var cs = window.getComputedStyle(hero);
-    if (cs.position === "static") hero.style.position = "relative";
-
-    var trigger = buildTrigger();
-    hero.appendChild(trigger);
-    // Click only (a tap still fires click on touch screens). A touchstart
-    // handler with preventDefault launched the game whenever a scroll gesture
-    // merely began on the small trigger, and blocked that scroll.
-    trigger.addEventListener("click", function (e) { e.preventDefault(); A.play("invaders", trigger); });
   });
 })();

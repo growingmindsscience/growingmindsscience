@@ -1,147 +1,16 @@
 /* Growing Minds Science — arcade.css
-   Shared styling for the hidden 8-bit easter-egg games (see arcade-core.js,
-   dino-game.js, invaders-game.js, asteroids-game.js). Covers the overlay shell, the page-tear
-   animation, the local leaderboard, and the initials-entry form. Game-specific
-   controls live in their own blocks at the bottom. Loaded on pages that host
-   a game.
+   Shared styling for the 8-bit arcade games (see arcade-core.js and the
+   *-game.js files). Covers the overlay shell, the page-tear animation, the
+   local leaderboard, and the initials-entry form. Game-specific controls
+   live in their own blocks at the bottom. Loaded only on /arcade, the one
+   page that hosts the games.
 */
-
-/* ---------- Hidden triggers ---------- */
-.theme-toggle { position: relative; }
-
-/* Dead-center of the theme toggle (Classes page). Invisible on purpose. */
-.gms-arcade-hotspot {
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 12px; height: 12px;
-  transform: translate(-50%, -50%);
-  border-radius: 999px;
-  cursor: pointer;
-}
-
-/* Themed pixel-invader glyph tucked into the Articles hero. Subtle until hover. */
-.gms-arcade-invader-trigger {
-  position: absolute;
-  top: 0; right: 0;
-  width: 30px; height: 26px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  opacity: 0.28;
-  color: var(--primary);
-  transition: opacity var(--transition), transform var(--transition);
-}
-.gms-arcade-invader-trigger:hover,
-.gms-arcade-invader-trigger:focus-visible { opacity: 0.92; transform: translateY(-2px); }
-.gms-arcade-invader-trigger svg { display: block; width: 100%; height: 100%; }
-
-/* A tiny orbit glyph in the corner of the About hero, never on the portrait. */
-.gms-arcade-asteroid-trigger {
-  position: absolute;
-  top: 10px; right: 10px;
-  width: 34px; height: 34px;
-  padding: 0;
-  border: 0;
-  border-radius: 999px;
-  background: color-mix(in oklab, var(--surface) 74%, transparent);
-  box-shadow: 0 0 0 1px color-mix(in oklab, var(--primary) 26%, transparent);
-  cursor: pointer;
-  opacity: 0.24;
-  color: var(--primary);
-  transition: opacity var(--transition), transform var(--transition), box-shadow var(--transition);
-}
-.gms-arcade-asteroid-trigger:hover,
-.gms-arcade-asteroid-trigger:focus-visible {
-  opacity: 0.95;
-  transform: rotate(-10deg) scale(1.08);
-  box-shadow: 0 0 0 1px var(--primary), 0 12px 24px -18px var(--primary);
-}
-.gms-arcade-asteroid-trigger svg { display: block; width: 100%; height: 100%; }
-.page-hero .gms-arcade-asteroid-trigger { top: auto; right: clamp(1rem, 4vw, 2rem); bottom: calc(-1 * var(--space-8)); }
-
-/* A tiny pixel-snake glyph under the homepage's free reading and tools shelf
-   (decor.js anchors it to .between__inner), in the section's bottom padding
-   at the content's right edge. A bare glyph like the other eggs: no disc, so
-   it never reads as a broken control. home.css has no --primary or
-   --transition, hence the fallbacks. */
-.gms-arcade-snake-trigger {
-  position: absolute;
-  bottom: 12px; right: 12px;
-  width: 26px; height: 26px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  opacity: 0.28;
-  color: var(--primary, var(--teal, #1E5F62));
-  transition: opacity var(--transition, 200ms ease), transform var(--transition, 200ms ease);
-  z-index: 2;
-}
-.between__inner > .gms-arcade-snake-trigger { top: auto; right: 0; bottom: -2.75rem; }
-.gms-arcade-snake-trigger:hover,
-.gms-arcade-snake-trigger:focus-visible { opacity: 0.95; transform: scale(1.1); }
-.gms-arcade-snake-trigger svg { display: block; width: 100%; height: 100%; }
-
-/* A pixel-brick glyph tucked into the FAQ hero. */
-.gms-arcade-brick-trigger {
-  position: absolute;
-  top: 0; right: 0;
-  width: 30px; height: 22px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  opacity: 0.28;
-  color: var(--primary);
-  transition: opacity var(--transition), transform var(--transition);
-}
-.gms-arcade-brick-trigger:hover,
-.gms-arcade-brick-trigger:focus-visible { opacity: 0.92; transform: translateY(-2px); }
-.gms-arcade-brick-trigger svg { display: block; width: 100%; height: 100%; }
-
-/* A pixel-envelope glyph tucked into the Contact hero. */
-.gms-arcade-envelope-trigger {
-  position: absolute;
-  top: 0; right: 0;
-  width: 30px; height: 24px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  opacity: 0.28;
-  color: var(--primary);
-  transition: opacity var(--transition), transform var(--transition);
-}
-.gms-arcade-envelope-trigger:hover,
-.gms-arcade-envelope-trigger:focus-visible { opacity: 0.92; transform: translateY(-2px); }
-.gms-arcade-envelope-trigger svg { display: block; width: 100%; height: 100%; }
-
-/* A pixel-sprout glyph tucked into the Classes hero photo (Brain Sprint). It
-   replaces the old invisible hotspot in the centre of the theme toggle, where
-   the most natural click on the moon icon launched the game instead. */
-.gms-arcade-sprout-trigger {
-  position: absolute;
-  bottom: 12px; right: 12px;
-  width: 30px; height: 30px;
-  padding: 5px;
-  border: 0;
-  border-radius: 999px;
-  background: color-mix(in oklab, var(--surface) 70%, transparent);
-  cursor: pointer;
-  opacity: 0.26;
-  color: var(--primary);
-  transition: opacity var(--transition), transform var(--transition);
-  z-index: 2;
-}
-.gms-arcade-sprout-trigger:hover { opacity: 0.95; transform: scale(1.1); }
-.gms-arcade-sprout-trigger svg { display: block; width: 100%; height: 100%; }
 
 /* ---------- Page tear-away ---------- */
 body.gms-arcade-lock { overflow: hidden; }
 .gms-arcade-falling { will-change: transform, opacity; }
 
-/* ---------- Overlay shell (fullscreen, like the Pong egg) ---------- */
+/* ---------- Overlay shell (fullscreen, like the Pong game) ---------- */
 .gms-arcade-overlay {
   position: fixed;
   inset: 0;

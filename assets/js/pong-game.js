@@ -1,11 +1,10 @@
-/* Shared Pong game for Tools and Arcade.
-   The dialog markup (#pong-game) lives in the host page. Opening goes
+/* Pong game for the Arcade page.
+   The dialog markup (#pong-game) lives in arcade/index.html. Opening goes
    through GMSArcade (arcade-core.js): the page tears away and goes inert,
    focus moves to Start, and closing (Esc or the exit button) stops the loop
-   and music, puts the page back and returns focus to the opener (the orb on
-   /tools, the Play button on /arcade). No reload.
-   Openers: decor.js places the orb on /tools and calls GMSArcade.play("pong");
-   the /arcade Play button does the same. */
+   and music, puts the page back and returns focus to the opener (the Play
+   button on /arcade). No reload.
+   Opener: the /arcade Play button calls GMSArcade.play("pong"). */
 (function () {
     var A = window.GMSArcade;
     var game = document.getElementById('pong-game');
@@ -115,17 +114,11 @@
     canvas.setAttribute('aria-label', 'Pong court. Up and down arrows or W and S move your paddle.');
 
     // ---- Open: tear the page off (GMSArcade), then show the game ----
-    // The orb (on /tools) leaves with the page and comes back on close.
-    function setOrbShown(shown) {
-      var orb = document.getElementById('pong-orb');
-      if (orb) orb.style.display = shown ? '' : 'none';
-    }
     A.registerGame('pong', function (opener) {
-      var launched = A.launch({
+      A.launch({
         opener: opener, dialog: game, show: openGame, hide: closeGame,
         prompt: msg, canvas: canvas, focus: function () { return msgBtn; }
       });
-      if (launched) setOrbShown(false);
     });
 
     // ---- Game state ----
@@ -322,7 +315,6 @@
       msg.hidden = true;
       if (hint) hint.style.visibility = '';
       game.hidden = true;
-      setOrbShown(true);
     }
 
     // ---- Controls ----

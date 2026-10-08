@@ -375,7 +375,6 @@
 .page-hero--flush { border-bottom: 0; }
 .classes-list { padding-top: clamp(var(--space-10), 5vw, var(--space-16)); }
 .classes-list__note { margin: var(--space-10) 0 0; max-width: 60ch; color: var(--ink-soft); }
-.classes-list .gms-arcade-sprout-trigger { bottom: -3rem; right: 0; }
 
 /* Figure key: two line styles named in real text below the drawing. */
 .fig__key {

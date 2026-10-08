@@ -177,8 +177,8 @@ The milestone tracker color-codes its six developmental domains for scanning. Th
 - **Selection**: `#0E2129` text on `amber`.
 - **Shadows** are ink-tinted (`rgba(14,33,41,…)`).
 
-### Arcade easter-egg palettes
-The hidden arcade games keep their own isolated retro palettes (dark cabinets, phosphor greens). Scoped to the game canvases and arcade stylesheets only; not design-system drift.
+### Arcade palettes
+The arcade games on `/arcade` keep their own isolated retro palettes (dark cabinets, phosphor greens). Scoped to the game canvases and arcade stylesheets only; not design-system drift.
 
 ### Radius scale
 `sm 6 · control 10 · card 14 · lg 18`. Pills are retired outside the arcade; the seminar is rectangular with softened corners.
@@ -268,7 +268,7 @@ Ground-colored field on a white card, `line` border, 10px radius, teal focus rin
 ### Navigation
 - **One header and footer everywhere.** Styles live only in `assets/css/chrome.css`, behavior only in `assets/js/chrome.js`. Don't restyle `.site-header` / `.site-footer` in page stylesheets.
 - **Ink variant:** a page that opens on an ink hero adds `site-header--ink`; the bar reads as part of the hero, links go on-dark, and the CTA turns amber. The homepage uses it. Inner pages keep the light bar.
-- **Structure:** Classes · Free tools (details menu) · Articles · About, divider, My classes, one CTA, theme toggle. "My classes" (to `/nsc/app/classes`) is the one account link on every page; it says what the account is for. The arcade lives inside the Free tools menu with a one-line description, and in the footer: it exists so stressed parents can stop thinking for five minutes, and the copy says so. It stays out of the homepage's run-up to the price. Nav links are Atkinson 500; the wordmark is Besley 600. Amber underline for hover/current.
+- **Structure:** Classes · Free tools (details menu) · Articles · About, divider, My classes, one CTA, theme toggle. "My classes" (to `/nsc/app/classes`) is the one account link on every page; it says what the account is for. The arcade lives only on `/arcade`, reached from the Free tools menu (with a one-line description) and the footer. There are no hidden triggers, glyphs or orbs on any other page, and every game opens from a visible Play button. It exists so stressed parents can stop thinking for five minutes, and the copy says so. It stays out of the homepage's run-up to the price. Nav links are Atkinson 500; the wordmark is Besley 600. Amber underline for hover/current.
 - **Footer:** ink-900, brand + Instagram, Classes / Free tools / About columns in Atkinson, Besley column headings.
 
 ## 6. Do's and Don'ts
