@@ -5,6 +5,7 @@ import {
   TODDLER_COURSE, infantSalesGate, ownsToddlerClass, preschoolSalesGate,
   type ClassCourseSlug, type ClassLesson,
 } from "@/lib/classes";
+import { freePreviewLessonWith, type FreePreviewLesson } from "@/lib/class-preview";
 
 export async function hasClassAccess(userId: string, courseSlug: ClassCourseSlug = TODDLER_COURSE.slug): Promise<boolean> {
   const supabase = await createClient();
@@ -53,6 +54,11 @@ export async function publishedLessonTitle(courseSlug: ClassCourseSlug, slug: st
     .eq("status", "published")
     .maybeSingle();
   return (data?.title as string | undefined) ?? null;
+}
+
+/** The class's free sample lesson, if it has a published one with a video. */
+export function freePreviewLesson(courseSlug: ClassCourseSlug): Promise<FreePreviewLesson | null> {
+  return freePreviewLessonWith(createServiceClient(), courseSlug);
 }
 
 /** Open sales only after every promised lesson is published. */
