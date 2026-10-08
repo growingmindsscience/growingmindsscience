@@ -27,9 +27,9 @@ export default async function ToddlerClassPage({ searchParams }: {
   return (
     <main className="mx-auto flex max-w-3xl flex-col gap-7 px-6 py-10">
       <header>
-        <Link href="/app/classes" className="inline-flex min-h-11 items-center text-sm text-teal-soft underline">← My classes</Link>
+        <Link href="/app/classes" className="inline-flex min-h-11 items-center text-sm text-ink-muted underline">← My classes</Link>
         <Eyebrow className="mt-2">Self-paced class · ages 1–3</Eyebrow>
-        <h1 className="mt-2 text-3xl font-semibold text-ink-deep">{TODDLER_COURSE.title}</h1>
+        <h1 className="mt-2 text-3xl text-ink-deep sm:text-4xl">{TODDLER_COURSE.title}</h1>
         <p className="mt-3 text-ink">{TODDLER_COURSE.blurb}</p>
       </header>
       {!owned ? (
@@ -42,7 +42,7 @@ export default async function ToddlerClassPage({ searchParams }: {
             error !== "not-open" && <p className="mt-4 text-sm text-ink-muted">On-site enrollment is not open yet. You can still enroll from the class details page.</p>
           )}
           <a href={sitePath(TODDLER_COURSE.detailsPath)} className={buttonClasses("ghost", "md", "mt-4 border border-line")}>View class details</a>
-          <p className="mt-4 text-xs text-teal-soft">{salesOpen
+          <p className="mt-4 text-xs text-ink-muted">{salesOpen
             ? "Bought this class on Thinkific? It appears in My classes when you sign in with the email you used there."
             : "Already bought this on Thinkific? Your purchase will be linked when the class moves here."}</p>
         </Card>

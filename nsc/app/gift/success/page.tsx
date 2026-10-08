@@ -16,7 +16,7 @@ export default async function GiftSuccessPage({
   return (
     <main className="mx-auto flex min-h-screen max-w-xl flex-col justify-center gap-8 px-6 py-16 text-center">
       <div>
-        <p className="text-sm font-medium uppercase tracking-widest text-teal">
+        <p className="text-[0.9375rem] font-semibold text-amber-deep">
           {brand.parentSite}
         </p>
         <h1 className="mt-1 text-3xl font-semibold text-ink-deep">
@@ -26,7 +26,7 @@ export default async function GiftSuccessPage({
 
       {code ? (
         <Card>
-          <p className="text-sm text-teal-soft">The code to give</p>
+          <p className="text-sm text-ink-muted">The code to give</p>
           <p className="mt-2 font-mono text-3xl font-bold tracking-widest text-teal">
             {code}
           </p>
@@ -41,7 +41,7 @@ export default async function GiftSuccessPage({
             </LinkButton>
             <Link
               href="/redeem"
-              className="inline-flex items-center justify-center rounded-full px-6 py-3 text-base font-semibold text-teal underline"
+              className="inline-flex items-center justify-center rounded-control px-6 py-3 text-base font-semibold text-teal underline"
             >
               Where they redeem it
             </Link>

@@ -177,8 +177,8 @@ The milestone tracker color-codes its six developmental domains for scanning. Th
 - **Selection**: `#0E2129` text on `amber`.
 - **Shadows** are ink-tinted (`rgba(14,33,41,…)`).
 
-### Arcade easter-egg palettes
-The hidden arcade games keep their own isolated retro palettes (dark cabinets, phosphor greens). Scoped to the game canvases and arcade stylesheets only; not design-system drift.
+### Arcade palettes
+The arcade games on `/arcade` keep their own isolated retro palettes (dark cabinets, phosphor greens). Scoped to the game canvases and arcade stylesheets only; not design-system drift.
 
 ### Radius scale
 `sm 6 · control 10 · card 14 · lg 18`. Pills are retired outside the arcade; the seminar is rectangular with softened corners.
@@ -187,6 +187,8 @@ The hidden arcade games keep their own isolated retro palettes (dark cabinets, p
 
 **Display Font:** Besley (fallback Georgia)
 **Body Font:** Atkinson Hyperlegible Next (fallback Helvetica Neue, Arial)
+
+The fallbacks are metric-matched: `Besley Fallback` (local Georgia, size-adjust 114.5%) and `Atkinson Fallback` (local Arial, 99.3%) are declared in `styles.css` and `home.css` and sit second in each stack, so lines wrap the same way before and after the web fonts swap in and the page does not jump.
 
 **Character:** Besley is a Clarendon with warmth: textbook headings, confident at weight 500, normal tracking (−0.005em; never tighter than −0.01em, Clarendons cramp). Atkinson Hyperlegible Next was designed for low-vision legibility, which is exactly right for a tired parent reading at night; it sets body, UI, labels, and figure text.
 
@@ -231,16 +233,43 @@ Mostly flat. Depth comes from tonal bands (ground → surface → ink-800 → in
 Lenses, curriculum units, principles, and shelf links are ruled rows (1px `line` top and bottom), with a hover wash of the ground color. The curriculum is a numbered `<ol>` because the classes are a developmental sequence; the numbers carry information.
 
 ### Curriculum unit
-`thumb (7.25rem square photo) | numeral + title + "After this class you can explain …" | status pill + meta dl + CTA`. Status pills: `--open` is amber-tint / amber-deep, `--soon` is tint / ink-muted. Open units get a primary button; upcoming units get a quiet "Join the waitlist".
+`thumb (7.25rem square photo) | numeral + title + "After this class you can explain …" | status pill + meta dl + CTA`. Status pills: `--open` is amber-tint / amber-deep, `--soon` is tint / ink-muted. On phones the sticky CTA jumps to the enrol band (`#signup`), never to another page. The header CTA hides on the page it points to. Open units get a primary button; upcoming units get a quiet "Join the waitlist". The unit, figure, syllabus, reading-list, and price-sheet styles live in `assets/css/seminar.css`, shared by the homepage and the inner pages (styles.css aliases `--line`, `--ground`, `--tint`, `--teal` to its own names). On `/classes/` an open unit carries two actions, "Enroll, $49" and "See the class", with a one-line note under them saying where checkout happens and that sales are final.
+
+### Class pages
+Every open class page ends on an ink-900 enroll band (amber button, the highlighter on the price, the refund on its own line), and the syllabus closes with "What this class draws on": real citations from the lessons (or, for the toddler class, the researchers and frameworks the lessons name). Every class page's enroll band runs heading, then the price card, then the details, so on phones an "Enroll" jump lands with the button on screen (`.signup__inner--offer`). Every class page opens the same way: a numeral line ("Class 2 · Ages 1 to 3"), the full title as H1, a facts `dl` (format, length or status, price), two buttons, one line of fine print, and on the right either a captioned figure from inside the class (open classes) or the commissioned class photo (classes in development). Below it: outcomes, the syllabus as a ruled `<ol>` of modules (lesson titles listed when they exist), who it's for, who teaches it, a reading list of free material for that age, the FAQ, and the enroll band. Class names are always "Short name: subtitle" in full and "Class N · Short name" over the subtitle in rows, in developmental order (infant first).
 
 ### Figures
-Inline SVG inside `<figure class="fig">`. Fig. 1 (hero) is the plasticity-windows chart on ink; Fig. 2 (how it's taught) is the research → model → moment → noticing loop on a white panel. Curves use `pathLength="1"` so they draw in with a dash offset; labels fade after. Strokes distinguish by dash pattern as well as color.
+Inline SVG inside `<figure class="fig">`. Fig. 1 (hero) is the plasticity-windows chart on ink; Fig. 2 (how it's taught) is the research → model → moment → noticing loop on a white panel. Curves use `pathLength="1"` so they draw in with a dash offset; labels fade after. Strokes distinguish by dash pattern as well as color. Figure text must render at 14px or more: draw on a narrow viewBox (480 wide), set labels at 16 units, and step them to 20 units below 560px, checking that labels don't collide at phone width. Curves that fall after a peak taper to a level above zero unless the data says otherwise. On paper (`.fig--plate`) the figure sits in a white, 14px-radius frame with a key in real text when two line styles need naming. Fig. 2 sits in a narrow aside (about 300px at 1024 and on phones), so it is drawn 400 wide with 19-unit labels and capped at 26rem. Article figures use the same "Fig. N" caption label as the homepage.
 
 ### Instructor block
 Portrait (4:5, 11rem column) beside name, role, four fact bullets with amber seeds, and a link to About. Sits under the three lenses so the thesis is attributed to a face, not a thumbnail. Never fabricate testimonials; proof is credentials, the coaching count, and the free material.
 
+### One brand
+The marketing site and the class app (`/nsc`) are one product with one look: the Seminar system (Besley over Atkinson Hyperlegible Next, ink and paper, one amber highlighter, 10px-radius rectangular buttons at least 48px tall, sentence-case labels). The pages a buyer meets before paying (the free lesson, sign-in, the account step) are the most important to keep on-system.
+
+### Heading scale
+Each page has one display headline. Section headings sit at least 1.25x below the H1 at every width: the homepage's H2s stop at 2.2rem under a 2.75rem H1; class pages step every section H2 down to the title size (about 34px under a 49.6px H1).
+
+### Measure
+Atkinson's average letter is much narrower than its "0", so 62ch renders about 88 characters per line. Cap running text at 50ch (about 70 characters); 58ch is the ceiling for short lede paragraphs.
+
+### A short phone homepage
+On phones the homepage keeps its argument and its offer and sheds what the desktop layout can afford beside them: the hero and Fig. 1, the open-now strip (with the free lesson), the thesis and lenses, the curriculum (in-development classes as name, status and waitlist only), Fig. 2, a one-paragraph Growing Minds AI pitch, links to the free reading, and the enrol band. Target about 9,000px; the enrol band starts within about nine screens.
+
+### Open-now strip
+A ruled white shelf directly under the homepage hero: the "Open now" status chip, then one row per open class (48px class photo, Besley name, "N lessons · $49 once", arrow to the class page), then "All four classes ↓" to the curriculum. It puts the offer a glance below the hero instead of three screens down. It links to class pages, not checkout, and the phone sticky CTA steps aside while it is on screen.
+
 ### Enrol band
-The page's closing beat is the purchase, not the waitlist: H2 with the price in the highlighter, a four-item "included" list with amber check marks, then `.enrol-list` rows (class numeral, title, format, price, amber CTA) beside a product FAQ ("Before you enroll": try first, background, access, refund, medical). The waitlist is one quiet row underneath with a single email field and a quiet-dark button.
+The page's closing beat is the purchase, not the waitlist: H2 with the price in the highlighter, one line on what both classes share (one payment, lifetime access, self-paced), then `.enrol-list` rows (class numeral, title, format, the one inclusion that differs, price, amber CTA) beside a product FAQ ("Before you enroll": try first, background, access, refund, medical). The waitlist is one quiet row underneath with a single email field and a quiet-dark button.
+
+### Class facts (one list, everywhere)
+The offer reads the same on the homepage rows and enrol band, `/classes/`, each class page's facts `dl`, and `/pricing`. Change it in all four places or none.
+- **Birth to 12 months:** 4 modules, 16 lessons, about 3 hours; includes captions and a written version of every lesson; checkout here with Stripe, lessons under My classes.
+- **Toddler years:** 5 modules, 29 lessons, about 5 hours; includes unlimited Growing Minds AI for life (`nsc/lib/grants.ts`); checkout and lessons on Thinkific until the class moves on-site, so every toddler Enroll button carries ↗, a quiet note under it says "Opens Thinkific, our course platform, in a new tab", and every toddler block carries "Already enrolled? Log in on Thinkific".
+- **Both:** $49 once, lifetime access. Full refund within 14 days if the buyer has watched 4 lessons or fewer; the free lesson doesn't count (the app reads the wording from `nsc/lib/refund-policy.ts`). State it once per page, on its own line under the price card's button, and answer it in the refund FAQ. Free things (the milestone tracker, five AI questions a day) are never listed as "included".
+- **Enroll labels:** "Enroll, $49" on any button that stands alone; plain "Enroll" only where the price sits right beside it (the homepage enrol rows, the phone enroll bar). A button that opens a new tab shows ↗ as well as screen-reader text.
+- **See before you buy:** the infant class's "Serve and Return" plays free at `/nsc/classes/infant/preview` with no account; it is the infant class's second action wherever the class is sold. The toddler page carries a written excerpt from Module 4, Lesson 1, under the hero, until a toddler lesson can be previewed the same way.
+- **Lesson and module titles** are the class's own titles from the app and keep their Title Case; every other heading is sentence case.
 
 ### Chat demo
 Labelled "Example conversation" with a bordered tag; no fake "online" status and no perpetual pulse (Calm by default). Source chips are 13px minimum.
@@ -251,7 +280,7 @@ Ground-colored field on a white card, `line` border, 10px radius, teal focus rin
 ### Navigation
 - **One header and footer everywhere.** Styles live only in `assets/css/chrome.css`, behavior only in `assets/js/chrome.js`. Don't restyle `.site-header` / `.site-footer` in page stylesheets.
 - **Ink variant:** a page that opens on an ink hero adds `site-header--ink`; the bar reads as part of the hero, links go on-dark, and the CTA turns amber. The homepage uses it. Inner pages keep the light bar.
-- **Structure:** Classes · Free tools (details menu) · Articles · About, divider, Log in, one CTA, theme toggle. The arcade lives inside the Free tools menu with a one-line description, and on the homepage as a single "Need a break?" row under the reading list: it exists so stressed parents can stop thinking for five minutes, and the copy says so. Nav links are Atkinson 500; the wordmark is Besley 600. Amber underline for hover/current.
+- **Structure:** Classes · Free tools (details menu) · Articles · About, divider, My classes, one CTA, theme toggle. "My classes" is a two-row menu until the toddler class moves on-site: Birth to 12 months (to `/nsc/app/classes`) and Toddler years on Thinkific ↗. Then it returns to a single link. On the homepage the bar's CTA is "Enroll, $49" (the hero already says "Browse the classes"). The arcade lives only on `/arcade`, reached from the Free tools menu (with a one-line description) and the footer. There are no hidden triggers, glyphs or orbs on any other page, and every game opens from a visible Play button. It exists so stressed parents can stop thinking for five minutes, and the copy says so. It stays out of the homepage's run-up to the price. Nav links are Atkinson 500; the wordmark is Besley 600. Amber underline for hover/current.
 - **Footer:** ink-900, brand + Instagram, Classes / Free tools / About columns in Atkinson, Besley column headings.
 
 ## 6. Do's and Don'ts

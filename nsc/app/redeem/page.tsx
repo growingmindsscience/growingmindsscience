@@ -18,7 +18,7 @@ export default async function RedeemPage({
   return (
     <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center gap-6 px-6 py-12">
       <div className="text-center">
-        <p className="text-sm font-medium uppercase tracking-widest text-teal">
+        <p className="text-[0.9375rem] font-semibold text-amber-deep">
           {brand.productName}
         </p>
         <h1 className="mt-1 text-3xl font-semibold text-ink-deep">
@@ -40,7 +40,7 @@ export default async function RedeemPage({
               />
             </Field>
             {error && (
-              <p className="text-sm text-[#9C4429]" role="alert">
+              <p className="text-sm text-danger" role="alert">
                 {error}
               </p>
             )}
@@ -56,13 +56,13 @@ export default async function RedeemPage({
           <div className="mt-4 flex justify-center gap-3">
             <Link
               href="/signup?next=/redeem"
-              className="inline-flex items-center justify-center rounded-full bg-teal px-6 py-3 text-base font-semibold text-white hover:bg-teal-soft"
+              className="inline-flex items-center justify-center rounded-control bg-teal px-6 py-3 text-base font-semibold text-white hover:bg-teal-hover"
             >
               Create account
             </Link>
             <Link
               href="/login?next=/redeem"
-              className="inline-flex items-center justify-center rounded-full px-6 py-3 text-base font-semibold text-teal underline"
+              className="inline-flex items-center justify-center rounded-control px-6 py-3 text-base font-semibold text-teal underline"
             >
               Sign in
             </Link>

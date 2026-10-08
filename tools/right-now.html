@@ -3,13 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>It's hard right now — Growing Minds Science</title>
+  <title>It's hard right now | Growing Minds Science</title>
   <meta name="description" content="A calm, one-tap guide for the hard moment: meltdowns, limits, sleep, losing your patience, or repairing after things went sideways. Research-based, no reading required." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/tools/right-now" />
 
   <meta property="og:type" content="website" />
@@ -21,23 +22,37 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400..800&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=25806045f8" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=5122b7e7ee" />
-  <link rel="stylesheet" href="../assets/css/tools.css?v=614ebda71e" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=44002cebb8" />
+  <link rel="stylesheet" href="../assets/css/refresh.css?v=d297404b34" />
+  <link rel="stylesheet" href="../assets/css/tools.css?v=7fce784071" />
   <script>try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 </head>
 <body class="rn-body">
   <a class="skip-link" href="#rn-main">Skip to content</a>
 
   <header class="rn-bar" role="banner">
-    <a class="brand" href="/" aria-label="Growing Minds Science — home">
-      <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="30" height="30" decoding="async" />
+    <a class="brand" href="/" aria-label="Growing Minds Science, home">
+      <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-128.png" alt="" width="30" height="30" decoding="async" />
       <span class="brand__name">Growing Minds Science</span>
     </a>
     <a href="/tools/">← All tools</a>
   </header>
 
-  <main id="rn-main" class="rn-main"></main>
+  <main id="rn-main" class="rn-main">
+    <!-- Readable without JavaScript: the script replaces this with the
+         interactive version (short answers in place) on load. -->
+    <div class="rn-step">
+      <p class="rn-step__eyebrow">It's hard right now</p>
+      <h1 class="rn-step__title">What's happening?</h1>
+      <div class="rn-choices">
+        <a class="rn-choice" href="/tools/whats-underneath-the-meltdown">Meltdown or tantrum<span class="rn-choice__hint">Screaming, crying, hitting, going limp, or losing it.</span></a>
+        <a class="rn-choice" href="/tools/limits-without-escalation">Testing a limit<span class="rn-choice__hint">Pushing a &quot;no&quot;, refusing, or melting down over a boundary.</span></a>
+        <a class="rn-choice" href="/tools/routines-transitions-night-waking">Won&#x27;t sleep<span class="rn-choice__hint">Fighting bedtime, waking in the night, or stalling.</span></a>
+        <a class="rn-choice" href="/tools/regulating-yourself-first">I&#x27;m losing my patience<span class="rn-choice__hint">You&#x27;re the one running hot, close to yelling.</span></a>
+        <a class="rn-choice" href="/tools/repair-after-the-hard-moment">Something happened between us<span class="rn-choice__hint">You yelled, it went sideways, and you want to reconnect.</span></a>
+      </div>
+    </div>
+  </main>
 
   <!-- Situation → short answer. Shared source of truth for this page. -->
   <script id="router-data" type="application/json">
@@ -96,12 +111,12 @@
         "choice": "I'm losing my patience",
         "hint": "You're the one running hot, close to yelling.",
         "state": "You're the one who's activated",
-        "title": "Steady yourself first — it isn't selfish.",
-        "body": "Your child borrows calm from your body before they can make their own. Regulating yourself is the intervention, not a break from it. You don't have to feel calm — you just have to act a notch calmer than you feel.",
+        "title": "Steady yourself first. It isn't selfish.",
+        "body": "Your child borrows calm from your body before they can make their own. Regulating yourself is the intervention, not a break from it. You don't have to feel calm; you just have to act a notch calmer than you feel.",
         "seq": [
-          "Notice it — say to yourself: \"I'm activated.\"",
-          "Buy a second — one slow breath out, unclench your jaw, drop your shoulders.",
-          "Shrink the moment — make the next 60 seconds smaller, not bigger."
+          "Notice it. Say to yourself: \"I'm activated.\"",
+          "Buy a second: one slow breath out, unclench your jaw, drop your shoulders.",
+          "Shrink the moment: make the next 60 seconds smaller, not bigger."
         ],
         "tryLine": "I'm going to take a slow breath. We're okay.",
         "toolSlug": "regulating-yourself-first",
@@ -113,11 +128,11 @@
         "hint": "You yelled, it went sideways, and you want to reconnect.",
         "state": "A moment already went sideways",
         "title": "Repair the connection, not the whole day.",
-        "body": "Rupture is normal; repair is what keeps the relationship and your child's sense of safety intact. You can reconnect without pretending the limit disappeared — and repair works at any age, even after the fact.",
+        "body": "Rupture is normal; repair is what keeps the relationship and your child's sense of safety intact. You can reconnect without pretending the limit disappeared, and repair works at any age, even after the fact.",
         "seq": [
-          "Reset yourself first — you can't repair from activation.",
-          "Name it simply — no long apology, no taking away the boundary.",
-          "Reconnect — offer warmth and presence; let the closeness do the work."
+          "Reset yourself first. You can't repair from activation.",
+          "Name it simply: no long apology, no taking away the boundary.",
+          "Reconnect: offer warmth and presence; let the closeness do the work."
         ],
         "tryLine": "That was hard. I'm sorry I got loud. I love you, and I'm here.",
         "toolSlug": "repair-after-the-hard-moment",
@@ -130,8 +145,8 @@
   <!-- Printable pocket card (hidden on screen; shown only when printing) -->
   <div class="pocket-card" id="rn-pocket" aria-hidden="true"></div>
 
-  <script src="../assets/js/main.js?v=da0ffde09b" defer></script>
-  <script src="../assets/js/gms-tools.js?v=0202b4297f" defer></script>
+  <script src="../assets/js/main.js?v=742e637d07" defer></script>
+  <script src="../assets/js/gms-tools.js?v=390738ac9e" defer></script>
   <script>
   (function () {
     var DATA = JSON.parse(document.getElementById('router-data').textContent);
@@ -181,26 +196,25 @@
 
       // Save
       function isSaved() { return !!(window.GMS && GMS.shelf.has(key)); }
-      var save = el('button', { type: 'button', class: 'btn btn--ghost', 'aria-pressed': isSaved() ? 'true' : 'false', text: isSaved() ? 'Saved ✓' : 'Save this' });
+      var save = el('button', { type: 'button', class: 'btn btn--ghost', text: isSaved() ? 'Saved ✓' : 'Save this' });
       save.addEventListener('click', function () {
         if (!window.GMS) return;
         if (GMS.shelf.has(key)) GMS.shelf.removeByKey(key);
         else GMS.shelf.add({ key: key, toolSlug: 'right-now', toolTitle: 'It\'s hard right now',
           toolUrl: '/tools/right-now#' + s.id, title: s.title, body: s.body, tryLine: s.tryLine });
         save.textContent = isSaved() ? 'Saved ✓' : 'Save this';
-        save.setAttribute('aria-pressed', isSaved() ? 'true' : 'false');
       });
       row.appendChild(save);
 
       // Listen
       if (window.GMS && GMS.speechSupported) {
         var speaking = false;
-        var listen = el('button', { type: 'button', class: 'btn btn--ghost', 'aria-pressed': 'false', text: 'Listen' });
+        var listen = el('button', { type: 'button', class: 'btn btn--ghost', text: 'Listen' });
         var text = [s.title, s.body, s.seq.join('. '), 'Try saying: ' + s.tryLine].join('. ');
-        var stopped = function () { speaking = false; listen.textContent = 'Listen'; listen.setAttribute('aria-pressed', 'false'); };
+        var stopped = function () { speaking = false; listen.textContent = 'Listen'; };
         listen.addEventListener('click', function () {
           if (speaking) { GMS.stopSpeaking(); stopped(); return; }
-          if (GMS.speak(text, stopped)) { speaking = true; listen.textContent = 'Stop'; listen.setAttribute('aria-pressed', 'true'); }
+          if (GMS.speak(text, stopped)) { speaking = true; listen.textContent = 'Stop'; }
         });
         row.appendChild(listen);
       }

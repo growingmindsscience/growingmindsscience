@@ -29,7 +29,7 @@ export default async function PreschoolClassSuccessPage({ searchParams }: {
   return (
     <main className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-6 py-12 text-center">
       <Card>
-        <h1 className="text-2xl font-semibold text-ink-deep">{ready ? "Welcome. Your class is ready." : "Thank you for enrolling"}</h1>
+        <h1 className="text-2xl text-ink-deep sm:text-3xl">{ready ? "Welcome. Your class is ready." : "Thank you for enrolling"}</h1>
         <p className="mt-3 text-ink">{ready
           ? "Preschool years is yours to keep. Each lesson is about ten minutes, and your place is saved as you go."
           : "We're confirming your payment and adding the class to your account."}</p>
@@ -41,7 +41,7 @@ export default async function PreschoolClassSuccessPage({ searchParams }: {
             {first && <Link href="/app/classes/preschool" className="inline-flex min-h-11 items-center text-sm font-semibold text-teal underline">See all lessons</Link>}
           </div>
         ) : <AwaitClassAccess />}
-        <p className="mt-4 text-xs text-teal-soft">You can always return through <Link href="/app/classes" className="underline">My classes</Link>.</p>
+        <p className="mt-4 text-xs text-ink-muted">You can always return through <Link href="/app/classes" className="underline">My classes</Link>.</p>
       </Card>
     </main>
   );

@@ -16,7 +16,7 @@ export default async function NewChildPage({
     <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center gap-6 px-6 py-12">
       <div className="text-center">
         <h1 className="text-2xl font-semibold text-ink-deep">Add a child</h1>
-        <p className="mt-2 text-sm text-teal-soft">
+        <p className="mt-2 text-sm text-ink-muted">
           Just a nickname and a birth month. We keep nothing else.
         </p>
       </div>
@@ -34,7 +34,7 @@ export default async function NewChildPage({
             <Input id="home_languages" name="home_languages" placeholder="English, Spanish" />
           </Field>
           {error && (
-            <p className="text-sm text-[#9C4429]" role="alert">
+            <p className="text-sm text-danger" role="alert">
               {error}
             </p>
           )}

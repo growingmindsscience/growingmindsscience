@@ -2,9 +2,9 @@
    toggle, and footer year live in chrome.js)
    - Scroll-reveal ([data-animate] / [data-stagger]); gated by <html class="anim">
      so reduced-motion / no-JS always show content
-   - Growth-arc stage tabs (proper tabs semantics, arrow keys)
    - Scripted AI conversation demo (scroll-triggered)
    - Waitlist form: in-voice success/error with graceful native fallback
+   - Mobile sticky enrollment CTA
    CSP-safe: external 'self' script, no inline handlers, no eval.
 */
 (function () {
@@ -67,181 +67,19 @@
   }
 
   // ------------------------------------------------------------------
-  // Growth arc — stage tabs (arrow keys, Home/End, proper ARIA)
-  // ------------------------------------------------------------------
-  function initArc() {
-    var device = document.querySelector("[data-arc]");
-    if (!device) return;
-    var tabs = Array.prototype.slice.call(device.querySelectorAll('[role="tab"]'));
-    var panels = Array.prototype.slice.call(device.querySelectorAll('[role="tabpanel"]'));
-    if (!tabs.length || tabs.length !== panels.length) return;
-    var rail = device.querySelector(".arc__rail");
-
-    function select(index, focus) {
-      tabs.forEach(function (tab, i) {
-        var active = i === index;
-        tab.setAttribute("aria-selected", active ? "true" : "false");
-        tab.tabIndex = active ? 0 : -1;
-        panels[i].hidden = !active;
-      });
-      // Drive the mobile progress rail (harmless on desktop, where it's hidden):
-      // map stage 0..last -> 0.08..1 on --rail-p; CSS slides the fill and tip
-      // with transform (never a layout property).
-      if (rail) {
-        var frac = tabs.length > 1 ? index / (tabs.length - 1) : 0;
-        rail.style.setProperty("--rail-p", (0.08 + frac * 0.92).toFixed(3));
-      }
-      if (focus) tabs[index].focus();
-    }
-
-    // Panels ship un-hidden so the no-JS page shows all five stages in order;
-    // collapse to the marked-selected tab only once JS is running.
-    var initial = tabs.findIndex(function (tab) {
-      return tab.getAttribute("aria-selected") === "true";
-    });
-    select(initial === -1 ? 0 : initial, false);
-
-    tabs.forEach(function (tab, i) {
-      tab.addEventListener("click", function () { select(i, false); });
-      tab.addEventListener("keydown", function (e) {
-        var next = null;
-        if (e.key === "ArrowRight" || e.key === "ArrowDown") next = (i + 1) % tabs.length;
-        else if (e.key === "ArrowLeft" || e.key === "ArrowUp") next = (i - 1 + tabs.length) % tabs.length;
-        else if (e.key === "Home") next = 0;
-        else if (e.key === "End") next = tabs.length - 1;
-        if (next !== null) {
-          e.preventDefault();
-          select(next, true);
-        }
-      });
-    });
-
-    initArcScroll(device, tabs, panels, select);
-  }
-
-  // ------------------------------------------------------------------
-  // Growth arc — scroll-cinematic layer (progressive enhancement)
-  // Desktop + motion only. Pins the device while a coral trail draws itself up
-  // the growth curve (dot at its tip) and the stage advances with scroll. The
-  // tablist stays the source of truth for a11y; this is a purely visual layer
-  // that also calls select() as you scroll. Mobile / reduced-motion / no-JS
-  // never enable it, so the plain tabs remain.
-  // ------------------------------------------------------------------
-  function initArcScroll(device, tabs, panels, select) {
-    if (reduceMotion) return;
-    var scroll = device.parentNode;
-    var section = device.closest(".arc");
-    var line = device.querySelector(".arc__curve-line");
-    var trail = device.querySelector(".arc__curve-trail");
-    var runner = device.querySelector(".arc__runner");
-    var panelsWrap = device.querySelector(".arc__panels");
-    if (!scroll || !section || !line || !trail || !runner || !panelsWrap) return;
-    if (typeof line.getPointAtLength !== "function") return;
-
-    var stages = tabs.length;
-    var active = false, ticking = false, curStage = -1, pathLen = 0, panelMinH = 0;
-    var mq = window.matchMedia("(min-width: 721px)");
-
-    function measurePanels() {
-      // Equalise panel heights so the pinned device doesn't jump between stages.
-      var max = 0;
-      panels.forEach(function (p) {
-        var wasHidden = p.hidden; p.hidden = false;
-        max = Math.max(max, p.offsetHeight);
-        p.hidden = wasHidden;
-      });
-      panelMinH = max;
-    }
-
-    function layout() {
-      var vh = window.innerHeight;
-      panelsWrap.style.minHeight = panelMinH + "px";
-      var deviceH = device.offsetHeight;
-      var step = Math.round(vh * 0.55);          // scroll distance per stage
-      scroll.style.height = (deviceH + step * (stages - 1)) + "px";
-      device.style.top = Math.max(84, Math.round((vh - deviceH) / 2)) + "px";
-    }
-
-    function render() {
-      ticking = false;
-      var vh = window.innerHeight;
-      var range = scroll.offsetHeight - vh;
-      var p = range > 0 ? Math.min(1, Math.max(0, -scroll.getBoundingClientRect().top / range)) : 0;
-      var pt = line.getPointAtLength(p * pathLen);
-      runner.setAttribute("cx", pt.x.toFixed(1));
-      runner.setAttribute("cy", pt.y.toFixed(1));
-      trail.style.strokeDashoffset = (1 - p).toFixed(4);
-      var idx = Math.min(stages - 1, Math.floor(p * stages));
-      if (idx !== curStage) { curStage = idx; select(idx, false); }
-    }
-
-    function onScroll() {
-      if (!active || ticking) return;
-      ticking = true;
-      requestAnimationFrame(render);
-    }
-
-    var resizeTimer;
-    function onResize() {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(function () { if (active) { measurePanels(); layout(); render(); } }, 150);
-    }
-
-    function enable() {
-      if (active) return;
-      active = true;
-      section.classList.add("arc--scrolly");
-      pathLen = line.getTotalLength();
-      trail.style.strokeDasharray = "1";
-      trail.style.strokeDashoffset = "1";
-      measurePanels();
-      layout();
-      render();
-      window.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", onResize, { passive: true });
-    }
-
-    function disable() {
-      if (!active) return;
-      active = false;
-      section.classList.remove("arc--scrolly");
-      device.style.top = "";
-      scroll.style.height = "";
-      panelsWrap.style.minHeight = "";
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
-    }
-
-    // Clicking a stage in scroll mode scrolls to it, so the pinned view syncs.
-    tabs.forEach(function (tab, i) {
-      tab.addEventListener("click", function () {
-        if (!active) return;
-        var range = scroll.offsetHeight - window.innerHeight;
-        var target = window.scrollY + scroll.getBoundingClientRect().top + (i / stages) * range + 4;
-        window.scrollTo({ top: target, behavior: "smooth" });
-      });
-    });
-
-    function apply(e) { e.matches ? enable() : disable(); }
-    apply(mq);
-    if (mq.addEventListener) mq.addEventListener("change", apply);
-    else if (mq.addListener) mq.addListener(apply);
-  }
-
-  // ------------------------------------------------------------------
   // AI conversation demo (scripted)
   // ------------------------------------------------------------------
   var SCRIPT = [
     { who: "user", text: "My toddler says “no” to everything. Is something wrong?" },
     {
       who: "ai",
-      text: ["Not at all — this is actually a healthy sign. Between 18 months and 3 years, toddlers are building autonomy. “No” is how they practice self-determination while their prefrontal cortex is still very immature.", "The key is to offer real choices where you can, and hold the line calmly where you need to."],
-      sources: ["autonomy · ages 1–3", "developmental science", "not medical advice"]
+      text: ["Not at all. This is actually a healthy sign. Between 18 months and 3 years, toddlers are building autonomy. “No” is how they practice self-determination while their prefrontal cortex is still very immature.", "The key is to offer real choices where you can, and hold the line calmly where you need to."],
+      sources: ["Kuczynski & Kochanska, 1990", "Kopp, 1982"]
     },
     { who: "user", text: "So I shouldn’t try to stop it?" },
     {
       who: "ai",
-      text: ["The goal isn’t to stop it — it’s to channel it. When you offer choices (“the red cup or the blue cup?”), your toddler gets to say yes to something, which satisfies the autonomy drive without a battle."]
+      text: ["The goal isn’t to stop it; it’s to channel it. When you offer choices (“the red cup or the blue cup?”), your toddler gets to say yes to something, which satisfies the autonomy drive without a battle."]
     }
   ];
 
@@ -268,13 +106,11 @@
 
   // Purely visual: the dots are hidden from assistive tech (the finished
   // message is what matters, and the demo is not a live region).
-  function typingMsg() {
-    var m = el("div", "msg msg--ai");
-    m.setAttribute("aria-hidden", "true");
+  function typingDots() {
     var t = el("div", "typing");
+    t.setAttribute("aria-hidden", "true");
     t.appendChild(el("span")); t.appendChild(el("span")); t.appendChild(el("span"));
-    m.appendChild(t);
-    return m;
+    return t;
   }
 
   function initChat() {
@@ -288,25 +124,41 @@
 
     var played = false;
 
-    function playStatic() {
-      SCRIPT.forEach(function (step) {
-        body.appendChild(step.who === "user" ? userMsg(step.text) : aiMsg(step.text, step.sources));
-      });
-    }
+    // The whole conversation is built up front, so the card is laid out at
+    // its final height before anyone sees it. The animated version only
+    // reveals messages that already occupy their space: nothing below the
+    // card moves as the demo plays (no layout shift).
+    var nodes = SCRIPT.map(function (s) {
+      if (s.who === "user") return userMsg(s.text);
+      var a = aiMsg(s.text, s.sources);
+      a.appendChild(typingDots());
+      return a;
+    });
+    nodes.forEach(function (n) { body.appendChild(n); });
 
-    function playAnimated() {
+    // Phones get the finished conversation: nobody should wait on a demo
+    // mid-scroll on a small screen.
+    var animate = animEnabled && ("IntersectionObserver" in window) &&
+      !window.matchMedia("(max-width: 720px)").matches;
+    if (!animate) return wireComposer();
+
+    function show(n) { n.classList.remove("is-pending", "is-typing"); enter(n); }
+
+    function play() {
+      if (played) return;
+      played = true;
       var i = 0;
       function step() {
-        if (i >= SCRIPT.length) return;
-        var s = SCRIPT[i];
-        if (s.who === "user") {
-          var u = userMsg(s.text); body.appendChild(u); enter(u);
+        if (i >= nodes.length) return;
+        var n = nodes[i];
+        if (SCRIPT[i].who === "user") {
+          show(n);
           i++; window.setTimeout(step, 850);
         } else {
-          var typing = typingMsg(); body.appendChild(typing); enter(typing);
+          n.classList.remove("is-pending");
+          n.classList.add("is-typing");
           window.setTimeout(function () {
-            var a = aiMsg(s.text, s.sources);
-            body.replaceChild(a, typing); enter(a);
+            show(n);
             i++; window.setTimeout(step, 1100);
           }, 1500);
         }
@@ -314,38 +166,53 @@
       step();
     }
 
-    function play() {
-      if (played) return;
-      played = true;
-      if (animEnabled) playAnimated(); else playStatic();
-    }
+    // The finished conversation is the default. Only a card that is still
+    // below the fold is hidden, just before it arrives, so it can play in.
+    // If that never happens (a reload mid-page, a fast jump, a renderer that
+    // never scrolls), the messages simply stay visible.
+    var armed = false;
+    var arm = new IntersectionObserver(function (entries) {
+      var e = entries[0];
+      if (!e.isIntersecting) return;
+      arm.disconnect();
+      if (e.boundingClientRect.top < window.innerHeight) return;
+      armed = true;
+      nodes.forEach(function (n) { n.classList.add("is-pending"); });
+      // Failsafe: if the reader stops short of the card, don't leave it blank.
+      window.setTimeout(function () {
+        if (played) return;
+        played = true;
+        nodes.forEach(show);
+      }, 6000);
+    }, { rootMargin: "0px 0px 240px 0px" });
+    var go = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting && armed) { play(); go.disconnect(); }
+    }, { threshold: 0.3 });
+    arm.observe(chat);
+    go.observe(chat);
+    wireComposer();
 
-    if (!animEnabled || !("IntersectionObserver" in window)) {
-      play();
-    } else {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) { play(); io.disconnect(); }
+    function wireComposer() {
+      // Composer: honest hand-off to the (free) full tutor. The question rides
+      // along in sessionStorage, not the URL, so a parent's question about their
+      // child never lands in browser history or a server log. The AI page
+      // prefills it and never auto-sends, so nobody has to type it twice.
+      if (form && input) {
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          var q = input.value.trim();
+          if (!q) {
+            if (note) note.textContent = "Type a question to see how it works.";
+            input.focus();
+            return;
+          }
+          if (note) note.textContent = "Opening Growing Minds AI with your question…";
+          var target = "/tools/growing-minds-ai";
+          try { window.sessionStorage.setItem("gms-ai-question", q.slice(0, 500)); }
+          catch (e) { target += "?q=" + encodeURIComponent(q.slice(0, 500)); }
+          window.location.assign(target);
         });
-      }, { threshold: 0.3 });
-      io.observe(chat);
-    }
-
-    // Composer: honest hand-off to the (free) full tutor. The question travels
-    // with the parent via ?q= (the AI page prefills it and never auto-sends),
-    // so nobody has to type it twice.
-    if (form && input) {
-      form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        var q = input.value.trim();
-        if (!q) {
-          if (note) note.textContent = "Type a question to see how it works.";
-          input.focus();
-          return;
-        }
-        if (note) note.textContent = "Opening Growing Minds AI with your question…";
-        window.location.assign("/tools/growing-minds-ai?q=" + encodeURIComponent(q.slice(0, 500)));
-      });
+      }
     }
   }
 
@@ -463,9 +330,19 @@
           showSuccess();
         })
         .catch(function (error) {
-          // Network failure: fall back to a native full-page POST (server redirects to /thank-you).
-          if (error && error.name === "TypeError") { form.submit(); return; }
-          setStatus(error.message || "Something went wrong — please try again. Your details are still here.", "error");
+          if (error && error.name === "TypeError") {
+            // Offline: a native POST would only reach the browser's error page and
+            // lose what they typed, so keep them here with their details intact.
+            if (navigator.onLine === false) {
+              setStatus("You seem to be offline. Your details are still here; send it again once you're back online.", "error");
+              return;
+            }
+            // Any other network failure: fall back to a native full-page POST
+            // (the server redirects to /thank-you).
+            form.submit();
+            return;
+          }
+          setStatus(error.message || "That didn\u2019t go through. Your details are still here, so try again in a moment.", "error");
         })
         .finally(function () {
           setLoading(false);
@@ -474,9 +351,9 @@
   }
 
   // ------------------------------------------------------------------
-  // Mobile sticky enrollment CTA
-  // Visible only after the hero CTAs scroll away AND before the signup /
-  // footer bands (which carry their own CTA) come into view — so the shortcut
+  // Mobile sticky enrollment CTA (jumps to the enrol band)
+  // Visible only after the hero CTAs scroll away AND while no band that
+  // carries its own CTA is in view — so the shortcut
   // is always reachable without ever duplicating a CTA already on screen.
   // Pure enhancement: CSS keeps it hidden on desktop and off-screen with no JS.
   // ------------------------------------------------------------------
@@ -486,11 +363,14 @@
     if (!bar || !heroCtas || !("IntersectionObserver" in window)) return;
 
     var pastHero = false;
-    var endEls = [document.querySelector(".signup"), document.querySelector(".site-footer")].filter(Boolean);
-    var visibleEnds = 0;
+    // The bar steps aside wherever the page already offers the same choice:
+    // the open-now strip, the curriculum (its own buttons), the enroll band,
+    // and the footer.
+    var endEls = [document.querySelector(".open-now"), document.getElementById("classes"), document.querySelector(".signup"), document.querySelector(".site-footer")].filter(Boolean);
+    var visibleEnds = new Set();
 
     function update() {
-      bar.classList.toggle("is-visible", pastHero && visibleEnds === 0);
+      bar.classList.toggle("is-visible", pastHero && visibleEnds.size === 0);
     }
 
     new IntersectionObserver(function (entries) {
@@ -504,9 +384,8 @@
     if (endEls.length) {
       var endObserver = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
-          visibleEnds += e.isIntersecting ? 1 : -1;
+          if (e.isIntersecting) visibleEnds.add(e.target); else visibleEnds.delete(e.target);
         });
-        if (visibleEnds < 0) visibleEnds = 0;
         update();
       }, { threshold: 0 });
       endEls.forEach(function (el) { endObserver.observe(el); });
@@ -515,7 +394,6 @@
 
   ready(function () {
     initReveal();
-    initArc();
     initChat();
     initWaitlist();
     initMobileCta();

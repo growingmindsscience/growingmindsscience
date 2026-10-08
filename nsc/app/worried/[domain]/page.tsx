@@ -75,7 +75,7 @@ export default async function WorriedDomainPage({
             </li>
           </ul>
           <p className="mt-4">
-            <Link href="/worried" className="inline-flex min-h-11 items-center text-sm text-teal-soft underline">
+            <Link href="/worried" className="inline-flex min-h-11 items-center text-sm text-ink-muted underline">
               ← All guides
             </Link>
           </p>
@@ -98,7 +98,7 @@ export default async function WorriedDomainPage({
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-6 py-10">
       <header className="print:hidden">
-        <Link href="/worried" className="inline-flex min-h-11 items-center text-sm text-teal-soft underline">
+        <Link href="/worried" className="inline-flex min-h-11 items-center text-sm text-ink-muted underline">
           ← All guides
         </Link>
         <h1 className="mt-1 text-3xl font-semibold text-ink-deep">
@@ -108,7 +108,7 @@ export default async function WorriedDomainPage({
           A few questions about what you actually see, then a concrete plan.
           Takes about two minutes, and the full result stays on this screen.
         </p>
-        <p className="mt-2 max-w-xl text-sm text-teal-soft">
+        <p className="mt-2 max-w-xl text-sm text-ink-muted">
           To improve these guides we keep a record of the age and the answers
           you tap, never a name or anything you type. If you&rsquo;re signed
           in, that record is linked to your account.

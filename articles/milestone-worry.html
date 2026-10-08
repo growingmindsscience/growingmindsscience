@@ -4,13 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>What to do with milestone worry - Growing Minds Science</title>
+  <title>What to do with milestone worry | Growing Minds Science</title>
   <meta name="description" content="A calmer way to read developmental milestones: what the ranges actually mean, when a missed milestone is worth a conversation, and how to use a milestone tracker without turning every observation into anxiety." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/articles/milestone-worry" />
 
   <meta property="og:type" content="article" />
@@ -19,32 +20,33 @@
   <meta property="og:image" content="https://growingmindsscience.com/assets/img/og/milestone-worry.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Growing Minds Science — What to do with milestone worry" />
+  <meta property="og:image:alt" content="Growing Minds Science | What to do with milestone worry" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://growingmindsscience.com/assets/img/og/milestone-worry.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400..800&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=25806045f8" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=5122b7e7ee" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=44002cebb8" />
+  <link rel="stylesheet" href="../assets/css/refresh.css?v=d297404b34" />
 
   <style>
     .article-hero { padding: clamp(3.5rem, 7vw, 6rem) 0 var(--space-10); background: linear-gradient(180deg, color-mix(in oklab, var(--accent-soft) 22%, var(--bg)) 0%, var(--bg) 100%); border-bottom: 1px solid var(--border-soft); }
     .article-layout { display: grid; grid-template-columns: minmax(0, .72fr) minmax(240px, .28fr); gap: clamp(var(--space-8), 6vw, var(--space-16)); align-items: start; }
     .article-kicker { color: var(--accent-brown); font-size: var(--text-sm); font-weight: 600; line-height: 1.4; margin: 0 0 var(--space-4); }
-    .article-title { max-width: 22ch; margin: 0 0 var(--space-5); font-family: var(--font-display); font-size: clamp(2.3rem, 1.2rem + 3.4vw, 3.6rem); font-weight: 500; letter-spacing: -0.005em; line-height: 1.06; text-wrap: balance; }
+    .article-title { max-width: 22ch; margin: 0 0 var(--space-5); font-family: var(--font-display); font-size: clamp(2.3rem, 1.2rem + 3.2vw, 3.4rem); font-weight: 500; letter-spacing: -0.005em; line-height: 1.06; text-wrap: balance; }
     .article-dek { max-width: 48rem; color: var(--ink-soft); font-size: var(--text-lg); line-height: 1.55; margin: 0; }
     .article-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); color: var(--ink-muted); font-size: var(--text-sm); margin-top: var(--space-6); }
     .article-cardlet, .article-toc, .article-callout, .sources-panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-5); }
-    .article-cardlet h2, .article-toc h2 { font-size: var(--text-md); margin: 0 0 var(--space-3); }
+    /* Scoped under .article-body so the article h2 rule below cannot inflate the sidebar headings. */
+    .article-body .article-cardlet h2, .article-body .article-toc h2, .article-cardlet h2, .article-toc h2 { font-size: var(--text-md); margin: 0 0 var(--space-3); }
     .article-cardlet p, .article-toc a { color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.6; }
     .article-toc { position: sticky; top: calc(var(--header-height) + var(--space-6)); }
     .article-toc ol { display: grid; gap: var(--space-2); list-style: none; margin: 0; padding: 0; }
     .article-toc a { text-decoration: none; }
     .article-toc a:hover { color: var(--primary); }
     .article-body { padding-block: var(--space-14); }
-    .article-body article { max-width: 68ch; }
+    .article-body article { max-width: 66ch; } /* 66ch of the 17px base is about 60ch of the 19px body text */
     .article-body h2 { margin: var(--space-10) 0 var(--space-4); font-size: var(--text-2xl); }
     .article-body h3 { margin: var(--space-7) 0 var(--space-3); font-size: var(--text-lg); }
     .article-body p { color: var(--ink-soft); font-size: var(--text-md); line-height: 1.78; margin: 0 0 var(--space-5); }
@@ -59,11 +61,41 @@
     .sources-panel ul { margin-bottom: 0; }
     .article-cta { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
     .article-figure { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-6); margin: var(--space-8) 0; }
-    .article-figure svg { display: block; width: 100%; height: auto; }
+    /* Figures are drawn on a 480-unit viewBox and their text is set in SVG
+       units, so it scales with the drawing. Capped at 32rem, 16-unit labels
+       render at about 17px on wide screens. Below 560px the figure gives up
+       some padding and labels step to 22 units: about 14px on a 375px phone. */
+    .article-figure svg { display: block; width: 100%; max-width: 32rem; height: auto; margin-inline: auto; }
+    .article-figure .af-text { font: 500 16px var(--font-body); fill: var(--ink-soft); }
+    .article-figure .af-strong { font-weight: 700; fill: var(--ink); }
+    .article-figure .af-muted { fill: var(--ink-muted); }
+    .article-figure .af-primary { fill: var(--primary); }
+    .article-figure .af-accent { fill: var(--accent-brown); }
+    .article-figure .af-note { font-style: italic; fill: var(--accent-brown); }
+    .article-figure .af-head, .article-figure .af-key, .article-figure .af-foot, .article-figure figcaption { max-width: 32rem; margin-inline: auto; }
+    .article-figure .af-head { margin-block: 0 var(--space-4); color: var(--ink); font-size: var(--text-base); font-weight: 700; line-height: 1.4; text-wrap: balance; }
+    .article-figure .af-foot { margin-block: var(--space-4) 0; color: var(--accent-brown); font-size: var(--text-base); font-style: italic; line-height: 1.5; text-wrap: balance; }
+    .article-figure .af-key { display: grid; gap: var(--space-3); margin-block: var(--space-5) 0; padding: var(--space-4) 0 0; border-top: 1px solid var(--border-soft); list-style: none; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.55; }
+    .article-figure .af-key li { display: grid; grid-template-columns: 1.75rem minmax(0, 1fr); gap: var(--space-3); align-items: start; }
+    .article-figure .af-key b { color: var(--ink); font-weight: 700; }
+    .article-figure .af-key__num { display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border: 2px solid var(--primary); border-radius: 50%; color: var(--primary); font-size: var(--text-sm); font-weight: 700; line-height: 1; }
+    .article-figure .af-key__num--warm { border-color: var(--warm); color: var(--accent-brown); }
+    .article-figure .af-key--stages { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-5); }
+    .article-figure .af-key--stages li { display: block; }
+    .article-figure .af-key--stages b { display: block; }
+    @media (max-width: 560px) {
+      .article-figure { padding: var(--space-4); }
+      .article-figure .af-text { font-size: 22px; }
+    }
+    /* Narrower phones (360px class): the drawing borrows 8px of padding each side. */
+    @media (max-width: 374px) {
+      .article-figure svg { width: calc(100% + 2 * var(--space-2)); max-width: none; margin-inline: calc(-1 * var(--space-2)); }
+    }
     .article-figure figcaption { color: var(--ink-muted); font-size: var(--text-sm); line-height: 1.6; margin-top: var(--space-4); }
+    .article-figure figcaption b { font-family: var(--font-display); font-style: italic; font-weight: 600; color: var(--amber-deep); }
+    .article-figure .article-figure__head { margin: 0 0 var(--space-4); }
     .figure-steps { display: grid; gap: var(--space-5); margin: 0; padding: 0; list-style: none; }
     .figure-steps li { display: grid; grid-template-columns: 44px 1fr; gap: var(--space-4); align-items: start; }
-    .figure-step__num { display: grid; place-items: center; width: 44px; height: 44px; border: 2px solid var(--primary); border-radius: 999px; color: var(--primary); background: var(--bg-alt); font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
     .figure-steps h4 { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); }
     .figure-steps p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
     .figure-foot { margin: var(--space-5) 0 0; padding-top: var(--space-4); border-top: 1px dashed var(--border-soft); color: var(--accent-brown); font-style: italic; font-size: var(--text-md); }
@@ -79,7 +111,6 @@
       .article-toc { position: static; }
       .article-body .article-toc,
       .article-body .article-layout > article { grid-column: auto; grid-row: auto; }
-      .article-title { max-width: 16ch; }
     }
   </style>
   <!-- STRUCTURED-DATA:start (generated by scripts/build-structured-data.mjs) -->
@@ -114,7 +145,7 @@
       "url": "https://growingmindsscience.com/articles/milestone-worry",
       "image": "https://growingmindsscience.com/assets/img/og/milestone-worry.png",
       "datePublished": "2026-06-29T12:41:47-07:00",
-      "dateModified": "2026-07-19T18:04:14-07:00"
+      "dateModified": "2026-10-08T16:07:54-04:00"
     },
     {
       "@context": "https://schema.org",
@@ -143,15 +174,15 @@
   ]
   </script>
   <!-- STRUCTURED-DATA:end -->
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=6f2055b923" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=de9d0eebaf" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -168,7 +199,7 @@
               <div class="nav__menu">
                 <ul class="nav__submenu">
                   <li><a class="nav__submenu-link" href="/tools/growing-minds-ai.html"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A ten-minute counting check-in you run at home.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A free ten-minute counting check-in; the full version is $34.</span></a></li>
                   <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
                   <li><a class="nav__submenu-link" href="/tools/communication-snapshot.html"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
                   <li><a class="nav__submenu-link" href="/arcade/"><span class="nav__submenu-title">Arcade</span><span class="nav__submenu-desc">Silly games for a five-minute break between lessons.</span></a></li>
@@ -179,7 +210,7 @@
           </li>
           <li><a class="nav__link" href="/articles/" aria-current="page">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
+          <li class="nav__item nav__auth"><details class="nav__details nav__details--auth"><summary class="nav__link nav__summary">My classes <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary><div class="nav__menu nav__menu--auth"><ul class="nav__submenu"><li><a class="nav__submenu-link" href="/nsc/app/classes"><span class="nav__submenu-title">Birth to 12 months</span><span class="nav__submenu-desc">Your lessons and progress on this site.</span></a></li><li><a class="nav__submenu-link" href="https://matthew-s-site-de0b.thinkific.com/users/sign_in" target="_blank" rel="noopener"><span class="nav__submenu-title">Toddler years <span aria-hidden="true">&nearr;</span></span><span class="nav__submenu-desc">Your lessons on Thinkific, our course platform.</span><span class="u-visually-hidden"> (opens in a new tab)</span></a></li></ul></div></details></li>
           <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
@@ -226,11 +257,11 @@
         </aside>
 
         <article>
-          <p>Here is a scene that plays out constantly. A parent is at the park, watching their fourteen-month-old, who is happily not walking. Across the grass, another fourteen-month-old is striding around like a tiny commuter. The first parent's stomach drops. By the time they get home, they've typed "should my baby be walking by now" into a search bar, found a chart, and started counting weeks.</p>
+          <p>Here is a scene that plays out constantly. A parent is at the park, watching their fourteen-month-old, who is happily not walking. Across the grass, another fourteen-month-old is striding around like a tiny commuter. The first parent&rsquo;s stomach drops. By the time they get home, they&rsquo;ve typed &ldquo;should my baby be walking by now&rdquo; into a search bar, found a chart, and started counting weeks.</p>
 
           <p>Nothing has gone wrong here, in the child or the parent. Both children are almost certainly fine. But the milestone chart, which is a genuinely useful clinical tool, has just been read the way it is most often read by tired, loving parents: as a report card their child is either passing or failing.</p>
 
-          <p>It isn't one. Understanding what those charts actually are, and aren't, takes a surprising amount of the fear out of them.</p>
+          <p>It isn&rsquo;t one. Understanding what those charts actually are, and aren&rsquo;t, takes a surprising amount of the fear out of them.</p>
 
           <div class="article-callout">
             <p><strong>A milestone is a description of when a behavior usually shows up across a large population of children. It is not a promise about your specific child, or a deadline they are obligated to meet.</strong></p>
@@ -238,58 +269,59 @@
 
           <h2 id="what-milestones-are">What a milestone actually is</h2>
 
-          <p>When a chart says a child "walks at 12 months," that number is a statistical summary of thousands of children, not a setting on a timer. Independent walking is considered typical anywhere from roughly 9 to 18 months. A child who walks at 10 months and a child who walks at 16 months are both squarely within the normal range. They are not early and late versions of a deadline. They are two normal children.</p>
+          <p>When a chart says a child &ldquo;walks at 12 months,&rdquo; that number is a statistical summary of thousands of children, not a setting on a timer. Independent walking is considered typical anywhere from roughly 9 to 18 months. A child who walks at 10 months and a child who walks at 16 months are both squarely within the normal range. They are not early and late versions of a deadline. They are two normal children.</p>
 
-          <p>This matters because of how the ranges get compressed when they reach parents. A pediatric handout has limited space, so "9 to 18 months, with wide individual variation" often becomes a single tidy "12 months." The variation, which is the most reassuring part of the whole picture, is exactly what gets cut.</p>
+          <p>This matters because of how the ranges get compressed when they reach parents. A pediatric handout has limited space, so &ldquo;9 to 18 months, with wide individual variation&rdquo; often becomes a single tidy &ldquo;12 months.&rdquo; The variation, which is the most reassuring part of the whole picture, is exactly what gets cut.</p>
 
-          <p>In 2022 the CDC and the American Academy of Pediatrics actually revised their milestone checklists with this problem in mind. One of the bigger changes: they moved many milestones to the age by which about 75 percent of children have reached the skill, rather than the 50th-percentile median. The reasoning was practical. A milestone set at the median, by definition, is something half of all typical children haven't done yet, which generates a lot of unnecessary alarm. Setting the marker at the point where most children have the skill makes a missed milestone more meaningful, and makes the chart less likely to scare a parent of a perfectly typical late-ish walker.</p>
+          <p>In 2022 the CDC and the American Academy of Pediatrics actually revised their milestone checklists with this problem in mind. One of the bigger changes: they moved many milestones to the age by which about 75 percent of children have reached the skill, rather than the 50th-percentile median. The reasoning was practical. A milestone set at the median, by definition, is something half of all typical children haven&rsquo;t done yet, which generates a lot of unnecessary alarm. Setting the marker at the point where most children have the skill makes a missed milestone more meaningful, and makes the chart less likely to scare a parent of a perfectly typical late-ish walker.</p>
 
           <figure class="article-figure">
-            <p class="article-kicker" style="margin-bottom: var(--space-4);">Ranges, not deadlines</p>
-            <svg viewBox="0 0 720 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A horizontal band from 9 to 18 months marks the typical range for independent walking. A child who walks at 10 months and a child who walks at 16 months both sit inside the band — both are typical.">
-              <text x="335" y="48" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="16.5" fill="var(--ink)">Independent walking: typical from roughly 9 to 18 months</text>
-              <line x1="60" y1="130" x2="660" y2="130" stroke="var(--ink-muted)" stroke-opacity=".45" stroke-width="2" />
-              <rect x="110" y="114" width="450" height="32" rx="16" fill="var(--primary)" fill-opacity=".16" stroke="var(--primary)" stroke-opacity=".5" stroke-width="1.5" />
-              <line x1="110" y1="152" x2="110" y2="160" stroke="var(--ink-muted)" stroke-width="1.5" />
-              <line x1="260" y1="152" x2="260" y2="160" stroke="var(--ink-muted)" stroke-width="1.5" />
-              <line x1="410" y1="152" x2="410" y2="160" stroke="var(--ink-muted)" stroke-width="1.5" />
-              <line x1="560" y1="152" x2="560" y2="160" stroke="var(--ink-muted)" stroke-width="1.5" />
-              <text x="110" y="178" text-anchor="middle" font-family="var(--font-display)" font-size="13" fill="var(--ink-muted)">9 mo</text>
-              <text x="260" y="178" text-anchor="middle" font-family="var(--font-display)" font-size="13" fill="var(--ink-muted)">12 mo</text>
-              <text x="410" y="178" text-anchor="middle" font-family="var(--font-display)" font-size="13" fill="var(--ink-muted)">15 mo</text>
-              <text x="560" y="178" text-anchor="middle" font-family="var(--font-display)" font-size="13" fill="var(--ink-muted)">18 mo</text>
-              <circle cx="160" cy="130" r="9" fill="var(--warm)" stroke="var(--surface)" stroke-width="2" />
-              <text x="160" y="92" text-anchor="middle" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">walks at 10 months</text>
-              <line x1="160" y1="98" x2="160" y2="116" stroke="var(--warm)" stroke-opacity=".5" stroke-width="1.5" />
-              <circle cx="460" cy="130" r="9" fill="var(--warm)" stroke="var(--surface)" stroke-width="2" />
-              <text x="460" y="92" text-anchor="middle" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">walks at 16 months</text>
-              <line x1="460" y1="98" x2="460" y2="116" stroke="var(--warm)" stroke-opacity=".5" stroke-width="1.5" />
-              <text x="335" y="205" text-anchor="middle" font-family="var(--font-body)" font-style="italic" font-size="14" fill="var(--accent-brown)">Not early and late versions of a deadline &mdash; two normal children.</text>
+            <p class="af-head">Independent walking: typical from roughly 9 to 18 months</p>
+            <svg viewBox="0 0 480 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig-milestone-worry-title" aria-describedby="fig-milestone-worry-desc">
+              <title id="fig-milestone-worry-title">The typical age range for independent walking, 9 to 18 months.</title>
+              <desc id="fig-milestone-worry-desc">A horizontal band from 9 to 18 months marks the typical range for independent walking. A child who walks at 10 months and a child who walks at 16 months both sit inside the band: both are typical.</desc>
+              <line x1="12" y1="78" x2="468" y2="78" stroke="var(--ink-muted)" stroke-opacity=".45" stroke-width="2" />
+              <rect x="48" y="62" width="384" height="32" rx="16" fill="var(--primary)" fill-opacity=".16" stroke="var(--primary)" stroke-opacity=".5" stroke-width="1.5" />
+              <line x1="48" y1="100" x2="48" y2="108" stroke="var(--ink-muted)" stroke-width="1.5" />
+              <line x1="176" y1="100" x2="176" y2="108" stroke="var(--ink-muted)" stroke-width="1.5" />
+              <line x1="304" y1="100" x2="304" y2="108" stroke="var(--ink-muted)" stroke-width="1.5" />
+              <line x1="432" y1="100" x2="432" y2="108" stroke="var(--ink-muted)" stroke-width="1.5" />
+              <text class="af-text af-muted" x="48" y="132" text-anchor="middle">9 mo</text>
+              <text class="af-text af-muted" x="176" y="132" text-anchor="middle">12 mo</text>
+              <text class="af-text af-muted" x="304" y="132" text-anchor="middle">15 mo</text>
+              <text class="af-text af-muted" x="432" y="132" text-anchor="middle">18 mo</text>
+              <text class="af-text" x="104" y="28" text-anchor="middle">walks at 10 months</text>
+              <line x1="91" y1="38" x2="91" y2="64" stroke="var(--warm)" stroke-opacity=".6" stroke-width="1.5" />
+              <circle cx="91" cy="78" r="9" fill="var(--warm)" stroke="var(--surface)" stroke-width="2" />
+              <text class="af-text" x="347" y="28" text-anchor="middle">walks at 16 months</text>
+              <line x1="347" y1="38" x2="347" y2="64" stroke="var(--warm)" stroke-opacity=".6" stroke-width="1.5" />
+              <circle cx="347" cy="78" r="9" fill="var(--warm)" stroke="var(--surface)" stroke-width="2" />
             </svg>
-            <figcaption>Since the 2022 CDC/AAP revision, checklist ages mark the point by which about 75 percent of children have a skill, not the average &mdash; so a chart age is closer to &ldquo;most kids have this by now&rdquo; than &ldquo;your child should have this already.&rdquo;</figcaption>
+            <p class="af-foot">Not early and late versions of a deadline: two normal children.</p>
+            <figcaption><b>Fig. 1</b> &middot; Ranges, not deadlines. Since the 2022 CDC/AAP revision, checklist ages mark the point by which about 75 percent of children have a skill, not the average. So a chart age is closer to &ldquo;most kids have this by now&rdquo; than &ldquo;your child should have this already.&rdquo;</figcaption>
           </figure>
 
           <p>The takeaway from that revision is worth holding onto: even the experts decided the old charts were making parents worry too early.</p>
 
           <h3>Order varies too, not just timing</h3>
 
-          <p>Children also don't move through development in a single fixed sequence. Some skip crawling and go straight to cruising. Some are physically cautious and verbally precocious, or the reverse. A child can be ahead in language, right on track for motor skills, and taking their time socially, all at once, and still be developing typically. Development is less a ladder everyone climbs in the same order and more a set of overlapping streams that each move at their own pace.</p>
+          <p>Children also don&rsquo;t move through development in a single fixed sequence. Some skip crawling and go straight to cruising. Some are physically cautious and verbally precocious, or the reverse. A child can be ahead in language, right on track for motor skills, and taking their time socially, all at once, and still be developing typically. Development is less a ladder everyone climbs in the same order and more a set of overlapping streams that each move at their own pace.</p>
 
           <h2 id="late-talkers">The late-talker example</h2>
 
-          <p>Language is where milestone anxiety runs hottest, so it's a useful case. Plenty of toddlers are slow to talk and then aren't. Researchers actually study this group, sometimes called "late talkers": children with typical hearing, comprehension, and play, who are simply behind on spoken words around 18 to 30 months.</p>
+          <p>Language is where milestone anxiety runs hottest, so it&rsquo;s a useful case. Plenty of toddlers are slow to talk and then aren&rsquo;t. Researchers actually study this group, sometimes called &ldquo;late talkers&rdquo;: children with typical hearing, comprehension, and play, who are simply behind on spoken words around 18 to 30 months.</p>
 
-          <p>Longitudinal work by Leslie Rescorla and others following these children has found that a substantial share catch up to the typical range by school age without any intervention at all. That doesn't mean a slow-to-talk toddler should always just be watched and waited on; comprehension, gestures, and social engagement matter, and some late talkers do benefit from support. But it does mean that "behind on a milestone at two" and "has a lasting problem" are very different statements, and the first is far more common than the second.</p>
+          <p>Longitudinal work by Leslie Rescorla and others following these children has found that a substantial share catch up to the typical range by school age without any intervention at all. That doesn&rsquo;t mean a slow-to-talk toddler should always just be watched and waited on; comprehension, gestures, and social engagement matter, and some late talkers do benefit from support. But it does mean that &ldquo;behind on a milestone at two&rdquo; and &ldquo;has a lasting problem&rdquo; are very different statements, and the first is far more common than the second.</p>
 
-          <p>I'm not telling you this so you'll ignore a concern. I'm telling you because the leap from "my kid isn't doing the thing on the chart" to "something is wrong" is the leap that does the most damage to a parent's peace of mind, and it's usually not warranted.</p>
+          <p>I&rsquo;m not telling you this so you&rsquo;ll ignore a concern. I&rsquo;m telling you because the leap from &ldquo;my kid isn&rsquo;t doing the thing on the chart&rdquo; to &ldquo;something is wrong&rdquo; is the leap that does the most damage to a parent&rsquo;s peace of mind, and it&rsquo;s usually not warranted.</p>
 
           <h2 id="cost-of-worry">The quiet cost of milestone worry</h2>
 
-          <p>Worry feels like diligence, so it's easy to assume more of it is better. But milestone anxiety has real costs that are worth naming.</p>
+          <p>Worry feels like diligence, so it&rsquo;s easy to assume more of it is better. But milestone anxiety has real costs that are worth naming.</p>
 
-          <p>The first is that it changes how you're with your child. A parent who is anxiously monitoring tends to start testing: holding up the toy and waiting to see if the pointing happens, narrating less playfully because they're checking a box instead of having a moment. Children feel the shift from "we're playing" to "I'm being evaluated," even when they can't name it. The irony is that relaxed, playful, responsive interaction is the thing that actually fuels development, and anxiety quietly erodes it.</p>
+          <p>The first is that it changes how you&rsquo;re with your child. A parent who is anxiously monitoring tends to start testing: holding up the toy and waiting to see if the pointing happens, narrating less playfully because they&rsquo;re checking a box instead of having a moment. Children feel the shift from &ldquo;we&rsquo;re playing&rdquo; to &ldquo;I&rsquo;m being evaluated,&rdquo; even when they can&rsquo;t name it. The irony is that relaxed, playful, responsive interaction is the thing that actually fuels development, and anxiety quietly erodes it.</p>
 
-          <p>The second cost is simpler and harder to get back. The fourteen-month-old who isn't walking yet is, right now, doing a hundred other remarkable things: babbling, pointing, laughing at the same joke for the eleventh time, learning what the word "more" can get them. Spending that stretch comparing them to a stranger's toddler at the park means partly missing the child who is actually in front of you. That time doesn't come around again.</p>
+          <p>The second cost is simpler and harder to get back. The fourteen-month-old who isn&rsquo;t walking yet is, right now, doing a hundred other remarkable things: babbling, pointing, laughing at the same joke for the eleventh time, learning what the word &ldquo;more&rdquo; can get them. Spending that stretch comparing them to a stranger&rsquo;s toddler at the park means partly missing the child who is actually in front of you. That time doesn&rsquo;t come around again.</p>
 
           <div class="translation-grid">
             <div class="translation-card">
@@ -307,15 +339,15 @@
           <p>None of this is an argument for ignoring real concerns. Attentiveness is good. The point is to aim it at the patterns that actually carry signal, rather than at every individual marker. A few are worth a conversation with your pediatrician.</p>
 
           <ul>
-            <li><strong>Loss of skills.</strong> This is the most important one. A child who was babbling, using words, waving, or making eye contact and then stops doing those things is showing a pattern that always warrants a prompt conversation, regardless of age. Regression is different from slow progress, and it should never be filed under "wait and see."</li>
+            <li><strong>Loss of skills.</strong> This is the most important one. A child who was babbling, using words, waving, or making eye contact and then stops doing those things is showing a pattern that always warrants a prompt conversation, regardless of age. Regression is different from slow progress, and it should never be filed under &ldquo;wait and see.&rdquo;</li>
             <li><strong>A consistent lack of back-and-forth.</strong> Not responding to their name by around their first birthday, not pointing to show you things or following your point, very little shared eye contact or social smiling, not engaging in the serve-and-return rhythm with you. These social-communication signals tend to matter more than the timing of any single physical milestone.</li>
             <li><strong>Falling behind across several areas at once.</strong> One milestone running a bit late is usually nothing. A child who is consistently behind across motor, language, and social domains together is a different picture and worth discussing.</li>
-            <li><strong>It keeps nagging at you.</strong> Parental concern is not just a feeling to be talked out of. Research on tools like the PEDS (Parents' Evaluation of Developmental Status) has found that parents' own concerns are a meaningful screening signal, often picking up real issues. If something has been quietly bothering you for weeks, that is itself a reason to ask.</li>
+            <li><strong>It keeps nagging at you.</strong> Parental concern is not just a feeling to be talked out of. Research on tools like the PEDS (Parents&rsquo; Evaluation of Developmental Status) has found that parents&rsquo; own concerns are a meaningful screening signal, often picking up real issues. If something has been quietly bothering you for weeks, that is itself a reason to ask.</li>
           </ul>
 
           <p>And here is the reframe that takes the pressure off the decision: <em>asking is cheap, early, and never an overreaction.</em></p>
 
-          <p>Bringing a question to your pediatrician doesn't commit you to anything. Developmental surveillance, the ongoing watching your pediatrician does at every visit, is meant to be paired with structured screening at specific ages; in the United States, the AAP recommends a general developmental screen at 9, 18, and 30 months, and an autism-specific screen (often the M-CHAT-R) at 18 and 24 months. If a screen or your concern points to anything, a referral for a free evaluation through Early Intervention (the birth-to-three system in the US) costs you nothing and obligates you to nothing. Early support, when it's actually needed, tends to help more the earlier it starts. So the expected value of asking is almost always positive, and the downside is mostly just a reassuring appointment.</p>
+          <p>Bringing a question to your pediatrician doesn&rsquo;t commit you to anything. Developmental surveillance, the ongoing watching your pediatrician does at every visit, is meant to be paired with structured screening at specific ages; in the United States, the AAP recommends a general developmental screen at 9, 18, and 30 months, and an autism-specific screen (often the M-CHAT-R) at 18 and 24 months. If a screen or your concern points to anything, a referral for a free evaluation through Early Intervention (the birth-to-three system in the US) costs you nothing and obligates you to nothing. Early support, when it&rsquo;s actually needed, tends to help more the earlier it starts. So the expected value of asking is almost always positive, and the downside is mostly just a reassuring appointment.</p>
 
           <p>If talking is the specific thing on your mind, our free <a href="/tools/communication-snapshot">Communication Snapshot</a> is built for exactly this moment: a few careful questions about words, gestures, and understanding, checked against the published red lines, with printable notes for the visit if a conversation is worth having.</p>
 
@@ -323,15 +355,15 @@
 
           <p>A milestone tracker, including the one on this site, is a good tool used one way and an anxiety machine used another. The difference is mostly in what you treat it as.</p>
 
-          <p>It works well as a way to notice patterns over time and to organize your thoughts before an appointment. A pediatric visit is short, and "I've noticed he's not really pointing yet and that's been true for a couple of months" is far more useful to a clinician than a vague worry remembered in the parking lot. Used this way, a tracker turns a swirl of feelings into a couple of specific observations you can actually do something with.</p>
+          <p>It works well as a way to notice patterns over time and to organize your thoughts before an appointment. A pediatric visit is short, and &ldquo;I&rsquo;ve noticed he&rsquo;s not really pointing yet and that&rsquo;s been true for a couple of months&rdquo; is far more useful to a clinician than a vague worry remembered in the parking lot. Used this way, a tracker turns a swirl of feelings into a couple of specific observations you can actually do something with.</p>
 
           <p>It works badly as a daily report card. Checking it constantly, treating every unchecked box as a deficit, and comparing the picture to other children turns a reference into a source of dread. A few things help keep it in the first mode:</p>
 
           <ul>
             <li>Check it occasionally, not daily. Development happens over weeks and months, not overnight, and there is nothing to see by looking more often.</li>
-            <li>Watch the overall trajectory, not the single box. The question that carries information is "is this child generally moving forward over time?" far more than "have they hit this specific marker by this specific week?"</li>
-            <li>Use it to prepare for conversations, not to replace them. A tracker can help you describe what you're seeing. It can't evaluate your child, and it isn't trying to.</li>
-            <li>Let it lower your worry, not raise it. If it's consistently making you more anxious rather than more informed, that's a sign to close it and, if something is genuinely nagging, just call your pediatrician instead.</li>
+            <li>Watch the overall trajectory, not the single box. The question that carries information is &ldquo;is this child generally moving forward over time?&rdquo; far more than &ldquo;have they hit this specific marker by this specific week?&rdquo;</li>
+            <li>Use it to prepare for conversations, not to replace them. A tracker can help you describe what you&rsquo;re seeing. It can&rsquo;t evaluate your child, and it isn&rsquo;t trying to.</li>
+            <li>Let it lower your worry, not raise it. If it&rsquo;s consistently making you more anxious rather than more informed, that&rsquo;s a sign to close it and, if something is genuinely nagging, just call your pediatrician instead.</li>
           </ul>
 
           <p>One more note, for the specific corner of this that is about early numbers: our own <a href="/nsc">Number Path</a> check-in is deliberately built as the opposite of a comparison chart. It places a child on the counting ladder, a sequence every child climbs at their own pace, rather than measuring them against any other child. Same principle as everything above: a placement on a path, never a verdict.</p>
@@ -345,11 +377,11 @@
           <div class="sources-panel">
             <h2>Sources and Further Reading</h2>
             <ul>
-              <li><a href="https://www.cdc.gov/ncbddd/actearly/milestones/index.html" target="_blank" rel="noopener noreferrer">CDC: Learn the Signs. Act Early. — Developmental Milestones</a></li>
+              <li><a href="https://www.cdc.gov/ncbddd/actearly/milestones/index.html" target="_blank" rel="noopener noreferrer">CDC: Learn the Signs. Act Early. Developmental Milestones</a></li>
               <li><a href="https://www.healthychildren.org/English/MotorDelay/Pages/default.aspx" target="_blank" rel="noopener noreferrer">HealthyChildren.org (AAP): Developmental milestones and surveillance</a></li>
               <li>Zubler, J. M., et al. (2022). Evidence-informed milestones for developmental surveillance tools. <em>Pediatrics, 149</em>(3), e2021052138.</li>
               <li>Rescorla, L. (2009). Age 17 language and reading outcomes in late-talking toddlers. <em>Journal of Speech, Language, and Hearing Research, 52</em>(1), 16–30.</li>
-              <li>Glascoe, F. P. (2003). Parents' evaluation of developmental status (PEDS): How well do parents' concerns identify children with developmental and behavioral problems? <em>Clinical Pediatrics, 42</em>(2), 133–138.</li>
+              <li>Glascoe, F. P. (2003). Parents&rsquo; evaluation of developmental status (PEDS): How well do parents&rsquo; concerns identify children with developmental and behavioral problems? <em>Clinical Pediatrics, 42</em>(2), 133–138.</li>
               <li>Council on Children with Disabilities, AAP (2020). Identifying infants and young children with developmental disorders: Developmental surveillance and screening. <em>Pediatrics, 145</em>(1).</li>
             </ul>
           </div>
@@ -377,8 +409,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">A developmental-science education for parents of children 0 to 5.</p>
@@ -391,10 +423,10 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
-            <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
-            <li><a href="/classes/preschool.html">Preschool years</a></li>
-            <li><a href="/classes/family-systems.html">Family systems</a></li>
+            <li><a href="/classes/birth-to-12-months">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood">Toddler years</a></li>
+            <li><a href="/classes/preschool">Preschool years</a></li>
+            <li><a href="/classes/family-systems">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>
           </ul>
         </div>
@@ -427,10 +459,10 @@
     </div>
   </footer>
 
-  <script src="/assets/js/chrome.js?v=15d4f8689c"></script>
+  <script src="/assets/js/chrome.js?v=1413c22959"></script>
 
-  <script src="../assets/js/main.js?v=da0ffde09b" defer></script>
-  <script src="../assets/js/decor.js?v=5532e2edfd" defer></script>
+  <script src="../assets/js/main.js?v=742e637d07" defer></script>
+  <script src="../assets/js/decor.js?v=09ff05457d" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

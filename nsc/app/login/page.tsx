@@ -13,7 +13,7 @@ export default async function LoginPage({
   return (
     <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center gap-6 px-6 py-12">
       <div className="text-center">
-        <p className="text-sm font-medium uppercase tracking-widest text-teal">
+        <p className="text-[0.9375rem] font-semibold text-amber-deep">
           {brand.productName}
         </p>
         <h1 className="mt-1 text-3xl font-semibold text-ink-deep">Welcome back</h1>
@@ -40,20 +40,20 @@ export default async function LoginPage({
             />
           </Field>
           {error && (
-            <p className="text-sm text-[#9C4429]" role="alert">
+            <p className="text-sm text-danger" role="alert">
               {error}
             </p>
           )}
           <SubmitButton className="mt-2">Sign in</SubmitButton>
           <Link
             href="/reset"
-            className="mx-auto inline-flex min-h-11 items-center text-sm text-teal-soft underline"
+            className="mx-auto inline-flex min-h-11 items-center text-sm text-ink-muted underline"
           >
             Forgot your password?
           </Link>
         </form>
       </Card>
-      <p className="text-center text-sm text-teal-soft">
+      <p className="text-center text-sm text-ink-muted">
         New here?{" "}
         <Link href={`/signup?next=${encodeURIComponent(next ?? "/app")}`} className="font-semibold text-teal underline">
           Create an account

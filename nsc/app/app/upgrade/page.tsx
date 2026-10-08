@@ -36,13 +36,13 @@ export default async function UpgradePage({
   return (
     <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center gap-6 px-6 py-12">
       <div className="text-center">
-        <p className="text-sm font-medium uppercase tracking-widest text-teal">
+        <p className="text-[0.9375rem] font-semibold text-amber-deep">
           {brand.productName}
         </p>
         <h1 className="mt-1 text-3xl font-semibold text-ink-deep">
           Unlock the whole thing
         </h1>
-        <p className="mt-2 text-sm text-teal-soft">One payment. Yours for good.</p>
+        <p className="mt-2 text-sm text-ink-muted">One payment. Yours for good.</p>
       </div>
 
       <Card>
@@ -57,11 +57,11 @@ export default async function UpgradePage({
             </li>
           ))}
         </ul>
-        <p className="mt-4 text-sm text-teal-soft">
+        <p className="mt-4 text-sm text-ink-muted">
           The check-in, every re-check-in, and today&rsquo;s prompt stay free.
         </p>
         {error && (
-          <p className="mt-4 text-sm text-[#9C4429]" role="alert">
+          <p className="mt-4 text-sm text-danger" role="alert">
             {error}
           </p>
         )}
@@ -72,10 +72,10 @@ export default async function UpgradePage({
         </form>
       </Card>
 
-      <Link href="/app" className="mx-auto inline-flex min-h-11 items-center text-sm text-teal-soft underline">
+      <Link href="/app" className="mx-auto inline-flex min-h-11 items-center text-sm text-ink-muted underline">
         Maybe later
       </Link>
-      <p className="text-center text-xs text-teal-soft">
+      <p className="text-center text-xs text-ink-muted">
         Buying it for someone else?{" "}
         <Link href="/gift" className="font-semibold text-teal underline">
           Give it as a gift

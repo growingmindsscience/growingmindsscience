@@ -38,13 +38,13 @@ export default async function ActivityPage({
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-6 px-6 py-10">
       <header className="print:hidden">
-        <Link href="/activities" className="text-sm text-teal-soft underline">
+        <Link href="/activities" className="text-sm text-ink-muted underline">
           ← All activities
         </Link>
       </header>
 
       <header>
-        <p className="text-sm font-medium uppercase tracking-widest text-teal">
+        <p className="text-[0.9375rem] font-semibold text-amber-deep">
           {a.months_min}–{a.months_max} months · {a.duration_min} min · mess{" "}
           {a.mess_level}/3
         </p>
@@ -55,7 +55,7 @@ export default async function ActivityPage({
       {unlocked ? (
         <>
           <Card>
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-teal">
+            <h2 className="text-[0.9375rem] font-semibold text-amber-deep">
               You need
             </h2>
             <ul className="mt-2 flex flex-col gap-1 text-ink">
@@ -67,7 +67,7 @@ export default async function ActivityPage({
                   <span>
                     {m.item}
                     {m.note ? (
-                      <span className="text-teal-soft"> — {m.note}</span>
+                      <span className="text-ink-muted"> — {m.note}</span>
                     ) : null}
                   </span>
                 </li>
@@ -76,7 +76,7 @@ export default async function ActivityPage({
           </Card>
 
           <Card>
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-teal">
+            <h2 className="text-[0.9375rem] font-semibold text-amber-deep">
               How it goes
             </h2>
             <ol className="mt-2 flex list-decimal flex-col gap-2 pl-5 text-ink">
@@ -104,7 +104,7 @@ export default async function ActivityPage({
             </p>
           )}
 
-          <p className="text-sm text-teal-soft">{a.evidence_note}</p>
+          <p className="text-sm text-ink-muted">{a.evidence_note}</p>
 
           <div className="print:hidden">
             <PrintButton />

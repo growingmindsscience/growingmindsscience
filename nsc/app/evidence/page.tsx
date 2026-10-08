@@ -60,7 +60,7 @@ export default async function EvidencePage() {
   return (
     <main className="mx-auto flex min-h-screen max-w-3xl flex-col gap-14 px-6 py-16">
       <header className="flex flex-col gap-4">
-        <Link href="/" className="text-sm text-teal-soft underline">
+        <Link href="/" className="text-sm text-ink-muted underline">
           ← {brand.productName}
         </Link>
         <h1 className="text-3xl font-semibold text-ink-deep sm:text-4xl">
@@ -122,7 +122,7 @@ export default async function EvidencePage() {
         return (
           <section key={g.title} className="flex flex-col gap-3">
             <h2 className="text-xl font-semibold text-ink-deep">{g.title}</h2>
-            <p className="text-sm text-teal-soft">{g.blurb}</p>
+            <p className="text-sm text-ink-muted">{g.blurb}</p>
             <div className="flex flex-col gap-3">
               {rows.map((c) => (
                 <Card key={c.tag_id}>
@@ -131,7 +131,7 @@ export default async function EvidencePage() {
                     {c.claim_scope}
                   </p>
                   {c.full_cite && (
-                    <p className="mt-2 text-xs leading-relaxed text-teal-soft">
+                    <p className="mt-2 text-xs leading-relaxed text-ink-muted">
                       {c.full_cite}
                     </p>
                   )}

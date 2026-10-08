@@ -16,7 +16,7 @@ export default async function WorriedIndexPage() {
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-6 py-10">
       <header>
-        <p className="text-sm font-medium uppercase tracking-widest text-teal">
+        <p className="text-[0.9375rem] font-semibold text-amber-deep">
           Growing Minds Science
         </p>
         <h1 className="mt-1 text-3xl font-semibold text-ink-deep">
@@ -50,7 +50,7 @@ export default async function WorriedIndexPage() {
         })}
       </section>
 
-      <p className="text-sm text-teal-soft">
+      <p className="text-sm text-ink-muted">
         Each guide is built from cited sources (CDC milestone checklists and
         peer-reviewed work) and reviewed by a developmental researcher before
         it goes live. It describes and routes; it never diagnoses.

@@ -118,6 +118,18 @@
 .arcade-card__play:hover { background: var(--primary-hover); transform: translateY(-2px); }
 .arcade-card__play:focus-visible { outline: 3px solid var(--warm); outline-offset: 3px; }
 .arcade-card__play span { font-size: 1.2rem; font-weight: 400; }
+/* Games load on demand (GMSArcade.play). The label only shows when the fetch
+   takes a noticeable moment; a failed load leaves a message under the button. */
+.arcade-card__play.is-loading { cursor: progress; }
+.arcade-card__play.is-loading span { display: none; }
+.arcade-card__play.is-loading::after { content: "Loading\2026"; font-weight: 400; font-size: var(--text-xs); }
+.arcade-card .gms-arcade-load-error {
+  flex: 0 0 auto;
+  margin: var(--space-3) 0 0;
+  color: var(--ink);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+}
 @media (max-width: 900px) { .arcade-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 620px) {
   .arcade-gallery__heading { display: block; }

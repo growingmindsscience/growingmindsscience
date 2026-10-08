@@ -1,8 +1,9 @@
 /* Growing Minds Science - asteroids-game.js
-   "Synapse Drift" - a hidden Asteroids-style easter egg on the About page.
+   "Synapse Drift" - an Asteroids-style game on the Arcade page.
 
-   Trigger: a tiny orbit glyph tucked into the About portrait. Opening tears
-   the page away (GMSArcade) and reveals a fullscreen pixel-canvas game.
+   Trigger: the Synapse Drift card on /arcade ([data-arcade-game="asteroids"]).
+   Opening tears the page away (GMSArcade) and reveals a fullscreen
+   pixel-canvas game.
 */
 (function () {
   "use strict";
@@ -820,7 +821,7 @@
         '<div class="gms-arcade-panel__head">' +
           '<p class="gms-arcade-title">Synapse Drift <span>- you found it!</span></p>' +
           '<div style="display:flex;gap:8px;align-items:center">' +
-            '<button type="button" class="gms-arcade-close" data-egg-mute aria-label="Toggle sound">♪</button>' +
+            '<button type="button" class="gms-arcade-close" data-egg-mute aria-label="Sound">♪</button>' +
             '<button type="button" class="gms-arcade-close" data-egg-close aria-label="Close game">&times;</button>' +
           '</div>' +
         '</div>' +
@@ -831,7 +832,7 @@
           '<span>BEST <strong data-egg-best>000000</strong></span>' +
         '</div>' +
         '<div class="gms-arcade-stage gms-arcade-stage--asteroids">' +
-          '<canvas class="gms-arcade-canvas" tabindex="0"></canvas>' +
+          '<canvas class="gms-arcade-canvas" tabindex="0" role="application" aria-label="Synapse Drift play area. Left and right arrows turn, Up thrusts, Space fires, Shift blinks, M mutes."></canvas>' +
           '<div class="gms-arcade-prompt" data-egg-prompt hidden>' +
             '<p class="gms-arcade-prompt__title" data-egg-prompt-title></p>' +
             '<p class="gms-arcade-prompt__text" data-egg-prompt-text></p>' +
@@ -879,7 +880,7 @@
     var muteBtn = overlay.querySelector("[data-egg-mute]");
     function syncMute() {
       muteBtn.textContent = game.isMuted() ? "x" : "♪";
-      muteBtn.setAttribute("aria-pressed", game.isMuted() ? "true" : "false");
+      muteBtn.setAttribute("aria-pressed", game.isMuted() ? "false" : "true");
     }
     muteBtn.addEventListener("click", function () { game.toggleMute(); syncMute(); });
     syncMute();
@@ -989,66 +990,13 @@
     return overlay;
   }
 
-  function closeOverlay(overlay) {
-    if (overlay._unViewport) { overlay._unViewport(); overlay._unViewport = null; }
-    overlay.game.deactivate();
-    window.location.reload();
-  }
-  function openOverlay(overlay) {
-    overlay.classList.add("is-open");
-    document.body.classList.add("gms-arcade-lock");
-    overlay._fitCanvas();
-    document.addEventListener("keydown", overlay._onKeydown);
-    document.addEventListener("keyup", overlay._onKeyup);
-    // resize alone misses iOS URL-bar collapse and orientation quirks.
-    overlay._unViewport = A.onViewportChange(overlay._fitCanvas);
-    overlay.game.activate();
-    window.requestAnimationFrame(function () { overlay._canvas.focus(); });
-  }
+  // Close in place: GMSArcade runs the teardown (loop, wake lock, audio,
+  // listeners), puts the page back and returns focus to the opener.
+  function closeOverlay() { A.closeGame(); }
 
-  function buildTrigger() {
-    var btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "gms-arcade-asteroid-trigger";
-    btn.setAttribute("aria-label", "Hidden game");
-    btn.title = ".";
-    btn.innerHTML =
-      '<svg viewBox="0 0 34 34" aria-hidden="true" shape-rendering="crispEdges">' +
-      '<circle cx="17" cy="17" r="11" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".45"/>' +
-      '<g fill="currentColor">' +
-      '<rect x="15" y="4" width="4" height="4"/>' +
-      '<rect x="23" y="21" width="3" height="3"/>' +
-      '<rect x="8" y="20" width="2" height="2"/>' +
-      '<rect x="15" y="15" width="4" height="4"/>' +
-      '<rect x="18" y="13" width="2" height="2"/>' +
-      '<rect x="12" y="17" width="2" height="2"/>' +
-      '</g></svg>';
-    return btn;
-  }
-
+  // Arcade-only: no hidden trigger elsewhere on the site. The Play button on
+  // /arcade opens it through GMSArcade.play().
   ready(function () {
-    var arcadeTrigger = document.querySelector('[data-arcade-game="asteroids"]');
-    var trigger = arcadeTrigger;
-    if (!trigger) {
-      var anchor = document.querySelector(".about-preview__media--portrait") ||
-        document.querySelector(".about-preview__media") ||
-        document.querySelector(".page-hero .container");
-      if (!anchor) return;
-      var cs = window.getComputedStyle(anchor);
-      if (cs.position === "static") anchor.style.position = "relative";
-
-      trigger = buildTrigger();
-      anchor.appendChild(trigger);
-    }
-
-    var overlay = null, opening = false;
-    function open() {
-      if (opening) return;
-      opening = true;
-      if (!overlay) overlay = buildOverlay();
-      A.tearPageAway(function () { openOverlay(overlay); });
-    }
-    trigger.addEventListener("click", function (e) { e.preventDefault(); open(); });
-    trigger.addEventListener("touchstart", function (e) { e.preventDefault(); open(); }, { passive: false });
+    A.defineGame("asteroids", buildOverlay);
   });
 })();

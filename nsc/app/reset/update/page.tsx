@@ -5,7 +5,7 @@ import { Card, Field } from "@/components/ui";
 import { PasswordInput } from "@/components/password-input";
 import { SubmitButton } from "@/components/submit-button";
 import { brand } from "@/lib/config/brand";
-import { ClassShell, Eyebrow } from "@/components/class-chrome";
+import { ClassShell, ClassWordmark } from "@/components/class-chrome";
 import { classDestination } from "@/lib/class-paths";
 
 export default async function UpdatePasswordPage({
@@ -24,9 +24,9 @@ export default async function UpdatePasswordPage({
     <main className={`mx-auto flex w-full max-w-md flex-col justify-center gap-6 px-6 py-12 ${classFlow ? "flex-1" : "min-h-screen"}`}>
       <div className="text-center">
         {classFlow
-          ? <Eyebrow>Growing Minds Science · Classes</Eyebrow>
-          : <p className="text-sm font-medium uppercase tracking-widest text-teal">{brand.productName}</p>}
-        <h1 className="mt-1 text-3xl font-semibold text-ink-deep">
+          ? <div className="mb-4 flex justify-center"><ClassWordmark href={`/class-login?next=${encodeURIComponent(classDestination(next))}`} /></div>
+          : <p className="text-[0.9375rem] font-semibold text-amber-deep">{brand.productName}</p>}
+        <h1 className="mt-1 text-3xl text-ink-deep sm:text-4xl">
           Choose a new password
         </h1>
       </div>
@@ -38,7 +38,7 @@ export default async function UpdatePasswordPage({
             <PasswordInput id="password" name="password" autoComplete="new-password" minLength={12} aria-describedby="password-hint" required />
           </Field>
           {error && (
-            <p className="text-sm text-coral-deep" role="alert">
+            <p className="text-sm text-danger" role="alert">
               {error}
             </p>
           )}

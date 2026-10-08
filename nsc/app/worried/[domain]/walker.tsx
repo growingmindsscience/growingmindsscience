@@ -151,7 +151,7 @@ export function NavigatorWalker({
             <select
               value={years}
               onChange={(e) => setYears(Number(e.target.value))}
-              className="min-h-11 rounded-xl border border-sea-glass bg-surface px-3 py-2"
+              className="min-h-11 rounded-xl border border-line bg-surface px-3 py-2"
             >
               {[0, 1, 2, 3].map((y) => (
                 <option key={y} value={y}>
@@ -165,7 +165,7 @@ export function NavigatorWalker({
             <select
               value={months}
               onChange={(e) => setMonths(Number(e.target.value))}
-              className="min-h-11 rounded-xl border border-sea-glass bg-surface px-3 py-2"
+              className="min-h-11 rounded-xl border border-line bg-surface px-3 py-2"
             >
               {Array.from({ length: 12 }, (_, m) => (
                 <option key={m} value={m}>
@@ -190,7 +190,7 @@ export function NavigatorWalker({
             <select
               value={weeksEarly}
               onChange={(e) => setWeeksEarly(Number(e.target.value))}
-              className="min-h-11 w-32 rounded-xl border border-sea-glass bg-surface px-3 py-2"
+              className="min-h-11 w-32 rounded-xl border border-line bg-surface px-3 py-2"
             >
               {[4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map((w) => (
                 <option key={w} value={w}>
@@ -200,7 +200,7 @@ export function NavigatorWalker({
             </select>
           </label>
         )}
-        <p className="mt-3 text-xs text-teal-soft">
+        <p className="mt-3 text-xs text-ink-muted">
           For babies born early, we compare against their due-date age until
           age two. The result will say so plainly if that applies.
         </p>
@@ -216,7 +216,7 @@ export function NavigatorWalker({
   if (node.kind === "question") {
     return (
       <div className="flex flex-col gap-4">
-        <p className="text-sm font-medium uppercase tracking-widest text-teal">
+        <p className="text-[0.9375rem] font-semibold text-amber-deep">
           Question {path.length + 1}
         </p>
         <Card>
@@ -227,7 +227,7 @@ export function NavigatorWalker({
           >
             {node.text}
           </h2>
-          {node.help && <p className="mt-2 text-sm text-teal-soft">{node.help}</p>}
+          {node.help && <p className="mt-2 text-sm text-ink-muted">{node.help}</p>}
           <div className="mt-5 flex flex-col gap-2">
             {node.options.map((o, i) => (
               <button
@@ -235,7 +235,7 @@ export function NavigatorWalker({
                 // Keyed by question: every question gets fresh buttons.
                 key={`${node.id}:${i}`}
                 onClick={() => answer(i)}
-                className="min-h-11 rounded-xl border border-sea-glass bg-surface px-4 py-3 text-left text-ink transition-colors hover:border-teal hover:bg-sea-glass/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal"
+                className="min-h-11 rounded-xl border border-line bg-surface px-4 py-3 text-left text-ink transition-colors hover:border-teal hover:bg-sea-glass/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal"
               >
                 {o.label}
               </button>
@@ -245,7 +245,7 @@ export function NavigatorWalker({
         <button
           type="button"
           onClick={back}
-          className="inline-flex min-h-11 items-center self-start text-sm text-teal-soft underline"
+          className="inline-flex min-h-11 items-center self-start text-sm text-ink-muted underline"
         >
           ← Back
         </button>
@@ -265,7 +265,7 @@ export function NavigatorWalker({
     <div className="flex flex-col gap-5">
       <div>
         <span
-          className={`inline-block rounded-full px-3 py-1 text-xs font-medium ${TIER_BADGE[t.tier]}`}
+          className={`inline-block rounded-sm px-3 py-1 text-xs font-medium ${TIER_BADGE[t.tier]}`}
         >
           {TIER_LABEL[t.tier]}
         </span>
@@ -277,7 +277,7 @@ export function NavigatorWalker({
           {t.headline}
         </h2>
         {corrected && (
-          <p className="mt-1 text-sm text-teal-soft">
+          <p className="mt-1 text-sm text-ink-muted">
             Because your child was born early, this compares against their
             corrected age of {age} months.
           </p>
@@ -286,7 +286,7 @@ export function NavigatorWalker({
 
       {path.length > 0 && (
         <Card className="bg-sea-glass/20">
-          <h3 className="text-sm font-semibold uppercase tracking-wide text-teal">
+          <h3 className="text-[0.9375rem] font-semibold text-amber-deep">
             What you told us
           </h3>
           <ul className="mt-2 flex flex-col gap-1.5 text-sm text-ink">
@@ -300,7 +300,7 @@ export function NavigatorWalker({
       )}
 
       <Card>
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-teal">
+        <h3 className="text-[0.9375rem] font-semibold text-amber-deep">
           What&rsquo;s typical, and what this means
         </h3>
         <div className="mt-2 flex flex-col gap-3 text-ink">
@@ -309,7 +309,7 @@ export function NavigatorWalker({
           ))}
         </div>
         {cites.length > 0 && (
-          <ul className="mt-4 flex flex-col gap-1 text-xs text-teal-soft">
+          <ul className="mt-4 flex flex-col gap-1 text-xs text-ink-muted">
             {cites.map((c) => (
               <li key={c.id}>
                 <a href={c.url} target="_blank" rel="noopener noreferrer" className="underline">
@@ -322,10 +322,10 @@ export function NavigatorWalker({
       </Card>
 
       <Card>
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-teal">
+        <h3 className="text-[0.9375rem] font-semibold text-amber-deep">
           What to say to your pediatrician
         </h3>
-        <p className="mt-1 text-sm text-teal-soft">
+        <p className="mt-1 text-sm text-ink-muted">
           Literal sentences. Bring them written down; visits go fast.
         </p>
         <ul className="mt-3 flex flex-col gap-2">
@@ -341,7 +341,7 @@ export function NavigatorWalker({
       </Card>
 
       <Card>
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-teal">
+        <h3 className="text-[0.9375rem] font-semibold text-amber-deep">
           {underThree ? PART_C_BLOCK.title : PART_B_BLOCK.title}
         </h3>
         <div className="mt-2 flex flex-col gap-3 text-ink">
@@ -368,7 +368,7 @@ export function NavigatorWalker({
       </Card>
 
       <Card>
-        <h3 className="text-sm font-semibold uppercase tracking-wide text-teal">
+        <h3 className="text-[0.9375rem] font-semibold text-amber-deep">
           {EVALUATION_BLOCK.title}
         </h3>
         <div className="mt-2 flex flex-col gap-3 text-ink">
@@ -380,7 +380,7 @@ export function NavigatorWalker({
 
       {freeActivities.length > 0 && (
         <Card>
-          <h3 className="text-sm font-semibold uppercase tracking-wide text-teal">
+          <h3 className="text-[0.9375rem] font-semibold text-amber-deep">
             While you wait: things that genuinely help
           </h3>
           <ul className="mt-2 flex flex-col gap-2 text-ink">
@@ -389,7 +389,7 @@ export function NavigatorWalker({
                 <Link href={`/activities/${a.slug}`} className="font-semibold text-teal underline">
                   {a.title}
                 </Link>{" "}
-                <span className="text-sm text-teal-soft">{a.intention}</span>
+                <span className="text-sm text-ink-muted">{a.intention}</span>
               </li>
             ))}
           </ul>
@@ -413,16 +413,16 @@ export function NavigatorWalker({
             setPath([]);
             setHistory([]);
           }}
-          className="inline-flex min-h-11 items-center text-sm text-teal-soft underline"
+          className="inline-flex min-h-11 items-center text-sm text-ink-muted underline"
         >
           Start over
         </button>
-        <Link href="/worried" className="inline-flex min-h-11 items-center text-sm text-teal-soft underline">
+        <Link href="/worried" className="inline-flex min-h-11 items-center text-sm text-ink-muted underline">
           Other guides
         </Link>
       </div>
 
-      <p className="text-xs leading-relaxed text-teal-soft">{DISCLAIMER}</p>
+      <p className="text-xs leading-relaxed text-ink-muted">{DISCLAIMER}</p>
     </div>
   );
 }
@@ -441,7 +441,7 @@ function StatePicker({ rows }: { rows: PartCRow[] }) {
         <select
           value={state}
           onChange={(e) => setState(e.target.value)}
-          className="min-h-11 w-64 max-w-full rounded-xl border border-sea-glass bg-surface px-3 py-2"
+          className="min-h-11 w-64 max-w-full rounded-xl border border-line bg-surface px-3 py-2"
         >
           <option value="">Choose a state</option>
           {rows.map((r) => (

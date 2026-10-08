@@ -6,18 +6,19 @@
      dead spaces on inner pages: page/class/article heroes, waitlist bands,
      and CTA cards. Hand-placed motifs (homepage hero & waitlist) are left
      alone — this script only animates them.
+   - A motif never sits behind a form control: where a band's inputs or
+     buttons fall in the motif's corner (a stacked form on a phone), the
+     motif is hidden. Re-checked on resize.
    - [data-drift="speed"] elements drift slowly against the scroll
      (parallax), rAF-throttled and IntersectionObserver-gated. Positive
      speeds rise as you scroll down; negative speeds sink. The drift is
-     measured from the parent section so the transform never feeds back
-     into its own position.
+     measured and gated on the parent section so the transform never feeds
+     back into its own position or visibility.
    - .gms-reveal motifs surface shape-by-shape the first time they enter
      the viewport (CSS handles the transitions; JS only adds .is-visible).
    - All motion is gated behind html.gms-motion, added only when the
      visitor welcomes motion. With reduced motion or without JS, motifs
      are simply static decoration.
-   - Places the page's hidden arcade easter-egg glyph (body[data-arcade-egg])
-     once the page is idle, and loads the game code only on the first click.
    CSP-safe: external 'self' script, no inline handlers, no eval.
 */
 (function () {
@@ -89,20 +90,69 @@
     return !host.querySelector(":scope > .gms-decor, :scope > svg, :scope > .hero__decor");
   }
 
+  var injected = [];
+  function place(host, node) {
+    host.insertBefore(node, host.firstChild);
+    injected.push(node);
+  }
+
   function inject() {
     document.querySelectorAll(".page-hero, .class-hero, .article-hero, .tool-hero").forEach(function (hero) {
       if (!bare(hero)) return;
-      hero.insertBefore(make("hero-sprig", "-0.1", SPRIG), hero.firstChild);
-      hero.insertBefore(make("hero-rings", "0.16", RINGS), hero.firstChild);
+      place(hero, make("hero-sprig", "-0.1", SPRIG));
+      place(hero, make("hero-rings", "0.16", RINGS));
     });
     document.querySelectorAll("section.signup").forEach(function (band) {
       if (!bare(band)) return;
-      band.insertBefore(make("band-rings", "-0.12", RINGS), band.firstChild);
+      place(band, make("band-rings", "-0.12", RINGS));
     });
     document.querySelectorAll(".cta-strip, .article-cta").forEach(function (card) {
       if (!bare(card)) return;
-      card.insertBefore(make("card-seeds", "", SEEDS), card.firstChild);
+      place(card, make("card-seeds", "", SEEDS));
     });
+  }
+
+  // ------------------------------------------------------------------
+  // Keep clear of form controls
+  // Drift is vertical only, so a motif can cover a control only if their
+  // columns cross. Where they do, and the control lies within the rows the
+  // motif can drift through, the motif is hidden. In practice that is a
+  // band whose form stacks into the motif's corner on narrow screens (the
+  // homepage enrol band below 960px). visibility, not display, so the motif
+  // keeps its box and can be measured again on resize.
+  // ------------------------------------------------------------------
+  var CONTROLS = 'input:not([type="hidden"]), select, textarea, button, summary, .btn';
+
+  function guardControls() {
+    if (!injected.length) return;
+    function check() {
+      var vh = window.innerHeight || 1;
+      injected.forEach(function (node) {
+        var host = node.parentElement;
+        // Offsets ignore transforms, so this is the motif's resting box.
+        if (!host || !node.offsetWidth || node.offsetParent !== host) return;
+        var hb = host.getBoundingClientRect();
+        // Largest drift while the host is in range (initDrift: 80px margin).
+        var reach = Math.abs(parseFloat(node.getAttribute("data-drift")) || 0) * ((hb.height + vh) / 2 + 80);
+        var left = node.offsetLeft, right = left + node.offsetWidth;
+        var top = node.offsetTop - reach, bottom = node.offsetTop + node.offsetHeight + reach;
+        var blocked = Array.prototype.some.call(host.querySelectorAll(CONTROLS), function (c) {
+          var r = c.getBoundingClientRect();
+          if (!r.width || !r.height) return false;
+          var x = r.left - hb.left, y = r.top - hb.top;
+          return x < right && x + r.width > left && y < bottom && y + r.height > top;
+        });
+        node.style.visibility = blocked ? "hidden" : "";
+      });
+    }
+    check();
+    var timer;
+    window.addEventListener("resize", function () {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(check, 150);
+    }, { passive: true });
+    // Web fonts can reflow the band after the first check.
+    window.addEventListener("load", check);
   }
 
   // ------------------------------------------------------------------
@@ -135,15 +185,16 @@
     });
     if (!items.length) return;
 
+    // Watch the host, not the motif. A motif carries its last transform, so
+    // after a jump (Home key, an anchor link) it could be parked outside its
+    // clipped band, never intersect again and never be corrected.
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        for (var i = 0; i < items.length; i++) {
-          if (items[i].el === entry.target) { items[i].on = entry.isIntersecting; break; }
-        }
+        items.forEach(function (d) { if (d.host === entry.target) d.on = entry.isIntersecting; });
       });
       schedule();
     }, { rootMargin: "80px 0px" });
-    items.forEach(function (d) { io.observe(d.el); });
+    items.forEach(function (d) { io.observe(d.host); });
 
     var ticking = false;
     function update() {
@@ -170,167 +221,10 @@
     schedule();
   }
 
-  // ------------------------------------------------------------------
-  // Hidden arcade easter eggs, loaded on demand
-  // A page opts in with <body data-arcade-egg="snake|dino|breakout|
-  // asteroids|invaders|hopper">. Nothing game-related loads with the page:
-  // once it is idle we fetch arcade.css (for the glyph's style) and place the
-  // small trigger; arcade-core.js and the game load only on the first click.
-  // The trigger is click-only (a touchstart handler opened games mid-scroll),
-  // out of the tab order and hidden from assistive tech; /arcade is the
-  // accessible way in. Game files bind to a hidden [data-arcade-game] proxy,
-  // so their own triggers and touch handlers never reach the page.
-  // Each asset URL is one whole string literal, never built from the key,
-  // so scripts/stamp-assets.mjs can version it.
-  // ------------------------------------------------------------------
-  var PIXEL = ' aria-hidden="true" shape-rendering="crispEdges"><g fill="currentColor">';
-  var EGGS = {
-    snake: {
-      game: "/assets/js/snake-game.js?v=1ea5ff5fc1",
-      cls: "gms-arcade-snake-trigger", title: "~",
-      anchors: [".hero__media", ".hero .container", "main .container"],
-      svg: '<svg viewBox="0 0 12 12"' + PIXEL +
-        '<rect x="1" y="8" width="3" height="2"/><rect x="3" y="6" width="2" height="2"/>' +
-        '<rect x="4" y="4" width="3" height="2"/><rect x="6" y="2" width="2" height="2"/>' +
-        '<rect x="8" y="1" width="3" height="2"/><rect x="9" y="4" width="1" height="1"/></g></svg>'
-    },
-    dino: {
-      game: "/assets/js/dino-game.js?v=609d0d80b9",
-      cls: "gms-arcade-sprout-trigger", title: "?",
-      anchors: [".page-hero__visual", ".page-hero .container", "main .container"],
-      svg: '<svg viewBox="0 0 12 12"' + PIXEL +
-        '<rect x="5" y="5" width="2" height="6"/><rect x="1" y="3" width="2" height="2"/>' +
-        '<rect x="2" y="4" width="3" height="2"/><rect x="9" y="1" width="2" height="2"/>' +
-        '<rect x="7" y="2" width="3" height="2"/><rect x="3" y="10" width="6" height="1"/></g></svg>'
-    },
-    breakout: {
-      game: "/assets/js/breakout-game.js?v=3ffc23003b",
-      cls: "gms-arcade-brick-trigger", title: "?",
-      anchors: [".page-hero .container", "main .container"],
-      svg: '<svg viewBox="0 0 12 8"' + PIXEL +
-        '<rect x="0" y="0" width="5" height="2"/><rect x="6" y="0" width="6" height="2"/>' +
-        '<rect x="0" y="3" width="2" height="2"/><rect x="3" y="3" width="6" height="2"/><rect x="10" y="3" width="2" height="2"/>' +
-        '<rect x="0" y="6" width="5" height="2"/><rect x="6" y="6" width="4" height="2"/></g></svg>'
-    },
-    asteroids: {
-      game: "/assets/js/asteroids-game.js?v=7d17f15e71",
-      cls: "gms-arcade-asteroid-trigger", title: ".",
-      anchors: [".about-preview__media--portrait", ".about-preview__media", ".page-hero .container"],
-      svg: '<svg viewBox="0 0 34 34" aria-hidden="true" shape-rendering="crispEdges">' +
-        '<circle cx="17" cy="17" r="11" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".45"/>' +
-        '<g fill="currentColor"><rect x="15" y="4" width="4" height="4"/><rect x="23" y="21" width="3" height="3"/>' +
-        '<rect x="8" y="20" width="2" height="2"/><rect x="15" y="15" width="4" height="4"/>' +
-        '<rect x="18" y="13" width="2" height="2"/><rect x="12" y="17" width="2" height="2"/></g></svg>'
-    },
-    invaders: {
-      game: "/assets/js/invaders-game.js?v=0b4db17059",
-      cls: "gms-arcade-invader-trigger", title: "?",
-      anchors: [".page-hero .container", "main .container"],
-      svg: '<svg viewBox="0 0 11 9"' + PIXEL +
-        '<rect x="2" y="0" width="1" height="1"/><rect x="8" y="0" width="1" height="1"/>' +
-        '<rect x="3" y="1" width="1" height="1"/><rect x="7" y="1" width="1" height="1"/>' +
-        '<rect x="2" y="2" width="7" height="1"/>' +
-        '<rect x="1" y="3" width="2" height="1"/><rect x="4" y="3" width="3" height="1"/><rect x="8" y="3" width="2" height="1"/>' +
-        '<rect x="0" y="4" width="11" height="1"/>' +
-        '<rect x="0" y="5" width="1" height="1"/><rect x="3" y="5" width="5" height="1"/><rect x="10" y="5" width="1" height="1"/>' +
-        '<rect x="0" y="6" width="1" height="1"/><rect x="2" y="6" width="1" height="1"/><rect x="8" y="6" width="1" height="1"/><rect x="10" y="6" width="1" height="1"/>' +
-        '<rect x="3" y="7" width="1" height="1"/><rect x="7" y="7" width="1" height="1"/></g></svg>'
-    },
-    hopper: {
-      game: "/assets/js/hopper-game.js?v=c974d2aaf7",
-      cls: "gms-arcade-envelope-trigger", title: "✉",
-      anchors: [".page-hero .container", "main .container"],
-      svg: '<svg viewBox="0 0 12 9"' + PIXEL +
-        '<rect x="0" y="0" width="12" height="1"/>' +
-        '<rect x="0" y="1" width="1" height="7"/><rect x="11" y="1" width="1" height="7"/>' +
-        '<rect x="1" y="2" width="2" height="1"/><rect x="9" y="2" width="2" height="1"/>' +
-        '<rect x="3" y="3" width="2" height="1"/><rect x="7" y="3" width="2" height="1"/>' +
-        '<rect x="5" y="4" width="2" height="1"/>' +
-        '<rect x="0" y="8" width="12" height="1"/></g></svg>'
-    }
-  };
-
-  function loadScript(src, done, fail) {
-    var s = document.createElement("script");
-    s.src = src;
-    s.async = false;
-    s.onload = done;
-    s.onerror = fail;
-    document.head.appendChild(s);
-  }
-
-  function whenIdle(fn) {
-    var go = function () {
-      if ("requestIdleCallback" in window) window.requestIdleCallback(fn, { timeout: 3000 });
-      else window.setTimeout(fn, 1200);
-    };
-    if (document.readyState === "complete") go();
-    else window.addEventListener("load", go);
-  }
-
-  function initArcadeEgg() {
-    var key = document.body && document.body.getAttribute("data-arcade-egg");
-    var egg = key && Object.prototype.hasOwnProperty.call(EGGS, key) ? EGGS[key] : null;
-    if (!egg) return;
-    var anchor = null;
-    for (var i = 0; i < egg.anchors.length && !anchor; i++) anchor = document.querySelector(egg.anchors[i]);
-    if (!anchor) return;
-
-    function placeTrigger() {
-      if (window.getComputedStyle(anchor).position === "static") anchor.style.position = "relative";
-      var btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = egg.cls;
-      btn.tabIndex = -1;
-      btn.setAttribute("aria-hidden", "true");
-      btn.title = egg.title;
-      btn.innerHTML = egg.svg;
-      anchor.appendChild(btn);
-
-      var proxy = null, loading = false;
-      btn.addEventListener("click", function (e) {
-        e.preventDefault();
-        if (proxy && proxy.getAttribute("data-ready")) { proxy.click(); return; }
-        if (loading) return;
-        loading = true;
-        proxy = document.createElement("button");
-        proxy.type = "button";
-        proxy.hidden = true;
-        proxy.tabIndex = -1;
-        proxy.setAttribute("aria-hidden", "true");
-        proxy.setAttribute("data-arcade-game", key);
-        document.body.appendChild(proxy);
-        var fail = function () {
-          loading = false;
-          if (proxy && proxy.parentNode) proxy.parentNode.removeChild(proxy);
-          proxy = null;
-        };
-        var loadGame = function () {
-          loadScript(egg.game, function () {
-            loading = false;
-            proxy.setAttribute("data-ready", "true");
-            proxy.click();
-          }, fail);
-        };
-        if (window.GMSArcade) loadGame();
-        else loadScript("/assets/js/arcade-core.js?v=e956d94cf9", loadGame, fail);
-      });
-    }
-
-    whenIdle(function () {
-      if (document.querySelector('link[href*="assets/css/arcade.css"]')) { placeTrigger(); return; }
-      var link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.href = "/assets/css/arcade.css?v=fa047e2bdb";
-      link.onload = placeTrigger; // style first, so the glyph never flashes unstyled
-      document.head.appendChild(link);
-    });
-  }
-
   ready(function () {
     inject();
+    guardControls();
     initReveal();
     initDrift();
-    initArcadeEgg();
   });
 }());

@@ -21,7 +21,7 @@ const RANK: Record<string, number> = { L0: 0, L1: 1, L2: 2, L3: 3, L4: 4, CP: 5 
 
 /** Text-style buttons still get a 44px tap target. */
 const LINK_BUTTON =
-  "inline-flex min-h-11 items-center justify-center px-3 py-2 text-sm text-teal-soft underline disabled:opacity-50";
+  "inline-flex min-h-11 items-center justify-center px-3 py-2 text-sm text-ink-muted underline disabled:opacity-50";
 
 export function TrialRunner({
   assessmentId,
@@ -138,7 +138,7 @@ export function TrialRunner({
           <h1 className="text-2xl font-semibold text-ink-deep">Before you start</h1>
         </div>
         <Card>
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-teal">
+          <h2 className="mb-3 text-[0.9375rem] font-semibold text-amber-deep">
             You will need
           </h2>
           <ul className="flex flex-col gap-2 text-ink">
@@ -153,7 +153,7 @@ export function TrialRunner({
           </ul>
         </Card>
         <Card className="bg-sea-glass/30">
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-teal">
+          <h2 className="mb-3 text-[0.9375rem] font-semibold text-amber-deep">
             The three rules
           </h2>
           <ul className="flex flex-col gap-2 text-ink">
@@ -278,7 +278,7 @@ export function TrialRunner({
           </Card>
         )}
         {otherNumberLanguage && (
-          <p className="text-center text-xs leading-relaxed text-teal-soft">
+          <p className="text-center text-xs leading-relaxed text-ink-muted">
             Children learn each language&rsquo;s number words separately. If{" "}
             {childName} counts in another language, an English read can sit a
             rung low — that&rsquo;s the language, not the ladder.
@@ -287,7 +287,7 @@ export function TrialRunner({
         {noticeLine}
         {result?.confidence === "high" &&
           (offDayMarked ? (
-            <p role="status" className="text-center text-sm text-teal-soft">
+            <p role="status" className="text-center text-sm text-ink-muted">
               Marked. We&rsquo;ll treat today as a rougher estimate — the
               plan stays the same, and the next check-in will tell you more.
             </p>
@@ -303,7 +303,7 @@ export function TrialRunner({
                   setNotice("flag");
                 }
               }}
-              className="min-h-11 px-3 py-2 text-center text-sm text-teal-soft underline"
+              className="min-h-11 px-3 py-2 text-center text-sm text-ink-muted underline"
             >
               Was today an off day — tired, distracted, bear mobbed? Tap to
               mark it, and we&rsquo;ll read today gently.
@@ -311,7 +311,7 @@ export function TrialRunner({
           ))}
         <Link
           href={`/app/child/${childId}/plan`}
-          className="inline-flex min-h-12 items-center justify-center rounded-full bg-teal px-6 py-3 text-base font-semibold text-white hover:bg-teal-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 focus-visible:ring-offset-ground"
+          className="inline-flex min-h-12 items-center justify-center rounded-control bg-teal px-6 py-3 text-base font-semibold text-white hover:bg-teal-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 focus-visible:ring-offset-ground"
         >
           See this week&rsquo;s plan
         </Link>
@@ -319,7 +319,7 @@ export function TrialRunner({
           <form action={startPointAndSeek.bind(null, childId)}>
             <button
               type="submit"
-              className="min-h-11 w-full px-3 py-2 text-center text-sm text-teal-soft underline"
+              className="min-h-11 w-full px-3 py-2 text-center text-sm text-ink-muted underline"
             >
               The bear got mobbed? Try Point and Seek — a two-minute watching
               game, no setup
@@ -404,7 +404,7 @@ export function TrialRunner({
         <h1
           ref={headingRef}
           tabIndex={-1}
-          className="text-center text-sm font-medium uppercase tracking-widest text-teal focus:outline-none"
+          className="text-center text-[0.9375rem] font-semibold text-amber-deep focus:outline-none"
         >
           {view.kind === "bonus" ? "One last one" : "Feed the bear"}
         </h1>
@@ -458,7 +458,7 @@ export function TrialRunner({
               variant="ghost"
               disabled={pending}
               onClick={() => record("correct", true)}
-              className="border border-sea-glass"
+              className="border border-line"
             >
               Yes &mdash; after fixing it during the check
             </Button>

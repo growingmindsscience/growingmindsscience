@@ -3,18 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Growing Minds AI — Ask a developmental science question</title>
+  <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <title>Growing Minds AI: ask a developmental science question | Growing Minds Science</title>
   <meta name="description" content="Growing Minds AI answers your parenting questions with developmental science, not judgment and not generic advice. 5 free questions a day, no account needed." />
-  <meta name="theme-color" content="#1E5F62" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
+  <meta name="color-scheme" content="light dark" />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Growing Minds AI" />
   <meta property="og:description" content="Ask a developmental science question. Get a calm, research-grounded answer." />
-  <meta property="og:image" content="/assets/img/original-logo-mark-no-words-solid.png" />
+  <meta property="og:image" content="https://growingmindsscience.com/assets/img/original-logo-mark-no-words-solid.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/tools/growing-minds-ai" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -22,103 +25,156 @@
   <link href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet" />
 
   <style>
-    /* ── Variables ─────────────────────────────────── */
+    /* ── Tokens: Seminar (DESIGN.md; values match assets/css/home.css) ── */
     :root {
-      /* Tidepool tokens (DESIGN.md). Muted and soft ink are solid colours so
-         meta text stays AA on mist and white; coral text uses coral-deep on
-         light grounds and coral-on-dark on pine. */
-      --teal:        #1E5F62;
-      --teal-dark:   #12262C;
-      --teal-hover:  #185053;
-      --teal-light:  rgba(30,95,98,.08);
-      --pine:        #12262C;
-      --pine-deep:   #0E2129;
-      --coral:       #F2A93B;
-      --coral-deep:  #7F5008;
-      --coral-on-dark: #F3B649;
-      --on-dark:     #EEF4F3;
+      color-scheme: light;
+      --ground:      #F6F9F8;   /* page ground: cool paper-white */
+      --surface:     #FFFFFF;
+      --tint:        #E6EFED;
+      --line:        #D3DEDC;
+      --line-soft:   #E3EBE9;
+      --ink:         #12262C;   /* text on light grounds */
+      --ink-soft:    #3A5058;   /* secondary copy */
+      --ink-muted:   #52676C;   /* meta and labels */
+      --ink-800:     #14323A;   /* the hero band */
+      --ink-900:     #0E2129;
+      --teal:        #1E5F62;   /* action color on light grounds */
+      --teal-soft:   #2E7A77;
+      --teal-light:  #7FC4BC;   /* teal at text size on ink */
+      --teal-wash:   #EBF2F1;   /* hover wash on chips and cards */
+      --action-hover: #14323A;  /* primary buttons deepen to ink-800 */
+      --amber:       #F2A93B;   /* the one accent: on ink only at text size */
+      --amber-deep:  #7F5008;   /* amber at text size on light grounds */
+      --amber-tint:  #FBEBC8;
+      --amber-line:  rgba(127, 80, 8, 0.28);
+      --on-dark:      #EEF4F3;
       --on-dark-soft: #BCCFD3;
-      --cream:       #F6F9F8;
-      --ink:         #12262C;
-      --ink-soft:    #3A5058;
-      --ink-muted:   #52676C;
-      --blush:       #FBEBC8;
-      --white:       #ffffff;
-      --border:      rgba(21,57,60,.12);
-      --border-mid:  rgba(21,57,60,.18);
+      --on-dark-line: rgba(238, 244, 243, 0.2);
+      --btn-primary-ink: #FFFFFF;
+      --danger:      #A6371F;
+      --focus:       #7F5008;   /* amber-deep focus ring, 6.5:1 on the ground */
+      --avatar-ring: transparent;
+      --backdrop:    rgba(14, 33, 41, 0.45);
+      --shadow-sm:    0 1px 2px rgba(14, 33, 41, 0.06);
+      --shadow-sheet: 0 -16px 40px -12px rgba(14, 33, 41, 0.28);
+      --radius-sm: 6px;
+      --radius:    10px;   /* controls */
+      --radius-lg: 14px;   /* cards and panels */
+      --radius-xl: 18px;
+      --font-display: "Besley", Georgia, "Times New Roman", serif;
+      --font-body: "Atkinson Hyperlegible Next", "Helvetica Neue", Arial, sans-serif;
+    }
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --ground:      #15262C;
+      --surface:     #1C3037;
+      --tint:        #233940;
+      --line:        #31484F;
+      --line-soft:   #273C43;
+      --ink:         #E8EFED;
+      --ink-soft:    #C0CFD2;
+      --ink-muted:   #8FA6AB;
+      --ink-800:     #0B1A1F;   /* bands stay darker than the ground */
+      --ink-900:     #061115;
+      --teal:        #7FC4BC;
+      --teal-soft:   #9AD5CD;
+      --teal-light:  #7FC4BC;
+      --teal-wash:   #263F44;
+      --action-hover: #9AD5CD;
+      --amber:       #F3B649;
+      --amber-deep:  #F3B649;
+      --amber-tint:  #3A2C12;
+      --amber-line:  rgba(243, 182, 73, 0.32);
+      --btn-primary-ink: #07211E;
+      --danger:      #F0907E;
+      --focus:       #F3B649;
+      --avatar-ring: #31484F;
+      --backdrop:    rgba(3, 10, 12, 0.62);
+      --shadow-sm:    0 1px 2px rgba(0, 0, 0, 0.4);
+      --shadow-sheet: 0 -16px 40px -12px rgba(0, 0, 0, 0.6);
     }
 
     /* ── Reset ─────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body {
-      font-family: 'Atkinson Hyperlegible Next', 'Helvetica Neue', Arial, sans-serif;
+      font-family: var(--font-body);
       font-size: 1rem; line-height: 1.7; color: var(--ink);
-      background: var(--cream);
+      background: var(--ground);
       -webkit-font-smoothing: antialiased;
       display: flex; flex-direction: column; min-height: 100vh;
     }
-    h1,h2,h3 { font-family: 'Besley', Georgia, serif; letter-spacing: -.005em; line-height: 1.2; }
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 500; letter-spacing: -.005em; line-height: 1.2; }
     a { color: inherit; text-decoration: none; }
     img { max-width: 100%; height: auto; display: block; }
     ul, ol { list-style: none; }
     button { cursor: pointer; font-family: inherit; }
     textarea { font-family: inherit; }
+    ::selection { background: var(--amber); color: #0E2129; }
 
     /* ── Layout ────────────────────────────────────── */
     .container { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
     .skip-link {
-      position: absolute; top: -100%; left: 1rem;
-      background: var(--ink); color: var(--white);
-      padding: .5rem 1rem; border-radius: 0 0 6px 6px; font-size: .875rem; z-index: 999;
+      position: absolute; top: -100%; left: 1rem; z-index: 999;
+      background: var(--amber); color: #0E2129;
+      padding: .625rem 1rem; border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+      font-size: .9375rem; font-weight: 600;
     }
     .skip-link:focus { top: 0; }
 
     /* ── Buttons ───────────────────────────────────── */
     .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: .375rem;
-      padding: .75rem 1.5rem; border-radius: 6px; border: 2px solid transparent;
-      font-family: inherit; font-weight: 500; font-size: .9375rem;
-      line-height: 1; white-space: nowrap;
-      transition: background .2s, color .2s, border-color .2s;
+      display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+      min-height: 48px; padding: .8rem 1.4rem;
+      border-radius: var(--radius); border: 1.5px solid transparent;
+      font-family: inherit; font-weight: 600; font-size: 1rem;
+      line-height: 1.1; white-space: nowrap;
+      transition: background-color .2s, color .2s, border-color .2s;
     }
-    .btn--teal { background: var(--teal); color: var(--white); border-color: var(--teal); }
-    .btn--teal:hover { background: var(--teal-hover); border-color: var(--teal-hover); }
-    .btn--ghost { background: transparent; color: var(--teal); border-color: var(--teal); }
-    .btn--ghost:hover { background: var(--teal); color: var(--white); }
+    .btn--teal {
+      background: var(--teal); color: var(--btn-primary-ink);
+      box-shadow: 0 14px 28px -16px rgba(30, 95, 98, .55);
+    }
+    .btn--teal:hover { background: var(--action-hover); color: var(--btn-primary-ink); }
 
-    /* ── Page header ───────────────────────────────── */
+    /* ── Page header (ink band) ────────────────────── */
     .ai-page-header {
-      background: var(--pine);
-      padding: 2.5rem 0 2rem;
+      position: relative; isolation: isolate; overflow: hidden;
+      background: var(--ink-800); color: var(--on-dark);
+      padding: 2.75rem 0 2.25rem;
+    }
+    /* Graph-paper ground: the homepage hero's lab-notebook texture, fading out
+       toward the bottom so the copy sits on clean ink. */
+    .ai-page-header::before {
+      content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(238, 244, 243, .055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(238, 244, 243, .055) 1px, transparent 1px);
+      background-size: 44px 44px; background-position: center top;
+      -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,.9) 0%, rgba(0,0,0,.5) 60%, transparent 100%);
+      mask-image: linear-gradient(180deg, rgba(0,0,0,.9) 0%, rgba(0,0,0,.5) 60%, transparent 100%);
     }
     .ai-page-header__inner {
-      display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 1.5rem 2rem; flex-wrap: wrap;
     }
-    .ai-badge {
-      display: inline-flex; align-items: center; gap: .375rem;
-      font-size: .875rem; font-weight: 600;
-      color: var(--coral-on-dark); background: transparent;
-      border: 1px solid rgba(231,141,111,.45);
-      padding: .3rem .75rem; border-radius: 8px; margin-bottom: 1rem;
+    .ai-page-header .ai-label {
+      margin-bottom: .75rem;
+      font-size: .9375rem; font-weight: 600; line-height: 1.4; color: var(--amber);
     }
-    .ai-badge__dot { width: 6px; height: 6px; background: #5FBF8E; border-radius: 50%; }
     .ai-page-header h1 {
-      font-size: clamp(1.625rem, 3vw, 2.25rem); color: var(--white);
-      margin-bottom: .625rem;
+      font-size: clamp(1.75rem, 1.25rem + 2vw, 2.5rem); line-height: 1.1;
+      color: #FFFFFF; margin-bottom: .75rem;
     }
     .ai-page-header p {
-      font-size: .9375rem; color: var(--on-dark-soft); max-width: 52ch;
+      font-size: 1.0625rem; line-height: 1.6; color: var(--on-dark-soft); max-width: 54ch;
     }
     .ai-tier-badge {
-      display: inline-flex; align-items: center; gap: .5rem;
-      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.22);
-      border-radius: 8px; padding: .625rem 1rem;
-      font-size: .8125rem; color: var(--on-dark); white-space: nowrap;
-      flex-shrink: 0;
+      display: inline-flex; align-items: center; flex-shrink: 0;
+      padding: .625rem 1rem; border-radius: var(--radius);
+      background: rgba(238, 244, 243, .06); border: 1px solid var(--on-dark-line);
+      font-size: .9375rem; line-height: 1.4; color: var(--on-dark-soft); white-space: nowrap;
     }
-    .ai-tier-badge__icon { font-size: 1rem; }
-    .ai-tier-badge strong { color: var(--white); }
+    .ai-tier-badge strong { color: #FFFFFF; font-weight: 700; }
 
     /* ── Chat shell ────────────────────────────────── */
     .chat-shell {
@@ -138,35 +194,26 @@
     .chat-messages.is-empty { min-height: 0; padding: 0; }
     .chat-messages::-webkit-scrollbar { width: 4px; }
     .chat-messages::-webkit-scrollbar-track { background: transparent; }
-    .chat-messages::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 4px; }
+    .chat-messages::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
 
     /* Welcome state */
-    .chat-welcome { text-align: center; padding: 2rem 0 1rem; }
+    .chat-welcome { text-align: center; padding: 2.25rem 0 1rem; }
+    /* Solid ink disc with Besley initials in amber, like the homepage chat
+       avatar; a hairline ring keeps it defined on the dark ground. */
     .chat-welcome__icon {
-      width: 56px; height: 56px; border-radius: 12px;
-      background: var(--pine);
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 1.25rem;
-      font-family: 'Besley', serif; font-weight: 600; font-size: 1.25rem; color: var(--coral-on-dark);
+      width: 56px; height: 56px; border-radius: 50%;
+      display: grid; place-items: center; margin: 0 auto 1.25rem;
+      background: var(--ink-800); color: var(--amber);
+      box-shadow: 0 0 0 1px var(--avatar-ring);
+      font-family: var(--font-display); font-weight: 600; font-size: 1.125rem; line-height: 1;
     }
-    .chat-welcome h2 { font-size: 1.1875rem; color: var(--ink); margin-bottom: .5rem; }
-    .chat-welcome p { font-size: .9rem; color: var(--ink-soft); max-width: 42ch; margin: 0 auto; }
-
-    /* Starters (legacy chips, kept for fallback) */
-    .chat-starters { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin-top: 1.25rem; }
-    .chat-starter {
-      background: var(--white); border: 1px solid var(--border-mid);
-      border-radius: 20px; padding: .5rem 1rem;
-      font-size: .8125rem; color: var(--teal); font-weight: 500;
-      transition: background .15s, border-color .15s;
-      text-align: left;
-    }
-    .chat-starter:hover { background: var(--teal-light); border-color: var(--teal); }
+    .chat-welcome h2 { font-size: clamp(1.375rem, 1.15rem + 1vw, 1.75rem); color: var(--ink); margin-bottom: .5rem; }
+    .chat-welcome > p { font-size: 1rem; line-height: 1.6; color: var(--ink-soft); max-width: 46ch; margin: 0 auto; }
 
     /* ── Topic browser (training cards) ────────────── */
     .topic-browser { margin-top: 1.75rem; text-align: left; }
     .topic-browser__hint {
-      text-align: center; font-size: .8125rem; color: var(--ink-muted);
+      text-align: center; font-size: .9375rem; line-height: 1.5; color: var(--ink-muted);
       margin-bottom: 1rem;
     }
     .topic-tabs {
@@ -174,17 +221,16 @@
       margin-bottom: 1.25rem;
     }
     .topic-tab {
-      background: var(--white); border: 1px solid var(--border-mid);
-      border-radius: 8px; padding: .5rem .9rem;
-      font-size: .8125rem; font-weight: 600; color: var(--ink-soft);
-      display: inline-flex; align-items: center; gap: .4rem;
-      transition: background .15s, border-color .15s, color .15s;
+      display: inline-flex; align-items: center; min-height: 44px;
+      padding: .5rem .95rem; border-radius: var(--radius);
+      background: var(--surface); border: 1px solid var(--line);
+      font-size: .875rem; font-weight: 600; line-height: 1.25; color: var(--ink-soft);
+      transition: background-color .15s, border-color .15s, color .15s;
     }
     .topic-tab:hover { border-color: var(--teal); color: var(--teal); }
     .topic-tab[aria-selected="true"] {
-      background: var(--teal); border-color: var(--teal); color: var(--white);
+      background: var(--teal); border-color: var(--teal); color: var(--btn-primary-ink);
     }
-    .topic-tab__emoji { font-size: .95rem; }
 
     .topic-cards {
       display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem;
@@ -192,19 +238,19 @@
     .topic-cards > li { display: flex; }
     .topic-card {
       width: 100%;
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: 12px; padding: .9rem 1rem;
-      font-size: .9rem; line-height: 1.45; color: var(--ink);
-      text-align: left; display: flex; align-items: flex-start; gap: .625rem;
-      transition: background .15s, border-color .15s, box-shadow .15s, transform .1s;
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: .9rem 1rem;
+      font-size: .9375rem; line-height: 1.45; color: var(--ink);
+      text-align: left; display: flex; align-items: flex-start; justify-content: space-between; gap: .625rem;
+      transition: background-color .15s, border-color .15s, box-shadow .15s, transform .1s;
     }
     .topic-card:hover {
-      background: var(--teal-light); border-color: var(--teal);
-      box-shadow: 0 4px 16px rgba(26,23,20,.07);
+      background: var(--teal-wash); border-color: var(--teal);
+      box-shadow: var(--shadow-sm);
     }
     .topic-card:active { transform: translateY(1px); }
     .topic-card__arrow {
-      color: var(--teal); flex-shrink: 0; margin-top: .15em; opacity: .55;
+      color: var(--teal); flex-shrink: 0; margin-top: .15em; opacity: .6;
       transition: opacity .15s, transform .15s;
     }
     .topic-card:hover .topic-card__arrow { opacity: 1; transform: translateX(2px); }
@@ -212,30 +258,31 @@
     /* ── Chat toolbar (new conversation) ───────────── */
     .chat-toolbar {
       display: none; align-items: center; justify-content: space-between;
-      gap: 1rem; padding: .5rem 0 0; flex-wrap: wrap;
+      gap: .5rem 1rem; padding: .75rem 0 0; flex-wrap: wrap;
     }
     .chat-toolbar.is-visible { display: flex; }
-    .chat-toolbar__label { font-size: .8rem; color: var(--ink-muted); }
+    .chat-toolbar__label { font-size: .875rem; line-height: 1.5; color: var(--ink-muted); }
     .chat-toolbar__actions { display: flex; gap: .5rem; flex-wrap: wrap; }
-    .chat-pill-btn {
-      display: inline-flex; align-items: center; gap: .4rem;
-      background: var(--white); border: 1px solid var(--border-mid);
-      border-radius: 8px; padding: .4rem .85rem;
-      font-size: .8125rem; font-weight: 600; color: var(--teal);
-      transition: background .15s, border-color .15s;
+    .chat-tool-btn {
+      display: inline-flex; align-items: center; gap: .45rem; min-height: 44px;
+      padding: .5rem .95rem; border-radius: var(--radius);
+      background: var(--surface); border: 1px solid var(--line);
+      font-size: .875rem; font-weight: 600; color: var(--teal);
+      transition: background-color .15s, border-color .15s;
     }
-    .chat-pill-btn:hover { background: var(--teal-light); border-color: var(--teal); }
-    .chat-pill-btn svg { width: 14px; height: 14px; }
+    .chat-tool-btn:hover { background: var(--teal-wash); border-color: var(--teal); }
+    .chat-tool-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
 
     /* ── Topic sheet (browse anytime) ──────────────── */
     .topic-sheet-backdrop {
-      position: fixed; inset: 0; background: rgba(21,57,60,.4);
+      position: fixed; inset: 0; background: var(--backdrop);
       z-index: 300; display: none; opacity: 0; transition: opacity .2s;
     }
     .topic-sheet-backdrop.is-open { display: block; opacity: 1; }
     .topic-sheet {
       position: fixed; left: 0; right: 0; bottom: 0; z-index: 301;
-      background: var(--cream); border-radius: 16px 16px 0 0;
+      background: var(--ground); border-top: 1px solid var(--line);
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
       max-height: 80vh; overflow-y: auto;
       padding: 1.25rem 1.5rem 2rem;
       transform: translateY(100%);
@@ -243,25 +290,26 @@
          cards are not in the Tab order; visibility flips after the slide-out. */
       visibility: hidden;
       transition: transform .25s ease, visibility 0s linear .25s;
-      box-shadow: 0 -8px 40px rgba(21,57,60,.18);
+      box-shadow: var(--shadow-sheet);
     }
     .topic-sheet.is-open {
       transform: translateY(0); visibility: visible;
       transition: transform .25s ease, visibility 0s linear 0s;
     }
     .topic-sheet__bar {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 1rem; position: sticky; top: -1.25rem;
-      background: var(--cream); padding: .75rem 0; margin-top: -.5rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      margin-bottom: 1rem; position: sticky; top: -1.25rem; z-index: 1;
+      background: var(--ground); padding: .75rem 0; margin-top: -.5rem;
     }
-    .topic-sheet__title { font-size: 1.0625rem; color: var(--ink); }
+    .topic-sheet__title { font-size: 1.25rem; color: var(--ink); }
     .topic-sheet__close {
-      background: var(--white); border: 1px solid var(--border-mid);
-      border-radius: 50%; width: 32px; height: 32px;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--ink-soft); font-size: 1.1rem; line-height: 1;
+      flex-shrink: 0; width: 44px; height: 44px; padding: 0;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      color: var(--ink-soft); font-size: 1.5rem; line-height: 1;
+      transition: background-color .15s, border-color .15s, color .15s;
     }
-    .topic-sheet__close:hover { background: var(--teal-light); color: var(--teal); }
+    .topic-sheet__close:hover { background: var(--teal-wash); border-color: var(--teal); color: var(--teal); }
     .topic-sheet .topic-browser { max-width: 760px; margin: 0 auto; }
 
     /* Message bubbles */
@@ -270,26 +318,26 @@
     .msg--assistant { align-self: flex-start; align-items: flex-start; }
 
     .msg__bubble {
-      padding: .875rem 1.125rem; border-radius: 14px; font-size: .9375rem; line-height: 1.6;
+      padding: .875rem 1.125rem; border-radius: var(--radius-lg); font-size: 1rem; line-height: 1.6;
     }
     .msg--user .msg__bubble {
-      background: var(--teal); color: var(--white);
+      background: var(--teal); color: var(--btn-primary-ink);
       border-bottom-right-radius: 4px;
     }
     .msg--assistant .msg__bubble {
-      background: var(--white); color: var(--ink);
-      border: 1px solid var(--border); border-bottom-left-radius: 4px;
-      box-shadow: 0 1px 4px rgba(26,23,20,.06);
+      background: var(--surface); color: var(--ink);
+      border: 1px solid var(--line); border-bottom-left-radius: 4px;
+      box-shadow: var(--shadow-sm);
     }
 
     /* Markdown rendering inside assistant bubble */
-    .msg__bubble strong { font-weight: 600; }
+    .msg__bubble strong { font-weight: 700; }
     .msg__bubble em { font-style: italic; }
     .msg__bubble ul { padding-left: 1.25rem; list-style: disc; margin: .5rem 0; display: flex; flex-direction: column; gap: .25rem; }
     .msg__bubble li { line-height: 1.5; }
     .msg__bubble p + p { margin-top: .625rem; }
-    .msg__bubble .error { color: var(--coral-deep); }
-    .msg__note { font-size: .8125rem; color: var(--ink-muted); margin-top: .625rem; }
+    .msg__bubble .error { color: var(--danger); }
+    .msg__note { font-size: .875rem; color: var(--ink-muted); margin-top: .625rem; }
 
     /* Typing cursor */
     .cursor {
@@ -302,10 +350,10 @@
 
     /* Thinking dots */
     .msg__thinking {
-      display: flex; gap: 4px; align-items: center; padding: .75rem 1rem;
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: 14px; border-bottom-left-radius: 4px;
-      box-shadow: 0 1px 4px rgba(26,23,20,.06);
+      display: flex; gap: 4px; align-items: center; padding: .875rem 1rem;
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius-lg); border-bottom-left-radius: 4px;
+      box-shadow: var(--shadow-sm);
     }
     .msg__thinking span {
       width: 6px; height: 6px; background: var(--ink-muted); border-radius: 50%;
@@ -315,120 +363,139 @@
     .msg__thinking span:nth-child(3) { animation-delay: .3s; }
     @keyframes dot { 0%,80%,100% { transform: scale(.7); opacity: .4; } 40% { transform: scale(1); opacity: 1; } }
 
-    /* Disclaimer strip inside messages */
+    /* Disclaimer under each answer */
     .msg__disclaimer {
-      font-size: .75rem; color: var(--ink-muted); margin-top: .375rem; padding: 0 .25rem;
+      font-size: .875rem; color: var(--ink-muted); margin-top: .375rem; padding: 0 .25rem;
     }
 
     /* ── Input area ────────────────────────────────── */
     .chat-input-wrap {
-      border-top: 1px solid var(--border); padding: 1rem 0 1.25rem; background: var(--cream);
+      border-top: 1px solid var(--line); padding: 1rem 0 1.25rem; background: var(--ground);
     }
     .chat-input-box {
       display: flex; align-items: flex-end; gap: .75rem;
-      background: var(--white); border: 1px solid var(--border-mid);
-      border-radius: 12px; padding: .625rem .75rem;
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius-lg); padding: .5rem .5rem .5rem .875rem;
       transition: border-color .2s, box-shadow .2s;
     }
-    .chat-input-box:focus-within {
-      border-color: var(--teal); box-shadow: 0 0 0 3px rgba(30,95,98,.12);
-    }
+    /* The textarea keeps a transparent outline (it shows in forced-colors
+       mode); the visible ring is the frame turning a 2px teal edge, 7:1
+       against white and the ground (8:1 in dark). */
     .chat-textarea {
-      flex: 1; border: none; background: transparent; resize: none;
-      font-size: .9375rem; line-height: 1.55; color: var(--ink);
-      max-height: 140px; min-height: 24px; overflow-y: auto; outline: none;
+      flex: 1; align-self: center; border: none; background: transparent; resize: none;
+      font-size: 1rem; line-height: 1.55; color: var(--ink);
+      max-height: 140px; min-height: 24px; overflow-y: auto;
+      outline: 2px solid transparent; outline-offset: 2px;
     }
-    .chat-textarea::placeholder { color: var(--ink-muted); }
+    .chat-input-box:focus-within { border-color: var(--teal); box-shadow: 0 0 0 1px var(--teal); }
+    .chat-textarea::placeholder { color: var(--ink-muted); opacity: 1; }
     .chat-send {
-      background: var(--teal); border: none; color: var(--white);
-      width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
+      background: var(--teal); border: none; color: var(--btn-primary-ink);
+      width: 40px; height: 40px; border-radius: var(--radius); flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
-      transition: background .2s; padding: 0;
+      transition: background-color .2s, color .2s; padding: 0;
     }
-    .chat-send:hover:not(:disabled) { background: var(--teal-hover); }
-    .chat-send:disabled { background: var(--border-mid); cursor: default; }
+    .chat-send:hover:not(:disabled) { background: var(--action-hover); }
+    .chat-send:disabled { background: var(--tint); color: var(--ink-muted); cursor: default; }
     .chat-send svg { pointer-events: none; }
 
     .chat-meta {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-top: .625rem; gap: 1rem; flex-wrap: wrap;
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-top: .375rem; gap: 0 1rem; flex-wrap: wrap;
     }
-    .chat-meta__left { font-size: .8rem; color: var(--ink-muted); }
-    .chat-meta__right { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
-    .chat-about { margin-top: .25rem; }
-    .chat-about summary {
-      display: inline; cursor: pointer; color: var(--ink-muted);
-      text-decoration: underline; text-underline-offset: 2px;
-    }
-    .chat-about p { margin-top: .5rem; max-width: 62ch; color: var(--ink-soft); line-height: 1.55; }
+    .chat-meta__left { font-size: .875rem; line-height: 1.5; color: var(--ink-muted); }
+    /* Centred on the first 44px row, level with the unlock buttons. */
+    .chat-meta__left > p { margin-top: .7rem; }
+    .chat-meta__right { display: flex; align-items: center; gap: 0 1rem; flex-wrap: wrap; }
+    /* Quiet text controls with 44px-tall hit areas. */
+    .chat-about summary,
     .access-code-toggle {
-      font-size: .8rem; color: var(--teal); background: none; border: none;
-      padding: 0; font-family: inherit; cursor: pointer; text-decoration: underline;
-      text-underline-offset: 2px;
+      display: inline-flex; align-items: center; min-height: 44px;
+      font-family: inherit; font-size: .875rem; line-height: 1.3;
+      text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px;
+      cursor: pointer;
     }
-    .access-code-toggle:hover { color: var(--teal-hover); }
+    .chat-about summary { list-style: none; color: var(--ink-muted); }
+    .chat-about summary::-webkit-details-marker { display: none; }
+    .chat-about summary:hover { color: var(--ink); text-decoration-thickness: 2px; }
+    .chat-about p { margin: .25rem 0 .5rem; max-width: 62ch; color: var(--ink-soft); line-height: 1.55; }
+    .access-code-toggle {
+      color: var(--teal); background: none; border: none; padding: 0 .125rem;
+    }
+    .access-code-toggle:hover { text-decoration-thickness: 2px; }
 
     /* Limit reached */
     .chat-limit {
-      background: var(--blush); border: 1px solid rgba(127,80,8,.3);
-      border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: .75rem;
+      background: var(--amber-tint); border: 1px solid var(--amber-line);
+      border-radius: var(--radius-lg); padding: 1rem 1.25rem; margin-bottom: .75rem;
       display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
     }
-    .chat-limit p { font-size: .875rem; color: var(--ink); }
-    .chat-limit strong { color: var(--coral-deep); }
-    .chat-limit .btn { white-space: nowrap; font-size: .875rem; padding: .625rem 1.125rem; }
+    .chat-limit p { font-size: .9375rem; line-height: 1.55; color: var(--ink); }
+    .chat-limit strong { color: var(--amber-deep); }
+    .chat-limit .btn { white-space: nowrap; font-size: .9375rem; min-height: 44px; padding: .625rem 1.125rem; }
 
     /* ── Access code panel ─────────────────────────── */
     .access-panel {
-      background: var(--white); border: 1px solid var(--border-mid);
-      border-radius: 10px; padding: 1.25rem; margin-bottom: 1rem;
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 1rem;
+      box-shadow: var(--shadow-sm);
     }
-    .access-panel h3 { font-size: 1rem; margin-bottom: .375rem; }
-    .access-panel p { font-size: .8375rem; color: var(--ink-soft); margin-bottom: .875rem; }
+    .access-panel h3 { font-size: 1.125rem; font-weight: 600; color: var(--ink); margin-bottom: .375rem; }
+    .access-panel > p:not(.access-status) { font-size: .9375rem; line-height: 1.55; color: var(--ink-soft); margin-bottom: .875rem; }
     .access-panel__row { display: flex; gap: .625rem; align-items: stretch; }
     .access-input {
-      flex: 1; padding: .625rem .875rem; border: 1px solid var(--border-mid);
-      border-radius: 6px; font-size: .9rem; font-family: inherit; color: var(--ink);
-      background: var(--cream); outline: none;
+      flex: 1; min-width: 0; min-height: 44px; padding: .625rem .875rem;
+      border: 1px solid var(--line); border-radius: var(--radius);
+      font-size: 1rem; font-family: inherit; color: var(--ink);
+      background: var(--ground);
+      outline: 2px solid transparent; outline-offset: 1px;
+      transition: border-color .2s, background-color .2s;
     }
-    .access-input:focus { border-color: var(--teal); box-shadow: 0 0 0 2px rgba(30,95,98,.12); }
+    .access-input::placeholder { color: var(--ink-muted); opacity: 1; }
+    .access-input:focus-visible { border-color: var(--teal); outline-color: var(--teal); background: var(--surface); }
     .access-btn {
-      background: var(--teal); color: var(--white); border: none;
-      border-radius: 6px; padding: .625rem 1rem; font-family: inherit; font-size: .875rem; font-weight: 500;
-      cursor: pointer; white-space: nowrap; transition: background .2s;
+      min-height: 44px;
+      background: var(--teal); color: var(--btn-primary-ink); border: none;
+      border-radius: var(--radius); padding: .625rem 1.125rem;
+      font-family: inherit; font-size: .9375rem; font-weight: 600;
+      cursor: pointer; white-space: nowrap; transition: background-color .2s;
     }
-    .access-btn:hover { background: var(--teal-hover); }
-    .access-status { font-size: .8rem; margin-top: .5rem; }
-    .access-status--success { color: var(--teal); }
-    .access-status--error { color: var(--coral-deep); }
+    .access-btn:hover:not(:disabled) { background: var(--action-hover); }
+    .access-btn:disabled { opacity: .65; cursor: default; }
+    .access-panel .access-status { font-size: .875rem; line-height: 1.5; margin-top: .5rem; color: var(--ink-soft); }
+    .access-panel .access-status--success { color: var(--teal); }
+    .access-panel .access-status--error { color: var(--danger); }
 
     /* ── Plans strip (gentle pointer to /pricing) ──── */
     .plans-strip {
-      border-top: 1px solid var(--border); background: var(--cream);
-      padding: 2.5rem 0 3rem;
+      border-top: 1px solid var(--line); background: var(--ground);
+      padding: 2.5rem 0 3.5rem;
     }
     .plans-strip__card {
       max-width: 720px; margin: 0 auto;
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: 16px; padding: 1.75rem 2rem;
+      background: var(--surface); border: 1px solid var(--line);
+      border-radius: var(--radius-lg); padding: 1.75rem 2rem;
       display: flex; align-items: center; justify-content: space-between;
       gap: 1.5rem; flex-wrap: wrap;
     }
+    .plans-strip__text { flex: 1 1 18rem; }
     .plans-strip__text h2 {
-      font-size: 1.1875rem; color: var(--ink); margin-bottom: .25rem;
+      font-size: 1.375rem; color: var(--ink); margin-bottom: .375rem;
     }
-    .plans-strip__text p { font-size: .9rem; color: var(--ink-soft); max-width: 44ch; }
+    .plans-strip__text p { font-size: 1rem; line-height: 1.6; color: var(--ink-soft); max-width: 46ch; }
     .plans-strip__cta { display: flex; gap: .625rem; flex-shrink: 0; flex-wrap: wrap; }
 
     /* ── Responsive ────────────────────────────────── */
     @media (max-width: 640px) {
-      .ai-page-header { padding: 2rem 0 1.5rem; }
+      .ai-page-header { padding: 2rem 0 1.75rem; }
       .ai-page-header__inner { flex-direction: column; align-items: flex-start; }
       /* Phones: no inner scroll box; the conversation scrolls with the page. */
       .chat-messages { max-height: none; overflow: visible; min-height: 0; }
       .topic-cards { grid-template-columns: 1fr; }
       .topic-sheet { max-height: 88vh; padding: 1rem 1.125rem 1.75rem; }
-      .plans-strip__card { flex-direction: column; align-items: flex-start; text-align: left; }
+      .topic-sheet__bar { top: -1rem; }
+      .plans-strip__card { flex-direction: column; align-items: flex-start; text-align: left; padding: 1.5rem 1.25rem; }
+      .plans-strip__text { flex: none; }
     }
 
     /* ── Utilities and accessibility ───────────────── */
@@ -437,22 +504,22 @@
       position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
       overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
     }
-    .topic-tab:focus-visible, .topic-card:focus-visible, .chat-pill-btn:focus-visible,
+    .topic-tab:focus-visible, .topic-card:focus-visible, .chat-tool-btn:focus-visible,
     .access-code-toggle:focus-visible, .access-btn:focus-visible, .chat-send:focus-visible,
     .topic-sheet__close:focus-visible, .chat-about summary:focus-visible,
-    .chat-shell .btn:focus-visible, .plans-strip .btn:focus-visible {
-      outline: 2.5px solid var(--coral-deep); outline-offset: 3px;
+    .chat-shell .btn:focus-visible, .plans-strip .btn:focus-visible, .skip-link:focus-visible {
+      outline: 2.5px solid var(--focus); outline-offset: 3px;
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .cursor { animation: none; }
       .msg__thinking span { animation: none; opacity: .7; }
       .topic-sheet, .topic-sheet.is-open, .topic-sheet-backdrop { transition: none; }
-      .btn, .topic-tab, .topic-card, .topic-card__arrow, .chat-pill-btn, .chat-send, .access-btn { transition: none; }
+      .btn, .topic-tab, .topic-card, .topic-card__arrow, .chat-tool-btn, .chat-send, .access-btn, .topic-sheet__close { transition: none; }
       .topic-card:active, .topic-card:hover .topic-card__arrow { transform: none; }
     }
   </style>
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=6f2055b923" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=de9d0eebaf" />
 </head>
 <body>
 
@@ -461,8 +528,8 @@
   <!-- NAV -->
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -479,7 +546,7 @@
               <div class="nav__menu">
                 <ul class="nav__submenu">
                   <li><a class="nav__submenu-link" href="/tools/growing-minds-ai.html" aria-current="page"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A ten-minute counting check-in you run at home.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A free ten-minute counting check-in; the full version is $34.</span></a></li>
                   <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
                   <li><a class="nav__submenu-link" href="/tools/communication-snapshot.html"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
                   <li><a class="nav__submenu-link" href="/arcade/"><span class="nav__submenu-title">Arcade</span><span class="nav__submenu-desc">Silly games for a five-minute break between lessons.</span></a></li>
@@ -490,10 +557,14 @@
           </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
+          <li class="nav__item nav__auth"><details class="nav__details nav__details--auth"><summary class="nav__link nav__summary">My classes <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary><div class="nav__menu nav__menu--auth"><ul class="nav__submenu"><li><a class="nav__submenu-link" href="/nsc/app/classes"><span class="nav__submenu-title">Birth to 12 months</span><span class="nav__submenu-desc">Your lessons and progress on this site.</span></a></li><li><a class="nav__submenu-link" href="https://matthew-s-site-de0b.thinkific.com/users/sign_in" target="_blank" rel="noopener"><span class="nav__submenu-title">Toddler years <span aria-hidden="true">&nearr;</span></span><span class="nav__submenu-desc">Your lessons on Thinkific, our course platform.</span><span class="u-visually-hidden"> (opens in a new tab)</span></a></li></ul></div></details></li>
           <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
+          <svg class="theme-toggle__moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+        </button>
       </nav>
     </div>
   </header>
@@ -504,15 +575,11 @@
     <div class="ai-page-header">
       <div class="container ai-page-header__inner">
         <div>
-          <div class="ai-badge">
-            <span class="ai-badge__dot" aria-hidden="true"></span>
-            Growing Minds AI · Free
-          </div>
+          <p class="ai-label">Growing Minds AI · free, no account needed</p>
           <h1>Ask a developmental science question.</h1>
           <p>Get a calm, research-grounded answer, not generic internet advice and not judgment. Grounded in developmental neuroscience and 50+ years of published research.</p>
         </div>
         <div class="ai-tier-badge" id="tierBadge" aria-live="polite">
-          <span class="ai-tier-badge__icon" aria-hidden="true">💬</span>
           <span id="tierText">Free · <strong id="questionsLeft">5</strong> questions today</span>
         </div>
       </div>
@@ -525,11 +592,11 @@
       <div class="chat-toolbar" id="chatToolbar">
         <span class="chat-toolbar__label">We don't save this conversation. It clears when you start over or leave the page.</span>
         <div class="chat-toolbar__actions">
-          <button class="chat-pill-btn" type="button" id="browseTopicsBtn" aria-haspopup="dialog" aria-controls="topicSheet" aria-expanded="false">
+          <button class="chat-tool-btn" type="button" id="browseTopicsBtn" aria-haspopup="dialog" aria-controls="topicSheet" aria-expanded="false">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
             Browse questions
           </button>
-          <button class="chat-pill-btn" type="button" id="newChatBtn">
+          <button class="chat-tool-btn" type="button" id="newChatBtn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
             New conversation
           </button>
@@ -541,7 +608,7 @@
       <div class="chat-welcome" id="chatWelcome">
         <div class="chat-welcome__icon" aria-hidden="true">GM</div>
         <h2>What's on your mind today?</h2>
-        <p>Ask anything about your child's behavior, feelings, sleep, language, or development. You'll get a calm, research-grounded answer — no judgment, and never a diagnosis.</p>
+        <p>Ask anything about your child's behavior, feelings, sleep, language, or development. You'll get a calm, research-grounded answer, with no judgment and never a diagnosis.</p>
 
         <!-- Topic browser (data-driven training cards) -->
         <div class="topic-browser" id="topicBrowser">
@@ -620,7 +687,7 @@
         <div class="plans-strip__card">
           <div class="plans-strip__text">
             <h2 id="plans-strip-title">Free gives you 5 questions a day.</h2>
-            <p>Want unlimited? Any class includes it for life, or there is a simple $9 a month plan. See what fits.</p>
+            <p>Want unlimited? The toddler class includes it for life, or AI Pro is $9 a month on its own.</p>
           </div>
           <div class="plans-strip__cta">
             <a class="btn btn--teal" href="/pricing">See plans &amp; pricing <span aria-hidden="true">→</span></a>
@@ -648,8 +715,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">A developmental-science education for parents of children 0 to 5.</p>
@@ -662,10 +729,10 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
-            <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
-            <li><a href="/classes/preschool.html">Preschool years</a></li>
-            <li><a href="/classes/family-systems.html">Family systems</a></li>
+            <li><a href="/classes/birth-to-12-months">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood">Toddler years</a></li>
+            <li><a href="/classes/preschool">Preschool years</a></li>
+            <li><a href="/classes/family-systems">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>
           </ul>
         </div>
@@ -698,7 +765,7 @@
     </div>
   </footer>
 
-  <script src="/assets/js/chrome.js?v=15d4f8689c"></script>
+  <script src="/assets/js/chrome.js?v=1413c22959"></script>
 
   <script>
   (function () {
@@ -709,7 +776,7 @@
        render from this single source, so new questions appear everywhere. */
     const TOPICS = [
       {
-        id: 'babies', label: 'Babies (0–1 yr)', emoji: '👶',
+        id: 'babies', label: 'Babies (0–1 yr)',
         questions: [
           "Why does my baby cry so much in the evening?",
           "What is serve-and-return, and why does it matter for babies?",
@@ -722,7 +789,7 @@
         ],
       },
       {
-        id: 'toddlers', label: 'Toddlers (1–3 yr)', emoji: '🧸',
+        id: 'toddlers', label: 'Toddlers (1–3 yr)',
         questions: [
           "Why does my toddler have meltdowns at transitions?",
           "What's happening in my toddler's brain when they say 'no' to everything?",
@@ -735,20 +802,20 @@
         ],
       },
       {
-        id: 'preschool', label: 'Preschoolers (3–5 yr)', emoji: '🎨',
+        id: 'preschool', label: 'Preschoolers (3–5 yr)',
         questions: [
           "Why does my preschooler tell elaborate stories that aren't true?",
           "How do I support big emotions in a 4-year-old?",
           "What is executive function, and how does it develop?",
           "Why are mornings such a battle with my preschooler?",
-          "My child is anxious about starting school — how can I help?",
+          "My child is anxious about starting school. How can I help?",
           "Why does my preschooler ask 'why?' about everything?",
           "How do I handle defiance and back-talk at this age?",
           "Is imaginary play important, or just cute?",
         ],
       },
       {
-        id: 'feelings', label: 'Big feelings & behavior', emoji: '🌊',
+        id: 'feelings', label: 'Big feelings & behavior',
         questions: [
           "What does co-regulation actually look like in practice?",
           "What's the difference between a tantrum and a meltdown?",
@@ -761,11 +828,11 @@
         ],
       },
       {
-        id: 'sleep', label: 'Sleep & routines', emoji: '🌙',
+        id: 'sleep', label: 'Sleep & routines',
         questions: [
           "What's typical for a 2-year-old's sleep?",
           "Why does my child fight bedtime so hard?",
-          "My child keeps waking at night — what's going on developmentally?",
+          "My child keeps waking at night. What's going on developmentally?",
           "How do daily routines help my child feel safe?",
           "How do I make transitions, like leaving the park, easier?",
           "Why did my good sleeper suddenly start waking again?",
@@ -773,7 +840,7 @@
         ],
       },
       {
-        id: 'language', label: 'Talking & learning', emoji: '💬',
+        id: 'language', label: 'Talking & learning',
         questions: [
           "How does serve-and-return support language development?",
           "How does play help my child's brain grow?",
@@ -785,7 +852,7 @@
         ],
       },
       {
-        id: 'connection', label: 'Connection & repair', emoji: '🤝',
+        id: 'connection', label: 'Connection & repair',
         questions: [
           "How do I repair after a hard moment with my child?",
           "How do I help my child after I lose my temper?",
@@ -796,14 +863,14 @@
         ],
       },
       {
-        id: 'typical', label: 'Is this typical?', emoji: '🧭',
+        id: 'typical', label: 'Is this typical?',
         questions: [
           "What's typical, and when should I check with a professional?",
           "Is my child's behavior normal for their age?",
           "When does separation anxiety usually peak?",
           "How do I tell the difference between a phase and a real concern?",
           "What developmental red flags are worth paying attention to?",
-          "My child seems behind their peers — how worried should I be?",
+          "My child seems behind their peers. How worried should I be?",
         ],
       },
     ];
@@ -1276,11 +1343,7 @@
         tab.id = tabId(browser, topic.id);
         tab.setAttribute('role', 'tab');
         tab.setAttribute('aria-controls', browser.panel.id);
-        const emoji = document.createElement('span');
-        emoji.className = 'topic-tab__emoji';
-        emoji.setAttribute('aria-hidden', 'true');
-        emoji.textContent = topic.emoji;
-        tab.append(emoji, topic.label);
+        tab.textContent = topic.label;
         tab.addEventListener('click', () => selectTopic(topic.id));
         tab.addEventListener('keydown', (event) => onTabKeydown(event, browser, topic.id));
         browser.tablist.appendChild(tab);
@@ -1650,10 +1713,16 @@
     // Seed a question from ?q= (e.g. an "Ask about this" link from a tool or the
     // right-now guide). Prefill only, never auto-send, so the free-question
     // limit is respected and the parent can edit before asking.
-    const seededQuestion = urlParams.get('q');
+    // The homepage hands a typed question over in sessionStorage instead, so
+    // it never appears in a URL, the browser history, or a server log.
+    let seededQuestion = urlParams.get('q');
+    if (seededQuestion) window.history.replaceState(null, '', window.location.pathname);
+    else {
+      seededQuestion = session.get('gms-ai-question');
+      session.remove('gms-ai-question');
+    }
     if (seededQuestion) {
       inputEl.value = seededQuestion.slice(0, LIMITS.QUESTION_MAX_CHARS);
-      window.history.replaceState(null, '', window.location.pathname);
       prefilled = true;
     }
 

@@ -1,103 +1,225 @@
 @import "tailwindcss";
 
+/* "Seminar": the marketing site's design system (DESIGN.md, assets/css/home.css).
+   Token NAMES are the ones the components already use; the values are the
+   site's. Cool paper-white ground, deep ink, brand teal for action, one amber
+   highlighter (amber on ink bands, amber-deep as text on light), Besley over
+   Atkinson Hyperlegible Next. No cream, no terracotta, no pills. */
 @theme {
-  --color-ground: #f0f5f3;
+  /* Grounds */
+  --color-ground: #f6f9f8;
   --color-surface: #ffffff;
-  --color-ink: #15393c;
-  --color-ink-deep: #0e2a2d;
+  --color-tint: #e6efed;
+  /* sea-glass is the older name for the tinted fill (chips, progress tracks). */
+  --color-sea-glass: #e6efed;
+
+  /* Ink. `ink` is body text; `ink-deep` is Seminar's ink for headings. */
+  --color-ink: #14323a;
+  --color-ink-deep: #12262c;
+  --color-ink-800: #14323a;
+  --color-ink-900: #0e2129;
+  --color-ink-soft: #3a5058;
+  --color-ink-muted: #52676c;
+
+  /* Action: teal on light grounds. teal-soft is for hover and decor, not
+     small text (4.3:1 on tint); secondary text is ink-soft or ink-muted. */
   --color-teal: #1e5f62;
   --color-teal-soft: #2e7a77;
+  --color-teal-hover: #14323a;
+  --color-teal-light: #7fc4bc;
   /* Text on a teal fill (primary buttons). Dark flips teal light, so this flips too. */
   --color-on-teal: #ffffff;
-  --color-rung-glow: #f8e7e0;
-  --color-sea-glass: #cfe3de;
-  /* The one warm accent (DESIGN.md). coral-deep is the text-size tier. */
-  --color-coral: #de7356;
-  --color-coral-deep: #9c4429;
-  --color-line: #d4e0dc;
-  /* Input outlines: 3.2:1 on white, so a field edge is visible (WCAG 1.4.11). */
+
+  /* The one accent. amber: marks and buttons on ink bands. amber-deep: any
+     amber text on a light ground (6.5:1). amber-tint: the pale band. */
+  --color-amber: #f2a93b;
+  --color-amber-bright: #f7bc5e;
+  --color-amber-deep: #7f5008;
+  --color-amber-tint: #fbebc8;
+
+  /* Text tiers on ink bands (12:1, 8.4:1, 5.3:1 on ink-800). */
+  --color-on-dark: #eef4f3;
+  --color-on-dark-soft: #bcced3;
+  --color-on-dark-muted: #8da6ac;
+
+  /* Rules and borders. */
+  --color-line: #d3dedc;
+  --color-line-soft: #e3ebe9;
+  /* Input outlines: 3:1 on the ground and white, so a field edge is visible (WCAG 1.4.11). */
   --color-field-line: #789690;
-  /* DESIGN.md text tiers. teal-soft (#2e7a77) is AA only on plain mist or
-     white; on tinted cards (sea-glass, rung-glow) secondary text uses these,
-     which stay above 4.5:1 on every tint the app uses. */
-  --color-ink-soft: #3d5a5a;
-  --color-ink-muted: #4e6564;
-  /* Brand pairing, mirroring the parent site's --font-display/--font-body. */
-  --font-display: var(--font-bricolage), "Avenir Next", "Helvetica Neue",
-    sans-serif;
-  --font-body: var(--font-source-serif), Georgia, "Times New Roman", serif;
+
+  /* Form errors. Amber is the accent, never a warning. */
+  --color-danger: #a6371f;
+  /* Legacy name for the error text color; there is no coral on class surfaces. */
+  --color-coral-deep: #a6371f;
+
+  /* Number Path only: the Counting Ladder's current-rung field (child-facing
+     game UI). Class pages do not use it. */
+  --color-rung-glow: #f8e7e0;
+
+  /* Brand pairing, as on the parent site: Besley display over Atkinson
+     Hyperlegible Next. next/font self-hosts both (the CSP is font-src 'self')
+     and puts a size-matched fallback inside each variable. */
+  --font-display: var(--font-besley), Georgia, "Times New Roman", serif;
+  --font-body: var(--font-atkinson), "Helvetica Neue", Arial, sans-serif;
+
+  /* The site's type scale: 17px body, 15px captions, 13px fine print. */
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.5;
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.55;
+  --text-base: 1.0625rem;
+  --text-base--line-height: 1.6;
+  --text-lg: 1.1875rem;
+  --text-lg--line-height: 1.5;
+
+  /* Radius scale 6 / 10 / 14 / 18. Controls and rows are 10, panels 14. */
+  --radius-sm: 6px;
+  --radius-lg: 10px;
+  --radius-xl: 10px;
+  --radius-2xl: 14px;
+  --radius-3xl: 18px;
+  --radius-control: 10px;
+  --radius-card: 14px;
+  --radius-panel: 18px;
+
+  /* Ink-tinted shadows. Depth comes from bands first. */
+  --shadow-sm: 0 1px 2px rgba(14, 33, 41, 0.06);
+  --shadow-md: 0 16px 36px -20px rgba(14, 33, 41, 0.32);
+  --shadow-lg: 0 24px 44px -26px rgba(14, 33, 41, 0.42);
+  --shadow-primary: 0 14px 28px -16px rgba(30, 95, 98, 0.55);
+  --shadow-amber: 0 16px 30px -18px rgba(242, 169, 59, 0.7);
 }
 
 body {
   background: var(--color-ground);
   color: var(--color-ink);
   font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
 }
 
 /* Classes area. `.class-theme` wraps every class page (sign-in, catalog,
    classroom, lessons) and paints its own ground, so the dark values below
    never reach Number Path, which has no dark design. Values mirror the main
    site's [data-theme="dark"] tokens (assets/css/home.css); the attribute is
-   set before paint by the script in app/layout.tsx. */
+   set before paint by the script in app/layout.tsx. In dark the ground
+   (#15262c) stays lighter than the ink bands so the band structure survives. */
 .class-theme {
   background: var(--color-ground);
   color: var(--color-ink);
 }
 html[data-theme="dark"] .class-theme {
   color-scheme: dark;
-  --color-ground: #0f1a18;
-  --color-surface: #152421;
-  --color-ink: #e8efeb;
-  --color-ink-deep: #f4f8f6;
-  --color-ink-soft: #c2cfc9;
-  --color-ink-muted: #8ca09a;
-  --color-teal: #6fbcaf;
-  --color-teal-soft: #8fd0c4;
+  --color-ground: #15262c;
+  --color-surface: #1c3037;
+  --color-tint: #233940;
+  --color-sea-glass: #233940;
+  --color-ink: #e8efed;
+  --color-ink-deep: #e8efed;
+  --color-ink-800: #0b1a1f;
+  --color-ink-900: #061115;
+  --color-ink-soft: #c0cfd2;
+  --color-ink-muted: #8fa6ab;
+  --color-teal: #7fc4bc;
+  --color-teal-soft: #9ad5cd;
+  --color-teal-hover: #9ad5cd;
   --color-on-teal: #07211e;
-  --color-sea-glass: #28403b;
-  --color-line: #28403b;
+  --color-amber: #f3b649;
+  --color-amber-bright: #f7c66b;
+  --color-amber-deep: #f3b649;
+  --color-amber-tint: #3a2c12;
+  --color-line: #31484f;
+  --color-line-soft: #273c43;
   --color-field-line: #6b8a83;
-  --color-rung-glow: #2e211c;
-  --color-coral: #e78d6f;
-  --color-coral-deep: #e78d6f;
+  --color-danger: #f0907e;
+  --color-coral-deep: #f0907e;
+  --color-rung-glow: #3a2c12;
 }
 /* Overscroll and short pages show the body, so match it. */
 html[data-theme="dark"] body:has(.class-theme) {
-  background: #0f1a18;
+  background: #15262c;
 }
 
-/* Headings and controls carry the display face, as on the parent site. */
-h1,
-h2,
-h3,
-h4,
-button,
-summary,
-label {
-  font-family: var(--font-display);
+@layer base {
+  /* Headings carry Besley; buttons, labels and summaries stay in the body
+     face, as on the site. In the base layer so a utility (font-semibold,
+     tracking-*) can still override. Clarendons cramp, so tracking never goes
+     tighter than -0.01em. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+  }
+
+  /* One focus ring everywhere: amber-deep on light grounds, amber on ink
+     bands. Components that draw their own ring say focus-visible:outline-none. */
+  :focus-visible {
+    outline: 2.5px solid var(--color-amber-deep);
+    outline-offset: 3px;
+  }
+  .ink-band :focus-visible {
+    outline-color: var(--color-amber);
+  }
 }
 
-/* Skip link — mirrors the parent static site's .skip-link (same slide-in-from-
-   offscreen behaviour), using this app's theme tokens. Hand-written rather than
-   Tailwind's sr-only/not-sr-only pair, whose utility ordering fought the
-   positioning and left the link clipped when focused. */
+::selection {
+  background: #f2a93b;
+  color: #0e2129;
+}
+
+/* Skip link, as on the parent static site: amber on ink, slides in from off screen. */
 .skip-link {
   position: absolute;
   left: 1rem;
   top: -100px;
   z-index: 100;
-  background: var(--color-ink);
-  color: var(--color-ground);
+  background: #f2a93b;
+  color: #0e2129;
   padding: 0.75rem 1.25rem;
-  border-radius: 0.5rem;
-  font-family: var(--font-display);
-  font-size: 0.875rem;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
   font-weight: 600;
   text-decoration: none;
   transition: top 150ms ease;
 }
 .skip-link:focus {
   top: 1rem;
+  color: #0e2129;
+}
+
+/* The highlighter: the brand's one typographic flourish. One phrase per page
+   at most, inside a Besley headline. */
+.hl {
+  --hl-bg: color-mix(in oklab, var(--color-amber) 62%, var(--color-surface));
+  background-image: linear-gradient(var(--hl-bg), var(--hl-bg));
+  background-repeat: no-repeat;
+  background-position: 0 56%;
+  background-size: 100% 0.74em;
+  color: #12262c;
+  padding: 0 0.1em;
+  margin: 0 -0.1em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+html[data-theme="dark"] .class-theme .hl {
+  --hl-bg: var(--color-amber);
+  color: #0e2129;
+}
+
+/* Graph-paper texture behind ink bands: the lab-notebook feel that carries
+   "science" without a stock photo. */
+.ink-grid {
+  background-image:
+    linear-gradient(rgba(238, 244, 243, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(238, 244, 243, 0.055) 1px, transparent 1px);
+  background-size: 44px 44px;
 }
 
 @media (prefers-reduced-motion: reduce) {

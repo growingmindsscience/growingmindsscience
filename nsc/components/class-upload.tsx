@@ -68,10 +68,10 @@ export function ClassUpload({ lessonId }: { lessonId: string }) {
         onChange={(event) => { const file = event.target.files?.[0]; if (file) void start(file); }} />
       {progress !== null && <progress value={progress} max={100} aria-label="Upload progress" className="w-full" />}
       <button type="button" disabled={busy} onClick={() => void sync()}
-        className="self-start rounded-full border border-teal px-4 py-2 text-sm font-semibold text-teal disabled:opacity-50">
+        className="self-start rounded-control border border-teal px-4 py-2 text-sm font-semibold text-teal disabled:opacity-50">
         Check video status
       </button>
-      {message && <p role="status" className="text-sm text-teal-soft">{message}</p>}
+      {message && <p role="status" className="text-sm text-ink-muted">{message}</p>}
     </div>
   );
 }

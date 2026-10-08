@@ -5,7 +5,6 @@ import { CLASS_COURSES, isClassCourseSlug } from "@/lib/classes";
 import { getEntitlementSummary } from "@/lib/entitlements.server";
 import { Card, LinkButton } from "@/components/ui";
 import { SubmitButton } from "@/components/submit-button";
-import { Eyebrow } from "@/components/class-chrome";
 import { signoutClasses } from "@/app/auth/actions";
 import { openClassBillingPortal } from "@/app/app/account/actions";
 
@@ -54,14 +53,14 @@ export default async function ClassAccountPage({ searchParams }: {
     <main className="mx-auto flex max-w-2xl flex-col gap-8 px-6 py-10">
       <header>
         <Link href="/app/classes" className="inline-flex min-h-11 items-center text-sm text-ink-soft underline">← My classes</Link>
-        <h1 className="mt-1 text-3xl font-semibold tracking-tight text-ink-deep">Account</h1>
+        <h1 className="mt-1 text-3xl text-ink-deep sm:text-4xl">Account</h1>
         <p className="mt-1 text-ink-soft">{user.email}</p>
       </header>
 
-      {notice && <p role="alert" className="rounded-xl bg-rung-glow px-4 py-3 text-sm text-coral-deep">{notice}</p>}
+      {notice && <p role="alert" className="rounded-control border border-line bg-tint px-4 py-3 text-sm text-danger">{notice}</p>}
 
       <Card>
-        <Eyebrow as="h2">What you have</Eyebrow>
+        <h2 className="text-xl text-ink-deep">What you have</h2>
         {summary.scopes.length ? (
           <ul className="mt-3 flex flex-col gap-2">
             {summary.scopes.map((scope) => (
@@ -87,7 +86,7 @@ export default async function ClassAccountPage({ searchParams }: {
       </Card>
 
       <Card>
-        <Eyebrow as="h2">Class purchases</Eyebrow>
+        <h2 className="text-xl text-ink-deep">Class purchases</h2>
         {orders?.length ? (
           <ul className="mt-3 divide-y divide-line">
             {orders.map((order) => (
@@ -111,7 +110,7 @@ export default async function ClassAccountPage({ searchParams }: {
       </Card>
 
       <Card>
-        <Eyebrow as="h2">Sign-in</Eyebrow>
+        <h2 className="text-xl text-ink-deep">Sign-in</h2>
         <p className="mt-3 text-ink-soft">One login covers your classes and everything else in your account.</p>
         <div className="mt-4 flex flex-wrap gap-2">
           <LinkButton href="/reset?class=1" variant="ghost" size="sm" className="border border-line">Change password</LinkButton>
