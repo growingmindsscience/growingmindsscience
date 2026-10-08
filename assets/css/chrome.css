@@ -288,6 +288,17 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .site-header .nav__details[open] .nav__menu { animation: chrome-menu-in 200ms var(--chrome-ease); }
+  .site-header .nav__details[open] .nav__menu--auth { animation-name: chrome-menu-in-end; }
+}
+/* "My classes" chooser: two rows (this site, and Thinkific for the toddler
+   class) until the toddler class moves on-site. It sits at the right of the
+   bar, so its menu aligns to the label's right edge instead of centering. */
+@media (min-width: 1001px) {
+  .site-header .nav__menu--auth { left: auto; right: 0; width: 300px; transform: none; }
+}
+@keyframes chrome-menu-in-end {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
 }
 @keyframes chrome-menu-in {
   from { opacity: 0; transform: translate(-50%, -6px); }
@@ -334,7 +345,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 42px;
+  min-height: 48px; /* DESIGN.md: every button is at least 48px tall */
   padding: 0.55rem 1.15rem;
   border: 1.5px solid transparent;
   border-radius: 10px;
@@ -470,6 +481,9 @@
   .site-header .nav__menu-all { margin-top: 0.25rem; padding: 0.6rem 0.75rem; border-top: 0; }
   .site-header .nav__auth { margin: 0; }
   .site-header .nav__auth::before { display: none; }
+  /* The ink header's own menu panel (background and shadow) would otherwise
+     outrank the reset above and leave a shadow under the drawer's submenus. */
+  .site-header.site-header--ink .nav__menu { background: none; box-shadow: none; }
   .site-header .nav__list > .nav__cta { margin: 1.25rem 0 0; border-bottom: 0; }
   .site-header .nav__cta .btn { width: 100%; min-height: 52px; font-size: 1rem; }
 }

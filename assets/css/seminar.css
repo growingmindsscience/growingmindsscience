@@ -72,15 +72,15 @@
 .unit__meta dt { color: var(--ink-muted); }
 .unit__meta dd { margin: 0; color: var(--ink); font-weight: 600; text-align: right; text-wrap: balance; }
 .unit__cta { display: grid; gap: var(--space-2); margin: 0; justify-self: stretch; }
-.unit__cta .btn { width: 100%; min-height: 44px; font-size: var(--text-sm); }
+.unit__cta .btn { width: 100%; min-height: 48px; font-size: var(--text-sm); }
 .unit__fine { margin: 0; font-size: var(--text-sm); line-height: 1.5; color: var(--ink-soft); text-wrap: pretty; }
 
 /* /classes/: the facts sit under the promise as one quiet row, so the side
    column holds only the status, the actions, and the note. */
 .unit__meta--inline {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2) var(--space-6);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, max-content));
+  gap: var(--space-3) var(--space-8);
   margin-top: var(--space-4);
 }
 .unit__meta--inline div { display: grid; gap: 2px; font-size: var(--text-sm); }
@@ -255,7 +255,7 @@
   color: var(--amber-deep);
 }
 .class-intro .hero__ctas { display: flex; flex-wrap: wrap; gap: var(--space-3); margin: var(--space-6) 0 var(--space-3); }
-.class-intro__facts { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-6); margin: 0; }
+.class-intro__facts { display: grid; grid-template-columns: repeat(2, minmax(0, max-content)); gap: var(--space-3) var(--space-8); margin: 0; }
 .class-intro__facts div { display: grid; gap: 2px; }
 .class-intro__facts dt { font-size: var(--text-xs); color: var(--ink-muted); }
 .class-intro__facts dd { margin: 0; font-size: var(--text-sm); font-weight: 600; color: var(--ink); }
@@ -361,7 +361,7 @@
 .price__amount { margin: 0; font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; line-height: 1; color: var(--ink); }
 .price__amount small { display: block; margin-top: var(--space-2); font-family: var(--font-body); font-size: var(--text-xs); font-weight: 400; color: var(--ink-muted); line-height: 1.4; }
 .price__actions { display: grid; gap: var(--space-2); margin: 0; }
-.price__actions .btn { width: 100%; min-height: 44px; font-size: var(--text-sm); }
+.price__actions .btn { width: 100%; min-height: 48px; font-size: var(--text-sm); }
 .price__actions a:not(.btn) { font-size: var(--text-sm); justify-self: start; }
 .price__fine { margin: 0; font-size: var(--text-xs); color: var(--ink-muted); line-height: 1.5; }
 @media (max-width: 820px) {
@@ -427,7 +427,7 @@
   border: 1px solid var(--line-soft);
   border-radius: var(--radius-lg);
 }
-.lesson-sample__text p { margin: 0 0 var(--space-4); max-width: 62ch; color: var(--ink); font-size: var(--text-md); line-height: 1.65; text-wrap: pretty; }
+.lesson-sample__text p { margin: 0 0 var(--space-4); max-width: 52ch; color: var(--ink); font-size: var(--text-md); line-height: 1.65; text-wrap: pretty; }
 .lesson-sample__text p:last-child { margin-bottom: 0; }
 .lesson-sample__note { margin: var(--space-4) 0 0; max-width: 62ch; font-size: var(--text-sm); color: var(--ink-muted); }
 
@@ -436,3 +436,74 @@
 .price-sheet { padding-top: clamp(var(--space-10), 5vw, var(--space-16)); }
 .price-faq { padding-top: 0; }
 .price-faq h2 { margin-bottom: var(--space-6); }
+
+/* ---------- Class pages: one display headline, then a quieter rhythm ----------
+   The H1 is the only display-size heading. Every section heading below it
+   steps down to the title size (DESIGN.md "title"), at least 1.25x smaller. */
+body:has(.class-intro) main > section:not(.class-intro) h2 {
+  font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.125rem);
+  line-height: 1.14;
+}
+/* Narrow sections share the page's left edge instead of re-centering. */
+body:has(.class-intro) .container--narrow { max-width: var(--container); }
+body:has(.class-intro) .container--narrow > * { max-width: 46rem; }
+/* Phones: both hero buttons full width, so they clear the first screen. */
+@media (max-width: 560px) {
+  .class-intro .hero__ctas .btn { flex: 1 1 100%; }
+  .class-intro__facts { gap: var(--space-3) var(--space-5); }
+}
+
+/* ---------- Open class pages end on ink, like the homepage enrol band ----------
+   The price card sits on the band; amber button (amber only on ink), the
+   highlighter on the price, and the refund on its own line under the button. */
+#enroll.signup {
+  background: var(--ink-900);
+  border-color: transparent;
+  color: #EEF4F3;
+}
+#enroll .signup__head { color: #FFFFFF; }
+#enroll .signup__head mark {
+  padding: 0 0.12em;
+  border-radius: 2px;
+  background: #F2A93B;
+  color: #0E2129;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+#enroll .signup__body .lede,
+#enroll .value-checklist li { color: #BCCFD3; }
+#enroll .signup__body .lede { max-width: 44ch; text-wrap: pretty; }
+#enroll .value-checklist li::before { color: #F2A93B; }
+#enroll .signup__back a { color: #EEF4F3; text-decoration-color: #F2A93B; }
+#enroll .signup__form {
+  background: var(--ink-800);
+  border-color: rgba(238, 244, 243, 0.14);
+  box-shadow: none;
+  color: #EEF4F3;
+}
+#enroll .signup__form-title { color: #FFFFFF; }
+#enroll .signup__price { color: #BCCFD3; }
+#enroll .signup__price strong { color: #FFFFFF; }
+#enroll .signup__note { color: #BCCFD3; }
+#enroll .signup__form .btn--primary {
+  background: #F2A93B;
+  border-color: #F2A93B;
+  color: #0E2129;
+  box-shadow: 0 16px 30px -18px rgba(242, 169, 59, 0.7);
+}
+#enroll .signup__form .btn--primary:hover { background: #F7BC5E; border-color: #F7BC5E; color: #0E2129; }
+#enroll .signup__form .btn--primary:focus-visible { outline: 3px solid #F2A93B; outline-offset: 3px; }
+#enroll .signup__refund { margin: var(--space-3) 0 0; font-size: var(--text-sm); font-weight: 600; color: #EEF4F3; }
+#enroll .signup__fine { margin-top: var(--space-3); color: #8DA6AC; }
+#enroll .signup__fine a { color: #EEF4F3; text-decoration-color: #F2A93B; }
+
+/* ---------- Class pages: what the class draws on ----------
+   A short, real reading list under the syllabus, so "sources cited" is shown,
+   not claimed. Citation first; where it is taught, quietly, after. */
+.sources { margin-top: clamp(var(--space-10), 5vw, var(--space-14)); max-width: 50rem; }
+.sources__title { margin: 0 0 var(--space-2); font-size: var(--text-lg); }
+.sources__lede { margin: 0 0 var(--space-5); color: var(--ink-soft); }
+.sources-list { margin: 0; padding: 0 0 0 1.4em; display: grid; gap: var(--space-3); font-size: var(--text-sm); line-height: 1.55; color: var(--ink-soft); }
+.sources-list li::marker { color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+.sources-list__where { display: block; margin-top: 2px; font-size: var(--text-xs); color: var(--ink-muted); }
+.sources-list a { color: var(--teal); }

@@ -171,7 +171,7 @@ h1, h2, h3, h4 {
   text-wrap: balance;
 }
 h1 { font-size: var(--text-hero); }
-h2 { font-size: var(--text-2xl); }
+h2 { font-size: clamp(1.6rem, 1.15rem + 1.5vw, 2.2rem); } /* <= H1 / 1.25 at every width */
 h3 { font-size: var(--text-xl); }
 .prose { text-wrap: pretty; }
 
@@ -325,6 +325,17 @@ h3 { font-size: var(--text-xl); }
 .hero__link:hover { color: #fff; text-decoration-color: var(--amber); }
 .hero__link span { transition: transform var(--t); }
 .hero__link:hover span { transform: translateY(2px); }
+.hero__free { gap: var(--space-2); }
+.hero__play {
+  display: inline-grid;
+  place-items: center;
+  width: 1.5rem; height: 1.5rem;
+  border-radius: 50%;
+  background: var(--amber);
+  color: #0E2129;
+}
+.hero__play svg { margin-left: 2px; }
+.hero__free-meta { font-weight: 400; color: var(--on-dark-soft); }
 .btn--block { width: 100%; }
 .btn--lg { min-height: 54px; padding: 1rem 1.7rem; }
 
@@ -545,8 +556,8 @@ h3 { font-size: var(--text-xl); }
 .thesis__quote-text {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(1.65rem, 1.1rem + 2.1vw, 2.6rem);
-  line-height: 1.16;
+  font-size: clamp(1.6rem, 1.15rem + 1.5vw, 2.2rem);
+  line-height: 1.18;
   letter-spacing: -0.005em;
   color: var(--ink);
   margin: 0 0 var(--space-6);
@@ -603,6 +614,15 @@ h3 { font-size: var(--text-xl); }
 .instructor__facts li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 6px; height: 6px; border-radius: 50%; background: var(--amber); }
 .instructor__more { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; color: var(--teal); text-decoration: none; }
 .instructor__more:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+.instructor.instructor--compact {
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-5);
+}
+.instructor--compact .instructor__photo { width: 4.5rem; aspect-ratio: 1; border-radius: 50%; }
+.instructor__line { margin: 0; color: var(--ink-soft); max-width: 58ch; text-wrap: pretty; }
+.instructor__line strong { color: var(--ink); font-weight: 600; }
+.instructor--compact .instructor__more { display: inline; min-height: 0; white-space: nowrap; }
 .lenses { display: grid; }
 .lens {
   display: grid;
@@ -985,7 +1005,7 @@ h3 { font-size: var(--text-xl); }
 .enrol-fine a { color: var(--on-dark); text-decoration: underline; text-decoration-color: var(--amber); text-underline-offset: 0.2em; }
 .enrol-fine a:hover { color: #fff; }
 .enrol-item__price { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: var(--text-xl); color: #fff; }
-.enrol-item__cta { min-height: 44px; }
+.enrol-item__cta { min-height: 48px; }
 /* Wider screens: the rows share one set of columns, so the prices and the two
    buttons line up even though "Enroll on Thinkific" is the longer label. */
 @media (min-width: 721px) {
@@ -1325,6 +1345,22 @@ html.anim .fig--loop[data-animate].is-visible .fig-arrow:nth-of-type(4) { animat
   .between__inner { grid-template-columns: minmax(0, 1fr); }
   .instructor { grid-template-columns: minmax(0, 9rem) minmax(0, 1fr); }
   .curriculum__head { grid-template-columns: minmax(0, 1fr); align-items: start; }
+}
+
+/* Phones: the homepage keeps its argument and its offer, and sheds what
+   the desktop layout can afford beside it (DESIGN.md, "A short phone homepage"). */
+@media (max-width: 720px) {
+  .unit--soon .unit__promise,
+  .unit--soon .unit__meta { display: none; }
+  .taught__photo { display: none; }
+  .ai__demo { display: none; }
+  /* Free reading: the heading and the two "All …" links; the lists live a tap away. */
+  .shelf__lede,
+  .shelf__list { display: none; }
+  .between__inner { gap: 0; }
+  .shelf h3 { margin-bottom: 0; }
+  /* The open-now strip and the enrol band already state lessons and price. */
+  .unit .unit__meta { display: none; }
 }
 
 @media (max-width: 720px) {

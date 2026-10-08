@@ -23,9 +23,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400..800&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=ed84d5966d" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=44002cebb8" />
   <link rel="stylesheet" href="../assets/css/refresh.css?v=d297404b34" />
-  <link rel="stylesheet" href="/assets/css/seminar.css?v=7cdc1a924e" />
+  <link rel="stylesheet" href="/assets/css/seminar.css?v=712674ad24" />
 
   <script type="application/ld+json">
   {
@@ -69,7 +69,7 @@
     }
   }
   </script>
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=d3e859b994" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=de9d0eebaf" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -105,7 +105,7 @@
           </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth"><a class="nav__link" href="/nsc/app/classes">My classes</a></li>
+          <li class="nav__item nav__auth"><details class="nav__details nav__details--auth"><summary class="nav__link nav__summary">My classes <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary><div class="nav__menu nav__menu--auth"><ul class="nav__submenu"><li><a class="nav__submenu-link" href="/nsc/app/classes"><span class="nav__submenu-title">Birth to 12 months</span><span class="nav__submenu-desc">Your lessons and progress on this site.</span></a></li><li><a class="nav__submenu-link" href="https://matthew-s-site-de0b.thinkific.com/users/sign_in" target="_blank" rel="noopener"><span class="nav__submenu-title">Toddler years <span aria-hidden="true">&nearr;</span></span><span class="nav__submenu-desc">Your lessons on Thinkific, our course platform.</span><span class="u-visually-hidden"> (opens in a new tab)</span></a></li></ul></div></details></li>
           <li class="nav__cta"><a class="btn btn--primary" href="#enroll">Enroll, $49</a></li>
         </ul>
 
@@ -140,7 +140,7 @@
             <a class="btn btn--primary btn--lg" href="#enroll">Enroll, $49</a>
             <a class="btn btn--ghost btn--lg" href="#sample">Read part of a lesson</a>
           </div>
-          <p class="class-intro__fine">Checkout and lessons are on Thinkific, our course platform. Already enrolled? <a href="https://matthew-s-site-de0b.thinkific.com/users/sign_in" target="_blank" rel="noopener">Log in on Thinkific<span class="u-visually-hidden"> (opens in a new tab)</span></a>. 14-day refund if you&rsquo;ve watched 4 lessons or fewer.</p>
+          <p class="class-intro__fine">Checkout and lessons are on Thinkific, our course platform. Already enrolled? <a href="https://matthew-s-site-de0b.thinkific.com/users/sign_in" target="_blank" rel="noopener">Log in on Thinkific<span class="u-visually-hidden"> (opens in a new tab)</span></a>.</p>
         </div>
 
         <figure class="fig fig--plate" aria-labelledby="fig-toddler-caption">
@@ -235,6 +235,19 @@
             <div class="syllabus__body"><p>How toddlers use predictability to feel safe, why transitions often trigger resistance, and how simple routines, previews, and repair can make daily shifts less explosive.</p></div>
           </li>
         </ol>
+        <div class="sources">
+          <h3 class="sources__title">What this class draws on.</h3>
+          <p class="sources__lede">The researchers and frameworks the lessons name, module by module.</p>
+          <ol class="sources-list">
+            <li><span class="sources-list__cite">Harvard Center on the Developing Child: the &ldquo;serve and return&rdquo; framework, the back-and-forth exchanges that shape brain architecture.</span> <span class="sources-list__where">Modules 1 and 2</span></li>
+            <li><span class="sources-list__cite">Patricia Kuhl, University of Washington: how the young brain responds to live caregiver speech.</span> <span class="sources-list__where">Module 2, lesson 1</span></li>
+            <li><span class="sources-list__cite">Erik Erikson: autonomy versus shame and doubt, the developmental task of roughly ages one to three.</span> <span class="sources-list__where">Module 3, lesson 1</span></li>
+            <li><span class="sources-list__cite">Self-Determination Theory: the needs for autonomy, competence, and relatedness.</span> <span class="sources-list__where">Module 3, lesson 2</span></li>
+            <li><span class="sources-list__cite">Dan Siegel: the window of tolerance, the model behind Fig. 1 above.</span> <span class="sources-list__where">Module 4, lesson 2</span></li>
+            <li><span class="sources-list__cite">Zero to Three: co-regulation, helping a child manage emotions through supportive interaction with a caregiver.</span> <span class="sources-list__where">Module 4, lesson 3</span></li>
+            <li><span class="sources-list__cite">Ed Tronick: the still-face experiment, and rupture and repair between parent and child.</span> <span class="sources-list__where">Module 4, lesson 5</span></li>
+          </ol>
+        </div>
       </div>
     </section>
 
@@ -255,7 +268,7 @@
     <!-- WHO TEACHES IT -->
     <section>
       <div class="container container--narrow">
-        <h2>Who teaches it</h2>
+        <h2>Who teaches it.</h2>
         <div class="educator">
           <img class="educator__photo" src="/assets/img/matthew-avatar-144.jpg" alt="Matthew McArthur" width="72" height="72" loading="lazy" decoding="async" />
           <p>
@@ -339,13 +352,14 @@
     <!-- ENROLL -->
     <section id="enroll" class="signup">
       <div class="container signup__inner signup__inner--offer">
-        <h2 class="signup__head">Start the toddler class for $49.</h2>
+        <h2 class="signup__head">Start the toddler class for <mark>$49</mark>.</h2>
         <div class="signup__form" aria-labelledby="enroll-heading">
           <h3 id="enroll-heading" class="signup__form-title">Toddler years</h3>
           <p class="signup__price"><strong>$49</strong> once &middot; lifetime access</p>
           <p class="signup__note">Checkout and your lessons are on Thinkific, our course platform. It opens in a new tab, and your login arrives by email within minutes.</p>
           <a class="btn btn--primary btn--block btn--lg" href="https://matthew-s-site-de0b.thinkific.com/products/courses/ToddlerYears" target="_blank" rel="noopener">Enroll, $49 <span class="btn__ext" aria-hidden="true">&nearr;</span><span class="u-visually-hidden"> (opens Thinkific in a new tab)</span></a>
-          <p class="signup__fine">14-day refund if you&rsquo;ve watched 4 lessons or fewer. Already enrolled? <a href="https://matthew-s-site-de0b.thinkific.com/users/sign_in" target="_blank" rel="noopener">Log in on Thinkific<span class="u-visually-hidden"> (opens in a new tab)</span></a>. Questions first? <a href="/contact/">Ask Matthew</a>.</p>
+          <p class="signup__refund">Full refund within 14 days if you&rsquo;ve watched 4 lessons or fewer.</p>
+          <p class="signup__fine">Already enrolled? <a href="https://matthew-s-site-de0b.thinkific.com/users/sign_in" target="_blank" rel="noopener">Log in on Thinkific<span class="u-visually-hidden"> (opens in a new tab)</span></a>. Questions first? <a href="/contact/">Ask Matthew</a>.</p>
         </div>
         <div class="signup__body">
           <p class="lede">
@@ -389,10 +403,10 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
+            <li><a href="/classes/birth-to-12-months">Birth to 12 months</a></li>
             <li><a href="/classes/toddlerhood">Toddler years</a></li>
-            <li><a href="/classes/preschool.html">Preschool years</a></li>
-            <li><a href="/classes/family-systems.html">Family systems</a></li>
+            <li><a href="/classes/preschool">Preschool years</a></li>
+            <li><a href="/classes/family-systems">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>
           </ul>
         </div>

@@ -913,7 +913,7 @@ button:disabled {
 .check-list li {
   position: relative;
   padding-left: 1.75rem;
-  max-width: 62ch;
+  max-width: 50ch;
   font-size: var(--text-base);
   color: var(--ink-soft);
   line-height: 1.55;
@@ -1036,7 +1036,7 @@ button:disabled {
 .faq details[open] summary::after { content: "−"; }
 .faq details p {
   margin: var(--space-3) 0 0;
-  max-width: 62ch;
+  max-width: 50ch;
   color: var(--ink-soft);
   font-size: var(--text-sm);
   line-height: 1.6;
@@ -1869,7 +1869,7 @@ button:disabled {
 
 .faq-class-item > p {
   padding: 0 0 var(--space-5);
-  max-width: 62ch;
+  max-width: 50ch;
   color: var(--ink-soft);
   font-size: var(--text-base);
   line-height: 1.65;
@@ -1907,7 +1907,7 @@ button:disabled {
   gap: var(--space-5);
   margin-top: var(--space-5);
 }
-.educator p { margin: 0; max-width: 62ch; color: var(--ink-soft); text-wrap: pretty; }
+.educator p { margin: 0; max-width: 50ch; color: var(--ink-soft); text-wrap: pretty; }
 .educator__photo {
   flex: none;
   width: 72px;

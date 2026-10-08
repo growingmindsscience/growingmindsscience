@@ -29,8 +29,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400..800&display=swap" />
-  <link rel="stylesheet" href="assets/css/home.css?v=29c1048f69" />
-  <link rel="stylesheet" href="assets/css/seminar.css?v=7cdc1a924e" />
+  <link rel="stylesheet" href="assets/css/home.css?v=d6cf23614c" />
+  <link rel="stylesheet" href="assets/css/seminar.css?v=712674ad24" />
 
   <script type="application/ld+json">
   [
@@ -53,7 +53,7 @@
     }
   ]
   </script>
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=d3e859b994" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=de9d0eebaf" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -89,8 +89,8 @@
           </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth"><a class="nav__link" href="/nsc/app/classes">My classes</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
+          <li class="nav__item nav__auth"><details class="nav__details nav__details--auth"><summary class="nav__link nav__summary">My classes <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary><div class="nav__menu nav__menu--auth"><ul class="nav__submenu"><li><a class="nav__submenu-link" href="/nsc/app/classes"><span class="nav__submenu-title">Birth to 12 months</span><span class="nav__submenu-desc">Your lessons and progress on this site.</span></a></li><li><a class="nav__submenu-link" href="https://matthew-s-site-de0b.thinkific.com/users/sign_in" target="_blank" rel="noopener"><span class="nav__submenu-title">Toddler years <span aria-hidden="true">&nearr;</span></span><span class="nav__submenu-desc">Your lessons on Thinkific, our course platform.</span><span class="u-visually-hidden"> (opens in a new tab)</span></a></li></ul></div></details></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="#signup">Enroll, $49</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -117,7 +117,7 @@
 
           <div class="hero__ctas">
             <a class="btn btn--amber btn--lg" href="/classes/">Browse the classes</a>
-            <a class="hero__link" href="#taught">How it&rsquo;s taught <span aria-hidden="true">&darr;</span></a>
+            <a class="btn btn--quiet-dark btn--lg hero__free" href="/nsc/classes/infant/preview"><span class="hero__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></span>Watch a lesson free <span class="hero__free-meta">&middot; 14 min</span></a>
           </div>
 
           <div class="hero__cred">
@@ -173,7 +173,7 @@
               <text x="460" y="328" text-anchor="end">Age</text>
             </g>
           </svg>
-          <figcaption class="fig__caption" id="fig1-caption"><b>Fig. 1</b> &middot; Plasticity is how easily experience reshapes the brain. Each domain&rsquo;s window peaks at a different age, which is why each class is built around one window. After a peak, plasticity tapers; it does not switch off. Schematic after Nelson (2000).</figcaption>
+          <figcaption class="fig__caption" id="fig1-caption"><b>Fig. 1</b> &middot; Plasticity is how easily experience reshapes the brain. Each domain&rsquo;s window peaks at a different age, so what matters most changes as a child grows; each class teaches what is changing fastest in its age range. After a peak, plasticity tapers; it does not switch off. Schematic after Nelson (2000).</figcaption>
         </figure>
       </div>
     </section>
@@ -194,21 +194,21 @@
             </a>
           </li>
           <li>
-            <a class="open-now__item" href="/classes/toddlerhood">
-              <img class="open-now__thumb" src="assets/img/site/class-toddler-240.jpg" alt="" width="240" height="240" decoding="async" />
+            <a class="open-now__item open-now__item--free" href="/nsc/classes/infant/preview">
+              <span class="open-now__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></span>
               <span class="open-now__text">
-                <span class="open-now__name">Toddler years, 1 to 3</span>
-                <span class="open-now__meta">29 lessons &middot; $49 once</span>
+                <span class="open-now__name">Watch an infant lesson free</span>
+                <span class="open-now__meta">Serve and Return &middot; 14 min</span>
               </span>
               <span class="open-now__arrow" aria-hidden="true">&rarr;</span>
             </a>
           </li>
           <li>
-            <a class="open-now__item open-now__item--free" href="/nsc/classes/infant/preview">
-              <span class="open-now__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></span>
+            <a class="open-now__item" href="/classes/toddlerhood">
+              <img class="open-now__thumb" src="assets/img/site/class-toddler-240.jpg" alt="" width="240" height="240" decoding="async" />
               <span class="open-now__text">
-                <span class="open-now__name">Watch a lesson free</span>
-                <span class="open-now__meta">Serve and Return &middot; 14 min</span>
+                <span class="open-now__name">Toddler years, 1 to 3</span>
+                <span class="open-now__meta">29 lessons &middot; $49 once</span>
               </span>
               <span class="open-now__arrow" aria-hidden="true">&rarr;</span>
             </a>
@@ -227,7 +227,6 @@
 
         <div class="thesis__body prose">
           <p>Six years studying developmental psychology and two years coaching families in Los Angeles taught me one consistent thing. Parents who know how development works stay calmer, read their children more accurately, and change the things that actually matter. Not because they memorized scripts, but because they can see what is happening in front of them.</p>
-          <p>That knowledge has lived inside graduate programs and academic journals. It should not require either. Growing Minds Science is the course in child development every parent should have been offered, taught for people with a job, a household, and about forty minutes after bedtime.</p>
 
           <h3>Every class teaches you to see three things.</h3>
           <dl class="lenses">
@@ -245,20 +244,9 @@
             </div>
           </dl>
 
-          <div class="instructor" id="instructor">
-            <img class="instructor__photo" src="assets/img/matthew-photo-400.jpg" srcset="assets/img/matthew-photo-400.jpg 400w, assets/img/matthew-photo-600.jpg 600w" sizes="(max-width: 720px) 12rem, 11rem" alt="Matthew McArthur, founder of Growing Minds Science." width="400" height="500" loading="lazy" decoding="async" />
-            <div class="instructor__body">
-              <p class="instructor__label">Your instructor</p>
-              <h3 class="instructor__name">Matthew McArthur</h3>
-              <p class="instructor__role">Child Development Specialist and parent coach, Los Angeles</p>
-              <ul class="instructor__facts">
-                <li>M.A. in Developmental Psychology, San Diego State University</li>
-                <li>B.A. in Psychology, UCLA</li>
-                <li>Six years studying developmental science; two years coaching it directly with more than 100 families</li>
-                <li>Teaches an Infant and Toddler Socialization class in Los Angeles</li>
-              </ul>
-              <a class="instructor__more" href="/about/">About Growing Minds Science &rarr;</a>
-            </div>
+          <div class="instructor instructor--compact" id="instructor">
+            <img class="instructor__photo" src="assets/img/matthew-avatar-144.jpg" alt="Matthew McArthur, founder of Growing Minds Science." width="144" height="144" loading="lazy" decoding="async" />
+            <p class="instructor__line"><strong>Matthew McArthur</strong> teaches every class: a Child Development Specialist in Los Angeles who has coached more than 100 families and teaches an Infant and Toddler Socialization class. <a class="instructor__more" href="/about/">About Matthew &rarr;</a></p>
           </div>
         </div>
       </div>
@@ -292,7 +280,7 @@
                 <div><dt>Format</dt><dd>4 modules, 16 lessons, about 3 hours</dd></div>
                 <div><dt>Price</dt><dd>$49 once, lifetime access</dd></div>
               </dl>
-              <p class="unit__cta"><a class="btn btn--primary" href="/classes/birth-to-12-months">See the class</a></p>
+              <p class="unit__cta"><a class="btn btn--primary" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Finfant%2Fenroll">Enroll, $49</a><a class="btn btn--quiet" href="/classes/birth-to-12-months">See the class</a></p>
             </div>
           </li>
 
@@ -312,11 +300,11 @@
                 <div><dt>Format</dt><dd>5 modules, 29 lessons, about 5 hours</dd></div>
                 <div><dt>Price</dt><dd>$49 once, lifetime access</dd></div>
               </dl>
-              <p class="unit__cta"><a class="btn btn--primary" href="/classes/toddlerhood">See the class</a></p>
+              <p class="unit__cta"><a class="btn btn--primary" href="https://matthew-s-site-de0b.thinkific.com/products/courses/ToddlerYears" target="_blank" rel="noopener">Enroll, $49 <span class="btn__ext" aria-hidden="true">&nearr;</span><span class="u-visually-hidden"> (opens Thinkific in a new tab)</span></a><a class="btn btn--quiet" href="/classes/toddlerhood">See the class</a></p>
             </div>
           </li>
 
-          <li class="unit">
+          <li class="unit unit--soon">
             <figure class="unit__thumb">
               <img src="assets/img/site/class-preschool-400.jpg" srcset="assets/img/site/class-preschool-240.jpg 240w, assets/img/site/class-preschool-400.jpg 400w, assets/img/site/class-preschool.jpg 800w" sizes="(max-width: 720px) 5.5rem, (max-width: 1040px) 6rem, 7.25rem" alt="A preschooler, back to the camera, stirring a pot at a wooden toy kitchen in the evening." width="800" height="800" loading="lazy" decoding="async" />
             </figure>
@@ -336,7 +324,7 @@
             </div>
           </li>
 
-          <li class="unit">
+          <li class="unit unit--soon">
             <figure class="unit__thumb">
               <img src="assets/img/site/class-family-400.jpg" srcset="assets/img/site/class-family-240.jpg 240w, assets/img/site/class-family-400.jpg 400w, assets/img/site/class-family.jpg 800w" sizes="(max-width: 720px) 5.5rem, (max-width: 1040px) 6rem, 7.25rem" alt="A kitchen table after dinner: two adults' hands, a child's crayon drawing of the family, and a phone face down." width="800" height="800" loading="lazy" decoding="async" />
             </figure>
@@ -365,7 +353,7 @@
         <div>
           <div class="section-head">
             <h2 id="taught-heading">Taught like a seminar. Built for a Tuesday night.</h2>
-            <p class="section-head__lede">Short video lessons, watched in any order at any hour. The research is shown rather than hidden, and the goal is a mental model you can carry, not a script to recite.</p>
+            <p class="section-head__lede">Short video lessons, watched in any order at any hour. The research is shown rather than hidden, and the goal is a mental model you can carry, not a script to recite. <a href="/about/#how-we-teach">The five teaching principles</a> are on the About page.</p>
             <ul class="taught__facts" aria-label="Class format">
               <li>Lessons of about ten minutes</li>
               <li>Self-paced, lifetime access</li>
@@ -373,21 +361,6 @@
             </ul>
           </div>
 
-          <ul class="principles">
-            <li class="principle">
-              <h3>Translate the research, don&rsquo;t replace it</h3>
-              <p>Plain language, with honesty about what the evidence is and is not. No invented certainty, no oversimplified hooks.</p>
-            </li>
-            <li class="principle">
-              <h3>Mental models over scripts</h3>
-              <p>A clear way to understand what is happening travels to the situations no script anticipated. Scripts don&rsquo;t.</p>
-            </li>
-            <li class="principle">
-              <h3>Built for ordinary days</h3>
-              <p>Every recommendation has to survive a normal weekday, between transitions, meals, work, and the real capacity of tired adults.</p>
-            </li>
-          </ul>
-          <p class="principles__more"><a href="/about/#how-we-teach">All five teaching principles</a></p>
         </div>
 
         <div class="taught__aside">
@@ -486,8 +459,6 @@
               <li><a class="shelf__link" href="/articles/serve-and-return"><span class="shelf__title">What &ldquo;serve and return&rdquo; actually means</span><span class="shelf__desc">The ordinary loop that builds the architecture.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
               <li><a class="shelf__link" href="/articles/toddler-no"><span class="shelf__title">The toddler &ldquo;no&rdquo; is not the war you think it is</span><span class="shelf__desc">Autonomy, on schedule.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
               <li><a class="shelf__link" href="/articles/parents-nervous-system"><span class="shelf__title">When your own nervous system is the variable</span><span class="shelf__desc">Co-regulation, from the adult side.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
-              <li><a class="shelf__link" href="/articles/self-regulation"><span class="shelf__title">Self-regulation, briefly</span><span class="shelf__desc">What it is, when it develops, what helps.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
-              <li><a class="shelf__link" href="/articles/screen-time"><span class="shelf__title">A short, honest take on screen time</span><span class="shelf__desc">What the evidence supports, and what it doesn&rsquo;t.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
             </ol>
             <a class="shelf__more" href="/articles/">All articles &rarr;</a>
           </div>
@@ -497,9 +468,7 @@
             <p class="shelf__lede">Interactive tools for the moments between lessons.</p>
             <ul class="shelf__list">
               <li><a class="shelf__link" href="/tools/growing-minds-ai"><span class="shelf__title">Growing Minds AI</span><span class="shelf__desc">Ask a parenting question. Every answer shows its sources.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
-              <li><a class="shelf__link" href="/nsc"><span class="shelf__title">Number Path</span><span class="shelf__desc">A free ten-minute counting check-in; the full version is $34.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
               <li><a class="shelf__link" href="/milestones"><span class="shelf__title">Milestone tracker</span><span class="shelf__desc">What is typical at each age, birth to three.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
-              <li><a class="shelf__link" href="/tools/communication-snapshot"><span class="shelf__title">Communication Snapshot</span><span class="shelf__desc">Turn what you notice about talking into notes for a checkup.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
               <li><a class="shelf__link" href="/claims/"><span class="shelf__title">Claims library</span><span class="shelf__desc">Common parenting claims, checked against the research.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
             </ul>
             <a class="shelf__more" href="/tools/">All free tools and guides &rarr;</a>
@@ -560,7 +529,7 @@
               </details>
               <details class="faq__item">
                 <summary class="faq__q">Can I get a refund?</summary>
-                <p class="faq__a">Yes. Within 14 days of buying, and as long as you&rsquo;ve watched 4 lessons or fewer, you get a full refund: <a href="/contact/">email Matthew</a> with the address you bought with. A refund ends your access to that class.</p>
+                <p class="faq__a">Yes. Within 14 days of buying, and as long as you&rsquo;ve watched 4 lessons or fewer, you get a full refund: <a href="/contact/">email Matthew</a> with the address you bought with. The free lesson doesn&rsquo;t count toward the four. A refund ends your access to that class.</p>
               </details>
               <details class="faq__item">
                 <summary class="faq__q">Is this medical or psychological advice?</summary>
