@@ -2,9 +2,9 @@
    toggle, and footer year live in chrome.js)
    - Scroll-reveal ([data-animate] / [data-stagger]); gated by <html class="anim">
      so reduced-motion / no-JS always show content
-   - Growth-arc stage tabs (proper tabs semantics, arrow keys)
    - Scripted AI conversation demo (scroll-triggered)
    - Waitlist form: in-voice success/error with graceful native fallback
+   - Mobile sticky enrollment CTA
    CSP-safe: external 'self' script, no inline handlers, no eval.
 */
 (function () {
@@ -64,168 +64,6 @@
     }
     window.addEventListener("load", function () { window.setTimeout(revealAll, 900); });
     window.addEventListener("beforeprint", revealAll);
-  }
-
-  // ------------------------------------------------------------------
-  // Growth arc — stage tabs (arrow keys, Home/End, proper ARIA)
-  // ------------------------------------------------------------------
-  function initArc() {
-    var device = document.querySelector("[data-arc]");
-    if (!device) return;
-    var tabs = Array.prototype.slice.call(device.querySelectorAll('[role="tab"]'));
-    var panels = Array.prototype.slice.call(device.querySelectorAll('[role="tabpanel"]'));
-    if (!tabs.length || tabs.length !== panels.length) return;
-    var rail = device.querySelector(".arc__rail");
-
-    function select(index, focus) {
-      tabs.forEach(function (tab, i) {
-        var active = i === index;
-        tab.setAttribute("aria-selected", active ? "true" : "false");
-        tab.tabIndex = active ? 0 : -1;
-        panels[i].hidden = !active;
-      });
-      // Drive the mobile progress rail (harmless on desktop, where it's hidden):
-      // map stage 0..last -> 0.08..1 on --rail-p; CSS slides the fill and tip
-      // with transform (never a layout property).
-      if (rail) {
-        var frac = tabs.length > 1 ? index / (tabs.length - 1) : 0;
-        rail.style.setProperty("--rail-p", (0.08 + frac * 0.92).toFixed(3));
-      }
-      if (focus) tabs[index].focus();
-    }
-
-    // Panels ship un-hidden so the no-JS page shows all five stages in order;
-    // collapse to the marked-selected tab only once JS is running.
-    var initial = tabs.findIndex(function (tab) {
-      return tab.getAttribute("aria-selected") === "true";
-    });
-    select(initial === -1 ? 0 : initial, false);
-
-    tabs.forEach(function (tab, i) {
-      tab.addEventListener("click", function () { select(i, false); });
-      tab.addEventListener("keydown", function (e) {
-        var next = null;
-        if (e.key === "ArrowRight" || e.key === "ArrowDown") next = (i + 1) % tabs.length;
-        else if (e.key === "ArrowLeft" || e.key === "ArrowUp") next = (i - 1 + tabs.length) % tabs.length;
-        else if (e.key === "Home") next = 0;
-        else if (e.key === "End") next = tabs.length - 1;
-        if (next !== null) {
-          e.preventDefault();
-          select(next, true);
-        }
-      });
-    });
-
-    initArcScroll(device, tabs, panels, select);
-  }
-
-  // ------------------------------------------------------------------
-  // Growth arc — scroll-cinematic layer (progressive enhancement)
-  // Desktop + motion only. Pins the device while a coral trail draws itself up
-  // the growth curve (dot at its tip) and the stage advances with scroll. The
-  // tablist stays the source of truth for a11y; this is a purely visual layer
-  // that also calls select() as you scroll. Mobile / reduced-motion / no-JS
-  // never enable it, so the plain tabs remain.
-  // ------------------------------------------------------------------
-  function initArcScroll(device, tabs, panels, select) {
-    if (reduceMotion) return;
-    var scroll = device.parentNode;
-    var section = device.closest(".arc");
-    var line = device.querySelector(".arc__curve-line");
-    var trail = device.querySelector(".arc__curve-trail");
-    var runner = device.querySelector(".arc__runner");
-    var panelsWrap = device.querySelector(".arc__panels");
-    if (!scroll || !section || !line || !trail || !runner || !panelsWrap) return;
-    if (typeof line.getPointAtLength !== "function") return;
-
-    var stages = tabs.length;
-    var active = false, ticking = false, curStage = -1, pathLen = 0, panelMinH = 0;
-    var mq = window.matchMedia("(min-width: 721px)");
-
-    function measurePanels() {
-      // Equalise panel heights so the pinned device doesn't jump between stages.
-      var max = 0;
-      panels.forEach(function (p) {
-        var wasHidden = p.hidden; p.hidden = false;
-        max = Math.max(max, p.offsetHeight);
-        p.hidden = wasHidden;
-      });
-      panelMinH = max;
-    }
-
-    function layout() {
-      var vh = window.innerHeight;
-      panelsWrap.style.minHeight = panelMinH + "px";
-      var deviceH = device.offsetHeight;
-      var step = Math.round(vh * 0.55);          // scroll distance per stage
-      scroll.style.height = (deviceH + step * (stages - 1)) + "px";
-      device.style.top = Math.max(84, Math.round((vh - deviceH) / 2)) + "px";
-    }
-
-    function render() {
-      ticking = false;
-      var vh = window.innerHeight;
-      var range = scroll.offsetHeight - vh;
-      var p = range > 0 ? Math.min(1, Math.max(0, -scroll.getBoundingClientRect().top / range)) : 0;
-      var pt = line.getPointAtLength(p * pathLen);
-      runner.setAttribute("cx", pt.x.toFixed(1));
-      runner.setAttribute("cy", pt.y.toFixed(1));
-      trail.style.strokeDashoffset = (1 - p).toFixed(4);
-      var idx = Math.min(stages - 1, Math.floor(p * stages));
-      if (idx !== curStage) { curStage = idx; select(idx, false); }
-    }
-
-    function onScroll() {
-      if (!active || ticking) return;
-      ticking = true;
-      requestAnimationFrame(render);
-    }
-
-    var resizeTimer;
-    function onResize() {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(function () { if (active) { measurePanels(); layout(); render(); } }, 150);
-    }
-
-    function enable() {
-      if (active) return;
-      active = true;
-      section.classList.add("arc--scrolly");
-      pathLen = line.getTotalLength();
-      trail.style.strokeDasharray = "1";
-      trail.style.strokeDashoffset = "1";
-      measurePanels();
-      layout();
-      render();
-      window.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", onResize, { passive: true });
-    }
-
-    function disable() {
-      if (!active) return;
-      active = false;
-      section.classList.remove("arc--scrolly");
-      device.style.top = "";
-      scroll.style.height = "";
-      panelsWrap.style.minHeight = "";
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
-    }
-
-    // Clicking a stage in scroll mode scrolls to it, so the pinned view syncs.
-    tabs.forEach(function (tab, i) {
-      tab.addEventListener("click", function () {
-        if (!active) return;
-        var range = scroll.offsetHeight - window.innerHeight;
-        var target = window.scrollY + scroll.getBoundingClientRect().top + (i / stages) * range + 4;
-        window.scrollTo({ top: target, behavior: "smooth" });
-      });
-    });
-
-    function apply(e) { e.matches ? enable() : disable(); }
-    apply(mq);
-    if (mq.addEventListener) mq.addEventListener("change", apply);
-    else if (mq.addListener) mq.addListener(apply);
   }
 
   // ------------------------------------------------------------------
@@ -556,7 +394,6 @@
 
   ready(function () {
     initReveal();
-    initArc();
     initChat();
     initWaitlist();
     initMobileCta();

@@ -60,21 +60,25 @@
 .gms-arcade-asteroid-trigger svg { display: block; width: 100%; height: 100%; }
 .page-hero .gms-arcade-asteroid-trigger { top: auto; right: clamp(1rem, 4vw, 2rem); bottom: calc(-1 * var(--space-8)); }
 
-/* A tiny pixel-spark glyph tucked into the home hero photo arch. */
+/* A tiny pixel-snake glyph under the homepage's free reading and tools shelf
+   (decor.js anchors it to .between__inner), in the section's bottom padding
+   at the content's right edge. A bare glyph like the other eggs: no disc, so
+   it never reads as a broken control. home.css has no --primary or
+   --transition, hence the fallbacks. */
 .gms-arcade-snake-trigger {
   position: absolute;
   bottom: 12px; right: 12px;
-  width: 30px; height: 30px;
+  width: 26px; height: 26px;
   padding: 0;
   border: 0;
-  border-radius: 999px;
-  background: color-mix(in oklab, var(--surface) 70%, transparent);
+  background: transparent;
   cursor: pointer;
-  opacity: 0.26;
-  color: var(--primary);
-  transition: opacity var(--transition), transform var(--transition);
+  opacity: 0.28;
+  color: var(--primary, var(--teal, #1E5F62));
+  transition: opacity var(--transition, 200ms ease), transform var(--transition, 200ms ease);
   z-index: 2;
 }
+.between__inner > .gms-arcade-snake-trigger { top: auto; right: 0; bottom: -2.75rem; }
 .gms-arcade-snake-trigger:hover,
 .gms-arcade-snake-trigger:focus-visible { opacity: 0.95; transform: scale(1.1); }
 .gms-arcade-snake-trigger svg { display: block; width: 100%; height: 100%; }

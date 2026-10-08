@@ -8,6 +8,7 @@ import { Card, buttonClasses } from "@/components/ui";
 import { SubmitButton } from "@/components/submit-button";
 import { sitePath } from "@/lib/site";
 import { startInfantClassCheckout } from "./actions";
+import { CLASS_REFUND_POLICY } from "@/lib/refund-policy";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Birth to 12 months class" };
@@ -34,7 +35,7 @@ export default async function InfantClassPage({ searchParams }: {
       {!owned ? (
         <Card>
           <h2 className="text-xl font-semibold text-ink-deep">Get lifetime access</h2>
-          <p className="mt-2 text-sm text-ink">One payment of {INFANT_COURSE.priceDisplay} includes {lessons.length ? `all ${lessons.length} lessons` : "every lesson"} and lifetime access. All sales are final.</p>
+          <p className="mt-2 text-sm text-ink">One payment of {INFANT_COURSE.priceDisplay} includes {lessons.length ? `all ${lessons.length} lessons` : "every lesson"} and lifetime access. {CLASS_REFUND_POLICY}</p>
           {error === "not-open" && <p role="alert" className="mt-3 text-sm text-coral-deep">Enrollment is not open for this account yet.</p>}
           {error === "checkout-unavailable" && <p role="alert" className="mt-3 text-sm text-coral-deep">Checkout is unavailable right now. Please try again later.</p>}
           {salesOpen ? <form action={startInfantClassCheckout} className="mt-5"><SubmitButton pendingLabel="Opening checkout…">Enroll now</SubmitButton></form> : (

@@ -6,11 +6,14 @@
      dead spaces on inner pages: page/class/article heroes, waitlist bands,
      and CTA cards. Hand-placed motifs (homepage hero & waitlist) are left
      alone — this script only animates them.
+   - A motif never sits behind a form control: where a band's inputs or
+     buttons fall in the motif's corner (a stacked form on a phone), the
+     motif is hidden. Re-checked on resize.
    - [data-drift="speed"] elements drift slowly against the scroll
      (parallax), rAF-throttled and IntersectionObserver-gated. Positive
      speeds rise as you scroll down; negative speeds sink. The drift is
-     measured from the parent section so the transform never feeds back
-     into its own position.
+     measured and gated on the parent section so the transform never feeds
+     back into its own position or visibility.
    - .gms-reveal motifs surface shape-by-shape the first time they enter
      the viewport (CSS handles the transitions; JS only adds .is-visible).
    - All motion is gated behind html.gms-motion, added only when the
@@ -89,20 +92,69 @@
     return !host.querySelector(":scope > .gms-decor, :scope > svg, :scope > .hero__decor");
   }
 
+  var injected = [];
+  function place(host, node) {
+    host.insertBefore(node, host.firstChild);
+    injected.push(node);
+  }
+
   function inject() {
     document.querySelectorAll(".page-hero, .class-hero, .article-hero, .tool-hero").forEach(function (hero) {
       if (!bare(hero)) return;
-      hero.insertBefore(make("hero-sprig", "-0.1", SPRIG), hero.firstChild);
-      hero.insertBefore(make("hero-rings", "0.16", RINGS), hero.firstChild);
+      place(hero, make("hero-sprig", "-0.1", SPRIG));
+      place(hero, make("hero-rings", "0.16", RINGS));
     });
     document.querySelectorAll("section.signup").forEach(function (band) {
       if (!bare(band)) return;
-      band.insertBefore(make("band-rings", "-0.12", RINGS), band.firstChild);
+      place(band, make("band-rings", "-0.12", RINGS));
     });
     document.querySelectorAll(".cta-strip, .article-cta").forEach(function (card) {
       if (!bare(card)) return;
-      card.insertBefore(make("card-seeds", "", SEEDS), card.firstChild);
+      place(card, make("card-seeds", "", SEEDS));
     });
+  }
+
+  // ------------------------------------------------------------------
+  // Keep clear of form controls
+  // Drift is vertical only, so a motif can cover a control only if their
+  // columns cross. Where they do, and the control lies within the rows the
+  // motif can drift through, the motif is hidden. In practice that is a
+  // band whose form stacks into the motif's corner on narrow screens (the
+  // homepage enrol band below 960px). visibility, not display, so the motif
+  // keeps its box and can be measured again on resize.
+  // ------------------------------------------------------------------
+  var CONTROLS = 'input:not([type="hidden"]), select, textarea, button, summary, .btn';
+
+  function guardControls() {
+    if (!injected.length) return;
+    function check() {
+      var vh = window.innerHeight || 1;
+      injected.forEach(function (node) {
+        var host = node.parentElement;
+        // Offsets ignore transforms, so this is the motif's resting box.
+        if (!host || !node.offsetWidth || node.offsetParent !== host) return;
+        var hb = host.getBoundingClientRect();
+        // Largest drift while the host is in range (initDrift: 80px margin).
+        var reach = Math.abs(parseFloat(node.getAttribute("data-drift")) || 0) * ((hb.height + vh) / 2 + 80);
+        var left = node.offsetLeft, right = left + node.offsetWidth;
+        var top = node.offsetTop - reach, bottom = node.offsetTop + node.offsetHeight + reach;
+        var blocked = Array.prototype.some.call(host.querySelectorAll(CONTROLS), function (c) {
+          var r = c.getBoundingClientRect();
+          if (!r.width || !r.height) return false;
+          var x = r.left - hb.left, y = r.top - hb.top;
+          return x < right && x + r.width > left && y < bottom && y + r.height > top;
+        });
+        node.style.visibility = blocked ? "hidden" : "";
+      });
+    }
+    check();
+    var timer;
+    window.addEventListener("resize", function () {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(check, 150);
+    }, { passive: true });
+    // Web fonts can reflow the band after the first check.
+    window.addEventListener("load", check);
   }
 
   // ------------------------------------------------------------------
@@ -135,15 +187,16 @@
     });
     if (!items.length) return;
 
+    // Watch the host, not the motif. A motif carries its last transform, so
+    // after a jump (Home key, an anchor link) it could be parked outside its
+    // clipped band, never intersect again and never be corrected.
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        for (var i = 0; i < items.length; i++) {
-          if (items[i].el === entry.target) { items[i].on = entry.isIntersecting; break; }
-        }
+        items.forEach(function (d) { if (d.host === entry.target) d.on = entry.isIntersecting; });
       });
       schedule();
     }, { rootMargin: "80px 0px" });
-    items.forEach(function (d) { io.observe(d.el); });
+    items.forEach(function (d) { io.observe(d.host); });
 
     var ticking = false;
     function update() {
@@ -186,7 +239,9 @@
   var EGGS = {
     snake: {
       cls: "gms-arcade-snake-trigger", title: "~",
-      anchors: [".hero__media", ".hero .container", "main .container"],
+      // Bottom-right of the free reading and tools shelf, well clear of the
+      // hero; the hero figure's corner read as a broken control.
+      anchors: [".between__inner", ".between .container", "main .container"],
       svg: '<svg viewBox="0 0 12 12"' + PIXEL +
         '<rect x="1" y="8" width="3" height="2"/><rect x="3" y="6" width="2" height="2"/>' +
         '<rect x="4" y="4" width="3" height="2"/><rect x="6" y="2" width="2" height="2"/>' +
@@ -324,6 +379,7 @@
 
   ready(function () {
     inject();
+    guardControls();
     initReveal();
     initDrift();
     initArcadeEgg();
