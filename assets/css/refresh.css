@@ -11,14 +11,9 @@ h4,
 .hero__title,
 .hero__pillars strong,
 .card__title,
-.how-card__num,
-.how-card__title,
-.product-card__title,
 .diff-item h3,
 .modules h3,
-.module-card h3,
 .trust-list strong,
-.mission__title,
 .tool-card__title,
 .featured-tool__title,
 .article-card__title,
@@ -26,7 +21,6 @@ h4,
 .tracker-brief__title {
   letter-spacing: 0;
 }
-
 
 .btn {
   border-radius: var(--radius);
@@ -53,10 +47,6 @@ h4,
   align-items: end;
 }
 
-.hero__eyebrow {
-  color: var(--primary);
-}
-
 .hero__title {
   max-width: 17ch;
 }
@@ -77,45 +67,18 @@ h4,
 
 .hero__media {
   border-radius: var(--radius);
-  box-shadow: 0 32px 64px -30px rgba(21, 57, 60, 0.4);
+  box-shadow: 0 32px 64px -30px rgba(14, 33, 41, 0.4);
   border: 1px solid var(--border);
   aspect-ratio: 1 / 1;
 }
-
-.proof-strip {
-  padding-block: 0 var(--space-16);
-}
-
-.proof-strip__inner {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-
-.proof-strip__item {
-  padding: var(--space-5) var(--space-6);
-  border-right: 1px solid var(--border-soft);
-}
-
-.proof-strip__item:last-child {
-  border-right: 0;
-}
-
-.proof-strip__label,
 .library-intro__label {
   display: block;
   margin-bottom: var(--space-2);
   color: var(--ink-soft);
   font-size: var(--text-xs);
   font-weight: 700;
-  letter-spacing: 0.12em;
   line-height: 1.3;
-  text-transform: uppercase;
 }
-
-.proof-strip__item strong,
 .library-intro strong {
   color: var(--ink);
   font-family: var(--font-display);
@@ -130,9 +93,6 @@ h4,
 }
 
 .card,
-.how-card,
-.product-card,
-.module-card,
 .tool-card,
 .featured-tool,
 .faq details,
@@ -143,61 +103,16 @@ h4,
 }
 
 .card:hover,
-.product-card:hover,
 .tool-card:hover {
-  box-shadow: 0 12px 28px rgba(21, 57, 60, 0.07);
+  box-shadow: 0 12px 28px rgba(14, 33, 41, 0.07);
 }
-
-.how-card {
-  background: transparent;
-  border-color: var(--border);
-}
-
-.how-card__icon,
 .card__icon,
-.product-card__media,
 .topic-nav a {
   border-radius: var(--radius);
 }
 
 .classes {
   background: var(--bg);
-}
-
-.product-card {
-  border-color: var(--border-soft);
-}
-
-.product-card--featured {
-  background:
-    linear-gradient(180deg, color-mix(in oklab, var(--accent-soft) 18%, var(--surface)) 0%, var(--surface) 58%);
-  border-color: color-mix(in oklab, var(--primary) 46%, var(--border));
-  box-shadow: none;
-}
-
-.product-card--featured:hover {
-  box-shadow: 0 16px 34px rgba(21, 57, 60, 0.08);
-}
-
-.mission {
-  background: var(--ink);
-  color: var(--on-dark);
-}
-
-.mission .eyebrow,
-.mission .check-list li,
-.mission__quote p {
-  color: color-mix(in oklab, #EEF4F3 88%, transparent);
-}
-
-.mission__title,
-.mission .check-list li::before {
-  color: #FFFFFF;
-}
-
-.mission__quote {
-  background: color-mix(in oklab, #FFFFFF 8%, transparent);
-  border-left-color: var(--accent-soft);
 }
 
 .page-hero {
@@ -211,13 +126,6 @@ h4,
 }
 
 .page-hero--visual .container {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.54fr);
-  gap: clamp(var(--space-8), 6vw, var(--space-16));
-  align-items: center;
-}
-
-.class-hero--visual .container {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(280px, 0.54fr);
   gap: clamp(var(--space-8), 6vw, var(--space-16));
@@ -242,7 +150,6 @@ h4,
 }
 
 .page-hero__visual img,
-.life-card img,
 .image-callout__media img,
 .tool-mosaic img {
   width: 100%;
@@ -302,33 +209,6 @@ h4,
   grid-template-columns: 1.15fr 0.85fr 1fr;
   gap: var(--space-5);
   align-items: stretch;
-}
-
-.life-card {
-  min-height: 340px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: var(--surface-2);
-  position: relative;
-}
-
-.life-card--small {
-  min-height: 260px;
-  align-self: end;
-}
-
-.life-card figcaption {
-  position: absolute;
-  inset: auto var(--space-4) var(--space-4) var(--space-4);
-  color: #FFFFFF;
-  background: rgba(33, 31, 26, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: var(--radius);
-  padding: var(--space-3) var(--space-4);
-  font-size: var(--text-sm);
-  line-height: 1.45;
-  backdrop-filter: blur(8px);
 }
 
 .image-callout {
@@ -478,18 +358,6 @@ h4,
   background: color-mix(in oklab, var(--accent-soft) 10%, var(--surface));
 }
 
-.tool-card:has(.btn--primary) .tool-card__eyebrow::after {
-  content: "Available";
-  display: inline-flex;
-  margin-left: var(--space-2);
-  padding: 0.12rem 0.42rem;
-  border: 1px solid color-mix(in oklab, var(--primary) 35%, transparent);
-  border-radius: var(--radius-sm);
-  color: var(--primary);
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-}
-
 .tool-card .muted {
   display: inline-flex;
   padding: 0.2rem 0.5rem;
@@ -523,48 +391,6 @@ h4,
 
 .ai-hero__copy {
   min-width: 0;
-}
-
-.ai-chat-preview {
-  border: 1px solid color-mix(in oklab, var(--primary) 35%, var(--border));
-  border-radius: var(--radius);
-  background: var(--surface);
-  box-shadow: 0 18px 40px rgba(21, 57, 60, 0.08);
-  overflow: hidden;
-}
-
-.ai-chat-preview__top {
-  display: grid;
-  grid-template-columns: auto auto 1fr;
-  gap: var(--space-2);
-  align-items: center;
-  padding: var(--space-4) var(--space-5);
-  border-bottom: 1px solid var(--border-soft);
-  color: var(--ink-muted);
-  font-size: var(--text-xs);
-}
-
-.ai-chat-preview__top strong {
-  color: var(--ink);
-  font-size: var(--text-sm);
-}
-
-.ai-chat-preview__dot {
-  width: 0.65rem;
-  height: 0.65rem;
-  border-radius: 999px;
-  background: var(--primary);
-}
-
-.ai-chat-preview__body {
-  display: grid;
-  gap: var(--space-4);
-  padding: var(--space-5);
-}
-
-.ai-chat-preview--live .ai-chat-preview__body {
-  max-height: 680px;
-  overflow-y: auto;
 }
 
 .ai-message {
@@ -676,7 +502,6 @@ h4,
   .page-hero--visual .container,
   .ai-hero__inner,
   .ai-split,
-  .class-hero--visual .container,
   .life-strip__head,
   .life-grid,
   .image-callout,
@@ -689,9 +514,6 @@ h4,
   .page-hero__visual {
     aspect-ratio: 16 / 10;
   }
-
-  .life-card,
-  .life-card--small,
   .tool-mosaic figure:first-child,
   .tool-mosaic__stack figure,
   .tool-hero__image {
@@ -717,56 +539,10 @@ h4,
   .ai-chat-form__actions .btn {
     width: 100%;
   }
-
-  .ai-chat-preview--live .ai-chat-preview__body {
-    max-height: none;
-    overflow-y: visible;
-  }
-
-  .proof-strip {
-    padding-block: 0 var(--space-12);
-  }
-
-  .proof-strip__inner,
   .library-intro {
     grid-template-columns: 1fr;
   }
 
-  .proof-strip__item {
-    border-right: 0;
-    border-bottom: 1px solid var(--border-soft);
-  }
-
-  .proof-strip__item:last-child {
-    border-bottom: 0;
-  }
-}
-
-/* ---------- 4-column "What's here" grid ---------- */
-.how-grid--four {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.how-card {
-  display: flex;
-  flex-direction: column;
-}
-
-.how-card__link {
-  margin-top: auto;
-  padding-top: var(--space-5);
-}
-
-@media (max-width: 1024px) {
-  .how-grid--four {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 600px) {
-  .how-grid--four {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* ---------- About preview with photo on homepage ---------- */
@@ -842,131 +618,6 @@ h4,
   border-color: var(--border-soft);
 }
 
-/* 2. Proof strip — flip dark for instant contrast and rhythm */
-.proof-strip {
-  background: var(--ink);
-  padding-block: var(--space-10);
-}
-
-.proof-strip .proof-strip__inner {
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-.proof-strip .proof-strip__item {
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-.proof-strip .proof-strip__label {
-  color: rgba(255, 255, 255, 0.60);
-}
-
-.proof-strip .proof-strip__item strong {
-  color: #EEF4F3;
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: var(--text-md);
-  line-height: 1.3;
-}
-
-@media (max-width: 880px) {
-  .proof-strip .proof-strip__item {
-    border-bottom-color: rgba(255, 255, 255, 0.1);
-  }
-  .proof-strip .proof-strip__item:last-child {
-    border-bottom: none;
-  }
-}
-
-/* 3. Section eyebrows — pill badge style */
-.section-head__eyebrow,
-.page-hero .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.3rem 0.75rem;
-  background: color-mix(in oklab, var(--primary) 10%, var(--surface));
-  color: var(--primary);
-  border-radius: var(--radius-sm);
-  border: 1px solid color-mix(in oklab, var(--primary) 20%, transparent);
-  text-transform: uppercase;
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
-  font-weight: 700;
-  margin-bottom: var(--space-4);
-}
-
-/* 4. Four-pillar cards — each with a distinct top accent */
-.how-grid--four .how-card {
-  border-top: 3px solid transparent;
-}
-
-.how-grid--four .how-card:nth-child(1) {
-  border-top-color: var(--primary);
-}
-.how-grid--four .how-card:nth-child(1) .how-card__icon {
-  background: color-mix(in oklab, var(--primary) 12%, var(--surface));
-  color: var(--primary);
-}
-
-.how-grid--four .how-card:nth-child(2) {
-  border-top-color: var(--warm);
-}
-.how-grid--four .how-card:nth-child(2) .how-card__icon {
-  background: color-mix(in oklab, var(--warm) 22%, var(--surface));
-  color: #7F5008;
-}
-
-.how-grid--four .how-card:nth-child(3) {
-  border-top-color: var(--accent);
-}
-.how-grid--four .how-card:nth-child(3) .how-card__icon {
-  background: color-mix(in oklab, var(--accent) 18%, var(--surface));
-  color: #1E5F62;
-}
-
-.how-grid--four .how-card:nth-child(4) {
-  border-top-color: var(--ink-muted);
-}
-.how-grid--four .how-card:nth-child(4) .how-card__icon {
-  background: color-mix(in oklab, var(--ink) 8%, var(--surface));
-  color: var(--ink);
-}
-
-/* 5. How-it-works cards (3-col) — transparent on alt bg */
-.section--alt .how-grid--three .how-card {
-  background: transparent;
-  border-color: var(--border-soft);
-}
-
-/* 6. Belief quote section */
-.belief {
-  background: var(--ink);
-  padding-block: clamp(var(--space-16), 10vw, var(--space-24));
-}
-
-.belief__inner {
-  text-align: center;
-  max-width: 52ch;
-  margin-inline: auto;
-}
-
-.belief__quote {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 1rem + 3vw, 3rem);
-  font-weight: 400;
-  line-height: 1.18;
-  color: #EEF4F3;
-  letter-spacing: 0;
-  font-style: italic;
-}
-
-.belief__attr {
-  margin: var(--space-8) 0 0;
-  font-size: var(--text-sm);
-  color: rgba(242, 237, 227, 0.48);
-  letter-spacing: 0.06em;
-}
-
 /* 7. About Matthew — warm section background */
 #about {
   background:
@@ -1005,12 +656,6 @@ h4,
 }
 
 /* 12. Featured class card — richer gradient */
-.product-card--featured {
-  background:
-    linear-gradient(135deg,
-      color-mix(in oklab, var(--primary) 8%, var(--surface)) 0%,
-      var(--surface) 55%);
-}
 
 /* 13. Waitlist / enroll band — a cool sea-glass wash. Cool-Ground Rule: warmth
    comes from coral marks, the serif and imagery, never a warm-tinted ground
@@ -1023,13 +668,6 @@ h4,
 }
 .signup .eyebrow { color: var(--ink-soft); }
 
-/* dark mode adjustments for belief section */
-[data-theme="dark"] .belief {
-  background: #0E2129;
-}
-[data-theme="dark"] .belief__quote {
-  color: #EEF4F3;
-}
 [data-theme="dark"] #about {
   background: linear-gradient(180deg,
     color-mix(in oklab, var(--warm) 8%, var(--bg)) 0%,
@@ -1051,9 +689,10 @@ h4,
   object-position: center 12%;
 }
 
-/* Page-hero visual frame: slight warm tint as background while image loads */
+/* Page-hero visual frame: the cool tint shows while the image loads
+   (DESIGN.md Paper Rule: never a cream or sand ground). */
 .page-hero__visual {
-  background: color-mix(in oklab, var(--warm) 18%, var(--surface-2));
+  background: var(--surface-2);
 }
 
 /* Hero media placeholder — prevents jarring blank white while loading */
@@ -1070,7 +709,6 @@ h4,
 @media (prefers-reduced-motion: no-preference) {
   .page-hero__visual img,
   .about-preview__media img,
-  .life-card img,
   .trust__media img {
     transition: opacity 0.25s ease;
   }
@@ -1140,13 +778,6 @@ h4,
     animation: none !important;
   }
 }
-
-/* =========================================================
-   Hover transitions — cards
-   ========================================================= */
-
-.how-card,
-.product-card,
 .tool-card,
 .article-card,
 .featured-tool {
@@ -1154,11 +785,6 @@ h4,
     transform  0.24s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.24s cubic-bezier(0.22, 1, 0.36, 1);
 }
-
-/* will-change only while the pointer is over the card — not preemptively on
-   every card in the page (which would waste compositor layers). */
-.how-card:hover,
-.product-card:hover,
 .tool-card:hover,
 .article-card:hover,
 .featured-tool:hover {
@@ -1168,10 +794,6 @@ h4,
 }
 
 /* Product cards: more subtle lift (featured card is large) */
-.product-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
 
 /* =========================================================
    Hover transitions — buttons
@@ -1223,11 +845,12 @@ h4,
 
 /* Placement per dead space */
 .gms-decor--hero-rings { top: -90px; right: -80px; width: min(38vw, 430px); }
-.gms-decor--hero-sprig { left: 2px; bottom: 7%; width: clamp(60px, 7vw, 96px); }
+/* Sized to the page gutter so the sprig never reaches the text column. */
+.gms-decor--hero-sprig { left: 2px; bottom: 7%; width: clamp(56px, calc(50vw - 600px + 1.75rem), 96px); }
 .gms-decor--band-rings { left: -90px; bottom: -120px; width: min(36vw, 360px); }
 .gms-decor--card-seeds { top: 8px; right: 12px; width: 76px; opacity: 0.55; }
 
-@media (max-width: 1240px) {
+@media (max-width: 1300px) {
   .gms-decor--hero-sprig { display: none; }
 }
 @media (max-width: 860px) {
@@ -1267,45 +890,40 @@ h4,
 .gms-motion .gms-reveal :where(circle, path):nth-child(7) { transition-delay: 600ms; }
 .gms-motion .gms-reveal :where(circle, path):nth-child(8) { transition-delay: 700ms; }
 
-/* Slow floating bob; the dashed ring turns almost imperceptibly */
+/* One slow settle as the motif arrives, then stillness: decoration never
+   loops (WCAG 2.2.2), so nothing keeps animating while someone reads. */
 @keyframes gms-float {
-  from { transform: translateY(0); }
-  to   { transform: translateY(-16px); }
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-16px); }
 }
 @keyframes gms-spin {
-  to { transform: rotate(360deg); }
+  from { transform: rotate(-28deg); }
+  to   { transform: rotate(0deg); }
 }
-.gms-motion .gms-float { animation: gms-float 5.5s ease-in-out infinite alternate; }
-.gms-motion .gms-float--slow { animation-duration: 8s; }
+.gms-motion .gms-float { animation: gms-float 4.6s ease-in-out 1; }
+.gms-motion .gms-float--slow { animation-duration: 4.9s; }
 .gms-motion .gms-spin {
   transform-box: fill-box;
   transform-origin: center;
-  animation: gms-spin 50s linear infinite;
+  animation: gms-spin 4.8s cubic-bezier(0.22, 1, 0.36, 1) 1;
 }
 
 /* ===== Bold uplift: card life (overrides the flat defaults above) ===== */
 .card,
-.product-card,
-.tool-card,
-.module-card,
-.how-card {
-  box-shadow: 0 1px 2px rgba(21, 57, 60, 0.05);
+.tool-card{
+  box-shadow: 0 1px 2px rgba(14, 33, 41, 0.05);
   transition: transform .24s cubic-bezier(.22, 1, .36, 1), box-shadow .24s, border-color .24s;
 }
 .card:hover,
-.product-card:hover,
-.tool-card:hover,
-.module-card:hover,
-.how-card:hover {
+.tool-card:hover{
   transform: translateY(-3px);
-  box-shadow: 0 22px 46px -20px rgba(21, 57, 60, 0.28);
+  box-shadow: 0 22px 46px -20px rgba(14, 33, 41, 0.28);
   border-color: var(--ink-muted);
 }
 @media (prefers-reduced-motion: reduce) {
-  .card, .product-card, .tool-card, .module-card, .how-card { transition: none; }
-  .card:hover, .product-card:hover, .tool-card:hover, .module-card:hover, .how-card:hover { transform: none; }
+  .card, .tool-card{ transition: none; }
+  .card:hover, .tool-card:hover{ transform: none; }
 }
-
 
 /* ─── Inline Email Signup ────────────────────────────────── */
 .inline-signup__heading {
@@ -1341,7 +959,9 @@ h4,
   color: var(--ink-muted);
 }
 .inline-signup__input:focus {
-  outline: none;
+  /* transparent, not none: forced-colors mode paints it, the ring stays */
+  outline: 2px solid transparent;
+  outline-offset: 1px;
   border-color: var(--primary);
   box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 25%, transparent);
 }
@@ -1356,6 +976,11 @@ h4,
 }
 /* Status tones come from tokens (dark-theme aware), never hard-coded hex. */
 .inline-signup__status[data-tone="error"] { color: var(--danger); font-weight: 600; }
+.inline-signup .field-error { flex-basis: 100%; text-align: center; }
+.inline-signup__input[aria-invalid="true"] {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--danger) 22%, transparent);
+}
 .inline-signup__status[data-tone="success"] { color: var(--success); font-weight: 600; }
 .inline-signup__input[aria-invalid="true"] { border-color: var(--danger); }
 .inline-signup__disclaimer {
@@ -1739,18 +1364,30 @@ h1, h2, h3, .page-hero__title, .section-head__title, .product-card__title, .card
   .article-card > * { grid-column: 1; }
 }
 
-/* About: the teaching principles are a set, not a sequence. Ruled rows, no numerals. */
-.philosophy-list { display: grid; }
+/* About: the teaching principles are a set, not a sequence. Ruled rows, no
+   numerals, one rule between rows (styles.css's bottom rules and gap are reset). */
+.philosophy-list { display: grid; gap: 0; }
 .philosophy-list li {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   padding: var(--space-5) 0;
   border-top: 1px solid var(--border);
+  border-bottom: 0;
 }
-.philosophy-list li:last-child { border-bottom: 1px solid var(--border); }
+.philosophy-list li:last-child { border-bottom: 1px solid var(--border); padding-bottom: var(--space-5); }
 .philosophy-list .num { display: none; }
 .philosophy-list strong { display: block; font-family: var(--font-display); font-weight: 500; font-size: var(--text-lg); line-height: 1.15; margin-bottom: var(--space-2); }
 .philosophy-list li > div > span { color: var(--ink-soft); max-width: 60ch; display: block; text-wrap: pretty; }
 
 /* Standalone tool bar: the wordmark is Besley everywhere */
 .rn-bar .brand__name { font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; color: var(--ink); }
+
+/* About: body copy, the founder's role line, and the closing call to action
+   (formerly inline styles). */
+.about-copy p { color: var(--ink-soft); max-width: 62ch; text-wrap: pretty; }
+.about-copy .lede { font-size: var(--text-md); }
+.about-copy .about-role { margin: calc(-1 * var(--space-2)) 0 var(--space-5); font-size: var(--text-sm); font-weight: 600; color: var(--amber-deep); }
+.about-fine { margin-top: var(--space-6); max-width: 60ch; font-size: var(--text-sm); color: var(--ink-muted); }
+.about-cta h2 { max-width: 24ch; margin-inline: auto; }
+.about-cta .lede { max-width: 56ch; margin-inline: auto; }
+.about-cta__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-3); margin-top: var(--space-5); }

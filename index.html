@@ -24,25 +24,13 @@
 
   <link rel="canonical" href="https://growingmindsscience.com/" />
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="/assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="apple-touch-icon" href="/assets/img/original-logo-mark-no-words-180.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400..800&display=swap" />
-  <link rel="stylesheet" href="assets/css/home.css?v=0f59d05803" />
-  <style>
-    /* Token bridge: the shared arcade styles (arcade.css, loaded on demand by
-       decor.js for the hidden game) use the styles.css names; the home
-       stylesheet has its own. Mapped vars flip with data-theme. */
-    :root {
-      --bg: var(--ground);
-      --surface-2: var(--tint);
-      --border: var(--line);
-      --primary: var(--teal);
-      --primary-ink: var(--btn-primary-ink);
-      --transition: var(--t);
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/home.css?v=d6cf23614c" />
+  <link rel="stylesheet" href="assets/css/seminar.css?v=712674ad24" />
 
   <script type="application/ld+json">
   [
@@ -65,15 +53,15 @@
     }
   ]
   </script>
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=6f2055b923" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=de9d0eebaf" />
 </head>
-<body data-arcade-egg="snake">
+<body>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header site-header--ink" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -90,7 +78,7 @@
               <div class="nav__menu">
                 <ul class="nav__submenu">
                   <li><a class="nav__submenu-link" href="/tools/growing-minds-ai"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A ten-minute counting check-in you run at home.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A free ten-minute counting check-in; the full version is $34.</span></a></li>
                   <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
                   <li><a class="nav__submenu-link" href="/tools/communication-snapshot"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
                   <li><a class="nav__submenu-link" href="/arcade/"><span class="nav__submenu-title">Arcade</span><span class="nav__submenu-desc">Silly games for a five-minute break between lessons.</span></a></li>
@@ -101,8 +89,8 @@
           </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
+          <li class="nav__item nav__auth"><details class="nav__details nav__details--auth"><summary class="nav__link nav__summary">My classes <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary><div class="nav__menu nav__menu--auth"><ul class="nav__submenu"><li><a class="nav__submenu-link" href="/nsc/app/classes"><span class="nav__submenu-title">Birth to 12 months</span><span class="nav__submenu-desc">Your lessons and progress on this site.</span></a></li><li><a class="nav__submenu-link" href="https://matthew-s-site-de0b.thinkific.com/users/sign_in" target="_blank" rel="noopener"><span class="nav__submenu-title">Toddler years <span aria-hidden="true">&nearr;</span></span><span class="nav__submenu-desc">Your lessons on Thinkific, our course platform.</span><span class="u-visually-hidden"> (opens in a new tab)</span></a></li></ul></div></details></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="#signup">Enroll, $49</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -124,82 +112,121 @@
           <p class="hero__kicker">A developmental-science education for parents</p>
           <h1 class="hero__title"><span class="hero__line">Understand your child.</span><span class="hero__line">Understand yourself.</span><span class="hero__line">Understand <mark class="hl">your influence.</mark></span></h1>
           <p class="hero__lede">
-            Self-paced classes in child development and developmental psychology for parents of children 0 to 5, built from peer-reviewed research. The understanding that used to require a graduate program, finished in evenings instead of semesters.
+            Self-paced classes in child development for parents of children 0 to 5, built from peer-reviewed research and taught in short video lessons. Each class takes a few evenings, not a semester.
           </p>
 
           <div class="hero__ctas">
             <a class="btn btn--amber btn--lg" href="/classes/">Browse the classes</a>
-            <a class="hero__link" href="#taught">How it&rsquo;s taught <span aria-hidden="true">&darr;</span></a>
+            <a class="btn btn--quiet-dark btn--lg hero__free" href="/nsc/classes/infant/preview"><span class="hero__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></span>Watch a lesson free <span class="hero__free-meta">&middot; 14 min</span></a>
           </div>
 
           <div class="hero__cred">
             <img class="hero__cred-photo" src="assets/img/matthew-avatar-96.jpg" srcset="assets/img/matthew-avatar-96.jpg 2x, assets/img/matthew-avatar-144.jpg 3x" alt="Matthew McArthur, founder of Growing Minds Science." width="48" height="48" decoding="async" />
             <p class="hero__cred-text">
-              Taught by <strong>Matthew McArthur</strong>, Child Development Specialist. M.A. in Developmental Psychology (SDSU), B.A. in Psychology (UCLA), and 100+ families coached in Los Angeles.
+              Taught by <strong>Matthew McArthur</strong>, Child Development Specialist. M.A. in Developmental Psychology (SDSU), B.A. in Psychology (UCLA), and more than 100 families coached in Los Angeles.
             </p>
           </div>
         </div>
 
         <figure class="hero__media fig fig--hero" aria-labelledby="fig1-caption">
-          <svg viewBox="0 0 640 400" role="img" aria-describedby="fig1-desc" xmlns="http://www.w3.org/2000/svg">
-            <title>Figure 1. Windows of heightened plasticity by domain, birth to five.</title>
-            <desc id="fig1-desc">A line chart with age from birth to five years on the horizontal axis and plasticity on the vertical axis. Three curves rise and fall at different ages: sensing pathways peak in the first months, language peaks around the end of the first year, and higher cognitive function peaks around two to four years and declines gradually.</desc>
+          <svg viewBox="0 0 480 340" role="img" aria-labelledby="fig1-title" aria-describedby="fig1-desc" xmlns="http://www.w3.org/2000/svg">
+            <title id="fig1-title">Figure 1. Windows of heightened plasticity by domain, birth to five.</title>
+            <desc id="fig1-desc">A line chart with age from birth to five years on the horizontal axis and plasticity on the vertical axis. Three curves rise and fall at different ages: sensing pathways peak in the first months, language peaks before the first birthday, and higher cognition peaks around two to three years. After each peak the curve tapers to a lower level but never reaches zero: the window narrows, it does not close.</desc>
             <!-- grid -->
             <g class="fig-grid" fill="none" stroke-width="1">
-              <line x1="164.8" y1="50" x2="164.8" y2="340"/>
-              <line x1="273.6" y1="50" x2="273.6" y2="340"/>
-              <line x1="382.4" y1="50" x2="382.4" y2="340"/>
-              <line x1="491.2" y1="50" x2="491.2" y2="340"/>
-              <line x1="600" y1="50" x2="600" y2="340"/>
-              <line x1="56" y1="122" x2="600" y2="122"/>
-              <line x1="56" y1="195" x2="600" y2="195"/>
-              <line x1="56" y1="268" x2="600" y2="268"/>
+              <line x1="130.4" y1="30" x2="130.4" y2="280"/>
+              <line x1="212.8" y1="30" x2="212.8" y2="280"/>
+              <line x1="295.2" y1="30" x2="295.2" y2="280"/>
+              <line x1="377.6" y1="30" x2="377.6" y2="280"/>
+              <line x1="460" y1="30" x2="460" y2="280"/>
+              <line x1="48" y1="92" x2="460" y2="92"/>
+              <line x1="48" y1="155" x2="460" y2="155"/>
+              <line x1="48" y1="218" x2="460" y2="218"/>
             </g>
             <!-- axes -->
             <g class="fig-axis" fill="none" stroke-width="1.5" stroke-linecap="round">
-              <line x1="56" y1="50" x2="56" y2="340"/>
-              <line x1="56" y1="340" x2="600" y2="340"/>
+              <line x1="48" y1="30" x2="48" y2="280"/>
+              <line x1="48" y1="280" x2="460" y2="280"/>
             </g>
-            <!-- curves (pathLength=1 so the draw-in is a 0→1 dash offset) -->
-            <path class="fig-curve fig-curve--cog" pathLength="1" d="M56 338 C 160 336, 250 150, 360 130 S 540 220, 600 258"/>
-            <path class="fig-curve fig-curve--lang" pathLength="1" d="M56 338 C 100 338, 118 96, 150 96 S 240 250, 330 300 S 520 338, 600 336"/>
-            <path class="fig-curve fig-curve--sense" pathLength="1" d="M56 336 C 70 330, 86 70, 104 70 C 124 70, 150 250, 200 300 C 260 345, 420 340, 600 340"/>
+            <!-- curves (pathLength=1 so the draw-in is a 0 to 1 dash offset); each tail stays above zero -->
+            <path class="fig-curve fig-curve--cog" pathLength="1" d="M48 278 C 140 276, 200 98, 279 96 S 400 140, 460 158"/>
+            <path class="fig-curve fig-curve--lang" pathLength="1" d="M48 278 C 78 276, 96 72, 119 72 S 180 170, 240 200 S 380 222, 460 224"/>
+            <path class="fig-curve fig-curve--sense" pathLength="1" d="M48 276 C 58 268, 68 50, 84 50 C 100 50, 118 170, 150 205 C 190 228, 300 230, 460 232"/>
             <!-- peaks -->
-            <circle class="fig-peak fig-peak--sense" cx="104" cy="70" r="5.5"/>
-            <circle class="fig-peak fig-peak--lang" cx="150" cy="96" r="5.5"/>
-            <circle class="fig-peak fig-peak--cog" cx="360" cy="130" r="5.5"/>
+            <circle class="fig-peak fig-peak--sense" cx="84" cy="50" r="5.5"/>
+            <circle class="fig-peak fig-peak--lang" cx="119" cy="72" r="5.5"/>
+            <circle class="fig-peak fig-peak--cog" cx="279" cy="96" r="5.5"/>
             <!-- labels -->
-            <text class="fig-text fig-label fig-label--sense" x="118" y="63">Sensing pathways (vision, hearing)</text>
-            <text class="fig-text fig-label fig-label--lang" x="164" y="104">Language</text>
-            <text class="fig-text fig-label fig-label--cog" x="374" y="126">Higher cognitive function</text>
+            <text class="fig-text fig-label fig-label--sense" x="95" y="46">Sensing</text>
+            <text class="fig-text fig-label fig-label--lang" x="134" y="64">Language</text>
+            <text class="fig-text fig-label fig-label--cog" x="290" y="86">Higher cognition</text>
+            <text class="fig-text fig-text--sm fig-label fig-note" x="460" y="198" text-anchor="end">Narrower, still open</text>
             <!-- axis labels -->
             <g class="fig-text fig-text--sm">
-              <text x="56" y="366" text-anchor="middle">Birth</text>
-              <text x="164.8" y="366" text-anchor="middle">1 yr</text>
-              <text x="273.6" y="366" text-anchor="middle">2</text>
-              <text x="382.4" y="366" text-anchor="middle">3</text>
-              <text x="491.2" y="366" text-anchor="middle">4</text>
-              <text x="600" y="366" text-anchor="middle">5 yrs</text>
-              <text transform="translate(26 195) rotate(-90)" text-anchor="middle">Plasticity</text>
-              <text x="600" y="390" text-anchor="end">Age</text>
+              <text x="48" y="304" text-anchor="middle">Birth</text>
+              <text x="130.4" y="304" text-anchor="middle">1 yr</text>
+              <text x="212.8" y="304" text-anchor="middle">2</text>
+              <text x="295.2" y="304" text-anchor="middle">3</text>
+              <text x="377.6" y="304" text-anchor="middle">4</text>
+              <text x="460" y="304" text-anchor="end">5 yrs</text>
+              <text transform="translate(20 155) rotate(-90)" text-anchor="middle">Plasticity</text>
+              <text x="460" y="328" text-anchor="end">Age</text>
             </g>
           </svg>
-          <figcaption class="fig__caption" id="fig1-caption"><b>Fig. 1</b> &middot; Windows of heightened plasticity by domain, birth to five. The curves peak at different ages, which is why each class is built around one developmental window. Schematic after Nelson (2000).</figcaption>
+          <figcaption class="fig__caption" id="fig1-caption"><b>Fig. 1</b> &middot; Plasticity is how easily experience reshapes the brain. Each domain&rsquo;s window peaks at a different age, so what matters most changes as a child grows; each class teaches what is changing fastest in its age range. After a peak, plasticity tapers; it does not switch off. Schematic after Nelson (2000).</figcaption>
         </figure>
+      </div>
+    </section>
+
+    <!-- OPEN NOW: the two classes you can start tonight, one glance below the hero -->
+    <section class="open-now" aria-labelledby="open-now-heading">
+      <div class="container open-now__inner">
+        <h2 id="open-now-heading" class="open-now__label">Open now</h2>
+        <ul class="open-now__list">
+          <li>
+            <a class="open-now__item" href="/classes/birth-to-12-months">
+              <img class="open-now__thumb" src="assets/img/site/class-infant-240.jpg" alt="" width="240" height="240" decoding="async" />
+              <span class="open-now__text">
+                <span class="open-now__name">Birth to 12 months</span>
+                <span class="open-now__meta">16 lessons &middot; $49 once</span>
+              </span>
+              <span class="open-now__arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+          <li>
+            <a class="open-now__item open-now__item--free" href="/nsc/classes/infant/preview">
+              <span class="open-now__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></span>
+              <span class="open-now__text">
+                <span class="open-now__name">Watch an infant lesson free</span>
+                <span class="open-now__meta">Serve and Return &middot; 14 min</span>
+              </span>
+              <span class="open-now__arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+          <li>
+            <a class="open-now__item" href="/classes/toddlerhood">
+              <img class="open-now__thumb" src="assets/img/site/class-toddler-240.jpg" alt="" width="240" height="240" decoding="async" />
+              <span class="open-now__text">
+                <span class="open-now__name">Toddler years, 1 to 3</span>
+                <span class="open-now__meta">29 lessons &middot; $49 once</span>
+              </span>
+              <span class="open-now__arrow" aria-hidden="true">&rarr;</span>
+            </a>
+          </li>
+        </ul>
       </div>
     </section>
 
     <!-- THESIS + THE THREE LENSES -->
     <section class="thesis section" aria-labelledby="thesis-heading">
       <div class="container thesis__inner">
-        <blockquote class="thesis__quote" data-animate="fade">
-          <h2 id="thesis-heading" class="thesis__quote-text">The parents who do best are, almost without exception, the ones who <mark class="hl">understand the&nbsp;science.</mark></h2>
-          <footer class="thesis__attr"><span><strong>Matthew McArthur</strong>, founder</span></footer>
-        </blockquote>
+        <div class="thesis__quote" data-animate="fade">
+          <h2 id="thesis-heading" class="thesis__quote-text">In my work with families, the parents who do best are, almost without exception, the ones who <mark class="hl">understand the&nbsp;science.</mark></h2>
+          <p class="thesis__attr"><span><strong>Matthew McArthur</strong>, founder</span></p>
+        </div>
 
         <div class="thesis__body prose">
           <p>Six years studying developmental psychology and two years coaching families in Los Angeles taught me one consistent thing. Parents who know how development works stay calmer, read their children more accurately, and change the things that actually matter. Not because they memorized scripts, but because they can see what is happening in front of them.</p>
-          <p>That knowledge has lived inside graduate programs and academic journals. It should not require either. Growing Minds Science is the course in child development every parent should have been offered, taught for people with a job, a household, and about forty minutes after bedtime.</p>
 
           <h3>Every class teaches you to see three things.</h3>
           <dl class="lenses">
@@ -217,20 +244,9 @@
             </div>
           </dl>
 
-          <div class="instructor" id="instructor">
-            <img class="instructor__photo" src="assets/img/matthew-photo.jpeg" alt="Matthew McArthur, founder of Growing Minds Science." width="1122" height="1402" loading="lazy" decoding="async" />
-            <div class="instructor__body">
-              <p class="instructor__label">Your instructor</p>
-              <h3 class="instructor__name">Matthew McArthur</h3>
-              <p class="instructor__role">Child Development Specialist and parent coach, Los Angeles</p>
-              <ul class="instructor__facts">
-                <li>M.A. in Developmental Psychology, San Diego State University</li>
-                <li>B.A. in Psychology, UCLA</li>
-                <li>Six years studying developmental science; two years coaching it directly with 100+ families</li>
-                <li>Teaches an Infant and Toddler Socialization class in Los Angeles</li>
-              </ul>
-              <a class="instructor__more" href="/about/">About Growing Minds Science &rarr;</a>
-            </div>
+          <div class="instructor instructor--compact" id="instructor">
+            <img class="instructor__photo" src="assets/img/matthew-avatar-144.jpg" alt="Matthew McArthur, founder of Growing Minds Science." width="144" height="144" loading="lazy" decoding="async" />
+            <p class="instructor__line"><strong>Matthew McArthur</strong> teaches every class: a Child Development Specialist in Los Angeles who has coached more than 100 families and teaches an Infant and Toddler Socialization class. <a class="instructor__more" href="/about/">About Matthew &rarr;</a></p>
           </div>
         </div>
       </div>
@@ -250,7 +266,7 @@
         <ol class="units">
           <li class="unit">
             <figure class="unit__thumb">
-              <img src="assets/img/site/class-infant.jpg" srcset="assets/img/site/class-infant-400.jpg 400w, assets/img/site/class-infant.jpg 800w" sizes="(max-width: 720px) 5.5rem, (max-width: 1040px) 6rem, 7.25rem" alt="An infant's hand gripping a parent's finger on a blanket, lit by a bedside lamp." width="800" height="800" loading="lazy" decoding="async" />
+              <img src="assets/img/site/class-infant-400.jpg" srcset="assets/img/site/class-infant-240.jpg 240w, assets/img/site/class-infant-400.jpg 400w, assets/img/site/class-infant.jpg 800w" sizes="(max-width: 720px) 5.5rem, (max-width: 1040px) 6rem, 7.25rem" alt="An infant's hand gripping a parent's finger on a blanket, lit by a bedside lamp." width="800" height="800" loading="lazy" decoding="async" />
             </figure>
             <div class="unit__body">
               <p class="unit__num">Class 1 &middot; Birth to 12 months</p>
@@ -264,13 +280,13 @@
                 <div><dt>Format</dt><dd>4 modules, 16 lessons, about 3 hours</dd></div>
                 <div><dt>Price</dt><dd>$49 once, lifetime access</dd></div>
               </dl>
-              <p class="unit__cta"><a class="btn btn--primary" href="/classes/birth-to-12-months">See the class</a></p>
+              <p class="unit__cta"><a class="btn btn--primary" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Finfant%2Fenroll">Enroll, $49</a><a class="btn btn--quiet" href="/classes/birth-to-12-months">See the class</a></p>
             </div>
           </li>
 
           <li class="unit">
             <figure class="unit__thumb">
-              <img src="assets/img/site/class-toddler.jpg" srcset="assets/img/site/class-toddler-400.jpg 400w, assets/img/site/class-toddler.jpg 800w" sizes="(max-width: 720px) 5.5rem, (max-width: 1040px) 6rem, 7.25rem" alt="A toddler at the table pushing a sippy cup away while a parent's hand rests calmly nearby." width="800" height="800" loading="lazy" decoding="async" />
+              <img src="assets/img/site/class-toddler-400.jpg" srcset="assets/img/site/class-toddler-240.jpg 240w, assets/img/site/class-toddler-400.jpg 400w, assets/img/site/class-toddler.jpg 800w" sizes="(max-width: 720px) 5.5rem, (max-width: 1040px) 6rem, 7.25rem" alt="A toddler at the table pushing a sippy cup away while a parent's hand rests calmly nearby." width="800" height="800" loading="lazy" decoding="async" />
             </figure>
             <div class="unit__body">
               <p class="unit__num">Class 2 &middot; Toddler years</p>
@@ -284,13 +300,13 @@
                 <div><dt>Format</dt><dd>5 modules, 29 lessons, about 5 hours</dd></div>
                 <div><dt>Price</dt><dd>$49 once, lifetime access</dd></div>
               </dl>
-              <p class="unit__cta"><a class="btn btn--primary" href="/classes/toddlerhood">See the class</a></p>
+              <p class="unit__cta"><a class="btn btn--primary" href="https://matthew-s-site-de0b.thinkific.com/products/courses/ToddlerYears" target="_blank" rel="noopener">Enroll, $49 <span class="btn__ext" aria-hidden="true">&nearr;</span><span class="u-visually-hidden"> (opens Thinkific in a new tab)</span></a><a class="btn btn--quiet" href="/classes/toddlerhood">See the class</a></p>
             </div>
           </li>
 
-          <li class="unit">
+          <li class="unit unit--soon">
             <figure class="unit__thumb">
-              <img src="assets/img/site/class-preschool.jpg" srcset="assets/img/site/class-preschool-400.jpg 400w, assets/img/site/class-preschool.jpg 800w" sizes="(max-width: 720px) 5.5rem, (max-width: 1040px) 6rem, 7.25rem" alt="A preschooler, back to the camera, stirring a pot at a wooden toy kitchen in the evening." width="800" height="800" loading="lazy" decoding="async" />
+              <img src="assets/img/site/class-preschool-400.jpg" srcset="assets/img/site/class-preschool-240.jpg 240w, assets/img/site/class-preschool-400.jpg 400w, assets/img/site/class-preschool.jpg 800w" sizes="(max-width: 720px) 5.5rem, (max-width: 1040px) 6rem, 7.25rem" alt="A preschooler, back to the camera, stirring a pot at a wooden toy kitchen in the evening." width="800" height="800" loading="lazy" decoding="async" />
             </figure>
             <div class="unit__body">
               <p class="unit__num">Class 3 &middot; Preschool years</p>
@@ -301,16 +317,16 @@
               <p class="unit__status unit__status--soon">In development</p>
               <dl class="unit__meta">
                 <div><dt>Ages</dt><dd>3 to 5 years</dd></div>
-                <div><dt>Format</dt><dd>Self-paced video, in development</dd></div>
+                <div><dt>Format</dt><dd>4 modules, 15 lessons</dd></div>
                 <div><dt>Price</dt><dd>Announced at launch</dd></div>
               </dl>
-              <p class="unit__cta"><a class="btn btn--quiet" href="/classes/preschool">Join the waitlist</a></p>
+              <p class="unit__cta"><a class="btn btn--quiet" href="/classes/preschool#waitlist">Join the waitlist</a></p>
             </div>
           </li>
 
-          <li class="unit">
+          <li class="unit unit--soon">
             <figure class="unit__thumb">
-              <img src="assets/img/site/class-family.jpg" srcset="assets/img/site/class-family-400.jpg 400w, assets/img/site/class-family.jpg 800w" sizes="(max-width: 720px) 5.5rem, (max-width: 1040px) 6rem, 7.25rem" alt="A kitchen table after dinner: two adults' hands, a child's crayon drawing of the family, and a phone face down." width="800" height="800" loading="lazy" decoding="async" />
+              <img src="assets/img/site/class-family-400.jpg" srcset="assets/img/site/class-family-240.jpg 240w, assets/img/site/class-family-400.jpg 400w, assets/img/site/class-family.jpg 800w" sizes="(max-width: 720px) 5.5rem, (max-width: 1040px) 6rem, 7.25rem" alt="A kitchen table after dinner: two adults' hands, a child's crayon drawing of the family, and a phone face down." width="800" height="800" loading="lazy" decoding="async" />
             </figure>
             <div class="unit__body">
               <p class="unit__num">Class 4 &middot; Family systems and stress</p>
@@ -321,10 +337,10 @@
               <p class="unit__status unit__status--soon">In development</p>
               <dl class="unit__meta">
                 <div><dt>Ages</dt><dd>Any age</dd></div>
-                <div><dt>Format</dt><dd>Self-paced video, in development</dd></div>
+                <div><dt>Format</dt><dd>6 modules</dd></div>
                 <div><dt>Price</dt><dd>Announced at launch</dd></div>
               </dl>
-              <p class="unit__cta"><a class="btn btn--quiet" href="/classes/family-systems">Join the waitlist</a></p>
+              <p class="unit__cta"><a class="btn btn--quiet" href="/classes/family-systems#waitlist">Join the waitlist</a></p>
             </div>
           </li>
         </ol>
@@ -337,37 +353,14 @@
         <div>
           <div class="section-head">
             <h2 id="taught-heading">Taught like a seminar. Built for a Tuesday night.</h2>
-            <p class="section-head__lede">Short video lessons with full transcripts, watched in any order at any hour. The research is shown rather than hidden, and the goal is a mental model you can carry, not a script to recite.</p>
+            <p class="section-head__lede">Short video lessons, watched in any order at any hour. The research is shown rather than hidden, and the goal is a mental model you can carry, not a script to recite. <a href="/about/#how-we-teach">The five teaching principles</a> are on the About page.</p>
             <ul class="taught__facts" aria-label="Class format">
+              <li>Lessons of about ten minutes</li>
               <li>Self-paced, lifetime access</li>
-              <li>Full transcripts</li>
               <li>Sources cited</li>
-              <li>Growing Minds AI included</li>
             </ul>
           </div>
 
-          <ul class="principles">
-            <li class="principle">
-              <h3>Translate the research, don&rsquo;t replace it</h3>
-              <p>Plain language, with honesty about what the evidence is and is not. No invented certainty, no oversimplified hooks.</p>
-            </li>
-            <li class="principle">
-              <h3>Mental models over scripts</h3>
-              <p>A clear way to understand what is happening travels to the situations no script anticipated. Scripts don&rsquo;t.</p>
-            </li>
-            <li class="principle">
-              <h3>Respect the parent</h3>
-              <p>You are an adult who is already trying hard and already paying attention. The work assumes nuance, not compliance.</p>
-            </li>
-            <li class="principle">
-              <h3>Calm by default</h3>
-              <p>No urgency manufactured for engagement, no shame. Educational content, and never a substitute for medical advice.</p>
-            </li>
-            <li class="principle">
-              <h3>Built for ordinary days</h3>
-              <p>Every recommendation has to survive a normal weekday, between transitions, meals, work, and the real capacity of tired adults.</p>
-            </li>
-          </ul>
         </div>
 
         <div class="taught__aside">
@@ -376,38 +369,39 @@
           <figcaption class="fig__caption">The notes a parent keeps after a lesson: the serve-and-return loop, the early-growth curve, and the one line worth remembering.</figcaption>
         </figure>
         <figure class="taught__fig fig fig--loop" data-animate="fade" aria-labelledby="fig2-caption">
-          <svg viewBox="0 0 460 420" role="img" aria-describedby="fig2-desc" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 400 424" role="img" aria-describedby="fig2-desc" xmlns="http://www.w3.org/2000/svg">
             <title>Figure 2. How a lesson is built: a loop from research to a mental model to an ordinary moment to what you notice next.</title>
             <desc id="fig2-desc">Four labeled boxes arranged in a circle, connected by arrows running clockwise: peer-reviewed research, then a mental model you can hold, then what you do at 6:40 pm, then what you notice next week, which points back to the research.</desc>
             <g class="fig-grid" fill="none" stroke-width="1">
-              <line x1="230" y1="20" x2="230" y2="420"/>
-              <line x1="30" y1="220" x2="430" y2="220"/>
+              <line x1="200" y1="84" x2="200" y2="340"/>
+              <line x1="177" y1="212" x2="223" y2="212"/>
             </g>
             <!-- arrows, clockwise -->
-            <path class="fig-arrow fig-arrow--amber" pathLength="1" d="M300 96 C 352 112, 370 140, 370 186"/>
-            <polygon class="fig-head fig-head--amber" points="370,192 363,180 377,180"/>
-            <path class="fig-arrow" pathLength="1" d="M370 254 C 370 312, 344 338, 310 350"/>
-            <polygon class="fig-head" points="304,352 314,342 318,356"/>
-            <path class="fig-arrow" pathLength="1" d="M160 390 C 110 376, 90 330, 90 254"/>
-            <polygon class="fig-head" points="90,248 97,260 83,260"/>
-            <path class="fig-arrow" pathLength="1" d="M90 186 C 90 128, 116 100, 152 88"/>
-            <polygon class="fig-head" points="158,86 148,96 144,82"/>
+            <path class="fig-arrow fig-arrow--amber" pathLength="1" d="M288 56 C 314 60, 318 108, 316.3 162.0"/>
+            <polygon class="fig-head fig-head--amber" points="316.0,172.0 309.9,159.8 322.9,160.2"/>
+            <path class="fig-arrow" pathLength="1" d="M316 252 C 318 312, 312 372, 299.6 375.4"/>
+            <polygon class="fig-head" points="290.0,378.0 299.9,368.6 303.3,381.1"/>
+            <path class="fig-arrow" pathLength="1" d="M112 368 C 86 364, 82 316, 83.7 262.0"/>
+            <polygon class="fig-head" points="84.0,252.0 90.1,264.2 77.1,263.8"/>
+            <path class="fig-arrow" pathLength="1" d="M84 172 C 82 112, 88 52, 100.4 48.6"/>
+            <polygon class="fig-head" points="110.0,46.0 100.1,55.4 96.7,42.9"/>
             <!-- nodes -->
-            <rect class="fig-node fig-node--amber" x="154" y="36" width="152" height="60" rx="10"/>
-            <text class="fig-text" x="230" y="61" text-anchor="middle">Peer-reviewed</text>
-            <text class="fig-text" x="230" y="80" text-anchor="middle">research</text>
 
-            <rect class="fig-node" x="294" y="190" width="152" height="60" rx="10"/>
-            <text class="fig-text" x="370" y="215" text-anchor="middle">A mental model</text>
-            <text class="fig-text" x="370" y="234" text-anchor="middle">you can hold</text>
+            <rect class="fig-node fig-node--amber" x="117" y="8" width="166" height="66" rx="10"/>
+            <text class="fig-text" x="200" y="37" text-anchor="middle">Peer-reviewed</text>
+            <text class="fig-text" x="200" y="59" text-anchor="middle">research</text>
 
-            <rect class="fig-node" x="154" y="344" width="152" height="60" rx="10"/>
-            <text class="fig-text" x="230" y="369" text-anchor="middle">What you do</text>
-            <text class="fig-text" x="230" y="388" text-anchor="middle">at 6:40 pm</text>
+            <rect class="fig-node" x="233" y="179" width="166" height="66" rx="10"/>
+            <text class="fig-text" x="316" y="208" text-anchor="middle">A mental model</text>
+            <text class="fig-text" x="316" y="230" text-anchor="middle">you can hold</text>
 
-            <rect class="fig-node" x="14" y="190" width="152" height="60" rx="10"/>
-            <text class="fig-text" x="90" y="215" text-anchor="middle">What you notice</text>
-            <text class="fig-text" x="90" y="234" text-anchor="middle">next week</text>
+            <rect class="fig-node" x="117" y="350" width="166" height="66" rx="10"/>
+            <text class="fig-text" x="200" y="379" text-anchor="middle">What you do</text>
+            <text class="fig-text" x="200" y="401" text-anchor="middle">at 6:40 pm</text>
+
+            <rect class="fig-node" x="1" y="179" width="166" height="66" rx="10"/>
+            <text class="fig-text" x="84" y="208" text-anchor="middle">What you notice</text>
+            <text class="fig-text" x="84" y="230" text-anchor="middle">next week</text>
           </svg>
           <figcaption class="fig__caption" id="fig2-caption"><b>Fig. 2</b> &middot; How a lesson is built. The research becomes a model you can hold, the model becomes something you do on an ordinary evening, and what you notice afterward is where the next lesson starts.</figcaption>
         </figure>
@@ -419,10 +413,10 @@
     <section class="ai section" aria-labelledby="ai-heading">
       <div class="container ai__inner">
         <div class="ai__aside">
-          <p class="ai__kicker">Growing Minds AI &middot; Included with every class</p>
+          <p class="ai__kicker">Growing Minds AI &middot; Free to try</p>
           <h2 id="ai-heading">Office hours, <mark class="hl">any hour.</mark></h2>
           <p>Ask the question that came up at bedtime. Growing Minds AI answers from a curated library: peer-reviewed developmental research, the milestone data behind our tracker, and the class curriculum itself. Every answer shows where it is grounded, and points you to the lesson that covers it in depth.</p>
-          <p class="ai__fine">Free to try with no account. Educational only; never medical advice.</p>
+          <p class="ai__fine">Five free questions a day with no account; unlimited with the toddler class. Educational only, never medical advice.</p>
           <p><a class="btn btn--amber" href="/tools/growing-minds-ai">Ask a question</a></p>
         </div>
 
@@ -465,8 +459,6 @@
               <li><a class="shelf__link" href="/articles/serve-and-return"><span class="shelf__title">What &ldquo;serve and return&rdquo; actually means</span><span class="shelf__desc">The ordinary loop that builds the architecture.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
               <li><a class="shelf__link" href="/articles/toddler-no"><span class="shelf__title">The toddler &ldquo;no&rdquo; is not the war you think it is</span><span class="shelf__desc">Autonomy, on schedule.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
               <li><a class="shelf__link" href="/articles/parents-nervous-system"><span class="shelf__title">When your own nervous system is the variable</span><span class="shelf__desc">Co-regulation, from the adult side.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
-              <li><a class="shelf__link" href="/articles/self-regulation"><span class="shelf__title">Self-regulation, briefly</span><span class="shelf__desc">What it is, when it develops, what helps.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
-              <li><a class="shelf__link" href="/articles/screen-time"><span class="shelf__title">A short, honest take on screen time</span><span class="shelf__desc">What the evidence supports, and what it doesn&rsquo;t.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
             </ol>
             <a class="shelf__more" href="/articles/">All articles &rarr;</a>
           </div>
@@ -476,25 +468,12 @@
             <p class="shelf__lede">Interactive tools for the moments between lessons.</p>
             <ul class="shelf__list">
               <li><a class="shelf__link" href="/tools/growing-minds-ai"><span class="shelf__title">Growing Minds AI</span><span class="shelf__desc">Ask a parenting question. Every answer shows its sources.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
-              <li><a class="shelf__link" href="/nsc"><span class="shelf__title">Number Path</span><span class="shelf__desc">A ten-minute counting check-in you run at home.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
               <li><a class="shelf__link" href="/milestones"><span class="shelf__title">Milestone tracker</span><span class="shelf__desc">What is typical at each age, birth to three.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
-              <li><a class="shelf__link" href="/tools/communication-snapshot"><span class="shelf__title">Communication Snapshot</span><span class="shelf__desc">Turn what you notice about talking into notes for a checkup.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
               <li><a class="shelf__link" href="/claims/"><span class="shelf__title">Claims library</span><span class="shelf__desc">Common parenting claims, checked against the research.</span><span class="shelf__arrow" aria-hidden="true">&rarr;</span></a></li>
             </ul>
             <a class="shelf__more" href="/tools/">All free tools and guides &rarr;</a>
           </div>
         </div>
-
-        <a class="shelf-break" href="/arcade/">
-          <span class="shelf-break__glyph" aria-hidden="true">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="7" width="19" height="11" rx="4"/><path d="M7 11v3M5.5 12.5h3"/><circle cx="16" cy="11.5" r="0.9" fill="currentColor" stroke="none"/><circle cx="18.5" cy="13.5" r="0.9" fill="currentColor" stroke="none"/></svg>
-          </span>
-          <span class="shelf-break__body">
-            <span class="shelf-break__title">Need a break? The arcade.</span>
-            <span class="shelf-break__desc">Five minutes of silly games for when you need to not think about any of this. Built for stressed parents, free, no account.</span>
-          </span>
-          <span class="shelf__arrow" aria-hidden="true">&rarr;</span>
-        </a>
       </div>
     </section>
 
@@ -504,35 +483,33 @@
         <div class="signup__inner">
           <div class="signup__pitch">
             <h2 id="signup-heading">Two classes are open now. <mark class="hl">$49 each, for life.</mark></h2>
-            <p>One payment, no subscription. Enroll and start the first lesson tonight, on any device.</p>
-
-            <ul class="included" aria-label="What every class includes">
-              <li>Every lesson with a full written transcript</li>
-              <li>Lifetime access, at your own pace</li>
-              <li>Growing Minds AI, grounded in the class material</li>
-              <li>The free milestone tracker</li>
-            </ul>
+            <p>One payment, no subscription, lifetime access at your own pace. Enroll and start the first lesson tonight, on any device.</p>
 
             <ol class="enrol-list">
               <li class="enrol-item">
                 <div class="enrol-item__body">
                   <p class="enrol-item__num">Class 1</p>
-                  <h3 class="enrol-item__title">Birth to 12 months</h3>
+                  <h3 class="enrol-item__title"><a href="/classes/birth-to-12-months">Birth to 12 months</a></h3>
                   <p class="enrol-item__meta">4 modules &middot; 16 lessons &middot; about 3 hours</p>
+                  <p class="enrol-item__perk">Captions and a written version of every lesson</p>
+                  <p class="enrol-item__note">Create a free account, then pay with Stripe; lessons live in My classes. Not sure yet? <a href="/nsc/classes/infant/preview">Watch a lesson free</a>.</p>
                 </div>
                 <p class="enrol-item__price">$49</p>
-                <a class="btn btn--amber enrol-item__cta" href="/classes/birth-to-12-months">See the class</a>
+                <a class="btn btn--amber enrol-item__cta" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Finfant%2Fenroll">Enroll<span class="u-visually-hidden"> in Birth to 12 months</span></a>
               </li>
               <li class="enrol-item">
                 <div class="enrol-item__body">
                   <p class="enrol-item__num">Class 2</p>
-                  <h3 class="enrol-item__title">Toddler years, 1 to 3</h3>
+                  <h3 class="enrol-item__title"><a href="/classes/toddlerhood">Toddler years, 1 to 3</a></h3>
                   <p class="enrol-item__meta">5 modules &middot; 29 lessons &middot; about 5 hours</p>
+                  <p class="enrol-item__perk">Unlimited Growing Minds AI, for life</p>
+                  <p class="enrol-item__note">Opens Thinkific, our course platform, in a new tab. Already enrolled? <a href="https://matthew-s-site-de0b.thinkific.com/users/sign_in" target="_blank" rel="noopener">Log in on Thinkific<span class="u-visually-hidden"> (opens in a new tab)</span></a>.</p>
                 </div>
                 <p class="enrol-item__price">$49</p>
-                <a class="btn btn--amber enrol-item__cta" href="/classes/toddlerhood">See the class</a>
+                <a class="btn btn--amber enrol-item__cta" href="https://matthew-s-site-de0b.thinkific.com/products/courses/ToddlerYears" target="_blank" rel="noopener">Enroll <span class="btn__ext" aria-hidden="true">&nearr;</span><span class="u-visually-hidden"> in Toddler years (opens Thinkific in a new tab)</span></a>
               </li>
             </ol>
+            <p class="enrol-fine">Full refund within 14 days if you&rsquo;ve watched 4 lessons or fewer.</p>
           </div>
 
           <div class="signup__faq">
@@ -540,7 +517,7 @@
             <div class="faq" role="group" aria-label="Common questions before enrolling">
               <details class="faq__item">
                 <summary class="faq__q">Can I try the approach before I pay?</summary>
-                <p class="faq__a">Yes. The articles, the free tools, and Growing Minds AI are written and built the same way the classes are taught, with no account needed. If they fit your family, the classes will.</p>
+                <p class="faq__a">Yes. <a href="/nsc/classes/infant/preview">Watch &ldquo;Serve and Return&rdquo; free</a>, a full lesson from the infant class, with no account. The articles, free tools, and Growing Minds AI are written the same way the classes are taught.</p>
               </details>
               <details class="faq__item">
                 <summary class="faq__q">Do I need any background in psychology?</summary>
@@ -552,7 +529,7 @@
               </details>
               <details class="faq__item">
                 <summary class="faq__q">Can I get a refund?</summary>
-                <p class="faq__a">All sales are final, which is why everything free on this site is written in the same voice as the classes: use it first. If something goes wrong with your access, <a href="/contact/">get in touch</a> and it goes directly to Matthew.</p>
+                <p class="faq__a">Yes. Within 14 days of buying, and as long as you&rsquo;ve watched 4 lessons or fewer, you get a full refund: <a href="/contact/">email Matthew</a> with the address you bought with. The free lesson doesn&rsquo;t count toward the four. A refund ends your access to that class.</p>
               </details>
               <details class="faq__item">
                 <summary class="faq__q">Is this medical or psychological advice?</summary>
@@ -572,7 +549,7 @@
           <div class="signup__form-fields" data-form-fields>
             <div class="signup__form-copy">
               <h3 id="signup-form-heading" class="signup__form-title">Waiting for the preschool or family-systems class?</h3>
-              <p class="signup__form-sub">Both are in development. Leave your email and you will hear the moment one opens, and nothing else.</p>
+              <p class="signup__form-sub">Both are in development. Leave your email for one note when a class opens, with early access before the public launch. Nothing else.</p>
             </div>
 
             <input type="hidden" name="subject" value="New Class Notify Signup — Growing Minds Science" />
@@ -608,11 +585,11 @@
       </div>
     </section>
 
-    <!-- Mobile-only sticky shortcut to the classes. Slides in once the hero CTAs
-         scroll away and hides again when the signup band / footer (own CTA) is
-         in view, so it's never redundant. -->
+    <!-- Mobile-only sticky shortcut to the enrol band. Slides in once the hero CTAs
+         scroll away and hides again over the classes, the enrol band, and the
+         footer, so it's never redundant. -->
     <div class="mobile-cta" data-mobile-cta>
-      <a class="btn btn--primary btn--block" href="/classes/">Browse the classes</a>
+      <a class="btn btn--primary btn--block" href="#signup">Enroll, $49</a>
     </div>
 
   </main>
@@ -620,8 +597,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">A developmental-science education for parents of children 0 to 5.</p>
@@ -670,12 +647,10 @@
     </div>
   </footer>
 
-  <script src="/assets/js/chrome.js?v=15d4f8689c"></script>
+  <script src="/assets/js/chrome.js?v=1413c22959"></script>
 
-  <script src="assets/js/home.js?v=700148a48f" defer></script>
-  <!-- decor.js also places the hidden Snake glyph (body[data-arcade-egg]) and
-       loads the arcade code only on its first click. -->
-  <script src="assets/js/decor.js?v=5532e2edfd" defer></script>
+  <script src="assets/js/home.js?v=50f91d4dd1" defer></script>
+  <script src="assets/js/decor.js?v=09ff05457d" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

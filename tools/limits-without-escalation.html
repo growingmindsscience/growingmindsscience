@@ -4,17 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>Limits without escalation — Growing Minds Science</title>
+  <title>Limits without escalation | Growing Minds Science</title>
   <meta name="description" content="A practical parent tool on holding a no calmly when a toddler or preschooler is testing autonomy, without scripts and without losing your footing." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/tools/limits-without-escalation" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Limits without escalation — Growing Minds Science" />
+  <meta property="og:title" content="Limits without escalation | Growing Minds Science" />
   <meta property="og:description" content="A practical parent tool on holding a no calmly when a toddler or preschooler is testing autonomy, without scripts and without losing your footing." />
   <meta property="og:image" content="https://growingmindsscience.com/assets/img/site/family-reading.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -22,9 +23,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400..800&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=25806045f8" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=5122b7e7ee" />
-  <link rel="stylesheet" href="../assets/css/tools.css?v=614ebda71e" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=44002cebb8" />
+  <link rel="stylesheet" href="../assets/css/refresh.css?v=d297404b34" />
+  <link rel="stylesheet" href="../assets/css/tools.css?v=7fce784071" />
 
   <style>
     .tool-hero { padding: clamp(3rem, 6vw, 5rem) 0 2rem; }
@@ -93,15 +94,15 @@
       .hero-grid, .scenario-wrap, .compare-grid, .cta-strip { grid-template-columns: 1fr; }
     }
   </style>
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=6f2055b923" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=de9d0eebaf" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -118,7 +119,7 @@
               <div class="nav__menu">
                 <ul class="nav__submenu">
                   <li><a class="nav__submenu-link" href="/tools/growing-minds-ai.html"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A ten-minute counting check-in you run at home.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A free ten-minute counting check-in; the full version is $34.</span></a></li>
                   <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
                   <li><a class="nav__submenu-link" href="/tools/communication-snapshot.html"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
                   <li><a class="nav__submenu-link" href="/arcade/"><span class="nav__submenu-title">Arcade</span><span class="nav__submenu-desc">Silly games for a five-minute break between lessons.</span></a></li>
@@ -129,7 +130,7 @@
           </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
+          <li class="nav__item nav__auth"><details class="nav__details nav__details--auth"><summary class="nav__link nav__summary">My classes <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary><div class="nav__menu nav__menu--auth"><ul class="nav__submenu"><li><a class="nav__submenu-link" href="/nsc/app/classes"><span class="nav__submenu-title">Birth to 12 months</span><span class="nav__submenu-desc">Your lessons and progress on this site.</span></a></li><li><a class="nav__submenu-link" href="https://matthew-s-site-de0b.thinkific.com/users/sign_in" target="_blank" rel="noopener"><span class="nav__submenu-title">Toddler years <span aria-hidden="true">&nearr;</span></span><span class="nav__submenu-desc">Your lessons on Thinkific, our course platform.</span><span class="u-visually-hidden"> (opens in a new tab)</span></a></li></ul></div></details></li>
           <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
@@ -145,7 +146,7 @@
     <section class="tool-hero">
       <div class="container hero-grid">
         <div>
-          <p class="eyebrow">Toddler &amp; Preschool &middot; Behavior guide</p>
+          <p class="eyebrow">Toddler &amp; preschool &middot; Behavior guide</p>
           <h1 class="page-hero__title">Limits without escalation</h1>
           <p class="tool-lede">Holding a "no" calmly when a child is testing autonomy, without scripts and without losing your own footing. This guide is built for the ordinary moments when a child pushes, refuses, or falls apart after a limit.</p>
           <div class="hero-actions">
@@ -240,7 +241,7 @@
             </ul>
           </section>
 
-          <section class="tab-panel" id="tab-during" role="tabpanel" aria-labelledby="btn-during" hidden>
+          <section class="tab-panel" id="tab-during" role="tabpanel" aria-labelledby="btn-during">
             <h3>During the moment</h3>
             <ul class="tip-list">
               <li class="tip-item">
@@ -271,7 +272,7 @@
             </div>
           </section>
 
-          <section class="tab-panel" id="tab-after" role="tabpanel" aria-labelledby="btn-after" hidden>
+          <section class="tab-panel" id="tab-after" role="tabpanel" aria-labelledby="btn-after">
             <h3>After the moment</h3>
             <ul class="tip-list">
               <li class="tip-item">
@@ -325,21 +326,21 @@
               <p class="small">Try: "I'm not letting you throw that. I'm moving it."</p>
             </article>
 
-            <article class="scenario-output" data-output="meltdown" data-ai-question="My child melts down when I hold a limit. How do I stay calm and keep the boundary?" hidden>
+            <article class="scenario-output" data-output="meltdown" data-ai-question="My child melts down when I hold a limit. How do I stay calm and keep the boundary?">
               <span class="tag">When the limit triggers big feelings</span>
               <h3>Keep the limit and make room for the feeling.</h3>
               <p>A child falling apart does not automatically mean the limit was too harsh. If the boundary is reasonable and necessary, the job is to stay nearby, keep the limit intact, and avoid arguing with the feeling.</p>
               <p class="small">Try: "You're mad. I'm still not letting you hit."</p>
             </article>
 
-            <article class="scenario-output" data-output="escalated" data-ai-question="I already raised my voice during a limit. How do I come back from that?" hidden>
+            <article class="scenario-output" data-output="escalated" data-ai-question="I already raised my voice during a limit. How do I come back from that?">
               <span class="tag">When the adult already escalated</span>
               <h3>Repair the tone, not the boundary.</h3>
               <p>If you yelled, threatened, or got pulled into a power struggle, you can come back without pretending the limit disappeared. Lower your voice, simplify, and return to the clearest version of the boundary.</p>
               <p class="small">Try: "I got too loud. I'm going to say it again more clearly. I'm not letting you climb there."</p>
             </article>
 
-            <article class="scenario-output" data-output="unclear" data-ai-question="How can I tell whether this is a limit issue or a regulation issue with my child?" hidden>
+            <article class="scenario-output" data-output="unclear" data-ai-question="How can I tell whether this is a limit issue or a regulation issue with my child?">
               <span class="tag">When you are unsure what kind of moment this is</span>
               <h3>Ask whether the child can use the limit right now.</h3>
               <p>If the child is exhausted, dysregulated, sick, overloaded, or moving toward panic, the first task may be reducing stimulation and helping the system settle. If the child is organized enough to keep testing, the limit likely needs steadier follow-through.</p>
@@ -399,12 +400,11 @@
       <div class="container container--narrow">
         <div class="cta-strip">
           <div>
-            <p class="eyebrow">Toddler class · now available</p>
-            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Module 3 covers autonomy, limits, and the toddler "no" in full.</h2>
+            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Module 3 of the toddler class covers autonomy, limits, and the toddler "no" in full.</h2>
             <p class="small" style="max-width:38rem; margin:0;">Why toddlers test limits, how the developing brain drives this, and what the research supports for steady, calm follow-through. $49 for lifetime access.</p>
           </div>
           <div class="hero-actions">
-            <a class="btn btn--primary" href="/classes/toddlerhood.html">See the toddler class</a>
+            <a class="btn btn--primary" href="/classes/toddlerhood">See the toddler class</a>
             <a class="btn btn--ghost" href="/tools/">Back to tools</a>
           </div>
         </div>
@@ -415,8 +415,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">A developmental-science education for parents of children 0 to 5.</p>
@@ -429,10 +429,10 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
-            <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
-            <li><a href="/classes/preschool.html">Preschool years</a></li>
-            <li><a href="/classes/family-systems.html">Family systems</a></li>
+            <li><a href="/classes/birth-to-12-months">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood">Toddler years</a></li>
+            <li><a href="/classes/preschool">Preschool years</a></li>
+            <li><a href="/classes/family-systems">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>
           </ul>
         </div>
@@ -465,23 +465,39 @@
     </div>
   </footer>
 
-  <script src="/assets/js/chrome.js?v=15d4f8689c"></script>
+  <script src="/assets/js/chrome.js?v=1413c22959"></script>
 
-  <script src="../assets/js/main.js?v=da0ffde09b" defer></script>
-  <script src="../assets/js/gms-tools.js?v=0202b4297f" defer></script>
-  <script src="../assets/js/decor.js?v=5532e2edfd" defer></script>
+  <script src="../assets/js/main.js?v=742e637d07" defer></script>
+  <script src="../assets/js/gms-tools.js?v=390738ac9e" defer></script>
+  <script src="../assets/js/decor.js?v=09ff05457d" defer></script>
   <script>
+    // Tabs (WAI-ARIA pattern): one tab stop, arrow keys / Home / End move
+    // between tabs. All panels ship visible so the guide reads without JS.
     (function(){
-      var tabButtons = document.querySelectorAll('.tab-btn');
-      var tabPanels = document.querySelectorAll('.tab-panel');
-      tabButtons.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          tabButtons.forEach(function(b) { b.setAttribute('aria-selected', 'false'); });
-          tabPanels.forEach(function(p) { p.hidden = true; });
-          btn.setAttribute('aria-selected', 'true');
-          document.getElementById(btn.getAttribute('aria-controls')).hidden = false;
+      var tabButtons = Array.prototype.slice.call(document.querySelectorAll('.tab-btn'));
+      if (!tabButtons.length) return;
+      function select(btn, focus) {
+        tabButtons.forEach(function(b) {
+          var on = b === btn;
+          b.setAttribute('aria-selected', on ? 'true' : 'false');
+          b.tabIndex = on ? 0 : -1;
+          document.getElementById(b.getAttribute('aria-controls')).hidden = !on;
+        });
+        if (focus) btn.focus();
+      }
+      tabButtons.forEach(function(btn, i) {
+        btn.addEventListener('click', function() { select(btn, false); });
+        btn.addEventListener('keydown', function(e) {
+          var next = null;
+          if (e.key === 'ArrowRight') next = tabButtons[(i + 1) % tabButtons.length];
+          else if (e.key === 'ArrowLeft') next = tabButtons[(i - 1 + tabButtons.length) % tabButtons.length];
+          else if (e.key === 'Home') next = tabButtons[0];
+          else if (e.key === 'End') next = tabButtons[tabButtons.length - 1];
+          if (next) { e.preventDefault(); select(next, true); }
         });
       });
+      var current = tabButtons.filter(function(b) { return b.getAttribute('aria-selected') === 'true'; })[0] || tabButtons[0];
+      select(current, false);
     })();
   </script>
   <script defer src="/_vercel/insights/script.js"></script>

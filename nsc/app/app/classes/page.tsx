@@ -10,6 +10,7 @@ import { Eyebrow } from "@/components/class-chrome";
 import { startInfantClassCheckout } from "./infant/actions";
 import { startPreschoolClassCheckout } from "./preschool/actions";
 import { startClassCheckout } from "./toddlerhood/actions";
+import { CLASS_REFUND_POLICY } from "@/lib/refund-policy";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "My classes" };
@@ -112,7 +113,7 @@ export default async function MyClassesPage() {
                   <p className="mt-1 text-sm text-ink-soft">{course.blurb}</p>
                   <p className="mt-4 text-ink">
                     <span className="font-[family-name:var(--font-display)] text-2xl font-semibold text-ink-deep">{course.priceDisplay}</span>
-                    <span className="ml-2 text-sm text-ink-muted">one payment, lifetime access. All sales are final.</span>
+                    <span className="ml-2 text-sm text-ink-muted">one payment, lifetime access. {CLASS_REFUND_POLICY}</span>
                   </p>
                   <div className="mt-auto flex flex-wrap items-center gap-2 pt-5">
                     {salesOpen[index] ? (

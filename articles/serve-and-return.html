@@ -4,47 +4,49 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>What "serve and return" actually means - Growing Minds Science</title>
+  <title>What “serve and return” actually means | Growing Minds Science</title>
   <meta name="description" content="A clear, research-backed translation of serve and return: what it means, why it matters for early language, and where the idea gets over-applied." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/articles/serve-and-return" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="What &quot;serve and return&quot; actually means — Growing Minds Science" />
+  <meta property="og:title" content="What &quot;serve and return&quot; actually means | Growing Minds Science" />
   <meta property="og:description" content="A clear translation of one of the most cited ideas in early-language research, including where it's been over-applied." />
   <meta property="og:image" content="https://growingmindsscience.com/assets/img/og/serve-and-return.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Growing Minds Science — What &quot;serve and return&quot; actually means" />
+  <meta property="og:image:alt" content="Growing Minds Science | What &quot;serve and return&quot; actually means" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://growingmindsscience.com/assets/img/og/serve-and-return.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400..800&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=25806045f8" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=5122b7e7ee" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=44002cebb8" />
+  <link rel="stylesheet" href="../assets/css/refresh.css?v=d297404b34" />
 
   <style>
     .article-hero { padding: clamp(3.5rem, 7vw, 6rem) 0 var(--space-10); background: linear-gradient(180deg, color-mix(in oklab, var(--accent-soft) 22%, var(--bg)) 0%, var(--bg) 100%); border-bottom: 1px solid var(--border-soft); }
     .article-layout { display: grid; grid-template-columns: minmax(0, .72fr) minmax(240px, .28fr); gap: clamp(var(--space-8), 6vw, var(--space-16)); align-items: start; }
     .article-kicker { color: var(--accent-brown); font-size: var(--text-sm); font-weight: 600; line-height: 1.4; margin: 0 0 var(--space-4); }
-    .article-title { max-width: 22ch; margin: 0 0 var(--space-5); font-family: var(--font-display); font-size: clamp(2.3rem, 1.2rem + 3.4vw, 3.6rem); font-weight: 500; letter-spacing: -0.005em; line-height: 1.06; text-wrap: balance; }
+    .article-title { max-width: 22ch; margin: 0 0 var(--space-5); font-family: var(--font-display); font-size: clamp(2.3rem, 1.2rem + 3.2vw, 3.4rem); font-weight: 500; letter-spacing: -0.005em; line-height: 1.06; text-wrap: balance; }
     .article-dek { max-width: 48rem; color: var(--ink-soft); font-size: var(--text-lg); line-height: 1.55; margin: 0; }
     .article-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); color: var(--ink-muted); font-size: var(--text-sm); margin-top: var(--space-6); }
     .article-cardlet, .article-toc, .article-callout, .sources-panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-5); }
-    .article-cardlet h2, .article-toc h2 { font-size: var(--text-md); margin: 0 0 var(--space-3); }
+    /* Scoped under .article-body so the article h2 rule below cannot inflate the sidebar headings. */
+    .article-body .article-cardlet h2, .article-body .article-toc h2, .article-cardlet h2, .article-toc h2 { font-size: var(--text-md); margin: 0 0 var(--space-3); }
     .article-cardlet p, .article-toc a { color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.6; }
     .article-toc { position: sticky; top: calc(var(--header-height) + var(--space-6)); }
     .article-toc ol { display: grid; gap: var(--space-2); list-style: none; margin: 0; padding: 0; }
     .article-toc a { text-decoration: none; }
     .article-toc a:hover { color: var(--primary); }
     .article-body { padding-block: var(--space-14); }
-    .article-body article { max-width: 68ch; }
+    .article-body article { max-width: 66ch; } /* 66ch of the 17px base is about 60ch of the 19px body text */
     .article-body h2 { margin: var(--space-10) 0 var(--space-4); font-size: var(--text-2xl); }
     .article-body h3 { margin: var(--space-7) 0 var(--space-3); font-size: var(--text-lg); }
     .article-body p { color: var(--ink-soft); font-size: var(--text-md); line-height: 1.78; margin: 0 0 var(--space-5); }
@@ -57,13 +59,45 @@
     .translation-card h3 { margin-top: 0; }
     .sources-panel { margin-top: var(--space-10); }
     .sources-panel ul { margin-bottom: 0; }
+    .article-cta__title { margin: 0 0 .35rem; font-size: var(--text-lg); }
+    .article-cta__text { max-width: 38rem; margin: 0; font-size: var(--text-sm); color: var(--ink-soft); }
     .article-cta { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
     .article-figure { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-6); margin: var(--space-8) 0; }
-    .article-figure svg { display: block; width: 100%; height: auto; }
+    /* Figures are drawn on a 480-unit viewBox and their text is set in SVG
+       units, so it scales with the drawing. Capped at 32rem, 16-unit labels
+       render at about 17px on wide screens. Below 560px the figure gives up
+       some padding and labels step to 22 units: about 14px on a 375px phone. */
+    .article-figure svg { display: block; width: 100%; max-width: 32rem; height: auto; margin-inline: auto; }
+    .article-figure .af-text { font: 500 16px var(--font-body); fill: var(--ink-soft); }
+    .article-figure .af-strong { font-weight: 700; fill: var(--ink); }
+    .article-figure .af-muted { fill: var(--ink-muted); }
+    .article-figure .af-primary { fill: var(--primary); }
+    .article-figure .af-accent { fill: var(--accent-brown); }
+    .article-figure .af-note { font-style: italic; fill: var(--accent-brown); }
+    .article-figure .af-head, .article-figure .af-key, .article-figure .af-foot, .article-figure figcaption { max-width: 32rem; margin-inline: auto; }
+    .article-figure .af-head { margin-block: 0 var(--space-4); color: var(--ink); font-size: var(--text-base); font-weight: 700; line-height: 1.4; text-wrap: balance; }
+    .article-figure .af-foot { margin-block: var(--space-4) 0; color: var(--accent-brown); font-size: var(--text-base); font-style: italic; line-height: 1.5; text-wrap: balance; }
+    .article-figure .af-key { display: grid; gap: var(--space-3); margin-block: var(--space-5) 0; padding: var(--space-4) 0 0; border-top: 1px solid var(--border-soft); list-style: none; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.55; }
+    .article-figure .af-key li { display: grid; grid-template-columns: 1.75rem minmax(0, 1fr); gap: var(--space-3); align-items: start; }
+    .article-figure .af-key b { color: var(--ink); font-weight: 700; }
+    .article-figure .af-key__num { display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border: 2px solid var(--primary); border-radius: 50%; color: var(--primary); font-size: var(--text-sm); font-weight: 700; line-height: 1; }
+    .article-figure .af-key__num--warm { border-color: var(--warm); color: var(--accent-brown); }
+    .article-figure .af-key--stages { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-5); }
+    .article-figure .af-key--stages li { display: block; }
+    .article-figure .af-key--stages b { display: block; }
+    @media (max-width: 560px) {
+      .article-figure { padding: var(--space-4); }
+      .article-figure .af-text { font-size: 22px; }
+    }
+    /* Narrower phones (360px class): the drawing borrows 8px of padding each side. */
+    @media (max-width: 374px) {
+      .article-figure svg { width: calc(100% + 2 * var(--space-2)); max-width: none; margin-inline: calc(-1 * var(--space-2)); }
+    }
     .article-figure figcaption { color: var(--ink-muted); font-size: var(--text-sm); line-height: 1.6; margin-top: var(--space-4); }
+    .article-figure figcaption b { font-family: var(--font-display); font-style: italic; font-weight: 600; color: var(--amber-deep); }
+    .article-figure .article-figure__head { margin: 0 0 var(--space-4); }
     .figure-steps { display: grid; gap: var(--space-5); margin: 0; padding: 0; list-style: none; }
     .figure-steps li { display: grid; grid-template-columns: 44px 1fr; gap: var(--space-4); align-items: start; }
-    .figure-step__num { display: grid; place-items: center; width: 44px; height: 44px; border: 2px solid var(--primary); border-radius: 999px; color: var(--primary); background: var(--bg-alt); font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
     .figure-steps h4 { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); }
     .figure-steps p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
     .figure-foot { margin: var(--space-5) 0 0; padding-top: var(--space-4); border-top: 1px dashed var(--border-soft); color: var(--accent-brown); font-style: italic; font-size: var(--text-md); }
@@ -79,7 +113,6 @@
       .article-toc { position: static; }
       .article-body .article-toc,
       .article-body .article-layout > article { grid-column: auto; grid-row: auto; }
-      .article-title { max-width: 16ch; }
     }
   </style>
   <!-- STRUCTURED-DATA:start (generated by scripts/build-structured-data.mjs) -->
@@ -88,7 +121,7 @@
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      "headline": "What \"serve and return\" actually means",
+      "headline": "What “serve and return” actually means",
       "description": "A clear, research-backed translation of serve and return: what it means, why it matters for early language, and where the idea gets over-applied.",
       "inLanguage": "en",
       "isAccessibleForFree": true,
@@ -114,7 +147,7 @@
       "url": "https://growingmindsscience.com/articles/serve-and-return",
       "image": "https://growingmindsscience.com/assets/img/og/serve-and-return.png",
       "datePublished": "2026-05-26T18:27:33-07:00",
-      "dateModified": "2026-07-19T18:04:14-07:00"
+      "dateModified": "2026-10-08T16:07:54-04:00"
     },
     {
       "@context": "https://schema.org",
@@ -135,7 +168,7 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "What \"serve and return\" actually means",
+          "name": "What “serve and return” actually means",
           "item": "https://growingmindsscience.com/articles/serve-and-return"
         }
       ]
@@ -143,15 +176,15 @@
   ]
   </script>
   <!-- STRUCTURED-DATA:end -->
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=6f2055b923" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=de9d0eebaf" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -168,7 +201,7 @@
               <div class="nav__menu">
                 <ul class="nav__submenu">
                   <li><a class="nav__submenu-link" href="/tools/growing-minds-ai.html"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A ten-minute counting check-in you run at home.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A free ten-minute counting check-in; the full version is $34.</span></a></li>
                   <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
                   <li><a class="nav__submenu-link" href="/tools/communication-snapshot.html"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
                   <li><a class="nav__submenu-link" href="/arcade/"><span class="nav__submenu-title">Arcade</span><span class="nav__submenu-desc">Silly games for a five-minute break between lessons.</span></a></li>
@@ -179,7 +212,7 @@
           </li>
           <li><a class="nav__link" href="/articles/" aria-current="page">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
+          <li class="nav__item nav__auth"><details class="nav__details nav__details--auth"><summary class="nav__link nav__summary">My classes <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary><div class="nav__menu nav__menu--auth"><ul class="nav__submenu"><li><a class="nav__submenu-link" href="/nsc/app/classes"><span class="nav__submenu-title">Birth to 12 months</span><span class="nav__submenu-desc">Your lessons and progress on this site.</span></a></li><li><a class="nav__submenu-link" href="https://matthew-s-site-de0b.thinkific.com/users/sign_in" target="_blank" rel="noopener"><span class="nav__submenu-title">Toddler years <span aria-hidden="true">&nearr;</span></span><span class="nav__submenu-desc">Your lessons on Thinkific, our course platform.</span><span class="u-visually-hidden"> (opens in a new tab)</span></a></li></ul></div></details></li>
           <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
@@ -196,7 +229,7 @@
       <div class="container article-layout">
         <div>
           <p class="article-kicker">Research, explained</p>
-          <h1 class="article-title">What "serve and return" actually means, and what it doesn't</h1>
+          <h1 class="article-title">What &ldquo;serve and return&rdquo; actually means, and what it doesn&rsquo;t</h1>
           <p class="article-dek">A clear translation of one of the most cited ideas in early-language research, including where it has been over-applied.</p>
           <p class="article-meta">
             <span>By Matthew McArthur</span>
@@ -206,7 +239,7 @@
         </div>
         <aside class="article-cardlet" aria-label="Article summary">
           <h2>The short version</h2>
-          <p>Serve and return means a child does something communicative, and an adult responds in a way that connects to that child's attention, feeling, or attempt. It's powerful, and it's also not a command to perform perfect parenting all day long.</p>
+          <p>Serve and return means a child does something communicative, and an adult responds in a way that connects to that child&rsquo;s attention, feeling, or attempt. It&rsquo;s powerful, and it&rsquo;s also not a command to perform perfect parenting all day long.</p>
         </aside>
       </div>
     </section>
@@ -225,61 +258,65 @@
         </aside>
 
         <article>
-          <p>Some research phrases escape the lab and start living ordinary lives. "Serve and return" is one of them.</p>
+          <p>Some research phrases escape the lab and start living ordinary lives. &ldquo;Serve and return&rdquo; is one of them.</p>
 
           <p>You hear it in parenting classes, early childhood trainings, pediatric handouts, and social media captions about baby brains. Usually, that is a good thing. The phrase gives parents a simple picture of something real: children learn through back-and-forth interaction with people who notice them and respond.</p>
 
           <p>But once a phrase becomes simple enough to travel, it can also become simple enough to distort.</p>
 
-          <p>So let's slow it down.</p>
+          <p>So let&rsquo;s slow it down.</p>
 
           <div class="article-callout">
-            <p><strong>Serve and return was never about saying more words at a child.</strong> It's about building a responsive loop with one.</p>
+            <p><strong>Serve and return was never about saying more words at a child.</strong> It&rsquo;s about building a responsive loop with one.</p>
           </div>
 
           <h2 id="what-it-means">What it actually means</h2>
 
-          <p>The metaphor is borrowed from a game like tennis or ping pong. The child "serves" by doing something that carries attention, interest, need, or feeling. The adult "returns" by responding in a way that fits the child's serve.</p>
+          <p>The metaphor is borrowed from a game like tennis or ping pong. The child &ldquo;serves&rdquo; by doing something that carries attention, interest, need, or feeling. The adult &ldquo;returns&rdquo; by responding in a way that fits the child&rsquo;s serve.</p>
 
           <p>That serve might be obvious: a baby babbles, a toddler points to a dog, a preschooler asks why the moon follows the car. But it can also be quieter. A look toward the door. A hand reaching for your sleeve. A sound that is not a word yet, but is clearly trying to become one.</p>
 
-          <p>The return isn't just any adult talk; it's connected. The adult notices the child's focus and responds to it: "You saw the dog. He is running fast." Or, "You want me to open this. It is stuck." Or, sometimes, no big language lesson at all: a nod, a hug, a pause, a shared look.</p>
+          <p>The return isn&rsquo;t just any adult talk; it&rsquo;s connected. The adult notices the child&rsquo;s focus and responds to it: &ldquo;You saw the dog. He is running fast.&rdquo; Or, &ldquo;You want me to open this. It is stuck.&rdquo; Or, sometimes, no big language lesson at all: a nod, a hug, a pause, a shared look.</p>
 
-          <p>Harvard's Center on the Developing Child describes serve and return as contingent, reciprocal interaction: a back-and-forth exchange where the adult response is linked to the child's signal. That contingent part matters. It means the adult is not simply broadcasting language into the room. The adult is responding to the child in front of them.</p>
+          <p>Harvard&rsquo;s Center on the Developing Child describes serve and return as contingent, reciprocal interaction: a back-and-forth exchange where the adult response is linked to the child&rsquo;s signal. That contingent part matters. It means the adult is not simply broadcasting language into the room. The adult is responding to the child in front of them.</p>
 
           <figure class="article-figure">
-            <p class="article-kicker" style="margin-bottom: var(--space-4);">The loop</p>
-            <svg viewBox="0 0 720 345" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A circular loop with four beats: the child serves with a babble, a point, or a look; you return it in the same neighborhood of their attention; you add a little, one new word rather than a lecture; then you wait, leaving space for the child's next turn — and the loop begins again.">
+            <svg viewBox="0 -4 480 308" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig-serve-and-return-title" aria-describedby="fig-serve-and-return-desc">
+              <title id="fig-serve-and-return-title">The serve-and-return loop, in four beats.</title>
+              <desc id="fig-serve-and-return-desc">A circular loop with four numbered beats: (1) the child serves with a babble, a point, or a look; (2) you return it in the same neighborhood of their attention; (3) you add a little, one new word rather than a lecture; (4) then you wait, leaving space for the child&rsquo;s next turn. Then the loop begins again: a responsive loop, not a script.</desc>
               <defs>
                 <marker id="sr-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
                   <path d="M0 0 L10 5 L0 10 z" fill="var(--primary)" />
                 </marker>
               </defs>
-              <path d="M 376.5 86.4 A 95 95 0 0 1 453.6 163.5" fill="none" stroke="var(--primary)" stroke-width="2.5" marker-end="url(#sr-arrow)" />
-              <path d="M 453.6 196.5 A 95 95 0 0 1 376.5 273.6" fill="none" stroke="var(--primary)" stroke-width="2.5" marker-end="url(#sr-arrow)" />
-              <path d="M 343.5 273.6 A 95 95 0 0 1 266.4 196.5" fill="none" stroke="var(--primary)" stroke-width="2.5" marker-end="url(#sr-arrow)" />
-              <path d="M 266.4 163.5 A 95 95 0 0 1 343.5 86.4" fill="none" stroke="var(--primary)" stroke-width="2.5" marker-end="url(#sr-arrow)" />
-              <circle cx="360" cy="85" r="7" fill="var(--warm)" />
-              <circle cx="455" cy="180" r="7" fill="var(--primary)" />
-              <circle cx="360" cy="275" r="7" fill="var(--primary)" />
-              <circle cx="265" cy="180" r="7" fill="var(--primary)" />
-              <text x="360" y="38" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="16" fill="var(--ink)">1 &middot; The child serves</text>
-              <text x="360" y="58" text-anchor="middle" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">a babble, a point, a look toward the door</text>
-              <text x="478" y="160" font-family="var(--font-display)" font-weight="600" font-size="16" fill="var(--ink)">2 &middot; Return it</text>
-              <text x="478" y="180" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">in the same neighborhood:</text>
-              <text x="478" y="198" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">&#8220;You saw the dog.&#8221;</text>
-              <text x="360" y="308" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="16" fill="var(--ink)">3 &middot; Add a little</text>
-              <text x="360" y="328" text-anchor="middle" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">one new word, not a lecture</text>
-              <text x="242" y="160" text-anchor="end" font-family="var(--font-display)" font-weight="600" font-size="16" fill="var(--ink)">4 &middot; Wait</text>
-              <text x="242" y="180" text-anchor="end" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">leave space for</text>
-              <text x="242" y="198" text-anchor="end" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">their next turn</text>
-              <text x="360" y="172" text-anchor="middle" font-family="var(--font-body)" font-style="italic" font-size="15" fill="var(--accent-brown)">a responsive loop,</text>
-              <text x="360" y="193" text-anchor="middle" font-family="var(--font-body)" font-style="italic" font-size="15" fill="var(--accent-brown)">not a script</text>
+              <path d="M 263.8 52.9 A 100 100 0 0 1 335.9 121.6" fill="none" stroke="var(--primary)" stroke-width="2.5" marker-end="url(#sr-arrow)" />
+              <path d="M 337.1 173.8 A 100 100 0 0 1 268.4 245.9" fill="none" stroke="var(--primary)" stroke-width="2.5" marker-end="url(#sr-arrow)" />
+              <path d="M 216.2 247.1 A 100 100 0 0 1 144.1 178.4" fill="none" stroke="var(--primary)" stroke-width="2.5" marker-end="url(#sr-arrow)" />
+              <path d="M 142.9 126.2 A 100 100 0 0 1 211.6 54.1" fill="none" stroke="var(--primary)" stroke-width="2.5" marker-end="url(#sr-arrow)" />
+              <circle cx="240" cy="50" r="17" fill="var(--surface)" stroke="var(--warm)" stroke-width="4" />
+              <text class="af-text af-strong af-accent" x="240" y="50" dy=".35em" text-anchor="middle">1</text>
+              <circle cx="340" cy="150" r="17" fill="var(--surface)" stroke="var(--primary)" stroke-width="3" />
+              <text class="af-text af-strong af-primary" x="340" y="150" dy=".35em" text-anchor="middle">2</text>
+              <circle cx="240" cy="250" r="17" fill="var(--surface)" stroke="var(--primary)" stroke-width="3" />
+              <text class="af-text af-strong af-primary" x="240" y="250" dy=".35em" text-anchor="middle">3</text>
+              <circle cx="140" cy="150" r="17" fill="var(--surface)" stroke="var(--primary)" stroke-width="3" />
+              <text class="af-text af-strong af-primary" x="140" y="150" dy=".35em" text-anchor="middle">4</text>
+              <text class="af-text af-strong" x="240" y="20" text-anchor="middle">The child serves</text>
+              <text class="af-text af-strong" x="366" y="150" dy=".35em">Return it</text>
+              <text class="af-text af-strong" x="240" y="296" text-anchor="middle">Add a little</text>
+              <text class="af-text af-strong" x="114" y="150" dy=".35em" text-anchor="end">Wait</text>
             </svg>
-            <figcaption>The return is connected to what the child is already attending to &mdash; and the wait matters as much as the words, because it hands the next turn back.</figcaption>
+            <ol class="af-key">
+              <li><span class="af-key__num af-key__num--warm" aria-hidden="true">1</span><span><b>The child serves:</b> a babble, a point, a look toward the door.</span></li>
+              <li><span class="af-key__num" aria-hidden="true">2</span><span><b>Return it</b> in the same neighborhood: &ldquo;You saw the dog.&rdquo;</span></li>
+              <li><span class="af-key__num" aria-hidden="true">3</span><span><b>Add a little:</b> one new word, not a lecture.</span></li>
+              <li><span class="af-key__num" aria-hidden="true">4</span><span><b>Wait:</b> leave space for their next turn.</span></li>
+            </ol>
+            <p class="af-foot">A responsive loop, not a script.</p>
+            <figcaption><b>Fig. 1</b> &middot; The loop. The return is connected to what the child is already attending to. The wait matters as much as the words, because it hands the next turn back.</figcaption>
           </figure>
 
-          <p>Michael Tomasello's research on joint attention offers an early window into why contingency matters. When an adult follows a child's gaze or pointing gesture and names what the child is already attending to, vocabulary acquisition is measurably stronger than when an adult tries to redirect the child's attention elsewhere. The child has already initiated an interest. A return that connects to that initiative lands differently than language delivered independently of it.</p>
+          <p>Michael Tomasello&rsquo;s research on joint attention offers an early window into why contingency matters. When an adult follows a child&rsquo;s gaze or pointing gesture and names what the child is already attending to, vocabulary acquisition is measurably stronger than when an adult tries to redirect the child&rsquo;s attention elsewhere. The child has already initiated an interest. A return that connects to that initiative lands differently than language delivered independently of it.</p>
 
           <h2 id="why-it-matters">Why it matters</h2>
 
@@ -287,9 +324,9 @@
 
           <p>In my Frontiers for Young Minds article with Margaret Friend, we described early words as building blocks for later learning: vocabulary helps children organize the world, connect related concepts, and communicate needs and feelings. Serve and return belongs in that story because it is one of the main ways children discover that their sounds and gestures can affect another mind.</p>
 
-          <p>The research is not just sentimental. Tamis-LeMonda, Bornstein, and Baumwell found that maternal responsiveness in infancy predicted the timing of children's expressive language milestones beyond what could be explained by children's observed behaviors alone. Hirsh-Pasek and colleagues later showed that the quality of early caregiver-child communication at 24 months explained meaningful variation in expressive language one year later, and those quality measures were stronger predictors than the sheer quantity of maternal words in the interaction.</p>
+          <p>The research is not just sentimental. Tamis-LeMonda, Bornstein, and Baumwell found that maternal responsiveness in infancy predicted the timing of children&rsquo;s expressive language milestones beyond what could be explained by children&rsquo;s observed behaviors alone. Hirsh-Pasek and colleagues later showed that the quality of early caregiver-child communication at 24 months explained meaningful variation in expressive language one year later, and those quality measures were stronger predictors than the sheer quantity of maternal words in the interaction.</p>
 
-          <p>Romeo and colleagues added a neural level to the picture. Using brain imaging alongside audio recordings from children's everyday environments, they found that conversational turns predicted activation in Broca's area, the region central to language processing and production, in children ages 4 to 6. This held after accounting for socioeconomic status, IQ, and the sheer volume of adult words the child had heard. The number of back-and-forth exchanges explained variation in verbal ability that raw language exposure alone could not.</p>
+          <p>Romeo and colleagues added a neural level to the picture. Using brain imaging alongside audio recordings from children&rsquo;s everyday environments, they found that conversational turns predicted activation in Broca&rsquo;s area, the region central to language processing and production, in children ages 4 to 6. This held after accounting for socioeconomic status, IQ, and the sheer volume of adult words the child had heard. The number of back-and-forth exchanges explained variation in verbal ability that raw language exposure alone could not.</p>
 
           <div class="translation-grid">
             <div class="translation-card">
@@ -312,10 +349,10 @@
           <h3>It is not a script</h3>
           <p>There are useful prompts: notice, respond, name, wait, take another turn. But serve and return is a relationship pattern, not a magic sentence.</p>
 
-          <p>Sometimes the best return is language: "You are showing me the red truck." Sometimes it is affect: "That surprised you." Sometimes it is regulation: "That was loud. I am here." Sometimes it is simply following the child's gaze and letting the shared moment breathe.</p>
+          <p>Sometimes the best return is language: &ldquo;You are showing me the red truck.&rdquo; Sometimes it is affect: &ldquo;That surprised you.&rdquo; Sometimes it is regulation: &ldquo;That was loud. I am here.&rdquo; Sometimes it is simply following the child&rsquo;s gaze and letting the shared moment breathe.</p>
 
           <h3>It is not only for babies</h3>
-          <p>The phrase is often used in infancy, but the principle keeps changing shape. With toddlers, serve and return might look like expanding a one-word utterance: "Dog!" "Yes, the dog is digging." With preschoolers, it may look like taking a strange question seriously enough to think together.</p>
+          <p>The phrase is often used in infancy, but the principle keeps changing shape. With toddlers, serve and return might look like expanding a one-word utterance: &ldquo;Dog!&rdquo; &ldquo;Yes, the dog is digging.&rdquo; With preschoolers, it may look like taking a strange question seriously enough to think together.</p>
 
           <p>The return grows with the child. The core stays the same: I see what you are trying to communicate, and I am meeting you there.</p>
 
@@ -324,9 +361,9 @@
 
           <p>Early language research has sometimes been flattened into a story about individual parents: talk more, do more, optimize more. That framing can miss the conditions that make responsive interaction easier or harder: work schedules, stress, depression, housing instability, childcare access, disability, racism, community support, and whether the adult has been cared for enough to be available.</p>
 
-          <p>The debate around the "30-million-word gap" is a good example. Hart and Risley's original work pushed the field to take early language environments seriously. Later critiques, including work by Sperry, Sperry, and Miller, challenged parts of the measurement and interpretation, especially when researchers treat one narrow model of child-directed speech as the standard for all families and cultures.</p>
+          <p>The debate around the &ldquo;30-million-word gap&rdquo; is a good example. Hart and Risley&rsquo;s original work pushed the field to take early language environments seriously. Later critiques, including work by Sperry, Sperry, and Miller, challenged parts of the measurement and interpretation, especially when researchers treat one narrow model of child-directed speech as the standard for all families and cultures.</p>
 
-          <p>The lesson here isn't that language input doesn't matter; it clearly does. The lesson is to stay careful. We can value responsive talk without turning developmental science into a ranking system for families.</p>
+          <p>The lesson here isn&rsquo;t that language input doesn&rsquo;t matter; it clearly does. The lesson is to stay careful. We can value responsive talk without turning developmental science into a ranking system for families.</p>
 
           <h2 id="what-to-do">What this looks like in real life</h2>
 
@@ -334,8 +371,8 @@
 
           <ul>
             <li><strong>Notice the serve.</strong> What is your child looking at, reaching for, saying, feeling, or trying to make happen?</li>
-            <li><strong>Return in the same neighborhood.</strong> Respond to the child's focus instead of redirecting too quickly to your own lesson.</li>
-            <li><strong>Add a little, not a lecture.</strong> If your child says "ball," you might say, "The ball rolled under the chair."</li>
+            <li><strong>Return in the same neighborhood.</strong> Respond to the child&rsquo;s focus instead of redirecting too quickly to your own lesson.</li>
+            <li><strong>Add a little, not a lecture.</strong> If your child says &ldquo;ball,&rdquo; you might say, &ldquo;The ball rolled under the chair.&rdquo;</li>
             <li><strong>Wait.</strong> The pause gives your child room to take another turn.</li>
             <li><strong>Let your home language count.</strong> Serve and return is about meaningful interaction, not about forcing one language to carry all development.</li>
           </ul>
@@ -346,11 +383,11 @@
 
           <p>Serve and return is one of those ideas that is both simple and easy to oversimplify.</p>
 
-          <p>At its best, it reminds us that development isn't something adults pour into children. It gets built in the back-and-forth between them. Children offer tiny openings into what they notice, want, fear, remember, and wonder. Adults help those openings become language, concepts, regulation, and connection.</p>
+          <p>At its best, it reminds us that development isn&rsquo;t something adults pour into children. It gets built in the back-and-forth between them. Children offer tiny openings into what they notice, want, fear, remember, and wonder. Adults help those openings become language, concepts, regulation, and connection.</p>
 
           <p>At its worst, the phrase becomes another way to pressure parents into performing development all day long.</p>
 
-          <p>The research-backed version is kinder and more accurate: look for the child's serve when you can. Return it in a way that fits. Let the exchange be human-sized.</p>
+          <p>The research-backed version is kinder and more accurate: look for the child&rsquo;s serve when you can. Return it in a way that fits. Let the exchange be human-sized.</p>
 
           <p>That is enough to matter.</p>
 
@@ -359,9 +396,9 @@
             <ul>
               <li><a href="https://developingchild.harvard.edu/resources/videos/how-to-5-steps-for-brain-building-serve-and-return/" target="_blank" rel="noopener noreferrer">Center on the Developing Child at Harvard University: How-to: 5 Steps for Brain-Building Serve and Return</a></li>
               <li><a href="https://kids.frontiersin.org/articles/10.3389/frym.2024.1426649" target="_blank" rel="noopener noreferrer">McArthur & Friend (2024): Why Early Chatter Matters: The Role of Language in Shaping Futures</a></li>
-              <li><a href="https://templeinfantlab.com/wp-content/uploads/sites/2/2019/06/Psychological-Science-2015-Hirsh-Pasek-09567976155814931.pdf" target="_blank" rel="noopener noreferrer">Hirsh-Pasek et al. (2015): The Contribution of Early Communication Quality to Low-Income Children's Language Success</a></li>
+              <li><a href="https://templeinfantlab.com/wp-content/uploads/sites/2/2019/06/Psychological-Science-2015-Hirsh-Pasek-09567976155814931.pdf" target="_blank" rel="noopener noreferrer">Hirsh-Pasek et al. (2015): The Contribution of Early Communication Quality to Low-Income Children&rsquo;s Language Success</a></li>
               <li><a href="https://journals.sagepub.com/doi/10.1177/0956797617742725" target="_blank" rel="noopener noreferrer">Romeo et al. (2018): Beyond the 30-Million-Word Gap</a></li>
-              <li><a href="https://eric.ed.gov/?id=EJ639728" target="_blank" rel="noopener noreferrer">Tamis-LeMonda, Bornstein, & Baumwell (2001): Maternal Responsiveness and Children's Achievement of Language Milestones</a></li>
+              <li><a href="https://eric.ed.gov/?id=EJ639728" target="_blank" rel="noopener noreferrer">Tamis-LeMonda, Bornstein, & Baumwell (2001): Maternal Responsiveness and Children&rsquo;s Achievement of Language Milestones</a></li>
               <li><a href="https://pubmed.ncbi.nlm.nih.gov/29707767/" target="_blank" rel="noopener noreferrer">Sperry, Sperry, & Miller (2019): Reexamining the Verbal Environments of Children From Different Socioeconomic Backgrounds</a></li>
               <li><a href="https://psycnet.apa.org/record/1986-29740-001" target="_blank" rel="noopener noreferrer">Tomasello & Farrar (1986): Joint Attention and Early Language</a></li>
             </ul>
@@ -374,16 +411,14 @@
       <div class="container container--narrow">
         <div class="article-cta">
           <div>
-            <p class="article-kicker">Toddler class · now available</p>
-            <h2 style="margin:0 0 .35rem; font-size:var(--text-lg);">Language and serve-and-return are covered in depth in Module 2.</h2>
-            <p class="small" style="max-width:38rem; margin:0;">The toddler class goes further: how language actually grows through ordinary conversation, what supports the vocabulary explosion, and what the research says about talking with your toddler (without turning your home into a lesson plan). $49 for lifetime access.</p>
+            <h2 class="article-cta__title">Watch the full lesson on serve and return, free.</h2>
+            <p class="article-cta__text">&ldquo;Serve and Return&rdquo; is lesson 3 of the infant class: 14 minutes, with captions and the written version, and no account needed. The toddler class picks the idea up again in Module 2, where language takes off.</p>
           </div>
           <div class="hero__ctas">
-            <a class="btn btn--primary" href="/classes/toddlerhood.html">See the toddler class</a>
-            <a class="btn btn--ghost" href="/tools/growing-minds-ai.html">Ask a follow-up question →</a>
+            <a class="btn btn--primary" href="/nsc/classes/infant/preview">Watch the lesson free</a>
+            <a class="btn btn--ghost" href="/classes/toddlerhood">See the toddler class</a>
           </div>
         </div>
-        <p style="margin: var(--space-4) 0 0; font-size: var(--text-sm);">Have a baby under one? <a href="/nsc/classes/infant/preview">Watch Serve and Return, a full lesson from the infant class, free</a>.</p>
       </div>
     </section>
   </main>
@@ -391,8 +426,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">A developmental-science education for parents of children 0 to 5.</p>
@@ -405,10 +440,10 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
-            <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
-            <li><a href="/classes/preschool.html">Preschool years</a></li>
-            <li><a href="/classes/family-systems.html">Family systems</a></li>
+            <li><a href="/classes/birth-to-12-months">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood">Toddler years</a></li>
+            <li><a href="/classes/preschool">Preschool years</a></li>
+            <li><a href="/classes/family-systems">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>
           </ul>
         </div>
@@ -441,10 +476,10 @@
     </div>
   </footer>
 
-  <script src="/assets/js/chrome.js?v=15d4f8689c"></script>
+  <script src="/assets/js/chrome.js?v=1413c22959"></script>
 
-  <script src="../assets/js/main.js?v=da0ffde09b" defer></script>
-  <script src="../assets/js/decor.js?v=5532e2edfd" defer></script>
+  <script src="../assets/js/main.js?v=742e637d07" defer></script>
+  <script src="../assets/js/decor.js?v=09ff05457d" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

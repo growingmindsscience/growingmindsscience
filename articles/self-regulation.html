@@ -4,13 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>Self-regulation, briefly - Growing Minds Science</title>
+  <title>Self-regulation, briefly | Growing Minds Science</title>
   <meta name="description" content="What developmental science actually means by 'self-regulation,' why co-regulation comes first, and what this implies for how parents respond to big feelings." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/articles/self-regulation" />
 
   <meta property="og:type" content="article" />
@@ -19,32 +20,33 @@
   <meta property="og:image" content="https://growingmindsscience.com/assets/img/og/self-regulation.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Growing Minds Science — Self-regulation, briefly" />
+  <meta property="og:image:alt" content="Growing Minds Science | Self-regulation, briefly" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://growingmindsscience.com/assets/img/og/self-regulation.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400..800&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=25806045f8" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=5122b7e7ee" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=44002cebb8" />
+  <link rel="stylesheet" href="../assets/css/refresh.css?v=d297404b34" />
 
   <style>
     .article-hero { padding: clamp(3.5rem, 7vw, 6rem) 0 var(--space-10); background: linear-gradient(180deg, color-mix(in oklab, var(--accent-soft) 22%, var(--bg)) 0%, var(--bg) 100%); border-bottom: 1px solid var(--border-soft); }
     .article-layout { display: grid; grid-template-columns: minmax(0, .72fr) minmax(240px, .28fr); gap: clamp(var(--space-8), 6vw, var(--space-16)); align-items: start; }
     .article-kicker { color: var(--accent-brown); font-size: var(--text-sm); font-weight: 600; line-height: 1.4; margin: 0 0 var(--space-4); }
-    .article-title { max-width: 22ch; margin: 0 0 var(--space-5); font-family: var(--font-display); font-size: clamp(2.3rem, 1.2rem + 3.4vw, 3.6rem); font-weight: 500; letter-spacing: -0.005em; line-height: 1.06; text-wrap: balance; }
+    .article-title { max-width: 22ch; margin: 0 0 var(--space-5); font-family: var(--font-display); font-size: clamp(2.3rem, 1.2rem + 3.2vw, 3.4rem); font-weight: 500; letter-spacing: -0.005em; line-height: 1.06; text-wrap: balance; }
     .article-dek { max-width: 48rem; color: var(--ink-soft); font-size: var(--text-lg); line-height: 1.55; margin: 0; }
     .article-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); color: var(--ink-muted); font-size: var(--text-sm); margin-top: var(--space-6); }
     .article-cardlet, .article-toc, .article-callout, .sources-panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-5); }
-    .article-cardlet h2, .article-toc h2 { font-size: var(--text-md); margin: 0 0 var(--space-3); }
+    /* Scoped under .article-body so the article h2 rule below cannot inflate the sidebar headings. */
+    .article-body .article-cardlet h2, .article-body .article-toc h2, .article-cardlet h2, .article-toc h2 { font-size: var(--text-md); margin: 0 0 var(--space-3); }
     .article-cardlet p, .article-toc a { color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.6; }
     .article-toc { position: sticky; top: calc(var(--header-height) + var(--space-6)); }
     .article-toc ol { display: grid; gap: var(--space-2); list-style: none; margin: 0; padding: 0; }
     .article-toc a { text-decoration: none; }
     .article-toc a:hover { color: var(--primary); }
     .article-body { padding-block: var(--space-14); }
-    .article-body article { max-width: 68ch; }
+    .article-body article { max-width: 66ch; } /* 66ch of the 17px base is about 60ch of the 19px body text */
     .article-body h2 { margin: var(--space-10) 0 var(--space-4); font-size: var(--text-2xl); }
     .article-body h3 { margin: var(--space-7) 0 var(--space-3); font-size: var(--text-lg); }
     .article-body p { color: var(--ink-soft); font-size: var(--text-md); line-height: 1.78; margin: 0 0 var(--space-5); }
@@ -59,11 +61,41 @@
     .sources-panel ul { margin-bottom: 0; }
     .article-cta { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
     .article-figure { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-6); margin: var(--space-8) 0; }
-    .article-figure svg { display: block; width: 100%; height: auto; }
+    /* Figures are drawn on a 480-unit viewBox and their text is set in SVG
+       units, so it scales with the drawing. Capped at 32rem, 16-unit labels
+       render at about 17px on wide screens. Below 560px the figure gives up
+       some padding and labels step to 22 units: about 14px on a 375px phone. */
+    .article-figure svg { display: block; width: 100%; max-width: 32rem; height: auto; margin-inline: auto; }
+    .article-figure .af-text { font: 500 16px var(--font-body); fill: var(--ink-soft); }
+    .article-figure .af-strong { font-weight: 700; fill: var(--ink); }
+    .article-figure .af-muted { fill: var(--ink-muted); }
+    .article-figure .af-primary { fill: var(--primary); }
+    .article-figure .af-accent { fill: var(--accent-brown); }
+    .article-figure .af-note { font-style: italic; fill: var(--accent-brown); }
+    .article-figure .af-head, .article-figure .af-key, .article-figure .af-foot, .article-figure figcaption { max-width: 32rem; margin-inline: auto; }
+    .article-figure .af-head { margin-block: 0 var(--space-4); color: var(--ink); font-size: var(--text-base); font-weight: 700; line-height: 1.4; text-wrap: balance; }
+    .article-figure .af-foot { margin-block: var(--space-4) 0; color: var(--accent-brown); font-size: var(--text-base); font-style: italic; line-height: 1.5; text-wrap: balance; }
+    .article-figure .af-key { display: grid; gap: var(--space-3); margin-block: var(--space-5) 0; padding: var(--space-4) 0 0; border-top: 1px solid var(--border-soft); list-style: none; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.55; }
+    .article-figure .af-key li { display: grid; grid-template-columns: 1.75rem minmax(0, 1fr); gap: var(--space-3); align-items: start; }
+    .article-figure .af-key b { color: var(--ink); font-weight: 700; }
+    .article-figure .af-key__num { display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border: 2px solid var(--primary); border-radius: 50%; color: var(--primary); font-size: var(--text-sm); font-weight: 700; line-height: 1; }
+    .article-figure .af-key__num--warm { border-color: var(--warm); color: var(--accent-brown); }
+    .article-figure .af-key--stages { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-5); }
+    .article-figure .af-key--stages li { display: block; }
+    .article-figure .af-key--stages b { display: block; }
+    @media (max-width: 560px) {
+      .article-figure { padding: var(--space-4); }
+      .article-figure .af-text { font-size: 22px; }
+    }
+    /* Narrower phones (360px class): the drawing borrows 8px of padding each side. */
+    @media (max-width: 374px) {
+      .article-figure svg { width: calc(100% + 2 * var(--space-2)); max-width: none; margin-inline: calc(-1 * var(--space-2)); }
+    }
     .article-figure figcaption { color: var(--ink-muted); font-size: var(--text-sm); line-height: 1.6; margin-top: var(--space-4); }
+    .article-figure figcaption b { font-family: var(--font-display); font-style: italic; font-weight: 600; color: var(--amber-deep); }
+    .article-figure .article-figure__head { margin: 0 0 var(--space-4); }
     .figure-steps { display: grid; gap: var(--space-5); margin: 0; padding: 0; list-style: none; }
     .figure-steps li { display: grid; grid-template-columns: 44px 1fr; gap: var(--space-4); align-items: start; }
-    .figure-step__num { display: grid; place-items: center; width: 44px; height: 44px; border: 2px solid var(--primary); border-radius: 999px; color: var(--primary); background: var(--bg-alt); font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
     .figure-steps h4 { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); }
     .figure-steps p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
     .figure-foot { margin: var(--space-5) 0 0; padding-top: var(--space-4); border-top: 1px dashed var(--border-soft); color: var(--accent-brown); font-style: italic; font-size: var(--text-md); }
@@ -79,7 +111,6 @@
       .article-toc { position: static; }
       .article-body .article-toc,
       .article-body .article-layout > article { grid-column: auto; grid-row: auto; }
-      .article-title { max-width: 16ch; }
     }
   </style>
   <!-- STRUCTURED-DATA:start (generated by scripts/build-structured-data.mjs) -->
@@ -114,7 +145,7 @@
       "url": "https://growingmindsscience.com/articles/self-regulation",
       "image": "https://growingmindsscience.com/assets/img/og/self-regulation.png",
       "datePublished": "2026-06-01T00:44:52+00:00",
-      "dateModified": "2026-07-19T18:04:14-07:00"
+      "dateModified": "2026-10-08T16:07:54-04:00"
     },
     {
       "@context": "https://schema.org",
@@ -143,15 +174,15 @@
   ]
   </script>
   <!-- STRUCTURED-DATA:end -->
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=6f2055b923" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=de9d0eebaf" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -168,7 +199,7 @@
               <div class="nav__menu">
                 <ul class="nav__submenu">
                   <li><a class="nav__submenu-link" href="/tools/growing-minds-ai.html"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A ten-minute counting check-in you run at home.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A free ten-minute counting check-in; the full version is $34.</span></a></li>
                   <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
                   <li><a class="nav__submenu-link" href="/tools/communication-snapshot.html"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
                   <li><a class="nav__submenu-link" href="/arcade/"><span class="nav__submenu-title">Arcade</span><span class="nav__submenu-desc">Silly games for a five-minute break between lessons.</span></a></li>
@@ -179,7 +210,7 @@
           </li>
           <li><a class="nav__link" href="/articles/" aria-current="page">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
+          <li class="nav__item nav__auth"><details class="nav__details nav__details--auth"><summary class="nav__link nav__summary">My classes <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary><div class="nav__menu nav__menu--auth"><ul class="nav__submenu"><li><a class="nav__submenu-link" href="/nsc/app/classes"><span class="nav__submenu-title">Birth to 12 months</span><span class="nav__submenu-desc">Your lessons and progress on this site.</span></a></li><li><a class="nav__submenu-link" href="https://matthew-s-site-de0b.thinkific.com/users/sign_in" target="_blank" rel="noopener"><span class="nav__submenu-title">Toddler years <span aria-hidden="true">&nearr;</span></span><span class="nav__submenu-desc">Your lessons on Thinkific, our course platform.</span><span class="u-visually-hidden"> (opens in a new tab)</span></a></li></ul></div></details></li>
           <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
@@ -197,7 +228,7 @@
         <div>
           <p class="article-kicker">Research, explained</p>
           <h1 class="article-title">Self-regulation, briefly</h1>
-          <p class="article-dek">What developmental science actually means by "self-regulation," why co-regulation comes first, and what this implies for how parents respond to big feelings.</p>
+          <p class="article-dek">What developmental science actually means by &ldquo;self-regulation,&rdquo; why co-regulation comes first, and what this implies for how parents respond to big feelings.</p>
           <p class="article-meta">
             <span>By Matthew McArthur</span>
             <span>Early childhood</span>
@@ -206,7 +237,7 @@
         </div>
         <aside class="article-cardlet" aria-label="Article summary">
           <h2>The short version</h2>
-          <p>Self-regulation isn't the same thing as compliance, and young children can't manage their emotions on their own. They borrow a caregiver's regulated nervous system to do it. That borrowing, which we call co-regulation, is the mechanism by which self-regulation eventually develops.</p>
+          <p>Self-regulation isn&rsquo;t the same thing as compliance, and young children can&rsquo;t manage their emotions on their own. They borrow a caregiver&rsquo;s regulated nervous system to do it. That borrowing, which we call co-regulation, is the mechanism by which self-regulation eventually develops.</p>
         </aside>
       </div>
     </section>
@@ -225,35 +256,35 @@
         </aside>
 
         <article>
-          <p>"Self-regulation" is one of those terms that shows up everywhere in early childhood literature and parenting advice. It is almost always used in a way that misrepresents what the research actually says.</p>
+          <p>&ldquo;Self-regulation&rdquo; is one of those terms that shows up everywhere in early childhood literature and parenting advice. It is almost always used in a way that misrepresents what the research actually says.</p>
 
-          <p>Usually it means something like "the child should be able to control themselves." The implication is that the goal of good parenting is a child who can manage their own emotions and behavior independently and at increasingly young ages. Parents who struggle with their child's outbursts often hear it as a gentle indictment: your child hasn't learned to self-regulate yet.</p>
+          <p>Usually it means something like &ldquo;the child should be able to control themselves.&rdquo; The implication is that the goal of good parenting is a child who can manage their own emotions and behavior independently and at increasingly young ages. Parents who struggle with their child&rsquo;s outbursts often hear it as a gentle indictment: your child hasn&rsquo;t learned to self-regulate yet.</p>
 
           <p>This framing gets the developmental sequence backwards. Understanding what regulation actually is, and what it requires, changes both what parents can expect and what they can actually do about it.</p>
 
           <div class="article-callout">
-            <p><strong>Children don't learn self-regulation in isolation. They develop it gradually, over years, through thousands of small experiences of being co-regulated by a calm adult</strong> whose nervous system does the scaffolding until their own can take over.</p>
+            <p><strong>Children don&rsquo;t learn self-regulation in isolation. They develop it gradually, over years, through thousands of small experiences of being co-regulated by a calm adult</strong> whose nervous system does the scaffolding until their own can take over.</p>
           </div>
 
           <h2 id="what-regulation-means">What regulation actually means</h2>
 
           <p>In developmental science, regulation refers to a broad set of capacities: the ability to manage emotional responses, sustain attention, tolerate frustration, delay gratification, inhibit impulses, and return to a calm baseline after stress. Adele Diamond, whose review of executive function across development is among the most cited in the field, identifies three core components: inhibitory control, working memory, and cognitive flexibility. These capacities are deeply interconnected, develop slowly across childhood, and are housed primarily in the prefrontal cortex, which does not reach functional maturity until the mid-twenties.</p>
 
-          <p>This matters because the timeline for regulation is biological, not just experiential. A 2-year-old can't regulate the way a 6-year-old can, and a 6-year-old can't regulate the way a teenager can. When a toddler falls apart, that's developmental biology doing exactly what it does, not a parenting failure. Expecting early, reliable self-regulation from a toddler is a bit like expecting them to read before their visual cortex has finished developing.</p>
+          <p>This matters because the timeline for regulation is biological, not just experiential. A 2-year-old can&rsquo;t regulate the way a 6-year-old can, and a 6-year-old can&rsquo;t regulate the way a teenager can. When a toddler falls apart, that&rsquo;s developmental biology doing exactly what it does, not a parenting failure. Expecting early, reliable self-regulation from a toddler is a bit like expecting them to read before their visual cortex has finished developing.</p>
 
-          <p>Regulation also isn't a single skill. It develops in layers: emotional regulation comes earlier, behavioral inhibition comes somewhat later, and the ability to regulate complex social situations (managing anger while also maintaining a relationship) comes much later still. The early years lay the foundation, but the architecture takes decades to complete.</p>
+          <p>Regulation also isn&rsquo;t a single skill. It develops in layers: emotional regulation comes earlier, behavioral inhibition comes somewhat later, and the ability to regulate complex social situations (managing anger while also maintaining a relationship) comes much later still. The early years lay the foundation, but the architecture takes decades to complete.</p>
 
-          <p>One of the most revealing findings about self-regulation came from a reanalysis of the famous marshmallow studies. Walter Mischel's original research showed that children who waited longer for a second marshmallow had better outcomes decades later, and for years this was cited as proof that willpower was a teachable trait with lifelong consequences. But Tyler Watts and colleagues, replicating the study in 2018 with a much larger and more diverse sample, found that the link was about half the size of the original and shrank by about two thirds once they accounted for family background, early cognitive ability, and the home environment. Other experiments suggest part of the reason: children wait much longer when they have good reason to trust that the second marshmallow will actually arrive. The finding doesn't mean self-regulation doesn't matter. It means the conditions that support regulation development matter enormously, and those conditions are social and environmental, not simply a function of individual willpower.</p>
+          <p>One of the most revealing findings about self-regulation came from a reanalysis of the famous marshmallow studies. Walter Mischel&rsquo;s original research showed that children who waited longer for a second marshmallow had better outcomes decades later, and for years this was cited as proof that willpower was a teachable trait with lifelong consequences. But Tyler Watts and colleagues, replicating the study in 2018 with a much larger and more diverse sample, found that the link was about half the size of the original and shrank by about two thirds once they accounted for family background, early cognitive ability, and the home environment. Other experiments suggest part of the reason: children wait much longer when they have good reason to trust that the second marshmallow will actually arrive. The finding doesn&rsquo;t mean self-regulation doesn&rsquo;t matter. It means the conditions that support regulation development matter enormously, and those conditions are social and environmental, not simply a function of individual willpower.</p>
 
           <h2 id="co-regulation-first">Co-regulation comes first</h2>
 
           <p>Before a child can regulate themselves, they need a regulated nervous system to borrow.</p>
 
-          <p>This is co-regulation. It is the mechanism the research consistently points to as the prerequisite for self-regulation, not a replacement for it. When a caregiver responds to a dysregulated child with calm presence, predictable responses, and emotional attunement, they are literally providing an external regulatory scaffold that the child's own nervous system cannot yet supply.</p>
+          <p>This is co-regulation. It is the mechanism the research consistently points to as the prerequisite for self-regulation, not a replacement for it. When a caregiver responds to a dysregulated child with calm presence, predictable responses, and emotional attunement, they are literally providing an external regulatory scaffold that the child&rsquo;s own nervous system cannot yet supply.</p>
 
-          <p>Ruth Feldman's research on parent-infant synchrony has shown that this is biologically real, not metaphorical. Parents and infants develop synchronized cortisol rhythms and heart rate patterns over time. When a caregiver responds consistently to infant distress, the infant's stress-response system begins to calibrate to the caregiver's regulatory patterns. The parent isn't only emotionally present in those moments; their nervous system is physiologically helping to organize the child's.</p>
+          <p>Ruth Feldman&rsquo;s research on parent-infant synchrony has shown that this is biologically real, not metaphorical. Parents and infants develop synchronized cortisol rhythms and heart rate patterns over time. When a caregiver responds consistently to infant distress, the infant&rsquo;s stress-response system begins to calibrate to the caregiver&rsquo;s regulatory patterns. The parent isn&rsquo;t only emotionally present in those moments; their nervous system is physiologically helping to organize the child&rsquo;s.</p>
 
-          <p>Polyvagal theory, developed by Stephen Porges, describes part of the mechanism: the social engagement system in mammals is designed to regulate the nervous system through connection. Eye contact, tone of voice, facial expression, and physical proximity all send signals to the nervous system about safety. A calm caregiver communicates safety. A panicked or angry caregiver communicates threat, activating the child's stress response further and making regulation harder, not easier.</p>
+          <p>Polyvagal theory, developed by Stephen Porges, describes part of the mechanism: the social engagement system in mammals is designed to regulate the nervous system through connection. Eye contact, tone of voice, facial expression, and physical proximity all send signals to the nervous system about safety. A calm caregiver communicates safety. A panicked or angry caregiver communicates threat, activating the child&rsquo;s stress response further and making regulation harder, not easier.</p>
 
           <h3>What this looks like in practice</h3>
 
@@ -261,7 +292,7 @@
 
           <p>After the storm passes, and it will, is when teaching is actually possible. Not during. The window for connection, explanation, and repair is always after the peak of dysregulation, not during it.</p>
 
-          <p>Philip Zelazo and colleagues have also described a useful distinction between "hot" and "cool" executive function. Cool executive functions operate on abstract, low-stakes problems: sorting cards, following a rule in a calm game. Hot executive functions are required when motivation and affect are involved: waiting for something you really want, managing anger in a conflict. Young children can often pass cool tasks before hot ones. This explains a familiar parenting puzzle: a child who can follow rules in a low-stakes game may completely fall apart when the rule stands between them and something they desperately want. Different regulatory demands are in play, and the hot version is simply harder.</p>
+          <p>Philip Zelazo and colleagues have also described a useful distinction between &ldquo;hot&rdquo; and &ldquo;cool&rdquo; executive function. Cool executive functions operate on abstract, low-stakes problems: sorting cards, following a rule in a calm game. Hot executive functions are required when motivation and affect are involved: waiting for something you really want, managing anger in a conflict. Young children can often pass cool tasks before hot ones. This explains a familiar parenting puzzle: a child who can follow rules in a low-stakes game may completely fall apart when the rule stands between them and something they desperately want. Different regulatory demands are in play, and the hot version is simply harder.</p>
 
           <h2 id="the-developmental-timeline">The developmental timeline</h2>
 
@@ -275,45 +306,49 @@
           </ul>
 
           <figure class="article-figure">
-            <p class="article-kicker" style="margin-bottom: var(--space-4);">Borrowed calm &rarr; own capacity</p>
-            <svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A timeline from birth to age ten. A wide band of borrowed calm — co-regulation from adults — tapers as the child grows, while the child's own self-regulation capacity grows beneath it. The adult support never reaches zero.">
-              <polygon points="40,70 680,70 680,108 40,194" fill="var(--primary)" fill-opacity=".16" stroke="var(--primary)" stroke-opacity=".45" stroke-width="1" />
-              <text x="64" y="105" font-family="var(--font-display)" font-weight="600" font-size="16" fill="var(--ink)">Borrowed calm</text>
-              <text x="64" y="124" font-family="var(--font-display)" font-size="13" fill="var(--ink-soft)">(co-regulation from adults)</text>
-              <polygon points="40,194 680,108 680,200 40,200" fill="var(--warm)" fill-opacity=".2" stroke="var(--warm)" stroke-opacity=".5" stroke-width="1" />
-              <text x="656" y="172" text-anchor="end" font-family="var(--font-display)" font-weight="600" font-size="16" fill="var(--ink)">Own capacity</text>
-              <text x="656" y="191" text-anchor="end" font-family="var(--font-display)" font-size="13" fill="var(--ink-soft)">(self-regulation)</text>
-              <line x1="200" y1="134" x2="200" y2="200" stroke="var(--border-soft)" stroke-width="1.5" stroke-dasharray="4 4" />
-              <line x1="360" y1="70" x2="360" y2="200" stroke="var(--border-soft)" stroke-width="1.5" stroke-dasharray="4 4" />
-              <line x1="520" y1="70" x2="520" y2="200" stroke="var(--border-soft)" stroke-width="1.5" stroke-dasharray="4 4" />
-              <text x="120" y="224" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="14" fill="var(--ink)">Birth&ndash;12 mo</text>
-              <text x="120" y="243" text-anchor="middle" font-family="var(--font-display)" font-size="12.5" fill="var(--ink-soft)">fully external</text>
-              <text x="280" y="224" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="14" fill="var(--ink)">12&ndash;36 mo</text>
-              <text x="280" y="243" text-anchor="middle" font-family="var(--font-display)" font-size="12.5" fill="var(--ink-soft)">first self-soothing</text>
-              <text x="440" y="224" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="14" fill="var(--ink)">3&ndash;5 yrs</text>
-              <text x="440" y="243" text-anchor="middle" font-family="var(--font-display)" font-size="12.5" fill="var(--ink-soft)">strategies, with support</text>
-              <text x="600" y="224" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="14" fill="var(--ink)">6&ndash;10 yrs</text>
-              <text x="600" y="243" text-anchor="middle" font-family="var(--font-display)" font-size="12.5" fill="var(--ink-soft)">internalized strategies</text>
-              <text x="360" y="40" text-anchor="middle" font-family="var(--font-body)" font-style="italic" font-size="14" fill="var(--accent-brown)">Self-regulation is built on years of co-regulation &mdash; not instead of it.</text>
+            <svg viewBox="0 0 480 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig-self-regulation-title" aria-describedby="fig-self-regulation-desc">
+              <title id="fig-self-regulation-title">Co-regulation tapers as self-regulation grows, birth to age ten.</title>
+              <desc id="fig-self-regulation-desc">A timeline from birth to age ten, in four stages: birth to 12 months, 12 to 36 months, 3 to 5 years, and 6 to 10 years. A wide band of borrowed calm (co-regulation from adults) tapers as the child grows, while the child&rsquo;s own self-regulation capacity grows beneath it. The adult support never reaches zero.</desc>
+              <polygon points="0,8 480,8 480,78 0,236" fill="var(--primary)" fill-opacity=".16" stroke="var(--primary)" stroke-opacity=".45" stroke-width="1" />
+              <polygon points="0,236 480,78 480,248 0,248" fill="var(--warm)" fill-opacity=".2" stroke="var(--warm)" stroke-opacity=".5" stroke-width="1" />
+              <text class="af-text af-strong" x="16" y="44">Borrowed calm</text>
+              <text class="af-text" x="16" y="72">(co-regulation from adults)</text>
+              <text class="af-text af-strong" x="464" y="204" text-anchor="end">Own capacity</text>
+              <text class="af-text" x="464" y="232" text-anchor="end">(self-regulation)</text>
+              <line x1="0" y1="248" x2="480" y2="248" stroke="var(--ink-muted)" stroke-opacity=".55" stroke-width="1.5" />
+              <line x1="120" y1="248" x2="120" y2="258" stroke="var(--ink-muted)" stroke-width="1.5" />
+              <line x1="240" y1="248" x2="240" y2="258" stroke="var(--ink-muted)" stroke-width="1.5" />
+              <line x1="360" y1="248" x2="360" y2="258" stroke="var(--ink-muted)" stroke-width="1.5" />
+              <text class="af-text af-strong" x="60" y="282" text-anchor="middle">0&ndash;12 mo</text>
+              <text class="af-text af-strong" x="180" y="282" text-anchor="middle">12&ndash;36 mo</text>
+              <text class="af-text af-strong" x="300" y="282" text-anchor="middle">3&ndash;5 yrs</text>
+              <text class="af-text af-strong" x="420" y="282" text-anchor="middle">6&ndash;10 yrs</text>
             </svg>
-            <figcaption>The adult share shrinks as the child's own capacity grows, but it never drops to zero &mdash; stress, hunger, illness, and novelty can pull any child (or adult) back toward needing more support for a while.</figcaption>
+            <ul class="af-key af-key--stages">
+              <li><b>Birth&ndash;12 mo</b> fully external</li>
+              <li><b>12&ndash;36 mo</b> first self-soothing</li>
+              <li><b>3&ndash;5 yrs</b> strategies, with support</li>
+              <li><b>6&ndash;10 yrs</b> internalized strategies</li>
+            </ul>
+            <p class="af-foot">Self-regulation is built on years of co-regulation, not instead of it.</p>
+            <figcaption><b>Fig. 1</b> &middot; Borrowed calm &rarr; own capacity. The adult share shrinks as the child&rsquo;s own capacity grows, but it never drops to zero: stress, hunger, illness, and novelty can pull any child (or adult) back toward needing more support for a while.</figcaption>
           </figure>
 
-          <p>None of these stages happen cleanly or universally. Children vary. Stress, hunger, illness, transitions, and novelty can push any child back to an earlier regulatory state temporarily, adults included. Clancy Blair and Cybele Raver's research on toxic stress found that chronic exposure to high-stress environments actively disrupts the architecture of the stress-response system, making regulation significantly harder to develop over time. The developing brain is responding to its environment, which is a very different thing from a child's character.</p>
+          <p>None of these stages happen cleanly or universally. Children vary. Stress, hunger, illness, transitions, and novelty can push any child back to an earlier regulatory state temporarily, adults included. Clancy Blair and Cybele Raver&rsquo;s research on toxic stress found that chronic exposure to high-stress environments actively disrupts the architecture of the stress-response system, making regulation significantly harder to develop over time. The developing brain is responding to its environment, which is a very different thing from a child&rsquo;s character.</p>
 
           <h2 id="what-it-implies">What this implies for day-to-day parenting</h2>
 
           <p>If co-regulation is the mechanism and adult nervous system state is the variable, several things follow:</p>
 
-          <h3>The parent's own regulation is not a luxury</h3>
+          <h3>The parent&rsquo;s own regulation is not a luxury</h3>
 
-          <p>If you are highly activated (stressed, scared, angry, overwhelmed) your ability to co-regulate your child is significantly compromised. This doesn't mean parents need to be perfectly calm all the time. They don't, and they won't be. But it does mean that working on your own emotional regulation has a direct downstream effect on your child's regulation, not just on your own wellbeing.</p>
+          <p>If you are highly activated (stressed, scared, angry, overwhelmed) your ability to co-regulate your child is significantly compromised. This doesn&rsquo;t mean parents need to be perfectly calm all the time. They don&rsquo;t, and they won&rsquo;t be. But it does mean that working on your own emotional regulation has a direct downstream effect on your child&rsquo;s regulation, not just on your own wellbeing.</p>
 
-          <p>This is one of the most consistently supported findings in the developmental literature: sensitive, responsive caregiving is the strongest predictor of healthy emotional development in early childhood, and that caregiving is significantly affected by the parent's own psychological state.</p>
+          <p>This is one of the most consistently supported findings in the developmental literature: sensitive, responsive caregiving is the strongest predictor of healthy emotional development in early childhood, and that caregiving is significantly affected by the parent&rsquo;s own psychological state.</p>
 
           <h3>Punishment during peak dysregulation is largely ineffective</h3>
 
-          <p>Discipline that happens during or immediately after peak dysregulation is asking the cortex to receive a lesson when it is offline. The child is not in a state to absorb, process, or learn from consequences in that moment. This doesn't mean consequences don't exist. They can be applied once everyone is regulated, simply and consistently. The timing matters.</p>
+          <p>Discipline that happens during or immediately after peak dysregulation is asking the cortex to receive a lesson when it is offline. The child is not in a state to absorb, process, or learn from consequences in that moment. This doesn&rsquo;t mean consequences don&rsquo;t exist. They can be applied once everyone is regulated, simply and consistently. The timing matters.</p>
 
           <h3>Consistent, predictable responses build the capacity over time</h3>
 
@@ -334,7 +369,7 @@
 
           <p>Self-regulation is a developmental capacity, not a character trait. It develops slowly, requires years of co-regulation as its foundation, and is still maturing well into adulthood.</p>
 
-          <p>For parents of young children, the most useful reframe is this: your job isn't to get your child to regulate themselves right now. It's to keep providing the external scaffold (a calm presence, a consistent response, a relationship you repair after the hard moments) so that self-regulation can develop on its own slow timeline.</p>
+          <p>For parents of young children, the most useful reframe is this: your job isn&rsquo;t to get your child to regulate themselves right now. It&rsquo;s to keep providing the external scaffold (a calm presence, a consistent response, a relationship you repair after the hard moments) so that self-regulation can develop on its own slow timeline.</p>
 
           <p>That is a longer timeline than most parenting advice suggests, and a more patient job. But it is also a more honest one. The research supports the patience.</p>
 
@@ -361,12 +396,11 @@
       <div class="container container--narrow">
         <div class="article-cta">
           <div>
-            <p class="article-kicker">Toddler class · now available</p>
-            <h2 style="margin:0 0 .35rem; font-size:var(--text-lg);">Module 4 covers big feelings, meltdowns, and repair in full.</h2>
-            <p class="small" style="max-width:38rem; margin:0;">What's happening in a toddler's nervous system during a meltdown, how your calm becomes their scaffold, and what actually helps versus what makes it worse. $49 for lifetime access.</p>
+            <h2 style="margin:0 0 .35rem; font-size:var(--text-lg);">Module 4 of the toddler class covers big feelings, meltdowns, and repair in full.</h2>
+            <p class="small" style="max-width:38rem; margin:0;">What&rsquo;s happening in a toddler&rsquo;s nervous system during a meltdown, how your calm becomes their scaffold, and what actually helps versus what makes it worse. $49 for lifetime access.</p>
           </div>
           <div class="hero__ctas">
-            <a class="btn btn--primary" href="/classes/toddlerhood.html">See the toddler class</a>
+            <a class="btn btn--primary" href="/classes/toddlerhood">See the toddler class</a>
             <a class="btn btn--ghost" href="/tools/whats-underneath-the-meltdown">Meltdown tool</a>
           </div>
         </div>
@@ -377,8 +411,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">A developmental-science education for parents of children 0 to 5.</p>
@@ -391,10 +425,10 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
-            <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
-            <li><a href="/classes/preschool.html">Preschool years</a></li>
-            <li><a href="/classes/family-systems.html">Family systems</a></li>
+            <li><a href="/classes/birth-to-12-months">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood">Toddler years</a></li>
+            <li><a href="/classes/preschool">Preschool years</a></li>
+            <li><a href="/classes/family-systems">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>
           </ul>
         </div>
@@ -427,10 +461,10 @@
     </div>
   </footer>
 
-  <script src="/assets/js/chrome.js?v=15d4f8689c"></script>
+  <script src="/assets/js/chrome.js?v=1413c22959"></script>
 
-  <script src="../assets/js/main.js?v=da0ffde09b" defer></script>
-  <script src="../assets/js/decor.js?v=5532e2edfd" defer></script>
+  <script src="../assets/js/main.js?v=742e637d07" defer></script>
+  <script src="../assets/js/decor.js?v=09ff05457d" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

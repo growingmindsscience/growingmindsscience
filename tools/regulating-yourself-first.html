@@ -4,17 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>Regulating yourself first — Growing Minds Science</title>
+  <title>Regulating yourself first | Growing Minds Science</title>
   <meta name="description" content="Tools for the adult side of the room: noticing your own activation, what helps in the moment, and why regulating yourself isn't selfish." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="../assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/tools/regulating-yourself-first" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Regulating yourself first — Growing Minds Science" />
+  <meta property="og:title" content="Regulating yourself first | Growing Minds Science" />
   <meta property="og:description" content="The adult side of the room: how to notice your own activation earlier and have a few real options before you react." />
   <meta property="og:image" content="https://growingmindsscience.com/assets/img/site/family-reading.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -22,9 +23,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400..800&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=25806045f8" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=5122b7e7ee" />
-  <link rel="stylesheet" href="../assets/css/tools.css?v=614ebda71e" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=44002cebb8" />
+  <link rel="stylesheet" href="../assets/css/refresh.css?v=d297404b34" />
+  <link rel="stylesheet" href="../assets/css/tools.css?v=7fce784071" />
 
   <style>
     .tool-hero { padding: clamp(3rem, 6vw, 5rem) 0 2rem; }
@@ -91,15 +92,15 @@
       .cta-strip { grid-template-columns: 1fr; }
     }
   </style>
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=6f2055b923" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=de9d0eebaf" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -116,7 +117,7 @@
               <div class="nav__menu">
                 <ul class="nav__submenu">
                   <li><a class="nav__submenu-link" href="/tools/growing-minds-ai.html"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A ten-minute counting check-in you run at home.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A free ten-minute counting check-in; the full version is $34.</span></a></li>
                   <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
                   <li><a class="nav__submenu-link" href="/tools/communication-snapshot.html"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
                   <li><a class="nav__submenu-link" href="/arcade/"><span class="nav__submenu-title">Arcade</span><span class="nav__submenu-desc">Silly games for a five-minute break between lessons.</span></a></li>
@@ -127,7 +128,7 @@
           </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
+          <li class="nav__item nav__auth"><details class="nav__details nav__details--auth"><summary class="nav__link nav__summary">My classes <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary><div class="nav__menu nav__menu--auth"><ul class="nav__submenu"><li><a class="nav__submenu-link" href="/nsc/app/classes"><span class="nav__submenu-title">Birth to 12 months</span><span class="nav__submenu-desc">Your lessons and progress on this site.</span></a></li><li><a class="nav__submenu-link" href="https://matthew-s-site-de0b.thinkific.com/users/sign_in" target="_blank" rel="noopener"><span class="nav__submenu-title">Toddler years <span aria-hidden="true">&nearr;</span></span><span class="nav__submenu-desc">Your lessons on Thinkific, our course platform.</span><span class="u-visually-hidden"> (opens in a new tab)</span></a></li></ul></div></details></li>
           <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
@@ -220,35 +221,35 @@
               <p class="small">Try: "I need a second." Then one long exhale before you say anything else.</p>
             </article>
 
-            <article class="decoder-output" data-output="body" data-ai-question="My jaw gets tight and heat rises when my child pushes back. How do I calm my body down?" hidden>
+            <article class="decoder-output" data-output="body" data-ai-question="My jaw gets tight and heat rises when my child pushes back. How do I calm my body down?">
               <span class="tag">You caught it early</span>
               <h3>Good. That noticing is the skill.</h3>
               <p>If you can feel the jaw and the heat, you are ahead of where most people are, which is already mid-yell. Unclench your jaw, let your shoulders drop, and make your out-breath longer than your in-breath. A slower exhale is one of the few quick ways to nudge your own body off the gas.</p>
               <p class="small">Try: a slow breath out, shoulders down, hands unclenched, before you respond.</p>
             </article>
 
-            <article class="decoder-output" data-output="disrespected" data-ai-question="I feel disrespected when my child defies me. How do I stay steady?" hidden>
+            <article class="decoder-output" data-output="disrespected" data-ai-question="I feel disrespected when my child defies me. How do I stay steady?">
               <span class="tag">An old thread, not the child</span>
               <h3>This one is usually about you, and that's okay.</h3>
               <p>Feeling defied or disrespected can hit hard, because it touches your own history and your sense of authority. But a young child saying no is doing their developmental job, not staging a coup. Naming it to yourself takes some of the charge out: this is my trigger, not their crime.</p>
               <p class="small">Try internally: "They're not trying to disrespect me. I can hold the limit without the heat."</p>
             </article>
 
-            <article class="decoder-output" data-output="rushed" data-ai-question="I lose my patience when we're rushed and out of time. What helps in that moment?" hidden>
+            <article class="decoder-output" data-output="rushed" data-ai-question="I lose my patience when we're rushed and out of time. What helps in that moment?">
               <span class="tag">The clock is the trigger</span>
               <h3>Lower the demand before you raise your voice.</h3>
               <p>The 7:45am shoe standoff is rarely about the shoes. It's the deadline pressing on you. You can't add minutes, but you can cut the task: do it for them, drop a step, carry the shoes to the car. Getting there a little late and a little connected usually beats getting there on time and blown up.</p>
               <p class="small">Try: "I'm going to help your body get to the car. We'll finish the shoes there."</p>
             </article>
 
-            <article class="decoder-output" data-output="nosleep" data-ai-question="I'm running on no sleep and my patience is thin. How do I get through today with my child?" hidden>
+            <article class="decoder-output" data-output="nosleep" data-ai-question="I'm running on no sleep and my patience is thin. How do I get through today with my child?">
               <span class="tag">Running on empty</span>
               <h3>Lower the bar for today, on purpose.</h3>
               <p>On no sleep, your reserves are gone before the day starts. This is not the day to teach the big lesson or win the standoff. Aim for safe and connected, keep the demands small, and let some things slide that you'd normally hold. Doing less today isn't giving up. It's parenting from the floor you actually have.</p>
               <p class="small">Try: pick the one limit that truly matters right now, and let the rest be easy.</p>
             </article>
 
-            <article class="decoder-output" data-output="lostit" data-ai-question="I already lost my temper with my child. How do I repair it?" hidden>
+            <article class="decoder-output" data-output="lostit" data-ai-question="I already lost my temper with my child. How do I repair it?">
               <span class="tag">It already happened</span>
               <h3>Now the move is repair, not shame.</h3>
               <p>You yelled, or you got too harsh, and now you feel awful. That feeling means you care; it doesn't mean you broke anything that can't be mended. Once your own body settles, come back, name your part briefly, and reconnect. Repair is what protects the relationship, and your child learns from watching you do it.</p>
@@ -370,12 +371,11 @@
       <div class="container container--narrow">
         <div class="cta-strip">
           <div>
-            <p class="eyebrow">Toddler class · now available</p>
-            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Module 4 covers co-regulation and the adult's role in full.</h2>
+            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Module 4 of the toddler class covers co-regulation and the adult's role in full.</h2>
             <p class="small" style="max-width:38rem; margin:0;">Why your state lands on your child, how to notice your own activation earlier, and what to do with it in the hard moment. $49 for lifetime access.</p>
           </div>
           <div class="hero-actions">
-            <a class="btn btn--primary" href="/classes/toddlerhood.html">See the toddler class</a>
+            <a class="btn btn--primary" href="/classes/toddlerhood">See the toddler class</a>
             <a class="btn btn--ghost" href="/tools/co-regulation-primer">Nervous-system primer</a>
           </div>
         </div>
@@ -386,8 +386,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">A developmental-science education for parents of children 0 to 5.</p>
@@ -400,10 +400,10 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
-            <li><a href="/classes/toddlerhood.html">Toddler years</a></li>
-            <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
-            <li><a href="/classes/preschool.html">Preschool years</a></li>
-            <li><a href="/classes/family-systems.html">Family systems</a></li>
+            <li><a href="/classes/birth-to-12-months">Birth to 12 months</a></li>
+            <li><a href="/classes/toddlerhood">Toddler years</a></li>
+            <li><a href="/classes/preschool">Preschool years</a></li>
+            <li><a href="/classes/family-systems">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>
           </ul>
         </div>
@@ -436,11 +436,11 @@
     </div>
   </footer>
 
-  <script src="/assets/js/chrome.js?v=15d4f8689c"></script>
+  <script src="/assets/js/chrome.js?v=1413c22959"></script>
 
-  <script src="../assets/js/main.js?v=da0ffde09b" defer></script>
-  <script src="../assets/js/gms-tools.js?v=0202b4297f" defer></script>
-  <script src="../assets/js/decor.js?v=5532e2edfd" defer></script>
+  <script src="../assets/js/main.js?v=742e637d07" defer></script>
+  <script src="../assets/js/gms-tools.js?v=390738ac9e" defer></script>
+  <script src="../assets/js/decor.js?v=09ff05457d" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

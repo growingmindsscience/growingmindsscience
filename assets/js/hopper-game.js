@@ -1,8 +1,8 @@
 /* Growing Minds Science — hopper-game.js
-   "Special Delivery" — the hidden Frogger-style easter egg on the Contact page.
+   "Special Delivery" — a Frogger-style game on the Arcade page.
 
-   Trigger: a pixel-envelope glyph tucked into the Contact hero. Opening tears
-   the page away (GMSArcade) then shows the game. You carry a letter from the
+   Trigger: the Special Delivery card on /arcade ([data-arcade-game="hopper"]).
+   Opening tears the page away (GMSArcade) then shows the game. You carry a letter from the
    bottom of the screen to one of five mailboxes at the top: first across a
    playroom floor of rolling toys, then across a story stream you can only
    cross by hopping along drifting books. Deliver all five letters to move to
@@ -769,7 +769,7 @@
         '<div class="gms-arcade-panel__head">' +
           '<p class="gms-arcade-title">Special Delivery <span>— you found it!</span></p>' +
           '<div style="display:flex;gap:8px;align-items:center">' +
-            '<button type="button" class="gms-arcade-close" data-egg-mute aria-label="Toggle sound">♪</button>' +
+            '<button type="button" class="gms-arcade-close" data-egg-mute aria-label="Sound">♪</button>' +
             '<button type="button" class="gms-arcade-close" data-egg-close aria-label="Close game">&times;</button>' +
           '</div>' +
         '</div>' +
@@ -779,7 +779,7 @@
           '<span>BEST <strong data-egg-best>00000</strong></span>' +
         '</div>' +
         '<div class="gms-arcade-stage gms-arcade-stage--hopper">' +
-          '<canvas class="gms-arcade-canvas" tabindex="0"></canvas>' +
+          '<canvas class="gms-arcade-canvas" tabindex="0" role="application" aria-label="Special Delivery play area. Arrow keys or W A S D hop, Space starts, M mutes."></canvas>' +
           '<div class="gms-arcade-prompt" data-egg-prompt hidden>' +
             '<p class="gms-arcade-prompt__title" data-egg-prompt-title></p>' +
             '<p class="gms-arcade-prompt__text" data-egg-prompt-text></p>' +
@@ -823,7 +823,7 @@
     });
 
     var muteBtn = overlay.querySelector("[data-egg-mute]");
-    function syncMute() { muteBtn.textContent = game.isMuted() ? "♪̶" : "♪"; muteBtn.setAttribute("aria-pressed", game.isMuted() ? "true" : "false"); }
+    function syncMute() { muteBtn.textContent = game.isMuted() ? "♪̶" : "♪"; muteBtn.setAttribute("aria-pressed", game.isMuted() ? "false" : "true"); }
     muteBtn.addEventListener("click", function () { game.toggleMute(); syncMute(); });
     syncMute();
 
@@ -896,7 +896,7 @@
 
     function onKeydown(e) {
       // While typing initials, leave all keys (incl. Escape/Enter) to the form
-      // so a stray Escape never reloads the page and drops the high score.
+      // so a stray Escape never closes the game and drops the high score.
       if (e.target && e.target.tagName === "INPUT") return;
       if (e.key === "Escape") { closeOverlay(overlay); return; }
       if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") { e.preventDefault(); game.hop(-1, 0); }
@@ -914,63 +914,13 @@
     return overlay;
   }
 
-  function closeOverlay(overlay) {
-    overlay.game.deactivate();
-    window.location.reload();
-  }
-  function openOverlay(overlay) {
-    overlay.classList.add("is-open");
-    document.body.classList.add("gms-arcade-lock");
-    overlay._fitCanvas();
-    document.addEventListener("keydown", overlay._onKeydown);
-    // resize alone misses iOS URL-bar collapse + orientation; close reloads
-    // the page, so the subscription needs no teardown path.
-    overlay._offViewport = A.onViewportChange(overlay._fitCanvas);
-    overlay.game.activate();
-    window.requestAnimationFrame(function () { overlay._canvas.focus(); });
-  }
+  // Close in place: GMSArcade runs the teardown (loop, wake lock, audio,
+  // listeners), puts the page back and returns focus to the opener.
+  function closeOverlay() { A.closeGame(); }
 
-  // Pixel-envelope trigger, tucked into the Contact hero.
-  function buildTrigger() {
-    var btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "gms-arcade-envelope-trigger";
-    btn.setAttribute("aria-label", "Hidden game");
-    btn.title = "✉";
-    btn.innerHTML =
-      '<svg viewBox="0 0 12 9" aria-hidden="true" shape-rendering="crispEdges">' +
-      '<g fill="currentColor">' +
-      '<rect x="0" y="0" width="12" height="1"/>' +
-      '<rect x="0" y="1" width="1" height="7"/><rect x="11" y="1" width="1" height="7"/>' +
-      '<rect x="1" y="2" width="2" height="1"/><rect x="9" y="2" width="2" height="1"/>' +
-      '<rect x="3" y="3" width="2" height="1"/><rect x="7" y="3" width="2" height="1"/>' +
-      '<rect x="5" y="4" width="2" height="1"/>' +
-      '<rect x="0" y="8" width="12" height="1"/>' +
-      '</g></svg>';
-    return btn;
-  }
-
+  // Arcade-only: no hidden trigger elsewhere on the site. The Play button on
+  // /arcade opens it through GMSArcade.play().
   ready(function () {
-    var arcadeTrigger = document.querySelector('[data-arcade-game="hopper"]');
-    var trigger = arcadeTrigger;
-    if (!trigger) {
-      var hero = document.querySelector(".page-hero .container") || document.querySelector("main .container");
-      if (!hero) return;
-      var cs = window.getComputedStyle(hero);
-      if (cs.position === "static") hero.style.position = "relative";
-
-      trigger = buildTrigger();
-      hero.appendChild(trigger);
-    }
-
-    var overlay = null, opening = false;
-    function open() {
-      if (opening) return;
-      opening = true;
-      if (!overlay) overlay = buildOverlay();
-      A.tearPageAway(function () { openOverlay(overlay); });
-    }
-    trigger.addEventListener("click", function (e) { e.preventDefault(); open(); });
-    trigger.addEventListener("touchstart", function (e) { e.preventDefault(); open(); }, { passive: false });
+    A.defineGame("hopper", buildOverlay);
   });
 })();

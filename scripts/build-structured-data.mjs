@@ -110,7 +110,7 @@ function contentModifiedDate(relPath) {
 
 function buildArticleLd(file, html) {
   const rawTitle = decode(pick(html, /<title>([^<]*)<\/title>/i) || "");
-  const title = rawTitle.replace(/\s*[-–—]\s*Growing Minds Science\s*$/i, "").trim();
+  const title = rawTitle.replace(/\s*[-–—|]\s*Growing Minds Science\s*$/i, "").trim();
   const description = decode(pick(html, /<meta\s+name="description"\s+content="([^"]*)"/i) || "");
   const canonicalPath = pick(html, /<link\s+rel="canonical"\s+href="([^"]*)"/i);
   const url = abs(canonicalPath);

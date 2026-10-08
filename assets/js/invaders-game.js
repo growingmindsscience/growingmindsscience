@@ -1,9 +1,8 @@
 /* Growing Minds Science — invaders-game.js
-   "GMS Invaders: Curiosity Drift" — the hidden Space-Invaders easter egg on the
-   Articles page.
+   "GMS Invaders: Curiosity Drift" — a Space-Invaders game on the Arcade page.
 
-   A themed pixel-invader glyph tucked into the hero is the trigger. Opening
-   tears the page away (GMSArcade) then shows the game. The GMS mascot-ship
+   Trigger: the GMS Invaders card on /arcade ([data-arcade-game="invaders"]).
+   Opening tears the page away (GMSArcade) then shows the game. The GMS mascot-ship
    sits at the bottom of a 220x260 canvas and fires "sparks of insight" upward
    to answer a descending lockstep formation of childlike question marks before
    they reach the nursery floor. Six escalating waves end on a "Headline" boss.
@@ -760,7 +759,7 @@
         '<div class="gms-arcade-panel__head">' +
           '<p class="gms-arcade-title">GMS Invaders <span>— you found it!</span></p>' +
           '<div style="display:flex;gap:8px;align-items:center">' +
-            '<button type="button" class="gms-arcade-close" data-egg-mute aria-label="Toggle sound">♪</button>' +
+            '<button type="button" class="gms-arcade-close" data-egg-mute aria-label="Sound">♪</button>' +
             '<button type="button" class="gms-arcade-close" data-egg-close aria-label="Close game">&times;</button>' +
           '</div>' +
         '</div>' +
@@ -770,7 +769,7 @@
           '<span>BEST <strong data-egg-best>000000</strong></span>' +
         '</div>' +
         '<div class="gms-arcade-stage gms-arcade-stage--invaders">' +
-          '<canvas class="gms-arcade-canvas" tabindex="0"></canvas>' +
+          '<canvas class="gms-arcade-canvas" tabindex="0" role="application" aria-label="GMS Invaders play area. Left and right arrows move, Space fires, M mutes."></canvas>' +
           '<div class="gms-arcade-prompt" data-egg-prompt hidden>' +
             '<p class="gms-arcade-prompt__title" data-egg-prompt-title></p>' +
             '<p class="gms-arcade-prompt__text" data-egg-prompt-text></p>' +
@@ -813,7 +812,7 @@
     });
 
     var muteBtn = overlay.querySelector("[data-egg-mute]");
-    function syncMute() { muteBtn.textContent = game.isMuted() ? "♪̶" : "♪"; muteBtn.setAttribute("aria-pressed", game.isMuted() ? "true" : "false"); }
+    function syncMute() { muteBtn.textContent = game.isMuted() ? "♪̶" : "♪"; muteBtn.setAttribute("aria-pressed", game.isMuted() ? "false" : "true"); }
     muteBtn.addEventListener("click", function () { game.toggleMute(); syncMute(); });
     syncMute();
 
@@ -887,7 +886,7 @@
 
     function onKeydown(e) {
       // While typing initials, leave all keys (incl. Escape/Enter) to the form
-      // so a stray Escape never reloads the page and drops the high score.
+      // so a stray Escape never closes the game and drops the high score.
       if (e.target && e.target.tagName === "INPUT") return;
       if (e.key === "Escape") { closeOverlay(overlay); return; }
       if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") { e.preventDefault(); game.held.left = true; }
@@ -909,71 +908,13 @@
     return overlay;
   }
 
-  function closeOverlay(overlay) {
-    if (overlay._offViewport) { overlay._offViewport(); overlay._offViewport = null; }
-    overlay.game.deactivate();
-    window.location.reload();
-  }
-  function openOverlay(overlay) {
-    overlay.classList.add("is-open");
-    document.body.classList.add("gms-arcade-lock");
-    overlay._fitCanvas();
-    document.addEventListener("keydown", overlay._onKeydown);
-    document.addEventListener("keyup", overlay._onKeyup);
-    // resize alone misses iOS URL-bar collapse and rotation; the shared
-    // watcher also covers visualViewport.
-    overlay._offViewport = A.onViewportChange(overlay._fitCanvas);
-    overlay.game.activate();
-    window.requestAnimationFrame(function () { overlay._canvas.focus(); });
-  }
+  // Close in place: GMSArcade runs the teardown (loop, wake lock, audio,
+  // listeners), puts the page back and returns focus to the opener.
+  function closeOverlay() { A.closeGame(); }
 
-  // Themed pixel-invader trigger, tucked into the Articles hero.
-  function buildTrigger() {
-    var btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "gms-arcade-invader-trigger";
-    btn.setAttribute("aria-label", "Hidden game");
-    btn.title = "?";
-    btn.innerHTML =
-      '<svg viewBox="0 0 11 9" aria-hidden="true" shape-rendering="crispEdges">' +
-      '<g fill="currentColor">' +
-      '<rect x="2" y="0" width="1" height="1"/><rect x="8" y="0" width="1" height="1"/>' +
-      '<rect x="3" y="1" width="1" height="1"/><rect x="7" y="1" width="1" height="1"/>' +
-      '<rect x="2" y="2" width="7" height="1"/>' +
-      '<rect x="1" y="3" width="2" height="1"/><rect x="4" y="3" width="3" height="1"/><rect x="8" y="3" width="2" height="1"/>' +
-      '<rect x="0" y="4" width="11" height="1"/>' +
-      '<rect x="0" y="5" width="1" height="1"/><rect x="3" y="5" width="5" height="1"/><rect x="10" y="5" width="1" height="1"/>' +
-      '<rect x="0" y="6" width="1" height="1"/><rect x="2" y="6" width="1" height="1"/><rect x="8" y="6" width="1" height="1"/><rect x="10" y="6" width="1" height="1"/>' +
-      '<rect x="3" y="7" width="1" height="1"/><rect x="7" y="7" width="1" height="1"/>' +
-      '</g></svg>';
-    return btn;
-  }
-
+  // Arcade-only: no hidden trigger elsewhere on the site. The Play button on
+  // /arcade opens it through GMSArcade.play().
   ready(function () {
-    var arcadeTrigger = document.querySelector('[data-arcade-game="invaders"]');
-    var trigger = arcadeTrigger;
-    if (!trigger) {
-      // Anchor the trigger into the first hero container (Articles page).
-      var hero = document.querySelector(".page-hero .container") || document.querySelector("main .container");
-      if (!hero) return;
-      var cs = window.getComputedStyle(hero);
-      if (cs.position === "static") hero.style.position = "relative";
-
-      trigger = buildTrigger();
-      hero.appendChild(trigger);
-    }
-
-    var overlay = null, opening = false;
-    function open() {
-      if (opening) return;
-      opening = true;
-      if (!overlay) overlay = buildOverlay();
-      A.tearPageAway(function () { openOverlay(overlay); });
-    }
-
-    // Click only (a tap still fires click on touch screens). A touchstart
-    // handler with preventDefault launched the game whenever a scroll gesture
-    // merely began on the small trigger, and blocked that scroll.
-    trigger.addEventListener("click", function (e) { e.preventDefault(); open(); });
+    A.defineGame("invaders", buildOverlay);
   });
 })();

@@ -11,9 +11,9 @@
 //   - the page templates in scripts/build-claims.mjs and scripts/build-library.mjs,
 //     so generated pages come out stamped and build-claims --check stays byte-identical
 //   - quoted absolute URLs inside assets/js and assets/css ("/assets/js/x.js"): how
-//     decor.js lazy-loads the arcade. Those files are hashed AFTER their own
-//     references are stamped, so editing a lazy-loaded game changes decor.js's
-//     hash too, and every page that loads decor.js picks up the new chain.
+//     arcade-core.js lazy-loads the arcade games. Those files are hashed AFTER
+//     their own references are stamped, so editing a lazy-loaded game changes
+//     arcade-core.js's hash too, and /arcade picks up the new chain.
 // Deterministic: same files -> same hashes -> byte-identical output.
 
 import { readFileSync, writeFileSync, readdirSync, statSync } from "node:fs";

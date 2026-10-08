@@ -4,40 +4,37 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>Plans &amp; Pricing — Growing Minds Science</title>
+  <title>Plans &amp; Pricing | Growing Minds Science</title>
   <meta name="description" content="Everything Growing Minds Science offers, in one place: free tools and articles, the $49 toddler class, the $49 first-year class, unlimited Growing Minds AI for $9/month, and Number Path for $34." />
-  <meta name="theme-color" content="#6F8F7B" />
+  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
-  <link rel="icon" type="image/png" href="/assets/img/original-logo-mark-no-words-512.png" />
-  <link rel="apple-touch-icon" href="/assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" type="image/png" href="/assets/img/original-logo-mark-no-words-128.png" />
+  <link rel="apple-touch-icon" href="/assets/img/original-logo-mark-no-words-180.png" />
   <link rel="canonical" href="https://growingmindsscience.com/pricing" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Plans &amp; Pricing — Growing Minds Science" />
+  <meta property="og:title" content="Plans &amp; Pricing | Growing Minds Science" />
   <meta property="og:description" content="Start free. Add the class, the AI, or Number Path when you want more. No hidden fees, and the free tier stays free." />
-  <meta property="og:image" content="/assets/img/original-logo-mark-no-words-solid.png" />
+  <meta property="og:image" content="https://growingmindsscience.com/assets/img/og/site-home.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400..800&display=swap" />
-  <link rel="stylesheet" href="/assets/css/styles.css?v=25806045f8" />
-  <link rel="stylesheet" href="/assets/css/refresh.css?v=5122b7e7ee" />
-  <style>
-    /* Page-local: price line inside the shared product-card pattern. */
-    .price-figure { font-family: 'Besley', Georgia, serif; font-size: 2rem; font-weight: 700; line-height: 1; }
-    .price-figure sub { font-size: .9rem; font-weight: 400; color: var(--ink-soft); vertical-align: baseline; }
-  </style>
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=6f2055b923" />
+  <link rel="stylesheet" href="/assets/css/styles.css?v=44002cebb8" />
+  <link rel="stylesheet" href="/assets/css/refresh.css?v=d297404b34" />
+  <link rel="stylesheet" href="/assets/css/seminar.css?v=712674ad24" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=de9d0eebaf" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science — home">
-        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
 
@@ -54,7 +51,7 @@
               <div class="nav__menu">
                 <ul class="nav__submenu">
                   <li><a class="nav__submenu-link" href="/tools/growing-minds-ai"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A ten-minute counting check-in you run at home.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A free ten-minute counting check-in; the full version is $34.</span></a></li>
                   <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
                   <li><a class="nav__submenu-link" href="/tools/communication-snapshot"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
                   <li><a class="nav__submenu-link" href="/arcade/"><span class="nav__submenu-title">Arcade</span><span class="nav__submenu-desc">Silly games for a five-minute break between lessons.</span></a></li>
@@ -65,7 +62,7 @@
           </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
-          <li class="nav__auth" data-auth-nav><a class="nav__link" href="/nsc/login">Log in</a></li>
+          <li class="nav__item nav__auth"><details class="nav__details nav__details--auth"><summary class="nav__link nav__summary">My classes <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary><div class="nav__menu nav__menu--auth"><ul class="nav__submenu"><li><a class="nav__submenu-link" href="/nsc/app/classes"><span class="nav__submenu-title">Birth to 12 months</span><span class="nav__submenu-desc">Your lessons and progress on this site.</span></a></li><li><a class="nav__submenu-link" href="https://matthew-s-site-de0b.thinkific.com/users/sign_in" target="_blank" rel="noopener"><span class="nav__submenu-title">Toddler years <span aria-hidden="true">&nearr;</span></span><span class="nav__submenu-desc">Your lessons on Thinkific, our course platform.</span><span class="u-visually-hidden"> (opens in a new tab)</span></a></li></ul></div></details></li>
           <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
         </ul>
 
@@ -82,7 +79,6 @@
     <section class="page-hero">
       <div class="container">
         <div class="page-hero__copy" data-stagger>
-          <p class="eyebrow" data-animate>Plans &amp; pricing</p>
           <h1 class="page-hero__title" data-animate>Start free. Add more when you want it.</h1>
           <p class="page-hero__lede" data-animate>
             The tools, articles, and milestone tracker are free, and Growing Minds AI
@@ -93,135 +89,118 @@
       </div>
     </section>
 
-    <section style="padding-top: 0;">
+    <section class="price-sheet">
       <div class="container">
-        <div class="product-grid product-grid--featured-first" data-stagger>
 
-          <!-- TODDLER CLASS — flagship -->
-          <article class="product-card product-card--featured" data-animate>
-            <div class="product-card__body">
-              <p class="product-card__status">
-                <span class="badge badge--open">Now available</span>
-                <span class="product-card__status-text">One payment · Lifetime access</span>
+        <div class="price-group">
+          <div class="price-group__head">
+            <h2>Free</h2>
+            <p>No account and no card. The free tier stays free.</p>
+          </div>
+          <ul class="prices">
+            <li class="price">
+              <div>
+                <h3 class="price__name">Tools, articles, and Growing Minds AI</h3>
+                <p class="price__what">Eleven practical parent tools, eight research-backed articles, the milestone tracker for the first three years, the Number Path counting check-in, and five Growing Minds AI questions every day.</p>
+              </div>
+              <p class="price__amount">$0</p>
+              <p class="price__actions">
+                <a href="/tools/">Explore the free tools</a>
+                <a href="/tools/growing-minds-ai">Ask the AI a question</a>
               </p>
-              <h2 class="product-card__title">Toddler years</h2>
-              <p class="price-figure">$49</p>
-              <p class="product-card__promise">
-                The full toddler class (5 modules, 29 lessons) plus unlimited
-                Growing Minds AI, included for life. One payment, no subscription.
-                Built for parents of children 1&ndash;3.
-              </p>
-              <p class="product-card__cta product-card__cta--row">
-                <a class="btn btn--primary" href="https://matthew-s-site-de0b.thinkific.com/products/courses/ToddlerYears" target="_blank" rel="noopener">Enroll now</a>
-                <a class="btn btn--ghost" href="/classes/toddlerhood">See class details</a>
-              </p>
-            </div>
-          </article>
-
-          <!-- FIRST YEAR CLASS -->
-          <article class="product-card product-card--secondary" data-animate>
-            <div class="product-card__body">
-              <p class="product-card__status">
-                <span class="badge badge--open">Now available</span>
-                <span class="product-card__status-text">One payment · Lifetime access</span>
-              </p>
-              <h2 class="product-card__title">Birth to 12 months</h2>
-              <p class="price-figure">$49</p>
-              <p class="product-card__promise">
-                A self-paced class on the first twelve months (4 modules, 16 short lessons,
-                about 3 hours) for parents of babies 0&ndash;12 months, with full transcripts,
-                Growing Minds AI, and the milestone tracker. One payment, no subscription.
-              </p>
-              <p class="product-card__cta product-card__cta--row">
-                <a class="btn btn--primary" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Finfant%2Fenroll">Enroll now</a>
-                <a class="btn btn--ghost" href="/classes/birth-to-12-months">See class details</a>
-              </p>
-            </div>
-          </article>
-
-          <!-- FREE -->
-          <article class="product-card product-card--secondary" data-animate>
-            <div class="product-card__body">
-              <p class="product-card__status">
-                <span class="badge badge--soft">Always free</span>
-                <span class="product-card__status-text">No account · No card</span>
-              </p>
-              <h2 class="product-card__title">Free</h2>
-              <p class="price-figure">$0</p>
-              <p class="product-card__promise">
-                Eleven practical parent tools, eight research-backed articles, the
-                milestone tracker for the first three years, the Number Path counting
-                check-in, and five Growing Minds AI questions every day.
-              </p>
-              <p class="product-card__cta product-card__cta--row">
-                <a class="btn btn--primary" href="/tools/">Explore the free tools</a>
-                <a class="btn btn--ghost" href="/tools/growing-minds-ai">Ask the AI free</a>
-              </p>
-            </div>
-          </article>
-
-          <!-- AI PRO -->
-          <article class="product-card product-card--secondary" data-animate>
-            <div class="product-card__body">
-              <p class="product-card__status">
-                <span class="badge badge--accent">Subscription</span>
-                <span class="product-card__status-text">Cancel anytime</span>
-              </p>
-              <h2 class="product-card__title">AI Pro</h2>
-              <p class="price-figure">$9<sub>/month</sub></p>
-              <p class="product-card__promise">
-                Unlimited Growing Minds AI questions, no class purchase needed.
-                Every answer grounded in the curated research library, with sources
-                shown. Month to month; you keep access through the period you paid for.
-              </p>
-              <p class="product-card__cta product-card__cta--row">
-                <a class="btn btn--primary" href="/api/create-checkout-session" rel="nofollow">Subscribe · $9/mo</a>
-                <a class="btn btn--ghost" href="/tools/growing-minds-ai?subscribed=1">Already subscribed?</a>
-              </p>
-            </div>
-          </article>
-
-          <!-- NUMBER PATH -->
-          <article class="product-card product-card--secondary" data-animate>
-            <div class="product-card__body">
-              <p class="product-card__status">
-                <span class="badge badge--accent">Early math</span>
-                <span class="product-card__status-text">Ages 2&ndash;5 · One payment</span>
-              </p>
-              <h2 class="product-card__title">Number Path</h2>
-              <p class="price-figure">$34</p>
-              <p class="product-card__promise">
-                The counting check-in is free to run. The full version adds your
-                child's spot on the counting ladder, three matched games a week, a
-                daily number-talk prompt, and a re-check every six weeks.
-              </p>
-              <p class="product-card__cta product-card__cta--row">
-                <a class="btn btn--primary" href="/nsc">Meet Number Path</a>
-                <a class="btn btn--ghost" href="/nsc/gift">Give it as a gift</a>
-              </p>
-            </div>
-          </article>
-
+            </li>
+          </ul>
         </div>
 
-        <p style="margin-top: var(--space-8); max-width: 60ch; color: var(--ink-soft);">
-          No hidden fees. Cancel any subscription in one click and keep access
-          through the period you paid for. The free tier stays free.
-        </p>
+        <div class="price-group">
+          <div class="price-group__head">
+            <h2>Classes</h2>
+            <p>One payment each, lifetime access, nothing renews. Full refund within 14 days if you&rsquo;ve watched 4 lessons or fewer.</p>
+          </div>
+          <ul class="prices">
+            <li class="price">
+              <div>
+                <h3 class="price__name">Birth to 12 months</h3>
+                <p class="price__what">Class 1: cues, attachment, and the first year. 4 modules and 16 short lessons, about 3 hours, with captions and a written version of every lesson.</p>
+              </div>
+              <p class="price__amount">$49<small>once, lifetime access</small></p>
+              <div class="price__actions">
+                <a class="btn btn--primary" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Finfant%2Fenroll">Enroll, $49</a>
+                <a href="/classes/birth-to-12-months">See the class</a>
+                <p class="price__fine">Checkout is here, with Stripe; lessons live in My classes. Not sure yet? <a href="/nsc/classes/infant/preview">Watch a lesson free</a>.</p>
+              </div>
+            </li>
+            <li class="price">
+              <div>
+                <h3 class="price__name">Toddler years</h3>
+                <p class="price__what">Class 2: language, autonomy, and big feelings. 5 modules and 29 lessons, about 5 hours, plus unlimited Growing Minds AI for life.</p>
+              </div>
+              <p class="price__amount">$49<small>once, lifetime access</small></p>
+              <div class="price__actions">
+                <a class="btn btn--primary" href="https://matthew-s-site-de0b.thinkific.com/products/courses/ToddlerYears" target="_blank" rel="noopener">Enroll, $49 <span class="btn__ext" aria-hidden="true">&nearr;</span><span class="u-visually-hidden"> (opens Thinkific in a new tab)</span></a>
+                <a href="/classes/toddlerhood">See the class</a>
+                <p class="price__fine">Opens Thinkific, our course platform, in a new tab. Already enrolled? <a href="https://matthew-s-site-de0b.thinkific.com/users/sign_in" target="_blank" rel="noopener">Log in on Thinkific<span class="u-visually-hidden"> (opens in a new tab)</span></a>.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="price-group">
+          <div class="price-group__head">
+            <h2>Also available</h2>
+            <p>For when you want one tool rather than a course.</p>
+          </div>
+          <ul class="prices prices--quiet">
+            <li class="price">
+              <div>
+                <h3 class="price__name">AI Pro</h3>
+                <p class="price__what">Unlimited Growing Minds AI questions, no class needed, every answer grounded in the curated research library with its sources shown. This is the only subscription we sell: month to month, cancel in one click, and keep access through the period you paid for.</p>
+              </div>
+              <p class="price__amount">$9<small>a month</small></p>
+              <p class="price__actions">
+                <a class="btn btn--ghost" href="/api/create-checkout-session" rel="nofollow">Subscribe, $9 a month</a>
+                <a href="/tools/growing-minds-ai?subscribed=1">Already subscribed?</a>
+              </p>
+            </li>
+            <li class="price">
+              <div>
+                <h3 class="price__name">Number Path</h3>
+                <p class="price__what">The counting check-in for ages 2 to 5 is free to run. The full version adds your child&rsquo;s spot on the counting ladder, three matched games a week, a daily number-talk prompt, and a re-check every six weeks.</p>
+              </div>
+              <p class="price__amount">$34<small>once</small></p>
+              <p class="price__actions">
+                <a class="btn btn--ghost" href="/nsc">Meet Number Path</a>
+                <a href="/nsc/gift">Give it as a gift</a>
+              </p>
+            </li>
+          </ul>
+        </div>
+
       </div>
     </section>
 
-    <section style="padding-top: 0;">
+    <section class="price-faq">
       <div class="container container--narrow">
-        <h2 style="margin-bottom: var(--space-6);">Questions parents ask</h2>
+        <h2>Questions parents ask</h2>
         <div class="faq">
           <details>
-            <summary>What's the difference between a class and AI Pro?</summary>
+            <summary>What&rsquo;s the difference between the toddler class and AI Pro?</summary>
             <p>
-              Each class is a one-time $49 payment that includes every lesson for life and
-              unlimited Growing Minds AI. AI Pro is $9 a month for unlimited Growing Minds AI on
-              its own, with no class. If you want the teaching, a class is the better deal; if
-              you only want the AI, AI Pro is simpler.
+              The toddler class is a one-time $49 payment that includes the full
+              class <em>and</em> unlimited Growing Minds AI for life. AI Pro is just
+              the unlimited AI, billed monthly. If you have a toddler, the class is
+              the better deal; if you only want the AI, AI Pro is simpler.
+            </p>
+          </details>
+          <details>
+            <summary>Can I get a refund?</summary>
+            <p>
+              Yes, for a class: a full refund within 14 days of buying, as long as
+              you&rsquo;ve watched 4 lessons or fewer (the free lesson doesn&rsquo;t count).
+              <a href="/contact/">Email Matthew</a>
+              with the address you bought with; a refund ends your access to that class.
+              AI Pro is month to month, so you can cancel any time and keep access
+              through the period you&rsquo;ve paid for.
             </p>
           </details>
           <details>
@@ -230,7 +209,7 @@
               A parent-run counting check-in for ages 2&ndash;5, plus weekly games and
               daily number talk matched to where your child is on the counting ladder.
               The check-in itself is free; the full version is one payment of $34.
-              It's an enrichment tool, not a medical or developmental screening.
+              It&rsquo;s an enrichment tool, not a medical or developmental screening.
             </p>
           </details>
           <details>
@@ -244,13 +223,13 @@
             <summary>Can I cancel the monthly plan anytime?</summary>
             <p>
               Yes. AI Pro is month to month and you can cancel in one click. You keep
-              access through the end of the period you've paid for.
+              access through the end of the period you&rsquo;ve paid for.
             </p>
           </details>
           <details>
             <summary>I subscribed. How do I unlock unlimited access?</summary>
             <p>
-              Right after checkout you're sent back to
+              Right after checkout you&rsquo;re sent back to
               <a href="/tools/growing-minds-ai">Growing Minds AI</a> and access
               unlocks automatically. On a new device, open the
               <a href="/tools/growing-minds-ai?subscribed=1">unlock panel</a>
@@ -274,8 +253,8 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science — home">
-          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
+        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+          <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
         <p class="site-footer__tag">A developmental-science education for parents of children 0 to 5.</p>
@@ -288,10 +267,10 @@
         <div>
           <h2 class="site-footer__heading">Classes</h2>
           <ul class="footer-list">
+            <li><a href="/classes/birth-to-12-months">Birth to 12 months</a></li>
             <li><a href="/classes/toddlerhood">Toddler years</a></li>
-            <li><a href="/classes/birth-to-12-months.html">Birth to 12 months</a></li>
-            <li><a href="/classes/preschool.html">Preschool years</a></li>
-            <li><a href="/classes/family-systems.html">Family systems</a></li>
+            <li><a href="/classes/preschool">Preschool years</a></li>
+            <li><a href="/classes/family-systems">Family systems</a></li>
             <li><a href="/pricing">Pricing</a></li>
           </ul>
         </div>
@@ -324,10 +303,10 @@
     </div>
   </footer>
 
-  <script src="/assets/js/chrome.js?v=15d4f8689c"></script>
+  <script src="/assets/js/chrome.js?v=1413c22959"></script>
 
-  <script src="/assets/js/main.js?v=da0ffde09b" defer></script>
-  <script src="/assets/js/decor.js?v=5532e2edfd" defer></script>
+  <script src="/assets/js/main.js?v=742e637d07" defer></script>
+  <script src="/assets/js/decor.js?v=09ff05457d" defer></script>
   <script src="/assets/js/animate.js?v=be9ad1568e" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
