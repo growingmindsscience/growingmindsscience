@@ -29,9 +29,10 @@
   <style>
     .claim-hero { padding: clamp(3rem, 6vw, 4.5rem) 0 2rem; }
     .cl-badges { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 var(--space-4); }
-    .cl-badge { display: inline-flex; align-items: center; padding: .35rem .7rem; border-radius: var(--radius-sm); font-family: var(--font-display); font-weight: 600; font-size: var(--text-xs); border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); }
+    .cl-badge { display: inline-flex; align-items: center; padding: .3rem .7rem; border-radius: 6px; font-family: var(--font-body); font-weight: 600; font-size: var(--text-xs); border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); }
     .cl-badge.badge--solid { background: var(--surface-2); color: var(--primary); border-color: color-mix(in srgb, var(--primary) 40%, transparent); }
-    .cl-badge.badge--contra { background: var(--amber-tint); color: var(--amber-deep); border-color: color-mix(in srgb, var(--amber-deep) 30%, transparent); }
+    .cl-badge.badge--contra { background: #FBEBC8; color: #7F5008; border-color: color-mix(in srgb, #7F5008 30%, transparent); }
+    [data-theme="dark"] .cl-badge.badge--contra { background: color-mix(in srgb, #F2A93B 18%, transparent); color: #F3B649; border-color: color-mix(in srgb, #F3B649 35%, transparent); }
     .cl-verdict { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-6); margin: var(--space-6) 0; }
     .cl-verdict p { margin: 0; font-size: var(--text-lg); font-weight: 500; }
     .cl-summary { max-width: 46rem; color: var(--ink-soft); font-size: var(--text-md); line-height: 1.78; }
@@ -41,8 +42,8 @@
     .cl-related { display: flex; flex-wrap: wrap; gap: var(--space-3); margin: var(--space-5) 0; }
     .cl-note { font-size: var(--text-xs); color: var(--ink-muted); max-width: 52rem; margin: var(--space-7) 0 0; }
     .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr)); gap: var(--space-5); margin-top: var(--space-6); }
-    .cl-card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-5); display: flex; flex-direction: column; gap: .6rem; }
-    .cl-card h2 { margin: 0; font-size: var(--text-md); line-height: 1.35; }
+    .cl-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: none; padding: var(--space-5); display: flex; flex-direction: column; gap: .6rem; }
+    .cl-card h3 { margin: 0; font-size: var(--text-md); line-height: 1.35; }
     .cl-card .cl-verdict-line { color: var(--ink-soft); font-size: var(--text-sm); margin: 0; line-height: 1.6; }
     .cl-card .cl-open { margin-top: auto; padding-top: .5rem; }
     .cl-method { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-6); margin-top: var(--space-7); }
@@ -103,13 +104,14 @@
         <p class="eyebrow">Free · Evidence-graded · 10 claims and growing</p>
         <h1 class="page-hero__title">Parenting claims, graded</h1>
         <p class="tool-lede" style="font-size: var(--text-md); color: var(--ink-soft); max-width: 46rem; margin: var(--space-4) 0 0;">The internet states every parenting claim with the same confidence. The research does not. Each claim here is stated the way a parent would say it, then graded on two axes: how strong the evidence actually is, and how united the field actually is.</p>
+        <h2 class="u-visually-hidden">All claims</h2>
         <div class="cl-grid">
           <article class="cl-card">
             <div class="cl-badges" style="margin:0;">
               <span class="cl-badge badge--contra">Contradicted by evidence</span>
               <span class="cl-badge">Sleep</span>
             </div>
-            <h2>&ldquo;Sleep training will damage my baby's attachment to me.&rdquo;</h2>
+            <h3>&ldquo;Sleep training will damage my baby's attachment to me.&rdquo;</h3>
             <p class="cl-verdict-line">The studies that looked for attachment harm did not find it.</p>
             <p class="cl-open"><a class="btn btn--primary" href="/claims/sleep-training-attachment">Read the grade</a></p>
           </article>
@@ -118,7 +120,7 @@
               <span class="cl-badge badge--contra">Contradicted by evidence</span>
               <span class="cl-badge">Language</span>
             </div>
-            <h2>&ldquo;Hearing two languages will confuse my baby and delay their speech.&rdquo;</h2>
+            <h3>&ldquo;Hearing two languages will confuse my baby and delay their speech.&rdquo;</h3>
             <p class="cl-verdict-line">Bilingual children hit language milestones on schedule when you count both languages.</p>
             <p class="cl-open"><a class="btn btn--primary" href="/claims/bilingual-confusion">Read the grade</a></p>
           </article>
@@ -127,7 +129,7 @@
               <span class="cl-badge badge--contra">Contradicted by evidence</span>
               <span class="cl-badge">Products &amp; gear</span>
             </div>
-            <h2>&ldquo;A baby walker will help my baby learn to walk sooner.&rdquo;</h2>
+            <h3>&ldquo;A baby walker will help my baby learn to walk sooner.&rdquo;</h3>
             <p class="cl-verdict-line">Walkers don't speed walking, and the injury record is bad enough that the AAP wants them banned.</p>
             <p class="cl-open"><a class="btn btn--primary" href="/claims/baby-walkers">Read the grade</a></p>
           </article>
@@ -136,7 +138,7 @@
               <span class="cl-badge badge--solid">Moderate evidence</span>
               <span class="cl-badge">Milestones</span>
             </div>
-            <h2>&ldquo;Tummy time actually matters for my baby's development.&rdquo;</h2>
+            <h3>&ldquo;Tummy time actually matters for my baby's development.&rdquo;</h3>
             <p class="cl-verdict-line">Yes: prone play time is linked to better motor development, and short frequent sessions count.</p>
             <p class="cl-open"><a class="btn btn--primary" href="/claims/tummy-time">Read the grade</a></p>
           </article>
@@ -145,7 +147,7 @@
               <span class="cl-badge badge--solid">Moderate evidence</span>
               <span class="cl-badge">Screens</span>
             </div>
-            <h2>&ldquo;Screen time is harming my toddler's language development.&rdquo;</h2>
+            <h3>&ldquo;Screen time is harming my toddler's language development.&rdquo;</h3>
             <p class="cl-verdict-line">Heavy, passive, background screen use is linked to less language input; the dose and the type matter more than the screen.</p>
             <p class="cl-open"><a class="btn btn--primary" href="/claims/screen-time-language">Read the grade</a></p>
           </article>
@@ -154,7 +156,7 @@
               <span class="cl-badge badge--soft">Not enough evidence</span>
               <span class="cl-badge">Language</span>
             </div>
-            <h2>&ldquo;Pacifier use will delay my child's speech.&rdquo;</h2>
+            <h3>&ldquo;Pacifier use will delay my child's speech.&rdquo;</h3>
             <p class="cl-verdict-line">The feared speech link is not well supported; the real documented tradeoffs are ear infections and dental effects with prolonged use.</p>
             <p class="cl-open"><a class="btn btn--primary" href="/claims/pacifiers-speech">Read the grade</a></p>
           </article>
@@ -163,7 +165,7 @@
               <span class="cl-badge badge--solid">Strong evidence</span>
               <span class="cl-badge">Language</span>
             </div>
-            <h2>&ldquo;Talking to my baby, even before they can respond, builds their language.&rdquo;</h2>
+            <h3>&ldquo;Talking to my baby, even before they can respond, builds their language.&rdquo;</h3>
             <p class="cl-verdict-line">Yes, and the back-and-forth matters even more than the word count.</p>
             <p class="cl-open"><a class="btn btn--primary" href="/claims/talking-to-baby">Read the grade</a></p>
           </article>
@@ -172,7 +174,7 @@
               <span class="cl-badge badge--contra">Contradicted by evidence</span>
               <span class="cl-badge">Milestones</span>
             </div>
-            <h2>&ldquo;Teething causes fevers.&rdquo;</h2>
+            <h3>&ldquo;Teething causes fevers.&rdquo;</h3>
             <p class="cl-verdict-line">Teething can nudge temperature up slightly; it does not cause true fever.</p>
             <p class="cl-open"><a class="btn btn--primary" href="/claims/teething-fever">Read the grade</a></p>
           </article>
@@ -181,7 +183,7 @@
               <span class="cl-badge badge--soft">Limited evidence</span>
               <span class="cl-badge">Feeding</span>
             </div>
-            <h2>&ldquo;Baby-led weaning is better than spoon-feeding purées.&rdquo;</h2>
+            <h3>&ldquo;Baby-led weaning is better than spoon-feeding purées.&rdquo;</h3>
             <p class="cl-verdict-line">A fine approach, not a superior one; the trial evidence shows mostly equivalence.</p>
             <p class="cl-open"><a class="btn btn--primary" href="/claims/baby-led-weaning">Read the grade</a></p>
           </article>
@@ -190,7 +192,7 @@
               <span class="cl-badge badge--solid">Strong evidence</span>
               <span class="cl-badge">Language</span>
             </div>
-            <h2>&ldquo;Reading to my toddler actually changes their language development.&rdquo;</h2>
+            <h3>&ldquo;Reading to my toddler actually changes their language development.&rdquo;</h3>
             <p class="cl-verdict-line">Yes, and reading interactively, with questions and pauses, roughly doubles the effect.</p>
             <p class="cl-open"><a class="btn btn--primary" href="/claims/shared-reading">Read the grade</a></p>
           </article>
@@ -214,7 +216,7 @@
           <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
-        <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
+        <p class="site-footer__tag">A developmental-science education for parents of children 0 to 5.</p>
         <a class="footer-ig" href="https://www.instagram.com/growingmindsscience/" target="_blank" rel="noopener noreferrer">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
           Instagram

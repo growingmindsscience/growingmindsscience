@@ -35,13 +35,13 @@
     .tool-hero { padding: clamp(3rem, 6vw, 5rem) 0 2rem; }
     .hero-grid { display: grid; grid-template-columns: 1.15fr .9fr; gap: var(--space-8); align-items: start; }
     .tool-lede { font-size: var(--text-md); color: var(--ink-soft); max-width: 44rem; margin: 0 0 var(--space-6); }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); } .hero-actions .btn { white-space: normal; text-align: center; }
     .hero-card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-6); }
     .hero-card h2 { margin: 0 0 .65rem; font-size: var(--text-lg); }
     .meta-list { list-style: none; padding: 0; margin: var(--space-4) 0 0; display: grid; gap: .85rem; }
     .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
-    .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
-    .tag { display: inline-flex; padding: .35rem .65rem; border-radius: var(--radius-sm); background: var(--surface-2); font-size: var(--text-xs); color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .dot { width: 10px; height: 10px; border-radius: 8px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
+    .tag { display: inline-flex; padding: .3rem .7rem; border-radius: 6px; background: var(--surface-2); font-size: var(--text-xs); font-weight: 700; color: var(--ink-muted); margin-bottom: var(--space-3); }
 
     .rp-wrap { display: grid; gap: var(--space-6); }
     .rp-panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: clamp(1.25rem, 3vw, 1.75rem); }
@@ -68,7 +68,7 @@
     .rp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: var(--space-5); margin-top: var(--space-4); }
     .rp-card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-5); display: flex; flex-direction: column; gap: .55rem; }
     .rp-card__meta { display: flex; flex-wrap: wrap; gap: .4rem; }
-    .rp-badge { font-size: var(--text-xs); padding: .2rem .55rem; border-radius: var(--radius-sm); background: var(--surface-2); color: var(--ink-muted); }
+    .rp-badge { font-size: var(--text-xs); padding: .2rem .55rem; border-radius: 8px; background: var(--surface-2); color: var(--ink-muted); }
     .rp-badge--type { color: #7F5008; background: #FBEBC8; }
     [data-theme="dark"] .rp-badge--type { color: #F3B649; background: color-mix(in srgb, #F2A93B 18%, transparent); }
     .rp-card__prompt { font-family: var(--font-body); font-size: var(--text-md); font-style: italic; margin: 0; color: var(--ink); }
@@ -87,7 +87,7 @@
       #rp-deck .deck-head { font: 700 13pt/1.2 "Helvetica Neue", sans-serif; margin: 0 0 .5rem; }
       #rp-deck .deck-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .35in; }
       #rp-deck .deck-card { border: 1px dashed #999; border-radius: 8px; padding: .3in; break-inside: avoid; }
-      #rp-deck .deck-card .t { font: 700 9pt/1.2 "Helvetica Neue", sans-serif; text-transform: uppercase; letter-spacing: .06em; margin: 0 0 .15in; }
+      #rp-deck .deck-card .t { font: 700 9pt/1.2 "Helvetica Neue", sans-serif;  margin: 0 0 .15in; }
       #rp-deck .deck-card .p { font-style: italic; font-size: 11pt; margin: 0 0 .12in; }
       #rp-deck .deck-card .f { font-size: 8.5pt; color: #444; margin: 0; }
       #rp-deck .deck-foot { margin-top: .3in; font-size: 8pt; color: #444; }
@@ -196,7 +196,7 @@
           <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
-        <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
+        <p class="site-footer__tag">A developmental-science education for parents of children 0 to 5.</p>
         <a class="footer-ig" href="https://www.instagram.com/growingmindsscience/" target="_blank" rel="noopener noreferrer">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
           Instagram

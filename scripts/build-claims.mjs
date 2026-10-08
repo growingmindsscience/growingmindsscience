@@ -32,9 +32,10 @@ const strengthClass = (s) => (s === "contradicted" ? "badge--contra" : s === "st
 const SHARED_CSS = `
     .claim-hero { padding: clamp(3rem, 6vw, 4.5rem) 0 2rem; }
     .cl-badges { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 var(--space-4); }
-    .cl-badge { display: inline-flex; align-items: center; padding: .35rem .7rem; border-radius: var(--radius-sm); font-family: var(--font-display); font-weight: 600; font-size: var(--text-xs); border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); }
+    .cl-badge { display: inline-flex; align-items: center; padding: .3rem .7rem; border-radius: 6px; font-family: var(--font-body); font-weight: 600; font-size: var(--text-xs); border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); }
     .cl-badge.badge--solid { background: var(--surface-2); color: var(--primary); border-color: color-mix(in srgb, var(--primary) 40%, transparent); }
-    .cl-badge.badge--contra { background: var(--amber-tint); color: var(--amber-deep); border-color: color-mix(in srgb, var(--amber-deep) 30%, transparent); }
+    .cl-badge.badge--contra { background: #FBEBC8; color: #7F5008; border-color: color-mix(in srgb, #7F5008 30%, transparent); }
+    [data-theme="dark"] .cl-badge.badge--contra { background: color-mix(in srgb, #F2A93B 18%, transparent); color: #F3B649; border-color: color-mix(in srgb, #F3B649 35%, transparent); }
     .cl-verdict { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-6); margin: var(--space-6) 0; }
     .cl-verdict p { margin: 0; font-size: var(--text-lg); font-weight: 500; }
     .cl-summary { max-width: 46rem; color: var(--ink-soft); font-size: var(--text-md); line-height: 1.78; }
@@ -44,8 +45,8 @@ const SHARED_CSS = `
     .cl-related { display: flex; flex-wrap: wrap; gap: var(--space-3); margin: var(--space-5) 0; }
     .cl-note { font-size: var(--text-xs); color: var(--ink-muted); max-width: 52rem; margin: var(--space-7) 0 0; }
     .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr)); gap: var(--space-5); margin-top: var(--space-6); }
-    .cl-card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-5); display: flex; flex-direction: column; gap: .6rem; }
-    .cl-card h2 { margin: 0; font-size: var(--text-md); line-height: 1.35; }
+    .cl-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: none; padding: var(--space-5); display: flex; flex-direction: column; gap: .6rem; }
+    .cl-card h3 { margin: 0; font-size: var(--text-md); line-height: 1.35; }
     .cl-card .cl-verdict-line { color: var(--ink-soft); font-size: var(--text-sm); margin: 0; line-height: 1.6; }
     .cl-card .cl-open { margin-top: auto; padding-top: .5rem; }
     .cl-method { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-6); margin-top: var(--space-7); }
@@ -142,7 +143,7 @@ ${body}
           <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">Growing Minds Science</span>
         </a>
-        <p class="site-footer__tag">Developmental science, translated for parents, for the first five years.</p>
+        <p class="site-footer__tag">A developmental-science education for parents of children 0 to 5.</p>
         <a class="footer-ig" href="https://www.instagram.com/growingmindsscience/" target="_blank" rel="noopener noreferrer">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
           Instagram
@@ -260,7 +261,7 @@ function hubPage() {
               <span class="cl-badge ${strengthClass(c.grade_strength)}">${esc(a.strength_labels[c.grade_strength])}</span>
               <span class="cl-badge">${esc(DOMAIN_LABEL[c.domain] || c.domain)}</span>
             </div>
-            <h2>&ldquo;${esc(c.claim_text)}&rdquo;</h2>
+            <h3>&ldquo;${esc(c.claim_text)}&rdquo;</h3>
             <p class="cl-verdict-line">${esc(c.verdict_label)}</p>
             <p class="cl-open"><a class="btn btn--primary" href="/claims/${esc(c.slug)}">Read the grade</a></p>
           </article>`).join("\n");
@@ -269,6 +270,7 @@ function hubPage() {
         <p class="eyebrow">Free · Evidence-graded · ${a.claims.length} claims and growing</p>
         <h1 class="page-hero__title">Parenting claims, graded</h1>
         <p class="tool-lede" style="font-size: var(--text-md); color: var(--ink-soft); max-width: 46rem; margin: var(--space-4) 0 0;">The internet states every parenting claim with the same confidence. The research does not. Each claim here is stated the way a parent would say it, then graded on two axes: how strong the evidence actually is, and how united the field actually is.</p>
+        <h2 class="u-visually-hidden">All claims</h2>
         <div class="cl-grid">
 ${cards}
         </div>
