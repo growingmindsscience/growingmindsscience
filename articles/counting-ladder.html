@@ -61,7 +61,36 @@
     .sources-panel ul { margin-bottom: 0; }
     .article-cta { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
     .article-figure { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-6); margin: var(--space-8) 0; }
-    .article-figure svg { display: block; width: 100%; height: auto; }
+    /* Figures are drawn on a 480-unit viewBox and their text is set in SVG
+       units, so it scales with the drawing. Capped at 32rem, 16-unit labels
+       render at about 17px on wide screens. Below 560px the figure gives up
+       some padding and labels step to 22 units: about 14px on a 375px phone. */
+    .article-figure svg { display: block; width: 100%; max-width: 32rem; height: auto; margin-inline: auto; }
+    .article-figure .af-text { font: 500 16px var(--font-body); fill: var(--ink-soft); }
+    .article-figure .af-strong { font-weight: 700; fill: var(--ink); }
+    .article-figure .af-muted { fill: var(--ink-muted); }
+    .article-figure .af-primary { fill: var(--primary); }
+    .article-figure .af-accent { fill: var(--accent-brown); }
+    .article-figure .af-note { font-style: italic; fill: var(--accent-brown); }
+    .article-figure .af-head, .article-figure .af-key, .article-figure .af-foot, .article-figure figcaption { max-width: 32rem; margin-inline: auto; }
+    .article-figure .af-head { margin-block: 0 var(--space-4); color: var(--ink); font-size: var(--text-base); font-weight: 700; line-height: 1.4; text-wrap: balance; }
+    .article-figure .af-foot { margin-block: var(--space-4) 0; color: var(--accent-brown); font-size: var(--text-base); font-style: italic; line-height: 1.5; text-wrap: balance; }
+    .article-figure .af-key { display: grid; gap: var(--space-3); margin-block: var(--space-5) 0; padding: var(--space-4) 0 0; border-top: 1px solid var(--border-soft); list-style: none; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.55; }
+    .article-figure .af-key li { display: grid; grid-template-columns: 1.75rem minmax(0, 1fr); gap: var(--space-3); align-items: start; }
+    .article-figure .af-key b { color: var(--ink); font-weight: 700; }
+    .article-figure .af-key__num { display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border: 2px solid var(--primary); border-radius: 50%; color: var(--primary); font-size: var(--text-sm); font-weight: 700; line-height: 1; }
+    .article-figure .af-key__num--warm { border-color: var(--warm); color: var(--accent-brown); }
+    .article-figure .af-key--stages { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-5); }
+    .article-figure .af-key--stages li { display: block; }
+    .article-figure .af-key--stages b { display: block; }
+    @media (max-width: 560px) {
+      .article-figure { padding: var(--space-4); }
+      .article-figure .af-text { font-size: 22px; }
+    }
+    /* Narrower phones (360px class): the drawing borrows 8px of padding each side. */
+    @media (max-width: 374px) {
+      .article-figure svg { width: calc(100% + 2 * var(--space-2)); max-width: none; margin-inline: calc(-1 * var(--space-2)); }
+    }
     .article-figure figcaption { color: var(--ink-muted); font-size: var(--text-sm); line-height: 1.6; margin-top: var(--space-4); }
     .article-figure figcaption b { font-family: var(--font-display); font-style: italic; font-weight: 600; color: var(--amber-deep); }
     .article-figure .article-figure__head { margin: 0 0 var(--space-4); }
@@ -116,7 +145,7 @@
       "url": "https://growingmindsscience.com/articles/counting-ladder",
       "image": "https://growingmindsscience.com/assets/img/og/counting-ladder.png",
       "datePublished": "2026-07-10T23:54:47-07:00",
-      "dateModified": "2026-10-08T08:33:21-04:00"
+      "dateModified": "2026-10-08T08:58:37-04:00"
     },
     {
       "@context": "https://schema.org",
@@ -245,29 +274,24 @@
           <p>The clever part is how anyone figured this out. The standard tool is a task the psychologist Karen Wynn introduced around 1990, usually called Give-N, or &ldquo;give a number.&rdquo; A researcher sits with a child and a pile of small objects and simply asks: &ldquo;Can you give me three?&rdquo; What the child does next is the data. The one-knower gives a fistful. The three-knower carefully counts out three. That single, low-key request quietly reveals which rung of the ladder the child is standing on. Later work, notably by Mathieu Le Corre and Susan Carey in 2007, mapped the knower levels in detail and showed that the jump to the cardinal principle is a real conceptual change, not just more of the same memorizing.</p>
 
           <figure class="article-figure">
-            <svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig-counting-ladder-title" aria-describedby="fig-counting-ladder-desc">
+            <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig-counting-ladder-title" aria-describedby="fig-counting-ladder-desc">
               <title id="fig-counting-ladder-title">The counting ladder: knower levels up to the cardinal principle.</title>
-              <desc id="fig-counting-ladder-desc">A staircase showing the knower levels children climb: one-knower, two-knower, three-knower, four-knower, and at the top the cardinal-principle discovery, when counting itself starts to answer 'how many'.</desc>
-              <text x="560" y="18" text-anchor="middle" font-family="var(--font-body)" font-style="italic" font-size="13.5" fill="var(--accent-brown)">the leap: a real conceptual change</text>
-              <path d="M 500 84 Q 566 30 620 34" fill="none" stroke="var(--warm)" stroke-width="2" stroke-dasharray="5 4" />
-              <polygon points="614,28 628,35 616,43" fill="var(--warm)" />
-              <rect x="15" y="248" width="138" height="52" rx="4" fill="var(--primary)" fill-opacity=".12" stroke="var(--primary)" stroke-opacity=".55" stroke-width="1.5" />
-              <text x="84" y="272" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="15.5" fill="var(--ink)">One-knower</text>
-              <text x="84" y="291" text-anchor="middle" font-family="var(--font-display)" font-size="12.5" fill="var(--ink-soft)">hands you exactly 1</text>
-              <rect x="153" y="196" width="138" height="104" rx="4" fill="var(--primary)" fill-opacity=".12" stroke="var(--primary)" stroke-opacity=".55" stroke-width="1.5" />
-              <text x="222" y="220" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="15.5" fill="var(--ink)">Two-knower</text>
-              <text x="222" y="239" text-anchor="middle" font-family="var(--font-display)" font-size="12.5" fill="var(--ink-soft)">1 and 2 are reliable</text>
-              <rect x="291" y="144" width="138" height="156" rx="4" fill="var(--primary)" fill-opacity=".12" stroke="var(--primary)" stroke-opacity=".55" stroke-width="1.5" />
-              <text x="360" y="168" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="15.5" fill="var(--ink)">Three-knower</text>
-              <text x="360" y="187" text-anchor="middle" font-family="var(--font-display)" font-size="12.5" fill="var(--ink-soft)">1 through 3 are secure</text>
-              <rect x="429" y="92" width="138" height="208" rx="4" fill="var(--primary)" fill-opacity=".12" stroke="var(--primary)" stroke-opacity=".55" stroke-width="1.5" />
-              <text x="498" y="116" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="15.5" fill="var(--ink)">Four-knower</text>
-              <text x="498" y="135" text-anchor="middle" font-family="var(--font-display)" font-size="12.5" fill="var(--ink-soft)">4 joins the list</text>
-              <rect x="567" y="40" width="138" height="260" rx="4" fill="var(--warm)" fill-opacity=".16" stroke="var(--warm)" stroke-opacity=".7" stroke-width="1.5" />
-              <text x="636" y="64" text-anchor="middle" font-family="var(--font-display)" font-weight="600" font-size="15" fill="var(--ink)">Cardinal principle</text>
-              <text x="636" y="83" text-anchor="middle" font-family="var(--font-display)" font-size="12.5" fill="var(--ink-soft)">counting answers</text>
-              <text x="636" y="99" text-anchor="middle" font-family="var(--font-display)" font-size="12.5" fill="var(--ink-soft)">&#8220;how many&#8221;</text>
-              <line x1="15" y1="300" x2="705" y2="300" stroke="var(--border-soft)" stroke-width="2" />
+              <desc id="fig-counting-ladder-desc">A staircase of knower levels, climbed from the bottom: one-knower (hands you exactly 1), two-knower (1 and 2 are reliable), three-knower (1 through 3 are secure), four-knower (4 joins the list). Above a gap marked as the leap, a real conceptual change, sits the top step: the cardinal-principle discovery, when counting itself starts to answer &lsquo;how many&rsquo;.</desc>
+              <rect x="4" y="252" width="472" height="44" fill="var(--primary)" fill-opacity=".08" stroke="var(--primary)" stroke-opacity=".55" stroke-width="1.5" />
+              <text class="af-text" x="20" y="274" dy=".35em"><tspan class="af-strong">One-knower:</tspan> hands you exactly 1</text>
+              <rect x="36" y="208" width="440" height="44" fill="var(--primary)" fill-opacity=".11" stroke="var(--primary)" stroke-opacity=".55" stroke-width="1.5" />
+              <text class="af-text" x="52" y="230" dy=".35em"><tspan class="af-strong">Two-knower:</tspan> 1 and 2 are reliable</text>
+              <rect x="68" y="164" width="408" height="44" fill="var(--primary)" fill-opacity=".14" stroke="var(--primary)" stroke-opacity=".55" stroke-width="1.5" />
+              <text class="af-text" x="84" y="186" dy=".35em"><tspan class="af-strong">Three-knower:</tspan> 1 through 3 are secure</text>
+              <rect x="100" y="120" width="376" height="44" fill="var(--primary)" fill-opacity=".17" stroke="var(--primary)" stroke-opacity=".55" stroke-width="1.5" />
+              <text class="af-text" x="116" y="142" dy=".35em"><tspan class="af-strong">Four-knower:</tspan> 4 joins the list</text>
+              <path d="M 116 114 L 116 86" fill="none" stroke="var(--warm)" stroke-width="2" stroke-dasharray="5 4" />
+              <polygon points="109,88 116,74 123,88" fill="var(--warm)" />
+              <text class="af-text af-note" x="132" y="98" dy=".35em">the leap: a real conceptual change</text>
+              <rect x="132" y="4" width="344" height="72" fill="var(--warm)" fill-opacity=".16" stroke="var(--warm)" stroke-opacity=".7" stroke-width="1.5" />
+              <text class="af-text af-strong" x="148" y="34">Cardinal principle</text>
+              <text class="af-text" x="148" y="62">counting answers &ldquo;how many&rdquo;</text>
+              <line x1="0" y1="296" x2="480" y2="296" stroke="var(--border-soft)" stroke-width="2" />
             </svg>
             <figcaption><b>Fig. 1</b> &middot; The knower levels. Children become &ldquo;knowers&rdquo; one number at a time, and each rung can last for months. The jump at the top, discovering that the last word counted names the size of the whole set, is the moment counting becomes a tool rather than a recitation.</figcaption>
           </figure>

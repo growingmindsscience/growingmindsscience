@@ -61,7 +61,36 @@
     .sources-panel ul { margin-bottom: 0; }
     .article-cta { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
     .article-figure { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-6); margin: var(--space-8) 0; }
-    .article-figure svg { display: block; width: 100%; height: auto; }
+    /* Figures are drawn on a 480-unit viewBox and their text is set in SVG
+       units, so it scales with the drawing. Capped at 32rem, 16-unit labels
+       render at about 17px on wide screens. Below 560px the figure gives up
+       some padding and labels step to 22 units: about 14px on a 375px phone. */
+    .article-figure svg { display: block; width: 100%; max-width: 32rem; height: auto; margin-inline: auto; }
+    .article-figure .af-text { font: 500 16px var(--font-body); fill: var(--ink-soft); }
+    .article-figure .af-strong { font-weight: 700; fill: var(--ink); }
+    .article-figure .af-muted { fill: var(--ink-muted); }
+    .article-figure .af-primary { fill: var(--primary); }
+    .article-figure .af-accent { fill: var(--accent-brown); }
+    .article-figure .af-note { font-style: italic; fill: var(--accent-brown); }
+    .article-figure .af-head, .article-figure .af-key, .article-figure .af-foot, .article-figure figcaption { max-width: 32rem; margin-inline: auto; }
+    .article-figure .af-head { margin-block: 0 var(--space-4); color: var(--ink); font-size: var(--text-base); font-weight: 700; line-height: 1.4; text-wrap: balance; }
+    .article-figure .af-foot { margin-block: var(--space-4) 0; color: var(--accent-brown); font-size: var(--text-base); font-style: italic; line-height: 1.5; text-wrap: balance; }
+    .article-figure .af-key { display: grid; gap: var(--space-3); margin-block: var(--space-5) 0; padding: var(--space-4) 0 0; border-top: 1px solid var(--border-soft); list-style: none; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.55; }
+    .article-figure .af-key li { display: grid; grid-template-columns: 1.75rem minmax(0, 1fr); gap: var(--space-3); align-items: start; }
+    .article-figure .af-key b { color: var(--ink); font-weight: 700; }
+    .article-figure .af-key__num { display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border: 2px solid var(--primary); border-radius: 50%; color: var(--primary); font-size: var(--text-sm); font-weight: 700; line-height: 1; }
+    .article-figure .af-key__num--warm { border-color: var(--warm); color: var(--accent-brown); }
+    .article-figure .af-key--stages { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-5); }
+    .article-figure .af-key--stages li { display: block; }
+    .article-figure .af-key--stages b { display: block; }
+    @media (max-width: 560px) {
+      .article-figure { padding: var(--space-4); }
+      .article-figure .af-text { font-size: 22px; }
+    }
+    /* Narrower phones (360px class): the drawing borrows 8px of padding each side. */
+    @media (max-width: 374px) {
+      .article-figure svg { width: calc(100% + 2 * var(--space-2)); max-width: none; margin-inline: calc(-1 * var(--space-2)); }
+    }
     .article-figure figcaption { color: var(--ink-muted); font-size: var(--text-sm); line-height: 1.6; margin-top: var(--space-4); }
     .article-figure figcaption b { font-family: var(--font-display); font-style: italic; font-weight: 600; color: var(--amber-deep); }
     .article-figure .article-figure__head { margin: 0 0 var(--space-4); }
@@ -116,7 +145,7 @@
       "url": "https://growingmindsscience.com/articles/screen-time",
       "image": "https://growingmindsscience.com/assets/img/og/screen-time.png",
       "datePublished": "2026-05-26T18:27:33-07:00",
-      "dateModified": "2026-10-08T08:33:21-04:00"
+      "dateModified": "2026-10-08T08:58:37-04:00"
     },
     {
       "@context": "https://schema.org",
@@ -199,7 +228,7 @@
         <div>
           <p class="article-kicker">Practical</p>
           <h1 class="article-title">A short, honest take on screen time</h1>
-          <p class="article-dek">What the current research actually supports, what it doesn't, and how to think about it without shame or dogma.</p>
+          <p class="article-dek">What the current research actually supports, what it doesn&rsquo;t, and how to think about it without shame or dogma.</p>
           <p class="article-meta">
             <span>By Matthew McArthur</span>
             <span>Early childhood</span>
@@ -208,7 +237,7 @@
         </div>
         <aside class="article-cardlet" aria-label="Article summary">
           <h2>The short version</h2>
-          <p>Screen time isn't one single thing. A video call with a grandparent, a slow educational show with an adult nearby, background TV, and autoplay videos at bedtime are wildly different experiences. The useful question isn't only "how much?" but "what, when, why, and with whom?"</p>
+          <p>Screen time isn&rsquo;t one single thing. A video call with a grandparent, a slow educational show with an adult nearby, background TV, and autoplay videos at bedtime are wildly different experiences. The useful question isn&rsquo;t only &ldquo;how much?&rdquo; but &ldquo;what, when, why, and with whom?&rdquo;</p>
         </aside>
       </div>
     </section>
@@ -234,7 +263,7 @@
           <p>The honest answer is: it depends.</p>
 
           <div class="article-callout">
-            <p><strong>The research doesn't support treating all screen time as the same developmental exposure.</strong> It's equally unconvinced that screens are harmless just because they're everywhere.</p>
+            <p><strong>The research doesn&rsquo;t support treating all screen time as the same developmental exposure.</strong> It&rsquo;s equally unconvinced that screens are harmless just because they&rsquo;re everywhere.</p>
           </div>
 
           <h2 id="what-we-know">What the research supports</h2>
@@ -247,29 +276,29 @@
 
           <p>For the early years, the research keeps pointing back to the same developmental basics: children need sleep, movement, hands-on exploration, language-rich interaction, pretend play, and emotionally available adults. Screens become more concerning when they repeatedly replace those things, especially for babies and toddlers whose learning is built so heavily through real-time social exchange.</p>
 
-          <p>One of the most consistent findings in this area is what researchers call the "video deficit effect." Under around age 2, young children reliably learn less from video content than from identical live demonstrations. Patricia Kuhl and colleagues demonstrated this in a striking experiment: 9-month-old infants exposed to brief live sessions with a native Mandarin speaker showed significant phonetic learning. Infants exposed to the same content on video showed none. The social, contingent quality of live interaction, not just exposure to language, appears to be what makes early learning register. This is part of why bidirectional video calls differ developmentally from passive video. When a grandparent responds in real time to what a child does and says, the exchange resembles a real conversation. Autoplay video does not offer that.</p>
+          <p>One of the most consistent findings in this area is what researchers call the &ldquo;video deficit effect.&rdquo; Under around age 2, young children reliably learn less from video content than from identical live demonstrations. Patricia Kuhl and colleagues demonstrated this in a striking experiment: 9-month-old infants exposed to brief live sessions with a native Mandarin speaker showed significant phonetic learning. Infants exposed to the same content on video showed none. The social, contingent quality of live interaction, not just exposure to language, appears to be what makes early learning register. This is part of why bidirectional video calls differ developmentally from passive video. When a grandparent responds in real time to what a child does and says, the exchange resembles a real conversation. Autoplay video does not offer that.</p>
 
           <figure class="article-figure">
-            <svg viewBox="0 0 720 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig-screen-time-title" aria-describedby="fig-screen-time-desc">
+            <svg viewBox="0 0 480 284" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig-screen-time-title" aria-describedby="fig-screen-time-desc">
               <title id="fig-screen-time-title">Live versus video language exposure at 9 months (Kuhl and colleagues).</title>
-              <desc id="fig-screen-time-desc">Two panels comparing the same Mandarin sessions for 9-month-olds: with a live speaker, significant phonetic learning; with identical content on video, no measurable learning.</desc>
-              <rect x="30" y="20" width="315" height="170" rx="14" fill="var(--bg-alt)" stroke="var(--border-soft)" />
-              <circle cx="90" cy="72" r="16" fill="none" stroke="var(--primary)" stroke-width="2.5" />
-              <path d="M 62 114 Q 90 88 118 114" fill="none" stroke="var(--primary)" stroke-width="2.5" />
-              <text x="140" y="68" font-family="var(--font-display)" font-weight="600" font-size="16" fill="var(--ink)">A live speaker</text>
-              <text x="140" y="89" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">real-time, responsive</text>
-              <path d="M 52 152 l 7 8 l 13 -16" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-              <text x="82" y="158" font-family="var(--font-display)" font-weight="600" font-size="15" fill="var(--ink)">Significant phonetic learning</text>
-              <text x="360" y="110" text-anchor="middle" font-family="var(--font-display)" font-size="14" fill="var(--ink-muted)">vs</text>
-              <rect x="375" y="20" width="315" height="170" rx="14" fill="var(--bg-alt)" stroke="var(--border-soft)" />
-              <rect x="415" y="52" width="46" height="34" rx="4" fill="none" stroke="var(--ink-muted)" stroke-width="2.5" />
-              <polygon points="431,61 431,77 445,69" fill="var(--ink-muted)" />
-              <line x1="438" y1="86" x2="438" y2="96" stroke="var(--ink-muted)" stroke-width="2.5" />
-              <line x1="424" y1="98" x2="452" y2="98" stroke="var(--ink-muted)" stroke-width="2.5" />
-              <text x="485" y="68" font-family="var(--font-display)" font-weight="600" font-size="16" fill="var(--ink)">Same content, on video</text>
-              <text x="485" y="89" font-family="var(--font-display)" font-size="13.5" fill="var(--ink-soft)">one-way, non-contingent</text>
-              <path d="M 397 146 l 14 14 M 411 146 l -14 14" fill="none" stroke="var(--ink-muted)" stroke-width="3" stroke-linecap="round" />
-              <text x="427" y="158" font-family="var(--font-display)" font-weight="600" font-size="15" fill="var(--ink-muted)">No measurable learning</text>
+              <desc id="fig-screen-time-desc">Two stacked panels comparing the same Mandarin sessions for 9-month-olds: with a live speaker, significant phonetic learning; with identical content on video, no measurable learning.</desc>
+              <rect x="1" y="1" width="478" height="124" rx="14" fill="var(--bg-alt)" stroke="var(--border-soft)" />
+              <circle cx="50" cy="44" r="15" fill="none" stroke="var(--primary)" stroke-width="2.5" />
+              <path d="M 22 90 Q 50 62 78 90" fill="none" stroke="var(--primary)" stroke-width="2.5" />
+              <text class="af-text af-strong" x="104" y="40">A live speaker</text>
+              <text class="af-text" x="104" y="69">real-time, responsive</text>
+              <path d="M 104 97 l 7 8 l 13 -16" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+              <text class="af-text af-strong" x="134" y="105">Significant phonetic learning</text>
+              <text class="af-text af-muted" x="50" y="142" dy=".35em" text-anchor="middle">vs</text>
+              <rect x="1" y="159" width="478" height="124" rx="14" fill="var(--bg-alt)" stroke="var(--border-soft)" />
+              <rect x="27" y="190" width="46" height="34" rx="4" fill="none" stroke="var(--ink-muted)" stroke-width="2.5" />
+              <polygon points="43,199 43,215 57,207" fill="var(--ink-muted)" />
+              <line x1="50" y1="224" x2="50" y2="234" stroke="var(--ink-muted)" stroke-width="2.5" />
+              <line x1="36" y1="236" x2="64" y2="236" stroke="var(--ink-muted)" stroke-width="2.5" />
+              <text class="af-text af-strong" x="104" y="198">Same content, on video</text>
+              <text class="af-text" x="104" y="227">one-way, non-contingent</text>
+              <path d="M 106 249 l 14 14 M 120 249 l -14 14" fill="none" stroke="var(--ink-muted)" stroke-width="3" stroke-linecap="round" />
+              <text class="af-text af-strong af-muted" x="134" y="263">No measurable learning</text>
             </svg>
             <figcaption><b>Fig. 1</b> &middot; The video deficit effect. Kuhl and colleagues exposed 9-month-olds to brief Mandarin sessions, live or on video, with the same content. Only the live group learned. The social, contingent quality of the exchange, not the exposure itself, is what registers under age 2.</figcaption>
           </figure>
@@ -292,19 +321,19 @@
 
           <p>Families use screens for many reasons: work, exhaustion, safety, long commutes, single parenting, illness, disability, financial stress, lack of childcare, and the very ordinary need to get through the day. A useful screen-time conversation starts with reality, not moral performance.</p>
 
-          <p>Worth noting on this point: Jenny Radesky and colleagues have shown that caregiver absorption in mobile devices during child interactions reduces the responsiveness and warmth of adult-child exchanges. That's a structural finding, not a parent-blame one. When adults are stretched thin, presence gets harder, and what helps is rarely individual guilt. It's the conditions that let caregivers actually be available.</p>
+          <p>Worth noting on this point: Jenny Radesky and colleagues have shown that caregiver absorption in mobile devices during child interactions reduces the responsiveness and warmth of adult-child exchanges. That&rsquo;s a structural finding, not a parent-blame one. When adults are stretched thin, presence gets harder, and what helps is rarely individual guilt. It&rsquo;s the conditions that let caregivers actually be available.</p>
 
-          <h3>It does not support "educational" as a magic word</h3>
-          <p>Some children's media is thoughtfully made. Some of it is mostly stimulation with a learning label. Even when content is high quality, young children usually learn more when an adult helps connect what is on the screen to the real world.</p>
+          <h3>It does not support &ldquo;educational&rdquo; as a magic word</h3>
+          <p>Some children&rsquo;s media is thoughtfully made. Some of it is mostly stimulation with a learning label. Even when content is high quality, young children usually learn more when an adult helps connect what is on the screen to the real world.</p>
 
-          <p>If a show teaches animal names, the learning becomes more useful when someone later says, "We saw a cow in your show. That cow at the farm says moo too." The bridge matters.</p>
+          <p>If a show teaches animal names, the learning becomes more useful when someone later says, &ldquo;We saw a cow in your show. That cow at the farm says moo too.&rdquo; The bridge matters.</p>
 
           <h3>It does not support total panic about every exposure</h3>
           <p>A sick day with movies is not a developmental catastrophe. A video call with a grandparent is not the same as passive scrolling. A little screen time in a hard season does not erase the relationship you are building with your child.</p>
 
           <p>The pattern matters more than the exception.</p>
 
-          <h2 id="a-better-question">A better question than "how much?"</h2>
+          <h2 id="a-better-question">A better question than &ldquo;how much?&rdquo;</h2>
 
           <p>Try asking: what is this screen time doing in our family right now?</p>
 
@@ -327,17 +356,17 @@
             <li>Keep meals screen-free when your family can manage it.</li>
             <li>Turn off background TV when no one is really watching.</li>
             <li>Choose one or two shows you feel good about instead of letting autoplay choose.</li>
-            <li>Give a clear ending before pressing play: "One episode, then bath."</li>
-            <li>After a show, reconnect with one ordinary turn: "What did you see?" or "Should we build that with blocks?"</li>
+            <li>Give a clear ending before pressing play: &ldquo;One episode, then bath.&rdquo;</li>
+            <li>After a show, reconnect with one ordinary turn: &ldquo;What did you see?&rdquo; or &ldquo;Should we build that with blocks?&rdquo;</li>
           </ul>
 
-          <p>That's not a perfect media plan, but it's a humane one.</p>
+          <p>That&rsquo;s not a perfect media plan, but it&rsquo;s a humane one.</p>
 
           <h2 id="bottom-line">The bottom line</h2>
 
           <p>The best screen-time advice is usually neither shame nor surrender.</p>
 
-          <p>Screens are part of modern childhood. They can connect, entertain, teach, distract, overstimulate, advertise, soothe, and crowd out other things. The developmental question was never whether a screen has appeared in your child's life. It's whether your child's real life still holds enough of what development needs: sleep, play, movement, conversation, care, boredom, repair, and relationships.</p>
+          <p>Screens are part of modern childhood. They can connect, entertain, teach, distract, overstimulate, advertise, soothe, and crowd out other things. The developmental question was never whether a screen has appeared in your child&rsquo;s life. It&rsquo;s whether your child&rsquo;s real life still holds enough of what development needs: sleep, play, movement, conversation, care, boredom, repair, and relationships.</p>
 
           <p>When those are protected, a little screen time does not need to become a referendum on your parenting.</p>
 
