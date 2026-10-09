@@ -137,7 +137,7 @@ function renderPage(entry, { draft }) {
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=44002cebb8" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=0d97ff5fce" />
   <link rel="stylesheet" href="../assets/css/refresh.css?v=d297404b34" />
   <script type="application/ld+json">
 ${jsonLd(entry, url, published, modified)}
@@ -214,7 +214,7 @@ function renderHub(entries, { draft }) {
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=44002cebb8" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=0d97ff5fce" />
   <link rel="stylesheet" href="../assets/css/refresh.css?v=d297404b34" />
   <style>.answers-list{list-style:none;padding:0;margin:0 0 var(--space-8);display:grid;gap:var(--space-3)}.answers-list a{color:var(--primary);font-weight:600;text-decoration:none}.answers-list a:hover{text-decoration:underline}</style>
 </head>
