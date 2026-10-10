@@ -413,9 +413,9 @@ h3 { font-size: var(--text-xl); }
 /* The byline: who teaches it, in one breath, under the buttons. */
 .hero__cred {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--space-4);
-  max-width: 52ch;
+  max-width: 58ch;
   margin: 0;
 }
 .hero__cred-photo {
@@ -425,6 +425,7 @@ h3 { font-size: var(--text-xl); }
   object-fit: cover;
   object-position: center 12%;
   border: 1.5px solid rgba(238, 244, 243, 0.3);
+  margin-top: 0.15rem;
 }
 .hero__cred-text { margin: 0; font-size: var(--text-sm); line-height: 1.55; color: var(--on-dark-soft); text-wrap: pretty; }
 .hero__cred-text strong { color: var(--on-dark); font-weight: 600; }
@@ -464,10 +465,10 @@ h3 { font-size: var(--text-xl); }
    three screens down. Same status chip and thumbnails as the class rows. */
 .open-now { background: var(--surface); border-bottom: 1px solid var(--line-soft); }
 .open-now__inner {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
-  gap: var(--space-3) clamp(var(--space-4), 2.4vw, var(--space-8));
+  gap: var(--space-3) clamp(var(--space-5), 3vw, var(--space-10));
   padding-block: var(--space-4);
 }
 .open-now__label {
@@ -487,9 +488,9 @@ h3 { font-size: var(--text-xl); }
 }
 .open-now__label::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
 .open-now__list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2) clamp(var(--space-2), 1.6vw, var(--space-5));
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-1) clamp(var(--space-4), 3vw, var(--space-10));
   margin: 0;
   padding: 0;
   list-style: none;
@@ -527,10 +528,15 @@ h3 { font-size: var(--text-xl); }
   background: var(--amber-tint);
   color: var(--amber-deep);
 }
+/* Narrower screens: the chip sits above the two columns instead of beside them. */
+@media (max-width: 1100px) {
+  .open-now__inner { grid-template-columns: minmax(0, 1fr); gap: var(--space-2); }
+  .open-now__label { justify-self: start; }
+}
 @media (max-width: 720px) {
   .open-now__inner { display: grid; gap: var(--space-2); padding-block: var(--space-5) var(--space-3); }
   .open-now__label { justify-self: start; margin-bottom: var(--space-1); }
-  .open-now__list { display: grid; gap: 0; }
+  .open-now__list { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .open-now__list li + li { border-top: 1px solid var(--line-soft); }
   .open-now__item { padding-inline: 0; border-radius: 0; }
   .open-now__item:hover { background: none; }
@@ -611,14 +617,14 @@ h3 { font-size: var(--text-xl); }
 .instructor__more { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; color: var(--teal); text-decoration: none; }
 .instructor__more:hover { text-decoration: underline; text-underline-offset: 0.2em; }
 /* The hero already shows his face; this block is the record, in words. */
-.instructor.instructor--compact { grid-template-columns: minmax(0, 1fr); }
+.instructor.instructor--compact { grid-template-columns: minmax(0, 1fr); margin-top: 0; }
 .instructor__line { margin: 0; color: var(--ink-soft); max-width: 58ch; text-wrap: pretty; }
 .instructor__line strong { color: var(--ink); font-weight: 600; }
 .instructor--compact .instructor__more { display: inline; min-height: 0; white-space: nowrap; }
 .lenses { display: grid; }
 .lens {
   display: grid;
-  grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
   gap: var(--space-2) clamp(var(--space-5), 3vw, var(--space-10));
   align-items: baseline;
   padding: var(--space-6) 0;
@@ -627,7 +633,7 @@ h3 { font-size: var(--text-xl); }
 .lens dt {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: var(--text-xl);
+  font-size: clamp(1.5rem, 1.1rem + 1vw, 1.75rem);
   line-height: 1.1;
   color: var(--ink);
 }
@@ -644,6 +650,9 @@ h3 { font-size: var(--text-xl); }
 }
 .curriculum__head .section-head { margin-bottom: 0; }
 .curriculum__all { white-space: nowrap; }
+/* The facts run as one quiet row under the promise (as on /classes/), so the
+   side column holds only the status and the two buttons. */
+.curriculum .unit__meta--inline { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-8); }
 
 /* ---------- How it's taught ---------- */
 .taught { background: var(--ground); }
@@ -683,7 +692,7 @@ h3 { font-size: var(--text-xl); }
   display: grid;
   gap: var(--space-6);
 }
-.taught__photo { margin: 0; }
+.taught__photo { margin: clamp(var(--space-8), 4vw, var(--space-12)) 0 0; max-width: 40rem; }
 .taught__photo img {
   width: 100%;
   aspect-ratio: 3 / 2;
@@ -1351,11 +1360,25 @@ html.anim .fig--loop[data-animate].is-visible .fig-arrow:nth-of-type(4) { animat
   .unit--soon .unit__meta { display: none; }
   .taught__photo { display: none; }
   .ai__demo { display: none; }
-  /* Free reading: the heading and the two "All …" links; the lists live a tap away. */
+  /* Free reading: the two "All …" links as ruled rows; the lists live a tap away.
+     The section heading above already names both shelves. */
+  .shelf h3,
   .shelf__lede,
   .shelf__list { display: none; }
   .between__inner { gap: 0; }
-  .shelf h3 { margin-bottom: 0; }
+  .between .section-head { margin-bottom: var(--space-6); }
+  .shelf__more {
+    display: flex;
+    width: 100%;
+    min-height: 56px;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--text-md);
+    font-weight: 500;
+    color: var(--ink);
+    border-top: 1px solid var(--line);
+  }
+  .shelf:last-child .shelf__more { border-bottom: 1px solid var(--line); }
   /* The open-now strip and the enrol band already state lessons and price. */
   .unit .unit__meta { display: none; }
 }
@@ -1403,6 +1426,5 @@ html.anim .fig--loop[data-animate].is-visible .fig-arrow:nth-of-type(4) { animat
      add a beat between sentences to keep the three of them reading as three. */
   .hero__title { line-height: 1.06; }
   .hero__line + .hero__line { margin-top: 0.16em; }
-  .hero__cred { align-items: flex-start; }
   .hero__ctas .btn { flex: 1 1 100%; }
 }
