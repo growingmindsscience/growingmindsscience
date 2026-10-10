@@ -31,9 +31,9 @@ const MODE = args.includes("--publish") ? "publish" : args.includes("--preview")
 const CARD = new Map(KNOWLEDGE.map((c) => [c.id, c]));
 const KID_SET = new Set(KNOWLEDGE.map((c) => c.id));
 const CLASS_META = {
-  "birth-to-12-months": { href: "/classes/birth-to-12-months.html", title: "Birth to 12 Months", tag: "Waitlist" },
+  "birth-to-12-months": { href: "/classes/birth-to-12-months.html", title: "Birth to 12 Months", tag: "Available now" },
   toddlerhood: { href: "/classes/toddlerhood.html", title: "Toddler Years", tag: "Available now" },
-  preschool: { href: "/classes/preschool.html", title: "Preschool Years", tag: "Waitlist" },
+  preschool: { href: "/classes/preschool.html", title: "Preschool Years", tag: "Available now" },
   "family-systems": { href: "/classes/family-systems.html", title: "Family Systems & Stress", tag: "Waitlist" },
 };
 const ARTICLE_TITLE = {
