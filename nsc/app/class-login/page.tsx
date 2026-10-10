@@ -48,19 +48,37 @@ export default async function ClassLoginPage({ searchParams }: {
         </p>
       ) : (
       <>
-      <p className="border-y border-line py-3 text-center text-[0.9375rem] text-ink-soft [text-wrap:pretty]">
-        Took the toddler class? Its lessons are on Thinkific for now.{" "}
-        <a
-          href={THINKIFIC_LOGIN_URL}
-          target="_blank"
-          rel="noopener"
-          className="inline-flex min-h-11 items-center gap-1 font-semibold text-teal underline underline-offset-4"
-        >
-          Log in on Thinkific
-          <span aria-hidden="true">↗</span>
-          <span className="sr-only"> (opens in a new tab)</span>
-        </a>
-      </p>
+      {/* Ask which class first, so a toddler-class parent goes to Thinkific
+          before trying a password that was never set here. Skipped mid-checkout:
+          that parent is already buying a class that lives on this site. */}
+      {!enrolling && (
+        <section aria-labelledby="which-class" className="flex flex-col gap-3">
+          <h2 id="which-class" className="text-center font-body text-[0.9375rem] font-semibold text-ink-deep">
+            Which class are you opening?
+          </h2>
+          <ul className="divide-y divide-line overflow-hidden rounded-card border border-line bg-surface text-left">
+            <li className="px-5 py-3.5">
+              <p className="font-semibold text-ink-deep">Birth to 12 months or Preschool years</p>
+              <p className="text-[0.9375rem] text-ink-soft">Sign in below with your Growing Minds Science account.</p>
+            </li>
+            <li>
+              <a
+                href={THINKIFIC_LOGIN_URL}
+                target="_blank"
+                rel="noopener"
+                className="group flex min-h-11 items-center justify-between gap-4 px-5 py-3.5 transition-colors hover:bg-tint"
+              >
+                <span>
+                  <span className="block font-semibold text-teal underline-offset-4 group-hover:underline">Toddler years</span>
+                  <span className="block text-[0.9375rem] text-ink-soft">Its lessons are on Thinkific for now. Log in there.</span>
+                </span>
+                <span aria-hidden="true" className="text-lg text-teal">↗</span>
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+      )}
       <Card>
         <form action={login} className="flex flex-col gap-4">
           <input type="hidden" name="flow" value="class" />
