@@ -22,6 +22,17 @@ const ENROLL_LABEL = `Enroll, ${INFANT_COURSE.priceDisplay}`;
 const LESSON_COUNT = INFANT_MODULE_LESSON_COUNTS.reduce((sum, count) => sum + count, 0);
 const SYLLABUS_HREF = sitePath(`${INFANT_COURSE.detailsPath}#syllabus`);
 
+/**
+ * The free lesson is not the first one, and its narration opens with "Welcome
+ * back", so a visitor gets one line on what came before. Keyed by slug: if a
+ * different lesson is ever flagged free, it shows no lead-in until it has one.
+ * The video, captions and written version stay exactly as recorded.
+ */
+const PREVIEW_LEAD_INS: Record<string, string> = {
+  "serve-and-return":
+    "You are joining at lesson 3, which is why it opens with “welcome back.” Lessons 1 and 2 showed that babies arrive built to connect with the people around them, and that the brain wires itself from ordinary family life; this lesson names the pattern inside that everyday life.",
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const lesson = await loadPreview();
   if (!lesson) {
@@ -50,6 +61,7 @@ export default async function InfantPreviewPage() {
     redirect(lessonPath(lesson.slug, INFANT_COURSE.slug));
   }
   const lessonNumber = lesson ? classLessonNumber(INFANT_MODULE_LESSON_COUNTS, lesson.module_number, lesson.position) : 0;
+  const leadIn = lesson ? PREVIEW_LEAD_INS[lesson.slug] : undefined;
   const detailsLink = (
     <a href={sitePath(INFANT_COURSE.detailsPath)} className="inline-flex min-h-11 items-center text-sm text-ink-muted underline underline-offset-4">← Class details</a>
   );
@@ -77,6 +89,12 @@ export default async function InfantPreviewPage() {
               <h1 className="text-3xl text-ink-deep sm:text-5xl">{lesson.title}</h1>
               {lesson.summary && <p className="max-w-[60ch] text-lg text-ink-soft [text-wrap:pretty]">{lesson.summary}</p>}
               <p className="max-w-[60ch] text-ink-soft">A full lesson from the {INFANT_COURSE.shortTitle} class, free to watch. No account needed.</p>
+              {leadIn && (
+                <p className="mt-2 max-w-[60ch] rounded-card bg-tint px-5 py-4 text-[0.9375rem] text-ink [text-wrap:pretty]">
+                  <span className="font-semibold text-ink-deep">Where this fits. </span>
+                  {leadIn}
+                </p>
+              )}
             </header>
             <ClassPlayer
               lessonId={lesson.id}
