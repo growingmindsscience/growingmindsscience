@@ -24,9 +24,9 @@ colors:
 typography:
   display:
     fontFamily: "Besley, Georgia, Times New Roman, serif"
-    fontSize: "clamp(2.3rem, 0.1rem + 3.75vw, 3.4rem)"
+    fontSize: "clamp(2.25rem, 0.55rem + 4.35vw, 4.25rem)"
     fontWeight: 500
-    lineHeight: 1.04
+    lineHeight: 1.02
     letterSpacing: "-0.005em"
   headline:
     fontFamily: "Besley, Georgia, Times New Roman, serif"
@@ -193,7 +193,7 @@ The fallbacks are metric-matched: `Besley Fallback` (local Georgia, size-adjust 
 **Character:** Besley is a Clarendon with warmth: textbook headings, confident at weight 500, normal tracking (−0.005em; never tighter than −0.01em, Clarendons cramp). Atkinson Hyperlegible Next was designed for low-vision legibility, which is exactly right for a tired parent reading at night; it sets body, UI, labels, and figure text.
 
 ### Hierarchy
-- **Display** (Besley 500, `clamp(2.3rem → 3.4rem)` above 1100px, 1.04): hero headline, sized so each sentence holds one line in the two-column hero.
+- **Display** (Besley 500, `clamp(2.25rem → 4.25rem)`, 1.02): the hero headline, on its own full-width row above the pitch and Fig. 1, so it is the largest type on the site and each sentence holds one line from about 600px up. H2s top out at 2.2rem, at least 1.4× smaller at every width.
 - **Headline** (Besley 500, `clamp(2rem → 3.1rem)`, 1.08): section h2s.
 - **Title** (Besley 500, `clamp(1.5rem → 2.125rem)`, 1.12): class titles, lens names, shelf headings.
 - **Body** (Atkinson 400, 17px, 1.6): all running text. Measure ≤ 60ch.
@@ -206,7 +206,7 @@ The fallbacks are metric-matched: `Besley Fallback` (local Georgia, size-adjust 
 
 **The Figure Rule.** Every diagram is a `<figure>` with an SVG `<title>` and `<desc>`, a visible "Fig. N" caption, and its source named when it is adapted from published work.
 
-**No eyebrows.** Small uppercase tracked kickers are retired. Where a label is needed (hero, office hours) it is sentence-case, 15px, amber or amber-deep, and carries real information.
+**No eyebrows.** Small uppercase tracked kickers are retired. Where a label is needed (office hours) it is sentence-case, 15px, amber or amber-deep, and carries real information. The hero has none: the headline opens the page, and the lede's first clause says what the product is.
 
 ## 4. Elevation
 
@@ -271,7 +271,7 @@ The offer reads the same on the homepage rows and enrol band, `/classes/`, each 
 - **Toddler years:** 5 modules, 29 lessons, about 5 hours; includes unlimited Growing Minds AI for life (`nsc/lib/grants.ts`); checkout and lessons on Thinkific until the class moves on-site, so every toddler Enroll button carries ↗ and a quiet note under it says "Checkout opens in a new tab; your login arrives by email within minutes. Already enrolled? Open My classes." The platform is named only on the toddler class page (hero fine print, the "where do I take it" FAQ, the enroll band) and on the class sign-in page; the homepage, `/classes/` and `/pricing` never say "Thinkific".
 - **Both:** $49 once, lifetime access. Full refund within 14 days if the buyer has watched 4 lessons or fewer; the free lesson doesn't count (the app reads the wording from `nsc/lib/refund-policy.ts`). State it once per page, on its own line under the price card's button, and answer it in the refund FAQ. Free things (the milestone tracker, five AI questions a day) are never listed as "included".
 - **Enroll labels:** "Enroll, $49" on any button that stands alone; plain "Enroll" only where the price sits right beside it (the homepage enrol rows, the phone enroll bar). A button that opens a new tab shows ↗ as well as screen-reader text.
-- **See before you buy:** the infant class's "Serve and Return" plays free at `/nsc/classes/infant/preview` with no account; it is the infant class's second action wherever the class is sold. The toddler page carries a written excerpt from Module 4, Lesson 1, under the hero, until a toddler lesson can be previewed the same way.
+- **See before you buy:** the infant class's "Serve and Return" plays free at `/nsc/classes/infant/preview` with no account, under a short "Where this fits" lead-in (it is lesson 3, so it opens with "welcome back"; the lead-in says what lessons 1 and 2 set up); it is the infant class's second action wherever the class is sold. The toddler page carries a written excerpt from Module 4, Lesson 1, under the hero, until a toddler lesson can be previewed the same way.
 - **Lesson and module titles** are the class's own titles from the app and keep their Title Case; every other heading is sentence case.
 
 ### Chat demo
@@ -283,7 +283,7 @@ Ground-colored field on a white card, `line` border, 10px radius, teal focus rin
 ### Navigation
 - **One header and footer everywhere.** Styles live only in `assets/css/chrome.css`, behavior only in `assets/js/chrome.js`. Don't restyle `.site-header` / `.site-footer` in page stylesheets.
 - **Ink variant:** a page that opens on an ink hero adds `site-header--ink`; the bar reads as part of the hero, links go on-dark, and the CTA turns amber. The homepage uses it. Inner pages keep the light bar.
-- **Structure:** Classes · Free tools (details menu) · Articles · About, divider, My classes, one CTA, theme toggle. "My classes" is a single link to `/nsc/class-login`; that page holds the one line toddler buyers need ("Took the toddler class? Log in on Thinkific"). On the homepage the bar's CTA is "Enroll, $49" (the hero already says "Browse the classes"). The arcade lives only on `/arcade`, reached from the Free tools menu (with a one-line description) and the footer. There are no hidden triggers, glyphs or orbs on any other page, and every game opens from a visible Play button. It exists so stressed parents can stop thinking for five minutes, and the copy says so. It stays out of the homepage's run-up to the price. Nav links are Atkinson 500; the wordmark is Besley 600. Amber underline for hover/current.
+- **Structure:** Classes · Free tools (details menu) · Articles · About, divider, My classes, one CTA, theme toggle. "My classes" is a single link to `/nsc/class-login`; that page opens with "Which class are you opening?" so toddler buyers reach Thinkific before trying a password. Class pages link "My classes" there too, never to `/nsc/app/classes`. On the homepage the bar's CTA is "Enroll, from $35" (the hero already says "Browse the classes"). The arcade lives only on `/arcade`, reached from the Free tools menu (with a one-line description) and the footer. There are no hidden triggers, glyphs or orbs on any other page, and every game opens from a visible Play button. It exists so stressed parents can stop thinking for five minutes, and the copy says so. It stays out of the homepage's run-up to the price. Nav links are Atkinson 500; the wordmark is Besley 600. Amber underline for hover/current.
 - **Footer:** ink-900, brand + Instagram, Classes / Free tools / About columns in Atkinson, Besley column headings.
 
 ## 6. Do's and Don'ts

@@ -351,7 +351,7 @@ h3 { font-size: var(--text-xl); }
   isolation: isolate;
   background: var(--ink-800);
   color: var(--on-dark);
-  padding-block: clamp(3rem, 7vw, 6rem) clamp(3.5rem, 8vw, 6.5rem);
+  padding-block: clamp(2.75rem, 5vw, 4.5rem) clamp(3.25rem, 5.5vw, 5rem);
   overflow: hidden;
 }
 /* Graph-paper ground: the lab-notebook texture that carries "science" without
@@ -380,60 +380,56 @@ h3 { font-size: var(--text-xl); }
     radial-gradient(50% 60% at 0% 100%, rgba(127, 196, 188, 0.08) 0%, transparent 60%);
   pointer-events: none;
 }
+/* The headline spans the full width on its own row, so it can be the largest
+   type on the site; the pitch and Figure 1 share the row beneath it. */
 .hero__inner {
   display: grid;
-  grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
-  gap: clamp(var(--space-8), 5vw, var(--space-12));
-  align-items: center;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(var(--space-8), 4vw, var(--space-12)) clamp(var(--space-8), 5vw, var(--space-16));
+  align-items: start;
 }
-.hero__kicker {
-  margin: 0 0 var(--space-5);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--amber);
-}
-/* Sized so each sentence holds one line in the two-column layout (>=1100px);
-   below that the hero stacks and the title takes the full measure. */
+/* Sized so each sentence holds one line from about 600px up; the H2s top out
+   at 2.2rem, under half of this. */
 .hero__title {
+  grid-column: 1 / -1;
+  margin: 0;
   color: #fff;
-  margin-bottom: var(--space-6);
-  font-size: clamp(2.2rem, 0.1rem + 3.3vw, 2.75rem);
-  line-height: 1.04;
+  font-size: clamp(2.25rem, 0.55rem + 4.35vw, 4.25rem);
+  line-height: 1.02;
 }
 .hero__line { display: block; }
 .hero__title .hl,
 .ai__aside h2 .hl,
 .signup__pitch h2 .hl { --hl-bg: var(--amber); --hl-ink: #0E2129; --hl-h: 1.06em; --hl-y: 50%; }
 .hero__lede {
-  font-size: var(--text-md);
+  font-size: clamp(var(--text-md), 1rem + 0.3vw, 1.1875rem);
   line-height: 1.6;
   color: var(--on-dark-soft);
-  max-width: 50ch;
+  max-width: 44ch;
   margin-bottom: var(--space-8);
   text-wrap: pretty;
 }
-.hero__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-6); margin-bottom: var(--space-8); }
+.hero__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-4); margin-bottom: var(--space-8); }
+/* The byline: who teaches it, in one breath, under the buttons. */
 .hero__cred {
   display: flex;
   align-items: center;
   gap: var(--space-4);
-  max-width: 54ch;
+  max-width: 52ch;
   margin: 0;
-  padding-top: var(--space-6);
-  border-top: 1px solid var(--on-dark-line);
 }
 .hero__cred-photo {
   flex: none;
-  width: 48px; height: 48px;
+  width: 44px; height: 44px;
   border-radius: 50%;
   object-fit: cover;
   object-position: center 12%;
   border: 1.5px solid rgba(238, 244, 243, 0.3);
 }
-.hero__cred-text { margin: 0; font-size: var(--text-sm); line-height: 1.55; color: var(--on-dark-muted); }
+.hero__cred-text { margin: 0; font-size: var(--text-sm); line-height: 1.55; color: var(--on-dark-soft); text-wrap: pretty; }
 .hero__cred-text strong { color: var(--on-dark); font-weight: 600; }
 
-.hero__media { position: relative; margin: 0; }
+.hero__media { position: relative; justify-self: end; width: 100%; max-width: 29rem; margin: 0; }
 .fig--hero .fig__caption { color: var(--on-dark-muted); }
 .fig--hero .fig__caption b { color: var(--amber); }
 .fig--hero .fig-grid { stroke: rgba(238, 244, 243, 0.08); }
@@ -614,12 +610,8 @@ h3 { font-size: var(--text-xl); }
 .instructor__facts li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 6px; height: 6px; border-radius: 50%; background: var(--amber); }
 .instructor__more { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; color: var(--teal); text-decoration: none; }
 .instructor__more:hover { text-decoration: underline; text-underline-offset: 0.2em; }
-.instructor.instructor--compact {
-  grid-template-columns: 4.5rem minmax(0, 1fr);
-  align-items: center;
-  gap: var(--space-5);
-}
-.instructor--compact .instructor__photo { width: 4.5rem; aspect-ratio: 1; border-radius: 50%; }
+/* The hero already shows his face; this block is the record, in words. */
+.instructor.instructor--compact { grid-template-columns: minmax(0, 1fr); }
 .instructor__line { margin: 0; color: var(--ink-soft); max-width: 58ch; text-wrap: pretty; }
 .instructor__line strong { color: var(--ink); font-weight: 600; }
 .instructor--compact .instructor__more { display: inline; min-height: 0; white-space: nowrap; }
@@ -1266,9 +1258,7 @@ html.anim .hero__line:nth-child(3) { animation-delay: 220ms; }
 html.anim .hero__title .hl { animation: hl-draw 620ms var(--ease) 820ms both; }
 html.anim .hero__lede,
 html.anim .hero__ctas,
-html.anim .hero__cred,
-html.anim .hero__kicker { animation: hero-fade 700ms var(--ease) both; }
-html.anim .hero__kicker { animation-delay: 0ms; }
+html.anim .hero__cred { animation: hero-fade 700ms var(--ease) both; }
 html.anim .hero__lede { animation-delay: 380ms; }
 html.anim .hero__ctas { animation-delay: 480ms; }
 html.anim .hero__cred { animation-delay: 580ms; }
@@ -1336,9 +1326,8 @@ html.anim .fig--loop[data-animate].is-visible .fig-arrow:nth-of-type(4) { animat
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1100px) {
-  .hero__inner { grid-template-columns: minmax(0, 1fr); gap: var(--space-10); }
-  .hero__title { font-size: clamp(2.1rem, 1rem + 4vw, 3.4rem); max-width: none; }
-  .hero__media { max-width: 40rem; }
+  .hero__inner { grid-template-columns: minmax(0, 1fr); }
+  .hero__media { justify-self: start; max-width: 40rem; }
 }
 
 @media (max-width: 960px) {
@@ -1410,6 +1399,10 @@ html.anim .fig--loop[data-animate].is-visible .fig-arrow:nth-of-type(4) { animat
 }
 
 @media (max-width: 560px) {
+  /* Each sentence wraps onto two lines here, so open the leading a little and
+     add a beat between sentences to keep the three of them reading as three. */
+  .hero__title { line-height: 1.06; }
+  .hero__line + .hero__line { margin-top: 0.16em; }
   .hero__cred { align-items: flex-start; }
   .hero__ctas .btn { flex: 1 1 100%; }
 }
