@@ -185,9 +185,9 @@ const CLASSES = {
     name: "Preschool Years: Self-Regulation, Play, and Kindergarten Readiness",
     audience: "Parents of preschoolers aged 3–5",
     offer: {
-      price: "35.00",
+      price: "49.00",
       url: `${ORIGIN}/nsc/app/classes/preschool`,
-      description: "$35 one time with lifetime access to all 15 lessons",
+      description: "$49 one time with lifetime access to all 15 lessons",
     },
   },
 };
