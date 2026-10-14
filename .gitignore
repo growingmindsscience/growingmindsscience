@@ -30,3 +30,6 @@ node_modules/
 .impeccable/mocks/
 .taste-skill/
 .playwright-cli/
+
+# Ship-gate working files (scripts/fg-gate.mjs): tools, screenshots, raw reports
+.fg-gate/
