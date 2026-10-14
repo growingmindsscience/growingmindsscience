@@ -33,14 +33,23 @@
 .hub-split { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 24px clamp(32px, 5vw, 80px); align-items: start; }
 .hub-split__head h2 { font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem); line-height: 1.05; }
 .hub-split__head p { margin-top: 14px; color: var(--ink-soft); max-width: 36ch; }
-@media (max-width: 860px) { .hub-split { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 860px) {
+  .hub-split { grid-template-columns: minmax(0, 1fr); }
+  /* On a phone the list comes first and the photograph follows it. */
+  .hub-split--photo-last .hub-split__head { display: contents; }
+  .hub-split--photo-last { row-gap: 14px; }
+  .hub-split--photo-last .hub-split__head p { margin-top: 0; }
+  .hub-split--photo-last .rows { margin-top: 14px; }
+  .hub-split--photo-last .rows { order: 1; }
+  .hub-split--photo-last .hub-photo { order: 2; margin-top: 8px !important; }
+}
 
 /* ---------- Rows: a list with quiet rules, the name in Newsreader ---------- */
 .rows { display: grid; }
 .row { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr) auto; gap: 6px 28px; padding-block: 22px; border-top: 1px solid var(--border-soft); align-items: baseline; }
 .row:first-child { border-top: 0; padding-top: 0; }
 .row__name { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem); line-height: 1.15; letter-spacing: -0.01em; }
-.row__name a { text-decoration: none; display: inline-block; padding-block: 8px; margin-block: -8px; }
+.row__name a { text-decoration: none; display: inline-block; padding-block: 10px; margin-block: -10px; }
 .row__name a:hover { color: var(--forest); text-decoration: underline; text-underline-offset: 0.16em; }
 .row__meta { font-size: 14px; color: var(--ink-muted); margin-top: 6px; }
 .row__desc { color: var(--ink-soft); }
@@ -58,18 +67,18 @@
 .hard-door:hover strong { text-decoration: underline; text-underline-offset: 0.12em; }
 .tools-saved { display: inline-flex; align-items: center; min-height: 44px; margin-top: 12px; font-size: 15px; }
 .topic-jump { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 18px; font-size: 15px; }
-.topic-jump a { display: inline-flex; align-items: center; min-height: 44px; }
-.topic { padding-top: 28px; }
+.topic-jump a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
+.topic { padding-top: 56px; }
 .topic:first-of-type { padding-top: 0; }
 .topic h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); line-height: 1.1; letter-spacing: -0.015em; color: var(--ink); padding-bottom: 10px; }
 .guide { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 6px 28px; padding-block: 18px; border-top: 1px solid var(--border-soft); align-items: baseline; }
 .guide .tool-card__eyebrow { order: 2; font-size: 14px; color: var(--ink-muted); grid-column: 1; }
 .guide h4 { order: 1; grid-column: 1; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem); line-height: 1.15; }
-.guide h4 a { text-decoration: none; display: inline-block; padding-block: 8px; margin-block: -8px; }
+.guide h4 a { text-decoration: none; display: inline-block; padding-block: 10px; margin-block: -10px; }
 .guide h4 a:hover { color: var(--forest); text-decoration: underline; text-underline-offset: 0.16em; }
 .guide p { order: 3; grid-column: 2; grid-row: 1 / span 2; color: var(--ink-soft); }
 .guide.is-foryou { background: var(--sage-mist); border-radius: var(--radius); padding-inline: 14px; border-top-color: transparent; }
-.guide .gms-foryou { order: 2; grid-column: 1; justify-self: start; font-size: 13px; font-weight: 600; color: var(--forest); }
+.guide .gms-foryou { order: 2; grid-column: 1; justify-self: start; background: none; padding: 0; border-radius: 0; font-size: 13px; font-weight: 600; color: var(--forest); }
 @media (max-width: 760px) { .guide { grid-template-columns: minmax(0, 1fr); } .guide p { grid-column: 1; grid-row: auto; } }
 .hub-sec [data-gms-profile] { margin-top: 24px; }
 
