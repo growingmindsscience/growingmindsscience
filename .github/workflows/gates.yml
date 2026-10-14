@@ -73,6 +73,10 @@ jobs:
       - name: "API functions: unit tests (node --test, mocked fetch)"
         run: node --test "tests/api/*.test.mjs"
 
+      # Keyless too: the fetch test talks to a local stand-in for Mux.
+      - name: "Infant captions tool: unit tests (python3 unittest)"
+        run: python3 -m unittest discover -s nsc/tools/infant-captions
+
       - name: Eval harness — deterministic checks (planted-violation gate)
         run: |
           if [ -f evals/selftest.mjs ]; then
