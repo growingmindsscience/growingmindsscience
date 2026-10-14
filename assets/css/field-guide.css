@@ -151,6 +151,8 @@ a { color: inherit; }
 /* Footer: columns above, the wordmark below, on the same ink field as the close. */
 .fg .site-footer {
   display: grid; grid-template-rows: auto 1fr auto;
+  /* A gap between the links and the wordmark when the links outgrow the 70svh floor (phones). */
+  row-gap: clamp(2.5rem, 6vw, 4rem);
   min-height: 70svh;
   padding: 2.5rem 0 1.5rem;
   background: var(--field-ink);

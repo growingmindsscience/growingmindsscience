@@ -1,5 +1,7 @@
 /* Growing Minds Science: home.js
-   The homepage's own behaviour (the header, menu and theme live in chrome.js).
+   The homepage's behaviour, also loaded by inner pages on the same system for
+   their entrances (every other part is guarded and does nothing there).
+   The header, menu and theme live in chrome.js.
    - The plate: "Show what's growing" reveals the typeset labels over the photograph.
    - The Lens: a four-step tablist; the plate's labels follow the active step.
    - The age row: a progress bar for the sideways row on narrow screens.
