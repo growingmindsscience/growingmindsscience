@@ -43,3 +43,19 @@ The standing defences in `critique-classes.md` carry over: quiet rules (`hairlin
 
 - `few-pictures` (FAIL): tools, articles and about carry one or two of the generated pictures or Matthew's own; pricing carries none. No stock is allowed. A custom picture for articles (a parent reading) would fit better than the blocks photograph; that is a brief for Matthew.
 - Escape leaves the pricing questions open: they are in-page `details` content, not overlays.
+
+## Design pass (Matthew's review, with the impeccable skill's layout and craft-floor checks)
+
+Matthew flagged the homepage's reading photograph: it ran the full width of the page, sat flush on the portrait below it, and the heading touched its paragraph. Two things were wrong, and the second turned out to be site-wide.
+
+1. **Composition.** A full-width photograph turned a moment of teaching into a banner. The photograph now sits in the left half at 4:3, beside "Mental models, not scripts." and its paragraph. On phones it leads the section at full width. The separate headshot is dropped from this section: Matthew is in the photograph, and the about page carries the portrait.
+2. **Cancelled spacing.** `field-guide.css` reset margins with `.fg h1, .fg p, .fg figure` and the rest at (0,1,1), which outranks any single-class rule such as `.trust__para { margin-top: 20px }` (0,1,0). Every component's own spacing was silently zeroed. On the homepage that was the hero headline's top margin (72px at 1440), the lead and the "Something hard right now?" line, the classes intro and terms, the tools evidence note, and the age and Lens footnotes. The reset now sits at `:where()` weight, so the spacing the homepage's designer wrote applies. A computed-style diff confirms the only changes are those margins. The Lens page shows no margin change.
+
+Found in the same inspection round (desktop and phone captured together) and fixed in one batch:
+
+- On phones, the homepage's tools photograph rendered at full width before the tool list (an older `.tools__photo` rule in `field-guide.css` shares the name). The list now comes first and the photograph follows, as on the tools hub.
+- About: the five principles sat in a two-column grid with the fifth alone beside a hole. They are now rows, the name left and its line right.
+- The close bands on tools and about floated their buttons far right, away from the statement they answer. Statement and action now sit together on the left.
+- Hub leads ran the full width on pricing, about 110 characters a line, because the page-level `p { max-width: none }` outranked `.hb-lead`. Leads keep a 52ch measure.
+
+The skill's mechanical layout scan (`impeccable detect --scope layout`) reported nothing on any of these files before or after; every finding above came from the screenshots.
