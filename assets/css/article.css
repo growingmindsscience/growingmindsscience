@@ -1,0 +1,121 @@
+/* =========================================================
+   Growing Minds Science: article.css
+   The eight articles on the annotated-observation system (body.art).
+   Primitives from fg-base.css; the close band from hubs.css. A title block
+   with the short version on sage mist, then one reading column with the
+   contents beside it. Figures sit on soft white with calm corners and no
+   shadow; sources sit in the research-blue module. Tokens from
+   tokens-field-guide.css.
+   ========================================================= */
+
+/* ---------- Title block ---------- */
+.art-title { padding-block: clamp(32px, 5vw, 72px) clamp(48px, 6vw, 88px); }
+.art-title__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 32px clamp(32px, 5vw, 80px); align-items: end; }
+.art-crumb { font-size: 15px; margin-bottom: 12px; }
+.art-crumb a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink-soft); }
+.art-title h1 { font-size: clamp(2.125rem, 1.35rem + 3vw, 3.75rem); line-height: 1; letter-spacing: -0.025em; max-width: 20ch; }
+.art .art-dek { margin-top: 22px; color: var(--ink-soft); max-width: 52ch; }
+.art .art-meta { margin-top: 20px; font-size: 15px; color: var(--ink-muted); }
+.art-short { padding: clamp(24px, 3vw, 36px); border-radius: var(--radius-lg); background: var(--sage-mist); }
+.art-short h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); line-height: 1.15; letter-spacing: -0.01em; }
+.art .art-short p { margin-top: 10px; color: var(--ink-soft); }
+@media (max-width: 900px) { .art-title__grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- Body: contents beside one reading column ---------- */
+.art-body { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: 32px clamp(32px, 5vw, 80px); align-items: start; padding-block: clamp(40px, 5vw, 72px) clamp(72px, 9vw, 128px); border-top: 1px solid var(--border-soft); }
+.art-toc { position: sticky; top: calc(var(--header-h, 72px) + 24px); }
+.art .art-toc h2 { font-family: var(--font-body); letter-spacing: 0; line-height: 1.4; font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+.art .art-toc ol { list-style: none; margin: 0; padding: 0; display: grid; }
+.art-toc a { display: flex; align-items: center; min-height: 44px; padding-block: 4px; font-size: 15px; line-height: 1.35; color: var(--ink-soft); text-decoration: none; border-top: 1px solid var(--border-soft); }
+.art-toc li:first-child a { border-top: 0; }
+.art-toc a:hover { color: var(--forest); text-decoration: underline; }
+@media (max-width: 900px) {
+  .art-body { grid-template-columns: minmax(0, 1fr); }
+  .art-toc { position: static; padding-bottom: 8px; border-bottom: 1px solid var(--border-soft); }
+}
+
+/* ---------- The reading column ---------- */
+.art-text { max-width: 68ch; font-size: 1.125rem; line-height: 1.7; color: var(--ink); }
+.art .art-text p { margin-top: 1.1em; }
+.art .art-text > p:first-child { margin-top: 0; }
+.art .art-text h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem); line-height: 1.1; letter-spacing: -0.015em; margin-top: 2.2em; scroll-margin-top: calc(var(--header-h, 72px) + 24px); }
+.art .art-text h3 { font-family: var(--font-body); letter-spacing: 0; font-size: 1.125rem; font-weight: 600; line-height: 1.35; margin-top: 1.8em; }
+.art .art-text h2 + p, .art .art-text h3 + p { margin-top: 0.6em; }
+.art .art-text ul, .art .art-text ol:not([class]) { margin: 1.1em 0 0; padding-left: 1.25rem; display: grid; gap: 0.6em; }
+.art .art-text li::marker { color: var(--ink-muted); }
+.art-text strong { font-weight: 600; }
+.art-text a { color: var(--forest); }
+
+/* A statement set apart: sage mist, Newsreader, no side stripe. */
+.art .art-callout { margin: 2em 0; padding: clamp(20px, 3vw, 32px); border-radius: var(--radius-lg); background: var(--sage-mist); }
+.art .art-callout p { margin: 0; font-family: var(--font-display); font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); line-height: 1.3; letter-spacing: -0.01em; }
+.art .art-callout p + p { margin-top: 0.6em; }
+.art-callout strong { font-weight: 500; }
+
+/* Two cells side by side: what the science supports, what it does not. */
+.art .art-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px clamp(24px, 3vw, 40px); margin: 2em 0; }
+.art-pair__cell { padding-top: 16px; border-top: 1.5px solid var(--ink); }
+.art .art-pair__cell h3 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 1.25rem; line-height: 1.2; }
+.art .art-pair__cell p { margin-top: 8px; font-size: 1rem; color: var(--ink-soft); }
+@media (max-width: 640px) { .art .art-pair { grid-template-columns: minmax(0, 1fr); } }
+
+/* The checklist in "The cliff at three" */
+.art .checklist { margin: 2em 0; padding: clamp(20px, 3vw, 32px); border-radius: var(--radius-lg); background: var(--sage-mist); }
+.art .checklist h3 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); line-height: 1.2; }
+.art .checklist > p { margin-top: 8px; font-size: 15px; color: var(--ink-soft); }
+.art .art-text .checklist ol { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 0; }
+.art .checklist li { display: grid; gap: 4px; padding-block: 14px; border-top: 1px solid var(--sage-mist-2); }
+.art .checklist li:first-child { border-top: 0; padding-top: 0; }
+.art .checklist .when { font-size: 14px; font-weight: 600; color: var(--forest); }
+.art .checklist .ask { margin: 0; font-size: 1rem; color: var(--ink-soft); }
+
+/* ---------- Figures: soft white, calm corners, no shadow ---------- */
+.art .art-figure { margin: 2.2em 0; padding: clamp(18px, 3vw, 32px); border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--border-soft); }
+/* Drawn on a 480-unit viewBox with text in SVG units: capped at 32rem, 16-unit
+   labels render at about 17px; below 560px labels step to 22 units. */
+.art-figure svg { display: block; width: 100%; max-width: 32rem; height: auto; margin-inline: auto; }
+.art-figure .af-text { font: 500 16px var(--font-body); fill: var(--ink-soft); }
+.art-figure .af-strong { font-weight: 600; fill: var(--ink); }
+.art-figure .af-muted { fill: var(--ink-muted); }
+.art-figure .af-primary { fill: var(--forest); }
+.art-figure .af-accent { fill: var(--clay-text); }
+.art-figure .af-note { font-style: italic; fill: var(--clay-text); }
+.art-figure .af-head, .art-figure .af-key, .art-figure .af-foot, .art-figure figcaption { max-width: 32rem; margin-inline: auto; }
+.art .art-figure .af-head { margin-block: 0 16px; color: var(--ink); font-size: 1rem; font-weight: 600; line-height: 1.4; text-wrap: balance; }
+.art .art-figure .af-foot { margin-block: 16px 0; font-family: var(--font-display); font-style: italic; font-size: 1.125rem; color: var(--ink-soft); line-height: 1.4; text-wrap: balance; }
+.art .art-figure .af-key { display: grid; gap: 12px; margin-block: 20px 0; padding: 16px 0 0; border-top: 1px solid var(--border-soft); list-style: none; color: var(--ink-soft); font-size: 15px; line-height: 1.5; }
+.art-figure .af-key li { display: grid; grid-template-columns: 1.75rem minmax(0, 1fr); gap: 12px; align-items: start; }
+.art-figure .af-key b { color: var(--ink); font-weight: 600; }
+.art-figure .af-key__num { display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border: 1.5px solid var(--forest); border-radius: 50%; color: var(--forest); font-size: 14px; font-weight: 600; }
+.art-figure .af-key__num--warm { border-color: var(--clay-text); color: var(--clay-text); }
+.art .art-figure .af-key--stages { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 20px; }
+.art-figure .af-key--stages li { display: block; }
+.art-figure .af-key--stages b { display: block; }
+.art .art-figure figcaption { margin-top: 16px; color: var(--ink-muted); font-size: 14px; line-height: 1.6; }
+.art-figure figcaption b { font-weight: 600; color: var(--ink); }
+.art .art-figure .article-figure__head { margin: 0 0 16px; }
+.art .figure-steps { display: grid; gap: 20px; margin: 0; padding: 0; list-style: none; }
+.art .figure-steps li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; align-items: start; }
+.art .figure-step__num { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border: 1.5px solid var(--forest); border-radius: 50%; color: var(--forest); font-weight: 600; font-size: 15px; }
+.art .figure-steps .figure-step__title { margin: 4px 0 2px; font-family: var(--font-display); font-size: 1.25rem; line-height: 1.2; color: var(--ink); }
+.art .figure-steps p { margin: 0; color: var(--ink-soft); font-size: 15px; line-height: 1.6; }
+.art .figure-foot { margin: 20px 0 0; padding-top: 16px; border-top: 1px solid var(--border-soft); font-family: var(--font-display); font-style: italic; font-size: 1.125rem; color: var(--ink-soft); }
+@media (max-width: 560px) {
+  .art-figure .af-text { font-size: 22px; }
+}
+@media (max-width: 374px) {
+  .art-figure svg { width: calc(100% + 16px); max-width: none; margin-inline: -8px; }
+}
+
+/* ---------- Sources: the research-blue module ---------- */
+.art .art-sources { margin-top: 3em; padding-top: 20px; border-top: 2px solid var(--research); }
+.art .art-sources h2 { margin: 0; font-family: var(--font-body); font-size: 15px; font-weight: 600; letter-spacing: 0; color: var(--research); }
+.art .art-sources ul { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 0; }
+.art .art-sources li { padding-block: 10px; border-top: 1px solid var(--border-soft); font-size: 15px; line-height: 1.5; }
+.art .art-sources li:first-child { border-top: 0; }
+.art .art-sources a { color: var(--research); }
+
+/* ---------- Close ---------- */
+/* Article closes carry longer statements than the hubs: a step smaller, a shorter measure. */
+.art .hub-close h2 { font-size: clamp(1.75rem, 1.25rem + 1.8vw, 2.75rem); max-width: 24ch; }
+.art .art-close__note { margin-top: 10px; font-size: 14px; color: var(--on-ink-muted); }

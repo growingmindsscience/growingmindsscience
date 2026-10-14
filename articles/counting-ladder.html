@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
+  /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <title>The counting ladder: what happens between 'one, two, three' and actually counting | Growing Minds Science</title>
   <meta name="description" content="A two-year-old who 'counts to ten' is usually reciting, and that is exactly right for the age. Here is the well-mapped sequence children climb from saying number words to understanding them, and how to support it at home." />
-  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#F7F4EC" />
   <meta name="color-scheme" content="light dark" />
 
   <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
@@ -26,93 +26,12 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=3fa98080dc" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=4def14502a" />
-
-  <style>
-    .article-hero { padding: clamp(3.5rem, 7vw, 6rem) 0 var(--space-10); background: linear-gradient(180deg, color-mix(in oklab, var(--accent-soft) 22%, var(--bg)) 0%, var(--bg) 100%); border-bottom: 1px solid var(--border-soft); }
-    .article-layout { display: grid; grid-template-columns: minmax(0, .72fr) minmax(240px, .28fr); gap: clamp(var(--space-8), 6vw, var(--space-16)); align-items: start; }
-    .article-kicker { color: var(--accent-brown); font-size: var(--text-sm); font-weight: 600; line-height: 1.4; margin: 0 0 var(--space-4); }
-    .article-title { max-width: 22ch; margin: 0 0 var(--space-5); font-family: var(--font-display); font-size: clamp(2.3rem, 1.2rem + 3.2vw, 3.4rem); font-weight: 500; letter-spacing: -0.005em; line-height: 1.06; text-wrap: balance; }
-    .article-dek { max-width: 48rem; color: var(--ink-soft); font-size: var(--text-lg); line-height: 1.55; margin: 0; }
-    .article-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); color: var(--ink-muted); font-size: var(--text-sm); margin-top: var(--space-6); }
-    .article-cardlet, .article-toc, .article-callout, .sources-panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-5); }
-    /* Scoped under .article-body so the article h2 rule below cannot inflate the sidebar headings. */
-    .article-body .article-cardlet h2, .article-body .article-toc h2, .article-cardlet h2, .article-toc h2 { font-size: var(--text-md); margin: 0 0 var(--space-3); }
-    .article-cardlet p, .article-toc a { color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.6; }
-    .article-toc { position: sticky; top: calc(var(--header-height) + var(--space-6)); }
-    .article-toc ol { display: grid; gap: var(--space-2); list-style: none; margin: 0; padding: 0; }
-    .article-toc a { text-decoration: none; }
-    .article-toc a:hover { color: var(--primary); }
-    .article-body { padding-block: var(--space-14); }
-    .article-body article { max-width: 66ch; } /* 66ch of the 17px base is about 60ch of the 19px body text */
-    .article-body h2 { margin: var(--space-10) 0 var(--space-4); font-size: var(--text-2xl); }
-    .article-body h3 { margin: var(--space-7) 0 var(--space-3); font-size: var(--text-lg); }
-    .article-body p { color: var(--ink-soft); font-size: var(--text-md); line-height: 1.78; margin: 0 0 var(--space-5); }
-    .article-body ul { color: var(--ink-soft); display: grid; gap: var(--space-3); line-height: 1.72; margin: 0 0 var(--space-6); padding-left: 1.25rem; }
-    .article-body a, .sources-panel a { color: var(--primary); font-weight: 700; }
-    .article-callout { background: color-mix(in oklab, var(--accent-soft) 30%, var(--surface)); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: var(--space-5) var(--space-6); margin: var(--space-8) 0; }
-    .article-callout p { margin: 0; }
-    .translation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); margin: var(--space-7) 0; }
-    .translation-card { background: var(--bg-alt); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: var(--space-5); }
-    .translation-card h3 { margin-top: 0; }
-    .sources-panel { margin-top: var(--space-10); }
-    .sources-panel ul { margin-bottom: 0; }
-    .article-cta { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
-    .article-figure { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-6); margin: var(--space-8) 0; }
-    /* Figures are drawn on a 480-unit viewBox and their text is set in SVG
-       units, so it scales with the drawing. Capped at 32rem, 16-unit labels
-       render at about 17px on wide screens. Below 560px the figure gives up
-       some padding and labels step to 22 units: about 14px on a 375px phone. */
-    .article-figure svg { display: block; width: 100%; max-width: 32rem; height: auto; margin-inline: auto; }
-    .article-figure .af-text { font: 500 16px var(--font-body); fill: var(--ink-soft); }
-    .article-figure .af-strong { font-weight: 700; fill: var(--ink); }
-    .article-figure .af-muted { fill: var(--ink-muted); }
-    .article-figure .af-primary { fill: var(--primary); }
-    .article-figure .af-accent { fill: var(--accent-brown); }
-    .article-figure .af-note { font-style: italic; fill: var(--accent-brown); }
-    .article-figure .af-head, .article-figure .af-key, .article-figure .af-foot, .article-figure figcaption { max-width: 32rem; margin-inline: auto; }
-    .article-figure .af-head { margin-block: 0 var(--space-4); color: var(--ink); font-size: var(--text-base); font-weight: 700; line-height: 1.4; text-wrap: balance; }
-    .article-figure .af-foot { margin-block: var(--space-4) 0; color: var(--accent-brown); font-size: var(--text-base); font-style: italic; line-height: 1.5; text-wrap: balance; }
-    .article-figure .af-key { display: grid; gap: var(--space-3); margin-block: var(--space-5) 0; padding: var(--space-4) 0 0; border-top: 1px solid var(--border-soft); list-style: none; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.55; }
-    .article-figure .af-key li { display: grid; grid-template-columns: 1.75rem minmax(0, 1fr); gap: var(--space-3); align-items: start; }
-    .article-figure .af-key b { color: var(--ink); font-weight: 700; }
-    .article-figure .af-key__num { display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border: 2px solid var(--primary); border-radius: 50%; color: var(--primary); font-size: var(--text-sm); font-weight: 700; line-height: 1; }
-    .article-figure .af-key__num--warm { border-color: var(--warm); color: var(--accent-brown); }
-    .article-figure .af-key--stages { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-5); }
-    .article-figure .af-key--stages li { display: block; }
-    .article-figure .af-key--stages b { display: block; }
-    @media (max-width: 560px) {
-      .article-figure { padding: var(--space-4); }
-      .article-figure .af-text { font-size: 22px; }
-    }
-    /* Narrower phones (360px class): the drawing borrows 8px of padding each side. */
-    @media (max-width: 374px) {
-      .article-figure svg { width: calc(100% + 2 * var(--space-2)); max-width: none; margin-inline: calc(-1 * var(--space-2)); }
-    }
-    .article-figure figcaption { color: var(--ink-muted); font-size: var(--text-sm); line-height: 1.6; margin-top: var(--space-4); }
-    .article-figure figcaption b { font-family: var(--font-display); font-style: italic; font-weight: 600; color: var(--amber-deep); }
-    .article-figure .article-figure__head { margin: 0 0 var(--space-4); }
-    .figure-steps { display: grid; gap: var(--space-5); margin: 0; padding: 0; list-style: none; }
-    .figure-steps li { display: grid; grid-template-columns: 44px 1fr; gap: var(--space-4); align-items: start; }
-    .figure-steps h4 { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); }
-    .figure-steps p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
-    .figure-foot { margin: var(--space-5) 0 0; padding-top: var(--space-4); border-top: 1px dashed var(--border-soft); color: var(--accent-brown); font-style: italic; font-size: var(--text-md); }
-    /* The TOC comes first in the DOM, so on phones it sits above the article
-       (and keyboard order matches what is on screen); wide screens keep it in
-       the right-hand column. */
-    .article-body .article-toc { grid-column: 2; grid-row: 1; }
-    .article-body .article-layout > article { grid-column: 1; grid-row: 1; }
-    @media (max-width: 920px) {
-      .article-layout, .translation-grid { grid-template-columns: 1fr; }
-      .article-cta { flex-direction: column; align-items: stretch; }
-      .article-cta .hero__ctas { justify-content: flex-start; }
-      .article-toc { position: static; }
-      .article-body .article-toc,
-      .article-body .article-layout > article { grid-column: auto; grid-row: auto; }
-    }
-  </style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Inter:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=909f54ea40" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=9ee704dd6a" />
+  <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
+  <link rel="stylesheet" href="/assets/css/article.css?v=b47ce73722" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=d000ca1262" />
   <!-- STRUCTURED-DATA:start (generated by scripts/build-structured-data.mjs) -->
   <script type="application/ld+json">
   [
@@ -174,10 +93,10 @@
   ]
   </script>
   <!-- STRUCTURED-DATA:end -->
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=d000ca1262" />
 </head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
+<body class="fg fg--page hub art">
+  <!-- header:start -->
+<a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
@@ -193,17 +112,18 @@
 
         <ul class="nav__list" id="primary-nav-list">
           <li class="nav__now"><a class="nav__link" href="/tools/right-now">It&rsquo;s hard right now</a></li>
+          <li><a class="nav__link" href="/#explore">Explore</a></li>
           <li><a class="nav__link" href="/classes/">Classes</a></li>
           <li class="nav__item">
             <details class="nav__details">
-              <summary class="nav__link nav__summary">Free tools <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary>
+              <summary class="nav__link nav__summary">Tools <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary>
               <div class="nav__menu">
                 <ul class="nav__submenu">
-                  <li><a class="nav__submenu-link" href="/tools/growing-minds-ai.html"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A free ten-minute counting check-in; the full version is $34.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/right-now"><span class="nav__submenu-title">It&rsquo;s hard right now</span><span class="nav__submenu-desc">A calm next step in two minutes.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/growing-minds-ai"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
                   <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/tools/communication-snapshot.html"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/arcade/"><span class="nav__submenu-title">Arcade</span><span class="nav__submenu-desc">Silly games for a five-minute break between lessons.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/communication-snapshot"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A free ten-minute counting check-in.</span></a></li>
                 </ul>
                 <a class="nav__menu-all" href="/tools/">All free tools and guides <span aria-hidden="true">&rarr;</span></a>
               </div>
@@ -212,7 +132,7 @@
           <li><a class="nav__link" href="/articles/" aria-current="page">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
           <li class="nav__item nav__auth"><a class="nav__link" href="/nsc/class-login">My classes</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Enroll, from $49</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -223,150 +143,142 @@
     </div>
   </header>
 
-  <main id="main">
-    <section class="article-hero">
-      <div class="container article-layout">
+  <main id="main" tabindex="-1">
+    <section class="art-title">
+      <div class="hb-container art-title__grid">
         <div>
-          <p class="article-kicker">Research, explained</p>
-          <h1 class="article-title">The counting ladder</h1>
-          <p class="article-dek">A two-year-old who &ldquo;counts to ten&rdquo; is almost always reciting a memorized song, and that is exactly right for the age. Between saying the number words and understanding them lies a real, well-mapped sequence. Here is what it looks like, and how to support your child on it without a single flashcard.</p>
-          <p class="article-meta">
-            <span>By Matthew McArthur</span>
-            <span>Ages 2 to 5</span>
-            <span>6 minute read</span>
-          </p>
+          <p class="art-crumb"><a href="/articles/">Articles</a></p>
+          <h1 class="hb-display">The counting ladder</h1>
+          <p class="hb-lead art-dek">A two-year-old who &ldquo;counts to ten&rdquo; is almost always reciting a memorized song, and that is exactly right for the age. Between saying the number words and understanding them lies a real, well-mapped sequence. Here is what it looks like, and how to support your child on it without a single flashcard.</p>
+          <p class="art-meta">By Matthew McArthur <span aria-hidden="true">&middot;</span> Ages 2 to 5 <span aria-hidden="true">&middot;</span> 6 minute read</p>
         </div>
-        <aside class="article-cardlet" aria-label="Article summary">
+        <aside class="art-short" aria-label="Article summary">
           <h2>The short version</h2>
           <p>Reciting number words and understanding what they mean are two different skills, and children build the second one in a steady sequence developmental scientists call the knower levels. Knowing roughly where a child is on that sequence lets you match what you offer to what they are ready for, which turns out to matter more than drilling. None of it requires worksheets; it happens in ordinary counting moments.</p>
         </aside>
       </div>
     </section>
 
-    <section class="article-body">
-      <div class="container article-layout">
-        <aside class="article-toc" aria-label="Article navigation">
-          <h2>In this article</h2>
-          <ol>
+    <div class="hb-container art-body">
+      <nav class="art-toc" aria-label="Article navigation">
+        <h2>In this article</h2>
+        <ol>
             <li><a href="#the-ladder">The ladder, one rung at a time</a></li>
             <li><a href="#why-the-rung-matters">Why the rung matters</a></li>
             <li><a href="#at-home">What it looks like at home</a></li>
             <li><a href="#number-path">A ten-minute version</a></li>
           </ol>
-        </aside>
+      </nav>
+      <article class="art-text">
+        <p>Almost every parent of a young child has witnessed the party trick. You ask your two-year-old to count, and out it comes: &ldquo;one, two, three, four, five, six, seven, eight, nine, ten!&rdquo; It is delightful, and it feels like evidence that the numbers have landed. Then you put four crackers on the table, ask how many there are, and get a cheerful &ldquo;seven!&rdquo; or a hand that grabs all of them when you asked for two.</p>
 
-        <article>
-          <p>Almost every parent of a young child has witnessed the party trick. You ask your two-year-old to count, and out it comes: &ldquo;one, two, three, four, five, six, seven, eight, nine, ten!&rdquo; It is delightful, and it feels like evidence that the numbers have landed. Then you put four crackers on the table, ask how many there are, and get a cheerful &ldquo;seven!&rdquo; or a hand that grabs all of them when you asked for two.</p>
+        <p>Nothing has gone wrong. Your child has learned the count list the same way they learned the alphabet song or the words to a nursery rhyme: as a sequence of sounds that go together in a fixed order. That is a genuine achievement, and it is the doorway to real counting. But reciting &ldquo;one, two, three&rdquo; and understanding that the word <em>three</em> refers to a specific amount are two separate skills, and the second one arrives gradually, in a sequence that is one of the more reassuring things you can know about early math.</p>
 
-          <p>Nothing has gone wrong. Your child has learned the count list the same way they learned the alphabet song or the words to a nursery rhyme: as a sequence of sounds that go together in a fixed order. That is a genuine achievement, and it is the doorway to real counting. But reciting &ldquo;one, two, three&rdquo; and understanding that the word <em>three</em> refers to a specific amount are two separate skills, and the second one arrives gradually, in a sequence that is one of the more reassuring things you can know about early math.</p>
+        <div class="art-callout">
+          <p><strong>Saying the number words is memorization. Knowing what the words mean is a different skill, and children build it one number at a time, in a predictable order.</strong></p>
+        </div>
 
-          <div class="article-callout">
-            <p><strong>Saying the number words is memorization. Knowing what the words mean is a different skill, and children build it one number at a time, in a predictable order.</strong></p>
+        <h2 id="the-ladder">The ladder, one rung at a time</h2>
+
+        <p>For about thirty years, developmental scientists have studied how children move from reciting numbers to understanding them, and the picture that emerged is remarkably orderly. Children become what researchers call &ldquo;knowers,&rdquo; one number at a time.</p>
+
+        <p>First a child becomes a <strong>one-knower</strong>: asked for one object, they can hand you exactly one, but asked for two, three, or five, they just grab a handful. A few months later they are a <strong>two-knower</strong>, reliably giving one or two but guessing above that. Then a <strong>three-knower</strong>, then often a <strong>four-knower</strong>. Each of these stages can last for months. The child is not stuck; they are consolidating, learning that each new number word points to one specific amount.</p>
+
+        <p>And then something bigger happens. Somewhere around three or four, most children make a leap that researchers call the <strong>cardinal principle</strong> discovery: they suddenly grasp that counting itself is the tool that answers &ldquo;how many.&rdquo; They understand that the last word you say when you count a set tells you the size of the whole set, and that this works for any number, not just the few they had memorized. A child who reaches this insight is often called a &ldquo;cardinal-principle knower,&rdquo; and from there, counting becomes genuinely useful to them rather than a recitation.</p>
+
+        <p>The clever part is how anyone figured this out. The standard tool is a task the psychologist Karen Wynn introduced around 1990, usually called Give-N, or &ldquo;give a number.&rdquo; A researcher sits with a child and a pile of small objects and simply asks: &ldquo;Can you give me three?&rdquo; What the child does next is the data. The one-knower gives a fistful. The three-knower carefully counts out three. That single, low-key request quietly reveals which rung of the ladder the child is standing on. Later work, notably by Mathieu Le Corre and Susan Carey in 2007, mapped the knower levels in detail and showed that the jump to the cardinal principle is a real conceptual change, not just more of the same memorizing.</p>
+
+        <figure class="art-figure">
+          <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig-counting-ladder-title" aria-describedby="fig-counting-ladder-desc">
+            <title id="fig-counting-ladder-title">The counting ladder: knower levels up to the cardinal principle.</title>
+            <desc id="fig-counting-ladder-desc">A staircase of knower levels, climbed from the bottom: one-knower (hands you exactly 1), two-knower (1 and 2 are reliable), three-knower (1 through 3 are secure), four-knower (4 joins the list). Above a gap marked as the leap, a real conceptual change, sits the top step: the cardinal-principle discovery, when counting itself starts to answer &lsquo;how many&rsquo;.</desc>
+            <rect x="4" y="252" width="472" height="44" fill="var(--primary)" fill-opacity=".08" stroke="var(--primary)" stroke-opacity=".55" stroke-width="1.5" />
+            <text class="af-text" x="20" y="274" dy=".35em"><tspan class="af-strong">One-knower:</tspan> hands you exactly 1</text>
+            <rect x="36" y="208" width="440" height="44" fill="var(--primary)" fill-opacity=".11" stroke="var(--primary)" stroke-opacity=".55" stroke-width="1.5" />
+            <text class="af-text" x="52" y="230" dy=".35em"><tspan class="af-strong">Two-knower:</tspan> 1 and 2 are reliable</text>
+            <rect x="68" y="164" width="408" height="44" fill="var(--primary)" fill-opacity=".14" stroke="var(--primary)" stroke-opacity=".55" stroke-width="1.5" />
+            <text class="af-text" x="84" y="186" dy=".35em"><tspan class="af-strong">Three-knower:</tspan> 1 through 3 are secure</text>
+            <rect x="100" y="120" width="376" height="44" fill="var(--primary)" fill-opacity=".17" stroke="var(--primary)" stroke-opacity=".55" stroke-width="1.5" />
+            <text class="af-text" x="116" y="142" dy=".35em"><tspan class="af-strong">Four-knower:</tspan> 4 joins the list</text>
+            <path d="M 116 114 L 116 86" fill="none" stroke="var(--warm)" stroke-width="2" stroke-dasharray="5 4" />
+            <polygon points="109,88 116,74 123,88" fill="var(--warm)" />
+            <text class="af-text af-note" x="132" y="98" dy=".35em">the leap: a real conceptual change</text>
+            <rect x="132" y="4" width="344" height="72" fill="var(--warm)" fill-opacity=".16" stroke="var(--warm)" stroke-opacity=".7" stroke-width="1.5" />
+            <text class="af-text af-strong" x="148" y="34">Cardinal principle</text>
+            <text class="af-text" x="148" y="62">counting answers &ldquo;how many&rdquo;</text>
+            <line x1="0" y1="296" x2="480" y2="296" stroke="var(--border-soft)" stroke-width="2" />
+          </svg>
+          <figcaption><b>Fig. 1</b> &middot; The knower levels. Children become &ldquo;knowers&rdquo; one number at a time, and each rung can last for months. The jump at the top, discovering that the last word counted names the size of the whole set, is the moment counting becomes a tool rather than a recitation.</figcaption>
+        </figure>
+
+        <h2 id="why-the-rung-matters">Why knowing the rung matters</h2>
+
+        <p>It would be easy to read all this as a chart to check your child against, but that is not what makes it useful. What makes it useful is that a child&rsquo;s rung tells you what kind of help actually lands.</p>
+
+        <p>A good illustration comes from a randomized trial by Dominic Gibson, Elizabeth Gunderson, and Susan Levine, published in 2020. Families of two-to-four-year-olds were given picture books to read together, and the books differed in one way: some kept the number talk to small amounts (one, two, three), while others featured larger sets. The interesting result was not just that number-book reading helped; it was that it helped <em>differently</em> depending on where the child already stood. Small numbers gave nearly every child something to work with, while the larger sets did the most good for children who were already further along the climb.</p>
+
+        <p>That is the whole case for paying attention to the rung. Input that is matched to what a child can already do tends to beat generic drilling, because the child can actually connect it to something. A number they are on the verge of understanding is a gift; a number ten rungs up is just noise. You do not need to run a lab to use this. You mostly need to notice whether your child is working on the idea of &ldquo;two&rdquo; or already confidently counting out six, and to spend your energy right around that edge.</p>
+
+        <div class="art-pair">
+          <div class="art-pair__cell">
+            <h3>Reciting</h3>
+            <p>Saying the count list as a memorized song. Real and worth celebrating, but it does not yet mean the words are attached to amounts.</p>
           </div>
-
-          <h2 id="the-ladder">The ladder, one rung at a time</h2>
-
-          <p>For about thirty years, developmental scientists have studied how children move from reciting numbers to understanding them, and the picture that emerged is remarkably orderly. Children become what researchers call &ldquo;knowers,&rdquo; one number at a time.</p>
-
-          <p>First a child becomes a <strong>one-knower</strong>: asked for one object, they can hand you exactly one, but asked for two, three, or five, they just grab a handful. A few months later they are a <strong>two-knower</strong>, reliably giving one or two but guessing above that. Then a <strong>three-knower</strong>, then often a <strong>four-knower</strong>. Each of these stages can last for months. The child is not stuck; they are consolidating, learning that each new number word points to one specific amount.</p>
-
-          <p>And then something bigger happens. Somewhere around three or four, most children make a leap that researchers call the <strong>cardinal principle</strong> discovery: they suddenly grasp that counting itself is the tool that answers &ldquo;how many.&rdquo; They understand that the last word you say when you count a set tells you the size of the whole set, and that this works for any number, not just the few they had memorized. A child who reaches this insight is often called a &ldquo;cardinal-principle knower,&rdquo; and from there, counting becomes genuinely useful to them rather than a recitation.</p>
-
-          <p>The clever part is how anyone figured this out. The standard tool is a task the psychologist Karen Wynn introduced around 1990, usually called Give-N, or &ldquo;give a number.&rdquo; A researcher sits with a child and a pile of small objects and simply asks: &ldquo;Can you give me three?&rdquo; What the child does next is the data. The one-knower gives a fistful. The three-knower carefully counts out three. That single, low-key request quietly reveals which rung of the ladder the child is standing on. Later work, notably by Mathieu Le Corre and Susan Carey in 2007, mapped the knower levels in detail and showed that the jump to the cardinal principle is a real conceptual change, not just more of the same memorizing.</p>
-
-          <figure class="article-figure">
-            <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig-counting-ladder-title" aria-describedby="fig-counting-ladder-desc">
-              <title id="fig-counting-ladder-title">The counting ladder: knower levels up to the cardinal principle.</title>
-              <desc id="fig-counting-ladder-desc">A staircase of knower levels, climbed from the bottom: one-knower (hands you exactly 1), two-knower (1 and 2 are reliable), three-knower (1 through 3 are secure), four-knower (4 joins the list). Above a gap marked as the leap, a real conceptual change, sits the top step: the cardinal-principle discovery, when counting itself starts to answer &lsquo;how many&rsquo;.</desc>
-              <rect x="4" y="252" width="472" height="44" fill="var(--primary)" fill-opacity=".08" stroke="var(--primary)" stroke-opacity=".55" stroke-width="1.5" />
-              <text class="af-text" x="20" y="274" dy=".35em"><tspan class="af-strong">One-knower:</tspan> hands you exactly 1</text>
-              <rect x="36" y="208" width="440" height="44" fill="var(--primary)" fill-opacity=".11" stroke="var(--primary)" stroke-opacity=".55" stroke-width="1.5" />
-              <text class="af-text" x="52" y="230" dy=".35em"><tspan class="af-strong">Two-knower:</tspan> 1 and 2 are reliable</text>
-              <rect x="68" y="164" width="408" height="44" fill="var(--primary)" fill-opacity=".14" stroke="var(--primary)" stroke-opacity=".55" stroke-width="1.5" />
-              <text class="af-text" x="84" y="186" dy=".35em"><tspan class="af-strong">Three-knower:</tspan> 1 through 3 are secure</text>
-              <rect x="100" y="120" width="376" height="44" fill="var(--primary)" fill-opacity=".17" stroke="var(--primary)" stroke-opacity=".55" stroke-width="1.5" />
-              <text class="af-text" x="116" y="142" dy=".35em"><tspan class="af-strong">Four-knower:</tspan> 4 joins the list</text>
-              <path d="M 116 114 L 116 86" fill="none" stroke="var(--warm)" stroke-width="2" stroke-dasharray="5 4" />
-              <polygon points="109,88 116,74 123,88" fill="var(--warm)" />
-              <text class="af-text af-note" x="132" y="98" dy=".35em">the leap: a real conceptual change</text>
-              <rect x="132" y="4" width="344" height="72" fill="var(--warm)" fill-opacity=".16" stroke="var(--warm)" stroke-opacity=".7" stroke-width="1.5" />
-              <text class="af-text af-strong" x="148" y="34">Cardinal principle</text>
-              <text class="af-text" x="148" y="62">counting answers &ldquo;how many&rdquo;</text>
-              <line x1="0" y1="296" x2="480" y2="296" stroke="var(--border-soft)" stroke-width="2" />
-            </svg>
-            <figcaption><b>Fig. 1</b> &middot; The knower levels. Children become &ldquo;knowers&rdquo; one number at a time, and each rung can last for months. The jump at the top, discovering that the last word counted names the size of the whole set, is the moment counting becomes a tool rather than a recitation.</figcaption>
-          </figure>
-
-          <h2 id="why-the-rung-matters">Why knowing the rung matters</h2>
-
-          <p>It would be easy to read all this as a chart to check your child against, but that is not what makes it useful. What makes it useful is that a child&rsquo;s rung tells you what kind of help actually lands.</p>
-
-          <p>A good illustration comes from a randomized trial by Dominic Gibson, Elizabeth Gunderson, and Susan Levine, published in 2020. Families of two-to-four-year-olds were given picture books to read together, and the books differed in one way: some kept the number talk to small amounts (one, two, three), while others featured larger sets. The interesting result was not just that number-book reading helped; it was that it helped <em>differently</em> depending on where the child already stood. Small numbers gave nearly every child something to work with, while the larger sets did the most good for children who were already further along the climb.</p>
-
-          <p>That is the whole case for paying attention to the rung. Input that is matched to what a child can already do tends to beat generic drilling, because the child can actually connect it to something. A number they are on the verge of understanding is a gift; a number ten rungs up is just noise. You do not need to run a lab to use this. You mostly need to notice whether your child is working on the idea of &ldquo;two&rdquo; or already confidently counting out six, and to spend your energy right around that edge.</p>
-
-          <div class="translation-grid">
-            <div class="translation-card">
-              <h3>Reciting</h3>
-              <p>Saying the count list as a memorized song. Real and worth celebrating, but it does not yet mean the words are attached to amounts.</p>
-            </div>
-            <div class="translation-card">
-              <h3>Understanding</h3>
-              <p>Handing you exactly the amount you asked for, and eventually realizing that counting a set tells you how big it is. This is the part that grows one rung at a time.</p>
-            </div>
+          <div class="art-pair__cell">
+            <h3>Understanding</h3>
+            <p>Handing you exactly the amount you asked for, and eventually realizing that counting a set tells you how big it is. This is the part that grows one rung at a time.</p>
           </div>
+        </div>
 
-          <h2 id="at-home">What this looks like at home</h2>
+        <h2 id="at-home">What this looks like at home</h2>
 
-          <p>The reassuring thing about the counting ladder is that children climb it through the same warm, ordinary moments that build early language. There is nothing to buy and no curriculum to run. A few habits do most of the work.</p>
+        <p>The reassuring thing about the counting ladder is that children climb it through the same warm, ordinary moments that build early language. There is nothing to buy and no curriculum to run. A few habits do most of the work.</p>
 
+        <ul>
+          <li><strong>Count small amounts out loud during real routines.</strong> Two shoes by the door, three blueberries on the tray, four steps up to the porch. Small sets are where the meaning of numbers gets built, so most of the useful counting happens under five, not up to a hundred.</li>
+          <li><strong>Ask &ldquo;how many?&rdquo; after you count, and pause.</strong> Counting a row of crackers and then asking &ldquo;so how many crackers?&rdquo; is exactly the move that helps a child connect the last word to the whole amount. If they say the wrong thing, that is fine information, not a mistake to correct hard.</li>
+          <li><strong>Let the child do the checking.</strong> Hand them the job of putting one napkin at each seat, or giving the dog two treats, then counting to see. Physically making a set the right size is worth more than watching you do it.</li>
+          <li><strong>Follow their edge, not the chart.</strong> If your child is working on &ldquo;three,&rdquo; play around three. When they start counting out larger amounts on their own, follow them up. The goal is to stay just ahead of where they are, not to push a number they are not ready for.</li>
+        </ul>
+
+        <p>Notice what is absent from that list: pressure, testing, and any comparison to the child at the next table. The counting ladder is a sequence every child climbs, at their own pace, and the timing varies widely among children who are all doing fine. It is a description of an order, not a schedule.</p>
+
+        <h2 id="number-path">A quiet, ten-minute version of the lab game</h2>
+
+        <p>If you have read this far, you may be wondering where your own child actually is on the ladder. That question is the whole reason we built Number Path. It is a ten-minute, parent-run version of the Give-N game, played at home with a bowl, ten blocks, and a stuffed bear. You run a short scripted game (&ldquo;can you feed the bear three?&rdquo;), and it places your child on the counting ladder, then hands you a weekly set of household games and a daily number-talk prompt matched to exactly that rung. The check-in itself is free to run.</p>
+
+        <p>It is the same idea as reading together, just with numbers: low-pressure, scripted so the moment stays calm, and built to meet your child where they are. If you would rather read the studies first, every source it draws on is listed openly.</p>
+
+        <div class="art-sources">
+          <h2>Sources and Further Reading</h2>
           <ul>
-            <li><strong>Count small amounts out loud during real routines.</strong> Two shoes by the door, three blueberries on the tray, four steps up to the porch. Small sets are where the meaning of numbers gets built, so most of the useful counting happens under five, not up to a hundred.</li>
-            <li><strong>Ask &ldquo;how many?&rdquo; after you count, and pause.</strong> Counting a row of crackers and then asking &ldquo;so how many crackers?&rdquo; is exactly the move that helps a child connect the last word to the whole amount. If they say the wrong thing, that is fine information, not a mistake to correct hard.</li>
-            <li><strong>Let the child do the checking.</strong> Hand them the job of putting one napkin at each seat, or giving the dog two treats, then counting to see. Physically making a set the right size is worth more than watching you do it.</li>
-            <li><strong>Follow their edge, not the chart.</strong> If your child is working on &ldquo;three,&rdquo; play around three. When they start counting out larger amounts on their own, follow them up. The goal is to stay just ahead of where they are, not to push a number they are not ready for.</li>
+            <li>Wynn, K. (1990). Children&rsquo;s understanding of counting. <em>Cognition, 36</em>(2), 155&ndash;193.</li>
+            <li>Wynn, K. (1992). Children&rsquo;s acquisition of the number words and the counting system. <em>Cognitive Psychology, 24</em>(2), 220&ndash;251.</li>
+            <li>Le Corre, M., &amp; Carey, S. (2007). One, two, three, four, nothing more: An investigation of the conceptual sources of the verbal counting principles. <em>Cognition, 105</em>(2), 395&ndash;438.</li>
+            <li>Gibson, D. J., Gunderson, E. A., &amp; Levine, S. C. (2020). Causal effects of parent number talk on preschoolers&rsquo; number knowledge. <em>Child Development, 91</em>(6).</li>
+          <li>Gunderson, E. A., &amp; Levine, S. C. (2011). Some types of parent number talk count more than others: Relations between parents&rsquo; input and children&rsquo;s cardinal-number knowledge. <em>Developmental Science, 14</em>(5), 1021&ndash;1032.</li>
+            <li><a href="/nsc/evidence">Number Path: the full evidence page</a>, with every citation for the check-in and the weekly plan.</li>
           </ul>
+        </div>
+      </article>
+    </div>
 
-          <p>Notice what is absent from that list: pressure, testing, and any comparison to the child at the next table. The counting ladder is a sequence every child climbs, at their own pace, and the timing varies widely among children who are all doing fine. It is a description of an order, not a schedule.</p>
-
-          <h2 id="number-path">A quiet, ten-minute version of the lab game</h2>
-
-          <p>If you have read this far, you may be wondering where your own child actually is on the ladder. That question is the whole reason we built Number Path. It is a ten-minute, parent-run version of the Give-N game, played at home with a bowl, ten blocks, and a stuffed bear. You run a short scripted game (&ldquo;can you feed the bear three?&rdquo;), and it places your child on the counting ladder, then hands you a weekly set of household games and a daily number-talk prompt matched to exactly that rung. The check-in itself is free to run.</p>
-
-          <p>It is the same idea as reading together, just with numbers: low-pressure, scripted so the moment stays calm, and built to meet your child where they are. If you would rather read the studies first, every source it draws on is listed openly.</p>
-
-          <div class="sources-panel">
-            <h2>Sources and Further Reading</h2>
-            <ul>
-              <li>Wynn, K. (1990). Children&rsquo;s understanding of counting. <em>Cognition, 36</em>(2), 155&ndash;193.</li>
-              <li>Wynn, K. (1992). Children&rsquo;s acquisition of the number words and the counting system. <em>Cognitive Psychology, 24</em>(2), 220&ndash;251.</li>
-              <li>Le Corre, M., &amp; Carey, S. (2007). One, two, three, four, nothing more: An investigation of the conceptual sources of the verbal counting principles. <em>Cognition, 105</em>(2), 395&ndash;438.</li>
-              <li>Gibson, D. J., Gunderson, E. A., &amp; Levine, S. C. (2020). Causal effects of parent number talk on preschoolers&rsquo; number knowledge. <em>Child Development, 91</em>(6).</li>
-            <li>Gunderson, E. A., &amp; Levine, S. C. (2011). Some types of parent number talk count more than others: Relations between parents&rsquo; input and children&rsquo;s cardinal-number knowledge. <em>Developmental Science, 14</em>(5), 1021&ndash;1032.</li>
-              <li><a href="/nsc/evidence">Number Path: the full evidence page</a>, with every citation for the check-in and the weekly plan.</li>
-            </ul>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section--alt">
-      <div class="container container--narrow">
-        <div class="article-cta">
-          <div>
-            <p class="article-kicker">Free to run · no account needed</p>
-            <h2 style="margin:0 0 .35rem; font-size:var(--text-lg);">Find your child&rsquo;s rung on the counting ladder.</h2>
-            <p class="small" style="max-width:38rem; margin:0;">Number Path is a ten-minute, parent-run check-in for ages 2 to 5 that needs only a bowl, ten blocks, and a stuffed bear. The check-in is free; $34 once unlocks the weekly plan matched to where your child is.</p>
-          </div>
-          <div class="hero__ctas">
-            <a class="btn btn--primary" href="/nsc">Meet Number Path</a>
-            <a class="btn btn--ghost" href="/nsc/evidence">See the evidence</a>
-          </div>
+    <section class="hub-sec hub-close" aria-labelledby="close-heading">
+      <div class="hb-container">
+        <div data-rise>
+          <h2 class="hb-display" id="close-heading">Find your child&rsquo;s rung on the counting ladder.</h2>
+          <p>Number Path is a ten-minute, parent-run check-in for ages 2 to 5 that needs only a bowl, ten blocks, and a stuffed bear. The check-in is free; $34 once unlocks the weekly plan matched to where your child is.</p>
+          <p class="art-close__note">Free to run · no account needed</p>
+        </div>
+        <div class="hub-close__act" data-rise style="--i:1">
+          <a class="hb-btn hb-btn--paper" href="/nsc">Meet Number Path</a>
+          <a class="hb-btn hb-btn--quiet" href="/nsc/evidence">See the evidence</a>
         </div>
       </div>
     </section>
   </main>
 
+  <!-- footer:start -->
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
@@ -374,11 +286,7 @@
           <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">growing minds</span><span class="brand__desc">Science</span>
         </a>
-        <p class="site-footer__tag">A developmental-science education for parents of children 0 to 5.</p>
-        <a class="footer-ig" href="https://www.instagram.com/growingmindsscience/" target="_blank" rel="noopener noreferrer">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
-          Instagram
-        </a>
+        <p class="site-footer__tag">A living field guide to the growing mind, for parents of children 0 to 5.</p>
       </div>
       <nav class="site-footer__nav" aria-label="Footer">
         <div>
@@ -392,12 +300,12 @@
           </ul>
         </div>
         <div>
-          <h2 class="site-footer__heading">Free tools</h2>
+          <h2 class="site-footer__heading">Tools</h2>
           <ul class="footer-list">
-            <li><a href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
-            <li><a href="/nsc">Number Path</a></li>
+            <li><a href="/tools/right-now">It&rsquo;s hard right now</a></li>
+            <li><a href="/tools/growing-minds-ai">Growing Minds AI</a></li>
             <li><a href="/milestones">Milestone tracker</a></li>
-            <li><a href="/tools/communication-snapshot.html">Communication Snapshot</a></li>
+            <li><a href="/tools/communication-snapshot">Communication Snapshot</a></li>
             <li><a href="/tools/">All tools and guides</a></li>
           </ul>
         </div>
@@ -405,25 +313,34 @@
           <h2 class="site-footer__heading">About</h2>
           <ul class="footer-list">
             <li><a href="/about/">Our approach</a></li>
-            <li><a href="/articles/">Articles</a></li>
+            <li><a href="/articles/" aria-current="page">Articles</a></li>
             <li><a href="/faq/">FAQ</a></li>
             <li><a href="/contact/">Contact</a></li>
           </ul>
         </div>
+        <div>
+          <h2 class="site-footer__heading">Elsewhere</h2>
+          <ul class="footer-list">
+            <li><a href="https://www.instagram.com/growingmindsscience/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="/arcade/">Arcade</a></li>
+          </ul>
+        </div>
       </nav>
     </div>
-    <div class="container">
+    <div class="container site-footer__close">
+      <p class="site-footer__wordmark" aria-hidden="true">growing minds <span class="site-footer__wordmark-desc">science</span></p>
       <div class="footer-bottom">
-        <p>&copy; <span data-year>2026</span> Growing Minds Science &middot; <a href="/arcade/">Arcade</a></p>
+        <p>&copy; <span data-year>2026</span> Growing Minds Science</p>
         <p>Educational content only. Not medical or psychological advice.</p>
       </div>
     </div>
   </footer>
+<!-- footer:end -->
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
 
   <script src="../assets/js/main.js?v=742e637d07" defer></script>
-  <script src="../assets/js/decor.js?v=09ff05457d" defer></script>
+  <script src="/assets/js/home.js?v=c7f5c746df" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
