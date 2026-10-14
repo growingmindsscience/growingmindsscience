@@ -7,7 +7,7 @@
   /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <title>Leaving the playground: a Developmental Lens | Growing Minds Science</title>
   <meta name="description" content="An ordinary moment every parent of a toddler knows, read through the Developmental Lens: what we see, what may be developing, what that changes, and what to notice next time." />
-  <meta name="theme-color" content="#F7F5EF" />
+  <meta name="theme-color" content="#F7F4EC" />
   <meta name="color-scheme" content="light dark" />
 
   <meta property="og:type" content="article" />
@@ -28,10 +28,12 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=DM+Sans:opsz,wght@9..40,400..600&display=swap" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=ace172d63f" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Inter:wght@400;500;600&display=swap" />
   <link rel="stylesheet" href="/assets/css/field-guide.css?v=909f54ea40" />
-  <link rel="stylesheet" href="/assets/css/lens.css?v=6b59246050" />
+  <link rel="preload" as="image" imagesrcset="/assets/img/site/child-learning-640.jpg 640w, /assets/img/site/child-learning.jpg 1122w" imagesizes="(min-width: 901px) 46vw, 80vw" fetchpriority="high" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=9ee704dd6a" />
+  <link rel="stylesheet" href="/assets/css/home.css?v=4d73a00e05" />
+  <link rel="stylesheet" href="/assets/css/lens-page.css?v=353bcb0369" />
 
   <script type="application/ld+json">
   {
@@ -47,7 +49,7 @@
   </script>
   <link rel="stylesheet" href="/assets/css/chrome.css?v=d000ca1262" />
 </head>
-<body class="fg fg--lens">
+<body class="fg fg--page lp">
 
 <a class="skip-link" href="#main">Skip to content</a>
 
@@ -96,169 +98,40 @@
     </div>
   </header>
 
-  <main id="main" tabindex="-1" class="lens-page">
-    <div class="fg-wrap lens-page__inner">
-      <header class="lens-page__title-block">
-        <figure class="lens-page__photo">
-          <img src="/assets/img/site/child-learning-640.jpg" srcset="/assets/img/site/child-learning-640.jpg 640w, /assets/img/site/child-learning.jpg 1122w" sizes="(min-width: 1000px) 16vw, 60vw" alt="A toddler at the bottom of a playground slide, one hand on it, while a crouching parent holds out a hand." width="640" height="800" decoding="async" />
-        </figure>
-        <div class="lens-page__axis">
-          <h1 class="lens-page__title">Leaving the<br /> playground</h1>
-          <p class="lens-page__standfirst">An ordinary moment every parent of a toddler knows, read through the Developmental Lens: what we see, what may be developing, what that changes, and what to notice next time.</p>
-        </div>
-      </header>
+  <main id="main" tabindex="-1">
+    <section class="hb-container lp-title" aria-labelledby="page-heading">
+      <h1 class="hb-display" id="page-heading">Leaving the playground</h1>
+      <p class="lp-meta">A Developmental Lens &middot; 18 months to 4 years &middot; Regulation, autonomy, transitions</p>
+      <p class="hb-lead" data-rise style="--i:1">An ordinary moment every parent of a toddler knows, read through the Developmental Lens: what we see, what may be developing, what that changes, and what to notice next time.</p>
+    </section>
 
-      <section class="lens-page__lens" aria-labelledby="lens-page-lens-title">
-        <h2 class="u-visually-hidden lens-page__hidden" id="lens-page-lens-title">The Developmental Lens</h2>
-        <div class="lens" id="lens-playground" data-lens>
-          <p class="lens__status" data-lens-status aria-live="polite"></p>
-
-          <div class="lens__body">
-            <figure class="lens__figure">
-              <div class="lens__plate">
-                <svg class="lens__svg" viewBox="0 0 1200 680" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="lens-playground-plate-title lens-playground-plate-desc" focusable="false">
-                  <title id="lens-playground-plate-title">Leaving the playground</title>
-                  <desc id="lens-playground-plate-desc">A plate in silhouette. A toddler of about two and a half runs back toward a small slide. Behind them a parent crouches with one hand held out. A low gate, the way out, stands at the far left. The labels change with each step of the Lens.</desc>
-
-                  <rect class="lens__wash" x="0" y="0" width="1200" height="680" />
-
-                  <g class="lens__scene">
-                    <rect class="lens__ground" x="40" y="600" width="1120" height="18" />
-
-                    <g transform="translate(-72 -72) scale(1.12)">
-                      <g class="lens__fill-deep" transform="translate(50 0)">
-                        <rect x="60" y="482" width="16" height="118" />
-                        <rect x="184" y="482" width="16" height="118" />
-                        <rect x="76" y="496" width="108" height="10" />
-                        <rect x="76" y="570" width="108" height="10" />
-                        <rect x="92" y="506" width="6" height="64" />
-                        <rect x="111" y="506" width="6" height="64" />
-                        <rect x="130" y="506" width="6" height="64" />
-                        <rect x="149" y="506" width="6" height="64" />
-                        <rect x="168" y="506" width="6" height="64" />
-                      </g>
-
-                      <g class="lens__fill-sage">
-                        <rect x="980" y="298" width="14" height="302" />
-                        <rect x="1070" y="298" width="14" height="302" />
-                        <rect x="980" y="298" width="104" height="10" />
-                        <rect x="968" y="372" width="128" height="14" />
-                        <rect x="994" y="428" width="76" height="8" />
-                        <rect x="994" y="478" width="76" height="8" />
-                        <rect x="994" y="528" width="76" height="8" />
-                        <rect x="862" y="516" width="12" height="84" />
-                      </g>
-                      <path class="lens__fill-deep" d="M984 370 C930 388 888 428 850 474 C826 504 806 530 784 542 L772 548 C764 552 760 558 760 566 L760 598 L800 598 C840 588 868 558 890 530 C926 484 956 446 986 402 Z" />
-
-                      <g transform="translate(-16 0)">
-                        <g class="lens__ink">
-                          <circle cx="444" cy="330" r="30" />
-                          <circle cx="414" cy="312" r="13" />
-                          <path d="M428 350 L458 352 L464 378 L424 380 Z" />
-                          <path d="M420 356 C392 366 366 394 352 430 C342 456 338 482 346 502 C354 518 376 524 404 520 C428 516 446 500 456 478 C468 450 472 414 466 388 C462 372 446 358 420 356 Z" />
-                          <path d="M436 380 C466 390 498 408 524 426 C536 434 550 440 562 444 C572 448 572 458 564 460 C552 462 538 458 524 452 C498 440 468 426 438 414 Z" />
-                          <path d="M380 484 C420 470 470 462 498 466 C516 468 524 484 518 498 C514 508 500 512 488 510 C450 512 420 516 396 520 Z" />
-                          <path d="M484 474 C502 470 520 482 518 500 L512 578 C520 586 532 590 536 594 C538 600 534 603 528 603 L486 603 C484 586 484 562 486 540 Z" />
-                          <path d="M350 492 C376 512 408 548 428 576 C436 590 430 603 414 603 L330 603 C316 603 310 594 316 586 C322 578 336 576 352 576 L392 574 C378 556 362 536 348 516 Z" />
-                        </g>
-
-                        <g class="lens__ink" transform="translate(650 602) scale(0.74) translate(-650 -602)">
-                          <ellipse cx="656" cy="352" rx="37" ry="36" />
-                          <path d="M632 380 C618 398 610 428 606 458 C602 482 600 504 610 518 C620 530 640 530 656 524 C674 516 686 494 688 470 C690 444 682 414 668 392 C660 382 644 376 632 380 Z" />
-                          <path d="M648 402 C664 404 680 414 694 424 C704 420 714 414 724 410 C732 406 738 412 734 420 C730 428 718 432 706 438 C698 442 690 444 682 440 C668 432 656 426 644 420 Z" />
-                          <path d="M648 410 C640 426 628 440 616 452 C610 458 604 466 598 470 C590 474 584 468 588 460 C592 452 600 446 606 438 C616 426 626 412 636 402 Z" />
-                          <path d="M640 506 C660 510 680 528 696 548 C702 556 704 568 704 578 L706 588 C716 590 726 594 726 599 L726 602 L682 602 C680 592 680 580 678 568 C668 556 650 540 636 528 Z" />
-                          <path d="M616 508 C632 516 640 528 636 544 C632 558 622 570 610 580 C604 586 604 592 608 596 L612 602 L584 602 C580 596 576 590 576 584 C576 574 584 566 592 556 C600 544 604 528 604 516 Z" />
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-
-                  <g class="lens__callouts" font-size="22">
-                    <!-- Observe: what can be seen, as plain labels -->
-                    <g class="lens__callout lens__callout--plain" data-step="observe" data-observe="1">
-                      <path class="lens__halo" d="M936 457 V238" pathLength="1" />
-                      <path class="lens__leader" d="M936 457 V238" pathLength="1" />
-                      <circle class="lens__dot" cx="936" cy="457" r="5" />
-                      <text class="lens__label" x="936" y="196">A happy child,<tspan x="936" dy="27">absorbed in play.</tspan></text>
-                    </g>
-                    <g class="lens__callout lens__callout--plain" data-step="observe" data-observe="2">
-                      <path class="lens__halo" d="M416 280 V238" pathLength="1" />
-                      <path class="lens__leader" d="M416 280 V238" pathLength="1" />
-                      <circle class="lens__dot" cx="416" cy="280" r="5" />
-                      <text class="lens__label" x="416" y="196" text-anchor="end">An announcement<tspan x="416" dy="27">from an adult.</tspan></text>
-                    </g>
-                    <g class="lens__callout lens__callout--plain" data-step="observe" data-observe="3">
-                      <path class="lens__halo" d="M710 596 V640" pathLength="1" />
-                      <path class="lens__leader" d="M690 598 V640" pathLength="1" />
-                      <circle class="lens__dot" cx="690" cy="598" r="5" />
-                      <text class="lens__label" x="710" y="664">A run in the opposite direction.</text>
-                    </g>
-                    <g class="lens__callout lens__callout--plain" data-step="observe" data-observe="4">
-                      <path class="lens__halo" d="M556 609 V640" pathLength="1" />
-                      <path class="lens__leader" d="M556 609 V640" pathLength="1" />
-                      <circle class="lens__dot" cx="556" cy="609" r="5" />
-                      <text class="lens__label" x="556" y="664" text-anchor="end">A body that goes to the floor.</text>
-                    </g>
-                    <g class="lens__callout lens__callout--plain" data-step="observe" data-observe="5">
-                      <path class="lens__halo" d="M654 309 V172" pathLength="1" />
-                      <path class="lens__leader" d="M643 395 V172" pathLength="1" />
-                      <circle class="lens__dot" cx="643" cy="395" r="5" />
-                      <text class="lens__label" x="654" y="130">Crying that is<tspan x="654" dy="27">loud and fast.</tspan></text>
-                    </g>
-
-                    <!-- Understand: the four mechanisms and the parent -->
-                    <g class="lens__callout" data-step="understand" data-callout="1">
-                      <path class="lens__halo" d="M654 309 V164" pathLength="1" />
-                      <path class="lens__leader" d="M643 395 V164" pathLength="1" />
-                      <circle class="lens__hit" cx="643" cy="395" r="32" />
-                      <circle class="lens__dot" cx="643" cy="395" r="5" />
-                      <text class="lens__label" x="654" y="150">Switching rules</text>
-                    </g>
-                    <g class="lens__callout" data-step="understand" data-callout="2">
-                      <path class="lens__halo" d="M687 562 V640" pathLength="1" />
-                      <path class="lens__leader" d="M674 572 V640" pathLength="1" />
-                      <circle class="lens__hit" cx="674" cy="572" r="32" />
-                      <circle class="lens__dot" cx="674" cy="572" r="5" />
-                      <text class="lens__label" x="687" y="664">The brakes arrive last</text>
-                    </g>
-                    <g class="lens__callout" data-step="understand" data-callout="3">
-                      <path class="lens__halo" d="M721 394 L800 232" pathLength="1" />
-                      <path class="lens__leader" d="M700 448 L800 232" pathLength="1" />
-                      <circle class="lens__hit" cx="700" cy="448" r="32" />
-                      <circle class="lens__dot" cx="700" cy="448" r="5" />
-                      <text class="lens__label" x="800" y="218">Autonomy</text>
-                    </g>
-                    <g class="lens__callout" data-step="understand" data-callout="4">
-                      <path class="lens__halo" d="M607 430 L540 232" pathLength="1" />
-                      <path class="lens__leader" d="M615 475 L540 232" pathLength="1" />
-                      <circle class="lens__hit" cx="615" cy="475" r="32" />
-                      <circle class="lens__dot" cx="615" cy="475" r="5" />
-                      <text class="lens__label" x="540" y="218" text-anchor="end">Once overwhelmed</text>
-                    </g>
-                    <g class="lens__callout lens__callout--parent" data-step="understand respond" data-callout="5">
-                      <path class="lens__halo" d="M327 421 L270 232" pathLength="1" />
-                      <path class="lens__leader" d="M327 421 L270 232" pathLength="1" />
-                      <circle class="lens__hit" cx="327" cy="421" r="32" />
-                      <circle class="lens__dot" cx="327" cy="421" r="5" />
-                      <text class="lens__label" x="270" y="218" text-anchor="end">The parent</text>
-                    </g>
-                  </g>
-                </svg>
-              </div>
-
-              <ul class="lens__figure-list">
-                <li>Observe, what can be seen: a happy child, absorbed in play; an announcement from an adult; a run in the opposite direction; a body that goes to the floor; crying that is loud and fast.</li>
-                <li>Understand, what may be developing: switching rules, at the child&rsquo;s head; the brakes arrive last, at the child&rsquo;s legs; autonomy, at the hand reaching for the slide; once overwhelmed, at the child&rsquo;s body; the parent, at the crouching adult.</li>
-                <li>Respond: the parent is marked.</li>
-                <li>Reflect: the scene alone, without labels.</li>
-              </ul>
-
-              <figcaption class="lens__caption">A conceptual reading of a familiar moment. It describes processes, not what any particular child is thinking.</figcaption>
-            </figure>
-
-            <div class="lens__panels">
-              <section class="lens__panel" id="lens-playground-observe" data-lens-step="observe" data-lens-label="Observe">
+    <section class="hb-section lens-section lp-lens" aria-label="The Developmental Lens" data-tabs-scope data-step="observe">
+      <div class="hb-container">
+        <div class="lens">
+          <figure class="lens__plate" aria-describedby="lens-plate-caption">
+            <img src="/assets/img/site/child-learning.jpg" srcset="/assets/img/site/child-learning-640.jpg 640w, /assets/img/site/child-learning.jpg 1122w" sizes="(min-width: 901px) 46vw, 80vw" width="1122" height="1402" alt="A toddler at the bottom of a slide, one hand on it, turned back toward it; an adult crouches behind with a hand held out low." fetchpriority="high" />
+            <p class="label lp--1" data-for="observe"><b>A happy child</b>absorbed in play</p>
+            <p class="label lp--2" data-for="observe"><b>An announcement</b>&ldquo;Time to go.&rdquo;</p>
+            <p class="label lp--3" data-for="observe"><b>A hand on the slide</b>the run back</p>
+            <p class="label lp--5 label--note" data-for="observe"><b>Not observable</b>intent. We see the sequence, not the reason.</p>
+            <p class="label lp--1" data-for="understand"><b>Switching rules</b>&ldquo;play&rdquo; to &ldquo;go&rdquo; is hard before about four</p>
+            <p class="label lp--3" data-for="understand"><b>The brakes arrive last</b>stopping an action under way develops slowly</p>
+            <p class="label lp--2" data-for="understand"><b>Autonomy</b>&ldquo;no&rdquo; is practice at being a person</p>
+            <p class="label lp--4" data-for="understand"><b>Your own state</b>late, watched, tired: it shapes the return</p>
+            <p class="label lp--5 label--note" data-for="understand"><b>Conceptual model</b>capacities still being built, not a diagnosis</p>
+            <p class="label lp--4" data-for="respond"><b>The hand held low</b>close, steady, not grabbing</p>
+            <p class="label lp--2" data-for="respond"><b>Say what is next</b>&ldquo;two more slides, then lunch&rdquo;</p>
+            <p class="label lp--5 label--note" data-for="reflect"><b>Next time</b>notice what came just before</p>
+          </figure>
+          <div>
+            <div class="lens__tabs" data-tabs role="tablist" aria-label="Lens steps">
+              <button class="lens__tab" role="tab" data-tab="observe" aria-selected="true" aria-controls="lens-observe" id="lens-tab-observe"><small>01</small>Observe</button>
+              <button class="lens__tab" role="tab" data-tab="understand" aria-selected="false" aria-controls="lens-understand" id="lens-tab-understand" tabindex="-1"><small>02</small>Understand</button>
+              <button class="lens__tab" role="tab" data-tab="respond" aria-selected="false" aria-controls="lens-respond" id="lens-tab-respond" tabindex="-1"><small>03</small>Respond</button>
+              <button class="lens__tab" role="tab" data-tab="reflect" aria-selected="false" aria-controls="lens-reflect" id="lens-tab-reflect" tabindex="-1"><small>04</small>Reflect</button>
+            </div>
+            <span class="u-visually-hidden" aria-live="polite" data-tabs-status></span>
+            <section class="lens__panel" role="tabpanel" id="lens-observe" aria-labelledby="lens-tab-observe" data-panel="observe" tabindex="0">
                 <h3 class="lens__heading">What are we actually seeing?</h3>
                 <p class="lens__text">It is time to leave the playground. You give the two-minute warning, then say &ldquo;time to go&rdquo;. Your two-and-a-half-year-old runs back to the slide. When you reach for a hand, they drop to the ground and cry. Ten minutes ago, everything was fine. Nothing about the playground changed. The plan did.</p>
                 <div class="lens__block">
@@ -276,41 +149,43 @@
                   <p class="lens__text">Intent. From the outside, nobody can see whether this is &ldquo;defiance&rdquo;, &ldquo;manipulation&rdquo; or &ldquo;being tired&rdquo;. We can see the sequence, and the sequence is the clue.</p>
                 </div>
                 <p class="lens__aside">Most common from about 18 months to 4 years, with wide variation between children and between days.</p>
-              </section>
-
-              <section class="lens__panel" id="lens-playground-understand" data-lens-step="understand" data-lens-label="Understand">
+              
+              <div class="lens__nav"><span></span><button class="hb-btn" type="button" data-goto="understand">Next: Understand</button></div>
+            </section>
+            <section class="lens__panel" role="tabpanel" id="lens-understand" aria-labelledby="lens-tab-understand" data-panel="understand" tabindex="0" hidden>
                 <h3 class="lens__heading">What might be developing beneath the surface?</h3>
                 <p class="lens__text lens__text--soft">Four processes can be read in this one moment. None is a flaw. Each is a skill still being built.</p>
                 <ul class="lens__mechanisms">
                   <li class="lens__mech" data-mechanism="1">
-                    <h4 class="lens__mech-title"><button class="lens__mech-btn" type="button" aria-pressed="false">Switching rules is hard at this age.</button></h4>
+                    <h4 class="lens__mech-title">Switching rules is hard at this age.</h4>
                     <p class="lens__text">In a classic card-sorting task, children under about four keep sorting by the first rule even after being told clearly to switch. Leaving the playground asks for exactly that switch, from &ldquo;play&rdquo; to &ldquo;go&rdquo;, while the first rule is still running.</p>
                     <p class="lens__evidence" data-verify>Well established in laboratory tasks. Zelazo and colleagues, 2003.</p>
                   </li>
                   <li class="lens__mech" data-mechanism="2">
-                    <h4 class="lens__mech-title"><button class="lens__mech-btn" type="button" aria-pressed="false">The brakes are the last part to arrive.</button></h4>
+                    <h4 class="lens__mech-title">The brakes are the last part to arrive.</h4>
                     <p class="lens__text">Inhibitory control, the ability to stop an action already under way, depends on prefrontal systems that develop slowly across childhood. The body and the feelings come first.</p>
                     <p class="lens__evidence" data-verify>Well established. Diamond, 2013.</p>
                   </li>
                   <li class="lens__mech" data-mechanism="3">
-                    <h4 class="lens__mech-title"><button class="lens__mech-btn" type="button" aria-pressed="false">Autonomy is the work of this age.</button></h4>
+                    <h4 class="lens__mech-title">Autonomy is the work of this age.</h4>
                     <p class="lens__text">Between roughly 18 months and 3 years, a child is discovering that they are a separate person with preferences of their own. &ldquo;No&rdquo; is practice at being a person, and it tends to arrive at the exact moment a plan is imposed.</p>
                     <p class="lens__evidence" data-verify>Supported; the size of specific effects varies. Erikson, 1950; Kochanska and Aksan, 1995.</p>
                   </li>
                   <li class="lens__mech" data-mechanism="4">
-                    <h4 class="lens__mech-title"><button class="lens__mech-btn" type="button" aria-pressed="false">Once overwhelmed, reasoning does not land.</button></h4>
+                    <h4 class="lens__mech-title">Once overwhelmed, reasoning does not land.</h4>
                     <p class="lens__text">A nervous system past its limit cannot use language or logic until it has come back down. Young children borrow a calm adult to get there.</p>
                     <p class="lens__evidence" data-verify>Supported. The two-zone picture of the brain is a conceptual model, not a scan. Diamond, 2013; Growing Minds toddler class, Module 4.</p>
                   </li>
                   <li class="lens__mech lens__mech--parent" data-mechanism="5">
-                    <h4 class="lens__mech-title"><button class="lens__mech-btn" type="button" aria-pressed="false">You are inside the system too.</button></h4>
+                    <h4 class="lens__mech-title">You are inside the system too.</h4>
                     <p class="lens__text">Being late, being watched by other parents, being tired: your own state shapes the return your child gets, and the research on co-regulation says that return matters more than the script.</p>
                     <p class="lens__evidence" data-verify>Supported. See &ldquo;When your own nervous system is the variable&rdquo;.</p>
                   </li>
                 </ul>
-              </section>
-
-              <section class="lens__panel" id="lens-playground-respond" data-lens-step="respond" data-lens-label="Respond">
+              
+              <div class="lens__nav"><button class="hb-btn hb-btn--quiet" type="button" data-goto="observe">Back</button><button class="hb-btn" type="button" data-goto="respond">Next: Respond</button></div>
+            </section>
+            <section class="lens__panel" role="tabpanel" id="lens-respond" aria-labelledby="lens-tab-respond" data-panel="respond" tabindex="0" hidden>
                 <h3 class="lens__heading">What can this understanding change?</h3>
                 <p class="lens__text lens__text--soft">None of this makes leaving easy. It changes what you are responding to.</p>
                 <ol class="lens__options">
@@ -333,9 +208,10 @@
                     <p class="lens__text"><strong class="lens__option-title">Expect it to be hard sometimes anyway.</strong> A smooth exit on Tuesday and a floor exit on Wednesday is development, not a failed method.</p>
                   </li>
                 </ol>
-              </section>
-
-              <section class="lens__panel" id="lens-playground-reflect" data-lens-step="reflect" data-lens-label="Reflect">
+              
+              <div class="lens__nav"><button class="hb-btn hb-btn--quiet" type="button" data-goto="understand">Back</button><button class="hb-btn" type="button" data-goto="reflect">Next: Reflect</button></div>
+            </section>
+            <section class="lens__panel" role="tabpanel" id="lens-reflect" aria-labelledby="lens-tab-reflect" data-panel="reflect" tabindex="0" hidden>
                 <h3 class="lens__heading">What might you notice next time?</h3>
                 <ul class="lens__prompts">
                   <li>What came before the hard moment: the warning, the walk to the gate, or the car seat?</li>
@@ -344,11 +220,30 @@
                   <li>What helped you stay steady, and what made it harder?</li>
                 </ul>
                 <p class="lens__aside">These are observations, not scores. The point is curiosity about one child, not a verdict.</p>
-              </section>
-            </div>
+              
+              <div class="lens__nav"><button class="hb-btn hb-btn--quiet" type="button" data-goto="respond">Back</button><a class="hb-btn" href="#sources">Sources</a></div>
+            </section>
           </div>
+        </div>
+        <div class="lp-alt" data-rise>
+          <p class="lp-caption" id="lens-plate-caption">A conceptual reading of a familiar moment. It describes processes, not what any particular child is thinking.</p>
+          <details class="lp-alt__more">
+            <summary>The labels on the photograph, as text</summary>
+            <ul class="lp-alt__list">
+              <li>Observe: A happy child: absorbed in play; An announcement: &ldquo;Time to go.&rdquo;; A hand on the slide: the run back; Not observable: intent. We see the sequence, not the reason.</li>
+              <li>Understand: Switching rules: &ldquo;play&rdquo; to &ldquo;go&rdquo; is hard before about four; The brakes arrive last: stopping an action under way develops slowly; Autonomy: &ldquo;no&rdquo; is practice at being a person; Your own state: late, watched, tired: it shapes the return; Conceptual model: capacities still being built, not a diagnosis.</li>
+              <li>Respond: The hand held low: close, steady, not grabbing; Say what is next: &ldquo;two more slides, then lunch&rdquo;.</li>
+              <li>Reflect: Next time: notice what came just before.</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+    </section>
 
-          <div class="lens__connections">
+    <section class="hb-section lp-links" aria-labelledby="links-heading">
+      <div class="hb-container">
+        <h2 class="hb-display hb-display--m" id="links-heading" data-rise>Go further</h2>
+        <div data-rise style="--i:1"><div class="lens__connections">
             <div class="lens__conn">
               <h3 class="lens__conn-title">Read</h3>
               <ul class="lens__conn-list">
@@ -371,31 +266,34 @@
               </ul>
             </div>
           </div>
-        </div>
-      </section>
+        </div></div>
+      </div>
+    </section>
 
-      <section class="fg-section lens-page__sources" aria-labelledby="lens-page-sources-title">
-        <div class="lens-page__axis">
-          <h2 class="lens-page__heading" id="lens-page-sources-title">Sources</h2>
+    <section class="hb-section lp-sources" id="sources" aria-labelledby="lens-page-sources-title">
+      <div class="hb-container lp-split" data-rise>
+        <div>
+          <h2 class="hb-display hb-display--m" id="lens-page-sources-title">Sources</h2>
           <p class="lens-page__status">Prototype. The science in this Lens is drawn from Growing Minds class scripts and articles already published on this site. It must be checked against the primary sources before it is treated as publication-ready.</p>
-          <ul class="lens-page__refs">
+        </div>
+        <ul class="lens-page__refs">
             <li>Zelazo, P. D., M&uuml;ller, U., Frye, D., and Marcovitch, S. (2003). The development of executive function in early childhood. <cite>Monographs of the Society for Research in Child Development</cite>, 68(3).</li>
             <li>Diamond, A. (2013). Executive functions. <cite>Annual Review of Psychology</cite>, 64, 135&ndash;168.</li>
             <li>Kochanska, G., and Aksan, N. (1995). Mother-child mutually positive affect, the quality of child compliance to requests and prohibitions, and maternal control as correlates of early internalization. <cite>Child Development</cite>, 66(1), 236&ndash;254.</li>
             <li>Erikson, E. H. (1950). <cite>Childhood and Society</cite>. Norton.</li>
             <li>Growing Minds toddler class, Modules 1, 3 and 4 (class scripts).</li>
           </ul>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="lens-page__close" aria-label="Keep exploring">
-        <div class="lens-page__axis">
-          <p><a href="/#explore">Explore what is growing at other ages</a></p>
-        </div>
-      </section>
-    </div>
+    <section class="hb-section hb-section--tight lp-close" aria-label="Keep exploring">
+      <div class="hb-container">
+        <a class="hb-btn hb-btn--quiet" data-rise href="/#explore">Explore what is growing at other ages</a>
+      </div>
+    </section>
   </main>
 
+  <!-- footer:start -->
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
@@ -452,9 +350,10 @@
       </div>
     </div>
   </footer>
+<!-- footer:end -->
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
-  <script src="/assets/js/lens.js?v=e9a6ab6975" defer></script>
+  <script src="/assets/js/home.js?v=c7f5c746df" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
