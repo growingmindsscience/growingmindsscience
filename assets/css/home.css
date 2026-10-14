@@ -87,7 +87,10 @@ html:not(.anim) .label { transition: none; }
   .hero__text, .hero__text > div { display: contents; }
   .hero__title { order: 0; margin-top: 24px; }
   .plate { order: 1; margin: 20px calc(-1 * var(--hb-gutter)) 24px; aspect-ratio: auto; display: block; }
-  .plate__img { position: relative; aspect-ratio: 4 / 3; }
+  .plate__img { position: relative; aspect-ratio: auto; }
+  .plate picture, .plate img { position: relative; inset: auto; aspect-ratio: 4 / 3; }
+  .fg .plate__toggle { position: static; width: 100%; justify-content: center; border-radius: 0; min-height: 52px; background: var(--ink); color: var(--paper); }
+  .fg .plate__toggle[aria-pressed="true"] { background: var(--forest); color: var(--on-forest); }
   .hero__lead { order: 2; margin-top: 0; }
   .hero__actions { order: 3; }
   .hero__quiet { order: 4; margin-bottom: 40px; }
@@ -98,7 +101,6 @@ html:not(.anim) .label { transition: none; }
   .fg--home:not(.js) .labels { display: grid; }
   .label, .label--1, .label--2, .label--3, .label--4 { position: relative; inset: auto; max-width: none; font-size: 14px; padding: 10px 12px 10px 30px; opacity: 1; transform: none; }
   .label::before { left: 12px; top: 14px; }
-  .fg .plate__toggle { left: 16px; bottom: 16px; }
   .plate__fig { right: 16px; bottom: auto; top: 16px; }
 }
 
@@ -138,7 +140,14 @@ html:not(.anim) .label { transition: none; }
 .lens__nav { display: flex; justify-content: space-between; gap: 12px; }
 .lens__foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: clamp(32px, 4vw, 56px); font-size: 15px; }
 .lens__foot p { max-width: 90ch; }
-@media (max-width: 900px) { .lens { grid-template-columns: 1fr; } .lens__plate { position: relative; top: auto; aspect-ratio: 4 / 5; } }
+@media (max-width: 900px) {
+  .lens { grid-template-columns: 1fr; }
+  .lens__plate { position: relative; top: auto; aspect-ratio: auto; display: grid; gap: 8px; background: none; border-radius: 0; overflow: visible; }
+  .lens__plate img { position: relative; inset: auto; aspect-ratio: 4 / 3; border-radius: var(--radius-lg); }
+  .lens__plate .label { position: relative; inset: auto; max-width: none; padding: 10px 12px 10px 30px; font-size: 14px; }
+  .lens__plate .label::before { left: 12px; top: 14px; }
+  .lens__plate .label[data-active="true"] { display: block; }
+}
 
 /* ---------- 03 Age: five periods in a row ---------- */
 .age { background: var(--paper); overflow: hidden; }
@@ -162,7 +171,12 @@ html:not(.anim) .label { transition: none; }
 .range small { color: var(--ink-muted); font-size: 13px; display: flex; justify-content: space-between; }
 .age__foot { color: var(--ink-muted); font-size: 15px; margin-top: 20px; max-width: 70ch; }
 @media (min-width: 1100px) { .age__row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); overflow: visible; margin-inline: 0; padding-inline: 0; } .age__col { flex: none; } .age__bar { display: none; } }
-@media (max-width: 900px) { .age__col { flex-basis: 74vw; } }
+@media (max-width: 900px) {
+  .age__bar { display: none; }
+  .age__row { display: grid; gap: 28px; overflow: visible; margin-inline: 0; padding: 28px 0 0; scroll-snap-type: none; }
+  .age__col { grid-template-rows: auto; gap: 8px; padding-top: 20px; border-top: 1px solid var(--border-soft); }
+  .age__col:first-child { border-top: 0; padding-top: 0; }
+}
 
 /* ---------- 04 Three dimensions: one scene, three statements ---------- */
 .three { background: var(--surface); }
