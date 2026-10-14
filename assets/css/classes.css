@@ -1,0 +1,78 @@
+/* =========================================================
+   Growing Minds Science: classes.css
+   The classes hub and the four class pages on the annotated-observation
+   system. The primitives (container, type, buttons, entrances, menu rows,
+   range bar) come from fg-base.css; this file holds what only the class
+   pages need: the title block, the curriculum timeline (Fig. 1), the class
+   rows, the free-lesson panel, and the class page sections.
+   Tokens from tokens-field-guide.css. Calm corners on panels and controls,
+   quiet rules between rows, no shadows at rest.
+   ========================================================= */
+
+/* ---------- Title block: the lead line, then its supporting thought ---------- */
+.cl-title { padding-block: clamp(40px, 7vw, 104px) clamp(40px, 6vw, 88px); }
+.cl-title__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 80px); align-items: end; }
+.cl-title h1 { font-size: clamp(2.75rem, 1.6rem + 4.2vw, 5.25rem); line-height: 0.98; letter-spacing: -0.025em; }
+.cl-title .hb-lead { margin-top: 24px; color: var(--ink-soft); }
+.cl-terms { margin-top: 20px; color: var(--ink-muted); font-size: 15px; max-width: 46ch; }
+@media (max-width: 960px) { .cl-title__grid { grid-template-columns: 1fr; align-items: start; } }
+
+/* ---------- Fig. 1: the four classes across birth to five ---------- */
+.tl { background: var(--surface); border-radius: var(--radius-lg); padding: clamp(18px, 2.4vw, 32px); }
+.tl__axis, .tl__row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.tl__axis { color: var(--ink-muted); font-size: 13px; margin-bottom: 12px; }
+.tl__axis span:last-child { display: flex; justify-content: space-between; }
+.tl__rows { display: grid; gap: 8px; }
+/* Each row is one link: the bar spans the class's window and carries its name. */
+.tl__row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); text-decoration: none; color: var(--on-forest); --bar: var(--forest); --bar-hover: var(--forest-deep); }
+.tl__row--ink { color: var(--paper); --bar: var(--ink); --bar-hover: var(--ink-700); }
+.tl__row--soon { color: var(--ink); --bar: var(--sage-mist); --bar-hover: var(--sage-mist-2); }
+.tl__name, .tl__bar { grid-column: var(--from) / var(--to); grid-row: 1; }
+.tl__bar { min-height: 40px; border-radius: var(--radius); background: var(--bar); transition: background-color 160ms ease; }
+.tl__name { position: relative; z-index: 1; align-self: center; padding: 9px 12px; font-size: 14px; font-weight: 500; line-height: 1.3; }
+.tl__row:hover .tl__bar { background: var(--bar-hover); }
+.tl__row:hover .tl__name { text-decoration: underline; text-underline-offset: 0.16em; }
+/* On a phone the name takes its own line above a thin bar, aligned to the bar's end when the bar ends the axis. */
+@media (max-width: 640px) {
+  .tl__row { color: var(--ink); row-gap: 6px; min-height: 44px; }
+  .tl__name { grid-column: 1 / -1; padding: 0; }
+  .tl__row--end .tl__name { text-align: right; }
+  .tl__bar { grid-row: 2; min-height: 10px; border-radius: 5px; }
+  .tl__row--soon .tl__bar { background: var(--sage-mist-2); }
+}
+.tl figcaption { margin-top: 14px; font-size: 13px; color: var(--ink-muted); }
+.tl figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.4em; }
+
+/* ---------- The classes, as rows ---------- */
+.cl-list { padding-block: 0 clamp(64px, 9vw, 128px); }
+.cl-row { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 3fr); gap: 12px clamp(24px, 4vw, 56px); padding-block: 32px; border-top: 1px solid var(--border-soft); align-items: start; }
+.cl-row:first-child { border-top: 0; padding-top: 0; }
+.cl-row h2 { font-family: var(--font-display); font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem); line-height: 1.02; letter-spacing: -0.015em; font-weight: 400; }
+.cl-row h2 a { text-decoration: none; }
+.cl-row h2 a:hover { color: var(--forest); text-decoration: underline; text-underline-offset: 0.16em; }
+.cl-row__body p { color: var(--ink-soft); }
+.cl-row__meta { margin-top: 10px; font-size: 15px; color: var(--ink-muted); }
+.cl-row__act { display: grid; gap: 12px; justify-items: start; }
+.cl-row__price { font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); font-weight: 500; font-variant-numeric: tabular-nums; }
+.cl-row__price.soon { color: var(--clay-text); font-size: 15px; font-weight: 500; }
+.cl-row__act .hb-btn { min-width: 11rem; }
+.cl-row__links { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 15px; }
+.cl-row__links a { display: inline-flex; align-items: center; min-height: 44px; }
+.cl-row__note { font-size: 14px; color: var(--ink-muted); max-width: 30ch; }
+@media (max-width: 960px) {
+  .cl-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .cl-row__head { grid-column: 1 / -1; }
+}
+@media (max-width: 640px) {
+  .cl-row { grid-template-columns: 1fr; padding-block: 28px; }
+  .cl-row__act { justify-items: stretch; }
+  .cl-row__act .hb-btn { width: 100%; }
+}
+
+/* ---------- Not sure yet: one panel, one action ---------- */
+.cl-free { background: var(--sage-mist); border-radius: var(--radius-lg); padding: clamp(24px, 4vw, 56px); display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px clamp(32px, 5vw, 80px); align-items: end; }
+.cl-free p { color: var(--ink-soft); margin-top: 14px; max-width: 46ch; }
+.cl-free__act { display: grid; gap: 14px; justify-items: start; }
+.cl-free__links { display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 15px; }
+.cl-free__links a { display: inline-flex; align-items: center; min-height: 44px; }
+@media (max-width: 760px) { .cl-free { grid-template-columns: 1fr; } .cl-free__act { justify-items: stretch; } }
