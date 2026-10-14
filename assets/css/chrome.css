@@ -102,9 +102,26 @@
 .site-header .brand__name,
 .site-footer .brand__name {
   font-family: var(--chrome-display);
-  font-size: 1.1rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  white-space: nowrap;
+}
+/* The wordmark lockup (brand guidelines): lowercase name in the editorial
+   serif, then a widely tracked SCIENCE descriptor in the text face. Type
+   before symbol: the sprout mark is retired from the chrome. */
+.site-header .brand,
+.site-footer .brand { align-items: baseline; gap: 0.55em; }
+.site-header .brand__mark,
+.site-footer .brand__mark { display: none; }
+.site-header .brand__desc,
+.site-footer .brand__desc {
+  font-family: var(--chrome-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
   line-height: 1;
   white-space: nowrap;
 }
@@ -487,9 +504,18 @@
   font-weight: 600;
   font-size: clamp(2.4rem, 7.4vw, 7.4rem);
   line-height: 0.95;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.03em;
   color: #FFFFFF;
   text-wrap: balance;
+}
+.site-footer .site-footer__wordmark-desc {
+  display: block;
+  font-family: var(--chrome-body);
+  font-weight: 500;
+  font-size: clamp(0.8rem, 1.6vw, 1.4rem);
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  margin-top: 0.5em;
 }
 .site-footer .site-footer__inner {
   display: grid;
