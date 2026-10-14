@@ -12,6 +12,7 @@
  * | Membership monthly/annual    | membership (expires with the paid period)    |
  * | Legacy AI Pro $9/mo          | membership at the same price (absorption)     |
  * | Legacy $49 class bundle      | class:toddlerhood + ai:unlimited, perpetual   |
+ * | Thinkific toddler buyer      | the same, source comp, ref thinkific:<order>  |
  * | Infant class $49 one-time    | class:infant, perpetual                       |
  * | Preschool class $49 one-time | class:preschool, perpetual                    |
  * | Number Path $34 one-time     | numberpath_full, perpetual (kept standalone)  |
@@ -194,6 +195,20 @@ export function grantsForOneTimePurchase(args: {
     default:
       return [];
   }
+}
+
+/** A verified Thinkific order for the toddler class: the same lifetime
+ * class + AI bundle as an on-site purchase. Source "comp" because no Stripe
+ * payment backs it; the ref keeps it distinct from the shared access code,
+ * which never counts as owning the class. */
+export function grantsForLegacyClassPurchase(sourceRef: string): Grant[] {
+  if (!/^thinkific:\S/.test(sourceRef)) return [];
+  return ["class:toddlerhood", "ai:unlimited"].map((product_scope) => ({
+    product_scope,
+    source: "comp" as const,
+    source_ref: sourceRef,
+    expires_at: null,
+  }));
 }
 
 export function grantForGiftRedemption(args: {

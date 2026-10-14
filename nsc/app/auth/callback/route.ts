@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { backfillEntitlementsForUser } from "@/lib/backfill.server";
+import { backfillEntitlementsForUser, claimThinkificPurchases } from "@/lib/backfill.server";
 import { safeNextPath } from "@/lib/safe-next";
 import { siteOrigin } from "@/lib/site";
 import { isClassPath } from "@/lib/class-paths";
@@ -24,11 +24,16 @@ export async function GET(req: Request) {
     const supabase = await createClient();
     const { data, error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
-      // Link any pre-existing Stripe purchases to this account (idempotent,
-      // best-effort — never block the redirect on it).
+      // Link any pre-existing Stripe purchases and imported Thinkific class
+      // orders to this account (idempotent, best-effort — never block the
+      // redirect on it). A sign-up confirmation link lands here, so this is
+      // where a Thinkific buyer's new account first picks up the class.
       try {
         const u = data.user;
-        if (u?.id && u.email) await backfillEntitlementsForUser(u.id, u.email);
+        if (u?.id && u.email) {
+          await backfillEntitlementsForUser(u.id, u.email);
+          await claimThinkificPurchases(u);
+        }
       } catch {}
       return NextResponse.redirect(new URL(`/nsc${next}`, origin));
     }

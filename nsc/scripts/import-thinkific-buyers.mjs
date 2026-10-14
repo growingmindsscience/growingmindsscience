@@ -4,8 +4,11 @@
  * Supabase accounts. Input JSON:
  * [{"email":"buyer@example.com","purchaseId":"thinkific-order-123","status":"paid"}]
  *
- * Dry run is the default. --apply writes idempotent class and AI grants.
- * Unmatched buyers are printed for support follow-up and can be re-run later.
+ * Dry run is the default. --apply records every order in
+ * class_legacy_purchases (migration 0016) and writes idempotent class and AI
+ * grants for buyers who already have a confirmed account. Everyone else is
+ * granted automatically the first time they sign in with that confirmed
+ * email (lib/legacy-class-claims.ts), so no re-run is needed for them.
  */
 import { readFile } from "node:fs/promises";
 import { createClient } from "@supabase/supabase-js";
@@ -29,6 +32,10 @@ if (!Array.isArray(rows) || rows.some((row) =>
 )) {
   throw new Error("Input must be an array of verified paid purchases with email and purchaseId");
 }
+const purchaseIds = rows.map((row) => row.purchaseId.trim());
+if (new Set(purchaseIds).size !== purchaseIds.length) {
+  throw new Error("Each purchaseId must appear once; remove duplicate orders before importing");
+}
 
 const supabase = createClient(url, key, { auth: { persistSession: false } });
 const usersByEmail = new Map();
@@ -41,19 +48,44 @@ for (let page = 1; ; page += 1) {
   if (data.users.length < 1000) break;
 }
 
+// Orders already claimed (here or at sign-in) are left alone, so a re-run
+// never moves an order to another account or restores a grant expired by hand.
+const claimedRefs = new Set();
+{
+  const { data, error } = await supabase.from("class_legacy_purchases")
+    .select("source_ref").not("claimed_by", "is", null);
+  if (error && apply) throw error;
+  if (error) console.warn(`Could not read class_legacy_purchases (is migration 0016 applied?): ${error.message}`);
+  for (const row of data ?? []) claimedRefs.add(row.source_ref);
+}
+
 let matched = 0;
-let unmatched = 0;
+let pending = 0;
+let skipped = 0;
 for (const row of rows) {
-  const user = usersByEmail.get(row.email.trim().toLowerCase());
+  const email = row.email.trim().toLowerCase();
+  const sourceRef = `thinkific:${row.purchaseId.trim()}`;
+  if (claimedRefs.has(sourceRef)) {
+    skipped += 1;
+    console.log(`CLAIMED ${row.email} (${row.purchaseId}): already linked, skipped`);
+    continue;
+  }
+  const user = usersByEmail.get(email);
+  if (apply) {
+    // Recorded for everyone; an existing row (and who claimed it) is kept.
+    const { error: recordError } = await supabase.from("class_legacy_purchases")
+      .upsert({ source_ref: sourceRef, email, course_slug: "toddlerhood" },
+        { onConflict: "source_ref", ignoreDuplicates: true });
+    if (recordError) throw recordError;
+  }
   if (!user) {
-    unmatched += 1;
-    console.log(`UNMATCHED ${row.email} (${row.purchaseId})`);
+    pending += 1;
+    console.log(`${apply ? "PENDING" : "UNMATCHED"} ${row.email} (${row.purchaseId}): granted at first confirmed sign-in`);
     continue;
   }
   matched += 1;
   if (apply) {
     const now = new Date().toISOString();
-    const sourceRef = `thinkific:${row.purchaseId.trim()}`;
     const grants = ["class:toddlerhood", "ai:unlimited"].map((productScope) => ({
       user_id: user.id,
       product_scope: productScope,
@@ -65,7 +97,12 @@ for (const row of rows) {
     const { error } = await supabase.from("entitlements")
       .upsert(grants, { onConflict: "user_id,product_scope,source,source_ref" });
     if (error) throw error;
+    const { error: claimError } = await supabase.from("class_legacy_purchases")
+      .update({ claimed_by: user.id, claimed_at: now })
+      .eq("source_ref", sourceRef)
+      .is("claimed_by", null);
+    if (claimError) throw claimError;
   }
   console.log(`${apply ? "GRANTED" : "MATCHED"} ${row.email} (${row.purchaseId})`);
 }
-console.log(`${apply ? "Applied" : "Dry run"}: ${matched} matched, ${unmatched} unmatched`);
+console.log(`${apply ? "Applied" : "Dry run"}: ${matched} matched, ${pending} without a confirmed account yet, ${skipped} already claimed`);

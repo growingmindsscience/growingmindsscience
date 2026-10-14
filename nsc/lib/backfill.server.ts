@@ -3,6 +3,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { stripe } from "@/lib/stripe";
 import { createServiceClient } from "@/lib/supabase/server";
 import { applyGrants } from "@/lib/entitlement-writes";
+import { claimLegacyClassPurchases, type ClaimingUser } from "@/lib/legacy-class-claims";
 import {
   grantsForSubscription,
   subscriptionPeriod,
@@ -23,8 +24,8 @@ import {
  * Scope + limits:
  *  - Subscriptions only. Standalone Number Path one-time buys already grant at
  *    checkout via client_reference_id, so there's nothing to recover. The
- *    legacy $49 class bundle lives on Thinkific, not Stripe, so it cannot be
- *    recovered here — that unlock stays on the emailed access-code path.
+ *    legacy $49 class bundle was sold on Thinkific, not Stripe, so it cannot
+ *    be recovered here; claimThinkificPurchases (below) links those buyers.
  *  - Email match is the identity link. Stripe email is not identity-verified,
  *    but the caller only invokes this for the *authenticated* user's own
  *    verified Supabase email, so the join is sound.
@@ -110,4 +111,18 @@ export async function backfillEntitlementsForUser(
   }
 
   return applied;
+}
+
+/**
+ * Link a Thinkific toddler-class order imported for this account's confirmed
+ * email (see claimLegacyClassPurchases). Best-effort: an error never blocks
+ * sign-in, and an unclaimed order is tried again at the next sign-in.
+ */
+export async function claimThinkificPurchases(user: ClaimingUser): Promise<number> {
+  try {
+    return await claimLegacyClassPurchases(createServiceClient(), user);
+  } catch (err) {
+    console.error(`[backfill] Thinkific claim failed: ${(err as Error).message}`);
+    return 0;
+  }
 }

@@ -1,12 +1,16 @@
 # On-site Toddler class: setup and launch
 
-The code is ready for MP4s, but the live Thinkific checkout must remain until the assets, credentials, database migration, and buyer import are complete. New on-site class sales are disabled unless `TODDLER_CLASS_SALES_ENABLED=1` **and** 29 lessons are published.
+The code is ready for MP4s, but the live Thinkific checkout must remain until the assets, credentials, database migration, and buyer import are complete. New on-site toddler sales stay closed unless `TODDLER_CLASS_SALES_ENABLED=1` **and** exactly 29 lessons are published with none of the five modules empty. The toddler class uses the same sales gate as the infant and preschool classes: `TODDLER_CLASS_TEST_USER_ID` lets one account buy before sales open (for a live test purchase), and preview deployments sell only to `TODDLER_CLASS_PREVIEW_USER_ID`. A closed gate logs its reason as `[class-sales] toddlerhood enrollment closed: …` in the nsc runtime logs.
+
+Thinkific's course page lists **30** lessons while this site promises **29**. Settle which number is right before publishing; the gate and the marketing pages both use 29.
 
 ## 1. Apply database migration
 
 Completed on 2026-09-27 for Growing Minds Science (`kxljngtmnqarvsawakmf`). Applied `0008_classes.sql` and recorded migration `0008` in one transaction. Verified RLS on all three tables, no policies on lesson content, and customer-only policies on progress and order reads. Existing remote migrations use timestamp versions rather than local `0001`–`0007`; do not bulk-push those older local migrations without reconciling their history. The class application has not yet been deployed.
 
 Apply [`nsc/supabase/migrations/0008_classes.sql`](../nsc/supabase/migrations/0008_classes.sql) to the same Supabase project used by `/nsc`. It adds private lesson records, per-customer progress, and a service-written class order ledger. Confirm RLS is enabled and that `class_lessons` has no browser-readable policy.
+
+Before importing Thinkific buyers, also apply [`nsc/supabase/migrations/0016_thinkific_buyers.sql`](../nsc/supabase/migrations/0016_thinkific_buyers.sql). It adds `class_legacy_purchases`, which holds buyer emails, with RLS on and no policies. Production already has `0017` (free preview lesson) and `0018` (infant transcript corrections), so 0016 lands after them. That order is safe: 0016 only creates its own new table, referencing `auth.users`, and neither 0017 nor 0018 touches it.
 
 ## 2. Set up Mux
 
@@ -52,14 +56,16 @@ node scripts/import-thinkific-buyers.mjs /absolute/path/verified-paid-buyers.jso
 node scripts/import-thinkific-buyers.mjs /absolute/path/verified-paid-buyers.json --apply
 ```
 
-The first command is a dry run. Only confirmed Supabase accounts with a matching email receive the class and AI grants. The import is idempotent by Thinkific purchase ID. For unmatched buyers, invite them to create and confirm an account with their purchase email, then rerun the import. Do not use the old shared access code as proof of a class purchase; it now grants AI only.
+The first command is a dry run. `--apply` records every order in `class_legacy_purchases`. Buyers who already have a confirmed account with the same email get the class and AI grants straight away (`GRANTED`). Everyone else is listed as `PENDING` and gets the same grants automatically the first time they sign in, or confirm a new account, with that email; the email must be confirmed, so nobody can claim an order by signing up with someone else's address. Each order unlocks one account only. The import is idempotent by Thinkific purchase ID, and a re-run skips orders that are already claimed. Do not use the old shared access code as proof of a class purchase; it now grants AI only.
+
+Tell buyers to use the email they bought with on Thinkific. A buyer who wants a different email needs a manual grant: an `entitlements` row for `class:toddlerhood` and one for `ai:unlimited`, source `comp`, source_ref `thinkific:<order id>`, then set that order's `claimed_by`.
 
 ## 5. Verify and cut over
 
-1. Upload, caption-review, and publish all **29** lessons across five modules. Verify mobile playback and the written version of each.
-2. Test: signed-out access, unpaid signed-in access, paid checkout, automatic grant, My classes, resume/completion, copied lesson links, copied video tokens after expiry, full refund, and duplicate webhooks.
-3. Run the Thinkific buyer import and review unmatched rows. Keep Thinkific available during the transition.
-4. Set `TODDLER_CLASS_SALES_ENABLED=1` in nsc and deploy. Confirm the on-site enrollment button works.
-5. Change the public Toddlerhood, class index, and structured-data URLs from Thinkific to `/nsc/app/classes/toddlerhood`. Update old account copy when the transition ends.
+1. Create the 29 lessons in `/nsc/admin/classes` (there are no toddler rows yet, not even drafts), then upload, caption-review, and publish them across all five modules. Verify mobile playback and the written version of each.
+2. Set `TODDLER_CLASS_TEST_USER_ID` to your own account and redeploy nsc. Test: signed-out access, unpaid signed-in access, the enroll link `/nsc/class-signup?next=%2Fapp%2Fclasses%2Ftoddlerhood%2Fenroll` (signed out and signed in), paid checkout, automatic grant, unlimited AI on the account, My classes, resume/completion, copied lesson links, copied video tokens after expiry, full refund, and duplicate webhooks. Remove the test user id afterwards.
+3. Run the Thinkific buyer import and review the `PENDING` rows. Keep Thinkific available during the transition.
+4. Set `TODDLER_CLASS_SALES_ENABLED=1` in nsc and redeploy. Confirm the on-site enrollment button works.
+5. Point every public toddler Enroll link (`classes/index.html`, `classes/toddlerhood.html` including its JSON-LD `offers.url`, `pricing.html`, and the homepage enrol band) at `/nsc/class-signup?next=%2Fapp%2Fclasses%2Ftoddlerhood%2Fenroll`, with the same on-site checkout wording as the infant class. Update the old Thinkific account copy in `nsc/app/app/account/page.tsx` when the transition ends.
 
 Provider reference: [Mux direct uploads](https://www.mux.com/docs/guides/upload-files-directly), [Mux secured playback](https://www.mux.com/docs/guides/secure-video-playback), [Mux caption generation](https://www.mux.com/docs/guides/add-autogenerated-captions-and-use-transcripts), [Stripe Checkout fulfillment](https://docs.stripe.com/checkout/fulfillment).
