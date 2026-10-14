@@ -29,7 +29,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=DM+Sans:opsz,wght@9..40,400..600&display=swap" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=fb9338353e" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=60af2ec52f" />
   <link rel="stylesheet" href="/assets/css/explorer.css?v=4f56053a76" />
   <link rel="stylesheet" href="/assets/css/lens.css?v=6b59246050" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=0341966128" />
@@ -118,58 +118,72 @@
             <desc id="plate-desc">A silhouette plate. A baby of about nine months sits in a high chair with one arm out over the tray; a spoon falls along a dotted path to the floor. A crouching parent on the left reaches toward where it will land. Four annotations mark the moment: the falling spoon as an experiment, the baby's look toward the parent as a serve, the floor as the question of where the spoon went, and the parent's hand as the return.</desc>
             <!-- ground -->
             <rect class="plate__ground" x="0" y="350" width="1200" height="70" />
-            <!-- the gaze: baby toward parent -->
-            <path class="plate__gaze" d="M 732 124 C 620 100, 480 110, 352 150" fill="none" stroke="var(--sage-deep)" stroke-width="2" stroke-dasharray="3 9" stroke-linecap="round" />
-            <!-- the high chair -->
+            <!-- the high chair, behind the baby -->
             <g class="plate__object">
-              <rect x="852" y="92" width="16" height="166" />
-              <rect x="700" y="244" width="166" height="14" />
-              <rect x="620" y="208" width="260" height="14" />
-              <rect x="620" y="194" width="14" height="28" />
-              <polygon points="698,258 712,258 686,350 670,350" />
-              <polygon points="852,258 866,258 884,350 868,350" />
-              <rect x="688" y="312" width="186" height="8" />
+              <rect x="824" y="96" width="14" height="154" />
+              <polygon points="726,258 740,258 716,350 700,350" />
+              <polygon points="826,258 840,258 856,350 840,350" />
+              <rect x="716" y="312" width="130" height="8" />
             </g>
-            <!-- the baby -->
+            <!-- the baby: head, torso, a leg under the tray -->
             <g class="plate__scene">
-              <circle cx="772" cy="128" r="44" />
-              <path d="M 742 172 C 737 188, 737 214, 744 246 L 804 246 C 810 214, 810 188, 802 172 Z" />
-              <path d="M 748 184 C 720 180, 680 184, 648 190 C 642 191, 640 199, 648 201 C 680 199, 720 198, 750 202 Z" />
-              <circle cx="642" cy="196" r="10" />
+              <circle cx="790" cy="126" r="26" />
+              <line class="plate__limb" x1="792" y1="166" x2="792" y2="234" stroke-width="46" />
+              <line class="plate__limb" x1="784" y1="242" x2="746" y2="246" stroke-width="24" />
+              <line class="plate__limb" x1="746" y1="246" x2="744" y2="290" stroke-width="20" />
+              <line class="plate__limb" x1="732" y1="298" x2="756" y2="298" stroke-width="14" />
+            </g>
+            <!-- the seat and tray sit in front of the baby -->
+            <g class="plate__object">
+              <rect x="730" y="244" width="110" height="14" />
+              <rect x="700" y="208" width="160" height="14" />
+              <rect x="700" y="196" width="14" height="26" />
+            </g>
+            <!-- the baby's arm, out past the tray's edge -->
+            <g class="plate__scene">
+              <line class="plate__limb" x1="778" y1="172" x2="736" y2="196" stroke-width="18" />
+              <line class="plate__limb" x1="736" y1="196" x2="694" y2="208" stroke-width="16" />
+              <circle cx="684" cy="211" r="9" />
             </g>
             <!-- the spoon and its drop -->
-            <g class="plate__scene" transform="rotate(-25 598 262)">
-              <ellipse cx="598" cy="250" rx="8" ry="12" />
-              <rect x="595" y="260" width="6" height="28" />
+            <g class="plate__scene" transform="rotate(-30 652 262)">
+              <ellipse cx="652" cy="250" rx="8" ry="12" />
+              <rect x="649" y="260" width="6" height="28" />
             </g>
-            <path class="plate__path" d="M 640 212 C 630 236, 612 268, 594 296 C 586 310, 582 330, 580 350" />
-            <!-- the parent -->
+            <path class="plate__path" d="M 680 226 C 672 252, 656 286, 636 316 C 626 330, 620 340, 616 350" />
+            <!-- the parent, seated on the floor, reaching for it -->
             <g class="plate__scene">
-              <circle cx="300" cy="160" r="48" />
-              <path d="M 240 206 C 200 224, 180 280, 184 350 L 356 350 C 360 300, 352 244, 330 214 C 318 200, 262 200, 240 206 Z" />
-              <path d="M 330 244 C 380 254, 450 280, 520 304 C 530 308, 530 322, 518 322 C 450 306, 380 290, 326 272 Z" />
-              <circle cx="524" cy="312" r="11" />
+              <circle cx="330" cy="156" r="11" />
+              <circle cx="352" cy="172" r="26" />
+              <line class="plate__limb" x1="346" y1="200" x2="346" y2="212" stroke-width="18" />
+              <line class="plate__limb" x1="338" y1="224" x2="320" y2="322" stroke-width="66" />
+              <line class="plate__limb" x1="322" y1="326" x2="420" y2="302" stroke-width="36" />
+              <line class="plate__limb" x1="420" y1="302" x2="432" y2="344" stroke-width="30" />
+              <line class="plate__limb" x1="416" y1="344" x2="458" y2="344" stroke-width="14" />
+              <line class="plate__limb" x1="350" y1="234" x2="392" y2="290" stroke-width="26" />
+              <line class="plate__limb" x1="392" y1="290" x2="456" y2="250" stroke-width="22" />
+              <circle cx="464" cy="246" r="11" />
             </g>
             <!-- annotations (mirrored by the notes beside the plate) -->
             <g class="plate__callout is-active" data-callout="1" aria-hidden="true">
               <text x="470" y="60">An experiment</text>
-              <line x1="508" y1="70" x2="596" y2="238" />
-              <circle cx="596" cy="238" r="6" />
+              <line x1="508" y1="70" x2="650" y2="240" />
+              <circle cx="650" cy="240" r="6" />
             </g>
             <g class="plate__callout" data-callout="2" aria-hidden="true">
               <text x="830" y="48">A serve</text>
-              <line x1="828" y1="56" x2="782" y2="98" />
-              <circle cx="782" cy="98" r="6" />
+              <line x1="828" y1="56" x2="808" y2="110" />
+              <circle cx="808" cy="110" r="6" />
             </g>
             <g class="plate__callout" data-callout="3" aria-hidden="true">
               <text x="200" y="404">Where did it go?</text>
-              <line x1="352" y1="396" x2="575" y2="354" />
-              <circle cx="575" cy="354" r="6" />
+              <line x1="352" y1="396" x2="614" y2="354" />
+              <circle cx="614" cy="354" r="6" />
             </g>
             <g class="plate__callout plate__callout--parent" data-callout="4" aria-hidden="true">
-              <text x="600" y="392">The return</text>
-              <line x1="598" y1="378" x2="530" y2="322" />
-              <circle cx="530" cy="322" r="6" />
+              <text x="398" y="118">The return</text>
+              <line x1="446" y1="126" x2="470" y2="232" />
+              <circle cx="472" cy="238" r="6" />
             </g>
           </svg>
           <figcaption id="plate-caption" class="u-visually-hidden">A baby drops the spoon. Again. A conceptual reading of a typical moment at about nine months.</figcaption>
@@ -207,9 +221,6 @@
           <div class="lens-band__head">
             <h2 id="lens-heading" class="fg-head" data-reveal>Leaving the playground</h2>
             <p data-reveal style="--i:1">The Developmental Lens takes an ordinary moment and shows what may be developing underneath it: observe, understand, respond, reflect. Here it is on the moment every parent of a toddler knows. Scientific copy is a prototype awaiting source review.</p>
-            <figure class="lens-band__photo" data-reveal style="--i:2">
-              <img src="/assets/img/site/child-learning-640.jpg" srcset="/assets/img/site/child-learning-640.jpg 640w, /assets/img/site/child-learning.jpg 1200w" sizes="(min-width: 1000px) 16vw, 60vw" alt="A young child absorbed in play at a low table." width="640" height="426" loading="lazy" decoding="async" />
-            </figure>
           </div>
           <!-- lens:start -->
 <div class="lens" id="lens-playground" data-lens>
@@ -264,7 +275,7 @@
                   <path d="M350 492 C376 512 408 548 428 576 C436 590 430 603 414 603 L330 603 C316 603 310 594 316 586 C322 578 336 576 352 576 L392 574 C378 556 362 536 348 516 Z" />
                 </g>
 
-                <g class="lens__ink">
+                <g class="lens__ink" transform="translate(650 602) scale(0.74) translate(-650 -602)">
                   <ellipse cx="656" cy="352" rx="37" ry="36" />
                   <path d="M632 380 C618 398 610 428 606 458 C602 482 600 504 610 518 C620 530 640 530 656 524 C674 516 686 494 688 470 C690 444 682 414 668 392 C660 382 644 376 632 380 Z" />
                   <path d="M648 402 C664 404 680 414 694 424 C704 420 714 414 724 410 C732 406 738 412 734 420 C730 428 718 432 706 438 C698 442 690 444 682 440 C668 432 656 426 644 420 Z" />
@@ -292,8 +303,8 @@
             </g>
             <g class="lens__callout lens__callout--plain" data-step="observe" data-observe="3">
               <path class="lens__halo" d="M710 596 V640" pathLength="1" />
-              <path class="lens__leader" d="M710 596 V640" pathLength="1" />
-              <circle class="lens__dot" cx="710" cy="596" r="5" />
+              <path class="lens__leader" d="M690 598 V640" pathLength="1" />
+              <circle class="lens__dot" cx="690" cy="598" r="5" />
               <text class="lens__label" x="710" y="664">A run in the opposite direction.</text>
             </g>
             <g class="lens__callout lens__callout--plain" data-step="observe" data-observe="4">
@@ -304,38 +315,38 @@
             </g>
             <g class="lens__callout lens__callout--plain" data-step="observe" data-observe="5">
               <path class="lens__halo" d="M654 309 V172" pathLength="1" />
-              <path class="lens__leader" d="M654 309 V172" pathLength="1" />
-              <circle class="lens__dot" cx="654" cy="309" r="5" />
+              <path class="lens__leader" d="M643 395 V172" pathLength="1" />
+              <circle class="lens__dot" cx="643" cy="395" r="5" />
               <text class="lens__label" x="654" y="130">Crying that is<tspan x="654" dy="27">loud and fast.</tspan></text>
             </g>
 
             <!-- Understand: the four mechanisms and the parent -->
             <g class="lens__callout" data-step="understand" data-callout="1">
               <path class="lens__halo" d="M654 309 V164" pathLength="1" />
-              <path class="lens__leader" d="M654 309 V164" pathLength="1" />
-              <circle class="lens__hit" cx="654" cy="309" r="32" />
-              <circle class="lens__dot" cx="654" cy="309" r="5" />
+              <path class="lens__leader" d="M643 395 V164" pathLength="1" />
+              <circle class="lens__hit" cx="643" cy="395" r="32" />
+              <circle class="lens__dot" cx="643" cy="395" r="5" />
               <text class="lens__label" x="654" y="150">Switching rules</text>
             </g>
             <g class="lens__callout" data-step="understand" data-callout="2">
               <path class="lens__halo" d="M687 562 V640" pathLength="1" />
-              <path class="lens__leader" d="M687 562 V640" pathLength="1" />
-              <circle class="lens__hit" cx="687" cy="562" r="32" />
-              <circle class="lens__dot" cx="687" cy="562" r="5" />
+              <path class="lens__leader" d="M674 572 V640" pathLength="1" />
+              <circle class="lens__hit" cx="674" cy="572" r="32" />
+              <circle class="lens__dot" cx="674" cy="572" r="5" />
               <text class="lens__label" x="687" y="664">The brakes arrive last</text>
             </g>
             <g class="lens__callout" data-step="understand" data-callout="3">
               <path class="lens__halo" d="M721 394 L800 232" pathLength="1" />
-              <path class="lens__leader" d="M721 394 L800 232" pathLength="1" />
-              <circle class="lens__hit" cx="721" cy="394" r="32" />
-              <circle class="lens__dot" cx="721" cy="394" r="5" />
+              <path class="lens__leader" d="M700 448 L800 232" pathLength="1" />
+              <circle class="lens__hit" cx="700" cy="448" r="32" />
+              <circle class="lens__dot" cx="700" cy="448" r="5" />
               <text class="lens__label" x="800" y="218">Autonomy</text>
             </g>
             <g class="lens__callout" data-step="understand" data-callout="4">
               <path class="lens__halo" d="M607 430 L540 232" pathLength="1" />
-              <path class="lens__leader" d="M607 430 L540 232" pathLength="1" />
-              <circle class="lens__hit" cx="607" cy="430" r="32" />
-              <circle class="lens__dot" cx="607" cy="430" r="5" />
+              <path class="lens__leader" d="M615 475 L540 232" pathLength="1" />
+              <circle class="lens__hit" cx="615" cy="475" r="32" />
+              <circle class="lens__dot" cx="615" cy="475" r="5" />
               <text class="lens__label" x="540" y="218" text-anchor="end">Once overwhelmed</text>
             </g>
             <g class="lens__callout lens__callout--parent" data-step="understand respond" data-callout="5">
@@ -487,16 +498,12 @@
     <div class="explorer__inner">
       <div class="explorer__top">
       <figure class="explorer__photo" data-reveal style="--i:1">
-        <img src="/assets/img/site/hero-parent-baby-640.jpg" srcset="/assets/img/site/hero-parent-baby-640.jpg 640w, /assets/img/site/hero-parent-baby.jpg 1000w" sizes="(min-width: 1000px) 18vw, 100vw" alt="A parent holding a baby close, both looking at the same thing." width="640" height="960" loading="lazy" decoding="async" />
+        <img src="/assets/img/site/hero-parent-baby-640.jpg" srcset="/assets/img/site/hero-parent-baby-640.jpg 640w, /assets/img/site/hero-parent-baby.jpg 1024w" sizes="(min-width: 1000px) 18vw, 100vw" alt="A parent and a toddler sitting on the floor, both looking toward something the child is pointing at." width="640" height="960" loading="lazy" decoding="async" />
       </figure>
       <div class="explorer__lead">
       <div class="explorer__head">
         <h2 id="explore-heading" class="explorer__h"><span class="explorer__h-soft">Explore the first five years,</span><br><span>one period at a time.</span></h2>
         <a class="btn btn--primary explorer__cta" href="/classes/">Browse the classes</a>
-      </div>
-
-      </div>
-
       </div>
 
       <div class="explorer__cursor">
@@ -505,6 +512,9 @@
           <input class="explorer__range" id="age-range" type="range" min="0" max="59" step="1" value="27" data-age-range aria-valuetext="2 years, 3 months">
           <output class="explorer__out" for="age-range" aria-live="off" data-age-out>2 years, 3 months</output>
         </div>
+      </div>
+      </div>
+
       </div>
 
       <div class="explorer__body">
@@ -590,7 +600,7 @@
             <h2 id="three-heading" class="tile__h2">Three things worth understanding</h2>
           </div>
           <div class="tile tile--photo mosaic__order-photo fg-drift" data-reveal style="--i:1">
-            <img src="/assets/img/site/toddler-blocks.jpg" alt="A toddler's hands stacking wooden blocks on a table." width="1000" height="1333" loading="lazy" decoding="async" />
+            <img src="/assets/img/site/toddler-blocks.jpg" alt="A child's hands stacking plain wooden blocks on a kitchen table." width="1774" height="887" loading="lazy" decoding="async" />
           </div>
           <div class="tile tile--child mosaic__order-child" data-reveal style="--i:2">
             <p class="tile__sentence">Your child</p>
@@ -635,6 +645,9 @@
         <div class="fg-inner now__inner">
           <div class="now__side">
             <h2 id="now-heading" class="u-visually-hidden">For the moments that cannot wait</h2>
+            <figure class="now__photo" data-reveal style="--i:1">
+              <img src="/assets/img/site/child-learning-640.jpg" srcset="/assets/img/site/child-learning-640.jpg 640w, /assets/img/site/child-learning.jpg 1122w" sizes="(min-width: 1000px) 16vw, 50vw" alt="A toddler at the bottom of a playground slide, one hand on it, while a crouching parent holds out a hand." width="640" height="800" loading="lazy" decoding="async" />
+            </figure>
             <ul class="now__list" aria-label="Five situations the guide covers" data-reveal style="--i:2">
               <li><a href="/tools/right-now">Meltdown or tantrum</a></li>
               <li><a href="/tools/right-now">Testing a limit</a></li>
@@ -673,7 +686,7 @@
                 <td data-plan="Birth to 12 months"><span class="classes__price">$49</span></td>
                 <td data-plan="Toddler years"><span class="classes__price">$49</span></td>
                 <td data-plan="Preschool years"><span class="classes__price">$49</span></td>
-                <td data-plan="The whole family"><span class="classes__price classes__soon">In development</span></td>
+                <td data-plan="The whole family"><span class="classes__soon">In development</span></td>
               </tr>
               <tr>
                 <th scope="row">Ages</th>
@@ -731,7 +744,7 @@
           <h2 id="tools-heading" class="tools__h2" data-reveal><span class="tools__indent">Free tools,</span><br />by what you need</h2>
           <div class="tools__body">
             <div class="tools__photo fg-drift" data-reveal style="--i:2">
-              <img src="/assets/img/site/notebook-coffee-720.jpg" srcset="/assets/img/site/notebook-coffee-720.jpg 720w, /assets/img/site/notebook-coffee.jpg 1200w" sizes="(min-width: 1000px) 22vw, 60vw" alt="An open notebook and a cup of coffee on a kitchen table." width="720" height="480" loading="lazy" decoding="async" />
+              <img src="/assets/img/site/notebook-coffee-720.jpg" srcset="/assets/img/site/notebook-coffee-720.jpg 720w, /assets/img/site/notebook-coffee.jpg 1122w" sizes="(min-width: 1000px) 22vw, 60vw" alt="A kitchen table in the evening: an open notebook with a few handwritten lines, a pen, a mug, and a child's crayon drawing." width="720" height="900" loading="lazy" decoding="async" />
             </div>
             <p class="tools__word" aria-hidden="true">tools</p>
             <table class="tools__table" data-reveal style="--i:1">
