@@ -12,7 +12,7 @@
 .hub-title { padding-block: clamp(40px, 7vw, 104px) clamp(48px, 7vw, 104px); }
 .hub-title__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px clamp(32px, 5vw, 80px); align-items: center; }
 .hub-title h1 { font-size: clamp(2.25rem, 1.4rem + 3.4vw, 4.25rem); line-height: 0.98; letter-spacing: -0.025em; }
-.hub-title .hb-lead { margin-top: 24px; color: var(--ink-soft); }
+.hub-title .hb-lead { margin-top: 24px; color: var(--ink-soft); max-width: 52ch; }
 .hub-title--solo .hub-title__grid { grid-template-columns: minmax(0, 1fr); }
 .hub-title--solo { padding-bottom: clamp(32px, 4vw, 56px); }
 .hub-title__fine { margin-top: 18px; font-size: 15px; color: var(--ink-muted); max-width: 52ch; }
@@ -106,10 +106,13 @@
 .bio__text h2 { color: var(--ink); font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem); line-height: 1.05; }
 .bio__role { color: var(--ink); font-weight: 500; }
 @media (max-width: 760px) { .bio { grid-template-columns: minmax(0, 1fr); } .bio img { max-width: 160px; } }
-.principles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px clamp(24px, 4vw, 56px); }
-.principles h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem); line-height: 1.15; margin-bottom: 6px; }
+/* Five principles as rows: the name, then its one line. */
+.principles { display: grid; }
+.principles > div { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 4px 28px; padding-block: 18px; border-top: 1px solid var(--sage-mist-2); align-items: baseline; }
+.principles > div:first-child { border-top: 0; padding-top: 0; }
+.principles h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem); line-height: 1.15; }
 .principles p { color: var(--ink-soft); }
-@media (max-width: 760px) { .principles { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 760px) { .principles > div { grid-template-columns: minmax(0, 1fr); } }
 .creds { display: grid; gap: 0; }
 .creds li { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 16px; padding-block: 14px; border-top: 1px solid var(--border-soft); }
 .creds li:first-child { border-top: 0; padding-top: 0; }
@@ -139,11 +142,12 @@
 
 /* ---------- Close: one statement, one action ---------- */
 .hub-close { background: var(--field-ink); color: var(--on-ink); }
-.hub-close .hb-container { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px clamp(32px, 5vw, 80px); align-items: end; }
+/* The statement and its action stay together, on the left. */
+.hub-close .hb-container { display: grid; gap: 28px; justify-items: start; }
 .hub-close h2 { color: var(--on-ink); font-size: clamp(2rem, 1.3rem + 2.4vw, 3.25rem); line-height: 1.02; }
 .hub-close p { color: var(--on-ink-soft); margin-top: 14px; max-width: 46ch; }
 .hub-close__act { display: flex; flex-wrap: wrap; gap: 12px; }
 .fg .hub-close .hb-btn--quiet { color: var(--on-ink); box-shadow: inset 0 0 0 1.5px var(--on-ink); }
 .fg .hub-close .hb-btn--quiet:hover { background: var(--field-ink-2); color: var(--on-ink); }
 .hub-close :focus-visible { outline-color: var(--on-ink); }
-@media (max-width: 760px) { .hub-close .hb-container { grid-template-columns: minmax(0, 1fr); } .hub-close__act .hb-btn { width: 100%; } }
+@media (max-width: 760px) { .hub-close__act { width: 100%; } .hub-close__act .hb-btn { width: 100%; } }

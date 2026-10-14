@@ -23,7 +23,8 @@ body.fg {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-.fg h1, .fg h2, .fg h3, .fg h4, .fg p, .fg figure, .fg blockquote, .fg ul, .fg ol, .fg dl, .fg dd { margin: 0; }
+/* :where() keeps the margin reset at class weight, so a component's own spacing (a single-class rule) is not cancelled. */
+.fg :where(h1, h2, h3, h4, p, figure, blockquote, ul, ol, dl, dd) { margin: 0; }
 .fg ul[class], .fg ol[class] { padding: 0; list-style: none; }
 .fg img, .fg video, .fg svg, .fg canvas { display: block; max-width: 100%; }
 .fg img, .fg video { height: auto; }
