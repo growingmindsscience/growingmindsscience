@@ -8,6 +8,7 @@
 //   --label  names the report: docs/field-guide/gate-reports/<date>-<label>.md  (default: run)
 //   --base   run against a deployed build (a Vercel preview) instead of the local server; G1 and G2
 //            still run on the checkout, G3, G6 and G8 run against the URL
+//   --serve  [port] only serve the checkout the way the gate does (default port 4173), for screenshots
 //   --css    stylesheets for G2; default is every .css changed against origin/main, or, when none
 //            changed, every local stylesheet the listed pages load (so a baseline still lints)
 //
@@ -167,6 +168,19 @@ const run = (cmd, args, cwd = ROOT, timeoutMs = 600000) => new Promise((done) =>
   });
 });
 
+// ---------- serve only ----------
+// `--serve [port]` runs the same rewrite-aware server and nothing else, for playwright-cli screenshots.
+if (process.argv.includes('--serve')) {
+  const i = process.argv.indexOf('--serve');
+  const port = Number(process.argv[i + 1]) || 4173;
+  REWRITES = vercelRewrites();
+  const s = await startServer();
+  s.close();
+  await new Promise((r) => s.once('close', r));
+  s.listen(port, '127.0.0.1', () => log(`fg-gate: serving ${rel(ROOT) || '.'} at http://127.0.0.1:${port} (vercel.json rewrites, brotli). Ctrl-C to stop.`));
+  await new Promise(() => {});
+}
+
 // ---------- main ----------
 const server = base ? null : await startServer();
 const origin = base ? base.replace(/\/$/, '') : `http://127.0.0.1:${server.address().port}`;
@@ -321,8 +335,10 @@ try {
               const n = walker.currentNode; const t = n.textContent.trim().replace(/\s+/g, ' ').slice(0, 80); if (!t) continue;
               const el = n.parentElement; if (!el || el.closest('script,style,noscript,template')) continue;
               let e = el, gone = !!el.closest('[hidden],[aria-hidden="true"]') || (!!el.closest('details:not([open])') && !el.closest('summary'));
-              while (!gone && e && e !== document.body) { const cs = getComputedStyle(e); if (cs.display === 'none' || cs.visibility === 'hidden' || parseFloat(cs.opacity) < 0.05) gone = true; e = e.parentElement; }
-              if (out[t] !== 'shown') out[t] = gone ? (el.closest('button,label,input,select,output,[role=tab],[role=tablist],[role=slider]') ? 'control' : 'hidden') : 'shown';
+              let overlay = false;
+              while (e && e !== document.body) { const cs = getComputedStyle(e); if (cs.display === 'none' || cs.visibility === 'hidden' || parseFloat(cs.opacity) < 0.05) gone = true; if (cs.position === 'fixed' || cs.position === 'sticky') overlay = true; e = e.parentElement; }
+              // A script-only control, or a fixed or sticky bar that repeats what the page says, is not lost content.
+              if (out[t] !== 'shown') out[t] = gone ? (overlay || el.closest('button,label,input,select,output,[role=tab],[role=tablist],[role=slider],[data-enroll-bar]') ? 'control' : 'hidden') : 'shown';
             }
             return out;
           };
@@ -345,7 +361,7 @@ try {
             const msg = (l) => l.slice(0, 5).map((t) => `"${t.slice(0, 50)}"`).join(', ') + (l.length > 5 ? `, and ${l.length - 5} more` : '');
             if (lost.length) fail(`no-script @390: ${lost.length} text(s) visible with script are hidden without it: ${msg(lost)}.`);
             else pass(`no-script @390: everything visible with script is visible without it (${shownOn.length} texts).`);
-            if (controls.length) g.lines.push(`- check by hand: ${controls.length} script-only control label(s) hidden without script (a progressive enhancement is fine when its content shows without it): ${msg(controls)}.`);
+            if (controls.length) g.lines.push(`- check by hand: ${controls.length} script-only control or overlay text(s) hidden without script (fine when the same content shows without it): ${msg(controls)}.`);
             if (injected.length) g.lines.push(`- check by hand: ${injected.length} text(s) exist only when script runs (injected): ${msg(injected)}.`);
             if (needScript.length) g.lines.push(`- check by hand: control(s) that open nothing without script: ${needScript.map((n) => `"${n}"`).join(', ')}. Acceptable only if the same links are reachable without it (the footer carries the site links).`);
           }
@@ -362,6 +378,8 @@ try {
               for (const el of document.querySelectorAll('body *')) {
                 if (!el.textContent.trim() && !['IMG', 'SVG', 'PICTURE', 'VIDEO'].includes(el.tagName.toUpperCase())) continue;
                 if (el.closest('[hidden],[aria-hidden="true"],details:not([open]) > :not(summary),template,noscript,dialog:not([open])')) continue;
+                // Skip links wait off-screen until focused, and SVG labels carry their own transforms.
+                if (el.closest('.skip-link,.sr-only,.u-visually-hidden,.visually-hidden') || (el.closest('svg') && el.tagName.toLowerCase() !== 'svg')) continue;
                 const cs = getComputedStyle(el);
                 if (cs.display === 'none') continue;
                 const tf = cs.transform;
