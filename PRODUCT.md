@@ -72,3 +72,13 @@ carries a `<title>`, `<desc>`, and a visible caption. Honor
 gated on a reveal. Theme toggle persists and respects system preference. Keep
 copy readable for stressed, distracted readers (cognitive load is the primary
 inclusion need).
+
+## Brand commitments
+
+- **Colour (2026-10-13, Matthew):** never orange as a main colour. The palette is
+  calm and inviting but collegiate and respectable: cool map-white ground, navy
+  ink, slate and sage, one teal for action. Warm accents, if any, stay small.
+- **Message (2026-10-13, Matthew):** science is the vehicle for parent
+  empowerment. If you love your child and love the science, these classes
+  empower you to be the best parent you can be. The site must read as
+  professional.

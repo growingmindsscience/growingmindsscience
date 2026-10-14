@@ -1391,3 +1391,122 @@ h1, h2, h3, .page-hero__title, .section-head__title, .product-card__title, .card
 .about-cta h2 { max-width: 24ch; margin-inline: auto; }
 .about-cta .lede { max-width: 56ch; margin-inline: auto; }
 .about-cta__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-3); margin-top: var(--space-5); }
+
+/* =========================================================
+   Terrain override layer (2026-10): the inner pages on the survey sheet.
+   Loaded after styles.css, before chrome.css. Flat fields, square corners,
+   no washes, no graph paper, no shadows at rest; the one phrase mark is a
+   patch of woodland; buttons set in Geologica. Tokens: tokens-terrain.css.
+   ========================================================= */
+.hero, .page-hero, .class-hero, .article-hero, .tool-hero, .ai-hero,
+[data-theme="dark"] .hero, [data-theme="dark"] .page-hero,
+[data-theme="dark"] .class-hero, [data-theme="dark"] .article-hero, [data-theme="dark"] .tool-hero {
+  background-color: var(--bg);
+  background-image: none;
+  border-bottom: 0;
+}
+#about, [data-theme="dark"] #about, .classes, .signup, .section--alt {
+  background-image: none;
+  background-color: var(--bg-alt);
+  border-top: 0;
+  border-bottom: 0;
+}
+.classes { background-color: var(--bg); }
+.hero__credential { background: var(--surface); border: 0; border-top: 3px solid var(--ink); border-radius: 0; }
+.hero__media, .page-hero__visual, .about-preview__media, .tool-hero__image, .class-intro__photo, .article-hero__media {
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  box-shadow: none;
+}
+.page-hero__visual:not(.page-hero__visual--graphic)::after { content: none; }
+.page-hero__visual:not(.page-hero__visual--graphic) img { filter: none; }
+.page-hero__visual--graphic { border: 0; background: transparent; }
+
+h1, h2, h3, h4, .brand, .hero__title, .page-hero__title, .card__title, .tool-card__title, .featured-tool__title, .article-card__title, .section-head__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: var(--display-tracking);
+}
+h3, h4, .card__title, .tool-card__title, .article-card__title { letter-spacing: -0.015em; }
+h1, h2 { line-height: 1.04; }
+.hero__title { font-size: clamp(2.6rem, 1.2rem + 4.8vw, 4.6rem); max-width: 14ch; line-height: 0.98; letter-spacing: -0.03em; }
+.page-hero__title { max-width: 18ch; letter-spacing: -0.03em; line-height: 0.98; }
+
+/* The one phrase mark: woodland behind the words, same ink, in both themes. */
+.hero__title em, .page-hero__title em, .section-head__title em, .belief__quote em,
+[data-theme="dark"] .hero__title em, [data-theme="dark"] .page-hero__title em, [data-theme="dark"] .section-head__title em,
+.hl, mark.hl, .signup__head mark {
+  font-style: normal;
+  color: inherit;
+  background-image: none;
+  background-color: var(--woodland);
+  padding: 0 0.1em;
+  margin: 0;
+  border-radius: 0;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.belief__quote em { color: #FFFFFF; background-color: var(--ink-700); }
+
+/* Buttons: square, one fill, set in the display face. */
+.btn {
+  min-height: 48px;
+  border-radius: 0;
+  border-width: 1.5px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0;
+  box-shadow: none;
+}
+.btn--primary, .btn--primary:hover { box-shadow: none; transform: none; }
+.btn--primary { border-color: var(--primary); }
+.btn--primary:hover { border-color: var(--primary-hover); }
+.btn--ghost { border-color: var(--ink); color: var(--ink); }
+.btn--ghost:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.btn--accent { border-color: var(--primary); color: var(--primary); }
+.btn--accent:hover { background: var(--primary); color: var(--primary-ink); }
+
+/* Panels: a tone step and a legend bar, never a hairline box or a lift. */
+.card, .tool-card, .featured-tool, .article-card, .faq details, .notice, .signup__form,
+.tracker-frame-wrap, .gms-profile, .decoder-output, .inline-signup, .faq-class-item, .lesson-sample__text {
+  border: 0;
+  border-top: 3px solid var(--ink);
+  border-radius: 0;
+  box-shadow: none;
+  background: var(--surface);
+}
+.card:hover, .tool-card:hover, .featured-tool:hover, .article-card:hover {
+  border-color: var(--primary);
+  box-shadow: none;
+  transform: none;
+  background: var(--surface);
+}
+.faq details[open], .faq-class-item[open] { border-color: var(--primary); }
+.card__icon, .pillar-icon, .topic-nav a, .gms-chip, .decoder-btn, .gms-action, .inline-signup__input,
+.field__input, .field__select, input, select, textarea { border-radius: 0; }
+.card__icon, .pillar-icon { background: var(--surface-2); color: var(--primary); }
+.card__eyebrow, .section-head__eyebrow, .eyebrow, .hero__eyebrow, .library-intro__label, .gms-profile__label {
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--ink-muted);
+}
+.tool-card--future { background: var(--surface); }
+.section-head__lede, .page-hero__lede, .hero__lede { color: var(--ink); }
+
+/* Figures and tables keep their lines; everything else separates by tone. */
+hr { border: 0; border-top: 3px solid var(--ink); }
+
+/* Terrain inset: a stretch of the homepage sheet, drawn inline on inner pages. */
+.terrain-inset { border: 0; background: transparent; aspect-ratio: auto; }
+.terrain-inset svg { display: block; width: 100%; height: auto; }
+.terrain-inset .contour { fill: none; stroke: var(--contour); stroke-width: 1.6; stroke-linecap: round; }
+.terrain-inset .contour--index { stroke-width: 2.4; }
+.terrain-inset .woodland { fill: var(--woodland); }
+.terrain-inset .route { fill: none; stroke: var(--primary); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 16 12; }
+.terrain-inset .waymark circle { fill: var(--bg); stroke: var(--primary); stroke-width: 5; }
+.terrain-inset .waymark.is-active circle { fill: var(--primary); }
+.terrain-inset .refs line { stroke: var(--ink); stroke-width: 2; }
+.terrain-inset .refs text { font-family: var(--font-display); font-weight: 500; font-size: 20px; fill: var(--ink-muted); text-anchor: middle; }
+.terrain-inset .refs text:first-of-type { text-anchor: start; }
+.terrain-inset .refs text:last-of-type { text-anchor: end; }
+.terrain-inset .fig__caption { margin-top: var(--space-3); }

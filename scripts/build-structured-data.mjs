@@ -187,7 +187,7 @@ const CLASSES = {
     offer: {
       price: "35.00",
       url: `${ORIGIN}/nsc/app/classes/preschool`,
-      description: "$35 one time with lifetime access to all 15 lessons",
+      description: "$49 one time with lifetime access to all 15 lessons",
     },
   },
 };

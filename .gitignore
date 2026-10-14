@@ -24,3 +24,9 @@ node_modules/
 # uncommitted (never deployed) until an entry is flipped to status:"approved" and
 # published — that is the human sign-off. See library/README.md.
 /answers/
+
+# Design-tool working files (screenshots and inspector output), never shipped
+.impeccable/review/
+.impeccable/mocks/
+.taste-skill/
+.playwright-cli/

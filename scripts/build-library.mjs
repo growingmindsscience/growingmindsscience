@@ -136,9 +136,9 @@ function renderPage(entry, { draft }) {
   <meta property="og:description" content="${escAttr(entry.shortAnswer)}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=0d97ff5fce" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=d297404b34" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=3fa98080dc" />
+  <link rel="stylesheet" href="../assets/css/refresh.css?v=4def14502a" />
   <script type="application/ld+json">
 ${jsonLd(entry, url, published, modified)}
   </script>
@@ -213,9 +213,9 @@ function renderHub(entries, { draft }) {
   <link rel="canonical" href="${ORIGIN}/answers/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400..600&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=0d97ff5fce" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=d297404b34" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=3fa98080dc" />
+  <link rel="stylesheet" href="../assets/css/refresh.css?v=4def14502a" />
   <style>.answers-list{list-style:none;padding:0;margin:0 0 var(--space-8);display:grid;gap:var(--space-3)}.answers-list a{color:var(--primary);font-weight:600;text-decoration:none}.answers-list a:hover{text-decoration:underline}</style>
 </head>
 <body>
