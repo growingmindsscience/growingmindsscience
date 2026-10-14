@@ -27,17 +27,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=DM+Sans:opsz,wght@9..40,400..600&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=0c958d8a60" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=4def14502a" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=c298342254" />
+  <link rel="stylesheet" href="../assets/css/refresh.css?v=a3c6e7ebb0" />
 
   <style>
-    .article-hero { padding: clamp(3.5rem, 7vw, 6rem) 0 var(--space-10); background: linear-gradient(180deg, color-mix(in oklab, var(--accent-soft) 22%, var(--bg)) 0%, var(--bg) 100%); border-bottom: 1px solid var(--border-soft); }
+    .article-hero { padding: clamp(3.5rem, 7vw, 6rem) 0 var(--space-10); background: none; border-bottom: 0; }
     .article-layout { display: grid; grid-template-columns: minmax(0, .72fr) minmax(240px, .28fr); gap: clamp(var(--space-8), 6vw, var(--space-16)); align-items: start; }
     .article-kicker { color: var(--accent-brown); font-size: var(--text-sm); font-weight: 600; line-height: 1.4; margin: 0 0 var(--space-4); }
     .article-title { max-width: 22ch; margin: 0 0 var(--space-5); font-family: var(--font-display); font-size: clamp(2.3rem, 1.2rem + 3.2vw, 3.4rem); font-weight: 500; letter-spacing: -0.005em; line-height: 1.06; text-wrap: balance; }
     .article-dek { max-width: 48rem; color: var(--ink-soft); font-size: var(--text-lg); line-height: 1.55; margin: 0; }
     .article-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); color: var(--ink-muted); font-size: var(--text-sm); margin-top: var(--space-6); }
-    .article-cardlet, .article-toc, .article-callout, .sources-panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-5); }
+    .article-cardlet, .article-toc, .article-callout, .sources-panel { background: var(--surface); border: 0; border-radius: 0; box-shadow:none; padding: var(--space-5); }
     /* Scoped under .article-body so the article h2 rule below cannot inflate the sidebar headings. */
     .article-body .article-cardlet h2, .article-body .article-toc h2, .article-cardlet h2, .article-toc h2 { font-size: var(--text-md); margin: 0 0 var(--space-3); }
     .article-cardlet p, .article-toc a { color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.6; }
@@ -52,15 +52,15 @@
     .article-body p { color: var(--ink-soft); font-size: var(--text-md); line-height: 1.78; margin: 0 0 var(--space-5); }
     .article-body ul { color: var(--ink-soft); display: grid; gap: var(--space-3); line-height: 1.72; margin: 0 0 var(--space-6); padding-left: 1.25rem; }
     .article-body a, .sources-panel a { color: var(--primary); font-weight: 700; }
-    .article-callout { background: color-mix(in oklab, var(--accent-soft) 30%, var(--surface)); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: var(--space-5) var(--space-6); margin: var(--space-8) 0; }
+    .article-callout { background: color-mix(in oklab, var(--accent-soft) 30%, var(--surface)); border: 0; border-radius: 0; padding: var(--space-5) var(--space-6); margin: var(--space-8) 0; }
     .article-callout p { margin: 0; }
     .translation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); margin: var(--space-7) 0; }
-    .translation-card { background: var(--bg-alt); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: var(--space-5); }
+    .translation-card { background: var(--bg-alt); border: 0; border-radius: 0; padding: var(--space-5); }
     .translation-card h3 { margin-top: 0; }
     .sources-panel { margin-top: var(--space-10); }
     .sources-panel ul { margin-bottom: 0; }
-    .article-cta { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
-    .article-figure { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-6); margin: var(--space-8) 0; }
+    .article-cta { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 0; border-radius: 0; box-shadow:none; }
+    .article-figure { background: var(--surface); border: 0; border-radius: 0; box-shadow:none; padding: var(--space-6); margin: var(--space-8) 0; }
     /* Figures are drawn on a 480-unit viewBox and their text is set in SVG
        units, so it scales with the drawing. Capped at 32rem, 16-unit labels
        render at about 17px on wide screens. Below 560px the figure gives up
@@ -71,14 +71,14 @@
     .article-figure .af-muted { fill: var(--ink-muted); }
     .article-figure .af-primary { fill: var(--primary); }
     .article-figure .af-accent { fill: var(--accent-brown); }
-    .article-figure .af-note { font-style: italic; fill: var(--accent-brown); }
+    .article-figure .af-note { font-style: normal; fill: var(--accent-brown); }
     .article-figure .af-head, .article-figure .af-key, .article-figure .af-foot, .article-figure figcaption { max-width: 32rem; margin-inline: auto; }
     .article-figure .af-head { margin-block: 0 var(--space-4); color: var(--ink); font-size: var(--text-base); font-weight: 700; line-height: 1.4; text-wrap: balance; }
-    .article-figure .af-foot { margin-block: var(--space-4) 0; color: var(--accent-brown); font-size: var(--text-base); font-style: italic; line-height: 1.5; text-wrap: balance; }
-    .article-figure .af-key { display: grid; gap: var(--space-3); margin-block: var(--space-5) 0; padding: var(--space-4) 0 0; border-top: 1px solid var(--border-soft); list-style: none; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.55; }
+    .article-figure .af-foot { margin-block: var(--space-4) 0; color: var(--accent-brown); font-size: var(--text-base); font-style: normal; line-height: 1.5; text-wrap: balance; }
+    .article-figure .af-key { display: grid; gap: var(--space-3); margin-block: var(--space-5) 0; padding: var(--space-4) 0 0; border-top: 0; list-style: none; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.55; }
     .article-figure .af-key li { display: grid; grid-template-columns: 1.75rem minmax(0, 1fr); gap: var(--space-3); align-items: start; }
     .article-figure .af-key b { color: var(--ink); font-weight: 700; }
-    .article-figure .af-key__num { display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border: 2px solid var(--primary); border-radius: 50%; color: var(--primary); font-size: var(--text-sm); font-weight: 700; line-height: 1; }
+    .article-figure .af-key__num { display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border: 2px solid var(--primary); border-radius: 0; color: var(--primary); font-size: var(--text-sm); font-weight: 700; line-height: 1; }
     .article-figure .af-key__num--warm { border-color: var(--warm); color: var(--accent-brown); }
     .article-figure .af-key--stages { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-5); }
     .article-figure .af-key--stages li { display: block; }
@@ -92,13 +92,13 @@
       .article-figure svg { width: calc(100% + 2 * var(--space-2)); max-width: none; margin-inline: calc(-1 * var(--space-2)); }
     }
     .article-figure figcaption { color: var(--ink-muted); font-size: var(--text-sm); line-height: 1.6; margin-top: var(--space-4); }
-    .article-figure figcaption b { font-family: var(--font-display); font-style: italic; font-weight: 600; color: var(--amber-deep); }
+    .article-figure figcaption b { font-family: var(--font-display); font-style: normal; font-weight: 600; color: var(--amber-deep); }
     .article-figure .article-figure__head { margin: 0 0 var(--space-4); }
     .figure-steps { display: grid; gap: var(--space-5); margin: 0; padding: 0; list-style: none; }
     .figure-steps li { display: grid; grid-template-columns: 44px 1fr; gap: var(--space-4); align-items: start; }
     .figure-steps h4 { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); }
     .figure-steps p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
-    .figure-foot { margin: var(--space-5) 0 0; padding-top: var(--space-4); border-top: 1px dashed var(--border-soft); color: var(--accent-brown); font-style: italic; font-size: var(--text-md); }
+    .figure-foot { margin: var(--space-5) 0 0; padding-top: var(--space-4); border-top: 0; color: var(--accent-brown); font-style: normal; font-size: var(--text-md); }
     /* The TOC comes first in the DOM, so on phones it sits above the article
        (and keyboard order matches what is on screen); wide screens keep it in
        the right-hand column. */
@@ -174,7 +174,7 @@
   ]
   </script>
   <!-- STRUCTURED-DATA:end -->
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=03bf41a0fc" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=ee54232f17" />
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>

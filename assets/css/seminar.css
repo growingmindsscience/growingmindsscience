@@ -28,7 +28,7 @@
   aspect-ratio: 1;
   border-radius: 0;
   overflow: hidden;
-  border: 2px solid var(--ink);
+  border: 0;
   background: var(--tint);
 }
 .unit__thumb img {
@@ -66,7 +66,7 @@
   font-weight: 600;
   letter-spacing: 0;
 }
-.unit__status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.unit__status::before { content: ""; width: 7px; height: 7px; border-radius: 0; background: currentColor; }
 .unit__status--open { background: var(--amber-tint); color: var(--teal); }
 .unit__status--soon { background: var(--tint); color: var(--ink-muted); }
 .unit__meta { display: grid; gap: var(--space-2); margin: 0; }
@@ -167,14 +167,14 @@
   font-size: 15px;
   font-weight: 500;
 }
-.fig-text--sm { font-size: 13px; letter-spacing: 0.02em; }
+.fig-text--sm { font-size: 13px; letter-spacing: normal; }
 
 /* A figure on paper: a quiet frame so it reads as a plate, not a card. */
 .fig--plate {
   padding: clamp(var(--space-4), 2.4vw, var(--space-6));
   background: var(--surface);
   border: 0;
-  border-top: 3px solid var(--ink);
+  border-top: 0;
 }
 .fig--plate .fig-grid { stroke: var(--line-soft); }
 .fig--plate .fig-axis { stroke: var(--ink-muted); }
@@ -269,7 +269,7 @@
   justify-self: end;
   border-radius: 0;
   overflow: hidden;
-  border: 2px solid var(--ink);
+  border: 0;
   background: var(--tint);
 }
 .class-intro__photo img { width: 100%; height: 100%; object-fit: cover; }
@@ -286,7 +286,7 @@
   grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
   gap: var(--space-3) clamp(var(--space-6), 4vw, var(--space-12));
   padding-block: clamp(var(--space-6), 3vw, var(--space-8));
-  border-top: 3px solid var(--ink);
+  border-top: 0;
 }
 .syllabus__num {
   margin: 0 0 var(--space-1);
@@ -427,7 +427,7 @@
   padding: clamp(var(--space-6), 3vw, var(--space-8));
   background: var(--surface);
   border: 0;
-  border-top: 3px solid var(--ink);
+  border-top: 0;
 }
 .lesson-sample__text p { margin: 0 0 var(--space-4); max-width: 52ch; color: var(--ink); font-size: var(--text-md); line-height: 1.65; text-wrap: pretty; }
 .lesson-sample__text p:last-child { margin-bottom: 0; }
@@ -480,7 +480,7 @@ body:has(.class-intro) .container--narrow > * { max-width: 46rem; }
 #enroll .signup__form {
   background: var(--ink-800);
   border-color: rgba(238, 244, 243, 0.14);
-  box-shadow: none;
+  box-shadow:none;
   color: #EEF4F3;
 }
 #enroll .signup__form-title { color: #FFFFFF; }
@@ -491,7 +491,7 @@ body:has(.class-intro) .container--narrow > * { max-width: 46rem; }
   background: #EEF2F4;
   border-color: #EEF2F4;
   color: #16232F;
-  box-shadow: none;
+  box-shadow:none;
 }
 #enroll .signup__form .btn--primary:hover { background: #FFFFFF; border-color: #FFFFFF; color: #16232F; }
 #enroll .signup__form .btn--primary:focus-visible { outline: 3px solid #7FC4BC; outline-offset: 3px; }

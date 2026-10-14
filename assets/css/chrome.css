@@ -92,7 +92,7 @@
   border-radius: 0;
   object-fit: contain;
   background: var(--chrome-surface);
-  box-shadow: none;
+  box-shadow:none;
 }
 /* The sprout's dark outline all but disappears straight on a dark ground, so
    the mark keeps a light disc on the night bar and on the ink field. */
@@ -201,7 +201,7 @@
   border: 0;
   border-top: 6px solid var(--chrome-action);
   border-radius: 0;
-  box-shadow: none; /* taste-skill-ignore: the menu sits on a tone step, not a lift */
+  box-shadow:none; /* taste-skill-ignore: the menu sits on a tone step, not a lift */
   transform: translateX(-50%);
 }
 .site-header .nav__submenu {
@@ -296,7 +296,7 @@
   border-radius: 0;
   background: var(--chrome-action);
   color: var(--chrome-action-ink);
-  box-shadow: none;
+  box-shadow:none;
   font-family: var(--chrome-body);
   font-size: 0.9375rem;
   font-weight: 500;
@@ -375,7 +375,7 @@
     padding: 0.5rem clamp(1rem, 4vw, 2.25rem) 1.5rem;
     background: var(--chrome-ground-2);
     border-bottom: 0;
-    box-shadow: none;
+    box-shadow:none;
     transform: translateY(-8px);
     opacity: 0;
     visibility: hidden;
@@ -419,7 +419,7 @@
     background: none;
     border: 0;
     border-radius: 0;
-    box-shadow: none;
+    box-shadow:none;
     transform: none;
     animation: none !important;
   }

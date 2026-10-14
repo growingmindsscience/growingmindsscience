@@ -26,9 +26,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=DM+Sans:opsz,wght@9..40,400..600&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=0c958d8a60" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=4def14502a" />
-  <link rel="stylesheet" href="../assets/css/tools.css?v=7fce784071" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=c298342254" />
+  <link rel="stylesheet" href="../assets/css/refresh.css?v=a3c6e7ebb0" />
+  <link rel="stylesheet" href="../assets/css/tools.css?v=2473fffeb2" />
   <script>try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 
   <style>
@@ -39,23 +39,23 @@
 
     .hero-card {
       background: var(--surface);
-      border: 1px solid var(--border-soft);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-sm);
+      border: 0;
+      border-radius: 0;
+      box-shadow:none;
       padding: var(--space-6);
     }
     .hero-card h2 { margin: 0 0 .65rem; font-size: var(--text-lg); }
     .meta-list { list-style: none; padding: 0; margin: var(--space-4) 0 0; display: grid; gap: .85rem; }
     .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
-    .dot { width: 10px; height: 10px; border-radius: 8px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
-    .tag { display: inline-flex; padding: .3rem .7rem; border-radius: 6px; background: var(--surface-2); font-size: var(--text-xs); font-weight: 700; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .dot { width: 10px; height: 10px; border-radius: 0; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
+    .tag { display: inline-flex; padding: .3rem .7rem; border-radius: 0; background: var(--surface-2); font-size: var(--text-xs); font-weight: 700; color: var(--ink-muted); margin-bottom: var(--space-3); }
     .small { font-size: var(--text-sm); color: var(--ink-muted); }
 
     /* --- Snapshot wizard --- */
     .cs-app { max-width: var(--container-narrow); margin: 0 auto; }
     .cs-card {
-      background: var(--surface); border: 1px solid var(--border-soft);
-      border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);
+      background: var(--surface); border: 0;
+      border-radius: 0; box-shadow:none;
       padding: clamp(1.25rem, 3vw, 2rem);
     }
     .cs-progress { font-size: var(--text-xs);  color: var(--ink-muted); font-weight: 700; margin: 0 0 var(--space-2); font-family: var(--font-display); }
@@ -66,7 +66,7 @@
     .cs-field__label { margin: 0; }
     .cs-field input[type="number"] {
       width: 7.5rem; padding: .6rem .75rem; border: 1px solid var(--border);
-      border-radius: var(--radius-sm, 8px); background: var(--surface); color: var(--ink);
+      border-radius: 0; background: var(--surface); color: var(--ink);
       font: inherit;
     }
     .cs-field input:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
@@ -74,7 +74,7 @@
 
     .cs-chips { display: flex; flex-wrap: wrap; gap: var(--space-2); }
     .cs-chip {
-      padding: .55rem .9rem; border-radius: var(--radius); border: 1px solid var(--border);
+      padding: .55rem .9rem; border-radius: 0; border: 0;
       background: var(--surface); color: var(--ink-soft); cursor: pointer; font: inherit;
       font-size: var(--text-sm); min-height: 44px;
       transition: background var(--transition), border-color var(--transition), color var(--transition);
@@ -83,7 +83,7 @@
     .cs-chip:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
     .cs-chip.is-active { background: var(--primary); border-color: var(--primary); color: var(--primary-ink); }
 
-    .cs-item { padding: var(--space-4) 0; border-top: 1px solid var(--border-soft); }
+    .cs-item { padding: var(--space-4) 0; border-top: 0; }
     .cs-item:first-of-type { border-top: 0; }
     .cs-item__prompt { font-weight: 600; font-family: var(--font-display); margin: 0 0 .2rem; }
     .cs-item__help { font-size: var(--text-sm); color: var(--ink-muted); margin: 0 0 .7rem; max-width: 46rem; }
@@ -95,30 +95,30 @@
     /* --- Report --- */
     .cs-sev {
       display: inline-flex; align-items: center; gap: .5rem;
-      padding: .4rem .85rem; border-radius: var(--radius-sm); font-family: var(--font-display);
+      padding: .4rem .85rem; border-radius: 0; font-family: var(--font-display);
       font-weight: 600; font-size: var(--text-sm); margin-bottom: var(--space-4);
     }
-    .cs-sev--none, .cs-sev--watch { background: var(--surface-2); color: var(--primary); border: 1px solid color-mix(in srgb, var(--primary) 40%, transparent); }
-    .cs-sev--discuss, .cs-sev--priority_discuss { background: #FBEBC8; color: #7F5008; border: 1px solid color-mix(in srgb, #7F5008 30%, transparent); }
+    .cs-sev--none, .cs-sev--watch { background: var(--surface-2); color: var(--primary); border: 0; }
+    .cs-sev--discuss, .cs-sev--priority_discuss { background: #FBEBC8; color: #7F5008; border: 0; }
     [data-theme="dark"] .cs-sev--discuss, [data-theme="dark"] .cs-sev--priority_discuss { background: color-mix(in srgb, #F2A93B 18%, transparent); color: #F3B649; border-color: color-mix(in srgb, #F3B649 35%, transparent); }
     .cs-report h2 { margin: 0 0 .6rem; }
     .cs-lead { color: var(--ink-soft); max-width: 52rem; }
-    .cs-invitation { font-family: var(--font-body); font-style: italic; color: #7F5008; max-width: 48rem; margin: var(--space-4) 0 0; }
+    .cs-invitation { font-family: var(--font-body); font-style: normal; color: #7F5008; max-width: 48rem; margin: var(--space-4) 0 0; }
     [data-theme="dark"] .cs-invitation { color: #F3B649; }
 
     .cs-flags { display: grid; gap: var(--space-4); margin: var(--space-6) 0 0; }
-    .cs-flag { border: 1px solid var(--border-soft); border-radius: var(--radius); background: var(--bg-alt); padding: var(--space-5); }
+    .cs-flag { border: 0; border-radius: 0; background: var(--bg-alt); padding: var(--space-5); }
     .cs-flag h3 { margin: 0 0 .45rem; font-size: var(--text-md); }
     .cs-flag p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
-    .cs-flag--watch { border-left: 1px solid var(--border-soft); }
+    .cs-flag--watch { border-left: 0; }
 
     .cs-guidance { display: grid; gap: var(--space-3); margin: var(--space-6) 0 0; }
-    .cs-guidance details { border: 1px solid var(--border-soft); border-radius: var(--radius); background: var(--surface); padding: 0; }
+    .cs-guidance details { border: 0; border-radius: 0; background: var(--surface); padding: 0; }
     .cs-guidance summary { cursor: pointer; padding: var(--space-4) var(--space-5); font-weight: 600; font-family: var(--font-display); }
-    .cs-guidance summary:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: var(--radius); }
+    .cs-guidance summary:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 0; }
     .cs-guidance .cs-guidance__body { padding: 0 var(--space-5) var(--space-5); color: var(--ink-soft); }
 
-    .cs-recap { margin: var(--space-6) 0 0; border-top: 1px solid var(--border-soft); padding-top: var(--space-5); }
+    .cs-recap { margin: var(--space-6) 0 0; border-top: 0; padding-top: var(--space-5); }
     .cs-recap h3 { font-size: var(--text-md); margin: 0 0 var(--space-3); }
     .cs-recap ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .35rem; font-size: var(--text-sm); color: var(--ink-soft); }
     .cs-note { font-size: var(--text-xs); color: var(--ink-muted); margin: var(--space-5) 0 0; max-width: 52rem; }
@@ -131,14 +131,14 @@
       #visit-sheet h2 { font: 700 16pt/1.2 "Helvetica Neue", sans-serif; margin: 0 0 .3rem; }
       #visit-sheet h3 { font: 700 12pt/1.2 "Helvetica Neue", sans-serif; margin: 1rem 0 .3rem; }
       #visit-sheet ul { margin: .2rem 0; padding-left: 1.2rem; }
-      #visit-sheet .vs-foot { margin-top: 1.2rem; font-size: 9pt; color: #444; border-top: 1px solid #999; padding-top: .5rem; }
+      #visit-sheet .vs-foot { margin-top: 1.2rem; font-size: 9pt; color: #444; border-top: 0; padding-top: .5rem; }
     }
 
     @media (max-width: 920px) {
       .hero-grid { grid-template-columns: 1fr; }
     }
   </style>
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=03bf41a0fc" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=ee54232f17" />
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>

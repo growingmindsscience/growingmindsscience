@@ -32,24 +32,24 @@ const strengthClass = (s) => (s === "contradicted" ? "badge--contra" : s === "st
 const SHARED_CSS = `
     .claim-hero { padding: clamp(3rem, 6vw, 4.5rem) 0 2rem; }
     .cl-badges { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 var(--space-4); }
-    .cl-badge { display: inline-flex; align-items: center; padding: .3rem .7rem; border-radius: 6px; font-family: var(--font-body); font-weight: 600; font-size: var(--text-xs); border: 1px solid var(--border); background: var(--surface); color: var(--ink-soft); }
+    .cl-badge { display: inline-flex; align-items: center; padding: .3rem .7rem; border-radius: 0; font-family: var(--font-body); font-weight: 600; font-size: var(--text-xs); border: 0; background: var(--surface); color: var(--ink-soft); }
     .cl-badge.badge--solid { background: var(--surface-2); color: var(--primary); border-color: color-mix(in srgb, var(--primary) 40%, transparent); }
     .cl-badge.badge--contra { background: #FBEBC8; color: #7F5008; border-color: color-mix(in srgb, #7F5008 30%, transparent); }
     [data-theme="dark"] .cl-badge.badge--contra { background: color-mix(in srgb, #F2A93B 18%, transparent); color: #F3B649; border-color: color-mix(in srgb, #F3B649 35%, transparent); }
-    .cl-verdict { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-6); margin: var(--space-6) 0; }
+    .cl-verdict { background: var(--surface); border: 0; border-radius: 0; box-shadow:none; padding: var(--space-6); margin: var(--space-6) 0; }
     .cl-verdict p { margin: 0; font-size: var(--text-lg); font-weight: 500; }
     .cl-summary { max-width: 46rem; color: var(--ink-soft); font-size: var(--text-md); line-height: 1.78; }
-    .cl-sources { background: var(--bg-alt); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: var(--space-5); margin: var(--space-7) 0; }
+    .cl-sources { background: var(--bg-alt); border: 0; border-radius: 0; padding: var(--space-5); margin: var(--space-7) 0; }
     .cl-sources h2 { font-size: var(--text-md); margin: 0 0 var(--space-3); }
     .cl-sources ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .6rem; font-size: var(--text-sm); color: var(--ink-soft); }
     .cl-related { display: flex; flex-wrap: wrap; gap: var(--space-3); margin: var(--space-5) 0; }
     .cl-note { font-size: var(--text-xs); color: var(--ink-muted); max-width: 52rem; margin: var(--space-7) 0 0; }
     .cl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr)); gap: var(--space-5); margin-top: var(--space-6); }
-    .cl-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: none; padding: var(--space-5); display: flex; flex-direction: column; gap: .6rem; }
+    .cl-card { background: var(--surface); border: 0; border-radius: 0; box-shadow:none; padding: var(--space-5); display: flex; flex-direction: column; gap: .6rem; }
     .cl-card h3 { margin: 0; font-size: var(--text-md); line-height: 1.35; }
     .cl-card .cl-verdict-line { color: var(--ink-soft); font-size: var(--text-sm); margin: 0; line-height: 1.6; }
     .cl-card .cl-open { margin-top: auto; padding-top: .5rem; }
-    .cl-method { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-6); margin-top: var(--space-7); }
+    .cl-method { background: var(--surface); border: 0; border-radius: 0; box-shadow:none; padding: var(--space-6); margin-top: var(--space-7); }
     .cl-method h2 { font-size: var(--text-lg); margin: 0 0 var(--space-3); }
     .cl-method p { color: var(--ink-soft); font-size: var(--text-sm); margin: 0 0 var(--space-3); max-width: 52rem; }
 `;
@@ -79,12 +79,12 @@ ${extraHead}
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=DM+Sans:opsz,wght@9..40,400..600&display=swap" />
-  <link rel="stylesheet" href="/assets/css/styles.css?v=0c958d8a60" />
-  <link rel="stylesheet" href="/assets/css/refresh.css?v=4def14502a" />
-  <link rel="stylesheet" href="/assets/css/tools.css?v=7fce784071" />
+  <link rel="stylesheet" href="/assets/css/styles.css?v=c298342254" />
+  <link rel="stylesheet" href="/assets/css/refresh.css?v=a3c6e7ebb0" />
+  <link rel="stylesheet" href="/assets/css/tools.css?v=2473fffeb2" />
   <script>try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <style>${SHARED_CSS}</style>
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=03bf41a0fc" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=ee54232f17" />
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>

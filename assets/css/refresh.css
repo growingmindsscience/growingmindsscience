@@ -1,5 +1,6 @@
-/* Editorial refresh overrides — component-level styling for the "Tidepool" system.
-   Design tokens (:root color/type/radius/shadow + [data-theme="dark"]) now live in
+/* Editorial refresh overrides: component-level styling for the inner pages,
+   with the Field Guide layer at the end carrying the house rules.
+   Design tokens (:root color/type/radius and depth + [data-theme="dark"]) now live in
    styles.css as the single source of truth; this file only carries the component
    overrides (header, hero, buttons, cards, etc.) layered on top. */
 
@@ -23,24 +24,22 @@ h4,
 }
 
 .btn {
-  border-radius: var(--radius);
+  border-radius: 0;
   letter-spacing: 0;
   min-height: 44px;
 }
 
 .btn--primary {
-  box-shadow: 0 8px 18px -14px color-mix(in oklab, var(--primary) 70%, black);
+  box-shadow:none;
 }
 
 .btn--primary:hover {
-  box-shadow: 0 12px 22px -14px color-mix(in oklab, var(--primary) 80%, black);
+  box-shadow:none;
 }
 
 .hero {
   padding-block: clamp(4.75rem, 8vw, 7rem);
-  background:
-    radial-gradient(54% 60% at 96% 2%, color-mix(in oklab, var(--warm) 12%, transparent) 0%, transparent 60%),
-    radial-gradient(58% 68% at 0% 0%, color-mix(in oklab, var(--primary) 8%, transparent) 0%, transparent 55%);
+  background: none;
 }
 
 .hero__inner {
@@ -59,16 +58,16 @@ h4,
   max-width: 52ch;
   padding: var(--space-4) var(--space-5);
   background: color-mix(in oklab, var(--surface) 60%, transparent);
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius);
+  border: 0;
+  border-radius: 0;
   font-style: normal;
   line-height: 1.55;
 }
 
 .hero__media {
-  border-radius: var(--radius);
-  box-shadow: 0 32px 64px -30px rgba(14, 33, 41, 0.4);
-  border: 1px solid var(--border);
+  border-radius: 0;
+  box-shadow:none;
+  border: 0;
   aspect-ratio: 1 / 1;
 }
 .library-intro__label {
@@ -88,8 +87,7 @@ h4,
 }
 
 .section--alt {
-  background:
-    linear-gradient(180deg, color-mix(in oklab, var(--bg-alt) 78%, var(--surface)) 0%, var(--bg-alt) 100%);
+  background: none;
 }
 
 .card,
@@ -99,16 +97,16 @@ h4,
 .notice,
 .signup__form,
 .tracker-frame-wrap {
-  box-shadow: none;
+  box-shadow:none;
 }
 
 .card:hover,
 .tool-card:hover {
-  box-shadow: 0 12px 28px rgba(14, 33, 41, 0.07);
+  box-shadow:none;
 }
 .card__icon,
 .topic-nav a {
-  border-radius: var(--radius);
+  border-radius: 0;
 }
 
 .classes {
@@ -116,9 +114,8 @@ h4,
 }
 
 .page-hero {
-  background:
-    linear-gradient(180deg, color-mix(in oklab, var(--accent-soft) 24%, var(--bg)) 0%, var(--bg) 100%);
-  border-bottom: 1px solid var(--border-soft);
+  background: none;
+  border-bottom: 0;
 }
 
 .page-hero .container {
@@ -142,8 +139,8 @@ h4,
 
 .page-hero__visual {
   margin: 0;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border: 0;
+  border-radius: 0;
   overflow: hidden;
   background: var(--surface-2);
   aspect-ratio: 4 / 3;
@@ -166,7 +163,7 @@ h4,
   object-fit: contain;
 }
 
-/* Shared warm photo grade + brand-tint wash — unifies site photography.
+/* Shared warm photo grade + brand-tint wash: unifies site photography.
    Scoped to photo heroes only (not the line-art graphic variant). */
 .page-hero__visual:not(.page-hero__visual--graphic) {
   position: relative;
@@ -178,7 +175,7 @@ h4,
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(165deg, transparent 0%, rgba(18,38,44,0.04) 45%, rgba(18,38,44,0.12) 100%);
+  background: none;
   pointer-events: none;
 }
 
@@ -220,8 +217,8 @@ h4,
 
 .image-callout__media {
   margin: 0;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border: 0;
+  border-radius: 0;
   overflow: hidden;
   background: var(--surface-2);
   aspect-ratio: 4 / 3;
@@ -249,8 +246,8 @@ h4,
 
 .faq-side figure {
   margin: 0;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border: 0;
+  border-radius: 0;
   overflow: hidden;
   aspect-ratio: 4 / 5;
   background: var(--surface-2);
@@ -277,9 +274,9 @@ h4,
 
 .tool-mosaic figure {
   margin: 0;
-  border-radius: var(--radius);
+  border-radius: 0;
   overflow: hidden;
-  border: 1px solid var(--border);
+  border: 0;
   background: var(--surface-2);
 }
 
@@ -303,8 +300,8 @@ h4,
 
 .tool-hero__image {
   margin: 0;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
+  border-radius: 0;
+  border: 0;
   overflow: hidden;
   background: var(--surface-2);
   min-height: 280px;
@@ -329,20 +326,18 @@ h4,
   gap: var(--space-6);
   margin: var(--space-8) 0;
   padding: var(--space-5) 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  border-top: 0;
+  border-bottom: 0;
   max-width: 760px;
 }
 
 .featured-tool {
-  background:
-    linear-gradient(135deg, color-mix(in oklab, var(--accent-soft) 18%, var(--surface)) 0%, var(--surface) 54%);
+  background: none;
   border-color: color-mix(in oklab, var(--primary) 35%, var(--border));
 }
 
 .featured-tool--ai {
-  background:
-    linear-gradient(135deg, color-mix(in oklab, var(--warm) 20%, var(--surface)) 0%, var(--surface) 58%);
+  background: none;
 }
 
 .featured-tool__panel {
@@ -361,13 +356,13 @@ h4,
 .tool-card .muted {
   display: inline-flex;
   padding: 0.2rem 0.5rem;
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius-sm);
+  border: 0;
+  border-radius: 0;
   background: var(--surface-2);
 }
 
 .article-card {
-  border-top: 1px solid var(--border);
+  border-top: 0;
   padding: var(--space-5) 0 0;
 }
 
@@ -376,9 +371,8 @@ h4,
 }
 
 .ai-hero {
-  background:
-    linear-gradient(180deg, color-mix(in oklab, var(--accent-soft) 22%, var(--bg)) 0%, var(--bg) 100%);
-  border-bottom: 1px solid var(--border-soft);
+  background: none;
+  border-bottom: 0;
   padding-block: clamp(4.75rem, 8vw, 7rem);
 }
 
@@ -395,8 +389,8 @@ h4,
 
 .ai-message {
   max-width: 88%;
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius);
+  border: 0;
+  border-radius: 0;
   padding: var(--space-4);
   color: var(--ink-soft);
   font-size: var(--text-sm);
@@ -423,8 +417,8 @@ h4,
 }
 
 .ai-source-strip span {
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius-sm);
+  border: 0;
+  border-radius: 0;
   background: color-mix(in oklab, var(--bg-alt) 72%, var(--surface));
   color: var(--ink-soft);
   font-size: var(--text-xs);
@@ -443,7 +437,7 @@ h4,
 .ai-chat-form {
   display: grid;
   gap: var(--space-3);
-  border-top: 1px solid var(--border-soft);
+  border-top: 0;
   padding-top: var(--space-4);
 }
 
@@ -472,8 +466,8 @@ h4,
 
 .ai-suggested button {
   appearance: none;
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius);
+  border: 0;
+  border-radius: 0;
   background: var(--surface);
   color: var(--ink-soft);
   cursor: pointer;
@@ -564,12 +558,12 @@ h4,
 
 .page-hero__visual {
   margin: 0;
-  border-radius: var(--radius-lg);
+  border-radius: 0;
   overflow: hidden;
   aspect-ratio: 4 / 3;
   background: var(--surface-2);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-soft);
+  box-shadow:none;
+  border: 0;
 }
 
 .page-hero__visual img {
@@ -591,49 +585,37 @@ h4,
 }
 
 /* =========================================================
-   Visual upgrade pass — warmth, contrast, rhythm
+   Visual upgrade pass: warmth, contrast, rhythm
    ========================================================= */
 
-/* 1. Hero — warm amber-sage gradient wash */
+/* 1. Hero: warm amber-sage gradient wash */
 .hero {
-  background:
-    radial-gradient(ellipse 80% 60% at 30% 20%,
-      color-mix(in oklab, var(--warm) 28%, var(--bg)) 0%,
-      transparent 70%),
-    linear-gradient(160deg,
-      color-mix(in oklab, var(--bg-alt) 50%, var(--bg)) 0%,
-      var(--bg) 100%);
+  background: none;
 }
 
-/* Hero headline — italic serif on the emotive word */
+/* Hero headline: italic serif on the emotive word */
 .hero__title em {
-  font-style: italic;
+  font-style: normal;
   color: var(--primary);
 }
 
-/* hero__credential border-left was intentionally removed — no rule needed */
+/* hero__credential border-left was intentionally removed: no rule needed */
 
-/* Hero media — warmer frame */
+/* Hero media: warmer frame */
 .hero__media {
   border-color: var(--border-soft);
 }
 
-/* 7. About Matthew — warm section background */
+/* 7. About Matthew: warm section background */
 #about {
-  background:
-    linear-gradient(180deg,
-      color-mix(in oklab, var(--warm) 14%, var(--bg)) 0%,
-      var(--bg) 100%);
-  border-top: 1px solid var(--border-soft);
-  border-bottom: 1px solid var(--border-soft);
+  background: none;
+  border-top: 0;
+  border-bottom: 0;
 }
 
-/* 8. Classes section — slightly warmer bg */
+/* 8. Classes section: slightly warmer bg */
 .classes {
-  background:
-    linear-gradient(180deg,
-      var(--bg) 0%,
-      color-mix(in oklab, var(--bg-alt) 35%, var(--bg)) 100%);
+  background: none;
 }
 
 /* 9. Bigger, bolder section headings */
@@ -648,30 +630,24 @@ h4,
   line-height: 1.06;
 }
 
-/* 11. Credential box — slightly more styled */
+/* 11. Credential box: slightly more styled */
 .hero__credential {
   background: color-mix(in oklab, var(--warm) 8%, var(--surface));
-  border-radius: var(--radius);
+  border-radius: 0;
   padding: var(--space-4) var(--space-5);
 }
 
-/* 12. Featured class card — richer gradient */
+/* 12. Featured class card: richer gradient */
 
-/* 13. Waitlist / enroll band — a cool sea-glass wash. Cool-Ground Rule: warmth
+/* 13. Waitlist / enroll band: a cool sea-glass wash. Cool-Ground Rule: warmth
    comes from coral marks, the serif and imagery, never a warm-tinted ground
    (the old 28% coral wash also dropped the eyebrow below 4.5:1). */
 .signup {
-  background:
-    linear-gradient(160deg,
-      color-mix(in oklab, var(--accent-soft) 45%, var(--bg-alt)) 0%,
-      color-mix(in oklab, var(--primary) 8%, var(--bg-alt)) 100%);
+  background: none;
 }
-.signup .eyebrow { color: var(--ink-soft); }
 
 [data-theme="dark"] #about {
-  background: linear-gradient(180deg,
-    color-mix(in oklab, var(--warm) 8%, var(--bg)) 0%,
-    var(--bg) 100%);
+  background: none;
 }
 
 /* =========================================================
@@ -684,7 +660,7 @@ h4,
   object-position: center 18%;
 }
 
-/* Matthew's portrait — show face, not midriff */
+/* Matthew's portrait: show face, not midriff */
 .about-preview__media img {
   object-position: center 12%;
 }
@@ -695,7 +671,7 @@ h4,
   background: var(--surface-2);
 }
 
-/* Hero media placeholder — prevents jarring blank white while loading */
+/* Hero media placeholder: prevents jarring blank white while loading */
 .hero__media {
   background: color-mix(in oklab, var(--warm) 12%, var(--surface-2));
 }
@@ -705,7 +681,7 @@ h4,
   background: color-mix(in oklab, var(--warm) 10%, var(--surface-2));
 }
 
-/* Smooth image fade-in — scoped to motion-ok visitors only */
+/* Smooth image fade-in: scoped to motion-ok visitors only */
 @media (prefers-reduced-motion: no-preference) {
   .page-hero__visual img,
   .about-preview__media img,
@@ -714,7 +690,7 @@ h4,
   }
 }
 
-/* Tools SVG graphic — constrain and center it nicely inside its frame */
+/* Tools SVG graphic: constrain and center it nicely inside its frame */
 .page-hero__visual--graphic img {
   padding: clamp(8px, 4%, 24px);
   object-fit: contain;
@@ -728,7 +704,7 @@ h4,
 }
 
 /* =========================================================
-   Scroll animations — animate.js companion styles
+   Scroll animations: animate.js companion styles
    ========================================================= */
 
 /* The hidden state only exists under <html class="anim">, which a page's head
@@ -737,7 +713,7 @@ h4,
    visible. The reveal is an enhancement, never a gate on content. */
 @media (prefers-reduced-motion: no-preference) {
 
-  /* Base hidden state — fade up. Easing matches the homepage (ease-out-quint). */
+  /* Base hidden state: fade up. Easing matches the homepage (ease-out-quint). */
   html.anim [data-animate] {
     opacity: 0;
     transform: translateY(18px);
@@ -752,7 +728,7 @@ h4,
     transform: none;
   }
 
-  /* Revealed state — JS adds .is-visible */
+  /* Revealed state: JS adds .is-visible */
   html.anim [data-animate].is-visible {
     opacity: 1;
     transform: none;
@@ -789,14 +765,14 @@ h4,
 .article-card:hover,
 .featured-tool:hover {
   transform: translateY(-3px);
-  box-shadow: var(--shadow-lg);
+  box-shadow:none;
   will-change: transform;
 }
 
 /* Product cards: more subtle lift (featured card is large) */
 
 /* =========================================================
-   Hover transitions — buttons
+   Hover transitions: buttons
    ========================================================= */
 
 .btn {
@@ -818,7 +794,7 @@ h4,
 }
 
 /* =========================================================
-   Tidepool accent motifs — injected by decor.js into the
+   Tidepool accent motifs: injected by decor.js into the
    site's dead spaces, with gentle scroll-linked motion
    ========================================================= */
 
@@ -911,13 +887,13 @@ h4,
 /* ===== Bold uplift: card life (overrides the flat defaults above) ===== */
 .card,
 .tool-card{
-  box-shadow: 0 1px 2px rgba(14, 33, 41, 0.05);
+  box-shadow:none;
   transition: transform .24s cubic-bezier(.22, 1, .36, 1), box-shadow .24s, border-color .24s;
 }
 .card:hover,
 .tool-card:hover{
   transform: translateY(-3px);
-  box-shadow: 0 22px 46px -20px rgba(14, 33, 41, 0.28);
+  box-shadow:none;
   border-color: var(--ink-muted);
 }
 @media (prefers-reduced-motion: reduce) {
@@ -947,8 +923,8 @@ h4,
   flex: 1;
   min-width: 200px;
   padding: var(--space-3) var(--space-4);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border: 1px solid var(--border); /* taste-skill-ignore: a real form field keeps its line */
+  border-radius: 0;
   font-family: inherit;
   font-size: var(--text-sm);
   background: var(--surface);
@@ -963,7 +939,7 @@ h4,
   outline: 2px solid transparent;
   outline-offset: 1px;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--primary) 25%, transparent);
+  box-shadow:none;
 }
 .inline-signup .btn {
   white-space: nowrap;
@@ -979,7 +955,7 @@ h4,
 .inline-signup .field-error { flex-basis: 100%; text-align: center; }
 .inline-signup__input[aria-invalid="true"] {
   border-color: var(--danger);
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--danger) 22%, transparent);
+  box-shadow:none;
 }
 .inline-signup__status[data-tone="success"] { color: var(--success); font-weight: 600; }
 .inline-signup__input[aria-invalid="true"] { border-color: var(--danger); }
@@ -999,14 +975,11 @@ h4,
   margin-bottom: var(--space-12);
   padding: var(--space-5) var(--space-6);
   background: var(--bg-alt);
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--border-soft);
+  border-radius: 0;
+  border: 0;
 }
 .promo-banner .section-head__eyebrow {
   margin-bottom: var(--space-2);
-}
-.promo-banner .eyebrow {
-  margin-bottom: var(--space-1);
 }
 .promo-banner__title {
   font-size: var(--text-md);
@@ -1024,489 +997,308 @@ h4,
   flex-shrink: 0;
 }
 
+
 /* =========================================================
-   Seminar alignment layer (inner pages)
-   Loaded after every component rule above and before chrome.css, so this
-   is the one place the inner pages are brought onto the homepage's system:
-   sentence-case amber kickers instead of uppercase tracked eyebrows,
-   rounded-rectangle controls instead of pills, calm bordered surfaces
-   instead of lifting cards, the amber highlighter on emphasised words,
-   paper ground with faint graph paper under page heroes, fade-only reveals.
-   See DESIGN.md.
+   Field Guide layer (Phase 3, October 2026): the inner pages on the Living
+   Field Guide. Loaded after styles.css, before chrome.css. Reads only the
+   tokens in tokens-field-guide.css. Paper ground, ink type, one forest
+   action, sage fields. No hairline rules, no outlined boxes, no shadows at
+   rest, no gradients, no eyebrows, no italic or coloured accent words, one
+   corner radius (0). Surfaces separate by a tone step or by space. Real
+   form fields keep their lines. See docs/field-guide/build-contract.md.
    ========================================================= */
 
-/* Kickers and small labels: one voice, no uppercase, no pill */
-.eyebrow,
-.section-head__eyebrow,
-.page-hero .eyebrow,
-.hero__eyebrow,
-.card__eyebrow,
-.tool-card__eyebrow,
-.featured-tool__eyebrow,
-.featured-tool__panel-label,
-.article-card__kicker,
-.topic-section__count,
-.proof-strip__label,
-.library-intro__label,
-.gms-shelf__tool,
-.rn-step__eyebrow,
-.rn-answer__state,
-.gms-profile__label {
-  display: block;
-  padding: 0;
-  margin-bottom: var(--space-3);
-  background: none;
-  border: 0;
-  border-radius: 0;
-  text-transform: none;
-  letter-spacing: normal;
+/* ---------- Ground and type ---------- */
+body {
+  background: var(--paper);
+  color: var(--ink);
   font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  line-height: 1.4;
-  color: var(--accent-brown);
+  font-size: var(--step-body);
+  line-height: 1.55;
 }
-.eyebrow::before { display: none; }
-.proof-strip .proof-strip__label { color: #F3B649; }
-.signup .eyebrow { color: var(--accent-brown); }
-
-/* Meta labels stay quiet: sentence case, muted, not tracked */
-.product-card__meta dt,
-.product-card__included-label,
-.product-card__age {
-  text-transform: none;
-  letter-spacing: normal;
-  font-size: var(--text-sm);
+h1, h2, h3, h4, .page-hero__title, .hero__title, .class-hero__title, .article-title,
+.section-head__title, .card__title, .tool-card__title, .featured-tool__title, .article-card__title,
+.toolkit__title, .price__name, .unit__title, .syllabus__title, .inline-signup__heading, .promo-banner__title {
+  font-family: var(--font-display);
   font-weight: 500;
+  font-style: normal;
+  letter-spacing: var(--head-tracking);
+  text-wrap: balance;
+  color: var(--ink);
+}
+h1, .page-hero__title, .hero__title, .class-hero__title, .article-title {
+  font-size: var(--step-head);
+  line-height: 1.02;
+  max-width: 22ch;
+}
+h2, .section-head__title, .inline-signup__heading { font-size: var(--step-head); line-height: 1.05; max-width: 24ch; }
+h3, .card__title, .tool-card__title, .featured-tool__title, .article-card__title, .toolkit__title,
+.price__name, .unit__title, .syllabus__title, .promo-banner__title { font-size: var(--step-lead); line-height: 1.25; letter-spacing: -0.01em; }
+h4 { font-family: var(--font-body); font-weight: 500; font-size: var(--step-body); letter-spacing: 0; }
+.lede, .page-hero__lede, .hero__lede, .section-head__lede, .class-hero__lede, .article-dek, .tool-lede, .section-intro {
+  font-family: var(--font-body);
+  font-size: var(--step-lead);
+  line-height: 1.35;
+  color: var(--ink);
+  max-width: 40ch;
+}
+p, li, dd, dt, summary, blockquote { font-family: var(--font-body); }
+p { color: var(--ink); max-width: 62ch; text-wrap: pretty; }
+.muted, .small, .article-meta, .toolkit__meta, .article-card__meta, .fig__caption, .class-intro__fine,
+.unit__fine, .price__fine, .signup__fine, .signup__refund, .inline-signup__disclaimer, .form-help, .about-fine {
+  font-family: var(--font-body);
+  font-size: var(--step-small);
   color: var(--ink-muted);
 }
-.product-card__age { color: var(--accent-brown); font-weight: 600; margin: 0; }
+a { color: var(--forest); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 0.07em; }
+a:hover { color: var(--forest-deep); }
+h1 a, h2 a, h3 a, .brand, .btn, .toolkit__link, .guide-card__link, .reading li a, .topic-nav a, .article-card__title a, .unit__title a {
+  text-decoration: none;
+}
+h1 a, h2 a, h3 a, .article-card__title a, .unit__title a, .toolkit__link { color: var(--ink); }
+h1 a:hover, h2 a:hover, h3 a:hover, .article-card__title a:hover, .unit__title a:hover, .toolkit__link:hover { color: var(--forest); }
+::selection { background: var(--forest); color: var(--on-forest); }
+:focus-visible { outline: 2.5px solid var(--forest); outline-offset: 3px; border-radius: 0; }
+strong, b { font-weight: 600; }
+em, i { font-style: normal; font-weight: 500; }
+cite, .sources-list__cite i, blockquote i { font-style: normal; }
+hr { border: 0; height: 0; margin: var(--space-10) 0; }
 
-/* Sequence numerals (modules, steps) match the homepage's class numerals */
-.module-card__number,
-.how-card__num {
-  font-family: var(--font-display);
-  font-style: italic;
+/* ---------- Eyebrows, kickers, counts and pills: gone ---------- */
+main .eyebrow, main .section-head__eyebrow, main .hero__eyebrow, main .card__eyebrow, main .tool-card__eyebrow, /* taste-skill-ignore: hides the legacy kickers */
+main .featured-tool__eyebrow, main .featured-tool__panel-label, main .article-card__kicker, main .article-kicker,
+main .topic-section__count, main .proof-strip__label, main .library-intro__label, main .rn-step__eyebrow,
+main .gms-profile__label, main .tag, main .class-intro__num, main .how-card__num, main .module-card__number,
+main .philosophy-list .num, main .figure-step__num, main .response-card__num, main .af-key__num {
+  display: none;
+}
+/* The status word stays, as plain text on a tone step: no pill, no dot. */
+.badge, .unit__status, .cl-badge, .status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  border: 0;
+  border-radius: 0;
+  background: var(--surface-2);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-small);
   font-weight: 500;
-  font-size: var(--text-sm);
+  font-style: normal;
   letter-spacing: normal;
   text-transform: none;
-  color: var(--accent-brown);
 }
+.badge::before, .unit__status::before, .badge--open::before, .badge--dev::before, .badge--coming::before { display: none; content: none; }
+.badge--open, .unit__status--open { background: var(--sage); color: var(--on-sage); }
 
-/* Buttons: rounded rectangles in the body sans, 48px tall */
-.btn {
+/* ---------- Buttons: one shape ---------- */
+.btn, button.btn, a.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
   min-height: 48px;
-  padding: 0.8rem 1.4rem;
-  border-radius: var(--radius);
-  border-width: 1.5px;
+  padding: 0 1.4rem;
+  border: 0;
+  border-radius: 0;
+  background: var(--forest);
+  color: var(--on-forest);
+  box-shadow:none;
   font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: 1.1;
-}
-.btn--lg { min-height: 54px; padding: 1rem 1.7rem; font-size: 1rem; }
-.btn--primary { box-shadow: 0 14px 28px -16px rgba(30, 95, 98, 0.55); }
-.btn--primary:hover { box-shadow: 0 20px 34px -16px rgba(14, 33, 41, 0.5); }
-.btn--ghost { border-color: var(--border); }
-.btn--ghost:hover { border-color: var(--primary); color: var(--primary); background: transparent; }
-
-/* Badges: status pills become status tags with a dot */
-.badge {
-  gap: var(--space-2);
-  padding: 0.3rem 0.7rem;
-  border-radius: var(--radius-sm);
-  border-color: transparent;
-  font-size: var(--text-xs);
-  font-weight: 700;
-  font-style: normal;
-  letter-spacing: 0.01em;
-}
-.badge--open::before,
-.badge--dev::before,
-.badge--coming::before {
-  content: "";
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: currentColor;
-}
-.badge--open { background: var(--amber-tint); color: var(--amber-deep); }
-.badge--dev,
-.badge--coming,
-.badge--muted { background: var(--surface-2); color: var(--ink-muted); font-style: normal; }
-.badge--soft,
-.badge--accent { background: var(--surface-2); color: var(--ink-soft); }
-
-/* Surfaces: bordered and still. Depth comes from bands, not lift. */
-.card,
-.product-card,
-.tool-card,
-.module-card,
-.how-card,
-.product-card--featured {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: none;
-}
-.card:hover,
-.product-card:hover,
-.tool-card:hover,
-.module-card:hover,
-.how-card:hover,
-.product-card--featured:hover {
-  transform: none;
-  box-shadow: none;
-  border-color: var(--primary);
-}
-.how-grid--four .how-card,
-.how-grid--four .how-card:nth-child(1),
-.how-grid--four .how-card:nth-child(2),
-.how-grid--four .how-card:nth-child(3),
-.how-grid--four .how-card:nth-child(4) { border-top: 1px solid var(--border); }
-.how-grid--four .how-card .how-card__icon,
-.how-card__icon,
-.card__icon {
-  background: var(--amber-tint);
-  color: var(--amber-deep);
-  border-radius: var(--radius);
-}
-.section--alt .how-grid--three .how-card { background: var(--surface); border-color: var(--border); }
-
-/* Heroes: paper ground with faint graph paper, no warm wash */
-.hero,
-.page-hero {
-  background-color: var(--bg);
-  background-image:
-    linear-gradient(180deg, transparent 0%, var(--bg) 88%),
-    linear-gradient(rgba(18, 38, 44, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(18, 38, 44, 0.045) 1px, transparent 1px);
-  background-size: auto, 44px 44px, 44px 44px;
-  background-position: center top;
-}
-[data-theme="dark"] .hero,
-[data-theme="dark"] .page-hero {
-  background-image:
-    linear-gradient(180deg, transparent 0%, var(--bg) 88%),
-    linear-gradient(rgba(238, 244, 243, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(238, 244, 243, 0.05) 1px, transparent 1px);
-}
-.hero__credential { background: var(--surface); border: 1px solid var(--border-soft); }
-.hero__media,
-.page-hero__visual,
-.about-preview__media { background: var(--surface-2); }
-#about { background: var(--bg-alt); }
-[data-theme="dark"] #about { background: var(--bg-alt); }
-.classes { background: var(--bg); }
-.signup {
-  background: var(--bg-alt);
-  border-top: 1px solid var(--border-soft);
-}
-
-/* The highlighter: the one emphasis move, replacing italic-teal words */
-.hero__title em,
-.page-hero__title em,
-.section-head__title em,
-.belief__quote em {
-  font-style: normal;
-  color: var(--ink);
-  background-image: linear-gradient(color-mix(in oklab, var(--amber) 62%, var(--surface)), color-mix(in oklab, var(--amber) 62%, var(--surface)));
-  background-repeat: no-repeat;
-  background-position: 0 56%;
-  background-size: 100% 0.74em;
-  padding: 0 0.1em;
-  margin: 0 -0.1em;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-}
-[data-theme="dark"] .hero__title em,
-[data-theme="dark"] .page-hero__title em,
-[data-theme="dark"] .section-head__title em {
-  color: #0E2129;
-  background-image: linear-gradient(var(--amber), var(--amber));
-  background-size: 100% 1.06em;
-  background-position: 0 50%;
-}
-.belief__quote em {
-  color: #0E2129;
-  background-image: linear-gradient(var(--amber), var(--amber));
-  background-size: 100% 1.06em;
-  background-position: 0 50%;
-}
-.belief__quote { font-style: normal; font-weight: 500; }
-.belief__attr { color: #BCCFD3; letter-spacing: normal; }
-
-/* Headings: Besley wants normal tracking */
-h1, h2, h3, .page-hero__title, .section-head__title, .product-card__title, .card__title, .tool-card__title, .article-card__title {
-  letter-spacing: -0.005em;
+  font-size: var(--step-body);
   font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.2;
+  text-decoration: none;
+  transform: none;
+  transition: background-color var(--t-hover) ease, color var(--t-hover) ease, transform var(--t-press) var(--ease-out);
+}
+.btn:hover, .btn--primary:hover { background: var(--forest-deep); color: var(--on-forest); border: 0; box-shadow:none; transform: none; }
+.btn:active { transform: scale(0.97); }
+.btn--lg { min-height: 56px; padding-inline: 1.8rem; }
+.btn--block { width: 100%; }
+.btn--ghost, .btn--accent, .btn--ghost:hover, .btn--accent:hover {
+  background: var(--surface-2);
+  color: var(--ink);
+  border: 0;
+}
+.btn--ghost:hover, .btn--accent:hover { background: var(--sage); color: var(--on-sage); }
+.btn__ext { font-weight: 400; }
+
+/* ---------- Grounds: heroes on paper, alternate sections one tone step down ---------- */
+.hero, .page-hero, .class-hero, .article-hero, .tool-hero, .ai-hero, .trust, .library-intro, .signup, .section--alt, #about, .classes, .price-sheet, .lesson-sample,
+[data-theme="dark"] .hero, [data-theme="dark"] .page-hero, [data-theme="dark"] .class-hero, [data-theme="dark"] .article-hero, [data-theme="dark"] .tool-hero,
+[data-theme="dark"] #about, [data-theme="dark"] .section--alt {
+  background-color: var(--paper);
+  background-image: none;
+  border: 0;
+}
+.section--alt, #about, .signup, .trust, [data-theme="dark"] #about, [data-theme="dark"] .section--alt, [data-theme="dark"] .signup { background-color: var(--paper-2); }
+.hero__credential { background: var(--paper-2); border: 0; border-radius: 0; font-style: normal; }
+.page-hero__visual::after, .page-hero__visual:not(.page-hero__visual--graphic)::after { content: none; }
+.page-hero__visual img, .hero__media img, .about-preview__media img { filter: none; }
+
+/* ---------- Panels: a tone step, never a box ---------- */
+.card, .product-card, .tool-card, .featured-tool, .featured-tool__panel, .featured-tool__visual, .notice, .signup__form, .tracker-frame-wrap,
+.tracker-disclaimer, .gms-profile, .decoder-output, .inline-signup, .faq-class-item, .lesson-sample__text, .hero-card, .article-cardlet,
+.article-toc, .article-callout, .article-figure, .article-cta, .promo-banner, .cred-box, .howto-step, .modules li, .pull-quote, .tool-card .muted,
+.rn-answer, .rn-choice, .gms-shelf__card, .gms-band, .tools-class__inner, .tools-now, .account-card, .checklist, .translation-card,
+.compare-box, .response-card, .tip-item, .summary-card, .panel, .principle-card, .cta-strip, .what-panel, .sources-panel, .cl-card, .stage-guide,
+.image-callout__media, .faq-side figure, .tool-mosaic figure, .tool-hero__image, .page-hero__visual, .hero__media, .about-preview__media,
+.class-intro__photo, .article-hero__media, .trust__media, .about__visual {
+  border: 0;
+  border-radius: 0;
+  box-shadow:none;
+  background-image: none;
+}
+.card, .product-card, .tool-card, .featured-tool, .notice, .signup__form, .tracker-disclaimer, .gms-profile, .decoder-output, .inline-signup,
+.lesson-sample__text, .hero-card, .article-cardlet, .article-toc, .article-callout, .article-cta, .promo-banner, .cred-box, .howto-step,
+.modules li, .pull-quote, .rn-answer, .gms-shelf__card, .gms-band, .tools-class__inner, .tools-now, .account-card, .checklist, .translation-card,
+.compare-box, .response-card, .tip-item, .summary-card, .panel, .principle-card, .cta-strip, .what-panel, .sources-panel, .cl-card, .stage-guide {
+  background-color: var(--paper-2);
+}
+.section--alt .card, .section--alt .tool-card, .section--alt .featured-tool, .section--alt .notice, .section--alt .hero-card,
+.section--alt .article-callout, .section--alt .translation-card, .section--alt .compare-box, .section--alt .response-card, .section--alt .tip-item,
+.signup .signup__form, .signup .inline-signup, .section--alt .panel, .section--alt .principle-card {
+  background-color: var(--surface);
+}
+.card:hover, .product-card:hover, .tool-card:hover, .featured-tool:hover, .article-card:hover, .tools-now:hover, .rn-choice:hover, .gms-shelf__card:hover {
+  border: 0;
+  box-shadow:none;
+  transform: none;
+}
+.card:hover, .tool-card:hover, .featured-tool:hover, .tools-now:hover { background-color: var(--sage); color: var(--on-sage); }
+.card:hover h3, .tool-card:hover h3, .tool-card:hover h4, .tool-card:hover p, .tool-card:hover a, .tools-now:hover strong, .tools-now:hover span { color: inherit; }
+.page-hero__visual, .hero__media, .about-preview__media, .class-intro__photo, .article-hero__media, .tool-hero__image, .trust__media, .about__visual,
+.image-callout__media, .faq-side figure, .tool-mosaic figure, .featured-tool__visual { background: transparent; padding: 0; }
+img, video, iframe, .educator__photo, .google-login__mark, .about-preview__media img, .page-hero__visual img { border-radius: 0; border: 0; box-shadow:none; }
+.card__icon, .pillar-icon, .how-card__icon { background: var(--sage); color: var(--on-sage); border-radius: 0; }
+
+/* ---------- Rows: lists separate by a tone step, not by a rule ---------- */
+.module-grid, .module-grid--pairs, .article-grid, .diff-grid, .reading, .faq-class-list, .toolkit__list, .philosophy-list, .sources-list, .syllabus, .prices, .units {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 6px;
+  border: 0;
+}
+.module-card, .article-card, .diff-item, .faq details, .faq-class-item, .philosophy-list li, .toolkit__item, .reading li, .reading li a,
+.sources-list li, .syllabus__item, .price, .unit, .topic-section .tool-card.guide-card, .cred-list li, .value-checklist li, .check-list li {
+  border: 0;
+  border-radius: 0;
+  box-shadow:none;
+}
+.module-card, .article-card, .diff-item, .faq details, .faq-class-item, .philosophy-list li, .toolkit__item, .reading li a, .sources-list li, .syllabus__item, .price, .unit {
+  padding: var(--space-5) var(--space-5);
+  background: var(--paper-2);
+}
+.section--alt .module-card, .section--alt .article-card, .section--alt .diff-item, .section--alt .faq details, .section--alt .faq-class-item,
+.section--alt .philosophy-list li, .section--alt .toolkit__item, .section--alt .reading li a, .section--alt .sources-list li, .section--alt .syllabus__item,
+.section--alt .price, .section--alt .unit {
+  background: var(--surface);
+}
+.module-card:hover, .article-card:hover, .diff-item:hover, .toolkit__item:hover, .reading li a:hover { border: 0; background: var(--sage); color: var(--on-sage); }
+.reading li a:hover .reading__title, .reading li a:hover .reading__desc, .reading li a:hover .reading__kind, .toolkit__item:hover .toolkit__meta, .toolkit__item:hover .toolkit__desc,
+.article-card:hover .article-card__dek, .article-card:hover .article-card__meta, .article-card:hover .article-card__title a { color: inherit; }
+.faq details[open], .faq-class-item[open] { background: var(--sage); color: var(--on-sage); border: 0; }
+.faq details[open] p, .faq-class-item[open] p, .faq details[open] a, .faq-class-item[open] a { color: inherit; }
+.faq summary, .faq-class-item summary { font-family: var(--font-body); font-weight: 500; font-size: var(--step-body); cursor: pointer; }
+.topic-section__head, .topic-section__title, .stat-row, .cred-list, .library-intro, .trust, .signup, .page-hero, .ai-hero, .ai-chat-form, .gms-actions, .gms-editor,
+.tracker-frame-toolbar, .account-shell__head, .toolkit__list, .faq-class-list, .article-grid .article-card:last-child, .module-card:last-child, .diff-item:last-child,
+.faq details:last-child, .philosophy-list li:last-child, .enroll-bar:not([hidden]) { border: 0; }
+.enroll-bar:not([hidden]) { background: var(--paper-2); box-shadow:none; }
+
+/* ---------- Chips and small controls ---------- */
+.topic-nav a, .chip, .gms-chip, .decoder-btn, .gms-action, .social-link, .ai-suggested button, .ai-source-strip span, .sources a, .subnav a, .age-tabs button {
+  border: 0;
+  border-radius: 0;
+  background: var(--surface-2);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+  text-decoration: none;
+  box-shadow:none;
+}
+.topic-nav a:hover, .chip:hover, .gms-chip:hover, .decoder-btn:hover, .gms-action:hover, .social-link:hover { background: var(--sage); color: var(--on-sage); border: 0; }
+.gms-chip[aria-pressed="true"], .decoder-btn[aria-pressed="true"], .age-tabs button.active, .is-active.gms-chip { background: var(--forest); color: var(--on-forest); }
+.trust-list__dot, .featured-tool__panel li::before, .dot { border-radius: 0; background: var(--forest); }
+
+/* ---------- Forms: real fields keep a line ---------- */
+.form-input, .inline-signup__input, .gms-field input, input[type="text"], input[type="email"], input[type="search"], input[type="number"], select, textarea {
+  border: 1.5px solid var(--ink);
+  border-radius: 0;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-body);
+  box-shadow:none;
+}
+.form-input:focus, .inline-signup__input:focus, .gms-field input:focus { outline: 2.5px solid var(--forest); outline-offset: 3px; box-shadow:none; border-color: var(--ink); }
+.form-input[aria-invalid="true"], .inline-signup__input[aria-invalid="true"] { border-color: var(--danger); box-shadow:none; }
+.form-label, .gms-field label, .control label { font-family: var(--font-body); font-weight: 500; font-size: var(--step-body); color: var(--ink); }
+.field-error { color: var(--danger); font-size: var(--step-small); }
+.form-status, .inline-signup__status { font-size: var(--step-body); color: var(--ink); }
+
+/* ---------- The one emphasis move is none: a headline carries its own weight ---------- */
+.hero__title em, .page-hero__title em, .section-head__title em, .belief__quote em, .signup__head mark, .hl, mark.hl, mark,
+[data-theme="dark"] .hero__title em, [data-theme="dark"] .page-hero__title em, [data-theme="dark"] .section-head__title em {
+  font-style: normal;
+  font-weight: inherit;
+  color: inherit;
+  background: none;
+  padding: 0;
+  margin: 0;
 }
 
-/* Reveal: fade only. Rows and cards do not rise; the figure draws, the chat fades. */
-@media (prefers-reduced-motion: no-preference) {
-  html.anim [data-animate] { transform: none; }
+/* ---------- Figures: the plate ---------- */
+.fig, .fig--plate, .article-figure, .terrain-inset {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow:none;
 }
+.fig svg, .article-figure svg { display: block; width: 100%; height: auto; }
+.fig__caption, .article-figure .af-foot, .article-figure figcaption {
+  margin-top: var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--step-small);
+  font-style: normal;
+  line-height: 1.5;
+  color: var(--ink-muted);
+  max-width: 56ch;
+}
+.fig__caption b { font-family: var(--font-body); font-weight: 500; color: var(--ink); }
+.fig-text, .article-figure text, .af-text { font-family: var(--font-body); font-weight: 500; font-style: normal; fill: var(--ink); letter-spacing: 0; }
+.fig-text--sm, .af-muted { fill: var(--ink-muted); font-weight: 400; }
+.fig--plate .fig-grid { display: none; }
+.fig--plate .fig-ref { stroke: var(--ink-muted); stroke-width: 1; stroke-dasharray: 3 5; }
+.fig--plate .fig-axis { stroke: var(--ink); }
+.fig--plate .fig-band { fill: var(--sage); }
+.fig--plate .fig-band-edge { display: none; }
+.fig--plate .fig-curve { fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.fig--plate .fig-curve--a { stroke: var(--ink); }
+.fig--plate .fig-curve--b { stroke: var(--forest); stroke-dasharray: 9 7; }
+.fig--plate .fig-dot { fill: var(--forest); stroke: var(--paper); stroke-width: 2; }
+.fig--plate .fig-label--a { fill: var(--ink); }
+.fig--plate .fig-label--b, .fig--plate .fig-label--band { fill: var(--forest); }
+.fig__key-line { border-top: 3px solid var(--ink); }
+.fig__key-line--b { border-top: 3px dashed var(--forest); }
+.article-figure .af-strong { fill: var(--ink); font-weight: 500; }
+.article-figure .af-note { fill: var(--forest); font-style: normal; }
 
-/* Tool chrome (tools.css) follows the same radius language */
-.gms-action,
-.gms-chip,
-.gms-band,
-.rn-bar a { border-radius: var(--radius-sm); }
-
-/* Tidepool's botanical motifs (rings, sprig, seeds) belong to the old system.
-   decor.js still injects them; the Seminar pages carry graph paper instead. */
+/* ---------- Decoration from older systems ---------- */
 .gms-decor { display: none; }
 
-/* Reveal failsafe: the fade is an enhancement, never a gate. Anything the
-   observer has not reached shows itself after 2.5s (print, bots, fast scroll). */
+/* ---------- Motion: reveal is a fade, never a gate ---------- */
 @media (prefers-reduced-motion: no-preference) {
+  html.anim [data-animate] { transform: none; }
   html.anim [data-animate]:not(.is-visible) { animation: gms-reveal-failsafe 0s linear 2.5s forwards; }
 }
 @keyframes gms-reveal-failsafe { to { opacity: 1; transform: none; } }
 
-/* Graph paper under every page-level hero variant */
-.class-hero,
-.article-hero,
-.tool-hero {
-  background-color: var(--bg);
-  background-image:
-    linear-gradient(180deg, transparent 0%, var(--bg) 88%),
-    linear-gradient(rgba(18, 38, 44, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(18, 38, 44, 0.045) 1px, transparent 1px);
-  background-size: auto, 44px 44px, 44px 44px;
-  background-position: center top;
-}
-[data-theme="dark"] .class-hero,
-[data-theme="dark"] .article-hero,
-[data-theme="dark"] .tool-hero {
-  background-image:
-    linear-gradient(180deg, transparent 0%, var(--bg) 88%),
-    linear-gradient(rgba(238, 244, 243, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(238, 244, 243, 0.05) 1px, transparent 1px);
-}
-.class-hero .container > *:not(.hero__ctas) { max-width: 62ch; }
-
-/* Rows, not cards: modules, articles, approach points, FAQs */
-.module-grid,
-.module-grid--pairs { grid-template-columns: minmax(0, 1fr); gap: 0; }
-.module-card {
-  display: grid;
-  grid-template-columns: minmax(0, 9rem) minmax(0, 1fr);
-  gap: var(--space-1) clamp(var(--space-5), 3vw, var(--space-10));
-  align-items: baseline;
-  padding: var(--space-6) 0;
-  background: transparent;
-  border: 0;
-  border-top: 1px solid var(--border);
-  border-radius: 0;
-  box-shadow: none;
-}
-.module-card:last-child { border-bottom: 1px solid var(--border); }
-.module-card:hover { border-color: var(--border); }
-.module-card > * { grid-column: 2; margin: 0; }
-.module-card .module-card__number { grid-column: 1; grid-row: 1 / span 4; margin: 0; }
-.module-card h3 { font-size: var(--text-lg); line-height: 1.15; }
-.module-card p { color: var(--ink-soft); max-width: 60ch; text-wrap: pretty; }
-.module-card p.muted { color: var(--ink-muted); font-size: var(--text-sm); }
-
-.article-grid { grid-template-columns: minmax(0, 1fr); gap: 0; }
-.article-card {
-  display: grid;
-  grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
-  gap: var(--space-1) clamp(var(--space-5), 3vw, var(--space-10));
-  align-items: baseline;
-  padding: var(--space-5) 0;
-  border-top: 1px solid var(--border);
-}
-.article-grid .article-card:last-child { border-bottom: 1px solid var(--border); }
-.article-card > * { grid-column: 2; margin: 0; }
-.article-card .article-card__kicker { grid-column: 1; grid-row: 1 / span 4; margin: 0; }
-.article-card__title { font-size: var(--text-md); }
-.article-card__dek { color: var(--ink-soft); max-width: 60ch; text-wrap: pretty; }
-.article-card__meta { color: var(--ink-muted); font-size: var(--text-sm); }
-
-.diff-grid { grid-template-columns: minmax(0, 1fr); gap: 0; }
-.diff-item {
-  display: grid;
-  grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
-  gap: var(--space-1) clamp(var(--space-5), 3vw, var(--space-10));
-  align-items: baseline;
-  padding: var(--space-5) 0;
-  background: transparent;
-  border: 0;
-  border-top: 1px solid var(--border);
-  border-radius: 0;
-  box-shadow: none;
-}
-.diff-item:last-child { border-bottom: 1px solid var(--border); }
-.diff-item h3 { margin: 0; font-size: var(--text-lg); line-height: 1.15; }
-.diff-item p { margin: 0; color: var(--ink-soft); max-width: 56ch; text-wrap: pretty; }
-
-.faq details,
-.faq details[open] {
-  background: transparent;
-  border: 0;
-  border-top: 1px solid var(--border);
-  border-radius: 0;
-  padding: var(--space-4) 0;
-}
-.faq details:last-child { border-bottom: 1px solid var(--border); }
-.faq summary { font-family: var(--font-body); font-weight: 600; }
-
 @media (max-width: 720px) {
-  .module-card,
-  .article-card,
-  .diff-item { grid-template-columns: minmax(0, 1fr); }
-  .module-card .module-card__number,
-  .article-card .article-card__kicker { grid-column: 1; grid-row: auto; }
-  .module-card > *,
-  .article-card > * { grid-column: 1; }
+  .module-card, .article-card, .diff-item, .faq details, .faq-class-item, .philosophy-list li, .toolkit__item, .reading li a, .sources-list li, .syllabus__item, .price, .unit {
+    padding: var(--space-4);
+  }
 }
-
-/* About: the teaching principles are a set, not a sequence. Ruled rows, no
-   numerals, one rule between rows (styles.css's bottom rules and gap are reset). */
-.philosophy-list { display: grid; gap: 0; }
-.philosophy-list li {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  padding: var(--space-5) 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 0;
-}
-.philosophy-list li:last-child { border-bottom: 1px solid var(--border); padding-bottom: var(--space-5); }
-.philosophy-list .num { display: none; }
-.philosophy-list strong { display: block; font-family: var(--font-display); font-weight: 500; font-size: var(--text-lg); line-height: 1.15; margin-bottom: var(--space-2); }
-.philosophy-list li > div > span { color: var(--ink-soft); max-width: 60ch; display: block; text-wrap: pretty; }
-
-/* Standalone tool bar: the wordmark is Besley everywhere */
-.rn-bar .brand__name { font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; color: var(--ink); }
-
-/* About: body copy, the founder's role line, and the closing call to action
-   (formerly inline styles). */
-.about-copy p { color: var(--ink-soft); max-width: 62ch; text-wrap: pretty; }
-.about-copy .lede { font-size: var(--text-md); }
-.about-copy .about-role { margin: calc(-1 * var(--space-2)) 0 var(--space-5); font-size: var(--text-sm); font-weight: 600; color: var(--amber-deep); }
-.about-fine { margin-top: var(--space-6); max-width: 60ch; font-size: var(--text-sm); color: var(--ink-muted); }
-.about-cta h2 { max-width: 24ch; margin-inline: auto; }
-.about-cta .lede { max-width: 56ch; margin-inline: auto; }
-.about-cta__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-3); margin-top: var(--space-5); }
-
-/* =========================================================
-   Terrain override layer (2026-10): the inner pages on the survey sheet.
-   Loaded after styles.css, before chrome.css. Flat fields, square corners,
-   no washes, no graph paper, no shadows at rest; the one phrase mark is a
-   patch of woodland; buttons set in Geologica. Tokens: tokens-terrain.css.
-   ========================================================= */
-.hero, .page-hero, .class-hero, .article-hero, .tool-hero, .ai-hero,
-[data-theme="dark"] .hero, [data-theme="dark"] .page-hero,
-[data-theme="dark"] .class-hero, [data-theme="dark"] .article-hero, [data-theme="dark"] .tool-hero {
-  background-color: var(--bg);
-  background-image: none;
-  border-bottom: 0;
-}
-#about, [data-theme="dark"] #about, .classes, .signup, .section--alt {
-  background-image: none;
-  background-color: var(--bg-alt);
-  border-top: 0;
-  border-bottom: 0;
-}
-.classes { background-color: var(--bg); }
-.hero__credential { background: var(--surface); border: 0; border-top: 3px solid var(--ink); border-radius: 0; }
-.hero__media, .page-hero__visual, .about-preview__media, .tool-hero__image, .class-intro__photo, .article-hero__media {
-  border: 2px solid var(--ink);
-  border-radius: 0;
-  box-shadow: none;
-}
-.page-hero__visual:not(.page-hero__visual--graphic)::after { content: none; }
-.page-hero__visual:not(.page-hero__visual--graphic) img { filter: none; }
-.page-hero__visual--graphic { border: 0; background: transparent; }
-
-h1, h2, h3, h4, .brand, .hero__title, .page-hero__title, .card__title, .tool-card__title, .featured-tool__title, .article-card__title, .section-head__title {
-  font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: var(--display-tracking);
-}
-h3, h4, .card__title, .tool-card__title, .article-card__title { letter-spacing: -0.015em; }
-h1, h2 { line-height: 1.04; }
-.hero__title { font-size: clamp(2.6rem, 1.2rem + 4.8vw, 4.6rem); max-width: 14ch; line-height: 0.98; letter-spacing: -0.03em; }
-.page-hero__title { max-width: 18ch; letter-spacing: -0.03em; line-height: 0.98; }
-
-/* The one phrase mark: woodland behind the words, same ink, in both themes. */
-.hero__title em, .page-hero__title em, .section-head__title em, .belief__quote em,
-[data-theme="dark"] .hero__title em, [data-theme="dark"] .page-hero__title em, [data-theme="dark"] .section-head__title em,
-.hl, mark.hl, .signup__head mark {
-  font-style: normal;
-  color: inherit;
-  background-image: none;
-  background-color: var(--woodland);
-  padding: 0 0.1em;
-  margin: 0;
-  border-radius: 0;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-}
-.belief__quote em { color: #FFFFFF; background-color: var(--ink-700); }
-
-/* Buttons: square, one fill, set in the display face. */
-.btn {
-  min-height: 48px;
-  border-radius: 0;
-  border-width: 1.5px;
-  font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: 0;
-  box-shadow: none;
-}
-.btn--primary, .btn--primary:hover { box-shadow: none; transform: none; }
-.btn--primary { border-color: var(--primary); }
-.btn--primary:hover { border-color: var(--primary-hover); }
-.btn--ghost { border-color: var(--ink); color: var(--ink); }
-.btn--ghost:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-.btn--accent { border-color: var(--primary); color: var(--primary); }
-.btn--accent:hover { background: var(--primary); color: var(--primary-ink); }
-
-/* Panels: a tone step and a legend bar, never a hairline box or a lift. */
-.card, .tool-card, .featured-tool, .article-card, .faq details, .notice, .signup__form,
-.tracker-frame-wrap, .gms-profile, .decoder-output, .inline-signup, .faq-class-item, .lesson-sample__text {
-  border: 0;
-  border-top: 3px solid var(--ink);
-  border-radius: 0;
-  box-shadow: none;
-  background: var(--surface);
-}
-.card:hover, .tool-card:hover, .featured-tool:hover, .article-card:hover {
-  border-color: var(--primary);
-  box-shadow: none;
-  transform: none;
-  background: var(--surface);
-}
-.faq details[open], .faq-class-item[open] { border-color: var(--primary); }
-.card__icon, .pillar-icon, .topic-nav a, .gms-chip, .decoder-btn, .gms-action, .inline-signup__input,
-.field__input, .field__select, input, select, textarea { border-radius: 0; }
-.card__icon, .pillar-icon { background: var(--surface-2); color: var(--primary); }
-.card__eyebrow, .section-head__eyebrow, .eyebrow, .hero__eyebrow, .library-intro__label, .gms-profile__label {
-  font-family: var(--font-display);
-  font-weight: 500;
-  color: var(--ink-muted);
-}
-.tool-card--future { background: var(--surface); }
-.section-head__lede, .page-hero__lede, .hero__lede { color: var(--ink); }
-
-/* Figures and tables keep their lines; everything else separates by tone. */
-hr { border: 0; border-top: 3px solid var(--ink); }
-
-/* Terrain inset: a stretch of the homepage sheet, drawn inline on inner pages. */
-.terrain-inset { border: 0; background: transparent; aspect-ratio: auto; }
-.terrain-inset svg { display: block; width: 100%; height: auto; }
-.terrain-inset .contour { fill: none; stroke: var(--contour); stroke-width: 1.6; stroke-linecap: round; }
-.terrain-inset .contour--index { stroke-width: 2.4; }
-.terrain-inset .woodland { fill: var(--woodland); }
-.terrain-inset .route { fill: none; stroke: var(--primary); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 16 12; }
-.terrain-inset .waymark circle { fill: var(--bg); stroke: var(--primary); stroke-width: 5; }
-.terrain-inset .waymark.is-active circle { fill: var(--primary); }
-.terrain-inset .refs line { stroke: var(--ink); stroke-width: 2; }
-.terrain-inset .refs text { font-family: var(--font-display); font-weight: 500; font-size: 20px; fill: var(--ink-muted); text-anchor: middle; }
-.terrain-inset .refs text:first-of-type { text-anchor: start; }
-.terrain-inset .refs text:last-of-type { text-anchor: end; }
-.terrain-inset .fig__caption { margin-top: var(--space-3); }
