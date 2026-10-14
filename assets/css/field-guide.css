@@ -27,8 +27,9 @@ body.fg {
 .fg ul[class], .fg ol[class] { padding: 0; list-style: none; }
 .fg img, .fg video, .fg svg, .fg canvas { display: block; max-width: 100%; }
 .fg img, .fg video { height: auto; }
-.fg button, .fg input, .fg select, .fg textarea { font: inherit; color: inherit; }
-.fg button { background: none; border: 0; padding: 0; cursor: pointer; }
+/* :where() keeps these resets at class weight, so a later .btn rule styles a <button> the same as a link. */
+.fg :where(button), .fg input, .fg select, .fg textarea { font: inherit; color: inherit; }
+.fg :where(button:not(.btn)) { background: none; border: 0; padding: 0; cursor: pointer; }
 a { color: inherit; }
 .fg :target { scroll-margin-top: calc(var(--header-h) + 1rem); }
 .fg ::selection { background: var(--forest); color: var(--on-forest); }
