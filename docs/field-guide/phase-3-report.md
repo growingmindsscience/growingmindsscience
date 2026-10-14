@@ -30,7 +30,11 @@ Headlines on the hubs were shortened to the two-line rule: "One class for each w
 
 ### Gates
 
-Filled in below after the final inspector run.
+- `node scripts/stamp-assets.mjs --check`: passes (34 assets, 106 files).
+- `node scripts/check-canonicals.mjs`: passes (71 pages, all absolute).
+- `node scripts/build-claims.mjs --check`: passes (11 pages regenerated from the updated template).
+- Taste lint on `styles.css`, `refresh.css`, `tools.css`, `chrome.css`, `field-guide.css`, `field-guide-pages.css`, `tokens-field-guide.css`: 0 FAIL, 0 WARN.
+- Taste inspector at 1440, 768 and 390 on the nine hub pages, `/articles/self-regulation` and `/tools/communication-snapshot`: every headline two lines or fewer, no eyebrows, no mixed-font headlines, no hairlines, shadows or gradients measured. The one failure left on each page is the four-photograph floor (see "Left open"); `/classes/` passes outright. Warnings: the paper ground read as a cream, no footage, "card rows" for the tone-stepped row lists, and little motion on the two pages that still carry older markup. The phone enroll bar on the infant and toddler class pages covers a heading at one scroll position at 390px, as it did before.
 
 ## What the nsc app still needs
 
