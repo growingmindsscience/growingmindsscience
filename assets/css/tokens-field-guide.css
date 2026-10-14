@@ -34,29 +34,33 @@
 
 :root {
   /* ---------- Colour: the field guide ---------- */
-  --paper: #F7F5EF;          /* ground: warm paper */
-  --paper-2: #EEEBE1;        /* one tone step: alternate sections, bands */
-  --surface: #FDFCF9;        /* panels, inputs, insets */
+  --paper: #F7F4EC;          /* ground: field paper (brand guidelines) */
+  --paper-2: #EFEBE0;        /* one tone step: alternate sections, bands */
+  --surface: #FFFDF8;        /* soft white: cards, reading surfaces */
   --surface-2: #E6E3D7;      /* second tone step: chips, inactive tabs */
-  --ink: #20322F;            /* deep botanical ink: all type */
-  --ink-soft: #3D4F4B;       /* secondary copy, first line of a two-tone heading */
-  --ink-muted: #596B67;      /* meta and captions: 5:1 on paper */
-  --forest: #315D52;         /* scientific forest green: the one action colour */
-  --forest-deep: #254A41;    /* hover */
-  --on-forest: #F7F5EF;
+  --ink: #193C39;            /* forest ink: all type, dark brand surfaces */
+  --ink-soft: #35504C;       /* secondary copy: 7.6:1 on paper */
+  --ink-muted: #546965;      /* meta and captions: 5.2:1 on paper */
+  --forest: #245F58;         /* deep verdigris: actions and navigation */
+  --forest-deep: #1C4D47;    /* hover */
+  --on-forest: #FFFDF8;
   --sage: #A9C3B2;           /* muted sage: the field colour for whole sections */
   --sage-deep: #8DAE9A;      /* active tab on a sage field, figure fills */
-  --on-sage: #20322F;
-  --field-ink: #20322F;      /* the inverted field: close and footer */
-  --field-ink-2: #2A3F3B;    /* raised surfaces on the ink field */
+  --on-sage: #193C39;
+  --sage-mist: #E0EBE5;      /* explanatory surfaces, panels (brand guidelines) */
+  --sage-mist-2: #CFDFD6;    /* one tone step from sage mist */
+  --field-ink: #193C39;      /* the inverted field: close and footer */
+  --field-ink-2: #214744;    /* raised surfaces on the ink field */
   --on-ink: #F2EFE6;
   --on-ink-soft: #C9D0CB;
   --on-ink-muted: #9FAEA8;
   /* Annotation colours, reserved for marks inside figures (leader lines,
      a highlighted layer). Never a fill larger than a mark; never on a
      button or a heading. The brand rule stands: no warm colour at scale. */
-  --note-warm: #BB7866;      /* soft clay */
-  --note-amber: #C99450;     /* warm amber */
+  --note-warm: #C46C4D;      /* discovery clay: annotation marks only */
+  --clay-text: #9E5236;      /* clay for small text: 5.1:1 on paper, 4.6:1 on sage mist */
+  --research: #426B91;       /* research blue: sources and technical detail */
+  --note-amber: #D2A453;     /* golden ochre: discovery and play accents */
   --danger: #A6371F;
   --success: #2F6B4A;
 
@@ -94,7 +98,7 @@
 
   /* ---------- Type ---------- */
   --font-display: "Newsreader", "Newsreader Fallback", Georgia, "Times New Roman", serif;
-  --font-body: "DM Sans", "DM Sans Fallback", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Inter", "DM Sans", "DM Sans Fallback", "Helvetica Neue", Arial, sans-serif;
 
   /* Five steps, far apart. Nothing sits between lead and head. */
   --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);   /* 13–14px captions, table meta */
@@ -139,10 +143,10 @@
   --container-narrow: 880px;
 
   /* ---------- Corners, shadows ---------- */
-  --radius-sm: 0;
-  --radius: 0;
-  --radius-lg: 0;
-  --radius-xl: 0;
+  --radius-sm: 4px;          /* calm rounded corners (brand guidelines): controls, panels, tiles */
+  --radius: 6px;
+  --radius-lg: 10px;
+  --radius-xl: 10px;
   --shadow-sm: none;
   --shadow-md: 0 18px 40px -24px rgba(32, 50, 47, 0.35); /* menus only: things that truly float */
   --shadow-lg: none;
@@ -187,6 +191,10 @@
   --on-ink-muted: #9FAEA8;
   --note-warm: #D9A08E;
   --note-amber: #DDB36E;
+  --sage-mist: #22362F;
+  --sage-mist-2: #2B4A41;
+  --clay-text: #E0A48E;
+  --research: #9DBBDD;
   --border: #35463F;
   --border-soft: #2B3A34;
   --ink-700: #1E2E2A;

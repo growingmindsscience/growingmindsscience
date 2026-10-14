@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <script>try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}</script>
+  <title>Composition A: The lens · Growing Minds Science</title>
+  <meta name="description" content="Homepage composition A for review. Not the live site." />
+  <meta name="theme-color" content="#193C39" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="../lab.css" />
+  <style>
+    /* ---------- Composition A: the lens ---------- */
+    .hero { background: var(--ink); color: var(--on-ink); min-height: 100svh; display: grid; grid-template-rows: auto 1fr; }
+    .hero .lab-header, .hero .lab-header a, .hero .wordmark { color: var(--on-ink); }
+    .hero .btn--quiet { color: var(--on-ink); box-shadow: inset 0 0 0 1.5px var(--on-ink-soft); }
+    .hero .btn--quiet:hover { background: var(--ink-2); color: var(--on-ink); }
+    .hero__inner { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(32px, 5vw, 96px); align-items: center; padding-block: clamp(32px, 5vh, 72px) clamp(40px, 8vh, 96px); }
+    .hero__title { color: var(--white); font-weight: 400; }
+    .hero__sub { color: var(--ochre); font-family: var(--display); font-size: var(--step-2); line-height: 1.15; margin-top: 20px; max-width: 24ch; }
+    .hero__lead { color: var(--on-ink-soft); margin-top: 28px; }
+    .hero__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
+    .hero__quiet { margin-top: 28px; color: var(--on-ink-soft); font-size: 15px; }
+    .hero__quiet a { color: var(--on-ink); }
+
+    /* The lens: four fields of view, each a step */
+    .lens-rings { position: relative; aspect-ratio: 1; max-width: 520px; margin-inline: auto; width: 100%; }
+    .lens-rings svg { width: 100%; height: 100%; overflow: visible; }
+    .lens-rings .ring { fill: none; stroke: rgba(243, 239, 228, 0.22); stroke-width: 1; transition: stroke 240ms ease, stroke-width 240ms ease; }
+    .lens-rings .ring--fill { fill: #214744; stroke: none; }
+    .lens-rings .dot { fill: var(--on-ink); transition: r 200ms ease; }
+    .lens-rings .step { cursor: pointer; }
+    .lens-rings .step text { fill: var(--on-ink-soft); font-family: var(--text); font-size: 13px; letter-spacing: 0.14em; font-weight: 500; text-transform: uppercase; transition: fill 200ms ease; }
+    .lens-rings .step line { stroke: rgba(243, 239, 228, 0.4); stroke-width: 1; }
+    .lens-rings .step[data-active="true"] text { fill: var(--white); }
+    .lens-rings .step[data-active="true"] .dot { fill: var(--ochre); }
+    .lens-rings .step[data-active="true"] line { stroke: var(--ochre); }
+    .lens-rings[data-step="observe"] .ring--1, .lens-rings[data-step="understand"] .ring--2, .lens-rings[data-step="respond"] .ring--3, .lens-rings[data-step="reflect"] .ring--4 { stroke: var(--ochre); stroke-width: 1.5; }
+    .lens-rings .centre { fill: var(--white); }
+    .lens-caption { margin-top: 20px; min-height: 4.5em; color: var(--on-ink-soft); max-width: 40ch; font-size: 15px; }
+    .lens-caption strong { color: var(--white); font-weight: 500; display: block; margin-bottom: 4px; }
+    .lens-caption [data-for] { display: none; }
+    .lens-caption [data-for][data-active="true"] { display: block; }
+    .lens-caption:not([data-ready]) [data-for] { display: block; margin-bottom: 10px; }
+
+    @media (max-width: 900px) {
+      .hero__inner { grid-template-columns: 1fr; gap: 40px; padding-top: 24px; }
+      .lens-rings { max-width: 360px; }
+      .hero__title { font-size: clamp(3rem, 15vw, 5.5rem); }
+    }
+
+    /* ---------- The Lens, as a vertical tablist of four words ---------- */
+    .lens-section { background: var(--paper); }
+    .lens-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px; align-items: end; margin-bottom: clamp(40px, 5vw, 72px); }
+    .lens-head p { max-width: 38ch; }
+    .lens { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
+    .lens__tabs { display: grid; gap: 6px; position: sticky; top: 24px; }
+    .lens__tab { display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 18px; text-align: left; font-family: var(--display); font-size: var(--step-3); line-height: 1.05; letter-spacing: -0.02em; color: var(--ink-muted); padding: 10px 14px 10px 0; border-radius: var(--radius); min-height: 48px; transition: color 160ms ease; }
+    .lens__tab[aria-selected="true"] { color: var(--ink); }
+    .lens__tab:hover { color: var(--verdigris); }
+    .lens__tab small { font-family: var(--text); font-size: 13px; letter-spacing: 0.1em; font-weight: 500; color: var(--clay-text); text-transform: uppercase; }
+    .lens__panel { display: grid; gap: 28px; }
+    .lens__panel[hidden] { display: none; }
+    .lens__q { font-family: var(--display); font-size: var(--step-2); line-height: 1.15; letter-spacing: -0.01em; }
+    .lens__scene { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px; align-items: start; }
+    .lens__photo { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 5; }
+    .lens__photo img { width: 100%; height: 100%; object-fit: cover; }
+    .obs { display: grid; gap: 10px; }
+    .obs li { padding: 12px 16px; background: var(--white); border-radius: var(--radius); }
+    .obs li.is-not { background: var(--sage); }
+    .mech { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .mech li { background: var(--sage); border-radius: var(--radius); padding: 18px 20px; }
+    .mech h4 { font-family: var(--display); font-size: var(--step-1); font-weight: 500; line-height: 1.2; margin-bottom: 6px; }
+    .mech .ev { display: block; margin-top: 10px; font-size: 13px; color: var(--research); font-weight: 500; }
+    .fig { background: var(--white); border-radius: var(--radius-lg); padding: clamp(16px, 2.5vw, 32px); }
+    .fig svg { width: 100%; height: auto; }
+    .fig__cap { margin-top: 14px; font-size: 13px; color: var(--ink-muted); }
+    .fig__cap b { color: var(--research); font-weight: 600; }
+    .fig--phone { display: none; }
+    .resp { display: grid; gap: 12px; counter-reset: r; }
+    .resp li { display: grid; grid-template-columns: 1fr; gap: 4px; padding: 16px 18px; background: var(--white); border-radius: var(--radius); }
+    .resp b { font-weight: 600; }
+    .refl li { font-family: var(--display); font-size: var(--step-1); line-height: 1.3; padding: 14px 0; border-top: 1px solid var(--rule); }
+    .lens__nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 8px; }
+    .lens__foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: clamp(40px, 5vw, 64px); padding-top: 20px; border-top: 1px solid var(--rule); font-size: 15px; }
+    @media (max-width: 900px) {
+      .lens-head, .lens, .lens__scene, .mech { grid-template-columns: 1fr; }
+      .lens__tabs { position: static; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+      .lens__tab { font-size: 17px; font-family: var(--text); font-weight: 500; grid-template-columns: 1fr; gap: 2px; padding: 10px 8px; background: var(--white); text-align: center; }
+      .lens__tab[aria-selected="true"] { background: var(--ink); color: var(--white); }
+      .lens__tab small { display: none; }
+      .lens__photo { aspect-ratio: 3 / 2; }
+      .fig--desk { display: none; } .fig--phone { display: block; }
+    }
+
+    /* ---------- Age: five periods at poster scale ---------- */
+    .age { background: var(--white); }
+    .age__grid { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
+    .age__list { display: grid; gap: 0; }
+    .age__row { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px; align-items: first baseline; padding: 18px 0; text-decoration: none; border-top: 1px solid var(--rule); }
+    .age__row:first-child { border-top: 0; }
+    .age__row h3 { font-family: var(--display); font-weight: 400; font-size: clamp(1.75rem, 1rem + 2.6vw, 3.25rem); line-height: 1.02; letter-spacing: -0.02em; }
+    .age__row h3 span { display: block; font-family: var(--text); font-size: 14px; letter-spacing: 0.04em; color: var(--clay-text); font-weight: 500; margin-bottom: 6px; }
+    .age__row p { color: var(--ink-soft); font-size: var(--step-0); }
+    .age__row:hover h3 { color: var(--verdigris); }
+    .age__row[data-hot="true"] { background: var(--sage); margin-inline: -16px; padding-inline: 16px; border-radius: var(--radius); border-top-color: transparent; }
+    .age__side { position: sticky; top: 24px; display: grid; gap: 20px; }
+    .age__side img { border-radius: var(--radius-lg); aspect-ratio: 4 / 5; object-fit: cover; width: 100%; }
+    .age__cursor label { display: block; font-weight: 500; margin-bottom: 8px; }
+    .age__cursor output { font-family: var(--display); font-size: var(--step-2); display: block; margin-top: 6px; }
+    input[type="range"] { width: 100%; accent-color: var(--verdigris); height: 44px; }
+    @media (max-width: 900px) { .age__grid { grid-template-columns: 1fr; } .age__side { position: static; order: -1; grid-template-columns: 1fr; } .age__side img { aspect-ratio: 3 / 2; } .age__row { grid-template-columns: 1fr; gap: 6px; } }
+
+    /* ---------- Three dimensions ---------- */
+    .three { background: var(--sage); }
+    .three__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 4vw, 64px); margin-top: clamp(32px, 4vw, 56px); }
+    .three__item h3 { font-family: var(--display); font-size: var(--step-3); line-height: 1; letter-spacing: -0.02em; font-weight: 400; margin-bottom: 14px; }
+    .three__item p { color: var(--ink-soft); max-width: 30ch; }
+    .three__photo { margin-top: clamp(40px, 5vw, 72px); border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 21 / 9; }
+    .three__photo img { width: 100%; height: 100%; object-fit: cover; }
+    @media (max-width: 800px) { .three__grid { grid-template-columns: 1fr; } .three__photo { aspect-ratio: 4 / 3; } }
+
+    /* ---------- Hard moments: one sentence, one action ---------- */
+    .hard { background: var(--verdigris); color: var(--white); }
+    .hard__inner { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px; align-items: center; }
+    .hard p.display { max-width: 24ch; }
+    .hard__links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+    .hard__links a { text-decoration: none; padding: 10px 14px; border-radius: var(--radius); background: rgba(255, 253, 248, 0.12); color: var(--white); font-size: 15px; min-height: 44px; display: inline-flex; align-items: center; }
+    .hard__links a:hover { background: var(--white); color: var(--ink); }
+    @media (max-width: 800px) { .hard__inner { grid-template-columns: 1fr; } }
+
+    /* ---------- Classes: a large table ---------- */
+    .classes { background: var(--paper); }
+    .classes table { width: 100%; border-collapse: collapse; margin-top: clamp(32px, 4vw, 56px); }
+    .classes th, .classes td { text-align: left; vertical-align: top; padding: 18px 16px 18px 0; border-top: 1px solid var(--rule); font-size: var(--step-0); }
+    .classes thead th { border-top: 0; padding-top: 0; }
+    .classes thead .name { font-family: var(--display); font-size: var(--step-2); font-weight: 400; line-height: 1.05; }
+    .classes thead .price { display: block; font-family: var(--text); font-size: var(--step-1); margin-top: 8px; font-weight: 500; }
+    .classes thead .price.soon { color: var(--ink-muted); font-weight: 400; }
+    .classes tbody th { font-weight: 500; color: var(--ink-soft); width: 18%; }
+    .classes td { color: var(--ink); width: 20.5%; }
+    .classes td .btn { margin-top: 4px; }
+    .classes__terms { margin-top: 24px; color: var(--ink-muted); font-size: 15px; max-width: 70ch; }
+    .classes__cards { display: none; }
+    @media (max-width: 860px) {
+      .classes table { display: none; }
+      .classes__cards { display: grid; gap: 12px; margin-top: 28px; }
+      .classes__card { background: var(--white); border-radius: var(--radius-lg); padding: 22px; display: grid; gap: 10px; }
+      .classes__card h3 { font-family: var(--display); font-size: var(--step-2); font-weight: 400; line-height: 1.05; }
+      .classes__card .price { font-weight: 500; font-size: var(--step-1); }
+      .classes__card .btn { justify-self: start; }
+    }
+
+    /* ---------- Tools: two-ended rows ---------- */
+    .tools { background: var(--white); }
+    .tools__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+    .tools__photo { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 5; }
+    .tools__photo img { width: 100%; height: 100%; object-fit: cover; }
+    .tools__list { display: grid; margin-top: 28px; }
+    .tools__row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; padding: 14px 0; border-top: 1px solid var(--rule); text-decoration: none; min-height: 48px; }
+    .tools__row span:first-child { color: var(--ink-muted); font-size: 15px; }
+    .tools__row b { font-weight: 500; }
+    .tools__row:hover b { color: var(--verdigris); text-decoration: underline; text-underline-offset: 0.2em; }
+    .tools__evidence { margin-top: 32px; padding: 20px 22px; background: var(--sage); border-radius: var(--radius-lg); }
+    .tools__evidence p { max-width: 40ch; }
+    .tools__evidence .display { margin-bottom: 8px; }
+    @media (max-width: 860px) { .tools__grid { grid-template-columns: 1fr; } .tools__photo { aspect-ratio: 3 / 2; } }
+
+    /* ---------- Trust: side facts, wide paragraph ---------- */
+    .trust { background: var(--paper-2); }
+    .trust__grid { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
+    .trust__facts { display: grid; gap: 18px; }
+    .trust__facts img { border-radius: var(--radius-lg); aspect-ratio: 4 / 5; object-fit: cover; width: 100%; }
+    .trust__facts dt { font-size: 13px; color: var(--ink-muted); }
+    .trust__facts dd { margin: 0; font-weight: 500; }
+    .trust__para { font-family: var(--display); font-size: clamp(1.25rem, 1rem + 1.1vw, 1.75rem); line-height: 1.35; max-width: 40ch; margin-top: 20px; }
+    .trust__para + p { margin-top: 20px; color: var(--ink-soft); max-width: 60ch; }
+    @media (max-width: 760px) { .trust__grid { grid-template-columns: 1fr; } .trust__facts { grid-template-columns: 1fr 1fr; align-items: end; } .trust__facts img { max-width: 220px; } }
+
+    /* ---------- Close: the idea again, inverted ---------- */
+    .close { background: var(--ink); color: var(--on-ink); min-height: 70svh; display: grid; align-items: end; }
+    .close__inner { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 40px; align-items: end; padding-block: clamp(80px, 12vw, 160px) clamp(56px, 8vw, 120px); }
+    .close h2 { color: var(--white); }
+    .close p { color: var(--on-ink-soft); margin-top: 24px; max-width: 36ch; }
+    .close .btn { justify-self: end; }
+    @media (max-width: 800px) { .close__inner { grid-template-columns: 1fr; } .close .btn { justify-self: start; } }
+  </style>
+</head>
+<body>
+  <p class="lab-ribbon">Composition A of three: <strong>The lens</strong>. A review page, not the live site. <a href="../">Back to the deck</a></p>
+
+  <section class="hero">
+    <header class="lab-header">
+      <div class="container lab-header__inner">
+        <a class="wordmark" href="/" aria-label="Growing Minds Science, home"><span class="wordmark__name">growing minds</span><span class="wordmark__desc">Science</span></a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+        <nav class="lab-nav" id="nav" aria-label="Primary">
+          <a href="#explore">Explore</a>
+          <a href="/classes/">Classes</a>
+          <a href="/tools/">Tools</a>
+          <a href="/articles/">Articles</a>
+          <a href="/about/">About</a>
+          <div class="lab-nav__util">
+            <a href="/nsc/class-login">My classes</a>
+            <a class="btn btn--quiet" href="/tools/right-now">Hard right now?</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <div class="container hero__inner">
+      <div>
+        <h1 class="display display--xl hero__title" data-rise style="--i:0">See what&rsquo;s growing.</h1>
+        <p class="hero__sub" data-rise style="--i:1">The living field guide to the growing mind.</p>
+        <p class="lead hero__lead" data-rise style="--i:2">Developmental science for the first five years: what your child is building, why ordinary moments matter, and what the research can actually tell us.</p>
+        <div class="hero__actions" data-rise style="--i:3">
+          <a class="btn btn--paper" href="#lens">Explore a moment</a>
+          <a class="btn btn--quiet" href="#explore">Explore by age</a>
+        </div>
+        <p class="hero__quiet" data-rise style="--i:4">Something hard right now? <a href="/tools/right-now">Start here.</a></p>
+      </div>
+
+      <div data-tabs-scope>
+        <div class="lens-rings" data-step="observe" data-rise style="--i:2">
+          <svg viewBox="0 0 520 520" role="img" aria-labelledby="rings-title rings-desc">
+            <title id="rings-title">Four fields of view, one moment</title>
+            <desc id="rings-desc">Four concentric rings around one point. Each ring is one step of the Developmental Lens: observe, understand, respond, reflect.</desc>
+            <circle class="ring ring--fill" cx="260" cy="260" r="236" />
+            <circle class="ring ring--4" cx="260" cy="260" r="236" />
+            <circle class="ring ring--3" cx="260" cy="260" r="186" />
+            <circle class="ring ring--2" cx="260" cy="260" r="136" />
+            <circle class="ring ring--1" cx="260" cy="260" r="86" />
+            <circle class="centre" cx="260" cy="260" r="7" />
+            <g data-tabs role="tablist" aria-label="Steps of the Lens">
+              <g class="step" role="tab" tabindex="0" data-tab="observe" aria-selected="true" aria-controls="rings-observe" data-for="observe">
+                <line x1="260" y1="174" x2="330" y2="104" /><line x1="330" y1="104" x2="392" y2="104" />
+                <circle class="dot" cx="260" cy="174" r="6" />
+                <text x="398" y="108">Observe</text>
+              </g>
+              <g class="step" role="tab" tabindex="-1" data-tab="understand" aria-selected="false" aria-controls="rings-understand" data-for="understand">
+                <line x1="164" y1="356" x2="100" y2="420" /><line x1="100" y1="420" x2="26" y2="420" />
+                <circle class="dot" cx="164" cy="356" r="6" />
+                <text x="24" y="444">Understand</text>
+              </g>
+              <g class="step" role="tab" tabindex="-1" data-tab="respond" aria-selected="false" aria-controls="rings-respond" data-for="respond">
+                <line x1="446" y1="260" x2="500" y2="260" />
+                <circle class="dot" cx="446" cy="260" r="6" />
+                <text x="432" y="290">Respond</text>
+              </g>
+              <g class="step" role="tab" tabindex="-1" data-tab="reflect" aria-selected="false" aria-controls="rings-reflect" data-for="reflect">
+                <line x1="93" y1="94" x2="40" y2="40" />
+                <circle class="dot" cx="93" cy="94" r="6" />
+                <text x="20" y="30">Reflect</text>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="lens-caption" data-ready>
+          <p data-for="observe" id="rings-observe" role="tabpanel"><strong>Observe. What are we actually seeing?</strong>Start with what a bystander could see, not a guess about why.</p>
+          <p data-for="understand" id="rings-understand" role="tabpanel"><strong>Understand. What might be developing?</strong>A conceptual model of the capacities still being built.</p>
+          <p data-for="respond" id="rings-respond" role="tabpanel"><strong>Respond. What can this change?</strong>Realistic options, not a promise of control.</p>
+          <p data-for="reflect" id="rings-reflect" role="tabpanel"><strong>Reflect. What might you notice next time?</strong>Curiosity about one child, never a score.</p>
+          <span class="visually-hidden" aria-live="polite" data-tabs-status></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main id="main">
+    <!-- 02 Lens preview -->
+    <section class="section lens-section" id="lens" data-tabs-scope>
+      <div class="container">
+        <div class="lens-head">
+          <div>
+            <p class="note note--clay" data-rise style="--i:0">The Developmental Lens &middot; 18 months to 4 years</p>
+            <h2 class="display display--l" data-rise style="--i:1; margin-top:12px">Leaving the playground</h2>
+          </div>
+          <p class="soft" data-rise style="--i:2">One ordinary moment, read in four steps. The science here is drawn from the toddler class and is awaiting source review.</p>
+        </div>
+
+        <div class="lens">
+          <div class="lens__tabs" data-tabs role="tablist" aria-label="Lens steps">
+            <button class="lens__tab" role="tab" data-tab="observe" aria-selected="true" aria-controls="p-observe" id="t-observe"><small>01</small>Observe</button>
+            <button class="lens__tab" role="tab" data-tab="understand" aria-selected="false" aria-controls="p-understand" id="t-understand" tabindex="-1"><small>02</small>Understand</button>
+            <button class="lens__tab" role="tab" data-tab="respond" aria-selected="false" aria-controls="p-respond" id="t-respond" tabindex="-1"><small>03</small>Respond</button>
+            <button class="lens__tab" role="tab" data-tab="reflect" aria-selected="false" aria-controls="p-reflect" id="t-reflect" tabindex="-1"><small>04</small>Reflect</button>
+            <span class="visually-hidden" aria-live="polite" data-tabs-status></span>
+          </div>
+
+          <div>
+            <section class="lens__panel" role="tabpanel" id="p-observe" aria-labelledby="t-observe" data-panel="observe" tabindex="0">
+              <h3 class="lens__q">What are we actually seeing?</h3>
+              <div class="lens__scene">
+                <figure class="lens__photo"><img src="/assets/img/site/child-learning.jpg" width="1122" height="1402" alt="A toddler at the bottom of a slide, one hand on it, turned back toward it; an adult crouches behind with a hand held out low." /></figure>
+                <div>
+                  <p class="lead">Two-minute warning given. &ldquo;Time to go.&rdquo; A run back to the slide. A body on the ground. Loud, fast crying. Ten minutes ago, everything was fine.</p>
+                  <ul class="obs" style="margin-top:20px">
+                    <li>A happy child, absorbed in play</li>
+                    <li>An announcement from an adult</li>
+                    <li>A run in the opposite direction, then a body that goes to the floor</li>
+                    <li class="is-not"><b>Not observable:</b> intent. We can see the sequence. We cannot see &ldquo;defiance&rdquo; or &ldquo;tired&rdquo;.</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="lens__nav"><span></span><button class="btn" type="button" data-goto="understand">Next: Understand</button></div>
+            </section>
+
+            <section class="lens__panel" role="tabpanel" id="p-understand" aria-labelledby="t-understand" data-panel="understand" tabindex="0" hidden>
+              <h3 class="lens__q">What might be developing beneath the surface?</h3>
+              <figure class="fig">
+                <svg class="fig--desk" viewBox="0 0 760 400" role="img" aria-labelledby="map-title map-desc">
+                  <title id="map-title">Four processes meeting in one moment</title>
+                  <desc id="map-desc">A relationship map. Four developing capacities, rule switching, inhibition, autonomy and regulation, each point toward the moment of leaving the playground. The parent's own state points in from the side.</desc>
+                  <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#245F58" /></marker></defs>
+                  <g font-family="Inter, system-ui, sans-serif">
+                    <rect x="20" y="24" width="220" height="92" rx="8" fill="#E0EBE5" />
+                    <text x="40" y="54" font-size="16" font-weight="600" fill="#193C39">Switching rules</text>
+                    <text x="40" y="78" font-size="13.5" fill="#3E5A56">From &ldquo;play&rdquo; to &ldquo;go&rdquo; is a switch</text>
+                    <text x="40" y="98" font-size="13.5" fill="#3E5A56">that is hard before about four.</text>
+
+                    <rect x="520" y="24" width="220" height="92" rx="8" fill="#E0EBE5" />
+                    <text x="540" y="54" font-size="16" font-weight="600" fill="#193C39">The brakes arrive last</text>
+                    <text x="540" y="78" font-size="13.5" fill="#3E5A56">Stopping an action under way</text>
+                    <text x="540" y="98" font-size="13.5" fill="#3E5A56">develops slowly across childhood.</text>
+
+                    <rect x="20" y="284" width="220" height="92" rx="8" fill="#E0EBE5" />
+                    <text x="40" y="314" font-size="16" font-weight="600" fill="#193C39">Autonomy</text>
+                    <text x="40" y="338" font-size="13.5" fill="#3E5A56">&ldquo;No&rdquo; is practice at being a person,</text>
+                    <text x="40" y="358" font-size="13.5" fill="#3E5A56">and it arrives when a plan is imposed.</text>
+
+                    <rect x="520" y="284" width="220" height="92" rx="8" fill="#E0EBE5" />
+                    <text x="540" y="314" font-size="16" font-weight="600" fill="#193C39">Once overwhelmed</text>
+                    <text x="540" y="338" font-size="13.5" fill="#3E5A56">Reasoning does not land until the</text>
+                    <text x="540" y="358" font-size="13.5" fill="#3E5A56">nervous system has come back down.</text>
+
+                    <rect x="270" y="150" width="220" height="100" rx="8" fill="#193C39" />
+                    <text x="380" y="192" font-size="17" font-weight="500" fill="#FFFDF8" text-anchor="middle">Leaving the playground</text>
+                    <text x="380" y="216" font-size="13.5" fill="#C4D0CB" text-anchor="middle">the run back, the floor, the crying</text>
+
+                    <path d="M240 90 C 290 110, 300 130, 318 150" fill="none" stroke="#245F58" stroke-width="1.5" marker-end="url(#arr)" />
+                    <path d="M520 90 C 470 110, 460 130, 442 150" fill="none" stroke="#245F58" stroke-width="1.5" marker-end="url(#arr)" />
+                    <path d="M240 310 C 290 290, 300 270, 318 250" fill="none" stroke="#245F58" stroke-width="1.5" marker-end="url(#arr)" />
+                    <path d="M520 310 C 470 290, 460 270, 442 250" fill="none" stroke="#245F58" stroke-width="1.5" marker-end="url(#arr)" />
+
+                    <circle cx="380" cy="300" r="5" fill="#C46C4D" />
+                    <path d="M380 295 L380 252" fill="none" stroke="#C46C4D" stroke-width="1.5" stroke-dasharray="3 4" marker-end="url(#arr)" />
+                    <text x="380" y="330" font-size="13.5" font-weight="600" fill="#C46C4D" text-anchor="middle">Your own state</text>
+                    <text x="380" y="350" font-size="13" fill="#35504C" text-anchor="middle">it shapes the return</text>
+                  </g>
+                </svg>
+                <svg class="fig--phone" viewBox="0 0 360 560" role="img" aria-label="The same relationship map, stacked for a phone.">
+                  <defs><marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#245F58" /></marker></defs>
+                  <g font-family="Inter, system-ui, sans-serif">
+                    <rect x="10" y="10" width="165" height="86" rx="8" fill="#E0EBE5" /><text x="24" y="38" font-size="15" font-weight="600" fill="#193C39">Switching rules</text><text x="24" y="60" font-size="12.5" fill="#3E5A56">&ldquo;Play&rdquo; to &ldquo;go&rdquo; is hard</text><text x="24" y="78" font-size="12.5" fill="#3E5A56">before about four.</text>
+                    <rect x="185" y="10" width="165" height="86" rx="8" fill="#E0EBE5" /><text x="199" y="38" font-size="15" font-weight="600" fill="#193C39">The brakes</text><text x="199" y="60" font-size="12.5" fill="#3E5A56">Stopping an action</text><text x="199" y="78" font-size="12.5" fill="#3E5A56">develops slowly.</text>
+                    <rect x="60" y="190" width="240" height="96" rx="8" fill="#193C39" /><text x="180" y="230" font-size="16" font-weight="500" fill="#FFFDF8" text-anchor="middle">Leaving the playground</text><text x="180" y="254" font-size="12.5" fill="#C4D0CB" text-anchor="middle">the run back, the floor, the crying</text>
+                    <rect x="10" y="380" width="165" height="86" rx="8" fill="#E0EBE5" /><text x="24" y="408" font-size="15" font-weight="600" fill="#193C39">Autonomy</text><text x="24" y="430" font-size="12.5" fill="#3E5A56">&ldquo;No&rdquo; is practice at</text><text x="24" y="448" font-size="12.5" fill="#3E5A56">being a person.</text>
+                    <rect x="185" y="380" width="165" height="86" rx="8" fill="#E0EBE5" /><text x="199" y="408" font-size="15" font-weight="600" fill="#193C39">Overwhelm</text><text x="199" y="430" font-size="12.5" fill="#3E5A56">Reasoning waits until</text><text x="199" y="448" font-size="12.5" fill="#3E5A56">the body comes down.</text>
+                    <path d="M92 96 C 110 140, 120 160, 136 190" fill="none" stroke="#245F58" stroke-width="1.5" marker-end="url(#arr2)" />
+                    <path d="M268 96 C 250 140, 240 160, 224 190" fill="none" stroke="#245F58" stroke-width="1.5" marker-end="url(#arr2)" />
+                    <path d="M92 380 C 110 336, 120 316, 136 286" fill="none" stroke="#245F58" stroke-width="1.5" marker-end="url(#arr2)" />
+                    <path d="M268 380 C 250 336, 240 316, 224 286" fill="none" stroke="#245F58" stroke-width="1.5" marker-end="url(#arr2)" />
+                    <circle cx="180" cy="520" r="5" fill="#C46C4D" /><text x="180" y="548" font-size="13" font-weight="600" fill="#C46C4D" text-anchor="middle">Your own state shapes the return</text>
+                    <path d="M180 514 L180 476" fill="none" stroke="#C46C4D" stroke-width="1.5" stroke-dasharray="3 4" />
+                  </g>
+                </svg>
+                <figcaption class="fig__cap"><b>Fig. 1</b> &nbsp;Conceptual model: four processes that can be read in one moment. It describes capacities still being built, not what any particular child is thinking. Evidence: well established in laboratory tasks (Zelazo et al., 2003; Diamond, 2013); autonomy and co-regulation supported (Kochanska and Aksan, 1995). Awaiting source review.</figcaption>
+              </figure>
+              <div class="lens__nav"><button class="btn btn--quiet" type="button" data-goto="observe">Back</button><button class="btn" type="button" data-goto="respond">Next: Respond</button></div>
+            </section>
+
+            <section class="lens__panel" role="tabpanel" id="p-respond" aria-labelledby="t-respond" data-panel="respond" tabindex="0" hidden>
+              <h3 class="lens__q">What can this understanding change?</h3>
+              <p class="lead">None of this makes leaving easy. It changes what you are responding to.</p>
+              <ol class="resp">
+                <li><b>Say what is next before the end.</b> &ldquo;Two more slides, then home for lunch.&rdquo; An announced plan is one the child can start holding.</li>
+                <li><b>One real choice inside a firm limit.</b> &ldquo;Slide or swing for the last one?&rdquo; Autonomy, without handing over the decision to leave.</li>
+                <li><b>If it tips over, regulate first.</b> Fewer words, a lower voice, a steady body. The explanation can wait for the car.</li>
+                <li><b>Expect it to be hard sometimes anyway.</b> A smooth exit on Tuesday and a floor exit on Wednesday is development, not a failed method.</li>
+              </ol>
+              <div class="lens__nav"><button class="btn btn--quiet" type="button" data-goto="understand">Back</button><button class="btn" type="button" data-goto="reflect">Next: Reflect</button></div>
+            </section>
+
+            <section class="lens__panel" role="tabpanel" id="p-reflect" aria-labelledby="t-reflect" data-panel="reflect" tabindex="0" hidden>
+              <h3 class="lens__q">What might you notice next time?</h3>
+              <ul class="refl">
+                <li>What came just before the hard moment: the warning, the gate, the car seat?</li>
+                <li>Which part of the transition was hardest, and was it the same part as last time?</li>
+                <li>What helped you stay steady, and what made it harder?</li>
+              </ul>
+              <p class="soft">These are observations, not scores. The point is curiosity about one child, not a verdict.</p>
+              <div class="lens__nav"><button class="btn btn--quiet" type="button" data-goto="respond">Back</button><a class="btn" href="/lens/leaving-the-playground">Open the full Lens, with sources</a></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="lens__foot">
+          <p><b>Read:</b> <a href="/articles/toddler-no">The toddler &ldquo;no&rdquo; is not the war you think it is</a> &middot; <b>Try:</b> <a href="/tools/right-now">It&rsquo;s hard right now</a> &middot; <b>Learn:</b> <a href="/classes/toddlerhood">Toddler years, modules 3 and 5</a></p>
+          <p class="note note--research">Clear about what&rsquo;s known. Honest about what&rsquo;s not.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 Age exploration -->
+    <section class="section age" id="explore">
+      <div class="container">
+        <div class="age__grid">
+          <div>
+            <h2 class="display display--l" data-rise style="--i:0">Five periods, one growing mind.</h2>
+            <p class="lead soft" data-rise style="--i:1; margin-top:16px">Typical ranges, not deadlines. Children vary widely, and so do days.</p>
+            <div class="age__list" style="margin-top:32px" data-agelist>
+              <a class="age__row" href="/classes/birth-to-12-months" data-from="0" data-to="1" data-rise style="--i:2"><h3><span>Birth to 1</span>Foundations</h3><p>Attachment, the senses, and the rhythm of back-and-forth. Serve and return, not flashcards, builds the architecture.</p></a>
+              <a class="age__row" href="/classes/toddlerhood" data-from="1" data-to="2" data-rise style="--i:3"><h3><span>1 to 2</span>First words, first steps</h3><p>Understanding races ahead of speech. Looking at something together is how words get attached to things.</p></a>
+              <a class="age__row" href="/classes/toddlerhood" data-from="2" data-to="3" data-rise style="--i:4"><h3><span>2 to 3</span>Autonomy and big feelings</h3><p>&ldquo;No&rdquo; is a milestone, not defiance. Big feelings outrun the brakes while the brakes are still being built.</p></a>
+              <a class="age__row" href="/classes/preschool" data-from="3" data-to="4" data-rise style="--i:5"><h3><span>3 to 4</span>The imagination years</h3><p>Pretend play is serious cognitive work: two realities at once, other perspectives, social roles rehearsed.</p></a>
+              <a class="age__row" href="/classes/preschool" data-from="4" data-to="5" data-rise style="--i:6"><h3><span>4 to 5</span>Self-control, slowly</h3><p>Working memory, flexible thinking and impulse control are under construction, on a wide and normal range.</p></a>
+            </div>
+          </div>
+          <aside class="age__side">
+            <img src="/assets/img/site/hero-parent-baby.jpg" width="1024" height="1536" alt="A parent and a toddler on the floor by a window, both looking at the same thing the child is pointing to." loading="lazy" />
+            <div class="age__cursor">
+              <label for="age">Your child&rsquo;s age</label>
+              <input type="range" id="age" min="0" max="60" step="1" value="30" aria-describedby="age-out" />
+              <output id="age-out" for="age">2 years, 6 months</output>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 Three dimensions -->
+    <section class="section three">
+      <div class="container">
+        <h2 class="display display--l" data-rise style="--i:0">Three things worth understanding</h2>
+        <div class="three__grid">
+          <div class="three__item" data-rise style="--i:1"><h3>Your child</h3><p>What is being built at this age, what behaviour reveals, and what it does not.</p></div>
+          <div class="three__item" data-rise style="--i:2"><h3>Yourself</h3><p>How your own state, history and expectations enter the room. A child&rsquo;s calm is borrowed before it is owned.</p></div>
+          <div class="three__item" data-rise style="--i:3"><h3>Your influence</h3><p>Which parts of the environment shape development, which are normal variation, and which are outside anyone&rsquo;s control.</p></div>
+        </div>
+        <figure class="three__photo" data-rise style="--i:4"><img src="/assets/img/site/toddler-blocks.jpg" width="1774" height="887" alt="A young child's hands fitting wooden blocks together on a worn kitchen table." loading="lazy" /></figure>
+      </div>
+    </section>
+
+    <!-- 05 Hard moments -->
+    <section class="section section--tight hard">
+      <div class="container hard__inner">
+        <div>
+          <p class="display display--m" data-rise style="--i:0">If something is hard right now, you do not need the whole field guide.</p>
+          <p data-rise style="--i:1; margin-top:14px; max-width:40ch">Two minutes, five situations, a calm next step.</p>
+          <div class="hard__links" data-rise style="--i:2">
+            <a href="/tools/right-now">Meltdown</a><a href="/tools/right-now">Testing a limit</a><a href="/tools/right-now">Won&rsquo;t sleep</a><a href="/tools/right-now">Losing my patience</a><a href="/tools/right-now">Something happened between us</a>
+          </div>
+        </div>
+        <div data-rise style="--i:1"><a class="btn btn--paper" href="/tools/right-now">It&rsquo;s hard right now</a></div>
+      </div>
+    </section>
+
+    <!-- 06 Classes -->
+    <section class="section classes" id="classes">
+      <div class="container">
+        <h2 class="display display--l" data-rise style="--i:0">The first five years, understood.</h2>
+        <p class="lead soft" data-rise style="--i:1; margin-top:16px">One class for each window, taught at a kitchen table: the mechanism, the evidence, and the limits of what anyone can know about one child.</p>
+        <table data-rise style="--i:2">
+          <thead>
+            <tr>
+              <th scope="col"><span class="visually-hidden">Compared</span></th>
+              <th scope="col"><span class="name">Birth to 12 months</span><span class="price">$49, once</span></th>
+              <th scope="col"><span class="name">Toddler years, 1 to 3</span><span class="price">$49, once</span></th>
+              <th scope="col"><span class="name">Preschool years, 3 to 5</span><span class="price">$49, once</span></th>
+              <th scope="col"><span class="name">The whole family</span><span class="price soon">In development</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Lessons</th><td>16 lessons in 4 modules, about 3 hours</td><td>29 lessons in 5 modules, about 5 hours</td><td>15 lessons in 4 modules</td><td>Waitlist open</td></tr>
+            <tr><th scope="row">You will be able to explain</th><td>Why responsive care builds security rather than spoiling, and how language begins before the first word.</td><td>Why &ldquo;no&rdquo; is a milestone, what a meltdown is neurologically, and how your calm scaffolds theirs.</td><td>Why pretend play is cognitive work, and what readiness means in the research rather than the brochure.</td><td>How household stress reaches a child&rsquo;s nervous system, and which protective factors hold up in real families.</td></tr>
+            <tr><th scope="row">Try first</th><td><a href="/nsc/classes/infant/preview">&ldquo;Serve and return&rdquo;, a full lesson, free</a></td><td>Checkout on the class platform</td><td>Lessons here, under My classes</td><td>Join the waitlist</td></tr>
+            <tr><th scope="row"></th><td><a class="btn" href="/classes/birth-to-12-months">Enroll, $49</a></td><td><a class="btn" href="/classes/toddlerhood">Enroll, $49</a></td><td><a class="btn" href="/classes/preschool">Enroll, $49</a></td><td><a class="btn btn--quiet" href="/classes/family-systems">Join the waitlist</a></td></tr>
+          </tbody>
+        </table>
+        <div class="classes__cards">
+          <div class="classes__card"><h3>Birth to 12 months</h3><p class="price">$49, once</p><p>16 lessons, about 3 hours. Why responsive care builds security, and how language begins before the first word.</p><a class="btn" href="/classes/birth-to-12-months">Enroll, $49</a></div>
+          <div class="classes__card"><h3>Toddler years, 1 to 3</h3><p class="price">$49, once</p><p>29 lessons, about 5 hours. Why &ldquo;no&rdquo; is a milestone, what a meltdown is neurologically, how your calm scaffolds theirs.</p><a class="btn" href="/classes/toddlerhood">Enroll, $49</a></div>
+          <div class="classes__card"><h3>Preschool years, 3 to 5</h3><p class="price">$49, once</p><p>15 lessons. Why pretend play is cognitive work, and what readiness means in the research.</p><a class="btn" href="/classes/preschool">Enroll, $49</a></div>
+          <div class="classes__card"><h3>The whole family</h3><p class="price soft">In development</p><p>How household stress reaches a child&rsquo;s nervous system, and which protective factors hold up.</p><a class="btn btn--quiet" href="/classes/family-systems">Join the waitlist</a></div>
+        </div>
+        <p class="classes__terms">Lifetime access, no subscription. Captions and a written version of every lesson. Full refund within 14 days if you have watched four lessons or fewer.</p>
+      </div>
+    </section>
+
+    <!-- 07 Tools and evidence -->
+    <section class="section tools">
+      <div class="container tools__grid">
+        <figure class="tools__photo" data-rise style="--i:0"><img src="/assets/img/site/notebook-coffee.jpg" width="1122" height="1402" alt="An open notebook with a few handwritten lines and a question mark, a mug, and a child's drawing on a kitchen table after bedtime." loading="lazy" /></figure>
+        <div>
+          <h2 class="display display--l" data-rise style="--i:1">Free tools, by what you need</h2>
+          <div class="tools__list" data-rise style="--i:2">
+            <a class="tools__row" href="/tools/right-now"><span>Hard right now</span><b>It&rsquo;s hard right now</b></a>
+            <a class="tools__row" href="/tools/growing-minds-ai"><span>A question at bedtime</span><b>Growing Minds AI</b></a>
+            <a class="tools__row" href="/milestones"><span>Is this typical?</span><b>Milestone tracker</b></a>
+            <a class="tools__row" href="/tools/communication-snapshot"><span>Before a checkup</span><b>Communication Snapshot</b></a>
+            <a class="tools__row" href="/nsc"><span>Early number sense</span><b>Number Path</b></a>
+            <a class="tools__row" href="/tools/library/"><span>Is that claim true?</span><b>Claims library</b></a>
+            <a class="tools__row" href="/tools/"><span>Everything else</span><b>All tools and guides</b></a>
+          </div>
+          <div class="tools__evidence" data-rise style="--i:3">
+            <p class="display display--m">Clear about what&rsquo;s known. Honest about what&rsquo;s not.</p>
+            <p class="soft">Every claim in the library is graded for evidence strength and scientific consensus, and every page cites its sources.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 Trust -->
+    <section class="section trust">
+      <div class="container trust__grid">
+        <dl class="trust__facts" data-rise style="--i:0">
+          <img src="/assets/img/matthew-photo-600.jpg" width="600" height="749" alt="Matthew McArthur, indoors, looking at the camera." loading="lazy" />
+          <div><dt>Based in</dt><dd>San Diego, California</dd></div>
+          <div><dt>Sources</dt><dd>Cited on every page</dd></div>
+          <div><dt>Scope</dt><dd>Educational, not clinical</dd></div>
+        </dl>
+        <div>
+          <h2 class="display display--l" data-rise style="--i:1">Mental models, not scripts.</h2>
+          <p class="trust__para" data-rise style="--i:2">Matthew McArthur studied how the home shapes early development at San Diego State University, after working with developmental researchers at UCLA. He wrote about early language for children in Frontiers for Young Minds, then spent years in state-funded early intervention with families of children under three.</p>
+          <p data-rise style="--i:3">Growing Minds Science is what that work looks like explained at a kitchen table. None of it is medical or psychological advice.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 Close -->
+    <section class="close">
+      <div class="container close__inner">
+        <div>
+          <h2 class="display display--close" data-rise style="--i:0">Less pressure. Better explanations.</h2>
+          <p data-rise style="--i:1">There&rsquo;s more to every moment. A field guide to the first five years, written for an ordinary Tuesday.</p>
+        </div>
+        <a class="btn btn--paper" href="#lens" data-rise style="--i:2">Explore a moment</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="lab-footer">
+    <div class="container">
+      <div class="lab-footer__top">
+        <div>
+          <a class="wordmark" href="/"><span class="wordmark__name">growing minds</span><span class="wordmark__desc">Science</span></a>
+          <p class="lab-footer__tag">The living field guide to the growing mind, for parents of children birth to five.</p>
+        </div>
+        <div><h2>Classes</h2><ul><li><a href="/classes/birth-to-12-months">Birth to 12 months</a></li><li><a href="/classes/toddlerhood">Toddler years</a></li><li><a href="/classes/preschool">Preschool years</a></li><li><a href="/classes/family-systems">Family systems</a></li><li><a href="/pricing">Pricing</a></li></ul></div>
+        <div><h2>Tools</h2><ul><li><a href="/tools/right-now">It&rsquo;s hard right now</a></li><li><a href="/tools/growing-minds-ai">Growing Minds AI</a></li><li><a href="/milestones">Milestone tracker</a></li><li><a href="/tools/">All tools and guides</a></li></ul></div>
+        <div><h2>About</h2><ul><li><a href="/about/">Our approach</a></li><li><a href="/articles/">Articles</a></li><li><a href="/faq/">FAQ</a></li><li><a href="/contact/">Contact</a></li></ul></div>
+      </div>
+      <div class="lab-footer__legal"><p>&copy; 2026 Growing Minds Science</p><p>Educational content only. Not medical or psychological advice.</p></div>
+    </div>
+  </footer>
+
+  <script src="../lab.js"></script>
+  <script>
+    (function () {
+      var r = document.getElementById('age'), out = document.getElementById('age-out'), rows = document.querySelectorAll('[data-agelist] .age__row');
+      if (!r) return;
+      function fmt(m) { var y = Math.floor(m / 12), mo = m % 12; if (m === 0) return 'Newborn'; return (y ? y + (y === 1 ? ' year' : ' years') : '') + (y && mo ? ', ' : '') + (mo ? mo + (mo === 1 ? ' month' : ' months') : ''); }
+      function go() { var m = +r.value, y = m / 12; out.textContent = fmt(m); rows.forEach(function (row) { var f = +row.dataset.from, t = +row.dataset.to; row.setAttribute('data-hot', String(y >= f && (y < t || (t === 5 && y <= 5)))); }); }
+      r.addEventListener('input', go); go();
+    })();
+  </script>
+</body>
+</html>

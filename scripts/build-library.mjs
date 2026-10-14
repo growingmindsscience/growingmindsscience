@@ -149,7 +149,7 @@ ${jsonLd(entry, url, published, modified)}
     <div class="container site-header__inner">
       <a class="brand" href="/" aria-label="Growing Minds Science, home">
         <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
-        <span class="brand__name">Growing Minds Science</span>
+        <span class="brand__name">growing minds</span><span class="brand__desc">Science</span>
       </a>
       <nav class="nav" aria-label="Primary">
         <ul class="nav__list">
@@ -224,7 +224,7 @@ function renderHub(entries, { draft }) {
     <div class="container site-header__inner">
       <a class="brand" href="/" aria-label="Growing Minds Science, home">
         <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
-        <span class="brand__name">Growing Minds Science</span>
+        <span class="brand__name">growing minds</span><span class="brand__desc">Science</span>
       </a>
     </div>
   </header>
