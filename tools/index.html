@@ -22,11 +22,11 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Besley:ital,wght@0,400..900;1,400..900&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..800;1,400..800&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=0d97ff5fce" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=d297404b34" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=3fa98080dc" />
+  <link rel="stylesheet" href="../assets/css/refresh.css?v=4def14502a" />
   <link rel="stylesheet" href="../assets/css/tools.css?v=7fce784071" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=de9d0eebaf" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=dd4a2f405a" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -79,7 +79,6 @@
     <section class="page-hero page-hero--visual">
       <div class="container">
         <div class="page-hero__copy" data-stagger>
-          <p class="eyebrow" data-animate>Free &middot; No account needed</p>
           <h1 class="page-hero__title" data-animate>Free tools for the first five years.</h1>
           <p class="page-hero__lede" data-animate>
             Interactive tools that meet your child where they are, and short guides for
@@ -92,10 +91,33 @@
           </a>
           <a class="tools-saved" href="#saved" data-gms-shelf-link hidden>Saved for you (<span data-gms-shelf-count>0</span>)</a>
         </div>
-        <figure class="page-hero__visual page-hero__visual--graphic" data-animate style="--anim-delay: 200ms">
-          <img src="../assets/img/tools-library-graphic.svg"
-               alt="An abstract illustration of parent reference cards, milestone paths, and developmental tools."
-               width="900" height="680" loading="eager" fetchpriority="high" decoding="async" />
+        <figure class="page-hero__visual page-hero__visual--graphic terrain-inset" data-animate style="--anim-delay: 200ms" aria-labelledby="inset-caption">
+          <svg viewBox="700 60 740 620" role="img" aria-labelledby="inset-title" xmlns="http://www.w3.org/2000/svg" focusable="false">
+            <title id="inset-title">A stretch of the first-five-years sheet: contour lines, a sage field, and the dashed route from birth to five with its five waymarks.</title>
+            <path class="woodland" d="M980 440 C 1060 400, 1160 470, 1280 450 S 1420 520, 1460 500 L 1460 610 C 1360 630, 1200 570, 1060 590 S 970 530, 980 440 Z"/>
+            <path class="contour" d="M680 660 C 800 640, 900 700, 1040 640 S 1300 540, 1460 578"/>
+            <path class="contour" d="M680 604 C 820 560, 920 640, 1060 580 S 1320 480, 1460 522"/>
+            <path class="contour contour--index" d="M680 548 C 840 500, 940 590, 1080 520 S 1340 420, 1460 466"/>
+            <path class="contour" d="M680 492 C 860 440, 960 530, 1100 460 S 1360 360, 1460 410"/>
+            <path class="contour contour--index" d="M560 40 C 740 20, 920 100, 1030 220 S 1250 420, 1460 400"/>
+            <path class="contour" d="M660 10 C 840 -10, 1010 70, 1110 190 S 1320 370, 1460 350"/>
+            <path class="contour" d="M780 140 C 890 130, 980 190, 1015 275 S 1130 430, 1290 450"/>
+            <path class="contour" d="M840 175 C 940 165, 1010 220, 1040 295 S 1150 410, 1270 420"/>
+            <path class="contour" d="M895 205 C 980 200, 1035 245, 1062 310 S 1160 385, 1250 392"/>
+            <path class="contour" d="M945 235 C 1010 232, 1055 268, 1080 322 S 1165 362, 1230 366"/>
+            <g class="refs">
+              <line x1="760" y1="118" x2="1350" y2="118"/>
+              <line x1="760" y1="112" x2="760" y2="124"/><line x1="878" y1="112" x2="878" y2="124"/><line x1="996" y1="112" x2="996" y2="124"/><line x1="1114" y1="112" x2="1114" y2="124"/><line x1="1232" y1="112" x2="1232" y2="124"/><line x1="1350" y1="112" x2="1350" y2="124"/>
+              <text x="760" y="104">Birth</text><text x="878" y="104">1 yr</text><text x="996" y="104">2</text><text x="1114" y="104">3</text><text x="1232" y="104">4</text><text x="1350" y="104">5 yrs</text>
+            </g>
+            <path class="route" d="M760 660 C 820 655, 860 600, 900 560 C 940 520, 990 480, 1040 440 C 1090 400, 1130 360, 1170 320 C 1210 280, 1250 240, 1290 205 C 1320 180, 1345 165, 1365 150"/>
+            <g class="waymark"><circle cx="822" cy="628" r="11"/></g>
+            <g class="waymark"><circle cx="946" cy="516" r="11"/></g>
+            <g class="waymark is-active"><circle cx="1070" cy="416" r="11"/></g>
+            <g class="waymark"><circle cx="1194" cy="298" r="11"/></g>
+            <g class="waymark"><circle cx="1318" cy="182" r="11"/></g>
+          </svg>
+          <figcaption class="fig__caption" id="inset-caption">The tools below sit along the same route the classes teach: pick the stretch your family is in.</figcaption>
         </figure>
       </div>
     </section>

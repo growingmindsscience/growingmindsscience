@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Terrain sketch</title>
+<style>
+  html,body{margin:0;width:1440px;height:900px;overflow:hidden;background:#F3F5F0;color:#1B2A3A;font-family:"Helvetica Neue",Arial,sans-serif}
+  .nav{position:absolute;top:0;left:0;right:0;height:72px;display:flex;align-items:center;padding:0 48px;gap:36px;font-size:17px;z-index:3}
+  .nav b{font-size:20px;margin-right:auto}
+  .nav .cta{background:#1B2A3A;color:#F3F5F0;padding:12px 20px;font-weight:700}
+  svg.map{position:absolute;left:0;top:0;width:1440px;height:900px}
+  .grid{position:absolute;top:72px;left:0;right:0;display:flex;justify-content:space-between;padding:0 48px;font-size:17px;font-variant-numeric:tabular-nums;color:#1B2A3A}
+  h1{position:absolute;left:48px;top:140px;margin:0;width:720px;font-size:92px;line-height:.94;font-weight:700;letter-spacing:-.03em;z-index:2}
+  .lede{position:absolute;left:48px;top:450px;width:470px;font-size:22px;line-height:1.4;z-index:2}
+  .cta2{position:absolute;left:48px;top:590px;background:#1B2A3A;color:#F3F5F0;font-size:22px;font-weight:700;padding:22px 30px;z-index:2}
+  .free{position:absolute;left:330px;top:612px;font-size:20px;font-weight:700;text-decoration:underline;z-index:2}
+  .legend{position:absolute;left:0;right:0;bottom:0;height:128px;display:grid;grid-template-columns:1fr 2fr 2fr 1fr;background:#F3F5F0;border-top:3px solid #1B2A3A;z-index:2}
+  .legend div{padding:16px 24px;font-size:17px;line-height:1.3;position:relative}
+  .legend div:before{content:"";position:absolute;left:24px;right:24px;top:0;height:6px;background:#8FA3B5;border-radius:3px}
+  .legend div.on:before{background:#1E5F62}
+  .legend b{display:block;font-size:24px;margin-top:10px;letter-spacing:-.01em}
+  .legend i{display:block;font-style:normal;font-size:15px;margin-top:2px}
+</style></head><body>
+<div class="nav"><b>Growing Minds Science</b><span>Classes</span><span>Free tools</span><span>Articles</span><span>About</span><span>My classes</span><span class="cta">Enroll, from $35</span></div>
+<svg class="map" viewBox="0 0 1440 900" fill="none" stroke="#8FA3B5" stroke-width="1.6">
+  <path d="M-20 700 C 200 640, 380 760, 600 680 S 980 560, 1460 640"/>
+  <path d="M-20 640 C 220 580, 400 700, 620 620 S 1000 500, 1460 580"/>
+  <path d="M-20 580 C 240 520, 420 640, 640 560 S 1020 440, 1460 520"/>
+  <path d="M-20 520 C 260 460, 440 580, 660 500 S 1040 380, 1460 460"/>
+  <path d="M700 120 C 820 100, 960 160, 1040 260 S 1220 420, 1460 400"/>
+  <path d="M760 90 C 880 70, 1020 130, 1100 230 S 1280 380, 1460 350"/>
+  <path d="M840 60 C 960 50, 1080 110, 1160 200 S 1340 330, 1460 300"/>
+  <path d="M900 180 C 980 190, 1040 240, 1060 320 S 1160 440, 1300 460" stroke-width="1.2"/>
+  <path d="M960 200 C 1030 210, 1080 260, 1100 330 S 1190 420, 1300 430" stroke-width="1.2"/>
+  <path d="M1000 240 C 1060 250, 1100 290, 1120 350 S 1200 410, 1290 410" stroke-width="1.2"/>
+  <path d="M820 420 C 900 380, 1000 460, 1120 440 S 1300 520, 1440 500" fill="#C9D8CC" stroke="none"/>
+  <path d="M560 760 C 640 720, 760 790, 880 770 S 1080 820, 1200 800" fill="#C9D8CC" stroke="none"/>
+  <path d="M300 900 C 360 780, 460 760, 520 660 S 620 540, 700 520" stroke="#BFD7E6" stroke-width="5"/>
+  <path d="M48 760 C 300 740, 520 700, 760 560 S 1100 300, 1392 200" stroke="#1E5F62" stroke-width="5" stroke-dasharray="14 10"/>
+  <g fill="#1E5F62" stroke="none"><circle cx="48" cy="760" r="10"/><circle cx="420" cy="722" r="10"/><circle cx="760" cy="560" r="10"/><circle cx="1130" cy="300" r="10"/><circle cx="1392" cy="200" r="10"/></g>
+  <g fill="#1B2A3A" stroke="none" font-size="18" font-weight="700" font-family="Helvetica Neue,Arial"><text x="430" y="708">First words</text><text x="775" y="548">Autonomy</text><text x="1145" y="290">Pretend play</text><text x="1240" y="190">Self-control</text></g>
+</svg>
+<div class="grid"><span>Birth</span><span>1 yr</span><span>2</span><span>3</span><span>4</span><span>5 yrs</span></div>
+<h1>The first five years, mapped.</h1>
+<p class="lede">A developmental-science education for parents of children 0 to 5. Each class is a route through one stretch of the terrain, built from peer-reviewed research and taught by a published child-development researcher.</p>
+<a class="cta2">Browse the classes</a><a class="free">Watch a lesson free, 14 min</a>
+<div class="legend">
+  <div><b>Birth to 12 months</b><i>Class 1 · 16 lessons · $49</i></div>
+  <div class="on"><b>1 to 3 years</b><i>Class 2 · 29 lessons · $49</i></div>
+  <div><b>3 to 5 years</b><i>Class 3 · 15 lessons · $35</i></div>
+  <div><b>The whole family</b><i>Class 4 · in development</i></div>
+</div>
+</body></html>

@@ -41,7 +41,7 @@ export const PRESCHOOL_COURSE = {
   shortTitle: "Preschool years",
   scope: "class:preschool",
   product: "class_preschool",
-  priceDisplay: "$35",
+  priceDisplay: "$49",
   ages: "Ages 3 to 5",
   blurb: "Four modules on thinking, play, friendships, and getting ready for school.",
   detailsPath: "/classes/preschool.html",

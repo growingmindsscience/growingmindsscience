@@ -17,43 +17,14 @@
   --chrome-ink-muted: var(--ink-muted, #52676C);
   --chrome-action: var(--teal, var(--primary, #1E5F62));
   --chrome-action-ink: var(--btn-primary-ink, var(--primary-ink, #FFFFFF));
-  --chrome-mark: var(--amber, var(--warm, #F2A93B));
-  --chrome-focus: var(--amber-deep, var(--accent-brown, #7F5008));
-  --chrome-display: var(--font-display, "Besley", Georgia, serif);
-  --chrome-body: var(--font-body, "Atkinson Hyperlegible Next", "Helvetica Neue", Arial, sans-serif);
+  --chrome-mark: var(--primary, #1E5F62);
+  --chrome-focus: var(--primary, #1E5F62);
+  --chrome-display: var(--font-display, "Geologica", "Helvetica Neue", Arial, sans-serif);
+  --chrome-body: var(--font-body, "Literata", Georgia, serif);
   --chrome-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --chrome-t: 240ms var(--chrome-ease);
 }
 
-/* Ink variant: pages that open on a drenched ink hero (the homepage) set
-   .site-header--ink so the bar reads as part of the hero instead of a light
-   strip above it. Stays ink for the whole scroll; the CTA turns amber. */
-.site-header.site-header--ink {
-  --chrome-ground: var(--ink-800, #14323A);
-  --chrome-surface: var(--ink-700, #1D4650);
-  --chrome-tint: rgba(255, 255, 255, 0.08);
-  --chrome-line: rgba(238, 244, 243, 0.16);
-  --chrome-line-soft: rgba(238, 244, 243, 0.1);
-  --chrome-ink: #FFFFFF;
-  --chrome-ink-soft: var(--on-dark-soft, #BCCFD3);
-  --chrome-ink-muted: var(--on-dark-muted, #8DA6AC);
-  --chrome-action: var(--amber, #F2A93B);
-  --chrome-action-ink: var(--ink-900, #0E2129);
-  --chrome-focus: var(--amber, #F2A93B);
-}
-.site-header.site-header--ink .nav__cta .btn:hover { background: #F7BC5E; }
-.site-header.site-header--ink .brand__mark { background: #FFFFFF; border-color: transparent; }
-.site-header.site-header--ink .nav__menu {
-  background: var(--ink-800, #14323A);
-  border-color: var(--chrome-line);
-  box-shadow: 0 16px 36px -20px rgba(0, 0, 0, 0.6);
-}
-.site-header.site-header--ink .nav__submenu-link:hover,
-.site-header.site-header--ink .nav__submenu-link[aria-current="page"] { background: rgba(255, 255, 255, 0.08); }
-.site-header.site-header--ink .theme-toggle,
-.site-header.site-header--ink .nav-toggle { background: transparent; color: var(--chrome-ink-soft); }
-.site-header.site-header--ink .theme-toggle:hover { color: #FFFFFF; border-color: rgba(255,255,255,0.4); }
-.site-header.site-header--ink.is-scrolled { box-shadow: 0 10px 28px -24px rgba(0, 0, 0, 0.7); }
 
 :root {
   --header-h: 72px;
@@ -65,17 +36,11 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: color-mix(in oklab, var(--chrome-ground) 88%, transparent);
-  -webkit-backdrop-filter: saturate(140%) blur(12px);
-  backdrop-filter: saturate(140%) blur(12px);
-  border-bottom: 1px solid transparent;
-  box-shadow: none;
-  transition: border-color var(--chrome-t), box-shadow var(--chrome-t);
+  background: var(--chrome-ground);
+  transition: background-color var(--chrome-t);
 }
 .site-header.is-scrolled {
-  background: color-mix(in oklab, var(--chrome-ground) 94%, transparent);
-  border-bottom-color: var(--chrome-line);
-  box-shadow: 0 10px 28px -24px rgba(14, 33, 41, 0.5);
+  background: var(--bg-alt, var(--chrome-tint));
 }
 /* One measure for the chrome on every page. The page stylesheets size
    .container differently (home.css 1180px with 2.25rem gutters, styles.css
@@ -100,7 +65,7 @@
 .site-footer :focus-visible {
   outline: 2.5px solid var(--chrome-focus);
   outline-offset: 3px;
-  border-radius: 8px;
+  border-radius: 0;
 }
 
 /* Brand */
@@ -120,11 +85,11 @@
 .site-footer .brand__mark {
   width: 36px;
   height: 36px;
-  padding: 3px;
-  border-radius: 50%;
+  padding: 2px;
+  border-radius: 0;
   object-fit: contain;
-  background: var(--chrome-surface);
-  border: 1px solid var(--chrome-line-soft);
+  background: #FFFFFF;
+  border: 1.5px solid var(--chrome-ink);
   box-shadow: none;
 }
 /* Dark mode keeps the white disc, as the footer does: the sprout's dark
@@ -137,9 +102,9 @@
 .site-header .brand__name,
 .site-footer .brand__name {
   font-family: var(--chrome-display);
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 600;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.02em;
   line-height: 1;
   white-space: nowrap;
 }
@@ -168,8 +133,8 @@
   padding: 0.5rem 0.75rem;
   color: var(--chrome-ink-soft);
   background: none;
-  border-radius: 8px;
-  font-family: var(--chrome-body);
+  border-radius: 0;
+  font-family: var(--chrome-display);
   font-size: 0.9375rem;
   font-weight: 500;
   line-height: 1.2;
@@ -185,7 +150,7 @@
   right: 0.75rem;
   bottom: 6px;
   height: 2px;
-  border-radius: 2px;
+  border-radius: 0;
   background: var(--chrome-mark);
   transform: scaleX(0);
   transform-origin: left center;
@@ -234,9 +199,10 @@
   width: 344px;
   padding: 0.5rem;
   background: var(--chrome-surface);
-  border: 1px solid var(--chrome-line);
-  border-radius: 14px; /* DESIGN.md card radius */
-  box-shadow: 0 16px 36px -20px rgba(14, 33, 41, 0.32); /* md: dropdowns */
+  border: 0;
+  border-top: 3px solid var(--chrome-ink);
+  border-radius: 0;
+  box-shadow: var(--shadow-md, 0 18px 40px -24px rgba(27, 42, 58, 0.35)); /* a menu floats */
   transform: translateX(-50%);
 }
 .site-header .nav__submenu {
@@ -251,7 +217,7 @@
   display: grid;
   gap: 2px;
   padding: 0.65rem 0.8rem;
-  border-radius: 10px;
+  border-radius: 0;
   text-decoration: none;
   transition: background-color 160ms var(--chrome-ease);
 }
@@ -259,7 +225,7 @@
 .site-header .nav__submenu-link[aria-current="page"] { background: var(--chrome-tint); }
 .site-header .nav__submenu-title {
   color: var(--chrome-ink);
-  font-family: var(--chrome-body);
+  font-family: var(--chrome-display);
   font-size: 0.9375rem;
   font-weight: 600;
   line-height: 1.25;
@@ -276,9 +242,9 @@
   justify-content: space-between;
   margin-top: 0.35rem;
   padding: 0.75rem 0.8rem 0.4rem;
-  border-top: 1px solid var(--chrome-line-soft);
+  border-top: 3px solid var(--chrome-ink);
   color: var(--chrome-action);
-  font-family: var(--chrome-body);
+  font-family: var(--chrome-display);
   font-size: 0.875rem;
   font-weight: 600;
   text-decoration: none;
@@ -347,12 +313,12 @@
   justify-content: center;
   min-height: 48px; /* DESIGN.md: every button is at least 48px tall */
   padding: 0.55rem 1.15rem;
-  border: 1.5px solid transparent;
-  border-radius: 10px;
+  border: 1.5px solid var(--chrome-action);
+  border-radius: 0;
   background: var(--chrome-action);
   color: var(--chrome-action-ink);
-  box-shadow: 0 10px 22px -16px rgba(14, 33, 41, 0.6);
-  font-family: var(--chrome-body);
+  box-shadow: none;
+  font-family: var(--chrome-display);
   font-size: 0.9375rem;
   font-weight: 600;
   line-height: 1.2;
@@ -362,9 +328,9 @@
   transition: background-color var(--chrome-t), transform 140ms var(--chrome-ease), box-shadow var(--chrome-t);
 }
 .site-header .nav__cta .btn:hover {
-  background: var(--chrome-action-hover, var(--teal-soft, var(--primary-hover, #2E7A77)));
+  background: var(--chrome-action-hover, var(--primary-hover, #17494B));
+  border-color: var(--chrome-action-hover, var(--primary-hover, #17494B));
   color: var(--chrome-action-ink);
-  transform: translateY(-1px);
 }
 
 /* Theme + menu buttons */
@@ -377,14 +343,14 @@
   width: 44px;
   height: 44px;
   padding: 0;
-  border: 1px solid var(--chrome-line);
-  border-radius: 10px;
-  background: var(--chrome-surface);
-  color: var(--chrome-ink-soft);
+  border: 1.5px solid var(--chrome-ink);
+  border-radius: 0;
+  background: transparent;
+  color: var(--chrome-ink);
   cursor: pointer;
   transition: color var(--chrome-t), border-color var(--chrome-t), transform 140ms var(--chrome-ease);
 }
-.site-header .theme-toggle:hover { color: var(--chrome-ink); border-color: var(--chrome-ink-muted); transform: rotate(-12deg); }
+.site-header .theme-toggle:hover { background: var(--chrome-ink); color: var(--chrome-ground); }
 .site-header .theme-toggle__sun { display: none; }
 [data-theme="dark"] .site-header .theme-toggle__sun { display: block; }
 [data-theme="dark"] .site-header .theme-toggle__moon { display: none; }
@@ -428,8 +394,8 @@
     gap: 0;
     padding: 0.5rem clamp(1rem, 4vw, 2.25rem) 1.5rem;
     background: var(--chrome-ground);
-    border-bottom: 1px solid var(--chrome-line);
-    box-shadow: 0 32px 64px -30px rgba(14, 33, 41, 0.4);
+    border-bottom: 3px solid var(--chrome-ink);
+    box-shadow: none;
     transform: translateY(-8px);
     opacity: 0;
     visibility: hidden;
@@ -443,7 +409,7 @@
     pointer-events: auto;
     transition: transform var(--chrome-t), opacity var(--chrome-t), visibility 0s;
   }
-  .site-header .nav__list > li { border-bottom: 1px solid var(--chrome-line-soft); }
+  .site-header .nav__list > li { border-bottom: 0; }
   .site-header .nav__link {
     width: 100%;
     min-height: 54px;
@@ -460,7 +426,7 @@
     width: 6px;
     height: 6px;
     flex-shrink: 0;
-    border-radius: 50%;
+    border-radius: 0;
     background: var(--chrome-mark);
   }
   .site-header .nav__summary { justify-content: flex-start; }
@@ -481,9 +447,6 @@
   .site-header .nav__menu-all { margin-top: 0.25rem; padding: 0.6rem 0.75rem; border-top: 0; }
   .site-header .nav__auth { margin: 0; }
   .site-header .nav__auth::before { display: none; }
-  /* The ink header's own menu panel (background and shadow) would otherwise
-     outrank the reset above and leave a shadow under the drawer's submenus. */
-  .site-header.site-header--ink .nav__menu { background: none; box-shadow: none; }
   .site-header .nav__list > .nav__cta { margin: 1.25rem 0 0; border-bottom: 0; }
   .site-header .nav__cta .btn { width: 100%; min-height: 52px; font-size: 1rem; }
 }
@@ -508,15 +471,26 @@
   --chrome-on-dark-muted: #9DB3B8;
   --chrome-on-dark-line: rgba(238, 244, 243, 0.14);
   padding: clamp(3.5rem, 7vw, 5rem) 0 2rem;
-  background: #0E2129;
+  background: var(--ink-900, #16232F);
   border-top: 0;
   color: var(--chrome-on-dark);
 }
 [data-theme="dark"] .site-footer {
-  background: #081215;
-  border-top: 1px solid var(--chrome-on-dark-line);
+  background: #0A1016;
 }
-.site-footer :focus-visible { outline-color: #F3B649; }
+.site-footer :focus-visible { outline-color: #7FC4BC; }
+/* The name returns at full width to close the page: a designed end, not a sitemap. */
+.site-footer .site-footer__wordmark {
+  margin: clamp(2.5rem, 7vw, 5rem) 0 0;
+  max-width: none;
+  font-family: var(--chrome-display);
+  font-weight: 600;
+  font-size: clamp(2.4rem, 7.4vw, 7.4rem);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  color: #FFFFFF;
+  text-wrap: balance;
+}
 .site-footer .site-footer__inner {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr);
@@ -601,9 +575,9 @@
   gap: 0.75rem 1.5rem;
   margin-top: clamp(2.5rem, 6vw, 4rem);
   padding-top: 1.25rem;
-  border-top: 1px solid var(--chrome-on-dark-line);
+  border-top: 3px solid var(--chrome-on-dark);
   color: var(--chrome-on-dark-muted);
-  font-family: var(--chrome-body);
+  font-family: var(--chrome-display);
   font-size: 0.8125rem;
   line-height: 1.5;
 }
