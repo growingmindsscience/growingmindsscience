@@ -16,7 +16,7 @@ export default async function WorriedIndexPage() {
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-6 py-10">
       <header>
-        <p className="text-[0.9375rem] font-semibold text-amber-deep">
+        <p className="font-display text-[0.9375rem] font-medium text-ink-muted">
           Growing Minds Science
         </p>
         <h1 className="mt-1 text-3xl font-semibold text-ink-deep">

@@ -14,7 +14,7 @@ type LoadError = "signed-out" | "unavailable";
 export interface NextLesson { href: string; title: string; minutes?: number | null }
 
 /**
- * The still shown before a lesson plays: an ink panel with the lesson's own
+ * The still shown before a lesson plays: a navy panel with the lesson's own
  * title and one real Play button. The video's first frame is a title slide
  * with its own subtitle, and a play button centered on the video covered
  * that subtitle, so the first frame is never shown.
@@ -28,12 +28,12 @@ function LessonPoster({ label, title, minutes, resume, loading, onPlay }: {
   onPlay: () => void;
 }) {
   return (
-    <div className="ink-band ink-grid absolute inset-0 flex flex-col justify-between gap-3 bg-ink-800 p-4 text-on-dark sm:p-8">
+    <div className="ink-band absolute inset-0 flex flex-col justify-between gap-3 bg-ink-800 p-4 text-on-dark sm:p-8">
       <div className="min-w-0">
-        {label && <p className="text-[0.9375rem] font-semibold leading-snug text-amber">{label}</p>}
-        <p className="mt-1.5 line-clamp-3 max-w-[26ch] font-display text-[clamp(1.375rem,0.9rem+2.6vw,2.75rem)] font-medium leading-[1.1] tracking-[-0.005em] text-on-dark [text-wrap:balance] sm:mt-3">
+        <p className="line-clamp-3 max-w-[26ch] font-display text-[clamp(1.375rem,0.9rem+2.6vw,2.75rem)] font-semibold leading-[1.06] tracking-[-0.02em] text-white [text-wrap:balance]">
           {title}
         </p>
+        {label && <p className="mt-1.5 font-display text-[0.9375rem] font-medium leading-snug text-on-dark-soft sm:mt-3">{label}</p>}
       </div>
       <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
         <button
@@ -41,7 +41,7 @@ function LessonPoster({ label, title, minutes, resume, loading, onPlay }: {
           onClick={onPlay}
           disabled={loading}
           aria-busy={loading || undefined}
-          className={buttonClasses("amber")}
+          className={buttonClasses("on-dark")}
         >
           {loading ? (
             "Loading your video…"
@@ -77,7 +77,7 @@ export function ClassPlayer({ lessonId, title, startTime, completed = false, cou
    * progress note or completion control.
    */
   preview?: boolean;
-  /** Line above the title on the poster, e.g. "Module 1 · Lesson 3 of 16". */
+  /** Line under the title on the poster, e.g. "Module 1 · Lesson 3 of 16". */
   posterLabel?: string;
   /** Length shown on the Play button. */
   posterMinutes?: number | null;
@@ -197,7 +197,7 @@ export function ClassPlayer({ lessonId, title, startTime, completed = false, cou
               poster=""
               startTime={resumeAt}
               videoTitle={title}
-              accentColor="#F2A93B"
+              accentColor="#1E5F62"
               onPlay={() => setStarted(true)}
               onTimeUpdate={(event) => {
                 const seconds = (event.target as HTMLMediaElement).currentTime;

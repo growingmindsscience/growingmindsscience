@@ -56,15 +56,15 @@ export default async function MyClassesPage() {
               const percent = lessons.length ? Math.round((complete / lessons.length) * 100) : 0;
               return (
                 <Card key={slug} className="flex flex-col">
-                  <Eyebrow>{course.ages} · Lifetime access</Eyebrow>
-                  <h3 className="mt-2 text-xl text-ink-deep">{course.shortTitle}</h3>
+                  <h3 className="text-xl text-ink-deep">{course.shortTitle}</h3>
+                  <Eyebrow className="mt-1">{course.ages} · Lifetime access</Eyebrow>
                   <p className="mt-1 text-sm text-ink-soft">{course.blurb}</p>
                   {lessons.length ? (
                     <div className="mt-5">
                       <div
                         role="progressbar" aria-valuemin={0} aria-valuemax={lessons.length} aria-valuenow={complete}
                         aria-label={`${course.shortTitle} progress`}
-                        className="h-2 overflow-hidden rounded-sm bg-sea-glass"
+                        className="h-2 overflow-hidden rounded-sm bg-tint"
                       >
                         <div className="h-full rounded-sm bg-teal" style={{ width: `${percent}%` }} />
                       </div>
@@ -107,11 +107,11 @@ export default async function MyClassesPage() {
               const course = CLASS_COURSES[slug];
               return (
                 <Card key={slug} className="flex flex-col">
-                  <Eyebrow>{course.ages}</Eyebrow>
-                  <h3 className="mt-2 text-xl text-ink-deep">{course.shortTitle}</h3>
+                  <h3 className="text-xl text-ink-deep">{course.shortTitle}</h3>
+                  <Eyebrow className="mt-1">{course.ages}</Eyebrow>
                   <p className="mt-1 text-sm text-ink-soft">{course.blurb}</p>
                   <p className="mt-4 text-ink">
-                    <span className="font-[family-name:var(--font-display)] text-2xl font-semibold text-ink-deep">{course.priceDisplay}</span>
+                    <span className="font-display text-2xl font-semibold tabular-nums text-ink-deep">{course.priceDisplay}</span>
                     <span className="ml-2 text-sm text-ink-muted">one payment, lifetime access. {CLASS_REFUND_POLICY}</span>
                   </p>
                   <div className="mt-auto flex flex-wrap items-center gap-2 pt-5">
@@ -135,10 +135,10 @@ export default async function MyClassesPage() {
         <h2 id="also-heading" className="text-xl text-ink-deep">Also in your account</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           <Card className="flex flex-col">
-            <Eyebrow>Growing Minds AI</Eyebrow>
-            <h3 className="mt-2 text-lg text-ink-deep">
+            <h3 className="text-lg text-ink-deep">
               {summary.unlimitedAi ? "Unlimited questions" : `${FREE_AI_QUESTIONS_PER_DAY} free questions a day`}
             </h3>
+            <Eyebrow className="mt-1">Growing Minds AI</Eyebrow>
             <p className="mt-1 text-sm text-ink-soft">
               {summary.unlimitedAi
                 ? "Your account has unlimited access. Stay signed in and ask as much as you need."
@@ -152,8 +152,8 @@ export default async function MyClassesPage() {
           </Card>
           {summary.membership && (
             <Card className="flex flex-col">
-              <Eyebrow>Membership</Eyebrow>
-              <h3 className="mt-2 text-lg text-ink-deep">Active</h3>
+              <h3 className="text-lg text-ink-deep">Active</h3>
+              <Eyebrow className="mt-1">Membership</Eyebrow>
               <p className="mt-1 text-sm text-ink-soft">Includes unlimited Growing Minds AI and Number Path.</p>
               <div className="mt-auto pt-5">
                 <LinkButton href="/app/classes/account" variant="ghost" size="sm" className="border border-line">Manage in Account</LinkButton>
@@ -162,8 +162,8 @@ export default async function MyClassesPage() {
           )}
           {summary.numberPath && (
             <Card className="flex flex-col">
-              <Eyebrow>Number Path</Eyebrow>
-              <h3 className="mt-2 text-lg text-ink-deep">Full access</h3>
+              <h3 className="text-lg text-ink-deep">Full access</h3>
+              <Eyebrow className="mt-1">Number Path</Eyebrow>
               <p className="mt-1 text-sm text-ink-soft">The early-math check-in, games, and weekly plans.</p>
               <div className="mt-auto pt-5">
                 <LinkButton href="/app" variant="ghost" size="sm" className="border border-line">Open Number Path</LinkButton>

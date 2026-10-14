@@ -39,10 +39,10 @@ export default async function PreschoolLessonPage({ params }: { params: Promise<
     <main className="mx-auto flex max-w-3xl flex-col gap-7 px-6 py-10">
       <header>
         <Link href="/app/classes/preschool" className="inline-flex min-h-11 items-center text-sm text-ink-muted underline">← All lessons</Link>
+        <h1 className="mt-2 text-3xl text-ink-deep sm:text-4xl">{lesson.title}</h1>
         <Eyebrow className="mt-2">
           Module {lesson.module_number}: {PRESCHOOL_COURSE.modules[lesson.module_number - 1]} · Lesson {index + 1} of {lessons.length}
         </Eyebrow>
-        <h1 className="mt-2 text-3xl text-ink-deep sm:text-4xl">{lesson.title}</h1>
         {lesson.summary && <p className="mt-3 text-ink">{lesson.summary}</p>}
       </header>
       <ClassPlayer lessonId={lesson.id} title={lesson.title} posterLabel={`Module ${lesson.module_number} · Lesson ${index + 1} of ${lessons.length}`} posterMinutes={lesson.duration_seconds ? Math.max(1, Math.round(lesson.duration_seconds / 60)) : null} startTime={place?.completed_at ? 0 : (place?.position_seconds ?? 0)} completed={Boolean(place?.completed_at)} next={upcoming ? { href: lessonPath(upcoming.slug, "preschool"), title: upcoming.title, minutes: upcoming.duration_seconds ? Math.max(1, Math.round(upcoming.duration_seconds / 60)) : null } : undefined} courseSlug="preschool" />

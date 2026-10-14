@@ -36,16 +36,16 @@ function tsxFiles(dir: string): string[] {
 }
 
 describe("button variants (N10)", () => {
-  it("the amber variant is ink text on an amber fill, with no competing colors", () => {
-    const c = buttonClasses("amber").split(" ");
-    expect(c).toContain("bg-amber");
+  it("the on-dark variant is navy text on the on-dark fill, with no competing colors", () => {
+    const c = buttonClasses("on-dark").split(" ");
+    expect(c).toContain("bg-on-dark");
     expect(c).toContain("text-ink-900");
     expect(c).not.toContain("text-white");
     expect(c).not.toContain("bg-teal");
   });
 
-  it("every button is a 10px-radius rectangle, never a pill", () => {
-    for (const variant of ["primary", "ghost", "amber"] as const) {
+  it("every button is a square rectangle, never a pill", () => {
+    for (const variant of ["primary", "ghost", "on-dark"] as const) {
       for (const size of ["md", "sm"] as const) {
         const c = buttonClasses(variant, size).split(" ");
         expect(c).toContain("rounded-control");
@@ -55,7 +55,7 @@ describe("button variants (N10)", () => {
   });
 
   it("each border color comes from exactly one utility", () => {
-    for (const variant of ["primary", "ghost", "amber"] as const) {
+    for (const variant of ["primary", "ghost", "on-dark"] as const) {
       const colors = buttonClasses(variant).split(" ").filter((k) => /^border-(?!\[)/.test(k));
       expect(colors).toHaveLength(1);
     }

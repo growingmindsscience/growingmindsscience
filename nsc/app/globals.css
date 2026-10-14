@@ -1,67 +1,71 @@
 @import "tailwindcss";
 
-/* "Seminar": the marketing site's design system (DESIGN.md, assets/css/home.css).
-   Token NAMES are the ones the components already use; the values are the
-   site's. Cool paper-white ground, deep ink, brand teal for action, one amber
-   highlighter (amber on ink bands, amber-deep as text on light), Besley over
-   Atkinson Hyperlegible Next. No cream, no terracotta, no pills. */
+/* "The Terrain": the marketing site's design system (DESIGN.md,
+   assets/css/tokens-terrain.css). Token NAMES are the ones the components
+   already use; the values are the site's. Map-white sheet, navy ink for
+   every word, slate contours and sage woodland as fields, one teal route for
+   every action, Geologica over Literata. Square corners everywhere, nothing
+   casts a shadow at rest, and no orange or warm accent anywhere. */
 @theme {
-  /* Grounds */
-  --color-ground: #f6f9f8;
-  --color-surface: #ffffff;
-  --color-tint: #e6efed;
+  /* Grounds: sheet, panel surface, and the one tone step (bg-alt). */
+  --color-ground: #f3f5f0;
+  --color-ground-alt: #e9eee8;
+  --color-surface: #fbfcfa;
+  --color-tint: #e2e9e4;
   /* sea-glass is the older name for the tinted fill (chips, progress tracks). */
-  --color-sea-glass: #e6efed;
+  --color-sea-glass: #e2e9e4;
 
-  /* Ink. `ink` is body text; `ink-deep` is Seminar's ink for headings. */
-  --color-ink: #14323a;
-  --color-ink-deep: #12262c;
-  --color-ink-800: #14323a;
-  --color-ink-900: #0e2129;
-  --color-ink-soft: #3a5058;
-  --color-ink-muted: #52676c;
+  /* Ink. `ink` is all type; `ink-deep` is the older name for headings and
+     resolves to the same navy. */
+  --color-ink: #1b2a3a;
+  --color-ink-deep: #1b2a3a;
+  --color-ink-700: #2b4357;
+  --color-ink-800: #22364a;
+  --color-ink-900: #16232f;
+  --color-ink-soft: #3a4a5a;
+  --color-ink-muted: #56687a;
 
-  /* Action: teal on light grounds. teal-soft is for hover and decor, not
-     small text (4.3:1 on tint); secondary text is ink-soft or ink-muted. */
+  /* Action: the teal route, 7:1 on the sheet at text size. teal-soft is the
+     hover fill (and decor), not small text; teal-hover deepens the fill. */
   --color-teal: #1e5f62;
-  --color-teal-soft: #2e7a77;
-  --color-teal-hover: #14323a;
+  --color-teal-soft: #17494b;
+  --color-teal-hover: #17494b;
   --color-teal-light: #7fc4bc;
   /* Text on a teal fill (primary buttons). Dark flips teal light, so this flips too. */
   --color-on-teal: #ffffff;
+  /* The pale teal behind status text (the "Open" chip). */
+  --color-route-tint: #d5e6e3;
 
-  /* The one accent. amber: marks and buttons on ink bands. amber-deep: any
-     amber text on a light ground (6.5:1). amber-tint: the pale band. */
-  --color-amber: #f2a93b;
-  --color-amber-bright: #f7bc5e;
-  --color-amber-deep: #7f5008;
-  --color-amber-tint: #fbebc8;
+  /* The sheet's own material: slate contours (decor only, never type) and
+     sage woodland (the phrase mark on light grounds). */
+  --color-contour: #8fa3b5;
+  --color-woodland: #c9d8cc;
 
-  /* Text tiers on ink bands (12:1, 8.4:1, 5.3:1 on ink-800). */
-  --color-on-dark: #eef4f3;
-  --color-on-dark-soft: #bcced3;
-  --color-on-dark-muted: #8da6ac;
+  /* Text tiers on navy fields. Headings on navy are pure white. */
+  --color-on-dark: #eef2f4;
+  --color-on-dark-soft: #c3cfd9;
+  --color-on-dark-muted: #93a3b3;
 
-  /* Rules and borders. */
-  --color-line: #d3dedc;
-  --color-line-soft: #e3ebe9;
-  /* Input outlines: 3:1 on the ground and white, so a field edge is visible (WCAG 1.4.11). */
-  --color-field-line: #789690;
+  /* Hairlines: inputs, tables and dividers only; sections separate by tone. */
+  --color-line: #c5d0cc;
+  --color-line-soft: #d9e1dd;
+  /* Input outlines: 3:1 on the sheet, so a field edge is visible (WCAG 1.4.11). */
+  --color-field-line: #75899c;
 
-  /* Form errors. Amber is the accent, never a warning. */
+  /* Form errors: danger is the only warm hue, and only on errors. */
   --color-danger: #a6371f;
-  /* Legacy name for the error text color; there is no coral on class surfaces. */
-  --color-coral-deep: #a6371f;
+  --color-success: #2f6b4a;
 
   /* Number Path only: the Counting Ladder's current-rung field (child-facing
-     game UI). Class pages do not use it. */
-  --color-rung-glow: #f8e7e0;
+     game UI). The route tint, so the one warm fill is gone. */
+  --color-rung-glow: #d5e6e3;
 
-  /* Brand pairing, as on the parent site: Besley display over Atkinson
-     Hyperlegible Next. next/font self-hosts both (the CSP is font-src 'self')
-     and puts a size-matched fallback inside each variable. */
-  --font-display: var(--font-besley), Georgia, "Times New Roman", serif;
-  --font-body: var(--font-atkinson), "Helvetica Neue", Arial, sans-serif;
+  /* Brand pairing, as on the parent site: Geologica for display, legend
+     lettering, numerals and buttons; Literata for running text. next/font
+     self-hosts both (the CSP is font-src 'self') and puts a size-matched
+     fallback inside each variable. */
+  --font-display: var(--font-geologica), "Helvetica Neue", Arial, sans-serif;
+  --font-body: var(--font-literata), Georgia, "Times New Roman", serif;
 
   /* The site's type scale: 17px body, 15px captions, 13px fine print. */
   --text-xs: 0.8125rem;
@@ -73,22 +77,26 @@
   --text-lg: 1.1875rem;
   --text-lg--line-height: 1.5;
 
-  /* Radius scale 6 / 10 / 14 / 18. Controls and rows are 10, panels 14. */
-  --radius-sm: 6px;
-  --radius-lg: 10px;
-  --radius-xl: 10px;
-  --radius-2xl: 14px;
-  --radius-3xl: 18px;
-  --radius-control: 10px;
-  --radius-card: 14px;
-  --radius-panel: 18px;
+  /* A survey sheet is square: every radius is 0. The names stay so the
+     components keep compiling; rounded-full is for dots only. */
+  --radius-xs: 0;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
+  --radius-3xl: 0;
+  --radius-4xl: 0;
+  --radius-control: 0;
+  --radius-card: 0;
+  --radius-panel: 0;
 
-  /* Ink-tinted shadows. Depth comes from bands first. */
-  --shadow-sm: 0 1px 2px rgba(14, 33, 41, 0.06);
-  --shadow-md: 0 16px 36px -20px rgba(14, 33, 41, 0.32);
-  --shadow-lg: 0 24px 44px -26px rgba(14, 33, 41, 0.42);
-  --shadow-primary: 0 14px 28px -16px rgba(30, 95, 98, 0.55);
-  --shadow-amber: 0 16px 30px -18px rgba(242, 169, 59, 0.7);
+  /* Nothing casts a shadow at rest. Depth is tonal (sheet, tone step,
+     surface, navy field) and typographic (a 3px ink rule on panels). */
+  --shadow-sm: 0 0 #0000;
+  --shadow-md: 0 0 #0000;
+  --shadow-lg: 0 0 #0000;
+  --shadow-primary: 0 0 #0000;
 }
 
 body {
@@ -102,88 +110,95 @@ body {
 /* Classes area. `.class-theme` wraps every class page (sign-in, catalog,
    classroom, lessons) and paints its own ground, so the dark values below
    never reach Number Path, which has no dark design. Values mirror the main
-   site's [data-theme="dark"] tokens (assets/css/home.css); the attribute is
-   set before paint by the script in app/layout.tsx. In dark the ground
-   (#15262c) stays lighter than the ink bands so the band structure survives. */
+   site's [data-theme="dark"] tokens (assets/css/tokens-terrain.css); the
+   attribute is set before paint by the script in app/layout.tsx. On the night
+   sheet the ground (#141e28) stays lighter than the navy fields so the band
+   structure survives, contours dim, and the route brightens. */
 .class-theme {
   background: var(--color-ground);
   color: var(--color-ink);
 }
 html[data-theme="dark"] .class-theme {
   color-scheme: dark;
-  --color-ground: #15262c;
-  --color-surface: #1c3037;
-  --color-tint: #233940;
-  --color-sea-glass: #233940;
-  --color-ink: #e8efed;
-  --color-ink-deep: #e8efed;
-  --color-ink-800: #0b1a1f;
-  --color-ink-900: #061115;
-  --color-ink-soft: #c0cfd2;
-  --color-ink-muted: #8fa6ab;
+  --color-ground: #141e28;
+  --color-ground-alt: #182430;
+  --color-surface: #1c2936;
+  --color-tint: #243344;
+  --color-sea-glass: #243344;
+  --color-ink: #e8eef2;
+  --color-ink-deep: #e8eef2;
+  --color-ink-700: #1a2733;
+  --color-ink-800: #0f171f;
+  --color-ink-900: #0a1016;
+  --color-ink-soft: #c3cfd9;
+  --color-ink-muted: #93a3b3;
   --color-teal: #7fc4bc;
   --color-teal-soft: #9ad5cd;
   --color-teal-hover: #9ad5cd;
   --color-on-teal: #07211e;
-  --color-amber: #f3b649;
-  --color-amber-bright: #f7c66b;
-  --color-amber-deep: #f3b649;
-  --color-amber-tint: #3a2c12;
-  --color-line: #31484f;
-  --color-line-soft: #273c43;
-  --color-field-line: #6b8a83;
+  --color-route-tint: #1f3a3a;
+  --color-contour: #45596c;
+  --color-woodland: #243a36;
+  --color-line: #34465a;
+  --color-line-soft: #2b3b4c;
+  --color-field-line: #6f8496;
   --color-danger: #f0907e;
-  --color-coral-deep: #f0907e;
-  --color-rung-glow: #3a2c12;
+  --color-success: #9ad5cd;
+  --color-rung-glow: #1f3a3a;
 }
 /* Overscroll and short pages show the body, so match it. */
 html[data-theme="dark"] body:has(.class-theme) {
-  background: #15262c;
+  background: #141e28;
 }
 
 @layer base {
-  /* Headings carry Besley; buttons, labels and summaries stay in the body
-     face, as on the site. In the base layer so a utility (font-semibold,
-     tracking-*) can still override. Clarendons cramp, so tracking never goes
-     tighter than -0.01em. */
+  /* Headings carry Geologica 600 with tight tracking (the legend hand);
+     buttons, labels and numerals set it too, and running text stays in
+     Literata. In the base layer so a utility (font-medium, tracking-*) can
+     still override. */
   h1,
   h2,
   h3,
   h4 {
     font-family: var(--font-display);
-    font-weight: 500;
-    line-height: 1.12;
-    letter-spacing: -0.005em;
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
     text-wrap: balance;
   }
+  h1 {
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+  }
 
-  /* One focus ring everywhere: amber-deep on light grounds, amber on ink
-     bands. Components that draw their own ring say focus-visible:outline-none. */
+  /* One focus ring everywhere: the teal route on light grounds, on-dark on
+     navy fields. Components that draw their own ring say focus-visible:outline-none. */
   :focus-visible {
-    outline: 2.5px solid var(--color-amber-deep);
+    outline: 2.5px solid var(--color-teal);
     outline-offset: 3px;
   }
   .ink-band :focus-visible {
-    outline-color: var(--color-amber);
+    outline-color: var(--color-on-dark);
   }
 }
 
 ::selection {
-  background: #f2a93b;
-  color: #0e2129;
+  background: var(--color-teal);
+  color: var(--color-on-teal);
 }
 
-/* Skip link, as on the parent static site: amber on ink, slides in from off screen. */
+/* Skip link, as on the parent static site: the route on the sheet, square,
+   slides in from off screen. */
 .skip-link {
   position: absolute;
   left: 1rem;
   top: -100px;
   z-index: 100;
-  background: #f2a93b;
-  color: #0e2129;
+  background: var(--color-teal);
+  color: var(--color-on-teal);
   padding: 0.75rem 1.25rem;
-  border-radius: 6px;
-  font-family: var(--font-body);
+  border-radius: 0;
+  font-family: var(--font-display);
   font-size: 0.9375rem;
   font-weight: 600;
   text-decoration: none;
@@ -191,35 +206,23 @@ html[data-theme="dark"] body:has(.class-theme) {
 }
 .skip-link:focus {
   top: 1rem;
-  color: #0e2129;
+  color: var(--color-on-teal);
 }
 
-/* The highlighter: the brand's one typographic flourish. One phrase per page
-   at most, inside a Besley headline. */
+/* The phrase mark: the brand's one typographic flourish. A patch of woodland
+   behind the words in the same ink, at most one phrase per page, inside a
+   Geologica headline. On a navy field it is the raised navy with white text. */
 .hl {
-  --hl-bg: color-mix(in oklab, var(--color-amber) 62%, var(--color-surface));
-  background-image: linear-gradient(var(--hl-bg), var(--hl-bg));
-  background-repeat: no-repeat;
-  background-position: 0 56%;
-  background-size: 100% 0.74em;
-  color: #12262c;
+  background-color: var(--color-woodland);
+  color: var(--color-ink);
   padding: 0 0.1em;
   margin: 0 -0.1em;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
-html[data-theme="dark"] .class-theme .hl {
-  --hl-bg: var(--color-amber);
-  color: #0e2129;
-}
-
-/* Graph-paper texture behind ink bands: the lab-notebook feel that carries
-   "science" without a stock photo. */
-.ink-grid {
-  background-image:
-    linear-gradient(rgba(238, 244, 243, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(238, 244, 243, 0.055) 1px, transparent 1px);
-  background-size: 44px 44px;
+.ink-band .hl {
+  background-color: var(--color-ink-700);
+  color: #ffffff;
 }
 
 @media (prefers-reduced-motion: reduce) {

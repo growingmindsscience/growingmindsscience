@@ -216,7 +216,7 @@ export function NavigatorWalker({
   if (node.kind === "question") {
     return (
       <div className="flex flex-col gap-4">
-        <p className="text-[0.9375rem] font-semibold text-amber-deep">
+        <p className="font-display text-[0.9375rem] font-medium text-ink-muted">
           Question {path.length + 1}
         </p>
         <Card>
@@ -286,7 +286,7 @@ export function NavigatorWalker({
 
       {path.length > 0 && (
         <Card className="bg-sea-glass/20">
-          <h3 className="text-[0.9375rem] font-semibold text-amber-deep">
+          <h3 className="font-display text-[0.9375rem] font-medium text-ink-muted">
             What you told us
           </h3>
           <ul className="mt-2 flex flex-col gap-1.5 text-sm text-ink">
@@ -300,7 +300,7 @@ export function NavigatorWalker({
       )}
 
       <Card>
-        <h3 className="text-[0.9375rem] font-semibold text-amber-deep">
+        <h3 className="font-display text-[0.9375rem] font-medium text-ink-muted">
           What&rsquo;s typical, and what this means
         </h3>
         <div className="mt-2 flex flex-col gap-3 text-ink">
@@ -322,7 +322,7 @@ export function NavigatorWalker({
       </Card>
 
       <Card>
-        <h3 className="text-[0.9375rem] font-semibold text-amber-deep">
+        <h3 className="font-display text-[0.9375rem] font-medium text-ink-muted">
           What to say to your pediatrician
         </h3>
         <p className="mt-1 text-sm text-ink-muted">
@@ -341,7 +341,7 @@ export function NavigatorWalker({
       </Card>
 
       <Card>
-        <h3 className="text-[0.9375rem] font-semibold text-amber-deep">
+        <h3 className="font-display text-[0.9375rem] font-medium text-ink-muted">
           {underThree ? PART_C_BLOCK.title : PART_B_BLOCK.title}
         </h3>
         <div className="mt-2 flex flex-col gap-3 text-ink">
@@ -368,7 +368,7 @@ export function NavigatorWalker({
       </Card>
 
       <Card>
-        <h3 className="text-[0.9375rem] font-semibold text-amber-deep">
+        <h3 className="font-display text-[0.9375rem] font-medium text-ink-muted">
           {EVALUATION_BLOCK.title}
         </h3>
         <div className="mt-2 flex flex-col gap-3 text-ink">
@@ -380,7 +380,7 @@ export function NavigatorWalker({
 
       {freeActivities.length > 0 && (
         <Card>
-          <h3 className="text-[0.9375rem] font-semibold text-amber-deep">
+          <h3 className="font-display text-[0.9375rem] font-medium text-ink-muted">
             While you wait: things that genuinely help
           </h3>
           <ul className="mt-2 flex flex-col gap-2 text-ink">

@@ -83,7 +83,7 @@ export default async function AccountPage({
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-6 py-10">
       <header className="flex items-start justify-between gap-4">
         <div>
-          <p className="text-[0.9375rem] font-semibold text-amber-deep">
+          <p className="font-display text-[0.9375rem] font-medium text-ink-muted">
             {brand.productName}
           </p>
           <h1 className="mt-1 text-2xl font-semibold text-ink-deep">Your account</h1>
@@ -133,7 +133,7 @@ export default async function AccountPage({
       {/* Classes are a separate product: linked here only when owned. */}
       {summary.scopes.some((scope) => scope.startsWith("class:")) && (
         <Card>
-          <p className="text-[0.9375rem] font-semibold text-amber-deep">Your learning</p>
+          <p className="font-display text-[0.9375rem] font-medium text-ink-muted">Your learning</p>
           <h2 className="mt-1 text-lg font-semibold text-ink-deep">My classes</h2>
           <p className="mt-2 text-sm text-ink">Your classes and lesson progress are here.</p>
           <LinkButton href="/app/classes" size="sm" className="mt-4">Open My classes</LinkButton>
@@ -142,7 +142,7 @@ export default async function AccountPage({
 
       {/* Number Path */}
       <Card>
-        <p className="text-[0.9375rem] font-semibold text-amber-deep">Number Path</p>
+        <p className="font-display text-[0.9375rem] font-medium text-ink-muted">Number Path</p>
         <h2 className="mt-1 text-lg font-semibold text-ink-deep">
           {summary.numberPath ? "Full access" : "Free check-in"}
         </h2>
@@ -160,7 +160,7 @@ export default async function AccountPage({
 
       {/* Class + AI */}
       <Card>
-        <p className="text-[0.9375rem] font-semibold text-amber-deep">Previous Thinkific enrollment &amp; AI</p>
+        <p className="font-display text-[0.9375rem] font-medium text-ink-muted">Previous Thinkific enrollment &amp; AI</p>
         <h2 className="mt-1 text-lg font-semibold text-ink-deep">Your existing class link</h2>
         <p className="mt-2 text-sm text-ink">
           If you enrolled through Thinkific, you can continue using that login while

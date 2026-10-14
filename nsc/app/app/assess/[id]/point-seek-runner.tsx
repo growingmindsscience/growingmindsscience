@@ -39,7 +39,7 @@ function DotCard({
       disabled={disabled}
       onClick={() => onPick(side)}
       aria-label={`${side === "left" ? "Left" : "Right"} card, ${count} ${count === 1 ? "dot" : "dots"}`}
-      className="flex min-h-40 flex-1 flex-wrap content-center items-center justify-center gap-3 rounded-2xl border-2 border-line bg-white p-6 shadow-sm transition active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 focus-visible:ring-offset-ground disabled:opacity-50"
+      className="flex min-h-40 flex-1 flex-wrap content-center items-center justify-center gap-3 rounded-2xl border-2 border-line bg-white p-6 transition active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 focus-visible:ring-offset-ground disabled:opacity-50"
     >
       {Array.from({ length: count }, (_, i) => (
         <span
@@ -126,7 +126,7 @@ export function PointSeekRunner({
     return (
       <main className="mx-auto flex min-h-screen max-w-lg flex-col justify-center gap-6 px-6 py-12">
         <div className="text-center">
-          <p className="text-[0.9375rem] font-semibold text-amber-deep">
+          <p className="font-display text-[0.9375rem] font-medium text-ink-muted">
             Point and Seek
           </p>
           <h1 className="mt-1 text-2xl font-semibold text-ink-deep">
@@ -198,7 +198,7 @@ export function PointSeekRunner({
         <h1
           ref={headingRef}
           tabIndex={-1}
-          className="text-center text-[0.9375rem] font-semibold text-amber-deep focus:outline-none"
+          className="text-center font-display text-[0.9375rem] font-medium text-ink-muted focus:outline-none"
         >
           Point and Seek · {state.index + 1} of {PS_PLAN.length}
         </h1>

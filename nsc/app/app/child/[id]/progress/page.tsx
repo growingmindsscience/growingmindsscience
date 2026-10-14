@@ -146,7 +146,7 @@ export default async function ProgressPage({
       {summary &&
         (full ? (
           <Card>
-            <h2 className="text-[0.9375rem] font-semibold text-amber-deep">
+            <h2 className="font-display text-[0.9375rem] font-medium text-ink-muted">
               For their age
             </h2>
             <p className="mt-2 text-lg font-semibold text-ink-deep">
@@ -211,7 +211,7 @@ export default async function ProgressPage({
 
       {favorite && (
         <Card className="bg-rung-glow/30">
-          <h2 className="text-[0.9375rem] font-semibold text-amber-deep">
+          <h2 className="font-display text-[0.9375rem] font-medium text-ink-muted">
             Most loved game
           </h2>
           <p className="mt-1 text-lg font-semibold text-ink-deep">
@@ -226,7 +226,7 @@ export default async function ProgressPage({
       )}
 
       <section className="flex flex-col gap-2">
-        <h2 className="text-[0.9375rem] font-semibold text-amber-deep">
+        <h2 className="font-display text-[0.9375rem] font-medium text-ink-muted">
           Check-in history
         </h2>
         {giveNHistory.length > 1 && first?.completed_at && (

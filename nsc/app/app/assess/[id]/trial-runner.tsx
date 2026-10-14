@@ -138,7 +138,7 @@ export function TrialRunner({
           <h1 className="text-2xl font-semibold text-ink-deep">Before you start</h1>
         </div>
         <Card>
-          <h2 className="mb-3 text-[0.9375rem] font-semibold text-amber-deep">
+          <h2 className="mb-3 font-display text-[0.9375rem] font-medium text-ink-muted">
             You will need
           </h2>
           <ul className="flex flex-col gap-2 text-ink">
@@ -153,7 +153,7 @@ export function TrialRunner({
           </ul>
         </Card>
         <Card className="bg-sea-glass/30">
-          <h2 className="mb-3 text-[0.9375rem] font-semibold text-amber-deep">
+          <h2 className="mb-3 font-display text-[0.9375rem] font-medium text-ink-muted">
             The three rules
           </h2>
           <ul className="flex flex-col gap-2 text-ink">
@@ -404,7 +404,7 @@ export function TrialRunner({
         <h1
           ref={headingRef}
           tabIndex={-1}
-          className="text-center text-[0.9375rem] font-semibold text-amber-deep focus:outline-none"
+          className="text-center font-display text-[0.9375rem] font-medium text-ink-muted focus:outline-none"
         >
           {view.kind === "bonus" ? "One last one" : "Feed the bear"}
         </h1>

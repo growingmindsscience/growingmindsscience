@@ -20,18 +20,18 @@ export const brand = {
 } as const;
 
 /**
- * Visual tokens follow the LIVE site DESIGN.md (Cool-Ground Rule: mist
- * ground, never cream; one warm accent), not the spec's stale
- * "Deep Teal / Amber / Warm Cream" note. Ladder rails render in brand
- * teal; the current-rung glow uses the site's single warm accent.
+ * Visual tokens follow the LIVE site DESIGN.md ("The Terrain": map-white
+ * sheet, navy ink, one teal route; no orange or warm accent), not the
+ * spec's stale "Deep Teal / Amber / Warm Cream" note. Ladder rails render in
+ * the route teal; the current-rung field is the route tint.
  */
 export const tokens = {
-  ground: "#F0F5F3", // mist
-  surface: "#FFFFFF",
-  ink: "#15393C", // pine
-  inkDeep: "#0E2A2D", // pine-deep
+  ground: "#F3F5F0", // map-white sheet
+  surface: "#FBFCFA",
+  ink: "#1B2A3A", // navy ink
+  inkDeep: "#1B2A3A",
   teal: "#1E5F62", // action / ladder rails
-  tealSoft: "#2E7A77",
-  rungGlow: "#F8E7E0", // coral-tint — current-rung highlight field
-  seaGlass: "#CFE3DE",
+  tealSoft: "#17494B",
+  rungGlow: "#D5E6E3", // route tint — current-rung highlight field
+  seaGlass: "#E2E9E4",
 } as const;

@@ -25,16 +25,16 @@ export default async function ToddlerClassPage({ searchParams }: {
     <main className="mx-auto flex max-w-3xl flex-col gap-7 px-6 py-10">
       <header>
         <Link href="/app/classes" className="inline-flex min-h-11 items-center text-sm text-ink-muted underline">← My classes</Link>
-        <Eyebrow className="mt-2">Self-paced class · ages 1–3</Eyebrow>
         <h1 className="mt-2 text-3xl text-ink-deep sm:text-4xl">{TODDLER_COURSE.title}</h1>
+        <Eyebrow className="mt-2">Self-paced class · ages 1–3</Eyebrow>
         <p className="mt-3 text-ink">Five modules of developmental science and practical guidance for everyday family life.</p>
       </header>
       {!owned ? (
         <Card>
           <h2 className="text-xl font-semibold text-ink-deep">Get lifetime access</h2>
           <p className="mt-2 text-sm text-ink">One payment of {TODDLER_COURSE.priceDisplay} includes the class and unlimited Growing Minds AI.</p>
-          {error === "not-open" && <p role="alert" className="mt-3 text-sm text-coral-deep">Enrollment is not open for this account yet.</p>}
-          {error === "checkout-unavailable" && <p role="alert" className="mt-3 text-sm text-coral-deep">Checkout is unavailable right now. Please try again later.</p>}
+          {error === "not-open" && <p role="alert" className="mt-3 text-sm text-danger">Enrollment is not open for this account yet.</p>}
+          {error === "checkout-unavailable" && <p role="alert" className="mt-3 text-sm text-danger">Checkout is unavailable right now. Please try again later.</p>}
           {salesOpen ? <form action={startClassCheckout} className="mt-5"><Button type="submit">Enroll now</Button></form> : (
             <p className="mt-4 text-sm text-ink-muted">On-site enrollment opens after all 29 lessons have been prepared. You can still enroll through the current class page.</p>
           )}
@@ -43,7 +43,7 @@ export default async function ToddlerClassPage({ searchParams }: {
       ) : (
         <ClassResume lessons={lessons} progress={progress} courseSlug="toddlerhood" modules={TODDLER_COURSE.modules} />
       )}
-      {!owned && lessons.length > 0 && <p className="-mb-3 text-sm font-semibold text-ink-muted">What is inside</p>}
+      {!owned && lessons.length > 0 && <p className="-mb-3 font-display text-sm font-medium text-ink-muted">What is inside</p>}
       {(owned || lessons.length > 0) && (
         <ClassOutline modules={TODDLER_COURSE.modules} lessons={lessons} progress={progress} courseSlug="toddlerhood" locked={!owned} />
       )}

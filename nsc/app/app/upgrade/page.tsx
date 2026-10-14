@@ -36,7 +36,7 @@ export default async function UpgradePage({
   return (
     <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center gap-6 px-6 py-12">
       <div className="text-center">
-        <p className="text-[0.9375rem] font-semibold text-amber-deep">
+        <p className="font-display text-[0.9375rem] font-medium text-ink-muted">
           {brand.productName}
         </p>
         <h1 className="mt-1 text-3xl font-semibold text-ink-deep">

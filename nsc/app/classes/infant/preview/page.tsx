@@ -72,8 +72,8 @@ export default async function InfantPreviewPage() {
         <main className="mx-auto flex max-w-4xl flex-col gap-7 px-6 py-10">
           <header>
             {detailsLink}
-            <Eyebrow className="mt-2">Free lesson · {INFANT_COURSE.shortTitle} class</Eyebrow>
             <h1 className="mt-2 text-3xl text-ink-deep sm:text-4xl">The free lesson is coming soon</h1>
+            <Eyebrow className="mt-2">Free lesson · {INFANT_COURSE.shortTitle} class</Eyebrow>
             <p className="mt-3 max-w-[60ch] text-ink-soft">We are getting this lesson ready to share. The class page has the full outline in the meantime.</p>
           </header>
           <a href={sitePath(INFANT_COURSE.detailsPath)} className={buttonClasses("ghost", "md", "self-start")}>See the class details</a>
@@ -83,15 +83,15 @@ export default async function InfantPreviewPage() {
           <main className="mx-auto flex max-w-4xl flex-col gap-10 px-6 pb-14 pt-8">
             <header className="flex flex-col gap-3">
               <div>{detailsLink}</div>
+              <h1 className="text-3xl text-ink-deep sm:text-5xl">{lesson.title}</h1>
               <Eyebrow>
                 Free lesson · Module {lesson.module_number}: {INFANT_COURSE.modules[lesson.module_number - 1]}
               </Eyebrow>
-              <h1 className="text-3xl text-ink-deep sm:text-5xl">{lesson.title}</h1>
               {lesson.summary && <p className="max-w-[60ch] text-lg text-ink-soft [text-wrap:pretty]">{lesson.summary}</p>}
               <p className="max-w-[60ch] text-ink-soft">A full lesson from the {INFANT_COURSE.shortTitle} class, free to watch. No account needed.</p>
               {leadIn && (
-                <p className="mt-2 max-w-[60ch] rounded-card bg-tint px-5 py-4 text-[0.9375rem] text-ink [text-wrap:pretty]">
-                  <span className="font-semibold text-ink-deep">Where this fits. </span>
+                <p className="mt-2 max-w-[60ch] border-t-[3px] border-ink bg-surface px-5 py-4 text-[0.9375rem] text-ink [text-wrap:pretty]">
+                  <span className="font-display font-semibold text-ink-deep">Where this fits. </span>
                   {leadIn}
                 </p>
               )}
@@ -127,16 +127,16 @@ export default async function InfantPreviewPage() {
               </div>
             </section>
           </main>
-          {/* The written lesson runs long, so the next step is here too, on the ink band that closes every Seminar page. */}
-          <section aria-labelledby="next-heading" className="ink-band ink-grid bg-ink-800 text-on-dark">
+          {/* The written lesson runs long, so the next step is here too, on the navy field that closes every Terrain page. */}
+          <section aria-labelledby="next-heading" className="ink-band bg-ink-800 text-on-dark">
             <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-x-8 gap-y-5 px-6 py-12">
               <div className="min-w-0">
-                <h2 id="next-heading" className="text-2xl text-on-dark sm:text-3xl">
+                <h2 id="next-heading" className="text-2xl text-white sm:text-3xl">
                   Ready for the <span className="hl">other {LESSON_COUNT - 1}</span>?
                 </h2>
                 <p className="mt-2 text-on-dark-soft">{INFANT_COURSE.priceDisplay} once, lifetime access.</p>
               </div>
-              <LinkButton href={ENROLL_HREF} variant="amber">{ENROLL_LABEL}</LinkButton>
+              <LinkButton href={ENROLL_HREF} variant="on-dark">{ENROLL_LABEL}</LinkButton>
             </div>
           </section>
         </>

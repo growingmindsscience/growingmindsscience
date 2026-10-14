@@ -69,7 +69,7 @@ export default async function AppHome({
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-6 py-10">
       <header className="flex items-center justify-between">
         <div>
-          <p className="text-[0.9375rem] font-semibold text-amber-deep">
+          <p className="font-display text-[0.9375rem] font-medium text-ink-muted">
             {brand.productName}
           </p>
           <h1 className="text-2xl font-semibold text-ink-deep">Your children</h1>

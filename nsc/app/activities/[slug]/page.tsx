@@ -44,7 +44,7 @@ export default async function ActivityPage({
       </header>
 
       <header>
-        <p className="text-[0.9375rem] font-semibold text-amber-deep">
+        <p className="font-display text-[0.9375rem] font-medium text-ink-muted">
           {a.months_min}–{a.months_max} months · {a.duration_min} min · mess{" "}
           {a.mess_level}/3
         </p>
@@ -55,7 +55,7 @@ export default async function ActivityPage({
       {unlocked ? (
         <>
           <Card>
-            <h2 className="text-[0.9375rem] font-semibold text-amber-deep">
+            <h2 className="font-display text-[0.9375rem] font-medium text-ink-muted">
               You need
             </h2>
             <ul className="mt-2 flex flex-col gap-1 text-ink">
@@ -76,7 +76,7 @@ export default async function ActivityPage({
           </Card>
 
           <Card>
-            <h2 className="text-[0.9375rem] font-semibold text-amber-deep">
+            <h2 className="font-display text-[0.9375rem] font-medium text-ink-muted">
               How it goes
             </h2>
             <ol className="mt-2 flex list-decimal flex-col gap-2 pl-5 text-ink">

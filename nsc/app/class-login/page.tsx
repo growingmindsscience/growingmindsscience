@@ -40,7 +40,7 @@ export default async function ClassLoginPage({ searchParams }: {
       }
     >
       {confirm ? (
-        <p role="status" className="rounded-card bg-tint px-5 py-4 text-center text-sm text-ink">
+        <p role="status" className="rounded-card border-t-[3px] border-ink bg-surface px-5 py-4 text-center text-sm text-ink">
           Nothing in your inbox after a minute or two? Check spam, then{" "}
           <a href={sitePath("/contact/")} className="font-semibold text-teal underline underline-offset-4">contact us</a> and we will help.{" "}
           Already confirmed?{" "}
@@ -53,10 +53,10 @@ export default async function ClassLoginPage({ searchParams }: {
           that parent is already buying a class that lives on this site. */}
       {!enrolling && (
         <section aria-labelledby="which-class" className="flex flex-col gap-3">
-          <h2 id="which-class" className="text-center font-body text-[0.9375rem] font-semibold text-ink-deep">
+          <h2 id="which-class" className="text-center font-display text-[0.9375rem] font-medium text-ink-deep">
             Which class are you opening?
           </h2>
-          <ul className="divide-y divide-line overflow-hidden rounded-card border border-line bg-surface text-left">
+          <ul className="divide-y divide-line rounded-card border-t-[3px] border-ink bg-surface text-left">
             <li className="px-5 py-3.5">
               <p className="font-semibold text-ink-deep">Birth to 12 months or Preschool years</p>
               <p className="text-[0.9375rem] text-ink-soft">Sign in below with your Growing Minds Science account.</p>
@@ -66,7 +66,7 @@ export default async function ClassLoginPage({ searchParams }: {
                 href={THINKIFIC_LOGIN_URL}
                 target="_blank"
                 rel="noopener"
-                className="group flex min-h-11 items-center justify-between gap-4 px-5 py-3.5 transition-colors hover:bg-tint"
+                className="group flex min-h-11 items-center justify-between gap-4 px-5 py-3.5 transition-colors hover:bg-ground-alt"
               >
                 <span>
                   <span className="block font-semibold text-teal underline-offset-4 group-hover:underline">Toddler years</span>

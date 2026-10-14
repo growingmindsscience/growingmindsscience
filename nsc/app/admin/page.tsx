@@ -37,7 +37,7 @@ export default async function AdminQueuePage({
   return (
     <main className="mx-auto flex min-h-screen max-w-3xl flex-col gap-8 px-6 py-10">
       <header>
-        <p className="text-[0.9375rem] font-semibold text-amber-deep">
+        <p className="font-display text-[0.9375rem] font-medium text-ink-muted">
           Growing Minds — internal
         </p>
         <h1 className="mt-1 text-2xl font-semibold text-ink-deep">
@@ -75,7 +75,7 @@ export default async function AdminQueuePage({
         <>
           <section className="flex flex-col gap-3">
             <div className="flex items-center justify-between">
-              <h2 className="text-[0.9375rem] font-semibold text-amber-deep">
+              <h2 className="font-display text-[0.9375rem] font-medium text-ink-muted">
                 Pending ({pending.length})
               </h2>
               <form action={importBatch001}>
@@ -122,7 +122,7 @@ export default async function AdminQueuePage({
 
           {decided.length > 0 && (
             <section className="flex flex-col gap-3">
-              <h2 className="text-[0.9375rem] font-semibold text-amber-deep">
+              <h2 className="font-display text-[0.9375rem] font-medium text-ink-muted">
                 Recently decided
               </h2>
               {decided.map((r) => (

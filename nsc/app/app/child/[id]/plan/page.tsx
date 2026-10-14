@@ -76,7 +76,7 @@ export default async function PlanPage({
       </header>
 
       <section>
-        <h2 className="mb-1 text-[0.9375rem] font-semibold text-amber-deep">
+        <h2 className="mb-1 font-display text-[0.9375rem] font-medium text-ink-muted">
           Today&rsquo;s number talk
         </h2>
         <Card className="bg-rung-glow/50">
@@ -119,7 +119,7 @@ export default async function PlanPage({
 
       <section className="flex flex-col gap-4">
         <div>
-          <h2 className="text-[0.9375rem] font-semibold text-amber-deep">
+          <h2 className="font-display text-[0.9375rem] font-medium text-ink-muted">
             This week&rsquo;s games
           </h2>
           <p className="mt-1 text-sm text-ink-muted">
@@ -161,7 +161,7 @@ export default async function PlanPage({
             where {ctx.child.nickname} sits in the typical range for their age,
             and the printable pack. One payment, yours for good.
           </p>
-          <LinkButton href="/app/upgrade" variant="amber" className="mt-4">
+          <LinkButton href="/app/upgrade" variant="on-dark" className="mt-4">
             See the price
           </LinkButton>
         </Card>

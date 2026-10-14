@@ -32,7 +32,7 @@ export default async function ResetPage({
       <div className="text-center">
         {classFlow
           ? <div className="mb-4 flex justify-center"><ClassWordmark href={`/class-login?next=${encodeURIComponent(destination)}`} /></div>
-          : <p className="text-[0.9375rem] font-semibold text-amber-deep">{brand.productName}</p>}
+          : <p className="font-display text-[0.9375rem] font-medium text-ink-muted">{brand.productName}</p>}
         <h1 className="mt-1 text-3xl text-ink-deep sm:text-4xl">
           Reset your password
         </h1>

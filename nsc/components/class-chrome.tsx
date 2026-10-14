@@ -6,12 +6,12 @@ import { CLASS_REFUND_POLICY } from "@/lib/refund-policy";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const NAV_LINK =
-  "inline-flex min-h-11 items-center rounded-control px-3 text-sm font-medium text-ink-soft underline decoration-transparent decoration-2 underline-offset-[0.4em] transition-colors hover:text-ink-deep hover:decoration-amber";
+  "inline-flex min-h-11 items-center rounded-control px-3 font-display text-sm font-medium text-ink-soft underline decoration-transparent decoration-2 underline-offset-[0.4em] transition-colors hover:text-ink-deep hover:decoration-teal";
 
 /**
- * The site wordmark: the logo mark and "Growing Minds Science" in Besley 600,
- * the same as the marketing site's header. The mark sits on a white disc in
- * both themes, as it does there.
+ * The site wordmark: the logo mark and "Growing Minds Science" in Geologica
+ * 600, the same as the marketing site's header. The mark sits on a white
+ * square with a 1.5px ink frame in both themes, as it does there.
  */
 export function ClassWordmark({ href = "/app/classes" }: { href?: string }) {
   return (
@@ -22,9 +22,9 @@ export function ClassWordmark({ href = "/app/classes" }: { href?: string }) {
         alt=""
         width={36}
         height={36}
-        className="size-9 shrink-0 rounded-full border border-line-soft bg-white object-contain p-[3px]"
+        className="size-9 shrink-0 border-[1.5px] border-ink bg-white object-contain p-[2px]"
       />
-      <span className="font-display text-base font-semibold leading-tight tracking-[-0.005em] sm:text-[1.15rem]">
+      <span className="font-display text-base font-semibold leading-tight tracking-[-0.02em] sm:text-[1.15rem]">
         Growing Minds Science
       </span>
     </Link>
@@ -38,8 +38,8 @@ export function ClassWordmark({ href = "/app/classes" }: { href?: string }) {
  */
 export function ClassHeader({ email, showNumberPath }: { email?: string; showNumberPath: boolean }) {
   return (
-    <header className="border-b border-line bg-ground">
-      <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-6 py-2">
+    <header className="bg-ground">
+      <div className="mx-auto flex min-h-[72px] max-w-4xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-6 py-2">
         <ClassWordmark />
         <nav aria-label="Classes" className="flex flex-wrap items-center gap-x-1">
           <Link href="/app/classes" className={NAV_LINK}>My classes</Link>
@@ -57,9 +57,9 @@ export function ClassHeader({ email, showNumberPath }: { email?: string; showNum
 }
 
 const FOOTER_LINK =
-  "inline-flex min-h-11 items-center rounded-control px-3 font-medium text-on-dark underline decoration-transparent decoration-2 underline-offset-[0.4em] transition-colors hover:decoration-amber";
+  "inline-flex min-h-11 items-center rounded-control px-3 font-medium text-on-dark underline decoration-transparent decoration-2 underline-offset-[0.4em] transition-colors hover:decoration-on-dark";
 
-/** Slim footer for every class page: a way to get help, and the way back out. Ink-900, as on the site. */
+/** Slim footer for every class page: a way to get help, and the way back out. The navy floor, as on the site. */
 export function ClassFooter() {
   return (
     <footer className="ink-band bg-ink-900 text-on-dark-soft">
@@ -124,14 +124,15 @@ export function ClassAuthFrame({ title, lede, children, footer, context, wordmar
 }
 
 /**
- * The one label style for the classes area: sentence case, 15px, weight 600,
- * amber-deep (DESIGN.md has no uppercase tracked eyebrows). It should always
- * say something real, such as the ages or the module. `className` is for
- * spacing only.
+ * The one label style for the classes area: the map-label voice, Geologica
+ * 500 at 15px in ink-muted, sentence case (DESIGN.md has no uppercase
+ * tracked eyebrows). It sits under the title it labels, never above it, and
+ * should always say something real, such as the ages or the module.
+ * `className` is for spacing only.
  */
 export function Eyebrow({ children, className, as: Tag = "p" }: { children: ReactNode; className?: string; as?: "p" | "h2" }) {
   return (
-    <Tag className={`font-body text-[0.9375rem] font-semibold leading-snug text-amber-deep ${className ?? ""}`}>
+    <Tag className={`font-display text-[0.9375rem] font-medium leading-snug text-ink-muted ${className ?? ""}`}>
       {children}
     </Tag>
   );
@@ -148,12 +149,12 @@ export function EnrollContext({ course, step }: {
   step: "sign-in" | "sign-up";
 }) {
   return (
-    <section aria-label={`Enrolling in ${course.shortTitle}`} className="rounded-card border border-line bg-surface px-5 py-4 shadow-sm">
+    <section aria-label={`Enrolling in ${course.shortTitle}`} className="rounded-card border-t-[3px] border-ink bg-surface px-5 py-4">
       <p className="font-display text-lg font-semibold text-ink-deep">{course.shortTitle} class</p>
-      <p className="mt-2 text-[0.9375rem] font-semibold text-amber-deep">
+      <p className="mt-2 font-display text-[0.9375rem] font-medium text-ink-deep">
         Step 1 of 2: {step === "sign-up" ? "create your account" : "sign in"}.
       </p>
-      <p className="text-[0.9375rem] text-ink-soft">Step 2: pay securely with Stripe.</p>
+      <p className="font-display text-[0.9375rem] font-medium text-ink-muted">Step 2: pay securely with Stripe.</p>
       <p className="mt-3 border-t border-line pt-3 text-[0.9375rem] text-ink-soft [text-wrap:pretty]">
         <span className="font-semibold text-ink-deep">{course.priceDisplay} once</span>
         {" · "}

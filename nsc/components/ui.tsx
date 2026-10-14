@@ -5,16 +5,17 @@ function cx(...parts: (string | false | null | undefined)[]) {
   return parts.filter(Boolean).join(" ");
 }
 
-export type ButtonVariant = "primary" | "ghost" | "amber";
+export type ButtonVariant = "primary" | "ghost" | "on-dark";
 export type ButtonSize = "md" | "sm";
 
-// Seminar buttons (DESIGN.md): 10px-radius rectangles, never pills, at least
-// 48px tall, Atkinson 600, with a 1.5px border so every variant is the same
-// size. The focus ring is the global amber-deep outline (globals.css). The
-// border color lives in each variant: two border-color utilities on one element
-// resolve by stylesheet order, not attribute order.
+// Terrain buttons (DESIGN.md): square, one fill, feedback on press only. At
+// least 48px tall, Geologica 600, with a 1.5px border matching the fill so
+// every variant is the same size; `:active` moves down 1px, nothing lifts and
+// nothing casts a shadow. The focus ring is the global teal outline
+// (globals.css). The border color lives in each variant: two border-color
+// utilities on one element resolve by stylesheet order, not attribute order.
 const BUTTON_BASE =
-  "inline-flex items-center justify-center rounded-control border-[1.5px] font-body font-semibold leading-tight no-underline transition-[background-color,color,border-color,transform] duration-200 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-50";
+  "inline-flex items-center justify-center rounded-control border-[1.5px] font-display font-semibold leading-tight no-underline transition-[background-color,color,border-color] duration-200 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-50";
 
 const BUTTON_SIZE: Record<ButtonSize, string> = {
   md: "min-h-12 px-[1.4rem] py-3 text-base",
@@ -22,12 +23,12 @@ const BUTTON_SIZE: Record<ButtonSize, string> = {
 };
 
 const BUTTON_VARIANT: Record<ButtonVariant, string> = {
-  // The action on light grounds: teal fill, deepening to ink on hover.
-  primary: "border-transparent bg-teal text-on-teal shadow-primary hover:-translate-y-0.5 hover:bg-teal-hover",
-  // Quiet: a hairline border and ink text, for the second action.
-  ghost: "border-line bg-transparent text-ink-deep hover:border-teal hover:text-teal",
-  // Amber is a highlighter: a button fill only on an ink band (add `ink-band` to the band).
-  amber: "border-transparent bg-amber text-ink-900 shadow-amber hover:-translate-y-0.5 hover:bg-amber-bright",
+  // The action on light grounds: the teal route, deepening on hover.
+  primary: "border-teal bg-teal text-on-teal hover:border-teal-hover hover:bg-teal-hover",
+  // Quiet: a 1.5px ink border and ink text for the second action; hover inverts.
+  ghost: "border-ink bg-transparent text-ink hover:bg-ink hover:text-ground",
+  // On a navy field (add `ink-band` to the band): the on-dark fill with navy text, pure white on hover.
+  "on-dark": "border-on-dark bg-on-dark text-ink-900 hover:border-white hover:bg-white",
 };
 
 /**
@@ -64,7 +65,8 @@ export function LinkButton({
 }
 
 /**
- * A real panel: the few surfaces that need lift (a form, a progress card).
+ * A panel: a surface with a 3px ink rule across its top (the legend bar),
+ * square, with no side borders and no shadow (a form, a progress card).
  * Lists of parallel things are ruled rows instead (see ClassOutline).
  */
 export function Card({
@@ -81,7 +83,7 @@ export function Card({
   return (
     <div
       className={cx(
-        "rounded-card border border-line p-6 shadow-sm",
+        "rounded-card border-t-[3px] border-ink p-6",
         !hasBgOverride && "bg-surface",
         className,
       )}
@@ -105,7 +107,7 @@ export function Field({
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label htmlFor={htmlFor} className="text-sm font-semibold text-ink-deep">
+      <label htmlFor={htmlFor} className="font-display text-sm font-medium text-ink-deep">
         {label}
       </label>
       {children}
@@ -114,12 +116,12 @@ export function Field({
   );
 }
 
-/** Ground-colored field with a visible edge and a teal focus ring (DESIGN.md, Inputs). */
+/** Sheet-colored field with a 1.5px visible edge, square, and a teal focus ring (DESIGN.md, Inputs). */
 export function Input({ className, ...props }: ComponentProps<"input">) {
   return (
     <input
       className={cx(
-        "min-h-12 rounded-control border border-field-line bg-ground px-4 py-3 text-base text-ink placeholder:text-ink-muted focus:border-teal focus-visible:outline-teal",
+        "min-h-12 rounded-control border-[1.5px] border-field-line bg-ground px-4 py-3 text-base text-ink placeholder:text-ink-muted focus:border-teal focus-visible:outline-teal",
         className,
       )}
       {...props}

@@ -180,7 +180,7 @@ export default async function TodaysThreePage({
         return (
           <section key={child.id} className="flex flex-col gap-4">
             <div>
-              <h2 className="text-[0.9375rem] font-semibold text-amber-deep">
+              <h2 className="font-display text-[0.9375rem] font-medium text-ink-muted">
                 For {child.nickname} · {months} months
               </h2>
             </div>

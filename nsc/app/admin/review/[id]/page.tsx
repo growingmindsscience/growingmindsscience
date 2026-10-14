@@ -105,7 +105,7 @@ export default async function ReviewItemPage({
       ) : (
         <>
           <form action={saveItemEdits.bind(null, item.id)} className="flex flex-col gap-3">
-            <label htmlFor="payload" className="text-[0.9375rem] font-semibold text-amber-deep">
+            <label htmlFor="payload" className="font-display text-[0.9375rem] font-medium text-ink-muted">
               Draft payload (edit, then save to re-grade)
             </label>
             <textarea

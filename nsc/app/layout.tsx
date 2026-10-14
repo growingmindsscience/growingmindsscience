@@ -1,23 +1,25 @@
 import type { Metadata } from "next";
-import { Atkinson_Hyperlegible_Next, Besley } from "next/font/google";
+import { Geologica, Literata } from "next/font/google";
 import "./globals.css";
 import { brand } from "@/lib/config/brand";
 import { TimeZoneSync } from "@/components/timezone-sync";
 
-// Brand fonts, matching the parent site (DESIGN.md): Besley for display,
-// Atkinson Hyperlegible Next for everything a parent has to read. next/font
-// downloads them at build time and serves them from this origin, which the
-// CSP (font-src 'self') requires. Both are variable fonts, so any weight works.
-const besley = Besley({
+// Brand fonts, matching the parent site (DESIGN.md, "The Terrain"): Geologica
+// for display, legend lettering, numerals and buttons; Literata for everything
+// a parent has to read. next/font downloads them at build time and serves
+// them from this origin, which the CSP (font-src 'self') requires, and builds
+// a size-adjusted fallback into each variable. Both are variable fonts, so
+// any weight works.
+const geologica = Geologica({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-geologica",
+});
+const literata = Literata({
   subsets: ["latin"],
   style: ["normal", "italic"],
   display: "swap",
-  variable: "--font-besley",
-});
-const atkinson = Atkinson_Hyperlegible_Next({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-atkinson",
+  variable: "--font-literata",
 });
 
 const THEME_SCRIPT =
@@ -33,7 +35,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${besley.variable} ${atkinson.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${geologica.variable} ${literata.variable}`} suppressHydrationWarning>
       <head>
         {/* Apply the saved or system theme before paint, with the main site's
             key. Only the classes area styles it (see .class-theme). */}

@@ -14,7 +14,7 @@ export function PasswordInput({ className, ...props }: Omit<ComponentProps<"inpu
         onClick={() => setShown((value) => !value)}
         aria-pressed={shown}
         aria-label={shown ? "Hide password" : "Show password"}
-        className="absolute inset-y-0 right-0 inline-flex min-w-14 items-center justify-center rounded-r-xl px-3 text-sm font-semibold text-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal"
+        className="absolute inset-y-0 right-0 inline-flex min-w-14 items-center justify-center px-3 text-sm font-semibold text-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal"
       >
         {shown ? "Hide" : "Show"}
       </button>

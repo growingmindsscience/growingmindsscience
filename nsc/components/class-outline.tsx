@@ -72,7 +72,7 @@ export function ClassOutline({ modules, lessons, progress = [], courseSlug, lock
 }) {
   const byLesson = new Map(progress.map((row) => [row.lesson_id, row]));
   // Ruled rows, not cards (DESIGN.md): a hairline above each lesson and one
-  // below the last. Linked rows wash to the tint on hover; locked rows stay flat.
+  // below the last. Linked rows wash to the tone step on hover; locked rows stay flat.
   const row = "flex items-center justify-between gap-4 border-t border-line px-3 py-4 text-ink";
   return (
     <>
@@ -80,10 +80,10 @@ export function ClassOutline({ modules, lessons, progress = [], courseSlug, lock
         const moduleLessons = lessons.filter((lesson) => lesson.module_number === index + 1);
         return (
           <section key={title} aria-labelledby={`module-${index + 1}`}>
-            <p aria-hidden="true" className="font-display text-[0.9375rem] font-medium italic text-amber-deep">Module {index + 1}</p>
-            <h2 id={`module-${index + 1}`} className="mb-3 text-xl text-ink-deep">
+            <h2 id={`module-${index + 1}`} className="text-xl text-ink-deep">
               <span className="sr-only">Module {index + 1}: </span>{title}
             </h2>
+            <p aria-hidden="true" className="mb-3 mt-1 font-display text-[0.9375rem] font-medium text-ink-muted">Module {index + 1}</p>
             {moduleLessons.length ? (
               <ol className="flex flex-col border-b border-line">
                 {moduleLessons.map((lesson) => {
@@ -107,7 +107,7 @@ export function ClassOutline({ modules, lessons, progress = [], courseSlug, lock
                     <li key={lesson.id}>
                       {locked
                         ? <div className={row}>{body}</div>
-                        : <Link href={lessonPath(lesson.slug, courseSlug)} className={`${row} transition-colors hover:bg-tint/60`}>{body}</Link>}
+                        : <Link href={lessonPath(lesson.slug, courseSlug)} className={`${row} transition-colors hover:bg-ground-alt`}>{body}</Link>}
                     </li>
                   );
                 })}

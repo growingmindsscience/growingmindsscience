@@ -39,10 +39,10 @@ export default async function ClassLessonPage({ params }: { params: Promise<{ sl
     <main className="mx-auto flex max-w-3xl flex-col gap-7 px-6 py-10">
       <header>
         <Link href="/app/classes/toddlerhood" className="inline-flex min-h-11 items-center text-sm text-ink-muted underline">← All lessons</Link>
+        <h1 className="mt-2 text-3xl text-ink-deep sm:text-4xl">{lesson.title}</h1>
         <Eyebrow className="mt-2">
           Module {lesson.module_number}: {TODDLER_COURSE.modules[lesson.module_number - 1]} · Lesson {index + 1} of {lessons.length}
         </Eyebrow>
-        <h1 className="mt-2 text-3xl text-ink-deep sm:text-4xl">{lesson.title}</h1>
         {lesson.summary && <p className="mt-3 text-ink">{lesson.summary}</p>}
       </header>
 
