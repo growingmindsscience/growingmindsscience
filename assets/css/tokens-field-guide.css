@@ -1,0 +1,202 @@
+/* =========================================================
+   Growing Minds Science
+   Tokens: "The Living Field Guide to the Growing Mind".
+   Warm paper ground, botanical ink for every word, scientific forest
+   green as the one action colour, muted sage as the field colour, and
+   one inverted ink field for the close and the footer. Newsreader
+   (headlines, statements) over DM Sans (reading and interface).
+   Square corners; no shadows at rest; no gradients.
+
+   The Terrain names (--bg, --ink, --primary, --font-display ...) are
+   kept as aliases so chrome.css and any shared component keep reading
+   the same names. New work uses the field-guide names below.
+   ========================================================= */
+
+/* ---------- Font fallbacks ----------
+   Metric-matched stand-ins until Newsreader / DM Sans arrive
+   (display=swap), so lines wrap about the same way before the swap. */
+@font-face {
+  font-family: "Newsreader Fallback";
+  src: local("Georgia"), local("Times New Roman");
+  size-adjust: 98%;
+  ascent-override: 92%;
+  descent-override: 26%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "DM Sans Fallback";
+  src: local("Helvetica Neue"), local("Arial"), local("ArialMT");
+  size-adjust: 100%;
+  ascent-override: 94%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+}
+
+:root {
+  /* ---------- Colour: the field guide ---------- */
+  --paper: #F7F5EF;          /* ground: warm paper */
+  --paper-2: #EEEBE1;        /* one tone step: alternate sections, bands */
+  --surface: #FDFCF9;        /* panels, inputs, insets */
+  --surface-2: #E6E3D7;      /* second tone step: chips, inactive tabs */
+  --ink: #20322F;            /* deep botanical ink: all type */
+  --ink-soft: #3D4F4B;       /* secondary copy, first line of a two-tone heading */
+  --ink-muted: #596B67;      /* meta and captions: 5:1 on paper */
+  --forest: #315D52;         /* scientific forest green: the one action colour */
+  --forest-deep: #254A41;    /* hover */
+  --on-forest: #F7F5EF;
+  --sage: #A9C3B2;           /* muted sage: the field colour for whole sections */
+  --sage-deep: #8DAE9A;      /* active tab on a sage field, figure fills */
+  --on-sage: #20322F;
+  --field-ink: #20322F;      /* the inverted field: close and footer */
+  --field-ink-2: #2A3F3B;    /* raised surfaces on the ink field */
+  --on-ink: #F2EFE6;
+  --on-ink-soft: #C9D0CB;
+  --on-ink-muted: #9FAEA8;
+  /* Annotation colours, reserved for marks inside figures (leader lines,
+     a highlighted layer). Never a fill larger than a mark; never on a
+     button or a heading. The brand rule stands: no warm colour at scale. */
+  --note-warm: #BB7866;      /* soft clay */
+  --note-amber: #C99450;     /* warm amber */
+  --danger: #A6371F;
+  --success: #2F6B4A;
+
+  /* ---------- Aliases for chrome.css and shared components ---------- */
+  --bg: var(--paper);
+  --bg-alt: var(--paper-2);
+  --border: #CDD3CB;
+  --border-soft: #DEE2D8;
+  --ink-700: #2A3F3B;
+  --ink-800: #1B2A27;
+  --ink-900: #141F1C;
+  --primary: var(--forest);
+  --primary-hover: var(--forest-deep);
+  --primary-ink: var(--on-forest);
+  --accent: var(--forest);
+  --accent-soft: var(--sage);
+  --contour: #9DB0A8;
+  --woodland: var(--sage);
+  --water: #C6D6D2;
+  --amber: var(--forest);
+  --amber-deep: var(--forest);
+  --amber-tint: #DCE6DD;
+  --accent-brown: var(--forest-deep);
+  --warm: var(--forest);
+  --leaf: #2F6B4A;
+  --on-dark: var(--on-ink);
+  --on-dark-soft: var(--on-ink-soft);
+  --on-dark-muted: var(--on-ink-muted);
+  --ground: var(--paper);
+  --tint: var(--surface-2);
+  --line: var(--border);
+  --line-soft: var(--border-soft);
+  --teal: var(--forest);
+  --teal-soft: var(--forest-deep);
+
+  /* ---------- Type ---------- */
+  --font-display: "Newsreader", "Newsreader Fallback", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", "DM Sans Fallback", "Helvetica Neue", Arial, sans-serif;
+
+  /* Five steps, far apart. Nothing sits between lead and head. */
+  --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);   /* 13–14px captions, table meta */
+  --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);     /* 17–19px reading */
+  --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);       /* 20–26px standfirst, statements */
+  --step-head: clamp(2rem, 1.3rem + 2.6vw, 3.6rem);            /* 32–58px section headings */
+  --step-display: clamp(2rem, 0.9rem + 4.2vw, 5rem);           /* 32–80px the title, the tools statement, the wordmark */
+  --display-tracking: -0.025em;
+  --head-tracking: -0.02em;
+
+  /* Legacy names some shared components still read */
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.0625rem;
+  --text-md: 1.1875rem;
+  --text-lg: 1.5rem;
+  --text-xl: var(--step-head);
+  --text-2xl: var(--step-head);
+  --text-hero: var(--step-display);
+
+  /* ---------- Space ---------- */
+  --margin: clamp(1rem, 2.2vw, 2rem);      /* tight: content reaches the edges */
+  --gutter: clamp(0.75rem, 1.4vw, 1.5rem);
+  --section: clamp(6rem, 11vw, 12.5rem);    /* between sections: larger than any gap inside one */
+  --axis: 42%;                              /* the printed annual's column line */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 1.75rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-14: 3.5rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+  --container: 1200px;
+  --container-narrow: 880px;
+
+  /* ---------- Corners, shadows ---------- */
+  --radius-sm: 0;
+  --radius: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --shadow-sm: none;
+  --shadow-md: 0 18px 40px -24px rgba(32, 50, 47, 0.35); /* menus only: things that truly float */
+  --shadow-lg: none;
+
+  /* ---------- Motion ---------- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --t-press: 140ms;
+  --t-hover: 180ms;
+  --t-ui: 240ms;
+  --t-reveal: 800ms;
+  --ease: var(--ease-out);
+  --transition: 240ms var(--ease-out);
+  --t: 240ms var(--ease-out);
+
+  --header-height: 72px;
+  --header-h: 72px;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  /* The night page: a deep green-black paper, soft light ink, the forest
+     action lifted so it still reads as the one accent. */
+  --paper: #141F1C;
+  --paper-2: #1A2724;
+  --surface: #1E2C28;
+  --surface-2: #27372F;
+  --ink: #EDEBE3;
+  --ink-soft: #CDD3CC;
+  --ink-muted: #9FAEA8;
+  --forest: #8FC4AE;
+  --forest-deep: #A8D5C3;
+  --on-forest: #0E1A16;
+  --sage: #2B4A41;
+  --sage-deep: #3A6054;
+  --on-sage: #EDEBE3;
+  --field-ink: #0B1210;
+  --field-ink-2: #15201D;
+  --on-ink: #EDEBE3;
+  --on-ink-soft: #C9D0CB;
+  --on-ink-muted: #9FAEA8;
+  --note-warm: #D9A08E;
+  --note-amber: #DDB36E;
+  --border: #35463F;
+  --border-soft: #2B3A34;
+  --ink-700: #1E2E2A;
+  --ink-800: #0F1A17;
+  --ink-900: #0B1210;
+  --contour: #4C6058;
+  --water: #27403E;
+  --amber-tint: #22362F;
+  --leaf: #8FC4AE;
+  --danger: #F0907E;
+  --success: #A8D5C3;
+  --shadow-md: 0 18px 40px -24px rgba(0, 0, 0, 0.6);
+}
