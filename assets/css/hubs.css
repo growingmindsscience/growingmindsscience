@@ -49,7 +49,7 @@
 .row { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr) auto; gap: 6px 28px; padding-block: 22px; border-top: 1px solid var(--border-soft); align-items: baseline; }
 .row:first-child { border-top: 0; padding-top: 0; }
 .row__name { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem); line-height: 1.15; letter-spacing: -0.01em; }
-.row__name a { text-decoration: none; display: inline-block; padding-block: 10px; margin-block: -10px; }
+.row__name a { text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; margin-block: -10px; }
 .row__name a:hover { color: var(--forest); text-decoration: underline; text-underline-offset: 0.16em; }
 .row__meta { font-size: 14px; color: var(--ink-muted); margin-top: 6px; }
 .row__desc { color: var(--ink-soft); }
@@ -74,7 +74,7 @@
 .guide { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 6px 28px; padding-block: 18px; border-top: 1px solid var(--border-soft); align-items: baseline; }
 .guide .tool-card__eyebrow { order: 2; font-size: 14px; color: var(--ink-muted); grid-column: 1; }
 .guide h4 { order: 1; grid-column: 1; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem); line-height: 1.15; }
-.guide h4 a { text-decoration: none; display: inline-block; padding-block: 10px; margin-block: -10px; }
+.guide h4 a { text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; margin-block: -10px; }
 .guide h4 a:hover { color: var(--forest); text-decoration: underline; text-underline-offset: 0.16em; }
 .guide p { order: 3; grid-column: 2; grid-row: 1 / span 2; color: var(--ink-soft); }
 .guide.is-foryou { background: var(--sage-mist); border-radius: var(--radius); padding-inline: 14px; border-top-color: transparent; }
