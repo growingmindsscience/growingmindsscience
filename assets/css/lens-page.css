@@ -37,7 +37,7 @@
 .lens__option-title { font-weight: 600; }
 
 /* ---------- The text alternative to the plate ---------- */
-.lp-alt { margin-top: clamp(28px, 4vw, 48px); padding-top: 20px; border-top: 1px solid var(--sage-mist-2); display: grid; gap: 10px; max-width: 90ch; }
+.lp-alt { margin-top: clamp(28px, 4vw, 48px); padding-top: 20px; border-top: 1px solid var(--sage-mist-2); display: grid; gap: 10px; max-width: 70ch; }
 .lp-caption { font-size: 14px; color: var(--ink-soft); }
 .lp-alt__more summary { display: inline-flex; align-items: center; min-height: 44px; cursor: pointer; font-size: 14px; font-weight: 500; color: var(--ink); text-decoration: underline; text-underline-offset: 0.16em; }
 .fg ul.lp-alt__list { display: grid; gap: 4px; margin-top: 6px; font-size: 14px; color: var(--ink-soft); }
