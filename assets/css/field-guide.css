@@ -205,6 +205,7 @@ a { color: inherit; }
 .plate__scene { fill: var(--ink); }
 .plate__ground { fill: var(--sage); }
 .plate__object { fill: var(--sage-deep); }
+.plate__limb { stroke: var(--ink); stroke-linecap: round; fill: none; }
 .plate__path { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-dasharray: 4 9; stroke-linecap: round; }
 .plate__callout { cursor: pointer; }
 .plate__callout line { stroke: var(--ink); stroke-width: 1.5; }
@@ -253,7 +254,7 @@ a { color: inherit; }
 .masthead__main { display: grid; gap: 1.5rem; }
 .masthead__h1 { max-width: none; }
 .masthead__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.75rem; margin-top: 0.5rem; }
-.masthead__quiet { margin-top: 0.25rem; }
+.fg .masthead__quiet { margin-top: 0.25rem; }
 @media (max-width: 999px) {
   .masthead__main { order: -1; }
 }
@@ -281,9 +282,9 @@ a { color: inherit; }
 .lens-band__head { display: grid; gap: 1.25rem; max-width: 56ch; margin-bottom: clamp(2rem, 4vw, 3.5rem); }
 .lens-band__photo { margin: 0; width: min(100%, 320px); }
 .lens-band__photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; }
-.lens-band__after { margin-top: clamp(1.5rem, 3vw, 2.5rem); }
+.fg .lens-band__after { margin-top: clamp(1.5rem, 3vw, 2.5rem); }
 @media (min-width: 1000px) {
-  .lens-band__head { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); max-width: none; gap: 0 var(--gutter); align-items: start; }
+  .lens-band__head { grid-template-columns: var(--axis) minmax(0, 1fr); max-width: none; gap: 0 var(--gutter); align-items: end; }
   .lens-band__head h2 { grid-column: 1; }
   .lens-band__head p { grid-column: 2; grid-row: 1; max-width: 52ch; align-self: end; }
   .lens-band__photo { grid-column: 1; grid-row: 2; margin-top: 1.5rem; width: clamp(200px, 16vw, 280px); }
@@ -302,15 +303,23 @@ a { color: inherit; }
 .explorer__photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 28%; }
 .explorer__lead .explorer__head { flex-wrap: wrap; gap: 1rem 2rem; }
 .explorer__lead .explorer__cta { margin-left: auto; }
+.fg .explorer__lead .explorer__cursor { margin-top: var(--space-12); }
+.fg .explorer__tab-name { font-size: var(--step-body); line-height: 1.25; }
 @media (min-width: 1000px) {
   .explorer__top { grid-template-columns: var(--axis) minmax(0, 1fr); gap: 0 var(--gutter); align-items: start; }
-  .explorer__photo { width: clamp(220px, 18vw, 300px); }
+  .explorer__photo { width: clamp(220px, 19vw, 320px); margin-top: 0.4rem; }
+  .fg .explorer__body { grid-template-columns: 176px minmax(0, 1fr); }
+  .fg .explorer__tabs { grid-template-columns: 176px; }
+  .fg .explorer__tab { min-width: 176px; }
 }
 @media (max-width: 999px) {
-  .explorer__top { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 1.5rem; }
+  .fg .explorer__inner { display: flex; flex-direction: column; }
+  .explorer__top { display: contents; }
   .explorer__lead { order: 1; }
-  .explorer__photo { order: 2; margin: 0; }
-  .explorer__photo img { aspect-ratio: 3 / 2; object-position: 50% 36%; }
+  .explorer__body { order: 2; }
+  .explorer__photo { order: 3; margin: var(--space-12) 0 0; }
+  .explorer__note { order: 4; }
+  .explorer__photo img { aspect-ratio: 3 / 2; object-position: 50% 35%; }
 }
 
 /* =========================================================
@@ -367,6 +376,9 @@ a { color: inherit; }
    ========================================================= */
 .now { background: var(--sage); color: var(--on-sage); padding-block: clamp(4.5rem, 9vw, 9rem); }
 .now__inner { display: grid; gap: 1.75rem; }
+.now__side { display: grid; gap: 1.5rem; align-content: end; }
+.now__photo { margin: 0; width: clamp(180px, 16vw, 260px); }
+.now__photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; }
 .now__sentence { max-width: 32ch; }
 .now__list { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; max-width: 46ch; }
 .now__list a { color: var(--on-sage); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 0.07em; text-decoration-color: rgba(32, 50, 47, 0.45); }
@@ -379,13 +391,14 @@ a { color: inherit; }
 @media (min-width: 1000px) {
   .now__inner { grid-template-columns: var(--axis) minmax(0, 1fr); gap: 0 var(--gutter); }
   .now__side { padding-right: clamp(2rem, 6vw, 7rem); align-self: end; }
+  .now__main { align-self: end; }
   .now__main { display: grid; gap: 1.75rem; }
 }
 
 /* =========================================================
    6. Classes: plans as a large table
    ========================================================= */
-.classes__heading { margin-bottom: clamp(2rem, 4vw, 3.5rem); }
+.fg .classes__heading { margin-bottom: clamp(2.5rem, 4vw, 4rem); }
 .classes__table { width: 100%; border-collapse: collapse; table-layout: fixed; }
 .classes__table th, .classes__table td { text-align: left; vertical-align: top; padding: 20px 20px 20px 0; font-weight: 400; }
 .classes__table th { padding-right: 20px; }
@@ -403,8 +416,8 @@ a { color: inherit; }
 .classes__table tbody tr:nth-child(even) td:last-child { padding-right: 20px; }
 .classes__table .classes__actions th, .classes__table .classes__actions td { padding-top: 28px; padding-bottom: 0; background: none; }
 .classes__table .classes__actions .btn { width: 100%; max-width: 16rem; }
-.classes__soon { color: var(--ink-muted); }
-.classes__note { margin-top: 2rem; max-width: 60ch; }
+.classes__soon { color: var(--ink-muted); font-size: var(--step-body); line-height: 1.4; display: inline-block; padding-top: 0.35rem; }
+.fg .classes__note { margin-top: 2rem; max-width: 60ch; }
 @media (max-width: 900px) {
   /* Each compared item becomes a block: its name, then one line per class. */
   .classes__table, .classes__table tbody, .classes__table tr, .classes__table th, .classes__table td { display: block; }
@@ -412,7 +425,7 @@ a { color: inherit; }
   .classes__table tbody { display: grid; gap: 6px; }
   .classes__table tbody tr { padding: 16px 20px 18px; background: var(--paper-2); }
   .classes__table tbody tr:nth-child(even) { background: var(--surface); }
-  .classes__table tbody th, .classes__table tbody td { padding: 0; background: none !important; }
+  .fg .classes__table tbody th, .fg .classes__table tbody td { padding: 0; background: none !important; }
   .classes__table tbody th { margin-bottom: 0.6rem; }
   .classes__table tbody td { display: grid; grid-template-columns: minmax(0, 9rem) minmax(0, 1fr); gap: 0 1rem; padding: 0.35rem 0; }
   .classes__table tbody td::before { content: attr(data-plan); color: var(--ink-soft); font-weight: 500; }
@@ -437,12 +450,12 @@ a { color: inherit; }
 .tools__table th { color: var(--ink-soft); width: 32%; padding-right: 1rem; }
 .tools__table td.tools__name { width: 30%; padding-right: 1rem; }
 .tools__table td.tools__what { text-align: right; color: var(--ink); }
-.tools__photo { align-self: end; }
+.tools__photo { align-self: start; }
 .tools__photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
 @media (min-width: 1000px) {
   .tools__body { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: end; }
-  .tools__photo { grid-column: 1 / 5; width: 22vw; max-width: 100%; }
-  .tools__word { grid-column: 7 / 8; align-self: start; padding-top: 0.2em; }
+  .tools__photo { grid-column: 1 / 6; width: 100%; max-width: 440px; align-self: start; }
+  .tools__word { display: none; }
   .tools__table { grid-column: 8 / 13; }
   .tools__table thead th { padding-bottom: 26px; }
 }
