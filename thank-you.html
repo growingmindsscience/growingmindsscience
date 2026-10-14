@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
+  /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <title>Thank you | Growing Minds Science</title>
   <meta name="description" content="Thank you for joining the Growing Minds Science waitlist." />
   <meta name="robots" content="noindex, follow" />
@@ -19,8 +20,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=DM+Sans:opsz,wght@9..40,400..600&display=swap" />
   <link rel="stylesheet" href="assets/css/styles.css?v=c298342254" />
-  <link rel="stylesheet" href="assets/css/refresh.css?v=a3c6e7ebb0" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=ee54232f17" />
+  <link rel="stylesheet" href="assets/css/refresh.css?v=fbfeb0f65f" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=0341966128" />
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>

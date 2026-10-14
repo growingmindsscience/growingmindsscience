@@ -193,16 +193,17 @@ components:
     padding: "0 0.1em"
 ---
 
-> **Field Guide redesign, in progress (branch `redesign/field-guide`, October 2026).**
-> The homepage (`index.html`) and the first Developmental Lens (`lens/leaving-the-playground.html`)
-> now run on a new system, "The Living Field Guide to the Growing Mind": tokens in
+> **Field Guide redesign (branch `redesign/field-guide`, October 2026).**
+> Every page now runs on "The Living Field Guide to the Growing Mind": tokens in
 > `assets/css/tokens-field-guide.css` (Newsreader over DM Sans; paper, ink, forest, sage), the page
-> stylesheet `assets/css/field-guide.css`, and the components `lens.css` / `explorer.css`. The
-> governing documents are in `docs/field-guide/` (creative-direction, homepage-proposal, lens-plan,
-> build-contract, copy-deck, preservation-plan, asset-brief, validation-report). Every inner page
-> still renders the Terrain system described below until Phase 3 migrates it; the Terrain tokens
-> and `chrome.css` are unchanged, and the new token file keeps the same alias names so the shared
-> header and footer read either system.
+> stylesheet `assets/css/field-guide.css`, the inner-page templates `field-guide-pages.css`, and the
+> components `lens.css` / `explorer.css`. The shared header and footer are `chrome.css` and the
+> fragments in `docs/field-guide/fragments/`. The hub pages (classes, the four class pages, pricing,
+> tools, articles, about) are built on the field-guide templates; the other inner pages keep their
+> older markup under `styles.css` + `refresh.css`, whose Field Guide layer carries the house rules.
+> The governing documents are in `docs/field-guide/` (creative-direction, build-contract, copy-deck,
+> preservation-plan, phase-3-report). The Terrain system described below is superseded; its token
+> file is gone, and the sections that follow remain only as the record of the previous system.
 
 # Design System: Growing Minds Science
 

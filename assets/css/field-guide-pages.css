@@ -1,0 +1,333 @@
+/* =========================================================
+   Growing Minds Science: field-guide-pages.css
+   The editorial templates for the inner hub pages (classes, the four class
+   pages, pricing, tools, articles, about), laid out like the pages of the
+   printed annual that field-guide.css sets up for the homepage: a title that
+   begins on the 42% axis with its notes in the margin zone, sections whose
+   headings sit on the same axis, tables and tone-stepped rows instead of
+   card grids, whole fields of sage or ink for the bands. Loaded after
+   field-guide.css, before chrome.css. Reads only tokens-field-guide.css.
+   No rules, no shadows at rest, no gradients, square corners; real form
+   fields keep their lines.
+   ========================================================= */
+
+/* ---------- The title block: notes in the margin, the title on the axis ---------- */
+.page-title { padding-top: clamp(2rem, 4vw, 3.5rem); padding-bottom: calc(var(--section) / 2); }
+.page-title__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem 0; }
+.page-title__side { display: grid; gap: 1.25rem; align-content: start; }
+.page-title__main { display: grid; gap: 1.5rem; align-content: start; }
+.page-title__h1 { font-size: var(--step-display); line-height: 0.98; letter-spacing: var(--display-tracking); margin-left: -0.04em; max-width: none; }
+.page-title__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.75rem; margin-top: 0.25rem; }
+.page-title__fine { max-width: 48ch; }
+.page-title__photo { margin: 0; width: min(100%, 320px); }
+.page-title__photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; }
+@media (min-width: 1000px) {
+  .page-title__grid { grid-template-columns: var(--axis) minmax(0, 1fr); gap: 0 var(--gutter); }
+  .page-title__side { padding-right: clamp(1.5rem, 4vw, 4rem); padding-top: 0.6rem; }
+  .page-title__photo { width: clamp(240px, 22vw, 380px); }
+}
+@media (max-width: 999px) {
+  .page-title__main { order: -1; }
+  .page-title__photo { width: 60%; margin-left: auto; }
+}
+
+/* Facts: a short definition list in the margin zone. */
+.facts { display: grid; gap: 0.6rem; }
+.facts > div { display: grid; gap: 0.1rem; }
+.facts dt { font-weight: 500; color: var(--ink); }
+.facts dd { color: var(--ink-soft); }
+.facts--row { grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 1rem 1.5rem; }
+
+/* ---------- Sections on the axis: a side note left, the heading and body right ---------- */
+.axis { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.25rem 0; }
+.axis__side { display: grid; gap: 0.75rem; align-content: start; }
+.axis__side p { max-width: 34ch; }
+.axis__main { display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); align-content: start; min-width: 0; }
+.axis__main > p { max-width: 62ch; }
+.axis__head { font-size: var(--step-head); line-height: 1.02; max-width: 20ch; }
+.axis__lead { font-size: var(--step-lead); line-height: 1.35; max-width: 44ch; }
+@media (min-width: 1000px) {
+  .axis { grid-template-columns: var(--axis) minmax(0, 1fr); gap: 0 var(--gutter); }
+  .axis__side { padding-right: clamp(1.5rem, 4vw, 4rem); padding-top: 0.5rem; }
+}
+.axis--wide .axis__main { grid-column: 1 / -1; }
+.axis__full { grid-column: 1 / -1; }
+
+/* ---------- Bands: whole fields of colour ---------- */
+.band { padding-block: calc(var(--section) / 2); }
+.band--paper { background: var(--paper); }
+.band--paper-2 { background: var(--paper-2); }
+.band--sage { background: var(--sage); color: var(--on-sage); }
+.band--sage p, .band--sage h2, .band--sage h3, .band--sage li, .band--sage dt, .band--sage dd { color: inherit; }
+.band--sage .btn { background: var(--ink); color: var(--on-ink); }
+.band--sage .text-link, .band--sage a { color: inherit; }
+.band--sage :focus-visible { outline-color: var(--ink); }
+[data-theme="dark"] .band--sage :focus-visible { outline-color: var(--on-sage); }
+.band--ink { background: var(--field-ink); color: var(--on-ink); }
+.band--ink p, .band--ink h2, .band--ink h3, .band--ink li, .band--ink dt, .band--ink dd, .band--ink summary { color: inherit; }
+.band--ink .fg-muted, .band--ink .fg-small { color: var(--on-ink-soft); }
+.band--ink :focus-visible { outline-color: var(--on-ink); }
+.band--ink .btn { background: var(--forest); color: var(--on-forest); }
+[data-theme="dark"] .band--ink .btn { background: var(--forest); color: var(--on-forest); }
+.band--ink .fg-quiet-link { color: var(--on-ink); text-decoration-color: var(--on-ink-muted); }
+
+/* ---------- Rows: a list that separates by a tone step ---------- */
+.rows { display: grid; gap: 6px; }
+.rows > li, .rows > .row { display: grid; gap: 0.5rem 1.5rem; padding: 20px; background: var(--paper-2); min-width: 0; }
+.band--paper-2 .rows > li, .band--paper-2 .rows > .row { background: var(--surface); }
+.band--sage .rows > li, .band--sage .rows > .row { background: var(--sage-deep); }
+.row__name { font-family: var(--font-display); font-weight: 500; font-size: var(--step-lead); line-height: 1.2; letter-spacing: -0.01em; }
+.row__name a { color: inherit; text-decoration: none; }
+.row__name a:hover { color: var(--forest); }
+.band--sage .row__name a:hover { color: var(--ink); }
+.row__text { color: var(--ink); max-width: 60ch; }
+.row__meta { color: var(--ink-muted); font-size: var(--step-small); }
+.band--sage .row__meta { color: var(--on-sage); }
+.row__aside { display: grid; gap: 0.35rem; align-content: start; }
+.row__action { align-self: start; }
+@media (min-width: 760px) {
+  .rows--2 > li, .rows--2 > .row { grid-template-columns: minmax(0, 13rem) minmax(0, 1fr); align-items: baseline; }
+  .rows--3 > li, .rows--3 > .row { grid-template-columns: minmax(0, 13rem) minmax(0, 1fr) minmax(0, 10rem); align-items: baseline; }
+  .rows--3 .row__aside { text-align: right; justify-items: end; }
+}
+/* A whole row is one link: the list item steps aside and the link is the row. */
+.rows > li:has(> a.row) { display: block; padding: 0; background: none; }
+.rows a.row { display: grid; gap: 0.5rem 1.5rem; padding: 20px; background: var(--paper-2); color: inherit; text-decoration: none; transition: background-color var(--t-hover) ease; }
+.band--paper-2 .rows a.row { background: var(--surface); }
+.band--sage .rows a.row { background: var(--sage-deep); }
+@media (min-width: 760px) {
+  .rows--2 a.row { grid-template-columns: minmax(0, 13rem) minmax(0, 1fr); align-items: baseline; }
+  .rows--3 a.row { grid-template-columns: minmax(0, 13rem) minmax(0, 1fr) minmax(0, 10rem); align-items: baseline; }
+}
+@media (hover: hover) and (pointer: fine) {
+  .rows a.row:hover { background: var(--sage); color: var(--on-sage); }
+  .rows a.row:hover .row__meta, .rows a.row:hover .row__text { color: inherit; }
+}
+
+/* Lessons inside a module: a real ordered list, numbers from the browser. */
+.lessons { margin: 0.5rem 0 0; padding-left: 1.4rem; display: grid; gap: 0.3rem; color: var(--ink); }
+.lessons li { padding-left: 0.2rem; }
+.lessons__free { display: inline-block; margin-left: 0.5rem; padding: 0.05rem 0.45rem; background: var(--sage); color: var(--on-sage); font-size: var(--step-small); font-weight: 500; }
+
+/* ---------- Tables: the field guide's own ---------- */
+.fg-table { width: 100%; border-collapse: collapse; }
+.fg-table th, .fg-table td { text-align: left; vertical-align: top; padding: 18px 20px; font-weight: 400; font-size: var(--step-body); line-height: 1.45; }
+.fg-table thead th { padding-top: 0; padding-bottom: 14px; font-family: var(--font-body); font-weight: 500; color: var(--ink-soft); font-size: var(--step-small); }
+.fg-table tbody th { font-weight: 500; color: var(--ink); }
+.fg-table tbody tr:nth-child(odd) th, .fg-table tbody tr:nth-child(odd) td { background: var(--paper-2); }
+.band--paper-2 .fg-table tbody tr:nth-child(odd) th, .band--paper-2 .fg-table tbody tr:nth-child(odd) td { background: var(--surface); }
+.fg-table .fg-table__num { font-family: var(--font-display); font-size: var(--step-lead); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.fg-table .fg-table__num small { display: block; font-family: var(--font-body); font-size: var(--step-small); color: var(--ink-muted); white-space: normal; }
+.fg-table .fg-table__actions { display: grid; gap: 0.6rem; justify-items: start; }
+.fg-table td.fg-table__what { color: var(--ink); max-width: 44ch; }
+@media (max-width: 760px) {
+  .fg-table, .fg-table tbody, .fg-table tr, .fg-table th, .fg-table td { display: block; }
+  .fg-table thead { display: none; }
+  .fg-table tbody { display: grid; gap: 6px; }
+  .fg-table tbody tr { padding: 16px 18px; background: var(--paper-2); }
+  .band--paper-2 .fg-table tbody tr { background: var(--surface); }
+  .fg-table tbody th, .fg-table tbody td { padding: 0.3rem 0; background: none !important; }
+  .fg-table tbody td[data-label]::before { content: attr(data-label); display: block; color: var(--ink-muted); font-size: var(--step-small); }
+  .fg-table .fg-table__num { font-size: var(--step-lead); }
+}
+
+/* ---------- The classes table on /classes/: a wider version of the homepage's ---------- */
+.classes__table .classes__thumb { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; margin-bottom: 0.75rem; max-width: 10rem; }
+.classes__table th[scope="col"] { vertical-align: bottom; }
+.classes__plan-name a { color: inherit; text-decoration: none; }
+.classes__plan-name a:hover { color: var(--forest); }
+.classes__table tbody tr:nth-child(odd) th, .classes__table tbody tr:nth-child(odd) td { background: var(--paper-2); }
+
+/* ---------- Figures: the plate (no box, paper ground, ink and sage) ---------- */
+.fig { margin: 0; }
+.fig svg { display: block; width: 100%; height: auto; }
+.fig__caption { margin-top: var(--space-4); font-size: var(--step-small); line-height: 1.5; color: var(--ink-muted); max-width: 56ch; text-wrap: pretty; }
+.fig__caption b { font-weight: 500; color: var(--ink); }
+.fig-text { font-family: var(--font-body); font-weight: 500; font-size: 15px; fill: var(--ink); }
+.fig-text--sm { font-size: 13px; fill: var(--ink-muted); font-weight: 400; }
+.fig--plate .fig-grid { display: none; }
+.fig--plate .fig-ref { stroke: var(--ink-muted); stroke-width: 1; stroke-dasharray: 3 5; }
+.fig--plate .fig-axis { stroke: var(--ink); }
+.fig--plate .fig-band { fill: var(--sage); }
+.fig--plate .fig-band-edge { display: none; }
+.fig--plate .fig-curve { fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.fig--plate .fig-curve--a { stroke: var(--ink); }
+.fig--plate .fig-curve--b { stroke: var(--forest); stroke-dasharray: 9 7; }
+.fig--plate .fig-dot { fill: var(--forest); stroke: var(--paper); stroke-width: 2; }
+.fig--plate .fig-label--band { fill: var(--ink); }
+@media (max-width: 560px) {
+  .fig--plate .fig-text { font-size: 20px; }
+  .fig--plate .fig-text--sm { font-size: 18px; }
+}
+.fig__key { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin: var(--space-4) 0 0; padding: 0; list-style: none; font-size: var(--step-small); color: var(--ink); }
+.fig__key li { display: flex; align-items: center; gap: 0.5rem; }
+.fig__key-line { flex: none; width: 1.75rem; height: 0; border-top: 3px solid var(--ink); }
+.fig__key-line--b { border-top: 3px dashed var(--forest); }
+
+/* The curriculum across the five years: bars on a paper ground. */
+.course-map { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-4); }
+.course-map__row { display: grid; gap: var(--space-2); }
+.course-map__name { font-size: var(--step-small); line-height: 1.35; color: var(--ink); font-weight: 500; }
+.course-map__name em { font-style: normal; font-weight: 400; color: var(--ink-muted); }
+.course-map__track { position: relative; height: 0.9rem; background: var(--surface-2); }
+.course-map__bar { position: absolute; top: 0; bottom: 0; left: calc(var(--from) / 5 * 100%); width: calc((var(--to) - var(--from)) / 5 * 100%); background: var(--forest); }
+.course-map__bar--soon { background: var(--sage); }
+.course-map__axis { position: relative; height: calc(1.5em + var(--space-2)); margin-top: var(--space-3); padding-top: var(--space-2); font-family: var(--font-body); font-size: var(--step-small); color: var(--ink-muted); }
+.course-map__axis span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+.course-map__axis span:nth-child(1) { left: 0; transform: none; }
+.course-map__axis span:nth-child(2) { left: 20%; }
+.course-map__axis span:nth-child(3) { left: 40%; }
+.course-map__axis span:nth-child(4) { left: 60%; }
+.course-map__axis span:nth-child(5) { left: 80%; }
+.course-map__axis span:nth-child(6) { right: 0; transform: none; }
+
+/* ---------- Lists in running text ---------- */
+.marks { display: grid; gap: 0.75rem; }
+.marks li { position: relative; padding-left: 1.4rem; max-width: 60ch; }
+.marks li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 8px; height: 8px; background: var(--forest); }
+.band--sage .marks li::before, .band--ink .marks li::before { background: currentColor; }
+.marks--2 { grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 0.75rem 2rem; }
+
+/* ---------- The educator ---------- */
+.educator { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 1.5rem; align-items: start; }
+.educator__photo { width: 120px; height: 150px; object-fit: cover; object-position: 50% 20%; }
+@media (max-width: 480px) { .educator { grid-template-columns: 1fr; } .educator__photo { width: 110px; height: 138px; } }
+.educator__body { display: grid; gap: 0.9em; }
+
+/* ---------- The lesson sample: the class's own words on a sage field ---------- */
+.sample { display: grid; gap: 1.25rem; }
+.sample p { font-family: var(--font-display); font-weight: 400; font-size: var(--step-lead); line-height: 1.35; max-width: 52ch; }
+.sample p + p { margin-top: 0; }
+
+/* ---------- FAQ: details as rows ---------- */
+.faq-rows { display: grid; gap: 6px; }
+.faq-rows details { background: var(--paper-2); padding: 0; }
+.band--paper-2 .faq-rows details { background: var(--surface); }
+.faq-rows summary { list-style: none; cursor: pointer; padding: 18px 20px; font-weight: 500; font-size: var(--step-body); display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; }
+.faq-rows summary::-webkit-details-marker { display: none; }
+.faq-rows summary::after { content: "+"; font-family: var(--font-display); font-size: 1.4em; line-height: 1; color: var(--forest); flex: none; }
+.faq-rows details[open] summary::after { content: "\2212"; }
+.faq-rows details[open] { background: var(--sage); color: var(--on-sage); }
+.faq-rows details[open] a { color: inherit; }
+.faq-rows details > p { padding: 0 20px 20px; max-width: 62ch; }
+.faq-rows details > p + p { margin-top: 0; padding-top: 0; }
+
+/* ---------- Forms: real fields keep a line ---------- */
+.form-row { display: grid; gap: 0.5rem; }
+.form-label { font-weight: 500; }
+.form-input, .inline-signup__input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 0.9rem;
+  border: 1.5px solid var(--ink); /* taste-skill-ignore: a real form field keeps its line */
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+}
+.form-input:focus-visible, .inline-signup__input:focus-visible { outline: 2.5px solid var(--forest); outline-offset: 3px; }
+.form-input[aria-invalid="true"], .inline-signup__input[aria-invalid="true"] { border-color: var(--danger); }
+.form-help, .field-error, .form-status, .inline-signup__status { font-size: var(--step-small); }
+.form-help { color: var(--ink-muted); }
+.field-error { color: var(--danger); min-height: 1.2em; }
+.field-error:empty { display: none; }
+.form-status { color: var(--ink); }
+.form-status:empty { display: none; }
+.band--ink .form-input, .band--ink .inline-signup__input { border-color: var(--on-ink); background: var(--field-ink-2); color: var(--on-ink); }
+.band--ink .form-help { color: var(--on-ink-muted); }
+.band--ink .field-error { color: var(--danger); }
+[data-theme="dark"] .band--ink .field-error { color: var(--danger); }
+.band--ink .form-status { color: var(--on-ink); }
+.signup-form { display: grid; gap: 1rem; max-width: 30rem; }
+.inline-signup { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.5rem; max-width: 34rem; }
+.inline-signup .field-error, .inline-signup .inline-signup__status { grid-column: 1 / -1; margin: 0; }
+.inline-signup .field-error:empty, .inline-signup .inline-signup__status:empty { display: none; }
+@media (max-width: 480px) { .inline-signup { grid-template-columns: 1fr; } }
+
+/* ---------- The enroll close: price and action on the ink field ---------- */
+.enroll { min-height: 60svh; display: grid; align-content: space-between; gap: 3rem; padding-top: clamp(3.5rem, 7vw, 6rem); padding-bottom: clamp(3rem, 6vw, 5rem); }
+.enroll__h2 { font-size: clamp(2.4rem, 7.4vw, 7rem); line-height: 0.92; letter-spacing: -0.03em; max-width: none; margin-left: -0.04em; }
+.enroll__row { display: grid; gap: 1.5rem; align-items: end; }
+.enroll__price-block { display: grid; gap: 0.4rem; }
+.enroll__price { font-family: var(--font-display); font-size: var(--step-head); line-height: 1; font-variant-numeric: tabular-nums; }
+.enroll__price-note { font-family: var(--font-body); font-size: var(--step-body); color: var(--on-ink-soft); }
+.enroll__list { display: grid; gap: 0.5rem; max-width: 40ch; color: var(--on-ink-soft); }
+.enroll__list li { position: relative; padding-left: 1.3rem; }
+.enroll__list li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 8px; height: 8px; background: var(--forest); }
+.enroll__action { display: grid; gap: 0.9rem; justify-items: start; }
+.enroll__action .btn { min-height: 56px; padding-inline: 1.8rem; }
+.enroll__fine { color: var(--on-ink-muted); font-size: var(--step-small); max-width: 40ch; }
+.enroll__fine a { color: var(--on-ink); }
+@media (min-width: 1000px) {
+  .enroll__row { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
+  .enroll__price-block { grid-column: 1 / 4; }
+  .enroll__list { grid-column: 4 / 9; }
+  .enroll__action { grid-column: 9 / 13; justify-items: end; text-align: right; }
+}
+
+/* Phone-only enroll bar: a tone step, nothing floats. */
+.enroll-bar { display: none; }
+@media (max-width: 760px) {
+  .enroll-bar:not([hidden]) {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 90;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 0.6rem var(--margin);
+    background: var(--paper-2); color: var(--ink);
+    transform: translateY(100%);
+    transition: transform var(--t-ui) var(--ease-out);
+  }
+  .enroll-bar.is-visible { transform: none; }
+  .enroll-bar__label { margin: 0; font-size: var(--step-small); line-height: 1.3; }
+  .enroll-bar__label strong { display: block; font-weight: 500; font-size: var(--step-body); }
+  .enroll-bar .btn { min-height: 44px; padding-inline: 1.1rem; flex: none; }
+}
+
+/* ---------- The about page: portrait as a drop capital, facts in the margin ---------- */
+.portrait-text { font-family: var(--font-display); font-weight: 400; font-size: var(--step-lead); line-height: 1.3; letter-spacing: -0.005em; max-width: none; }
+.portrait-text b { font-weight: 500; }
+.portrait-text + .portrait-text { margin-top: 1em; }
+.portrait-text img { float: left; width: 5em; height: 5em; object-fit: cover; object-position: 50% 20%; margin: 0.12em 0.6em 0.2em 0; }
+@media (max-width: 999px) { .portrait-text img { width: 110px; height: 110px; } }
+
+/* ---------- Hub statements ---------- */
+.statement-list { display: grid; gap: 1.5rem; }
+.statement-list li { display: grid; gap: 0.35rem; max-width: 52ch; }
+.statement-list b { font-family: var(--font-display); font-weight: 500; font-size: var(--step-lead); line-height: 1.2; letter-spacing: -0.01em; }
+
+/* ---------- Tools hub: the table, the saved shelf and the profile from gms-tools.js ---------- */
+.tools-table { width: 100%; border-collapse: collapse; }
+.tools-table th, .tools-table td { text-align: left; vertical-align: top; padding: 18px 20px 20px 0; font-weight: 400; font-size: var(--step-body); line-height: 1.45; }
+.tools-table tbody th { width: 11rem; font-weight: 500; color: var(--ink-soft); padding-left: 20px; }
+.tools-table td.tools-table__name { width: 12rem; font-family: var(--font-display); font-size: var(--step-lead); line-height: 1.15; letter-spacing: -0.01em; }
+.tools-table td.tools-table__name a { color: var(--ink); text-decoration: none; }
+.tools-table td.tools-table__name a:hover { color: var(--forest); }
+.tools-table td.tools-table__what { padding-right: 20px; }
+.tools-table tbody tr:nth-child(odd) th, .tools-table tbody tr:nth-child(odd) td { background: var(--paper-2); }
+@media (max-width: 760px) {
+  .tools-table, .tools-table tbody, .tools-table tr, .tools-table th, .tools-table td { display: block; }
+  .tools-table thead { display: none; }
+  .tools-table tbody { display: grid; gap: 6px; }
+  .tools-table tbody tr { padding: 16px 18px; background: var(--paper-2); }
+  .tools-table tbody th, .tools-table tbody td { width: auto; padding: 0; background: none !important; }
+  .tools-table tbody th { font-size: var(--step-small); margin-bottom: 0.25rem; }
+  .tools-table td.tools-table__name { margin-bottom: 0.35rem; }
+}
+.gms-profile { background: var(--paper-2); padding: 20px; border: 0; box-shadow:none; }
+.gms-profile__label { font-size: var(--step-small); color: var(--ink-muted); margin: 0 0 0.25rem; }
+.tools-hub__aside { display: grid; gap: 1rem; align-content: start; }
+.gms-foryou { display: inline-block; margin-left: 0.5rem; padding: 0.05rem 0.45rem; background: var(--sage); color: var(--on-sage); font-size: var(--step-small); font-weight: 500; }
+.tools__table tr.is-foryou th { color: var(--forest); }
+.tools-now { display: grid; gap: 0.25rem; padding: 20px; background: var(--sage); color: var(--on-sage); text-decoration: none; max-width: 36ch; }
+.tools-now strong { font-family: var(--font-display); font-weight: 500; font-size: var(--step-lead); line-height: 1.2; }
+@media (hover: hover) and (pointer: fine) { .tools-now:hover { background: var(--sage-deep); } }
+.tools-saved { display: inline-block; padding-block: 0.7rem; }
+
+/* Inline links keep their line but reach a 44px touch target. */
+.page-title__actions .text-link, .page-title__fine a, .row__meta a, .fg-table .text-link, .enroll__fine a, .axis__main p .text-link {
+  display: inline-block; padding-block: 0.7rem; margin-block: -0.7rem;
+}
+
+/* ---------- Print ---------- */
+@media print {
+  .enroll-bar { display: none !important; }
+  .band--ink, .band--sage { background: none; color: var(--ink); }
+}

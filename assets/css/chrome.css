@@ -230,7 +230,7 @@
   line-height: 1.25;
 }
 .site-header .nav__submenu-desc {
-  color: var(--chrome-ink-muted);
+  color: var(--chrome-ink-soft);
   font-family: var(--chrome-body);
   font-size: 0.875rem;
   line-height: 1.4;

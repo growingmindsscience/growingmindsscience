@@ -138,7 +138,7 @@ function renderPage(entry, { draft }) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=DM+Sans:opsz,wght@9..40,400..600&display=swap" />
   <link rel="stylesheet" href="../assets/css/styles.css?v=c298342254" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=a3c6e7ebb0" />
+  <link rel="stylesheet" href="../assets/css/refresh.css?v=fbfeb0f65f" />
   <script type="application/ld+json">
 ${jsonLd(entry, url, published, modified)}
   </script>
@@ -243,7 +243,7 @@ function renderHub(entries, { draft }) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=DM+Sans:opsz,wght@9..40,400..600&display=swap" />
   <link rel="stylesheet" href="../assets/css/styles.css?v=c298342254" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=a3c6e7ebb0" />
+  <link rel="stylesheet" href="../assets/css/refresh.css?v=fbfeb0f65f" />
   <style>.answers-list{list-style:none;padding:0;margin:0 0 var(--space-8);display:grid;gap:var(--space-3)}.answers-list a{color:var(--primary);font-weight:600;text-decoration:none}.answers-list a:hover{text-decoration:underline}</style>
 </head>
 <body>

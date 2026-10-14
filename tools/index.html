@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
+  /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <title>Tools for Parents | Growing Minds Science</title>
   <meta name="description" content="A small but growing library of practical developmental tools for parents: milestone tracker, behavior guides, sleep references, and regulation tools." />
-  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#F7F5EF" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#141F1C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
   <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
@@ -23,12 +24,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=DM+Sans:opsz,wght@9..40,400..600&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=c298342254" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=a3c6e7ebb0" />
-  <link rel="stylesheet" href="../assets/css/tools.css?v=2473fffeb2" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=ee54232f17" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=fb9338353e" />
+  <link rel="stylesheet" href="/assets/css/field-guide-pages.css?v=9f22f3ee9d" />
+  <link rel="stylesheet" href="/assets/css/tools.css?v=2473fffeb2" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=0341966128" />
 </head>
-<body>
+<body class="fg fg--page">
 <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" role="banner">
@@ -77,257 +78,174 @@
 
   <main id="main">
 
-    <section class="page-hero page-hero--visual">
-      <div class="container">
-        <div class="page-hero__copy" data-stagger>
-          <h1 class="page-hero__title" data-animate>Free tools for the first five years.</h1>
-          <p class="page-hero__lede" data-animate>
-            Interactive tools that meet your child where they are, and short guides for
-            the moments that come up every day. Built from developmental research and
-            written in plain language.
-          </p>
-          <a class="tools-now" href="/tools/right-now" data-animate>
+    <!-- The statement on the axis; the hard-moment door and your child's profile in the margin -->
+    <section class="page-title fg-wrap" aria-labelledby="page-heading">
+      <div class="fg-inner page-title__grid">
+        <div class="page-title__side tools-hub__aside">
+          <figure class="page-title__photo fg-drift" data-reveal style="--i:2">
+            <img src="/assets/img/site/notebook-coffee-720.jpg" srcset="/assets/img/site/notebook-coffee-720.jpg 720w, /assets/img/site/notebook-coffee.jpg 1200w" sizes="(min-width: 1000px) 22vw, 60vw" alt="An open notebook and a cup of coffee on a kitchen table." width="720" height="480" decoding="async" fetchpriority="high" />
+          </figure>
+          <a class="tools-now" href="/tools/right-now" data-reveal style="--i:3">
             <strong>Having a hard moment right now?</strong>
             <span>Open the one-tap guide <span aria-hidden="true">&rarr;</span></span>
           </a>
-          <a class="tools-saved" href="#saved" data-gms-shelf-link hidden>Saved for you (<span data-gms-shelf-count>0</span>)</a>
+          <a class="tools-saved fg-quiet-link" href="#saved" data-gms-shelf-link hidden>Saved for you (<span data-gms-shelf-count>0</span>)</a>
+          <div data-gms-profile data-reveal style="--i:4"></div>
         </div>
-        <figure class="page-hero__visual page-hero__visual--graphic terrain-inset" data-animate style="--anim-delay: 200ms" aria-labelledby="inset-caption">
-          <svg viewBox="700 60 740 620" role="img" aria-labelledby="inset-title" xmlns="http://www.w3.org/2000/svg" focusable="false">
-            <title id="inset-title">A stretch of the first-five-years sheet: contour lines, a sage field, and the dashed route from birth to five with its five waymarks.</title>
-            <path class="woodland" d="M980 440 C 1060 400, 1160 470, 1280 450 S 1420 520, 1460 500 L 1460 610 C 1360 630, 1200 570, 1060 590 S 970 530, 980 440 Z"/>
-            <path class="contour" d="M680 660 C 800 640, 900 700, 1040 640 S 1300 540, 1460 578"/>
-            <path class="contour" d="M680 604 C 820 560, 920 640, 1060 580 S 1320 480, 1460 522"/>
-            <path class="contour contour--index" d="M680 548 C 840 500, 940 590, 1080 520 S 1340 420, 1460 466"/>
-            <path class="contour" d="M680 492 C 860 440, 960 530, 1100 460 S 1360 360, 1460 410"/>
-            <path class="contour contour--index" d="M560 40 C 740 20, 920 100, 1030 220 S 1250 420, 1460 400"/>
-            <path class="contour" d="M660 10 C 840 -10, 1010 70, 1110 190 S 1320 370, 1460 350"/>
-            <path class="contour" d="M780 140 C 890 130, 980 190, 1015 275 S 1130 430, 1290 450"/>
-            <path class="contour" d="M840 175 C 940 165, 1010 220, 1040 295 S 1150 410, 1270 420"/>
-            <path class="contour" d="M895 205 C 980 200, 1035 245, 1062 310 S 1160 385, 1250 392"/>
-            <path class="contour" d="M945 235 C 1010 232, 1055 268, 1080 322 S 1165 362, 1230 366"/>
-            <g class="refs">
-              <line x1="760" y1="118" x2="1350" y2="118"/>
-              <line x1="760" y1="112" x2="760" y2="124"/><line x1="878" y1="112" x2="878" y2="124"/><line x1="996" y1="112" x2="996" y2="124"/><line x1="1114" y1="112" x2="1114" y2="124"/><line x1="1232" y1="112" x2="1232" y2="124"/><line x1="1350" y1="112" x2="1350" y2="124"/>
-              <text x="760" y="104">Birth</text><text x="878" y="104">1 yr</text><text x="996" y="104">2</text><text x="1114" y="104">3</text><text x="1232" y="104">4</text><text x="1350" y="104">5 yrs</text>
-            </g>
-            <path class="route" d="M760 660 C 820 655, 860 600, 900 560 C 940 520, 990 480, 1040 440 C 1090 400, 1130 360, 1170 320 C 1210 280, 1250 240, 1290 205 C 1320 180, 1345 165, 1365 150"/>
-            <g class="waymark"><circle cx="822" cy="628" r="11"/></g>
-            <g class="waymark"><circle cx="946" cy="516" r="11"/></g>
-            <g class="waymark is-active"><circle cx="1070" cy="416" r="11"/></g>
-            <g class="waymark"><circle cx="1194" cy="298" r="11"/></g>
-            <g class="waymark"><circle cx="1318" cy="182" r="11"/></g>
-          </svg>
-          <figcaption class="fig__caption" id="inset-caption">The tools below sit along the same route the classes teach: pick the stretch your family is in.</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <!-- INTERACTIVE TOOLS -->
-    <section class="toolkit" id="interactive" aria-labelledby="interactive-title">
-      <div class="container">
-        <div class="tools-head">
-          <h2 id="interactive-title">Interactive tools</h2>
-          <p>Hands-on tools to use with your child or on your own. Each one gives you something specific back.</p>
-        </div>
-
-        <div class="toolkit__list">
-          <article class="toolkit__item" id="growing-minds-ai" data-animate>
-            <div>
-              <h3 class="toolkit__title"><a class="toolkit__link" href="/tools/growing-minds-ai.html">Growing Minds AI</a></h3>
-              <p class="toolkit__meta">Any age &middot; 5 free questions a day</p>
-            </div>
-            <p class="toolkit__desc">Ask any developmental question and get a calm answer drawn from a curated research library. Unlimited with any class.</p>
-            <span class="toolkit__cta" aria-hidden="true">Ask a question <span>&rarr;</span></span>
-          </article>
-          <article class="toolkit__item" id="number-path" data-animate>
-            <div>
-              <h3 class="toolkit__title"><a class="toolkit__link" href="/nsc">Number Path</a></h3>
-              <p class="toolkit__meta">Ages 2 to 5 &middot; 10 minutes</p>
-            </div>
-            <p class="toolkit__desc">A counting check-in you run at home with a bowl, ten blocks, and a stuffed bear. It shows where your child is on the counting ladder, then matches games to that spot. The check-in is free.</p>
-            <span class="toolkit__cta" aria-hidden="true">Meet Number Path <span>&rarr;</span></span>
-          </article>
-          <article class="toolkit__item" id="milestone-tracker" data-animate>
-            <div>
-              <h3 class="toolkit__title"><a class="toolkit__link" href="/milestones">Milestone tracker</a></h3>
-              <p class="toolkit__meta">Birth to 36 months</p>
-            </div>
-            <p class="toolkit__desc">What&rsquo;s typical at each age across six developmental domains, drawn from ZERO TO THREE, Pathways.org, NAEYC, and the Child Development Institute. Saved in your browser and printable for checkups.</p>
-            <span class="toolkit__cta" aria-hidden="true">Open the tracker <span>&rarr;</span></span>
-          </article>
-          <article class="toolkit__item" id="activity-library" data-animate>
-            <div>
-              <h3 class="toolkit__title"><a class="toolkit__link" href="/tools/activity-library">Activity Library</a></h3>
-              <p class="toolkit__meta">Birth to 3 &middot; Household materials</p>
-            </div>
-            <p class="toolkit__desc">Developmental activities with the &ldquo;why&rdquo; attached: the mechanism each one feeds, ways to make it easier or harder, and a daily Today&rsquo;s 3 rotation for your child.</p>
-            <span class="toolkit__cta" aria-hidden="true">Browse activities <span>&rarr;</span></span>
-          </article>
-          <article class="toolkit__item" id="reading-prompt-cards" data-animate>
-            <div>
-              <h3 class="toolkit__title"><a class="toolkit__link" href="/tools/reading-prompt-cards">Reading Prompt Cards</a></h3>
-              <p class="toolkit__meta">18 months to 5 &middot; Works with any book</p>
-            </div>
-            <p class="toolkit__desc">Turn any children&rsquo;s book into a back-and-forth language session with dialogic reading, an evidence-backed method. Printable as a cut-out deck.</p>
-            <span class="toolkit__cta" aria-hidden="true">Get the prompts <span>&rarr;</span></span>
-          </article>
-          <article class="toolkit__item" id="communication-snapshot" data-animate>
-            <div>
-              <h3 class="toolkit__title"><a class="toolkit__link" href="/tools/communication-snapshot">Communication Snapshot</a></h3>
-              <p class="toolkit__meta">6 to 36 months &middot; 4 minutes</p>
-            </div>
-            <p class="toolkit__desc">A few careful questions about words, gestures, and understanding. You get a calm read on where communication sits, and printable notes if a pediatrician conversation is worth having.</p>
-            <span class="toolkit__cta" aria-hidden="true">Start the snapshot <span>&rarr;</span></span>
-          </article>
-          <!-- NAVIGATOR-LAUNCH: uncomment when the Milestone Navigator clears
-               attorney review (DECISIONS.md D3). The page is built and live at
-               /tools/milestone-navigator (noindex until launch). After launch, also
-               add it to the Free tools menu in the site header and to the footer's
-               Free tools list.
-          <article class="toolkit__item" id="milestone-navigator" data-animate>
-            <div>
-              <h3 class="toolkit__title"><a class="toolkit__link" href="/tools/milestone-navigator">Milestone Navigator</a></h3>
-              <p class="toolkit__meta">Birth to 5</p>
-            </div>
-            <p class="toolkit__desc">Worried about something specific: talking, walking, hearing, play? Answer a few plain questions and get a clear, research-grounded next step.</p>
-            <span class="toolkit__cta" aria-hidden="true">Start the Navigator <span>&rarr;</span></span>
-          </article>
-          -->
+        <div class="page-title__main">
+          <h1 id="page-heading" class="page-title__h1" data-reveal>Free tools,<br />by what you need</h1>
+          <p class="fg-lead" data-reveal style="--i:1">Interactive tools that meet your child where they are, and short guides for the moments that come up every day. Built from developmental research and written in plain language.</p>
+          <p class="fg-small fg-muted page-title__fine" data-reveal style="--i:2">Everything here stays free. Nothing you enter leaves your browser unless a tool says so.</p>
         </div>
       </div>
     </section>
 
-    <!-- GUIDES BY TOPIC -->
-    <section class="section--alt guides" id="guides" aria-labelledby="guides-title">
-      <div class="container">
-        <div class="guides__head">
-          <div class="tools-head">
-            <h2 id="guides-title">Guides by topic</h2>
-            <p>Short, plain-language references for everyday moments: what the research says, and what tends to help.</p>
-            <ul class="topic-nav guides__jump" aria-label="Guide topics">
-              <li><a href="#behavior">Behavior</a></li>
-              <li><a href="#sleep">Sleep</a></li>
-              <li><a href="#screen-time">Screen time</a></li>
-              <li><a href="#regulation">Regulation</a></li>
-              <li><a href="#common-claims">Common claims</a></li>
+    <!-- Interactive tools: a table, pushed right -->
+    <section id="interactive" class="band band--paper fg-wrap" aria-labelledby="interactive-heading">
+      <div class="fg-inner axis">
+        <div class="axis__side">
+          <h2 id="interactive-heading" class="axis__head" data-reveal>Interactive tools</h2>
+          <p data-reveal style="--i:1">Hands-on tools to use with your child or on your own. Each one gives you something specific back.</p>
+        </div>
+        <div class="axis__main">
+          <table class="tools-table" data-reveal style="--i:1">
+            <thead class="u-visually-hidden"><tr><th scope="col">When you need</th><th scope="col">Tool</th><th scope="col">What you get</th></tr></thead>
+            <tbody>
+              <tr id="growing-minds-ai"><th scope="row">A question at bedtime</th><td class="tools-table__name"><a href="/tools/growing-minds-ai">Growing Minds AI</a></td><td class="tools-table__what">Any age. Five free questions a day, every answer drawn from a curated research library with its sources shown. Unlimited with any class.</td></tr>
+              <tr id="number-path"><th scope="row">Early number sense</th><td class="tools-table__name"><a href="/nsc">Number Path</a></td><td class="tools-table__what">Ages 2 to 5, ten minutes. A counting check-in you run at home with a bowl, ten blocks, and a stuffed bear; it shows where your child is on the counting ladder, then matches games to that spot. The check-in is free.</td></tr>
+              <tr id="milestone-tracker"><th scope="row">Is this typical?</th><td class="tools-table__name"><a href="/milestones">Milestone tracker</a></td><td class="tools-table__what">Birth to 36 months, across six developmental domains, drawn from ZERO TO THREE, Pathways.org, NAEYC, and the Child Development Institute. Saved in your browser and printable for checkups.</td></tr>
+              <tr id="activity-library"><th scope="row">Something to do together</th><td class="tools-table__name"><a href="/tools/activity-library">Activity Library</a></td><td class="tools-table__what">Birth to 3, household materials. Activities with the &ldquo;why&rdquo; attached: the mechanism each one feeds, ways to make it easier or harder, and a daily Today&rsquo;s 3 rotation for your child.</td></tr>
+              <tr id="reading-prompt-cards"><th scope="row">Reading aloud</th><td class="tools-table__name"><a href="/tools/reading-prompt-cards">Reading Prompt Cards</a></td><td class="tools-table__what">18 months to 5, works with any book. Turn any children&rsquo;s book into a back-and-forth language session with dialogic reading, an evidence-backed method. Printable as a cut-out deck.</td></tr>
+              <tr id="communication-snapshot"><th scope="row">Before a checkup</th><td class="tools-table__name"><a href="/tools/communication-snapshot">Communication Snapshot</a></td><td class="tools-table__what">6 to 36 months, four minutes. A few careful questions about words, gestures, and understanding, a calm read on where communication sits, and printable notes if a pediatrician conversation is worth having.</td></tr>
+              <!-- NAVIGATOR-LAUNCH: uncomment when the Milestone Navigator clears
+                   attorney review (DECISIONS.md D3). The page is built and live at
+                   /tools/milestone-navigator (noindex until launch). After launch, also
+                   add it to the Tools menu in the site header and to the footer's
+                   Tools list.
+              <tr id="milestone-navigator"><th scope="row">Worried about one thing</th><td class="tools-table__name"><a href="/tools/milestone-navigator">Milestone Navigator</a></td><td class="tools-table__what">Birth to 5. Worried about talking, walking, hearing, play? Answer a few plain questions and get a clear, research-grounded next step.</td></tr>
+              -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Guides by topic: rows on a tone step -->
+    <section id="guides" class="band band--paper-2 fg-wrap" aria-labelledby="guides-heading">
+      <div class="fg-inner axis">
+        <div class="axis__side">
+          <h2 id="guides-heading" class="axis__head" data-reveal>Guides by topic</h2>
+          <p data-reveal style="--i:1">Short, plain-language references for everyday moments: what the research says, and what tends to help.</p>
+          <ul class="marks" aria-label="Guide topics" data-reveal style="--i:2">
+            <li><a class="fg-quiet-link" href="#behavior">Behavior</a></li>
+            <li><a class="fg-quiet-link" href="#sleep">Sleep</a></li>
+            <li><a class="fg-quiet-link" href="#screen-time">Screen time</a></li>
+            <li><a class="fg-quiet-link" href="#regulation">Regulation</a></li>
+            <li><a class="fg-quiet-link" href="#common-claims">Common claims</a></li>
+          </ul>
+        </div>
+        <div class="axis__main">
+          <div id="behavior" data-reveal style="--i:1">
+            <h3 class="fg-lead" style="margin-bottom: 0.75rem;">Behavior</h3>
+            <ul class="rows rows--3" data-gms-tool-list>
+              <li class="row" data-age-min="12" data-age-max="36">
+                <span class="row__meta">Toddler, 1 to 3<span class="tool-card__eyebrow" hidden></span></span>
+                <span><a class="row__name" href="/tools/whats-underneath-the-meltdown">What&rsquo;s underneath the meltdown</a><br /><span class="row__text">A short reference that translates a tantrum from &ldquo;bad behavior&rdquo; into a nervous-system event, plus the kinds of responses the research supports.</span></span>
+                <span class="row__aside" aria-hidden="true">&rarr;</span>
+              </li>
+              <li class="row" data-age-min="12" data-age-max="60">
+                <span class="row__meta">Toddler and preschool<span class="tool-card__eyebrow" hidden></span></span>
+                <span><a class="row__name" href="/tools/limits-without-escalation">Limits without escalation</a><br /><span class="row__text">Holding a &ldquo;no&rdquo; calmly when a child is testing autonomy, without scripts and without losing your own footing.</span></span>
+                <span class="row__aside" aria-hidden="true">&rarr;</span>
+              </li>
+              <li class="row">
+                <span class="row__meta">Any age</span>
+                <span><a class="row__name" href="/tools/repair-after-the-hard-moment">Repair after the hard moment</a><br /><span class="row__text">What the research says about repair, for the child and for the adult, when a moment goes sideways.</span></span>
+                <span class="row__aside" aria-hidden="true">&rarr;</span>
+              </li>
             </ul>
           </div>
-          <div data-gms-profile></div>
-        </div>
-
-        <div class="topic-section" id="behavior">
-          <h3 class="topic-section__title">Behavior</h3>
-          <div class="tool-grid" data-stagger data-gms-tool-list>
-            <article class="tool-card guide-card" data-animate data-age-min="12" data-age-max="36">
-              <span class="tool-card__eyebrow">Toddler &middot; 1&ndash;3</span>
-              <h4 class="tool-card__title"><a class="guide-card__link" href="/tools/whats-underneath-the-meltdown">What&rsquo;s underneath the meltdown</a></h4>
-              <p class="tool-card__desc">A short reference that translates a tantrum from &ldquo;bad behavior&rdquo; into a nervous-system event, plus the kinds of responses the research supports.</p>
-              <span class="guide-card__cta" aria-hidden="true">Read the guide <span>&rarr;</span></span>
-            </article>
-            <article class="tool-card guide-card" data-animate data-age-min="12" data-age-max="60">
-              <span class="tool-card__eyebrow">Toddler &amp; preschool</span>
-              <h4 class="tool-card__title"><a class="guide-card__link" href="/tools/limits-without-escalation">Limits without escalation</a></h4>
-              <p class="tool-card__desc">Holding a &ldquo;no&rdquo; calmly when a child is testing autonomy, without scripts and without losing your own footing.</p>
-              <span class="guide-card__cta" aria-hidden="true">Read the guide <span>&rarr;</span></span>
-            </article>
-            <article class="tool-card guide-card" data-animate>
-              <span class="tool-card__eyebrow">Any age</span>
-              <h4 class="tool-card__title"><a class="guide-card__link" href="/tools/repair-after-the-hard-moment">Repair after the hard moment</a></h4>
-              <p class="tool-card__desc">What the research says about repair, for the child and for the adult, when a moment goes sideways.</p>
-              <span class="guide-card__cta" aria-hidden="true">Read the guide <span>&rarr;</span></span>
-            </article>
+          <div id="sleep" data-reveal>
+            <h3 class="fg-lead" style="margin-bottom: 0.75rem;">Sleep</h3>
+            <ul class="rows rows--3" data-gms-tool-list>
+              <li class="row" data-age-min="0" data-age-max="12">
+                <span class="row__meta">Infant, 0 to 12 months<span class="tool-card__eyebrow" hidden></span></span>
+                <span><a class="row__name" href="/tools/whats-typical-by-stage">What&rsquo;s typical, by stage</a><br /><span class="row__text">A calm look at sleep development across the first year: what&rsquo;s typical, what varies, and what the research can and can&rsquo;t tell us.</span></span>
+                <span class="row__aside" aria-hidden="true">&rarr;</span>
+              </li>
+              <li class="row" data-age-min="12" data-age-max="36">
+                <span class="row__meta">Toddler, 1 to 3<span class="tool-card__eyebrow" hidden></span></span>
+                <span><a class="row__name" href="/tools/routines-transitions-night-waking">Routines, transitions, and night-waking</a><br /><span class="row__text">Why toddler sleep changes, what routines help, and how to read night-waking without panic.</span></span>
+                <span class="row__aside" aria-hidden="true">&rarr;</span>
+              </li>
+            </ul>
           </div>
-        </div>
-
-        <div class="topic-section" id="sleep">
-          <h3 class="topic-section__title">Sleep</h3>
-          <div class="tool-grid" data-stagger data-gms-tool-list>
-            <article class="tool-card guide-card" data-animate data-age-min="0" data-age-max="12">
-              <span class="tool-card__eyebrow">Infant &middot; 0&ndash;12 mo</span>
-              <h4 class="tool-card__title"><a class="guide-card__link" href="/tools/whats-typical-by-stage">What&rsquo;s typical, by stage</a></h4>
-              <p class="tool-card__desc">A calm look at sleep development across the first year: what&rsquo;s typical, what varies, and what the research can and can&rsquo;t tell us.</p>
-              <span class="guide-card__cta" aria-hidden="true">Read the guide <span>&rarr;</span></span>
-            </article>
-            <article class="tool-card guide-card" data-animate data-age-min="12" data-age-max="36">
-              <span class="tool-card__eyebrow">Toddler &middot; 1&ndash;3</span>
-              <h4 class="tool-card__title"><a class="guide-card__link" href="/tools/routines-transitions-night-waking">Routines, transitions, and night-waking</a></h4>
-              <p class="tool-card__desc">Why toddler sleep changes, what routines help, and how to read night-waking without panic.</p>
-              <span class="guide-card__cta" aria-hidden="true">Read the guide <span>&rarr;</span></span>
-            </article>
+          <div id="screen-time" data-reveal>
+            <h3 class="fg-lead" style="margin-bottom: 0.75rem;">Screen time</h3>
+            <ul class="rows rows--3" data-gms-tool-list>
+              <li class="row">
+                <span class="row__meta">Any age</span>
+                <span><a class="row__name" href="/tools/beyond-less-is-better">Beyond &ldquo;less is better&rdquo;</a><br /><span class="row__text">Plain-language guidance grounded in current research: context, content, and the difference between background TV and shared viewing.</span></span>
+                <span class="row__aside" aria-hidden="true">&rarr;</span>
+              </li>
+              <li class="row" data-age-min="12" data-age-max="60">
+                <span class="row__meta">Toddler and preschool<span class="tool-card__eyebrow" hidden></span></span>
+                <span><a class="row__name" href="/tools/screens-language-attention">Screens, language, and attention</a><br /><span class="row__text">What the research suggests about how different kinds of screen use interact with language and attention in the early years.</span></span>
+                <span class="row__aside" aria-hidden="true">&rarr;</span>
+              </li>
+            </ul>
           </div>
-        </div>
-
-        <div class="topic-section" id="screen-time">
-          <h3 class="topic-section__title">Screen time</h3>
-          <div class="tool-grid" data-stagger data-gms-tool-list>
-            <article class="tool-card guide-card" data-animate>
-              <span class="tool-card__eyebrow">Any age</span>
-              <h4 class="tool-card__title"><a class="guide-card__link" href="/tools/beyond-less-is-better">Beyond &ldquo;less is better&rdquo;</a></h4>
-              <p class="tool-card__desc">Plain-language guidance grounded in current research: context, content, and the difference between background TV and shared viewing.</p>
-              <span class="guide-card__cta" aria-hidden="true">Read the guide <span>&rarr;</span></span>
-            </article>
-            <article class="tool-card guide-card" data-animate data-age-min="12" data-age-max="60">
-              <span class="tool-card__eyebrow">Toddler &amp; preschool</span>
-              <h4 class="tool-card__title"><a class="guide-card__link" href="/tools/screens-language-attention">Screens, language, and attention</a></h4>
-              <p class="tool-card__desc">What the research suggests about how different kinds of screen use interact with language and attention in the early years.</p>
-              <span class="guide-card__cta" aria-hidden="true">Read the guide <span>&rarr;</span></span>
-            </article>
+          <div id="regulation" data-reveal>
+            <h3 class="fg-lead" style="margin-bottom: 0.75rem;">Regulation</h3>
+            <ul class="rows rows--3" data-gms-tool-list>
+              <li class="row" data-age-min="12" data-age-max="36">
+                <span class="row__meta">Toddler, 1 to 3<span class="tool-card__eyebrow" hidden></span></span>
+                <span><a class="row__name" href="/tools/co-regulation-primer">A nervous-system primer for parents</a><br /><span class="row__text">A short reference that explains co-regulation in plain language: what it actually is, and why it matters more than scripts.</span></span>
+                <span class="row__aside" aria-hidden="true">&rarr;</span>
+              </li>
+              <li class="row">
+                <span class="row__meta">For you</span>
+                <span><a class="row__name" href="/tools/regulating-yourself-first">Regulating yourself first</a><br /><span class="row__text">Tools for the adult side of the room: noticing your own activation, what helps, and why it isn&rsquo;t selfish.</span></span>
+                <span class="row__aside" aria-hidden="true">&rarr;</span>
+              </li>
+            </ul>
           </div>
-        </div>
-
-        <div class="topic-section" id="regulation">
-          <h3 class="topic-section__title">Regulation</h3>
-          <div class="tool-grid" data-stagger data-gms-tool-list>
-            <article class="tool-card guide-card" data-animate data-age-min="12" data-age-max="36">
-              <span class="tool-card__eyebrow">Toddler &middot; 1&ndash;3</span>
-              <h4 class="tool-card__title"><a class="guide-card__link" href="/tools/co-regulation-primer">A nervous-system primer for parents</a></h4>
-              <p class="tool-card__desc">A short reference that explains co-regulation in plain language: what it actually is, and why it matters more than scripts.</p>
-              <span class="guide-card__cta" aria-hidden="true">Read the guide <span>&rarr;</span></span>
-            </article>
-            <article class="tool-card guide-card" data-animate>
-              <span class="tool-card__eyebrow">For you</span>
-              <h4 class="tool-card__title"><a class="guide-card__link" href="/tools/regulating-yourself-first">Regulating yourself first</a></h4>
-              <p class="tool-card__desc">Tools for the adult side of the room: noticing your own activation, what helps, and why it isn&rsquo;t selfish.</p>
-              <span class="guide-card__cta" aria-hidden="true">Read the guide <span>&rarr;</span></span>
-            </article>
-          </div>
-        </div>
-
-        <div class="topic-section" id="common-claims">
-          <h3 class="topic-section__title">Common claims</h3>
-          <div class="tool-grid" data-stagger data-gms-tool-list>
-            <article class="tool-card guide-card" data-animate>
-              <span class="tool-card__eyebrow">Any age &middot; Evidence-graded</span>
-              <h4 class="tool-card__title"><a class="guide-card__link" href="/claims/">Parenting claims, graded</a></h4>
-              <p class="tool-card__desc">Common parenting claims stated the way parents say them, then graded on evidence strength and scientific consensus, with sources on every page.</p>
-              <span class="guide-card__cta" aria-hidden="true">Browse the claims <span>&rarr;</span></span>
-            </article>
+          <div id="common-claims" data-reveal>
+            <h3 class="fg-lead" style="margin-bottom: 0.75rem;">Common claims</h3>
+            <ul class="rows rows--3">
+              <li class="row">
+                <span class="row__meta">Any age, evidence-graded</span>
+                <span><a class="row__name" href="/claims/">Parenting claims, graded</a><br /><span class="row__text">Common parenting claims stated the way parents say them, then graded on evidence strength and scientific consensus, with sources on every page.</span></span>
+                <span class="row__aside" aria-hidden="true">&rarr;</span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SAVED FOR YOU (local shelf; stays hidden until something is saved) -->
-    <section id="saved" data-gms-shelf-section hidden>
-      <div class="container">
-        <div class="tools-head">
-          <h2>Saved for you</h2>
+    <!-- Saved for you (local shelf; stays hidden until something is saved) -->
+    <section id="saved" class="band band--paper fg-wrap" aria-labelledby="saved-heading" data-gms-shelf-section hidden>
+      <div class="fg-inner axis">
+        <div class="axis__side">
+          <h2 id="saved-heading" class="axis__head">Saved for you</h2>
           <p>Private to this browser. Nothing here is sent anywhere.</p>
         </div>
-        <div data-gms-shelf></div>
+        <div class="axis__main">
+          <div data-gms-shelf></div>
+        </div>
       </div>
     </section>
 
-    <!-- CLASS -->
-    <section class="tools-class">
-      <div class="container">
-        <div class="tools-class__inner">
-          <div>
-            <h2>Everything here stays free. The classes explain the why.</h2>
-            <p>Five short modules on what is happening in the brain and nervous system between ages 1 and 3. $49 for lifetime access, with unlimited Growing Minds AI included.</p>
-          </div>
-          <a class="btn btn--primary" href="/classes/">Browse the classes</a>
+    <!-- The classes explain the why: a sage field -->
+    <section class="band band--sage fg-wrap" aria-labelledby="class-heading">
+      <div class="fg-inner axis">
+        <div class="axis__side">
+          <h2 id="class-heading" class="axis__head" data-reveal>The classes explain the why</h2>
+        </div>
+        <div class="axis__main">
+          <p class="fg-lead" data-reveal style="--i:1">Everything here stays free. Three classes are open now, one for each developmental window from birth to five: $49 each for lifetime access, and the toddler class includes unlimited Growing Minds AI.</p>
+          <p data-reveal style="--i:2"><a class="btn" href="/classes/">Browse the classes</a></p>
         </div>
       </div>
     </section>
@@ -392,11 +310,9 @@
   </footer>
 
   <script src="/assets/js/chrome.js?v=1413c22959"></script>
-
-  <script src="../assets/js/main.js?v=742e637d07" defer></script>
-  <script src="../assets/js/gms-tools.js?v=390738ac9e" defer></script>
-  <script src="../assets/js/decor.js?v=09ff05457d" defer></script>
-  <script src="../assets/js/animate.js?v=be9ad1568e" defer></script>
+  <script src="/assets/js/field-guide.js?v=00ad62e4d1" defer></script>
+  <script src="/assets/js/main.js?v=742e637d07" defer></script>
+  <script src="/assets/js/gms-tools.js?v=390738ac9e" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
+  /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <title>About | Growing Minds Science</title>
   <meta name="description" content="Growing Minds Science helps parents understand the science behind their children's minds and behavior. Founded by Matthew McArthur, Child Development Specialist and parent coach." />
-  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#F7F5EF" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#141F1C" media="(prefers-color-scheme: dark)" />
   <meta name="color-scheme" content="light dark" />
 
   <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
@@ -23,8 +24,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=DM+Sans:opsz,wght@9..40,400..600&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=c298342254" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=a3c6e7ebb0" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=fb9338353e" />
+  <link rel="stylesheet" href="/assets/css/field-guide-pages.css?v=9f22f3ee9d" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=0341966128" />
 
   <!-- Author / E-E-A-T entity. Keep in sync with the About bio; claims here must
        match visible page content. -->
@@ -72,9 +74,8 @@
     }
   ]
   </script>
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=ee54232f17" />
 </head>
-<body>
+<body class="fg fg--page">
 <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" role="banner">
@@ -123,150 +124,112 @@
 
   <main id="main">
 
-    <!-- MISSION -->
-    <section class="page-hero">
-      <div class="container" data-stagger>
-        <h1 class="page-hero__title" data-animate>The research on early childhood, translated for the people living it.</h1>
-        <p class="page-hero__lede" data-animate>
-          Growing Minds Science exists so parents can raise their children with
-          more clarity and less shame, using developmental research in language
-          that holds up in real family life.
-        </p>
-      </div>
-    </section>
-
-    <!-- WHY GMS EXISTS -->
-    <section class="section--alt">
-      <div class="container container--narrow about-copy" data-animate>
-        <h2>Parents don&rsquo;t need more pressure. They need better explanations.</h2>
-        <p class="lede">
-          Most parenting content is either rigid scripts, vague slogans, or a
-          single personal philosophy with very strong opinions. Meanwhile, the
-          actual research on early development is rich, careful, and full of
-          things that would help parents, but it sits inside academic papers
-          most parents never see.
-        </p>
-        <p>
-          Growing Minds Science is the bridge. It translates developmental
-          science into classes and tools that respect parents as adults,
-          recognize how exhausting early childhood is, and stay calm about
-          uncertainty when uncertainty is honest. That includes the classes,
-          the free milestone tracker, and Number Path, a ten-minute at-home
-          check-in that places a child on the counting ladder and turns the
-          research on how children learn to count into games a parent can actually play.
-        </p>
-      </div>
-    </section>
-
-    <!-- ABOUT MATTHEW -->
-    <section>
-      <div class="container">
-        <div class="about-preview about-preview--reference" data-animate>
-          <div class="about-copy">
-            <h2>Matthew McArthur</h2>
-            <p class="about-role">Child Development Specialist and parent coach, Los Angeles</p>
-            <p class="lede">
-              Growing Minds Science is built by Matthew McArthur. Alongside it,
-              he teaches an Infant and Toddler Socialization class in Los Angeles.
-            </p>
-            <p>
-              At San Diego State University, Matthew studied how parent stress, changes to the
-              home, screen time, and back-and-forth interaction shape language and cognitive
-              development from 6 months to 5 years, after working with developmental researchers
-              at UCLA during the pandemic. With Margaret Friend he wrote
-              <a href="https://doi.org/10.3389/frym.2024.1426649">&ldquo;Why Early Chatter Matters: The Role of Language in Shaping Futures&rdquo;</a>
-              for Frontiers for Young Minds, a journal written for families and reviewed by
-              young readers. The throughline is the same as everything else here: take what the
-              research actually says, then translate it into something a parent can use on a Tuesday.
-            </p>
-
-            <p>
-              That work includes two years in state-funded early intervention, coaching families
-              with children under 3 who were experiencing delays, more than 100 families in Los
-              Angeles in all, and six years studying the developmental science behind them.
-            </p>
-          </div>
-          <figure class="about-preview__media about-preview__media--portrait about-preview__media--reference">
-            <img src="../assets/img/matthew-photo-400.jpg"
-                 srcset="../assets/img/matthew-photo-400.jpg 400w, ../assets/img/matthew-photo-600.jpg 600w"
-                 sizes="220px"
-                 alt="Matthew McArthur, founder of Growing Minds Science."
-                 width="400" height="500" loading="lazy" decoding="async" />
-          </figure>
+    <!-- The title on the axis; the facts in the margin -->
+    <section class="page-title fg-wrap" aria-labelledby="page-heading">
+      <div class="fg-inner page-title__grid">
+        <div class="page-title__side">
+          <dl class="facts" data-reveal style="--i:2">
+            <div><dt>Founder</dt><dd>Matthew McArthur, Child Development Specialist and parent coach</dd></div>
+            <div><dt>Based in</dt><dd>Los Angeles</dd></div>
+            <div><dt>Sources</dt><dd>Cited on every page</dd></div>
+            <div><dt>Content</dt><dd>Educational, not clinical. Never medical or psychological advice.</dd></div>
+          </dl>
+        </div>
+        <div class="page-title__main">
+          <h1 id="page-heading" class="page-title__h1" data-reveal>Science, for the<br />people living it.</h1>
+          <p class="fg-lead" data-reveal style="--i:1">Growing Minds Science exists so parents can raise their children with more clarity and less shame, using developmental research in language that holds up in real family life.</p>
         </div>
       </div>
     </section>
 
-    <!-- EDUCATIONAL PHILOSOPHY -->
-    <section id="how-we-teach" class="section--alt">
-      <div class="container container--narrow">
-        <h2>How Growing Minds Science teaches.</h2>
-        <ul class="philosophy-list" data-stagger>
-          <li data-animate>
-            <span class="num" aria-hidden="true"></span>
-            <div>
-              <strong>Translate the research, don&rsquo;t replace it</strong>
-              <span>Plain language, with honesty about what the evidence is and isn&rsquo;t. No invented certainty, no oversimplified hooks.</span>
-            </div>
-          </li>
-          <li data-animate>
-            <span class="num" aria-hidden="true"></span>
-            <div>
-              <strong>Respect the parent</strong>
-              <span>Parents are adults. The work assumes you&rsquo;re already trying hard, already paying attention, and already capable of nuance.</span>
-            </div>
-          </li>
-          <li data-animate>
-            <span class="num" aria-hidden="true"></span>
-            <div>
-              <strong>Mental models over scripts</strong>
-              <span>The goal is a clear way to understand what&rsquo;s happening, not memorized phrases for every situation. Mental models travel; scripts don&rsquo;t.</span>
-            </div>
-          </li>
-          <li data-animate>
-            <span class="num" aria-hidden="true"></span>
-            <div>
-              <strong>Calm by default</strong>
-              <span>No urgency manufactured for engagement. No shame. The tone is what a thoughtful friend who happens to know the research would sound like.</span>
-            </div>
-          </li>
-          <li data-animate>
-            <span class="num" aria-hidden="true"></span>
-            <div>
-              <strong>Built for ordinary days</strong>
-              <span>Every recommendation has to work on a normal weekday, between transitions, meals, work, and the actual capacity of tired adults.</span>
-            </div>
-          </li>
-        </ul>
+    <!-- Why it exists -->
+    <section class="band band--paper-2 fg-wrap" aria-labelledby="why-heading">
+      <div class="fg-inner axis">
+        <div class="axis__side">
+          <h2 id="why-heading" class="axis__head" data-reveal>Why it exists</h2>
+          <p data-reveal style="--i:1">Parents don&rsquo;t need more pressure. They need better explanations.</p>
+        </div>
+        <div class="axis__main">
+          <p class="fg-lead" data-reveal>Most parenting content is either rigid scripts, vague slogans, or a single personal philosophy with very strong opinions.</p>
+          <p data-reveal style="--i:1">Meanwhile, the actual research on early development is rich, careful, and full of things that would help parents, but it sits inside academic papers most parents never see.</p>
+          <p data-reveal style="--i:2">Growing Minds Science is the bridge. It translates developmental science into classes and tools that respect parents as adults, recognize how exhausting early childhood is, and stay calm about uncertainty when uncertainty is honest. That includes the classes, the free milestone tracker, and Number Path, a ten-minute at-home check-in that places a child on the counting ladder and turns the research on how children learn to count into games a parent can actually play.</p>
+        </div>
       </div>
     </section>
 
-    <!-- EDUCATION -->
-    <section>
-      <div class="container container--narrow">
-        <h2>Background.</h2>
-        <ul class="cred-list">
-          <li><strong>UCLA</strong>: B.A. in Psychology</li>
-          <li><strong>SDSU</strong>: M.A. in Developmental Psychology</li>
-        </ul>
-        <p class="about-fine">
-          Educational content only. Not medical or psychological advice. Always
-          consult your child&rsquo;s clinicians for individual concerns.
-        </p>
+    <!-- Matthew: the portrait as a drop capital -->
+    <section class="band band--paper fg-wrap" aria-labelledby="matthew-heading">
+      <div class="fg-inner axis">
+        <div class="axis__side">
+          <h2 id="matthew-heading" class="axis__head" data-reveal>Matthew McArthur</h2>
+          <p data-reveal style="--i:1">Child Development Specialist and parent coach, Los Angeles. Alongside Growing Minds Science, he teaches an Infant and Toddler Socialization class.</p>
+        </div>
+        <div class="axis__main">
+          <p class="portrait-text" data-reveal><img src="/assets/img/matthew-photo-400.jpg" srcset="/assets/img/matthew-photo-400.jpg 400w, /assets/img/matthew-photo-600.jpg 600w" sizes="(min-width: 1000px) 140px, 110px" alt="Matthew McArthur, founder of Growing Minds Science." width="400" height="500" loading="lazy" decoding="async" />At San Diego State University, <b>Matthew</b> studied how parent stress, changes to the home, screen time, and back-and-forth interaction shape language and cognitive development from 6 months to 5 years, after working with developmental researchers at UCLA during the pandemic. With Margaret Friend he wrote <a href="https://doi.org/10.3389/frym.2024.1426649">&ldquo;Why Early Chatter Matters: The Role of Language in Shaping Futures&rdquo;</a> for Frontiers for Young Minds, a journal written for families and reviewed by young readers.</p>
+          <p class="portrait-text" data-reveal style="--i:1">That work includes two years in state-funded early intervention, coaching families with children under 3 who were experiencing delays, more than 100 families in Los Angeles in all, and six years studying the developmental science behind them. The throughline is the same as everything else here: take what the research actually says, then translate it into something a parent can use on a Tuesday.</p>
+        </div>
       </div>
     </section>
 
-    <!-- LIGHT CTA -->
-    <section class="section--alt about-cta">
-      <div class="container container--narrow center">
-        <h2>Three classes are open now.</h2>
-        <p class="lede">
-          Every open class is $49: Birth to 12 months, the toddler years, and the preschool years. Self-paced, with lifetime access.
-        </p>
-        <p class="about-cta__actions">
-          <a class="btn btn--primary" href="/classes/">Browse the classes</a>
-          <a class="btn btn--ghost" href="/tools/">See the free tools</a>
-        </p>
+    <!-- How it teaches: a sage field -->
+    <section id="how-we-teach" class="band band--sage fg-wrap" aria-labelledby="teach-heading">
+      <div class="fg-inner axis">
+        <div class="axis__side">
+          <h2 id="teach-heading" class="axis__head" data-reveal>How it teaches</h2>
+        </div>
+        <div class="axis__main">
+          <ul class="statement-list" data-reveal style="--i:1">
+            <li><b>Translate the research, don&rsquo;t replace it</b><span>Plain language, with honesty about what the evidence is and isn&rsquo;t. No invented certainty, no oversimplified hooks.</span></li>
+            <li><b>Respect the parent</b><span>Parents are adults. The work assumes you&rsquo;re already trying hard, already paying attention, and already capable of nuance.</span></li>
+            <li><b>Mental models over scripts</b><span>The goal is a clear way to understand what&rsquo;s happening, not memorized phrases for every situation. Mental models travel; scripts don&rsquo;t.</span></li>
+            <li><b>Calm by default</b><span>No urgency manufactured for engagement. No shame. The tone is what a thoughtful friend who happens to know the research would sound like.</span></li>
+            <li><b>Built for ordinary days</b><span>Every recommendation has to work on a normal weekday, between transitions, meals, work, and the actual capacity of tired adults.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Background: a small table -->
+    <section class="band band--paper fg-wrap" aria-labelledby="background-heading">
+      <div class="fg-inner axis">
+        <div class="axis__side">
+          <h2 id="background-heading" class="axis__head" data-reveal>Background</h2>
+          <p class="fg-small fg-muted" data-reveal style="--i:1">Educational content only. Not medical or psychological advice. Always consult your child&rsquo;s clinicians for individual concerns.</p>
+        </div>
+        <div class="axis__main">
+          <table class="fg-table" data-reveal style="--i:1">
+            <thead class="u-visually-hidden"><tr><th scope="col">Institution</th><th scope="col">Degree</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">UCLA</th><td>B.A. in Psychology</td></tr>
+              <tr><th scope="row">SDSU</th><td>M.A. in Developmental Psychology</td></tr>
+              <tr><th scope="row">Frontiers for Young Minds</th><td>Author, &ldquo;Why Early Chatter Matters&rdquo; (2024), with Margaret Friend</td></tr>
+              <tr><th scope="row">Early intervention</th><td>Two years in state-funded early intervention, coaching families with children under 3</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- The close: the classes, on the ink field -->
+    <section class="band band--ink fg-wrap enroll" aria-labelledby="close-heading">
+      <div class="fg-inner">
+        <h2 id="close-heading" class="enroll__h2" data-reveal>Three classes<br />are open now.</h2>
+      </div>
+      <div class="fg-inner enroll__row">
+        <div class="enroll__price-block" data-reveal style="--i:1">
+          <p class="enroll__price">$49</p>
+          <p class="enroll__price-note">each, once, lifetime access</p>
+        </div>
+        <ul class="enroll__list" data-reveal style="--i:2">
+          <li>Birth to 12 months: cues, attachment, and the first year</li>
+          <li>Toddler years: language, autonomy, and big feelings</li>
+          <li>Preschool years: self-regulation, play, and readiness</li>
+          <li>Self-paced, with lifetime access</li>
+        </ul>
+        <div class="enroll__action" data-reveal style="--i:3">
+          <a class="btn" href="/classes/">Browse the classes</a>
+          <p class="enroll__fine">Or start with the free tools: <a href="/tools/">see what is here</a>.</p>
+        </div>
       </div>
     </section>
 
@@ -330,10 +293,8 @@
   </footer>
 
   <script src="/assets/js/chrome.js?v=1413c22959"></script>
-
-  <script src="../assets/js/main.js?v=742e637d07" defer></script>
-  <script src="../assets/js/decor.js?v=09ff05457d" defer></script>
-  <script src="../assets/js/animate.js?v=be9ad1568e" defer></script>
+  <script src="/assets/js/field-guide.js?v=00ad62e4d1" defer></script>
+  <script src="/assets/js/main.js?v=742e637d07" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

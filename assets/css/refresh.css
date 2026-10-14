@@ -1026,10 +1026,12 @@ h1, h2, h3, h4, .page-hero__title, .hero__title, .class-hero__title, .article-ti
   text-wrap: balance;
   color: var(--ink);
 }
-h1, .page-hero__title, .hero__title, .class-hero__title, .article-title {
-  font-size: var(--step-head);
-  line-height: 1.02;
-  max-width: 22ch;
+body h1, body .page-hero__title, body .hero__title, body .class-hero__title, body .article-title {
+  font-size: var(--step-display);
+  line-height: 0.98;
+  letter-spacing: var(--display-tracking);
+  max-width: none;
+  margin-left: -0.04em;
 }
 h2, .section-head__title, .inline-signup__heading { font-size: var(--step-head); line-height: 1.05; max-width: 24ch; }
 h3, .card__title, .tool-card__title, .featured-tool__title, .article-card__title, .toolkit__title,
@@ -1287,15 +1289,43 @@ img, video, iframe, .educator__photo, .google-login__mark, .about-preview__media
 .article-figure .af-strong { fill: var(--ink); font-weight: 500; }
 .article-figure .af-note { fill: var(--forest); font-style: normal; }
 
+/* The article's closing invitation is a statement, not a headline. */
+.article-cta__title { margin: 0 0 0.35rem; font-family: var(--font-display); font-weight: 500; font-size: var(--step-lead); line-height: 1.25; letter-spacing: -0.01em; max-width: 36ch; }
+main .section-intro, main .tool-lede { max-width: 62ch; }
+/* The snapshot's step counter stays for screen readers; the heading carries the step on screen. */
+.cs-progress { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+
 /* ---------- Decoration from older systems ---------- */
 .gms-decor { display: none; }
 
-/* ---------- Motion: reveal is a fade, never a gate ---------- */
+/* ---------- Motion: entrances for the parts of a page, never a gate ---------- */
 @media (prefers-reduced-motion: no-preference) {
   html.anim [data-animate] { transform: none; }
   html.anim [data-animate]:not(.is-visible) { animation: gms-reveal-failsafe 0s linear 2.5s forwards; }
+  /* The first screen's parts settle upward on load, in reading order. */
+  html.anim .page-hero .container > *, html.anim .page-hero .page-hero__copy > *, html.anim .page-hero__visual,
+  html.anim .article-hero .article-layout > div > *, html.anim .article-hero .article-cardlet,
+  html.anim .tool-hero .hero-grid > div > *, html.anim .tool-hero .hero-card,
+  html.anim .class-hero .container > * > *, html.anim .ai-hero .container > * {
+    animation: fg-rise var(--t-reveal) var(--ease-out) both;
+  }
+  html.anim .page-hero .page-hero__copy > :nth-child(2), html.anim .article-hero .article-layout > div > :nth-child(2), html.anim .tool-hero .hero-grid > div > :nth-child(2) { animation-delay: 80ms; }
+  html.anim .page-hero .page-hero__copy > :nth-child(3), html.anim .article-hero .article-layout > div > :nth-child(3), html.anim .tool-hero .hero-grid > div > :nth-child(3) { animation-delay: 160ms; }
+  html.anim .page-hero .page-hero__copy > :nth-child(4), html.anim .article-hero .article-layout > div > :nth-child(4), html.anim .tool-hero .hero-grid > div > :nth-child(4) { animation-delay: 240ms; }
+  html.anim .page-hero__visual, html.anim .article-hero .article-cardlet, html.anim .tool-hero .hero-card { animation-delay: 320ms; }
+  /* Headings, figures and panels rise as they enter the viewport; no script needed. */
+  @supports (animation-timeline: view()) {
+    html.anim main h2, html.anim main h3, html.anim main figure, html.anim main .article-callout, html.anim main .article-cta,
+    html.anim main .what-block, html.anim main .toolkit__item, html.anim main .article-card, html.anim main .faq details {
+      animation: fg-rise-view linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
 }
 @keyframes gms-reveal-failsafe { to { opacity: 1; transform: none; } }
+@keyframes fg-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes fg-rise-view { from { opacity: 0.001; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 
 @media (max-width: 720px) {
   .module-card, .article-card, .diff-item, .faq details, .faq-class-item, .philosophy-list li, .toolkit__item, .reading li a, .sources-list li, .syllabus__item, .price, .unit {
