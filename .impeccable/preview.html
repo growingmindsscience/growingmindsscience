@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>The Terrain, catalogue</title>
+  <script>
+    /* Theme before paint: ?theme=dark|light wins, then the saved site choice, then the system. */
+    try {
+      var q = new URLSearchParams(location.search).get("theme");
+      var t = q || localStorage.getItem("gms-theme");
+      if (t === "dark" || (t !== "light" && matchMedia("(prefers-color-scheme: dark)").matches)) document.documentElement.setAttribute("data-theme", "dark");
+    } catch (e) {}
+  </script>
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" />
+  <!-- The live stylesheets, so this catalogue is never ahead of or behind the site. -->
+  <link rel="stylesheet" href="/assets/css/home.css" />
+  <style>
+    /* Catalogue chrome only. Every specimen below uses the site's own classes. */
+    .cat { padding: var(--space-8) 0 var(--space-16); }
+    .cat__bar { position: sticky; top: 0; z-index: 10; background: var(--bg); border-bottom: 3px solid var(--ink); }
+    .cat__bar-inner { display: flex; align-items: center; gap: var(--space-4); min-height: 64px; }
+    .cat__bar h1 { margin: 0; font-size: var(--text-lg); letter-spacing: -0.015em; }
+    .cat__bar .map-label { color: var(--ink-muted); }
+    .cat__bar nav { margin-left: auto; display: flex; gap: var(--space-4); flex-wrap: wrap; }
+    .cat__bar nav a { font-family: var(--font-display); font-weight: 500; font-size: var(--text-sm); color: var(--ink-soft); text-decoration: none; }
+    .cat__bar nav a:hover { color: var(--ink); }
+    .cat__toggle { display: inline-grid; place-items: center; width: 44px; height: 44px; border: 1.5px solid var(--ink); background: transparent; color: var(--ink); cursor: pointer; }
+    .cat__toggle:hover { background: var(--ink); color: var(--bg); }
+    .cat__toggle:focus-visible { outline: 2.5px solid var(--primary); outline-offset: 3px; }
+    .spec { padding: clamp(var(--space-10), 6vw, var(--space-16)) 0 0; }
+    .spec + .spec { border-top: 3px solid var(--ink); margin-top: clamp(var(--space-10), 6vw, var(--space-16)); }
+    .spec__head { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--space-6) var(--space-10); margin-bottom: var(--space-8); }
+    .spec__head h2 { margin: 0; font-size: var(--text-xl); }
+    .spec__head p { margin: 0; color: var(--ink-soft); max-width: 60ch; }
+    .spec__head .map-label { color: var(--ink-muted); display: block; margin-bottom: var(--space-2); }
+    .grid { display: grid; gap: var(--space-6); }
+    .grid--swatch { grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: var(--space-2); }
+    .grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .sw { display: grid; grid-template-rows: 5.5rem auto; background: var(--surface); border-top: 3px solid var(--ink); }
+    .sw__chip { border-bottom: 1px solid var(--border-soft); }
+    .sw__meta { padding: var(--space-3) var(--space-4) var(--space-4); }
+    .sw__name { display: block; font-family: var(--font-display); font-weight: 600; font-size: var(--text-sm); }
+    .sw__token { display: block; font-family: var(--font-display); font-weight: 500; font-size: var(--text-xs); color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+    .sw__hex { display: block; font-family: var(--font-display); font-weight: 500; font-size: var(--text-xs); color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+    .sw__role { display: block; margin-top: var(--space-1); font-size: var(--text-xs); color: var(--ink-soft); line-height: 1.4; }
+    .type { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+    .type li { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: var(--space-6); align-items: baseline; padding: var(--space-5) 0; border-top: 1px solid var(--border-soft); }
+    .type li:first-child { border-top: 0; }
+    .type .map-label { color: var(--ink-muted); }
+    .t-display { font-family: var(--font-display); font-weight: 600; font-size: clamp(2.6rem, 1rem + 4.6vw, 4.6rem); line-height: 0.96; letter-spacing: -0.03em; margin: 0; }
+    .t-headline { font-family: var(--font-display); font-weight: 600; font-size: var(--text-2xl); line-height: 1.04; letter-spacing: -0.025em; margin: 0; }
+    .t-title { font-family: var(--font-display); font-weight: 600; font-size: var(--text-xl); line-height: 1.1; letter-spacing: -0.015em; margin: 0; }
+    .t-row { font-family: var(--font-display); font-weight: 600; font-size: var(--text-lg); line-height: 1.1; letter-spacing: -0.015em; margin: 0; }
+    .t-lede { font-size: var(--text-md); line-height: 1.6; margin: 0; max-width: 52ch; }
+    .t-body { font-size: var(--text-base); line-height: 1.6; margin: 0; max-width: 62ch; }
+    .t-caption { font-size: var(--text-sm); line-height: 1.55; color: var(--ink-muted); margin: 0; max-width: 52ch; }
+    .t-caption b { font-family: var(--font-display); font-weight: 600; color: var(--ink); }
+    .t-label-xs { font-family: var(--font-display); font-weight: 600; font-size: var(--text-xs); margin: 0; }
+    .t-button { font-family: var(--font-display); font-weight: 600; font-size: var(--text-sm); margin: 0; }
+    .rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: var(--space-6); }
+    .rule { background: var(--surface); padding: var(--space-4) var(--space-5); }
+    .rule--legend { border-top: 3px solid var(--ink); }
+    .rule--route { border-top: 6px solid var(--primary); }
+    .rule--rest { border-top: 6px solid var(--contour); }
+    .rule--soon { border-top: 6px dashed var(--contour); }
+    .rule--frame { border: 2px solid var(--ink); background: var(--bg-alt); }
+    .rule--hair { border: 1.5px solid var(--border); }
+    .rule .map-label { display: block; color: var(--ink-muted); margin-top: var(--space-2); }
+    .rule b { font-family: var(--font-display); font-weight: 600; font-size: var(--text-sm); }
+    .row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+    .navy { background: var(--ink-900); color: var(--on-dark); padding: var(--space-6); }
+    .navy h3 { color: #FFFFFF; margin: 0 0 var(--space-4); }
+    .navy .hl { background: var(--ink-700); color: #FFFFFF; }
+    .ds-chip { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0.5rem; font-family: var(--font-display); font-size: var(--text-xs); font-weight: 600; line-height: 1.3; }
+    .ds-chip::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+    .ds-chip--open { background: var(--amber-tint); color: var(--primary); }
+    .ds-chip--soon { background: var(--surface-2); color: var(--ink-muted); }
+    .field--light .field__input { background: var(--bg); border-color: var(--border); color: var(--ink); }
+    .field--light .field__input::placeholder { color: var(--ink-muted); }
+    .field--light .field__input:focus-visible { outline-color: var(--primary); border-color: var(--primary); }
+    .field--light .field__error { color: var(--danger); }
+    .readout { position: relative; max-width: none; }
+    .legend { border-top: 3px solid var(--ink); }
+    .terrain-inset { margin: 0; }
+    .terrain-inset svg { display: block; width: 100%; height: auto; }
+    .terrain-inset .contour { fill: none; stroke: var(--contour); stroke-width: 1.6; stroke-linecap: round; }
+    .terrain-inset .contour--index { stroke-width: 2.4; }
+    .terrain-inset .woodland { fill: var(--woodland); }
+    .terrain-inset .stream { fill: none; stroke: var(--water); stroke-width: 6; stroke-linecap: round; }
+    .terrain-inset .route { fill: none; stroke: var(--primary); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 16 12; }
+    .terrain-inset .waymark circle { fill: var(--bg); stroke: var(--primary); stroke-width: 5; }
+    .terrain-inset .waymark.is-active circle { fill: var(--primary); }
+    .terrain-inset .refs line { stroke: var(--ink); stroke-width: 2; }
+    .terrain-inset .refs text { font-family: var(--font-display); font-weight: 500; font-size: 20px; fill: var(--ink-muted); text-anchor: middle; }
+    .terrain-inset .refs text:first-of-type { text-anchor: start; }
+    .terrain-inset .refs text:last-of-type { text-anchor: end; }
+    .motion { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: var(--space-2); }
+    .motion div { background: var(--surface); border-top: 3px solid var(--ink); padding: var(--space-4) var(--space-5); }
+    .motion b { font-family: var(--font-display); font-weight: 600; font-size: var(--text-sm); display: block; margin-bottom: var(--space-1); }
+    .motion span { font-size: var(--text-sm); color: var(--ink-soft); }
+    .ease { height: 6px; background: var(--ink); position: relative; margin-top: var(--space-3); overflow: hidden; }
+    .ease::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 22px; background: var(--primary); transform: translateX(0); animation: slide 1800ms var(--ease) infinite alternate; }
+    @keyframes slide { to { transform: translateX(calc(100% + 14rem)); } }
+    @media (prefers-reduced-motion: reduce) { .ease::after { animation: none; } }
+    @media (max-width: 880px) { .spec__head, .grid--2, .grid--3 { grid-template-columns: minmax(0, 1fr); } .type li { grid-template-columns: minmax(0, 1fr); gap: var(--space-2); } }
+  </style>
+</head>
+<body>
+  <div class="cat__bar">
+    <div class="container cat__bar-inner">
+      <h1>The Terrain</h1>
+      <span class="map-label">Catalogue of the shipped system · DESIGN.md</span>
+      <nav aria-label="Sections">
+        <a href="#colours">Colours</a><a href="#type">Type</a><a href="#rules">Rules</a><a href="#buttons">Buttons</a><a href="#panels">Panels</a><a href="#fields">Fields</a><a href="#navy">Navy fields</a><a href="#sheet">Sheet</a><a href="#motion">Motion</a>
+      </nav>
+      <button class="cat__toggle" id="theme-toggle" type="button" aria-label="Switch between the day sheet and the night sheet" title="Day / night sheet">
+        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false"><circle cx="9" cy="9" r="7.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 1.75A7.25 7.25 0 0 1 9 16.25Z" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <main class="container cat">
+    <section class="spec" id="colours" style="padding-top: var(--space-8)">
+      <div class="spec__head">
+        <div><span class="map-label">01</span><h2>Colours</h2></div>
+        <p>A cool survey palette: one sheet, one ink, two drawn fields, one route. Teal is the only chromatic colour at text or button size. Values are read live from <code>tokens-terrain.css</code>, so the hex under each swatch is what the page is actually painting in this theme.</p>
+      </div>
+      <div class="grid grid--swatch" id="swatches"></div>
+    </section>
+
+    <section class="spec" id="type">
+      <div class="spec__head">
+        <div><span class="map-label">02</span><h2>Typography</h2></div>
+        <p>Geologica, a wide geometric sans, is the legend hand: anything that labels, counts or acts. Literata, an optical-size serif, is the reading hand: anything that explains. A number in Literata or a paragraph in Geologica is a mistake.</p>
+      </div>
+      <ul class="type">
+        <li><span class="map-label">Display · Geologica 600 · clamp(2.6rem, 4.6rem) · 0.96 · −0.03em</span><p class="t-display">The first five years, mapped.</p></li>
+        <li><span class="map-label">Headline · Geologica 600 · clamp(2rem, 2.9rem) · 1.04 · −0.025em</span><p class="t-headline">What the classes <span class="hl">actually teach</span></p></li>
+        <li><span class="map-label">Title · Geologica 600 · clamp(1.6rem, 2.2rem) · 1.1</span><p class="t-title">Toddler years, 1 to 3</p></li>
+        <li><span class="map-label">Row title · Geologica 600 · 24px · 1.1</span><p class="t-row">Birth to 12 months</p></li>
+        <li><span class="map-label">Lede · Literata 400 · 19px · 1.6</span><p class="t-lede">If you love your child and you love the science, these classes will make you the most capable parent you can be.</p></li>
+        <li><span class="map-label">Body · Literata 400 · 17px · 1.6 · 62ch</span><p class="t-body">“No” is a developmental milestone, not defiance. Toddlers are practising self-determination while the prefrontal cortex is still profoundly immature, which is why a limit lands better when the feeling underneath it is named first.</p></li>
+        <li><span class="map-label">Caption · Literata 400 · 15px · ink-muted</span><p class="t-caption"><b>Fig. 2</b> The loop every class runs: research, a model of the child, the moment in front of you, and what you notice next.</p></li>
+        <li><span class="map-label">Map label · Geologica 500 · 15px · tabular</span><p class="map-label">Class 2: language, autonomy, and big feelings · 29 lessons · $49 once</p></li>
+        <li><span class="map-label">Label XS · Geologica 600 · 13px</span><p class="t-label-xs">WHAT IS GROWING NOW</p></li>
+        <li><span class="map-label">Button · Geologica 600 · 15px · no tracking</span><p class="t-button">Browse the classes</p></li>
+      </ul>
+    </section>
+
+    <section class="spec" id="rules">
+      <div class="spec__head">
+        <div><span class="map-label">03</span><h2>Rules, bars and frames</h2></div>
+        <p>Depth is tonal and typographic. A panel announces itself with a 3px ink rule across the top. A class row or legend cell carries a 6px route segment: slate at rest, teal when active, dashed slate while in development. Photographs sit in a 2px ink frame like map insets. Nothing casts a shadow at rest.</p>
+      </div>
+      <div class="rules">
+        <div class="rule rule--legend"><b>Legend bar</b><span class="map-label">3px solid ink · panels, lists, figures, hr</span></div>
+        <div class="rule rule--route"><b>Route bar, active</b><span class="map-label">6px solid teal · active cell or row</span></div>
+        <div class="rule rule--rest"><b>Route bar, at rest</b><span class="map-label">6px solid contour</span></div>
+        <div class="rule rule--soon"><b>Route bar, in development</b><span class="map-label">6px dashed contour</span></div>
+        <div class="rule rule--frame"><b>Inset frame</b><span class="map-label">2px solid ink · photographs</span></div>
+        <div class="rule rule--hair"><b>Control stroke</b><span class="map-label">1.5px hairline · inputs, tables, tags</span></div>
+      </div>
+    </section>
+
+    <section class="spec" id="buttons">
+      <div class="spec__head">
+        <div><span class="map-label">04</span><h2>Buttons and chips</h2></div>
+        <p>Square, one fill, feedback on press. 48px tall, Geologica 600 at 15px, a 1.5px border that matches the fill. Hover is a deeper teal or an inverted fill, never a lift. One primary action per surface.</p>
+      </div>
+      <div class="grid grid--2">
+        <div>
+          <p class="map-label" style="color: var(--ink-muted); margin: 0 0 var(--space-3)">On the sheet</p>
+          <div class="row">
+            <a class="btn btn--primary" href="#buttons">Browse the classes</a>
+            <a class="btn btn--quiet" href="#buttons">See the class</a>
+            <a class="btn btn--ink" href="#buttons">Ink, rare</a>
+            <a class="btn btn--primary btn--lg" href="#buttons">Enroll, $49</a>
+            <a class="btn btn--quiet" href="#buttons" target="_blank" rel="noopener">Enroll <span class="btn__ext" aria-hidden="true">↗</span><span class="u-visually-hidden">(opens in a new tab)</span></a>
+          </div>
+          <div class="row" style="margin-top: var(--space-5)">
+            <span class="ds-chip ds-chip--open">Open now</span>
+            <span class="ds-chip ds-chip--soon">In development</span>
+            <a class="text-link" href="#buttons">Watch a lesson free · 14 min</a>
+          </div>
+        </div>
+        <div class="navy">
+          <p class="map-label" style="color: var(--on-dark-muted); margin: 0 0 var(--space-3)">On a navy field</p>
+          <div class="row">
+            <a class="btn btn--on-dark" href="#buttons">Enroll</a>
+            <a class="btn btn--quiet-dark" href="#buttons">Join the waitlist</a>
+            <a class="btn btn--ghost-dark" href="#buttons">Ask a question</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="spec" id="panels">
+      <div class="spec__head">
+        <div><span class="map-label">05</span><h2>Panels and the legend</h2></div>
+        <p>Rows, not cards. A surface panel under a 3px ink rule; lists of parallel panels sit half a rem apart with ground showing between them. The legend is four equal cells under one ink rule, each with a route segment, a Geologica name and tabular meta.</p>
+      </div>
+      <div class="grid grid--2" style="margin-bottom: var(--space-8)">
+        <div class="readout">
+          <div data-stage-panel>
+            <h3 class="readout__stage">Autonomy and big feelings: two to three</h3>
+            <p class="readout__age">At 2 years, 3 months</p>
+            <dl class="readout__cols">
+              <div><dt>What is growing now</dt><dd>Self-determination, a vocabulary spurt, and the first real “no”. The prefrontal cortex is still profoundly immature.</dd></div>
+              <div><dt>What helps</dt><dd>Name the feeling first, then hold the limit. Offer two real choices. Expect the same tantrum many times; repetition is the curriculum.</dd></div>
+            </dl>
+            <p class="readout__class">Taught in <a href="#panels">Class 2, Toddler years →</a></p>
+          </div>
+        </div>
+        <ul class="enrol-list" style="margin: 0">
+          <li class="enrol-item">
+            <div><h3 class="enrol-item__title"><a href="#panels">Birth to 12 months</a></h3><p class="enrol-item__meta">Class 1 · 16 lessons · about 3 hours</p><p class="enrol-item__perk">Captions and a written version of every lesson.</p></div>
+            <p class="enrol-item__price">$49</p>
+            <a class="btn btn--on-dark enrol-item__cta" href="#panels">Enroll</a>
+          </li>
+          <li class="enrol-item">
+            <div><h3 class="enrol-item__title"><a href="#panels">Preschool years, 3 to 5</a></h3><p class="enrol-item__meta">Class 3 · 15 lessons</p></div>
+            <p class="enrol-item__price">$49</p>
+            <a class="btn btn--on-dark enrol-item__cta" href="#panels">Enroll</a>
+          </li>
+        </ul>
+      </div>
+      <nav class="legend" aria-label="Classes">
+        <a class="legend__cell" href="#panels"><span class="legend__name">Birth to 12 months</span><span class="legend__meta">Class 1 · 16 lessons · $49 once</span></a>
+        <a class="legend__cell is-active" href="#panels"><span class="legend__name">Toddler years, 1 to 3</span><span class="legend__meta">Class 2 · 29 lessons · $49 once</span></a>
+        <a class="legend__cell" href="#panels"><span class="legend__name">Preschool years, 3 to 5</span><span class="legend__meta">Class 3 · 15 lessons · $49 once</span></a>
+        <a class="legend__cell legend__cell--soon" href="#panels"><span class="legend__name">The whole family</span><span class="legend__meta">Class 4 · in development</span></a>
+      </nav>
+    </section>
+
+    <section class="spec" id="fields">
+      <div class="spec__head">
+        <div><span class="map-label">06</span><h2>Fields and the scale</h2></div>
+        <p>Square 48px fields with a 1.5px hairline and a Geologica label above. Focus turns the border teal under a 2.5px outline. Errors are the one warm hue on the site. The age scale is a real range input: a 6px ink track and a 22px square teal thumb in a 2px ink border.</p>
+      </div>
+      <div class="grid grid--3">
+        <label class="field field--light"><span class="field__label">Email</span><input class="field__input" type="email" placeholder="you@example.com" /></label>
+        <label class="field field--light"><span class="field__label">Email</span><input class="field__input" type="email" value="matthew@" aria-invalid="true" aria-describedby="err-1" /><span class="field__error" id="err-1">Enter a full email address, like name@example.com.</span></label>
+        <div class="navy" style="padding: var(--space-4)"><label class="field"><span class="field__label">Email</span><input class="field__input" type="email" placeholder="you@example.com" /></label></div>
+      </div>
+      <div class="scale" style="max-width: 36rem; margin-top: var(--space-8)">
+        <span class="scale__label"><span>Birth</span><span>5 years</span></span>
+        <input type="range" min="0" max="59" value="27" aria-label="Child's age in months" />
+      </div>
+    </section>
+
+    <section class="spec" id="navy">
+      <div class="spec__head">
+        <div><span class="map-label">07</span><h2>Navy fields</h2></div>
+        <p>Two inverted navy fields close each page the way the dark field closes a sheet: the office-hours band on Navy Field, the enrol band and footer on Navy Floor. Headings on navy are pure white; the phrase mark becomes Navy Raised with white text; the chat demo is a surface card under a 3px teal rule.</p>
+      </div>
+      <section class="ai" style="padding: var(--space-8)">
+        <div class="grid grid--2">
+          <div>
+            <h2 class="t-headline" style="color: #FFFFFF; margin-bottom: var(--space-4)">Office hours, <span class="hl">any hour</span></h2>
+            <p>Ask the research a question at 3 a.m. and get the answer a developmental scientist would give you, with the paper it came from.</p>
+          </div>
+          <div class="chat">
+            <div class="chat__top"><span class="chat__avatar" aria-hidden="true">G</span><span class="chat__name">Growing Minds AI</span><span class="chat__tag">Example conversation</span></div>
+            <div class="chat__body" style="min-height: 0">
+              <div class="msg msg--user"><p>Is it normal that my 2-year-old says no to everything?</p></div>
+              <div class="msg msg--ai"><p>Yes, and it is a good sign. Around two, children discover they are a separate person with a will of their own. Saying no is how they practise that.</p><p class="msg__source map-label" style="color: var(--ink-muted)">Kochanska et al., 2001</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="spec" id="sheet">
+      <div class="spec__head">
+        <div><span class="map-label">08</span><h2>The sheet, as an inset</h2></div>
+        <p>Inner pages reuse the homepage's material as a terrain inset: the same contour, woodland, stream, route and waymark classes at inset weights. Photographs are square insets in a 2px ink frame; a captioned figure or an inset comes before a photograph when the section explains something.</p>
+      </div>
+      <div class="grid grid--2">
+        <figure class="terrain-inset" aria-labelledby="inset-caption">
+          <svg viewBox="700 60 740 620" role="img" aria-labelledby="inset-title" xmlns="http://www.w3.org/2000/svg" focusable="false">
+            <title id="inset-title">A stretch of the first-five-years sheet: contour lines, a sage field, and the dashed route from birth to five with its five waymarks.</title>
+            <path class="woodland" d="M980 440 C 1060 400, 1160 470, 1280 450 S 1420 520, 1460 500 L 1460 610 C 1360 630, 1200 570, 1060 590 S 970 530, 980 440 Z"/>
+            <path class="contour" d="M680 660 C 800 640, 900 700, 1040 640 S 1300 540, 1460 578"/>
+            <path class="contour" d="M680 604 C 820 560, 920 640, 1060 580 S 1320 480, 1460 522"/>
+            <path class="contour contour--index" d="M680 548 C 840 500, 940 590, 1080 520 S 1340 420, 1460 466"/>
+            <path class="contour" d="M680 492 C 860 440, 960 530, 1100 460 S 1360 360, 1460 410"/>
+            <path class="contour contour--index" d="M560 40 C 740 20, 920 100, 1030 220 S 1250 420, 1460 400"/>
+            <path class="contour" d="M660 10 C 840 -10, 1010 70, 1110 190 S 1320 370, 1460 350"/>
+            <path class="contour" d="M780 140 C 890 130, 980 190, 1015 275 S 1130 430, 1290 450"/>
+            <path class="contour" d="M840 175 C 940 165, 1010 220, 1040 295 S 1150 410, 1270 420"/>
+            <path class="contour" d="M895 205 C 980 200, 1035 245, 1062 310 S 1160 385, 1250 392"/>
+            <path class="contour" d="M945 235 C 1010 232, 1055 268, 1080 322 S 1165 362, 1230 366"/>
+            <g class="refs">
+              <line x1="760" y1="118" x2="1350" y2="118"/>
+              <line x1="760" y1="112" x2="760" y2="124"/><line x1="878" y1="112" x2="878" y2="124"/><line x1="996" y1="112" x2="996" y2="124"/><line x1="1114" y1="112" x2="1114" y2="124"/><line x1="1232" y1="112" x2="1232" y2="124"/><line x1="1350" y1="112" x2="1350" y2="124"/>
+              <text x="760" y="104">Birth</text><text x="878" y="104">1 yr</text><text x="996" y="104">2</text><text x="1114" y="104">3</text><text x="1232" y="104">4</text><text x="1350" y="104">5 yrs</text>
+            </g>
+            <path class="route" d="M760 660 C 820 655, 860 600, 900 560 C 940 520, 990 480, 1040 440 C 1090 400, 1130 360, 1170 320 C 1210 280, 1250 240, 1290 205 C 1320 180, 1345 165, 1365 150"/>
+            <g class="waymark"><circle cx="822" cy="628" r="11"/></g>
+            <g class="waymark"><circle cx="946" cy="516" r="11"/></g>
+            <g class="waymark is-active"><circle cx="1070" cy="416" r="11"/></g>
+            <g class="waymark"><circle cx="1194" cy="298" r="11"/></g>
+            <g class="waymark"><circle cx="1318" cy="182" r="11"/></g>
+          </svg>
+          <figcaption class="fig__caption" id="inset-caption"><b>Terrain inset.</b> The tools and classes sit along the same route the sheet draws: pick the stretch your family is in.</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="/assets/img/matthew-photo-600.jpg" alt="Matthew McArthur, the instructor." width="600" height="450" loading="eager" decoding="async" style="width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border: 2px solid var(--ink)" />
+          <figcaption class="fig__caption"><b>Inset frame.</b> Photographs are square map insets in a 2px ink frame, with no filter and no rounded corner.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="spec" id="motion">
+      <div class="spec__head">
+        <div><span class="map-label">09</span><h2>Motion</h2></div>
+        <p>Everything moves on one ease. Transforms, opacity and stroke-dashoffset only; never layout. Reveals are an enhancement, never a gate: content is visible by default and settles upward, so a slow paint or a screenshot never meets a blank hero.</p>
+      </div>
+      <div class="motion">
+        <div><b>House ease</b><span>cubic-bezier(0.16, 1, 0.3, 1), 240ms for colour and transform</span><div class="ease" aria-hidden="true"></div></div>
+        <div><b>Press</b><span>Buttons move down 1px on :active, 140ms. No hover lift.</span></div>
+        <div><b>Route draw-in</b><span>1800ms stroke-dashoffset, once on load when html.anim is set.</span></div>
+        <div><b>Settle</b><span>720ms translateY(14px) → 0, staggered 80ms; travel only, never a fade.</span></div>
+        <div><b>Menu</b><span>200ms slide down 6px on cubic-bezier(0.22, 1, 0.36, 1).</span></div>
+        <div><b>Reduced motion</b><span>Every animation and transition is removed; the route is drawn, the copy is in place.</span></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      var tokens = [
+        ["bg", "Map-White Sheet", "Page ground; inactive waymark fill"],
+        ["bg-alt", "Sage Step", "Alternate sections, scrolled header, hover wash, AI bubble"],
+        ["surface", "Sheet Surface", "Panels, readout, class rows, chat card, menus"],
+        ["surface-2", "Sheet Tint", "Chips, figure nodes, thumb backgrounds"],
+        ["border", "Hairline", "Inputs, tables, the chat tag"],
+        ["border-soft", "Hairline Soft", "Figure grids, table rows"],
+        ["ink", "Navy Ink", "All type, rules, the range track"],
+        ["ink-soft", "Ink Soft", "Secondary copy"],
+        ["ink-muted", "Ink Muted", "Meta, captions, grid references"],
+        ["ink-700", "Navy Raised", "Phrase mark on navy; dark menu surface"],
+        ["ink-800", "Navy Field", "Office-hours band; raised enrol rows"],
+        ["ink-900", "Navy Floor", "Enrol band and footer"],
+        ["primary", "Teal Route", "Every action: buttons, links, route, cursor, focus"],
+        ["primary-hover", "Teal Route Deep", "Hover fill"],
+        ["primary-ink", "On Route", "Text on teal"],
+        ["amber-tint", "Route Tint", "Behind the Open chip (legacy name)"],
+        ["contour", "Slate Contour", "Contours, bars at rest; decor only"],
+        ["woodland", "Sage Woodland", "Fields on the sheet; the phrase mark"],
+        ["water", "Pale Stream", "The stream stroke only"],
+        ["leaf", "Leaf", "Status"],
+        ["success", "Success", "Form success"],
+        ["danger", "Danger", "Errors; the one warm hue"],
+        ["on-dark", "On Dark", "Text on navy"],
+        ["on-dark-soft", "On Dark Soft", "Secondary text on navy"],
+        ["on-dark-muted", "On Dark Muted", "Meta on navy"]
+      ];
+      var root = document.documentElement;
+      var grid = document.getElementById("swatches");
+      function hex(v) {
+        v = v.trim();
+        var m = v.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+        if (!m) return v.toUpperCase();
+        return "#" + [m[1], m[2], m[3]].map(function (n) { return ("0" + (+n).toString(16)).slice(-2); }).join("").toUpperCase();
+      }
+      function paint() {
+        var cs = getComputedStyle(root);
+        grid.innerHTML = "";
+        tokens.forEach(function (t) {
+          var v = cs.getPropertyValue("--" + t[0]);
+          var el = document.createElement("div");
+          el.className = "sw";
+          el.innerHTML = '<div class="sw__chip" style="background: var(--' + t[0] + ')"></div><div class="sw__meta"><span class="sw__name"></span><span class="sw__token">--' + t[0] + '</span><span class="sw__hex"></span><span class="sw__role"></span></div>';
+          el.querySelector(".sw__name").textContent = t[1];
+          el.querySelector(".sw__hex").textContent = hex(v);
+          el.querySelector(".sw__role").textContent = t[2];
+          grid.appendChild(el);
+        });
+      }
+      paint();
+      document.getElementById("theme-toggle").addEventListener("click", function () {
+        var dark = root.getAttribute("data-theme") === "dark";
+        if (dark) root.removeAttribute("data-theme"); else root.setAttribute("data-theme", "dark");
+        paint();
+      });
+    })();
+  </script>
+</body>
+</html>
