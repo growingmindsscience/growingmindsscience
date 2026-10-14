@@ -1,13 +1,12 @@
 /* =========================================================
-   Growing Minds Science: homepage stylesheet, "Terrain".
-   The first five years as one survey sheet: map-white ground, navy ink,
-   slate contours, sage woodland, one teal route for action, one navy
-   field for office hours and the enrol band. Geologica over Literata,
-   square corners, no shadows at rest. Tokens live in tokens-terrain.css;
+   Growing Minds Science: the Growing Minds AI page stylesheet (formerly the
+   Terrain homepage sheet; the homepage now uses field-guide.css).
+   Reads the field-guide tokens (paper, ink, forest, sage; Newsreader over
+   DM Sans), square corners, no shadows at rest. Tokens live in tokens-field-guide.css;
    chrome.css (header, footer) and seminar.css (class rows, figures) read
    the same names.
    ========================================================= */
-@import url("/assets/css/tokens-terrain.css?v=d9a5e6e996");
+@import url("/assets/css/tokens-field-guide.css?v=23d3d3f936");
 
 /* ---------- Reset / base ---------- */
 *, *::before, *::after { box-sizing: border-box; }

@@ -1,30 +1,36 @@
 /* Site chrome: the one header and footer every page shares.
-   Loaded last on every page, after the page's own stylesheet (home.css, or
-   styles.css + refresh.css, or a standalone page's inline styles). It reads the
-   Seminar tokens from whichever system the page uses and falls back to the
-   literal values, so the header and footer look identical everywhere.
+   Loaded last on every page, after the page's own stylesheet (field-guide.css,
+   or styles.css + refresh.css, or a standalone page's inline styles). It reads
+   the field-guide tokens (tokens-field-guide.css) through the names every
+   page defines, and falls back to the literal field-guide values, so the
+   header and footer look identical everywhere: paper bar, Newsreader
+   wordmark, DM Sans links, one forest action; an ink field with the
+   wordmark at full width to close the page.
    Behavior lives in assets/js/chrome.js. */
 
 .site-header,
 .site-footer {
-  --chrome-ground: var(--ground, var(--bg, #F6F9F8));
-  --chrome-surface: var(--surface, #FFFFFF);
-  --chrome-tint: var(--tint, var(--surface-2, #E6EFED));
-  --chrome-line: var(--line, var(--border, #D3DEDC));
-  --chrome-line-soft: var(--line-soft, var(--border-soft, #E3EBE9));
-  --chrome-ink: var(--ink, #12262C);
-  --chrome-ink-soft: var(--ink-soft, #3A5058);
-  --chrome-ink-muted: var(--ink-muted, #52676C);
-  --chrome-action: var(--teal, var(--primary, #1E5F62));
-  --chrome-action-ink: var(--btn-primary-ink, var(--primary-ink, #FFFFFF));
-  --chrome-mark: var(--primary, #1E5F62);
-  --chrome-focus: var(--primary, #1E5F62);
-  --chrome-display: var(--font-display, "Geologica", "Helvetica Neue", Arial, sans-serif);
-  --chrome-body: var(--font-body, "Literata", Georgia, serif);
+  --chrome-ground: var(--paper, var(--bg, #F7F5EF));
+  --chrome-ground-2: var(--paper-2, var(--bg-alt, #EEEBE1));
+  --chrome-surface: var(--surface, #FDFCF9);
+  --chrome-tint: var(--surface-2, #E6E3D7);
+  --chrome-ink: var(--ink, #20322F);
+  --chrome-ink-soft: var(--ink-soft, #3D4F4B);
+  --chrome-ink-muted: var(--ink-muted, #596B67);
+  --chrome-action: var(--forest, var(--primary, #315D52));
+  --chrome-action-hover: var(--forest-deep, var(--primary-hover, #254A41));
+  --chrome-action-ink: var(--on-forest, var(--primary-ink, #F7F5EF));
+  --chrome-field: var(--field-ink, #20322F);
+  --chrome-on-dark: var(--on-ink, #F2EFE6);
+  --chrome-on-dark-soft: var(--on-ink-soft, #C9D0CB);
+  --chrome-on-dark-muted: var(--on-ink-muted, #9FAEA8);
+  --chrome-display: var(--font-display, "Newsreader", Georgia, "Times New Roman", serif);
+  --chrome-body: var(--font-body, "DM Sans", "Helvetica Neue", Arial, sans-serif);
+  --chrome-small: var(--step-small, 0.875rem);
+  --chrome-text: var(--step-body, 1.0625rem);
   --chrome-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --chrome-t: 240ms var(--chrome-ease);
 }
-
 
 :root {
   --header-h: 72px;
@@ -39,13 +45,9 @@
   background: var(--chrome-ground);
   transition: background-color var(--chrome-t);
 }
-.site-header.is-scrolled {
-  background: var(--bg-alt, var(--chrome-tint));
-}
-/* One measure for the chrome on every page. The page stylesheets size
-   .container differently (home.css 1180px with 2.25rem gutters, styles.css
-   1200px with 2rem), which moved the brand and CTA 14px between the homepage
-   and inner pages. These match styles.css, so inner pages are unchanged. */
+.site-header.is-scrolled { background: var(--chrome-ground-2); }
+/* One measure for the chrome on every page, whatever the page stylesheet
+   sizes its own .container to. */
 .site-header .site-header__inner,
 .site-footer > .container {
   box-sizing: border-box;
@@ -63,7 +65,7 @@
 }
 .site-header :focus-visible,
 .site-footer :focus-visible {
-  outline: 2.5px solid var(--chrome-focus);
+  outline: 2.5px solid var(--chrome-action);
   outline-offset: 3px;
   border-radius: 0;
 }
@@ -75,8 +77,8 @@
   align-items: center;
   gap: 0.75rem;
   flex-shrink: 0;
+  min-height: 44px;
   color: var(--chrome-ink);
-  font-weight: 600;
   letter-spacing: 0;
   text-decoration: none;
 }
@@ -86,25 +88,22 @@
   width: 36px;
   height: 36px;
   padding: 2px;
+  border: 0;
   border-radius: 0;
   object-fit: contain;
-  background: #FFFFFF;
-  border: 1.5px solid var(--chrome-ink);
+  background: var(--chrome-surface);
   box-shadow: none;
 }
-/* Dark mode keeps the white disc, as the footer does: the sprout's dark
-   outline all but disappears straight on a dark bar. Same disc on the light
-   bar's dark theme and on the ink bar. */
-[data-theme="dark"] .site-header .brand__mark {
-  background: #FFFFFF;
-  border-color: transparent;
-}
+/* The sprout's dark outline all but disappears straight on a dark ground, so
+   the mark keeps a light disc on the night bar and on the ink field. */
+[data-theme="dark"] .site-header .brand__mark,
+.site-footer .brand__mark { background: #FFFFFF; }
 .site-header .brand__name,
 .site-footer .brand__name {
   font-family: var(--chrome-display);
-  font-size: 1.1rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
   line-height: 1;
   white-space: nowrap;
 }
@@ -134,7 +133,7 @@
   color: var(--chrome-ink-soft);
   background: none;
   border-radius: 0;
-  font-family: var(--chrome-display);
+  font-family: var(--chrome-body);
   font-size: 0.9375rem;
   font-weight: 500;
   line-height: 1.2;
@@ -151,7 +150,7 @@
   bottom: 6px;
   height: 2px;
   border-radius: 0;
-  background: var(--chrome-mark);
+  background: var(--chrome-action);
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform var(--chrome-t);
@@ -166,7 +165,7 @@
 .site-header .nav__link[aria-current="page"],
 .site-header .nav__summary.is-current { color: var(--chrome-ink); background: none; }
 
-/* Free tools menu (details/summary: works without JS, closes via chrome.js) */
+/* Tools menu (details/summary: works without JS, closes via chrome.js) */
 .site-header .nav__details { position: relative; }
 .site-header .nav__summary {
   list-style: none;
@@ -183,9 +182,9 @@
   transition: transform var(--chrome-t);
 }
 
-/* Just above the menu breakpoint the seven top-level items are a little
-   wider than the bar, so the tabs (and their underline) sit closer. */
-@media (min-width: 1001px) and (max-width: 1080px) {
+/* Just above the menu breakpoint the top-level items are a little wider
+   than the bar, so the tabs (and their underline) sit closer. */
+@media (min-width: 1001px) and (max-width: 1120px) {
   .site-header .nav__link { padding-left: 0.4rem; padding-right: 0.4rem; }
   .site-header .nav__link::after { left: 0.4rem; right: 0.4rem; }
 }
@@ -200,9 +199,9 @@
   padding: 0.5rem;
   background: var(--chrome-surface);
   border: 0;
-  border-top: 3px solid var(--chrome-ink);
+  border-top: 6px solid var(--chrome-action);
   border-radius: 0;
-  box-shadow: var(--shadow-md, 0 18px 40px -24px rgba(27, 42, 58, 0.35)); /* a menu floats */
+  box-shadow: none; /* taste-skill-ignore: the menu sits on a tone step, not a lift */
   transform: translateX(-50%);
 }
 .site-header .nav__submenu {
@@ -225,9 +224,9 @@
 .site-header .nav__submenu-link[aria-current="page"] { background: var(--chrome-tint); }
 .site-header .nav__submenu-title {
   color: var(--chrome-ink);
-  font-family: var(--chrome-display);
+  font-family: var(--chrome-body);
   font-size: 0.9375rem;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.25;
 }
 .site-header .nav__submenu-desc {
@@ -240,13 +239,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 0.35rem;
-  padding: 0.75rem 0.8rem 0.4rem;
-  border-top: 3px solid var(--chrome-ink);
+  margin-top: 0.25rem;
+  padding: 0.75rem 0.8rem;
+  border-top: 0;
+  background: var(--chrome-ground-2);
   color: var(--chrome-action);
-  font-family: var(--chrome-display);
+  font-family: var(--chrome-body);
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   text-decoration: none;
 }
 .site-header .nav__menu-all span { transition: transform var(--chrome-t); }
@@ -254,17 +254,6 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .site-header .nav__details[open] .nav__menu { animation: chrome-menu-in 200ms var(--chrome-ease); }
-  .site-header .nav__details[open] .nav__menu--auth { animation-name: chrome-menu-in-end; }
-}
-/* "My classes" chooser: two rows (this site, and Thinkific for the toddler
-   class) until the toddler class moves on-site. It sits at the right of the
-   bar, so its menu aligns to the label's right edge instead of centering. */
-@media (min-width: 1001px) {
-  .site-header .nav__menu--auth { left: auto; right: 0; width: 300px; transform: none; }
-}
-@keyframes chrome-menu-in-end {
-  from { opacity: 0; transform: translateY(-6px); }
-  to { opacity: 1; transform: none; }
 }
 @keyframes chrome-menu-in {
   from { opacity: 0; transform: translate(-50%, -6px); }
@@ -275,14 +264,7 @@
 .site-header .nav__auth {
   display: flex;
   align-items: center;
-  margin-left: 0.5rem;
-}
-.site-header .nav__auth::before {
-  content: "";
-  width: 1px;
-  height: 20px;
-  margin-right: 0.5rem;
-  background: var(--chrome-line);
+  margin-left: 0.75rem;
 }
 /* "My classes" is the account link; a person glyph says so before the label
    does. A mask filled with currentColor, so it follows hover, the ink bar and
@@ -296,11 +278,8 @@
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round'%3E%3Ccircle cx='8' cy='5.25' r='2.75'/%3E%3Cpath d='M2.75 14.5c0-2.9 2.35-4.9 5.25-4.9s5.25 2 5.25 4.9'/%3E%3C/svg%3E") center / contain no-repeat;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round'%3E%3Ccircle cx='8' cy='5.25' r='2.75'/%3E%3Cpath d='M2.75 14.5c0-2.9 2.35-4.9 5.25-4.9s5.25 2 5.25 4.9'/%3E%3C/svg%3E") center / contain no-repeat;
 }
-/* Just above the menu breakpoint, room for that glyph next to the longest
-   CTA ("Browse the classes"). */
-@media (min-width: 1001px) and (max-width: 1080px) {
+@media (min-width: 1001px) and (max-width: 1120px) {
   .site-header .nav__auth { margin-left: 0.25rem; }
-  .site-header .nav__auth::before { margin-right: 0.25rem; }
   /* The bar is at its tightest here; the label alone carries "My classes". */
   .site-header .nav__auth .nav__link::before { display: none; }
 }
@@ -311,27 +290,27 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 48px; /* DESIGN.md: every button is at least 48px tall */
+  min-height: 48px;
   padding: 0.55rem 1.15rem;
-  border: 1.5px solid var(--chrome-action);
+  border: 0;
   border-radius: 0;
   background: var(--chrome-action);
   color: var(--chrome-action-ink);
   box-shadow: none;
-  font-family: var(--chrome-display);
+  font-family: var(--chrome-body);
   font-size: 0.9375rem;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.2;
   letter-spacing: 0;
   text-decoration: none;
   white-space: nowrap;
-  transition: background-color var(--chrome-t), transform 140ms var(--chrome-ease), box-shadow var(--chrome-t);
+  transition: background-color var(--chrome-t), transform 140ms var(--chrome-ease);
 }
 .site-header .nav__cta .btn:hover {
-  background: var(--chrome-action-hover, var(--primary-hover, #17494B));
-  border-color: var(--chrome-action-hover, var(--primary-hover, #17494B));
+  background: var(--chrome-action-hover);
   color: var(--chrome-action-ink);
 }
+.site-header .nav__cta .btn:active { transform: scale(0.97); }
 
 /* Theme + menu buttons */
 .site-header .theme-toggle,
@@ -343,19 +322,20 @@
   width: 44px;
   height: 44px;
   padding: 0;
-  border: 1.5px solid var(--chrome-ink);
+  border: 0;
   border-radius: 0;
-  background: transparent;
+  background: var(--chrome-tint);
   color: var(--chrome-ink);
   cursor: pointer;
-  transition: color var(--chrome-t), border-color var(--chrome-t), transform 140ms var(--chrome-ease);
+  transition: color var(--chrome-t), background-color var(--chrome-t), transform 140ms var(--chrome-ease);
 }
-.site-header .theme-toggle:hover { background: var(--chrome-ink); color: var(--chrome-ground); }
+.site-header .theme-toggle:hover,
+.site-header .nav-toggle:hover { background: var(--chrome-ink); color: var(--chrome-ground); }
 .site-header .theme-toggle__sun { display: none; }
 [data-theme="dark"] .site-header .theme-toggle__sun { display: block; }
 [data-theme="dark"] .site-header .theme-toggle__moon { display: none; }
 
-.site-header .nav-toggle { display: none; color: var(--chrome-ink); }
+.site-header .nav-toggle { display: none; }
 .site-header .nav-toggle__bars { position: relative; display: block; width: 18px; height: 12px; }
 .site-header .nav-toggle__bars::before,
 .site-header .nav-toggle__bars::after,
@@ -365,7 +345,7 @@
   left: 0;
   right: 0;
   height: 1.5px;
-  border-radius: 2px;
+  border-radius: 0;
   background: currentColor;
   /* transform + opacity only: the bars never animate `top` (a layout property). */
   transition: transform var(--chrome-t), opacity var(--chrome-t);
@@ -393,8 +373,8 @@
     align-items: stretch;
     gap: 0;
     padding: 0.5rem clamp(1rem, 4vw, 2.25rem) 1.5rem;
-    background: var(--chrome-ground);
-    border-bottom: 3px solid var(--chrome-ink);
+    background: var(--chrome-ground-2);
+    border-bottom: 0;
     box-shadow: none;
     transform: translateY(-8px);
     opacity: 0;
@@ -427,7 +407,7 @@
     height: 6px;
     flex-shrink: 0;
     border-radius: 0;
-    background: var(--chrome-mark);
+    background: var(--chrome-action);
   }
   .site-header .nav__summary { justify-content: flex-start; }
   .site-header .nav__summary .nav__chev { margin-left: auto; }
@@ -444,9 +424,8 @@
     animation: none !important;
   }
   .site-header .nav__submenu-link { padding: 0.6rem 0.75rem; }
-  .site-header .nav__menu-all { margin-top: 0.25rem; padding: 0.6rem 0.75rem; border-top: 0; }
+  .site-header .nav__menu-all { margin-top: 0.25rem; padding: 0.6rem 0.75rem; }
   .site-header .nav__auth { margin: 0; }
-  .site-header .nav__auth::before { display: none; }
   .site-header .nav__list > .nav__cta { margin: 1.25rem 0 0; border-bottom: 0; }
   .site-header .nav__cta .btn { width: 100%; min-height: 52px; font-size: 1rem; }
 }
@@ -461,84 +440,52 @@
      lines instead of pushing the menu button off-screen (WCAG 1.4.10). */
   .site-header .brand { flex-shrink: 1; min-width: 0; gap: 0.5rem; }
   .site-header .brand__mark { flex-shrink: 0; }
-  .site-header .brand__name { font-size: 1rem; line-height: 1.05; white-space: normal; }
+  .site-header .brand__name { font-size: 1.05rem; line-height: 1.05; white-space: normal; }
 }
 
-/* ---------- Footer ---------- */
+/* ---------- Footer: columns above, the wordmark below, on the ink field ---------- */
 .site-footer {
-  --chrome-on-dark: #EEF4F3;
-  --chrome-on-dark-soft: #BCCFD3;
-  --chrome-on-dark-muted: #9DB3B8;
-  --chrome-on-dark-line: rgba(238, 244, 243, 0.14);
-  padding: clamp(3.5rem, 7vw, 5rem) 0 2rem;
-  background: var(--ink-900, #16232F);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 70svh;
+  padding: 2.5rem 0 1.5rem;
+  background: var(--chrome-field);
   border-top: 0;
   color: var(--chrome-on-dark);
+  font-family: var(--chrome-body);
 }
-[data-theme="dark"] .site-footer {
-  background: #0A1016;
-}
-.site-footer :focus-visible { outline-color: #7FC4BC; }
-/* The name returns at full width to close the page: a designed end, not a sitemap. */
-.site-footer .site-footer__wordmark {
-  margin: clamp(2.5rem, 7vw, 5rem) 0 0;
-  max-width: none;
-  font-family: var(--chrome-display);
-  font-weight: 600;
-  font-size: clamp(2.4rem, 7.4vw, 7.4rem);
-  line-height: 0.95;
-  letter-spacing: -0.035em;
-  color: #FFFFFF;
-  text-wrap: balance;
-}
+.site-footer :focus-visible { outline-color: var(--chrome-on-dark); }
 .site-footer .site-footer__inner {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 2.1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr);
   gap: clamp(2.5rem, 6vw, 5rem);
   align-items: start;
 }
 .site-footer .brand,
 .site-footer .brand:hover,
-.site-footer .brand__name { color: #FFFFFF; }
-.site-footer .brand__mark {
-  background: rgba(255, 255, 255, 0.94);
-  border-color: var(--chrome-on-dark-line);
-}
+.site-footer .brand__name { color: var(--chrome-on-dark); }
+.site-footer .brand__name { font-family: var(--chrome-body); font-weight: 500; }
 .site-footer .site-footer__tag {
   max-width: 30ch;
   margin: 1.1rem 0 0;
   color: var(--chrome-on-dark-soft);
   font-family: var(--chrome-body);
-  font-size: 0.9375rem;
-  line-height: 1.6;
+  font-size: var(--chrome-text);
+  line-height: 1.5;
 }
-.site-footer .footer-ig {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 1.25rem;
-  color: var(--chrome-on-dark-soft);
-  font-family: var(--chrome-body);
-  font-size: 0.875rem;
-  font-weight: 500;
-  text-decoration: none;
-  transition: color var(--chrome-t);
-}
-.site-footer .footer-ig:hover { color: #FFFFFF; }
-/* 44px touch targets for the brand links and the Instagram link. */
-.site-header .brand, .site-footer .brand, .site-footer .footer-ig { min-height: 44px; }
 
 .site-footer .site-footer__nav {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 2rem;
 }
+.site-footer .site-footer__nav > div { min-width: 0; }
 .site-footer .site-footer__heading {
   margin: 0 0 1rem;
-  color: #FFFFFF;
-  font-family: var(--chrome-display);
-  font-size: 1.0625rem;
-  font-weight: 600;
+  color: var(--chrome-on-dark);
+  font-family: var(--chrome-body);
+  font-size: var(--chrome-text);
+  font-weight: 500;
   letter-spacing: 0;
   line-height: 1.3;
   text-transform: none;
@@ -554,10 +501,11 @@
 .site-footer .footer-list a {
   color: var(--chrome-on-dark-soft);
   font-family: var(--chrome-body);
-  font-size: 0.9375rem;
+  font-size: var(--chrome-text);
   font-weight: 400;
   line-height: 1.35;
   text-decoration: none;
+  overflow-wrap: anywhere;
   transition: color var(--chrome-t);
 }
 /* 44px touch targets on phones; the taller links carry the row spacing. */
@@ -566,40 +514,55 @@
   .site-footer .footer-list a { display: flex; align-items: center; min-height: 44px; }
 }
 .site-footer .footer-list a:hover,
-.site-footer .footer-list a[aria-current="page"] { color: #FFFFFF; }
+.site-footer .footer-list a[aria-current="page"] { color: var(--chrome-on-dark); }
 
+/* The name returns at full width to close the page: a designed end, not a sitemap. */
+.site-footer .site-footer__close { grid-row: 3; align-self: end; }
+.site-footer .site-footer__wordmark {
+  margin: 0 0 0 -0.04em;
+  max-width: none;
+  font-family: var(--chrome-display);
+  font-weight: 500;
+  font-size: var(--step-display, clamp(2rem, 0.9rem + 4.2vw, 5rem));
+  line-height: 0.95;
+  letter-spacing: var(--display-tracking, -0.025em);
+  color: var(--chrome-on-dark);
+  white-space: nowrap;
+}
 .site-footer .footer-bottom {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 0.75rem 1.5rem;
-  margin-top: clamp(2.5rem, 6vw, 4rem);
-  padding-top: 1.25rem;
-  border-top: 3px solid var(--chrome-on-dark);
+  gap: 0.5rem 2rem;
+  margin-top: 1.25rem;
+  padding-top: 0;
+  border-top: 0;
   color: var(--chrome-on-dark-muted);
-  font-family: var(--chrome-display);
-  font-size: 0.8125rem;
+  font-family: var(--chrome-body);
+  font-size: var(--chrome-small);
   line-height: 1.5;
 }
 .site-footer .footer-bottom p { margin: 0; color: inherit; font-size: inherit; max-width: none; }
 .site-footer .footer-bottom a {
   color: var(--chrome-on-dark-soft);
   text-decoration: underline;
-  text-decoration-color: var(--chrome-on-dark-line);
   text-underline-offset: 3px;
-  transition: color var(--chrome-t), text-decoration-color var(--chrome-t);
+  transition: color var(--chrome-t);
   /* A fingertip-sized hit area without changing the line. */
   display: inline-block;
   padding-block: 0.8rem;
   margin-block: -0.8rem;
 }
-.site-footer .footer-bottom a:hover { color: #FFFFFF; text-decoration-color: currentColor; }
+.site-footer .footer-bottom a:hover { color: var(--chrome-on-dark); }
 
-@media (max-width: 900px) {
-  .site-footer .site-footer__inner { grid-template-columns: 1fr; }
+@media (max-width: 1100px) {
+  .site-footer .site-footer__nav { grid-template-columns: 1fr 1fr; gap: 2rem 1.5rem; }
 }
-@media (max-width: 560px) {
-  .site-footer .site-footer__nav { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 1.5rem; }
+@media (max-width: 900px) {
+  .site-footer .site-footer__inner { grid-template-columns: 1fr; gap: 2rem; }
+}
+@media (max-width: 600px) {
+  .site-footer .site-footer__wordmark { white-space: normal; font-size: clamp(2rem, 12.6vw, 3.2rem); text-wrap: balance; }
 }
 
 @media print {

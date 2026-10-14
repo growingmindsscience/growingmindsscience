@@ -121,76 +121,10 @@ a { color: inherit; }
 @media (hover: hover) and (pointer: fine) { .fg-quiet-link:hover { text-decoration-color: currentColor; } }
 
 /* =========================================================
-   Header and footer: the field-guide world on top of chrome.css
+   Header and footer: chrome.css renders the field-guide look on every page
+   (paper bar, Newsreader wordmark, DM Sans links, the ink-field footer with
+   the wordmark at full width). Nothing to override here.
    ========================================================= */
-.fg .site-header { background: var(--paper); }
-.fg .site-header.is-scrolled { background: var(--paper-2); }
-.fg .site-header .nav__auth::before { display: none; }
-.fg .site-header .nav__auth { margin-left: 0.75rem; }
-.fg .site-header .brand__mark { border: 0; background: var(--surface); }
-.fg .site-header .theme-toggle,
-.fg .site-header .nav-toggle { border: 0; background: var(--surface-2); }
-.fg .site-header .theme-toggle:hover { background: var(--ink); color: var(--paper); }
-.fg .site-header .nav__link { font-family: var(--font-body); }
-.fg .site-header .nav__cta .btn { border: 0; font-family: var(--font-body); }
-.fg .site-header .nav__menu { border-top: 6px solid var(--forest); background: var(--surface); padding: 0.5rem; box-shadow: none; /* taste-skill-ignore: removes the chrome menu shadow */ }
-.fg .site-header .nav__menu-all { border-top: 0; margin-top: 0.25rem; background: var(--paper-2); padding: 0.75rem 0.8rem; }
-.fg .site-header .nav__submenu-title { font-family: var(--font-body); }
-.fg .site-header .nav__submenu-desc { font-family: var(--font-body); }
-.fg .site-header .brand__name { font-family: var(--font-display); font-weight: 500; font-size: 1.2rem; letter-spacing: -0.01em; }
-@media (max-width: 1000px) {
-  .fg .site-header .nav__list { border-bottom: 0; background: var(--paper); }
-}
-
-/* Footer: columns above, the wordmark below, on the same ink field as the close. */
-.fg .site-footer {
-  display: grid; grid-template-rows: auto 1fr auto;
-  min-height: 70svh;
-  padding: 2.5rem 0 1.5rem;
-  background: var(--field-ink);
-  color: var(--on-ink);
-  --chrome-on-dark: var(--on-ink);
-  --chrome-on-dark-soft: var(--on-ink-soft);
-  --chrome-on-dark-muted: var(--on-ink-muted);
-}
-[data-theme="dark"] .fg .site-footer { background: var(--field-ink); }
-.fg .site-footer .site-footer__inner { grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr); }
-.fg .site-footer .site-footer__nav { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.fg .site-footer .brand__mark { border: 0; }
-.fg .site-footer .brand__name,
-.fg .site-footer .site-footer__heading { font-family: var(--font-body); font-weight: 500; }
-.fg .site-footer .site-footer__tag,
-.fg .site-footer .footer-list a { font-family: var(--font-body); font-size: var(--step-body); }
-.fg .site-footer .footer-list a { color: var(--on-ink-soft); }
-.fg .site-footer .footer-list a:hover { color: var(--on-ink); }
-.fg .site-footer .site-footer__close { grid-row: 3; align-self: end; }
-.fg .site-footer .site-footer__wordmark {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: var(--step-display);
-  line-height: 0.95;
-  letter-spacing: var(--display-tracking);
-  color: var(--on-ink);
-  white-space: nowrap;
-  margin-left: -0.04em;
-}
-.fg .site-footer .site-footer__nav > div { min-width: 0; }
-.fg .site-footer .footer-list a { overflow-wrap: anywhere; }
-.fg .site-footer .footer-bottom {
-  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 2rem;
-  margin-top: 1.25rem; padding-top: 0; border-top: 0;
-  color: var(--on-ink-muted); font-size: var(--step-small);
-}
-.fg .site-footer .footer-bottom p { margin: 0; }
-.fg .site-footer :focus-visible { outline-color: var(--on-ink); }
-@media (max-width: 900px) {
-  .fg .site-footer .site-footer__inner { grid-template-columns: 1fr; gap: 2rem; }
-  .fg .site-footer .site-footer__nav { grid-template-columns: 1fr 1fr; gap: 2rem 1.5rem; }
-}
-@media (max-width: 600px) {
-  .fg .site-footer .site-footer__wordmark { white-space: normal; font-size: clamp(2rem, 12.6vw, 3.2rem); text-wrap: balance; }
-}
 
 /* =========================================================
    1. The masthead and the title

@@ -136,28 +136,56 @@ function renderPage(entry, { draft }) {
   <meta property="og:description" content="${escAttr(entry.shortAnswer)}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=3fa98080dc" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=DM+Sans:opsz,wght@9..40,400..600&display=swap" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=0c958d8a60" />
   <link rel="stylesheet" href="../assets/css/refresh.css?v=4def14502a" />
   <script type="application/ld+json">
 ${jsonLd(entry, url, published, modified)}
   </script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+<a class="skip-link" href="#main">Skip to content</a>
+
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
       <a class="brand" href="/" aria-label="Growing Minds Science, home">
-        <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+        <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" decoding="async" />
         <span class="brand__name">Growing Minds Science</span>
       </a>
+
       <nav class="nav" aria-label="Primary">
-        <ul class="nav__list">
-          <li><a class="nav__link" href="/answers/">Answers</a></li>
+        <button class="nav-toggle" type="button" aria-controls="primary-nav-list" aria-expanded="false" aria-label="Open menu">
+          <span class="nav-toggle__bars"><span></span></span>
+        </button>
+
+        <ul class="nav__list" id="primary-nav-list">
+          <li><a class="nav__link" href="/#explore">Explore</a></li>
+          <li><a class="nav__link" href="/classes/">Classes</a></li>
+          <li class="nav__item">
+            <details class="nav__details">
+              <summary class="nav__link nav__summary is-current">Tools <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary>
+              <div class="nav__menu">
+                <ul class="nav__submenu">
+                  <li><a class="nav__submenu-link" href="/tools/right-now"><span class="nav__submenu-title">It&rsquo;s hard right now</span><span class="nav__submenu-desc">A calm next step in two minutes.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/growing-minds-ai"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/communication-snapshot"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A free ten-minute counting check-in.</span></a></li>
+                </ul>
+                <a class="nav__menu-all" href="/tools/">All free tools and guides <span aria-hidden="true">&rarr;</span></a>
+              </div>
+            </details>
+          </li>
           <li><a class="nav__link" href="/articles/">Articles</a></li>
-          <li><a class="nav__link" href="/milestones">Milestones</a></li>
-          <li><a class="nav__link" href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
+          <li><a class="nav__link" href="/about/">About</a></li>
+          <li class="nav__item nav__auth"><a class="nav__link" href="/nsc/class-login">My classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Enroll, from $49</a></li>
         </ul>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
+          <svg class="theme-toggle__moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="theme-toggle__sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2 12h2.2M19.8 12H22M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+        </button>
       </nav>
     </div>
   </header>
@@ -213,8 +241,8 @@ function renderHub(entries, { draft }) {
   <link rel="canonical" href="${ORIGIN}/answers/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=3fa98080dc" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=DM+Sans:opsz,wght@9..40,400..600&display=swap" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=0c958d8a60" />
   <link rel="stylesheet" href="../assets/css/refresh.css?v=4def14502a" />
   <style>.answers-list{list-style:none;padding:0;margin:0 0 var(--space-8);display:grid;gap:var(--space-3)}.answers-list a{color:var(--primary);font-weight:600;text-decoration:none}.answers-list a:hover{text-decoration:underline}</style>
 </head>

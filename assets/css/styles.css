@@ -1,10 +1,11 @@
 /* =========================================================
    Growing Minds Science
-   Stylesheet for the inner pages: "Terrain" (the first five years as a
-   survey map). Tokens live in tokens-terrain.css and are shared with
-   home.css, seminar.css, tools.css and chrome.css.
+   Stylesheet for the inner pages. Tokens live in tokens-field-guide.css
+   (the Living Field Guide: paper, ink, forest, sage; Newsreader over DM Sans)
+   and are shared with home.css, seminar.css, tools.css and chrome.css.
+   The field-guide layer at the end of refresh.css carries the house rules.
    ========================================================= */
-@import url("/assets/css/tokens-terrain.css?v=d9a5e6e996");
+@import url("/assets/css/tokens-field-guide.css?v=23d3d3f936");
 /* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 html { color-scheme: light; -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--header-height) + 1rem); }
