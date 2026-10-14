@@ -28,7 +28,9 @@ body.fg {
 .fg img, .fg video, .fg svg, .fg canvas { display: block; max-width: 100%; }
 .fg img, .fg video { height: auto; }
 .fg button, .fg input, .fg select, .fg textarea { font: inherit; color: inherit; }
-.fg button { background: none; border: 0; padding: 0; cursor: pointer; }
+/* :where() keeps this reset at button weight, so .btn styles a <button> the same as a link. */
+.fg button:where(:not(.btn)) { background: none; border: 0; padding: 0; cursor: pointer; }
+.fg button.btn { border: 0; cursor: pointer; }
 a { color: inherit; }
 .fg :target { scroll-margin-top: calc(var(--header-h) + 1rem); }
 .fg ::selection { background: var(--forest); color: var(--on-forest); }
@@ -361,13 +363,15 @@ a { color: inherit; }
   .classes__table tbody tr:nth-child(even) { background: var(--surface); }
   .fg .classes__table tbody th, .fg .classes__table tbody td { padding: 0; background: none !important; }
   .classes__table tbody th { margin-bottom: 0.6rem; }
-  .classes__table tbody td { display: grid; grid-template-columns: minmax(0, 9rem) minmax(0, 1fr); gap: 0 1rem; padding: 0.35rem 0; }
-  .classes__table tbody td::before { content: attr(data-plan); color: var(--ink-soft); font-weight: 500; }
-  .classes__table .classes__actions { padding-top: 16px; }
+  /* The class name sits in a fixed left column; the cell's text and links flow beside it. */
+  .fg .classes__table tbody td { position: relative; padding: 0.35rem 0 0.35rem calc(min(9rem, 40%) + 1rem); }
+  .classes__table tbody td::before { content: attr(data-plan); position: absolute; left: 0; top: 0.35rem; width: min(9rem, 40%); color: var(--ink-soft); font-weight: 500; }
+  .classes__table .classes__actions { display: grid; gap: 6px; padding: 0; background: none; }
   .classes__table .classes__actions th { display: none; }
-  .classes__table .classes__actions td { grid-template-columns: 1fr; }
-  .classes__table .classes__actions td::before { display: none; }
-  .classes__table .classes__actions .btn { max-width: none; }
+  /* Each class gets its own block on the phone: its name, then its button. */
+  .fg .classes__table .classes__actions td { padding: 16px 20px 18px; background: var(--paper-2) !important; }
+  .classes__table .classes__actions td::before { position: static; display: block; width: auto; margin-bottom: 0.75rem; font-family: var(--font-display); font-size: var(--step-lead); line-height: 1.2; color: var(--ink); }
+  .classes__table .classes__actions .btn { max-width: none; width: 100%; }
   .classes__price small { display: inline; margin-left: 0.4em; }
 }
 
@@ -461,6 +465,7 @@ a { color: inherit; }
   }
 }
 @keyframes fg-rise { to { opacity: 1; transform: none; } }
+.fg-drift { overflow: clip; }
 @keyframes fg-drift { from { transform: translateY(-3%) scale(1.06); } to { transform: translateY(3%) scale(1.06); } }
 
 /* Inline links keep their line but reach a 44px touch target. */

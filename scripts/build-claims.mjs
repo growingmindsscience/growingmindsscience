@@ -80,11 +80,11 @@ ${extraHead}
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=DM+Sans:opsz,wght@9..40,400..600&display=swap" />
   <link rel="stylesheet" href="/assets/css/styles.css?v=c298342254" />
-  <link rel="stylesheet" href="/assets/css/refresh.css?v=fbfeb0f65f" />
+  <link rel="stylesheet" href="/assets/css/refresh.css?v=16d8dd0540" />
   <link rel="stylesheet" href="/assets/css/tools.css?v=2473fffeb2" />
   <script>try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <style>${SHARED_CSS}</style>
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=0341966128" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=b2b12d2141" />
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>

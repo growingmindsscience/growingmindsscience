@@ -1332,3 +1332,8 @@ main .section-intro, main .tool-lede { max-width: 62ch; }
     padding: var(--space-4);
   }
 }
+
+/* Touch targets: the article contents list reaches 44px on phones. */
+@media (max-width: 760px) {
+  .article-toc li a { display: inline-flex; align-items: center; min-height: 44px; }
+}
