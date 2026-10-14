@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
+  /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <title>Articles | Growing Minds Science</title>
   <meta name="description" content="Developmental science in plain language: new research explained, lessons from coaching parents, and practical reminders for the early years." />
-  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#F7F4EC" />
   <meta name="color-scheme" content="light dark" />
 
   <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
@@ -22,13 +22,15 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=3fa98080dc" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=4def14502a" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Inter:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=909f54ea40" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=9ee704dd6a" />
+  <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=d000ca1262" />
 </head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
+<body class="fg fg--page hub">
+  <!-- header:start -->
+<a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
@@ -44,17 +46,18 @@
 
         <ul class="nav__list" id="primary-nav-list">
           <li class="nav__now"><a class="nav__link" href="/tools/right-now">It&rsquo;s hard right now</a></li>
+          <li><a class="nav__link" href="/#explore">Explore</a></li>
           <li><a class="nav__link" href="/classes/">Classes</a></li>
           <li class="nav__item">
             <details class="nav__details">
-              <summary class="nav__link nav__summary">Free tools <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary>
+              <summary class="nav__link nav__summary">Tools <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary>
               <div class="nav__menu">
                 <ul class="nav__submenu">
+                  <li><a class="nav__submenu-link" href="/tools/right-now"><span class="nav__submenu-title">It&rsquo;s hard right now</span><span class="nav__submenu-desc">A calm next step in two minutes.</span></a></li>
                   <li><a class="nav__submenu-link" href="/tools/growing-minds-ai"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A free ten-minute counting check-in; the full version is $34.</span></a></li>
                   <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
                   <li><a class="nav__submenu-link" href="/tools/communication-snapshot"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/arcade/"><span class="nav__submenu-title">Arcade</span><span class="nav__submenu-desc">Silly games for a five-minute break between lessons.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A free ten-minute counting check-in.</span></a></li>
                 </ul>
                 <a class="nav__menu-all" href="/tools/">All free tools and guides <span aria-hidden="true">&rarr;</span></a>
               </div>
@@ -63,7 +66,7 @@
           <li><a class="nav__link" href="/articles/" aria-current="page">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
           <li class="nav__item nav__auth"><a class="nav__link" href="/nsc/class-login">My classes</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Enroll, from $49</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -73,179 +76,101 @@
       </nav>
     </div>
   </header>
+<!-- header:end -->
 
-  <main id="main">
-
-    <section class="page-hero page-hero--visual">
-      <div class="container">
-        <div class="page-hero__copy" data-stagger>
-          <h1 class="page-hero__title" data-animate>Developmental science, in plain language.</h1>
-          <p class="page-hero__lede" data-animate>
-            Short pieces for parents and professionals who want the research without
-            the jargon. New studies explained simply, lessons from coaching
-            conversations, and practical reminders for the early years.
-          </p>
+  <main id="main" tabindex="-1">
+    <section class="hb-container hub-title" aria-labelledby="page-heading">
+      <div class="hub-title__grid">
+        <div>
+          <h1 class="hb-display" id="page-heading">Developmental science, in plain language.</h1>
+          <p class="hb-lead" data-rise style="--i:1">Short pieces for parents and professionals who want the research without the jargon: new studies explained simply, lessons from coaching, and practical reminders.</p>
         </div>
-        <figure class="page-hero__visual" data-animate style="--anim-delay: 200ms">
-          <img src="../assets/img/site/family-reading.jpg"
-               alt="A parent and a young child reading a picture book together on the floor."
-               width="1000" height="563" loading="eager" fetchpriority="high" decoding="async" />
-        </figure>
+        <figure class="hub-photo hub-photo--tall" data-rise style="--i:2"><img src="/assets/img/site/toddler-blocks.jpg" width="1774" height="887" alt="A toddler's hands setting one wooden block on a small bridge of blocks on a scuffed wooden table." fetchpriority="high" decoding="async" /></figure>
       </div>
     </section>
 
-    <section style="padding-top: 0;">
-      <div class="container">
-        <div class="notice">
-          <p>
-            <strong>Now publishing.</strong> Articles are written one at a time
-            and edited carefully, quality over volume. Start with the newest
-            research explainers and practical guides below.
-          </p>
+    <section class="hub-sec hub-sec--white" aria-labelledby="list-heading">
+      <div class="hb-container hub-split">
+        <div class="hub-split__head" data-rise>
+          <h2 class="hb-display" id="list-heading">Published articles</h2>
+          <p>Eight so far, written one at a time and edited carefully.</p>
         </div>
-
-        <div class="promo-banner">
-          <div>
-            <p class="section-head__eyebrow">Three classes · open now</p>
-            <p class="promo-banner__title">Language, autonomy, and big feelings. $49 · lifetime access.</p>
-          </div>
-          <a class="btn btn--primary" href="/classes/">Browse the classes →</a>
-        </div>
-
-        <div class="topic-section">
-          <div class="topic-section__head">
-            <h2>Published articles</h2>
-            <span class="topic-section__count">8 articles</span>
-          </div>
-
-          <div class="article-grid" data-stagger>
-            <article class="article-card" data-animate>
-              <p class="article-card__kicker">Practical</p>
-              <h3 class="article-card__title"><a href="/articles/cliff-at-three">The cliff at three: what happens when early intervention ends</a></h3>
-              <p class="article-card__dek">Turning three swaps early intervention for preschool special education, and the rules change on the way across. Why the timing is hard, what goes wrong at the IFSP-to-IEP handoff, and the questions to ask first.</p>
-              <p class="article-card__meta">11 minute read</p>
-            </article>
-
-            <article class="article-card" data-animate>
-              <p class="article-card__kicker">Research, explained</p>
-              <h3 class="article-card__title"><a href="/articles/counting-ladder">The counting ladder: what happens between &ldquo;one, two, three&rdquo; and actually counting</a></h3>
-              <p class="article-card__dek">A toddler who &ldquo;counts to ten&rdquo; is usually reciting, and that&rsquo;s right for the age. Here&rsquo;s the sequence children climb from saying number words to understanding them.</p>
-              <p class="article-card__meta">6 minute read</p>
-            </article>
-
-            <article class="article-card" data-animate>
-              <p class="article-card__kicker">Research, explained</p>
-              <h3 class="article-card__title"><a href="/articles/serve-and-return">What &ldquo;serve and return&rdquo; actually means, and what it doesn&rsquo;t</a></h3>
-              <p class="article-card__dek">A clear translation of one of the most cited ideas in early-language research, including where it&rsquo;s been over-applied.</p>
-              <p class="article-card__meta">8 minute read</p>
-            </article>
-
-            <article class="article-card" data-animate>
-              <p class="article-card__kicker">Practical</p>
-              <h3 class="article-card__title"><a href="/articles/screen-time">A short, honest take on screen time</a></h3>
-              <p class="article-card__dek">What the current research actually supports, what it doesn&rsquo;t, and how to think about it without shame or dogma.</p>
-              <p class="article-card__meta">6 minute read</p>
-            </article>
-
-            <article class="article-card" data-animate>
-              <p class="article-card__kicker">From coaching</p>
-              <h3 class="article-card__title"><a href="/articles/toddler-no">The toddler &ldquo;no&rdquo; is not the war you think it is</a></h3>
-              <p class="article-card__dek">A pattern that comes up every week in parent coaching, why it lands so hard, and a calmer mental model for it.</p>
-              <p class="article-card__meta">7 minute read</p>
-            </article>
-
-            <article class="article-card" data-animate>
-              <p class="article-card__kicker">Research, explained</p>
-              <h3 class="article-card__title"><a href="/articles/self-regulation">Self-regulation, briefly</a></h3>
-              <p class="article-card__dek">What developmental science means by &ldquo;regulation,&rdquo; why co-regulation comes first, and what that implies for everyday moments.</p>
-              <p class="article-card__meta">8 minute read</p>
-            </article>
-
-            <article class="article-card" data-animate>
-              <p class="article-card__kicker">From coaching</p>
-              <h3 class="article-card__title"><a href="/articles/parents-nervous-system">When your own nervous system is the variable</a></h3>
-              <p class="article-card__dek">Why a parent&rsquo;s own state often matters more than the perfect script, and how to work with your nervous system instead of against it.</p>
-              <p class="article-card__meta">8 minute read</p>
-            </article>
-
-            <article class="article-card" data-animate>
-              <p class="article-card__kicker">Practical</p>
-              <h3 class="article-card__title"><a href="/articles/milestone-worry">What to do with milestone worry</a></h3>
-              <p class="article-card__dek">A calmer way to read milestone variation, when to bring something up with a clinician, and how to use a tracker without becoming anxious.</p>
-              <p class="article-card__meta">7 minute read</p>
-            </article>
-          </div>
-        </div>
-
-        <div class="topic-section">
-          <div class="topic-section__head">
-            <h2>What you can expect here</h2>
-          </div>
-          <ul class="philosophy-list" style="margin-top: 0;" data-stagger>
-            <li data-animate>
-              <span class="num" aria-hidden="true"></span>
-              <div>
-                <strong>New research, explained simply</strong>
-                <span>Translations of recent developmental studies into plain language, with honesty about what&rsquo;s strong and what&rsquo;s still uncertain.</span>
-              </div>
-            </li>
-            <li data-animate>
-              <span class="num" aria-hidden="true"></span>
-              <div>
-                <strong>Notes from coaching</strong>
-                <span>Patterns that come up over and over in parent coaching, written carefully so the lesson is portable to other families.</span>
-              </div>
-            </li>
-            <li data-animate>
-              <span class="num" aria-hidden="true"></span>
-              <div>
-                <strong>Practical reminders</strong>
-                <span>Short pieces for the moments when you don&rsquo;t have time to read a paper but want a calmer way to think about something.</span>
-              </div>
-            </li>
-          </ul>
+        <div class="rows">
+          <article class="row" data-rise>
+            <div><p class="row__meta" style="margin-top:0">Practical &middot; 11 minute read</p></div>
+            <div><h3 class="row__name"><a href="/articles/cliff-at-three">The cliff at three: what happens when early intervention ends</a></h3><p class="row__desc" style="margin-top:8px">Turning three swaps early intervention for preschool special education, and the rules change on the way across.</p></div>
+          </article>
+          <article class="row" data-rise>
+            <div><p class="row__meta" style="margin-top:0">Research, explained &middot; 6 minute read</p></div>
+            <div><h3 class="row__name"><a href="/articles/counting-ladder">The counting ladder: what happens between &ldquo;one, two, three&rdquo; and actually counting</a></h3><p class="row__desc" style="margin-top:8px">A toddler who &ldquo;counts to ten&rdquo; is usually reciting, and that&rsquo;s right for the age.</p></div>
+          </article>
+          <article class="row" data-rise>
+            <div><p class="row__meta" style="margin-top:0">Research, explained &middot; 8 minute read</p></div>
+            <div><h3 class="row__name"><a href="/articles/serve-and-return">What &ldquo;serve and return&rdquo; actually means, and what it doesn&rsquo;t</a></h3><p class="row__desc" style="margin-top:8px">One of the most cited ideas in early-language research, including where it&rsquo;s been over-applied.</p></div>
+          </article>
+          <article class="row" data-rise>
+            <div><p class="row__meta" style="margin-top:0">Practical &middot; 6 minute read</p></div>
+            <div><h3 class="row__name"><a href="/articles/screen-time">A short, honest take on screen time</a></h3><p class="row__desc" style="margin-top:8px">What the current research actually supports, what it doesn&rsquo;t, and how to think about it without shame.</p></div>
+          </article>
+          <article class="row" data-rise>
+            <div><p class="row__meta" style="margin-top:0">From coaching &middot; 7 minute read</p></div>
+            <div><h3 class="row__name"><a href="/articles/toddler-no">The toddler &ldquo;no&rdquo; is not the war you think it is</a></h3><p class="row__desc" style="margin-top:8px">A pattern that comes up every week in parent coaching, and a calmer mental model for it.</p></div>
+          </article>
+          <article class="row" data-rise>
+            <div><p class="row__meta" style="margin-top:0">Research, explained &middot; 8 minute read</p></div>
+            <div><h3 class="row__name"><a href="/articles/self-regulation">Self-regulation, briefly</a></h3><p class="row__desc" style="margin-top:8px">What developmental science means by &ldquo;regulation,&rdquo; and why co-regulation comes first.</p></div>
+          </article>
+          <article class="row" data-rise>
+            <div><p class="row__meta" style="margin-top:0">From coaching &middot; 8 minute read</p></div>
+            <div><h3 class="row__name"><a href="/articles/parents-nervous-system">When your own nervous system is the variable</a></h3><p class="row__desc" style="margin-top:8px">Why a parent&rsquo;s own state often matters more than the perfect script.</p></div>
+          </article>
+          <article class="row" data-rise>
+            <div><p class="row__meta" style="margin-top:0">Practical &middot; 7 minute read</p></div>
+            <div><h3 class="row__name"><a href="/articles/milestone-worry">What to do with milestone worry</a></h3><p class="row__desc" style="margin-top:8px">A calmer way to read milestone variation, and when to bring something up with a clinician.</p></div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="section--alt">
-      <div class="container container--narrow center">
-        <h2 class="inline-signup__heading">Get new articles by email.</h2>
-        <p class="lede inline-signup__lede">
-          No fixed cadence, no filler. A short note when a new piece is ready.
-        </p>
-        <form
-          id="articlesSignupForm"
-          class="inline-signup"
-          method="POST"
-          action="/api/waitlist"
-          data-newsletter
-          data-success="You're in. We'll send new articles when they're ready.">
-          <input type="hidden" name="subject" value="Articles Email Signup — Growing Minds Science" />
-          <input type="hidden" name="interest" value="Articles" />
-          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
-          <input
-            type="email"
-            name="email"
-            required
-            autocomplete="email"
-            placeholder="your@email.com"
-            class="inline-signup__input"
-            aria-label="Email address"
-            aria-describedby="articlesEmailError" />
-          <button
-            type="submit"
-            class="btn btn--primary">Send me articles</button>
-          <p id="articlesEmailError" class="field-error" role="alert"></p>
-          <p id="articlesFormStatus" role="status" aria-live="polite" class="inline-signup__status"></p>
-        </form>
-        <p class="inline-signup__disclaimer">Unsubscribe anytime. No spam.</p>
+    <section class="hub-sec hub-sec--mist" aria-labelledby="signup-heading">
+      <div class="hb-container signup" data-rise>
+        <div>
+          <h2 class="hb-display" id="signup-heading">Get new articles by email.</h2>
+          <p>No fixed cadence, no filler. A short note when a new piece is ready.</p>
+        </div>
+        <div>
+          <form
+            id="articlesSignupForm"
+            class="inline-signup"
+            method="POST"
+            action="/api/waitlist"
+            data-newsletter
+            data-success="You're in. We'll send new articles when they're ready.">
+            <input type="hidden" name="subject" value="Articles Email Signup — Growing Minds Science" />
+            <input type="hidden" name="interest" value="Articles" />
+            <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+            <input
+              type="email"
+              name="email"
+              required
+              autocomplete="email"
+              placeholder="your@email.com"
+              class="inline-signup__input"
+              aria-label="Email address"
+              aria-describedby="articlesEmailError" />
+            <button
+              type="submit"
+              class="btn btn--primary hb-btn">Send me articles</button>
+            <p id="articlesEmailError" class="field-error" role="alert"></p>
+            <p id="articlesFormStatus" role="status" aria-live="polite" class="inline-signup__status"></p>
+          </form>
+          <p class="inline-signup__disclaimer">Unsubscribe anytime. No spam.</p>
+        </div>
       </div>
     </section>
-
-
   </main>
 
+  <!-- footer:start -->
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
@@ -253,11 +178,7 @@
           <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">growing minds</span><span class="brand__desc">Science</span>
         </a>
-        <p class="site-footer__tag">A developmental-science education for parents of children 0 to 5.</p>
-        <a class="footer-ig" href="https://www.instagram.com/growingmindsscience/" target="_blank" rel="noopener noreferrer">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
-          Instagram
-        </a>
+        <p class="site-footer__tag">A living field guide to the growing mind, for parents of children 0 to 5.</p>
       </div>
       <nav class="site-footer__nav" aria-label="Footer">
         <div>
@@ -271,10 +192,10 @@
           </ul>
         </div>
         <div>
-          <h2 class="site-footer__heading">Free tools</h2>
+          <h2 class="site-footer__heading">Tools</h2>
           <ul class="footer-list">
+            <li><a href="/tools/right-now">It&rsquo;s hard right now</a></li>
             <li><a href="/tools/growing-minds-ai">Growing Minds AI</a></li>
-            <li><a href="/nsc">Number Path</a></li>
             <li><a href="/milestones">Milestone tracker</a></li>
             <li><a href="/tools/communication-snapshot">Communication Snapshot</a></li>
             <li><a href="/tools/">All tools and guides</a></li>
@@ -284,26 +205,34 @@
           <h2 class="site-footer__heading">About</h2>
           <ul class="footer-list">
             <li><a href="/about/">Our approach</a></li>
-            <li><a href="/articles/">Articles</a></li>
+            <li><a href="/articles/" aria-current="page">Articles</a></li>
             <li><a href="/faq/">FAQ</a></li>
             <li><a href="/contact/">Contact</a></li>
           </ul>
         </div>
+        <div>
+          <h2 class="site-footer__heading">Elsewhere</h2>
+          <ul class="footer-list">
+            <li><a href="https://www.instagram.com/growingmindsscience/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="/arcade/">Arcade</a></li>
+          </ul>
+        </div>
       </nav>
     </div>
-    <div class="container">
+    <div class="container site-footer__close">
+      <p class="site-footer__wordmark" aria-hidden="true">growing minds <span class="site-footer__wordmark-desc">science</span></p>
       <div class="footer-bottom">
-        <p>&copy; <span data-year>2026</span> Growing Minds Science &middot; <a href="/arcade/">Arcade</a></p>
+        <p>&copy; <span data-year>2026</span> Growing Minds Science</p>
         <p>Educational content only. Not medical or psychological advice.</p>
       </div>
     </div>
   </footer>
+<!-- footer:end -->
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
 
   <script src="../assets/js/main.js?v=742e637d07" defer></script>
-  <script src="../assets/js/decor.js?v=09ff05457d" defer></script>
-  <script src="../assets/js/animate.js?v=be9ad1568e" defer></script>
+  <script src="/assets/js/home.js?v=c7f5c746df" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

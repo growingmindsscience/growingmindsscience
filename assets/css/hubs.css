@@ -1,0 +1,153 @@
+/* =========================================================
+   Growing Minds Science: hubs.css
+   The tools, articles, about and pricing hubs on the annotated-observation
+   system (body.hub). Primitives come from fg-base.css (container, type,
+   buttons, entrances, menu rows); this file holds the hub title block, the
+   list rows, the panels and the forms. Tokens from tokens-field-guide.css.
+   Quiet rules between rows, calm corners on panels and controls, no
+   shadows at rest, real photographs or none.
+   ========================================================= */
+
+/* ---------- Title block: the lead line and one picture or panel ---------- */
+.hub-title { padding-block: clamp(40px, 7vw, 104px) clamp(48px, 7vw, 104px); }
+.hub-title__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px clamp(32px, 5vw, 80px); align-items: center; }
+.hub-title h1 { font-size: clamp(2.25rem, 1.4rem + 3.4vw, 4.25rem); line-height: 0.98; letter-spacing: -0.025em; }
+.hub-title .hb-lead { margin-top: 24px; color: var(--ink-soft); max-width: 52ch; }
+.hub-title--solo .hub-title__grid { grid-template-columns: minmax(0, 1fr); }
+.hub-title--solo { padding-bottom: clamp(32px, 4vw, 56px); }
+.hub-title__fine { margin-top: 18px; font-size: 15px; color: var(--ink-muted); max-width: 52ch; }
+.hub-title__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.hub-photo { margin: 0; border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 3; background: var(--sage-mist); }
+.hub-photo img { width: 100%; height: 100%; object-fit: cover; }
+.hub-photo--tall { aspect-ratio: 4 / 5; max-width: 460px; justify-self: end; }
+@media (max-width: 900px) {
+  .hub-title__grid { grid-template-columns: minmax(0, 1fr); }
+  .hub-photo--tall { justify-self: stretch; max-width: none; aspect-ratio: 4 / 3; }
+}
+@media (max-width: 640px) { .hub-title__actions .hb-btn { width: 100%; } }
+
+/* ---------- Sections: heading left, content right (the homepage's split) ---------- */
+.hub-sec { padding-block: clamp(56px, 8vw, 120px); }
+.hub-sec--white { background: var(--surface); }
+.hub-sec--mist { background: var(--sage-mist); }
+.hub-split { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 24px clamp(32px, 5vw, 80px); align-items: start; }
+.hub-split__head h2 { font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem); line-height: 1.05; }
+.hub-split__head p { margin-top: 14px; color: var(--ink-soft); max-width: 36ch; }
+@media (max-width: 860px) {
+  .hub-split { grid-template-columns: minmax(0, 1fr); }
+  /* On a phone the list comes first and the photograph follows it. */
+  .hub-split--photo-last .hub-split__head { display: contents; }
+  .hub-split--photo-last { row-gap: 14px; }
+  .hub-split--photo-last .hub-split__head p { margin-top: 0; }
+  .hub-split--photo-last .rows { margin-top: 14px; }
+  .hub-split--photo-last .rows { order: 1; }
+  .hub-split--photo-last .hub-photo { order: 2; margin-top: 8px !important; }
+}
+
+/* ---------- Rows: a list with quiet rules, the name in Newsreader ---------- */
+.rows { display: grid; }
+.row { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr) auto; gap: 6px 28px; padding-block: 22px; border-top: 1px solid var(--border-soft); align-items: baseline; }
+.row:first-child { border-top: 0; padding-top: 0; }
+.row__name { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem); line-height: 1.15; letter-spacing: -0.01em; }
+.row__name a { text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; margin-block: -10px; }
+.row__name a:hover { color: var(--forest); text-decoration: underline; text-underline-offset: 0.16em; }
+.row__meta { font-size: 14px; color: var(--ink-muted); margin-top: 6px; }
+.row__desc { color: var(--ink-soft); }
+.row__go { font-size: 15px; white-space: nowrap; }
+@media (max-width: 760px) {
+  .row { grid-template-columns: minmax(0, 1fr); }
+  .row__go { justify-self: start; }
+}
+
+/* ---------- Tools hub ---------- */
+.hard-door { display: grid; gap: 10px; padding: clamp(22px, 3vw, 36px); border-radius: var(--radius-lg); background: var(--field-ink); color: var(--on-ink); text-decoration: none; }
+.hard-door strong { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); line-height: 1.1; letter-spacing: -0.015em; }
+.hard-door span { color: var(--on-ink-soft); }
+.hard-door:hover { background: var(--field-ink-2); color: var(--on-ink); }
+.hard-door:hover strong { text-decoration: underline; text-underline-offset: 0.12em; }
+.tools-saved { display: inline-flex; align-items: center; min-height: 44px; margin-top: 12px; font-size: 15px; }
+.topic-jump { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 18px; font-size: 15px; }
+.topic-jump a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
+.topic { padding-top: 56px; }
+.topic:first-of-type { padding-top: 0; }
+.topic h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); line-height: 1.1; letter-spacing: -0.015em; color: var(--ink); padding-bottom: 10px; }
+.guide { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 6px 28px; padding-block: 18px; border-top: 1px solid var(--border-soft); align-items: baseline; }
+.guide .tool-card__eyebrow { order: 2; font-size: 14px; color: var(--ink-muted); grid-column: 1; }
+.guide h4 { order: 1; grid-column: 1; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem); line-height: 1.15; }
+.guide h4 a { text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; margin-block: -10px; }
+.guide h4 a:hover { color: var(--forest); text-decoration: underline; text-underline-offset: 0.16em; }
+.guide p { order: 3; grid-column: 2; grid-row: 1 / span 2; color: var(--ink-soft); }
+.guide.is-foryou { background: var(--sage-mist); border-radius: var(--radius); padding-inline: 14px; border-top-color: transparent; }
+.guide .gms-foryou { order: 2; grid-column: 1; justify-self: start; background: none; padding: 0; border-radius: 0; font-size: 13px; font-weight: 600; color: var(--forest); }
+@media (max-width: 760px) { .guide { grid-template-columns: minmax(0, 1fr); } .guide p { grid-column: 1; grid-row: auto; } }
+.hub-sec [data-gms-profile] { margin-top: 24px; }
+
+/* ---------- Articles hub ---------- */
+.expect { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px clamp(24px, 4vw, 56px); }
+.expect h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem); line-height: 1.15; margin-bottom: 8px; }
+.expect p { color: var(--ink-soft); }
+@media (max-width: 860px) { .expect { grid-template-columns: minmax(0, 1fr); } }
+.signup { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 24px clamp(32px, 5vw, 80px); align-items: end; }
+.signup h2 { font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem); line-height: 1.05; }
+.signup > div > p { margin-top: 12px; color: var(--ink-soft); }
+.inline-signup { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; }
+.inline-signup__input { min-height: 48px; padding: 0 14px; border: 1.5px solid var(--ink-muted); border-radius: var(--radius); background: var(--paper); color: var(--ink); font: inherit; }
+.inline-signup__input:focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
+.inline-signup .field-error, .inline-signup__status { grid-column: 1 / -1; font-size: 14px; color: var(--ink-soft); }
+.inline-signup__disclaimer { grid-column: 2; font-size: 14px; color: var(--ink-muted); }
+@media (max-width: 760px) { .signup { grid-template-columns: minmax(0, 1fr); } .inline-signup { grid-template-columns: minmax(0, 1fr); } .inline-signup__disclaimer { grid-column: 1; } }
+
+/* ---------- About ---------- */
+.about-wide { margin: 0 0 clamp(32px, 5vw, 64px); border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 16 / 9; }
+.about-wide img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+.bio { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 24px clamp(32px, 5vw, 80px); align-items: start; }
+.bio img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-lg); }
+.bio__text { display: grid; gap: 14px; color: var(--ink-soft); max-width: 62ch; }
+.bio__text h2 { color: var(--ink); font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem); line-height: 1.05; }
+.bio__role { color: var(--ink); font-weight: 500; }
+@media (max-width: 760px) { .bio { grid-template-columns: minmax(0, 1fr); } .bio img { max-width: 160px; } }
+/* Five principles as rows: the name, then its one line. */
+.principles { display: grid; }
+.principles > div { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 4px 28px; padding-block: 18px; border-top: 1px solid var(--sage-mist-2); align-items: baseline; }
+.principles > div:first-child { border-top: 0; padding-top: 0; }
+.principles h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem); line-height: 1.15; }
+.principles p { color: var(--ink-soft); }
+@media (max-width: 760px) { .principles > div { grid-template-columns: minmax(0, 1fr); } }
+.creds { display: grid; gap: 0; }
+.creds li { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 16px; padding-block: 14px; border-top: 1px solid var(--border-soft); }
+.creds li:first-child { border-top: 0; padding-top: 0; }
+.creds b { font-weight: 600; }
+.hub-fine { margin-top: 18px; font-size: 14px; color: var(--ink-muted); max-width: 60ch; }
+
+/* ---------- Pricing ---------- */
+.price-row { display: grid; grid-template-columns: minmax(0, 7fr) auto minmax(0, 4fr); gap: 8px 28px; padding-block: 24px; border-top: 1px solid var(--border-soft); align-items: start; }
+.price-row:first-child { border-top: 0; padding-top: 0; }
+.price-row__amount { font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.price-row__amount small { display: block; font-size: 13px; font-weight: 400; color: var(--ink-muted); white-space: normal; max-width: 14ch; }
+.price-row__act { display: grid; gap: 4px 10px; justify-items: start; }
+.price-row__act > a:not(.hb-btn) { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; }
+.price-row__fine { font-size: 14px; color: var(--ink-muted); line-height: 2; }
+@media (max-width: 860px) { .price-row { grid-template-columns: minmax(0, 1fr) auto; } .price-row__act { grid-column: 1 / -1; } }
+@media (max-width: 560px) { .price-row__act .hb-btn { width: 100%; } .price-row__act { justify-items: stretch; } }
+
+/* ---------- Questions (details rows) ---------- */
+.qa { display: grid; }
+.qa details { border-top: 1px solid var(--border-soft); }
+.qa details:last-child { border-bottom: 1px solid var(--border-soft); }
+.qa summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; min-height: 56px; padding-block: 12px; font-weight: 500; }
+.qa summary::-webkit-details-marker { display: none; }
+.qa summary::after { content: "+"; font-size: 1.25rem; color: var(--ink-muted); }
+.qa details[open] summary::after { content: "\2212"; }
+.qa details p { padding-bottom: 18px; color: var(--ink-soft); max-width: 60ch; }
+
+/* ---------- Close: one statement, one action ---------- */
+.hub-close { background: var(--field-ink); color: var(--on-ink); }
+/* The statement and its action stay together, on the left. */
+.hub-close .hb-container { display: grid; gap: 28px; justify-items: start; }
+.hub-close h2 { color: var(--on-ink); font-size: clamp(2rem, 1.3rem + 2.4vw, 3.25rem); line-height: 1.02; }
+.hub-close p { color: var(--on-ink-soft); margin-top: 14px; max-width: 46ch; }
+.hub-close__act { display: flex; flex-wrap: wrap; gap: 12px; }
+.fg .hub-close .hb-btn--quiet { color: var(--on-ink); box-shadow: inset 0 0 0 1.5px var(--on-ink); }
+.fg .hub-close .hb-btn--quiet:hover { background: var(--field-ink-2); color: var(--on-ink); }
+.hub-close :focus-visible { outline-color: var(--on-ink); }
+@media (max-width: 760px) { .hub-close__act { width: 100%; } .hub-close__act .hb-btn { width: 100%; } }
