@@ -193,6 +193,17 @@ components:
     padding: "0 0.1em"
 ---
 
+> **Field Guide redesign, in progress (branch `redesign/field-guide`, October 2026).**
+> The homepage (`index.html`) and the first Developmental Lens (`lens/leaving-the-playground.html`)
+> now run on a new system, "The Living Field Guide to the Growing Mind": tokens in
+> `assets/css/tokens-field-guide.css` (Newsreader over DM Sans; paper, ink, forest, sage), the page
+> stylesheet `assets/css/field-guide.css`, and the components `lens.css` / `explorer.css`. The
+> governing documents are in `docs/field-guide/` (creative-direction, homepage-proposal, lens-plan,
+> build-contract, copy-deck, preservation-plan, asset-brief, validation-report). Every inner page
+> still renders the Terrain system described below until Phase 3 migrates it; the Terrain tokens
+> and `chrome.css` are unchanged, and the new token file keeps the same alias names so the shared
+> header and footer read either system.
+
 # Design System: Growing Minds Science
 
 ## Overview

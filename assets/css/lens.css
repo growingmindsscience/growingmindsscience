@@ -1,0 +1,556 @@
+/* =========================================================
+   The Developmental Lens: one ordinary moment, read in four steps.
+   Markup: docs/field-guide/fragments/lens.html. Behaviour: assets/js/lens.js.
+   Tokens only (assets/css/tokens-field-guide.css). Without JS the four
+   steps stack and the plate shows the Understand callouts; lens.js adds
+   .is-enhanced, the tablist, and [data-active-step] on the root.
+   ========================================================= */
+
+.lens {
+  color: var(--ink);
+  font-family: var(--font-body);
+  scroll-margin-top: calc(var(--header-h) + var(--space-4));
+}
+.lens *,
+.lens *::before,
+.lens *::after { box-sizing: border-box; }
+
+/* Screen-reader-only parts: the live status and the plate's text alternative */
+.lens .lens__status,
+.lens .lens__figure-list { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+/* ---------- Tabs (built by lens.js) ---------- */
+.lens .lens__tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-1);
+  margin: 0 0 var(--space-12);
+}
+.lens .lens__tab {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  min-height: var(--space-14);
+  padding: var(--space-3) var(--space-5);
+  background: var(--surface-2);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-body);
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.lens .lens__tab[aria-selected="true"] {
+  background: var(--forest);
+  color: var(--on-forest);
+  cursor: default;
+}
+@media (hover: hover) and (pointer: fine) {
+  .lens .lens__tab:hover { background: var(--sage); color: var(--on-sage); }
+  .lens .lens__tab[aria-selected="true"]:hover { background: var(--forest-deep); color: var(--on-forest); }
+}
+
+/* ---------- Body: plate left, step text right ---------- */
+.lens .lens__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: var(--space-10);
+}
+@media (min-width: 1000px) {
+  .lens .lens__body {
+    grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
+    column-gap: var(--space-12);
+    align-items: start;
+  }
+  .lens .lens__figure {
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-6));
+  }
+}
+
+/* ---------- The plate ---------- */
+.lens .lens__figure { margin: 0; min-width: 0; }
+.lens .lens__plate { position: relative; }
+.lens .lens__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1200 / 680;
+  overflow: visible;
+}
+.lens .lens__caption {
+  margin: var(--space-4) 0 0;
+  max-width: 62ch;
+  color: var(--ink-muted);
+  font-size: var(--step-small);
+  line-height: 1.5;
+}
+
+.lens .lens__ink { fill: var(--ink); }
+.lens .lens__fill-sage { fill: var(--sage); }
+.lens .lens__fill-deep { fill: var(--sage-deep); }
+.lens .lens__ground { fill: var(--surface-2); }
+.lens .lens__wash { fill: var(--sage); opacity: 0; }
+.lens .lens__scene { opacity: 1; }
+
+/* Callouts: a leader with a paper halo, a 6px dot, a short label */
+.lens .lens__callout { display: none; }
+.lens .lens__halo,
+.lens .lens__leader {
+  fill: none;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+.lens .lens__halo { stroke: var(--paper); stroke-width: 7; }
+.lens .lens__leader { stroke: var(--ink); stroke-width: 2.25; }
+.lens .lens__dot { fill: var(--ink); stroke: var(--paper); stroke-width: 3; paint-order: stroke; }
+.lens .lens__hit { fill: transparent; }
+.lens .lens__label {
+  fill: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 500;
+  stroke: var(--paper);
+  stroke-width: 6;
+  stroke-linejoin: round;
+  paint-order: stroke;
+}
+.lens .lens__callout--parent .lens__leader { stroke: var(--note-warm); }
+.lens .lens__callout--parent .lens__dot { fill: var(--note-warm); }
+.lens .lens__callout--plain .lens__label { fill: var(--ink-soft); }
+
+/* Which callouts each step shows. Without JS: the Understand reading. */
+.lens:not([data-active-step]) .lens__callout[data-step~="understand"],
+.lens[data-active-step="observe"] .lens__callout[data-step~="observe"],
+.lens[data-active-step="understand"] .lens__callout[data-step~="understand"],
+.lens[data-active-step="respond"] .lens__callout[data-step~="respond"] { display: inline; }
+
+/* Reflect: the plate goes quiet */
+.lens[data-active-step="reflect"] .lens__wash { opacity: 0.5; }
+.lens[data-active-step="reflect"] .lens__scene { opacity: 0.82; }
+
+/* The manipulable moment: a callout and its paragraph light together */
+.lens.is-enhanced .lens__callout[data-callout] { cursor: pointer; }
+.lens .lens__callout.is-active .lens__leader,
+.lens .lens__callout.is-hover .lens__leader { stroke: var(--forest); }
+.lens .lens__callout.is-active .lens__dot,
+.lens .lens__callout.is-hover .lens__dot { fill: var(--forest); }
+.lens .lens__callout.is-active .lens__label,
+.lens .lens__callout.is-hover .lens__label { fill: var(--forest); }
+.lens .lens__callout.is-active .lens__dot { r: 8; stroke-width: 4; }
+.lens .lens__callout.is-active .lens__leader { stroke-width: 3.5; }
+.lens .lens__callout.is-active .lens__label { font-weight: 600; }
+/* With one reading chosen, the others step back */
+.lens[data-active-mechanism] .lens__callout[data-callout]:not(.is-active):not(.is-hover) { opacity: 0.35; }
+
+/* ---------- Step text ---------- */
+.lens .lens__panels { min-width: 0; }
+.lens .lens__panel { max-width: 62ch; }
+.lens .lens__panel + .lens__panel { margin-top: var(--space-20); }
+.lens.is-enhanced .lens__panel + .lens__panel { margin-top: 0; }
+.lens .lens__panel[hidden] { display: none; }
+.lens .lens__panel:focus { outline: none; }
+.lens .lens__panel:focus-visible { outline: 2.5px solid var(--forest); outline-offset: 3px; }
+
+.lens .lens__heading {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-display);
+  font-size: var(--step-lead);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: var(--head-tracking);
+  color: var(--ink);
+  text-wrap: balance;
+}
+.lens .lens__text {
+  margin: 0;
+  font-size: var(--step-body);
+  line-height: 1.6;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+.lens .lens__text + .lens__text { margin-top: var(--space-4); }
+.lens .lens__text--soft { color: var(--ink-soft); }
+.lens .lens__block { margin-top: var(--space-8); }
+.lens .lens__subhead {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--step-body);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--ink);
+}
+.lens .lens__list,
+.lens .lens__prompts,
+.lens .lens__mechanisms,
+.lens .lens__conn-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lens .lens__list li {
+  font-size: var(--step-body);
+  line-height: 1.5;
+  padding-block: var(--space-1);
+}
+.lens .lens__aside {
+  margin: var(--space-8) 0 0;
+  font-size: var(--step-body);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.lens .lens__evidence {
+  margin: var(--space-3) 0 0;
+  font-size: var(--step-small);
+  line-height: 1.5;
+  color: var(--ink-muted);
+}
+.lens .lens__evidence + .lens__evidence { margin-top: var(--space-1); }
+
+/* Understand: the five readings, each a highlightable block */
+.lens .lens__mechanisms { margin-top: var(--space-4); }
+.lens .lens__mech {
+  margin-left: calc(var(--space-5) * -1);
+  padding: var(--space-4) var(--space-5) var(--space-5);
+  background: transparent;
+}
+.lens .lens__mech + .lens__mech { margin-top: var(--space-1); }
+.lens .lens__mech.is-active,
+.lens .lens__mech.is-hover { background: var(--paper-2); }
+.lens .lens__mech-title { margin: 0 0 var(--space-2); }
+.lens .lens__mech-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  display: block;
+  width: 100%;
+  min-height: var(--space-12);
+  margin: 0;
+  padding: var(--space-2) 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-body);
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.lens .lens__mech.is-active .lens__mech-btn { color: var(--forest); }
+@media (hover: hover) and (pointer: fine) {
+  .lens .lens__mech-btn:hover { color: var(--forest); }
+}
+
+/* Respond: a real ordered list */
+.lens ol.lens__options {
+  list-style: decimal;
+  margin: var(--space-8) 0 0;
+  padding-left: var(--space-6);
+}
+.lens .lens__options > li { padding-left: var(--space-2); }
+.lens .lens__options > li + li { margin-top: var(--space-6); }
+.lens .lens__options > li::marker {
+  color: var(--ink-muted);
+  font-family: var(--font-display);
+  font-size: var(--step-body);
+}
+.lens .lens__option-title { font-weight: 600; }
+
+/* Reflect: the prompts read as statements */
+.lens .lens__prompts { margin-top: var(--space-6); }
+.lens .lens__prompts li {
+  font-family: var(--font-display);
+  font-size: var(--step-lead);
+  line-height: 1.3;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+.lens .lens__prompts li + li { margin-top: var(--space-5); }
+
+/* Back / Next (built by lens.js) */
+.lens .lens__walk {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-top: var(--space-12);
+}
+.lens .lens__walk-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  min-height: var(--space-12);
+  margin: 0;
+  padding: var(--space-2) 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--forest);
+  font-family: var(--font-body);
+  font-size: var(--step-body);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.3em;
+  -webkit-tap-highlight-color: transparent;
+}
+.lens .lens__walk-btn--next { margin-left: auto; }
+@media (hover: hover) and (pointer: fine) {
+  .lens .lens__walk-btn:hover { color: var(--forest-deep); text-decoration-thickness: 0.12em; }
+}
+
+/* ---------- Connections: Read / Try / Learn ---------- */
+.lens .lens__connections {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-8);
+  margin-top: var(--space-20);
+  padding: var(--space-10) var(--space-8);
+  background: var(--paper-2);
+}
+@media (min-width: 720px) {
+  .lens .lens__connections { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gutter); }
+}
+.lens .lens__conn-title {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-display);
+  font-size: var(--step-lead);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--ink);
+}
+.lens .lens__conn-list li + li { margin-top: var(--space-1); }
+.lens .lens__link {
+  display: inline-block;
+  padding-block: var(--space-2);
+  color: var(--ink);
+  font-size: var(--step-body);
+  line-height: 1.4;
+  text-decoration: underline;
+  text-decoration-color: var(--forest);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.25em;
+}
+@media (hover: hover) and (pointer: fine) {
+  .lens .lens__link:hover { color: var(--forest); text-decoration-thickness: 0.12em; }
+}
+
+/* ---------- Focus and press ---------- */
+.lens .lens__tab:focus-visible,
+.lens .lens__mech-btn:focus-visible,
+.lens .lens__walk-btn:focus-visible,
+.lens .lens__link:focus-visible {
+  outline: 2.5px solid var(--forest);
+  outline-offset: 3px;
+}
+.lens .lens__tab[aria-selected="true"]:focus-visible { outline-color: var(--forest-deep); }
+
+/* ---------- Phones and tablets: stacked, tabs pinned under the header ---------- */
+@media (max-width: 999.98px) {
+  .lens .lens__tabs {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 5;
+    margin-bottom: var(--space-6);
+    padding-block: var(--space-2);
+    background: var(--paper);
+  }
+  .lens .lens__panel { margin-inline: auto; }
+  .lens .lens__figure { max-width: 62rem; }
+}
+@media (max-width: 719.98px) {
+  .lens .lens__tab {
+    min-height: var(--space-12);
+    padding: var(--space-2) var(--space-1);
+    font-size: var(--step-small);
+    text-align: center;
+  }
+  /* Labels at plate scale would read near 6px here: the dots stay, the words
+     move to the step text below (and to the list for screen readers). */
+  .lens .lens__label,
+  .lens .lens__halo,
+  .lens .lens__leader { display: none; }
+  .lens .lens__dot { r: 13; stroke-width: 6; }
+  .lens[data-active-step] .lens__callout.lens__callout--plain[data-step] { display: none; }
+  /* Crop the plate to the scene band (viewBox y 236 to 628): the label rows
+     above and below are empty here. Percent margins resolve against width. */
+  .lens .lens__plate { aspect-ratio: 1200 / 392; overflow: hidden; }
+  .lens .lens__svg { margin-top: -19.667%; }
+  .lens .lens__callout.is-active .lens__dot { r: 17; stroke-width: 7; }
+  .lens .lens__mech { margin-inline: calc(var(--space-3) * -1); padding-inline: var(--space-3); }
+  .lens .lens__connections { padding: var(--space-8) var(--space-5); }
+}
+
+/* ---------- Motion: only when welcome; the reduced state is the finished state ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  html.anim .lens__tab,
+  html.anim .lens__mech-btn,
+  html.anim .lens__walk-btn {
+    transition:
+      background-color var(--t-hover) var(--ease-out),
+      color var(--t-hover) var(--ease-out),
+      transform var(--t-press) var(--ease-out);
+  }
+  html.anim .lens__tab:active,
+  html.anim .lens__mech-btn:active,
+  html.anim .lens__walk-btn:active { transform: scale(0.97); }
+  html.anim .lens__mech { transition: background-color var(--t-ui) var(--ease-out); }
+  html.anim .lens__link { transition: color var(--t-hover) var(--ease-out); }
+  html.anim .lens__wash,
+  html.anim .lens__scene { transition: opacity var(--t-reveal) var(--ease-soft); }
+  html.anim .lens__callout { transition: opacity var(--t-ui) var(--ease-out); }
+  html.anim .lens__leader,
+  html.anim .lens__dot,
+  html.anim .lens__label { transition: fill var(--t-ui) var(--ease-out), stroke var(--t-ui) var(--ease-out); }
+
+  /* Incoming panel: heading, then text, then the list */
+  html.anim .lens.is-enhanced .lens__panel > * {
+    animation: lens-rise var(--t-reveal) var(--ease-out) both;
+  }
+  html.anim .lens.is-enhanced .lens__panel > :nth-child(2) { animation-delay: 70ms; }
+  html.anim .lens.is-enhanced .lens__panel > :nth-child(3) { animation-delay: 140ms; }
+  html.anim .lens.is-enhanced .lens__panel > :nth-child(4) { animation-delay: 210ms; }
+  html.anim .lens.is-enhanced .lens__panel > :nth-child(n+5) { animation-delay: 280ms; }
+
+  /* Callouts appear with their step; in Understand the leaders draw in */
+  html.anim .lens.is-enhanced .lens__callout .lens__dot,
+  html.anim .lens.is-enhanced .lens__callout .lens__label {
+    animation: lens-fade var(--t-ui) var(--ease-out) both;
+  }
+  html.anim .lens.is-enhanced[data-active-step="understand"] .lens__callout .lens__halo,
+  html.anim .lens.is-enhanced[data-active-step="understand"] .lens__callout .lens__leader {
+    animation: lens-draw calc(var(--t-reveal) * 0.75) var(--ease-out) both;
+  }
+  html.anim .lens.is-enhanced[data-active-step="understand"] .lens__callout .lens__label {
+    animation-duration: var(--t-ui);
+    animation-delay: calc(var(--t-reveal) * 0.5);
+  }
+  html.anim .lens.is-enhanced .lens__callout[data-callout="2"] > * { animation-delay: 90ms; }
+  html.anim .lens.is-enhanced .lens__callout[data-callout="3"] > * { animation-delay: 180ms; }
+  html.anim .lens.is-enhanced .lens__callout[data-callout="4"] > * { animation-delay: 270ms; }
+  html.anim .lens.is-enhanced .lens__callout[data-callout="5"] > * { animation-delay: 360ms; }
+  html.anim .lens.is-enhanced[data-active-step="understand"] .lens__callout[data-callout="1"] .lens__label { animation-delay: calc(var(--t-reveal) * 0.5); }
+  html.anim .lens.is-enhanced[data-active-step="understand"] .lens__callout[data-callout="2"] .lens__label { animation-delay: calc(var(--t-reveal) * 0.5 + 90ms); }
+  html.anim .lens.is-enhanced[data-active-step="understand"] .lens__callout[data-callout="3"] .lens__label { animation-delay: calc(var(--t-reveal) * 0.5 + 180ms); }
+  html.anim .lens.is-enhanced[data-active-step="understand"] .lens__callout[data-callout="4"] .lens__label { animation-delay: calc(var(--t-reveal) * 0.5 + 270ms); }
+  html.anim .lens.is-enhanced[data-active-step="understand"] .lens__callout[data-callout="5"] .lens__label { animation-delay: calc(var(--t-reveal) * 0.5 + 360ms); }
+
+  @keyframes lens-rise {
+    from { opacity: 0; transform: translateY(var(--space-4)); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes lens-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes lens-draw {
+    from { stroke-dashoffset: 1; }
+    to { stroke-dashoffset: 0; }
+  }
+}
+
+/* =========================================================
+   The standalone Lens page (lens/leaving-the-playground.html).
+   Only what field-guide.css does not provide.
+   ========================================================= */
+.lens-page {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+.lens-page .lens-page__inner { padding-inline: var(--margin); }
+.lens-page .lens-page__hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.lens-page .lens-page__title-block {
+  padding-top: calc(var(--section) / 2);
+  padding-bottom: var(--space-16);
+  display: grid;
+  gap: var(--space-8);
+}
+.lens-page .lens-page__photo { margin: 0; width: 60%; margin-left: auto; order: 2; }
+.lens-page .lens-page__photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; }
+@media (min-width: 1000px) {
+  .lens-page .lens-page__title-block { grid-template-columns: var(--axis) minmax(0, 1fr); gap: 0 var(--gutter); align-items: end; }
+  .lens-page .lens-page__title-block .lens-page__axis { margin-left: 0; }
+  .lens-page .lens-page__photo { order: 0; width: clamp(200px, 16vw, 280px); margin-left: 0; }
+}
+.lens-page .lens-page__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--step-display);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: var(--display-tracking);
+  color: var(--ink);
+}
+.lens-page .lens-page__standfirst {
+  margin: var(--space-8) 0 0;
+  max-width: 38ch;
+  font-family: var(--font-body);
+  font-size: var(--step-lead);
+  line-height: 1.4;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+.lens-page .lens-page__sources {
+  padding-top: var(--section);
+}
+.lens-page .lens-page__heading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--step-head);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: var(--head-tracking);
+  color: var(--ink);
+}
+.lens-page .lens-page__status {
+  margin: var(--space-4) 0 0;
+  max-width: 62ch;
+  font-size: var(--step-small);
+  line-height: 1.55;
+  color: var(--ink-muted);
+}
+.lens-page .lens-page__refs {
+  margin: var(--space-10) 0 0;
+  padding: 0;
+  max-width: 62ch;
+  list-style: none;
+}
+/* A bibliography's hanging indent: the author line starts each entry */
+.lens-page .lens-page__refs li {
+  padding-left: var(--space-8);
+  text-indent: calc(var(--space-8) * -1);
+  font-size: var(--step-body);
+  line-height: 1.55;
+  color: var(--ink);
+}
+.lens-page .lens-page__refs li + li { margin-top: var(--space-4); }
+.lens-page .lens-page__close {
+  padding-block: var(--section);
+}
+.lens-page .lens-page__close p {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--step-lead);
+  line-height: 1.3;
+}
+.lens-page .lens-page__close a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--forest);
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.2em;
+}
+.lens-page .lens-page__close a:focus-visible { outline: 2.5px solid var(--forest); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  .lens-page .lens-page__close a:hover { color: var(--forest); }
+}
+@media (min-width: 1000px) {
+  .lens-page .lens-page__axis { margin-left: var(--axis); }
+}

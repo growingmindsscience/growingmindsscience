@@ -51,6 +51,7 @@
     { "source": "/milestones",     "destination": "/milestones.html" },
     { "source": "/thank-you",      "destination": "/thank-you.html" },
     { "source": "/classes/toddlerhood",                     "destination": "/classes/toddlerhood.html" },
+    { "source": "/lens/leaving-the-playground",             "destination": "/lens/leaving-the-playground.html" },
     { "source": "/classes/birth-to-12-months",              "destination": "/classes/birth-to-12-months.html" },
     { "source": "/classes/preschool",                       "destination": "/classes/preschool.html" },
     { "source": "/classes/family-systems",                  "destination": "/classes/family-systems.html" },
