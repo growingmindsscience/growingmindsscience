@@ -131,6 +131,12 @@ a { color: inherit; }
 .fg .site-header .theme-toggle,
 .fg .site-header .nav-toggle { border: 0; background: var(--surface-2); }
 .fg .site-header .theme-toggle:hover { background: var(--ink); color: var(--paper); }
+@media (max-width: 1000px) {
+  /* Bare icons on phones: the wordmark owns the bar (brand guidelines). */
+  .fg .site-header .theme-toggle,
+  .fg .site-header .nav-toggle { background: transparent; }
+  .fg .site-header .nav__list > .nav__theme .theme-toggle { border: 1.5px solid var(--ink); }
+}
 .fg .site-header .nav__link { font-family: var(--font-body); }
 .fg .site-header .nav__cta .btn { border: 0; font-family: var(--font-body); }
 .fg .site-header .nav__menu { border-top: 6px solid var(--forest); background: var(--surface); padding: 0.5rem; box-shadow: none; /* taste-skill-ignore: removes the chrome menu shadow */ }

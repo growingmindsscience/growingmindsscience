@@ -56,15 +56,16 @@ html.anim .fg--home [data-rise].is-in { opacity: 1; transform: none; }
 .hero__quiet { margin-top: 24px; font-size: 15px; color: var(--ink-muted); }
 .hero__bottom { padding-top: 32px; color: var(--ink-soft); }
 
-.plate { position: relative; overflow: hidden; background: var(--sage-mist); border-radius: 0; }
-.plate__img { position: absolute; inset: 0; }
+.plate { position: relative; display: flex; flex-direction: column; margin: 0; }
+.plate__img { position: relative; flex: 1 1 auto; min-height: 0; overflow: hidden; background: var(--sage-mist); }
 .plate picture, .plate img { position: absolute; inset: 0; width: 100%; height: 100%; }
 .plate img { object-fit: cover; object-position: 50% 30%; transition: transform 12s linear; }
 html.anim .plate img { transform: scale(1.04); }
-.fg .plate__toggle { position: absolute; left: 24px; bottom: 24px; z-index: 3; min-height: 48px; padding: 0 18px; border-radius: var(--radius); background: #F7F4EC; color: #193C39; font-weight: 500; display: inline-flex; align-items: center; gap: 10px; }
-.fg .plate__toggle[aria-pressed="true"] { background: #193C39; color: #F3EFE4; }
+.fg .plate__toggle { position: absolute; left: 24px; bottom: 24px; z-index: 3; min-height: 48px; padding: 0 18px; border-radius: var(--radius); background: #F7F4EC; color: #193C39; box-shadow: inset 0 0 0 1.5px #193C39; font-weight: 500; display: inline-flex; align-items: center; gap: 10px; }
+.fg .plate__toggle[aria-pressed="true"] { background: #E0EBE5; color: #193C39; }
 .plate__toggle .sw { width: 10px; height: 10px; border-radius: 50%; background: #D2A453; }
-.plate__fig { position: absolute; right: 24px; bottom: 28px; z-index: 3; background: #F7F4EC; color: #193C39; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; padding: 6px 10px; border-radius: 4px; }
+.plate__fig { margin-top: 10px; font-size: 13px; color: var(--ink-muted); }
+.plate__fig b { color: var(--research); font-weight: 600; }
 .labels { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
 .label { position: absolute; max-width: 26ch; background: #F7F4EC; color: #193C39; border-radius: var(--radius); padding: 10px 12px; font-size: 14px; line-height: 1.35; pointer-events: auto; opacity: 0; transform: translateY(6px); transition: opacity 360ms ease, transform 360ms ease; transition-delay: calc(var(--i, 0) * 140ms); }
 .labels[data-on="true"] .label { opacity: 1; transform: none; }
@@ -86,28 +87,30 @@ html:not(.anim) .label { transition: none; }
   .hero { display: flex; flex-direction: column; min-height: 0; }
   .hero__text, .hero__text > div { display: contents; }
   .hero__title { order: 0; margin-top: 24px; }
-  .plate { order: 1; margin: 20px calc(-1 * var(--hb-gutter)) 24px; aspect-ratio: auto; display: block; }
-  .plate__img { position: relative; aspect-ratio: auto; }
-  .plate picture, .plate img { position: relative; inset: auto; aspect-ratio: 4 / 3; }
-  .fg .plate__toggle { position: static; width: 100%; justify-content: center; border-radius: 0; min-height: 52px; background: var(--ink); color: var(--paper); }
-  .fg .plate__toggle[aria-pressed="true"] { background: var(--forest); color: var(--on-forest); }
+  .plate { order: 1; margin: 24px 0 24px; display: flex; }
+  .plate__img { position: relative; flex: none; border-radius: var(--radius-lg); }
+  .plate picture, .plate img { position: relative; inset: auto; aspect-ratio: 5 / 4; object-position: 50% 22%; }
+  .fg .plate__toggle { position: static; width: 100%; justify-content: center; border-radius: 0; min-height: 50px; background: var(--paper); color: var(--ink); box-shadow: none; border-top: 1.5px solid var(--ink); }
+  .fg .plate__toggle[aria-pressed="true"] { background: var(--sage-mist); color: var(--ink); }
+  .plate__fig { margin-top: 8px; }
   .hero__lead { order: 2; margin-top: 0; }
   .hero__actions { order: 3; }
   .hero__quiet { order: 4; margin-bottom: 40px; }
   .hero__bottom { display: none; }
   /* On a phone the labels are a list under the photograph, not overlays */
-  .labels { position: static; display: none; gap: 8px; padding: 12px var(--hb-gutter) 16px; background: var(--sage-mist); }
+  .labels { position: static; display: none; gap: 8px; padding: 12px 0 4px; }
   .labels[data-on="true"] { display: grid; }
   .fg--home:not(.js) .labels { display: grid; }
   .label, .label--1, .label--2, .label--3, .label--4 { position: relative; inset: auto; max-width: none; font-size: 14px; padding: 10px 12px 10px 30px; opacity: 1; transform: none; }
   .label::before { left: 12px; top: 14px; }
-  .plate__fig { right: 16px; bottom: auto; top: 16px; }
 }
 
 /* ---------- 02 The Lens: the plate again, step by step ---------- */
 .lens-section { background: var(--sage-mist); }
 .lens-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: clamp(28px, 4vw, 48px); }
 .lens-head p { max-width: 42ch; }
+.lens__meta { margin-top: 10px; color: var(--ink-muted); font-size: 15px; }
+.lens__status { flex-basis: 100%; font-size: 14px; }
 .lens { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: clamp(24px, 4vw, 64px); align-items: start; }
 .lens__plate { position: sticky; top: calc(var(--header-h) + 16px); aspect-ratio: 4 / 5; border-radius: var(--radius-lg); overflow: hidden; background: var(--sage-mist-2); }
 .lens__plate img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: filter 400ms ease; }
@@ -143,7 +146,8 @@ html:not(.anim) .label { transition: none; }
 @media (max-width: 900px) {
   .lens { grid-template-columns: 1fr; }
   .lens__plate { position: relative; top: auto; aspect-ratio: auto; display: grid; gap: 8px; background: none; border-radius: 0; overflow: visible; }
-  .lens__plate img { position: relative; inset: auto; aspect-ratio: 4 / 3; border-radius: var(--radius-lg); }
+  .lens__plate img { position: relative; inset: auto; aspect-ratio: 4 / 5; border-radius: var(--radius-lg); }
+  .lens__tabs { grid-template-columns: 1fr 1fr; }
   .lens__plate .label { position: relative; inset: auto; max-width: none; padding: 10px 12px 10px 30px; font-size: 14px; }
   .lens__plate .label::before { left: 12px; top: 14px; }
   .lens__plate .label[data-active="true"] { display: block; }
@@ -157,14 +161,14 @@ html:not(.anim) .label { transition: none; }
 .age__row { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 32px var(--hb-gutter) 8px; margin-inline: calc(-1 * var(--hb-gutter)); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
 .age__row::-webkit-scrollbar { display: none; }
 .age__col { flex: 0 0 300px; scroll-snap-align: start; display: grid; grid-template-rows: auto auto 1fr auto auto; gap: 10px; }
-.age__col .yrs { color: var(--clay-text); font-size: 14px; font-weight: 500; }
+.age__col .yrs { color: var(--ink-muted); font-family: var(--font-body); font-size: 14px; font-weight: 500; letter-spacing: 0; margin-left: 0.5em; white-space: nowrap; }
 .age__col h3 { font-family: var(--font-display); font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); line-height: 1.05; letter-spacing: -0.015em; font-weight: 400; }
 .age__col h3 a { text-decoration: none; display: inline-block; padding-block: 10px; margin-block: -10px; }
 .age__col h3 a:hover { color: var(--forest); text-decoration: underline; text-underline-offset: 0.2em; }
 .age__col p { color: var(--ink-soft); font-size: 15px; }
 .age__links { font-size: 14px; color: var(--ink-muted); line-height: 1.6; }
-.age__links a { color: var(--ink); text-decoration: none; }
-.age__links a:hover { text-decoration: underline; color: var(--forest); }
+.age__links a { color: var(--forest); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+.age__links a:hover { color: var(--forest-deep); }
 .range { display: grid; gap: 6px; }
 .range__track { height: 8px; background: var(--sage-mist); border-radius: 4px; position: relative; }
 .range__track i { position: absolute; top: 0; bottom: 0; background: var(--forest); border-radius: 4px; left: var(--from); right: calc(100% - var(--to)); }
@@ -174,7 +178,9 @@ html:not(.anim) .label { transition: none; }
 @media (max-width: 900px) {
   .age__bar { display: none; }
   .age__row { display: grid; gap: 28px; overflow: visible; margin-inline: 0; padding: 28px 0 0; scroll-snap-type: none; }
-  .age__col { grid-template-rows: auto; gap: 8px; padding-top: 20px; border-top: 1px solid var(--border-soft); }
+  .age__col { grid-template-rows: auto; gap: 6px; padding-top: 20px; border-top: 1px solid var(--border-soft); }
+  .age__col .range { margin-top: 10px; }
+  .age__col .axis-repeat { display: none; }
   .age__col:first-child { border-top: 0; padding-top: 0; }
 }
 
