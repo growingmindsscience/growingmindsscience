@@ -84,7 +84,7 @@ ${extraHead}
   <link rel="stylesheet" href="/assets/css/tools.css?v=7fce784071" />
   <script>try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <style>${SHARED_CSS}</style>
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=f067f825c8" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=d000ca1262" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -102,6 +102,7 @@ ${extraHead}
         </button>
 
         <ul class="nav__list" id="primary-nav-list">
+          <li class="nav__now"><a class="nav__link" href="/tools/right-now">It&rsquo;s hard right now</a></li>
           <li><a class="nav__link" href="/classes/">Classes</a></li>
           <li class="nav__item">
             <details class="nav__details">
@@ -189,7 +190,7 @@ ${body}
     </div>
   </footer>
 
-  <script src="/assets/js/chrome.js?v=1413c22959"></script>
+  <script src="/assets/js/chrome.js?v=288fec8e54"></script>
 
   <script src="/assets/js/main.js?v=742e637d07" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>

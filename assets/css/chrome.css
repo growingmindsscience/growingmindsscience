@@ -373,6 +373,8 @@
 [data-theme="dark"] .site-header .theme-toggle__moon { display: none; }
 
 .site-header .nav-toggle { display: none; color: var(--chrome-ink); }
+.site-header .nav__list > .nav__now,
+.site-header .nav__list > .nav__theme { display: none; }
 .site-header .nav-toggle__bars { position: relative; display: block; width: 18px; height: 12px; }
 .site-header .nav-toggle__bars::before,
 .site-header .nav-toggle__bars::after,
@@ -400,6 +402,16 @@
      the open list; visually it sits at the far right. */
   .site-header .theme-toggle { order: 1; }
   .site-header .nav-toggle { display: inline-flex; order: 2; }
+  /* On phones the two buttons are bare icons, not boxes: the wordmark owns the bar. */
+  .site-header .theme-toggle,
+  .site-header .nav-toggle { border-color: transparent; background: transparent; width: 44px; height: 44px; }
+  .site-header .theme-toggle:hover { background: transparent; color: var(--chrome-ink); }
+  /* The theme switch moves into the open menu (chrome.js moves the button). */
+  .site-header .nav__list > .nav__theme { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 0.5rem; padding: 0.5rem 0.25rem; font-size: 1.0625rem; }
+  .site-header .nav__list > .nav__theme .theme-toggle { display: inline-flex; border: 1.5px solid var(--chrome-ink); }
+  /* Hard-moment support is the first item in the phone menu: two taps from any page. */
+  .site-header .nav__list > .nav__now { display: block; margin-bottom: 0.25rem; }
+  .site-header .nav__now .nav__link { background: var(--sage-mist, var(--chrome-tint)); border-radius: var(--radius, 6px); padding-inline: 0.85rem; font-weight: 600; }
   .site-header .nav__list {
     position: fixed;
     inset: var(--header-h) 0 auto 0;

@@ -30,6 +30,30 @@
     var list = header.querySelector(".nav__list");
     var toggle = header.querySelector(".nav-toggle");
     var themeBtn = header.querySelector(".theme-toggle");
+    // On phones the theme switch lives inside the open menu as its last row;
+    // on wider screens it returns to the bar beside the menu button.
+    var themeHome = themeBtn ? themeBtn.parentNode : null;
+    var themeRow = null;
+    function placeTheme() {
+      if (!themeBtn || !list) return;
+      if (compact.matches) {
+        if (!themeRow) {
+          themeRow = document.createElement("li");
+          themeRow.className = "nav__theme";
+          var label = document.createElement("span");
+          label.textContent = "Dark theme";
+          themeRow.appendChild(label);
+        }
+        if (themeBtn.parentNode !== themeRow) themeRow.appendChild(themeBtn);
+        if (themeRow.parentNode !== list) list.appendChild(themeRow);
+      } else if (themeHome && themeBtn.parentNode !== themeHome) {
+        themeHome.appendChild(themeBtn);
+        if (themeRow && themeRow.parentNode) themeRow.parentNode.removeChild(themeRow);
+      }
+    }
+    placeTheme();
+    if (compact.addEventListener) compact.addEventListener("change", placeTheme);
+    else if (compact.addListener) compact.addListener(placeTheme);
     var menus = Array.prototype.slice.call(header.querySelectorAll(".nav__details"));
 
     // Theme. A toggle button with a stable name and a pressed state, so screen
