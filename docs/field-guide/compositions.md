@@ -17,7 +17,7 @@ The brand guidelines PDF (`reference/brand-guidelines.pdf`, "Field Notes & Disco
 - Tokens are the guidelines' hex values (`assets/css/tokens-field-guide.css`): forest ink, field paper, deep verdigris, sage mist, discovery clay, golden ochre, research blue, soft white. Clay for small text uses a darker text-safe clay (`--clay-text`, 5.1:1 on paper). Calm corners: 6px on controls and panels, 10px on photographs in panels.
 - Type: Newsreader over Inter, the guidelines' preferred pair. Inter is loaded on the homepage; inner pages fall back to DM Sans until they are rebuilt.
 - Wordmark: lowercase "growing minds" in Newsreader with a widely tracked "SCIENCE" descriptor, in the header, the footer and the footer's full-width close. The sprout mark is retired from the chrome (the guidelines ask for type before symbol and no sprout or tree marks).
-- Photography: the four generated photographs and Matthew's own pictures. No stock. No silhouette figures. Drawn figures, where any are needed, must pass the plan's G5 proportion gate.
+- Photography: the four generated photographs and Matthew's own pictures (the reading photograph on the homepage carries his confirmation, 2026-10-14, that the children's faces may be published). No stock. No silhouette figures. Drawn figures, where any are needed, must pass the plan's G5 proportion gate.
 
 ## The three compositions
 
