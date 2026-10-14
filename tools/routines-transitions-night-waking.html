@@ -23,9 +23,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=3fa98080dc" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=4def14502a" />
-  <link rel="stylesheet" href="../assets/css/tools.css?v=7fce784071" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=f0271bd76e" />
+  <link rel="stylesheet" href="../assets/css/refresh.css?v=8697a418df" />
+  <link rel="stylesheet" href="../assets/css/tools.css?v=8dba877db6" />
 
   <style>
     .tool-hero { padding: clamp(3rem, 6vw, 5rem) 0 2rem; }
@@ -50,7 +50,7 @@
     .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
     .dot { width: 10px; height: 10px; border-radius: 8px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
 
-    .tag { display: inline-flex; padding: .3rem .7rem; border-radius: 6px; background: var(--surface-2); font-size: var(--text-xs); font-weight: 700; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .tag { display: block; margin: 0 0 var(--space-3); font-family: var(--font-display); font-size: var(--text-sm); font-weight: 500; color: var(--ink-muted); }
     .section-intro { color: var(--ink-soft); max-width: 45rem; margin: 0 0 var(--space-6); }
     .small { font-size: var(--text-sm); color: var(--ink-muted); }
 
@@ -155,8 +155,8 @@
     <section class="tool-hero">
       <div class="container hero-grid">
         <div>
-          <p class="eyebrow">Toddler · 1–3 · Sleep development</p>
           <h1 class="page-hero__title">Routines, transitions, and night-waking</h1>
+          <p class="title-label">Toddler · 1–3 · Sleep development</p>
           <p class="tool-lede">Why toddler sleep changes, what routines help, and how to read night-waking without panic.</p>
           <div class="hero-actions">
             <a class="btn btn--primary" href="#pattern-reader">Read the pattern</a>
@@ -165,8 +165,8 @@
         </div>
 
         <aside class="hero-card" aria-labelledby="tool-at-a-glance">
-          <span class="tag">At a glance</span>
           <h2 id="tool-at-a-glance">What this tool helps with</h2>
+          <span class="tag">At a glance</span>
           <ul class="meta-list">
             <li><span class="dot"></span><span>Understanding why toddlers can resist bedtime after a good day.</span></li>
             <li><span class="dot"></span><span>Building a routine that is predictable without becoming a 90-minute negotiation.</span></li>
@@ -215,8 +215,8 @@
 
           <div>
             <article class="pattern-output" data-output="stalling" data-ai-question="My child stalls at bedtime with water, one more book, and one more hug. What helps?">
-              <span class="tag">Bedtime stalling</span>
               <h3>Autonomy often shows up at the doorway.</h3>
+              <span class="tag">Bedtime stalling</span>
               <p>Stalling can be a toddler's way of seeking control, connection, or clarity when the day is ending. The goal isn't to remove all protest, but to make the sequence predictable enough that the protest has less room to grow.</p>
               <div class="pattern-facts">
                 <div class="pattern-fact"><strong>Try first</strong><span>Use a short visual or spoken sequence: pajamas, teeth, two books, song, bed. Offer two small choices before the final limit.</span></div>
@@ -226,8 +226,8 @@
             </article>
 
             <article class="pattern-output" data-output="separation" data-ai-question="My child panics or needs me close to settle at bedtime. How do I help?">
-              <span class="tag">Separation distress</span>
               <h3>The need is connection plus a clear ending.</h3>
+              <span class="tag">Separation distress</span>
               <p>Separation gets more complicated as toddlers understand distance, absence, and return. Comfort matters, but comfort works best when it comes with a consistent path toward sleep.</p>
               <div class="pattern-facts">
                 <div class="pattern-fact"><strong>Try first</strong><span>Add connection before the routine tightens: a few minutes of undistracted play, then a predictable wind-down.</span></div>
@@ -237,8 +237,8 @@
             </article>
 
             <article class="pattern-output" data-output="waking" data-ai-question="My child wakes in the night and needs help getting back to sleep. What might be going on?">
-              <span class="tag">Middle-of-night waking</span>
               <h3>Ask what changed before deciding what it means.</h3>
+              <span class="tag">Middle-of-night waking</span>
               <p>Night-waking can reflect illness, discomfort, hunger, overtiredness, a new skill, fear, schedule mismatch, or a learned pattern around how sleep resumes. One bad night is information. A repeating pattern is a map.</p>
               <div class="pattern-facts">
                 <div class="pattern-fact"><strong>Try first</strong><span>Keep the response calm, brief, and boring. Offer reassurance, check basic needs, and return to the same sleep cue.</span></div>
@@ -248,8 +248,8 @@
             </article>
 
             <article class="pattern-output" data-output="nap" data-ai-question="My child's nap is changing and bedtime has gotten harder. What helps?">
-              <span class="tag">Nap transition trouble</span>
               <h3>Nap changes can make bedtime look mysterious.</h3>
+              <span class="tag">Nap transition trouble</span>
               <p>A toddler dropping or shifting a nap may seem tired and wired at the same time. Too little daytime sleep can lead to overtiredness; a nap too late can make bedtime harder.</p>
               <div class="pattern-facts">
                 <div class="pattern-fact"><strong>Try first</strong><span>Adjust gradually. Protect a predictable rest window, and watch the evening mood rather than only the clock.</span></div>
@@ -259,8 +259,8 @@
             </article>
 
             <article class="pattern-output" data-output="fear" data-ai-question="My child has new fears and bad dreams at night. How do I comfort them?">
-              <span class="tag">Fears and bad dreams</span>
               <h3>Comfort first, then return to the sleep path.</h3>
+              <span class="tag">Fears and bad dreams</span>
               <p>Fear at night is not manipulation. Imagination is growing, and toddlers may not easily separate dream, shadow, story, and real danger. Comfort them, keep the environment boring, and avoid accidentally making the fear the center of the night.</p>
               <div class="pattern-facts">
                 <div class="pattern-fact"><strong>Try first</strong><span>Use brief reassurance, a nightlight if helpful, and calmer media earlier in the day. Avoid scary content before bed.</span></div>
@@ -320,8 +320,8 @@
     <section>
       <div class="container container--narrow">
         <div class="panel">
-          <span class="tag">When to ask for help</span>
           <h2 style="font-size:var(--text-xl); margin-top:0;">Do not troubleshoot alone if something feels off</h2>
+          <span class="tag">When to ask for help</span>
           <p class="section-intro">Most toddler sleep disruption is not an emergency. But sleep advice should pause when there may be a health, safety, or family-functioning concern.</p>
           <ul class="source-list">
             <li>Talk with a pediatrician about snoring, gasping, breathing pauses, chronic mouth breathing, pain, frequent vomiting, seizures, or unusual daytime sleepiness.</li>
@@ -336,8 +336,8 @@
     <section id="one-minute-summary">
       <div class="container container--narrow">
         <div class="summary-card">
-          <span class="tag">One-minute summary</span>
           <h2 style="font-size:var(--text-xl); margin-top:0;">When you need the short version</h2>
+          <span class="tag">One-minute summary</span>
           <ul>
             <li>Toddler sleep changes because toddlers are developing autonomy, language, memory, imagination, and separation awareness.</li>
             <li>Ages 1-2 usually need 11-14 total hours of sleep per 24 hours, including naps; ages 3-5 usually need 10-13 hours.</li>
@@ -353,8 +353,8 @@
     <section>
       <div class="container container--narrow">
         <div class="panel">
-          <span class="tag">Sources used</span>
           <h2 style="font-size:var(--text-xl); margin-top:0;">Research anchors</h2>
+          <span class="tag">Sources used</span>
           <ul class="source-list">
             <li><a href="https://www.healthychildren.org/English/healthy-living/sleep/Pages/bedtime-trouble.aspx" target="_blank" rel="noopener noreferrer">HealthyChildren.org: Toddler bedtime trouble</a></li>
             <li><a href="https://www.nationwidechildrens.org/specialties/sleep-disorder-center/nightwakings" target="_blank" rel="noopener noreferrer">Nationwide Children's Hospital: Night wakings</a></li>

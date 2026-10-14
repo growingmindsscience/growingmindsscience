@@ -79,9 +79,9 @@ ${extraHead}
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" />
-  <link rel="stylesheet" href="/assets/css/styles.css?v=3fa98080dc" />
-  <link rel="stylesheet" href="/assets/css/refresh.css?v=4def14502a" />
-  <link rel="stylesheet" href="/assets/css/tools.css?v=7fce784071" />
+  <link rel="stylesheet" href="/assets/css/styles.css?v=f0271bd76e" />
+  <link rel="stylesheet" href="/assets/css/refresh.css?v=8697a418df" />
+  <link rel="stylesheet" href="/assets/css/tools.css?v=8dba877db6" />
   <script>try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <style>${SHARED_CSS}</style>
   <link rel="stylesheet" href="/assets/css/chrome.css?v=dd4a2f405a" />
@@ -223,8 +223,8 @@ function claimPage(c) {
     .join("\n            ");
   const body = `    <section class="claim-hero">
       <div class="container container--narrow">
-        <p class="eyebrow">Evidence-graded claim · ${esc(DOMAIN_LABEL[c.domain] || c.domain)}</p>
         <h1 class="page-hero__title" style="max-width: 22ch;">&ldquo;${esc(c.claim_text)}&rdquo;</h1>
+        <p class="title-label">Evidence-graded claim · ${esc(DOMAIN_LABEL[c.domain] || c.domain)}</p>
         <div class="cl-badges" style="margin-top: var(--space-5);">
           <span class="cl-badge ${strengthClass(c.grade_strength)}">${esc(a.strength_labels[c.grade_strength])}</span>
           <span class="cl-badge">${esc(a.consensus_labels[c.grade_consensus])}</span>
@@ -257,18 +257,18 @@ ${METHOD_HTML}
 
 function hubPage() {
   const cards = a.claims.map((c) => `          <article class="cl-card">
+            <h3>&ldquo;${esc(c.claim_text)}&rdquo;</h3>
             <div class="cl-badges" style="margin:0;">
               <span class="cl-badge ${strengthClass(c.grade_strength)}">${esc(a.strength_labels[c.grade_strength])}</span>
               <span class="cl-badge">${esc(DOMAIN_LABEL[c.domain] || c.domain)}</span>
             </div>
-            <h3>&ldquo;${esc(c.claim_text)}&rdquo;</h3>
             <p class="cl-verdict-line">${esc(c.verdict_label)}</p>
             <p class="cl-open"><a class="btn btn--primary" href="/claims/${esc(c.slug)}">Read the grade</a></p>
           </article>`).join("\n");
   const body = `    <section class="claim-hero">
       <div class="container">
-        <p class="eyebrow">Free · Evidence-graded · ${a.claims.length} claims and growing</p>
         <h1 class="page-hero__title">Parenting claims, graded</h1>
+        <p class="title-label">Free · Evidence-graded · ${a.claims.length} claims and growing</p>
         <p class="tool-lede" style="font-size: var(--text-md); color: var(--ink-soft); max-width: 46rem; margin: var(--space-4) 0 0;">The internet states every parenting claim with the same confidence. The research does not. Each claim here is stated the way a parent would say it, then graded on two axes: how strong the evidence actually is, and how united the field actually is.</p>
         <h2 class="u-visually-hidden">All claims</h2>
         <div class="cl-grid">

@@ -9,13 +9,13 @@
 .arcade-hero .container { max-width: 1040px; }
 .arcade-hero h1 {
   max-width: 12ch;
-  margin: var(--space-3) 0 var(--space-5);
+  margin: 0 0 var(--space-5);
   font-family: var(--font-display);
   font-size: clamp(3rem, 6.8vw, 6rem);
   line-height: 1.02;
   letter-spacing: -.045em;
 }
-.arcade-hero p:not(.eyebrow) {
+.arcade-hero p:not(.title-label) {
   max-width: 57ch;
   color: var(--ink-soft);
   font-size: var(--text-md);
@@ -42,7 +42,7 @@
   margin-bottom: var(--space-8);
 }
 .arcade-gallery__heading h2 {
-  margin: var(--space-2) 0 0;
+  margin: 0;
   font-family: var(--font-display);
   font-size: var(--text-2xl);
   line-height: 1.1;

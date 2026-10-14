@@ -23,9 +23,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=3fa98080dc" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=4def14502a" />
-  <link rel="stylesheet" href="../assets/css/tools.css?v=7fce784071" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=f0271bd76e" />
+  <link rel="stylesheet" href="../assets/css/refresh.css?v=8697a418df" />
+  <link rel="stylesheet" href="../assets/css/tools.css?v=8dba877db6" />
 
   <style>
     .tool-hero { padding: clamp(3rem, 6vw, 5rem) 0 2rem; }
@@ -50,7 +50,7 @@
     .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
     .dot { width: 10px; height: 10px; border-radius: 8px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
 
-    .tag { display: inline-flex; padding: .3rem .7rem; border-radius: 6px; background: var(--surface-2); font-size: var(--text-xs); font-weight: 700; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .tag { display: block; margin: 0 0 var(--space-3); font-family: var(--font-display); font-size: var(--text-sm); font-weight: 500; color: var(--ink-muted); }
     .section-intro { color: var(--ink-soft); max-width: 44rem; margin: 0 0 var(--space-6); }
     .small { font-size: var(--text-sm); color: var(--ink-muted); }
 
@@ -62,7 +62,8 @@
 
     .response-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-5); }
     .response-card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: var(--space-5); }
-    .response-card__num { width: 34px; height: 34px; border-radius: 8px; display: grid; place-items: center; background: var(--primary); color: var(--primary-ink); font-weight: 700; margin-bottom: var(--space-4); }
+    .response-card h3 { display: flex; align-items: center; gap: var(--space-3); }
+    .response-card__num { flex: 0 0 auto; width: 34px; height: 34px; display: grid; place-items: center; background: var(--primary); color: var(--primary-ink); font-family: var(--font-display); font-weight: 600; font-size: var(--text-sm); }
     .response-card h3 { font-size: var(--text-md); margin-bottom: .65rem; }
     .response-card p { color: var(--ink-soft); font-size: var(--text-sm); }
 
@@ -143,8 +144,8 @@
     <section class="tool-hero">
       <div class="container hero-grid">
         <div>
-          <p class="eyebrow">Toddler &amp; preschool · Screen time guide</p>
           <h1 class="page-hero__title">Screens, language, and attention</h1>
+          <p class="title-label">Toddler &amp; preschool · Screen time guide</p>
           <p class="tool-lede">Screen time is not one thing, and it does not act on a child like a spell. This is a short reference for the two worries parents bring up most: language and focus. What the research actually shows, and what it doesn't.</p>
           <div class="hero-actions">
             <a class="btn btn--primary" href="#screen-chooser">Open the chooser</a>
@@ -153,8 +154,8 @@
         </div>
 
         <aside class="hero-card" aria-labelledby="tool-at-a-glance">
-          <span class="tag">At a glance</span>
           <h2 id="tool-at-a-glance">What this tool helps with</h2>
+          <span class="tag">At a glance</span>
           <ul class="meta-list">
             <li><span class="dot"></span><span>Telling apart the kinds of screen use that touch language versus attention.</span></li>
             <li><span class="dot"></span><span>Understanding why young kids learn language from people more than from video.</span></li>
@@ -213,36 +214,36 @@
 
           <div>
             <article class="decoder-output" data-output="background" data-ai-question="The TV is on in the background most of the day. How does that affect my child's language?">
-              <span class="tag">Mostly touches: language</span>
               <h3>This one is about the talk it quietly crowds out.</h3>
+              <span class="tag">Mostly touches: language</span>
               <p>A TV running in the background pulls a surprising amount out of a room. Christakis and Schmidt found it lowers both how much parents and children talk and how rich that talk is, even when no one is watching. Your child isn't being harmed by the pictures so much as missing the conversation those minutes would have held.</p>
               <p class="small">One tweak: turn it off when no one is actually watching. Quiet rooms leave more room for your child to say something and for you to answer.</p>
             </article>
 
             <article class="decoder-output" data-output="fast" data-ai-question="Do fast-paced cartoons affect my child's attention?">
-              <span class="tag">Mostly touches: attention (briefly)</span>
               <h3>Likely a short-term wobble, not lasting damage.</h3>
+              <span class="tag">Mostly touches: attention (briefly)</span>
               <p>Lillard and Peterson found a fast, frantic cartoon left preschoolers temporarily worse at focus and self-control right afterward. The key word is temporarily. It was measured minutes later, and the claim that fast shows permanently rewire attention is not well supported. Pacing and what comes next matter more than banning cartoons.</p>
               <p class="small">One tweak: if you notice a rough patch after a particular show, follow it with something calm (blocks, a snack, outside time) rather than straight into the next demand.</p>
             </article>
 
             <article class="decoder-output" data-output="coview" data-ai-question="We watch a slow, interactive show together. How can I use it to support language?">
-              <span class="tag">Can support: language</span>
               <h3>This is closer to how kids actually learn.</h3>
+              <span class="tag">Can support: language</span>
               <p>Watching together and talking about what's happening, joint media engagement, is one of the few screen setups research treats kindly for vocabulary. A slower show gives your child time to notice things, and your comments turn a passive minute into a small conversation.</p>
               <p class="small">One tweak: narrate and connect it to real life. "That's a tractor. We saw one at the farm, remember?" The bridge to the real world is where the learning sticks.</p>
             </article>
 
             <article class="decoder-output" data-output="app" data-ai-question="Is a solo educational app good for my child's learning?">
-              <span class="tag">Mixed: depends on what it replaces</span>
               <h3>"Educational" is a label, not a guarantee.</h3>
+              <span class="tag">Mixed: depends on what it replaces</span>
               <p>Some apps are thoughtfully built; plenty are mostly stimulation with a learning sticker. For young kids, even good content usually teaches more when an adult connects it to the real world. The bigger question is what the solo time is replacing. Free play and conversation are where a lot of early attention and language get built.</p>
               <p class="small">One tweak: now and then, sit alongside and talk about what they're doing, and keep an eye that the app isn't eating the play and talk it sits next to.</p>
             </article>
 
             <article class="decoder-output" data-output="videocall" data-ai-question="Do video calls with family help my child's language?">
-              <span class="tag">The friendly exception</span>
               <h3>This one is real interaction that happens to be on a screen.</h3>
+              <span class="tag">The friendly exception</span>
               <p>Video chat is the partial exception to the video deficit. When a grandparent laughs back, answers, and responds to what your child just did, the exchange behaves like a real conversation: contingent and back-and-forth. That's the ingredient passive video is missing.</p>
               <p class="small">One tweak: nothing to fix here. Help the call stay a real exchange (peekaboo, showing a toy, naming things together) rather than a screen your child just stares at.</p>
             </article>
@@ -258,23 +259,19 @@
 
         <div class="response-grid">
           <article class="response-card">
-            <span class="response-card__num">1</span>
-            <h3>Protect the talk</h3>
+            <h3><span class="response-card__num">1</span>Protect the talk</h3>
             <p>Responsive back-and-forth is how language gets built in the early years. Turn off background TV when no one is watching, and keep some of the day open for ordinary conversation.</p>
           </article>
           <article class="response-card">
-            <span class="response-card__num">2</span>
-            <h3>Protect sleep and play</h3>
+            <h3><span class="response-card__num">2</span>Protect sleep and play</h3>
             <p>A lot of what worries parents about attention is really about what screens displace. Sleep and unstructured play are where focus gets practiced. Guard those first.</p>
           </article>
           <article class="response-card">
-            <span class="response-card__num">3</span>
-            <h3>Favor slower and shared</h3>
+            <h3><span class="response-card__num">3</span>Favor slower and shared</h3>
             <p>Calmer, age-appropriate content that you watch and talk about together beats fast, solo, autoplay viewing. Co-viewing turns a passive minute into a conversation.</p>
           </article>
           <article class="response-card">
-            <span class="response-card__num">4</span>
-            <h3>Don't panic about the exceptions</h3>
+            <h3><span class="response-card__num">4</span>Don't panic about the exceptions</h3>
             <p>The pattern matters more than any single episode. A fast show now and then, or a long screen day in a hard week, does not undo the relationship you're building.</p>
           </article>
         </div>
@@ -312,8 +309,8 @@
     <section id="one-minute-summary">
       <div class="container container--narrow">
         <div class="summary-card">
-          <span class="tag">One-minute summary</span>
           <h2 style="font-size:var(--text-xl); margin-top:0;">When you need the short version</h2>
+          <span class="tag">One-minute summary</span>
           <ul>
             <li>Screens mostly don't teach language to very young kids the way a responding person does. That's the "video deficit."</li>
             <li>The clearest documented effect is displacement: background TV cuts the quantity and quality of parent-child talk.</li>

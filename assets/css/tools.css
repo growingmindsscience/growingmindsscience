@@ -160,7 +160,6 @@
 .rn-bar a { color: var(--ink-soft); text-decoration: none; font-size: var(--text-sm); }
 .rn-bar a:hover { color: var(--ink); }
 .rn-main { max-width: var(--container-narrow); margin: 0 auto; padding: var(--space-6) var(--space-5) var(--space-20); }
-.rn-step__eyebrow { font-size: var(--text-sm); color: var(--amber-deep); font-weight: 600; margin: 0 0 var(--space-3); }
 .rn-step__title { font-size: var(--text-xl); margin: 0 0 var(--space-6); line-height: 1.15; }
 .rn-choices { display: grid; gap: var(--space-3); }
 .rn-choice {
@@ -303,16 +302,17 @@
 .guide-card__cta { margin-top: auto; padding-top: var(--space-2); }
 
 /* Guides by topic read as ruled rows, like the toolkit list above
-   (DESIGN.md "Rows, not cards"): meta | title + summary | cta. These
+   (DESIGN.md "Rows, not cards"): title, its label, summary | cta. These
    override the shared .tool-grid / .tool-card card layout and its lift. */
 .topic-section .tool-grid { display: block; }
 .topic-section .tool-card.guide-card {
   display: grid;
-  grid-template-columns: minmax(0, 11rem) minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   grid-template-areas:
-    "meta title cta"
-    "meta desc  cta";
-  gap: var(--space-2) clamp(var(--space-5), 3vw, var(--space-10));
+    "title cta"
+    "meta  cta"
+    "desc  cta";
+  gap: var(--space-1) clamp(var(--space-5), 3vw, var(--space-10));
   align-items: baseline;
   padding: var(--space-5) var(--space-3);
   background: none;
@@ -328,7 +328,7 @@
   box-shadow: none;
   transform: none;
 }
-.topic-section .guide-card .tool-card__eyebrow { grid-area: meta; }
+.topic-section .guide-card .tool-card__label { grid-area: meta; }
 .topic-section .guide-card .tool-card__title { grid-area: title; }
 .topic-section .guide-card .tool-card__desc { grid-area: desc; max-width: 62ch; }
 .topic-section .guide-card .guide-card__cta { grid-area: cta; align-self: center; margin: 0; padding: 0; }
@@ -336,8 +336,8 @@
 @media (max-width: 760px) {
   .topic-section .tool-card.guide-card {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "meta" "title" "desc" "cta";
-    gap: var(--space-2);
+    grid-template-areas: "title" "meta" "desc" "cta";
+    gap: var(--space-1);
     padding: var(--space-5) 0;
   }
   .topic-section .tool-card.guide-card:hover { background: none; }

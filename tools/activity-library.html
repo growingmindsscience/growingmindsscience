@@ -26,9 +26,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=3fa98080dc" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=4def14502a" />
-  <link rel="stylesheet" href="../assets/css/tools.css?v=7fce784071" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=f0271bd76e" />
+  <link rel="stylesheet" href="../assets/css/refresh.css?v=8697a418df" />
+  <link rel="stylesheet" href="../assets/css/tools.css?v=8dba877db6" />
   <script>try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 
   <style>
@@ -41,7 +41,7 @@
     .meta-list { list-style: none; padding: 0; margin: var(--space-4) 0 0; display: grid; gap: .85rem; }
     .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
     .dot { width: 10px; height: 10px; border-radius: 8px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
-    .tag { display: inline-flex; padding: .3rem .7rem; border-radius: 6px; background: var(--surface-2); font-size: var(--text-xs); font-weight: 700; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .tag { display: block; margin: 0 0 var(--space-3); font-family: var(--font-display); font-size: var(--text-sm); font-weight: 500; color: var(--ink-muted); }
 
     .al-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-6); }
     .al-panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: clamp(1.25rem, 3vw, 1.75rem); }
@@ -145,8 +145,8 @@
     <section class="tool-hero">
       <div class="container hero-grid">
         <div>
-          <p class="eyebrow">Free · Birth to 3 · No account</p>
           <h1 class="page-hero__title">Activity Library</h1>
+          <p class="title-label">Free · Birth to 3 · No account</p>
           <p class="tool-lede">Developmental activities built from household stuff, each with the developmental "why" attached, plus a way to make it easier and a way to make it harder. Filter to your child and your tolerance for mess.</p>
           <div class="hero-actions">
             <a class="btn btn--primary" href="#library">Browse activities</a>
@@ -154,8 +154,8 @@
           </div>
         </div>
         <aside class="hero-card" aria-labelledby="al-at-a-glance">
-          <span class="tag">What makes these different</span>
           <h2 id="al-at-a-glance">The "why" comes attached</h2>
+          <span class="tag">What makes these different</span>
           <ul class="meta-list">
             <li><span class="dot"></span><span>Every activity names the developmental mechanism it feeds, not just "fun sensory play".</span></li>
             <li><span class="dot"></span><span>Household materials only. Nothing to buy, print, or laminate.</span></li>
@@ -350,13 +350,13 @@
 
     function activityCard(a, opts) {
       const card = el("article", { class: "al-card", "data-slug": a.slug });
+      card.appendChild(el("h3", { text: a.title }));
       card.appendChild(el("div", { class: "al-card__meta" }, [
         el("span", { class: "al-badge", text: `${a.months_min}–${a.months_max} mo` }),
         ...a.domains.map((d) => el("span", { class: "al-badge", text: DOMAIN_LABEL[d] || pretty(d) })),
         el("span", { class: "al-badge", text: `${a.duration_min} min` }),
         el("span", { class: "al-badge", text: "mess " + "•".repeat(a.mess_level) }),
       ]));
-      card.appendChild(el("h3", { text: a.title }));
       card.appendChild(el("p", { class: "al-card__intent", text: "Why: " + pretty(a.intention) }));
 
       const d = el("details", {}, [el("summary", { text: "How to do it" })]);

@@ -666,7 +666,6 @@ h4,
       color-mix(in oklab, var(--accent-soft) 45%, var(--bg-alt)) 0%,
       color-mix(in oklab, var(--primary) 8%, var(--bg-alt)) 100%);
 }
-.signup .eyebrow { color: var(--ink-soft); }
 
 [data-theme="dark"] #about {
   background: linear-gradient(180deg,
@@ -1002,12 +1001,6 @@ h4,
   border-radius: var(--radius-xl);
   border: 1px solid var(--border-soft);
 }
-.promo-banner .section-head__eyebrow {
-  margin-bottom: var(--space-2);
-}
-.promo-banner .eyebrow {
-  margin-bottom: var(--space-1);
-}
 .promo-banner__title {
   font-size: var(--text-md);
   font-weight: 600;
@@ -1028,28 +1021,19 @@ h4,
    Seminar alignment layer (inner pages)
    Loaded after every component rule above and before chrome.css, so this
    is the one place the inner pages are brought onto the homepage's system:
-   sentence-case amber kickers instead of uppercase tracked eyebrows,
+   small labels in one quiet voice (never above a heading),
    rounded-rectangle controls instead of pills, calm bordered surfaces
    instead of lifting cards, the amber highlighter on emphasised words,
    paper ground with faint graph paper under page heroes, fade-only reveals.
    See DESIGN.md.
    ========================================================= */
 
-/* Kickers and small labels: one voice, no uppercase, no pill */
-.eyebrow,
-.section-head__eyebrow,
-.page-hero .eyebrow,
-.hero__eyebrow,
-.card__eyebrow,
-.tool-card__eyebrow,
-.featured-tool__eyebrow,
+/* Small labels: one voice, no uppercase, no pill */
 .featured-tool__panel-label,
-.article-card__kicker,
 .topic-section__count,
 .proof-strip__label,
 .library-intro__label,
 .gms-shelf__tool,
-.rn-step__eyebrow,
 .rn-answer__state,
 .gms-profile__label {
   display: block;
@@ -1066,9 +1050,7 @@ h4,
   line-height: 1.4;
   color: var(--accent-brown);
 }
-.eyebrow::before { display: none; }
 .proof-strip .proof-strip__label { color: #F3B649; }
-.signup .eyebrow { color: var(--accent-brown); }
 
 /* Meta labels stay quiet: sentence case, muted, not tracked */
 .product-card__meta dt,
@@ -1313,15 +1295,14 @@ h1, h2, h3, .page-hero__title, .section-head__title, .product-card__title, .card
 .article-grid { grid-template-columns: minmax(0, 1fr); gap: 0; }
 .article-card {
   display: grid;
-  grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
-  gap: var(--space-1) clamp(var(--space-5), 3vw, var(--space-10));
-  align-items: baseline;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-1);
   padding: var(--space-5) 0;
   border-top: 1px solid var(--border);
 }
 .article-grid .article-card:last-child { border-bottom: 1px solid var(--border); }
-.article-card > * { grid-column: 2; margin: 0; }
-.article-card .article-card__kicker { grid-column: 1; grid-row: 1 / span 4; margin: 0; }
+.article-card > * { margin: 0; }
+.article-card .article-card__kicker { margin: 0 0 var(--space-1); }
 .article-card__title { font-size: var(--text-md); }
 .article-card__dek { color: var(--ink-soft); max-width: 60ch; text-wrap: pretty; }
 .article-card__meta { color: var(--ink-muted); font-size: var(--text-sm); }
@@ -1358,8 +1339,7 @@ h1, h2, h3, .page-hero__title, .section-head__title, .product-card__title, .card
   .module-card,
   .article-card,
   .diff-item { grid-template-columns: minmax(0, 1fr); }
-  .module-card .module-card__number,
-  .article-card .article-card__kicker { grid-column: 1; grid-row: auto; }
+  .module-card .module-card__number { grid-column: 1; grid-row: auto; }
   .module-card > *,
   .article-card > * { grid-column: 1; }
 }
@@ -1485,11 +1465,43 @@ h1, h2 { line-height: 1.04; }
 .card__icon, .pillar-icon, .topic-nav a, .gms-chip, .decoder-btn, .gms-action, .inline-signup__input,
 .field__input, .field__select, input, select, textarea { border-radius: 0; }
 .card__icon, .pillar-icon { background: var(--surface-2); color: var(--primary); }
-.card__eyebrow, .section-head__eyebrow, .eyebrow, .hero__eyebrow, .library-intro__label, .gms-profile__label {
+.library-intro__label, .gms-profile__label {
   font-family: var(--font-display);
   font-weight: 500;
   color: var(--ink-muted);
 }
+
+/* The Label Under the Title Rule: a heading never carries a kicker, eyebrow
+   or numeral above it. The fact that used to sit there (age range, format,
+   "Free", the section) sits directly under the heading in the map-label
+   voice: Geologica 500, 15px, ink-muted, tabular numerals. The negative top
+   margin tucks it under the heading's own bottom margin. */
+.title-label, .tag, .article-card__kicker, .tool-card__label, .syllabus__meta, .cl-badges {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-transform: none;
+  letter-spacing: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--text-sm);
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-muted);
+}
+.title-label { margin: 0 0 var(--space-4); }
+h1 + .title-label, .page-hero__title + .title-label, .hero__title + .title-label, .article-title + .title-label {
+  margin-top: calc(-1 * var(--space-2));
+  margin-bottom: var(--space-5);
+}
+h2 + .title-label, h3 + .title-label, h4 + .title-label, h2 + .tag, h3 + .tag {
+  margin-top: calc(-1 * var(--space-1));
+  margin-bottom: var(--space-3);
+}
+.tag { margin: 0 0 var(--space-3); }
+.tool-card__label, .article-card__kicker { margin: 0; }
+.cl-badges { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-3); }
 .tool-card--future { background: var(--surface); }
 .section-head__lede, .page-hero__lede, .hero__lede { color: var(--ink); }
 

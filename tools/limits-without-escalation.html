@@ -23,9 +23,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=3fa98080dc" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=4def14502a" />
-  <link rel="stylesheet" href="../assets/css/tools.css?v=7fce784071" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=f0271bd76e" />
+  <link rel="stylesheet" href="../assets/css/refresh.css?v=8697a418df" />
+  <link rel="stylesheet" href="../assets/css/tools.css?v=8dba877db6" />
 
   <style>
     .tool-hero { padding: clamp(3rem, 6vw, 5rem) 0 2rem; }
@@ -40,7 +40,7 @@
     .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
     .dot { width: 10px; height: 10px; border-radius: 8px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
 
-    .tag { display: inline-flex; padding: .3rem .7rem; border-radius: 6px; background: var(--surface-2); font-size: var(--text-xs); font-weight: 700; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .tag { display: block; margin: 0 0 var(--space-3); font-family: var(--font-display); font-size: var(--text-sm); font-weight: 500; color: var(--ink-muted); }
 
     .what-panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-6); }
     .what-panel__blocks { display: grid; gap: var(--space-4); }
@@ -146,8 +146,8 @@
     <section class="tool-hero">
       <div class="container hero-grid">
         <div>
-          <p class="eyebrow">Toddler &amp; preschool &middot; Behavior guide</p>
           <h1 class="page-hero__title">Limits without escalation</h1>
+          <p class="title-label">Toddler &amp; preschool &middot; Behavior guide</p>
           <p class="tool-lede">Holding a "no" calmly when a child is testing autonomy, without scripts and without losing your own footing. This guide is built for the ordinary moments when a child pushes, refuses, or falls apart after a limit.</p>
           <div class="hero-actions">
             <a class="btn btn--primary" href="#interactive-guide">Open the guide</a>
@@ -156,8 +156,8 @@
         </div>
 
         <aside class="hero-card" aria-labelledby="tool-at-a-glance">
-          <span class="tag">At a glance</span>
           <h2 id="tool-at-a-glance">What this tool helps with</h2>
+          <span class="tag">At a glance</span>
           <ul class="meta-list">
             <li><span class="dot"></span><span>Saying no without turning it into a negotiation.</span></li>
             <li><span class="dot"></span><span>Knowing the difference between a limit problem and a regulation problem.</span></li>
@@ -320,29 +320,29 @@
 
           <div>
             <article class="scenario-output" data-output="repeat" data-ai-question="My child keeps doing it after I say no. What should I do instead of repeating myself?">
-              <span class="tag">When the child repeats the behavior</span>
               <h3>Focus on follow-through, not stronger language.</h3>
+              <span class="tag">When the child repeats the behavior</span>
               <p>If the child keeps doing it after a clear no, the next move is usually less talking and more action. Move closer, block what needs blocking, remove what needs removing, or help the child transition out of the setup that is not working.</p>
               <p class="small">Try: "I'm not letting you throw that. I'm moving it."</p>
             </article>
 
             <article class="scenario-output" data-output="meltdown" data-ai-question="My child melts down when I hold a limit. How do I stay calm and keep the boundary?">
-              <span class="tag">When the limit triggers big feelings</span>
               <h3>Keep the limit and make room for the feeling.</h3>
+              <span class="tag">When the limit triggers big feelings</span>
               <p>A child falling apart does not automatically mean the limit was too harsh. If the boundary is reasonable and necessary, the job is to stay nearby, keep the limit intact, and avoid arguing with the feeling.</p>
               <p class="small">Try: "You're mad. I'm still not letting you hit."</p>
             </article>
 
             <article class="scenario-output" data-output="escalated" data-ai-question="I already raised my voice during a limit. How do I come back from that?">
-              <span class="tag">When the adult already escalated</span>
               <h3>Repair the tone, not the boundary.</h3>
+              <span class="tag">When the adult already escalated</span>
               <p>If you yelled, threatened, or got pulled into a power struggle, you can come back without pretending the limit disappeared. Lower your voice, simplify, and return to the clearest version of the boundary.</p>
               <p class="small">Try: "I got too loud. I'm going to say it again more clearly. I'm not letting you climb there."</p>
             </article>
 
             <article class="scenario-output" data-output="unclear" data-ai-question="How can I tell whether this is a limit issue or a regulation issue with my child?">
-              <span class="tag">When you are unsure what kind of moment this is</span>
               <h3>Ask whether the child can use the limit right now.</h3>
+              <span class="tag">When you are unsure what kind of moment this is</span>
               <p>If the child is exhausted, dysregulated, sick, overloaded, or moving toward panic, the first task may be reducing stimulation and helping the system settle. If the child is organized enough to keep testing, the limit likely needs steadier follow-through.</p>
               <p class="small">Ask: "Is my child unable right now, or mostly unwilling?"</p>
             </article>
@@ -382,8 +382,8 @@
     <section id="one-minute-summary">
       <div class="container container--narrow">
         <div class="summary-card">
-          <span class="tag">One-minute summary</span>
           <h2 style="font-size:var(--text-xl); margin-top:0;">When you need the short version</h2>
+          <span class="tag">One-minute summary</span>
           <ul>
             <li>Name the limit clearly.</li>
             <li>Use fewer words than you want to use.</li>

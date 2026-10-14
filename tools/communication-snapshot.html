@@ -26,9 +26,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=3fa98080dc" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=4def14502a" />
-  <link rel="stylesheet" href="../assets/css/tools.css?v=7fce784071" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=f0271bd76e" />
+  <link rel="stylesheet" href="../assets/css/refresh.css?v=8697a418df" />
+  <link rel="stylesheet" href="../assets/css/tools.css?v=8dba877db6" />
   <script>try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 
   <style>
@@ -48,7 +48,7 @@
     .meta-list { list-style: none; padding: 0; margin: var(--space-4) 0 0; display: grid; gap: .85rem; }
     .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
     .dot { width: 10px; height: 10px; border-radius: 8px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
-    .tag { display: inline-flex; padding: .3rem .7rem; border-radius: 6px; background: var(--surface-2); font-size: var(--text-xs); font-weight: 700; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .tag { display: block; margin: 0 0 var(--space-3); font-family: var(--font-display); font-size: var(--text-sm); font-weight: 500; color: var(--ink-muted); }
     .small { font-size: var(--text-sm); color: var(--ink-muted); }
 
     /* --- Snapshot wizard --- */
@@ -190,8 +190,8 @@
     <section class="tool-hero">
       <div class="container hero-grid">
         <div>
-          <p class="eyebrow">Free · 6–36 months · About 4 minutes</p>
           <h1 class="page-hero__title">Communication Snapshot</h1>
+          <p class="title-label">Free · 6–36 months · About 4 minutes</p>
           <p class="tool-lede">A few careful questions about words, gestures, and understanding. You get a calm, research-grounded read on where your child's communication sits right now, and printable notes if a pediatrician conversation is worth having.</p>
           <div class="hero-actions">
             <a class="btn btn--primary" href="#snapshot">Start the snapshot</a>
@@ -200,8 +200,8 @@
         </div>
 
         <aside class="hero-card" aria-labelledby="cs-at-a-glance">
-          <span class="tag">What this is, and isn't</span>
           <h2 id="cs-at-a-glance">Honest about its job</h2>
+          <span class="tag">What this is, and isn't</span>
           <ul class="meta-list">
             <li><span class="dot"></span><span>It organizes what you already observe into the shape a pediatrician conversation actually uses.</span></li>
             <li><span class="dot"></span><span>Every line it draws is tied to published research, and it never softens one.</span></li>

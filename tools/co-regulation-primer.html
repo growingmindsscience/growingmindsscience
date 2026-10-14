@@ -23,9 +23,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=3fa98080dc" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=4def14502a" />
-  <link rel="stylesheet" href="../assets/css/tools.css?v=7fce784071" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=f0271bd76e" />
+  <link rel="stylesheet" href="../assets/css/refresh.css?v=8697a418df" />
+  <link rel="stylesheet" href="../assets/css/tools.css?v=8dba877db6" />
 
   <style>
     .tool-hero { padding: clamp(3rem, 6vw, 5rem) 0 2rem; }
@@ -50,7 +50,7 @@
     .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
     .dot { width: 10px; height: 10px; border-radius: 8px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
 
-    .tag { display: inline-flex; padding: .3rem .7rem; border-radius: 6px; background: var(--surface-2); font-size: var(--text-xs); font-weight: 700; color: var(--ink-muted); margin-bottom: var(--space-3); }
+    .tag { display: block; margin: 0 0 var(--space-3); font-family: var(--font-display); font-size: var(--text-sm); font-weight: 500; color: var(--ink-muted); }
     .section-intro { color: var(--ink-soft); max-width: 44rem; margin: 0 0 var(--space-6); }
     .small { font-size: var(--text-sm); color: var(--ink-muted); }
 
@@ -62,7 +62,8 @@
 
     .response-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }
     .response-card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: var(--space-5); }
-    .response-card__num { width: 34px; height: 34px; border-radius: 8px; display: grid; place-items: center; background: var(--primary); color: var(--primary-ink); font-weight: 700; margin-bottom: var(--space-4); }
+    .response-card h3 { display: flex; align-items: center; gap: var(--space-3); }
+    .response-card__num { flex: 0 0 auto; width: 34px; height: 34px; display: grid; place-items: center; background: var(--primary); color: var(--primary-ink); font-family: var(--font-display); font-weight: 600; font-size: var(--text-sm); }
     .response-card h3 { font-size: var(--text-md); margin-bottom: .65rem; }
     .response-card p { color: var(--ink-soft); font-size: var(--text-sm); }
 
@@ -143,8 +144,8 @@
     <section class="tool-hero">
       <div class="container hero-grid">
         <div>
-          <p class="eyebrow">Toddler · 1–3 · Regulation primer</p>
           <h1 class="page-hero__title">A nervous-system primer for parents</h1>
+          <p class="title-label">Toddler · 1–3 · Regulation primer</p>
           <p class="tool-lede">A short reference that explains co-regulation in plain language. A young child can&rsquo;t yet steady their own nervous system, so they borrow steadiness from yours. That borrowing is the mechanism, and your actual state matters more than any perfect phrase.</p>
           <div class="hero-actions">
             <a class="btn btn--primary" href="#state-chooser">What does it look like right now?</a>
@@ -153,8 +154,8 @@
         </div>
 
         <aside class="hero-card" aria-labelledby="tool-at-a-glance">
-          <span class="tag">At a glance</span>
           <h2 id="tool-at-a-glance">What this primer covers</h2>
+          <span class="tag">At a glance</span>
           <ul class="meta-list">
             <li><span class="dot"></span><span>What co-regulation actually is, without the jargon.</span></li>
             <li><span class="dot"></span><span>Why it has to come before self-regulation in the toddler years.</span></li>
@@ -213,36 +214,36 @@
 
           <div>
             <article class="decoder-output" data-output="revved" data-ai-question="My child gets revved up and silly past the point of fun. How do I help them settle?">
-              <span class="tag">Their system needs: a slower one to match</span>
               <h3>Bring your pace down, and they&rsquo;ll drift toward it.</h3>
+              <span class="tag">Their system needs: a slower one to match</span>
               <p>Wound-up, giddy energy is still dysregulation. The child isn&rsquo;t going to find the brakes on their own. They&rsquo;ll borrow your tempo, so slow your own body first: quieter voice, slower movements, less stimulation around you both.</p>
               <p class="small">Move: drop your volume and slow down rather than getting louder and faster to be heard over them.</p>
             </article>
 
             <article class="decoder-output" data-output="meltdown" data-ai-question="My child is melting down and can't hear me. What does co-regulation look like right now?">
-              <span class="tag">Their system needs: steady presence, not words</span>
               <h3>Be the calm body in the room, and talk less.</h3>
+              <span class="tag">Their system needs: steady presence, not words</span>
               <p>A flooded child can&rsquo;t process language or logic. This isn&rsquo;t the moment to explain. Get low, stay near, keep your face and voice soft, and let your steadiness do the work while the wave passes.</p>
               <p class="small">Move: less talking, more presence. Your regulated body is the message.</p>
             </article>
 
             <article class="decoder-output" data-output="frozen" data-ai-question="My child shuts down and goes quiet when upset. How do I help?">
-              <span class="tag">Their system needs: safety and no pressure</span>
               <h3>Come close gently and lower the demand to zero.</h3>
+              <span class="tag">Their system needs: safety and no pressure</span>
               <p>Going quiet or limp is a stress response too, not stubbornness or calm. Pushing harder makes a frozen system retreat further. Offer a soft, unhurried presence, drop any demand for now, and give them time to come back.</p>
               <p class="small">Move: get close and quiet, wait, and let them re-engage at their own pace.</p>
             </article>
 
             <article class="decoder-output" data-output="testing" data-ai-question="My child is frustrated and testing a limit. How do I stay calm and firm?">
-              <span class="tag">Their system needs: a calm, steady edge</span>
               <h3>Hold the limit with a regulated body.</h3>
+              <span class="tag">Their system needs: a calm, steady edge</span>
               <p>Frustration plus a boundary is normal, and you can be calm and firm at the same time. Steady is not soft. Keep the limit simple, let the feeling exist, and don&rsquo;t add new arguments or match the intensity coming at you.</p>
               <p class="small">Move: keep your voice level and the limit unchanged, even while they protest.</p>
             </article>
 
             <article class="decoder-output" data-output="scared" data-ai-question="My child is scared or overwhelmed by something new. How can I help them feel safe?">
-              <span class="tag">Their system needs: your steadiness as a reference</span>
               <h3>Be the signal that this is safe.</h3>
+              <span class="tag">Their system needs: your steadiness as a reference</span>
               <p>A child meeting something new checks your face and tone to decide how alarmed to be. If your body reads calm and unhurried, that&rsquo;s the cue their system uses. Stay close, narrate gently, and let them approach the new thing from the safety of you.</p>
               <p class="small">Move: settle your own body first, then stay alongside them rather than pushing them forward.</p>
             </article>
@@ -258,18 +259,15 @@
 
         <div class="response-grid">
           <article class="response-card">
-            <span class="response-card__num">1</span>
-            <h3>Steady yourself first</h3>
+            <h3><span class="response-card__num">1</span>Steady yourself first</h3>
             <p>You can&rsquo;t lend a calm you don&rsquo;t have. Notice your own activation and bring your body down before you engage. The fuller version of this lives in its own tool.</p>
           </article>
           <article class="response-card">
-            <span class="response-card__num">2</span>
-            <h3>Offer your calm</h3>
+            <h3><span class="response-card__num">2</span>Offer your calm</h3>
             <p>Get low, slow your pace, soften your voice, use fewer words. The child catches the state you&rsquo;re in. Presence does more here than any phrase.</p>
           </article>
           <article class="response-card">
-            <span class="response-card__num">3</span>
-            <h3>Hold the limit, teach later</h3>
+            <h3><span class="response-card__num">3</span>Hold the limit, teach later</h3>
             <p>Steady doesn&rsquo;t mean permissive. Keep the boundary in place through the feeling, and save any teaching for after the body has come back down.</p>
           </article>
         </div>
@@ -307,8 +305,8 @@
     <section id="one-minute-summary">
       <div class="container container--narrow">
         <div class="summary-card">
-          <span class="tag">One-minute summary</span>
           <h2 style="font-size:var(--text-xl); margin-top:0;">When you need the short version</h2>
+          <span class="tag">One-minute summary</span>
           <ul>
             <li>A young child can&rsquo;t fully regulate alone yet. They borrow it from you.</li>
             <li>That borrowing is co-regulation, and it&rsquo;s how self-regulation gets built.</li>

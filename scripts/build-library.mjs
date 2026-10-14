@@ -137,8 +137,8 @@ function renderPage(entry, { draft }) {
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=3fa98080dc" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=4def14502a" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=f0271bd76e" />
+  <link rel="stylesheet" href="../assets/css/refresh.css?v=8697a418df" />
   <script type="application/ld+json">
 ${jsonLd(entry, url, published, modified)}
   </script>
@@ -164,8 +164,8 @@ ${jsonLd(entry, url, published, modified)}
   <main id="main">
     <section class="article-hero">
       <div class="container">
-        <p class="article-kicker">${esc(entry.ageBand)} · ${esc(entry.domain)}</p>
         <h1 class="article-title">${esc(entry.question)}</h1>
+        <p class="article-label title-label">${esc(entry.ageBand)} · ${esc(entry.domain)}</p>
         <p class="article-dek">${esc(entry.shortAnswer)}</p>
       </div>
     </section>
@@ -214,8 +214,8 @@ function renderHub(entries, { draft }) {
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=3fa98080dc" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=4def14502a" />
+  <link rel="stylesheet" href="../assets/css/styles.css?v=f0271bd76e" />
+  <link rel="stylesheet" href="../assets/css/refresh.css?v=8697a418df" />
   <style>.answers-list{list-style:none;padding:0;margin:0 0 var(--space-8);display:grid;gap:var(--space-3)}.answers-list a{color:var(--primary);font-weight:600;text-decoration:none}.answers-list a:hover{text-decoration:underline}</style>
 </head>
 <body>
@@ -230,8 +230,8 @@ function renderHub(entries, { draft }) {
   </header>
   <main id="main">
     <section class="article-hero"><div class="container">
-      <p class="article-kicker">Answers</p>
       <h1 class="article-title">Plain answers to common worries</h1>
+      <p class="article-label title-label">Answers</p>
       <p class="article-dek">Calm, research-grounded answers to the questions parents of children 0–5 actually search — grounded in the same developmental science behind our classes and tools.</p>
     </div></section>
     <section class="article-body"><div class="container">

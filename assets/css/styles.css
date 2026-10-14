@@ -191,21 +191,18 @@ section { padding-block: clamp(5rem, 8vw, 7rem); /* 80–112px */ }
   object-fit: cover;
   display: block;
 }
-.eyebrow {
-  /* Sentence-case label (DESIGN.md "No eyebrows"): 15px, amber-deep on
-     light (amber in dark), no pill, no tracking. Used only where the
-     label carries real information (age, format, status). */
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-2) var(--space-3);
+/* Labels under titles (DESIGN.md "The Label Under the Title Rule"): the
+   facts that used to sit above a heading (age range, format, "Free", the
+   section a page belongs to) now sit under it in the map-label voice.
+   The Terrain layer in refresh.css sets the face and spacing. */
+.title-label {
+  display: block;
   font-size: var(--text-sm);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.4;
-  color: var(--amber-deep);
+  color: var(--ink-muted);
   margin: 0 0 var(--space-4);
 }
-.hero__eyebrow { margin-bottom: var(--space-5); }
 .hero__title {
   margin-top: 0;
   margin-bottom: var(--space-5);
@@ -259,20 +256,6 @@ section { padding-block: clamp(5rem, 8vw, 7rem); /* 80–112px */ }
   max-width: 64ch;
   margin-bottom: var(--space-10);
 }
-.section-head__eyebrow {
-  /* Sentence-case label (DESIGN.md "No eyebrows"): 15px, amber-deep on
-     light (amber in dark), no pill, no tracking. Used only where the
-     label carries real information (age, format, status). */
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-2) var(--space-3);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  line-height: 1.4;
-  color: var(--amber-deep);
-  margin: 0 0 var(--space-3);
-}
 .section-head__title { margin-bottom: var(--space-3); }
 .section-head__lede { color: var(--ink-soft); font-size: var(--text-md); margin: 0; max-width: 60ch; }
 
@@ -299,11 +282,6 @@ section { padding-block: clamp(5rem, 8vw, 7rem); /* 80–112px */ }
 }
 .card:hover { border-color: var(--ink-muted); box-shadow: var(--shadow-md); transform: translateY(-2px); }
 
-.card__eyebrow {
-  font-size: var(--text-sm);
-  color: var(--ink-muted);
-  font-weight: 600;
-}
 .card__title { margin: 0; font-size: var(--text-lg); font-family: var(--font-display); font-weight: 400; letter-spacing: 0; }
 .card__desc { color: var(--ink-soft); margin: 0; font-size: var(--text-sm); line-height: 1.6; }
 .card__meta { font-size: var(--text-xs); color: var(--ink-muted); }
@@ -324,7 +302,6 @@ section { padding-block: clamp(5rem, 8vw, 7rem); /* 80–112px */ }
   background:
     linear-gradient(135deg, color-mix(in oklab, var(--surface) 88%, var(--bg-alt)), var(--surface));
 }
-.tool-card--future .card__eyebrow { color: var(--ink-muted); }
 .tool-card--future .card__icon {
   background: color-mix(in oklab, var(--ink-muted) 10%, var(--surface));
   color: var(--ink-muted);
@@ -1156,11 +1133,7 @@ button:disabled {
   transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
 }
 .tool-card:hover { border-color: var(--ink-muted); box-shadow: var(--shadow-sm); transform: translateY(-2px); }
-.tool-card__eyebrow {
-  font-size: var(--text-sm);
-  color: var(--ink-muted);
-  font-weight: 600;
-}
+.tool-card__label { margin: 0; }
 .tool-card__title {
   font-family: var(--font-display);
   font-size: var(--text-lg);
@@ -1183,12 +1156,6 @@ button:disabled {
   gap: clamp(var(--space-6), 4vw, var(--space-10));
   align-items: center;
   box-shadow: var(--shadow-sm);
-}
-.featured-tool__eyebrow {
-  font-size: var(--text-sm);
-  color: var(--amber-deep);
-  font-weight: 600;
-  margin: 0 0 var(--space-3);
 }
 .featured-tool__title {
   font-family: var(--font-display);
