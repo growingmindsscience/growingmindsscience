@@ -41,3 +41,17 @@ Top three problems (most visible first), each with the screenshot it shows in an
 ## What a juror would still mark down
 
 The scientific copy is a prototype and says so on the page; the pictures are placeholders; the inner pages still wear the previous system, so a visitor who leaves the homepage meets a different header until Phase 3. None of these is a design-system problem; all three are listed in the preservation plan and the asset brief.
+
+## Round 4 (after launch, on Matthew's review)
+
+Matthew's review of the live page: little polish, the toddler in the Lens plate drawn far too large, then the parent's arm on the hero plate far too long. Both were true and both were my misses: the inspector passed and I treated that as done.
+
+Fixes, judged on fresh screenshots of the live page and then of the build at 1440 and 390:
+- The hero plate's figures are rebuilt from proportioned parts (head, neck, torso, upper arm, forearm, thigh, shin, foot as round-capped strokes) instead of free-hand curves; the parent's reach is now an arm's length, the baby is a seated baby with a leg under the tray.
+- The Lens plate's toddler is scaled to 0.74 about its feet, with every callout re-anchored.
+- A specificity bug (`.fg h2` and `.fg p` resetting margins) was hiding the spacing under the classes heading, under the Lens component and under the table note; fixed by scoping.
+- The Lens band no longer carries a second photograph that left a hole under its intro; the playground picture moved to the "hard right now" band's margin zone, where it balances the statement.
+- The explorer's cursor sits under its heading again, the photograph aligns with the heading's top, and the stage column is 176px so names wrap to two lines; on phones the picture follows the bands.
+- The tools photograph is top-aligned with the table and larger; the stray "tools" word is gone.
+- The classes table's "In development" cell is a muted note, not a Newsreader price.
+Inspector: 0 fails, the same four defended warnings. Lint: clean.
