@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Homepage compositions · Growing Minds Science</title>
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="lab.css" />
+  <style>
+    body { background: var(--paper); }
+    .deck { padding-block: clamp(48px, 7vw, 96px); }
+    .deck__intro { max-width: 60ch; margin-top: 16px; color: var(--ink-soft); }
+    .comps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 40px; }
+    .comp { display: grid; gap: 12px; background: var(--white); border-radius: var(--radius-lg); padding: 20px; text-decoration: none; align-content: start; }
+    .comp:hover { background: var(--sage); }
+    .comp b { font-family: var(--display); font-size: var(--step-2); font-weight: 400; line-height: 1.05; }
+    .comp span { color: var(--ink-soft); font-size: 15px; }
+    .comp .idea { color: var(--ink); }
+    .comp .note { align-self: start; }
+    .shared { margin-top: 56px; max-width: 70ch; }
+    .shared h2 { font-family: var(--display); font-size: var(--step-2); font-weight: 400; margin-bottom: 12px; }
+    .shared li { padding: 8px 0; border-top: 1px solid var(--rule); }
+    .shared li:first-child { border-top: 0; }
+    @media (max-width: 800px) { .comps { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main class="container deck">
+    <p class="note note--clay">Homepage reset &middot; 2026-10-14</p>
+    <h1 class="display display--l" style="margin-top:12px">Three compositions. One brand. Pick one.</h1>
+    <p class="deck__intro">Each page carries the same eight-section story the guidelines set out, the same four lines in their roles, about a third fewer words on screen than the live page, and the same tokens, Newsreader and Inter. What differs is the idea each one is built on. Open each on a phone as well.</p>
+
+    <div class="comps">
+      <a class="comp" href="a/"><span class="note note--ochre">Composition A</span><b>The lens</b><span class="idea">The brand&rsquo;s observation motif, the overlapping fields of view from the guidelines&rsquo; cover, becomes the structure of the page. A forest first screen; type does the work; one calm relationship map in the Lens.</span><span>Live thing: the four rings are the four steps. Hover or tab through them.</span></a>
+      <a class="comp" href="b/"><span class="note note--ochre">Composition B</span><b>Annotated observation</b><span class="idea">Signature move 01 as the whole page. A real moment fills the first screen and the visitor reveals the typeset labels over it. The Lens is the same plate, re-labelled step by step.</span><span>Live thing: &ldquo;Show what&rsquo;s growing&rdquo; on the photograph.</span></a>
+      <a class="comp" href="c/"><span class="note note--ochre">Composition C</span><b>The field guide entry</b><span class="idea">Signature move 03, field-guide notation, as the object. The moment is Entry 01: field marks, where found, a range bar. The five periods are a catalogue of tiles that grow with age; the classes sit on a timeline.</span><span>Live thing: the entry card on the first screen opens the Lens.</span></a>
+    </div>
+
+    <section class="shared">
+      <h2>What is fixed across all three</h2>
+      <ul>
+        <li>Tokens are the guidelines&rsquo; own hex values. Newsreader over Inter, the preferred pair. Calm 6 to 10px corners, quiet rules, small figure numbers.</li>
+        <li>Homepage story in the guidelines&rsquo; order: hero, Lens, age, three dimensions, hard moments, classes, tools and evidence, trust and invitation.</li>
+        <li>&ldquo;See what&rsquo;s growing.&rdquo; leads the hero. &ldquo;The first five years, understood.&rdquo; leads the classes. &ldquo;Mental models, not scripts.&rdquo; leads trust. &ldquo;Less pressure. Better explanations.&rdquo; leads the close.</li>
+        <li>Photographs are the four generated pictures already in the repository plus the founder portrait. No stock, no silhouettes. Diagrams are a relationship map (A) and a developmental timeline (C), both labelled conceptual.</li>
+        <li>The Lens works: four steps, keyboard tablist, no-script fallback (all panels shown), reduced motion honoured. Its science is still marked as awaiting source review.</li>
+        <li>Not built yet: the Explore hub, inner pages, the real header behaviour (theme toggle, tools menu). These pages are compositions, not the shipped homepage.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

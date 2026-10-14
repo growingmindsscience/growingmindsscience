@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <script>try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}</script>
+  <title>Composition B: Annotated observation · Growing Minds Science</title>
+  <meta name="description" content="Homepage composition B for review. Not the live site." />
+  <meta name="theme-color" content="#F7F4EC" />
+  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="../lab.css" />
+  <style>
+    /* ---------- Composition B: annotated observation ---------- */
+    .hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); min-height: calc(100svh - 36px); }
+    .hero__text { display: grid; align-content: space-between; padding: 0 var(--gutter) clamp(32px, 5vh, 64px) 0; }
+    .hero__title { font-size: clamp(3.25rem, 2rem + 5.2vw, 7rem); line-height: 0.96; letter-spacing: -0.025em; margin-top: clamp(32px, 8vh, 96px); }
+    .hero__lead { margin-top: 24px; color: var(--ink-soft); }
+    .hero__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+    .hero__quiet { margin-top: 24px; font-size: 15px; color: var(--ink-muted); }
+    .hero__bottom { padding-top: 32px; }
+
+    /* The plate: a real moment, labels on request */
+    .plate { position: relative; overflow: hidden; background: var(--sage); }
+    .plate img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; position: absolute; inset: 0; transition: transform 12s linear; }
+    html.anim .plate img { transform: scale(1.04); }
+    .plate__toggle { position: absolute; left: 24px; bottom: 24px; z-index: 3; min-height: 48px; padding: 0 18px; border-radius: var(--radius); background: var(--paper); color: var(--ink); font-weight: 500; display: inline-flex; align-items: center; gap: 10px; }
+    .plate__toggle[aria-pressed="true"] { background: var(--ink); color: var(--on-ink); }
+    .plate__toggle .sw { width: 10px; height: 10px; border-radius: 50%; background: var(--ochre); }
+    .plate__fig { position: absolute; right: 24px; bottom: 28px; z-index: 3; background: var(--paper); color: var(--ink); font-size: 13px; font-weight: 600; letter-spacing: 0.06em; padding: 6px 10px; border-radius: 4px; }
+    .labels { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+    .labels[hidden] { display: none; }
+    .label { position: absolute; max-width: 26ch; background: var(--paper); color: var(--ink); border-radius: var(--radius); padding: 10px 12px; font-size: 14px; line-height: 1.35; pointer-events: auto; opacity: 0; transform: translateY(6px); transition: opacity 360ms ease, transform 360ms ease; transition-delay: calc(var(--i) * 140ms); }
+    .labels[data-on="true"] .label { opacity: 1; transform: none; }
+    html:not(.anim) .label { transition: none; }
+    .label b { display: block; font-weight: 600; margin-bottom: 2px; }
+    .label::before { content: ""; position: absolute; width: 10px; height: 10px; border-radius: 50%; background: var(--ochre); box-shadow: 0 0 0 2px var(--paper); }
+    .label__line { position: absolute; background: var(--paper); height: 1.5px; transform-origin: left center; opacity: 0; transition: opacity 360ms ease; }
+    .labels[data-on="true"] .label__line { opacity: 1; }
+    /* positions on the parent-and-baby photograph (object-position 50% 30%) */
+    .label--1 { left: 8%; top: 56%; } .label--1::before { left: -18px; top: 12px; }
+    .label--2 { left: 55%; top: 10%; } .label--2::before { left: -18px; top: 12px; }
+    .label--3 { left: 54%; top: 72%; } .label--3::before { left: -18px; top: 12px; }
+    .label--4 { left: 8%; top: 8%; background: var(--ink); color: var(--on-ink); } .label--4::before { display: none; }
+    .labels__list { position: absolute; }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero { display: flex; flex-direction: column; min-height: 0; }
+      .hero__text, .hero__text > div { display: contents; }
+      .hero__title { order: 0; margin-top: 24px; }
+      .plate { order: 1; aspect-ratio: 4 / 3; margin: 20px calc(-1 * var(--gutter)) 24px; }
+      .hero__lead { order: 2; margin-top: 0; }
+      .hero__actions { order: 3; }
+      .hero__quiet { order: 4; margin-bottom: 40px; }
+      .hero__bottom { display: none; }
+      .plate img { position: absolute; }
+      .label { font-size: 13px; max-width: 22ch; padding: 8px 10px; }
+      .label--2 { left: auto; right: 6%; top: 8%; } .label--2::before { left: -18px; }
+      .label--3 { left: auto; right: 6%; top: 72%; }
+      .label--4 { top: auto; bottom: 84px; left: 6%; max-width: 30ch; }
+      .plate__toggle { left: 16px; bottom: 16px; }
+      .plate__fig { right: 16px; bottom: auto; top: 16px; }
+    }
+
+    /* ---------- Lens: the plate again, step by step ---------- */
+    .lens-section { background: var(--sage); }
+    .lens-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: clamp(28px, 4vw, 48px); }
+    .lens-head p { max-width: 42ch; }
+    .lens { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: clamp(24px, 4vw, 64px); align-items: start; }
+    .lens__plate { position: relative; aspect-ratio: 4 / 5; border-radius: var(--radius-lg); overflow: hidden; background: var(--sage-2); position: sticky; top: 24px; }
+    .lens__plate img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: filter 400ms ease; }
+    [data-step="reflect"] .lens__plate img { filter: saturate(0.6) brightness(0.96); }
+    .lens__plate .label { font-size: 13.5px; }
+    .lens__plate .label[data-active="false"] { display: none; }
+    .lens__plate .label[data-active="true"] { opacity: 1; transform: none; }
+    .lp--1 { left: 6%; top: 10%; } .lp--2 { left: 52%; top: 6%; } .lp--3 { left: 6%; top: 60%; } .lp--4 { left: 52%; top: 40%; } .lp--5 { left: 30%; top: 82%; }
+    .lp--1::before, .lp--2::before, .lp--3::before, .lp--4::before, .lp--5::before { left: -18px; top: 12px; }
+    .lens__plate .label--note { background: var(--ink); color: var(--on-ink); } .lens__plate .label--note::before { display: none; }
+    .lens__tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+    .lens__tab { min-height: 48px; border-radius: var(--radius); background: rgba(255, 253, 248, 0.6); font-weight: 500; font-size: 15px; display: grid; place-items: center; gap: 2px; padding: 8px; }
+    .lens__tab small { font-size: 13px; color: var(--clay-text); letter-spacing: 0.08em; }
+    .lens__tab[aria-selected="true"] { background: var(--ink); color: var(--white); }
+    .lens__tab[aria-selected="true"] small { color: var(--ochre); }
+    .lens__panel { display: grid; gap: 20px; margin-top: 28px; }
+    .lens__panel[hidden] { display: none; }
+    .lens__q { font-family: var(--display); font-size: var(--step-2); line-height: 1.12; letter-spacing: -0.015em; }
+    .mech { display: grid; gap: 10px; }
+    .mech li { background: var(--white); border-radius: var(--radius); padding: 14px 16px; display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; }
+    .mech i { width: 10px; height: 10px; border-radius: 50%; background: var(--ochre); margin-top: 7px; }
+    .mech b { font-weight: 600; display: block; }
+    .mech .ev { color: var(--research); font-size: 13px; font-weight: 500; }
+    .resp li { padding: 12px 0; border-top: 1px solid var(--rule); }
+    .resp li:first-child { border-top: 0; padding-top: 0; }
+    .refl li { font-family: var(--display); font-size: var(--step-1); line-height: 1.3; padding: 10px 0; }
+    .lens__nav { display: flex; justify-content: space-between; gap: 12px; }
+    .lens__foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: clamp(32px, 4vw, 56px); font-size: 15px; }
+    @media (max-width: 900px) { .lens { grid-template-columns: 1fr; } .lens__plate { position: relative; top: auto; aspect-ratio: 4 / 5; } }
+
+    /* ---------- Age: a row of moments, dragged ---------- */
+    .age { background: var(--paper); overflow: hidden; }
+    .age__head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
+    .age__bar { height: 6px; background: var(--paper-2); border-radius: 3px; margin-top: 24px; overflow: hidden; }
+    .age__bar i { display: block; height: 100%; width: 20%; background: var(--ink); border-radius: 3px; transition: transform 200ms ease; }
+    .age__row { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 32px var(--gutter) 8px; margin-inline: calc(-1 * var(--gutter)); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .age__row::-webkit-scrollbar { display: none; }
+    .age__col { flex: 0 0 300px; scroll-snap-align: start; text-decoration: none; display: grid; grid-template-rows: auto auto 1fr auto; gap: 10px; }
+    .age__col:nth-child(1) { --gap: 24px; } .age__col:nth-child(2) { --gap: 64px; } .age__col:nth-child(3) { --gap: 40px; } .age__col:nth-child(4) { --gap: 88px; } .age__col:nth-child(5) { --gap: 56px; }
+    .age__col .yrs { color: var(--clay-text); font-size: 14px; font-weight: 500; }
+    .age__col h3 { font-family: var(--display); font-size: var(--step-2); line-height: 1.05; letter-spacing: -0.015em; font-weight: 400; }
+    .age__col p { color: var(--ink-soft); font-size: 15px; padding-bottom: var(--gap); }
+    .age__col:hover h3 { color: var(--verdigris); }
+    .range { display: grid; gap: 6px; }
+    .range__track { height: 8px; background: var(--sage); border-radius: 4px; position: relative; }
+    .range__track i { position: absolute; top: 0; bottom: 0; background: var(--verdigris); border-radius: 4px; left: var(--from); right: calc(100% - var(--to)); }
+    .range small { color: var(--ink-muted); font-size: 13px; display: flex; justify-content: space-between; }
+    .age__foot { color: var(--ink-muted); font-size: 15px; margin-top: 20px; max-width: 70ch; }
+    @media (min-width: 1100px) { .age__row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); overflow: visible; margin-inline: 0; padding-inline: 0; } .age__col { flex: none; } .age__bar { display: none; } }
+    @media (max-width: 900px) { .age__col { flex-basis: 74vw; } }
+
+    /* ---------- Three dimensions: one scene, three statements ---------- */
+    .three { background: var(--white); }
+    .three__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
+    .three__photo { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 16 / 11; }
+    .three__photo img { width: 100%; height: 100%; object-fit: cover; }
+    .three__list { display: grid; gap: 28px; margin-top: 32px; }
+    .three__list h3 { font-family: var(--display); font-size: var(--step-2); line-height: 1.05; letter-spacing: -0.015em; font-weight: 400; margin-bottom: 8px; }
+    .three__list p { color: var(--ink-soft); max-width: 36ch; }
+    @media (max-width: 900px) { .three__grid { grid-template-columns: 1fr; } }
+
+    /* ---------- Hard moments ---------- */
+    .hard { background: var(--ink); color: var(--on-ink); }
+    .hard__inner { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px; align-items: center; }
+    .hard .display { color: var(--white); max-width: 26ch; }
+    .hard__links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+    .hard__links a { text-decoration: none; padding: 10px 14px; border-radius: var(--radius); background: var(--ink-2); color: var(--on-ink); font-size: 15px; min-height: 44px; display: inline-flex; align-items: center; }
+    .hard__links a:hover { background: var(--paper); color: var(--ink); }
+    @media (max-width: 800px) { .hard__inner { grid-template-columns: 1fr; } }
+
+    /* ---------- Classes: prices like a menu ---------- */
+    .classes { background: var(--paper); }
+    .classes__grid h2 { font-size: clamp(2rem, 1.2rem + 2.4vw, 3.25rem); }
+    .classes__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
+    .classes__photo { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 5; margin-top: 28px; }
+    .classes__photo img { width: 100%; height: 100%; object-fit: cover; }
+    .menu { display: grid; gap: 0; }
+    .menu__item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 24px; padding: 22px 0; border-top: 1px solid var(--rule); align-items: baseline; text-decoration: none; }
+    .menu__item:first-child { border-top: 0; padding-top: 0; }
+    .menu__item h3 { font-family: var(--display); font-size: var(--step-2); line-height: 1.05; font-weight: 400; letter-spacing: -0.015em; }
+    .menu__item:hover h3 { color: var(--verdigris); }
+    .menu__item .price { font-size: var(--step-1); font-weight: 500; white-space: nowrap; }
+    .menu__item .price.soon { color: var(--ink-muted); font-weight: 400; }
+    .menu__item p { grid-column: 1 / -1; color: var(--ink-soft); max-width: 60ch; }
+    .menu__item .meta { grid-column: 1 / -1; font-size: 14px; color: var(--ink-muted); }
+    .classes__terms { margin-top: 28px; color: var(--ink-muted); font-size: 15px; max-width: 60ch; }
+    @media (max-width: 860px) { .classes__grid { grid-template-columns: 1fr; } .classes__photo { aspect-ratio: 3 / 2; max-width: 420px; } }
+
+    /* ---------- Tools: statement, table pushed right ---------- */
+    .tools { background: var(--white); }
+    .tools h2 { max-width: 16ch; }
+    .tools__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 80px); align-items: end; margin-top: clamp(32px, 4vw, 56px); }
+    .tools__photo { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 5; max-width: 360px; }
+    .tools__photo img { width: 100%; height: 100%; object-fit: cover; }
+    .tools__row { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 16px; padding: 13px 0; border-top: 1px solid var(--rule); text-decoration: none; min-height: 48px; align-items: baseline; }
+    .tools__row:first-child { border-top: 0; }
+    .tools__row span { color: var(--ink-muted); font-size: 15px; }
+    .tools__row b { font-weight: 500; }
+    .tools__row:hover b { color: var(--verdigris); text-decoration: underline; text-underline-offset: 0.2em; }
+    .tools__evidence { margin-top: 24px; color: var(--ink-soft); max-width: 48ch; }
+    .tools__evidence b { color: var(--research); font-weight: 600; }
+    @media (max-width: 860px) { .tools__grid { grid-template-columns: 1fr; } }
+
+    /* ---------- Trust ---------- */
+    .trust { background: var(--paper-2); }
+    .trust__grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 8fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
+    .trust__grid img { border-radius: var(--radius-lg); aspect-ratio: 4 / 5; object-fit: cover; width: 100%; max-width: 320px; }
+    .trust__para { font-family: var(--display); font-size: clamp(1.25rem, 1rem + 1.1vw, 1.75rem); line-height: 1.35; max-width: 40ch; margin-top: 20px; }
+    .trust__facts { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 24px; color: var(--ink-soft); font-size: 15px; }
+    @media (max-width: 760px) { .trust__grid { grid-template-columns: 1fr; } .trust__grid img { max-width: 200px; } }
+
+    /* ---------- Close: last photograph, text beside ---------- */
+    .close { position: relative; min-height: 80svh; display: grid; align-items: end; background: var(--ink); color: var(--on-ink); }
+    .close img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 20% 50%; filter: brightness(0.72); }
+    .close__inner { position: relative; display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); padding-block: clamp(64px, 10vw, 140px) clamp(48px, 7vw, 96px); }
+    .close__text { grid-column: 2; }
+    .close h2 { color: var(--white); font-size: clamp(2.25rem, 1.2rem + 3.2vw, 4rem); }
+    .close p { margin-top: 20px; max-width: 36ch; color: var(--on-ink); }
+    .close .btn { margin-top: 28px; }
+    @media (max-width: 800px) { .close { min-height: 0; } .close img { position: relative; height: 56svh; filter: none; } .close__inner { display: block; padding-top: 32px; } .close h2 { color: var(--white); font-size: clamp(2.25rem, 1.2rem + 3.2vw, 4rem); } }
+  </style>
+</head>
+<body>
+  <p class="lab-ribbon">Composition B of three: <strong>Annotated observation</strong>. A review page, not the live site. <a href="../">Back to the deck</a></p>
+
+  <header class="lab-header">
+    <div class="container lab-header__inner">
+      <a class="wordmark" href="/" aria-label="Growing Minds Science, home"><span class="wordmark__name">growing minds</span><span class="wordmark__desc">Science</span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+      <nav class="lab-nav" id="nav" aria-label="Primary">
+        <a href="#explore">Explore</a><a href="/classes/">Classes</a><a href="/tools/">Tools</a><a href="/articles/">Articles</a><a href="/about/">About</a>
+        <div class="lab-nav__util"><a href="/nsc/class-login">My classes</a><a class="btn btn--quiet" href="/tools/right-now">Hard right now?</a></div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="container hero">
+      <div class="hero__text">
+        <div>
+          <h1 class="display hero__title" data-rise style="--i:0">See what&rsquo;s growing.</h1>
+          <p class="lead hero__lead" data-rise style="--i:1">Developmental science for the first five years: what your child is building, why ordinary moments matter, and what the research can actually tell us.</p>
+          <div class="hero__actions" data-rise style="--i:2">
+            <a class="btn" href="#lens">Explore a moment</a>
+            <a class="btn btn--quiet" href="#explore">Explore by age</a>
+          </div>
+          <p class="hero__quiet" data-rise style="--i:3">Something hard right now? <a href="/tools/right-now">Start here.</a></p>
+        </div>
+        <p class="hero__bottom soft" data-rise style="--i:4">An ordinary moment, newly seen. Press <b>Show what&rsquo;s growing</b> on the photograph.</p>
+      </div>
+
+      <figure class="plate" data-rise style="--i:1">
+        <img src="/assets/img/site/hero-parent-baby.jpg" width="1024" height="1536" alt="A parent and a toddler sit on the floor by a window. The child points at something outside the frame and the parent looks toward it." fetchpriority="high" />
+        <div class="labels" data-on="false" id="hero-labels">
+          <p class="label label--4" style="--i:0"><b>At about 12 to 18 months</b>Looking at one thing together is how words get attached to things.</p>
+          <p class="label label--1" style="--i:1"><b>A point</b>A serve: any bid for your attention counts.</p>
+          <p class="label label--2" style="--i:2"><b>Her gaze follows</b>The return. What you do next is what builds the pattern.</p>
+          <p class="label label--3" style="--i:3"><b>A conceptual reading</b>Processes at this age, not what this child is thinking.</p>
+        </div>
+        <button class="plate__toggle" type="button" aria-pressed="false" aria-controls="hero-labels" data-plate-toggle><span class="sw" aria-hidden="true"></span>Show what&rsquo;s growing</button>
+        <figcaption class="plate__fig">Fig. 1 &middot; Joint attention</figcaption>
+      </figure>
+    </section>
+
+    <!-- 02 Lens -->
+    <section class="section lens-section" id="lens" data-tabs-scope data-step="observe">
+      <div class="container">
+        <div class="lens-head">
+          <div>
+            <p class="note note--clay">The Developmental Lens &middot; 18 months to 4 years</p>
+            <h2 class="display display--l" style="margin-top:12px">Leaving the playground</h2>
+          </div>
+          <p class="soft">One ordinary moment, read in four steps. The science is drawn from the toddler class and is awaiting source review.</p>
+        </div>
+        <div class="lens">
+          <figure class="lens__plate">
+            <img src="/assets/img/site/child-learning.jpg" width="1122" height="1402" alt="A toddler at the bottom of a slide, one hand on it, turned back toward it; an adult crouches behind with a hand held out low." loading="lazy" />
+            <p class="label lp--1" data-for="observe"><b>A happy child</b>absorbed in play</p>
+            <p class="label lp--2" data-for="observe"><b>An announcement</b>&ldquo;Time to go.&rdquo;</p>
+            <p class="label lp--3" data-for="observe"><b>A hand on the slide</b>the run back</p>
+            <p class="label lp--5 label--note" data-for="observe"><b>Not observable</b>intent. We see the sequence, not the reason.</p>
+            <p class="label lp--1" data-for="understand"><b>Switching rules</b>&ldquo;play&rdquo; to &ldquo;go&rdquo; is hard before about four</p>
+            <p class="label lp--3" data-for="understand"><b>The brakes arrive last</b>stopping an action under way develops slowly</p>
+            <p class="label lp--2" data-for="understand"><b>Autonomy</b>&ldquo;no&rdquo; is practice at being a person</p>
+            <p class="label lp--4" data-for="understand"><b>Your own state</b>late, watched, tired: it shapes the return</p>
+            <p class="label lp--5 label--note" data-for="understand"><b>Conceptual model</b>capacities still being built, not a diagnosis</p>
+            <p class="label lp--4" data-for="respond"><b>The hand held low</b>close, steady, not grabbing</p>
+            <p class="label lp--2" data-for="respond"><b>Say what is next</b>&ldquo;two more slides, then lunch&rdquo;</p>
+            <p class="label lp--5 label--note" data-for="reflect"><b>Next time</b>notice what came just before</p>
+          </figure>
+          <div>
+            <div class="lens__tabs" data-tabs role="tablist" aria-label="Lens steps">
+              <button class="lens__tab" role="tab" data-tab="observe" aria-selected="true" aria-controls="p-observe" id="t-observe"><small>01</small>Observe</button>
+              <button class="lens__tab" role="tab" data-tab="understand" aria-selected="false" aria-controls="p-understand" id="t-understand" tabindex="-1"><small>02</small>Understand</button>
+              <button class="lens__tab" role="tab" data-tab="respond" aria-selected="false" aria-controls="p-respond" id="t-respond" tabindex="-1"><small>03</small>Respond</button>
+              <button class="lens__tab" role="tab" data-tab="reflect" aria-selected="false" aria-controls="p-reflect" id="t-reflect" tabindex="-1"><small>04</small>Reflect</button>
+              <span class="visually-hidden" aria-live="polite" data-tabs-status></span>
+            </div>
+
+            <section class="lens__panel" role="tabpanel" id="p-observe" aria-labelledby="t-observe" data-panel="observe" tabindex="0">
+              <h3 class="lens__q">What are we actually seeing?</h3>
+              <p class="lead">Two-minute warning given. &ldquo;Time to go.&rdquo; A run back to the slide. A body on the ground. Loud, fast crying. Ten minutes ago, everything was fine. Nothing about the playground changed. The plan did.</p>
+              <p class="soft">From the outside nobody can see &ldquo;defiance&rdquo; or &ldquo;tired&rdquo;. We can see the sequence, and the sequence is the clue.</p>
+              <div class="lens__nav"><span></span><button class="btn" type="button" data-goto="understand">Next: Understand</button></div>
+            </section>
+            <section class="lens__panel" role="tabpanel" id="p-understand" aria-labelledby="t-understand" data-panel="understand" tabindex="0" hidden>
+              <h3 class="lens__q">What might be developing beneath the surface?</h3>
+              <ul class="mech">
+                <li><i></i><span><b>Switching rules is hard at this age.</b> Children under about four keep sorting by the first rule after being told to switch. Leaving asks for exactly that switch. <span class="ev">Well established in laboratory tasks. Zelazo et al., 2003.</span></span></li>
+                <li><i></i><span><b>The brakes are the last part to arrive.</b> Stopping an action already under way depends on systems that develop slowly across childhood. <span class="ev">Well established. Diamond, 2013.</span></span></li>
+                <li><i></i><span><b>Autonomy is the work of this age.</b> &ldquo;No&rdquo; is practice at being a person, and it tends to arrive the moment a plan is imposed. <span class="ev">Supported. Kochanska and Aksan, 1995.</span></span></li>
+                <li><i></i><span><b>Once overwhelmed, reasoning does not land.</b> A nervous system past its limit cannot use language until it has come back down. Young children borrow a calm adult to get there. <span class="ev">Supported; the two-zone picture is a conceptual model.</span></span></li>
+              </ul>
+              <div class="lens__nav"><button class="btn btn--quiet" type="button" data-goto="observe">Back</button><button class="btn" type="button" data-goto="respond">Next: Respond</button></div>
+            </section>
+            <section class="lens__panel" role="tabpanel" id="p-respond" aria-labelledby="t-respond" data-panel="respond" tabindex="0" hidden>
+              <h3 class="lens__q">What can this understanding change?</h3>
+              <p class="lead">None of this makes leaving easy. It changes what you are responding to.</p>
+              <ol class="resp">
+                <li><b>Say what is next before the end.</b> An announced plan is one the child can start holding.</li>
+                <li><b>One real choice inside a firm limit.</b> &ldquo;Slide or swing for the last one?&rdquo;</li>
+                <li><b>If it tips over, regulate first.</b> Fewer words, a lower voice, a steady body. The explanation can wait for the car.</li>
+                <li><b>Expect it to be hard sometimes anyway.</b> Tuesday smooth, Wednesday on the floor: that is development, not a failed method.</li>
+              </ol>
+              <div class="lens__nav"><button class="btn btn--quiet" type="button" data-goto="understand">Back</button><button class="btn" type="button" data-goto="reflect">Next: Reflect</button></div>
+            </section>
+            <section class="lens__panel" role="tabpanel" id="p-reflect" aria-labelledby="t-reflect" data-panel="reflect" tabindex="0" hidden>
+              <h3 class="lens__q">What might you notice next time?</h3>
+              <ul class="refl">
+                <li>What came just before the hard moment?</li>
+                <li>Which part of the transition was hardest, and was it the same part as last time?</li>
+                <li>What helped you stay steady?</li>
+              </ul>
+              <p class="soft">Observations, not scores. Curiosity about one child, not a verdict.</p>
+              <div class="lens__nav"><button class="btn btn--quiet" type="button" data-goto="respond">Back</button><a class="btn" href="/lens/leaving-the-playground">Open the full Lens, with sources</a></div>
+            </section>
+          </div>
+        </div>
+        <div class="lens__foot">
+          <p><b>Read:</b> <a href="/articles/toddler-no">The toddler &ldquo;no&rdquo; is not the war you think it is</a> &middot; <b>Try:</b> <a href="/tools/right-now">It&rsquo;s hard right now</a> &middot; <b>Learn:</b> <a href="/classes/toddlerhood">Toddler years, modules 3 and 5</a></p>
+          <p class="note note--research">Clear about what&rsquo;s known. Honest about what&rsquo;s not.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 Age -->
+    <section class="section age" id="explore">
+      <div class="container">
+        <div class="age__head">
+          <h2 class="display display--l">Five periods, one growing mind.</h2>
+          <p class="soft" style="max-width:36ch">Typical ranges, not deadlines. Children vary widely, and so do days.</p>
+        </div>
+        <div class="age__bar" aria-hidden="true"><i data-agebar></i></div>
+        <div class="age__row" data-agerow tabindex="0" aria-label="Five developmental periods, scroll sideways">
+          <a class="age__col" href="/classes/birth-to-12-months"><span class="yrs">Birth to 1</span><h3>Foundations</h3><p>Attachment, the senses, and the rhythm of back-and-forth. Serve and return, not flashcards, builds the architecture.</p><div class="range"><div class="range__track" style="--from:0%;--to:20%"><i></i></div><small><span>birth</span><span>5 years</span></small></div></a>
+          <a class="age__col" href="/classes/toddlerhood"><span class="yrs">1 to 2</span><h3>First words, first steps</h3><p>Understanding races ahead of speech. Looking at something together is how words get attached to things.</p><div class="range"><div class="range__track" style="--from:20%;--to:40%"><i></i></div><small><span>birth</span><span>5 years</span></small></div></a>
+          <a class="age__col" href="/classes/toddlerhood"><span class="yrs">2 to 3</span><h3>Autonomy and big feelings</h3><p>&ldquo;No&rdquo; is a milestone, not defiance. Big feelings outrun the brakes while the brakes are still being built.</p><div class="range"><div class="range__track" style="--from:40%;--to:60%"><i></i></div><small><span>birth</span><span>5 years</span></small></div></a>
+          <a class="age__col" href="/classes/preschool"><span class="yrs">3 to 4</span><h3>The imagination years</h3><p>Pretend play is serious cognitive work: two realities at once, other perspectives, social roles rehearsed.</p><div class="range"><div class="range__track" style="--from:60%;--to:80%"><i></i></div><small><span>birth</span><span>5 years</span></small></div></a>
+          <a class="age__col" href="/classes/preschool"><span class="yrs">4 to 5</span><h3>Self-control, slowly</h3><p>Working memory, flexible thinking and impulse control are under construction, on a wide and normal range.</p><div class="range"><div class="range__track" style="--from:80%;--to:100%"><i></i></div><small><span>birth</span><span>5 years</span></small></div></a>
+        </div>
+        <p class="age__foot">Each period opens the class, articles and tools for that window.</p>
+      </div>
+    </section>
+
+    <!-- 04 Three dimensions -->
+    <section class="section three">
+      <div class="container three__grid">
+        <figure class="three__photo" data-rise style="--i:0"><img src="/assets/img/site/toddler-blocks.jpg" width="1774" height="887" alt="A young child's hands fitting wooden blocks together on a worn kitchen table." loading="lazy" /></figure>
+        <div>
+          <h2 class="display display--l" data-rise style="--i:1">Three things worth understanding</h2>
+          <div class="three__list">
+            <div data-rise style="--i:2"><h3>Your child</h3><p>What is being built at this age, what behaviour reveals, and what it does not.</p></div>
+            <div data-rise style="--i:3"><h3>Yourself</h3><p>How your own state, history and expectations enter the room. A child&rsquo;s calm is borrowed before it is owned.</p></div>
+            <div data-rise style="--i:4"><h3>Your influence</h3><p>Which parts of the environment shape development, which are normal variation, and which are outside anyone&rsquo;s control.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 Hard moments -->
+    <section class="section section--tight hard">
+      <div class="container hard__inner">
+        <div>
+          <p class="display display--m" data-rise style="--i:0">If something is hard right now, you do not need the whole field guide.</p>
+          <div class="hard__links" data-rise style="--i:1"><a href="/tools/right-now">Meltdown</a><a href="/tools/right-now">Testing a limit</a><a href="/tools/right-now">Won&rsquo;t sleep</a><a href="/tools/right-now">Losing my patience</a><a href="/tools/right-now">Something happened between us</a></div>
+        </div>
+        <div data-rise style="--i:1"><a class="btn btn--paper" href="/tools/right-now">It&rsquo;s hard right now</a><p class="small" style="margin-top:12px; color: var(--on-ink-soft)">Two minutes, five situations, a calm next step.</p></div>
+      </div>
+    </section>
+
+    <!-- 06 Classes -->
+    <section class="section classes" id="classes">
+      <div class="container classes__grid">
+        <div>
+          <h2 class="display display--l" data-rise style="--i:0">The first five years, understood.</h2>
+          <p class="soft" data-rise style="--i:1; margin-top:16px; max-width:34ch">One class for each window, taught at a kitchen table: the mechanism, the evidence, and the limits of what anyone can know about one child.</p>
+        </div>
+        <div class="menu" data-rise style="--i:2">
+          <a class="menu__item" href="/classes/birth-to-12-months"><h3>Birth to 12 months</h3><span class="price">$49</span><p>Why responsive care builds security rather than spoiling, what infant sleep looks like across the year, and how language begins before the first word.</p><span class="meta">16 lessons in 4 modules, about 3 hours &middot; Watch &ldquo;Serve and return&rdquo; free</span></a>
+          <a class="menu__item" href="/classes/toddlerhood"><h3>Toddler years, 1 to 3</h3><span class="price">$49</span><p>Why &ldquo;no&rdquo; is a milestone rather than defiance, what a meltdown is neurologically, and how your calm becomes the scaffold their regulation is built on.</p><span class="meta">29 lessons in 5 modules, about 5 hours</span></a>
+          <a class="menu__item" href="/classes/preschool"><h3>Preschool years, 3 to 5</h3><span class="price">$49</span><p>Why pretend play is serious cognitive work, how executive function develops on a wide normal range, and what readiness means in the research.</p><span class="meta">15 lessons in 4 modules</span></a>
+          <a class="menu__item" href="/classes/family-systems"><h3>The whole family</h3><span class="price soon">In development</span><p>How household stress reaches a child&rsquo;s nervous system, and which protective factors hold up inside real families.</p><span class="meta">Join the waitlist</span></a>
+          <p class="classes__terms">Lifetime access, no subscription. Captions and a written version of every lesson. Full refund within 14 days if you have watched four lessons or fewer.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 Tools and evidence -->
+    <section class="section tools">
+      <div class="container">
+        <h2 class="display display--l" data-rise style="--i:0">Free tools, by what you need</h2>
+        <div class="tools__grid">
+          <div>
+            <figure class="tools__photo" data-rise style="--i:1"><img src="/assets/img/site/notebook-coffee.jpg" width="1122" height="1402" alt="An open notebook with a few handwritten lines and a question mark, a mug, and a child's drawing on a kitchen table after bedtime." loading="lazy" /></figure>
+            <p class="tools__evidence" data-rise style="--i:2"><b>Clear about what&rsquo;s known. Honest about what&rsquo;s not.</b> Every claim in the library is graded for evidence strength and consensus, and every page cites its sources.</p>
+          </div>
+          <div data-rise style="--i:2">
+            <a class="tools__row" href="/tools/right-now"><span>Hard right now</span><b>It&rsquo;s hard right now</b></a>
+            <a class="tools__row" href="/tools/growing-minds-ai"><span>A question at bedtime</span><b>Growing Minds AI</b></a>
+            <a class="tools__row" href="/milestones"><span>Is this typical?</span><b>Milestone tracker</b></a>
+            <a class="tools__row" href="/tools/communication-snapshot"><span>Before a checkup</span><b>Communication Snapshot</b></a>
+            <a class="tools__row" href="/tools/activity-library"><span>Something to do together</span><b>Activity Library</b></a>
+            <a class="tools__row" href="/nsc"><span>Early number sense</span><b>Number Path</b></a>
+            <a class="tools__row" href="/tools/library/"><span>Is that claim true?</span><b>Claims library</b></a>
+            <a class="tools__row" href="/tools/"><span>Everything else</span><b>All tools and guides</b></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 Trust -->
+    <section class="section trust">
+      <div class="container trust__grid">
+        <img src="/assets/img/matthew-photo-600.jpg" width="600" height="749" alt="Matthew McArthur, indoors, looking at the camera." loading="lazy" data-rise style="--i:0" />
+        <div>
+          <h2 class="display display--l" data-rise style="--i:1">Mental models, not scripts.</h2>
+          <p class="trust__para" data-rise style="--i:2">Matthew McArthur studied how the home shapes early development at San Diego State University, after working with developmental researchers at UCLA. He wrote about early language for children in Frontiers for Young Minds, then spent years in state-funded early intervention with families of children under three.</p>
+          <p class="trust__facts" data-rise style="--i:3"><span>San Diego, California</span><span>Sources cited on every page</span><span>Educational, not clinical</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 Close -->
+    <section class="close">
+      <img src="/assets/img/site/child-learning.jpg" width="1122" height="1402" alt="" loading="lazy" />
+      <div class="container close__inner">
+        <div class="close__text">
+          <h2 class="display display--close" data-rise style="--i:0">Less pressure. Better explanations.</h2>
+          <p data-rise style="--i:1">There&rsquo;s more to every moment. A field guide to the first five years, written for an ordinary Tuesday.</p>
+          <a class="btn btn--paper" href="#lens" data-rise style="--i:2">Explore a moment</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="lab-footer">
+    <div class="container">
+      <div class="lab-footer__top">
+        <div><a class="wordmark" href="/"><span class="wordmark__name">growing minds</span><span class="wordmark__desc">Science</span></a><p class="lab-footer__tag">The living field guide to the growing mind, for parents of children birth to five.</p></div>
+        <div><h2>Classes</h2><ul><li><a href="/classes/birth-to-12-months">Birth to 12 months</a></li><li><a href="/classes/toddlerhood">Toddler years</a></li><li><a href="/classes/preschool">Preschool years</a></li><li><a href="/classes/family-systems">Family systems</a></li><li><a href="/pricing">Pricing</a></li></ul></div>
+        <div><h2>Tools</h2><ul><li><a href="/tools/right-now">It&rsquo;s hard right now</a></li><li><a href="/tools/growing-minds-ai">Growing Minds AI</a></li><li><a href="/milestones">Milestone tracker</a></li><li><a href="/tools/">All tools and guides</a></li></ul></div>
+        <div><h2>About</h2><ul><li><a href="/about/">Our approach</a></li><li><a href="/articles/">Articles</a></li><li><a href="/faq/">FAQ</a></li><li><a href="/contact/">Contact</a></li></ul></div>
+      </div>
+      <div class="lab-footer__legal"><p>&copy; 2026 Growing Minds Science</p><p>Educational content only. Not medical or psychological advice.</p></div>
+    </div>
+  </footer>
+
+  <script src="../lab.js"></script>
+  <script>
+    (function () {
+      var t = document.querySelector('[data-plate-toggle]'), l = document.getElementById('hero-labels');
+      if (t && l) t.addEventListener('click', function () { var on = t.getAttribute('aria-pressed') !== 'true'; t.setAttribute('aria-pressed', String(on)); l.setAttribute('data-on', String(on)); t.lastChild.textContent = on ? 'Hide the labels' : 'Show what’s growing'; });
+      var row = document.querySelector('[data-agerow]'), bar = document.querySelector('[data-agebar]');
+      if (row && bar) { var upd = function () { var max = row.scrollWidth - row.clientWidth; var p = max > 0 ? row.scrollLeft / max : 0; bar.style.transform = 'translateX(' + (p * 400) + '%)'; }; row.addEventListener('scroll', upd, { passive: true }); upd(); }
+    })();
+  </script>
+</body>
+</html>
