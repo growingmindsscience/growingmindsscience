@@ -2,7 +2,7 @@
 
 Final verification of the redesign on the live site, https://growingmindsscience.com, on 2026-10-15, after S0 to S8 merged. Everything below was run against production, not a local server, except the repo gates. The automated gates come from `node scripts/fg-gate.mjs --label c5-live --base https://growingmindsscience.com` over every page in the sitemap (55 pages; nsc is checked separately), and the full output is `gate-reports/2026-10-15-c5-live.md`. Screenshots are live captures in `reference/c5/`, each page at 1440 and 390, plus seven dark-theme pages.
 
-Three small fixes were made on this branch during the run (listed at the end). They are not live yet, so where a check depends on them, it says so.
+Five small fixes were made during the run (listed at the end). They shipped with PR 132, and a recheck on the live site on 2026-10-15 confirmed each one. Two follow-up PRs then cleared the one target C5 missed, largest contentful paint: PR 133 self-hosts the fonts and PR 134 removes the last render-blocking import and serves the Lens image as WebP. Check 4 gives the numbers before and after.
 
 ## Summary
 
@@ -11,9 +11,9 @@ Three small fixes were made on this branch during the run (listed at the end). T
 | 1 | Taste inspector, every page at 1440, 768 and 390 | No defects among the automated fails; three small items for Matthew (homepage and claim kickers, arcade dingbats, the AI input ring) |
 | 2 | Axe, every page | Pass, 0 violations on all 55 pages at 1440 and 390 |
 | 3 | No JavaScript, reduced motion, keyboard, tap targets | Pass; the four flags are content hidden until opened and one inline link |
-| 4 | Lighthouse mobile (home, Lens, classes hub) | Performance 92 to 96; **LCP 2.6 to 3.3s, over the 2.5s target** (render-blocking web fonts) |
+| 4 | Lighthouse mobile (home, Lens, classes hub) | Pass after PRs 133 and 134: performance 98 on all three, LCP 2.29 to 2.30s (first run: 2.6 to 3.3s, over the target) |
 | 5 | Sitemap and canonicals | Pass, 56 of 56 URLs return 200 and each canonical names itself |
-| 6 | Redirects | Pass, 42 of 42 live redirects land where `vercel.json` says; 3 new ones ship with this PR |
+| 6 | Redirects | Pass, 45 of 45 live redirects land where `vercel.json` says, the 3 added in C5 included |
 | 7 | Purchase links | Pass for the classes up to the account step; **the Growing Minds AI Pro checkout fails (502)**, Matthew is checking |
 | 8 | Login and class access | Not run; needs Matthew and the test account |
 | 9 | Dark theme | Pass by eye on seven pages |
@@ -58,7 +58,7 @@ The inspector ran on all 55 pages at 1440, 768 and 390. It reports something on 
 
 ## 4. Lighthouse
 
-Mobile, simulated throttling, on the live site:
+Mobile, simulated throttling, on the live site. First run, at C5:
 
 | Page | Performance | LCP | CLS | TBT | Accessibility | Best practices | SEO |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -66,15 +66,29 @@ Mobile, simulated throttling, on the live site:
 | `/lens/leaving-the-playground` | 96 | 2.58s | 0.017 | 0ms | 99 | 100 | 100 |
 | `/classes/` | 92 | 3.25s | 0.001 | 0ms | 100 | 100 | 100 |
 
-Performance clears 90 everywhere, but LCP is over the 2.5s target on all three pages. The cause is the same on each: the Google Fonts stylesheet blocks rendering for about 810ms, and the font files come from a second origin after it, even though both origins are preconnected. On `/classes/` the LCP is the lead paragraph, so it waits for Newsreader (2.6s render delay). The fix is to self-host Newsreader and Inter as woff2 files with a preload. That changes every page's head and the CSP, so it is proposed as its own PR, not folded into C5.
+Performance cleared 90 everywhere, but LCP was over the 2.5s target on all three pages. The cause was the same on each: the Google Fonts stylesheet blocked rendering for about 810ms, and the font files came from a second origin after it, even though both origins were preconnected. On `/classes/` the LCP is the lead paragraph, so it waited for Newsreader (2.6s render delay).
+
+Two PRs fixed it, each kept out of C5 because it touches every page's head:
+- **PR 133** self-hosts Newsreader and Inter. The files are the same woff2 files Google served, latin and latin-ext subsets only, with the OFL licences alongside, in `assets/fonts/`. They are preloaded and cached for a year. The CSP now allows fonts and styles from this site only. After it, the classes hub came under the target, but the Lens got slower (3.03 to 3.15s), because its LCP image now competed with the font files for the early bandwidth.
+- **PR 134** removes the last render-blocking chain and lightens the Lens image. `field-guide.css` no longer `@import`s the tokens; every page links `tokens-field-guide.css` directly, so the browser fetches both at once instead of one after the other. The Lens photograph is served as WebP at 640 and 1122 wide (64KB and 137KB) through `<picture>`, with the JPEG kept as the fallback. The homepage Lens band uses the same files.
+
+Rerun on the live site after both merged (`gate-reports/2026-10-15-c5-live-g8.md`):
+
+| Page | Performance | LCP | CLS | TBT | Accessibility | Best practices | SEO |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `/` | 98 | 2.29s | 0.001 | 36ms | 100 | 100 | 100 |
+| `/lens/leaving-the-playground` | 98 | 2.30s | 0.001 | 0ms | 99 | 100 | 100 |
+| `/classes/` | 98 | 2.29s | 0.000 | 85ms | 100 | 100 | 100 |
+
+All three pages now meet G8: performance 90 or above, CLS under 0.1, LCP under 2.5s. Separate runs after PR 134 put the homepage at 2.36 to 2.49s, so its margin is the thinnest. The homepage's LCP is its headline, which waits for the Newsreader file (131KB), so taking it further would mean a design change, such as a smaller font subset.
 
 ## 5. Sitemap and canonicals
 
-The live `sitemap.xml` lists 56 URLs. Every one returns 200, and for every non-nsc page the `<link rel="canonical">` is exactly the sitemap URL. On live, three class pages are still listed and canonicalised at their `.html` addresses (`/classes/birth-to-12-months.html`, `/classes/preschool.html`, `/classes/family-systems.html`) while the other class page and the rest of the site use clean URLs. This branch moves their sitemap entries, canonicals, `og:url` and JSON-LD to the clean addresses and adds 308 redirects from the `.html` ones. The clean addresses already return 200 live, so nothing breaks in between. `node scripts/check-canonicals.mjs` passes on the branch.
+The live `sitemap.xml` lists 56 URLs. Every one returns 200, and for every non-nsc page the `<link rel="canonical">` is exactly the sitemap URL. On the first run, three class pages were still listed and canonicalised at their `.html` addresses (`/classes/birth-to-12-months.html`, `/classes/preschool.html`, `/classes/family-systems.html`) while the other class page and the rest of the site used clean URLs. PR 132 moved their sitemap entries, canonicals, `og:url` and JSON-LD to the clean addresses and added 308 redirects from the `.html` ones. Rechecked live after the merge: 56 of 56 URLs return 200 with a matching canonical. `node scripts/check-canonicals.mjs` passes on main.
 
 ## 6. Redirects
 
-Each literal redirect in `vercel.json` was requested on the live site without following it. 42 return a 308 to exactly the configured destination. The three that do not are the new `.html` class redirects above, which return 200 because they are not deployed yet. There are no pattern redirects.
+Each literal redirect in `vercel.json` was requested on the live site without following it. On the first run, 42 returned a 308 to exactly the configured destination, and the three new `.html` class redirects above returned 200 because they were not deployed yet. After PR 132 merged, all 45 return a 308 to their destination. There are no pattern redirects.
 
 ## 7. Purchase links
 
@@ -108,7 +122,7 @@ On the branch: `stamp-assets --check` (every CSS/JS reference is stamped, 39 ass
 
 `terrain.js`, `lens.js`, `lens.css`, `decor.js`, `animate.js`, `seminar.css` and `arcade-page.css` are deleted (S8), and no page references them. `DESIGN.md` and `.impeccable/design.json` describe the Field Guide system, with no Terrain note left. `assets/js/home.js` still exists by name, but it is not the Terrain script the plan meant: composition B rewrote it as the Field Guide homepage's own script (the plate labels, the Lens tabs and entrances), and 54 pages load it for the entrances. `styles.css`, `refresh.css` and `tokens-terrain.css` remain only because the answers-library template (`build-library.mjs`) still uses them; that page is not in the sitemap.
 
-## Fixes made during C5 (on this branch, not yet live)
+## Fixes made during C5 (live since PR 132, each rechecked on the live site)
 
 1. Homepage: the "Is that claim true?" row linked `/tools/library/`, which 404s; it now opens `/claims/`.
 2. Three class pages moved to clean URLs: sitemap, canonical, `og:url`, JSON-LD, and 308 redirects from the `.html` addresses.
