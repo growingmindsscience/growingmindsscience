@@ -165,7 +165,7 @@
     if (!list.length) {
       var empty = document.createElement("li");
       empty.className = NS + "-lb__empty";
-      empty.textContent = "No scores yet — be the first.";
+      empty.textContent = "No scores yet. Be the first.";
       ol.appendChild(empty);
     } else {
       list.forEach(function (entry, i) {
@@ -848,15 +848,15 @@
   // URL that never changes would keep serving a stale game.
   var GAME_JS = {
     asteroids: "/assets/js/asteroids-game.js?v=3f98d07fcc",
-    blocks: "/assets/js/blocks-game.js?v=28dd8fcd62",
-    breakout: "/assets/js/breakout-game.js?v=0605709d07",
-    dino: "/assets/js/dino-game.js?v=1686f36596",
-    echo: "/assets/js/echo-game.js?v=7d68dc5c21",
-    hopper: "/assets/js/hopper-game.js?v=ff1902f10d",
-    invaders: "/assets/js/invaders-game.js?v=5602abb99f",
-    maze: "/assets/js/maze-game.js?v=eb5fa5046d",
+    blocks: "/assets/js/blocks-game.js?v=90e0306b81",
+    breakout: "/assets/js/breakout-game.js?v=e23e122b92",
+    dino: "/assets/js/dino-game.js?v=249fd44627",
+    echo: "/assets/js/echo-game.js?v=f29f08198c",
+    hopper: "/assets/js/hopper-game.js?v=1409325d50",
+    invaders: "/assets/js/invaders-game.js?v=a94f39e62c",
+    maze: "/assets/js/maze-game.js?v=d90875d458",
     pong: "/assets/js/pong-game.js?v=ec48566888",
-    snake: "/assets/js/snake-game.js?v=92c90cc71a"
+    snake: "/assets/js/snake-game.js?v=70fea4cfab"
   };
   var GAME_CSS = { pong: ["/assets/css/pong.css?v=08e7f7f61f"] };
 

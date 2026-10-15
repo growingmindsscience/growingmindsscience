@@ -149,18 +149,18 @@ export function standingSummary(args: {
   let detail: string;
   if (standing === "ahead") {
     headline = `${name} is out ahead of the typical range for age ${ageLabel}.`;
-    detail = `Most children around ${ageLabel} sit between ${label}. Keep it playful — the games will keep pace as the next rung comes into view.`;
+    detail = `Most children around ${ageLabel} sit between ${label}. Keep it playful. The games will keep pace as the next rung comes into view.`;
   } else if (standing === "typical") {
     headline = `${name} is right in the typical range for age ${ageLabel}.`;
     detail = `Most children around ${ageLabel} sit between ${label}, and children step onto rungs months apart while landing in the same place.`;
   } else {
     headline = `${name} is on the earlier side of the typical range for age ${ageLabel}.`;
-    detail = `Most children around ${ageLabel} sit between ${label} — a wide range, and the earlier side of it is common. The weekly games work exactly this edge, a few playful minutes at a time.`;
+    detail = `Most children around ${ageLabel} sit between ${label}: a wide range, and the earlier side of it is common. The weekly games work exactly this edge, a few playful minutes at a time.`;
   }
 
   const caveat =
     args.confidence === "low"
-      ? "Today’s read was a playful estimate, so hold this loosely — the next check-in will sharpen it."
+      ? "Today’s read was a playful estimate, so hold this loosely. The next check-in will sharpen it."
       : null;
 
   return { standing, range, rangeLabel: label, headline, detail, caveat };
@@ -168,4 +168,4 @@ export function standingSummary(args: {
 
 /** Standing footnote for surfaces that show the comparison. */
 export const NORMS_NOTE =
-  "Typical ranges come from published counting studies and they are wide. A home check-in is an estimate, never a diagnosis — the range is a map, not a race.";
+  "Typical ranges come from published counting studies and they are wide. A home check-in is an estimate, never a diagnosis. The range is a map, not a race.";

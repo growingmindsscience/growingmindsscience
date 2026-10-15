@@ -172,7 +172,7 @@ export default async function ActivitiesPage({
         <Card className="bg-sea-glass/30">
           <p className="text-ink">
             Nothing here yet{sp.band || sp.domain ? " for those filters" : ""}.
-            The library is filling up batch by batch — every activity gets a
+            The library is filling up batch by batch, and every activity gets a
             human review before it appears.
           </p>
         </Card>

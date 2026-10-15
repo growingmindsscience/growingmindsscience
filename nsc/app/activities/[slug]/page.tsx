@@ -67,7 +67,7 @@ export default async function ActivityPage({
                   <span>
                     {m.item}
                     {m.note ? (
-                      <span className="text-ink-muted"> — {m.note}</span>
+                      <span className="text-ink-muted"> ({m.note})</span>
                     ) : null}
                   </span>
                 </li>

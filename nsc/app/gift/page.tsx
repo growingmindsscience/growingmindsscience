@@ -8,7 +8,7 @@ import { PRICE_DISPLAY } from "@/lib/stripe";
 export const metadata = {
   title: "Give Number Path as a gift",
   description:
-    "Gift a warm, screen-free early-math ritual. One payment, no subscription — a code the family redeems whenever they're ready.",
+    "Gift a warm, screen-free early-math ritual. One payment, no subscription: a code the family redeems whenever they're ready.",
 };
 
 export default async function GiftPage({
@@ -27,8 +27,8 @@ export default async function GiftPage({
           Give Number Path
         </h1>
         <p className="max-w-md text-lg text-ink">
-          A warm, screen-free way to share numbers with a two-to-five-year-old
-          — ten minutes, a bowl, and a bear. One payment, no subscription to
+          A warm, screen-free way to share numbers with a two-to-five-year-old:
+          ten minutes, a bowl, and a bear. One payment, no subscription to
           cancel.
         </p>
       </section>
@@ -39,7 +39,7 @@ export default async function GiftPage({
         </p>
         <p className="mt-2 text-ink">
           You pay once ({PRICE_DISPLAY}) and get a redemption code to hand over
-          — on a printable card, or forwarded by email. The family redeems it
+          (on a printable card, or forwarded by email). The family redeems it
           whenever they&rsquo;re ready, and it&rsquo;s theirs for good. Nothing
           renews, nothing to remember.
         </p>

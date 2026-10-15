@@ -10,30 +10,30 @@ const PRICE = process.env.NEXT_PUBLIC_NSC_PRICE_DISPLAY ?? "$34";
 const STEPS = [
   {
     title: "Play the check-in",
-    body: "Ten minutes at the kitchen table with a bowl, ten blocks, and any stuffed animal. You read short scripted lines — “Can you feed the bear three?” — and tap what happened. The app adjusts each question to the last answer, so it never drags.",
+    body: "Ten minutes at the kitchen table with a bowl, ten blocks, and any stuffed animal. You read short scripted lines (“Can you feed the bear three?”) and tap what happened. The app adjusts each question to the last answer, so it never drags.",
   },
   {
     title: "See the ladder",
-    body: "Your child lands on a rung of the counting ladder — the sequence every child climbs between reciting number words and knowing what they mean. You'll see the rung in plain words, and what usually comes next.",
+    body: "Your child lands on a rung of the counting ladder: the sequence every child climbs between reciting number words and knowing what they mean. You'll see the rung in plain words, and what usually comes next.",
   },
   {
     title: "Play the week",
-    body: "Three household games matched to that exact rung, plus a daily ten-second number-talk prompt. A fresh set arrives each week, and every six weeks you re-run the check-in to see where things stand. Rungs take months — a climb and a rung settling in are both the ladder working.",
+    body: "Three household games matched to that exact rung, plus a daily ten-second number-talk prompt. A fresh set arrives each week, and every six weeks you re-run the check-in to see where things stand. Rungs take months. A climb and a rung settling in are both the ladder working.",
   },
 ];
 
 const FAQ = [
   {
     q: "What ages is this for?",
-    a: "Roughly 2 to 5 — from first number words to counting any pile. Under about 30 months the check-in automatically switches to Point and Seek, a two-minute watching game with no asking at all.",
+    a: "Roughly 2 to 5, from first number words to counting any pile. Under about 30 months the check-in automatically switches to Point and Seek, a two-minute watching game with no asking at all.",
   },
   {
     q: "What if the game falls apart halfway?",
-    a: "That's toddlers. Pause any time and pick up where you left off within two days. Off days get a gentler read, never a scary one — and a fresh bear usually fixes everything.",
+    a: "That's toddlers. Pause any time and pick up where you left off within two days. Off days get a gentler read, never a scary one. And a fresh bear usually fixes everything.",
   },
   {
     q: "Do I need to be good at math?",
-    a: "No — that's the point. Every line you say is written out for you, word for word. Research on parent-child math suggests structured, low-pressure moments like these are exactly how families who feel shaky about math build a warm number habit anyway.",
+    a: "No. That's the point. Every line you say is written out for you, word for word. Research on parent-child math suggests structured, low-pressure moments like these are exactly how families who feel shaky about math build a warm number habit anyway.",
   },
   {
     q: "What do I get free?",
@@ -103,19 +103,19 @@ export default async function Home() {
         <p className="text-ink">
           Somewhere between two and five, every child makes the same climb.
           First the number words are a song. Then &ldquo;one&rdquo; snaps onto
-          meaning — hand a one-knower one block and they&rsquo;re right every
+          meaning: hand a one-knower one block and they&rsquo;re right every
           time, ask for three and you get a fistful. Then &ldquo;two&rdquo;
-          clicks. Then &ldquo;three,&rdquo; then &ldquo;four&rdquo; — and then
+          clicks. Then &ldquo;three,&rdquo; then &ldquo;four,&rdquo; and then
           the big discovery: counting itself tells you how many, for any
           number. Developmental scientists have mapped this staircase for over
-          thirty years using a deceptively simple game called Give-N —
+          thirty years using a deceptively simple game called Give-N:
           &ldquo;can you give me three?&rdquo;
         </p>
         <p className="text-ink">
           The Feed-the-Bear check-in is that same game, scripted for your
           kitchen. The question engine behind it adjusts to each answer and was
           tested against tens of thousands of simulated children before it was
-          allowed near a real one — tuned so that on a noisy day, its rare
+          allowed near a real one. It is tuned so that on a noisy day, its rare
           misses land a rung <em>low</em>, never high. A rung too low means a
           bored week. A rung too high means a frustrated two-year-old. We chose
           bored.
@@ -131,7 +131,7 @@ export default async function Home() {
           A child who&rsquo;s just cracked &ldquo;two&rdquo; needs completely
           different number talk than one who counts every stuffed animal in the
           house. In a randomized trial of parent number talk, which numbers
-          helped depended on where the child stood — small numbers for most,
+          helped depended on where the child stood: small numbers for most,
           bigger ones once a child was further along the climb. Generic
           counting apps send every family the same drills. Number Path
           routes every game and every prompt to the rung your child is actually
@@ -143,7 +143,7 @@ export default async function Home() {
               Nervous about math yourself?
             </span>{" "}
             You&rsquo;re the parent we wrote every script for. Each game is
-            spelled out word for word — what to grab, what to say, when to
+            spelled out word for word: what to grab, what to say, when to
             stop. Structured moments like that are how research suggests
             math-anxious parents share numbers warmly, without passing the
             nerves along.
@@ -222,8 +222,8 @@ export default async function Home() {
             Or{" "}
             <Link href="/gift" className="font-semibold text-teal underline">
               give it as a gift
-            </Link>{" "}
-            — a finite present, nothing to cancel.
+            </Link>
+            : a finite present, nothing to cancel.
           </p>
         </Card>
       </section>

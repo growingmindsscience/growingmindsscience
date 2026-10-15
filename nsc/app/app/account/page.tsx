@@ -16,21 +16,21 @@ const THINKIFIC_CLASS =
 
 /** Human labels for the raw entitlement scopes. */
 const SCOPE_LABELS: Record<string, string> = {
-  membership: "Membership — everything, including Number Path",
-  numberpath_full: "Number Path — full access",
-  "ai:unlimited": "Growing Minds AI — unlimited",
-  "class:toddlerhood": "Toddler class — lifetime access",
-  "class:infant": "Infant class — lifetime access",
-  "class:preschool": "Preschool class — lifetime access",
+  membership: "Membership: everything, including Number Path",
+  numberpath_full: "Number Path: full access",
+  "ai:unlimited": "Growing Minds AI: unlimited",
+  "class:toddlerhood": "Toddler class: lifetime access",
+  "class:infant": "Infant class: lifetime access",
+  "class:preschool": "Preschool class: lifetime access",
 };
 
 function scopeLabel(scope: string): string {
-  return SCOPE_LABELS[scope] ?? (scope.startsWith("class:") ? `Class — ${scope.slice(6)}` : scope);
+  return SCOPE_LABELS[scope] ?? (scope.startsWith("class:") ? `Class: ${scope.slice(6)}` : scope);
 }
 
 function Notice({ kind }: { kind: string | undefined }) {
   const messages: Record<string, { tone: "ok" | "err"; text: string }> = {
-    "code=ok": { tone: "ok", text: "Access code accepted — unlimited AI is linked to your account." },
+    "code=ok": { tone: "ok", text: "Access code accepted. Unlimited AI is linked to your account." },
     "code=invalid": { tone: "err", text: "That access code isn't right. Check your class confirmation email." },
     "code=empty": { tone: "err", text: "Enter your access code first." },
     "code=error": { tone: "err", text: "Something went wrong linking your code. Please try again." },

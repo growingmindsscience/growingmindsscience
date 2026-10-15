@@ -350,7 +350,7 @@
         A.haptics.win(); // clearing a wall is the biggest beat the game has
         buildLevel();
         spawnBall();
-        startBanner("Wall " + level + " — keep asking");
+        startBanner("Wall " + level + ": keep asking");
       }
     }
 
@@ -587,7 +587,7 @@
     }
     function showEnd(finalScore) {
       updateHud();
-      els.promptTitle.textContent = "The wall held — this time";
+      els.promptTitle.textContent = "The wall held, this time";
       els.promptText.textContent = "Score " + String(finalScore).padStart(5, "0") + " · wall " + level +
         (combo.best() > 1 ? " · best chain " + combo.best() : "");
       els.promptActions.textContent = "";
@@ -693,12 +693,12 @@
     overlay.className = "gms-arcade-overlay";
     overlay.setAttribute("role", "dialog");
     overlay.setAttribute("aria-modal", "true");
-    overlay.setAttribute("aria-label", "Myth Buster — a hidden mini game");
+    overlay.setAttribute("aria-label", "Myth Buster, a hidden mini game");
     overlay.innerHTML =
       '<div class="gms-arcade-backdrop" data-egg-close></div>' +
       '<div class="gms-arcade-panel">' +
         '<div class="gms-arcade-panel__head">' +
-          '<p class="gms-arcade-title">Myth Buster <span>— you found it!</span></p>' +
+          '<p class="gms-arcade-title">Myth Buster<span>: you found it!</span></p>' +
           '<div style="display:flex;gap:8px;align-items:center">' +
             '<button type="button" class="gms-arcade-close" data-egg-mute aria-label="Sound">♪</button>' +
             '<button type="button" class="gms-arcade-close" data-egg-close aria-label="Close game">&times;</button>' +
