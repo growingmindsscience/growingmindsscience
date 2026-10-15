@@ -28,7 +28,7 @@ const PUBLISHER = {
   url: ORIGIN,
   logo: {
     "@type": "ImageObject",
-    url: `${ORIGIN}/assets/img/original-logo-mark-no-words-512.png`,
+    url: `${ORIGIN}/assets/img/brand/icon-512.png`,
   },
 };
 

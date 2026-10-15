@@ -81,24 +81,30 @@
   text-decoration: none;
 }
 .site-header .brand:hover { color: var(--chrome-ink); }
+/* The mark (docs/field-guide/brand-mark.md): inline SVG, arcs in currentColor,
+   the leaf in sage. Light bar: forest ink and sage-deep. Dark theme and the
+   ink footer: sage arcs and a pale sage leaf. No disc, no border. */
 .site-header .brand__mark,
 .site-footer .brand__mark {
-  width: 36px;
-  height: 36px;
-  padding: 2px;
+  display: block;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  align-self: center;
+  padding: 0;
+  border: 0;
   border-radius: 0;
-  object-fit: contain;
-  background: #FFFFFF;
-  border: 1.5px solid var(--chrome-ink);
+  background: none;
   box-shadow: none;
+  color: #193C39;
+  overflow: visible;
 }
-/* Dark mode keeps the white disc, as the footer does: the sprout's dark
-   outline all but disappears straight on a dark bar. Same disc on the light
-   bar's dark theme and on the ink bar. */
-[data-theme="dark"] .site-header .brand__mark {
-  background: #FFFFFF;
-  border-color: transparent;
-}
+.site-header .brand__leaf,
+.site-footer .brand__leaf { fill: #8DAE9A; }
+[data-theme="dark"] .site-header .brand__mark,
+.site-footer .brand__mark { color: #A9C3B2; }
+[data-theme="dark"] .site-header .brand__leaf,
+.site-footer .brand__leaf { fill: #CFDFD6; }
 .site-header .brand__name,
 .site-footer .brand__name {
   font-family: var(--chrome-display);
@@ -112,9 +118,15 @@
    serif, then a widely tracked SCIENCE descriptor in the text face. Type
    before symbol: the sprout mark is retired from the chrome. */
 .site-header .brand,
-.site-footer .brand { align-items: baseline; gap: 0.55em; }
-.site-header .brand__mark,
-.site-footer .brand__mark { display: none; }
+.site-footer .brand { align-items: center; gap: 0.55em; }
+/* SCIENCE sits on the name's baseline: nudge the small caps down to meet it. */
+.site-header .brand__desc,
+.site-footer .brand__desc { position: relative; top: 0.22em; }
+/* The mark sits before the name, centred on the bar; the name and SCIENCE share a baseline. */
+.site-header .brand,
+.site-footer .brand { gap: 0.6em; }
+.site-header .brand__mark + .brand__name,
+.site-footer .brand__mark + .brand__name { margin-left: 0.1em; }
 .site-header .brand__desc,
 .site-footer .brand__desc {
   font-family: var(--chrome-body);
@@ -538,10 +550,7 @@
 .site-footer .brand,
 .site-footer .brand:hover,
 .site-footer .brand__name { color: #FFFFFF; }
-.site-footer .brand__mark {
-  background: rgba(255, 255, 255, 0.94);
-  border-color: var(--chrome-on-dark-line);
-}
+.site-footer .brand__mark { background: none; border: 0; color: #A9C3B2; }
 .site-footer .site-footer__tag {
   max-width: 30ch;
   margin: 1.1rem 0 0;
