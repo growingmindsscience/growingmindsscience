@@ -3,11 +3,11 @@
    The Living Field Guide to the Growing Mind. Page shell, the editorial
    components, and the homepage sections, laid out like a printed annual:
    a masthead plate, a title that begins on the 42% axis, text pages that
-   hang from that axis, and whole pages of flat colour. No rules, no
-   shadows at rest, no gradients, square corners. Reads only the tokens in
+   hang from that axis, and whole pages of flat colour. Quiet 1px rules
+   between rows, no shadows at rest, no gradients, calm corners. Reads only the tokens in
    tokens-field-guide.css. Header and footer behaviour stays in chrome.js.
    ========================================================= */
-@import url("/assets/css/tokens-field-guide.css?v=ace172d63f");
+@import url("/assets/css/tokens-field-guide.css?v=57ab480f20");
 
 /* ---------- Reset and base ---------- */
 *, *::before, *::after { box-sizing: border-box; }

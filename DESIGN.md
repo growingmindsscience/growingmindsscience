@@ -1,408 +1,426 @@
 ---
 name: Growing Minds Science
-description: A developmental-science education for parents of children 0 to 5. The first five years as a survey map: map-white sheet, navy ink, slate contours, one teal route.
+description: A developmental-science education for parents of children 0 to 5, set as a living field guide. Field paper, forest ink, one verdigris action colour, sage mist for explanation, research blue for sources, and ordinary moments annotated on request.
 colors:
-  bg: "#F3F5F0"
-  bg-alt: "#E9EEE8"
-  surface: "#FBFCFA"
-  surface-2: "#E2E9E4"
-  border: "#C5D0CC"
-  border-soft: "#D9E1DD"
-  ink: "#1B2A3A"
-  ink-soft: "#3A4A5A"
-  ink-muted: "#56687A"
-  ink-700: "#2B4357"
-  ink-800: "#22364A"
-  ink-900: "#16232F"
-  primary: "#1E5F62"
-  primary-hover: "#17494B"
-  primary-ink: "#FFFFFF"
-  contour: "#8FA3B5"
-  woodland: "#C9D8CC"
-  water: "#BFD7E6"
-  route-tint: "#D5E6E3"
-  leaf: "#2E7A5F"
+  paper: "#F7F4EC"
+  paper-2: "#EFEBE0"
+  surface: "#FFFDF8"
+  surface-2: "#E6E3D7"
+  ink: "#193C39"
+  ink-soft: "#35504C"
+  ink-muted: "#546965"
+  ink-700: "#2A3F3B"
+  forest: "#245F58"
+  forest-deep: "#1C4D47"
+  on-forest: "#FFFDF8"
+  sage: "#A9C3B2"
+  sage-deep: "#8DAE9A"
+  sage-mist: "#E0EBE5"
+  sage-mist-2: "#CFDFD6"
+  field-ink: "#193C39"
+  field-ink-2: "#214744"
+  on-ink: "#F2EFE6"
+  on-ink-soft: "#C9D0CB"
+  on-ink-muted: "#9FAEA8"
+  research: "#426B91"
+  note-warm: "#C46C4D"
+  clay-text: "#9E5236"
+  note-amber: "#D2A453"
+  border: "#CDD3CB"
+  border-soft: "#DEE2D8"
   danger: "#A6371F"
   success: "#2F6B4A"
-  on-dark: "#EEF2F4"
-  on-dark-soft: "#C3CFD9"
-  on-dark-muted: "#93A3B3"
 typography:
   display:
-    fontFamily: "Geologica, Geologica Fallback, Helvetica Neue, Arial, sans-serif"
-    fontSize: "clamp(2.6rem, 1rem + 4.6vw, 4.6rem)"
-    fontWeight: 600
+    fontFamily: "Newsreader, Newsreader Fallback, Georgia, Times New Roman, serif"
+    fontSize: "clamp(3.25rem, 2rem + 5.2vw, 7rem)"
+    fontWeight: 500
     lineHeight: 0.96
-    letterSpacing: "-0.03em"
+    letterSpacing: "-0.025em"
   headline:
-    fontFamily: "Geologica, Geologica Fallback, Helvetica Neue, Arial, sans-serif"
-    fontSize: "clamp(2rem, 1.3rem + 2.9vw, 2.9rem)"
-    fontWeight: 600
-    lineHeight: 1.04
+    fontFamily: "Newsreader, Newsreader Fallback, Georgia, Times New Roman, serif"
+    fontSize: "clamp(2.25rem, 1.4rem + 3.4vw, 4.25rem)"
+    fontWeight: 500
+    lineHeight: 0.98
     letterSpacing: "-0.025em"
   title:
-    fontFamily: "Geologica, Geologica Fallback, Helvetica Neue, Arial, sans-serif"
-    fontSize: "clamp(1.6rem, 1.2rem + 1.6vw, 2.2rem)"
-    fontWeight: 600
+    fontFamily: "Newsreader, Newsreader Fallback, Georgia, Times New Roman, serif"
+    fontSize: "clamp(2.125rem, 1.4rem + 2.8vw, 3.75rem)"
+    fontWeight: 500
+    lineHeight: 1.02
+    letterSpacing: "-0.02em"
+  subhead:
+    fontFamily: "Newsreader, Newsreader Fallback, Georgia, Times New Roman, serif"
+    fontSize: "clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem)"
+    fontWeight: 500
     lineHeight: 1.1
-    letterSpacing: "-0.015em"
-  row-title:
-    fontFamily: "Geologica, Geologica Fallback, Helvetica Neue, Arial, sans-serif"
-    fontSize: "1.5rem"
-    fontWeight: 600
-    lineHeight: 1.1
-    letterSpacing: "-0.015em"
-  lede:
-    fontFamily: "Literata, Literata Fallback, Georgia, Times New Roman, serif"
-    fontSize: "1.1875rem"
+    letterSpacing: "-0.02em"
+  row-name:
+    fontFamily: "Newsreader, Newsreader Fallback, Georgia, Times New Roman, serif"
+    fontSize: "clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem)"
+    fontWeight: 500
+    lineHeight: 1.15
+    letterSpacing: "-0.01em"
+  statement:
+    fontFamily: "Newsreader, Newsreader Fallback, Georgia, Times New Roman, serif"
+    fontSize: "clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem)"
     fontWeight: 400
-    lineHeight: 1.6
+    lineHeight: 1.3
+    letterSpacing: "-0.01em"
+  lead:
+    fontFamily: "Inter, DM Sans Fallback, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(1.125rem, 1rem + 0.5vw, 1.375rem)"
+    fontWeight: 400
+    lineHeight: 1.45
     letterSpacing: "normal"
   body:
-    fontFamily: "Literata, Literata Fallback, Georgia, Times New Roman, serif"
-    fontSize: "1.0625rem"
-    fontWeight: 400
-    lineHeight: 1.6
-    letterSpacing: "normal"
-  caption:
-    fontFamily: "Literata, Literata Fallback, Georgia, Times New Roman, serif"
-    fontSize: "0.9375rem"
+    fontFamily: "Inter, DM Sans Fallback, Helvetica Neue, Arial, sans-serif"
+    fontSize: "clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem)"
     fontWeight: 400
     lineHeight: 1.55
     letterSpacing: "normal"
-  map-label:
-    fontFamily: "Geologica, Geologica Fallback, Helvetica Neue, Arial, sans-serif"
-    fontSize: "0.9375rem"
-    fontWeight: 500
-    lineHeight: 1.3
-    letterSpacing: "0"
-    fontVariation: "tabular-nums"
-  label-xs:
-    fontFamily: "Geologica, Geologica Fallback, Helvetica Neue, Arial, sans-serif"
-    fontSize: "0.8125rem"
+  article:
+    fontFamily: "Inter, DM Sans Fallback, Helvetica Neue, Arial, sans-serif"
+    fontSize: "1.125rem"
+    fontWeight: 400
+    lineHeight: 1.7
+    letterSpacing: "normal"
+  meta:
+    fontFamily: "Inter, DM Sans Fallback, Helvetica Neue, Arial, sans-serif"
+    fontSize: "15px"
+    fontWeight: 400
+    lineHeight: 1.5
+    letterSpacing: "normal"
+  label:
+    fontFamily: "Inter, DM Sans Fallback, Helvetica Neue, Arial, sans-serif"
+    fontSize: "15px"
     fontWeight: 600
-    lineHeight: 1.3
+    lineHeight: 1.4
     letterSpacing: "0"
+  small:
+    fontFamily: "Inter, DM Sans Fallback, Helvetica Neue, Arial, sans-serif"
+    fontSize: "14px"
+    fontWeight: 400
+    lineHeight: 1.45
+    letterSpacing: "normal"
+  button:
+    fontFamily: "Inter, DM Sans Fallback, Helvetica Neue, Arial, sans-serif"
+    fontSize: "1rem"
+    fontWeight: 500
+    lineHeight: 1.2
+    letterSpacing: "normal"
 rounded:
-  sm: "0"
-  md: "0"
-  lg: "0"
-  xl: "0"
+  none: "0"
+  sm: "4px"
+  md: "6px"
+  lg: "10px"
 spacing:
-  "1": "0.25rem"
-  "2": "0.5rem"
-  "3": "0.75rem"
-  "4": "1rem"
-  "5": "1.25rem"
-  "6": "1.5rem"
-  "8": "2rem"
-  "10": "2.5rem"
-  "12": "3rem"
-  "16": "4rem"
-  "24": "6rem"
-  "32": "8rem"
+  gutter: "clamp(16px, 4vw, 56px)"
+  container: "1320px"
+  section: "clamp(72px, 10vw, 150px)"
+  section-tight: "clamp(48px, 6vw, 88px)"
+  hub-section: "clamp(56px, 8vw, 120px)"
+  split-gap: "clamp(32px, 5vw, 80px)"
+  row: "22px"
+  panel: "clamp(24px, 3vw, 36px)"
+  control-gap: "12px"
+  choice-gap: "8px"
 components:
   button-primary:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.primary-ink}"
-    typography: "{typography.map-label}"
-    rounded: "{rounded.sm}"
-    padding: "0.8rem 1.4rem"
+    backgroundColor: "{colors.forest}"
+    textColor: "{colors.on-forest}"
+    typography: "{typography.button}"
+    rounded: "{rounded.md}"
+    padding: "0 1.25rem"
     height: "48px"
   button-primary-hover:
-    backgroundColor: "{colors.primary-hover}"
-    textColor: "{colors.primary-ink}"
+    backgroundColor: "{colors.forest-deep}"
+    textColor: "{colors.on-forest}"
+  button-paper:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.ink}"
+    typography: "{typography.button}"
+    rounded: "{rounded.md}"
+    padding: "0 1.25rem"
+    height: "48px"
+  button-paper-hover:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.ink}"
   button-quiet:
     backgroundColor: "transparent"
     textColor: "{colors.ink}"
-    typography: "{typography.map-label}"
-    rounded: "{rounded.sm}"
-    padding: "0.8rem 1.4rem"
+    typography: "{typography.button}"
+    rounded: "{rounded.md}"
+    padding: "0 1.25rem"
     height: "48px"
   button-quiet-hover:
-    backgroundColor: "{colors.ink}"
-    textColor: "{colors.bg}"
-  button-ink:
-    backgroundColor: "{colors.ink}"
-    textColor: "{colors.bg}"
-    typography: "{typography.map-label}"
-    rounded: "{rounded.sm}"
-    padding: "0.8rem 1.4rem"
-    height: "48px"
-  button-on-dark:
-    backgroundColor: "{colors.on-dark}"
-    textColor: "{colors.ink-900}"
-    typography: "{typography.map-label}"
-    rounded: "{rounded.sm}"
-    padding: "0.8rem 1.4rem"
-    height: "48px"
-  button-quiet-dark:
+    backgroundColor: "{colors.sage-mist}"
+    textColor: "{colors.ink}"
+  choice:
     backgroundColor: "transparent"
-    textColor: "{colors.on-dark}"
-    typography: "{typography.map-label}"
-    rounded: "{rounded.sm}"
-    padding: "0.8rem 1.4rem"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.md}"
+    padding: "12px 16px"
     height: "48px"
-  button-lg:
-    padding: "0.95rem 1.7rem"
-    height: "54px"
-    typography: "{typography.body}"
-  panel:
+  choice-hover:
+    backgroundColor: "{colors.sage-mist}"
+    textColor: "{colors.ink}"
+  choice-active:
+    backgroundColor: "{colors.forest}"
+    textColor: "{colors.on-forest}"
+  chip:
+    backgroundColor: "transparent"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.md}"
+    padding: "8px 14px"
+    height: "44px"
+  input:
     backgroundColor: "{colors.surface}"
     textColor: "{colors.ink}"
-    rounded: "{rounded.sm}"
-    padding: "1rem 1.25rem"
-  panel-on-navy:
-    backgroundColor: "{colors.ink-800}"
-    textColor: "{colors.on-dark}"
-    rounded: "{rounded.sm}"
-    padding: "1.25rem 1.5rem"
-  chip-open:
-    backgroundColor: "{colors.route-tint}"
-    textColor: "{colors.primary}"
-    typography: "{typography.map-label}"
-    rounded: "{rounded.sm}"
-    padding: "0.25rem 0.5rem"
-  chip-soon:
-    backgroundColor: "{colors.surface-2}"
-    textColor: "{colors.ink-muted}"
-    typography: "{typography.map-label}"
-    rounded: "{rounded.sm}"
-    padding: "0.25rem 0.5rem"
-  input:
-    backgroundColor: "{colors.bg}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.sm}"
-    padding: "0.7rem 0.9rem"
+    rounded: "{rounded.md}"
+    padding: "10px 14px"
     height: "48px"
-  input-on-navy:
-    backgroundColor: "{colors.ink-900}"
-    textColor: "{colors.on-dark}"
-    rounded: "{rounded.sm}"
-    padding: "0.7rem 0.9rem"
-    height: "48px"
-  phrase-mark:
-    backgroundColor: "{colors.woodland}"
+  panel-mist:
+    backgroundColor: "{colors.sage-mist}"
     textColor: "{colors.ink}"
+    rounded: "{rounded.lg}"
+    padding: "clamp(24px, 3vw, 36px)"
+  panel-surface:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.lg}"
+    padding: "clamp(20px, 3vw, 32px)"
+  mechanism-card:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.md}"
+    padding: "16px 18px"
+  plate-label:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.ink}"
+    typography: "{typography.small}"
+    rounded: "{rounded.md}"
+    padding: "10px 12px"
+  close-band:
+    backgroundColor: "{colors.field-ink}"
+    textColor: "{colors.on-ink}"
+    rounded: "{rounded.none}"
+    padding: "clamp(56px, 8vw, 120px) 0"
+  ink-door:
+    backgroundColor: "{colors.field-ink}"
+    textColor: "{colors.on-ink}"
+    rounded: "{rounded.lg}"
+    padding: "clamp(22px, 3vw, 36px)"
+  age-line:
+    backgroundColor: "{colors.sage}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.none}"
+    padding: "clamp(24px, 3vw, 40px) 0"
+  age-line-current:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.on-ink}"
+  range-track:
+    backgroundColor: "{colors.sage-mist}"
     rounded: "{rounded.sm}"
-    padding: "0 0.1em"
-  phrase-mark-on-navy:
-    backgroundColor: "{colors.ink-700}"
-    textColor: "{colors.primary-ink}"
-    rounded: "{rounded.sm}"
-    padding: "0 0.1em"
+    height: "8px"
 ---
-
-> **Field Guide redesign, in progress (branch `redesign/field-guide`, October 2026).**
-> The homepage (`index.html`) and the first Developmental Lens (`lens/leaving-the-playground.html`)
-> now run on a new system, "The Living Field Guide to the Growing Mind": tokens in
-> `assets/css/tokens-field-guide.css` (Newsreader over DM Sans; paper, ink, forest, sage), the page
-> stylesheet `assets/css/field-guide.css`, and the components `lens.css` / `explorer.css`. The
-> governing documents are in `docs/field-guide/` (creative-direction, homepage-proposal, lens-plan,
-> build-contract, copy-deck, preservation-plan, asset-brief, validation-report). Every inner page
-> still renders the Terrain system described below until Phase 3 migrates it; the Terrain tokens
-> and `chrome.css` are unchanged, and the new token file keeps the same alias names so the shared
-> header and footer read either system.
 
 # Design System: Growing Minds Science
 
 ## Overview
 
-**Creative North Star: "The Terrain"**
+**Creative North Star: "The Living Field Guide"**
 
-Development is terrain, not a line. The site is one survey sheet of the first
-five years: a map-white ground, navy ink for every word, slate contour lines as
-the sheet's own material, sage woodland and a pale stream as fields, and one
-dashed teal route with round waymarks running birth to five. The homepage hero
-is the sheet itself, with an age cursor a parent drags along the route; every
-inner page carries a stretch of the same sheet (a terrain inset on `/tools/`,
-route-segment bars on class rows). The parent is reading a landscape, and the
-science is the landscape. This replaces the earlier "Seminar" world (Besley,
-Atkinson Hyperlegible Next, ink bands, amber highlighter, 10px radii), which
-survives only in the `/nsc` class app until it is restyled.
+The site reads like a well-made field guide to the first five years. An ordinary moment (a parent, a child, a playground, a walk home) is shown as a real photograph, and the science is laid over it as typeset labels the visitor reveals on request. The same plate, re-labelled step by step, becomes the Developmental Lens: Observe, Understand, Respond, Reflect. Every other page carries the guide's notation rather than its pictures: a Newsreader name, a quiet line of Inter metadata, rows separated by hairline rules, explanations on sage mist, and sources in research blue.
 
-The world is calm and inviting but collegiate and respectable (Matthew,
-2026-10-13). Nothing is lifted, rounded, washed, or gradiented: fields separate
-by a tone step, panels announce themselves with a 3px ink rule across the top
-(a legend bar), photographs sit in a 2px ink frame like map insets, and the one
-colour that is not a neutral is the teal route. Two inverted navy fields, the
-office-hours band and the enrol band plus footer, close each page the way the
-dark field closes a sheet.
+The ground is warm field paper and every word is forest ink. One deep verdigris green does all the acting (buttons, links, chosen options, focus), sage mist holds anything that explains, and a single inverted ink field closes each page with one statement and one action before the footer continues on the same field. Nothing lifts. Surfaces separate by a tone step or a 1px rule, corners are calm (6px on controls, 10px on panels and photographs), and the warm accents (clay, ochre) appear only at the size of an annotation mark.
 
-Type is Geologica, a wide geometric sans, for display, legend lettering,
-numerals and buttons, over Literata, an optical-size serif, for everything a
-tired parent has to read. The pairing reads as a well-made reference map with
-a printed gazetteer, not a SaaS launch, a clinic, or a nursery.
+The tone is calm and collegiate, warm but not sentimental. Photographs are observational and real or absent; there is no stock imagery and no decorative illustration filling space. The visual test, from the brand guidelines: the page should still read as Growing Minds Science with the logo removed.
 
 **Key Characteristics:**
-- Map-white ground, navy ink, slate contours, sage woodland, one teal route; no orange, no warm accent at scale.
-- Geologica 600 display with tight tracking over Literata 400 at 17px.
-- Square corners everywhere (every radius token is 0); no box-shadow at rest.
-- 3px ink rules as legend bars on panels, lists and figures; 6px colour bars as route segments on legend cells and class rows; 2px ink frames on photographs.
-- One phrase mark per headline: a patch of woodland behind the words, the same ink.
-- Full light/dark theming via `[data-theme]`; on the night sheet the ground stays lighter than the navy fields so the band structure survives and the route brightens.
-- One signature interaction: the age cursor on the route; the route draws in once on load.
+- Field paper ground, forest ink type, one verdigris action colour, sage mist for explanatory panels.
+- Newsreader for headings, names and statements over Inter for reading, labels and controls.
+- Calm corners: 6px controls, 10px panels and photographs, square bands and rows.
+- Quiet 1px rules between rows; a 2px ink rule opens an index list; no shadows at rest.
+- Research blue marks sources and evidence and nothing else.
+- Annotated observation: real photographs with labels revealed on request.
+- One inverted ink field per page: the close band, flowing into the footer.
+- Full light and dark theming through `[data-theme="dark"]`.
 
 ## Colors
 
-A cool survey palette: one sheet, one ink, two drawn fields, one route.
+A warm paper-and-forest palette with one action green, one explanatory mist, and three accents held to annotation size.
 
 ### Primary
-- **Teal Route** (`primary`): the single action colour. Primary buttons, links, the route stroke, the active waymark and cursor dot, the active legend bar, the chat avatar, the range thumb, focus rings, selection. At text size it reads 7:1 on the sheet, so it needs no darker twin. **Teal Route Deep** (`primary-hover`) is the hover fill. **Route Tint** (`route-tint`, still named `--amber-tint` in the CSS) is the pale teal behind the "Open" status chip.
+- **Deep Verdigris** (`forest`): the one action colour. Filled buttons, text links, the chosen option in every choice set, the forest segment of the age-range bar, focus outlines and text selection. **Verdigris Deep** (`forest-deep`) is its hover. Text on it is **Soft White** (`on-forest`).
+
+### Secondary
+- **Sage Mist** (`sage-mist`): the explanatory surface. "The short version" beside an article title, callouts, checklists, guide panels, the claim's grade, the method note, the contact form, the Lens section ground, the hover wash on quiet buttons and choices. **Sage Mist Deep** (`sage-mist-2`) is the hairline inside a mist panel and the inactive bar in the class timeline.
+- **Field Sage** (`sage`): the one place a whole band is sage, the Explore age line. **Sage Deep** (`sage-deep`) is the hover on that band and the leaf in the brand mark.
+
+### Tertiary
+- **Research Blue** (`research`): sources, references, evidence lines inside mechanism cards, the "Fig." marker under the hero plate. Never an action, never a heading outside a sources module.
+- **Discovery Clay** (`note-warm`) and **Golden Ochre** (`note-amber`): annotation marks only. Ochre is the dot that leads each plate label, the bullet on Lens lists and mechanism cards, and the swatch on the label toggle. **Clay Text** (`clay-text`) is the small-text form of clay (5.1:1 on paper), used for the Lens step numerals and the Read, Try, Learn headings on the Lens page.
 
 ### Neutral
-- **Map-White Sheet** (`bg`): the page ground and the fill of inactive waymarks. **Sage Step** (`bg-alt`): the one tone step for alternate sections, the scrolled header, hover washes, the AI reply bubble. **Sheet Surface** (`surface`): panels, the readout, class rows, the chat card, the Free tools menu. **Sheet Tint** (`surface-2`): chips, figure nodes, thumb backgrounds.
-- **Navy Ink** (`ink`): all type, all rules, the range track, user chat bubbles. **Ink Soft** (`ink-soft`) for secondary copy, **Ink Muted** (`ink-muted`, 5:1 on the sheet) for meta, legend meta, grid references and captions.
-- **Navy Field** (`ink-800`): the office-hours band and raised rows on the enrol band. **Navy Floor** (`ink-900`): the enrol band and the footer. **Navy Raised** (`ink-700`): the phrase mark on navy fields and the dark header's menu surface.
-- **Slate Contour** (`contour`): contour lines, inactive legend bars, the dashed bar on in-development classes. Decor only; never type.
-- **Sage Woodland** (`woodland`): woodland patches on the sheet and the phrase mark on light grounds. **Pale Stream** (`water`): the stream stroke only.
-- **Hairline** (`border`) and **Hairline Soft** (`border-soft`): inputs, tables, the chat tag, and figure grids only.
-- **On-Dark / On-Dark Soft / On-Dark Muted**: the three text tiers on navy fields; headings on navy are pure white.
-- **Leaf** (`leaf`), **Success** (`success`), **Danger** (`danger`): status and form errors. Danger is the only warm hue, and only on errors.
+- **Field Paper** (`paper`): the page ground and the paper button on dark grounds. **Paper Step** (`paper-2`): the scrolled header, the trust section, the "All tools" row in the menu.
+- **Soft White** (`surface`): reading surfaces: decoder answers, tool working cards, the class timeline, mechanism cards, alternating `hub-sec--white` sections, form inputs on mist. **Paper Tint** (`surface-2`): header icon buttons.
+- **Forest Ink** (`ink`): all type and the 2px index rules. **Ink Soft** (`ink-soft`, 7.6:1) for ledes and secondary copy; **Ink Muted** (`ink-muted`, 5.2:1) for meta lines, captions, fine print, input outlines.
+- **The Ink Field** (`field-ink`, raised step `field-ink-2`): the close band, the footer, the tools hub's hard-moment door, the homepage hard-moments band. Text tiers on it are `on-ink`, `on-ink-soft`, `on-ink-muted`.
+- **Hairline** (`border`) for choice and chip outlines; **Hairline Soft** (`border-soft`) for every rule between rows.
+- **Danger** (`danger`) for field errors and invalid borders; **Success** (`success`) for confirmations.
 
 ### Named Rules
-**The One Route Rule.** Teal is the only chromatic colour at text or button size. Anything that asks for the eye (a button, a link, the active waymark, the open chip's text) is teal; anything that does not is ink, a grey, or a field. If a second accent appears, the map has lost its route.
+**The One Action Colour Rule.** Verdigris is the only colour that acts. A filled button, a link, a chosen option and a focus ring are forest; nothing else is. Sage, research blue, clay and ochre never fill a button.
 
-**The No Orange Rule.** Orange, amber and terracotta are never a main colour (Matthew, 2026-10-13). The legacy `--amber*` names still exist in `tokens-terrain.css` but resolve to the route and its tint; do not reintroduce a warm value under them. The arcade's isolated cabinet palettes are the one exception and stay on `/arcade`.
+**The Annotation Scale Rule.** Clay and ochre never appear larger than a mark: a 10px dot, an 8px bullet, a numeral, a 14px label. No warm fill at the size of a panel, a button or a heading.
 
-**The Night Sheet Rule.** In dark mode the ground (`#141E28`) stays lighter than the navy fields (`#0F171F`, `#0A1016`), contours dim to `#45596C`, and the route brightens to `#7FC4BC` with `#07211E` text on it.
+**The Research Blue Rule.** Blue means "this is evidence". It is reserved for sources modules, reference links and evidence lines, so a parent can find the citations on any page by colour alone.
 
 ## Typography
 
-**Display Font:** Geologica (with "Geologica Fallback": local Helvetica Neue or Arial, size-adjust 108%)
-**Body Font:** Literata (with "Literata Fallback": local Georgia, size-adjust 101%)
+**Display Font:** Newsreader (with "Newsreader Fallback": local Georgia, size-adjust 98%)
+**Body Font:** Inter (with a local Helvetica Neue or Arial fallback)
 
-Both load from Google Fonts with `display=swap`: Geologica weights 400 to 800, Literata with italic, optical size 7 to 72, weights 400 to 700. The fallbacks are declared in `tokens-terrain.css` with ascent and descent overrides so lines wrap the same way before and after the swap.
+Both load from Google Fonts with `display=swap`: Newsreader with italics and optical size 6 to 72 at weights 400 to 600, Inter at 400, 500 and 600. The nsc app self-hosts the same pair through `next/font`.
 
-**Character:** Geologica is wide, geometric and slightly technical, which is the map's legend hand: headings, waymark labels, grid references, numerals, buttons, nav links, chips, captions' lead-ins, all tabular where numbers appear. Literata's optical sizing keeps running text warm and readable at 17px without softening the sheet. Display is heavy and tight; body is light and open.
+**Character:** Newsreader is the editor's voice: page titles, section headings, the names in every row, statements, the Lens questions and reflection prompts. Inter is the field notebook: running text, ledes, metadata, labels, form fields, buttons and navigation. Headings are medium weight and tightly tracked; body is open and plain.
 
 ### Hierarchy
-- **Display** (Geologica 600, `clamp(2.6rem → 4.6rem)`, 0.96, −0.03em): the homepage sheet title (`.sheet__title`, max 12ch) and inner-page hero titles (`.hero__title`, `.page-hero__title`, line-height 0.98). One per page.
-- **Headline** (Geologica 600, `clamp(2rem → 2.9rem)`, 1.04, −0.025em): section h2s. The default `h1` token (`--text-hero`, `clamp(2.4rem → 4.4rem)`) applies where a page does not use a hero class.
-- **Title** (Geologica 600, `clamp(1.6rem → 2.2rem)`, 1.1, −0.015em): h3s. Curriculum row titles step to `clamp(1.4rem → 1.9rem)`.
-- **Row title** (Geologica 600, 24px, 1.1): legend cell names, enrol rows, price names, syllabus titles, lens names, shelf headings.
-- **Thesis quote** (Geologica 600, `clamp(1.375rem → 2.1rem)`, 1.3, −0.015em, max 24ch).
-- **Lede** (Literata 400, 19px, ink): section ledes and thesis body; the sheet lede is `clamp(1.125rem → 1.3rem)` at 1.42 with a Literata 600 strong.
-- **Body** (Literata 400, 17px, 1.6): all running text, 62ch default measure; promises, fine print and syllabus body cap at 50ch.
-- **Caption** (Literata 400, 15px, 1.55, ink-muted): figure captions, with a Geologica 600 ink "Fig. N" lead-in.
-- **Map label** (Geologica 500, 15px, tabular): legend meta, readout age, grid references, class numerals ("Class 2: language, autonomy, and big feelings"), chips, dt labels, `.map-label`.
-- **Label XS** (Geologica 600, 13px): readout column headings, scale labels, status text.
-- **Button** (Geologica 600, 15px, no tracking); `--lg` steps to 17px.
-- **SVG lettering** on the sheet: waymarks Geologica 600 at 19 viewBox units with a 6px sheet-coloured paint-order stroke; grid refs Geologica 500 at 15; place names Geologica 500 italic at 16 with 0.08em tracking; cursor label Geologica 600 at 17 tabular.
+- **Display** (Newsreader 500, homepage hero only, 0.96, -0.025em): the homepage title beside the plate.
+- **Headline** (Newsreader 500, 0.98, -0.025em): the page title in every title block (hubs, classes, Explore, the Lens page steps up to `clamp(2.75rem, 1.6rem + 4vw, 5rem)`; articles step down to `clamp(2rem, 1.35rem + 2.5vw, 3.25rem)` at 26ch).
+- **Title** (Newsreader 500, 1.02, -0.02em): section headings on the homepage; hub split headings use `clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem)`; the close band heading `clamp(2rem, 1.3rem + 2.4vw, 3.25rem)`.
+- **Subhead** (Newsreader 500, 1.1): Lens questions, the age columns, menu-row class names, topic headings on the tools hub.
+- **Row name** (Newsreader 500, 1.15): the name in every quiet-ruled row: tools, articles, principles, places to go, guide lists.
+- **Statement** (Newsreader 400, 1.3): callouts, scripts to say, reflection prompts, the claim verdict, the right-now "Try" line. Set large, never a heading.
+- **Lead** (Inter 400, 1.45, max 44 to 52ch, ink-soft): the line under every page title.
+- **Body** (Inter 400, 17 to 19px, 1.55, 62ch measure): running text everywhere. Article bodies set at 18px, 1.7, 68ch.
+- **Meta** (Inter 400, 15px, ink-muted): the one meta line under a title (section, byline, topic, read time), captions, fine print.
+- **Label** (Inter 600, 15px, no tracking): sources headings, Lens subheads, the article contents heading; form labels use 500.
+- **Small** (Inter, 13 to 14px): row meta, plate labels, figure captions, the age axis.
+- **Button** (Inter 500, 16px).
 
 ### Named Rules
-**The Legend Hand Rule.** Geologica is the hand for anything that labels, counts or acts; Literata is the hand for anything that explains. A number in Literata or a paragraph in Geologica is a mistake.
+**The Two Hands Rule.** Newsreader names and states; Inter explains, labels and acts. A row's name is Newsreader, its description and meta are Inter. A button or a form label in Newsreader is a mistake.
 
-**The Label Under the Title Rule.** Headings never carry a kicker, eyebrow or numeral above them. A class's label ("Class 2: language, autonomy, and big feelings") sits under its title in the map-label voice. Status and meta go beside or below, never above.
-
-**The One Phrase Rule.** The `.hl` mark (woodland behind the words, same ink; `ink-700` with white text on navy) is the one typographic flourish: at most one phrase per page-level headline, never on every heading.
+**The Label Below Rule.** Nothing sits above a heading. Section names, ages, topics and page names go below the title as a meta line or a subline. The code enforces this where old markup put them first: the right-now step name and the tools hub's card labels are reordered under their headings with CSS `order`, and the article's section link opens the meta line instead of standing over the headline.
 
 ## Layout
 
-A 1200px container with a `clamp(1rem, 3vw, 2.25rem)` side margin; 880px for narrow reading pages. Sections run `clamp(4.5rem, 9vw, 8rem)` of vertical padding and alternate between the sheet (`bg`), the sage step (`bg-alt`) and surface, never by hairline. The header is 72px and its height is a token (`--header-h`) so sticky asides and scroll padding read it.
+One container, `min(100% - 2 × gutter, 1320px)`, with a gutter of `clamp(16px, 4vw, 56px)`. Homepage sections run `clamp(72px, 10vw, 150px)` of vertical padding (`clamp(48px, 6vw, 88px)` when tight); hub sections run `clamp(56px, 8vw, 120px)`. Sections alternate field paper, soft white (`hub-sec--white`) and sage mist (`hub-sec--mist`); the change of ground is the separator. The header is 72px and its height is a token so sticky asides and scroll margins read it.
 
-The homepage sheet fills `min(100svh − header, 60rem)`: the map is an absolutely positioned full-bleed SVG (`viewBox 0 0 1440 900`, `slice`), the copy sits upper-left in a 46rem column, the readout panel lower-left, and the four-cell legend runs along the foot under a 3px ink rule. Below 1100px the sheet becomes a two-column grid (copy beside map), then the readout, then the legend; the SVG re-frames to the route's own region (`viewBox 700 60 740 780`) and switches to `meet` under 720px. Content sections use 5/7 and 7/5 asymmetric grids with a sticky left column (thesis quote, Figure 2); the three lenses and the three teaching facts are equal thirds; curriculum rows are `10rem | 1fr | 15.5rem` above 1041px.
+The recurring composition is the **split**: a heading and its one-line explanation in a 4-column left track, the content (rows, a panel, a form) in an 8-column right track, with a `clamp(32px, 5vw, 80px)` column gap. Title blocks use 7 to 5 (title and lead beside one photograph or one panel). Below about 860px every split becomes one column; where a split holds a photograph, the list comes first on a phone and the photograph follows.
 
-Spacing is a 4px-based scale from `space-1` (0.25rem) to `space-32` (8rem); rows in a list are separated by `space-2` of ground showing between surface panels, not by borders. Breakpoints that matter: 1100 (sheet stacks), 1041 (curriculum columns), 1000 (header menu), 720 and 560 (figure label sizes, phone type).
+Reading pages (articles, guides, claims) are one column at a reading measure (62 to 68ch) sharing the title block's left edge; articles put a sticky contents list in a 3-column track beside a 9-column text.
+
+Every inline link that sits in a list or action row reaches a 44px touch target with negative block margins, so the line keeps its rhythm. Breakpoints that matter: 1100 (homepage age row becomes five columns), 1000 (header menu becomes a sheet), 900 (hero stacks, labels become a list), 860 and 760 (splits and rows go single column).
 
 ## Elevation & Depth
 
-Flat. Depth is tonal (sheet → sage step → surface → navy field → navy floor) and typographic (a 3px ink rule across the top of anything that is a panel). Nothing casts a shadow at rest: `--shadow-sm` and `--shadow-lg` are `none`, buttons are flat and do not lift on hover, and the Terrain override layer removes every lift the older inner-page CSS declared. Hover is a tone change (`bg-alt` wash, teal bar, inverted fill), never a shadow.
+Flat. Depth is a tone step (paper, paper-2, soft white, sage mist) or the inverted ink field, and structure is a rule. No box-shadow appears at rest anywhere on the field-guide pages: `--shadow-sm` and `--shadow-lg` are `none`, the field-guide layer sets the header menu's shadow to `none` and marks it with a 6px forest top bar instead, and panels, figures and cards carry no shadow. The one shadow-shaped declaration in use is the quiet button's and the choice outline's `inset 0 0 0 1.5px`, which draws a border, not a lift.
 
-### Shadow Vocabulary
-- **Floating menu** (`--shadow-md: 0 18px 40px -24px rgba(27, 42, 58, 0.35)`; dark `rgba(0, 0, 0, 0.6)`): the one shadow, on the Free tools and My classes header menus, because a menu truly floats over the sheet.
+Hover is a tone change (a sage-mist wash, a deeper verdigris, a field-ink-2 step on the ink field), never a lift. Press is a 1px downward move.
 
 ### Named Rules
-**The Flat Sheet Rule.** A surface is a tone step and a legend bar, never a lift. If a new element needs a shadow, it is a floating menu or it is wrong.
+**The Flat At Rest Rule.** Nothing casts a shadow. If an element needs to stand apart, give it a tone step or a rule. `--shadow-md` remains defined for a truly floating overlay and is not used by any field-guide page.
 
 ## Shapes
 
-A survey sheet is square. Every radius token is 0 and every control, panel, chip, input, thumbnail and focus ring is square-cornered; the only circles are waymarks, the cursor dot and the status chip's 7px dot. Panels are marked by a 3px ink rule across the top (`.readout`, `.lens`, `.fig--loop`, `.taught__facts li`, `.shelf h3`, `hr`, the Free tools menu, `.card`, `.faq details`, syllabus items); in-development items dash that rule in slate. Legend cells and curriculum rows carry a 6px route-segment bar (slate at rest, teal when active or hovered, dashed slate for classes in development). Photographs are square map insets with a 2px ink frame and no filter. Figure strokes distinguish by dash pattern as well as colour (`3px solid ink` versus `3px dashed teal` in figure keys). Links underline at 1px with 0.18em offset; `.text-link` underlines at 2px in teal under ink text.
+Calm corners, set by role. Controls (buttons, choices, chips, inputs, plate labels, mechanism cards, the Lens tabs) take 6px (`rounded.md`). Panels and photographs (sage-mist panels, soft-white answer panels, the timeline, the hard-moment door, every framed photograph and the Lens plate) take 10px (`rounded.lg`). Tracks and badges take 4px (`rounded.sm`). Full-bleed bands (the close, the footer, the age line, the homepage hero plate on desktop), rows, rules and tables stay square.
+
+Rows are separated by a 1px `border-soft` rule on top of each item, with the first item's rule removed so a list never starts on a line. An index list (the age line's stages, the first moment or topic on an Explore page, the Lens's age doors, the right-now sequence, the class beside a period) opens with a 2px ink rule. Inside a mist panel the internal rule is `sage-mist-2`. There are no side stripes: no `border-left` or `border-right` accent bar on any panel or callout.
+
+Round shapes are reserved for marks: the ochre leader dot on plate labels, the 8px bullet on Lens lists, the swatch on the label toggle.
 
 ## Components
 
 ### Buttons
-Square, one fill, feedback on press only. Geologica 600 at 15px, `min-height: 48px`, `0.8rem 1.4rem`, a 1.5px border matching the fill; `:active` moves down 1px; no shadow, no hover lift.
-- **Primary:** teal fill, white text; hover deepens to `primary-hover`. The one action per surface (Browse the classes, Enroll, $49, the header CTA, the chat send).
-- **Quiet:** transparent, 1.5px ink border, ink text; hover inverts to ink fill with sheet-coloured text. "See the class", "All classes", "Join the waitlist".
-- **Ink:** ink fill; hover `ink-800`. Rare.
-- **On-dark:** `on-dark` fill with `ink-900` text on navy fields, hover pure white. Enrol-row CTAs and "Ask a question".
-- **Quiet-dark / Ghost-dark:** transparent with a 55% on-dark border on navy; quiet-dark inverts on hover, ghost-dark washes 10%.
-- **Sizes:** `--lg` is 54px and 17px type; `--block` is full width. A button that opens a new tab carries ↗ in `.btn__ext` (weight 400) plus screen-reader text.
-- **Focus:** `2.5px solid primary` outline, 3px offset, square.
+One shape, flat, calm corners, feedback on press.
+- **Shape:** 6px corners, `min-height: 48px`, `0 1.25rem`, Inter 500 at 16px; `:active` moves down 1px. Full width under 640px in title blocks, price rows and the close.
+- **Default (forest):** verdigris fill, soft-white text; hover deepens to `forest-deep`. The one action per surface (Enroll, $49; Browse the classes; Send).
+- **Paper:** field-paper fill with ink text, hover soft white. The primary action on the ink field and on photographs.
+- **Quiet:** transparent with a 1.5px inset ink outline, ink text; hover washes sage mist. The second action ("See the class", "Watch a lesson free"). On the ink field the outline and text turn `on-ink` and hover steps to `field-ink-2`.
+- **Focus:** a 2.5px verdigris outline at 3px offset site-wide (2px at 2px offset inside forms and choice sets); `on-ink` on the ink field.
 
-### Chips
-- **Open** (`chip-open`): route tint behind teal Geologica 500 text with a 7px teal dot; square.
-- **Soon** (`chip-soon`): sheet tint behind ink-muted text.
+### Choices and chips
+Calm outlined buttons, forest when chosen. Used by the guides' decoder, pattern, scenario and stage pickers, the Before / During / After tabs, and the tool apps' chips and filters.
+- **Rest:** transparent, 1.5px inset `border` outline, ink text, 6px corners, 15px Inter; decoder options are full-width left-aligned blocks (48px), chips are inline (44px, `8px 14px`) in an 8px-gap wrap.
+- **Hover:** sage-mist wash, outline darkens to `ink-muted`.
+- **Chosen:** verdigris fill, soft-white text, no outline. The answer appears beside the choices on a soft-white 10px panel.
+- **Right now:** the hard-moment router's situations are full-width rows instead (Newsreader, 1px rules above and below, sage-mist hover), so a parent in a hurry reads a list, not a grid of buttons.
 
-### Panels (rows, not cards)
-- **Corner Style:** square.
-- **Background:** `surface` on light sections; `ink-800` on navy fields.
-- **Border:** a 3px ink rule across the top, or a 6px route bar on class rows and legend cells; no side or bottom borders; hover turns the rule teal.
-- **Shadow Strategy:** none (The Flat Sheet Rule).
-- **Internal Padding:** `space-4 space-5` for the readout and shelf links; `clamp(space-6, 3vw, space-8)` for curriculum rows; `space-5 space-6` for enrol rows.
-- Lists of parallel panels sit `space-2` apart with ground showing between them. FAQ items are `<details>` panels with a Geologica 600 question and a "+" / "−" marker.
+### Rows with quiet rules
+The site's list form: tools, articles, guides, prices, principles, credentials, places to go, the homepage menu of classes. A grid of name (Newsreader row name), one-line description (Inter, ink-soft) and an action or price at the end, `22px` of block padding, a 1px `border-soft` rule on top of every row but the first. Hover turns the name verdigris and underlines it. Prices use tabular numerals at Inter 500. Below 760px the row stacks.
 
-### Inputs / Fields
-- **Style:** 1.5px `border` stroke, `bg` fill on light surfaces, 48px tall, `0.7rem 0.9rem`, square; Geologica 500 label above. On navy: `ink-900` fill with a 35% on-dark border.
-- **Focus:** `2.5px solid primary` outline (on-dark outline on navy) and the border turns teal.
-- **Error:** border and message in `danger` (`#F0907E` on navy); never teal, never amber.
-- **Range (the age scale):** a 6px ink track with a 22px square teal thumb in a 2px ink border; `ew-resize` cursor.
+### Questions
+`<details>` rows under the same 1px rules (top of each, plus a closing rule under the last), a 56px Inter 500 summary with a `+` that becomes `−` when open, the answer in ink-soft at 60ch.
 
-### Navigation
-- **One header and footer everywhere.** Styles live only in `assets/css/chrome.css`, behaviour only in `assets/js/chrome.js`; page stylesheets never restyle `.site-header` or `.site-footer`. Chrome reads the shared tokens through `--chrome-*` aliases.
-- **Header:** 72px, sheet-coloured, turns `bg-alt` once scrolled (no shadow). Wordmark: a 1.5px-ink-bordered square mark beside the name in Geologica 600 at −0.02em. Links are Geologica, `ink-soft` at rest, `ink` on hover, with a square teal bar that scales in underneath on hover and current. Structure: Classes · Free tools (details menu) · Articles · About, a 1px divider, My classes (person glyph, a chooser menu), one primary CTA ("Enroll, from $49" on the homepage; hidden on the page it points to), a 44px square theme toggle with a 1.5px ink border.
-- **Menus:** 344px surface panel, 3px ink rule on top, `--shadow-md`, square rows that wash `bg-alt` on hover, a teal "All free tools" link under a second 3px rule; 200ms slide-in when motion is welcome. Below 1000px the list becomes a fixed full-width sheet under the bar.
-- **Footer:** navy floor, white Geologica column headings, Literata links in on-dark-soft, the brand and Instagram at left, and the name set again at `clamp(2.4rem, 7.4vw, 7.4rem)` in white at the very end so the page closes on the wordmark.
+### Hub title block
+The top of every inner page: the Newsreader headline, the lead in ink-soft, one meta or fine-print line in ink-muted, then the actions (12px gap). A 7 to 5 grid puts one photograph (10px corners, 4:3 or a 4:5 tall crop, sage-mist behind it while it loads) or one panel beside it; the solo variant drops the second column. No eyebrow above the title.
 
-### The Sheet (signature)
-The homepage hero is the survey map, marked up as `[data-terrain]`. Contours are `contour` strokes at 1.4 (index contours at 2), woodland patches are `woodland` fills, the stream is a 6-unit `water` stroke, and the route is a 5-unit teal stroke dashed `14 10` with five round waymarks (11-unit radius, 4-unit teal stroke, sheet fill; the active one fills teal) labelled in Geologica 600 with a sheet-coloured halo. Age grid references run along the top edge as a 1.5px ink scale. The readout panel beside the sheet swaps its stage (title, "At 2 years, 3 months", what is growing now, what helps, "Taught in Class N") as the cursor moves. The legend along the foot is four cells, each with a 6px bar (teal when active), name in Geologica 600 at 24px, and "Class N · lessons · $49 once" in the map-label voice.
+### Sage-mist panels
+The explanatory surface: sage-mist fill, 10px corners, `clamp(24px, 3vw, 36px)` padding, no border, no shadow, internal rows ruled in `sage-mist-2`. Used for the article's short version and callouts (callout text in Newsreader), guide glance and "what this covers" panels, the claim's grade and method, tool recaps and scripts, the contact form, the free-lesson panel on class pages. Small inline variants (scripts to say, tab tips) use 6px corners.
 
-Interaction (`assets/js/terrain.js`): a real `<input type="range">` (months 0 to 59, `aria-valuetext` in years and months) is the control; pointer drag anywhere on the SVG and clicks on waymarks move it too. A dotted ink cursor line, a teal cursor dot and a tabular age label follow the route. Without JS the sheet is a still map and all five stage panels show. On load, when `html.anim` is set, the route draws in once over 1800ms on the house ease; the copy and readout settle upward (travel only, never a fade) so no screenshot meets a blank hero.
+### The research-blue source module
+Sources sit under a 2px research-blue top rule with 20px of space above the list. The heading is Inter 600 at 15px in research blue (Newsreader at subhead size on class pages), and every source link is research blue with a 44px target. The same blue marks the evidence line inside a mechanism card and the "Fig." marker. Shipped on articles, guides, claims, class pages and the Lens page.
 
-Inner pages reuse the material as a **terrain inset** (`.terrain-inset`, on `/tools/`): the same contour, woodland, route and waymark classes at inset weights (contour 1.6 / 2.4, route 6, waymark stroke 5), with grid refs in Geologica 500 at 20 units.
+### The close band
+The inverted ink field closing each inner page: `field-ink` ground, square, full bleed, one Newsreader statement in `on-ink`, one supporting line in `on-ink-soft` at 46ch, and one or two buttons (paper or forest, plus a quiet button in on-ink outline) kept together on the left. Focus outlines turn `on-ink`. The footer continues on the same field directly below, so the page ends on one dark mass. The homepage variant sets the statement over the last photograph (darkened to 72% brightness) in the right-hand column.
 
-### Figures
-Inline SVG inside `<figure class="fig">` with a visible caption ("Fig. N" lead-in in Geologica 600 ink, then Literata caption in ink-muted). Figure 2 (the research → model → moment → noticing loop) sits on a surface plate with a 3px ink rule; its emphasised node is teal with white text, other nodes are `surface-2` with 1.5px ink strokes, arrows 2px ink. Figure text is Geologica 500 at 15 units, stepping to 19 under 560px. Curves use `pathLength="1"` and draw in with a dash offset.
+### The age line (Explore)
+The one full sage band: a five-column row of periods (birth to 1, 1 to 2, 2 to 3, 3 to 4, 4 to 5) under a 2px ink rule, separated by 1px translucent ink rules, each with tabular years in Inter 500 and the period name in Newsreader. Hover deepens to `sage-deep`; the current period fills ink with paper text (the reverse in dark). The axis sits under the periods as a scale, never above them. On a period's page it becomes compact navigation (years only on phones, 44px cells). The homepage's age row and class pages use the smaller **age-range bar**: an 8px sage-mist track with a forest segment from `--from` to `--to`, 4px corners.
 
-### Office hours and enrol bands
-The office-hours band is `ink-800` with white h2, on-dark-soft copy, a `.hl` in `ink-700`, and the chat demo as a surface card with a 3px teal rule (labelled "Example conversation" with a 1.5px hairline tag; no fake online status). The enrol band is `ink-900`: white h2 with the price in the phrase mark, enrol rows as `ink-800` panels (title, meta in Geologica 500, perk, 2rem tabular price, on-dark CTA), the refund line in on-dark-soft, and a "Before you enroll" FAQ under a 3px on-dark rule with the waitlist form collapsed inside its last item.
+### The Lens (signature)
+Annotated observation in four steps. On the homepage it opens as the hero plate: a real photograph filling the right seven columns, a "show the labels" toggle (paper, 1.5px ink inset outline, ochre swatch; mist when pressed) and typeset labels (paper chips, 6px corners, 14px Inter with a 600 lead word, an ochre leader dot ringed in paper) that rise in over the image. A note label inverts to ink. Labels keep fixed light colours in both themes because they sit on a photograph.
 
-### Class facts (one list, everywhere)
-The offer reads the same on the homepage legend and rows, the enrol band, `/classes/`, each class page's facts `dl`, and `/pricing`. Change it in all places or none.
-- **Birth to 12 months (Class 1):** 4 modules, 16 lessons, about 3 hours; captions and a written version of every lesson; checkout here with Stripe, lessons under My classes.
-- **Toddler years, 1 to 3 (Class 2):** 5 modules, 29 lessons, about 5 hours; includes unlimited Growing Minds AI for life (`nsc/lib/grants.ts`); checkout and lessons on Thinkific until the class moves on-site, so every toddler Enroll button carries ↗ and a quiet note says where checkout happens. The platform is named only on the toddler class page and the class sign-in page; the homepage, `/classes/` and `/pricing` never say "Thinkific".
-- **Preschool years, 3 to 5 (Class 3):** 4 modules, 15 lessons; checkout here with Stripe.
-- **The whole family (Class 4):** in development; waitlist only, shown with the dashed slate bar.
-- **All three open classes:** $49 once, lifetime access. Full refund within 14 days if the buyer has watched 4 lessons or fewer; the free lesson doesn't count (the app reads the wording from `nsc/lib/refund-policy.ts`). State it once per page, on its own line, and answer it in the refund FAQ. Free things (the milestone tracker, five AI questions a day) are never listed as "included".
-- **Enroll labels:** "Enroll, $49" on any button that stands alone; plain "Enroll" only where the price sits beside it. The header CTA is "Enroll, from $49".
-- **See before you buy:** the infant class's "Serve and Return" plays free at `/nsc/classes/infant/preview` with no account, under a short "Where this fits" lead-in; it is the infant class's second action wherever the class is sold and the sheet's "Watch a lesson free · 14 min" link.
-- **Lesson and module titles** keep the app's Title Case; every other heading is sentence case.
-- Class names are "Short name, ages" as the title and "Class N: subtitle" as the label beneath it, in developmental order (infant first).
+The Lens section sits on sage mist: a sticky 4:5 plate (10px corners) beside the panel. Four tabs (Observe, Understand, Respond, Reflect) in a four-column grid, 6px corners, translucent soft white at rest, ink fill with paper text when selected, each with its clay step numeral. Each step re-labels the same plate; Reflect desaturates it. Understand lists mechanisms as soft-white 6px cards with an ochre dot and a research-blue evidence line; Respond lists options under quiet rules; Reflect sets prompts in Newsreader. The full Lens page adds a title block, a text alternative under a `sage-mist-2` rule, Read / Try / Learn link columns, the sources module and the age doors. Without script every panel shows in order and only the Observe labels stay on the plate. On phones the labels become a list under the photograph.
 
-### Arcade palettes
-The games on `/arcade` keep their own isolated retro palettes (dark cabinets, phosphor greens), scoped to `arcade.css`, `arcade-page.css` and `pong.css`; not design-system drift. The arcade is reached only from the Free tools menu and the footer.
+### Forms
+Labels above fields in Inter 500 at 15px; optional hints in ink-muted. Inputs are 48px tall, `10px 14px`, 1.5px `ink-muted` border, 6px corners, soft-white fill on mist panels and field-paper fill elsewhere. Focus adds a 2px verdigris outline at 2px offset and turns the border verdigris. Invalid fields take a `danger` border with a 14px `danger` message; empty error and status slots collapse. Textareas start at 160px and resize vertically. The send button is full width in the contact form; the inline email signup pairs one input with one button.
+
+### Header and footer
+One header and one footer on every page, structured and scripted in `chrome.css` and `chrome.js`, tuned for the field guide in `field-guide.css`.
+- **Wordmark lockup:** the brand mark (inline SVG, 32px: three stepped arcs in currentColor rising into a leaf in sage-deep; sage arcs and a pale sage leaf in dark mode and on the footer), then lowercase "growing minds" in Newsreader 500 at about 1.35rem, then "SCIENCE" in Inter 500 at 11px, uppercase, tracked 0.32em, nudged onto the name's baseline. No disc or border behind the mark.
+- **Header:** 72px, field paper, steps to paper-2 once scrolled, no shadow. Links in Inter 500 at 15px, ink-soft at rest, ink on hover with a 2px bar that scales in underneath (held on the current page). Order: It's hard right now, Explore, Classes, Tools (a details menu), Articles, About, then My classes and the Enroll button. The tools menu is a soft-white panel with a 6px forest top bar and no shadow. Below 1000px the list becomes a full-width sheet under the bar with "It's hard right now" first on a sage-mist tile with 6px corners; the theme and menu buttons become bare icons.
+- **Footer:** the ink field at least 70svh tall: the brand and tagline on the left, four link columns (Inter, on-ink-soft, on-ink on hover), then the name set again at display size in Newsreader 500 so the page closes on the wordmark; the fine-print row in on-ink-muted.
+
+### Dark theme
+`[data-theme="dark"]` swaps the token values and nothing else: a deep green-black paper (`#141F1C`), light ink (`#EDEBE3`), verdigris lifted to `#8FC4AE` with near-black text on it so it still reads as the one action colour, sage mist darkened to `#22362F`, research blue lifted to `#9DBBDD`, clay text to `#E0A48E`. The ink field goes darker than the ground (`#0B1210`) so the close and footer still read as the closing mass. The theme toggle works on every page.
+
+### Print
+Printing shows everything: entrance animations are forced visible and the header and footer are hidden. The tool apps print their own sheets (the visit sheet, the activity pocket card) in black Georgia at 12pt with Helvetica headings, independent of the screen system.
+
+### Motion
+Entrances only, once, in reading order: elements marked `data-rise` rise 18px and fade in over about 640 to 800ms, staggered by index. They run only when the page has `html.anim`; with reduced motion or without script everything is simply shown. Hover and press transitions are 140 to 180ms. Plate labels fade and rise 6px when revealed; the hero photograph settles from a 4% scale.
 
 ### The class app (`/nsc`)
-The nsc app is a separate Next.js deploy and still carries the superseded Seminar look (Besley over Atkinson Hyperlegible Next in `nsc/app/layout.tsx` and `nsc/app/globals.css`, amber highlighter, 10px radii). It must be restyled to this system: Geologica over Literata, these tokens, square corners, no shadows at rest, teal as the one action colour. The pages a buyer meets before paying (the free lesson, sign-in, the account step) come first.
+The Next.js class app reads the same field-guide values under its own Tailwind token names in `nsc/app/globals.css`: `ground` is field paper, `surface` is soft white, `tint` and `sea-glass` are sage mist, `ink`, `ink-deep` and `ink-800` are forest ink (`ink-900` a deeper `#12302D`), `teal` is deep verdigris with `teal-soft` and `teal-hover` as its hover and `on-teal` as soft white, `teal-light` is sage. The retired amber names now resolve to the field guide (`amber` is sage for marks on ink, `amber-bright` is sage-deep, `amber-deep` is verdigris for label text, `amber-tint` is sage mist). `line` and `line-soft` are the two hairlines, and `field-line` (`#789690`) is an app-only input outline at 3:1. Fonts are Newsreader over Inter through `next/font`; `radius-control` is 6px and `radius-card` / `radius-panel` are 10px; every shadow is `none` except `shadow-lg`, kept for real overlays.
+
+### Arcade palettes
+The games on `/arcade` keep their own isolated retro palettes in `arcade.css` and `pong.css`. They are not design-system drift.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** keep the map-white sheet as the ground and separate sections by a tone step (`bg` → `bg-alt` → `surface`), never by a hairline.
-- **Do** mark a panel with a 3px ink rule across its top and a class row or legend cell with a 6px route bar (slate at rest, teal when active).
-- **Do** use teal for every action and nothing else (The One Route Rule); hover is a deeper teal or an inverted fill, never a lift.
-- **Do** set labels, numerals, buttons and legends in Geologica and running text in Literata (The Legend Hand Rule), with tabular numerals wherever numbers align.
-- **Do** frame photographs as square insets with a 2px ink border and no filter, and reach for a captioned figure or a terrain inset before a photograph when the section explains something.
-- **Do** keep every SVG figure and the sheet accessible: `<title>`, `<desc>`, a visible caption, a real range input for the cursor, dash patterns as well as colour.
-- **Do** honour `prefers-reduced-motion`, keep content visible by default, and keep the theme toggle working on every surface.
+- **Do** set every word in forest ink on field paper, and use deep verdigris for every action and nothing else (The One Action Colour Rule).
+- **Do** put explanation on a sage-mist panel with 10px corners and no border.
+- **Do** separate rows with a 1px `border-soft` rule on top of each row but the first, and open an index list with a 2px ink rule.
+- **Do** put sources in the research-blue module: a 2px research-blue rule, an Inter 600 heading, research-blue links.
+- **Do** set names, headings and statements in Newsreader and everything a parent reads, taps or fills in, in Inter (The Two Hands Rule).
+- **Do** use the three button shapes only: forest, paper, and quiet with a 1.5px inset outline; 48px tall, 6px corners.
+- **Do** draw choices as calm outlined buttons that fill forest when chosen.
+- **Do** close each inner page with one statement and one action on the ink field, flowing into the footer.
+- **Do** use real, observational photographs at 10px corners, or none.
+- **Do** keep entrances gated by `html.anim`, honour reduced motion, and keep every panel visible without script.
+- **Do** write copy without em dashes; use commas, colons or a new sentence.
 
 ### Don't:
-- **Don't** use orange, amber or terracotta as a main colour, or any warm fill larger than an error message (The No Orange Rule).
-- **Don't** round a corner, add a box-shadow at rest, lift a button on hover, or wash a hero with a gradient or graph paper (The Flat Sheet Rule).
-- **Don't** put a kicker, eyebrow, numeral or status above a heading; the class label sits under the title (The Label Under the Title Rule).
-- **Don't** put the phrase mark on more than one headline per page, or use it for a colour other than woodland on light and `ink-700` on navy.
-- **Don't** go clinical or nursery: no hospital-blue, no pastels, no stock-baby imagery, no deficit framing in the readout copy.
-- **Don't** use `border-left` or `border-right` as a coloured accent stripe; the only coloured bars run along the top.
-- **Don't** animate layout properties; use `transform`, `opacity`, and `stroke-dashoffset`, on the house ease `cubic-bezier(0.16, 1, 0.3, 1)`.
-- **Don't** restyle `.site-header` or `.site-footer` outside `chrome.css`, or bring a Seminar value (Besley, amber, 10px radii) back from the nsc app.
+- **Don't** put a kicker, eyebrow, step label or category above a heading; it goes below as a meta line (The Label Below Rule).
+- **Don't** add a box-shadow at rest, lift on hover, or use a gradient (The Flat At Rest Rule).
+- **Don't** use clay, ochre or amber at any size larger than an annotation mark, or on a button or heading (The Annotation Scale Rule).
+- **Don't** use research blue for anything that is not a source or evidence (The Research Blue Rule).
+- **Don't** use stock photography, generic smiling families, brain imagery or decorative icons that fill space.
+- **Don't** stack heavy coloured cards; a list is rows under quiet rules.
+- **Don't** use `border-left` or `border-right` as a coloured accent stripe on a panel or callout.
+- **Don't** restyle `.site-header` or `.site-footer` outside `chrome.css` and the field-guide layer in `field-guide.css`.
+- **Don't** reintroduce a retired value from an earlier system (Geologica, Literata, Besley, amber highlighter, square-only corners).

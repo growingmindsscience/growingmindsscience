@@ -1,209 +1,841 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-13T00:00:00Z",
+  "generatedAt": "2026-10-15T00:00:00Z",
   "title": "Design System: Growing Minds Science",
   "extensions": {
     "colorMeta": {
-      "bg": { "role": "neutral", "displayName": "Map-White Sheet", "canonical": "#F3F5F0", "dark": "#141E28", "tonalRamp": ["#1B2A3A", "#2B4357", "#56687A", "#8FA3B5", "#C5D0CC", "#D9E1DD", "#E9EEE8", "#F3F5F0"] },
-      "bg-alt": { "role": "neutral", "displayName": "Sage Step", "canonical": "#E9EEE8", "dark": "#182430", "tonalRamp": ["#1F2A24", "#33453A", "#4F6657", "#7A907F", "#A9BBAE", "#C9D8CC", "#E2E9E4", "#E9EEE8"] },
-      "surface": { "role": "neutral", "displayName": "Sheet Surface", "canonical": "#FBFCFA", "dark": "#1C2936", "tonalRamp": ["#1B2A3A", "#2B4357", "#56687A", "#8FA3B5", "#C5D0CC", "#E2E9E4", "#F3F5F0", "#FBFCFA"] },
-      "surface-2": { "role": "neutral", "displayName": "Sheet Tint", "canonical": "#E2E9E4", "dark": "#243344", "tonalRamp": ["#1F2A24", "#33453A", "#4F6657", "#7A907F", "#A9BBAE", "#C9D8CC", "#D9E1DD", "#E2E9E4"] },
-      "border": { "role": "neutral", "displayName": "Hairline", "canonical": "#C5D0CC", "dark": "#34465A", "tonalRamp": ["#1F2A24", "#33453A", "#4F6657", "#7A907F", "#A9BBAE", "#C5D0CC", "#D9E1DD", "#E9EEE8"] },
-      "border-soft": { "role": "neutral", "displayName": "Hairline Soft", "canonical": "#D9E1DD", "dark": "#2B3B4C", "tonalRamp": ["#1F2A24", "#33453A", "#4F6657", "#7A907F", "#A9BBAE", "#C5D0CC", "#D9E1DD", "#E9EEE8"] },
-      "ink": { "role": "neutral", "displayName": "Navy Ink", "canonical": "#1B2A3A", "dark": "#E8EEF2", "tonalRamp": ["#0A1016", "#16232F", "#1B2A3A", "#22364A", "#2B4357", "#3A4A5A", "#56687A", "#8FA3B5"] },
-      "ink-soft": { "role": "neutral", "displayName": "Ink Soft", "canonical": "#3A4A5A", "dark": "#C3CFD9", "tonalRamp": ["#0A1016", "#16232F", "#1B2A3A", "#2B4357", "#3A4A5A", "#56687A", "#8FA3B5", "#C3CFD9"] },
-      "ink-muted": { "role": "neutral", "displayName": "Ink Muted", "canonical": "#56687A", "dark": "#93A3B3", "tonalRamp": ["#0A1016", "#16232F", "#1B2A3A", "#2B4357", "#3A4A5A", "#56687A", "#8FA3B5", "#C3CFD9"] },
-      "ink-700": { "role": "neutral", "displayName": "Navy Raised", "canonical": "#2B4357", "dark": "#1A2733", "tonalRamp": ["#0A1016", "#0F171F", "#16232F", "#1B2A3A", "#22364A", "#2B4357", "#3A4A5A", "#56687A"] },
-      "ink-800": { "role": "neutral", "displayName": "Navy Field", "canonical": "#22364A", "dark": "#0F171F", "tonalRamp": ["#0A1016", "#0F171F", "#16232F", "#1B2A3A", "#22364A", "#2B4357", "#3A4A5A", "#56687A"] },
-      "ink-900": { "role": "neutral", "displayName": "Navy Floor", "canonical": "#16232F", "dark": "#0A1016", "tonalRamp": ["#0A1016", "#0F171F", "#16232F", "#1B2A3A", "#22364A", "#2B4357", "#3A4A5A", "#56687A"] },
-      "primary": { "role": "primary", "displayName": "Teal Route", "canonical": "#1E5F62", "dark": "#7FC4BC", "tonalRamp": ["#07211E", "#0F3536", "#17494B", "#1E5F62", "#2E7A77", "#5BA39C", "#7FC4BC", "#D5E6E3"] },
-      "primary-hover": { "role": "primary", "displayName": "Teal Route Deep", "canonical": "#17494B", "dark": "#9AD5CD", "tonalRamp": ["#07211E", "#0F3536", "#17494B", "#1E5F62", "#2E7A77", "#5BA39C", "#7FC4BC", "#D5E6E3"] },
-      "primary-ink": { "role": "primary", "displayName": "On Route", "canonical": "#FFFFFF", "dark": "#07211E", "tonalRamp": ["#07211E", "#17494B", "#1E5F62", "#5BA39C", "#7FC4BC", "#D5E6E3", "#EEF2F4", "#FFFFFF"] },
-      "route-tint": { "role": "primary", "displayName": "Route Tint", "canonical": "#D5E6E3", "dark": "#1F3A3A", "cssName": "--amber-tint", "tonalRamp": ["#07211E", "#17494B", "#1E5F62", "#2E7A77", "#5BA39C", "#7FC4BC", "#B5D8D3", "#D5E6E3"] },
-      "contour": { "role": "neutral", "displayName": "Slate Contour", "canonical": "#8FA3B5", "dark": "#45596C", "tonalRamp": ["#1B2A3A", "#2B4357", "#45596C", "#56687A", "#7389A0", "#8FA3B5", "#B4C2CE", "#D9E1E8"] },
-      "woodland": { "role": "secondary", "displayName": "Sage Woodland", "canonical": "#C9D8CC", "dark": "#243A36", "tonalRamp": ["#1F2A24", "#243A36", "#33453A", "#4F6657", "#7A907F", "#A9BBAE", "#C9D8CC", "#E2E9E4"] },
-      "water": { "role": "secondary", "displayName": "Pale Stream", "canonical": "#BFD7E6", "dark": "#22384A", "tonalRamp": ["#141E28", "#22384A", "#34506A", "#4F6E8A", "#7A9AB4", "#9FBBCF", "#BFD7E6", "#E1ECF3"] },
-      "leaf": { "role": "tertiary", "displayName": "Leaf", "canonical": "#2E7A5F", "dark": "#7FC4BC", "tonalRamp": ["#0E2A1F", "#1B4A38", "#2F6B4A", "#2E7A5F", "#4E9A7C", "#7FBBA3", "#B0D8C6", "#DCEEE5"] },
-      "danger": { "role": "tertiary", "displayName": "Danger", "canonical": "#A6371F", "dark": "#F0907E", "tonalRamp": ["#3A1109", "#6B2114", "#A6371F", "#C44F36", "#DC7059", "#F0907E", "#F6BBB0", "#FBE3DE"] },
-      "success": { "role": "tertiary", "displayName": "Success", "canonical": "#2F6B4A", "dark": "#9AD5CD", "tonalRamp": ["#0E2A1F", "#1B4A38", "#2F6B4A", "#3E8A60", "#5BA37C", "#86BE9E", "#B4D8C4", "#DCEEE5"] },
-      "on-dark": { "role": "neutral", "displayName": "On Dark", "canonical": "#EEF2F4", "tonalRamp": ["#16232F", "#2B4357", "#56687A", "#93A3B3", "#C3CFD9", "#D9E1E8", "#EEF2F4", "#FFFFFF"] },
-      "on-dark-soft": { "role": "neutral", "displayName": "On Dark Soft", "canonical": "#C3CFD9", "tonalRamp": ["#16232F", "#2B4357", "#56687A", "#93A3B3", "#C3CFD9", "#D9E1E8", "#EEF2F4", "#FFFFFF"] },
-      "on-dark-muted": { "role": "neutral", "displayName": "On Dark Muted", "canonical": "#93A3B3", "tonalRamp": ["#16232F", "#2B4357", "#56687A", "#93A3B3", "#C3CFD9", "#D9E1E8", "#EEF2F4", "#FFFFFF"] }
+      "paper": {
+        "role": "neutral",
+        "displayName": "Field Paper",
+        "canonical": "#F7F4EC",
+        "cssVar": "--paper",
+        "dark": "#141F1C",
+        "tonalRamp": [
+          "#0C0B08",
+          "#262521",
+          "#44423D",
+          "#63615B",
+          "#85827B",
+          "#A7A59F",
+          "#CBC9C4",
+          "#F0EEEA"
+        ]
+      },
+      "paper-2": {
+        "role": "neutral",
+        "displayName": "Paper Step",
+        "canonical": "#EFEBE0",
+        "cssVar": "--paper-2",
+        "dark": "#1A2724",
+        "tonalRamp": [
+          "#0C0B07",
+          "#27251F",
+          "#44423B",
+          "#646158",
+          "#858279",
+          "#A8A59C",
+          "#CCC9C2",
+          "#F1EEE8"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Soft White",
+        "canonical": "#FFFDF8",
+        "cssVar": "--surface",
+        "dark": "#1E2C28",
+        "tonalRamp": [
+          "#0C0B09",
+          "#262522",
+          "#43423F",
+          "#63615D",
+          "#84827E",
+          "#A6A5A1",
+          "#CAC9C6",
+          "#EFEEEC"
+        ]
+      },
+      "surface-2": {
+        "role": "neutral",
+        "displayName": "Paper Tint",
+        "canonical": "#E6E3D7",
+        "cssVar": "--surface-2",
+        "dark": "#27372F",
+        "tonalRamp": [
+          "#0C0B07",
+          "#27251F",
+          "#44423A",
+          "#646158",
+          "#858278",
+          "#A7A59C",
+          "#CBC9C1",
+          "#F0EEE8"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Forest Ink",
+        "canonical": "#193C39",
+        "cssVar": "--ink",
+        "dark": "#EDEBE3",
+        "tonalRamp": [
+          "#010E0D",
+          "#142A27",
+          "#2D4845",
+          "#486965",
+          "#688A86",
+          "#8EACA9",
+          "#B6CFCC",
+          "#DEF4F1"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Ink Soft",
+        "canonical": "#35504C",
+        "cssVar": "--ink-soft",
+        "dark": "#CDD3CC",
+        "tonalRamp": [
+          "#030E0C",
+          "#182926",
+          "#324744",
+          "#4D6763",
+          "#6E8984",
+          "#93ABA7",
+          "#BACECB",
+          "#E2F3F0"
+        ]
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Ink Muted",
+        "canonical": "#546965",
+        "cssVar": "--ink-muted",
+        "dark": "#9FAEA8",
+        "tonalRamp": [
+          "#050D0C",
+          "#1C2826",
+          "#364643",
+          "#526662",
+          "#738783",
+          "#97AAA6",
+          "#BDCDCA",
+          "#E5F2EF"
+        ]
+      },
+      "ink-700": {
+        "role": "neutral",
+        "displayName": "Ink Raised",
+        "canonical": "#2A3F3B",
+        "cssVar": "--ink-700",
+        "dark": "#1E2E2A",
+        "tonalRamp": [
+          "#050D0C",
+          "#1B2826",
+          "#354643",
+          "#526662",
+          "#728883",
+          "#97AAA6",
+          "#BDCDCA",
+          "#E4F2EF"
+        ]
+      },
+      "forest": {
+        "role": "primary",
+        "displayName": "Deep Verdigris",
+        "canonical": "#245F58",
+        "cssVar": "--forest",
+        "dark": "#8FC4AE",
+        "tonalRamp": [
+          "#00100D",
+          "#052C28",
+          "#1E4B45",
+          "#376C65",
+          "#598E87",
+          "#82B0A9",
+          "#ABD3CC",
+          "#D6F7F1"
+        ]
+      },
+      "forest-deep": {
+        "role": "primary",
+        "displayName": "Verdigris Deep",
+        "canonical": "#1C4D47",
+        "cssVar": "--forest-deep",
+        "dark": "#A8D5C3",
+        "tonalRamp": [
+          "#000F0D",
+          "#0C2B27",
+          "#254A45",
+          "#3F6B64",
+          "#608C86",
+          "#87AEA8",
+          "#B0D1CC",
+          "#DAF5F1"
+        ]
+      },
+      "on-forest": {
+        "role": "primary",
+        "displayName": "On Verdigris",
+        "canonical": "#FFFDF8",
+        "cssVar": "--on-forest",
+        "dark": "#0E1A16",
+        "tonalRamp": [
+          "#0C0B09",
+          "#262522",
+          "#43423F",
+          "#63615D",
+          "#84827E",
+          "#A6A5A1",
+          "#CAC9C6",
+          "#EFEEEC"
+        ]
+      },
+      "sage": {
+        "role": "secondary",
+        "displayName": "Field Sage",
+        "canonical": "#A9C3B2",
+        "cssVar": "--sage",
+        "dark": "#2B4A41",
+        "tonalRamp": [
+          "#050E08",
+          "#1B2920",
+          "#35473C",
+          "#516759",
+          "#72897A",
+          "#97AB9E",
+          "#BDCEC3",
+          "#E4F3E9"
+        ]
+      },
+      "sage-deep": {
+        "role": "secondary",
+        "displayName": "Sage Deep",
+        "canonical": "#8DAE9A",
+        "cssVar": "--sage-deep",
+        "dark": "#3A6054",
+        "tonalRamp": [
+          "#030E07",
+          "#172A1F",
+          "#31483B",
+          "#4C6958",
+          "#6D8B79",
+          "#92AD9C",
+          "#B9D0C2",
+          "#E1F4E8"
+        ]
+      },
+      "sage-mist": {
+        "role": "secondary",
+        "displayName": "Sage Mist",
+        "canonical": "#E0EBE5",
+        "cssVar": "--sage-mist",
+        "dark": "#22362F",
+        "tonalRamp": [
+          "#080C0A",
+          "#212724",
+          "#3D4440",
+          "#5B645F",
+          "#7C8580",
+          "#9FA7A3",
+          "#C4CBC7",
+          "#EAF0ED"
+        ]
+      },
+      "sage-mist-2": {
+        "role": "secondary",
+        "displayName": "Sage Mist Deep",
+        "canonical": "#CFDFD6",
+        "cssVar": "--sage-mist-2",
+        "dark": "#2B4A41",
+        "tonalRamp": [
+          "#070D0A",
+          "#1F2723",
+          "#3A453F",
+          "#58655E",
+          "#78867F",
+          "#9CA9A2",
+          "#C1CCC6",
+          "#E8F1EC"
+        ]
+      },
+      "field-ink": {
+        "role": "neutral",
+        "displayName": "The Ink Field",
+        "canonical": "#193C39",
+        "cssVar": "--field-ink",
+        "dark": "#0B1210",
+        "tonalRamp": [
+          "#010E0D",
+          "#142A27",
+          "#2D4845",
+          "#486965",
+          "#688A86",
+          "#8EACA9",
+          "#B6CFCC",
+          "#DEF4F1"
+        ]
+      },
+      "field-ink-2": {
+        "role": "neutral",
+        "displayName": "Ink Field Raised",
+        "canonical": "#214744",
+        "cssVar": "--field-ink-2",
+        "dark": "#15201D",
+        "tonalRamp": [
+          "#010E0D",
+          "#122A28",
+          "#2B4846",
+          "#466966",
+          "#668B87",
+          "#8DADA9",
+          "#B4D0CD",
+          "#DDF4F2"
+        ]
+      },
+      "on-ink": {
+        "role": "neutral",
+        "displayName": "On Ink",
+        "canonical": "#F2EFE6",
+        "cssVar": "--on-ink",
+        "dark": "#EDEBE3",
+        "tonalRamp": [
+          "#0C0B08",
+          "#262520",
+          "#44423C",
+          "#63615A",
+          "#85827B",
+          "#A7A59E",
+          "#CBC9C3",
+          "#F0EEE9"
+        ]
+      },
+      "on-ink-soft": {
+        "role": "neutral",
+        "displayName": "On Ink Soft",
+        "canonical": "#C9D0CB",
+        "cssVar": "--on-ink-soft",
+        "dark": "#C9D0CB",
+        "tonalRamp": [
+          "#090C0A",
+          "#222624",
+          "#3F4340",
+          "#5D635F",
+          "#7E8480",
+          "#A1A7A3",
+          "#C6CAC7",
+          "#ECF0ED"
+        ]
+      },
+      "on-ink-muted": {
+        "role": "neutral",
+        "displayName": "On Ink Muted",
+        "canonical": "#9FAEA8",
+        "cssVar": "--on-ink-muted",
+        "dark": "#9FAEA8",
+        "tonalRamp": [
+          "#070D0A",
+          "#1F2724",
+          "#3A4541",
+          "#586560",
+          "#788681",
+          "#9CA8A3",
+          "#C1CCC8",
+          "#E8F1ED"
+        ]
+      },
+      "research": {
+        "role": "tertiary",
+        "displayName": "Research Blue",
+        "canonical": "#426B91",
+        "cssVar": "--research",
+        "dark": "#9DBBDD",
+        "tonalRamp": [
+          "#000C1C",
+          "#0E273D",
+          "#254561",
+          "#3F6588",
+          "#5F86AB",
+          "#87A9CA",
+          "#AFCDEA",
+          "#D9F2FF"
+        ]
+      },
+      "note-warm": {
+        "role": "tertiary",
+        "displayName": "Discovery Clay",
+        "canonical": "#C46C4D",
+        "cssVar": "--note-warm",
+        "dark": "#D9A08E",
+        "tonalRamp": [
+          "#200000",
+          "#441200",
+          "#6B2C14",
+          "#95472B",
+          "#BB694C",
+          "#DA9076",
+          "#F9B8A1",
+          "#FFE0CD"
+        ]
+      },
+      "clay-text": {
+        "role": "tertiary",
+        "displayName": "Clay Text",
+        "canonical": "#9E5236",
+        "cssVar": "--clay-text",
+        "dark": "#E0A48E",
+        "tonalRamp": [
+          "#1E0100",
+          "#421504",
+          "#682F1A",
+          "#914B31",
+          "#B66C52",
+          "#D5927A",
+          "#F4BAA5",
+          "#FFE2D0"
+        ]
+      },
+      "note-amber": {
+        "role": "tertiary",
+        "displayName": "Golden Ochre",
+        "canonical": "#D2A453",
+        "cssVar": "--note-amber",
+        "dark": "#DDB36E",
+        "tonalRamp": [
+          "#180600",
+          "#381F00",
+          "#5B3B00",
+          "#805900",
+          "#A47A2D",
+          "#C39F61",
+          "#E4C490",
+          "#FFEBC0"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#CDD3CB",
+        "cssVar": "--border",
+        "dark": "#35463F",
+        "tonalRamp": [
+          "#0A0C09",
+          "#232622",
+          "#3F433E",
+          "#5E635C",
+          "#7F847D",
+          "#A2A7A0",
+          "#C6CAC5",
+          "#ECF0EB"
+        ]
+      },
+      "border-soft": {
+        "role": "neutral",
+        "displayName": "Hairline Soft",
+        "canonical": "#DEE2D8",
+        "cssVar": "--border-soft",
+        "dark": "#2B3A34",
+        "tonalRamp": [
+          "#0A0C08",
+          "#242621",
+          "#41433D",
+          "#5F635B",
+          "#80847B",
+          "#A3A69F",
+          "#C8CAC4",
+          "#EDEFEA"
+        ]
+      },
+      "danger": {
+        "role": "neutral",
+        "displayName": "Danger",
+        "canonical": "#A6371F",
+        "cssVar": "--danger",
+        "dark": "#F0907E",
+        "tonalRamp": [
+          "#240000",
+          "#4B0500",
+          "#75200D",
+          "#A23B25",
+          "#C85E46",
+          "#E78771",
+          "#FFB19D",
+          "#FFDBCA"
+        ]
+      },
+      "success": {
+        "role": "neutral",
+        "displayName": "Success",
+        "canonical": "#2F6B4A",
+        "cssVar": "--success",
+        "dark": "#A8D5C3",
+        "tonalRamp": [
+          "#001004",
+          "#062D1A",
+          "#1E4D33",
+          "#386E4F",
+          "#599170",
+          "#82B294",
+          "#ACD5BB",
+          "#D6F8E2"
+        ]
+      }
     },
     "typographyMeta": {
-      "display": { "displayName": "Display", "purpose": "The homepage sheet title and inner-page hero titles. One per page, max 12 to 18ch." },
-      "headline": { "displayName": "Headline", "purpose": "Section h2s." },
-      "title": { "displayName": "Title", "purpose": "h3s and curriculum row titles." },
-      "row-title": { "displayName": "Row title", "purpose": "Legend cell names, enrol rows, price names, syllabus titles, lens names, shelf headings." },
-      "lede": { "displayName": "Lede", "purpose": "Section ledes and the thesis body." },
-      "body": { "displayName": "Body", "purpose": "All running text, 62ch default measure, 50ch for promises and fine print." },
-      "caption": { "displayName": "Caption", "purpose": "Figure captions in ink-muted with a Geologica 600 'Fig. N' lead-in." },
-      "map-label": { "displayName": "Map label", "purpose": "Legend meta, readout age, grid references, class labels under titles, chips, dt labels, buttons at weight 600." },
-      "label-xs": { "displayName": "Label XS", "purpose": "Readout column headings, scale labels, status text." }
+      "display": {
+        "displayName": "Display",
+        "purpose": "The homepage title beside the hero plate. Homepage only."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "The page title in every inner title block."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section headings; hub split and close-band headings step down from it."
+      },
+      "subhead": {
+        "displayName": "Subhead",
+        "purpose": "Lens questions, age columns, menu-row class names, topic headings."
+      },
+      "row-name": {
+        "displayName": "Row name",
+        "purpose": "The Newsreader name in every quiet-ruled row."
+      },
+      "statement": {
+        "displayName": "Statement",
+        "purpose": "Callouts, scripts, reflection prompts, the claim verdict. Large, never a heading."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "The line under every page title, ink-soft, 44 to 52ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text everywhere, 62ch."
+      },
+      "article": {
+        "displayName": "Article body",
+        "purpose": "Article reading column, 68ch."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "The one meta line under a title, captions, fine print; ink-muted."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Sources headings, Lens subheads, contents heading; form labels at 500."
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Row meta, plate labels, figure captions, the age axis."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Every button and choice label."
+      }
     },
     "fonts": [
-      { "family": "Geologica", "source": "Google Fonts", "weights": "400..800", "fallback": "Geologica Fallback (local Helvetica Neue or Arial, size-adjust 108%, ascent 96%, descent 26%)" },
-      { "family": "Literata", "source": "Google Fonts", "weights": "400..700, italic, opsz 7..72", "fallback": "Literata Fallback (local Georgia, size-adjust 101%, ascent 95%, descent 24%)" }
+      {
+        "family": "Newsreader",
+        "source": "Google Fonts (next/font in /nsc)",
+        "weights": "400..600, italic, opsz 6..72",
+        "fallback": "Newsreader Fallback (local Georgia or Times New Roman, size-adjust 98%, ascent 92%, descent 26%)"
+      },
+      {
+        "family": "Inter",
+        "source": "Google Fonts (next/font in /nsc)",
+        "weights": "400, 500, 600",
+        "fallback": "DM Sans Fallback (local Helvetica Neue or Arial, ascent 94%, descent 24%), then Helvetica Neue, Arial"
+      }
     ],
     "shadows": [
-      { "name": "shadow-sm", "value": "none", "purpose": "Nothing at rest." },
-      { "name": "shadow-md", "value": "0 18px 40px -24px rgba(27, 42, 58, 0.35)", "dark": "0 18px 40px -24px rgba(0, 0, 0, 0.6)", "purpose": "The one shadow: the floating Free tools and My classes header menus." },
-      { "name": "shadow-lg", "value": "none", "purpose": "Retired; cards and figures are flat." }
+      {
+        "name": "shadow-sm",
+        "value": "none",
+        "purpose": "Nothing at rest."
+      },
+      {
+        "name": "shadow-md",
+        "value": "0 18px 40px -24px rgba(32, 50, 47, 0.35)",
+        "dark": "0 18px 40px -24px rgba(0, 0, 0, 0.6)",
+        "purpose": "Reserved for a truly floating overlay; the field-guide layer removes it from the header menu, so no site page uses it."
+      },
+      {
+        "name": "shadow-lg",
+        "value": "none",
+        "purpose": "Retired."
+      },
+      {
+        "name": "quiet-outline",
+        "value": "inset 0 0 0 1.5px var(--ink)",
+        "purpose": "Draws the quiet button's border (and, in var(--border), the choice and chip outline). A border, not a lift."
+      }
     ],
     "borders": [
-      { "name": "legend-bar", "value": "3px solid var(--ink)", "purpose": "The top rule on panels, lists, figures, hr, and the header menu." },
-      { "name": "route-bar", "value": "6px solid var(--primary)", "purpose": "The route segment along the top of legend cells and class rows; slate at rest, dashed slate for classes in development." },
-      { "name": "inset-frame", "value": "2px solid var(--ink)", "purpose": "Photographs as square map insets." },
-      { "name": "control-stroke", "value": "1.5px solid", "purpose": "Buttons (border matches fill), inputs, the theme toggle, the brand mark, the chat tag." },
-      { "name": "focus-ring", "value": "2.5px solid var(--primary); outline-offset: 3px", "purpose": "Every focus-visible on light; on-dark on navy fields." }
+      {
+        "name": "quiet-rule",
+        "value": "1px solid var(--border-soft)",
+        "purpose": "On top of every row but the first: rows, questions, lists, the article body."
+      },
+      {
+        "name": "mist-rule",
+        "value": "1px solid var(--sage-mist-2)",
+        "purpose": "Rows inside a sage-mist panel; the Lens text alternative."
+      },
+      {
+        "name": "index-rule",
+        "value": "2px solid var(--ink)",
+        "purpose": "Opens an index list: the age line, the first Explore row, the Lens age doors, the right-now sequence."
+      },
+      {
+        "name": "source-rule",
+        "value": "2px solid var(--research)",
+        "purpose": "Opens the research-blue source module."
+      },
+      {
+        "name": "menu-bar",
+        "value": "6px solid var(--forest)",
+        "purpose": "Top of the header tools menu on field-guide pages."
+      },
+      {
+        "name": "input",
+        "value": "1.5px solid var(--ink-muted)",
+        "purpose": "Form inputs; turns var(--forest) on focus and var(--danger) when invalid."
+      }
     ],
     "motion": [
-      { "name": "ease", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "The house ease for every transition and the route draw-in." },
-      { "name": "transition", "value": "240ms cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Colour, background and transform transitions." },
-      { "name": "press", "value": "transform 140ms", "purpose": "Buttons move down 1px on :active." },
-      { "name": "route-draw", "value": "1800ms, stroke-dashoffset, once on load", "purpose": "The route draws in when html.anim is set; dasharray returns to 14 10 on finish." },
-      { "name": "settle", "value": "720ms translateY(14px) → 0, staggered 80ms", "purpose": "Sheet copy and readout settle upward from an already-visible state; travel only, never a fade." },
-      { "name": "reveal", "value": "opacity 600ms, transform 700ms, translateY(18px)", "purpose": "[data-animate] sections below the fold; an enhancement, never a gate." },
-      { "name": "menu-in", "value": "200ms cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "Header menus slide down 6px as they open." }
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "The house ease for entrances and state transitions."
+      },
+      {
+        "name": "rise",
+        "value": "opacity and translateY(18px), 640 to 800ms, stagger 70 to 90ms by --i",
+        "purpose": "data-rise entrances, gated by html.anim; reduced motion and no script show everything."
+      },
+      {
+        "name": "press",
+        "value": "translateY(1px), 160ms",
+        "purpose": "Buttons on :active."
+      },
+      {
+        "name": "hover",
+        "value": "background-color 160 to 180ms ease",
+        "purpose": "Tone-change hovers on buttons, choices, rows, age-line cells."
+      },
+      {
+        "name": "label-reveal",
+        "value": "opacity and translateY(6px), 360ms ease",
+        "purpose": "Plate labels when the toggle shows them."
+      }
     ],
     "breakpoints": [
-      { "name": "sheet-stack", "value": "1100px", "purpose": "The homepage sheet becomes copy beside map, then readout, then legend; the SVG reframes to the route's region." },
-      { "name": "curriculum-columns", "value": "1041px", "purpose": "Class rows take the 10rem | 1fr | 15.5rem grid above this." },
-      { "name": "header-menu", "value": "1000px", "purpose": "The nav list becomes a fixed sheet under the bar." },
-      { "name": "phone", "value": "720px", "purpose": "Sheet SVG switches to meet; row titles step to 24px." },
-      { "name": "figure-labels", "value": "560px", "purpose": "SVG figure labels step from 15 to 19 units." }
+      {
+        "name": "age-row",
+        "value": "1100px",
+        "purpose": "Homepage age row becomes five columns above this."
+      },
+      {
+        "name": "header-menu",
+        "value": "1000px",
+        "purpose": "The nav list becomes a full-width sheet under the bar."
+      },
+      {
+        "name": "hero-stack",
+        "value": "900px",
+        "purpose": "Hero and Lens stack; plate labels become a list under the photograph."
+      },
+      {
+        "name": "split",
+        "value": "860px",
+        "purpose": "Heading-left, content-right splits go single column."
+      },
+      {
+        "name": "row",
+        "value": "760px",
+        "purpose": "Rows, guide rows and principles stack."
+      },
+      {
+        "name": "full-width-actions",
+        "value": "640px",
+        "purpose": "Title-block and price-row buttons go full width."
+      }
     ],
     "layout": {
-      "container": "1200px",
-      "containerNarrow": "880px",
-      "margin": "clamp(1rem, 3vw, 2.25rem)",
-      "sectionPadding": "clamp(4.5rem, 9vw, 8rem)",
+      "container": "min(100% - 2 * gutter, 1320px)",
+      "gutter": "clamp(16px, 4vw, 56px)",
+      "sectionPadding": "clamp(72px, 10vw, 150px)",
+      "sectionTight": "clamp(48px, 6vw, 88px)",
+      "hubSection": "clamp(56px, 8vw, 120px)",
+      "split": "4fr / 8fr",
+      "titleBlock": "7fr / 5fr",
+      "readingMeasure": "62 to 68ch",
       "headerHeight": "72px",
-      "sheetViewBox": "0 0 1440 900",
-      "sheetViewBoxNarrow": "700 60 740 780"
+      "touchTarget": "44px",
+      "radiusControl": "6px",
+      "radiusPanel": "10px"
     }
   },
   "components": [
     {
-      "name": "Primary Button",
+      "name": "Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "The one action per surface: teal fill, Geologica 600, square, flat; hover deepens, press moves 1px.",
-      "html": "<a class=\"ds-btn ds-btn--primary\" href=\"#\">Browse the classes</a>",
-      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 48px; padding: 0.8rem 1.4rem; border: 1.5px solid transparent; border-radius: 0; background: transparent; color: inherit; font-family: var(--font-display, Geologica, 'Helvetica Neue', Arial, sans-serif); font-size: 0.9375rem; font-weight: 600; line-height: 1.2; letter-spacing: 0; text-decoration: none; white-space: nowrap; cursor: pointer; transition: background-color 240ms cubic-bezier(0.16,1,0.3,1), color 240ms cubic-bezier(0.16,1,0.3,1), border-color 240ms cubic-bezier(0.16,1,0.3,1), transform 140ms cubic-bezier(0.16,1,0.3,1); } .ds-btn:active { transform: translateY(1px); } .ds-btn:focus-visible { outline: 2.5px solid var(--primary, #1E5F62); outline-offset: 3px; } .ds-btn--primary { background: var(--primary, #1E5F62); border-color: var(--primary, #1E5F62); color: var(--primary-ink, #FFFFFF); } .ds-btn--primary:hover { background: var(--primary-hover, #17494B); border-color: var(--primary-hover, #17494B); }"
+      "description": "The one action per surface: verdigris fill, Inter 500, 48px, 6px corners, flat; hover deepens, press moves 1px.",
+      "html": "<a class=\"ds-btn\" href=\"#\">Enroll, $49</a>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5em; min-height: 48px; padding: 0 1.25rem; background: var(--forest, #245F58); color: var(--on-forest, #FFFDF8); font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-weight: 500; font-size: 1rem; text-decoration: none; border: 0; border-radius: 6px; cursor: pointer; transition: background-color 160ms ease, transform 160ms ease; } .ds-btn:hover { background: var(--forest-deep, #1C4D47); } .ds-btn:active { transform: translateY(1px); } .ds-btn:focus-visible { outline: 2.5px solid var(--forest, #245F58); outline-offset: 3px; }"
+    },
+    {
+      "name": "Paper Button",
+      "kind": "button",
+      "refersTo": "button-paper",
+      "description": "The primary action on the ink field or over a photograph: field paper fill, ink text.",
+      "html": "<div class=\"ds-ink\"><a class=\"ds-btn-paper\" href=\"#\">Browse the classes</a></div>",
+      "css": ".ds-ink { background: var(--field-ink, #193C39); padding: 24px; } .ds-btn-paper { display: inline-flex; align-items: center; min-height: 48px; padding: 0 1.25rem; background: var(--paper, #F7F4EC); color: var(--ink, #193C39); font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-weight: 500; font-size: 1rem; text-decoration: none; border-radius: 6px; transition: background-color 160ms ease, transform 160ms ease; } .ds-btn-paper:hover { background: var(--surface, #FFFDF8); } .ds-btn-paper:active { transform: translateY(1px); } .ds-btn-paper:focus-visible { outline: 2.5px solid var(--on-ink, #F2EFE6); outline-offset: 3px; }"
     },
     {
       "name": "Quiet Button",
       "kind": "button",
       "refersTo": "button-quiet",
-      "description": "Secondary action on light grounds: 1.5px ink outline, inverts to ink on hover.",
-      "html": "<a class=\"ds-btn ds-btn--quiet\" href=\"#\">See the class</a>",
-      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 48px; padding: 0.8rem 1.4rem; border: 1.5px solid transparent; border-radius: 0; background: transparent; color: inherit; font-family: var(--font-display, Geologica, 'Helvetica Neue', Arial, sans-serif); font-size: 0.9375rem; font-weight: 600; line-height: 1.2; text-decoration: none; white-space: nowrap; cursor: pointer; transition: background-color 240ms cubic-bezier(0.16,1,0.3,1), color 240ms cubic-bezier(0.16,1,0.3,1), transform 140ms cubic-bezier(0.16,1,0.3,1); } .ds-btn:active { transform: translateY(1px); } .ds-btn:focus-visible { outline: 2.5px solid var(--primary, #1E5F62); outline-offset: 3px; } .ds-btn--quiet { border-color: var(--ink, #1B2A3A); color: var(--ink, #1B2A3A); } .ds-btn--quiet:hover { background: var(--ink, #1B2A3A); color: var(--bg, #F3F5F0); }"
+      "description": "The second action: transparent with a 1.5px inset ink outline; hover washes sage mist.",
+      "html": "<a class=\"ds-btn-quiet\" href=\"#\">Watch a lesson free</a>",
+      "css": ".ds-btn-quiet { display: inline-flex; align-items: center; min-height: 48px; padding: 0 1.25rem; background: transparent; color: var(--ink, #193C39); box-shadow: inset 0 0 0 1.5px var(--ink, #193C39); font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-weight: 500; font-size: 1rem; text-decoration: none; border-radius: 6px; transition: background-color 160ms ease, transform 160ms ease; } .ds-btn-quiet:hover { background: var(--sage-mist, #E0EBE5); } .ds-btn-quiet:active { transform: translateY(1px); } .ds-btn-quiet:focus-visible { outline: 2.5px solid var(--forest, #245F58); outline-offset: 3px; }"
     },
     {
-      "name": "On-Dark Button",
-      "kind": "button",
-      "refersTo": "button-on-dark",
-      "description": "The CTA on navy fields (enrol rows, office hours): on-dark fill with navy-floor text, pure white on hover.",
-      "html": "<div class=\"ds-navy\"><a class=\"ds-btn ds-btn--on-dark\" href=\"#\">Enroll</a> <a class=\"ds-btn ds-btn--quiet-dark\" href=\"#\">Join the waitlist</a></div>",
-      "css": ".ds-navy { padding: 1.5rem; background: var(--ink-900, #16232F); display: flex; gap: 0.75rem; } .ds-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0.8rem 1.4rem; border: 1.5px solid transparent; border-radius: 0; font-family: var(--font-display, Geologica, 'Helvetica Neue', Arial, sans-serif); font-size: 0.9375rem; font-weight: 600; line-height: 1.2; text-decoration: none; white-space: nowrap; cursor: pointer; transition: background-color 240ms cubic-bezier(0.16,1,0.3,1), color 240ms cubic-bezier(0.16,1,0.3,1), border-color 240ms cubic-bezier(0.16,1,0.3,1), transform 140ms cubic-bezier(0.16,1,0.3,1); } .ds-btn:active { transform: translateY(1px); } .ds-btn:focus-visible { outline: 2.5px solid var(--on-dark, #EEF2F4); outline-offset: 3px; } .ds-btn--on-dark { background: var(--on-dark, #EEF2F4); border-color: var(--on-dark, #EEF2F4); color: var(--ink-900, #16232F); } .ds-btn--on-dark:hover { background: #FFFFFF; border-color: #FFFFFF; } .ds-btn--quiet-dark { background: transparent; border-color: rgba(238, 242, 244, 0.55); color: var(--on-dark, #EEF2F4); } .ds-btn--quiet-dark:hover { background: var(--on-dark, #EEF2F4); color: var(--ink-900, #16232F); }"
-    },
-    {
-      "name": "Status Chip",
+      "name": "Choices",
       "kind": "chip",
-      "refersTo": "chip-open",
-      "description": "Open and in-development status: square, Geologica 500, a 7px dot; route tint and teal for open, sheet tint and ink-muted for soon.",
-      "html": "<span class=\"ds-chip ds-chip--open\">Open now</span> <span class=\"ds-chip ds-chip--soon\">In development</span>",
-      "css": ".ds-chip { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0.5rem; border-radius: 0; font-family: var(--font-display, Geologica, 'Helvetica Neue', Arial, sans-serif); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0; line-height: 1.3; } .ds-chip::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor; } .ds-chip--open { background: var(--amber-tint, #D5E6E3); color: var(--primary, #1E5F62); } .ds-chip--soon { background: var(--surface-2, #E2E9E4); color: var(--ink-muted, #56687A); }"
-    },
-    {
-      "name": "Legend Cell",
-      "kind": "card",
-      "refersTo": "panel",
-      "description": "A class as a legend cell: 6px route bar (slate at rest, teal when active or hovered, dashed for in development), Geologica 600 name, tabular meta.",
-      "html": "<nav class=\"ds-legend\"><a class=\"ds-legend__cell is-active\" href=\"#\"><span class=\"ds-legend__name\">Toddler years, 1 to 3</span><span class=\"ds-legend__meta\">Class 2 · 29 lessons · $49 once</span></a><a class=\"ds-legend__cell\" href=\"#\"><span class=\"ds-legend__name\">Preschool years, 3 to 5</span><span class=\"ds-legend__meta\">Class 3 · 15 lessons · $49 once</span></a><a class=\"ds-legend__cell ds-legend__cell--soon\" href=\"#\"><span class=\"ds-legend__name\">The whole family</span><span class=\"ds-legend__meta\">Class 4 · in development</span></a></nav>",
-      "css": ".ds-legend { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); background: var(--bg, #F3F5F0); border-top: 3px solid var(--ink, #1B2A3A); } .ds-legend__cell { position: relative; display: block; padding: 1.25rem 1.5rem 1.5rem; color: var(--ink, #1B2A3A); text-decoration: none; transition: background-color 240ms cubic-bezier(0.16,1,0.3,1); } .ds-legend__cell::before { content: ''; position: absolute; left: 1.5rem; right: 1.5rem; top: 0; height: 6px; background: var(--contour, #8FA3B5); transition: background-color 240ms cubic-bezier(0.16,1,0.3,1); } .ds-legend__cell:hover { background: var(--bg-alt, #E9EEE8); } .ds-legend__cell.is-active::before, .ds-legend__cell:hover::before { background: var(--primary, #1E5F62); } .ds-legend__cell--soon::before { height: 0; background: none; border-top: 6px dashed var(--contour, #8FA3B5); } .ds-legend__cell:focus-visible { outline: 2.5px solid var(--primary, #1E5F62); outline-offset: 3px; } .ds-legend__name { display: block; margin: 0.75rem 0 2px; font-family: var(--font-display, Geologica, 'Helvetica Neue', Arial, sans-serif); font-weight: 600; font-size: 1.5rem; letter-spacing: -0.015em; line-height: 1.1; } .ds-legend__meta { display: block; font-family: var(--font-display, Geologica, 'Helvetica Neue', Arial, sans-serif); font-weight: 500; font-size: 0.9375rem; color: var(--ink-muted, #56687A); font-variant-numeric: tabular-nums; } .ds-legend__cell.is-active .ds-legend__meta { color: var(--primary, #1E5F62); }"
-    },
-    {
-      "name": "Readout Panel",
-      "kind": "card",
-      "refersTo": "panel",
-      "description": "A surface panel under a 3px ink legend bar: Geologica title, tabular age in map-label, Literata body, a teal class link. The pattern every panel on the site follows.",
-      "html": "<div class=\"ds-readout\"><h3 class=\"ds-readout__stage\">Autonomy and big feelings: two to three</h3><p class=\"ds-readout__age\">At 2 years, 3 months</p><p class=\"ds-readout__body\">“No” is a developmental milestone, not defiance. Toddlers are practising self-determination while the prefrontal cortex is still profoundly immature.</p><p class=\"ds-readout__class\">Taught in <a href=\"#\">Class 2, Toddler years →</a></p></div>",
-      "css": ".ds-readout { background: var(--surface, #FBFCFA); border-top: 3px solid var(--ink, #1B2A3A); padding: 1rem 1.25rem; color: var(--ink, #1B2A3A); max-width: 36rem; } .ds-readout__stage { margin: 0 0 0.25rem; font-family: var(--font-display, Geologica, 'Helvetica Neue', Arial, sans-serif); font-weight: 600; font-size: 1.25rem; line-height: 1.1; letter-spacing: -0.015em; max-width: 14ch; } .ds-readout__age { margin: 0 0 0.75rem; font-family: var(--font-display, Geologica, 'Helvetica Neue', Arial, sans-serif); font-weight: 500; font-size: 0.9375rem; color: var(--ink-muted, #56687A); font-variant-numeric: tabular-nums; } .ds-readout__body { margin: 0 0 0.75rem; font-family: var(--font-body, Literata, Georgia, serif); font-size: 0.9375rem; line-height: 1.4; color: var(--ink-soft, #3A4A5A); max-width: 60ch; } .ds-readout__class { margin: 0; font-family: var(--font-body, Literata, Georgia, serif); font-size: 0.9375rem; } .ds-readout__class a { font-family: var(--font-display, Geologica, 'Helvetica Neue', Arial, sans-serif); font-weight: 600; color: var(--primary, #1E5F62); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.18em; } .ds-readout__class a:hover { color: var(--primary-hover, #17494B); }"
+      "refersTo": "choice",
+      "description": "Calm outlined buttons for decoders, tabs and tool chips; forest when chosen.",
+      "html": "<div class=\"ds-choices\"><button class=\"ds-choice is-active\">Tired</button><button class=\"ds-choice\">Hungry</button><button class=\"ds-choice\">Overstimulated</button></div>",
+      "css": ".ds-choices { display: flex; flex-wrap: wrap; gap: 8px; } .ds-choice { min-height: 44px; padding: 8px 14px; border: 0; border-radius: 6px; background: transparent; color: var(--ink, #193C39); box-shadow: inset 0 0 0 1.5px var(--border, #CDD3CB); font: 15px/1.3 Inter, 'Helvetica Neue', Arial, sans-serif; cursor: pointer; transition: background-color 160ms ease, box-shadow 160ms ease, color 160ms ease; } .ds-choice:hover { background: var(--sage-mist, #E0EBE5); box-shadow: inset 0 0 0 1.5px var(--ink-muted, #546965); } .ds-choice.is-active { background: var(--forest, #245F58); color: var(--on-forest, #FFFDF8); box-shadow: none; } .ds-choice:focus-visible { outline: 2px solid var(--forest, #245F58); outline-offset: 2px; }"
     },
     {
       "name": "Text Field",
       "kind": "input",
       "refersTo": "input",
-      "description": "Square 48px field with a 1.5px hairline, sheet fill, Geologica label; teal border and 2.5px outline on focus; danger on error.",
-      "html": "<label class=\"ds-field\"><span class=\"ds-field__label\">Email</span><input class=\"ds-field__input\" type=\"email\" placeholder=\"you@example.com\" /></label>",
-      "css": ".ds-field { display: grid; gap: 0.5rem; max-width: 22rem; } .ds-field__label { font-family: var(--font-display, Geologica, 'Helvetica Neue', Arial, sans-serif); font-weight: 500; font-size: 0.9375rem; color: var(--ink, #1B2A3A); } .ds-field__input { min-height: 48px; width: 100%; padding: 0.7rem 0.9rem; border: 1.5px solid var(--border, #C5D0CC); border-radius: 0; background: var(--bg, #F3F5F0); color: var(--ink, #1B2A3A); font-family: var(--font-body, Literata, Georgia, serif); font-size: 0.9375rem; transition: border-color 240ms cubic-bezier(0.16,1,0.3,1); } .ds-field__input::placeholder { color: var(--ink-muted, #56687A); } .ds-field__input:focus-visible { outline: 2.5px solid var(--primary, #1E5F62); outline-offset: 1px; border-color: var(--primary, #1E5F62); } .ds-field__input[aria-invalid='true'] { border-color: var(--danger, #A6371F); }"
+      "description": "48px input, 1.5px ink-muted border, 6px corners; focus turns the border verdigris with a 2px outline.",
+      "html": "<label class=\"ds-field\"><span>Your email</span><input class=\"ds-input\" type=\"email\" placeholder=\"you@example.com\"></label>",
+      "css": ".ds-field { display: grid; gap: 6px; font: 500 15px Inter, 'Helvetica Neue', Arial, sans-serif; color: var(--ink, #193C39); } .ds-input { min-height: 48px; padding: 10px 14px; border: 1.5px solid var(--ink-muted, #546965); border-radius: 6px; background: var(--surface, #FFFDF8); color: var(--ink, #193C39); font: 400 1rem Inter, 'Helvetica Neue', Arial, sans-serif; } .ds-input::placeholder { color: var(--ink-muted, #546965); } .ds-input:focus-visible { outline: 2px solid var(--forest, #245F58); outline-offset: 2px; border-color: var(--forest, #245F58); } .ds-input[aria-invalid=\"true\"] { border-color: var(--danger, #A6371F); }"
+    },
+    {
+      "name": "Rows",
+      "kind": "custom",
+      "refersTo": "row",
+      "description": "The list form: Newsreader name, Inter description, quiet 1px rules between rows.",
+      "html": "<div class=\"ds-rows\"><div class=\"ds-row\"><a class=\"ds-row__name\" href=\"#\">Milestone Navigator</a><p>What is typical at each age, and when to ask.</p></div><div class=\"ds-row\"><a class=\"ds-row__name\" href=\"#\">Communication Snapshot</a><p>A five-minute look at how your child talks.</p></div></div>",
+      "css": ".ds-rows { display: grid; } .ds-row { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 6px 28px; padding-block: 22px; border-top: 1px solid var(--border-soft, #DEE2D8); align-items: baseline; } .ds-row:first-child { border-top: 0; padding-top: 0; } .ds-row__name { font: 500 1.5rem/1.15 Newsreader, Georgia, serif; letter-spacing: -0.01em; color: var(--ink, #193C39); text-decoration: none; } .ds-row__name:hover { color: var(--forest, #245F58); text-decoration: underline; text-underline-offset: 0.16em; } .ds-row p { margin: 0; color: var(--ink-soft, #35504C); font: 400 1.0625rem/1.55 Inter, 'Helvetica Neue', Arial, sans-serif; }"
+    },
+    {
+      "name": "Sage-Mist Panel",
+      "kind": "card",
+      "refersTo": "panel-mist",
+      "description": "The explanatory surface: sage mist, 10px corners, no border, no shadow.",
+      "html": "<aside class=\"ds-mist\"><h2>The short version</h2><p>A toddler's no is practice at being a separate person, not a war.</p></aside>",
+      "css": ".ds-mist { padding: clamp(24px, 3vw, 36px); border-radius: 10px; background: var(--sage-mist, #E0EBE5); color: var(--ink, #193C39); } .ds-mist h2 { margin: 0; font: 500 1.375rem/1.15 Newsreader, Georgia, serif; letter-spacing: -0.01em; } .ds-mist p { margin: 10px 0 0; color: var(--ink-soft, #35504C); font: 400 1.0625rem/1.55 Inter, 'Helvetica Neue', Arial, sans-serif; }"
+    },
+    {
+      "name": "Source Module",
+      "kind": "custom",
+      "refersTo": "source-module",
+      "description": "Sources under a 2px research-blue rule, heading and links in research blue.",
+      "html": "<section class=\"ds-sources\"><h2>Sources</h2><ul><li><a href=\"#\">Center on the Developing Child (2017). Serve and return.</a></li></ul></section>",
+      "css": ".ds-sources { padding-top: 20px; border-top: 2px solid var(--research, #426B91); } .ds-sources h2 { margin: 0; font: 600 15px/1.4 Inter, 'Helvetica Neue', Arial, sans-serif; color: var(--research, #426B91); } .ds-sources ul { list-style: none; margin: 8px 0 0; padding: 0; } .ds-sources a { display: flex; align-items: center; min-height: 44px; color: var(--research, #426B91); font: 400 15px/1.5 Inter, 'Helvetica Neue', Arial, sans-serif; }"
+    },
+    {
+      "name": "Close Band",
+      "kind": "custom",
+      "refersTo": "close-band",
+      "description": "The inverted ink field: one statement, one action, flowing into the footer.",
+      "html": "<section class=\"ds-close\"><h2>See what's growing.</h2><p>Three classes, each $49 once.</p><a class=\"ds-close__btn\" href=\"#\">Browse the classes</a></section>",
+      "css": ".ds-close { display: grid; gap: 14px; justify-items: start; padding: clamp(56px, 8vw, 120px) clamp(16px, 4vw, 56px); background: var(--field-ink, #193C39); color: var(--on-ink, #F2EFE6); } .ds-close h2 { margin: 0; font: 500 clamp(2rem, 1.3rem + 2.4vw, 3.25rem)/1.02 Newsreader, Georgia, serif; letter-spacing: -0.02em; } .ds-close p { margin: 0; max-width: 46ch; color: var(--on-ink-soft, #C9D0CB); font: 400 1.0625rem/1.55 Inter, 'Helvetica Neue', Arial, sans-serif; } .ds-close__btn { margin-top: 14px; display: inline-flex; align-items: center; min-height: 48px; padding: 0 1.25rem; border-radius: 6px; background: var(--paper, #F7F4EC); color: var(--ink, #193C39); font: 500 1rem Inter, 'Helvetica Neue', Arial, sans-serif; text-decoration: none; } .ds-close__btn:hover { background: var(--surface, #FFFDF8); } .ds-close__btn:focus-visible { outline: 2.5px solid var(--on-ink, #F2EFE6); outline-offset: 3px; }"
+    },
+    {
+      "name": "Plate Label",
+      "kind": "custom",
+      "refersTo": "plate-label",
+      "description": "A typeset annotation on the Lens photograph: paper chip, 6px corners, ochre leader dot.",
+      "html": "<div class=\"ds-plate\"><div class=\"ds-label\"><b>Observe</b>She looks back before she runs.</div></div>",
+      "css": ".ds-plate { position: relative; padding: 32px 24px 32px 40px; border-radius: 10px; background: var(--sage-mist-2, #CFDFD6); } .ds-label { position: relative; max-width: 26ch; padding: 10px 12px; border-radius: 6px; background: #F7F4EC; color: #193C39; font: 400 14px/1.35 Inter, 'Helvetica Neue', Arial, sans-serif; } .ds-label b { display: block; font-weight: 600; margin-bottom: 2px; } .ds-label::before { content: ''; position: absolute; left: -18px; top: 12px; width: 10px; height: 10px; border-radius: 50%; background: #D2A453; box-shadow: 0 0 0 2px #F7F4EC; }"
     },
     {
       "name": "Header Nav",
       "kind": "nav",
-      "refersTo": "button-primary",
-      "description": "The one header: sheet-coloured bar, Geologica links with a teal bar that scales in on hover and current, a primary CTA, a 44px square theme toggle.",
-      "html": "<header class=\"ds-header\"><a class=\"ds-brand\" href=\"#\"><span class=\"ds-brand__mark\"></span><span class=\"ds-brand__name\">Growing Minds Science</span></a><nav class=\"ds-nav\"><a class=\"ds-nav__link\" href=\"#\">Classes</a><a class=\"ds-nav__link\" href=\"#\">Free tools</a><a class=\"ds-nav__link\" href=\"#\">Articles</a><a class=\"ds-nav__link\" aria-current=\"page\" href=\"#\">About</a><a class=\"ds-nav__cta\" href=\"#\">Enroll, from $49</a><button class=\"ds-toggle\" type=\"button\" aria-label=\"Switch to dark mode\"></button></nav></header>",
-      "css": ".ds-header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: 72px; padding: 0 1.5rem; background: var(--bg, #F3F5F0); color: var(--ink, #1B2A3A); } .ds-brand { display: inline-flex; align-items: center; gap: 0.75rem; min-height: 44px; color: var(--ink, #1B2A3A); text-decoration: none; } .ds-brand__mark { width: 36px; height: 36px; border: 1.5px solid var(--ink, #1B2A3A); background: var(--surface, #FBFCFA); } .ds-brand__name { font-family: var(--font-display, Geologica, 'Helvetica Neue', Arial, sans-serif); font-weight: 600; font-size: 1.125rem; letter-spacing: -0.02em; } .ds-nav { display: flex; align-items: center; gap: 0.25rem; } .ds-nav__link { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.7rem; color: var(--ink-soft, #3A4A5A); font-family: var(--font-display, Geologica, 'Helvetica Neue', Arial, sans-serif); font-weight: 500; font-size: 0.9375rem; text-decoration: none; transition: color 240ms cubic-bezier(0.22,1,0.36,1); } .ds-nav__link::after { content: ''; position: absolute; left: 0.7rem; right: 0.7rem; bottom: 6px; height: 2px; background: var(--primary, #1E5F62); transform: scaleX(0); transform-origin: left; transition: transform 240ms cubic-bezier(0.22,1,0.36,1); } .ds-nav__link:hover { color: var(--ink, #1B2A3A); } .ds-nav__link:hover::after, .ds-nav__link[aria-current='page']::after { transform: scaleX(1); } .ds-nav__link[aria-current='page'] { color: var(--ink, #1B2A3A); } .ds-nav__cta { display: inline-flex; align-items: center; min-height: 44px; margin-left: 0.5rem; padding: 0 1.1rem; background: var(--primary, #1E5F62); border: 1.5px solid var(--primary, #1E5F62); color: #FFFFFF; font-family: var(--font-display, Geologica, 'Helvetica Neue', Arial, sans-serif); font-weight: 600; font-size: 0.9375rem; text-decoration: none; transition: background-color 240ms cubic-bezier(0.22,1,0.36,1); } .ds-nav__cta:hover { background: var(--primary-hover, #17494B); border-color: var(--primary-hover, #17494B); } .ds-toggle { width: 44px; height: 44px; margin-left: 0.5rem; padding: 0; border: 1.5px solid var(--ink, #1B2A3A); border-radius: 0; background: transparent; color: var(--ink, #1B2A3A); cursor: pointer; transition: color 240ms cubic-bezier(0.22,1,0.36,1), background-color 240ms cubic-bezier(0.22,1,0.36,1); } .ds-toggle:hover { background: var(--ink, #1B2A3A); color: var(--bg, #F3F5F0); } .ds-header :focus-visible { outline: 2.5px solid var(--primary, #1E5F62); outline-offset: 3px; }"
-    },
-    {
-      "name": "Phrase Mark",
-      "kind": "custom",
-      "refersTo": "phrase-mark",
-      "description": "The one typographic flourish: a patch of woodland behind one phrase in a headline, same ink; ink-700 with white text on navy fields.",
-      "html": "<h2 class=\"ds-h2\">Science as the vehicle for <mark class=\"ds-hl\">parent empowerment</mark>.</h2>",
-      "css": ".ds-h2 { margin: 0; font-family: var(--font-display, Geologica, 'Helvetica Neue', Arial, sans-serif); font-weight: 600; font-size: clamp(2rem, 1.3rem + 2.9vw, 2.9rem); line-height: 1.04; letter-spacing: -0.025em; color: var(--ink, #1B2A3A); max-width: 20ch; } .ds-hl { background: var(--woodland, #C9D8CC); color: inherit; padding: 0 0.1em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }"
-    },
-    {
-      "name": "Terrain Inset",
-      "kind": "custom",
-      "refersTo": "panel",
-      "description": "A stretch of the survey sheet drawn inline: slate contours, a woodland patch, the dashed teal route with round waymarks, and an ink scale of grid references.",
-      "html": "<figure class=\"ds-inset\"><svg viewBox=\"0 0 600 300\" role=\"img\" aria-labelledby=\"ds-inset-t\"><title id=\"ds-inset-t\">The route from birth to five across the terrain</title><path class=\"ds-contour\" d=\"M0 200 C150 150 250 260 400 180 S550 120 600 140\"/><path class=\"ds-contour ds-contour--index\" d=\"M0 240 C160 200 260 290 420 220 S560 170 600 190\"/><path class=\"ds-contour\" d=\"M0 120 C120 90 240 170 380 110 S540 60 600 80\"/><path class=\"ds-woodland\" d=\"M330 210 C370 190 430 200 470 230 S430 280 380 270 S300 240 330 210 Z\"/><path class=\"ds-route\" d=\"M60 260 C180 240 260 160 360 140 S500 80 560 40\"/><g class=\"ds-waymark\"><circle cx=\"110\" cy=\"245\" r=\"9\"/><text x=\"110\" y=\"222\">Foundations</text></g><g class=\"ds-waymark is-active\"><circle cx=\"330\" cy=\"150\" r=\"9\"/><text x=\"330\" y=\"127\">Autonomy</text></g><g class=\"ds-waymark\"><circle cx=\"540\" cy=\"52\" r=\"9\"/><text x=\"540\" y=\"29\">Self-control</text></g><g class=\"ds-refs\"><line x1=\"60\" y1=\"290\" x2=\"560\" y2=\"290\"/><text x=\"60\" y=\"282\">Birth</text><text x=\"310\" y=\"282\">2 yrs</text><text x=\"560\" y=\"282\">5 yrs</text></g></svg><figcaption class=\"ds-inset__cap\"><b>Fig. 1</b> The first five years as terrain: the wide normal range as contours, one class route through it.</figcaption></figure>",
-      "css": ".ds-inset { margin: 0; max-width: 40rem; background: var(--bg, #F3F5F0); } .ds-inset svg { display: block; width: 100%; height: auto; } .ds-contour { fill: none; stroke: var(--contour, #8FA3B5); stroke-width: 1.6; stroke-linecap: round; } .ds-contour--index { stroke-width: 2.4; } .ds-woodland { fill: var(--woodland, #C9D8CC); } .ds-route { fill: none; stroke: var(--primary, #1E5F62); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 16 12; } .ds-waymark circle { fill: var(--bg, #F3F5F0); stroke: var(--primary, #1E5F62); stroke-width: 5; } .ds-waymark.is-active circle { fill: var(--primary, #1E5F62); } .ds-waymark text { font-family: var(--font-display, Geologica, 'Helvetica Neue', Arial, sans-serif); font-weight: 600; font-size: 18px; fill: var(--ink, #1B2A3A); text-anchor: middle; paint-order: stroke; stroke: var(--bg, #F3F5F0); stroke-width: 6px; stroke-linejoin: round; } .ds-refs line { stroke: var(--ink, #1B2A3A); stroke-width: 2; } .ds-refs text { font-family: var(--font-display, Geologica, 'Helvetica Neue', Arial, sans-serif); font-weight: 500; font-size: 14px; fill: var(--ink-muted, #56687A); text-anchor: middle; } .ds-refs text:first-of-type { text-anchor: start; } .ds-refs text:last-of-type { text-anchor: end; } .ds-inset__cap { margin-top: 0.75rem; font-family: var(--font-body, Literata, Georgia, serif); font-size: 0.9375rem; line-height: 1.55; color: var(--ink-muted, #56687A); max-width: 52ch; } .ds-inset__cap b { font-family: var(--font-display, Geologica, 'Helvetica Neue', Arial, sans-serif); font-weight: 600; color: var(--ink, #1B2A3A); }"
+      "refersTo": "header",
+      "description": "The wordmark lockup (mark, growing minds, tracked SCIENCE) and Inter links with a 2px bar that scales in.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-brand\" href=\"#\"><svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" aria-hidden=\"true\"><path d=\"M6 26a14 14 0 0 1 14-14M10 27a9 9 0 0 1 9-9M14 28a4 4 0 0 1 4-4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\"/><path d=\"M20 12c0-5 4-8 9-8 0 5-4 8-9 8z\" fill=\"#8DAE9A\"/></svg><span class=\"ds-brand__name\">growing minds</span><span class=\"ds-brand__desc\">Science</span></a><a class=\"ds-link\" href=\"#\">Explore</a><a class=\"ds-link\" aria-current=\"page\" href=\"#\">Classes</a><a class=\"ds-link\" href=\"#\">Articles</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 4px; min-height: 72px; padding: 0 16px; background: var(--paper, #F7F4EC); } .ds-brand { display: inline-flex; align-items: center; gap: 0.6em; margin-right: auto; color: var(--ink, #193C39); text-decoration: none; } .ds-brand__name { font: 500 1.35rem/1 Newsreader, Georgia, serif; letter-spacing: -0.01em; } .ds-brand__desc { position: relative; top: 0.22em; font: 500 11px/1 Inter, 'Helvetica Neue', Arial, sans-serif; letter-spacing: 0.32em; text-transform: uppercase; } .ds-link { position: relative; display: inline-flex; align-items: center; min-height: 44px; padding: 0.5rem 0.75rem; color: var(--ink-soft, #35504C); font: 500 15px/1.2 Inter, 'Helvetica Neue', Arial, sans-serif; text-decoration: none; transition: color 180ms ease; } .ds-link::after { content: ''; position: absolute; left: 0.75rem; right: 0.75rem; bottom: 6px; height: 2px; background: var(--forest, #245F58); transform: scaleX(0); transform-origin: left center; transition: transform 180ms ease; } .ds-link:hover, .ds-link[aria-current] { color: var(--ink, #193C39); } .ds-link:hover::after, .ds-link[aria-current]::after { transform: scaleX(1); } .ds-link:focus-visible { outline: 2.5px solid var(--forest, #245F58); outline-offset: 3px; }"
     }
   ],
   "narrative": {
-    "northStar": "The Terrain",
-    "overview": "Development is terrain, not a line. The site is one survey sheet of the first five years: a map-white ground, navy ink for every word, slate contour lines as the sheet's own material, sage woodland and a pale stream as fields, and one dashed teal route with round waymarks running birth to five. The homepage hero is the sheet itself, with an age cursor a parent drags along the route; every inner page carries a stretch of the same sheet (a terrain inset on /tools/, route-segment bars on class rows). The parent is reading a landscape, and the science is the landscape. This replaces the earlier \"Seminar\" world (Besley, Atkinson Hyperlegible Next, ink bands, amber highlighter, 10px radii), which survives only in the /nsc class app until it is restyled.\n\nThe world is calm and inviting but collegiate and respectable (Matthew, 2026-10-13). Nothing is lifted, rounded, washed, or gradiented: fields separate by a tone step, panels announce themselves with a 3px ink rule across the top (a legend bar), photographs sit in a 2px ink frame like map insets, and the one colour that is not a neutral is the teal route. Two inverted navy fields, the office-hours band and the enrol band plus footer, close each page the way the dark field closes a sheet.\n\nType is Geologica, a wide geometric sans, for display, legend lettering, numerals and buttons, over Literata, an optical-size serif, for everything a tired parent has to read. The pairing reads as a well-made reference map with a printed gazetteer, not a SaaS launch, a clinic, or a nursery.",
+    "northStar": "The Living Field Guide",
+    "overview": "The site reads like a well-made field guide to the first five years. An ordinary moment (a parent, a child, a playground, a walk home) is shown as a real photograph, and the science is laid over it as typeset labels the visitor reveals on request. The same plate, re-labelled step by step, becomes the Developmental Lens: Observe, Understand, Respond, Reflect. Every other page carries the guide's notation rather than its pictures: a Newsreader name, a quiet line of Inter metadata, rows separated by hairline rules, explanations on sage mist, and sources in research blue.\n\nThe ground is warm field paper and every word is forest ink. One deep verdigris green does all the acting (buttons, links, chosen options, focus), sage mist holds anything that explains, and a single inverted ink field closes each page with one statement and one action before the footer continues on the same field. Nothing lifts. Surfaces separate by a tone step or a 1px rule, corners are calm (6px on controls, 10px on panels and photographs), and the warm accents (clay, ochre) appear only at the size of an annotation mark.\n\nThe tone is calm and collegiate, warm but not sentimental. Photographs are observational and real or absent; there is no stock imagery and no decorative illustration filling space. The visual test, from the brand guidelines: the page should still read as Growing Minds Science with the logo removed.",
     "keyCharacteristics": [
-      "Map-white ground, navy ink, slate contours, sage woodland, one teal route; no orange, no warm accent at scale.",
-      "Geologica 600 display with tight tracking over Literata 400 at 17px.",
-      "Square corners everywhere (every radius token is 0); no box-shadow at rest.",
-      "3px ink rules as legend bars on panels, lists and figures; 6px colour bars as route segments on legend cells and class rows; 2px ink frames on photographs.",
-      "One phrase mark per headline: a patch of woodland behind the words, the same ink.",
-      "Full light/dark theming via [data-theme]; on the night sheet the ground stays lighter than the navy fields so the band structure survives and the route brightens.",
-      "One signature interaction: the age cursor on the route; the route draws in once on load."
+      "Field paper ground, forest ink type, one verdigris action colour, sage mist for explanatory panels.",
+      "Newsreader for headings, names and statements over Inter for reading, labels and controls.",
+      "Calm corners: 6px controls, 10px panels and photographs, square bands and rows.",
+      "Quiet 1px rules between rows; a 2px ink rule opens an index list; no shadows at rest.",
+      "Research blue marks sources and evidence and nothing else.",
+      "Annotated observation: real photographs with labels revealed on request.",
+      "One inverted ink field per page: the close band, flowing into the footer.",
+      "Full light and dark theming through `[data-theme=\"dark\"]`."
     ],
     "rules": [
-      { "name": "The One Route Rule", "body": "Teal is the only chromatic colour at text or button size. Anything that asks for the eye (a button, a link, the active waymark, the open chip's text) is teal; anything that does not is ink, a grey, or a field. If a second accent appears, the map has lost its route.", "section": "colors" },
-      { "name": "The No Orange Rule", "body": "Orange, amber and terracotta are never a main colour (Matthew, 2026-10-13). The legacy --amber* names still exist in tokens-terrain.css but resolve to the route and its tint; do not reintroduce a warm value under them. The arcade's isolated cabinet palettes are the one exception and stay on /arcade.", "section": "colors" },
-      { "name": "The Night Sheet Rule", "body": "In dark mode the ground (#141E28) stays lighter than the navy fields (#0F171F, #0A1016), contours dim to #45596C, and the route brightens to #7FC4BC with #07211E text on it.", "section": "colors" },
-      { "name": "The Legend Hand Rule", "body": "Geologica is the hand for anything that labels, counts or acts; Literata is the hand for anything that explains. A number in Literata or a paragraph in Geologica is a mistake.", "section": "typography" },
-      { "name": "The Label Under the Title Rule", "body": "Headings never carry a kicker, eyebrow or numeral above them. A class's label (\"Class 2: language, autonomy, and big feelings\") sits under its title in the map-label voice. Status and meta go beside or below, never above.", "section": "typography" },
-      { "name": "The One Phrase Rule", "body": "The .hl mark (woodland behind the words, same ink; ink-700 with white text on navy) is the one typographic flourish: at most one phrase per page-level headline, never on every heading.", "section": "typography" },
-      { "name": "The Flat Sheet Rule", "body": "A surface is a tone step and a legend bar, never a lift. If a new element needs a shadow, it is a floating menu or it is wrong.", "section": "elevation" }
+      {
+        "name": "The One Action Colour Rule",
+        "body": "Verdigris is the only colour that acts. A filled button, a link, a chosen option and a focus ring are forest; nothing else is. Sage, research blue, clay and ochre never fill a button.",
+        "section": "colors"
+      },
+      {
+        "name": "The Annotation Scale Rule",
+        "body": "Clay and ochre never appear larger than a mark: a 10px dot, an 8px bullet, a numeral, a 14px label. No warm fill at the size of a panel, a button or a heading.",
+        "section": "colors"
+      },
+      {
+        "name": "The Research Blue Rule",
+        "body": "Blue means \"this is evidence\". It is reserved for sources modules, reference links and evidence lines, so a parent can find the citations on any page by colour alone.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Hands Rule",
+        "body": "Newsreader names and states; Inter explains, labels and acts. A row's name is Newsreader, its description and meta are Inter. A button or a form label in Newsreader is a mistake.",
+        "section": "typography"
+      },
+      {
+        "name": "The Label Below Rule",
+        "body": "Nothing sits above a heading. Section names, ages, topics and page names go below the title as a meta line or a subline. The code enforces this where old markup put them first: the right-now step name and the tools hub's card labels are reordered under their headings with CSS `order`, and the article's section link opens the meta line instead of standing over the headline.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat At Rest Rule",
+        "body": "Nothing casts a shadow. If an element needs to stand apart, give it a tone step or a rule. `--shadow-md` remains defined for a truly floating overlay and is not used by any field-guide page.",
+        "section": "elevation"
+      }
     ],
     "dos": [
-      "Do keep the map-white sheet as the ground and separate sections by a tone step (bg → bg-alt → surface), never by a hairline.",
-      "Do mark a panel with a 3px ink rule across its top and a class row or legend cell with a 6px route bar (slate at rest, teal when active).",
-      "Do use teal for every action and nothing else (The One Route Rule); hover is a deeper teal or an inverted fill, never a lift.",
-      "Do set labels, numerals, buttons and legends in Geologica and running text in Literata (The Legend Hand Rule), with tabular numerals wherever numbers align.",
-      "Do frame photographs as square insets with a 2px ink border and no filter, and reach for a captioned figure or a terrain inset before a photograph when the section explains something.",
-      "Do keep every SVG figure and the sheet accessible: <title>, <desc>, a visible caption, a real range input for the cursor, dash patterns as well as colour.",
-      "Do honour prefers-reduced-motion, keep content visible by default, and keep the theme toggle working on every surface."
+      "**Do** set every word in forest ink on field paper, and use deep verdigris for every action and nothing else (The One Action Colour Rule).",
+      "**Do** put explanation on a sage-mist panel with 10px corners and no border.",
+      "**Do** separate rows with a 1px `border-soft` rule on top of each row but the first, and open an index list with a 2px ink rule.",
+      "**Do** put sources in the research-blue module: a 2px research-blue rule, an Inter 600 heading, research-blue links.",
+      "**Do** set names, headings and statements in Newsreader and everything a parent reads, taps or fills in, in Inter (The Two Hands Rule).",
+      "**Do** use the three button shapes only: forest, paper, and quiet with a 1.5px inset outline; 48px tall, 6px corners.",
+      "**Do** draw choices as calm outlined buttons that fill forest when chosen.",
+      "**Do** close each inner page with one statement and one action on the ink field, flowing into the footer.",
+      "**Do** use real, observational photographs at 10px corners, or none.",
+      "**Do** keep entrances gated by `html.anim`, honour reduced motion, and keep every panel visible without script.",
+      "**Do** write copy without em dashes; use commas, colons or a new sentence."
     ],
     "donts": [
-      "Don't use orange, amber or terracotta as a main colour, or any warm fill larger than an error message (The No Orange Rule).",
-      "Don't round a corner, add a box-shadow at rest, lift a button on hover, or wash a hero with a gradient or graph paper (The Flat Sheet Rule).",
-      "Don't put a kicker, eyebrow, numeral or status above a heading; the class label sits under the title (The Label Under the Title Rule).",
-      "Don't put the phrase mark on more than one headline per page, or use it for a colour other than woodland on light and ink-700 on navy.",
-      "Don't go clinical or nursery: no hospital-blue, no pastels, no stock-baby imagery, no deficit framing in the readout copy.",
-      "Don't use border-left or border-right as a coloured accent stripe; the only coloured bars run along the top.",
-      "Don't animate layout properties; use transform, opacity, and stroke-dashoffset, on the house ease cubic-bezier(0.16, 1, 0.3, 1).",
-      "Don't restyle .site-header or .site-footer outside chrome.css, or bring a Seminar value (Besley, amber, 10px radii) back from the nsc app."
+      "**Don't** put a kicker, eyebrow, step label or category above a heading; it goes below as a meta line (The Label Below Rule).",
+      "**Don't** add a box-shadow at rest, lift on hover, or use a gradient (The Flat At Rest Rule).",
+      "**Don't** use clay, ochre or amber at any size larger than an annotation mark, or on a button or heading (The Annotation Scale Rule).",
+      "**Don't** use research blue for anything that is not a source or evidence (The Research Blue Rule).",
+      "**Don't** use stock photography, generic smiling families, brain imagery or decorative icons that fill space.",
+      "**Don't** stack heavy coloured cards; a list is rows under quiet rules.",
+      "**Don't** use `border-left` or `border-right` as a coloured accent stripe on a panel or callout.",
+      "**Don't** restyle `.site-header` or `.site-footer` outside `chrome.css` and the field-guide layer in `field-guide.css`.",
+      "**Don't** reintroduce a retired value from an earlier system (Geologica, Literata, Besley, amber highlighter, square-only corners)."
     ]
   }
 }
