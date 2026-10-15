@@ -1,0 +1,137 @@
+/* =========================================================
+   Growing Minds Science: guide.css
+   The guides under /tools/ on the annotated-observation system (body.gpage).
+   Primitives from fg-base.css, the decoder and gms-tools controls from
+   tools.css, the close band from hubs.css. Each guide keeps its own markup
+   and gms-tools.js hooks; this file gives those components the system's
+   look: one narrow column, sage-mist panels, quiet rules between rows,
+   choices as calm outlined buttons, sources in the research-blue module.
+   ========================================================= */
+
+/* ---------- Title block ---------- */
+.g-title { padding-block: clamp(32px, 5vw, 72px) clamp(48px, 6vw, 88px); }
+.g-title__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 32px clamp(32px, 5vw, 80px); align-items: center; }
+.g-title h1 { font-size: clamp(2.125rem, 1.35rem + 3vw, 3.75rem); line-height: 1; letter-spacing: -0.025em; max-width: 18ch; }
+.gpage .g-lede { margin-top: 22px; color: var(--ink-soft); max-width: 52ch; }
+.gpage .g-lede + .g-lede { margin-top: 12px; }
+.gpage .g-meta { margin-top: 16px; font-size: 15px; color: var(--ink-muted); }
+.g-meta a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink-soft); }
+.g-title__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+.g-glance { padding: clamp(24px, 3vw, 36px); border-radius: var(--radius-lg); background: var(--sage-mist); }
+.g-glance h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); line-height: 1.15; letter-spacing: -0.01em; }
+.gpage .g-glance ul { list-style: none; margin: 14px 0 0; padding: 0; display: grid; }
+.g-glance li { padding-block: 10px; border-top: 1px solid var(--sage-mist-2); color: var(--ink-soft); }
+.g-glance li:first-child { border-top: 0; padding-top: 0; }
+@media (max-width: 900px) { .g-title__grid { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 640px) { .g-title__actions .hb-btn { width: 100%; } }
+
+/* ---------- Sections: one narrow column ---------- */
+/* The column shares the title block's left edge and stops at a reading measure. */
+.gpage .g-narrow > * { max-width: 880px; }
+.gpage .g-narrow > :is(.what-panel, .summary-card, .panel):first-child { margin-top: 0; }
+.g-sec { padding-block: clamp(36px, 5vw, 64px); }
+.g-title + .g-sec { padding-top: 0; }
+.g-title + .g-sec > .g-narrow { border-top: 1px solid var(--border-soft); padding-top: clamp(48px, 6vw, 80px); }
+.g-sec:last-of-type { padding-bottom: clamp(72px, 9vw, 120px); }
+.gpage .g-sec h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem); line-height: 1.08; letter-spacing: -0.015em; scroll-margin-top: calc(var(--header-h, 72px) + 24px); }
+.gpage .g-sec h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); line-height: 1.2; letter-spacing: -0.01em; }
+.g-sec[id] { scroll-margin-top: calc(var(--header-h, 72px) + 8px); }
+.gpage .section-intro { margin-top: 12px; max-width: 62ch; color: var(--ink-soft); font-size: 1.0625rem; line-height: 1.65; }
+.gpage .section-intro + .section-intro { margin-top: 10px; }
+.gpage .g-sec p { line-height: 1.65; }
+.gpage .small { font-size: 15px; color: var(--ink-muted); }
+.gpage [hidden] { display: none !important; }
+
+/* Labels. Standing alone they title a panel; under a heading they are its subline. */
+.gpage .tag { display: block; font-family: var(--font-display); font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); line-height: 1.2; color: var(--ink); }
+.gpage .tag--sub { margin-top: 6px; font-family: var(--font-body); font-size: 14px; font-weight: 600; line-height: 1.4; color: var(--forest); }
+
+/* ---------- Panels ---------- */
+.gpage .what-panel { margin-top: 24px; padding: clamp(22px, 3vw, 36px); border-radius: var(--radius-lg); background: var(--sage-mist); }
+.gpage .what-panel .section-intro { margin-top: 10px; }
+.what-panel__blocks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px clamp(24px, 3vw, 40px); margin-top: 18px; }
+.gpage .what-block { padding: 0; }
+.gpage .what-block::before { content: none; }
+.gpage .what-block__label { margin: 0; font-family: var(--font-display); font-size: 1.25rem; line-height: 1.2; color: var(--ink); }
+.gpage .what-block__text { margin-top: 6px; color: var(--ink-soft); }
+@media (max-width: 700px) { .what-panel__blocks { grid-template-columns: minmax(0, 1fr); } }
+
+.gpage .summary-card { margin-top: 0; padding: clamp(22px, 3vw, 36px); border-radius: var(--radius-lg); background: var(--surface); }
+.gpage .summary-card h2 { font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); }
+.gpage .summary-card ul, .gpage .compare-box ul { list-style: none; margin: 14px 0 0; padding: 0; display: grid; }
+.gpage .summary-card li, .gpage .compare-box li { padding-block: 10px; border-top: 1px solid var(--border-soft); color: var(--ink-soft); }
+.gpage .summary-card li:first-child, .gpage .compare-box li:first-child { border-top: 0; }
+.gpage .panel { margin-top: 0; }
+
+/* ---------- Choices and their answers (decoder, pattern, scenario, stage) ---------- */
+.gpage :is(.decoder, .pattern-wrap, .scenario-wrap, .stage-wrap) { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 20px clamp(20px, 3vw, 40px); align-items: start; margin-top: 24px; }
+.gpage :is(.decoder-buttons, .pattern-buttons, .scenario-buttons, .stage-buttons) { display: grid; gap: 8px; }
+.fg.gpage :is(.decoder-btn, .pattern-btn, .scenario-btn, .stage-btn, .tab-btn) {
+  display: block; width: 100%; min-height: 48px; padding: 12px 16px; text-align: left;
+  border: 0; border-radius: var(--radius); background: transparent; color: var(--ink);
+  box-shadow: inset 0 0 0 1.5px var(--border); font: inherit; font-size: 15px; line-height: 1.4; cursor: pointer;
+  transition: background-color 160ms ease, box-shadow 160ms ease, color 160ms ease;
+}
+.fg.gpage :is(.decoder-btn, .pattern-btn, .scenario-btn, .stage-btn, .tab-btn):hover { background: var(--sage-mist); box-shadow: inset 0 0 0 1.5px var(--ink-muted); }
+.fg.gpage :is(.decoder-btn, .pattern-btn, .scenario-btn, .stage-btn).is-active,
+.fg.gpage .tab-btn[aria-selected="true"] { background: var(--forest); color: var(--on-forest); box-shadow: none; }
+.gpage :is(.decoder-btn, .pattern-btn, .scenario-btn, .stage-btn, .tab-btn):focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
+.gpage :is(.pattern-btn, .stage-btn) strong { display: block; font-weight: 600; }
+.gpage :is(.pattern-btn, .stage-btn) span { display: block; margin-top: 2px; font-size: 14px; opacity: 0.85; }
+.gpage :is(.decoder-output, .pattern-output, .scenario-output, .stage-output) { padding: clamp(20px, 3vw, 32px); border-radius: var(--radius-lg); background: var(--surface); border: 0; box-shadow: none; }
+.gpage :is(.decoder-output, .pattern-output, .scenario-output, .stage-output) p { margin-top: 10px; color: var(--ink-soft); }
+.gpage :is(.decoder-output, .pattern-output, .scenario-output, .stage-output) .small { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border-soft); color: var(--ink); font-size: 15px; }
+.gpage :is(.pattern-facts, .stage-facts) { display: grid; gap: 0; margin-top: 16px; }
+.gpage :is(.pattern-fact, .stage-fact) { padding: 12px 0; border: 0; border-top: 1px solid var(--border-soft); background: none; border-radius: 0; }
+.gpage :is(.pattern-fact, .stage-fact) strong { display: block; font-size: 14px; font-weight: 600; color: var(--ink); }
+.gpage :is(.pattern-fact, .stage-fact) span { display: block; margin-top: 2px; font-size: 15px; color: var(--ink-soft); line-height: 1.55; }
+.gpage .script-line { margin-top: 14px; padding: 14px 16px; border-radius: var(--radius); background: var(--sage-mist); font-family: var(--font-display); font-size: 1.125rem; line-height: 1.4; color: var(--ink); }
+@media (max-width: 760px) { .gpage :is(.decoder, .pattern-wrap, .scenario-wrap, .stage-wrap) { grid-template-columns: minmax(0, 1fr); } }
+
+/* Tabs (Before / During / After) */
+.gpage .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+.fg.gpage .tab-btn { display: inline-flex; align-items: center; width: auto; padding-inline: 20px; }
+.gpage .tab-panel { margin-top: 20px; }
+.gpage .tip-list { list-style: none; margin: 12px 0 0; padding: 0; display: grid; }
+.gpage .tip-item { display: grid; gap: 4px; padding-block: 14px; border-top: 1px solid var(--border-soft); }
+.gpage .tip-item:first-child { border-top: 0; padding-top: 0; }
+.gpage .tip-item__head { font-weight: 600; color: var(--ink); }
+.gpage .tip-item__body { margin: 0; color: var(--ink-soft); }
+.gpage .tab-tip { margin-top: 16px; padding: 16px 20px; border-radius: var(--radius); background: var(--sage-mist); border: 0; }
+.gpage .tab-tip__label { margin: 0; font-size: 14px; font-weight: 600; color: var(--forest); }
+.gpage .tab-tip p { margin-top: 4px; color: var(--ink-soft); }
+
+/* ---------- Steps, principles, comparisons ---------- */
+.gpage :is(.response-grid, .principle-grid) { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px clamp(20px, 3vw, 40px); margin-top: 24px; }
+.gpage :is(.response-card, .principle-card) { padding: 16px 0 0; border: 0; border-top: 1.5px solid var(--ink); border-radius: 0; background: none; box-shadow: none; }
+.gpage .response-card__num { display: block; width: auto; height: auto; margin: 0 0 6px; background: none; color: var(--forest); font-family: var(--font-display); font-size: 1.75rem; font-weight: 400; line-height: 1; }
+.gpage :is(.response-card, .principle-card) p { margin-top: 8px; color: var(--ink-soft); font-size: 1rem; }
+@media (max-width: 760px) { .gpage :is(.response-grid, .principle-grid) { grid-template-columns: minmax(0, 1fr); } }
+
+.gpage .compare-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px clamp(24px, 3vw, 40px); margin-top: 24px; }
+.gpage .compare-box { padding: 16px 0 0; border: 0; border-top: 1.5px solid var(--forest); border-radius: 0; background: none; box-shadow: none; }
+.gpage .compare-box--less { border-top-color: var(--ink-muted); }
+@media (max-width: 700px) { .gpage .compare-grid { grid-template-columns: minmax(0, 1fr); } }
+
+.gpage .repair-steps, .gpage .routine-list { list-style: none; margin: 24px 0 0; padding: 0; display: grid; counter-reset: g-step; }
+.gpage .repair-step, .gpage .routine-list > li { counter-increment: g-step; display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); gap: 16px; padding-block: 16px; border-top: 1px solid var(--border-soft); }
+.gpage .repair-step:first-child, .gpage .routine-list > li:first-child { border-top: 0; padding-top: 0; }
+.gpage .repair-step::before, .gpage .routine-list > li::before { content: counter(g-step); font-family: var(--font-display); font-size: 1.75rem; line-height: 1; color: var(--forest); }
+.gpage .repair-step p { margin-top: 6px; color: var(--ink-soft); }
+.gpage .routine-list strong { display: block; font-weight: 600; color: var(--ink); }
+.gpage .routine-list span { display: block; margin-top: 4px; color: var(--ink-soft); }
+
+.gpage .research-list { list-style: none; margin: 16px 0 0; padding: 0; display: grid; }
+.gpage .research-list li { padding-block: 12px; border-top: 1px solid var(--sage-mist-2); }
+.gpage .research-list li:first-child { border-top: 0; }
+.gpage .research-list strong { display: block; font-weight: 600; color: var(--ink); }
+.gpage .research-list span { display: block; margin-top: 4px; color: var(--ink-soft); }
+
+/* ---------- Sources: the research-blue module ---------- */
+.gpage .sources-panel { margin-top: 0; padding: 20px 0 0; border: 0; border-top: 2px solid var(--research); border-radius: 0; background: none; box-shadow: none; }
+.gpage .panel .sources-panel { margin-top: 16px; }
+.gpage .sources-panel h2 { font-family: var(--font-body); font-size: 15px; font-weight: 600; letter-spacing: 0; line-height: 1.4; color: var(--research); }
+.gpage :is(.sources-panel, .source-list) ul, .gpage ul.source-list { list-style: none; margin: 12px 0 0; padding: 0; display: grid; }
+.gpage .sources-panel li { padding-block: 10px; border-top: 1px solid var(--border-soft); font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
+.gpage .sources-panel li:first-child { border-top: 0; }
+.gpage .sources-panel a { display: inline-flex; align-items: center; min-height: 44px; margin-block: -10px; color: var(--research); font-weight: 400; }

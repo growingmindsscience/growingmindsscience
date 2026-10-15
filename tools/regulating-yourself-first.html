@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
+  /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <title>Regulating yourself first | Growing Minds Science</title>
   <meta name="description" content="Tools for the adult side of the room: noticing your own activation, what helps in the moment, and why regulating yourself isn't selfish." />
-  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#F7F4EC" />
   <meta name="color-scheme" content="light dark" />
 
   <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
@@ -22,80 +22,18 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=3fa98080dc" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=4def14502a" />
-  <link rel="stylesheet" href="../assets/css/tools.css?v=7fce784071" />
-
-  <style>
-    .tool-hero { padding: clamp(3rem, 6vw, 5rem) 0 2rem; }
-    .hero-grid { display: grid; grid-template-columns: 1.2fr .9fr; gap: var(--space-8); align-items: start; }
-    .tool-lede { font-size: var(--text-md); color: var(--ink-soft); max-width: 43rem; margin: 0 0 var(--space-6); }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); } .hero-actions .btn { white-space: normal; text-align: center; }
-
-    .hero-card,
-    .panel,
-    .what-panel,
-    .summary-card {
-      background: var(--surface);
-      border: 1px solid var(--border-soft);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-sm);
-      padding: var(--space-6);
-    }
-
-    .hero-card h2 { margin: 0 0 .65rem; font-size: var(--text-lg); }
-    .hero-card p { color: var(--ink-soft); }
-    .meta-list { list-style: none; padding: 0; margin: var(--space-4) 0 0; display: grid; gap: .85rem; }
-    .meta-list li { display: flex; gap: .7rem; align-items: flex-start; margin: 0; }
-    .dot { width: 10px; height: 10px; border-radius: 8px; background: var(--primary); margin-top: .45rem; flex: 0 0 auto; }
-
-    .tag { display: inline-flex; padding: .3rem .7rem; border-radius: 6px; background: var(--surface-2); font-size: var(--text-xs); font-weight: 700; color: var(--ink-muted); margin-bottom: var(--space-3); }
-    .section-intro { color: var(--ink-soft); max-width: 44rem; margin: 0 0 var(--space-6); }
-    .small { font-size: var(--text-sm); color: var(--ink-muted); }
-
-    .what-panel__blocks { display: grid; gap: var(--space-4); }
-    .what-block { position: relative; padding-left: var(--space-5); }
-    .what-block::before { content: ""; position: absolute; left: 2px; top: .58em; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
-    .what-block__label { font-size: var(--text-sm); color: var(--accent-brown); font-weight: 600; margin: 0 0 .3rem; }
-    .what-block__text { margin: 0; color: var(--ink-soft); line-height: 1.65; }
-
-    .response-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); }
-    .response-card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: var(--space-5); }
-    .response-card__num { width: 34px; height: 34px; border-radius: 8px; display: grid; place-items: center; background: var(--primary); color: var(--primary-ink); font-weight: 700; margin-bottom: var(--space-4); }
-    .response-card h3 { font-size: var(--text-md); margin-bottom: .65rem; }
-    .response-card p { color: var(--ink-soft); font-size: var(--text-sm); }
-
-    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
-    .compare-box { padding: var(--space-5); border-radius: var(--radius); border: 1px solid var(--border-soft); background: var(--bg-alt); }
-    .compare-box h3 { margin: 0 0 .85rem; font-size: var(--text-md); }
-    .compare-box ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .55rem; }
-    .compare-box--helpful { border-color: color-mix(in srgb, var(--primary) 35%, var(--border-soft)); }
-    .compare-box--less { border-color: color-mix(in srgb, var(--warm) 42%, var(--border-soft)); }
-
-    .summary-card { position: relative; overflow: hidden; }
-    .summary-card::after { content: ""; position: absolute; inset: auto -40px -40px auto; width: 160px; height: 160px; border-radius: 8px; background: color-mix(in srgb, var(--accent-soft) 55%, transparent); }
-    .summary-card ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .6rem; position: relative; z-index: 1; }
-
-    .sources-panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-5); margin-top: var(--space-6); }
-    .sources-panel h2 { font-size: var(--text-lg); margin: 0 0 var(--space-4); }
-    .sources-panel ul { margin: 0; padding-left: 1.15rem; display: grid; gap: .55rem; color: var(--ink-soft); line-height: 1.6; }
-    .sources-panel li { font-size: var(--text-sm); }
-    .sources-panel a { color: var(--primary); font-weight: 700; }
-
-    .cta-strip { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
-
-    @media (max-width: 920px) {
-      .hero-grid,
-      .response-grid,
-      .compare-grid,
-      .cta-strip { grid-template-columns: 1fr; }
-    }
-  </style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Inter:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=909f54ea40" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=9ee704dd6a" />
+  <link rel="stylesheet" href="/assets/css/tools.css?v=7fce784071" />
+  <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
+  <link rel="stylesheet" href="/assets/css/guide.css?v=03fd3b348f" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=d000ca1262" />
+
 </head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
+<body class="fg fg--page hub gpage">
+  <!-- header:start -->
+<a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
@@ -111,17 +49,18 @@
 
         <ul class="nav__list" id="primary-nav-list">
           <li class="nav__now"><a class="nav__link" href="/tools/right-now">It&rsquo;s hard right now</a></li>
+          <li><a class="nav__link" href="/#explore">Explore</a></li>
           <li><a class="nav__link" href="/classes/">Classes</a></li>
           <li class="nav__item">
             <details class="nav__details">
-              <summary class="nav__link nav__summary is-current">Free tools <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary>
+              <summary class="nav__link nav__summary">Tools <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary>
               <div class="nav__menu">
                 <ul class="nav__submenu">
-                  <li><a class="nav__submenu-link" href="/tools/growing-minds-ai.html"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A free ten-minute counting check-in; the full version is $34.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/right-now"><span class="nav__submenu-title">It&rsquo;s hard right now</span><span class="nav__submenu-desc">A calm next step in two minutes.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/growing-minds-ai"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
                   <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/tools/communication-snapshot.html"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/arcade/"><span class="nav__submenu-title">Arcade</span><span class="nav__submenu-desc">Silly games for a five-minute break between lessons.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/communication-snapshot"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A free ten-minute counting check-in.</span></a></li>
                 </ul>
                 <a class="nav__menu-all" href="/tools/">All free tools and guides <span aria-hidden="true">&rarr;</span></a>
               </div>
@@ -130,7 +69,7 @@
           <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
           <li class="nav__item nav__auth"><a class="nav__link" href="/nsc/class-login">My classes</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Enroll, from $49</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -141,34 +80,32 @@
     </div>
   </header>
 
-  <main id="main">
-    <section class="tool-hero">
-      <div class="container hero-grid">
-        <div>
-          <p class="eyebrow">Adult · Regulation</p>
-          <h1 class="page-hero__title">Regulating yourself first</h1>
-          <p class="tool-lede">Your nervous system is the most powerful regulation tool in the room. This is the adult side of it: how to notice your own activation a little earlier, and what to actually do with it before you react. Not staying calm all the time. Nobody does that.</p>
-          <div class="hero-actions">
-            <a class="btn btn--primary" href="#spike-chooser">What just spiked you?</a>
-            <a class="btn btn--ghost" href="#one-minute-summary">Jump to summary</a>
+  <main id="main" tabindex="-1">
+    <section class="g-title">
+      <div class="hb-container g-title__grid">
+        <div data-rise>
+          <h1 class="hb-display">Regulating yourself first</h1>
+          <p class="hb-lead g-lede">Your nervous system is the most powerful regulation tool in the room. This is the adult side of it: how to notice your own activation a little earlier, and what to actually do with it before you react. Not staying calm all the time. Nobody does that.</p>
+          <p class="g-meta"><a href="/tools/">Tools</a> <span aria-hidden="true">&middot;</span> Adult · Regulation</p>
+          <div class="g-title__actions">
+            <a class="hb-btn" href="#spike-chooser">What just spiked you?</a>
+            <a class="hb-btn hb-btn--quiet" href="#one-minute-summary">Jump to summary</a>
           </div>
         </div>
-
-        <aside class="hero-card" aria-labelledby="tool-at-a-glance">
-          <span class="tag">At a glance</span>
+        <aside class="g-glance" aria-labelledby="tool-at-a-glance" data-rise style="--i:1">
           <h2 id="tool-at-a-glance">What this tool helps with</h2>
-          <ul class="meta-list">
-            <li><span class="dot"></span><span>Catching the early body signs before you raise your voice.</span></li>
-            <li><span class="dot"></span><span>A few real options in the moment, not a rigid script.</span></li>
-            <li><span class="dot"></span><span>Seeing your triggers as yours, without blaming the child.</span></li>
-            <li><span class="dot"></span><span>Why lowering your own load is for your child, not selfish.</span></li>
+          <ul>
+            <li>Catching the early body signs before you raise your voice.</li>
+            <li>A few real options in the moment, not a rigid script.</li>
+            <li>Seeing your triggers as yours, without blaming the child.</li>
+            <li>Why lowering your own load is for your child, not selfish.</li>
           </ul>
         </aside>
       </div>
     </section>
 
-    <section>
-      <div class="container container--narrow">
+    <section class="g-sec">
+      <div class="hb-container g-narrow">
         <h2>The core idea</h2>
         <p class="section-intro">Kids borrow regulation from the adults around them. A parent who is flooded can't hand over a calm they don't currently have. The good news is that your own state is something you can learn to feel coming and work with, the same way you learned to read your child.</p>
 
@@ -199,8 +136,8 @@
       </div>
     </section>
 
-    <section id="spike-chooser">
-      <div class="container container--narrow">
+    <section class="g-sec" id="spike-chooser">
+      <div class="hb-container g-narrow">
         <h2>What just spiked you?</h2>
         <p class="section-intro">Pick the closest one. Each gives you a small, doable move for that exact moment, not a lecture. The answer doesn't need to be perfect.</p>
 
@@ -216,43 +153,43 @@
 
           <div>
             <article class="decoder-output" data-output="yell" data-ai-question="I'm about to yell at my child. What can I do in the next few seconds?">
-              <span class="tag">Right at the edge</span>
               <h3>Buy one beat and drop your volume.</h3>
+              <p class="tag tag--sub">Right at the edge</p>
               <p>You don't have to fix the situation in this second. You have to not pour fuel on it. Say out loud that you need a moment, then make your next sentence quieter and slower than the last one. Volume down tends to bring everything else down with it.</p>
               <p class="small">Try: "I need a second." Then one long exhale before you say anything else.</p>
             </article>
 
             <article class="decoder-output" data-output="body" data-ai-question="My jaw gets tight and heat rises when my child pushes back. How do I calm my body down?">
-              <span class="tag">You caught it early</span>
               <h3>Good. That noticing is the skill.</h3>
+              <p class="tag tag--sub">You caught it early</p>
               <p>If you can feel the jaw and the heat, you are ahead of where most people are, which is already mid-yell. Unclench your jaw, let your shoulders drop, and make your out-breath longer than your in-breath. A slower exhale is one of the few quick ways to nudge your own body off the gas.</p>
               <p class="small">Try: a slow breath out, shoulders down, hands unclenched, before you respond.</p>
             </article>
 
             <article class="decoder-output" data-output="disrespected" data-ai-question="I feel disrespected when my child defies me. How do I stay steady?">
-              <span class="tag">An old thread, not the child</span>
               <h3>This one is usually about you, and that's okay.</h3>
+              <p class="tag tag--sub">An old thread, not the child</p>
               <p>Feeling defied or disrespected can hit hard, because it touches your own history and your sense of authority. But a young child saying no is doing their developmental job, not staging a coup. Naming it to yourself takes some of the charge out: this is my trigger, not their crime.</p>
               <p class="small">Try internally: "They're not trying to disrespect me. I can hold the limit without the heat."</p>
             </article>
 
             <article class="decoder-output" data-output="rushed" data-ai-question="I lose my patience when we're rushed and out of time. What helps in that moment?">
-              <span class="tag">The clock is the trigger</span>
               <h3>Lower the demand before you raise your voice.</h3>
+              <p class="tag tag--sub">The clock is the trigger</p>
               <p>The 7:45am shoe standoff is rarely about the shoes. It's the deadline pressing on you. You can't add minutes, but you can cut the task: do it for them, drop a step, carry the shoes to the car. Getting there a little late and a little connected usually beats getting there on time and blown up.</p>
               <p class="small">Try: "I'm going to help your body get to the car. We'll finish the shoes there."</p>
             </article>
 
             <article class="decoder-output" data-output="nosleep" data-ai-question="I'm running on no sleep and my patience is thin. How do I get through today with my child?">
-              <span class="tag">Running on empty</span>
               <h3>Lower the bar for today, on purpose.</h3>
+              <p class="tag tag--sub">Running on empty</p>
               <p>On no sleep, your reserves are gone before the day starts. This is not the day to teach the big lesson or win the standoff. Aim for safe and connected, keep the demands small, and let some things slide that you'd normally hold. Doing less today isn't giving up. It's parenting from the floor you actually have.</p>
               <p class="small">Try: pick the one limit that truly matters right now, and let the rest be easy.</p>
             </article>
 
             <article class="decoder-output" data-output="lostit" data-ai-question="I already lost my temper with my child. How do I repair it?">
-              <span class="tag">It already happened</span>
               <h3>Now the move is repair, not shame.</h3>
+              <p class="tag tag--sub">It already happened</p>
               <p>You yelled, or you got too harsh, and now you feel awful. That feeling means you care; it doesn't mean you broke anything that can't be mended. Once your own body settles, come back, name your part briefly, and reconnect. Repair is what protects the relationship, and your child learns from watching you do it.</p>
               <p class="small">See the <a href="/tools/repair-after-the-hard-moment">repair tool</a> for the words. Short is better than perfect.</p>
             </article>
@@ -261,8 +198,8 @@
       </div>
     </section>
 
-    <section>
-      <div class="container container--narrow">
+    <section class="g-sec">
+      <div class="hb-container g-narrow">
         <h2>A simple in-the-moment sequence</h2>
         <p class="section-intro">Use it as a shape, not a checklist. The point is to put a few seconds between the spike and the reaction.</p>
 
@@ -291,8 +228,8 @@
       </div>
     </section>
 
-    <section>
-      <div class="container container--narrow">
+    <section class="g-sec">
+      <div class="hb-container g-narrow">
         <h2>What helps you, and what adds fuel</h2>
         <div class="compare-grid">
           <article class="compare-box compare-box--helpful">
@@ -319,11 +256,11 @@
       </div>
     </section>
 
-    <section id="one-minute-summary">
-      <div class="container container--narrow">
+    <section class="g-sec" id="one-minute-summary">
+      <div class="hb-container g-narrow">
         <div class="summary-card">
-          <span class="tag">One-minute summary</span>
-          <h2 style="font-size:var(--text-xl); margin-top:0;">When you need the short version</h2>
+          <h2>When you need the short version</h2>
+          <p class="tag tag--sub">One-minute summary</p>
           <ul>
             <li>Your nervous system is the regulation tool. Your child borrows it.</li>
             <li>Activation shows up in the body first. Learn to catch it earlier.</li>
@@ -336,26 +273,26 @@
       </div>
     </section>
 
-    <section>
-      <div class="container container--narrow">
+    <section class="g-sec">
+      <div class="hb-container g-narrow">
         <div class="what-panel">
           <span class="tag">Why this isn't selfish</span>
-          <p class="section-intro" style="margin-bottom:0;">Your baseline load is part of the equation. Sleep, food, support, and how depleted you already are all set the floor you parent from. Sara Waters and Wendy Berry Mendes found that a caregiver's stress can transmit to an infant physiologically, not just through behavior; your state is genuinely shared. So lowering your own background stress isn't an indulgence stolen from your child. It raises the floor everyone in the house stands on, including them.</p>
+          <p class="section-intro">Your baseline load is part of the equation. Sleep, food, support, and how depleted you already are all set the floor you parent from. Sara Waters and Wendy Berry Mendes found that a caregiver's stress can transmit to an infant physiologically, not just through behavior; your state is genuinely shared. So lowering your own background stress isn't an indulgence stolen from your child. It raises the floor everyone in the house stands on, including them.</p>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="container container--narrow">
+    <section class="g-sec">
+      <div class="hb-container g-narrow">
         <div class="what-panel">
           <span class="tag">A note on support</span>
-          <p class="section-intro" style="margin-bottom:0;">This tool is educational and can't assess your situation. If the overwhelm or anger feels constant, hard to come back from, or frightening to you, that's worth talking through with your doctor or a licensed mental health professional. Reaching for that kind of help is a sign of strength and care, not failure.</p>
+          <p class="section-intro">This tool is educational and can't assess your situation. If the overwhelm or anger feels constant, hard to come back from, or frightening to you, that's worth talking through with your doctor or a licensed mental health professional. Reaching for that kind of help is a sign of strength and care, not failure.</p>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="container container--narrow">
+    <section class="g-sec">
+      <div class="hb-container g-narrow">
         <div class="sources-panel">
           <h2>Sources and further reading</h2>
           <ul>
@@ -368,22 +305,21 @@
       </div>
     </section>
 
-    <section>
-      <div class="container container--narrow">
-        <div class="cta-strip">
-          <div>
-            <h2 style="margin:0 0 .4rem; font-size:var(--text-lg);">Module 4 of the toddler class covers co-regulation and the adult's role in full.</h2>
-            <p class="small" style="max-width:38rem; margin:0;">Why your state lands on your child, how to notice your own activation earlier, and what to do with it in the hard moment. $49 for lifetime access.</p>
-          </div>
-          <div class="hero-actions">
-            <a class="btn btn--primary" href="/classes/toddlerhood">See the toddler class</a>
-            <a class="btn btn--ghost" href="/tools/co-regulation-primer">Nervous-system primer</a>
-          </div>
+    <section class="hub-sec hub-close" aria-labelledby="close-heading">
+      <div class="hb-container">
+        <div data-rise>
+          <h2 class="hb-display" id="close-heading">Module 4 of the toddler class covers co-regulation and the adult's role in full.</h2>
+          <p>Why your state lands on your child, how to notice your own activation earlier, and what to do with it in the hard moment. $49 for lifetime access.</p>
+        </div>
+        <div class="hub-close__act" data-rise style="--i:1">
+          <a class="hb-btn hb-btn--paper" href="/classes/toddlerhood">See the toddler class</a>
+          <a class="hb-btn hb-btn--quiet" href="/tools/co-regulation-primer">Nervous-system primer</a>
         </div>
       </div>
     </section>
   </main>
 
+  <!-- footer:start -->
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
@@ -391,11 +327,7 @@
           <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">growing minds</span><span class="brand__desc">Science</span>
         </a>
-        <p class="site-footer__tag">A developmental-science education for parents of children 0 to 5.</p>
-        <a class="footer-ig" href="https://www.instagram.com/growingmindsscience/" target="_blank" rel="noopener noreferrer">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
-          Instagram
-        </a>
+        <p class="site-footer__tag">A living field guide to the growing mind, for parents of children 0 to 5.</p>
       </div>
       <nav class="site-footer__nav" aria-label="Footer">
         <div>
@@ -409,12 +341,12 @@
           </ul>
         </div>
         <div>
-          <h2 class="site-footer__heading">Free tools</h2>
+          <h2 class="site-footer__heading">Tools</h2>
           <ul class="footer-list">
-            <li><a href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
-            <li><a href="/nsc">Number Path</a></li>
+            <li><a href="/tools/right-now">It&rsquo;s hard right now</a></li>
+            <li><a href="/tools/growing-minds-ai">Growing Minds AI</a></li>
             <li><a href="/milestones">Milestone tracker</a></li>
-            <li><a href="/tools/communication-snapshot.html">Communication Snapshot</a></li>
+            <li><a href="/tools/communication-snapshot">Communication Snapshot</a></li>
             <li><a href="/tools/">All tools and guides</a></li>
           </ul>
         </div>
@@ -427,21 +359,31 @@
             <li><a href="/contact/">Contact</a></li>
           </ul>
         </div>
+        <div>
+          <h2 class="site-footer__heading">Elsewhere</h2>
+          <ul class="footer-list">
+            <li><a href="https://www.instagram.com/growingmindsscience/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="/arcade/">Arcade</a></li>
+          </ul>
+        </div>
       </nav>
     </div>
-    <div class="container">
+    <div class="container site-footer__close">
+      <p class="site-footer__wordmark" aria-hidden="true">growing minds <span class="site-footer__wordmark-desc">science</span></p>
       <div class="footer-bottom">
-        <p>&copy; <span data-year>2026</span> Growing Minds Science &middot; <a href="/arcade/">Arcade</a></p>
+        <p>&copy; <span data-year>2026</span> Growing Minds Science</p>
         <p>Educational content only. Not medical or psychological advice.</p>
       </div>
     </div>
   </footer>
+<!-- footer:end -->
+
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
 
   <script src="../assets/js/main.js?v=742e637d07" defer></script>
   <script src="../assets/js/gms-tools.js?v=390738ac9e" defer></script>
-  <script src="../assets/js/decor.js?v=09ff05457d" defer></script>
+  <script src="/assets/js/home.js?v=c7f5c746df" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
