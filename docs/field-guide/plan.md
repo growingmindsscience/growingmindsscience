@@ -15,6 +15,10 @@ One definition of done, in six measurable parts:
 
 When all six hold, the redesign is finished. Anything after that is new work with its own brief.
 
+## Status 2026-10-15
+
+S0 to S8 have merged, and C5 was approved with PR 132. The one gate C5 missed, LCP under 2.5s on the three Lighthouse pages, passes on the live site since PRs 133 and 134 (`validation-report.md`, check 4). Two checks from the definition of done wait on Matthew: the login and class-access walk with the test account, and the Growing Minds AI Pro checkout, which returns 502. The table below is the state on 2026-10-14, kept as written.
+
 ## Decisions recorded 2026-10-14
 
 - C0 is answered: all five recommendations below are adopted as written (guideline hex values, both sages, research blue for sources, DM Sans kept with Newsreader, 6px corners on controls, inputs and panels only, the hero and lead-line split, the lowercase wordmark). They ship in S2 and are not reopened.
