@@ -140,7 +140,7 @@ a { color: inherit; }
   .fg .site-header .nav__list > .nav__theme .theme-toggle { border: 1.5px solid var(--ink); }
 }
 .fg .site-header .nav__link { font-family: var(--font-body); }
-.fg .site-header .nav__cta .btn { border: 0; font-family: var(--font-body); }
+.fg .site-header .nav__cta .btn { border: 0; border-radius: var(--radius); font-family: var(--font-body); font-weight: 500; }
 .fg .site-header .nav__menu { border-top: 6px solid var(--forest); background: var(--surface); padding: 0.5rem; box-shadow: none; /* taste-skill-ignore: removes the chrome menu shadow */ }
 .fg .site-header .nav__menu-all { border-top: 0; margin-top: 0.25rem; background: var(--paper-2); padding: 0.75rem 0.8rem; }
 .fg .site-header .nav__submenu-title { font-family: var(--font-body); }

@@ -5,7 +5,7 @@ import { brand } from "@/lib/config/brand";
 import type { Citation } from "@/lib/content-types";
 
 export const metadata = {
-  title: "The evidence — Number Path",
+  title: "The evidence | Number Path",
   description:
     "Every study behind Number Path: the counting-ladder research, the trials behind each game, and what we deliberately left out.",
 };

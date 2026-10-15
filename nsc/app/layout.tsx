@@ -26,7 +26,7 @@ const THEME_SCRIPT =
   "try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}";
 
 export const metadata: Metadata = {
-  title: `${brand.productName} — ${brand.parentSite}`,
+  title: `${brand.productName} | ${brand.parentSite}`,
   description:
     "A parent-run early-math check-in that places your child on the counting ladder, then serves a personalized, evidence-tagged plan of household games and daily number talk.",
 };

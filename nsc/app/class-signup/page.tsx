@@ -9,7 +9,7 @@ import { getUser } from "@/lib/auth";
 import { classDestination, enrollingCourse } from "@/lib/class-paths";
 
 export const metadata = {
-  title: "Create your class account — Growing Minds Science",
+  title: "Create your class account | Growing Minds Science",
   description: "Create a Growing Minds Science account for your self-paced parent classes and lesson progress.",
 };
 

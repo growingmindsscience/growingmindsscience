@@ -3,7 +3,7 @@ import { giftCodeForSession } from "@/lib/gift.server";
 import { Card, EnrichmentFooter, LinkButton } from "@/components/ui";
 import { brand } from "@/lib/config/brand";
 
-export const metadata = { title: "Your gift is ready — Number Path" };
+export const metadata = { title: "Your gift is ready | Number Path" };
 
 export default async function GiftSuccessPage({
   searchParams,
