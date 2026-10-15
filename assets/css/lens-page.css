@@ -70,3 +70,12 @@
 .fg--page:not(.js) .lens__plate .label[data-for="observe"] { display: block; opacity: 1; transform: none; }
 .fg--page:not(.js) .lens__panel[hidden] { display: grid; }
 .fg--page:not(.js) .lens__tabs, .fg--page:not(.js) .lens__nav { display: none; }
+
+/* The Lens's ages, as doors into the Explore hub (assets/data/explore.json). */
+.lp-explore { display: grid; gap: 18px; justify-items: start; }
+.lp .lp-explore__title { font-family: var(--font-body); font-size: 15px; font-weight: 600; letter-spacing: 0; color: var(--ink); }
+.lp .lp-explore__ages { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 clamp(20px, 3vw, 40px); width: 100%; border-top: 2px solid var(--ink); }
+.lp-explore__ages a { display: grid; gap: 4px; min-height: 44px; padding-block: 14px; color: var(--ink); text-decoration: none; font-family: var(--font-display); font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem); line-height: 1.15; }
+.lp-explore__ages a:hover { color: var(--forest); text-decoration: underline; text-underline-offset: 0.14em; }
+.lp-explore__ages span { font-family: var(--font-body); font-size: 14px; color: var(--ink-muted); }
+@media (max-width: 760px) { .lp .lp-explore__ages { grid-template-columns: minmax(0, 1fr); } .lp-explore__ages li + li { border-top: 1px solid var(--border-soft); } }

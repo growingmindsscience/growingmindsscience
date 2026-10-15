@@ -71,3 +71,22 @@ These are the same problems elsewhere on the site. They are not part of C3, but 
   - narrating the next step improving transitions (L15)
   - "fewer words, a lower voice" shortening tantrums (L16)
   - advance notice helping typical toddlers in everyday settings (L13). The only studies are small single-case designs, mostly negative.
+
+## Applied 2026-10-15
+
+Matthew accepted every verdict and every piece of proposed wording.
+
+**Applied to:**
+- the Lens page (`lens/leaving-the-playground.html`)
+- the shared fragment (`docs/field-guide/fragments/lens.html`)
+- the homepage band, in its shorter wording
+- the copy deck
+
+**Changes:**
+- The photo labels follow L3 and L8 ("'play' to 'go' is hard at three"; "'no' is part of becoming a person").
+- Every evidence note names its source, and none carries `data-verify` any more.
+- The Sources section replaces the prototype line with a reviewed statement and the new reference list. All eleven DOIs were checked on Crossref.
+- The page closes with doors into the Explore pages for 1 to 2, 2 to 3 and 3 to 4.
+- `lens-plan.md` records the review.
+
+The gate on the Lens page: G1 and G6 pass. The remaining findings were already there before this change and are already defended.
