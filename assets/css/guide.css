@@ -135,3 +135,15 @@
 .gpage .sources-panel li { padding-block: 10px; border-top: 1px solid var(--border-soft); font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
 .gpage .sources-panel li:first-child { border-top: 0; }
 .gpage .sources-panel a { display: inline-flex; align-items: center; min-height: 44px; margin-block: -10px; color: var(--research); font-weight: 400; }
+/* Some guides list sources as a .source-list in a plain panel: same module. */
+.gpage .panel:has(.source-list):not(:has(.sources-panel)) { padding-top: 20px; border-top: 2px solid var(--research); }
+.gpage .source-list li { padding-block: 10px; border-top: 1px solid var(--border-soft); font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
+.gpage .source-list li:first-child { border-top: 0; }
+.gpage .source-list a { display: inline-flex; align-items: center; min-height: 44px; margin-block: -10px; color: var(--research); font-weight: 400; }
+
+/* ---------- Controls from gms-tools.js and the meta link reach 44px ---------- */
+.fg.gpage .gms-action { min-height: 44px; padding-inline: 14px; }
+.g-meta a { min-width: 44px; }
+
+/* ---------- Close: the guides' statements are long; a step smaller, a wider measure ---------- */
+.gpage .hub-close h2 { font-size: clamp(1.5rem, 1.15rem + 1.5vw, 2.5rem); max-width: 34ch; }
