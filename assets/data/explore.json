@@ -1,0 +1,79 @@
+{
+  "about": "The content base for /explore/ and the homepage's age explorer. One record per page; the three doors (age, moment, topic) are views of these records. Editorial tags, not scientific claims: ages say who a piece is written for, topics and moments say what it is about.",
+  "stages": [
+    { "id": "y0", "name": "Foundations", "years": "Birth to 1", "from": 0, "to": 12, "class": "/classes/birth-to-12-months", "summary": "Attachment, the senses, and the rhythm of back-and-forth. Serve and return, not flashcards, builds the architecture." },
+    { "id": "y1", "name": "First words, first steps", "years": "1 to 2", "from": 12, "to": 24, "class": "/classes/toddlerhood", "summary": "Understanding races ahead of speech. Looking at something together is how words get attached to things." },
+    { "id": "y2", "name": "Autonomy and big feelings", "years": "2 to 3", "from": 24, "to": 36, "class": "/classes/toddlerhood", "summary": "“No” is a milestone, not defiance. Big feelings outrun the brakes while the brakes are still being built." },
+    { "id": "y3", "name": "The imagination years", "years": "3 to 4", "from": 36, "to": 48, "class": "/classes/preschool", "summary": "Pretend play is serious cognitive work: two realities at once, other perspectives, social roles rehearsed." },
+    { "id": "y4", "name": "Self-control, slowly", "years": "4 to 5", "from": 48, "to": 60, "class": "/classes/preschool", "summary": "Working memory, flexible thinking and impulse control are under construction, on a wide and normal range." }
+  ],
+  "moments": [
+    { "id": "meltdown", "label": "A meltdown or tantrum", "hint": "Screaming, crying, hitting, going limp." },
+    { "id": "limit", "label": "A limit set off big feelings", "hint": "Pushing a “no”, refusing, melting down over a boundary." },
+    { "id": "sleep", "label": "Bedtime or night waking", "hint": "Fighting sleep, waking in the night, stalling." },
+    { "id": "patience", "label": "I’m losing my patience", "hint": "You’re the one running hot." },
+    { "id": "repair", "label": "Something went sideways between us", "hint": "You want to reconnect." },
+    { "id": "leaving", "label": "Leaving somewhere fun", "hint": "The playground, a friend’s house, the bath." },
+    { "id": "worry", "label": "Wondering if something is typical", "hint": "Talking, moving, a milestone that hasn’t come." },
+    { "id": "screens", "label": "Deciding about screens", "hint": "How much, what kind, and what it replaces." }
+  ],
+  "topics": [
+    { "id": "communication", "name": "Communication" },
+    { "id": "learning", "name": "Learning" },
+    { "id": "play", "name": "Play" },
+    { "id": "relationships", "name": "Relationships" },
+    { "id": "sleep", "name": "Sleep" },
+    { "id": "behaviour", "name": "Behaviour" },
+    { "id": "regulation", "name": "Regulation" }
+  ],
+  "types": {
+    "lens": "Lens", "guide": "Guide", "tool": "Tool", "article": "Article", "claim": "Graded claim", "class": "Class"
+  },
+  "items": [
+    { "type": "lens", "title": "Leaving the playground", "href": "/lens/leaving-the-playground", "ages": ["y1", "y2", "y3"], "topics": ["regulation", "behaviour"], "moments": ["leaving"] },
+
+    { "type": "tool", "title": "It’s hard right now", "href": "/tools/right-now", "ages": ["y0", "y1", "y2", "y3", "y4"], "topics": ["behaviour", "regulation"], "moments": ["meltdown", "limit", "sleep", "patience", "repair"] },
+    { "type": "tool", "title": "Communication Snapshot", "href": "/tools/communication-snapshot", "ages": ["y0", "y1", "y2"], "topics": ["communication"], "moments": ["worry"] },
+    { "type": "tool", "title": "Milestone Navigator", "href": "/tools/milestone-navigator", "ages": ["y0", "y1", "y2", "y3", "y4"], "topics": ["learning", "communication"], "moments": ["worry"] },
+    { "type": "tool", "title": "Milestone tracker", "href": "/milestones", "ages": ["y0", "y1", "y2"], "topics": ["learning"], "moments": ["worry"] },
+    { "type": "tool", "title": "Activity library", "href": "/tools/activity-library", "ages": ["y0", "y1", "y2"], "topics": ["play", "learning"], "moments": [] },
+    { "type": "tool", "title": "Reading prompt cards", "href": "/tools/reading-prompt-cards", "ages": ["y1", "y2", "y3", "y4"], "topics": ["communication", "play"], "moments": [] },
+    { "type": "tool", "title": "Number Path", "href": "/nsc", "ages": ["y3", "y4"], "topics": ["learning"], "moments": [] },
+    { "type": "tool", "title": "Growing Minds AI", "href": "/tools/growing-minds-ai", "ages": ["y0", "y1", "y2", "y3", "y4"], "topics": [], "moments": [] },
+
+    { "type": "guide", "title": "What’s underneath the meltdown", "href": "/tools/whats-underneath-the-meltdown", "ages": ["y1", "y2"], "topics": ["behaviour", "regulation"], "moments": ["meltdown"] },
+    { "type": "guide", "title": "Limits without escalation", "href": "/tools/limits-without-escalation", "ages": ["y1", "y2", "y3", "y4"], "topics": ["behaviour"], "moments": ["limit"] },
+    { "type": "guide", "title": "Routines, transitions, and night-waking", "href": "/tools/routines-transitions-night-waking", "ages": ["y1", "y2"], "topics": ["sleep", "regulation"], "moments": ["sleep", "leaving"] },
+    { "type": "guide", "title": "Regulating yourself first", "href": "/tools/regulating-yourself-first", "ages": ["y0", "y1", "y2", "y3", "y4"], "topics": ["regulation", "relationships"], "moments": ["patience"] },
+    { "type": "guide", "title": "Repair after the hard moment", "href": "/tools/repair-after-the-hard-moment", "ages": ["y0", "y1", "y2", "y3", "y4"], "topics": ["relationships"], "moments": ["repair"] },
+    { "type": "guide", "title": "A nervous-system primer for parents", "href": "/tools/co-regulation-primer", "ages": ["y1", "y2"], "topics": ["regulation", "relationships"], "moments": [] },
+    { "type": "guide", "title": "What’s typical, by stage", "href": "/tools/whats-typical-by-stage", "ages": ["y0"], "topics": ["sleep"], "moments": ["sleep"] },
+    { "type": "guide", "title": "Screens, language, and attention", "href": "/tools/screens-language-attention", "ages": ["y1", "y2", "y3", "y4"], "topics": ["communication", "learning"], "moments": ["screens"] },
+    { "type": "guide", "title": "Beyond “less is better”", "href": "/tools/beyond-less-is-better", "ages": ["y0", "y1", "y2", "y3", "y4"], "topics": ["learning"], "moments": ["screens"] },
+
+    { "type": "article", "title": "What “serve and return” actually means", "href": "/articles/serve-and-return", "ages": ["y0", "y1"], "topics": ["communication", "relationships"], "moments": [] },
+    { "type": "article", "title": "The toddler “no” is not the war you think it is", "href": "/articles/toddler-no", "ages": ["y1", "y2"], "topics": ["behaviour", "regulation"], "moments": ["limit"] },
+    { "type": "article", "title": "A short, honest take on screen time", "href": "/articles/screen-time", "ages": ["y1", "y2", "y3", "y4"], "topics": ["learning", "communication"], "moments": ["screens"] },
+    { "type": "article", "title": "Self-regulation, briefly", "href": "/articles/self-regulation", "ages": ["y2", "y3", "y4"], "topics": ["regulation"], "moments": [] },
+    { "type": "article", "title": "When your own nervous system is the variable", "href": "/articles/parents-nervous-system", "ages": ["y0", "y1", "y2", "y3", "y4"], "topics": ["regulation", "relationships"], "moments": ["patience"] },
+    { "type": "article", "title": "What to do with milestone worry", "href": "/articles/milestone-worry", "ages": ["y0", "y1", "y2"], "topics": ["learning", "communication"], "moments": ["worry"] },
+    { "type": "article", "title": "The cliff at three", "href": "/articles/cliff-at-three", "ages": ["y2", "y3"], "topics": ["learning", "communication"], "moments": [] },
+    { "type": "article", "title": "The counting ladder", "href": "/articles/counting-ladder", "ages": ["y2", "y3", "y4"], "topics": ["learning", "play"], "moments": [] },
+
+    { "type": "claim", "title": "Sleep training will damage my baby’s attachment", "href": "/claims/sleep-training-attachment", "ages": ["y0"], "topics": ["sleep", "relationships"], "moments": ["sleep"] },
+    { "type": "claim", "title": "Hearing two languages will confuse my baby", "href": "/claims/bilingual-confusion", "ages": ["y0", "y1", "y2"], "topics": ["communication"], "moments": ["worry"] },
+    { "type": "claim", "title": "A baby walker will help my baby walk sooner", "href": "/claims/baby-walkers", "ages": ["y0"], "topics": ["learning"], "moments": [] },
+    { "type": "claim", "title": "Tummy time actually matters", "href": "/claims/tummy-time", "ages": ["y0"], "topics": ["learning"], "moments": [] },
+    { "type": "claim", "title": "Screen time is harming my toddler’s language", "href": "/claims/screen-time-language", "ages": ["y1", "y2"], "topics": ["communication"], "moments": ["screens"] },
+    { "type": "claim", "title": "Pacifier use will delay speech", "href": "/claims/pacifiers-speech", "ages": ["y0", "y1"], "topics": ["communication"], "moments": [] },
+    { "type": "claim", "title": "Talking to my baby builds their language", "href": "/claims/talking-to-baby", "ages": ["y0"], "topics": ["communication"], "moments": [] },
+    { "type": "claim", "title": "Teething causes fevers", "href": "/claims/teething-fever", "ages": ["y0"], "topics": [], "moments": [] },
+    { "type": "claim", "title": "Baby-led weaning is better than spoon-feeding", "href": "/claims/baby-led-weaning", "ages": ["y0"], "topics": [], "moments": [] },
+    { "type": "claim", "title": "Reading to my toddler changes their language", "href": "/claims/shared-reading", "ages": ["y1", "y2", "y3", "y4"], "topics": ["communication", "learning"], "moments": [] },
+
+    { "type": "class", "title": "Birth to 12 months", "href": "/classes/birth-to-12-months", "ages": ["y0"], "topics": [], "moments": [] },
+    { "type": "class", "title": "Toddler years, 1 to 3", "href": "/classes/toddlerhood", "ages": ["y1", "y2"], "topics": [], "moments": [] },
+    { "type": "class", "title": "Preschool years, 3 to 5", "href": "/classes/preschool", "ages": ["y3", "y4"], "topics": [], "moments": [] },
+    { "type": "class", "title": "The whole family", "href": "/classes/family-systems", "ages": ["y0", "y1", "y2", "y3", "y4"], "topics": ["relationships"], "moments": [] }
+  ]
+}

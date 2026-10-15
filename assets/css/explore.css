@@ -1,0 +1,80 @@
+/* =========================================================
+   Growing Minds Science: explore.css
+   The Explore hub (body.explore), built by scripts/build-explore.mjs from
+   assets/data/explore.json. Three doors into one content base: by age, by
+   moment, by topic. Primitives from fg-base.css, sections and the title
+   block rhythm from hubs.css. Quiet rules between rows, the stage names in
+   Newsreader, the type of each page as a small label. Two first screens
+   for checkpoint C2: (a) three doors side by side under an ink rule;
+   (b) the age line on a sage field, with moment and topic as side doors.
+   Tokens from tokens-field-guide.css.
+   ========================================================= */
+
+/* ---------- Title block ---------- */
+.ex-title { padding-block: clamp(40px, 6vw, 96px) clamp(48px, 7vw, 104px); }
+.ex-title__head h1 { font-size: clamp(2.25rem, 1.4rem + 3.4vw, 4.25rem); line-height: 0.98; letter-spacing: -0.025em; }
+.ex-title__head .hb-lead { margin-top: 22px; color: var(--ink-soft); max-width: 50ch; }
+
+/* (a) Three doors side by side, under an ink rule. */
+.ex-doors { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px clamp(28px, 4vw, 64px); margin-top: clamp(40px, 5vw, 72px); }
+.ex-door { padding-top: 18px; border-top: 2px solid var(--ink); }
+.ex-door h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.75rem, 1.35rem + 1.4vw, 2.5rem); line-height: 1.05; letter-spacing: -0.015em; }
+.ex-door h2 a { text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; }
+.ex-door h2 a:hover { text-decoration: underline; text-underline-offset: 0.14em; }
+.ex-door > p { margin-top: 4px; color: var(--ink-muted); }
+.explore .ex-door ul { list-style: none; margin: 18px 0 0; padding: 0; display: grid; }
+.ex-door li { border-top: 1px solid var(--border-soft); }
+.ex-door li a { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding-block: 6px; color: var(--ink); text-decoration: none; }
+.ex-door li a:hover { color: var(--forest); text-decoration: underline; text-underline-offset: 0.16em; }
+.ex-door li span { flex-shrink: 0; font-size: 14px; color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+@media (max-width: 900px) { .ex-doors { grid-template-columns: minmax(0, 1fr); } }
+
+/* (b) The age line on a sage field; moment and topic as side doors. */
+.ex-title--b { padding-bottom: 0; }
+.ex-line { margin-top: clamp(32px, 4vw, 56px); padding-block: clamp(24px, 3vw, 40px); background: var(--sage); color: var(--on-sage); }
+.ex-line__track { position: relative; display: flex; justify-content: space-between; padding-top: 14px; font-size: 14px; color: var(--on-sage); border-top: 2px solid var(--ink); }
+.ex-line__stages { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; margin-top: 18px; }
+.ex-line__stage { display: grid; align-content: start; gap: 6px; min-height: 120px; padding: 14px 16px 18px; border-left: 1px solid rgba(25, 60, 57, 0.28); color: var(--ink); text-decoration: none; transition: background-color 160ms ease; }
+.ex-line__stage:first-child { border-left: 0; padding-left: 0; }
+.ex-line__stage:hover { background: var(--sage-deep); color: var(--ink); }
+.ex-line__stage:first-child:hover { padding-left: 16px; margin-left: -16px; }
+.ex-line__years { font-size: 14px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.ex-line__stage strong { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.375rem, 1.1rem + 1vw, 2rem); line-height: 1.08; letter-spacing: -0.015em; }
+.ex-line :focus-visible { outline-color: var(--ink); }
+.ex-side { display: grid; gap: 0; padding-block: clamp(28px, 4vw, 48px) clamp(48px, 7vw, 96px); }
+.ex-side__row { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: 8px 24px; align-items: baseline; padding-block: 14px; border-top: 1px solid var(--border-soft); }
+.ex-side__row:first-child { border-top: 0; }
+.ex-side__row h2 { font-family: var(--font-body); font-size: 15px; font-weight: 600; letter-spacing: 0; color: var(--ink); }
+.ex-side__links { display: flex; flex-wrap: wrap; gap: 0 22px; }
+.ex-side__links a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); text-underline-offset: 0.16em; }
+.ex-side__links a:hover { color: var(--forest); }
+[data-theme="dark"] .ex-line__stage { border-left-color: rgba(237, 235, 227, 0.2); color: var(--on-sage); }
+[data-theme="dark"] .ex-line__stage:hover { color: var(--on-sage); }
+@media (max-width: 900px) {
+  .ex-line__stages { grid-template-columns: minmax(0, 1fr); }
+  .ex-line__stage { min-height: 0; padding: 12px 0; border-left: 0; border-top: 1px solid rgba(25, 60, 57, 0.28); grid-template-columns: 6.5rem minmax(0, 1fr); align-items: baseline; }
+  .ex-line__stage:first-child { border-top: 0; }
+  .ex-line__stage:hover, .ex-line__stage:first-child:hover { padding-left: 0; margin-left: 0; }
+  .ex-side__row { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------- The three doors, in full ---------- */
+.ex-sec__title { font-size: clamp(2rem, 1.4rem + 2.2vw, 3.25rem); line-height: 1.02; }
+.explore .ex-sec__lede { margin-top: 12px; color: var(--ink-soft); max-width: 52ch; }
+.ex-sec { scroll-margin-top: var(--header-h, 72px); }
+:is(.ex-stage, .ex-row) { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 16px clamp(32px, 5vw, 80px); align-items: start; padding-block: clamp(28px, 3.4vw, 44px); border-top: 1px solid var(--border-soft); scroll-margin-top: calc(var(--header-h, 72px) + 16px); }
+.ex-sec .hb-container > :is(.ex-stage, .ex-row):first-of-type { margin-top: clamp(28px, 4vw, 48px); border-top: 2px solid var(--ink); }
+:is(.ex-stage__head, .ex-row__head) h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.5rem, 1.2rem + 1vw, 2.125rem); line-height: 1.08; letter-spacing: -0.015em; }
+.explore .ex-stage__years { margin-top: 4px; font-size: 15px; font-weight: 500; color: var(--forest); font-variant-numeric: tabular-nums; }
+.explore :is(.ex-stage__head, .ex-row__head) > p:not(.ex-stage__years):not(.ex-stage__class) { margin-top: 10px; color: var(--ink-soft); max-width: 40ch; }
+.explore .ex-stage__class { margin-top: 12px; }
+.ex-stage__class a { display: inline-flex; align-items: center; min-height: 44px; }
+.explore .ex-list { list-style: none; margin: 0; padding: 0; display: grid; }
+.ex-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; border-top: 1px solid var(--border-soft); }
+.ex-list li:first-child { border-top: 0; }
+.ex-list a { display: flex; align-items: center; min-height: 48px; padding-block: 8px; color: var(--ink); text-decoration: none; line-height: 1.35; }
+.ex-list a:hover { color: var(--forest); text-decoration: underline; text-underline-offset: 0.16em; }
+.ex-type { font-size: 14px; color: var(--ink-muted); white-space: nowrap; }
+@media (max-width: 860px) {
+  :is(.ex-stage, .ex-row) { grid-template-columns: minmax(0, 1fr); }
+}
