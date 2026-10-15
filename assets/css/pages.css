@@ -1,0 +1,81 @@
+/* =========================================================
+   Growing Minds Science: pages.css
+   The small pages on the annotated-observation system: FAQ, contact,
+   404, thank-you and the arcade hub (body.hub). Primitives from
+   fg-base.css; the title block, rows, questions and close band from
+   hubs.css. The arcade's game overlays keep their own arcade.css.
+   Tokens from tokens-field-guide.css.
+   ========================================================= */
+
+/* ---------- One column under the title block ---------- */
+.pg-body { padding-block: 0 clamp(72px, 9vw, 128px); }
+.pg-body > .hb-container { border-top: 1px solid var(--border-soft); padding-top: clamp(40px, 5vw, 72px); }
+.pg-narrow { max-width: 880px; }
+
+/* ---------- FAQ ---------- */
+.pg-faq .qa summary { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.1875rem, 1.05rem + 0.5vw, 1.4375rem); line-height: 1.25; letter-spacing: -0.01em; }
+.pg-faq .qa details p { line-height: 1.65; }
+.pg-faq .qa details p a { color: var(--forest); }
+
+/* ---------- Contact: what to write about, beside the form ---------- */
+.pg-contact { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 40px clamp(32px, 5vw, 80px); align-items: start; }
+.pg-contact__intro h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem); line-height: 1.08; letter-spacing: -0.015em; }
+.pg-contact-page .pg-contact__intro > p:not(.hub-fine) { margin-top: 14px; color: var(--ink-soft); max-width: 46ch; }
+.pg-contact-page .pg-list { list-style: none; margin: 24px 0 0; padding: 0; display: grid; }
+.pg-list li { padding-block: 12px; border-top: 1px solid var(--border-soft); color: var(--ink-soft); }
+.pg-list li:first-child { border-top: 0; padding-top: 0; }
+@media (max-width: 860px) { .pg-contact { grid-template-columns: minmax(0, 1fr); } }
+
+.pg-form { display: grid; gap: 18px; padding: clamp(24px, 3vw, 40px); border-radius: var(--radius-lg); background: var(--sage-mist); }
+.pg-form__title { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem); line-height: 1.15; letter-spacing: -0.01em; }
+.pg-form .form-row { display: grid; gap: 6px; }
+.pg-form .form-label { font-size: 15px; font-weight: 500; color: var(--ink); }
+.pg-form .muted { font-weight: 400; color: var(--ink-muted); }
+.pg-form .form-input { width: 100%; min-height: 48px; padding: 10px 14px; border: 1.5px solid var(--ink-muted); border-radius: var(--radius); background: var(--surface); color: var(--ink); font: inherit; }
+.pg-form textarea.form-input { min-height: 160px; resize: vertical; line-height: 1.55; }
+.pg-form .form-input::placeholder { color: var(--ink-muted); }
+.pg-form .form-input:focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; border-color: var(--forest); }
+.pg-form .form-input[aria-invalid="true"] { border-color: var(--danger); }
+.pg-form .field-error { font-size: 14px; color: var(--danger); }
+.pg-form .field-error:empty, .pg-form .form-status:empty { display: none; }
+.pg-form .form-status { font-size: 15px; color: var(--ink-soft); }
+.fg .pg-form__send { width: 100%; }
+
+/* ---------- 404 and thank-you: places to go, as rows ---------- */
+.pg-row { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); }
+/* The descriptions followed a colon in running text; as a column they open with a capital. */
+.pg-row .row__desc::first-letter { text-transform: uppercase; }
+@media (max-width: 760px) { .pg-row { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- Arcade ---------- */
+.arcade-page .gms-arcade-title span { display: none; }
+.pg-arcade__head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 16px clamp(32px, 5vw, 80px); align-items: end; margin-bottom: clamp(32px, 4vw, 56px); }
+.pg-arcade__head h2 { font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem); line-height: 1.05; }
+.pg-arcade__head p { color: var(--ink-soft); max-width: 40ch; }
+@media (max-width: 760px) { .pg-arcade__head { grid-template-columns: minmax(0, 1fr); } }
+
+.arcade-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.arcade-card { display: flex; flex-direction: column; min-width: 0; border-radius: var(--radius-lg); background: var(--paper); overflow: hidden; }
+/* Each game's small screen: the inverted field, glyphs in sage. */
+.arcade-card__art { min-height: 148px; display: flex; align-items: center; justify-content: center; gap: .8rem; background: var(--field-ink); color: var(--sage); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: clamp(1.6rem, 3vw, 2.5rem); letter-spacing: .1em; line-height: 1; }
+.arcade-card--snake .arcade-card__art { flex-direction: column; gap: .15rem; }
+.arcade-card--echo .arcade-card__art { flex-direction: column; gap: 0; }
+.arcade-card--dino .arcade-card__art,
+.arcade-card--invaders .arcade-card__art,
+.arcade-card--breakout .arcade-card__art,
+.arcade-card--hopper .arcade-card__art,
+.arcade-card--blocks .arcade-card__art { flex-direction: column; gap: .3rem; }
+.arcade-card__body { display: flex; flex: 1; flex-direction: column; padding: clamp(20px, 2.4vw, 28px); }
+.arcade-card__number { font-size: 14px; font-variant-numeric: tabular-nums; color: var(--ink-muted); }
+.arcade-page .arcade-card h3 { margin-top: 6px; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem); line-height: 1.12; letter-spacing: -0.01em; }
+.arcade-page .arcade-card p { flex: 1; margin-top: 8px; color: var(--ink-soft); }
+.fg .arcade-card__play { margin-top: 20px; width: 100%; justify-content: space-between; }
+.arcade-card__play span { font-weight: 400; }
+/* Games load on demand (GMSArcade.play). The label only shows when the fetch
+   takes a noticeable moment; a failed load leaves a message under the button. */
+.arcade-card__play.is-loading { cursor: progress; }
+.arcade-card__play.is-loading span { display: none; }
+.arcade-card__play.is-loading::after { content: "Loading\2026"; font-weight: 400; font-size: 14px; }
+.arcade-page .arcade-card .gms-arcade-load-error { flex: 0 0 auto; margin-top: 12px; font-size: 15px; color: var(--ink); }
+@media (max-width: 900px) { .arcade-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .arcade-grid { grid-template-columns: minmax(0, 1fr); } .arcade-card__art { min-height: 132px; } }
