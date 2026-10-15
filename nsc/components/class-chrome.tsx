@@ -16,14 +16,7 @@ const NAV_LINK =
 export function ClassWordmark({ href = "/app/classes" }: { href?: string }) {
   return (
     <Link href={href} className="inline-flex min-h-11 items-center gap-3 text-left text-ink-deep no-underline">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/nsc/logo-mark.png"
-        alt=""
-        width={36}
-        height={36}
-        className="size-9 shrink-0 rounded-full border border-line-soft bg-white object-contain p-[3px]"
-      />
+      <svg viewBox="8 -6 96 96" width={32} height={32} aria-hidden="true" focusable="false" className="size-8 shrink-0"><g fill="none" stroke="#193C39" strokeWidth={11.0} strokeLinecap="round" strokeLinejoin="round"><path d="M16.00,88.00 L16.00,82.00 A44.00,44.00 0 0 1 50.85,38.96" /></g><path d="M39.00,91.00 L39.00,88.00 A27.00,27.00 0 0 1 66.00,61.00 L78.00,61.00" fill="#8DAE9A" /></svg>
       <span className="font-display text-base font-semibold leading-tight tracking-[-0.005em] sm:text-[1.15rem]">
         Growing Minds Science
       </span>
