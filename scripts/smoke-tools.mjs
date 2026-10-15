@@ -1,7 +1,8 @@
 /* Headless smoke test for the parent-tools layer.
    Usage: node scripts/smoke-tools.mjs   (from the repo root, after `npm i --no-save playwright-core`)
    Serves the repo root on :8267 (override with SMOKE_PORT) and drives Chromium via
-   playwright-core (override the browser binary with CHROMIUM_PATH). */
+   playwright-core: CHROMIUM_PATH if set, else the CI image's Chromium, else the
+   installed Google Chrome. */
 import { chromium } from 'playwright-core';
 import { spawn } from 'node:child_process';
 import { existsSync } from 'node:fs';
@@ -20,11 +21,12 @@ const pdfPages = (buf) => (buf.toString('latin1').match(/\/Type\s*\/Page[^s]/g) 
 const server = spawn('python3', ['-m', 'http.server', String(PORT), '--bind', '127.0.0.1'], { cwd: ROOT, stdio: 'ignore' });
 await sleep(700);
 
-const browser = await chromium.launch({ executablePath: EXE, args: ['--no-sandbox'] });
+const browser = await chromium.launch(EXE ? { executablePath: EXE, args: ['--no-sandbox'] } : { channel: 'chrome' });
 const errors = [];
 const ctx = await browser.newContext();
 ctx.on('weberror', e => errors.push(String(e.error())));
 const page = await ctx.newPage();
+page.setDefaultTimeout(8000); // a local static server answers at once; fail fast on a missing element
 // Ignore benign network noise that only exists off-Vercel (insights beacon,
 // Google Fonts / external assets blocked locally). We only care about real JS.
 const benign = /Failed to load resource|ERR_CONNECTION|net::ERR|insights|fonts\.g|favicon|_vercel/i;
@@ -47,8 +49,8 @@ try {
   const chip = await page.locator('[data-gms-profile] .gms-chip.is-active').innerText();
   ok(/Nora/.test(chip) && /13–18|19–24|25–36/.test(chip), `hub: chip shows name + band (${chip.replace(/\n/g,' ')})`);
   ok(await page.evaluate(() => document.activeElement && document.activeElement.classList.contains('gms-chip')), 'hub: focus lands on the new child chip');
-  ok(await page.locator('.tool-card.is-foryou').count() > 0, 'hub: age-matched card flagged "For your child"');
-  ok(/is-foryou/.test(await page.locator('#sleep [data-gms-tool-list] > .tool-card').first().getAttribute('class')),
+  ok(await page.locator('[data-gms-tool-list] > .is-foryou').count() > 0, 'hub: age-matched card flagged "For your child"');
+  ok(/is-foryou/.test(await page.locator('#sleep [data-gms-tool-list] > article').first().getAttribute('class')),
     'hub: age-matched card moves first in DOM order (keyboard order matches the screen)');
 
   // --- Future birthdays are refused with a calm inline message ---
@@ -216,9 +218,9 @@ try {
 
   // --- Claims Library: hub + a claim page ---
   await page.goto(`${BASE}/claims/index.html`, { waitUntil: 'networkidle' });
-  ok(await page.locator('.cl-card').count() === 10, 'claims: hub lists all 10 claims');
+  ok(await page.locator('.cl-row').count() === 10, 'claims: hub lists all 10 claims');
   await page.goto(`${BASE}/claims/teething-fever.html`, { waitUntil: 'networkidle' });
-  ok(/Contradicted by evidence/.test(await page.locator('.cl-badges').first().innerText()), 'claims: grade badge renders');
+  ok(/Contradicted by evidence/.test(await page.locator('.cl-grade__labels').first().innerText()), 'claims: grade badge renders');
   ok(await page.locator('.cl-sources li').count() >= 2, 'claims: sources listed');
 
   // AI ?q= prefill — fills the box, does NOT send, cleans the URL
