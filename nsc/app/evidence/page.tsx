@@ -22,13 +22,13 @@ const GROUPS: { prefix: string[]; title: string; blurb: string }[] = [
     prefix: ["ev.numbertalk."],
     title: "Number talk",
     blurb:
-      "Why a daily ten-second prompt is on the plan: how much parents talk about number — and which numbers — tracks and causally shifts what children learn.",
+      "Why a daily ten-second prompt is on the plan: how much parents talk about number, and which numbers, tracks and causally shifts what children learn.",
   },
   {
     prefix: ["ev.boardgame.", "ev.spatial."],
     title: "The games",
     blurb:
-      "The linear board game is the most-studied home activity in this literature — real but modest effects, strongest in one-on-one play, and one preregistered school trial found none. Level-matched book counting carries the core randomized evidence.",
+      "The linear board game is the most-studied home activity in this literature: real but modest effects, strongest in one-on-one play, and one preregistered school trial found none. Level-matched book counting carries the core randomized evidence.",
   },
   {
     prefix: ["ev.protocol."],
@@ -46,7 +46,7 @@ const GROUPS: { prefix: string[]; title: string; blurb: string }[] = [
     prefix: ["ev.exclusion."],
     title: "What we deliberately left out",
     blurb:
-      "The claims we examined and chose not to build on — listed with the same care as the ones we did.",
+      "The claims we examined and chose not to build on, listed with the same care as the ones we did.",
   },
 ];
 
@@ -81,9 +81,9 @@ export default async function EvidencePage() {
           How we label evidence in the app
         </h2>
         <p className="text-ink">
-          Each game card carries two labels: how strong the evidence is —{" "}
+          Each game card carries two labels: how strong the evidence is (
           <em>randomized trial</em>, <em>replicated trial</em>,{" "}
-          <em>strong correlation</em>, or <em>theory-based</em> — and how much
+          <em>strong correlation</em>, or <em>theory-based</em>) and how much
           the field agrees: <em>high consensus</em>, <em>moderate consensus</em>,
           or <em>emerging</em>. Most early-math products stop at
           &ldquo;research-based.&rdquo; We&rsquo;d rather you see which kind of
@@ -102,7 +102,7 @@ export default async function EvidencePage() {
             machine, and every release must pass an automated certification
             suite before the app will even load its content. In the certified
             acceptance tiers it runs against 31,500 simulated children across
-            every rung and three levels of toddler-style noise — and thousands
+            every rung and three levels of toddler-style noise, and thousands
             more sessions of stress tests on top. It must finish within 18
             questions (typically about a dozen), and when noise does push it
             off the true rung, its errors are required to land <em>low</em>{" "}
@@ -150,7 +150,7 @@ export default async function EvidencePage() {
           Honest answer: real and modest. Nothing here turns a two-year-old
           into a prodigy, and anyone promising that is selling something else.
           What the research supports is steady, level-matched number talk and
-          play compounding over months — which is exactly the shape of the
+          play compounding over months, which is exactly the shape of the
           product: a few relaxed minutes a day, a ladder that moves every
           couple of months.
         </p>

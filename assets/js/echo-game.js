@@ -385,7 +385,7 @@
     function beginReturn() {
       state = "returning";
       inputIdx = 0;
-      announce("Your turn — " + len + (len === 1 ? " step" : " steps"));
+      announce("Your turn: " + len + (len === 1 ? " step" : " steps"));
     }
 
     // Auto-pause freezes everything: every timer is frame-driven inside
@@ -444,7 +444,7 @@
         for (var i = 0; i < PADS.length; i++) spawnBurst(PADS[i].cx, PADS[i].cy, PADS[i].color, 4);
         camera.shake(0.5);
         A.haptics.win(); // overrides the pop — vibrate() replaces, not queues
-        announce("Lovely — " + len + " in a row");
+        announce("Lovely, " + len + " in a row");
       }
     }
 
@@ -462,7 +462,7 @@
       camera.freeze(4);
       A.haptics.thump();
       spawnFloater(48, 70, "repair!", ROSE); // up-left diagonal, by the hearts
-      if (hearts > 0) announce("Missed cue — try that one again");
+      if (hearts > 0) announce("Missed cue. Try that one again");
     }
 
     function gameOver() {
@@ -973,12 +973,12 @@
     overlay.className = "gms-arcade-overlay";
     overlay.setAttribute("role", "dialog");
     overlay.setAttribute("aria-modal", "true");
-    overlay.setAttribute("aria-label", "Serve and Return — a mini game");
+    overlay.setAttribute("aria-label", "Serve and Return, a mini game");
     overlay.innerHTML =
       '<div class="gms-arcade-backdrop" data-egg-close></div>' +
       '<div class="gms-arcade-panel">' +
         '<div class="gms-arcade-panel__head">' +
-          '<p class="gms-arcade-title">Serve &amp; Return <span>— you found it!</span></p>' +
+          '<p class="gms-arcade-title">Serve &amp; Return<span>: you found it!</span></p>' +
           '<div style="display:flex;gap:8px;align-items:center">' +
             '<button type="button" class="gms-arcade-close" data-egg-mute aria-label="Sound">♪</button>' +
             '<button type="button" class="gms-arcade-close" data-egg-close aria-label="Close game">&times;</button>' +

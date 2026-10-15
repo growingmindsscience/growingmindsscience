@@ -170,8 +170,8 @@ export default async function ProgressPage({
             </h2>
             <p className="mt-1 text-sm text-ink">
               Unlock the full plan to see {child.nickname} against the typical
-              range for their age — drawn from the same published studies as
-              the check-in — and watch it move as they climb.
+              range for their age (drawn from the same published studies as
+              the check-in) and watch it move as they climb.
             </p>
             <Link
               href="/app/upgrade"
@@ -219,7 +219,7 @@ export default async function ProgressPage({
           </p>
           <p className="text-sm text-ink-muted">
             Marked &ldquo;loved it&rdquo; {favorite.count}{" "}
-            {favorite.count === 1 ? "time" : "times"} — a game they love is
+            {favorite.count === 1 ? "time" : "times"}. A game they love is
             worth three they tolerate.
           </p>
         </Card>
@@ -233,7 +233,7 @@ export default async function ProgressPage({
           <p className="text-sm text-ink-muted">
             {rungsClimbed > 0
               ? `${rungsClimbed} ${rungsClimbed === 1 ? "rung" : "rungs"} climbed since ${shortDate(new Date(first.completed_at))}.`
-              : `Holding steady since ${shortDate(new Date(first.completed_at))} — rungs move on the scale of months.`}
+              : `Holding steady since ${shortDate(new Date(first.completed_at))}. Rungs move on the scale of months.`}
           </p>
         )}
         {(history ?? []).map((h, i) => {
@@ -257,12 +257,12 @@ export default async function ProgressPage({
                   )}
                   {delta === 0 && (
                     <span className="ml-2 rounded-sm bg-sea-glass/60 px-2 py-0.5 text-xs font-semibold text-ink-muted">
-                      steady — rungs take months
+                      steady: rungs take months
                     </span>
                   )}
                   {delta != null && delta < 0 && (
                     <span className="ml-2 rounded-sm bg-sea-glass/60 px-2 py-0.5 text-xs font-semibold text-ink-muted">
-                      a wiggly read — it happens
+                      a wiggly read (it happens)
                     </span>
                   )}
                 </span>
@@ -294,7 +294,7 @@ export default async function ProgressPage({
                   <span className="font-semibold text-ink-deep">
                     Check-in time.
                   </span>{" "}
-                  Re-run it and see where things stand — climbs and settled
+                  Re-run it and see where things stand. Climbs and settled
                   rungs are both the ladder working.
                 </p>
                 <Link
@@ -312,8 +312,8 @@ export default async function ProgressPage({
                     {shortDate(checkin.due)}
                   </span>
                   {latest.confidence === "low"
-                    ? " — a sooner look after a playful estimate."
-                    : " — the six-week rhythm."}
+                    ? ", a sooner look after a playful estimate."
+                    : ", the six-week rhythm."}
                 </p>
                 <a
                   // A plain <a> gets no basePath from Next, so it's explicit.
@@ -329,7 +329,7 @@ export default async function ProgressPage({
       )}
 
       <p className="text-center text-sm text-ink-muted">
-        Every child climbs at their own pace. Typical ranges are wide — a map
+        Every child climbs at their own pace. Typical ranges are wide: a map
         of the ladder, never a race up it.
       </p>
 

@@ -46,14 +46,14 @@ export default async function PrescreenPage({
         </div>
         <Card>
           <p className="text-ink">
-            Before about two, the best number input is simply talk — counting
+            Before about two, the best number input is simply talk: counting
             stairs out loud, naming &ldquo;two socks,&rdquo; handing over
             crackers &ldquo;one&rdquo; at a time. {child.nickname} is soaking
             it all up.
           </p>
           <p className="mt-3 text-ink">
             The Feed-the-Bear check-in opens at two. We&rsquo;ll be ready when
-            {" "}{child.nickname} is — and the counting words you share now are
+            {" "}{child.nickname} is, and the counting words you share now are
             exactly what the ladder is built on.
           </p>
         </Card>

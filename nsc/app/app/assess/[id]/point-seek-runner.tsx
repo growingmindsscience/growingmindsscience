@@ -232,7 +232,7 @@ export function PointSeekRunner({
           onClick={() => record("skip")}
           className="inline-flex min-h-11 items-center justify-center px-3 py-2 text-center text-sm text-ink-muted underline disabled:opacity-50"
         >
-          No point this time — skip
+          No point this time: skip
         </button>
       </div>
 

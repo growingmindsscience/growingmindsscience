@@ -373,7 +373,7 @@
         buildWave(wave);
         ensureAudio(); sfx.wave();
         A.haptics.thump();
-        startBanner("Wave " + wave + " — " + WAVE_NAMES[wave - 1]);
+        startBanner("Wave " + wave + ": " + WAVE_NAMES[wave - 1]);
       }
     }
 
@@ -752,12 +752,12 @@
     overlay.className = "gms-arcade-overlay";
     overlay.setAttribute("role", "dialog");
     overlay.setAttribute("aria-modal", "true");
-    overlay.setAttribute("aria-label", "GMS Invaders — a hidden mini game");
+    overlay.setAttribute("aria-label", "GMS Invaders, a hidden mini game");
     overlay.innerHTML =
       '<div class="gms-arcade-backdrop" data-egg-close></div>' +
       '<div class="gms-arcade-panel">' +
         '<div class="gms-arcade-panel__head">' +
-          '<p class="gms-arcade-title">GMS Invaders <span>— you found it!</span></p>' +
+          '<p class="gms-arcade-title">GMS Invaders<span>: you found it!</span></p>' +
           '<div style="display:flex;gap:8px;align-items:center">' +
             '<button type="button" class="gms-arcade-close" data-egg-mute aria-label="Sound">♪</button>' +
             '<button type="button" class="gms-arcade-close" data-egg-close aria-label="Close game">&times;</button>' +

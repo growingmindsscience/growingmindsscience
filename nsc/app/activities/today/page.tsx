@@ -134,7 +134,7 @@ export default async function TodaysThreePage({
         </h1>
         <p className="mt-2 text-ink">
           Three picks for today, balanced across areas of development. Even one
-          is a real day — no need to do them all.
+          is a real day. No need to do them all.
         </p>
         <p className="mt-2">
           <Link
@@ -188,10 +188,10 @@ export default async function TodaysThreePage({
               <Card className="bg-sea-glass/30">
                 <p className="text-ink">
                   {activities.length === 0
-                    ? "The library is still filling — picks appear as soon as activities are published."
+                    ? "The library is still filling. Picks appear as soon as activities are published."
                     : months >= 36
                       ? `The Activity Library covers 0–36 months for now. For ${child.nickname}'s age, Number Path has a full week of counting games.`
-                      : "No age-matched activities yet — new batches are on the way."}
+                      : "No age-matched activities yet. New batches are on the way."}
                 </p>
                 {months >= 36 && activities.length > 0 && (
                   <Link href="/" className="mt-1 inline-flex min-h-11 items-center text-sm font-semibold text-teal underline">

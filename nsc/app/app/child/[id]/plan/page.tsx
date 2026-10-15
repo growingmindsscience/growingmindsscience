@@ -93,7 +93,7 @@ export default async function PlanPage({
               See the whole week
             </summary>
             <p className="mt-1 text-xs text-ink-muted">
-              Read ahead and pick whichever fits your day — there&rsquo;s
+              Read ahead and pick whichever fits your day. There&rsquo;s
               nothing to check off.
             </p>
             <ol className="mt-3 flex flex-col gap-2">
@@ -131,7 +131,7 @@ export default async function PlanPage({
             ) : (
               <>{ctx.child.nickname}&rsquo;s rung.</>
             )}{" "}
-            Even one, played a couple of times, is a real week — no need to do
+            Even one, played a couple of times, is a real week. No need to do
             them all.
           </p>
         </div>
@@ -173,8 +173,8 @@ export default async function PlanPage({
             <div>
               <h2 className="font-semibold text-ink-deep">Check-in time</h2>
               <p className="mt-1 text-sm text-ink">
-                See where {ctx.child.nickname} stands. Rungs take months —
-                a climb and a rung settling in are both the ladder working.
+                See where {ctx.child.nickname} stands. Rungs take months.
+                A climb and a rung settling in are both the ladder working.
               </p>
             </div>
             <LinkButton href={`/app/child/${id}/prescreen`}>
@@ -190,7 +190,7 @@ export default async function PlanPage({
               <p className="mt-1 text-sm text-ink">
                 {ctx.confidence === "low"
                   ? "A sooner look, because today's read was a playful estimate."
-                  : "The six-week rhythm. Rungs take months to move — the check-in is how you watch the climb without rushing it."}
+                  : "The six-week rhythm. Rungs take months to move, and the check-in is how you watch the climb without rushing it."}
               </p>
             </div>
             <a

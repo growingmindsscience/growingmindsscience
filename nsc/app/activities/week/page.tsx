@@ -93,7 +93,7 @@ export default async function WeeklyPlanPage({
         </h1>
         <p className="mt-2 text-ink">
           One anchor a day, one backup for when the anchor flops. The week
-          stays the same every time you look — print it and stick it on the
+          stays the same every time you look. Print it and stick it on the
           fridge.
         </p>
       </header>
@@ -149,7 +149,7 @@ export default async function WeeklyPlanPage({
             <Link href="/activities/today" className="font-semibold text-teal underline">
               Today&rsquo;s 3
             </Link>{" "}
-            page first — the planner builds around their age.
+            page first. The planner builds around their age.
           </p>
         </Card>
       )}
@@ -172,7 +172,7 @@ export default async function WeeklyPlanPage({
               <Card className="bg-sea-glass/30 print:hidden">
                 <p className="text-ink">
                   {activities.length === 0
-                    ? "The library is still filling — the planner lights up as soon as activities are published."
+                    ? "The library is still filling. The planner lights up as soon as activities are published."
                     : months >= 36
                       ? `The Activity Library covers 0–36 months for now. For ${child.nickname}, Number Path plans the week instead.`
                       : "Nothing fits that budget yet. Loosen the mess or time filter and rebuild."}
@@ -223,7 +223,7 @@ export default async function WeeklyPlanPage({
       })}
 
       <p className="text-sm text-ink-muted print:hidden">
-        Missing a day costs nothing — the backup exists for flops, not for
+        Missing a day costs nothing. The backup exists for flops, not for
         doing both.
       </p>
     </main>

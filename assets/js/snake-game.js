@@ -505,7 +505,7 @@
     function showIdle() {
       if (!els.prompt) return;
       els.promptTitle.textContent = "Synapse Snake";
-      els.promptText.textContent = "Link the sparks and grow the pathway — just don't tangle it.";
+      els.promptText.textContent = "Link the sparks and grow the pathway. Just don't tangle it.";
       els.promptActions.textContent = "";
       A.renderLeaderboard(els.promptActions, GAME_KEY, { title: "Local top scores" });
       var btn = document.createElement("button");
@@ -517,7 +517,7 @@
     function showPaused() {
       if (!els.prompt) return;
       els.promptTitle.textContent = "Paused";
-      els.promptText.textContent = "The pathway is waiting — no sparks lost.";
+      els.promptText.textContent = "The pathway is waiting. No sparks lost.";
       els.promptActions.textContent = "";
       var btn = document.createElement("button");
       btn.type = "button"; btn.className = "btn btn--primary"; btn.textContent = "Resume";
@@ -622,12 +622,12 @@
     overlay.className = "gms-arcade-overlay";
     overlay.setAttribute("role", "dialog");
     overlay.setAttribute("aria-modal", "true");
-    overlay.setAttribute("aria-label", "Synapse Snake — a hidden mini game");
+    overlay.setAttribute("aria-label", "Synapse Snake, a hidden mini game");
     overlay.innerHTML =
       '<div class="gms-arcade-backdrop" data-egg-close></div>' +
       '<div class="gms-arcade-panel">' +
         '<div class="gms-arcade-panel__head">' +
-          '<p class="gms-arcade-title">Synapse Snake <span>— you found it!</span></p>' +
+          '<p class="gms-arcade-title">Synapse Snake<span>: you found it!</span></p>' +
           '<div style="display:flex;gap:8px;align-items:center">' +
             '<button type="button" class="gms-arcade-close" data-egg-mute aria-label="Sound">♪</button>' +
             '<button type="button" class="gms-arcade-close" data-egg-close aria-label="Close game">&times;</button>' +

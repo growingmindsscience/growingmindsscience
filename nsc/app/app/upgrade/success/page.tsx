@@ -21,7 +21,7 @@ export default async function UpgradeSuccessPage() {
         <p className="mt-3 text-ink">
           {full
             ? `The whole of ${brand.productName} is yours now. Go climb.`
-            : "Your payment went through. Access unlocks in a moment — refresh your plan if a game still looks locked."}
+            : "Your payment went through. Access unlocks in a moment. Refresh your plan if a game still looks locked."}
         </p>
         <LinkButton href="/app" className="mt-6">
           Back to your children

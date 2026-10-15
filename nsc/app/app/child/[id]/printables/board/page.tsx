@@ -15,7 +15,7 @@ export default async function BoardSheet() {
         </div>
         <p className="mb-6 text-sm text-ink print:mb-3">
           Print, grab a token each and a die or spinner. Take turns moving, and
-          say the number on every space you land on — that saying is the whole
+          say the number on every space you land on. That saying is the whole
           game.
         </p>
         <div className="grid grid-cols-5 gap-2">

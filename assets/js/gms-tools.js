@@ -420,7 +420,7 @@
     var slug = location.pathname.replace(/^.*\/tools\//, "").replace(/\.html$/, "").replace(/\/$/, "") || "tools";
     return {
       slug: slug,
-      title: (h1 ? h1.textContent.trim() : document.title.split("—")[0].trim()),
+      title: (h1 ? h1.textContent.trim() : document.title.split(/\s[|—]\s/)[0].trim()),
       path: location.pathname.replace(/\.html$/, ""),
       url: location.pathname.replace(/\.html$/, "") + location.hash
     };

@@ -140,7 +140,7 @@ export default async function AppHome({
                       </p>
                       {checkin?.ready ? (
                         <p className="mt-1 text-sm font-semibold text-teal">
-                          Time for the next check-in — see where things stand.{" "}
+                          Time for the next check-in. See where things stand.{" "}
                           <Link
                             href={`/app/child/${c.id}/plan`}
                             className="font-normal text-ink-muted underline"
@@ -156,7 +156,7 @@ export default async function AppHome({
                     </>
                   ) : inFlight ? (
                     <p className="text-sm text-ink-muted">
-                      Check-in in progress — the bear is napping
+                      Check-in in progress: the bear is napping
                     </p>
                   ) : (
                     <p className="text-sm text-ink-muted">No check-in yet</p>

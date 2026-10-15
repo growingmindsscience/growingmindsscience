@@ -226,7 +226,7 @@ export function TrialRunner({
               {delta === 0 ? (
                 <>
                   <span className="font-semibold text-ink-deep">
-                    Same rung as last time — that&rsquo;s the usual six-week
+                    Same rung as last time: that&rsquo;s the usual six-week
                     story.
                   </span>{" "}
                   Rungs take months, and a home read can wiggle either way.
@@ -247,7 +247,7 @@ export function TrialRunner({
                     Reading lower than last time usually means the day, not
                     the child.
                   </span>{" "}
-                  Hungry bears, split attention — nothing is lost. This
+                  Hungry bears, split attention: nothing is lost. This
                   week&rsquo;s games sit at today&rsquo;s cozier read; play
                   the check-in again in a week or two if you&rsquo;re curious.
                 </>
@@ -267,7 +267,7 @@ export function TrialRunner({
               <p className="mt-2 text-xs text-ink-muted">{ageSummary.caveat}</p>
             )}
             <p className="mt-2 text-xs text-ink-muted">
-              Typical ranges are wide — a map, never a race.{" "}
+              Typical ranges are wide: a map, never a race.{" "}
               <Link
                 href={`/app/child/${childId}/progress`}
                 className="font-semibold underline"
@@ -281,14 +281,14 @@ export function TrialRunner({
           <p className="text-center text-xs leading-relaxed text-ink-muted">
             Children learn each language&rsquo;s number words separately. If{" "}
             {childName} counts in another language, an English read can sit a
-            rung low — that&rsquo;s the language, not the ladder.
+            rung low. That&rsquo;s the language, not the ladder.
           </p>
         )}
         {noticeLine}
         {result?.confidence === "high" &&
           (offDayMarked ? (
             <p role="status" className="text-center text-sm text-ink-muted">
-              Marked. We&rsquo;ll treat today as a rougher estimate — the
+              Marked. We&rsquo;ll treat today as a rougher estimate. The
               plan stays the same, and the next check-in will tell you more.
             </p>
           ) : (
@@ -305,7 +305,7 @@ export function TrialRunner({
               }}
               className="min-h-11 px-3 py-2 text-center text-sm text-ink-muted underline"
             >
-              Was today an off day — tired, distracted, bear mobbed? Tap to
+              Was today an off day (tired, distracted, bear mobbed)? Tap to
               mark it, and we&rsquo;ll read today gently.
             </button>
           ))}
@@ -321,7 +321,7 @@ export function TrialRunner({
               type="submit"
               className="min-h-11 w-full px-3 py-2 text-center text-sm text-ink-muted underline"
             >
-              The bear got mobbed? Try Point and Seek — a two-minute watching
+              The bear got mobbed? Try Point and Seek, a two-minute watching
               game, no setup
             </button>
           </form>
@@ -504,7 +504,7 @@ export function TrialRunner({
               <span className="font-semibold text-ink-deep">
                 Two skips in a row?
               </span>{" "}
-              The bear may need a nap. Pausing keeps everything — come back
+              The bear may need a nap. Pausing keeps everything. Come back
               within two days and pick up right here.
             </p>
             <button
