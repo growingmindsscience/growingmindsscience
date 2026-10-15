@@ -1,0 +1,184 @@
+/* =========================================================
+   Growing Minds Science: toolapp.css
+   The interactive tools that share the guides' title block (body.tool-app):
+   Communication Snapshot (cs-), the activity library (al-), the reading
+   prompt cards (rp-) and the Milestone Navigator (nv-). The title block,
+   sections and sources come from guide.css; this file styles what each
+   tool's script renders, on the annotated-observation system: the working
+   surface on soft white, choices as calm outlined buttons, explanations on
+   sage mist, quiet rules between rows. The print sheets keep their own
+   rules, unchanged. Tokens from tokens-field-guide.css.
+   ========================================================= */
+
+/* ---------- Shared: the tool's working surface ---------- */
+.tool-app .g-narrow.cs-app, .tool-app .g-narrow.nv-app, .tool-app .g-narrow.al-wrap, .tool-app .g-narrow.rp-wrap { display: grid; gap: 24px; }
+.tool-app :is(.cs-card, .nv-card) { padding: clamp(22px, 3.4vw, 44px); border-radius: var(--radius-lg); background: var(--surface); }
+.tool-app :is(.cs-progress, .nv-progress) { font-size: 14px; font-weight: 500; color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+.tool-app :is(.cs-step-title, .nv-title) { margin-top: 6px; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem); line-height: 1.1; letter-spacing: -0.015em; }
+.tool-app :is(.cs-step-lede, .nv-lede) { margin-top: 10px; color: var(--ink-soft); max-width: 60ch; }
+.tool-app :is(.cs-step-lede, .nv-lede, .nv-help) + * { margin-top: 24px; }
+.tool-app :is(.cs-note, .nv-fine, .al-note, .rp-note) { font-size: 15px; line-height: 1.55; color: var(--ink-muted); max-width: 64ch; }
+
+/* The script's own buttons, in the system's two shapes. */
+.fg.tool-app .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5em; min-height: 48px; padding: 0 1.25rem; border: 0; border-radius: var(--radius); background: var(--forest); color: var(--on-forest); font: inherit; font-size: 1rem; font-weight: 500; text-decoration: none; cursor: pointer; transition: background-color 160ms ease; }
+.fg.tool-app .btn:hover { background: var(--forest-deep); color: var(--on-forest); }
+.fg.tool-app .btn--ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
+.fg.tool-app .btn--ghost:hover { background: var(--sage-mist); color: var(--ink); }
+.fg.tool-app .btn:focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
+.fg.tool-app .site-header .btn { box-shadow: none; }
+.tool-app :is(.cs-nav, .nv-nav) { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 28px; }
+.tool-app :is(.cs-nav, .nv-nav) .gms-link { display: inline-flex; align-items: center; min-height: 44px; }
+.tool-app :is(.cs-error, .nv-error) { margin-top: 12px; font-size: 15px; color: var(--danger); }
+
+/* Section heads inside a result, and the closing note under its actions. */
+.tool-app :is(.nv-result, .cs-report) > h3 { margin-top: 28px; font-family: var(--font-display); font-weight: 400; font-size: 1.375rem; line-height: 1.2; letter-spacing: -0.01em; }
+.tool-app :is(.cs-card, .nv-card) :is(.cs-note, .nv-fine) { margin-top: 20px; }
+
+/* Fields */
+.tool-app :is(.cs-field, .nv-field) { display: grid; gap: 6px; margin-bottom: 22px; }
+.tool-app :is(.cs-field label, .cs-field__label, .nv-field label, .nv-field__label) { font-weight: 500; color: var(--ink); }
+.tool-app :is(.cs-field, .nv-field) input[type="number"] { width: 8rem; min-height: 48px; padding: 8px 12px; border: 1.5px solid var(--ink-muted); border-radius: var(--radius); background: var(--paper); color: var(--ink); font: inherit; font-variant-numeric: tabular-nums; }
+.tool-app :is(.cs-field, .nv-field) input:focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; border-color: var(--forest); }
+.tool-app :is(.cs-hint, .nv-hint) { font-size: 15px; color: var(--ink-muted); }
+
+/* Choices: calm outlined buttons, forest when chosen (the guides' decoder). */
+.tool-app :is(.cs-chips, .nv-chips, .al-filter-row, .rp-filter-row) { display: flex; flex-wrap: wrap; gap: 8px; }
+.fg.tool-app :is(.cs-chip, .nv-chip, .al-chip, .rp-chip) {
+  min-height: 44px; padding: 8px 14px; border: 0; border-radius: var(--radius);
+  background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--border);
+  font: inherit; font-size: 15px; line-height: 1.3; cursor: pointer;
+  transition: background-color 160ms ease, box-shadow 160ms ease, color 160ms ease;
+}
+.fg.tool-app :is(.cs-chip, .nv-chip, .al-chip, .rp-chip):hover { background: var(--sage-mist); box-shadow: inset 0 0 0 1.5px var(--ink-muted); }
+.fg.tool-app :is(.cs-chip, .nv-chip, .al-chip, .rp-chip).is-active { background: var(--forest); color: var(--on-forest); box-shadow: none; }
+.tool-app :is(.cs-chip, .nv-chip, .al-chip, .rp-chip):focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
+.tool-app :is(.al-filter-label, .rp-filter-label) { min-width: 6rem; font-size: 15px; font-weight: 500; color: var(--ink); }
+
+/* ---------- Communication Snapshot ---------- */
+.tool-app .cs-item { padding-block: 20px; border-top: 1px solid var(--border-soft); }
+.tool-app .cs-item:first-of-type { border-top: 0; padding-top: 0; }
+.tool-app .cs-item__prompt { font-family: var(--font-display); font-size: 1.25rem; line-height: 1.25; color: var(--ink); }
+.tool-app .cs-item__help { margin: 4px 0 12px; font-size: 15px; color: var(--ink-muted); max-width: 60ch; }
+.tool-app .cs-item.is-missing .cs-item__prompt::after { content: " \00B7 needs an answer"; font-family: var(--font-body); font-size: 14px; color: var(--danger); }
+
+/* The read: its level in words, then the lead, the invitation and the flags. */
+.tool-app :is(.cs-sev, .nv-class) { display: inline-flex; align-items: center; min-height: 32px; padding: 4px 12px; margin-bottom: 16px; border-radius: var(--radius-sm, 6px); font-size: 15px; font-weight: 600; }
+.tool-app :is(.cs-sev--none, .cs-sev--watch, .nv-class--typical_range) { background: var(--sage-mist); color: var(--forest); }
+.tool-app :is(.cs-sev--discuss, .cs-sev--priority_discuss, .nv-class--discuss, .nv-class--priority_discuss) { background: transparent; color: var(--clay-text); box-shadow: inset 0 0 0 1.5px var(--clay-text); }
+.tool-app .cs-report h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem); line-height: 1.1; letter-spacing: -0.015em; }
+.tool-app .cs-lead { margin-top: 10px; color: var(--ink-soft); max-width: 62ch; }
+.tool-app :is(.cs-invitation, .nv-invitation) { margin-top: 16px; padding-left: 14px; border-left: 2px solid var(--clay-text); max-width: 58ch; font-family: var(--font-display); font-size: 1.1875rem; line-height: 1.4; color: var(--ink); }
+.tool-app .cs-flags { display: grid; margin-top: 28px; }
+.tool-app .cs-flag { padding-block: 16px; border-top: 1px solid var(--border-soft); }
+.tool-app .cs-flag:first-child { border-top: 0; padding-top: 0; }
+.tool-app .cs-flag h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.25rem; line-height: 1.25; }
+.tool-app .cs-flag p { margin-top: 6px; color: var(--ink-soft); line-height: 1.65; }
+.tool-app :is(.cs-guidance, .nv-notes) { display: grid; margin-top: 28px; }
+.tool-app .cs-guidance details { border-top: 1px solid var(--border-soft); }
+.tool-app .cs-guidance details:last-child { border-bottom: 1px solid var(--border-soft); }
+.tool-app .cs-guidance summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; min-height: 52px; padding-block: 10px; font-weight: 500; }
+.tool-app .cs-guidance summary::-webkit-details-marker { display: none; }
+.tool-app .cs-guidance summary::after { content: "+"; font-size: 1.25rem; color: var(--ink-muted); }
+.tool-app .cs-guidance details[open] summary::after { content: "\2212"; }
+.tool-app .cs-guidance summary:focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
+.tool-app .cs-guidance__body { padding-bottom: 16px; color: var(--ink-soft); max-width: 62ch; }
+.tool-app .cs-recap { margin-top: 28px; padding: clamp(18px, 2.4vw, 28px); border-radius: var(--radius-lg); background: var(--sage-mist); }
+.tool-app .cs-recap h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.25rem; }
+.tool-app .cs-recap ul { margin: 10px 0 0; padding-left: 1.1rem; display: grid; gap: 6px; font-size: 15px; color: var(--ink-soft); }
+
+/* ---------- Milestone Navigator ---------- */
+.tool-app .nv-domains { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.fg.tool-app :is(.nv-domain, .nv-answer) {
+  display: block; width: 100%; text-align: left; border: 0; border-radius: var(--radius);
+  background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--border);
+  font: inherit; cursor: pointer; transition: background-color 160ms ease, box-shadow 160ms ease;
+}
+.fg.tool-app .nv-domain { min-height: 72px; padding: 14px 18px; }
+.fg.tool-app .nv-answer { min-height: 52px; padding: 12px 16px; font-weight: 500; }
+.fg.tool-app :is(.nv-domain, .nv-answer):hover { background: var(--sage-mist); box-shadow: inset 0 0 0 1.5px var(--ink-muted); }
+.tool-app :is(.nv-domain, .nv-answer):focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
+.tool-app .nv-domain strong { display: block; font-family: var(--font-display); font-weight: 400; font-size: 1.25rem; line-height: 1.2; }
+.tool-app .nv-domain span { display: block; margin-top: 4px; font-size: 15px; line-height: 1.45; color: var(--ink-muted); }
+.tool-app .nv-answers { display: grid; gap: 8px; max-width: 32rem; }
+.tool-app .nv-help { margin-top: 10px; font-size: 15px; color: var(--ink-muted); max-width: 60ch; }
+.tool-app :is(.nv-flags, .nv-actions-list) { margin: 20px 0 0; padding-left: 1.15rem; display: grid; gap: 8px; color: var(--ink-soft); max-width: 62ch; }
+.tool-app .nv-note { padding-block: 14px; border-top: 1px solid var(--border-soft); color: var(--ink-soft); }
+.tool-app .nv-note:first-child { border-top: 0; padding-top: 0; }
+.tool-app .nv-script { margin-top: 24px; padding: clamp(18px, 2.4vw, 28px); border-radius: var(--radius-lg); background: var(--sage-mist); }
+.tool-app .nv-script strong { display: block; margin-bottom: 6px; font-family: var(--font-display); font-weight: 400; font-size: 1.25rem; }
+@media (max-width: 760px) { .tool-app .nv-domains { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- Activity library and reading prompt cards ---------- */
+.tool-app :is(.al-panel, .rp-panel) h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem); line-height: 1.08; letter-spacing: -0.015em; }
+.tool-app :is(.al-sub, .rp-sub) { margin-top: 10px; margin-bottom: 20px; color: var(--ink-soft); max-width: 60ch; }
+.tool-app #al-today-panel { padding: clamp(22px, 3vw, 36px); border-radius: var(--radius-lg); background: var(--sage-mist); }
+.tool-app .al-filters { display: grid; gap: 12px; }
+.tool-app :is(.al-count, .rp-count) { margin-top: 16px; font-size: 15px; color: var(--ink-muted); }
+.tool-app :is(.al-grid, .rp-grid) { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(18rem, 100%), 1fr)); gap: 16px; margin-top: 20px; }
+.tool-app .al-today { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr)); gap: 16px; margin-top: 4px; }
+.tool-app :is(.al-card, .rp-card) { display: flex; flex-direction: column; gap: 8px; padding: clamp(18px, 2vw, 24px); border-radius: var(--radius-lg); background: var(--surface); }
+.tool-app :is(.al-card__meta, .rp-card__meta) { display: flex; flex-wrap: wrap; gap: 6px; }
+.tool-app :is(.al-badge, .rp-badge) { padding: 2px 8px; border-radius: var(--radius-sm, 6px); background: var(--sage-mist); font-size: 13px; line-height: 1.5; color: var(--ink-soft); }
+.tool-app .rp-badge--type { color: var(--forest); font-weight: 600; }
+.tool-app .al-card h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.3125rem; line-height: 1.2; letter-spacing: -0.01em; }
+.tool-app .al-card__intent { font-size: 15px; line-height: 1.6; color: var(--ink-soft); }
+.tool-app .al-card details { margin-top: 2px; }
+.tool-app .al-card summary { display: inline-flex; align-items: center; min-height: 44px; cursor: pointer; font-size: 15px; font-weight: 500; color: var(--forest); }
+.tool-app .al-card summary:focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
+.tool-app .al-detail h4 { margin: 14px 0 4px; font-size: 14px; font-weight: 600; color: var(--ink); }
+.tool-app :is(.al-detail ol, .al-detail ul) { margin: 0; padding-left: 1.1rem; display: grid; gap: 4px; font-size: 15px; color: var(--ink-soft); }
+.tool-app .al-detail p { font-size: 15px; color: var(--ink-soft); }
+.tool-app .al-safety { margin-top: 10px; padding: 10px 12px; border-radius: var(--radius); background: var(--sage-mist); }
+.tool-app .al-card__foot { margin-top: auto; padding-top: 6px; display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.tool-app .al-card__foot .gms-link { display: inline-flex; align-items: center; min-height: 44px; }
+.tool-app .al-done { font-size: 15px; }
+.tool-app .al-done.is-done { color: var(--forest); font-weight: 600; }
+.tool-app .rp-card__prompt { font-family: var(--font-display); font-style: italic; font-size: 1.3125rem; line-height: 1.3; color: var(--ink); }
+.tool-app .rp-card__follow { font-size: 15px; line-height: 1.6; color: var(--ink-muted); }
+.tool-app .rp-panel .cs-nav { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.tool-app .rp-explainers { display: grid; margin-top: 28px; }
+.tool-app .rp-explainers details { border-top: 1px solid var(--border-soft); }
+.tool-app .rp-explainers details:last-child { border-bottom: 1px solid var(--border-soft); }
+.tool-app .rp-explainers summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; min-height: 52px; padding-block: 10px; font-weight: 500; }
+.tool-app .rp-explainers summary::-webkit-details-marker { display: none; }
+.tool-app .rp-explainers summary::after { content: "+"; font-size: 1.25rem; color: var(--ink-muted); }
+.tool-app .rp-explainers details[open] summary::after { content: "\2212"; }
+.tool-app .rp-explainers summary:focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
+.tool-app .rp-explainers p { padding-bottom: 16px; color: var(--ink-soft); max-width: 62ch; }
+/* The PEER loop in the title panel is filled by the script. */
+.tool-app .g-glance .dot { display: none; }
+
+/* ---------- Print sheets (unchanged from the inline styles) ---------- */
+#visit-sheet, #al-pocket, #rp-deck, #nv-sheet { display: none; }
+@media print {
+  body.printing-visit > :not(#visit-sheet) { display: none !important; }
+  body.printing-visit #visit-sheet { display: block; color: #000; font: 12pt/1.5 Georgia, serif; padding: 1rem; }
+  #visit-sheet h2 { font: 700 16pt/1.2 "Helvetica Neue", sans-serif; margin: 0 0 .3rem; }
+  #visit-sheet h3 { font: 700 12pt/1.2 "Helvetica Neue", sans-serif; margin: 1rem 0 .3rem; }
+  #visit-sheet ul { margin: .2rem 0; padding-left: 1.2rem; }
+  #visit-sheet .vs-foot { margin-top: 1.2rem; font-size: 9pt; color: #444; border-top: 1px solid #999; padding-top: .5rem; }
+
+  body.printing-al > :not(#al-pocket) { display: none !important; }
+  body.printing-al #al-pocket { display: block; color: #000; font: 12pt/1.5 Georgia, serif; padding: 1rem; }
+  #al-pocket h2 { font: 700 16pt/1.2 "Helvetica Neue", sans-serif; margin: 0 0 .3rem; }
+  #al-pocket h3 { font: 700 11pt/1.2 "Helvetica Neue", sans-serif; margin: .8rem 0 .2rem; }
+  #al-pocket ol, #al-pocket ul { margin: .2rem 0; padding-left: 1.2rem; }
+  #al-pocket .vs-foot { margin-top: 1rem; font-size: 9pt; color: #444; border-top: 1px solid #999; padding-top: .5rem; }
+
+  body.printing-rp > :not(#rp-deck) { display: none !important; }
+  body.printing-rp #rp-deck { display: block; color: #000; font: 10pt/1.4 Georgia, serif; }
+  #rp-deck .deck-head { font: 700 13pt/1.2 "Helvetica Neue", sans-serif; margin: 0 0 .5rem; }
+  #rp-deck .deck-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .35in; }
+  #rp-deck .deck-card { border: 1px dashed #999; border-radius: 8px; padding: .3in; break-inside: avoid; }
+  #rp-deck .deck-card .t { font: 700 9pt/1.2 "Helvetica Neue", sans-serif;  margin: 0 0 .15in; }
+  #rp-deck .deck-card .p { font-style: italic; font-size: 11pt; margin: 0 0 .12in; }
+  #rp-deck .deck-card .f { font-size: 8.5pt; color: #444; margin: 0; }
+  #rp-deck .deck-foot { margin-top: .3in; font-size: 8pt; color: #444; }
+
+  body.printing-nv > :not(#nv-sheet) { display: none !important; }
+  body.printing-nv #nv-sheet { display: block; color: #000; font: 12pt/1.5 Georgia, serif; padding: 1rem; }
+  #nv-sheet h2 { font: 700 16pt/1.2 "Helvetica Neue", sans-serif; margin: 0 0 .3rem; }
+  #nv-sheet h3 { font: 700 12pt/1.2 "Helvetica Neue", sans-serif; margin: 1rem 0 .3rem; }
+  #nv-sheet ul { margin: .2rem 0; padding-left: 1.2rem; }
+  #nv-sheet .vs-foot { margin-top: 1.2rem; font-size: 9pt; color: #444; border-top: 1px solid #999; padding-top: .5rem; }
+}
