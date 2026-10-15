@@ -33,3 +33,5 @@ node_modules/
 
 # Ship-gate working files (scripts/fg-gate.mjs): tools, screenshots, raw reports
 .fg-gate/
+scripts/brand-mark/fonts/
+scripts/brand-mark/out/
