@@ -1,23 +1,25 @@
 import type { Metadata } from "next";
-import { Atkinson_Hyperlegible_Next, Besley } from "next/font/google";
+import { Inter, Newsreader } from "next/font/google";
 import "./globals.css";
 import { brand } from "@/lib/config/brand";
 import { TimeZoneSync } from "@/components/timezone-sync";
+import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 
-// Brand fonts, matching the parent site (DESIGN.md): Besley for display,
-// Atkinson Hyperlegible Next for everything a parent has to read. next/font
-// downloads them at build time and serves them from this origin, which the
-// CSP (font-src 'self') requires. Both are variable fonts, so any weight works.
-const besley = Besley({
+// Brand fonts, matching the parent site's field guide: Newsreader for
+// display, Inter for everything a parent has to read. next/font downloads
+// them at build time and serves them from this origin, which the CSP
+// (font-src 'self') requires. Both are variable fonts, so any weight works.
+const newsreader = Newsreader({
   subsets: ["latin"],
   style: ["normal", "italic"],
+  axes: ["opsz"],
   display: "swap",
-  variable: "--font-besley",
+  variable: "--font-newsreader",
 });
-const atkinson = Atkinson_Hyperlegible_Next({
+const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-atkinson",
+  variable: "--font-inter",
 });
 
 const THEME_SCRIPT =
@@ -33,22 +35,25 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${besley.variable} ${atkinson.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${newsreader.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
         {/* Apply the saved or system theme before paint, with the main site's
             key. Only the classes area styles it (see .class-theme). */}
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
       </head>
-      <body className="min-h-screen antialiased">
+      <body className="flex min-h-screen flex-col antialiased">
         {/* Skip link, matching the parent static site (every page there has one).
             Pages render their own <main> landmark, so this targets a focusable
             wrapper rather than adding a second <main>. */}
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>
-        <div id="main-content" tabIndex={-1}>
+        {/* The Field Guide header and footer, as on the parent site. */}
+        <SiteHeader />
+        <div id="main-content" tabIndex={-1} className="flex flex-1 flex-col *:w-full">
           {children}
         </div>
+        <SiteFooter />
         <TimeZoneSync />
       </body>
     </html>

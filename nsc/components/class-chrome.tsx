@@ -3,37 +3,29 @@ import { type ReactNode } from "react";
 import { signoutClasses } from "@/app/auth/actions";
 import { sitePath } from "@/lib/site";
 import { CLASS_REFUND_POLICY } from "@/lib/refund-policy";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { SiteWordmark } from "@/components/site-chrome";
 
 const NAV_LINK =
-  "inline-flex min-h-11 items-center rounded-control px-3 text-sm font-medium text-ink-soft underline decoration-transparent decoration-2 underline-offset-[0.4em] transition-colors hover:text-ink-deep hover:decoration-amber";
+  "inline-flex min-h-11 items-center rounded-control px-3 text-sm font-medium text-ink-soft underline decoration-transparent decoration-1 underline-offset-[0.35em] transition-colors hover:text-ink-deep hover:decoration-current";
 
 /**
- * The site wordmark: the logo mark and "Growing Minds Science" in Besley 600,
- * the same as the marketing site's header. The mark sits on a white disc in
- * both themes, as it does there.
+ * The site wordmark lockup (the mark, "growing minds", SCIENCE), the same as
+ * the site header's, for the centred sign-in and sign-up frames.
  */
 export function ClassWordmark({ href = "/app/classes" }: { href?: string }) {
-  return (
-    <Link href={href} className="inline-flex min-h-11 items-center gap-3 text-left text-ink-deep no-underline">
-      <svg viewBox="8 -6 96 96" width={32} height={32} aria-hidden="true" focusable="false" className="size-8 shrink-0"><g fill="none" stroke="#193C39" strokeWidth={11.0} strokeLinecap="round" strokeLinejoin="round"><path d="M16.00,88.00 L16.00,82.00 A44.00,44.00 0 0 1 50.85,38.96" /></g><path d="M39.00,91.00 L39.00,88.00 A27.00,27.00 0 0 1 66.00,61.00 L78.00,61.00" fill="#8DAE9A" /></svg>
-      <span className="font-display text-base font-semibold leading-tight tracking-[-0.005em] sm:text-[1.15rem]">
-        Growing Minds Science
-      </span>
-    </Link>
-  );
+  return <SiteWordmark href={href} label="Growing Minds Science classes" />;
 }
 
 /**
- * Header for the classes area. Classes and Number Path share an account
- * and nothing else, so no Number Path navigation appears here unless the
- * account owns both (`showNumberPath`).
+ * The classes area's own navigation, a quiet bar under the site header.
+ * Classes and Number Path share an account and nothing else, so no Number
+ * Path navigation appears here unless the account owns both (`showNumberPath`).
  */
 export function ClassHeader({ email, showNumberPath }: { email?: string; showNumberPath: boolean }) {
   return (
-    <header className="border-b border-line bg-ground">
-      <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-6 py-2">
-        <ClassWordmark />
+    <div className="border-b border-line bg-ground print:hidden">
+      <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-6 py-1">
+        <p className="text-sm font-semibold text-ink-deep">Your classes</p>
         <nav aria-label="Classes" className="flex flex-wrap items-center gap-x-1">
           <Link href="/app/classes" className={NAV_LINK}>My classes</Link>
           {email && <Link href="/app/classes/account" className={NAV_LINK}>Account</Link>}
@@ -45,39 +37,21 @@ export function ClassHeader({ email, showNumberPath }: { email?: string; showNum
           )}
         </nav>
       </div>
-    </header>
-  );
-}
-
-const FOOTER_LINK =
-  "inline-flex min-h-11 items-center rounded-control px-3 font-medium text-on-dark underline decoration-transparent decoration-2 underline-offset-[0.4em] transition-colors hover:decoration-amber";
-
-/** Slim footer for every class page: a way to get help, and the way back out. Ink-900, as on the site. */
-export function ClassFooter() {
-  return (
-    <footer className="ink-band bg-ink-900 text-on-dark-soft">
-      <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-3 py-3 text-sm sm:px-6">
-        <nav aria-label="Help and site" className="flex flex-wrap items-center">
-          <a href={sitePath("/contact/")} className={FOOTER_LINK}>Contact</a>
-          <a href={sitePath("/")} className={FOOTER_LINK}>Growing Minds Science home</a>
-          <ThemeToggle className={FOOTER_LINK} />
-        </nav>
-        <p className="px-3 text-xs text-on-dark-muted">Educational content only. Not medical or psychological advice.</p>
-      </div>
-    </footer>
+    </div>
   );
 }
 
 /**
  * Wraps every class page: paints the themed ground (see .class-theme in
- * globals.css) and keeps the footer at the bottom of short pages.
+ * globals.css) and fills the space between the site header and footer, so
+ * the footer stays at the bottom of short pages. The footer and the theme
+ * toggle are the site's (components/site-chrome.tsx).
  */
 export function ClassShell({ header, children }: { header?: ReactNode; children: ReactNode }) {
   return (
-    <div className="class-theme flex min-h-screen flex-col">
+    <div className="class-theme flex flex-1 flex-col">
       {header}
       <div className="flex flex-1 flex-col *:w-full">{children}</div>
-      <ClassFooter />
     </div>
   );
 }

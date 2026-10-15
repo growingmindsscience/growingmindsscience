@@ -1,67 +1,68 @@
 @import "tailwindcss";
 
-/* "Seminar": the marketing site's design system (DESIGN.md, assets/css/home.css).
-   Token NAMES are the ones the components already use; the values are the
-   site's. Cool paper-white ground, deep ink, brand teal for action, one amber
-   highlighter (amber on ink bands, amber-deep as text on light), Besley over
-   Atkinson Hyperlegible Next. No cream, no terracotta, no pills. */
+/* The Field Guide: the marketing site's design system (assets/css/
+   tokens-field-guide.css and the brand guidelines). Token NAMES are the ones
+   the components already use; the values are the field guide's. Field paper,
+   forest ink, deep verdigris for action, sage mist for explanatory surfaces,
+   Newsreader over Inter, calm corners, no shadows at rest. The old Seminar
+   amber is retired: label text is forest, marks on ink are sage. */
 @theme {
   /* Grounds */
-  --color-ground: #f6f9f8;
-  --color-surface: #ffffff;
-  --color-tint: #e6efed;
+  --color-ground: #f7f4ec;
+  --color-surface: #fffdf8;
+  --color-tint: #e0ebe5;
   /* sea-glass is the older name for the tinted fill (chips, progress tracks). */
-  --color-sea-glass: #e6efed;
+  --color-sea-glass: #e0ebe5;
 
-  /* Ink. `ink` is body text; `ink-deep` is Seminar's ink for headings. */
-  --color-ink: #14323a;
-  --color-ink-deep: #12262c;
-  --color-ink-800: #14323a;
-  --color-ink-900: #0e2129;
-  --color-ink-soft: #3a5058;
-  --color-ink-muted: #52676c;
+  /* Ink. `ink` is body text; `ink-deep` is the heading ink. */
+  --color-ink: #193c39;
+  --color-ink-deep: #193c39;
+  --color-ink-800: #193c39;
+  --color-ink-900: #12302d;
+  --color-ink-soft: #35504c;
+  --color-ink-muted: #546965;
 
-  /* Action: teal on light grounds. teal-soft is for hover and decor, not
-     small text (4.3:1 on tint); secondary text is ink-soft or ink-muted. */
-  --color-teal: #1e5f62;
-  --color-teal-soft: #2e7a77;
-  --color-teal-hover: #14323a;
-  --color-teal-light: #7fc4bc;
-  /* Text on a teal fill (primary buttons). Dark flips teal light, so this flips too. */
-  --color-on-teal: #ffffff;
+  /* Action: deep verdigris on light grounds. teal-soft is for hover and decor. */
+  --color-teal: #245f58;
+  --color-teal-soft: #1c4d47;
+  --color-teal-hover: #1c4d47;
+  --color-teal-light: #a9c3b2;
+  /* Text on a verdigris fill (primary buttons). Dark flips the fill light, so this flips too. */
+  --color-on-teal: #fffdf8;
 
-  /* The one accent. amber: marks and buttons on ink bands. amber-deep: any
-     amber text on a light ground (6.5:1). amber-tint: the pale band. */
-  --color-amber: #f2a93b;
-  --color-amber-bright: #f7bc5e;
-  --color-amber-deep: #7f5008;
-  --color-amber-tint: #fbebc8;
+  /* Former amber names, kept so the components need no edits. amber: marks
+     and buttons on ink bands (sage). amber-deep: label text on light grounds
+     (forest). amber-tint: the pale band (sage mist). */
+  --color-amber: #a9c3b2;
+  --color-amber-bright: #8dae9a;
+  --color-amber-deep: #245f58;
+  --color-amber-tint: #e0ebe5;
 
-  /* Text tiers on ink bands (12:1, 8.4:1, 5.3:1 on ink-800). */
-  --color-on-dark: #eef4f3;
-  --color-on-dark-soft: #bcced3;
-  --color-on-dark-muted: #8da6ac;
+  /* Text tiers on ink bands. */
+  --color-on-dark: #f2efe6;
+  --color-on-dark-soft: #c9d0cb;
+  --color-on-dark-muted: #9faea8;
 
   /* Rules and borders. */
-  --color-line: #d3dedc;
-  --color-line-soft: #e3ebe9;
+  --color-line: #cdd3cb;
+  --color-line-soft: #dee2d8;
   /* Input outlines: 3:1 on the ground and white, so a field edge is visible (WCAG 1.4.11). */
   --color-field-line: #789690;
 
-  /* Form errors. Amber is the accent, never a warning. */
+  /* Form errors. */
   --color-danger: #a6371f;
-  /* Legacy name for the error text color; there is no coral on class surfaces. */
+  /* Legacy name for the error text color. */
   --color-coral-deep: #a6371f;
 
   /* Number Path only: the Counting Ladder's current-rung field (child-facing
-     game UI). Class pages do not use it. */
-  --color-rung-glow: #f8e7e0;
+     game UI), in sage mist. Class pages do not use it. */
+  --color-rung-glow: #e0ebe5;
 
-  /* Brand pairing, as on the parent site: Besley display over Atkinson
-     Hyperlegible Next. next/font self-hosts both (the CSP is font-src 'self')
-     and puts a size-matched fallback inside each variable. */
-  --font-display: var(--font-besley), Georgia, "Times New Roman", serif;
-  --font-body: var(--font-atkinson), "Helvetica Neue", Arial, sans-serif;
+  /* Brand pairing, as on the parent site: Newsreader display over Inter.
+     next/font self-hosts both (the CSP is font-src 'self') and puts a
+     size-matched fallback inside each variable. */
+  --font-display: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  --font-body: var(--font-inter), "Helvetica Neue", Arial, sans-serif;
 
   /* The site's type scale: 17px body, 15px captions, 13px fine print. */
   --text-xs: 0.8125rem;
@@ -73,22 +74,22 @@
   --text-lg: 1.1875rem;
   --text-lg--line-height: 1.5;
 
-  /* Radius scale 6 / 10 / 14 / 18. Controls and rows are 10, panels 14. */
-  --radius-sm: 6px;
-  --radius-lg: 10px;
-  --radius-xl: 10px;
-  --radius-2xl: 14px;
-  --radius-3xl: 18px;
-  --radius-control: 10px;
-  --radius-card: 14px;
-  --radius-panel: 18px;
+  /* Calm corners (brand guidelines): 4 / 6 / 10. Controls 6, cards and panels 10. */
+  --radius-sm: 4px;
+  --radius-lg: 6px;
+  --radius-xl: 6px;
+  --radius-2xl: 10px;
+  --radius-3xl: 10px;
+  --radius-control: 6px;
+  --radius-card: 10px;
+  --radius-panel: 10px;
 
-  /* Ink-tinted shadows. Depth comes from bands first. */
-  --shadow-sm: 0 1px 2px rgba(14, 33, 41, 0.06);
-  --shadow-md: 0 16px 36px -20px rgba(14, 33, 41, 0.32);
-  --shadow-lg: 0 24px 44px -26px rgba(14, 33, 41, 0.42);
-  --shadow-primary: 0 14px 28px -16px rgba(30, 95, 98, 0.55);
-  --shadow-amber: 0 16px 30px -18px rgba(242, 169, 59, 0.7);
+  /* No shadows at rest. Only real overlays (a menu, a dialog) keep depth. */
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: 0 18px 40px -24px rgba(25, 60, 57, 0.4);
+  --shadow-primary: none;
+  --shadow-amber: none;
 }
 
 body {
@@ -100,65 +101,62 @@ body {
 }
 
 /* Classes area. `.class-theme` wraps every class page (sign-in, catalog,
-   classroom, lessons) and paints its own ground, so the dark values below
-   never reach Number Path, which has no dark design. Values mirror the main
-   site's [data-theme="dark"] tokens (assets/css/home.css); the attribute is
-   set before paint by the script in app/layout.tsx. In dark the ground
-   (#15262c) stays lighter than the ink bands so the band structure survives. */
+   classroom, lessons) and paints its own ground. Number Path has no dark
+   design, so dark applies only to a page that holds `.class-theme`, and to the
+   whole of it, header and footer included. Values mirror the main site's
+   [data-theme="dark"] field-guide tokens; the attribute is set before paint by
+   the script in app/layout.tsx. */
 .class-theme {
   background: var(--color-ground);
   color: var(--color-ink);
 }
-html[data-theme="dark"] .class-theme {
+html[data-theme="dark"] body:has(.class-theme) {
   color-scheme: dark;
-  --color-ground: #15262c;
-  --color-surface: #1c3037;
-  --color-tint: #233940;
-  --color-sea-glass: #233940;
-  --color-ink: #e8efed;
-  --color-ink-deep: #e8efed;
-  --color-ink-800: #0b1a1f;
-  --color-ink-900: #061115;
-  --color-ink-soft: #c0cfd2;
-  --color-ink-muted: #8fa6ab;
-  --color-teal: #7fc4bc;
-  --color-teal-soft: #9ad5cd;
-  --color-teal-hover: #9ad5cd;
-  --color-on-teal: #07211e;
-  --color-amber: #f3b649;
-  --color-amber-bright: #f7c66b;
-  --color-amber-deep: #f3b649;
-  --color-amber-tint: #3a2c12;
-  --color-line: #31484f;
-  --color-line-soft: #273c43;
+  --color-ground: #141f1c;
+  --color-surface: #1e2c28;
+  --color-tint: #22362f;
+  --color-sea-glass: #22362f;
+  --color-ink: #edebe3;
+  --color-ink-deep: #edebe3;
+  --color-ink-800: #0f1a17;
+  --color-ink-900: #0b1210;
+  --color-ink-soft: #cdd3cc;
+  --color-ink-muted: #9faea8;
+  --color-teal: #8fc4ae;
+  --color-teal-soft: #a8d5c3;
+  --color-teal-hover: #a8d5c3;
+  --color-on-teal: #0e1a16;
+  --color-amber: #8fc4ae;
+  --color-amber-bright: #a8d5c3;
+  --color-amber-deep: #8fc4ae;
+  --color-amber-tint: #22362f;
+  --color-line: #35463f;
+  --color-line-soft: #2b3a34;
   --color-field-line: #6b8a83;
   --color-danger: #f0907e;
   --color-coral-deep: #f0907e;
-  --color-rung-glow: #3a2c12;
-}
-/* Overscroll and short pages show the body, so match it. */
-html[data-theme="dark"] body:has(.class-theme) {
-  background: #15262c;
+  --color-rung-glow: #22362f;
+  background: #141f1c;
 }
 
 @layer base {
-  /* Headings carry Besley; buttons, labels and summaries stay in the body
-     face, as on the site. In the base layer so a utility (font-semibold,
-     tracking-*) can still override. Clarendons cramp, so tracking never goes
-     tighter than -0.01em. */
+  /* Headings carry Newsreader at its regular weight, as on the site; buttons,
+     labels and summaries stay in Inter. In the base layer so a utility
+     (font-semibold, tracking-*) can still override. */
   h1,
   h2,
   h3,
   h4 {
     font-family: var(--font-display);
-    font-weight: 500;
-    line-height: 1.12;
-    letter-spacing: -0.005em;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
     text-wrap: balance;
   }
 
-  /* One focus ring everywhere: amber-deep on light grounds, amber on ink
-     bands. Components that draw their own ring say focus-visible:outline-none. */
+  /* One focus ring everywhere: forest on light grounds (amber-deep now holds
+     forest), sage on ink bands. Components that draw their own ring say
+     focus-visible:outline-none. */
   :focus-visible {
     outline: 2.5px solid var(--color-amber-deep);
     outline-offset: 3px;
@@ -169,18 +167,18 @@ html[data-theme="dark"] body:has(.class-theme) {
 }
 
 ::selection {
-  background: #f2a93b;
-  color: #0e2129;
+  background: #a9c3b2;
+  color: #193c39;
 }
 
-/* Skip link, as on the parent static site: amber on ink, slides in from off screen. */
+/* Skip link, as on the parent static site: forest, slides in from off screen. */
 .skip-link {
   position: absolute;
   left: 1rem;
   top: -100px;
   z-index: 100;
-  background: #f2a93b;
-  color: #0e2129;
+  background: #245f58;
+  color: #fffdf8;
   padding: 0.75rem 1.25rem;
   border-radius: 6px;
   font-family: var(--font-body);
@@ -191,35 +189,19 @@ html[data-theme="dark"] body:has(.class-theme) {
 }
 .skip-link:focus {
   top: 1rem;
-  color: #0e2129;
+  color: #fffdf8;
 }
 
-/* The highlighter: the brand's one typographic flourish. One phrase per page
-   at most, inside a Besley headline. */
+/* The Seminar highlighter is retired: the field guide has no typographic
+   flourish. The class stays so existing markup keeps rendering, as plain text. */
 .hl {
-  --hl-bg: color-mix(in oklab, var(--color-amber) 62%, var(--color-surface));
-  background-image: linear-gradient(var(--hl-bg), var(--hl-bg));
-  background-repeat: no-repeat;
-  background-position: 0 56%;
-  background-size: 100% 0.74em;
-  color: #12262c;
-  padding: 0 0.1em;
-  margin: 0 -0.1em;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-}
-html[data-theme="dark"] .class-theme .hl {
-  --hl-bg: var(--color-amber);
-  color: #0e2129;
+  color: inherit;
 }
 
-/* Graph-paper texture behind ink bands: the lab-notebook feel that carries
-   "science" without a stock photo. */
+/* The Seminar graph-paper texture is retired; ink bands are a flat field,
+   as on the site. The class stays so existing markup keeps rendering. */
 .ink-grid {
-  background-image:
-    linear-gradient(rgba(238, 244, 243, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(238, 244, 243, 0.055) 1px, transparent 1px);
-  background-size: 44px 44px;
+  background-image: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -230,4 +212,28 @@ html[data-theme="dark"] .class-theme .hl {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* The wordmark and mark, as on the site's header and footer (brand-mark.md):
+   forest arcs and a sage leaf on light grounds; sage arcs and a pale leaf on
+   the ink footer and in the dark theme. */
+.site-wordmark {
+  color: var(--color-ink-deep);
+}
+.site-mark__leaf {
+  fill: #8dae9a;
+}
+.site-footer .site-wordmark {
+  color: var(--color-on-dark);
+}
+.site-footer .site-mark,
+html[data-theme="dark"] body:has(.class-theme) .site-header .site-mark {
+  color: #a9c3b2;
+}
+.site-footer .site-mark__leaf,
+html[data-theme="dark"] body:has(.class-theme) .site-header .site-mark__leaf {
+  fill: #cfdfd6;
+}
+.site-menu[open] > summary {
+  color: var(--color-teal);
 }
