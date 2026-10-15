@@ -1,108 +1,128 @@
-# Field guide validation report
+# Field guide validation report (C5)
 
-Pages tested: `/index.html` and `/lens/leaving-the-playground.html`, served from the worktree at http://127.0.0.1:8470 on 2026-10-14. Browser: Chrome for Testing (chromium-1228) driven by Node `playwright-core` scripts, because axe and multi-step keyboard flows were easier to script that way than through `playwright-cli`. Scripts live in the session scratchpad (`validate/`). Screenshots are in `.taste-skill/validation/` inside the worktree. The `/_vercel/insights/script.js` 404 is ignored throughout.
+Final verification of the redesign on the live site, https://growingmindsscience.com, on 2026-10-15, after S0 to S8 merged. Everything below was run against production, not a local server, except the repo gates. The automated gates come from `node scripts/fg-gate.mjs --label c5-live --base https://growingmindsscience.com` over every page in the sitemap (55 pages; nsc is checked separately), and the full output is `gate-reports/2026-10-15-c5-live.md`. Screenshots are live captures in `reference/c5/`, each page at 1440 and 390, plus seven dark-theme pages.
+
+Three small fixes were made on this branch during the run (listed at the end). They are not live yet, so where a check depends on them, it says so.
 
 ## Summary
 
 | # | Check | Result |
 |---|-------|--------|
-| 1 | Axe (wcag2a, 2aa, 21a, 21aa, 22aa) | Pass, 0 violations in all 9 runs |
-| 2 | Console and network errors | Pass |
-| 3 | Keyboard | Pass, with one minor note on the skip link target |
-| 4 | Reduced motion | Pass |
-| 5 | No JavaScript | **Fail**, five explorer panels are hidden |
-| 6 | Links | Pass, none broken |
-| 7 | Responsive | Pass for overflow and clipping; advisory on touch target height |
-| 8 | Dark theme | Pass |
-| 9 | Repo gates | Pass (stamp check passes now, so the lead has stamped) |
-| 10 | Performance | Pass, with advisory on oversized images |
+| 1 | Taste inspector, every page at 1440, 768 and 390 | No defects among the automated fails; three small items for Matthew (homepage and claim kickers, arcade dingbats, the AI input ring) |
+| 2 | Axe, every page | Pass, 0 violations on all 55 pages at 1440 and 390 |
+| 3 | No JavaScript, reduced motion, keyboard, tap targets | Pass; the four flags are content hidden until opened and one inline link |
+| 4 | Lighthouse mobile (home, Lens, classes hub) | Performance 92 to 96; **LCP 2.6 to 3.3s, over the 2.5s target** (render-blocking web fonts) |
+| 5 | Sitemap and canonicals | Pass, 56 of 56 URLs return 200 and each canonical names itself |
+| 6 | Redirects | Pass, 42 of 42 live redirects land where `vercel.json` says; 3 new ones ship with this PR |
+| 7 | Purchase links | Pass for the classes up to the account step; **the Growing Minds AI Pro checkout fails (502)**, Matthew is checking |
+| 8 | Login and class access | Not run; needs Matthew and the test account |
+| 9 | Dark theme | Pass by eye on seven pages |
+| 10 | Repo gates | Pass |
+| 11 | Old system removed | Pass |
 
-## 1. Axe
+## 1. Taste inspector
 
-Zero violations on every run: home at 1440, 768 and 390 in light and with `data-theme="dark"`; lens at 1440, 768 and 390 in light. Each page was scrolled to the bottom first so reveal animations had run. That includes the color-contrast rule, so no contrast failures were reported in either theme. No selectors to list.
+The inspector ran on all 55 pages at 1440, 768 and 390. It reports something on every page, so its findings are split three ways below. `/milestones` did not return a report (the inspector's output breaks on that page, as it did on the S8 run). The full list is in the gate report.
 
-## 2. Console and network
+**Rules that contradict the brand guidelines or the known quirks, so not defects.** These account for almost every line:
+- `hairline` (53 pages): the guidelines call for quiet 1px rules.
+- `palette-cream`: the paper colour, #F7F4EC.
+- `no-footage` and `still-page`: the site is meant to be calm.
+- `few-pictures` (53): photographs wait on S7, and stock is not allowed.
+- `covered-text` on `/classes/preschool` at 390: the sticky header, a known quirk.
+- `micro-label` "science": the tracked SCIENCE in the wordmark lockup.
+- "01" to "04" on the homepage and the Lens page: the four Lens steps in their real order.
 
-Both pages at 1440 and 390, scrolled to the bottom. The only console error and the only failed or 4xx request in all four runs was the Vercel insights script. No page errors, no warnings, no other failed requests.
+**Judgement calls flagged for C5:**
+- `focal-point` (32 pages): the first screen has no single dominant element. That is true of the text pages by design, where the headline leads.
+- `headline-lines` (28): long titles wrap to three lines at 390. These are mostly claim questions and the right-now choices, where the full sentence is the point.
 
-## 3. Keyboard
+**Real, small, and left for Matthew's call rather than changed in C5:**
+1. Kickers above headings, which the guidelines do not allow:
+   - On the homepage: "The Developmental Lens" above "Leaving the playground", and the two class meta lines ("29 lessons in 5 modules, about 5 hours" and "15 lessons in 4 modules") above their class titles.
+   - On the claim pages: "Scientific consensus" above the answer.
+   - The homepage ones are part of composition B as approved, and the claim one is the verdict label. Two flagged lines are a short line ending a block just above a heading (toddler class at 390, FAQ at 768), the inspector's distance quirk, not kickers.
+2. `/arcade/` uses decorative dingbats (✦ ✧ ✉ ♪ ✺) in the game UI, and its stylesheet uses `100vh` twice.
+3. The Growing Minds AI input box draws its 1px forest border as a box-shadow ring. It reads as a border, not a shadow.
 
-- Skip link: the first Tab lands on "Skip to content" (`href="#main"`). It becomes visible at (32, 8), 169 by 53 px, with a 2px solid outline. Enter sets `location.hash` to `#main` and `#main` exists. Note: `<main id="main">` has no `tabindex="-1"`, so after activation focus stays on `body` rather than moving into main. Screen reader and next-Tab behavior usually still works in Chrome, but it is not guaranteed in every browser. The focused skip link also touches the "Growing Minds Science" wordmark (`kb-1-skiplink.png`).
-- Masthead notes: all four buttons are reachable by Tab. Enter on each moves `aria-pressed="true"` to that button only, and Space returns it to note 1.
-- Lens tabs (checked on the homepage lens and the Lens page, identical results): ArrowRight and ArrowLeft move focus, ArrowLeft from the first tab wraps to Reflect, Home goes to Observe, End to Reflect. Focus moves without selecting, and Enter or Space selects (`aria-selected` updates and the matching panel shows).
-- Explorer: the range input goes from 27 to 28 on ArrowRight and `aria-valuetext` updates to "2 years, 4 months". Stage tabs respond to ArrowDown, ArrowUp, Home and End, and selection follows focus.
-- Focus sweep: 139 consecutive Tab stops on the homepage, every one with a visible outline or box-shadow; none lacked one. Screenshots: `kb-1-skiplink.png`, `kb-3-home-lens-tab-focus.png`, `kb-4-explorer-range-focus.png`, `kb-5-explorer-tab-focus.png`, `kb-2-masthead-note-focus.png`.
+## 2. Axe
 
-## 4. Reduced motion
+0 WCAG 2.2 A and AA violations on all 55 pages at 1440 and 390 (110 runs), including colour contrast.
 
-With `reducedMotion: reduce`, the `anim` class is not added to `<html>`. The homepage has 28 `[data-reveal]` elements and none has computed opacity 0; the Lens page has none. No `.shutter` element is clipped. Every top-level section has non-zero height and text (the lens panels other than Observe are tabbed away by design, not blank). Full-page screenshots: `reduced-home-full.png`, `reduced-lens-full.png`.
+## 3. No JavaScript, reduced motion, keyboard and tap targets
 
-## 5. No JavaScript
+- **No JavaScript:** passes on 54 of 55 pages. On `/milestones`, the tracker's progress counter ("0 of 42 milestones marked as noticed") and "Your notes" only exist with script. They are features that save to the browser, and the milestone content itself shows without script.
+- **Reduced motion:** passes on 53 of 55 pages. The two flags are content that is hidden until opened: the homepage plate's labels, which appear when "Show what's growing" is pressed, and the Growing Minds AI topic sheet.
+- **Keyboard:** no page has a tab stop out of document order. Escape closes every disclosure.
+- **Tap targets:** every control is at least 44px at 390. The one flag is the "Communication Snapshot" link inside a sentence on `/milestones` (194 by 20). WCAG 2.5.8 exempts inline links in text.
 
-Fail on one of three requirements.
+## 4. Lighthouse
 
-- Lens: all four step panels (observe, understand, respond, reflect) are visible, on both the homepage and the Lens page. Pass.
-- Masthead notes: all four `.masthead__note-text` sentences are visible. Pass.
-- Explorer: **all five `[data-stage-panel]` panels are hidden** (0 by 0 px). Cause: in `index.html` the `<div class="explorer__cursor">` that wraps the range input is never closed before `<div class="explorer__body">`, so the tabs and all five panels are nested inside `.explorer__cursor`. `assets/css/explorer.css` line 47 sets `.explorer__cursor { display: none }` until `explorer.js` adds `.explorer-js`. The file's overall `<div>` count is balanced, so another close tag sits later and masks the bug when JS runs. The no-JS fallback intended by the CSS comment ("the cursor and tabs appear only once explorer.js adds .explorer-js") therefore does not work, and it also hides the links in those panels from crawlers and no-JS users. Fix: close the cursor div before `.explorer__body`, and remove the extra close tag later.
+Mobile, simulated throttling, on the live site:
 
-Screenshots: `nojs-home-fold.png`, `nojs-home-full.png`, `nojs-lens-fold.png`, `nojs-lens-full.png`.
+| Page | Performance | LCP | CLS | TBT | Accessibility | Best practices | SEO |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `/` | 95 | 2.77s | 0.002 | 0ms | 100 | 100 | 100 |
+| `/lens/leaving-the-playground` | 96 | 2.58s | 0.017 | 0ms | 99 | 100 | 100 |
+| `/classes/` | 92 | 3.25s | 0.001 | 0ms | 100 | 100 | 100 |
 
-## 6. Links
+Performance clears 90 everywhere, but LCP is over the 2.5s target on all three pages. The cause is the same on each: the Google Fonts stylesheet blocks rendering for about 810ms, and the font files come from a second origin after it, even though both origins are preconnected. On `/classes/` the LCP is the lead paragraph, so it waits for Newsreader (2.6s render delay). The fix is to self-host Newsreader and Inter as woff2 files with a preload. That changes every page's head and the CSP, so it is proposed as its own PR, not folded into C5.
 
-Homepage: 80 anchors, 37 unique hrefs. Lens page: 38 anchors, 26 unique. Each same-origin href was resolved against the filesystem and the `vercel.json` rewrites. All resolve: clean URLs such as `/tools/right-now` map to their `.html` files, directory paths (`/classes/`, `/tools/`, `/articles/`, `/about/`, `/claims/`, `/arcade/`, `/faq/`, `/contact/`) have an `index.html`, and `#main`, `#explore`, `#lens` and `/#explore` all match an id on the page. `/nsc`, `/nsc/class-login` and `/nsc/classes/infant/preview` are proxied to nsc-lake.vercel.app and were not fetched. The one external link is the Instagram profile. Broken: none.
+## 5. Sitemap and canonicals
 
-## 7. Responsive
+The live `sitemap.xml` lists 56 URLs. Every one returns 200, and for every non-nsc page the `<link rel="canonical">` is exactly the sitemap URL. On live, three class pages are still listed and canonicalised at their `.html` addresses (`/classes/birth-to-12-months.html`, `/classes/preschool.html`, `/classes/family-systems.html`) while the other class page and the rest of the site use clean URLs. This branch moves their sitemap entries, canonicals, `og:url` and JSON-LD to the clean addresses and adds 308 redirects from the `.html` ones. The clean addresses already return 200 live, so nothing breaks in between. `node scripts/check-canonicals.mjs` passes on the branch.
 
-Screenshots at 1440, 1024, 768 and 390, fold and full page, for both pages (`resp-<page>-<width>-fold.png` and `-full.png`; also `resp-home-390-explorer.png` and `resp-home-390-lens.png`).
+## 6. Redirects
 
-- Horizontal overflow: none at any width on either page (`scrollWidth` equals `innerWidth`). One SVG `rect` extends to x=416 at 390 but is clipped inside its SVG and causes no scroll.
-- Clipped text: only visually hidden headings and the intentionally collapsed explorer tab labels (the long age and name are swapped for short ages at narrow widths). No visible text is cut off.
-- Touch target height at 390 (links and buttons under 44 px): the homepage has 16 and the Lens page has 5. Homepage: "Explore by age" (26), "Start here." (22, inline), four `.lens__link` items (40), "It's hard right now" and "Class 2, Toddler years" (42), five inline links in the right-now list (22: "Meltdown or tantrum", "Testing a limit", "Won't sleep", "I'm losing my patience", "Something happened between us"), and three inline links "Milestone tracker", "Number Path", "Arcade" (22). Lens page: the same four `.lens__link` items (40) and one inline link "Explore what is growing at oth..." (20). Axe's 24 px target-size rule did not flag any because of the inline and spacing exemptions, so this is advisory.
+Each literal redirect in `vercel.json` was requested on the live site without following it. 42 return a 308 to exactly the configured destination. The three that do not are the new `.html` class redirects above, which return 200 because they are not deployed yet. There are no pattern redirects.
 
-## 8. Dark theme
+## 7. Purchase links
 
-With `data-theme="dark"` both pages switch to background rgb(20, 31, 28) with text rgb(237, 235, 227). Fold screenshots `dark-home-fold.png` and `dark-lens-fold.png`, full pages `dark-home-full.png` and `dark-lens-full.png`. Nothing looks low contrast by eye, and axe color-contrast reported nothing for the homepage in dark at three widths. The Lens page in dark was checked visually only, not by axe.
+Every enrol link on the four class pages and `/pricing` was followed to the step before payment, and stopped there. No account was created and no form was submitted.
 
-## 9. Repo gates
+| Link | Live result |
+|------|-------------|
+| Birth to 12 months, "Enroll" | `/nsc/class-signup?next=/app/classes/infant/enroll`, 200. The page shows "Step 1 of 2: create your account", "Step 2: pay securely with Stripe", "$49 once" and the 14-day refund policy |
+| Preschool years, "Enroll" | Same page for `/app/classes/preschool/enroll`, 200 |
+| Enroll pages without an account | `/nsc/app/classes/infant/enroll` and `/preschool/enroll` return 307 to `/nsc/class-login?next=...`, so the sign-in wall holds and keeps the destination |
+| Toddler years | Thinkific course page and Thinkific sign-in, both 200 (this class has not moved off Thinkific yet) |
+| Gift a class | `/nsc/gift`, 200 |
+| Family systems | Sign-in link only (the class is not on sale yet), 200 |
+| Growing Minds AI Pro (`/pricing`) | `POST /api/create-checkout-session` returns **502** `{"error":"Could not start checkout. Please try again."}` every time. Stripe is rejecting the session: either the price behind `AI_PRO_PRICE_ID` is inactive or `STRIPE_SECRET_KEY` has changed. This predates the redesign and is outside its scope; Matthew is checking the price and key |
 
-- `node scripts/check-canonicals.mjs`: pass, all 72 pages declare an absolute canonical.
-- `node scripts/stamp-assets.mjs --check`: pass ("every CSS/JS reference is stamped (35 assets, 108 files)"). The lead appears to have stamped already.
-- `lint.mjs` on the nine named paths: 0 FAIL, 0 WARN. The lint prompt says to run `inspect.mjs` on the rendered page; that was not part of the request and was not run.
+The Stripe checkout page itself is reached only after signing in, so it was not opened for the classes (that is check 8).
 
-## 10. Performance
+## 8. Login and class access
 
-Sizes are uncompressed bodies from the local static server, so treat them as upper bounds.
+Not run. It needs the existing test account on the live site, and passwords are not entered on Matthew's behalf. Matthew will sign in, open a class he owns and play a lesson.
 
-| Page | Requests (incl. 404) | CSS | JS | Images | HTML | DOMContentLoaded | Load |
-|------|------|------|------|------|------|------|------|
-| Home | 18 | 85,881 B | 21,975 B | 838,997 B | 65,452 B | 290 ms | 456 ms |
-| Lens | 11 | 76,538 B | 14,075 B | 99,942 B | 34,282 B | 398 ms | 557 ms |
+## 9. Dark theme
 
-Largest homepage images: `hero-parent-baby.jpg` 337,762 B, `toddler-blocks.jpg` 177,824 B, `notebook-coffee.jpg` 171,091 B.
+Captured live in dark: home, Explore, an article, the Communication Snapshot, a claim page, the milestone tracker and the class sign-in (`reference/c5/dark-*.jpg`). All seven switch to the dark field with light text, the header and footer follow, and nothing reads low contrast by eye.
 
-Images rendered at less than 40% of intrinsic width at 1440:
+## 10. Repo gates
 
-- `hero-parent-baby.jpg`: 259 px shown, 1000 intrinsic (26%).
-- `child-learning.jpg`: 230 px shown, 1200 intrinsic (19%); on both pages.
-- `notebook-coffee.jpg`: 336 px shown, 1200 intrinsic (28%).
-- `matthew-photo-600.jpg`: 94 px shown, 600 intrinsic (16%).
-- `original-logo-mark-no-words-128.png`: 36 px shown, 128 intrinsic (28%); acceptable for 2x and 3x screens.
+On the branch: `stamp-assets --check` (every CSS/JS reference is stamped, 39 assets, 121 files), `check-canonicals`, `build-claims --check` (11 files match the artifact), `build-explore --check` (7 files match the data), nsc `npm test` (283 passed) and `npm run typecheck` all pass.
 
-`toddler-blocks.jpg` is fine at 73%. These photos could ship at roughly 2x their displayed width.
+## 11. Old system removed
 
-Asset byte sizes: `field-guide.css` 29,395; `lens.css` 19,754; `explorer.css` 9,343; `tokens-field-guide.css` 7,095; `field-guide.js` 4,407; `lens.js` 9,090; `explorer.js` 3,493.
+`terrain.js`, `lens.js`, `lens.css`, `decor.js`, `animate.js`, `seminar.css` and `arcade-page.css` are deleted (S8), and no page references them. `DESIGN.md` and `.impeccable/design.json` describe the Field Guide system, with no Terrain note left. `assets/js/home.js` still exists by name, but it is not the Terrain script the plan meant: composition B rewrote it as the Field Guide homepage's own script (the plate labels, the Lens tabs and entrances), and 54 pages load it for the entrances. `styles.css`, `refresh.css` and `tokens-terrain.css` remain only because the answers-library template (`build-library.mjs`) still uses them; that page is not in the sitemap.
 
-## Problems found
+## Fixes made during C5 (on this branch, not yet live)
 
-1. No-JS explorer panels are hidden because of an unclosed `.explorer__cursor` div in `index.html` (check 5).
-2. Photos are served far larger than displayed (check 10), notably `hero-parent-baby.jpg` at 338 KB shown at 259 px.
-3. Touch targets under 44 px at 390 wide: 16 on the homepage, 5 on the Lens page (check 7).
-4. Skip link target `#main` is not focusable, and the focused skip link touches the wordmark (check 3).
+1. Homepage: the "Is that claim true?" row linked `/tools/library/`, which 404s; it now opens `/claims/`.
+2. Three class pages moved to clean URLs: sitemap, canonical, `og:url`, JSON-LD, and 308 redirects from the `.html` addresses.
+3. The header "Enroll, from $49" button was the last square control from the old chrome; it takes the system's 6px corners and Inter 500. Pages restamped.
+4. The Growing Minds AI page's share image pointed at the retired logo PNG; it now uses the site card.
+5. The nsc tab titles (class sign-in and sign-up, the classes area, activities, Should I Be Worried?, gift, redeem, evidence) used an em dash before "Growing Minds Science"; they now use " | ", as the static pages do.
 
-## Fixes applied after this report (lead, same day)
+## Still open (not blockers for the redesign)
 
-1. The unclosed `.explorer__cursor` wrapper was repaired in the fragment and re-spliced; with JavaScript off, all five stage panels now render (measured heights 591, 562, 562, 591, 562 px at 1440). A tag-nesting parse of both pages reports no mismatches.
-2. `<main id="main">` carries `tabindex="-1"` on both pages, and the focused skip link now sits below the header instead of over the wordmark.
-3. Inline links that measured under 44 px (the right-now list, the hero text links, the explorer and tools links, the Lens connection links) take a 44 px hit area through block padding with a matching negative margin, so the layout is unchanged.
-4. The three oversized placeholder photographs and the portrait now ship resized derivatives with `srcset` and `sizes` (640, 640, 720 and 400 px wide), so a 1440 px screen loads about a quarter of the previous image bytes.
-5. Assets were re-stamped; `stamp-assets --check`, `check-canonicals` and the taste lint pass, and the browser inspector reports 0 fails on the homepage.
+- **AI Pro checkout 502** (check 7): Matthew.
+- **Login and class access** (check 8): Matthew.
+- **Explore tags** in `assets/data/explore.json`: Matthew's review.
+- **Claims library** stays marked draft until Matthew's own source check (Macknin 2000 temperature table, Price 2012 methods, Markman 2009).
+- **S7 photographs**: the pictures on the new pages are placeholders until Matthew's custom assets arrive (`asset-brief.md`).
+- Em dashes remain in some product copy outside the redesign's pages: the right-now JSON, game copy, and Number Path copy such as the printables blurbs.
+- The answers-library template still uses the old stylesheets; `scripts/smoke-tools.mjs` is out of date.
+- Module 4 audio (lessons 4.2 and 4.3) needs a rebuild after the toddler-no source changes (#130).
