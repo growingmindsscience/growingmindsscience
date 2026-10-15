@@ -57,10 +57,10 @@ function ageLine(current) {
   }).join("\n");
   return `      <div class="ex-line${current ? " ex-line--nav" : ""}">
         <div class="hb-container">
-          <div class="ex-line__track" aria-hidden="true"><span>birth</span><span>5 years</span></div>
           <nav class="ex-line__stages" aria-label="Ages">
 ${stages}
           </nav>
+          <div class="ex-line__track" aria-hidden="true"><span>birth</span><span>5 years</span></div>
         </div>
       </div>`;
 }
