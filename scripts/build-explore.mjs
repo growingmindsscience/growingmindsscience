@@ -1,12 +1,16 @@
 #!/usr/bin/env node
-// Builds the Explore hub's content from assets/data/explore.json: the three
-// doors (by age, by moment, by topic) are views of one list of pages.
-// The page files keep their own head and chrome (stamp-assets maintains
-// them); this script rewrites only what sits between
-//   <!-- explore:start variant=a -->  and  <!-- explore:end -->
+// Builds the Explore hub from assets/data/explore.json. Age is the first
+// gate: /explore/ picks a period, and each period's page gathers the pages
+// written for that age, by moment and by topic.
+//   explore/index.html          the gate; its head and chrome are the
+//                               template (stamp-assets maintains them), and
+//                               this script rewrites what sits between
+//                               <!-- explore:start --> and <!-- explore:end -->
+//   explore/<stage slug>.html   one page per period, generated whole from
+//                               that template
 // Graded claims take their wording from the claims artifact, so a claim is
-// never paraphrased here.
-//   node scripts/build-explore.mjs          # rewrite the pages
+// never paraphrased here. Deterministic, so CI can verify with --check.
+//   node scripts/build-explore.mjs          # write the pages
 //   node scripts/build-explore.mjs --check  # exit 1 if a page drifts from the data
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
@@ -15,7 +19,7 @@ import { dirname, join } from "node:path";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CHECK = process.argv.includes("--check");
-const PAGES = ["explore/index.html", "explore/b.html"].filter((p) => existsSync(join(ROOT, p)));
+const ORIGIN = "https://growingmindsscience.com";
 
 const d = JSON.parse(readFileSync(join(ROOT, "assets", "data", "explore.json"), "utf8"));
 const claims = JSON.parse(readFileSync(join(ROOT, "keel", "artifacts", "claims", "claims.v1.json"), "utf8")).claims;
@@ -28,147 +32,169 @@ const title = (it) => {
   return `“${c.claim_text.replace(/\.$/, "")}”`;
 };
 const ORDER = ["lens", "tool", "guide", "article", "claim", "class"];
-const byOrder = (a, b) => ORDER.indexOf(a.type) - ORDER.indexOf(b.type);
-const of = (key, id) => d.items.filter((it) => it[key].includes(id)).sort(byOrder);
-const count = (n) => `${n} ${n === 1 ? "page" : "pages"}`;
+const sorted = (items) => [...items].sort((a, b) => ORDER.indexOf(a.type) - ORDER.indexOf(b.type));
+const forAge = (id) => d.items.filter((it) => it.ages.includes(id) && it.type !== "class");
+const allAges = d.items.filter((it) => d.stages.every((s) => it.ages.includes(s.id)) && it.type !== "class");
 const I = (n) => " ".repeat(n);
+const href = (s) => `/explore/${s.slug}`;
+const RIGHT_NOW = "/tools/right-now";
 
 function list(items, pad) {
-  return `${I(pad)}<ul class="ex-list">\n` + items.map((it) =>
+  return `${I(pad)}<ul class="ex-list">\n` + sorted(items).map((it) =>
     `${I(pad + 2)}<li><a href="${esc(it.href)}">${esc(title(it))}</a><span class="ex-type">${esc(d.types[it.type])}</span></li>`
   ).join("\n") + `\n${I(pad)}</ul>`;
 }
 
-// ---------- first screens ----------
-function firstA() {
-  const door = (id, name, line, rows) => `          <div class="ex-door" data-rise>
-            <h2><a href="#${id}">${name}</a></h2>
-            <p>${line}</p>
-            <ul>
-${rows.join("\n")}
-            </ul>
-          </div>`;
-  const ageRows = d.stages.map((s) => `              <li><a href="#${s.id}">${esc(s.name)}<span>${esc(s.years)}</span></a></li>`);
-  const momentRows = d.moments.map((m) => `              <li><a href="#m-${m.id}">${esc(m.label)}</a></li>`);
-  const topicRows = d.topics.map((t) => `              <li><a href="#t-${t.id}">${esc(t.name)}<span>${count(of("topics", t.id).length)}</span></a></li>`);
-  return `    <section class="ex-title ex-title--a">
-      <div class="hb-container">
-        <div class="ex-title__head" data-rise>
-          <h1 class="hb-display">Start from where you are.</h1>
-          <p class="hb-lead">Three ways into the field guide: your child&rsquo;s age, the moment you are in, or the thing you are curious about.</p>
-        </div>
-        <div class="ex-doors">
-${door("age", "By age", "Five periods, birth to five.", ageRows)}
-${door("moment", "By moment", "A situation you would recognise.", momentRows)}
-${door("topic", "By topic", "One thread across the years.", topicRows)}
-        </div>
-      </div>
-    </section>`;
-}
-
-function firstB() {
-  const stages = d.stages.map((s, i) => `          <a class="ex-line__stage" href="#${s.id}" style="--from:${(s.from / 60) * 100}%;--to:${(s.to / 60) * 100}%">
+// The age line: on the gate it is the door (each period with its summary);
+// on a period's page it is the way between periods, the current one marked.
+function ageLine(current) {
+  const stages = d.stages.map((s) => {
+    const cur = s.id === current;
+    return `          <a class="ex-line__stage${cur ? " is-current" : ""}" href="${href(s)}"${cur ? ' aria-current="page"' : ""}>
             <span class="ex-line__years">${esc(s.years)}</span>
-            <strong>${esc(s.name)}</strong>
-          </a>`).join("\n");
-  const moments = d.moments.map((m) => `<a href="#m-${m.id}">${esc(m.label)}</a>`).join("");
-  const topics = d.topics.map((t) => `<a href="#t-${t.id}">${esc(t.name)}</a>`).join("");
-  return `    <section class="ex-title ex-title--b">
-      <div class="hb-container">
-        <div class="ex-title__head" data-rise>
-          <h1 class="hb-display">Start from where you are.</h1>
-          <p class="hb-lead">Pick your child&rsquo;s age on the line, or come in by the moment you are in or the thing you are curious about.</p>
-        </div>
-      </div>
-      <div class="ex-line" data-rise style="--i:1">
+            <strong>${esc(s.name)}</strong>${current ? "" : `\n            <span class="ex-line__sum">${esc(s.summary)}</span>`}
+          </a>`;
+  }).join("\n");
+  return `      <div class="ex-line${current ? " ex-line--nav" : ""}">
         <div class="hb-container">
           <div class="ex-line__track" aria-hidden="true"><span>birth</span><span>5 years</span></div>
-          <nav class="ex-line__stages" aria-label="By age">
+          <nav class="ex-line__stages" aria-label="Ages">
 ${stages}
           </nav>
         </div>
-      </div>
-      <div class="hb-container ex-side">
-        <div class="ex-side__row" data-rise style="--i:2"><h2>By moment</h2><div class="ex-side__links">${moments}</div></div>
-        <div class="ex-side__row" data-rise style="--i:3"><h2>By topic</h2><div class="ex-side__links">${topics}</div></div>
-      </div>
-    </section>`;
+      </div>`;
 }
 
-// ---------- the three doors, in full ----------
-function ageSection() {
-  const stage = (s) => {
-    const items = of("ages", s.id).filter((it) => it.type !== "class");
-    return `        <article class="ex-stage" id="${s.id}">
-          <div class="ex-stage__head">
-            <h3>${esc(s.name)}</h3>
-            <p class="ex-stage__years">${esc(s.years)}</p>
-            <p>${esc(s.summary)}</p>
-            <p class="ex-stage__class"><a href="${esc(s.class)}">The class for this period</a></p>
-          </div>
-${list(items, 10)}
-        </article>`;
-  };
-  return `    <section class="hub-sec ex-sec" id="age" aria-labelledby="age-heading">
+// ---------- the gate: /explore/ ----------
+function gate() {
+  return `    <section class="ex-title ex-title--gate">
       <div class="hb-container">
-        <h2 class="hb-display ex-sec__title" id="age-heading">By age</h2>
-        <p class="ex-sec__lede">Typical ranges, not deadlines. Each period lists what was written for it.</p>
-${d.stages.map(stage).join("\n")}
+        <div class="ex-title__head" data-rise>
+          <h1 class="hb-display">How old is your child?</h1>
+          <p class="hb-lead">A lot of what helps depends on age. Pick a period, and you will find the moments and topics that matter in it.</p>
+        </div>
+      </div>
+${ageLine(null)}
+    </section>
+    <section class="hub-sec ex-sec" id="any-age" aria-labelledby="any-heading">
+      <div class="hb-container ex-row">
+        <div class="ex-row__head">
+          <h2 class="hb-display" id="any-heading">For any age</h2>
+          <p>Pages written for every period, from birth to five.</p>
+        </div>
+${list(allAges, 8)}
       </div>
     </section>`;
 }
 
-function momentSection() {
-  const m = (x) => `        <article class="ex-row" id="m-${x.id}">
+// ---------- a period's page ----------
+function stagePage(s) {
+  const items = forAge(s.id);
+  const momentRows = d.moments
+    // "It's hard right now" covers every hard moment; it is named once in the lede instead of in each row.
+    .map((m) => ({ m, its: items.filter((it) => it.moments.includes(m.id) && it.href !== RIGHT_NOW) }))
+    .filter((x) => x.its.length)
+    .map(({ m, its }) => `        <article class="ex-row" id="m-${m.id}">
           <div class="ex-row__head">
-            <h3>${esc(x.label)}</h3>
-            <p>${esc(x.hint)}</p>
+            <h3>${esc(m.label)}</h3>
+            <p>${esc(m.hint)}</p>
           </div>
-${list(of("moments", x.id), 10)}
-        </article>`;
-  return `    <section class="hub-sec hub-sec--white ex-sec" id="moment" aria-labelledby="moment-heading">
-      <div class="hb-container">
-        <h2 class="hb-display ex-sec__title" id="moment-heading">By moment</h2>
-        <p class="ex-sec__lede">A situation you would recognise, and the pages that start from it.</p>
-${d.moments.map(m).join("\n")}
-      </div>
-    </section>`;
-}
-
-function topicSection() {
-  const t = (x) => `        <article class="ex-row" id="t-${x.id}">
+${list(its, 10)}
+        </article>`).join("\n");
+  const topicRows = d.topics
+    .map((t) => ({ t, its: items.filter((it) => it.topics.includes(t.id)) }))
+    .filter((x) => x.its.length)
+    .map(({ t, its }) => `        <article class="ex-row" id="t-${t.id}">
           <div class="ex-row__head">
-            <h3>${esc(x.name)}</h3>
-            <p>${count(of("topics", x.id).length)}</p>
+            <h3>${esc(t.name)}</h3>
           </div>
-${list(of("topics", x.id), 10)}
-        </article>`;
-  return `    <section class="hub-sec ex-sec" id="topic" aria-labelledby="topic-heading">
+${list(its, 10)}
+        </article>`).join("\n");
+  const rest = items.filter((it) => !it.moments.length && !it.topics.length);
+  const cls = d.items.find((it) => it.type === "class" && it.href === s.class);
+  return `    <section class="ex-title ex-title--stage">
+${ageLine(s.id)}
+      <div class="hb-container ex-stage-head">
+        <div data-rise>
+          <h1 class="hb-display">${esc(s.name)}</h1>
+          <p class="ex-stage-head__years">${esc(s.years)}</p>
+          <p class="hb-lead">${esc(s.summary)}</p>
+        </div>
+        <div class="ex-stage-head__class" data-rise style="--i:1">
+          <p>The class for this period</p>
+          <a class="hb-btn hb-btn--quiet" href="${esc(s.class)}">${esc(cls ? cls.title : "See the class")}</a>
+        </div>
+      </div>
+    </section>
+    <section class="hub-sec hub-sec--white ex-sec" id="moments" aria-labelledby="moments-heading">
       <div class="hb-container">
-        <h2 class="hb-display ex-sec__title" id="topic-heading">By topic</h2>
-        <p class="ex-sec__lede">One thread followed across the years.</p>
-${d.topics.map(t).join("\n")}
+        <h2 class="hb-display ex-sec__title" id="moments-heading">Moments at this age</h2>
+        <p class="ex-sec__lede">Situations you would recognise, and the pages that start from them. In the middle of one now? <a href="/tools/right-now">It&rsquo;s hard right now</a> gives a calm next step in two minutes.</p>
+${momentRows}
+      </div>
+    </section>
+    <section class="hub-sec ex-sec" id="topics" aria-labelledby="topics-heading">
+      <div class="hb-container">
+        <h2 class="hb-display ex-sec__title" id="topics-heading">Topics at this age</h2>
+        <p class="ex-sec__lede">One thread at a time, for this period.</p>
+${topicRows}${rest.length ? `
+        <article class="ex-row" id="also">
+          <div class="ex-row__head">
+            <h3>Also for this age</h3>
+          </div>
+${list(rest, 10)}
+        </article>` : ""}
       </div>
     </section>`;
 }
 
-const body = (variant) => [variant === "b" ? firstB() : firstA(), ageSection(), momentSection(), topicSection()].join("\n\n");
+// ---------- write ----------
+const indexPath = join(ROOT, "explore", "index.html");
+const template = readFileSync(indexPath, "utf8");
+const MARK = /(<!-- explore:start -->\n)[\s\S]*?<!-- explore:end -->/;
+if (!MARK.test(template)) throw new Error("explore/index.html: no explore markers");
+const fill = (html, main) => html.replace(MARK, (_, a) => a + main + "\n<!-- explore:end -->");
+
+const outputs = [["explore/index.html", fill(template, gate())]];
+for (const s of d.stages) {
+  const name = `${s.name}, ${s.years.toLowerCase()}`;
+  const desc = `${s.summary} The guides, tools, articles and graded claims for this period, by moment and by topic.`;
+  let html = fill(template, stagePage(s))
+    .replace(/<title>.*?<\/title>/, `<title>${esc(name)} | Explore | Growing Minds Science</title>`)
+    .replace(/(<meta name="description" content=")[^"]*"/, (_, a) => `${a}${esc(desc)}"`)
+    .replace(/(<meta property="og:title" content=")[^"]*"/, (_, a) => `${a}${esc(name)} | Growing Minds Science"`)
+    .replace(/(<meta property="og:description" content=")[^"]*"/, (_, a) => `${a}${esc(desc)}"`)
+    .replace(/(<link rel="canonical" href=")[^"]*"/, (_, a) => `${a}${ORIGIN}${href(s)}"`)
+    .replace(/(<meta property="og:url" content=")[^"]*"/, (_, a) => `${a}${ORIGIN}${href(s)}"`);
+  outputs.push([`explore/${s.slug}.html`, html]);
+}
+
+// ---------- the homepage's age explorer reads the same file ----------
+// Same markup as before; each period's name now opens its Explore page.
+const ent = (t) => esc(t).replace(/\u2018/g, "&lsquo;").replace(/\u2019/g, "&rsquo;").replace(/\u201c/g, "&ldquo;").replace(/\u201d/g, "&rdquo;");
+const homeCols = d.stages.map((s, i) => {
+  const h = s.home;
+  const link = (k, v) => `${k}: <a href="${esc(v.href)}">${ent(v.label)}</a>`;
+  return `          <div class="age__col"><h3><a href="${href(s)}">${ent(s.name)}</a><span class="yrs">${ent(s.years)}</span></h3><p>${ent(s.summary)}</p><p class="age__links">${link("Read", h.read)} &middot; ${link("Try", h.try)} &middot; ${link("Learn", h.learn)}</p><div class="range"><div class="range__track" style="--from:${(s.from / 60) * 100}%;--to:${(s.to / 60) * 100}%"><i></i></div><small${i ? ' class="axis-repeat"' : ""}><span>birth</span><span>5 years</span></small></div></div>`;
+}).join("\n");
+const homePath = join(ROOT, "index.html");
+const home = readFileSync(homePath, "utf8");
+const HOME = /(<!-- explore:home:start -->\n)[\s\S]*?(\n<!-- explore:home:end -->)/;
+if (!HOME.test(home)) throw new Error("index.html: no explore:home markers");
+outputs.push(["index.html", home.replace(HOME, (_, a, b) => a + homeCols + b)]);
 
 let drift = 0;
-for (const rel of PAGES) {
+for (const [rel, html] of outputs) {
   const path = join(ROOT, rel);
-  const src = readFileSync(path, "utf8");
-  const m = src.match(/(<!-- explore:start variant=([ab]) -->\n)[\s\S]*?<!-- explore:end -->/);
-  if (!m) throw new Error(`${rel}: no explore markers`);
-  const out = src.replace(m[0], m[1] + body(m[2]) + "\n<!-- explore:end -->");
   if (CHECK) {
-    if (out !== src) { console.error(`✗ drift: ${rel}`); drift++; }
+    const cur = existsSync(path) ? readFileSync(path, "utf8") : "";
+    if (cur !== html) { console.error(`✗ drift: ${rel}`); drift++; }
   } else {
-    writeFileSync(path, out);
-    console.log(`  ✓ ${rel} (variant ${m[2]})`);
+    writeFileSync(path, html);
+    console.log(`  ✓ ${rel}`);
   }
 }
 if (CHECK) {
-  console.log(drift ? `FAILED (${drift} drifted)` : `✓ explore pages match the data (${PAGES.length} files)`);
+  console.log(drift ? `FAILED (${drift} drifted)` : `✓ explore pages match the data (${outputs.length} files)`);
   process.exit(drift ? 1 : 0);
 }
