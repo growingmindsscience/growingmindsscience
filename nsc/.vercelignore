@@ -1,0 +1,5 @@
+# The nsc project's own ignore file. Vercel uses it instead of the repository
+# root's .vercelignore, whose /nsc rule would otherwise drop this whole app.
+# Next.js serves only its build output and public/, so nothing here is about
+# exposure; it only keeps local and database-only files out of the upload.
+/supabase
