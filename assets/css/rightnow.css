@@ -13,7 +13,7 @@
 
 /* ---------- The bar: wordmark and a way back ---------- */
 .fg .rn-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: min(100% - 2 * var(--hb-gutter, 16px), 720px); max-width: none; margin-inline: auto; padding: 18px 0; }
-.rn-bar .brand { display: inline-flex; align-items: center; gap: 0.6em; color: var(--ink); text-decoration: none; }
+.rn-bar .brand { display: inline-flex; align-items: center; min-height: 44px; gap: 0.6em; color: var(--ink); text-decoration: none; }
 .rn-bar .brand__mark { display: block; width: 32px; height: 32px; flex-shrink: 0; color: var(--ink); overflow: visible; }
 .rn-bar .brand__leaf { fill: var(--sage-deep); }
 [data-theme="dark"] .rn-bar .brand__mark { color: var(--sage); }
