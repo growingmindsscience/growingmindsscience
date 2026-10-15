@@ -31,10 +31,10 @@ const MODE = args.includes("--publish") ? "publish" : args.includes("--preview")
 const CARD = new Map(KNOWLEDGE.map((c) => [c.id, c]));
 const KID_SET = new Set(KNOWLEDGE.map((c) => c.id));
 const CLASS_META = {
-  "birth-to-12-months": { href: "/classes/birth-to-12-months.html", title: "Birth to 12 Months", tag: "Available now" },
-  toddlerhood: { href: "/classes/toddlerhood.html", title: "Toddler Years", tag: "Available now" },
-  preschool: { href: "/classes/preschool.html", title: "Preschool Years", tag: "Available now" },
-  "family-systems": { href: "/classes/family-systems.html", title: "Family Systems & Stress", tag: "Waitlist" },
+  "birth-to-12-months": { href: "/classes/birth-to-12-months", title: "Birth to 12 Months", tag: "Available now" },
+  toddlerhood: { href: "/classes/toddlerhood", title: "Toddler Years", tag: "Available now" },
+  preschool: { href: "/classes/preschool", title: "Preschool Years", tag: "Available now" },
+  "family-systems": { href: "/classes/family-systems", title: "Family Systems & Stress", tag: "Waitlist" },
 };
 const ARTICLE_TITLE = {
   "serve-and-return": "What “serve and return” actually means",
@@ -92,6 +92,77 @@ function jsonLd(entry, url, published, modified) {
   return JSON.stringify([article, faq, crumbs], null, 2);
 }
 
+// ── site chrome ─────────────────────────────────────────────────────────────
+// The skip link, header and footer are copied from the articles hub when a page
+// is rendered, so an answers page always carries the site's current chrome.
+// aria-current is dropped: no nav item names these pages.
+function siteChrome() {
+  const hub = readFileSync(join(ROOT, "articles", "index.html"), "utf8");
+  const cut = (from, to, keepTo) => {
+    const a = hub.indexOf(from);
+    const b = a < 0 ? -1 : hub.indexOf(to, a);
+    if (b < 0) throw new Error(`articles/index.html has no ${from} ... ${to}; cannot copy the site chrome`);
+    return hub.slice(a, keepTo ? b + to.length : b).replace(/ aria-current="page"/g, "").trim();
+  };
+  return { header: cut("<!-- header:start -->", "<main", false), footer: cut("<!-- footer:start -->", "<!-- footer:end -->", true) };
+}
+
+function shell({ title, description, canonical, draft, body, extraHead = "" }) {
+  const { header, footer } = siteChrome();
+  const robots = draft ? `\n  <meta name="robots" content="noindex, nofollow" />` : "";
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
+  /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <title>${esc(title)} | Growing Minds Science</title>
+  <meta name="description" content="${escAttr(description)}" />
+  <meta name="theme-color" content="#F7F4EC" />
+  <meta name="color-scheme" content="light dark" />${robots}
+  <link rel="icon" href="/assets/img/brand/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/assets/img/brand/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/assets/img/brand/apple-touch-icon-180.png" />
+  <link rel="canonical" href="${canonical}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="${escAttr(title)} | Growing Minds Science" />
+  <meta property="og:description" content="${escAttr(description)}" />
+  <meta property="og:image" content="${ORIGIN}/assets/img/og/site-home.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+${extraHead}
+  <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=57ab480f20" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=ececc69b57" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=9ee704dd6a" />
+  <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
+  <link rel="stylesheet" href="/assets/css/article.css?v=01dcd82f94" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=165c6d088e" />
+</head>
+<body class="fg fg--page hub art">
+  ${header}
+
+  <main id="main" tabindex="-1">
+${body}
+  </main>
+
+  ${footer}
+
+  <script src="/assets/js/chrome.js?v=288fec8e54"></script>
+  <script src="/assets/js/main.js?v=742e637d07" defer></script>
+  <script src="/assets/js/home.js?v=c7f5c746df" defer></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
+`;
+}
+
+const anchor = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+const DOT = ` <span aria-hidden="true">&middot;</span> `;
+const NOTE = "Educational content only. Not medical or psychological advice. Milestones are windows, not deadlines.";
+
 function renderPage(entry, { draft }) {
   const rel = `library/entries/${entry.slug}.json`;
   const published = gitDate(rel, true);
@@ -99,149 +170,115 @@ function renderPage(entry, { draft }) {
   const url = `${ORIGIN}/answers/${entry.slug}.html`;
   const sources = sourcesFor(entry);
   const related = entry.related || {};
-  const relArticles = (related.articles || [])
-    .map((s) => `<a href="/articles/${s}">${esc(ARTICLE_TITLE[s] || s)}</a>`).join("");
   const cls = related.class && CLASS_META[related.class];
 
-  const sections = (entry.sections || [])
-    .map((s) => `<h2>${esc(s.h)}</h2><p>${esc(s.body)}</p>`).join("\n        ");
-  const tryList = (entry.tryTonight || []).length
-    ? `<div class="article-callout"><h2>Try this</h2><ul>${entry.tryTonight.map((t) => `<li>${esc(t)}</li>`).join("")}</ul></div>` : "";
-  const sourceList = sources.length
-    ? `<div class="sources-panel"><h2>Sources</h2><ul>${sources.map((s) => `<li><a href="${escAttr(s.url)}" target="_blank" rel="noreferrer">${esc(s.label)}</a></li>`).join("")}</ul></div>` : "";
-  const relatedBlock = (relArticles || cls) ? `
-      <div class="article-cardlet">
-        <h2>Keep exploring</h2>
-        ${relArticles ? `<p>${relArticles}</p>` : ""}
-        ${cls ? `<p><a href="${cls.href}">${esc(cls.title)}</a> — ${esc(cls.tag)}</p>` : ""}
-        <p><a href="/tools/growing-minds-ai?q=${encodeURIComponent(entry.question)}">Ask Growing Minds AI about this →</a></p>
-      </div>` : "";
+  // The reading column, in order; each part gets an anchor and a line in the contents.
+  const parts = [
+    ...(entry.sections || []).map((s) => ({ h: s.h, html: `<p>${esc(s.body)}</p>` })),
+    ...((entry.tryTonight || []).length
+      ? [{ h: "Try this", html: `<ul>\n          ${entry.tryTonight.map((t) => `<li>${esc(t)}</li>`).join("\n          ")}\n        </ul>` }] : []),
+    { h: "When to reach out", html: `<p>${esc(entry.whenToReachOut)}</p>` },
+  ].map((p) => ({ ...p, id: anchor(p.h) }));
 
-  const robots = draft ? `\n  <meta name="robots" content="noindex, nofollow" />` : "";
-  const draftBanner = draft ? `<div class="article-callout" style="border-color:var(--gold)"><p><strong>Draft — pending review.</strong> Not indexed. Flip <code>status</code> to <code>approved</code> in the source entry to publish.</p></div>` : "";
+  const explore = [
+    ...(related.articles || []).map((s) => `<li><a href="/articles/${s}">${esc(ARTICLE_TITLE[s] || s)}</a></li>`),
+    ...(cls ? [`<li><a href="${cls.href}">The ${esc(cls.title)} class</a>${cls.tag === "Waitlist" ? " (waitlist open)" : ""}</li>`] : []),
+    `<li><a href="/tools/growing-minds-ai?q=${encodeURIComponent(entry.question)}">Ask Growing Minds AI about this</a></li>`,
+  ];
 
-  return `<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${esc(entry.question)} - Growing Minds Science</title>
-  <meta name="description" content="${escAttr(entry.shortAnswer)}" />
-  <meta name="theme-color" content="#6F8F7B" />
-  <meta name="color-scheme" content="light dark" />${robots}
-  <link rel="icon" href="/assets/img/brand/favicon.svg" type="image/svg+xml" />
-  <link rel="icon" href="/assets/img/brand/favicon-32.png" type="image/png" sizes="32x32" />
-  <link rel="apple-touch-icon" href="/assets/img/brand/apple-touch-icon-180.png" />
-  <link rel="canonical" href="${ORIGIN}/answers/${entry.slug}.html" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="${escAttr(entry.question)}" />
-  <meta property="og:description" content="${escAttr(entry.shortAnswer)}" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=3fa98080dc" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=4def14502a" />
-  <script type="application/ld+json">
-${jsonLd(entry, url, published, modified)}
-  </script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header" role="banner">
-    <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science, home">
-        <svg class="brand__mark" viewBox="8 -6 96 96" width="32" height="32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="11.0" stroke-linecap="round" stroke-linejoin="round"><path d="M16.00,88.00 L16.00,82.00 A44.00,44.00 0 0 1 50.85,38.96"/><path d="M39.00,91.00 L39.00,88.00 A27.00,27.00 0 0 1 66.00,61.00 L78.00,61.00"/></g><path class="brand__leaf" d="M49.35,39.96 C43.58,16.28 74.29,-4.99 95.31,1.39 C94.25,18.80 69.07,42.93 49.35,39.96 Z"/></svg>
-        <span class="brand__name">growing minds</span><span class="brand__desc">Science</span>
-      </a>
-      <nav class="nav" aria-label="Primary">
-        <ul class="nav__list">
-          <li><a class="nav__link" href="/answers/">Answers</a></li>
-          <li><a class="nav__link" href="/articles/">Articles</a></li>
-          <li><a class="nav__link" href="/milestones">Milestones</a></li>
-          <li><a class="nav__link" href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-  <main id="main">
-    <section class="article-hero">
-      <div class="container">
-        <p class="article-kicker">${esc(entry.ageBand)} · ${esc(entry.domain)}</p>
-        <h1 class="article-title">${esc(entry.question)}</h1>
-        <p class="article-dek">${esc(entry.shortAnswer)}</p>
-      </div>
-    </section>
-    <section class="article-body">
-      <div class="container article-layout">
-        <article>
-        ${draftBanner}
-        ${sections}
-        ${tryList}
-        <h2>When to reach out</h2>
-        <p>${esc(entry.whenToReachOut)}</p>
-        ${sourceList}
-        </article>
-        <aside>${relatedBlock}
-          <p class="article-cardlet" style="margin-top:16px"><em>Educational content only. Not medical or psychological advice. Milestones are windows, not deadlines.</em></p>
+  const draftBanner = draft
+    ? `\n        <div class="art-callout"><p><strong>Draft, pending review.</strong> Not indexed. Set <code>status</code> to <code>approved</code> in the source entry to publish.</p></div>\n` : "";
+  const sourceList = sources.length ? `
+        <div class="art-sources">
+          <h2>Sources</h2>
+          <ul>
+            ${sources.map((s) => `<li><a href="${escAttr(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.label)}</a></li>`).join("\n            ")}
+          </ul>
+        </div>` : "";
+
+  const body = `    <section class="art-title">
+      <div class="hb-container art-title__grid">
+        <div data-rise>
+          <h1 class="hb-display">${esc(entry.question)}</h1>
+          <p class="art-meta"><a href="/answers/">Answers</a>${DOT}${esc(entry.ageBand)}${DOT}${esc(entry.domain)}</p>
+        </div>
+        <aside class="art-short" aria-label="The short answer" data-rise style="--i:1">
+          <h2>The short answer</h2>
+          <p>${esc(entry.shortAnswer)}</p>
         </aside>
       </div>
     </section>
-  </main>
-  <footer class="site-footer"><div class="container"><p>© 2026 Growing Minds Science · <a href="/answers/">All answers</a> · <a href="/about/">About</a></p></div></footer>
-</body></html>
-`;
+
+    <div class="hb-container art-body">
+      <nav class="art-toc" aria-label="Answer navigation">
+        <h2>In this answer</h2>
+        <ol>
+          ${parts.map((p) => `<li><a href="#${p.id}">${esc(p.h)}</a></li>`).join("\n          ")}
+        </ol>
+      </nav>
+      <article class="art-text">${draftBanner}
+        ${parts.map((p) => `<h2 id="${p.id}">${esc(p.h)}</h2>\n        ${p.html}`).join("\n\n        ")}
+
+        <h2 id="keep-exploring">Keep exploring</h2>
+        <ul>
+          ${explore.join("\n          ")}
+        </ul>
+${sourceList}
+        <p class="hub-title__fine">${NOTE}</p>
+      </article>
+    </div>`;
+
+  return shell({
+    title: entry.question,
+    description: entry.shortAnswer,
+    canonical: url,
+    draft,
+    body,
+    extraHead: `  <script type="application/ld+json">\n${jsonLd(entry, url, published, modified)}\n  </script>`,
+  });
 }
 
 function renderHub(entries, { draft }) {
   const byBand = {};
   for (const e of entries) (byBand[e.entry.ageBand] = byBand[e.entry.ageBand] || []).push(e);
-  const groups = AGE_BANDS.filter((b) => byBand[b]).map((band) => {
-    const items = byBand[band].map(({ entry, draft: d }) =>
-      `<li><a href="/answers/${entry.slug}.html">${esc(entry.question)}</a>${d ? ' <span style="color:var(--gold);font-size:.72rem;font-weight:700">DRAFT</span>' : ""} <span style="color:var(--ink-muted);font-size:.82rem">· ${esc(entry.domain)}</span></li>`
-    ).join("\n          ");
-    return `<h2>${esc(band)}</h2>\n        <ul class="answers-list">\n          ${items}\n        </ul>`;
-  }).join("\n        ");
-  const robots = draft ? `\n  <meta name="robots" content="noindex, nofollow" />` : "";
-  return `<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Answers — plain guidance for common worries - Growing Minds Science</title>
-  <meta name="description" content="Calm, research-grounded answers to the questions parents of 0–5s actually search: talking, walking, tantrums, pointing, potty, screens, and more." />
-  <meta name="theme-color" content="#6F8F7B" />
-  <meta name="color-scheme" content="light dark" />${robots}
-  <link rel="canonical" href="${ORIGIN}/answers/" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=3fa98080dc" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=4def14502a" />
-  <style>.answers-list{list-style:none;padding:0;margin:0 0 var(--space-8);display:grid;gap:var(--space-3)}.answers-list a{color:var(--primary);font-weight:600;text-decoration:none}.answers-list a:hover{text-decoration:underline}</style>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header" role="banner">
-    <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science, home">
-        <svg class="brand__mark" viewBox="8 -6 96 96" width="32" height="32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="11.0" stroke-linecap="round" stroke-linejoin="round"><path d="M16.00,88.00 L16.00,82.00 A44.00,44.00 0 0 1 50.85,38.96"/><path d="M39.00,91.00 L39.00,88.00 A27.00,27.00 0 0 1 66.00,61.00 L78.00,61.00"/></g><path class="brand__leaf" d="M49.35,39.96 C43.58,16.28 74.29,-4.99 95.31,1.39 C94.25,18.80 69.07,42.93 49.35,39.96 Z"/></svg>
-        <span class="brand__name">growing minds</span><span class="brand__desc">Science</span>
-      </a>
-    </div>
-  </header>
-  <main id="main">
-    <section class="article-hero"><div class="container">
-      <p class="article-kicker">Answers</p>
-      <h1 class="article-title">Plain answers to common worries</h1>
-      <p class="article-dek">Calm, research-grounded answers to the questions parents of children 0–5 actually search — grounded in the same developmental science behind our classes and tools.</p>
-    </div></section>
-    <section class="article-body"><div class="container">
-        ${groups || "<p>No published answers yet.</p>"}
-    </div></section>
-  </main>
-  <footer class="site-footer"><div class="container"><p>© 2026 Growing Minds Science · <a href="/articles/">Articles</a> · <a href="/milestones">Milestones</a></p></div></footer>
-</body></html>
-`;
+  const bands = AGE_BANDS.filter((b) => byBand[b]).map((band, i) => {
+    const rows = byBand[band].map(({ entry, draft: d }) => `          <article class="row" data-rise>
+            <div><p class="row__meta" style="margin-top:0">${esc(entry.domain)}${d ? `${DOT}Draft` : ""}</p></div>
+            <div><h3 class="row__name"><a href="/answers/${entry.slug}.html">${esc(entry.question)}</a></h3><p class="row__desc" style="margin-top:8px">${esc(entry.shortAnswer)}</p></div>
+          </article>`).join("\n");
+    return `      <div class="hub-split"${i ? ` style="margin-top:clamp(48px, 6vw, 88px)"` : ""}>
+        <div class="hub-split__head" data-rise>
+          <h2 class="hb-display">${esc(band)}</h2>
+        </div>
+        <div class="rows">
+${rows}
+        </div>
+      </div>`;
+  }).join("\n");
+
+  const body = `    <section class="hb-container hub-title hub-title--solo" aria-labelledby="page-heading">
+      <div class="hub-title__grid">
+        <div data-rise>
+          <h1 class="hb-display" id="page-heading">Plain answers to common worries</h1>
+          <p class="hb-lead">Calm, research-grounded answers to the questions parents of children 0–5 actually search, grounded in the same developmental science behind our classes and tools.</p>
+          <p class="hub-title__fine">${NOTE}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="hub-sec hub-sec--white" aria-label="Answers by age">
+      <div class="hb-container">
+${bands || `        <p>No published answers yet.</p>`}
+      </div>
+    </section>`;
+
+  return shell({
+    title: "Plain answers to common worries",
+    description: "Calm, research-grounded answers to the questions parents of 0–5s actually search: talking, walking, tantrums, pointing, potty, screens, and more.",
+    canonical: `${ORIGIN}/answers/`,
+    draft,
+    body,
+  });
 }
 
 // ── main ─────────────────────────────────────────────────────────────────────
