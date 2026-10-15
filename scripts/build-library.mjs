@@ -73,7 +73,7 @@ function jsonLd(entry, url, published, modified) {
     headline: entry.question, description: entry.shortAnswer,
     inLanguage: "en", isAccessibleForFree: true,
     author: { "@type": "Person", name: "Matthew McArthur", jobTitle: "Child Development Specialist", url: `${ORIGIN}/about` },
-    publisher: { "@type": "Organization", name: "Growing Minds Science", url: ORIGIN, logo: { "@type": "ImageObject", url: `${ORIGIN}/assets/img/original-logo-mark-no-words-512.png` } },
+    publisher: { "@type": "Organization", name: "Growing Minds Science", url: ORIGIN, logo: { "@type": "ImageObject", url: `${ORIGIN}/assets/img/brand/icon-512.png` } },
     mainEntityOfPage: { "@type": "WebPage", "@id": url }, url,
     ...(published ? { datePublished: published } : {}), ...(modified ? { dateModified: modified } : {}),
   };
@@ -129,7 +129,9 @@ function renderPage(entry, { draft }) {
   <meta name="description" content="${escAttr(entry.shortAnswer)}" />
   <meta name="theme-color" content="#6F8F7B" />
   <meta name="color-scheme" content="light dark" />${robots}
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
+  <link rel="icon" href="/assets/img/brand/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/assets/img/brand/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/assets/img/brand/apple-touch-icon-180.png" />
   <link rel="canonical" href="${ORIGIN}/answers/${entry.slug}.html" />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="${escAttr(entry.question)}" />
@@ -148,7 +150,7 @@ ${jsonLd(entry, url, published, modified)}
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
       <a class="brand" href="/" aria-label="Growing Minds Science, home">
-        <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+        <svg class="brand__mark" viewBox="8 -6 96 96" width="32" height="32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="11.0" stroke-linecap="round" stroke-linejoin="round"><path d="M16.00,88.00 L16.00,82.00 A44.00,44.00 0 0 1 50.85,38.96"/><path d="M39.00,91.00 L39.00,88.00 A27.00,27.00 0 0 1 66.00,61.00 L78.00,61.00"/></g><path class="brand__leaf" d="M49.35,39.96 C43.58,16.28 74.29,-4.99 95.31,1.39 C94.25,18.80 69.07,42.93 49.35,39.96 Z"/></svg>
         <span class="brand__name">growing minds</span><span class="brand__desc">Science</span>
       </a>
       <nav class="nav" aria-label="Primary">
@@ -209,7 +211,6 @@ function renderHub(entries, { draft }) {
   <meta name="description" content="Calm, research-grounded answers to the questions parents of 0–5s actually search: talking, walking, tantrums, pointing, potty, screens, and more." />
   <meta name="theme-color" content="#6F8F7B" />
   <meta name="color-scheme" content="light dark" />${robots}
-  <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-512.png" />
   <link rel="canonical" href="${ORIGIN}/answers/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -223,7 +224,7 @@ function renderHub(entries, { draft }) {
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
       <a class="brand" href="/" aria-label="Growing Minds Science, home">
-        <img class="brand__mark" src="../assets/img/original-logo-mark-no-words-512.png" alt="" width="36" height="36" decoding="async" />
+        <svg class="brand__mark" viewBox="8 -6 96 96" width="32" height="32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="11.0" stroke-linecap="round" stroke-linejoin="round"><path d="M16.00,88.00 L16.00,82.00 A44.00,44.00 0 0 1 50.85,38.96"/><path d="M39.00,91.00 L39.00,88.00 A27.00,27.00 0 0 1 66.00,61.00 L78.00,61.00"/></g><path class="brand__leaf" d="M49.35,39.96 C43.58,16.28 74.29,-4.99 95.31,1.39 C94.25,18.80 69.07,42.93 49.35,39.96 Z"/></svg>
         <span class="brand__name">growing minds</span><span class="brand__desc">Science</span>
       </a>
     </div>
