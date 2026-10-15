@@ -66,9 +66,9 @@ export async function signup(formData: FormData) {
   const password = String(formData.get("password") ?? "");
   const { next, classFlow } = authTarget(formData);
 
-  if (password.length < 12) {
+  if (password.length < 10) {
     redirect(
-      `${authPath(classFlow, "signup")}?error=${encodeURIComponent("Password must be at least 12 characters.")}&next=${encodeURIComponent(next)}`,
+      `${authPath(classFlow, "signup")}?error=${encodeURIComponent("Password must be at least 10 characters.")}&next=${encodeURIComponent(next)}`,
     );
   }
 
@@ -122,9 +122,9 @@ export async function updatePassword(formData: FormData) {
   const classFlow = formData.get("class_flow") === "1";
   const destination = classDestination(formData.get("next"));
   const classQuery = classFlow ? `&class=1&next=${encodeURIComponent(destination)}` : "";
-  if (password.length < 12) {
+  if (password.length < 10) {
     redirect(
-      `/reset/update?error=${encodeURIComponent("Password must be at least 12 characters.")}${classQuery}`,
+      `/reset/update?error=${encodeURIComponent("Password must be at least 10 characters.")}${classQuery}`,
     );
   }
   const { error } = await supabase.auth.updateUser({ password });

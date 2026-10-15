@@ -37,7 +37,7 @@ export default async function ClassSignupPage({ searchParams }: {
           <input type="hidden" name="flow" value="class" />
           <input type="hidden" name="next" value={destination} />
           <Field label="Email" htmlFor="email"><Input id="email" name="email" type="email" autoComplete="email" required /></Field>
-          <Field label="Password" htmlFor="password" hint="At least 12 characters."><PasswordInput id="password" name="password" autoComplete="new-password" minLength={12} aria-describedby="password-hint" required /></Field>
+          <Field label="Password" htmlFor="password" hint="At least 10 characters."><PasswordInput id="password" name="password" autoComplete="new-password" minLength={10} aria-describedby="password-hint" required /></Field>
           {error && <p className="text-sm text-danger" role="alert">{error}</p>}
           <SubmitButton className="mt-2" pendingLabel="Creating your account…">Create account</SubmitButton>
         </form>
