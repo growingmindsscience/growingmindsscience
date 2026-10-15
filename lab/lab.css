@@ -3,7 +3,6 @@
    Newsreader for display, Inter for reading and interface, as the guidelines prefer.
    Calm rounded corners, quiet rules, generous whitespace. */
 
-@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=Inter:wght@400;500;600&display=swap");
 
 :root {
   --gms-ink: #193C39;
