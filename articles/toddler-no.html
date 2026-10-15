@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
+  /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <title>The toddler "no" is not the war you think it is | Growing Minds Science</title>
   <meta name="description" content="Why toddlers say no to everything, and what developmental science says about responding without losing the relationship or your mind." />
-  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#F7F4EC" />
   <meta name="color-scheme" content="light dark" />
 
   <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
@@ -26,66 +26,12 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=3fa98080dc" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=4def14502a" />
-
-  <style>
-    .article-hero { padding: clamp(3.5rem, 7vw, 6rem) 0 var(--space-10); background: linear-gradient(180deg, color-mix(in oklab, var(--accent-soft) 22%, var(--bg)) 0%, var(--bg) 100%); border-bottom: 1px solid var(--border-soft); }
-    .article-layout { display: grid; grid-template-columns: minmax(0, .72fr) minmax(240px, .28fr); gap: clamp(var(--space-8), 6vw, var(--space-16)); align-items: start; }
-    .article-kicker { color: var(--accent-brown); font-size: var(--text-sm); font-weight: 600; line-height: 1.4; margin: 0 0 var(--space-4); }
-    .article-title { max-width: 22ch; margin: 0 0 var(--space-5); font-family: var(--font-display); font-size: clamp(2.3rem, 1.2rem + 3.2vw, 3.4rem); font-weight: 500; letter-spacing: -0.005em; line-height: 1.06; text-wrap: balance; }
-    .article-dek { max-width: 48rem; color: var(--ink-soft); font-size: var(--text-lg); line-height: 1.55; margin: 0; }
-    .article-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); color: var(--ink-muted); font-size: var(--text-sm); margin-top: var(--space-6); }
-    .article-cardlet, .article-toc, .article-callout, .sources-panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-5); }
-    /* Scoped under .article-body so the article h2 rule below cannot inflate the sidebar headings. */
-    .article-body .article-cardlet h2, .article-body .article-toc h2, .article-cardlet h2, .article-toc h2 { font-size: var(--text-md); margin: 0 0 var(--space-3); }
-    .article-cardlet p, .article-toc a { color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.6; }
-    .article-toc { position: sticky; top: calc(var(--header-height) + var(--space-6)); }
-    .article-toc ol { display: grid; gap: var(--space-2); list-style: none; margin: 0; padding: 0; }
-    .article-toc a { text-decoration: none; }
-    .article-toc a:hover { color: var(--primary); }
-    .article-body { padding-block: var(--space-14); }
-    .article-body article { max-width: 66ch; } /* 66ch of the 17px base is about 60ch of the 19px body text */
-    .article-body h2 { margin: var(--space-10) 0 var(--space-4); font-size: var(--text-2xl); }
-    .article-body h3 { margin: var(--space-7) 0 var(--space-3); font-size: var(--text-lg); }
-    .article-body p { color: var(--ink-soft); font-size: var(--text-md); line-height: 1.78; margin: 0 0 var(--space-5); }
-    .article-body ul { color: var(--ink-soft); display: grid; gap: var(--space-3); line-height: 1.72; margin: 0 0 var(--space-6); padding-left: 1.25rem; }
-    .article-body a, .sources-panel a { color: var(--primary); font-weight: 700; }
-    .article-callout { background: color-mix(in oklab, var(--accent-soft) 30%, var(--surface)); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: var(--space-5) var(--space-6); margin: var(--space-8) 0; }
-    .article-callout p { margin: 0; }
-    .translation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); margin: var(--space-7) 0; }
-    .translation-card { background: var(--bg-alt); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: var(--space-5); }
-    .translation-card h3 { margin-top: 0; }
-    .sources-panel { margin-top: var(--space-10); }
-    .sources-panel ul { margin-bottom: 0; }
-    .article-cta { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
-    .article-figure { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-6); margin: var(--space-8) 0; }
-    .article-figure svg { display: block; width: 100%; height: auto; }
-    .article-figure figcaption { color: var(--ink-muted); font-size: var(--text-sm); line-height: 1.6; margin-top: var(--space-4); }
-    .article-figure figcaption b { font-family: var(--font-display); font-style: italic; font-weight: 600; color: var(--amber-deep); }
-    .article-figure .article-figure__head { margin: 0 0 var(--space-4); }
-    .figure-steps { display: grid; gap: var(--space-5); margin: 0; padding: 0; list-style: none; }
-    .figure-steps li { display: grid; grid-template-columns: 44px 1fr; gap: var(--space-4); align-items: start; }
-    .figure-step__num { display: grid; place-items: center; width: 44px; height: 44px; border: 2px solid var(--primary); border-radius: 50%; color: var(--primary); background: var(--bg-alt); font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; }
-    .figure-steps h4 { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); }
-    .figure-steps .figure-step__title { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); font-weight: 600; line-height: 1.12; color: var(--ink); text-wrap: balance; }
-    .figure-steps p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
-    .figure-foot { margin: var(--space-5) 0 0; padding-top: var(--space-4); border-top: 1px dashed var(--border-soft); color: var(--accent-brown); font-style: italic; font-size: var(--text-md); }
-    /* The TOC comes first in the DOM, so on phones it sits above the article
-       (and keyboard order matches what is on screen); wide screens keep it in
-       the right-hand column. */
-    .article-body .article-toc { grid-column: 2; grid-row: 1; }
-    .article-body .article-layout > article { grid-column: 1; grid-row: 1; }
-    @media (max-width: 920px) {
-      .article-layout, .translation-grid { grid-template-columns: 1fr; }
-      .article-cta { flex-direction: column; align-items: stretch; }
-      .article-cta .hero__ctas { justify-content: flex-start; }
-      .article-toc { position: static; }
-      .article-body .article-toc,
-      .article-body .article-layout > article { grid-column: auto; grid-row: auto; }
-    }
-  </style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Inter:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=909f54ea40" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=9ee704dd6a" />
+  <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
+  <link rel="stylesheet" href="/assets/css/article.css?v=01dcd82f94" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=d000ca1262" />
   <!-- STRUCTURED-DATA:start (generated by scripts/build-structured-data.mjs) -->
   <script type="application/ld+json">
   [
@@ -147,10 +93,10 @@
   ]
   </script>
   <!-- STRUCTURED-DATA:end -->
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=d000ca1262" />
 </head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
+<body class="fg fg--page hub art">
+  <!-- header:start -->
+<a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
@@ -166,17 +112,18 @@
 
         <ul class="nav__list" id="primary-nav-list">
           <li class="nav__now"><a class="nav__link" href="/tools/right-now">It&rsquo;s hard right now</a></li>
+          <li><a class="nav__link" href="/#explore">Explore</a></li>
           <li><a class="nav__link" href="/classes/">Classes</a></li>
           <li class="nav__item">
             <details class="nav__details">
-              <summary class="nav__link nav__summary">Free tools <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary>
+              <summary class="nav__link nav__summary">Tools <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary>
               <div class="nav__menu">
                 <ul class="nav__submenu">
-                  <li><a class="nav__submenu-link" href="/tools/growing-minds-ai.html"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A free ten-minute counting check-in; the full version is $34.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/right-now"><span class="nav__submenu-title">It&rsquo;s hard right now</span><span class="nav__submenu-desc">A calm next step in two minutes.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/growing-minds-ai"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
                   <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/tools/communication-snapshot.html"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/arcade/"><span class="nav__submenu-title">Arcade</span><span class="nav__submenu-desc">Silly games for a five-minute break between lessons.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/communication-snapshot"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A free ten-minute counting check-in.</span></a></li>
                 </ul>
                 <a class="nav__menu-all" href="/tools/">All free tools and guides <span aria-hidden="true">&rarr;</span></a>
               </div>
@@ -185,7 +132,7 @@
           <li><a class="nav__link" href="/articles/" aria-current="page">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
           <li class="nav__item nav__auth"><a class="nav__link" href="/nsc/class-login">My classes</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Enroll, from $49</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -196,191 +143,182 @@
     </div>
   </header>
 
-  <main id="main">
-    <section class="article-hero">
-      <div class="container article-layout">
-        <div>
-          <p class="article-kicker">From coaching</p>
-          <h1 class="article-title">The toddler &ldquo;no&rdquo; is not the war you think it is</h1>
-          <p class="article-dek">Why toddlers say no to everything, and what developmental science says about responding without losing the relationship or your mind.</p>
-          <p class="article-meta">
-            <span>By Matthew McArthur</span>
-            <span>Toddler years</span>
-            <span>7 minute read</span>
-          </p>
+  <main id="main" tabindex="-1">
+    <section class="art-title">
+      <div class="hb-container art-title__grid">
+        <div data-rise>
+          <h1 class="hb-display">The toddler &ldquo;no&rdquo; is not the war you think it is</h1>
+          <p class="hb-lead art-dek">Why toddlers say no to everything, and what developmental science says about responding without losing the relationship or your mind.</p>
+          <p class="art-meta"><a href="/articles/">Articles</a> <span aria-hidden="true">&middot;</span> By Matthew McArthur <span aria-hidden="true">&middot;</span> Toddler years <span aria-hidden="true">&middot;</span> 7 minute read</p>
         </div>
-        <aside class="article-cardlet" aria-label="Article summary">
+        <aside class="art-short" aria-label="Article summary" data-rise style="--i:1">
           <h2>The short version</h2>
           <p>When a toddler says &ldquo;no,&rdquo; they&rsquo;re doing exactly what their stage of development asks of them: building a sense of self. The word is a first draft of identity more than an act of defiance. The hard part is that it arrives right when parents are also exhausted, rushed, and trying to get out the door.</p>
         </aside>
       </div>
     </section>
 
-    <section class="article-body">
-      <div class="container article-layout">
-        <aside class="article-toc" aria-label="Article navigation">
-          <h2>In this article</h2>
-          <ol>
+    <div class="hb-container art-body">
+      <nav class="art-toc" aria-label="Article navigation">
+        <h2>In this article</h2>
+        <ol>
             <li><a href="#whats-happening">What&rsquo;s actually happening</a></li>
             <li><a href="#why-it-lands-hard">Why it lands so hard</a></li>
             <li><a href="#what-helps">What actually helps</a></li>
             <li><a href="#what-it-means">What it means</a></li>
             <li><a href="#bottom-line">Bottom line</a></li>
           </ol>
-        </aside>
+      </nav>
+      <article class="art-text">
+        <p>A pattern comes up repeatedly in parent coaching: someone describes a toddler who refuses everything. Gets dressed? No. Eats breakfast? No. Leaves the park? No. Puts on shoes? An absolute, full-body no. Sometimes with floor involvement.</p>
 
-        <article>
-          <p>A pattern comes up repeatedly in parent coaching: someone describes a toddler who refuses everything. Gets dressed? No. Eats breakfast? No. Leaves the park? No. Puts on shoes? An absolute, full-body no. Sometimes with floor involvement.</p>
+        <p>The parent&rsquo;s question is usually some version of: &ldquo;Why is everything a fight? Is something wrong? Did I do something to cause this?&rdquo;</p>
 
-          <p>The parent&rsquo;s question is usually some version of: &ldquo;Why is everything a fight? Is something wrong? Did I do something to cause this?&rdquo;</p>
+        <p>The honest answer is almost always the same: nothing is wrong. This is development, on schedule.</p>
 
-          <p>The honest answer is almost always the same: nothing is wrong. This is development, on schedule.</p>
+        <div class="art-callout">
+          <p><strong>The toddler &ldquo;no&rdquo; is the beginning of identity, not the opening shot in a war.</strong> That one distinction changes almost everything about how a parent can respond to it.</p>
+        </div>
 
-          <div class="article-callout">
-            <p><strong>The toddler &ldquo;no&rdquo; is the beginning of identity, not the opening shot in a war.</strong> That one distinction changes almost everything about how a parent can respond to it.</p>
+        <h2 id="whats-happening">What is actually happening developmentally</h2>
+
+        <p>Erik Erikson described the stage from roughly 18 months to 3 years as the conflict between <em>autonomy</em> and <em>shame and doubt</em>. The child&rsquo;s developmental task during this window is to discover that they are a separate person with preferences, a will, and the ability to affect their world. The word &ldquo;no&rdquo; is the most efficient tool they have found for testing all three at once.</p>
+
+        <p>When your toddler says no, they are asking a real question: <em>Do I have a self? Does that self count? Can I make something happen?</em> The &ldquo;no&rdquo; is less about the shoes and more about the answer to those questions.</p>
+
+        <p>This is also why the refusals can feel so irrational. Your toddler may love blueberries and still say no to them. The content of the refusal is almost beside the point. The act of refusing is the point. Specifically, watching what happens when they do.</p>
+
+        <p>Research by Grazyna Kochanska and colleagues has tracked this dynamic in careful longitudinal work, following families from infancy into the preschool years. Her studies distinguish between two types of compliance in young children. &ldquo;Situational compliance&rdquo; is behavior driven by external pressure: the child does what is asked because an adult is watching and insisting. &ldquo;Committed compliance&rdquo; is different: the child follows a rule willingly, with something like genuine ownership of it. Kochanska found that children with warmer, more autonomy-supportive parents in the toddler years showed higher committed compliance later, not lower. The implication is significant: allowing toddlers to exercise their developing autonomy, including saying no, is part of how they eventually learn to cooperate willingly.</p>
+
+        <h3>The brain is driving this</h3>
+
+        <p>During the toddler years, the prefrontal cortex (the part of the brain responsible for impulse control, flexible thinking, and managing competing desires) is still in very early development. It won&rsquo;t be substantially mature until the mid-twenties. None of that is a parenting outcome; it&rsquo;s basic neurodevelopment.</p>
+
+        <p>Philip Zelazo and colleagues have tested the limits of toddler executive function directly using a task called the Dimensional Change Card Sort. Children are asked to sort cards one way, then told to switch to a new rule. Children under 4 almost universally keep sorting by the first rule even after being clearly told to change. Stubbornness has little to do with it. The inhibitory control required to suppress the familiar response simply isn&rsquo;t available yet. The toddler at shoe time is operating under the same constraint: the competing pull toward asserting themselves can be stronger in the moment than the pull toward the actual goal, not because they are choosing defiance, but because the brake system is still under construction.</p>
+
+        <h2 id="why-it-lands-hard">Why it lands so hard on parents</h2>
+
+        <p>Developmentally, the toddler &ldquo;no&rdquo; makes complete sense. Practically, it can feel like a hostage situation.</p>
+
+        <p>Parents are already managing their own tired nervous systems, real schedules, the needs of other children, work, and the relentless logistics of early family life. A child who refuses everything, including things they wanted five minutes ago, can activate something in a parent that feels surprisingly intense.</p>
+
+        <p>Part of that intensity is practical: the shoes need to go on, the car needs to leave, the morning needs to happen. But another part of it is emotional. Being refused, being defied, being told &ldquo;no&rdquo; by someone you love and care for can land as rejection, disrespect, or loss of authority, even when the person saying it is two years old and has no such intention.</p>
+
+        <p>This is where adult nervous system regulation matters enormously. A parent who is already dysregulated will have a much harder time responding to toddler autonomy in a way that doesn&rsquo;t escalate the situation. The toddler isn&rsquo;t causing the parent&rsquo;s activation. The parent&rsquo;s own history, current stress load, and sense of authority are doing that. The toddler just happened to pull the thread.</p>
+
+        <h2 id="what-helps">What actually helps</h2>
+
+        <p>None of this means limits don&rsquo;t exist or that everything is negotiable. It means the context in which limits are held matters enormously. Here are the patterns that tend to work from both research and coaching experience:</p>
+
+        <figure class="art-figure">
+          <figcaption class="article-figure__head"><b>Fig. 1</b> &middot; Three moves that hold up</figcaption>
+          <ol class="figure-steps">
+            <li>
+              <span class="figure-step__num" aria-hidden="true">1</span>
+              <div>
+                <p class="figure-step__title">Choices within limits, not unlimited choice</p>
+                <p>&#8220;Left shoe first, or right shoe?&#8221; The shoes are going on, and the child exercises real agency inside that boundary.</p>
+              </div>
+            </li>
+            <li>
+              <span class="figure-step__num" aria-hidden="true">2</span>
+              <div>
+                <p class="figure-step__title">Connection before direction</p>
+                <p>Drop to their level, make eye contact, acknowledge (&#8220;You don&rsquo;t want to stop. I hear you.&#8221;), then redirect.</p>
+              </div>
+            </li>
+            <li>
+              <span class="figure-step__num" aria-hidden="true">3</span>
+              <div>
+                <p class="figure-step__title">Fewer battles, held more calmly</p>
+                <p>Reserve firm limits for safety, basic functioning, and the routines that matter. Let the rest go.</p>
+              </div>
+            </li>
+          </ol>
+          <p class="figure-foot">The &#8220;no&#8221; is identity under construction, not defiance.</p>
+        </figure>
+
+        <h3>Choices within limits, not unlimited choice</h3>
+
+        <p>Toddlers are working on autonomy. One of the most practical ways to support that without losing your actual parenting authority is to give them real choices within a bounded range: &ldquo;Do you want to put your left shoe on first or your right shoe?&rdquo; is very different from &ldquo;Do you want to put your shoes on?&rdquo; The shoes are going on. The toddler gets to exercise agency inside that reality.</p>
+
+        <p>Studies on autonomy-supportive parenting find that offering children genuine choices embedded within firm limits is associated with better internalization of those limits over time. The mechanism appears to be that real choice communicates respect for the child&rsquo;s developing sense of self, which reduces the urgency to assert it through refusal. The key is that the choice must be real: two options both of which you can actually live with.</p>
+
+        <p>There&rsquo;s no trick in this. It&rsquo;s developmentally appropriate scaffolding that honors the autonomy drive while holding the external structure a child needs and can&rsquo;t yet provide for themselves.</p>
+
+        <h3>Connection before direction</h3>
+
+        <p>A dysregulated toddler in full &ldquo;no&rdquo; mode is not in a state where they can process instructions. Their nervous system is activated and their limited executive function is occupied. Trying to reason with them or escalate commands in that moment usually makes things worse.</p>
+
+        <p>What tends to work better: drop in at their level, briefly. Make eye contact. Acknowledge what&rsquo;s happening: &ldquo;You don&rsquo;t want to stop. I hear you.&rdquo; Not to give in, but to establish that you see them before you redirect them. Connection first, then direction.</p>
+
+        <p>Kochanska&rsquo;s work on what she calls the &ldquo;mutually responsive orientation&rdquo; between parent and child offers the research backing here. A relationship built on warmth and attunement creates a context in which limits land differently than they do in relationships characterized mostly by control. The limit still holds. But a child who feels seen first is substantially more capable of cooperating than one who feels overridden.</p>
+
+        <h3>Fewer battles, held more calmly</h3>
+
+        <p>Not everything is worth a standoff. When every interaction carries the same emotional weight, where a minor preference and a genuine safety issue both become battles, the parent exhausts themselves and the child learns that every limit is equally negotiable.</p>
+
+        <p>A calmer framework: reserve firm, clear holding of limits for things that actually matter (safety, basic daily functioning, consistent routines). Let go of things that don&rsquo;t. When the important limits are held with calm consistency, they tend to stick better than when everything is a negotiation or a fight.</p>
+
+        <div class="art-pair">
+          <div class="art-pair__cell">
+            <h3>Less helpful responses</h3>
+            <p>Matching the toddler&rsquo;s escalation; extended reasoning during dysregulation; backing down on important limits to stop the crying; taking &ldquo;no&rdquo; personally.</p>
           </div>
-
-          <h2 id="whats-happening">What is actually happening developmentally</h2>
-
-          <p>Erik Erikson described the stage from roughly 18 months to 3 years as the conflict between <em>autonomy</em> and <em>shame and doubt</em>. The child&rsquo;s developmental task during this window is to discover that they are a separate person with preferences, a will, and the ability to affect their world. The word &ldquo;no&rdquo; is the most efficient tool they have found for testing all three at once.</p>
-
-          <p>When your toddler says no, they are asking a real question: <em>Do I have a self? Does that self count? Can I make something happen?</em> The &ldquo;no&rdquo; is less about the shoes and more about the answer to those questions.</p>
-
-          <p>This is also why the refusals can feel so irrational. Your toddler may love blueberries and still say no to them. The content of the refusal is almost beside the point. The act of refusing is the point. Specifically, watching what happens when they do.</p>
-
-          <p>Research by Grazyna Kochanska and colleagues has tracked this dynamic in careful longitudinal work, following families from infancy into the preschool years. Her studies distinguish between two types of compliance in young children. &ldquo;Situational compliance&rdquo; is behavior driven by external pressure: the child does what is asked because an adult is watching and insisting. &ldquo;Committed compliance&rdquo; is different: the child follows a rule willingly, with something like genuine ownership of it. Kochanska found that children with warmer, more autonomy-supportive parents in the toddler years showed higher committed compliance later, not lower. The implication is significant: allowing toddlers to exercise their developing autonomy, including saying no, is part of how they eventually learn to cooperate willingly.</p>
-
-          <h3>The brain is driving this</h3>
-
-          <p>During the toddler years, the prefrontal cortex (the part of the brain responsible for impulse control, flexible thinking, and managing competing desires) is still in very early development. It won&rsquo;t be substantially mature until the mid-twenties. None of that is a parenting outcome; it&rsquo;s basic neurodevelopment.</p>
-
-          <p>Philip Zelazo and colleagues have tested the limits of toddler executive function directly using a task called the Dimensional Change Card Sort. Children are asked to sort cards one way, then told to switch to a new rule. Children under 4 almost universally keep sorting by the first rule even after being clearly told to change. Stubbornness has little to do with it. The inhibitory control required to suppress the familiar response simply isn&rsquo;t available yet. The toddler at shoe time is operating under the same constraint: the competing pull toward asserting themselves can be stronger in the moment than the pull toward the actual goal, not because they are choosing defiance, but because the brake system is still under construction.</p>
-
-          <h2 id="why-it-lands-hard">Why it lands so hard on parents</h2>
-
-          <p>Developmentally, the toddler &ldquo;no&rdquo; makes complete sense. Practically, it can feel like a hostage situation.</p>
-
-          <p>Parents are already managing their own tired nervous systems, real schedules, the needs of other children, work, and the relentless logistics of early family life. A child who refuses everything, including things they wanted five minutes ago, can activate something in a parent that feels surprisingly intense.</p>
-
-          <p>Part of that intensity is practical: the shoes need to go on, the car needs to leave, the morning needs to happen. But another part of it is emotional. Being refused, being defied, being told &ldquo;no&rdquo; by someone you love and care for can land as rejection, disrespect, or loss of authority, even when the person saying it is two years old and has no such intention.</p>
-
-          <p>This is where adult nervous system regulation matters enormously. A parent who is already dysregulated will have a much harder time responding to toddler autonomy in a way that doesn&rsquo;t escalate the situation. The toddler isn&rsquo;t causing the parent&rsquo;s activation. The parent&rsquo;s own history, current stress load, and sense of authority are doing that. The toddler just happened to pull the thread.</p>
-
-          <h2 id="what-helps">What actually helps</h2>
-
-          <p>None of this means limits don&rsquo;t exist or that everything is negotiable. It means the context in which limits are held matters enormously. Here are the patterns that tend to work from both research and coaching experience:</p>
-
-          <figure class="article-figure">
-            <figcaption class="article-figure__head"><b>Fig. 1</b> &middot; Three moves that hold up</figcaption>
-            <ol class="figure-steps">
-              <li>
-                <span class="figure-step__num" aria-hidden="true">1</span>
-                <div>
-                  <p class="figure-step__title">Choices within limits, not unlimited choice</p>
-                  <p>&#8220;Left shoe first, or right shoe?&#8221; The shoes are going on, and the child exercises real agency inside that boundary.</p>
-                </div>
-              </li>
-              <li>
-                <span class="figure-step__num" aria-hidden="true">2</span>
-                <div>
-                  <p class="figure-step__title">Connection before direction</p>
-                  <p>Drop to their level, make eye contact, acknowledge (&#8220;You don&rsquo;t want to stop. I hear you.&#8221;), then redirect.</p>
-                </div>
-              </li>
-              <li>
-                <span class="figure-step__num" aria-hidden="true">3</span>
-                <div>
-                  <p class="figure-step__title">Fewer battles, held more calmly</p>
-                  <p>Reserve firm limits for safety, basic functioning, and the routines that matter. Let the rest go.</p>
-                </div>
-              </li>
-            </ol>
-            <p class="figure-foot">The &#8220;no&#8221; is identity under construction, not defiance.</p>
-          </figure>
-
-          <h3>Choices within limits, not unlimited choice</h3>
-
-          <p>Toddlers are working on autonomy. One of the most practical ways to support that without losing your actual parenting authority is to give them real choices within a bounded range: &ldquo;Do you want to put your left shoe on first or your right shoe?&rdquo; is very different from &ldquo;Do you want to put your shoes on?&rdquo; The shoes are going on. The toddler gets to exercise agency inside that reality.</p>
-
-          <p>Studies on autonomy-supportive parenting find that offering children genuine choices embedded within firm limits is associated with better internalization of those limits over time. The mechanism appears to be that real choice communicates respect for the child&rsquo;s developing sense of self, which reduces the urgency to assert it through refusal. The key is that the choice must be real: two options both of which you can actually live with.</p>
-
-          <p>There&rsquo;s no trick in this. It&rsquo;s developmentally appropriate scaffolding that honors the autonomy drive while holding the external structure a child needs and can&rsquo;t yet provide for themselves.</p>
-
-          <h3>Connection before direction</h3>
-
-          <p>A dysregulated toddler in full &ldquo;no&rdquo; mode is not in a state where they can process instructions. Their nervous system is activated and their limited executive function is occupied. Trying to reason with them or escalate commands in that moment usually makes things worse.</p>
-
-          <p>What tends to work better: drop in at their level, briefly. Make eye contact. Acknowledge what&rsquo;s happening: &ldquo;You don&rsquo;t want to stop. I hear you.&rdquo; Not to give in, but to establish that you see them before you redirect them. Connection first, then direction.</p>
-
-          <p>Kochanska&rsquo;s work on what she calls the &ldquo;mutually responsive orientation&rdquo; between parent and child offers the research backing here. A relationship built on warmth and attunement creates a context in which limits land differently than they do in relationships characterized mostly by control. The limit still holds. But a child who feels seen first is substantially more capable of cooperating than one who feels overridden.</p>
-
-          <h3>Fewer battles, held more calmly</h3>
-
-          <p>Not everything is worth a standoff. When every interaction carries the same emotional weight, where a minor preference and a genuine safety issue both become battles, the parent exhausts themselves and the child learns that every limit is equally negotiable.</p>
-
-          <p>A calmer framework: reserve firm, clear holding of limits for things that actually matter (safety, basic daily functioning, consistent routines). Let go of things that don&rsquo;t. When the important limits are held with calm consistency, they tend to stick better than when everything is a negotiation or a fight.</p>
-
-          <div class="translation-grid">
-            <div class="translation-card">
-              <h3>Less helpful responses</h3>
-              <p>Matching the toddler&rsquo;s escalation; extended reasoning during dysregulation; backing down on important limits to stop the crying; taking &ldquo;no&rdquo; personally.</p>
-            </div>
-            <div class="translation-card">
-              <h3>More helpful responses</h3>
-              <p>Brief acknowledgment, then calm redirect; choices within limits; consistent follow-through without drama; regulating yourself before re-engaging.</p>
-            </div>
+          <div class="art-pair__cell">
+            <h3>More helpful responses</h3>
+            <p>Brief acknowledgment, then calm redirect; choices within limits; consistent follow-through without drama; regulating yourself before re-engaging.</p>
           </div>
+        </div>
 
-          <h2 id="what-it-means">What it means about your child (and you)</h2>
+        <h2 id="what-it-means">What it means about your child (and you)</h2>
 
-          <p>A toddler with a strong &ldquo;no&rdquo; is usually a child with a developing sense of self. That is exactly what you want. The same child who refuses shoes at two is building the foundation for eventually knowing what they want, advocating for themselves, and tolerating frustration.</p>
+        <p>A toddler with a strong &ldquo;no&rdquo; is usually a child with a developing sense of self. That is exactly what you want. The same child who refuses shoes at two is building the foundation for eventually knowing what they want, advocating for themselves, and tolerating frustration.</p>
 
-          <p>That does not make the shoes easier to get on at 7:45 in the morning. But it changes the meaning of the moment. And meaning changes how we respond to it.</p>
+        <p>That does not make the shoes easier to get on at 7:45 in the morning. But it changes the meaning of the moment. And meaning changes how we respond to it.</p>
 
-          <p>From a coaching perspective, the parents who find this stage most exhausting are often the ones who are reading the refusals as a judgment on them: <em>Am I failing? Is my child going to be difficult forever? Did I cause this?</em> Those questions are understandable, and they are also making a hard developmental stage much harder to navigate.</p>
+        <p>From a coaching perspective, the parents who find this stage most exhausting are often the ones who are reading the refusals as a judgment on them: <em>Am I failing? Is my child going to be difficult forever? Did I cause this?</em> Those questions are understandable, and they are also making a hard developmental stage much harder to navigate.</p>
 
-          <p>The toddler &ldquo;no&rdquo; isn&rsquo;t a verdict on your parenting. It&rsquo;s a developmental milestone, running on schedule, in a child working hard to figure out who they are.</p>
+        <p>The toddler &ldquo;no&rdquo; isn&rsquo;t a verdict on your parenting. It&rsquo;s a developmental milestone, running on schedule, in a child working hard to figure out who they are.</p>
 
-          <h2 id="bottom-line">The bottom line</h2>
+        <h2 id="bottom-line">The bottom line</h2>
 
-          <p>The shoes will go on. The tantrum will end. The child will eat the blueberries five minutes after refusing them.</p>
+        <p>The shoes will go on. The tantrum will end. The child will eat the blueberries five minutes after refusing them.</p>
 
-          <p>The long game is what matters. A toddler who is allowed to have a real self, with preferences and occasional refusals, is more likely to become a child who cooperates because they trust the relationship, not just because they are afraid of consequences.</p>
+        <p>The long game is what matters. A toddler who is allowed to have a real self, with preferences and occasional refusals, is more likely to become a child who cooperates because they trust the relationship, not just because they are afraid of consequences.</p>
 
-          <p>Hold the limits. Stay regulated. Pick your battles. And the next time your child refuses their favorite food for no discernible reason, try to see it for what it is: a small, impractical, occasionally exhausting sign that everything is going exactly as it should.</p>
+        <p>Hold the limits. Stay regulated. Pick your battles. And the next time your child refuses their favorite food for no discernible reason, try to see it for what it is: a small, impractical, occasionally exhausting sign that everything is going exactly as it should.</p>
 
-          <div class="sources-panel">
-            <h2>Sources and Further Reading</h2>
-            <ul>
-              <li><a href="https://www.zerotothree.org/resource/toddlers-and-challenging-behavior-why-they-do-it-and-how-to-respond/" target="_blank" rel="noopener noreferrer">ZERO TO THREE: Toddlers and Challenging Behavior</a></li>
-              <li><a href="https://developingchild.harvard.edu/science/key-concepts/executive-function/" target="_blank" rel="noopener noreferrer">Center on the Developing Child, Harvard: Executive Function and Self-Regulation</a></li>
-              <li><a href="https://www.naeyc.org/resources/pubs/yc/mar2014/challenging-behavior" target="_blank" rel="noopener noreferrer">NAEYC: Understanding and Responding to Challenging Behavior in Young Children</a></li>
-              <li>Erikson, E. H. (1950). <em>Childhood and Society.</em> W. W. Norton.</li>
-              <li>Kochanska, G., &amp; Aksan, N. (1995). Mother-child mutually positive affect, the quality of child compliance to requests and prohibitions, and maternal control as correlates of early internalization. <em>Child Development, 66</em>(1), 236–254.</li>
-              <li>Zelazo, P. D., Müller, U., Frye, D., &amp; Marcovitch, S. (2003). The development of executive function in early childhood. <em>Monographs of the Society for Research in Child Development, 68</em>(3).</li>
-              <li>Siegel, D. J., &amp; Bryson, T. P. (2011). <em>The Whole-Brain Child.</em> Delacorte Press.</li>
-            </ul>
-          </div>
-        </article>
-      </div>
-    </section>
+        <div class="art-sources">
+          <h2>Sources and Further Reading</h2>
+          <ul>
+            <li><a href="https://www.zerotothree.org/resource/toddlers-and-challenging-behavior-why-they-do-it-and-how-to-respond/" target="_blank" rel="noopener noreferrer">ZERO TO THREE: Toddlers and Challenging Behavior</a></li>
+            <li><a href="https://developingchild.harvard.edu/science/key-concepts/executive-function/" target="_blank" rel="noopener noreferrer">Center on the Developing Child, Harvard: Executive Function and Self-Regulation</a></li>
+            <li><a href="https://www.naeyc.org/resources/pubs/yc/mar2014/challenging-behavior" target="_blank" rel="noopener noreferrer">NAEYC: Understanding and Responding to Challenging Behavior in Young Children</a></li>
+            <li>Erikson, E. H. (1950). <em>Childhood and Society.</em> W. W. Norton.</li>
+            <li>Kochanska, G., &amp; Aksan, N. (1995). Mother-child mutually positive affect, the quality of child compliance to requests and prohibitions, and maternal control as correlates of early internalization. <em>Child Development, 66</em>(1), 236–254.</li>
+            <li>Zelazo, P. D., Müller, U., Frye, D., &amp; Marcovitch, S. (2003). The development of executive function in early childhood. <em>Monographs of the Society for Research in Child Development, 68</em>(3).</li>
+            <li>Siegel, D. J., &amp; Bryson, T. P. (2011). <em>The Whole-Brain Child.</em> Delacorte Press.</li>
+          </ul>
+        </div>
+      </article>
+    </div>
 
-    <section class="section--alt">
-      <div class="container container--narrow">
-        <div class="article-cta">
-          <div>
-            <h2 style="margin:0 0 .35rem; font-size:var(--text-lg);">Module 3 of the toddler class covers autonomy and &ldquo;no&rdquo; in full.</h2>
-            <p class="small" style="max-width:38rem; margin:0;">Why autonomy develops the way it does, how to offer choices that work, how to hold limits without power struggles, and the research behind all of it. $49 for lifetime access.</p>
-          </div>
-          <div class="hero__ctas">
-            <a class="btn btn--primary" href="/classes/toddlerhood">See the toddler class</a>
-            <a class="btn btn--ghost" href="/tools/limits-without-escalation">Limits tool</a>
-          </div>
+    <section class="hub-sec hub-close" aria-labelledby="close-heading">
+      <div class="hb-container">
+        <div data-rise>
+          <h2 class="hb-display" id="close-heading">Module 3 of the toddler class covers autonomy and &ldquo;no&rdquo; in full.</h2>
+          <p>Why autonomy develops the way it does, how to offer choices that work, how to hold limits without power struggles, and the research behind all of it. $49 for lifetime access.</p>
+        </div>
+        <div class="hub-close__act" data-rise style="--i:1">
+          <a class="hb-btn hb-btn--paper" href="/classes/toddlerhood">See the toddler class</a>
+          <a class="hb-btn hb-btn--quiet" href="/tools/limits-without-escalation">Limits tool</a>
         </div>
       </div>
     </section>
   </main>
 
+  <!-- footer:start -->
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
@@ -388,11 +326,7 @@
           <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">growing minds</span><span class="brand__desc">Science</span>
         </a>
-        <p class="site-footer__tag">A developmental-science education for parents of children 0 to 5.</p>
-        <a class="footer-ig" href="https://www.instagram.com/growingmindsscience/" target="_blank" rel="noopener noreferrer">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
-          Instagram
-        </a>
+        <p class="site-footer__tag">A living field guide to the growing mind, for parents of children 0 to 5.</p>
       </div>
       <nav class="site-footer__nav" aria-label="Footer">
         <div>
@@ -406,12 +340,12 @@
           </ul>
         </div>
         <div>
-          <h2 class="site-footer__heading">Free tools</h2>
+          <h2 class="site-footer__heading">Tools</h2>
           <ul class="footer-list">
-            <li><a href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
-            <li><a href="/nsc">Number Path</a></li>
+            <li><a href="/tools/right-now">It&rsquo;s hard right now</a></li>
+            <li><a href="/tools/growing-minds-ai">Growing Minds AI</a></li>
             <li><a href="/milestones">Milestone tracker</a></li>
-            <li><a href="/tools/communication-snapshot.html">Communication Snapshot</a></li>
+            <li><a href="/tools/communication-snapshot">Communication Snapshot</a></li>
             <li><a href="/tools/">All tools and guides</a></li>
           </ul>
         </div>
@@ -419,25 +353,34 @@
           <h2 class="site-footer__heading">About</h2>
           <ul class="footer-list">
             <li><a href="/about/">Our approach</a></li>
-            <li><a href="/articles/">Articles</a></li>
+            <li><a href="/articles/" aria-current="page">Articles</a></li>
             <li><a href="/faq/">FAQ</a></li>
             <li><a href="/contact/">Contact</a></li>
           </ul>
         </div>
+        <div>
+          <h2 class="site-footer__heading">Elsewhere</h2>
+          <ul class="footer-list">
+            <li><a href="https://www.instagram.com/growingmindsscience/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="/arcade/">Arcade</a></li>
+          </ul>
+        </div>
       </nav>
     </div>
-    <div class="container">
+    <div class="container site-footer__close">
+      <p class="site-footer__wordmark" aria-hidden="true">growing minds <span class="site-footer__wordmark-desc">science</span></p>
       <div class="footer-bottom">
-        <p>&copy; <span data-year>2026</span> Growing Minds Science &middot; <a href="/arcade/">Arcade</a></p>
+        <p>&copy; <span data-year>2026</span> Growing Minds Science</p>
         <p>Educational content only. Not medical or psychological advice.</p>
       </div>
     </div>
   </footer>
+<!-- footer:end -->
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
 
   <script src="../assets/js/main.js?v=742e637d07" defer></script>
-  <script src="../assets/js/decor.js?v=09ff05457d" defer></script>
+  <script src="/assets/js/home.js?v=c7f5c746df" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

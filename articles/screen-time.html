@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script>/* Apply saved/system theme before paint (same key as chrome.js). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
+  /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <title>A short, honest take on screen time | Growing Minds Science</title>
   <meta name="description" content="A practical, research-informed guide to screen time: what the evidence supports, what it does not, and how families can think about screens without shame or dogma." />
-  <meta name="theme-color" content="#F6F9F8" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#15262C" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#F7F4EC" />
   <meta name="color-scheme" content="light dark" />
 
   <link rel="icon" type="image/png" href="../assets/img/original-logo-mark-no-words-128.png" />
@@ -26,93 +26,12 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@400..800&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" />
-  <link rel="stylesheet" href="../assets/css/styles.css?v=3fa98080dc" />
-  <link rel="stylesheet" href="../assets/css/refresh.css?v=4def14502a" />
-
-  <style>
-    .article-hero { padding: clamp(3.5rem, 7vw, 6rem) 0 var(--space-10); background: linear-gradient(180deg, color-mix(in oklab, var(--accent-soft) 22%, var(--bg)) 0%, var(--bg) 100%); border-bottom: 1px solid var(--border-soft); }
-    .article-layout { display: grid; grid-template-columns: minmax(0, .72fr) minmax(240px, .28fr); gap: clamp(var(--space-8), 6vw, var(--space-16)); align-items: start; }
-    .article-kicker { color: var(--accent-brown); font-size: var(--text-sm); font-weight: 600; line-height: 1.4; margin: 0 0 var(--space-4); }
-    .article-title { max-width: 22ch; margin: 0 0 var(--space-5); font-family: var(--font-display); font-size: clamp(2.3rem, 1.2rem + 3.2vw, 3.4rem); font-weight: 500; letter-spacing: -0.005em; line-height: 1.06; text-wrap: balance; }
-    .article-dek { max-width: 48rem; color: var(--ink-soft); font-size: var(--text-lg); line-height: 1.55; margin: 0; }
-    .article-meta { display: flex; flex-wrap: wrap; gap: var(--space-3); color: var(--ink-muted); font-size: var(--text-sm); margin-top: var(--space-6); }
-    .article-cardlet, .article-toc, .article-callout, .sources-panel { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-5); }
-    /* Scoped under .article-body so the article h2 rule below cannot inflate the sidebar headings. */
-    .article-body .article-cardlet h2, .article-body .article-toc h2, .article-cardlet h2, .article-toc h2 { font-size: var(--text-md); margin: 0 0 var(--space-3); }
-    .article-cardlet p, .article-toc a { color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.6; }
-    .article-toc { position: sticky; top: calc(var(--header-height) + var(--space-6)); }
-    .article-toc ol { display: grid; gap: var(--space-2); list-style: none; margin: 0; padding: 0; }
-    .article-toc a { text-decoration: none; }
-    .article-toc a:hover { color: var(--primary); }
-    .article-body { padding-block: var(--space-14); }
-    .article-body article { max-width: 66ch; } /* 66ch of the 17px base is about 60ch of the 19px body text */
-    .article-body h2 { margin: var(--space-10) 0 var(--space-4); font-size: var(--text-2xl); }
-    .article-body h3 { margin: var(--space-7) 0 var(--space-3); font-size: var(--text-lg); }
-    .article-body p { color: var(--ink-soft); font-size: var(--text-md); line-height: 1.78; margin: 0 0 var(--space-5); }
-    .article-body ul { color: var(--ink-soft); display: grid; gap: var(--space-3); line-height: 1.72; margin: 0 0 var(--space-6); padding-left: 1.25rem; }
-    .article-body a, .sources-panel a { color: var(--primary); font-weight: 700; }
-    .article-callout { background: color-mix(in oklab, var(--accent-soft) 30%, var(--surface)); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: var(--space-5) var(--space-6); margin: var(--space-8) 0; }
-    .article-callout p { margin: 0; }
-    .translation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); margin: var(--space-7) 0; }
-    .translation-card { background: var(--bg-alt); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: var(--space-5); }
-    .translation-card h3 { margin-top: 0; }
-    .sources-panel { margin-top: var(--space-10); }
-    .sources-panel ul { margin-bottom: 0; }
-    .article-cta { display: flex; justify-content: space-between; align-items: center; gap: var(--space-5); padding: var(--space-6); background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
-    .article-figure { background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: var(--space-6); margin: var(--space-8) 0; }
-    /* Figures are drawn on a 480-unit viewBox and their text is set in SVG
-       units, so it scales with the drawing. Capped at 32rem, 16-unit labels
-       render at about 17px on wide screens. Below 560px the figure gives up
-       some padding and labels step to 22 units: about 14px on a 375px phone. */
-    .article-figure svg { display: block; width: 100%; max-width: 32rem; height: auto; margin-inline: auto; }
-    .article-figure .af-text { font: 500 16px var(--font-body); fill: var(--ink-soft); }
-    .article-figure .af-strong { font-weight: 700; fill: var(--ink); }
-    .article-figure .af-muted { fill: var(--ink-muted); }
-    .article-figure .af-primary { fill: var(--primary); }
-    .article-figure .af-accent { fill: var(--accent-brown); }
-    .article-figure .af-note { font-style: italic; fill: var(--accent-brown); }
-    .article-figure .af-head, .article-figure .af-key, .article-figure .af-foot, .article-figure figcaption { max-width: 32rem; margin-inline: auto; }
-    .article-figure .af-head { margin-block: 0 var(--space-4); color: var(--ink); font-size: var(--text-base); font-weight: 700; line-height: 1.4; text-wrap: balance; }
-    .article-figure .af-foot { margin-block: var(--space-4) 0; color: var(--accent-brown); font-size: var(--text-base); font-style: italic; line-height: 1.5; text-wrap: balance; }
-    .article-figure .af-key { display: grid; gap: var(--space-3); margin-block: var(--space-5) 0; padding: var(--space-4) 0 0; border-top: 1px solid var(--border-soft); list-style: none; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.55; }
-    .article-figure .af-key li { display: grid; grid-template-columns: 1.75rem minmax(0, 1fr); gap: var(--space-3); align-items: start; }
-    .article-figure .af-key b { color: var(--ink); font-weight: 700; }
-    .article-figure .af-key__num { display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border: 2px solid var(--primary); border-radius: 50%; color: var(--primary); font-size: var(--text-sm); font-weight: 700; line-height: 1; }
-    .article-figure .af-key__num--warm { border-color: var(--warm); color: var(--accent-brown); }
-    .article-figure .af-key--stages { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-5); }
-    .article-figure .af-key--stages li { display: block; }
-    .article-figure .af-key--stages b { display: block; }
-    @media (max-width: 560px) {
-      .article-figure { padding: var(--space-4); }
-      .article-figure .af-text { font-size: 22px; }
-    }
-    /* Narrower phones (360px class): the drawing borrows 8px of padding each side. */
-    @media (max-width: 374px) {
-      .article-figure svg { width: calc(100% + 2 * var(--space-2)); max-width: none; margin-inline: calc(-1 * var(--space-2)); }
-    }
-    .article-figure figcaption { color: var(--ink-muted); font-size: var(--text-sm); line-height: 1.6; margin-top: var(--space-4); }
-    .article-figure figcaption b { font-family: var(--font-display); font-style: italic; font-weight: 600; color: var(--amber-deep); }
-    .article-figure .article-figure__head { margin: 0 0 var(--space-4); }
-    .figure-steps { display: grid; gap: var(--space-5); margin: 0; padding: 0; list-style: none; }
-    .figure-steps li { display: grid; grid-template-columns: 44px 1fr; gap: var(--space-4); align-items: start; }
-    .figure-steps h4 { margin: .4rem 0 .25rem; font-family: var(--font-display); font-size: var(--text-md); }
-    .figure-steps p { margin: 0; color: var(--ink-soft); font-size: var(--text-sm); line-height: 1.65; }
-    .figure-foot { margin: var(--space-5) 0 0; padding-top: var(--space-4); border-top: 1px dashed var(--border-soft); color: var(--accent-brown); font-style: italic; font-size: var(--text-md); }
-    /* The TOC comes first in the DOM, so on phones it sits above the article
-       (and keyboard order matches what is on screen); wide screens keep it in
-       the right-hand column. */
-    .article-body .article-toc { grid-column: 2; grid-row: 1; }
-    .article-body .article-layout > article { grid-column: 1; grid-row: 1; }
-    @media (max-width: 920px) {
-      .article-layout, .translation-grid { grid-template-columns: 1fr; }
-      .article-cta { flex-direction: column; align-items: stretch; }
-      .article-cta .hero__ctas { justify-content: flex-start; }
-      .article-toc { position: static; }
-      .article-body .article-toc,
-      .article-body .article-layout > article { grid-column: auto; grid-row: auto; }
-    }
-  </style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Inter:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=909f54ea40" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=9ee704dd6a" />
+  <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
+  <link rel="stylesheet" href="/assets/css/article.css?v=01dcd82f94" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=d000ca1262" />
   <!-- STRUCTURED-DATA:start (generated by scripts/build-structured-data.mjs) -->
   <script type="application/ld+json">
   [
@@ -174,10 +93,10 @@
   ]
   </script>
   <!-- STRUCTURED-DATA:end -->
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=d000ca1262" />
 </head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
+<body class="fg fg--page hub art">
+  <!-- header:start -->
+<a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
@@ -193,17 +112,18 @@
 
         <ul class="nav__list" id="primary-nav-list">
           <li class="nav__now"><a class="nav__link" href="/tools/right-now">It&rsquo;s hard right now</a></li>
+          <li><a class="nav__link" href="/#explore">Explore</a></li>
           <li><a class="nav__link" href="/classes/">Classes</a></li>
           <li class="nav__item">
             <details class="nav__details">
-              <summary class="nav__link nav__summary">Free tools <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary>
+              <summary class="nav__link nav__summary">Tools <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary>
               <div class="nav__menu">
                 <ul class="nav__submenu">
-                  <li><a class="nav__submenu-link" href="/tools/growing-minds-ai.html"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A free ten-minute counting check-in; the full version is $34.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/right-now"><span class="nav__submenu-title">It&rsquo;s hard right now</span><span class="nav__submenu-desc">A calm next step in two minutes.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/growing-minds-ai"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question. Every answer shows its sources.</span></a></li>
                   <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/tools/communication-snapshot.html"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/arcade/"><span class="nav__submenu-title">Arcade</span><span class="nav__submenu-desc">Silly games for a five-minute break between lessons.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/communication-snapshot"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A free ten-minute counting check-in.</span></a></li>
                 </ul>
                 <a class="nav__menu-all" href="/tools/">All free tools and guides <span aria-hidden="true">&rarr;</span></a>
               </div>
@@ -212,7 +132,7 @@
           <li><a class="nav__link" href="/articles/" aria-current="page">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
           <li class="nav__item nav__auth"><a class="nav__link" href="/nsc/class-login">My classes</a></li>
-          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Browse the classes</a></li>
+          <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Enroll, from $49</a></li>
         </ul>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle theme">
@@ -223,188 +143,179 @@
     </div>
   </header>
 
-  <main id="main">
-    <section class="article-hero">
-      <div class="container article-layout">
-        <div>
-          <p class="article-kicker">Practical</p>
-          <h1 class="article-title">A short, honest take on screen time</h1>
-          <p class="article-dek">What the current research actually supports, what it doesn&rsquo;t, and how to think about it without shame or dogma.</p>
-          <p class="article-meta">
-            <span>By Matthew McArthur</span>
-            <span>Early childhood</span>
-            <span>6 minute read</span>
-          </p>
+  <main id="main" tabindex="-1">
+    <section class="art-title">
+      <div class="hb-container art-title__grid">
+        <div data-rise>
+          <h1 class="hb-display">A short, honest take on screen time</h1>
+          <p class="hb-lead art-dek">What the current research actually supports, what it doesn&rsquo;t, and how to think about it without shame or dogma.</p>
+          <p class="art-meta"><a href="/articles/">Articles</a> <span aria-hidden="true">&middot;</span> By Matthew McArthur <span aria-hidden="true">&middot;</span> Early childhood <span aria-hidden="true">&middot;</span> 6 minute read</p>
         </div>
-        <aside class="article-cardlet" aria-label="Article summary">
+        <aside class="art-short" aria-label="Article summary" data-rise style="--i:1">
           <h2>The short version</h2>
           <p>Screen time isn&rsquo;t one single thing. A video call with a grandparent, a slow educational show with an adult nearby, background TV, and autoplay videos at bedtime are wildly different experiences. The useful question isn&rsquo;t only &ldquo;how much?&rdquo; but &ldquo;what, when, why, and with whom?&rdquo;</p>
         </aside>
       </div>
     </section>
 
-    <section class="article-body">
-      <div class="container article-layout">
-        <aside class="article-toc" aria-label="Article navigation">
-          <h2>In this article</h2>
-          <ol>
+    <div class="hb-container art-body">
+      <nav class="art-toc" aria-label="Article navigation">
+        <h2>In this article</h2>
+        <ol>
             <li><a href="#what-we-know">What we know</a></li>
             <li><a href="#what-it-does-not-support">What it does not support</a></li>
             <li><a href="#a-better-question">A better question</a></li>
             <li><a href="#a-practical-reset">A practical reset</a></li>
             <li><a href="#bottom-line">Bottom line</a></li>
           </ol>
-        </aside>
+      </nav>
+      <article class="art-text">
+        <p>Screen time is one of those parenting topics that seems designed to make everyone feel bad.</p>
 
-        <article>
-          <p>Screen time is one of those parenting topics that seems designed to make everyone feel bad.</p>
+        <p>One corner of the internet says any screen is stealing childhood. Another says the panic is outdated and parents should relax. Most families are living somewhere in the middle: making dinner, answering email, trying to keep a toddler from melting down in a waiting room, and wondering whether the tablet is a tool, a problem, or both.</p>
 
-          <p>One corner of the internet says any screen is stealing childhood. Another says the panic is outdated and parents should relax. Most families are living somewhere in the middle: making dinner, answering email, trying to keep a toddler from melting down in a waiting room, and wondering whether the tablet is a tool, a problem, or both.</p>
+        <p>The honest answer is: it depends.</p>
 
-          <p>The honest answer is: it depends.</p>
+        <div class="art-callout">
+          <p><strong>The research doesn&rsquo;t support treating all screen time as the same developmental exposure.</strong> It&rsquo;s equally unconvinced that screens are harmless just because they&rsquo;re everywhere.</p>
+        </div>
 
-          <div class="article-callout">
-            <p><strong>The research doesn&rsquo;t support treating all screen time as the same developmental exposure.</strong> It&rsquo;s equally unconvinced that screens are harmless just because they&rsquo;re everywhere.</p>
+        <h2 id="what-we-know">What the research supports</h2>
+
+        <p>The strongest practical takeaway is that context matters. Current guidance from the American Academy of Pediatrics emphasizes quality, balance, co-viewing, communication, and whether digital media is crowding out sleep, movement, play, reading, and relationships.</p>
+
+        <p>That is a meaningful shift away from a single stopwatch model. It does not mean limits are useless. It means the number of minutes is not enough information by itself.</p>
+
+        <p>A systematic review and meta-analysis in JAMA Pediatrics found that, for children under 6, some screen contexts were more consistently associated with poorer outcomes than others. Background TV, age-inappropriate content, and caregiver screen use during child routines showed concerning associations. Co-use and educational content were more nuanced.</p>
+
+        <p>For the early years, the research keeps pointing back to the same developmental basics: children need sleep, movement, hands-on exploration, language-rich interaction, pretend play, and emotionally available adults. Screens become more concerning when they repeatedly replace those things, especially for babies and toddlers whose learning is built so heavily through real-time social exchange.</p>
+
+        <p>One of the most consistent findings in this area is what researchers call the &ldquo;video deficit effect.&rdquo; Under around age 2, young children reliably learn less from video content than from identical live demonstrations. Patricia Kuhl and colleagues demonstrated this in a striking experiment: 9-month-old infants exposed to brief live sessions with a native Mandarin speaker showed significant phonetic learning. Infants exposed to the same content on video showed none. The social, contingent quality of live interaction, not just exposure to language, appears to be what makes early learning register. This is part of why bidirectional video calls differ developmentally from passive video. When a grandparent responds in real time to what a child does and says, the exchange resembles a real conversation. Autoplay video does not offer that.</p>
+
+        <figure class="art-figure">
+          <svg viewBox="0 0 480 284" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig-screen-time-title" aria-describedby="fig-screen-time-desc">
+            <title id="fig-screen-time-title">Live versus video language exposure at 9 months (Kuhl and colleagues).</title>
+            <desc id="fig-screen-time-desc">Two stacked panels comparing the same Mandarin sessions for 9-month-olds: with a live speaker, significant phonetic learning; with identical content on video, no measurable learning.</desc>
+            <rect x="1" y="1" width="478" height="124" rx="14" fill="var(--bg-alt)" stroke="var(--border-soft)" />
+            <circle cx="50" cy="44" r="15" fill="none" stroke="var(--primary)" stroke-width="2.5" />
+            <path d="M 22 90 Q 50 62 78 90" fill="none" stroke="var(--primary)" stroke-width="2.5" />
+            <text class="af-text af-strong" x="104" y="40">A live speaker</text>
+            <text class="af-text" x="104" y="69">real-time, responsive</text>
+            <path d="M 104 97 l 7 8 l 13 -16" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+            <text class="af-text af-strong" x="134" y="105">Significant phonetic learning</text>
+            <text class="af-text af-muted" x="50" y="142" dy=".35em" text-anchor="middle">vs</text>
+            <rect x="1" y="159" width="478" height="124" rx="14" fill="var(--bg-alt)" stroke="var(--border-soft)" />
+            <rect x="27" y="190" width="46" height="34" rx="4" fill="none" stroke="var(--ink-muted)" stroke-width="2.5" />
+            <polygon points="43,199 43,215 57,207" fill="var(--ink-muted)" />
+            <line x1="50" y1="224" x2="50" y2="234" stroke="var(--ink-muted)" stroke-width="2.5" />
+            <line x1="36" y1="236" x2="64" y2="236" stroke="var(--ink-muted)" stroke-width="2.5" />
+            <text class="af-text af-strong" x="104" y="198">Same content, on video</text>
+            <text class="af-text" x="104" y="227">one-way, non-contingent</text>
+            <path d="M 106 249 l 14 14 M 120 249 l -14 14" fill="none" stroke="var(--ink-muted)" stroke-width="3" stroke-linecap="round" />
+            <text class="af-text af-strong af-muted" x="134" y="263">No measurable learning</text>
+          </svg>
+          <figcaption><b>Fig. 1</b> &middot; The video deficit effect. Kuhl and colleagues exposed 9-month-olds to brief Mandarin sessions, live or on video, with the same content. Only the live group learned. The social, contingent quality of the exchange, not the exposure itself, is what registers under age 2.</figcaption>
+        </figure>
+
+        <div class="art-pair">
+          <div class="art-pair__cell">
+            <h3>More concerning</h3>
+            <p>Long, solo, fast-paced, autoplay-heavy use; background TV; screens during meals or bedtime; content that is scary, adult, or hard to understand.</p>
           </div>
-
-          <h2 id="what-we-know">What the research supports</h2>
-
-          <p>The strongest practical takeaway is that context matters. Current guidance from the American Academy of Pediatrics emphasizes quality, balance, co-viewing, communication, and whether digital media is crowding out sleep, movement, play, reading, and relationships.</p>
-
-          <p>That is a meaningful shift away from a single stopwatch model. It does not mean limits are useless. It means the number of minutes is not enough information by itself.</p>
-
-          <p>A systematic review and meta-analysis in JAMA Pediatrics found that, for children under 6, some screen contexts were more consistently associated with poorer outcomes than others. Background TV, age-inappropriate content, and caregiver screen use during child routines showed concerning associations. Co-use and educational content were more nuanced.</p>
-
-          <p>For the early years, the research keeps pointing back to the same developmental basics: children need sleep, movement, hands-on exploration, language-rich interaction, pretend play, and emotionally available adults. Screens become more concerning when they repeatedly replace those things, especially for babies and toddlers whose learning is built so heavily through real-time social exchange.</p>
-
-          <p>One of the most consistent findings in this area is what researchers call the &ldquo;video deficit effect.&rdquo; Under around age 2, young children reliably learn less from video content than from identical live demonstrations. Patricia Kuhl and colleagues demonstrated this in a striking experiment: 9-month-old infants exposed to brief live sessions with a native Mandarin speaker showed significant phonetic learning. Infants exposed to the same content on video showed none. The social, contingent quality of live interaction, not just exposure to language, appears to be what makes early learning register. This is part of why bidirectional video calls differ developmentally from passive video. When a grandparent responds in real time to what a child does and says, the exchange resembles a real conversation. Autoplay video does not offer that.</p>
-
-          <figure class="article-figure">
-            <svg viewBox="0 0 480 284" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig-screen-time-title" aria-describedby="fig-screen-time-desc">
-              <title id="fig-screen-time-title">Live versus video language exposure at 9 months (Kuhl and colleagues).</title>
-              <desc id="fig-screen-time-desc">Two stacked panels comparing the same Mandarin sessions for 9-month-olds: with a live speaker, significant phonetic learning; with identical content on video, no measurable learning.</desc>
-              <rect x="1" y="1" width="478" height="124" rx="14" fill="var(--bg-alt)" stroke="var(--border-soft)" />
-              <circle cx="50" cy="44" r="15" fill="none" stroke="var(--primary)" stroke-width="2.5" />
-              <path d="M 22 90 Q 50 62 78 90" fill="none" stroke="var(--primary)" stroke-width="2.5" />
-              <text class="af-text af-strong" x="104" y="40">A live speaker</text>
-              <text class="af-text" x="104" y="69">real-time, responsive</text>
-              <path d="M 104 97 l 7 8 l 13 -16" fill="none" stroke="var(--primary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-              <text class="af-text af-strong" x="134" y="105">Significant phonetic learning</text>
-              <text class="af-text af-muted" x="50" y="142" dy=".35em" text-anchor="middle">vs</text>
-              <rect x="1" y="159" width="478" height="124" rx="14" fill="var(--bg-alt)" stroke="var(--border-soft)" />
-              <rect x="27" y="190" width="46" height="34" rx="4" fill="none" stroke="var(--ink-muted)" stroke-width="2.5" />
-              <polygon points="43,199 43,215 57,207" fill="var(--ink-muted)" />
-              <line x1="50" y1="224" x2="50" y2="234" stroke="var(--ink-muted)" stroke-width="2.5" />
-              <line x1="36" y1="236" x2="64" y2="236" stroke="var(--ink-muted)" stroke-width="2.5" />
-              <text class="af-text af-strong" x="104" y="198">Same content, on video</text>
-              <text class="af-text" x="104" y="227">one-way, non-contingent</text>
-              <path d="M 106 249 l 14 14 M 120 249 l -14 14" fill="none" stroke="var(--ink-muted)" stroke-width="3" stroke-linecap="round" />
-              <text class="af-text af-strong af-muted" x="134" y="263">No measurable learning</text>
-            </svg>
-            <figcaption><b>Fig. 1</b> &middot; The video deficit effect. Kuhl and colleagues exposed 9-month-olds to brief Mandarin sessions, live or on video, with the same content. Only the live group learned. The social, contingent quality of the exchange, not the exposure itself, is what registers under age 2.</figcaption>
-          </figure>
-
-          <div class="translation-grid">
-            <div class="translation-card">
-              <h3>More concerning</h3>
-              <p>Long, solo, fast-paced, autoplay-heavy use; background TV; screens during meals or bedtime; content that is scary, adult, or hard to understand.</p>
-            </div>
-            <div class="translation-card">
-              <h3>Less concerning</h3>
-              <p>Short, intentional use; video chats with loved ones; slow, age-appropriate content; watching together and talking about what the child notices.</p>
-            </div>
+          <div class="art-pair__cell">
+            <h3>Less concerning</h3>
+            <p>Short, intentional use; video chats with loved ones; slow, age-appropriate content; watching together and talking about what the child notices.</p>
           </div>
+        </div>
 
-          <h2 id="what-it-does-not-support">What the research does not support</h2>
+        <h2 id="what-it-does-not-support">What the research does not support</h2>
 
-          <h3>It does not support parent shaming</h3>
-          <p>A tired parent putting on a show while they make dinner is not the same thing as a child spending most waking hours alone with a device. Developmental science should be able to tell the difference.</p>
+        <h3>It does not support parent shaming</h3>
+        <p>A tired parent putting on a show while they make dinner is not the same thing as a child spending most waking hours alone with a device. Developmental science should be able to tell the difference.</p>
 
-          <p>Families use screens for many reasons: work, exhaustion, safety, long commutes, single parenting, illness, disability, financial stress, lack of childcare, and the very ordinary need to get through the day. A useful screen-time conversation starts with reality, not moral performance.</p>
+        <p>Families use screens for many reasons: work, exhaustion, safety, long commutes, single parenting, illness, disability, financial stress, lack of childcare, and the very ordinary need to get through the day. A useful screen-time conversation starts with reality, not moral performance.</p>
 
-          <p>Worth noting on this point: Jenny Radesky and colleagues have shown that caregiver absorption in mobile devices during child interactions reduces the responsiveness and warmth of adult-child exchanges. That&rsquo;s a structural finding, not a parent-blame one. When adults are stretched thin, presence gets harder, and what helps is rarely individual guilt. It&rsquo;s the conditions that let caregivers actually be available.</p>
+        <p>Worth noting on this point: Jenny Radesky and colleagues have shown that caregiver absorption in mobile devices during child interactions reduces the responsiveness and warmth of adult-child exchanges. That&rsquo;s a structural finding, not a parent-blame one. When adults are stretched thin, presence gets harder, and what helps is rarely individual guilt. It&rsquo;s the conditions that let caregivers actually be available.</p>
 
-          <h3>It does not support &ldquo;educational&rdquo; as a magic word</h3>
-          <p>Some children&rsquo;s media is thoughtfully made. Some of it is mostly stimulation with a learning label. Even when content is high quality, young children usually learn more when an adult helps connect what is on the screen to the real world.</p>
+        <h3>It does not support &ldquo;educational&rdquo; as a magic word</h3>
+        <p>Some children&rsquo;s media is thoughtfully made. Some of it is mostly stimulation with a learning label. Even when content is high quality, young children usually learn more when an adult helps connect what is on the screen to the real world.</p>
 
-          <p>If a show teaches animal names, the learning becomes more useful when someone later says, &ldquo;We saw a cow in your show. That cow at the farm says moo too.&rdquo; The bridge matters.</p>
+        <p>If a show teaches animal names, the learning becomes more useful when someone later says, &ldquo;We saw a cow in your show. That cow at the farm says moo too.&rdquo; The bridge matters.</p>
 
-          <h3>It does not support total panic about every exposure</h3>
-          <p>A sick day with movies is not a developmental catastrophe. A video call with a grandparent is not the same as passive scrolling. A little screen time in a hard season does not erase the relationship you are building with your child.</p>
+        <h3>It does not support total panic about every exposure</h3>
+        <p>A sick day with movies is not a developmental catastrophe. A video call with a grandparent is not the same as passive scrolling. A little screen time in a hard season does not erase the relationship you are building with your child.</p>
 
-          <p>The pattern matters more than the exception.</p>
+        <p>The pattern matters more than the exception.</p>
 
-          <h2 id="a-better-question">A better question than &ldquo;how much?&rdquo;</h2>
+        <h2 id="a-better-question">A better question than &ldquo;how much?&rdquo;</h2>
 
-          <p>Try asking: what is this screen time doing in our family right now?</p>
+        <p>Try asking: what is this screen time doing in our family right now?</p>
 
+        <ul>
+          <li><strong>Is it displacing sleep?</strong> Screens close to bedtime can make winding down harder, especially when content is exciting or the device is hard to put away.</li>
+          <li><strong>Is it replacing interaction?</strong> The main concern for young children is often what screen time crowds out: talk, play, movement, shared attention, and practice with frustration.</li>
+          <li><strong>Is it changing behavior afterward?</strong> Some children handle transitions away from screens easily. Others fall apart after certain apps or shows. That data from your actual child matters.</li>
+          <li><strong>Is it solo or shared?</strong> Co-viewing is not required every second, but shared media can turn a passive experience into a conversation.</li>
+          <li><strong>Is the content built for children?</strong> Age-appropriate, slower-paced, non-scary content is a different category from open platforms and autoplay feeds.</li>
+        </ul>
+
+        <p>These questions are less tidy than a rule, but they are more honest. They also give parents something to adjust besides guilt.</p>
+
+        <h2 id="a-practical-reset">A practical reset</h2>
+
+        <p>If screens feel like they have become too big in your home, you do not have to solve the whole thing at once. Start with one anchor.</p>
+
+        <ul>
+          <li>Protect bedtime from screens as much as possible.</li>
+          <li>Keep meals screen-free when your family can manage it.</li>
+          <li>Turn off background TV when no one is really watching.</li>
+          <li>Choose one or two shows you feel good about instead of letting autoplay choose.</li>
+          <li>Give a clear ending before pressing play: &ldquo;One episode, then bath.&rdquo;</li>
+          <li>After a show, reconnect with one ordinary turn: &ldquo;What did you see?&rdquo; or &ldquo;Should we build that with blocks?&rdquo;</li>
+        </ul>
+
+        <p>That&rsquo;s not a perfect media plan, but it&rsquo;s a humane one.</p>
+
+        <h2 id="bottom-line">The bottom line</h2>
+
+        <p>The best screen-time advice is usually neither shame nor surrender.</p>
+
+        <p>Screens are part of modern childhood. They can connect, entertain, teach, distract, overstimulate, advertise, soothe, and crowd out other things. The developmental question was never whether a screen has appeared in your child&rsquo;s life. It&rsquo;s whether your child&rsquo;s real life still holds enough of what development needs: sleep, play, movement, conversation, care, boredom, repair, and relationships.</p>
+
+        <p>When those are protected, a little screen time does not need to become a referendum on your parenting.</p>
+
+        <p>Use screens on purpose. Notice the pattern. Adjust without drama. Then go back to being with your actual child.</p>
+
+        <div class="art-sources">
+          <h2>Sources and Further Reading</h2>
           <ul>
-            <li><strong>Is it displacing sleep?</strong> Screens close to bedtime can make winding down harder, especially when content is exciting or the device is hard to put away.</li>
-            <li><strong>Is it replacing interaction?</strong> The main concern for young children is often what screen time crowds out: talk, play, movement, shared attention, and practice with frustration.</li>
-            <li><strong>Is it changing behavior afterward?</strong> Some children handle transitions away from screens easily. Others fall apart after certain apps or shows. That data from your actual child matters.</li>
-            <li><strong>Is it solo or shared?</strong> Co-viewing is not required every second, but shared media can turn a passive experience into a conversation.</li>
-            <li><strong>Is the content built for children?</strong> Age-appropriate, slower-paced, non-scary content is a different category from open platforms and autoplay feeds.</li>
+            <li><a href="https://www.aap.org/en/patient-care/media-and-children/center-of-excellence-on-social-media-and-youth-mental-health/qa-portal/qa-portal-library/qa-portal-library-questions/screen-time-guidelines" target="_blank" rel="noopener noreferrer">American Academy of Pediatrics: Screen Time Guidelines</a></li>
+            <li><a href="https://publications.aap.org/pediatrics/article/157/2/e2025075320/206129/Digital-Ecosystems-Children-and-Adolescents-Policy" target="_blank" rel="noopener noreferrer">Munzer et al. (2026): Digital Ecosystems, Children, and Adolescents: Policy Statement</a></li>
+            <li><a href="https://jamanetwork.com/journals/jamapediatrics/fullarticle/2821940" target="_blank" rel="noopener noreferrer">Early Childhood Screen Use Contexts and Cognitive and Psychosocial Outcomes: A Systematic Review and Meta-analysis</a></li>
+            <li><a href="https://www.who.int/publications/i/item/9789241550536" target="_blank" rel="noopener noreferrer">World Health Organization: Guidelines on Physical Activity, Sedentary Behaviour and Sleep for Children Under 5</a></li>
+            <li><a href="https://www.commonsensemedia.org/research/the-2025-common-sense-census-media-use-by-kids-zero-to-eight" target="_blank" rel="noopener noreferrer">Common Sense Media: The 2025 Common Sense Census: Media Use by Kids Zero to Eight</a></li>
+            <li><a href="https://www.science.org/doi/10.1126/science.1108190" target="_blank" rel="noopener noreferrer">Kuhl, Tsao, & Liu (2003): Foreign-Language Experience in Infancy: Effects of Short-Term Exposure and Social Interaction on Phonetic Learning</a></li>
+            <li><a href="https://doi.org/10.1542/peds.2013-3703" target="_blank" rel="noopener noreferrer">Radesky et al. (2014): Patterns of Mobile Device Use by Caregivers and Children During Meals in Fast Food Restaurants</a></li>
           </ul>
+        </div>
+      </article>
+    </div>
 
-          <p>These questions are less tidy than a rule, but they are more honest. They also give parents something to adjust besides guilt.</p>
-
-          <h2 id="a-practical-reset">A practical reset</h2>
-
-          <p>If screens feel like they have become too big in your home, you do not have to solve the whole thing at once. Start with one anchor.</p>
-
-          <ul>
-            <li>Protect bedtime from screens as much as possible.</li>
-            <li>Keep meals screen-free when your family can manage it.</li>
-            <li>Turn off background TV when no one is really watching.</li>
-            <li>Choose one or two shows you feel good about instead of letting autoplay choose.</li>
-            <li>Give a clear ending before pressing play: &ldquo;One episode, then bath.&rdquo;</li>
-            <li>After a show, reconnect with one ordinary turn: &ldquo;What did you see?&rdquo; or &ldquo;Should we build that with blocks?&rdquo;</li>
-          </ul>
-
-          <p>That&rsquo;s not a perfect media plan, but it&rsquo;s a humane one.</p>
-
-          <h2 id="bottom-line">The bottom line</h2>
-
-          <p>The best screen-time advice is usually neither shame nor surrender.</p>
-
-          <p>Screens are part of modern childhood. They can connect, entertain, teach, distract, overstimulate, advertise, soothe, and crowd out other things. The developmental question was never whether a screen has appeared in your child&rsquo;s life. It&rsquo;s whether your child&rsquo;s real life still holds enough of what development needs: sleep, play, movement, conversation, care, boredom, repair, and relationships.</p>
-
-          <p>When those are protected, a little screen time does not need to become a referendum on your parenting.</p>
-
-          <p>Use screens on purpose. Notice the pattern. Adjust without drama. Then go back to being with your actual child.</p>
-
-          <div class="sources-panel">
-            <h2>Sources and Further Reading</h2>
-            <ul>
-              <li><a href="https://www.aap.org/en/patient-care/media-and-children/center-of-excellence-on-social-media-and-youth-mental-health/qa-portal/qa-portal-library/qa-portal-library-questions/screen-time-guidelines" target="_blank" rel="noopener noreferrer">American Academy of Pediatrics: Screen Time Guidelines</a></li>
-              <li><a href="https://publications.aap.org/pediatrics/article/157/2/e2025075320/206129/Digital-Ecosystems-Children-and-Adolescents-Policy" target="_blank" rel="noopener noreferrer">Munzer et al. (2026): Digital Ecosystems, Children, and Adolescents: Policy Statement</a></li>
-              <li><a href="https://jamanetwork.com/journals/jamapediatrics/fullarticle/2821940" target="_blank" rel="noopener noreferrer">Early Childhood Screen Use Contexts and Cognitive and Psychosocial Outcomes: A Systematic Review and Meta-analysis</a></li>
-              <li><a href="https://www.who.int/publications/i/item/9789241550536" target="_blank" rel="noopener noreferrer">World Health Organization: Guidelines on Physical Activity, Sedentary Behaviour and Sleep for Children Under 5</a></li>
-              <li><a href="https://www.commonsensemedia.org/research/the-2025-common-sense-census-media-use-by-kids-zero-to-eight" target="_blank" rel="noopener noreferrer">Common Sense Media: The 2025 Common Sense Census: Media Use by Kids Zero to Eight</a></li>
-              <li><a href="https://www.science.org/doi/10.1126/science.1108190" target="_blank" rel="noopener noreferrer">Kuhl, Tsao, & Liu (2003): Foreign-Language Experience in Infancy: Effects of Short-Term Exposure and Social Interaction on Phonetic Learning</a></li>
-              <li><a href="https://doi.org/10.1542/peds.2013-3703" target="_blank" rel="noopener noreferrer">Radesky et al. (2014): Patterns of Mobile Device Use by Caregivers and Children During Meals in Fast Food Restaurants</a></li>
-            </ul>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section--alt">
-      <div class="container container--narrow">
-        <div class="article-cta">
-          <div>
-            <h2 style="margin:0 0 .35rem; font-size:var(--text-lg);">Want the bigger picture of toddler development?</h2>
-            <p class="small" style="max-width:38rem; margin:0;">The toddler class covers language, autonomy, big feelings, and what actually shapes development in the first three years, grounded in the same peer-reviewed research as this article. $49 for lifetime access.</p>
-          </div>
-          <div class="hero__ctas">
-            <a class="btn btn--primary" href="/classes/toddlerhood">See the toddler class</a>
-            <a class="btn btn--ghost" href="/tools/screens-language-attention">Screens, language, and attention →</a>
-          </div>
+    <section class="hub-sec hub-close" aria-labelledby="close-heading">
+      <div class="hb-container">
+        <div data-rise>
+          <h2 class="hb-display" id="close-heading">Want the bigger picture of toddler development?</h2>
+          <p>The toddler class covers language, autonomy, big feelings, and what actually shapes development in the first three years, grounded in the same peer-reviewed research as this article. $49 for lifetime access.</p>
+        </div>
+        <div class="hub-close__act" data-rise style="--i:1">
+          <a class="hb-btn hb-btn--paper" href="/classes/toddlerhood">See the toddler class</a>
+          <a class="hb-btn hb-btn--quiet" href="/tools/screens-language-attention">Screens, language, and attention →</a>
         </div>
       </div>
     </section>
   </main>
 
+  <!-- footer:start -->
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
@@ -412,11 +323,7 @@
           <img class="brand__mark" src="/assets/img/original-logo-mark-no-words-128.png" alt="" width="36" height="36" loading="lazy" decoding="async" />
           <span class="brand__name">growing minds</span><span class="brand__desc">Science</span>
         </a>
-        <p class="site-footer__tag">A developmental-science education for parents of children 0 to 5.</p>
-        <a class="footer-ig" href="https://www.instagram.com/growingmindsscience/" target="_blank" rel="noopener noreferrer">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
-          Instagram
-        </a>
+        <p class="site-footer__tag">A living field guide to the growing mind, for parents of children 0 to 5.</p>
       </div>
       <nav class="site-footer__nav" aria-label="Footer">
         <div>
@@ -430,12 +337,12 @@
           </ul>
         </div>
         <div>
-          <h2 class="site-footer__heading">Free tools</h2>
+          <h2 class="site-footer__heading">Tools</h2>
           <ul class="footer-list">
-            <li><a href="/tools/growing-minds-ai.html">Growing Minds AI</a></li>
-            <li><a href="/nsc">Number Path</a></li>
+            <li><a href="/tools/right-now">It&rsquo;s hard right now</a></li>
+            <li><a href="/tools/growing-minds-ai">Growing Minds AI</a></li>
             <li><a href="/milestones">Milestone tracker</a></li>
-            <li><a href="/tools/communication-snapshot.html">Communication Snapshot</a></li>
+            <li><a href="/tools/communication-snapshot">Communication Snapshot</a></li>
             <li><a href="/tools/">All tools and guides</a></li>
           </ul>
         </div>
@@ -443,25 +350,34 @@
           <h2 class="site-footer__heading">About</h2>
           <ul class="footer-list">
             <li><a href="/about/">Our approach</a></li>
-            <li><a href="/articles/">Articles</a></li>
+            <li><a href="/articles/" aria-current="page">Articles</a></li>
             <li><a href="/faq/">FAQ</a></li>
             <li><a href="/contact/">Contact</a></li>
           </ul>
         </div>
+        <div>
+          <h2 class="site-footer__heading">Elsewhere</h2>
+          <ul class="footer-list">
+            <li><a href="https://www.instagram.com/growingmindsscience/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="/arcade/">Arcade</a></li>
+          </ul>
+        </div>
       </nav>
     </div>
-    <div class="container">
+    <div class="container site-footer__close">
+      <p class="site-footer__wordmark" aria-hidden="true">growing minds <span class="site-footer__wordmark-desc">science</span></p>
       <div class="footer-bottom">
-        <p>&copy; <span data-year>2026</span> Growing Minds Science &middot; <a href="/arcade/">Arcade</a></p>
+        <p>&copy; <span data-year>2026</span> Growing Minds Science</p>
         <p>Educational content only. Not medical or psychological advice.</p>
       </div>
     </div>
   </footer>
+<!-- footer:end -->
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
 
   <script src="../assets/js/main.js?v=742e637d07" defer></script>
-  <script src="../assets/js/decor.js?v=09ff05457d" defer></script>
+  <script src="/assets/js/home.js?v=c7f5c746df" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
