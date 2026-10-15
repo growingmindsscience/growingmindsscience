@@ -25,13 +25,13 @@ export default async function SignupPage({
           <Field label="Email" htmlFor="email">
             <Input id="email" name="email" type="email" autoComplete="email" required />
           </Field>
-          <Field label="Password" htmlFor="password" hint="At least 12 characters.">
+          <Field label="Password" htmlFor="password" hint="At least 10 characters.">
             <Input
               id="password"
               name="password"
               type="password"
               autoComplete="new-password"
-              minLength={12}
+              minLength={10}
               required
             />
           </Field>

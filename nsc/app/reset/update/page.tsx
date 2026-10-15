@@ -34,8 +34,8 @@ export default async function UpdatePasswordPage({
         <form action={updatePassword} className="flex flex-col gap-4">
           {classFlow && <input type="hidden" name="class_flow" value="1" />}
           {classFlow && <input type="hidden" name="next" value={classDestination(next)} />}
-          <Field label="New password" htmlFor="password" hint="At least 12 characters.">
-            <PasswordInput id="password" name="password" autoComplete="new-password" minLength={12} aria-describedby="password-hint" required />
+          <Field label="New password" htmlFor="password" hint="At least 10 characters.">
+            <PasswordInput id="password" name="password" autoComplete="new-password" minLength={10} aria-describedby="password-hint" required />
           </Field>
           {error && (
             <p className="text-sm text-danger" role="alert">

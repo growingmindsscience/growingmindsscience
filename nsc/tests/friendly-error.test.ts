@@ -6,7 +6,7 @@ describe("friendly error copy (N20)", () => {
     expect(friendlyAuthError("Invalid login credentials")).toMatch(/don't match/);
     expect(friendlyAuthError("User already registered")).toMatch(/already an account/);
     expect(friendlyAuthError("Email not confirmed")).toMatch(/confirm your email/);
-    expect(friendlyAuthError("Password should be at least 12 characters.")).toMatch(/longer password/);
+    expect(friendlyAuthError("Password should be at least 10 characters.")).toMatch(/longer password/);
     expect(friendlyAuthError("email rate limit exceeded")).toMatch(/wait a minute/);
     expect(friendlyAuthError("TypeError: fetch failed")).toMatch(/connection/);
   });

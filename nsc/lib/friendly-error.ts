@@ -21,7 +21,7 @@ export function friendlyAuthError(message: string | null | undefined): string {
   if (m.includes("email not confirmed"))
     return "Please confirm your email first. The link is in your inbox.";
   if (m.includes("password") && (m.includes("weak") || m.includes("at least") || m.includes("short")))
-    return "Please choose a longer password (at least 12 characters).";
+    return "Please choose a longer password (at least 10 characters).";
   if (m.includes("same") && m.includes("password"))
     return "That's your current password. Please choose a new one.";
   if (m.includes("rate limit") || m.includes("too many") || m.includes("security purposes"))
