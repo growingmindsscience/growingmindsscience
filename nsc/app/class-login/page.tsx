@@ -13,7 +13,7 @@ import { sitePath } from "@/lib/site";
 const THINKIFIC_LOGIN_URL = "https://matthew-s-site-de0b.thinkific.com/users/sign_in";
 
 export const metadata = {
-  title: "Sign in to your classes — Growing Minds Science",
+  title: "Sign in to your classes | Growing Minds Science",
   description: "Sign in to watch your Growing Minds Science classes and pick up where you left off.",
 };
 

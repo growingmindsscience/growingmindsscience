@@ -5,7 +5,7 @@ import { Card, EnrichmentFooter, Field, Input } from "@/components/ui";
 import { SubmitButton } from "@/components/submit-button";
 import { brand } from "@/lib/config/brand";
 
-export const metadata = { title: "Redeem a gift — Number Path" };
+export const metadata = { title: "Redeem a gift | Number Path" };
 
 export default async function RedeemPage({
   searchParams,

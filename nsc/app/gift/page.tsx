@@ -6,7 +6,7 @@ import { brand } from "@/lib/config/brand";
 import { PRICE_DISPLAY } from "@/lib/stripe";
 
 export const metadata = {
-  title: "Give Number Path — a gift",
+  title: "Give Number Path as a gift",
   description:
     "Gift a warm, screen-free early-math ritual. One payment, no subscription — a code the family redeems whenever they're ready.",
 };

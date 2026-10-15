@@ -14,7 +14,7 @@ import { PrintButton } from "@/components/print-button";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "This Week's Plan — Growing Minds Science",
+  title: "This Week's Plan | Growing Minds Science",
   description:
     "A printable week of developmental activities, one anchor and one backup per day, inside your mess and time budget.",
 };
