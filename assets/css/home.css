@@ -76,6 +76,8 @@ html:not(.anim) .label { transition: none; }
 .lens__status { flex-basis: 100%; font-size: 14px; }
 .lens { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: clamp(24px, 4vw, 64px); align-items: start; }
 .lens__plate { position: sticky; top: calc(var(--header-h) + 16px); aspect-ratio: 4 / 5; border-radius: var(--radius-lg); overflow: hidden; background: var(--sage-mist-2); }
+.lens__plate picture { display: contents; } /* the WebP wrapper; the img keeps its place */
+.lens__plate source { display: none; } /* otherwise a grid item, and an extra gap on phones */
 .lens__plate img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: filter 400ms ease; }
 [data-step="reflect"] .lens__plate img { filter: saturate(0.6) brightness(0.96); }
 .lens__plate .label { font-size: 13.5px; }

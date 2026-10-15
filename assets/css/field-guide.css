@@ -5,9 +5,10 @@
    a masthead plate, a title that begins on the 42% axis, text pages that
    hang from that axis, and whole pages of flat colour. Quiet 1px rules
    between rows, no shadows at rest, no gradients, calm corners. Reads only the tokens in
-   tokens-field-guide.css. Header and footer behaviour stays in chrome.js.
+   tokens-field-guide.css, which every page links directly just before this file (an
+   @import here would make the tokens wait for this download). Header and footer
+   behaviour stays in chrome.js.
    ========================================================= */
-@import url("/assets/css/tokens-field-guide.css?v=57ab480f20");
 
 /* ---------- Reset and base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
