@@ -1,0 +1,82 @@
+/* =========================================================
+   Growing Minds Science: explore.css
+   The Explore hub (body.explore), built by scripts/build-explore.mjs from
+   assets/data/explore.json. Age is the first gate: /explore/ shows the five
+   periods on the age line, and each period's page gathers its pages by
+   moment and by topic. Primitives from fg-base.css, sections from hubs.css.
+   The age line on a sage field, quiet rules between rows, names in
+   Newsreader, each page's type as a small label.
+   Tokens from tokens-field-guide.css.
+   ========================================================= */
+
+/* ---------- Title block ---------- */
+.ex-title { padding-block: clamp(40px, 6vw, 96px) 0; }
+.ex-title__head h1 { font-size: clamp(2.25rem, 1.4rem + 3.4vw, 4.25rem); line-height: 0.98; letter-spacing: -0.025em; }
+.ex-title__head .hb-lead { margin-top: 22px; color: var(--ink-soft); max-width: 50ch; }
+
+/* ---------- The age line: the door on the gate, the way between periods on a period's page ---------- */
+.ex-line { margin-top: clamp(32px, 4vw, 56px); padding-block: clamp(24px, 3vw, 40px); background: var(--sage); color: var(--on-sage); }
+/* The axis sits under the periods, as a scale. */
+.ex-line__track { display: flex; justify-content: space-between; margin-top: 14px; padding-top: 10px; font-size: 14px; color: var(--on-sage); border-top: 1px solid rgba(25, 60, 57, 0.28); }
+.ex-line__stages { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 2px solid var(--ink); }
+.ex-line__stage { display: grid; align-content: start; gap: 6px; padding: 14px 16px 18px; border-left: 1px solid rgba(25, 60, 57, 0.28); color: var(--ink); text-decoration: none; transition: background-color 160ms ease; }
+.ex-line__stage:first-child { border-left: 0; }
+.ex-line__stage:hover { background: var(--sage-deep); color: var(--ink); }
+.ex-line__years { font-size: 14px; font-weight: 500; font-variant-numeric: tabular-nums; }
+.ex-line__stage strong { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.375rem, 1.1rem + 1vw, 2rem); line-height: 1.08; letter-spacing: -0.015em; }
+.ex-line__sum { margin-top: 6px; font-size: 15px; line-height: 1.5; color: var(--on-sage); }
+.ex-line :focus-visible { outline-color: var(--ink); }
+/* On a period's page the line is compact navigation; the current period is marked. */
+.ex-line--nav { margin-top: 0; padding-block: 14px 8px; }
+.ex-line--nav .ex-line__track { display: none; }
+.ex-line--nav .ex-line__stages { border-top: 0; }
+.ex-line--nav .ex-line__stage { padding: 8px 14px 12px; }
+.ex-line--nav .ex-line__stage strong { font-size: clamp(1.0625rem, 0.95rem + 0.4vw, 1.25rem); }
+.ex-line__stage.is-current { background: var(--ink); color: var(--on-ink); }
+.ex-line__stage.is-current:hover { background: var(--ink); color: var(--on-ink); }
+[data-theme="dark"] .ex-line__stage { border-left-color: rgba(237, 235, 227, 0.2); color: var(--on-sage); }
+[data-theme="dark"] .ex-line__stage:hover { color: var(--on-sage); }
+[data-theme="dark"] .ex-line__stage.is-current { background: var(--paper); color: var(--ink); }
+@media (max-width: 900px) {
+  .ex-line__stages { grid-template-columns: minmax(0, 1fr); }
+  .ex-line__stage { padding: 14px 0; border-left: 0; border-top: 1px solid rgba(25, 60, 57, 0.28); }
+  .ex-line__stage:first-child { border-top: 0; }
+  .ex-line--nav .ex-line__stages { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .ex-line--nav .ex-line__stage { border-top: 0; border-left: 1px solid rgba(25, 60, 57, 0.28); min-height: 44px; padding: 8px 6px 10px; align-content: center; text-align: center; }
+  .ex-line--nav .ex-line__stage:first-child { border-left: 0; }
+  .ex-line--nav .ex-line__stage strong { display: none; }
+  .ex-line--nav .ex-line__years { font-size: 13px; }
+}
+
+/* ---------- A period's page: its name, summary and class ---------- */
+.ex-title--stage { padding-top: 0; }
+.ex-stage-head { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 28px clamp(32px, 5vw, 80px); align-items: end; padding-block: clamp(40px, 6vw, 88px) clamp(40px, 5vw, 72px); }
+.ex-stage-head h1 { font-size: clamp(2.25rem, 1.4rem + 3.4vw, 4.25rem); line-height: 0.98; letter-spacing: -0.025em; }
+.explore .ex-stage-head__years { margin-top: 12px; font-size: 16px; font-weight: 500; color: var(--forest); font-variant-numeric: tabular-nums; }
+.ex-stage-head .hb-lead { margin-top: 18px; color: var(--ink-soft); max-width: 46ch; }
+.ex-stage-head__class { padding-top: 16px; border-top: 2px solid var(--ink); }
+.explore .ex-stage-head__class p { font-size: 15px; color: var(--ink-muted); margin-bottom: 12px; }
+@media (max-width: 860px) { .ex-stage-head { grid-template-columns: minmax(0, 1fr); align-items: start; } }
+
+/* ---------- Moments and topics, as rows ---------- */
+.ex-sec__title { font-size: clamp(2rem, 1.4rem + 2.2vw, 3.25rem); line-height: 1.02; }
+.explore .ex-sec__lede { margin-top: 12px; color: var(--ink-soft); max-width: 52ch; }
+.ex-sec { scroll-margin-top: var(--header-h, 72px); }
+:is(.ex-stage, .ex-row) { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 16px clamp(32px, 5vw, 80px); align-items: start; padding-block: clamp(22px, 2.6vw, 34px); border-top: 1px solid var(--border-soft); scroll-margin-top: calc(var(--header-h, 72px) + 16px); }
+.ex-sec .hb-container > :is(.ex-stage, .ex-row):first-of-type { margin-top: clamp(28px, 4vw, 48px); border-top: 2px solid var(--ink); }
+.ex-sec > .hb-container.ex-row { border-top: 0; padding-block: 0; }
+.ex-row__head h2 { font-size: clamp(1.75rem, 1.35rem + 1.4vw, 2.5rem); line-height: 1.05; }
+:is(.ex-stage__head, .ex-row__head) h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.5rem, 1.2rem + 1vw, 2.125rem); line-height: 1.08; letter-spacing: -0.015em; }
+.explore .ex-stage__years { margin-top: 4px; font-size: 15px; font-weight: 500; color: var(--forest); font-variant-numeric: tabular-nums; }
+.explore :is(.ex-stage__head, .ex-row__head) > p:not(.ex-stage__years):not(.ex-stage__class) { margin-top: 10px; color: var(--ink-soft); max-width: 40ch; }
+.explore .ex-stage__class { margin-top: 12px; }
+.ex-stage__class a { display: inline-flex; align-items: center; min-height: 44px; }
+.explore .ex-list { list-style: none; margin: 0; padding: 0; display: grid; }
+.ex-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; border-top: 1px solid var(--border-soft); }
+.ex-list li:first-child { border-top: 0; }
+.ex-list a { display: flex; align-items: center; min-height: 48px; padding-block: 8px; color: var(--ink); text-decoration: none; line-height: 1.35; }
+.ex-list a:hover { color: var(--forest); text-decoration: underline; text-underline-offset: 0.16em; }
+.ex-type { font-size: 14px; color: var(--ink-muted); white-space: nowrap; }
+@media (max-width: 860px) {
+  :is(.ex-stage, .ex-row) { grid-template-columns: minmax(0, 1fr); }
+}
