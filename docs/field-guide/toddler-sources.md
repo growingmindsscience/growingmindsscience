@@ -1,0 +1,116 @@
+# Toddler source sheet: the "no" article and toddler class Module 4
+
+**For Matthew to decide, line by line: keep, reword (with the proposed wording or your own), or cut.** This is your review as the scientist. Nothing in the article, the class, or Growing Minds AI changes until you answer.
+
+This follows the Lens review (checkpoint C3, `lens-sources.md`), which found three problems outside the Lens page:
+
+1. `articles/toddler-no.html` cites Kochanska & Aksan 1995, a study of compliance and shared positive affect, for points about autonomy, "no" and choices.
+2. Toddler class Module 4 recommends transition warnings without the caveat the Lens now carries.
+3. Module 4 says "the research is so clear" that adding words at a meltdown's peak makes it last longer.
+
+How this was built:
+- Every sentence the Kochanska citation could be standing behind was pulled from the article. The article has no inline citations, so this means every sentence that names Kochanska, plus the choices sentence, which names no source and has only this one on the list that could apply.
+- For Module 4, the text is the original class script in `knowledge/sources/toddler-module-4-big-feelings-and-meltdowns.md`. The same text is in `api/_knowledge-data.js`, so Growing Minds AI can quote it. The rebuilt Module 4 has not started; the Toddler class README holds its research until the Consensus reset on November 1. So these rewordings fix the live text and can also serve as a brief for the new Lessons 4.2 and 4.3.
+- Every PMID and DOI below was confirmed in this session on PubMed (E-utilities) or Crossref. Where only a repository or Consensus copy of the abstract could be read, it says so under "Could not verify".
+- Grades use the claims library scale: strong, moderate, limited or insufficient. Lines that are framing rather than findings are marked "interpretation".
+- The Module 3 research files for the rebuilt class (`~/Desktop/GMS_Classes/Toddler/research/`) were checked first. Several sources below were already found there, and the class's 3.2 notes already hold the transition-warning caveat for Lesson 4.2.
+
+## 1. The toddler "no" article (`articles/toddler-no.html`)
+
+**What Kochanska & Aksan 1995 is.** Kochanska, G., and Aksan, N. (1995), *Child Development* 66(1), 236–254, doi:10.1111/j.1467-8624.1995.tb00868.x (Crossref; not indexed on PubMed). It observed 103 mothers and children aged 26 to 41 months at one point in time. It introduced "committed" versus "situational" compliance and found that mother-child shared positive affect went with committed compliance, and committed compliance with internalization. It does not study autonomy, the emergence of "no", or choices, and it is not longitudinal.
+
+**What that means for the article.** The citation is the right source for one thing: the definitions of situational and committed compliance. It is the wrong source for everything else it sits behind.
+
+| # | Line now | Grade | Best sources | Verdict | Proposed wording |
+|---|---|---|---|---|---|
+| A1 | "Research by Grazyna Kochanska and colleagues has tracked this dynamic in careful longitudinal work, following families from infancy into the preschool years." (paragraph at line 192) | The description of the research is inaccurate as cited | Kochanska, Aksan & Koenig 1995, PMID 8556897 (the longitudinal follow-up: the same 99 children at 26 to 41 months and again at 43 to 56 months) | Reword. The cited paper is not longitudinal; the follow-up starts at about two, not in infancy; and "this dynamic" (toddler "no") is not what was tracked | "Grazyna Kochanska and colleagues followed the same children from about age two into the preschool years, watching how they cooperated with their mothers." |
+| A2 | "Her studies distinguish between two types of compliance in young children. 'Situational compliance' is behavior driven by external pressure... 'Committed compliance' is different: the child follows a rule willingly, with something like genuine ownership of it." | Strong, as a description of the measure | Kochanska & Aksan 1995 (the original definitions); Kochanska, Aksan & Koenig 1995, PMID 8556897 | Keep. **This is the one thing the 1995 citation correctly supports** | Unchanged. |
+| A3 | "Kochanska found that children with warmer, more autonomy-supportive parents in the toddler years showed higher committed compliance later, not lower." | Moderate. Two longitudinal observational studies of about 100 families each point the same way, but neither is an experiment | Warmth: Kochanska, Aksan & Koenig 1995, PMID 8556897 (shared positive affect at toddler age predicted some measures of internalization at preschool age). Autonomy support: Laurin & Joussemet 2017, doi:10.1007/s11031-017-9627-5 (102 toddlers: autonomy-supportive strategies at age 2 predicted gains in committed compliance by 3.5; controlling strategies predicted losses) | Reword. "Autonomy-supportive" is not Kochanska's measure; the autonomy finding is Laurin and Joussemet's. Two findings are merged under one name | "Kochanska found that toddlers who shared more warmth and good humor with their mothers were more likely to follow rules on their own as preschoolers. A later study found the same pattern for autonomy support: toddlers whose parents supported their autonomy more at age two cooperated more willingly by three and a half, while more controlling tactics went with less." |
+| A4 | "The implication is significant: allowing toddlers to exercise their developing autonomy, including saying no, is part of how they eventually learn to cooperate willingly." | Interpretation. The part about "no" is limited: no study tests whether allowing refusal leads to later cooperation | Dix, Stewart, Gershoff & Day 2007, PMID 17650134 (1- and young 2-year-olds: defiance went with more supportive mothering, and both willing compliance and active resistance rose with age) | Reword. Keep the hopeful point, drop the causal chain | "Saying no at this age is not a bad sign in itself. In one study of one- and two-year-olds, the children who resisted more often had more supportive mothers, not less supportive ones, and willing cooperation grew alongside the refusals." |
+| A5 | "Studies on autonomy-supportive parenting find that offering children genuine choices embedded within firm limits is associated with better internalization of those limits over time." (line 246) | Moderate for autonomy support as a style; limited for choices on their own in toddlers | Laurin & Joussemet 2017 (above); Andreadakis, Joussemet & Mageau 2019, doi:10.1080/10409289.2018.1548811 (182 parents of toddlers: the eight practices that held together and went with rule internalization were empathy, age-fitting reasons, describing the problem neutrally, and modeling; choice was not among them); Patall, Cooper & Robinson 2008, PMID 18298272 (41 studies: choice raises interest and effort, more so in children than adults) | Reword. The internalization finding is for a wider style, not for choices; the toddler study that sorted the practices did not single out choice | "Studies of autonomy-supportive parenting, which includes empathy, reasons a toddler can follow, and giving a real say, find it goes with toddlers taking rules on as their own over time. Choices are one way to give that say. They raise children's interest and effort in many studies, though they have been tested less in toddlers specifically." |
+| A6 | "The mechanism appears to be that real choice communicates respect for the child's developing sense of self, which reduces the urgency to assert it through refusal." | Insufficient. No study tests this mechanism | None | Cut, or mark it as your view | If kept: "One way to think about it: a child who gets a real say has less need to fight for one." |
+| A7 | "Kochanska's work on what she calls the 'mutually responsive orientation' between parent and child offers the research backing here. A relationship built on warmth and attunement creates a context in which limits land differently than they do in relationships characterized mostly by control. The limit still holds. But a child who feels seen first is substantially more capable of cooperating than one who feels overridden." (line 256) | Moderate for the relationship finding (longitudinal, correlational, replicated in the same lab). Insufficient for "feels seen first" in the moment: the measure is a quality of the relationship built over months, not a step before a request | Kochanska 1997, PMID 9084128 (103 families, 26 to 41 months and again at 43 to 56: dyads high in mutual responsiveness had mothers who used less power and children who were more internalized); Kochanska & Murray 2000, PMID 10834474 (the same quality at toddler age predicted conscience at early school age) | Reword the last sentence and **add the right citation**. The concept is real, but the 1995 paper on the list is not where it comes from | "Kochanska calls this a 'mutually responsive orientation': a relationship where parent and child are each generally willing to go along with the other and enjoy each other. In her studies, families with more of it needed less power to get cooperation, and their children were more likely to follow rules on their own, years later. That is a quality built over months, not a script for one moment, but acknowledging your child before you redirect is one everyday way to build it." |
+
+**Sources list.** Proposed changes to the article's list:
+- Keep Kochanska & Aksan 1995, now standing only behind A2.
+- Add:
+  - Kochanska, G., Aksan, N., and Koenig, A. L. (1995). A longitudinal study of the roots of preschoolers' conscience: committed compliance and emerging internalization. *Child Development*, 66(6), 1752–1769. PMID 8556897.
+  - Kochanska, G. (1997). Mutually responsive orientation between mothers and their young children: implications for early socialization. *Child Development*, 68(1), 94–112. https://doi.org/10.1111/j.1467-8624.1997.tb01928.x
+  - Laurin, J. C., and Joussemet, M. (2017). Parental autonomy-supportive practices and toddlers' rule internalization: a prospective observational study. *Motivation and Emotion*, 41(5), 562–575. https://doi.org/10.1007/s11031-017-9627-5
+  - Dix, T., Stewart, A. D., Gershoff, E. T., and Day, W. H. (2007). Autonomy and children's reactions to being controlled: evidence that both compliance and defiance may be positive markers in early development. *Child Development*, 78(4), 1204–1221. https://doi.org/10.1111/j.1467-8624.2007.01061.x
+- Optional, if A5 keeps the general line on choice: Patall, E. A., Cooper, H., and Robinson, J. C. (2008). The effects of choice on intrinsic motivation and related outcomes: a meta-analysis of research findings. *Psychological Bulletin*, 134(2), 270–300. https://doi.org/10.1037/0033-2909.134.2.270
+
+**Candidates considered and not proposed:**
+- **Kuczynski & Kochanska 1990** (doi:10.1037/0012-1649.26.3.398, confirmed on Crossref). It fits the article's topic best: how toddlers' ways of refusing change by age five. But the abstract on PubMed, Crossref, Semantic Scholar and OpenAlex is three sentences with no findings. Add it only if you can confirm its results from the paper itself.
+- **Brownell, Zerwas & Ramani 2007** (PMID 17883440). It shows body self-awareness emerging between 18 and 26 months. It would support the Erikson paragraph (line 186), "discover that they are a separate person", as it now does on the Lens. It is not a fit for anything the Kochanska citation sits behind. Optional addition beside Erikson.
+
+## 2. Transition warnings in Module 4
+
+| # | Line now | Where | Grade | Best sources | Verdict | Proposed wording |
+|---|---|---|---|---|---|---|
+| B1 | "Transition warnings. 'We're leaving in five minutes. Then two minutes. Then one minute.' This isn't about teaching a toddler what five minutes means ... they can't reliably understand time yet. It's about reducing the surprise of the transition. The predicting brain gets something to work with." | Lesson 2, "Before the Storm" (lines 622–625) | Limited, and mixed to mostly negative for a warning on its own | Cote, Thompson & McKerchar 2005, PMID 16033169 (toddlers in child care: a 2-minute warning alone did not improve compliance; it helped only when combined with not giving in to protest); Wilder, Nicholson & Allison 2010, PMID 21541161 (3 preschoolers: advance notice alone was ineffective for all three); Zeece & Crase 1982, doi:10.1080/00223980.1982.9915384 (40 preschoolers: a series of verbal warnings improved transitions); Brewer et al. 2014, PMID 27540509 (a practice review, mostly of children with developmental disabilities: findings are contradictory, and it sets out when notice tends to work and when it does not) | Keep the tool; add the caveat. A warning is reasonable and cheap, but the lesson should not promise it prevents protest | "Transition warnings. 'We're leaving in five minutes. Then two minutes. Then one minute.' Your toddler can't read a clock yet, so this isn't about time. It's about the change not arriving out of nowhere. Be honest with yourself about what it can do, though. In small studies, a warning on its own often did not stop the protest. What helped was the warning plus calmly following through. So give the warning, then expect that you may still need to hold the limit." |
+| B2 | "Front-loading information. Telling your child what's coming before it happens... gives that constantly-predicting brain an anchor. It reduces the mini-threat of the unexpected." | Lesson 2 (lines 627–630) | Interpretation; no direct test with typical toddlers was found | The advance-notice studies in B1 are the nearest evidence. Predictable daily routines are moderately supported (see Lens L13: Selman & Dilworth-Bart 2024; Fiese et al. 2002; checked in the Lens review, not re-checked here) | Keep, softened | "Front-loading information. Telling your child what's coming, like 'After lunch, we're going to Grandma's house,' gives them something to hold on to. Predictable days are linked with better self-regulation in young children, even though no single heads-up is guaranteed to work." |
+| B3 | "None of this is complicated. All of it helps." | Lesson 2 (line 642) | Insufficient for "all of it helps" | As B1 | Reword | "None of this is complicated, and none of it is guaranteed. Together, these make the hard moments fewer." |
+| B4 | "A transition warning before leaving the park." | Lesson 2 (line 645), in a list of prevention habits | Limited, as B1 | As B1 | Keep. With B1 reworded, the list reads as habits, not promises | Unchanged. |
+
+The rebuilt class has the same issue once already. In Lesson 3.2 (recorded), "Five minutes before leaving, the father gives a heads-up" (the playground recap, line 85 of `script.py`) shows a heads-up as part of a good exit. It does not claim the warning works, and its notes already hold Cote 2005, Wilder 2010 and Zeece 1982 for Lesson 4.2. No change is proposed to 3.2.
+
+## 3. "The research is so clear": words at the peak
+
+| # | Line now | Where | Grade | Best sources | Verdict | Proposed wording |
+|---|---|---|---|---|---|---|
+| C1 | "This is why the research is so clear that adding verbal content at the peak ... more words, more demands, more reasoning ... tends to prolong meltdowns rather than shorten them." | Lesson 4, "In the Eye of the Storm" (lines 1144–1146) | Insufficient for "prolong". No study was found that varied how much adults say during a toddler's tantrum and measured how long it lasted. Limited for the weaker claim that words and reasons do little at the peak | Nearest evidence, none of it a direct test: Potegal, Kosorok & Davidson 2003, PMID 12806226 (parents' accounts of tantrums in 335 children aged 18 to 60 months: tantrums where parents intervened less were shorter, but this is correlational and the paper does not say which way it runs); Mo et al. 2023, PMID 36547795 (94 toddlers over a year: mothers' power assertion and inconsistency predicted tantrums getting more severe, including longer; ignoring did not predict a change either way); Blum et al. 1995, PMID 7630695 (review: verbal explanations and instructions usually do not change young children's problem behavior); Shields, Sazma & Yonelinas 2016, PMID 27371161 (meta-analysis, mostly adults: acute stress impairs working memory and flexible thinking) | Reword. "So clear" has no study behind it; the advice itself (fewer words) is reasonable and low-risk | "No study has timed tantrums against how much the adult says. But what we do know points the same way: at the peak, your child's ability to take in words is at its lowest, explanations rarely change young children's behavior even in calm moments, and harsh pressure goes with tantrums getting worse over time. So at the peak, fewer words is the safer bet." |
+| C2 | "...every demand you add in this moment... is experienced by their nervous system as an additional threat... And more threat means more distress, which means the meltdown extends." | Lesson 4 (lines 1135–1142) | Interpretation, stated as fact | As C1 | Reword to a model, not a finding | "Here's one way to think about it: to a nervous system in emergency mode, a demand can feel more like pressure than information. More pressure is unlikely to bring the distress down." |
+| C3 | "...the nervous system perceives all of that as more danger. The meltdown extends. This is one of the most clinically important things researchers and practitioners have identified about how we respond to meltdowns." | Lesson 1, "Inside a Meltdown" (lines 199–208) | Insufficient for the appeal to research; the won't/can't distinction is a practical framework, not a tested finding | None found | Reword | "...additional demands and pressure are unlikely to help, and may add to the distress. The practical rule: match your approach to the state your child is in. Telling the difference between won't and can't is a skill parents can genuinely develop." |
+| C4 | "Accepting that the peak exists... and staying regulated while it crests tends to shorten the total duration." | Lesson 4 (lines 1176–1178) | Insufficient for "shorten". Moderate for the shape of a tantrum | Potegal, Kosorok & Davidson 2003, PMID 12806226 (75% of tantrums lasted 5 minutes or less; anger peaks at or near the start and then declines, while crying and comfort-seeking slowly rise) | Reword around what the study shows | "Meltdowns have a shape. In a large study of parents' reports, most tantrums were over within five minutes. Anger tends to peak early and fade, and the wish for comfort grows toward the end. Your job is to be steady while it passes, and close by when comfort is wanted." |
+
+The article repeats C1 in milder form: "Trying to reason with them or escalate commands in that moment usually makes things worse" (line 252). Grade: limited. Proposed: "Reasoning with them or stepping up commands in that moment rarely helps, and harsh pressure can make things worse."
+
+## Could not verify
+
+- **Kuczynski & Kochanska 1990:** the citation is confirmed on Crossref; the findings are not, because no full abstract is public.
+- **Zeece & Crase 1982:** the citation is confirmed on Crossref; the result was read from a Consensus copy of the abstract.
+- **Cote et al. 2005:** the number and exact ages of the children are not in the abstract, and the full text could not be retrieved in this session.
+- **Laurin & Joussemet 2017:** the abstract does not list the coded autonomy-supportive strategies. The Lens note says offering choices was one of them; that detail needs a check against the paper before A5 or the Lens note leans on it.
+- **No direct evidence was found for:**
+  - adding words at the peak lengthening a meltdown (C1)
+  - staying regulated shortening a meltdown (C4)
+  - front-loading information helping typical toddlers (B2)
+- **Klimes-Dougan & Kopp 1999** (toddlers refuse, preschoolers negotiate) is in the Module 3 research notes but is not on PubMed or Crossref, so it is not proposed here.
+
+## After your answers
+
+1. Apply your wording to `articles/toddler-no.html` and its sources list.
+2. Apply your Module 4 wording to `knowledge/sources/toddler-module-4-big-feelings-and-meltdowns.md`, then run `node scripts/build-knowledge.mjs` so Growing Minds AI stops quoting the old lines.
+3. The recorded audio of the original Module 4 cannot be edited line by line. The fixes reach students when the rebuilt Lessons 4.2 and 4.3 are scripted and recorded. Until then, decide whether the knowledge base text alone should change, or both.
+4. Carry B1 to C4 into the brief for the rebuilt Module 4.
+
+## Found along the way
+
+These are not part of this sheet, but you should know about them.
+
+- **`articles/toddler-no.html`:**
+  - Line 198 repeats the card-sorting overreach fixed on the Lens (L3): "Children under 4 almost universally keep sorting by the first rule even after being clearly told to change."
+  - Line 196: "It won't be substantially mature until the mid-twenties" is a common simplification you may want to check.
+- **The toddler class page (`classes/toddlerhood.html`):**
+  - The lesson sample (lines 190–193) says "Thinking systems go offline" and the child is "almost certainly not listening".
+  - The Fig. 1 caption (line 177) says a toddler "loses access to language and reasoning".
+  - These are the absolutes softened on the Lens (L9: "much harder to reach").
+- **Prototype pages:** `lab/b/index.html` (line 281) and `lab/c/index.html` (line 242) still cite Kochanska and Aksan 1995 for the old Lens line.
+
+## Applied 2026-10-15
+
+Matthew accepted every verdict and every piece of proposed wording.
+
+**Applied to:**
+- `articles/toddler-no.html`: A1, A3, A4, A5 and A7 reworded, and the line 252 sentence softened. A6 is cut (the verdict's first option). A2 is unchanged.
+- The article's sources list: Kochanska & Aksan 1995 stays, now standing only behind A2. Added: Kochanska, Aksan & Koenig 1995; Kochanska 1997; Laurin & Joussemet 2017; Dix et al. 2007; and Patall et al. 2008, because A5 keeps the general line on choice.
+- `knowledge/sources/toddler-module-4-big-feelings-and-meltdowns.md`: B1, B2, B3, C1, C2, C3 and C4 reworded. B4 is unchanged.
+- `api/_knowledge-data.js`, rebuilt with `node scripts/build-knowledge.mjs`. Only the Module 4 chunks changed (51 chunks became 50), so Growing Minds AI no longer quotes the old lines. `corpus/manifest.json` follows the new card count.
+
+**Not changed:**
+- **Optional sources:** Brownell 2007 was not added beside Erikson, and Kuczynski & Kochanska 1990 was not added.
+- **Recorded audio:** the original Module 4 audio still says the old lines. The fixes reach students when the rebuilt Lessons 4.2 and 4.3 are recorded; B1 to C4 are their brief.
+- **"Found along the way":** none of those items changed.
+
+The gates were run locally: API tests, keel, evals, claims, explore, stamps, corpus certification, canonicals and the library grader. All pass.
