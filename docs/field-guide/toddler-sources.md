@@ -97,3 +97,20 @@ These are not part of this sheet, but you should know about them.
   - The Fig. 1 caption (line 177) says a toddler "loses access to language and reasoning".
   - These are the absolutes softened on the Lens (L9: "much harder to reach").
 - **Prototype pages:** `lab/b/index.html` (line 281) and `lab/c/index.html` (line 242) still cite Kochanska and Aksan 1995 for the old Lens line.
+
+## Applied 2026-10-15
+
+Matthew accepted every verdict and every piece of proposed wording.
+
+**Applied to:**
+- `articles/toddler-no.html`: A1, A3, A4, A5 and A7 reworded, and the line 252 sentence softened. A6 is cut (the verdict's first option). A2 is unchanged.
+- The article's sources list: Kochanska & Aksan 1995 stays, now standing only behind A2. Added: Kochanska, Aksan & Koenig 1995; Kochanska 1997; Laurin & Joussemet 2017; Dix et al. 2007; and Patall et al. 2008, because A5 keeps the general line on choice.
+- `knowledge/sources/toddler-module-4-big-feelings-and-meltdowns.md`: B1, B2, B3, C1, C2, C3 and C4 reworded. B4 is unchanged.
+- `api/_knowledge-data.js`, rebuilt with `node scripts/build-knowledge.mjs`. Only the Module 4 chunks changed (51 chunks became 50), so Growing Minds AI no longer quotes the old lines. `corpus/manifest.json` follows the new card count.
+
+**Not changed:**
+- **Optional sources:** Brownell 2007 was not added beside Erikson, and Kuczynski & Kochanska 1990 was not added.
+- **Recorded audio:** the original Module 4 audio still says the old lines. The fixes reach students when the rebuilt Lessons 4.2 and 4.3 are recorded; B1 to C4 are their brief.
+- **"Found along the way":** none of those items changed.
+
+The gates were run locally: API tests, keel, evals, claims, explore, stamps, corpus certification, canonicals and the library grader. All pass.

@@ -200,14 +200,11 @@ On the other side: a child who can't. They are overwhelmed. They may be in a
 panic-like state. Words are not accessible to them. The thinking brain is
 offline. This is not a deliberate refusal. It is a temporary inability. And the
 behavioral tools that work well for "won't" are not just ineffective here — they
-can actually make things worse. Because if a child who can't is met with
-additional demands, additional pressure, additional perceived threat, the
-nervous system perceives all of that as more danger. The meltdown extends.
+can actually make things worse. For a child who can't, additional demands and
+pressure are unlikely to help, and may add to the distress.
 
-This is one of the most clinically important things researchers and
-practitioners have identified about how we respond to meltdowns. The
-approach has to match the state the child is in. And telling the difference — are
-they won't-ing or can't-ing — is a skill that parents can genuinely develop.
+The practical rule: match your approach to the state your child is in. Telling
+the difference between won't and can't is a skill parents can genuinely develop.
 
 A rough guide: if your child can still hear you, make eye contact, and respond
 even minimally to your words, there may be choice happening. If they are
@@ -619,15 +616,17 @@ lower the load before it tips.
 
 A few practical tools that work with your child's neurology.
 
-Transition warnings. "We're leaving in five minutes. Then two minutes. Then
-one minute." This isn't about teaching a toddler what five minutes means —
-they can't reliably understand time yet. It's about reducing the surprise of the
-transition. The predicting brain gets something to work with.
+Transition warnings. "We're leaving in five minutes. Then two minutes. Then one
+minute." Your toddler can't read a clock yet, so this isn't about time. It's
+about the change not arriving out of nowhere. Be honest with yourself about what
+it can do, though. In small studies, a warning on its own often did not stop the
+protest. What helped was the warning plus calmly following through. So give the
+warning, then expect that you may still need to hold the limit.
 
-Front-loading information. Telling your child what's coming before it happens
-— "After lunch, we're going to Grandma's house" — gives that
-constantly-predicting brain an anchor. It reduces the mini-threat of the
-unexpected.
+Front-loading information. Telling your child what's coming, like "After lunch,
+we're going to Grandma's house," gives them something to hold on to. Predictable
+days are linked with better self-regulation in young children, even though no
+single heads-up is guaranteed to work.
 
 Attending to basics before high-demand situations. If you know the afternoon
 holds a challenging errand, a new environment, or a limit that's going to be
@@ -639,7 +638,8 @@ any high-stimulation event, building in low-stimulation buffer time before the
 next demand reduces the cumulative load. Your child's nervous system needs
 time to come back down.
 
-None of this is complicated. All of it helps.
+None of this is complicated, and none of it is guaranteed. Together, these make
+the hard moments fewer.
 
 Think of prevention as a kind of nervous system maintenance. A snack before
 errands. A transition warning before leaving the park. Fewer demands stacked
@@ -1134,16 +1134,15 @@ That's the reality of peak dysregulation. The distress is taking up almost
 everything. There is almost nothing left over for the kinds of responses we're
 asking for when we make demands, give explanations, or issue warnings.
 
-And here's the critical piece: every demand you add in this moment — even a
-gentle one — is not experienced by your child as information. It is experienced
-by their nervous system as an additional threat. Not because they're being
-difficult. Because that's how a nervous system in emergency mode works. It is
-scanning for danger, not for language. It interprets pressure as threat. And
-more threat means more distress, which means the meltdown extends.
+Here's one way to think about it: to a nervous system in emergency mode, a
+demand can feel more like pressure than information. More pressure is unlikely
+to bring the distress down.
 
-This is why the research is so clear that adding verbal content at the peak —
-more words, more demands, more reasoning — tends to prolong meltdowns
-rather than shorten them.
+No study has timed tantrums against how much the adult says. But what we do know
+points the same way: at the peak, your child's ability to take in words is at
+its lowest, explanations rarely change young children's behavior even in calm
+moments, and harsh pressure goes with tantrums getting worse over time. So at
+the peak, fewer words is the safer bet.
 
 The goal is not to fill the silence. The goal is to reduce the pressure so that the
 distress bar can come down on its own. When distress comes down, cognitive
@@ -1172,11 +1171,10 @@ the tension in your shoulders. Your child's nervous system is reading yours
 before it processes anything you say. A regulated adult body is the single most
 powerful tool you have.
 
-And the fourth is: let the wave crest. Meltdowns have a biological arc. They
-build, they peak, they come down. That's the design. Accepting that the peak
-exists — not trying to short-circuit it or override it — and staying regulated
-while it crests tends to shorten the total duration. The wave ends. Your job is to
-be steady while it does.
+And the fourth is: let the wave crest. Meltdowns have a shape. In a large study
+of parents' reports, most tantrums were over within five minutes. Anger tends to
+peak early and fade, and the wish for comfort grows toward the end. Your job is
+to be steady while it passes, and close by when comfort is wanted.
 
 One thing that surprises many parents: the way you offer comfort at the peak
 matters, and it varies significantly from child to child.
