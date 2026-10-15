@@ -24,6 +24,8 @@
 .pg-contact-page .pg-list { list-style: none; margin: 24px 0 0; padding: 0; display: grid; }
 .pg-list li { padding-block: 12px; border-top: 1px solid var(--border-soft); color: var(--ink-soft); }
 .pg-list li:first-child { border-top: 0; padding-top: 0; }
+/* The crisis note is guidance, not fine print. */
+.pg-contact-page .pg-contact__intro .hub-fine { margin-top: 28px; font-size: 16px; color: var(--ink-soft); max-width: 50ch; }
 @media (max-width: 860px) { .pg-contact { grid-template-columns: minmax(0, 1fr); } }
 
 .pg-form { display: grid; gap: 18px; padding: clamp(24px, 3vw, 40px); border-radius: var(--radius-lg); background: var(--sage-mist); }
@@ -44,6 +46,7 @@
 /* ---------- 404 and thank-you: places to go, as rows ---------- */
 .pg-row { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); }
 /* The descriptions followed a colon in running text; as a column they open with a capital. */
+.pg-row .row__name a { min-width: 44px; }
 .pg-row .row__desc::first-letter { text-transform: uppercase; }
 @media (max-width: 760px) { .pg-row { grid-template-columns: minmax(0, 1fr); } }
 
@@ -57,7 +60,7 @@
 .arcade-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
 .arcade-card { display: flex; flex-direction: column; min-width: 0; border-radius: var(--radius-lg); background: var(--paper); overflow: hidden; }
 /* Each game's small screen: the inverted field, glyphs in sage. */
-.arcade-card__art { min-height: 148px; display: flex; align-items: center; justify-content: center; gap: .8rem; background: var(--field-ink); color: var(--sage); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: clamp(1.6rem, 3vw, 2.5rem); letter-spacing: .1em; line-height: 1; }
+.arcade-card__art { min-height: 148px; display: flex; align-items: center; justify-content: center; gap: .8rem; background: var(--field-ink); color: var(--sage); font-size: clamp(1.6rem, 3vw, 2.5rem); letter-spacing: .1em; line-height: 1; }
 .arcade-card--snake .arcade-card__art { flex-direction: column; gap: .15rem; }
 .arcade-card--echo .arcade-card__art { flex-direction: column; gap: 0; }
 .arcade-card--dino .arcade-card__art,
@@ -66,8 +69,7 @@
 .arcade-card--hopper .arcade-card__art,
 .arcade-card--blocks .arcade-card__art { flex-direction: column; gap: .3rem; }
 .arcade-card__body { display: flex; flex: 1; flex-direction: column; padding: clamp(20px, 2.4vw, 28px); }
-.arcade-card__number { font-size: 14px; font-variant-numeric: tabular-nums; color: var(--ink-muted); }
-.arcade-page .arcade-card h3 { margin-top: 6px; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem); line-height: 1.12; letter-spacing: -0.01em; }
+.arcade-page .arcade-card h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem); line-height: 1.12; letter-spacing: -0.01em; }
 .arcade-page .arcade-card p { flex: 1; margin-top: 8px; color: var(--ink-soft); }
 .fg .arcade-card__play { margin-top: 20px; width: 100%; justify-content: space-between; }
 .arcade-card__play span { font-weight: 400; }
