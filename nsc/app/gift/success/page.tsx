@@ -16,10 +16,7 @@ export default async function GiftSuccessPage({
   return (
     <main className="mx-auto flex min-h-screen max-w-xl flex-col justify-center gap-8 px-6 py-16 text-center">
       <div>
-        <p className="text-[0.9375rem] font-semibold text-amber-deep">
-          {brand.parentSite}
-        </p>
-        <h1 className="mt-1 text-3xl font-semibold text-ink-deep">
+        <h1 className="text-3xl font-semibold text-ink-deep">
           Thank you &mdash; the gift is ready
         </h1>
       </div>

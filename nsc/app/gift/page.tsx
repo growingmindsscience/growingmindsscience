@@ -20,9 +20,6 @@ export default async function GiftPage({
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-10 px-6 py-16">
       <section className="flex flex-col items-center gap-5 text-center">
-        <p className="text-[0.9375rem] font-semibold text-amber-deep">
-          {brand.parentSite}
-        </p>
         <h1 className="text-4xl font-semibold text-ink-deep">
           Give Number Path
         </h1>

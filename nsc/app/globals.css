@@ -110,6 +110,11 @@ body {
   background: var(--color-ground);
   color: var(--color-ink);
 }
+/* Only class pages have a dark design, so the theme toggle shows only where a
+   page can follow it; elsewhere it would set the attribute and change nothing. */
+body:not(:has(.class-theme)) [data-theme-toggle] {
+  display: none;
+}
 html[data-theme="dark"] body:has(.class-theme) {
   color-scheme: dark;
   --color-ground: #141f1c;

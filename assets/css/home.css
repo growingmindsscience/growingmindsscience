@@ -91,7 +91,7 @@ html:not(.anim) .label { transition: none; }
 [data-theme="dark"] .fg .lens__tab { background: var(--surface); }
 .lens__tab small { font-size: 13px; color: var(--clay-text); letter-spacing: 0.08em; }
 .fg .lens__tab[aria-selected="true"] { background: var(--ink); color: var(--paper); }
-.lens__tab[aria-selected="true"] small { color: var(--note-amber); }
+.lens__tab[aria-selected="true"] small { color: var(--note-on-ink); }
 .lens__panel { display: grid; gap: 20px; margin-top: 28px; }
 .lens__panel[hidden] { display: none; }
 .fg--home:not(.js) .lens__panel[hidden] { display: grid; }

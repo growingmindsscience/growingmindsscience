@@ -51,9 +51,6 @@ export default async function Home() {
     <main className="mx-auto flex min-h-screen max-w-3xl flex-col gap-20 px-6 py-16">
       {/* Hero */}
       <section className="flex flex-col items-center gap-6 text-center">
-        <p className="text-[0.9375rem] font-semibold text-amber-deep">
-          {brand.parentSite}
-        </p>
         <h1 className="text-4xl font-semibold text-ink-deep sm:text-5xl">
           {brand.productName}
         </h1>
