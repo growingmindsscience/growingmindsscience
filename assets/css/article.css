@@ -3,19 +3,18 @@
    The eight articles on the annotated-observation system (body.art).
    Primitives from fg-base.css; the close band from hubs.css. A title block
    with the short version on sage mist, then one reading column with the
-   contents beside it. Figures sit on soft white with calm corners and no
-   shadow; sources sit in the research-blue module. Tokens from
+   contents beside it. Figures sit on soft white with calm corners;
+   sources sit in the research-blue module. Tokens from
    tokens-field-guide.css.
    ========================================================= */
 
 /* ---------- Title block ---------- */
 .art-title { padding-block: clamp(32px, 5vw, 72px) clamp(48px, 6vw, 88px); }
 .art-title__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 32px clamp(32px, 5vw, 80px); align-items: end; }
-.art-crumb { font-size: 15px; margin-bottom: 12px; }
-.art-crumb a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink-soft); }
-.art-title h1 { font-size: clamp(2.125rem, 1.35rem + 3vw, 3.75rem); line-height: 1; letter-spacing: -0.025em; max-width: 20ch; }
+.art-title h1 { font-size: clamp(2rem, 1.35rem + 2.5vw, 3.25rem); line-height: 1.02; letter-spacing: -0.02em; max-width: 26ch; }
 .art .art-dek { margin-top: 22px; color: var(--ink-soft); max-width: 52ch; }
-.art .art-meta { margin-top: 20px; font-size: 15px; color: var(--ink-muted); }
+.art .art-meta { margin-top: 16px; font-size: 15px; color: var(--ink-muted); }
+.art-meta a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink-soft); }
 .art-short { padding: clamp(24px, 3vw, 36px); border-radius: var(--radius-lg); background: var(--sage-mist); }
 .art-short h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); line-height: 1.15; letter-spacing: -0.01em; }
 .art .art-short p { margin-top: 10px; color: var(--ink-soft); }
@@ -69,8 +68,8 @@
 .art .checklist .when { font-size: 14px; font-weight: 600; color: var(--forest); }
 .art .checklist .ask { margin: 0; font-size: 1rem; color: var(--ink-soft); }
 
-/* ---------- Figures: soft white, calm corners, no shadow ---------- */
-.art .art-figure { margin: 2.2em 0; padding: clamp(18px, 3vw, 32px); border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--border-soft); }
+/* ---------- Figures: a soft white panel with calm corners ---------- */
+.art .art-figure { margin: 2.2em 0; padding: clamp(18px, 3vw, 32px); border-radius: var(--radius-lg); background: var(--surface); }
 /* Drawn on a 480-unit viewBox with text in SVG units: capped at 32rem, 16-unit
    labels render at about 17px; below 560px labels step to 22 units. */
 .art-figure svg { display: block; width: 100%; max-width: 32rem; height: auto; margin-inline: auto; }
@@ -111,11 +110,11 @@
 .art .art-sources { margin-top: 3em; padding-top: 20px; border-top: 2px solid var(--research); }
 .art .art-sources h2 { margin: 0; font-family: var(--font-body); font-size: 15px; font-weight: 600; letter-spacing: 0; color: var(--research); }
 .art .art-sources ul { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 0; }
-.art .art-sources li { padding-block: 10px; border-top: 1px solid var(--border-soft); font-size: 15px; line-height: 1.5; }
+.art .art-sources li { border-top: 1px solid var(--border-soft); font-size: 15px; line-height: 1.5; }
 .art .art-sources li:first-child { border-top: 0; }
-.art .art-sources a { color: var(--research); }
+.art .art-sources a { display: flex; align-items: center; min-height: 44px; padding-block: 8px; color: var(--research); }
 
 /* ---------- Close ---------- */
 /* Article closes carry longer statements than the hubs: a step smaller, a shorter measure. */
-.art .hub-close h2 { font-size: clamp(1.75rem, 1.25rem + 1.8vw, 2.75rem); max-width: 24ch; }
+.art .hub-close h2 { font-size: clamp(1.75rem, 1.25rem + 1.8vw, 2.75rem); max-width: 32ch; }
 .art .art-close__note { margin-top: 10px; font-size: 14px; color: var(--on-ink-muted); }
