@@ -40,10 +40,11 @@ The same fragment sits in two places: the homepage band (`#lens`) and the standa
 ## Scientific-integrity controls
 
 - Copy comes from `copy-deck.md` only. No claim, number or citation is added in markup.
-- Evidence notes use the deck's phrasings ("Well established", "Supported", "Conceptual model", each with its qualifying clause). They are editorial characterizations, not Claims Library grades. Each note carries `data-verify`, so the unreviewed set can be listed by selector.
-- Prototype status is visible. The Lens page's Sources section says the science is drawn from class scripts and articles and must be checked against primary sources before it is publication-ready. The homepage band introduction carries a shorter form of the same statement.
+- Evidence notes use the deck's phrasings ("Well established", "Supported", "Some support", "Conceptual model", each with its qualifying clause) and name their sources. An unreviewed note carries `data-verify`, so the open set can be listed by selector. Leaving the playground has none open: every note was reviewed at C3 (see `lens-sources.md`).
+- Review status is visible. A Lens still under review says so in its Sources section. Leaving the playground passed checkpoint C3 on 2026-10-15: every line was checked against primary sources (`lens-sources.md`), Matthew approved the verdicts and wording, and the Sources section now says so in place of the prototype line.
 - The plate caption describes a conceptual reading of processes, not what a particular child is thinking.
-- A references list closes the Lens page: Zelazo and colleagues (2003), Diamond (2013), Kochanska and Aksan (1995), Erikson (1950), and the toddler class modules.
+- A references list closes the Lens page, with DOIs: Zelazo (2006) and colleagues (2003), Diamond (2013), Brownell and colleagues (2007), Erikson (1950, theory), Laurin and Joussemet (2017), Andreadakis and colleagues (2019), Cote and colleagues (2005), Morris and colleagues (2007), Potegal and colleagues (2003), Wakschlag and colleagues (2012), Waters and colleagues (2014), and the toddler class modules. Kochanska and Aksan (1995) was removed at C3: it supports neither line it was cited for.
+- The page closes with doors into the Explore hub for its ages (1 to 2, 2 to 3, 3 to 4); the homepage band links to the full page.
 
 ## Producing further Lenses
 
