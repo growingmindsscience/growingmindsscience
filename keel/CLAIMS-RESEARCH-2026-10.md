@@ -107,3 +107,36 @@ Replacement sentences were drafted for each flagged line, in plain language, wit
 - **Anderson & Pempek 2005** and **Whitehurst 1988:** no abstracts were reachable. The citation details were confirmed on Crossref.
 - **AAP walkers statement:** whether the 2001 statement was formally reaffirmed. Sims 2018 treats it as current.
 - **Tummy time:** whether chest-to-chest time counts in any guideline.
+
+## Applied 2026-10-15 (artifact v1.1.0)
+
+Matthew's decisions:
+1. **Factual fixes:** fix every factual inconsistency, with high-quality research. Yes.
+2. **Grades:**
+   - shared-reading stays **strong**
+   - sleep-training-attachment is scoped to **six months and older**
+   - teething-fever consensus moves to **majority**
+   - pacifiers-speech stays **majority**
+3. **Sources and overstatements:** the proposed changes, yes to all.
+
+How the rewrites were checked:
+- Every claim was redrafted from the research above.
+- Three independent fact-checkers then tested each sentence and each source's role text against the sources: PubMed abstracts, PMC full text where open, and official pages.
+- Every correction they found was applied:
+  - **sleep training:** "gentle" was inaccurate for graduated extinction; the age boundary is six months and older; the depression benefit was at age two and gone by six; the Bilgin role was misdescribed
+  - **teething:** the verdict was firmer than the evidence; "not linked at all" overstated
+  - **walkers:** the Pin review was misattributed; the floor-time mechanism had no source; the injury figure is an estimate of children, not a count of visits
+  - **tummy time:** "one of the few" was unsupported; the motor findings did not cover sitting or walking; the AAP's target was left out
+  - **bilingual:** "same age" should be "similar ages"; the clinician-misdiagnosis sentence was turned around; "families are told" overstated
+  - **pacifiers:** the age ranges, the breastfeeding timing and the weaning payoff were imprecise
+  - **talking to baby:** the 1980s data and the mother's-education control were wrong; "parentese" was missing; a source on the accuracy of automated counts was added
+  - **screen time:** the meta-analysis covers ages to 12; "good evidence" became "some direct evidence"; the video-chat finding was made precise
+  - **shared reading:** the 2008 review's finding is for ages 2 and 3; the active-control finding is near zero; the 1988 study's method and size were corrected
+  - **baby-led weaning:** the verdict was hedged to "mixed"; the second trial is larger, not smaller; the choking rate is for all infants
+- `tools/reading-prompt-cards.html` repeated two of the corrected shared-reading lines. It was brought in line, and its unsupported "same book 400 times" note was replaced.
+- The claims grader and the full keel selftest pass. No em dashes.
+
+What remains for Matthew before the status flips (`REVIEW.md`, Tier 4): open each source and confirm it says what the summary says. Three points the checkers could not settle without paywalled full text:
+- **Macknin 2000** (teething): the exact temperature bands in the results table. Summaries disagree on whether 101 to 102F was linked to eruption; the summary now avoids the claim either way.
+- **Price 2012** (sleep training): the methods taught (controlled comforting, camping out) and cortisol at age six come from secondary summaries.
+- **Markman 2009** (teething): no abstract; kept only as a clinical review of teething beliefs.
