@@ -36,4 +36,4 @@ Matthew supplied a concept on 2026-10-15: three arcs rising into a leaf, with th
 
 ## Not done yet
 
-The site does not use these files. The header and footer still show the type-only wordmark, and the tab icon is still the old sprout. Wiring the mark in is a separate step: the header lockup, the footer, `favicon.svg` and the touch icon on every page, the web manifest, and the social preview images.
+The mark is wired in (PR 122, then PR 129 for the /nsc app): the header and footer lockups, `favicon.svg`, the 32px icon and the touch icon on every page. Still to do: the web manifest and the social preview images (for example the Growing Minds AI page's `og:image`, which still points at the old logo PNG).

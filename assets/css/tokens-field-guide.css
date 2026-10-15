@@ -4,8 +4,8 @@
    Warm paper ground, botanical ink for every word, scientific forest
    green as the one action colour, muted sage as the field colour, and
    one inverted ink field for the close and the footer. Newsreader
-   (headlines, statements) over DM Sans (reading and interface).
-   Square corners; no shadows at rest; no gradients.
+   (headlines, statements) over Inter (reading and interface).
+   Calm corners (4 / 6 / 10px); no shadows at rest; no gradients.
 
    The Terrain names (--bg, --ink, --primary, --font-display ...) are
    kept as aliases so chrome.css and any shared component keep reading
