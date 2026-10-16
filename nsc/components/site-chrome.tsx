@@ -78,7 +78,7 @@ export function SiteHeader() {
 const FOOTER_COLS: [string, [string, string][]][] = [
   ["Classes", [["Birth to 12 months", "/classes/birth-to-12-months"], ["Toddler years", "/classes/toddlerhood"], ["Preschool years", "/classes/preschool"], ["Pricing", "/pricing"]]],
   ["Tools", [["It’s hard right now", "/tools/right-now"], ["Growing Minds AI", "/tools/growing-minds-ai"], ["Milestone tracker", "/milestones"], ["All tools and guides", "/tools/"]]],
-  ["About", [["Our approach", "/about/"], ["Articles", "/articles/"], ["FAQ", "/faq/"], ["Contact", "/contact/"]]],
+  ["About", [["Our approach", "/about/"], ["Articles", "/articles/"], ["FAQ", "/faq/"], ["For programs", "/programs/"], ["Contact", "/contact/"]]],
 ];
 
 const LEGAL_LINKS: [string, string][] = [
