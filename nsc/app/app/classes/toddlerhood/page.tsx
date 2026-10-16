@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PurchaseTerms } from "@/components/purchase-terms";
 import { requireClassAuth } from "@/lib/auth";
 import { classSalesOpen, hasClassAccess, progressForUser, publishedLessons } from "@/lib/classes.server";
 import { TODDLER_COURSE } from "@/lib/classes";
@@ -39,6 +40,7 @@ export default async function ToddlerClassPage({ searchParams }: {
             <p className="mt-4 text-sm text-ink-muted">On-site enrollment opens after all 29 lessons have been prepared. You can still enroll through the current class page.</p>
           )}
           <p className="mt-3 text-xs text-ink-muted">Already bought this on Thinkific? Your purchase will be linked during migration.</p>
+          <PurchaseTerms narration />
         </Card>
       ) : (
         <ClassResume lessons={lessons} progress={progress} courseSlug="toddlerhood" modules={TODDLER_COURSE.modules} />

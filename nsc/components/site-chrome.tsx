@@ -81,6 +81,12 @@ const FOOTER_COLS: [string, [string, string][]][] = [
   ["About", [["Our approach", "/about/"], ["Articles", "/articles/"], ["FAQ", "/faq/"], ["Contact", "/contact/"]]],
 ];
 
+const LEGAL_LINKS: [string, string][] = [
+  ["Privacy", "/privacy/"],
+  ["Terms of use", "/terms/"],
+  ["Terms of sale", "/terms-of-sale/"],
+];
+
 const FOOTER_LINK =
   "inline-flex min-h-11 items-center text-on-dark-soft underline decoration-transparent decoration-1 underline-offset-[0.35em] transition-colors hover:text-on-dark hover:decoration-current";
 
@@ -110,6 +116,11 @@ export function SiteFooter() {
       </div>
       <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-6 gap-y-1 border-t border-white/15 px-4 py-4 text-xs text-on-dark-muted sm:px-6">
         <p>&copy; 2026 Growing Minds Science &middot; Educational content only. Not medical or psychological advice.</p>
+        <p className="flex flex-wrap gap-x-4">
+          {LEGAL_LINKS.map(([label, path]) => (
+            <a key={path} href={sitePath(path)} className={FOOTER_LINK}>{label}</a>
+          ))}
+        </p>
         <ThemeToggle className={FOOTER_LINK} />
       </div>
     </footer>

@@ -231,6 +231,24 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://growingmindsscience.com/privacy/</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://growingmindsscience.com/terms/</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://growingmindsscience.com/terms-of-sale/</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://growingmindsscience.com/tools/limits-without-escalation</loc>
     <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>

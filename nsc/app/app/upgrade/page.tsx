@@ -2,6 +2,7 @@ import Link from "next/link";
 import { requireAuth } from "@/lib/auth";
 import { hasFullAccess } from "@/lib/entitlements.server";
 import { startCheckout } from "./actions";
+import { PurchaseTerms } from "@/components/purchase-terms";
 import { Card, LinkButton } from "@/components/ui";
 import { SubmitButton } from "@/components/submit-button";
 import { PRICE_DISPLAY } from "@/lib/stripe";
@@ -70,6 +71,7 @@ export default async function UpgradePage({
             Get {brand.productName}
           </SubmitButton>
         </form>
+        <PurchaseTerms className="mt-3 text-center" />
       </Card>
 
       <Link href="/app" className="mx-auto inline-flex min-h-11 items-center text-sm text-ink-muted underline">
