@@ -86,6 +86,32 @@
 .tool-app .cs-recap h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.25rem; }
 .tool-app .cs-recap ul { margin: 10px 0 0; padding-left: 1.1rem; display: grid; gap: 6px; font-size: 15px; color: var(--ink-soft); }
 
+/* ---------- Checkup prep ---------- */
+.tool-app .cp-section { margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--border-soft); }
+.tool-app .cs-field input[type="text"],
+.tool-app .cp-questions input,
+.tool-app .cp-text { width: 100%; min-height: 48px; padding: 10px 12px; border: 1.5px solid var(--ink-muted); border-radius: var(--radius); background: var(--paper); color: var(--ink); font: inherit; line-height: 1.5; }
+.tool-app .cs-field input[type="text"] { max-width: 22rem; }
+.tool-app .cp-text { min-height: 6.5rem; resize: vertical; }
+.tool-app :is(.cp-text, .cp-questions input):focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; border-color: var(--forest); }
+.tool-app .cp-area .cs-item__prompt { display: block; }
+.tool-app .cp-starters { margin: 10px 0 12px; }
+.fg.tool-app .cp-starter { font-size: 14px; color: var(--ink-soft); }
+.tool-app .cp-questions { margin: 16px 0 0; padding-left: 1.4rem; display: grid; gap: 10px; }
+.tool-app .cp-questions li::marker { color: var(--ink-muted); }
+.tool-app .cp-visit-note { margin-top: 12px; max-width: 62ch; font-size: 15px; line-height: 1.55; color: var(--ink-soft); }
+.tool-app .cp-visit-note:empty { display: none; }
+.tool-app .cp-page .cp-meta { margin-top: 8px; font-size: 15px; color: var(--ink-muted); }
+.tool-app .cp-page > h3 { margin-top: 28px; font-family: var(--font-display); font-weight: 400; font-size: 1.375rem; }
+.tool-app .cp-page h4 { margin-top: 16px; font-size: 15px; font-weight: 600; color: var(--ink); }
+.tool-app .cp-page .cp-notes { margin-top: 6px; max-width: 62ch; color: var(--ink-soft); white-space: pre-line; }
+.tool-app .cp-page ol { margin: 10px 0 0; padding-left: 1.3rem; display: grid; gap: 6px; color: var(--ink-soft); }
+.tool-app .cp-page .cp-visit-note { margin-top: 24px; padding-left: 14px; border-left: 2px solid var(--sage); }
+.tool-app .cp-worried { margin-top: 24px; padding: clamp(18px, 2.4vw, 28px); border-radius: var(--radius-lg); background: var(--sage-mist); }
+.tool-app .cp-worried h2 { font-family: var(--font-display); font-weight: 400; font-size: 1.375rem; line-height: 1.2; }
+.tool-app .cp-worried p { margin-top: 8px; max-width: 62ch; color: var(--ink-soft); }
+.tool-app .cp-worried a { color: var(--forest); }
+
 /* ---------- Milestone Navigator ---------- */
 .tool-app .nv-domains { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
 .fg.tool-app :is(.nv-domain, .nv-answer) {
@@ -149,7 +175,7 @@
 .tool-app .g-glance .dot { display: none; }
 
 /* ---------- Print sheets (unchanged from the inline styles) ---------- */
-#visit-sheet, #al-pocket, #rp-deck, #nv-sheet { display: none; }
+#visit-sheet, #al-pocket, #rp-deck, #nv-sheet, #cp-sheet { display: none; }
 @media print {
   body.printing-visit > :not(#visit-sheet) { display: none !important; }
   body.printing-visit #visit-sheet { display: block; color: #000; font: 12pt/1.5 Georgia, serif; padding: 1rem; }
@@ -181,4 +207,17 @@
   #nv-sheet h3 { font: 700 12pt/1.2 "Helvetica Neue", sans-serif; margin: 1rem 0 .3rem; }
   #nv-sheet ul { margin: .2rem 0; padding-left: 1.2rem; }
   #nv-sheet .vs-foot { margin-top: 1.2rem; font-size: 9pt; color: #444; border-top: 1px solid #999; padding-top: .5rem; }
+
+  body.printing-cp > :not(#cp-sheet) { display: none !important; }
+  body.printing-cp #cp-sheet { display: block; color: #000; font: 11.5pt/1.45 Georgia, serif; padding: 1rem; }
+  #cp-sheet h2 { font: 700 16pt/1.2 "Helvetica Neue", sans-serif; margin: 0 0 .2rem; }
+  #cp-sheet .cp-meta { margin: 0 0 .4rem; font-size: 10pt; color: #333; }
+  #cp-sheet h3 { font: 700 12pt/1.2 "Helvetica Neue", sans-serif; margin: .9rem 0 .25rem; }
+  #cp-sheet h4 { font: 700 10.5pt/1.2 "Helvetica Neue", sans-serif; margin: .55rem 0 .1rem; }
+  #cp-sheet .cp-notes { margin: 0; white-space: pre-line; }
+  #cp-sheet .cp-block { break-inside: avoid; }
+  #cp-sheet ol { margin: .2rem 0; padding-left: 1.3rem; }
+  #cp-sheet li { margin: .15rem 0; }
+  #cp-sheet .cp-visit-note { margin-top: .9rem; font-size: 10pt; color: #333; }
+  #cp-sheet .vs-foot { margin-top: 1rem; font-size: 9pt; color: #444; border-top: 1px solid #999; padding-top: .5rem; }
 }
