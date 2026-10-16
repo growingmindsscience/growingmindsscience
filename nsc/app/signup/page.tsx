@@ -13,10 +13,10 @@ export default async function SignupPage({
   return (
     <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center gap-6 px-6 py-12">
       <div className="text-center">
-        <p className="text-[0.9375rem] font-semibold text-amber-deep">
+        <h1 className="text-3xl font-semibold text-ink-deep">Create your account</h1>
+        <p className="mt-1 text-[0.9375rem] font-semibold text-amber-deep">
           {brand.productName}
         </p>
-        <h1 className="mt-1 text-3xl font-semibold text-ink-deep">Create your account</h1>
         <p className="mt-2 text-sm text-ink-muted">{brand.tagline}</p>
       </div>
       <Card>

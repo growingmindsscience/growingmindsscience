@@ -175,7 +175,7 @@ const ent = (t) => esc(t).replace(/\u2018/g, "&lsquo;").replace(/\u2019/g, "&rsq
 const homeCols = d.stages.map((s, i) => {
   const h = s.home;
   const link = (k, v) => `${k}: <a href="${esc(v.href)}">${ent(v.label)}</a>`;
-  return `          <div class="age__col"><h3><a href="${href(s)}">${ent(s.name)}</a><span class="yrs">${ent(s.years)}</span></h3><p>${ent(s.summary)}</p><p class="age__links">${link("Read", h.read)} &middot; ${link("Try", h.try)} &middot; ${link("Learn", h.learn)}</p><div class="range"><div class="range__track" style="--from:${(s.from / 60) * 100}%;--to:${(s.to / 60) * 100}%"><i></i></div><small${i ? ' class="axis-repeat"' : ""}><span>birth</span><span>5 years</span></small></div></div>`;
+  return `          <div class="age__col"><h3><a href="${href(s)}">${ent(s.name)}</a><span class="u-visually-hidden">, </span><span class="yrs">${ent(s.years)}</span></h3><p>${ent(s.summary)}</p><p class="age__links">${link("Read", h.read)} &middot; ${link("Try", h.try)} &middot; ${link("Learn", h.learn)}</p><div class="range"><div class="range__track" style="--from:${(s.from / 60) * 100}%;--to:${(s.to / 60) * 100}%"><i></i></div><small${i ? ' class="axis-repeat"' : ""}><span>birth</span><span>5 years</span></small></div></div>`;
 }).join("\n");
 const homePath = join(ROOT, "index.html");
 const home = readFileSync(homePath, "utf8");

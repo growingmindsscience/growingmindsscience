@@ -24,7 +24,7 @@
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=57ab480f20" />
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=303d86446c" />
   <link rel="stylesheet" href="/assets/css/field-guide.css?v=ececc69b57" />
 
   <style>
@@ -144,17 +144,6 @@
       position: relative; isolation: isolate; overflow: hidden;
       background: var(--ink-800); color: var(--on-dark);
       padding: 2.75rem 0 2.25rem;
-    }
-    /* Graph-paper ground: the homepage hero's lab-notebook texture, fading out
-       toward the bottom so the copy sits on clean ink. */
-    .ai-page-header::before {
-      content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-      background-image:
-        linear-gradient(rgba(238, 244, 243, .055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(238, 244, 243, .055) 1px, transparent 1px);
-      background-size: 44px 44px; background-position: center top;
-      -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,.9) 0%, rgba(0,0,0,.5) 60%, transparent 100%);
-      mask-image: linear-gradient(180deg, rgba(0,0,0,.9) 0%, rgba(0,0,0,.5) 60%, transparent 100%);
     }
     .ai-page-header__inner {
       display: flex; align-items: flex-end; justify-content: space-between; gap: 1.5rem 2rem; flex-wrap: wrap;
@@ -524,7 +513,7 @@
       .topic-card:active, .topic-card:hover .topic-card__arrow { transform: none; }
     }
   </style>
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=165c6d088e" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=a618e65a75" />
 </head>
 <body class="fg fg--page gm-ai">
 

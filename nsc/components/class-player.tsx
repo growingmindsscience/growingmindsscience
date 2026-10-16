@@ -197,7 +197,9 @@ export function ClassPlayer({ lessonId, title, startTime, completed = false, cou
               poster=""
               startTime={resumeAt}
               videoTitle={title}
-              accentColor="#F2A93B"
+              // The control bar always sits over the video, so the accent is
+              // verdigris in its on-dark form (the dark theme's teal), not amber.
+              accentColor="#8FC4AE"
               onPlay={() => setStarted(true)}
               onTimeUpdate={(event) => {
                 const seconds = (event.target as HTMLMediaElement).currentTime;

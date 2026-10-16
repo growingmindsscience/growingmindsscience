@@ -61,6 +61,7 @@
   --clay-text: #9E5236;      /* clay for small text: 5.1:1 on paper, 4.6:1 on sage mist */
   --research: #426B91;       /* research blue: sources and technical detail */
   --note-amber: #D2A453;     /* golden ochre: discovery and play accents */
+  --note-on-ink: #D2A453;    /* the step numeral on an ink fill (the chosen Lens tab): 5.3:1 */
   --danger: #A6371F;
   --success: #2F6B4A;
 
@@ -191,6 +192,7 @@
   --on-ink-muted: #9FAEA8;
   --note-warm: #D9A08E;
   --note-amber: #DDB36E;
+  --note-on-ink: #9E5236;    /* the ink fill turns light here, so the numeral goes back to clay: 4.7:1 */
   --sage-mist: #22362F;
   --sage-mist-2: #2B4A41;
   --clay-text: #E0A48E;

@@ -32,6 +32,7 @@ export function SiteWordmark({ href, label = "Growing Minds Science, home" }: { 
 }
 
 const SITE_LINKS: [string, string][] = [
+  ["It’s hard right now", "/tools/right-now"],
   ["Explore", "/explore/"],
   ["Classes", "/classes/"],
   ["Tools", "/tools/"],
@@ -42,24 +43,30 @@ const SITE_LINKS: [string, string][] = [
 const NAV_LINK =
   "inline-flex min-h-11 items-center px-3 text-[0.9375rem] font-medium text-ink-soft underline decoration-transparent decoration-1 underline-offset-[0.35em] transition-colors hover:text-ink-deep hover:decoration-current";
 
-/** The site header: the wordmark, then the main site's sections. On a phone the sections fold into a menu. */
+/** The site header: the wordmark, then the main site's sections. Below 1000px
+ *  (the main header's fold) they fold into a menu that opens, as on the main
+ *  site, with "It's hard right now" on a sage-mist tile; on a wide screen that
+ *  link lives in the Tools menu, so the bar leaves it out. */
 export function SiteHeader() {
   return (
     <header className="site-header border-b border-line bg-ground print:hidden">
       <div className="mx-auto flex min-h-16 max-w-5xl items-center justify-between gap-6 px-4 sm:px-6">
         <SiteWordmark href={sitePath("/")} />
-        <nav aria-label="Primary" className="hidden items-center md:flex">
-          {SITE_LINKS.map(([label, path]) => (
+        <nav aria-label="Primary" className="hidden items-center min-[1000px]:flex">
+          {SITE_LINKS.slice(1).map(([label, path]) => (
             <a key={path} href={sitePath(path)} className={NAV_LINK}>{label}</a>
           ))}
         </nav>
-        <details className="site-menu relative md:hidden">
-          <summary className="inline-flex min-h-11 cursor-pointer list-none items-center px-3 text-[0.9375rem] font-medium text-ink-deep [&::-webkit-details-marker]:hidden">
-            Menu
+        <details className="site-menu relative min-[1000px]:hidden">
+          <summary className="inline-flex min-h-11 min-w-11 cursor-pointer list-none items-center justify-center text-ink-deep [&::-webkit-details-marker]:hidden">
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round">
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+            <span className="sr-only">Menu</span>
           </summary>
-          <nav aria-label="Primary" className="absolute right-0 top-full z-20 mt-2 w-56 rounded-card border border-line bg-surface p-2 shadow-lg">
-            {SITE_LINKS.map(([label, path]) => (
-              <a key={path} href={sitePath(path)} className={`${NAV_LINK} w-full`}>{label}</a>
+          <nav aria-label="Primary" className="absolute right-0 top-full z-20 mt-2 w-64 rounded-card border border-line bg-surface p-2 shadow-lg">
+            {SITE_LINKS.map(([label, path], i) => (
+              <a key={path} href={sitePath(path)} className={`${NAV_LINK} w-full ${i === 0 ? "mb-1 rounded-control bg-tint font-semibold text-ink-deep" : ""}`}>{label}</a>
             ))}
           </nav>
         </details>
