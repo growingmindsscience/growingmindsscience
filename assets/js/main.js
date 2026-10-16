@@ -241,6 +241,11 @@
           email: email,
           message: message,
         };
+        // Optional fields only some contact forms carry (the /programs form).
+        ["organization", "topic"].forEach(function (key) {
+          var field = contactForm.querySelector('[name="' + key + '"]');
+          if (field && field.value) payload[key] = field.value;
+        });
 
         fetch("/api/contact", {
           method: "POST",

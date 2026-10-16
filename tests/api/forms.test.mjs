@@ -77,6 +77,17 @@ test("the honeypot answers like success and sends nothing", async () => {
   } finally { net.restore(); }
 });
 
+test("A10b: a program inquiry gets its own subject and keeps the organization", async () => {
+  const net = mockFetch([[WEB3FORMS, () => json({ success: true })]]);
+  try {
+    const res = await contact(jsonPost("https://g.test/api/contact", JSON.stringify({ email: "a@example.org", message: "We serve 40 families.", topic: "programs", organization: "Valley EI\r\nBcc: x@y.z" })));
+    assert.equal(res.status, 200);
+    const sent = sentTo(net, WEB3FORMS);
+    assert.equal(sent.subject, "Program inquiry — Growing Minds Science");
+    assert.equal(sent.organization, "Valley EI Bcc: x@y.z");
+  } finally { net.restore(); }
+});
+
 test("A10: contact keeps message line breaks but strips them from the name", async () => {
   const net = mockFetch([[WEB3FORMS, () => json({ success: true })]]);
   try {

@@ -57,6 +57,7 @@
     { "source": "/privacy",        "destination": "/privacy/index.html" },
     { "source": "/terms",          "destination": "/terms/index.html" },
     { "source": "/terms-of-sale",  "destination": "/terms-of-sale/index.html" },
+    { "source": "/programs",       "destination": "/programs/index.html" },
     { "source": "/login",          "destination": "/login.html" },
     { "source": "/account",        "destination": "/account.html" },
     { "source": "/milestones",     "destination": "/milestones.html" },
