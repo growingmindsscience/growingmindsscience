@@ -209,4 +209,5 @@ html:not(.anim) .label { transition: none; }
 .close h2 { color: #FFFDF8; font-size: clamp(2.25rem, 1.2rem + 3.2vw, 4rem); line-height: 0.98; letter-spacing: -0.025em; }
 .close p { margin-top: 20px; max-width: 36ch; color: #F3EFE4; }
 .close .hb-btn { margin-top: 28px; }
-@media (max-width: 800px) { .close { min-height: 0; } .close img { position: relative; height: 56svh; filter: none; } .close__inner { display: block; padding-top: 32px; } }
+/* Phones: the photo stacks above the words, so drop field-guide.css's .close padding (it showed as an empty band) and frame the pair and the slide instead of anchoring right. */
+@media (max-width: 800px) { .close { min-height: 0; padding-block: 0; } .close img { position: relative; height: auto; aspect-ratio: 4 / 3; object-position: 25% 50%; filter: none; } .close__inner { display: block; padding-top: 32px; } }
