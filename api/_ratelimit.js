@@ -13,7 +13,7 @@
 // ANTHROPIC_API_KEY. Until then, that spend limit is the only hard cap on the
 // cost of the free AI tier.
 
-import { jsonResponse } from "./_security.js";
+import { deriveKey, hmacSha256, jsonResponse } from "./_security.js";
 
 // Ceiling per map, so a flood of distinct addresses cannot grow memory without bound.
 export const MAX_KEYS = 10000;
@@ -163,6 +163,72 @@ export function createDailyAllowance({ limit, maxKeys = MAX_KEYS, now = Date.now
       if (entry && entry.day === today() && entry.count > 0) entry.count -= 1;
     },
     size: () => entries.size,
+  };
+}
+
+// The daily allowance above, counted in one shared table instead of per isolate
+// (nsc/supabase/migrations/0021_ai_free_usage.sql), when `url`, `serviceKey`
+// and `secret` are all set. The table never holds an address: each visitor is
+// an HMAC of (UTC day, client key) under a key derived from `secret`, so it
+// cannot be reversed or linked across days. Any failure (not configured, a
+// timeout, an error) falls back to the in-memory allowance: an outage costs
+// accuracy, never availability, and never makes the free tier unlimited.
+//
+// reserve(key) resolves to null at the limit, or to a ticket whose refund()
+// gives the question back to whichever store took it.
+export function createSharedDailyAllowance({
+  limit,
+  url,
+  serviceKey,
+  secret,
+  fallback = createDailyAllowance({ limit }),
+  now = Date.now,
+  timeoutMs = 1500,
+}) {
+  const enabled = Boolean(url && serviceKey && secret);
+  const base = enabled ? `${String(url).replace(/\/+$/, "")}/rest/v1/rpc/` : "";
+  let hashKeyPromise = null;
+
+  async function keyHash(key) {
+    hashKeyPromise ||= deriveKey(secret, "ai-free-usage");
+    const day = new Date(now()).toISOString().slice(0, 10);
+    const bytes = await hmacSha256(await hashKeyPromise, `${day}|${key}`);
+    return Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
+  }
+
+  async function rpc(name, body) {
+    const res = await fetch(base + name, {
+      method: "POST",
+      headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}`, "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+      signal: AbortSignal.timeout(timeoutMs),
+    });
+    if (!res.ok) throw new Error(`${name} answered ${res.status}`);
+    return res.json();
+  }
+
+  const localTicket = (key) => (fallback.reserve(key) ? { shared: false, refund: async () => fallback.refund(key) } : null);
+
+  return {
+    limit,
+    enabled,
+    async reserve(key) {
+      if (!enabled) return localTicket(key);
+      let hash;
+      try {
+        hash = await keyHash(key);
+        const taken = await rpc("ai_take_free_question", { p_key_hash: hash, p_limit: limit });
+        if (taken !== true) return null;
+      } catch (_) {
+        return localTicket(key);
+      }
+      return {
+        shared: true,
+        refund: async () => {
+          try { await rpc("ai_refund_free_question", { p_key_hash: hash }); } catch (_) { /* best effort */ }
+        },
+      };
+    },
   };
 }
 
