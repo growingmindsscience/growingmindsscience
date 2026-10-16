@@ -1,0 +1,47 @@
+# Files the growingmindsscience.com project does not upload.
+#
+# This project has no build step: Vercel serves every uploaded file as-is, so
+# anything not listed here is public at growingmindsscience.com/<path>. Keep
+# working files (class scripts, drafts, reviews, tooling) out of the deploy.
+#
+# The nsc project (Root Directory nsc/) has its own nsc/.vercelignore. Vercel
+# falls back to this file for a monorepo project without one, and the /nsc
+# rule below would then drop the class app's whole source, so keep that file.
+
+# The class app is its own Vercel project, reached through the /nsc rewrite.
+/nsc
+
+# Paid class scripts and the AI tutor's sources. api/ reads the prebuilt
+# api/_knowledge-data.js, not these files.
+/knowledge
+/course
+
+# keel: the tool pages load keel/lib/*.mjs and keel/artifacts/**/*.json in the
+# browser; the reviews, research notes, graders and scripts stay private.
+/keel/*
+!/keel/lib
+!/keel/artifacts
+
+# Working folders and tooling.
+/docs
+/marketing
+/evals
+/corpus
+/scripts
+/tests
+/library
+/tools/library
+/.github
+/.impeccable
+/.serena
+/.agents
+/.claude
+/.fg-gate
+/.taste-skill
+/_redirects
+/skills-lock.json
+/.env.example
+
+# Notes, readmes and local databases anywhere in the tree.
+*.md
+*.db
