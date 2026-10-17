@@ -736,3 +736,172 @@ body.gms-arcade-lock { overflow: hidden; }
   .gms-arcade-iconbtn, .gms-arcade-close { width: 34px; height: 34px; }
   .gms-arcade-touchbtn { min-height: 42px; padding: 4px 10px; }
 }
+
+/* Six Sudoku: a 6x6 grid with 2x3 boxes, a digit pad, tools. */
+.daily-six { max-width: 440px; }
+.six__grid { display: flex; flex-direction: column; border: 2px solid var(--ink); border-radius: var(--radius-sm, 4px); overflow: hidden; background: var(--surface); }
+.six__row { display: flex; }
+.six__cell {
+  position: relative;
+  width: clamp(44px, 12vw, 58px);
+  height: clamp(44px, 12vw, 58px);
+  display: flex; align-items: center; justify-content: center;
+  border: 0;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--forest);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(1.25rem, 5vw, 1.6rem);
+  cursor: pointer;
+  padding: 0;
+  user-select: none; -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.six__cell.is-box-right { border-right: 2px solid var(--ink); }
+.six__cell.is-box-bottom { border-bottom: 2px solid var(--ink); }
+.six__row:last-child .six__cell { border-bottom: 0; }
+.six__cell:last-child { border-right: 0; }
+.six__cell.is-fixed { color: var(--ink); font-weight: 600; }
+.six__cell.is-peer { background: var(--paper-2); }
+.six__cell.is-same { background: var(--sage-mist); }
+.six__cell.is-selected { background: var(--sage-mist-2); box-shadow: inset 0 0 0 2px var(--forest); }
+.six__cell.is-conflict .six__value { color: var(--danger); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.six__cell.is-wrong { background: color-mix(in oklab, var(--note-warm) 22%, var(--surface)); }
+.six__cell.is-wrong .six__value { color: var(--clay-text); }
+.six__cell:focus-visible { outline: 2px solid var(--forest); outline-offset: -2px; }
+.six__notes { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; height: 100%; padding: 3px; }
+.six__notes i { font-style: normal; font-size: 10px; line-height: 1; color: var(--ink-muted); display: flex; align-items: center; justify-content: center; }
+.six__pad { display: flex; gap: 6px; }
+.six__digit {
+  width: clamp(40px, 11vw, 52px); height: 48px;
+  border-radius: var(--radius, 6px);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-body); font-size: 1.2rem; font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.six__digit.is-done { opacity: 0.35; }
+.six__digit:focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
+.six__tools { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.six__tools .groups__ctl[aria-pressed="true"] { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+
+/* Little Crossword: numbered squares, a clue bar, clue lists, tools. */
+.daily-mini { max-width: 560px; }
+.mini__clue { width: 100%; min-height: 44px; padding: 8px 12px; border-radius: var(--radius, 6px); background: var(--sage-mist); color: var(--ink); font-size: 15px; line-height: 1.4; text-align: center; }
+.mini__clue strong { color: var(--forest); }
+.mini__grid { --n: 5; display: flex; flex-direction: column; border: 2px solid var(--ink); border-radius: var(--radius-sm, 4px); overflow: hidden; background: var(--ink); gap: 1px; }
+.mini__row { display: flex; gap: 1px; }
+.mini__cell {
+  position: relative;
+  width: clamp(48px, 13vw, 62px);
+  height: clamp(48px, 13vw, 62px);
+  display: flex; align-items: center; justify-content: center;
+  border: 0; padding: 0;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(1.25rem, 5vw, 1.6rem);
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none; -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.mini__cell.is-black { background: var(--ink); cursor: default; }
+.mini__cell.is-word { background: var(--sage-mist); }
+.mini__cell.is-selected { background: var(--note-amber); color: var(--ink); }
+[data-theme="dark"] .mini__cell.is-selected { color: #0E1A16; }
+.mini__cell.is-wrong .mini__letter { color: var(--danger); text-decoration: line-through; }
+.mini__cell:focus-visible { outline: 2px solid var(--forest); outline-offset: -3px; }
+.mini__num { position: absolute; top: 2px; left: 4px; font-size: 10px; font-weight: 600; color: var(--ink-muted); }
+.mini__cell.is-selected .mini__num { color: var(--ink); }
+.mini__tools { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.mini__lists { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; width: 100%; }
+.mini__listhead { margin: 0 0 4px; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); }
+.mini__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.mini__cluebtn { display: flex; gap: 8px; width: 100%; text-align: left; padding: 6px 8px; border: 0; border-radius: var(--radius-sm, 4px); background: transparent; color: var(--ink); font-family: var(--font-body); font-size: 14px; line-height: 1.35; cursor: pointer; }
+.mini__cluenum { flex: 0 0 1.4em; font-weight: 600; color: var(--ink-muted); }
+.mini__clueitem.is-current .mini__cluebtn { background: var(--sage-mist); }
+.mini__clueitem.is-done .mini__cluetext { color: var(--ink-muted); text-decoration: line-through; text-decoration-color: var(--border); }
+.mini__cluebtn:focus-visible { outline: 2px solid var(--forest); outline-offset: 1px; }
+.mini__kb[hidden] { display: none; }
+@media (max-width: 480px) { .mini__lists { grid-template-columns: 1fr; } .mini__cluebtn { font-size: 13px; } }
+
+/* =========================================================================
+   The hub page (/arcade/): the Daily band and the games grid. Card art is
+   inline SVG coloured by these classes, so it follows the theme.
+   ========================================================================= */
+.ar-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 16px clamp(32px, 5vw, 80px); align-items: end; margin-bottom: clamp(28px, 4vw, 48px); }
+.ar-head h2 { font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem); line-height: 1.05; }
+.ar-head p { color: var(--ink-soft); max-width: 42ch; margin: 0; }
+@media (max-width: 760px) { .ar-head { grid-template-columns: minmax(0, 1fr); } }
+
+.ar-daily-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+.ar-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+@media (max-width: 1100px) { .ar-daily-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 900px) { .ar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .ar-grid, .ar-daily-grid { grid-template-columns: minmax(0, 1fr); } }
+
+.ar-card {
+  display: flex; flex-direction: column; min-width: 0;
+  border-radius: var(--radius-lg, 10px);
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  overflow: hidden;
+}
+.hub-sec--white .ar-card { background: var(--paper); }
+.ar-card__art { aspect-ratio: 3 / 2; background: var(--sage-mist); display: flex; align-items: center; justify-content: center; padding: 10px 18px; }
+.ar-card--daily .ar-card__art { aspect-ratio: 2 / 1; padding: 8px 20px; }
+.ar-card__art svg { width: 100%; height: 100%; max-height: 150px; overflow: visible; }
+.ar-t { fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
+.ar-t rect, .ar-t path, .ar-t circle { fill: var(--surface); }
+.ar-t .ar-f { fill: var(--forest); }
+.ar-t .ar-s { fill: var(--sage); }
+.ar-t .ar-m { fill: var(--surface); }
+.ar-t .ar-i { fill: var(--sage-mist-2); }
+.ar-t .ar-o { fill: var(--note-amber); }
+.ar-t .ar-k { fill: var(--ink); }
+.ar-t .ar-k2 { fill: var(--research); }
+.ar-t .ar-body { fill: none; stroke: var(--forest); stroke-width: 11; }
+.ar-t .ar-eye { fill: var(--surface); stroke: var(--ink); stroke-width: 0.9; }
+.ar-t .ar-leaf { fill: var(--sage-deep); }
+.ar-t .ar-dash { fill: none; stroke: var(--ink-muted); stroke-dasharray: 4 4; }
+.ar-t .ar-trail { fill: var(--note-amber); fill-opacity: 0.35; stroke: none; }
+.ar-t .ar-ground { fill: none; stroke-width: 2; }
+.ar-t .ar-q { fill: var(--on-forest); stroke: none; font-family: var(--font-display); font-size: 14px; font-weight: 500; }
+.ar-t .ar-card-m { fill: var(--surface); stroke: var(--note-warm); }
+.ar-t .ar-pl { fill: var(--surface); }
+.ar-t .ar-ring { fill: none; stroke: var(--forest); stroke-width: 2; }
+.ar-t .ar-dot { fill: var(--ink-muted); stroke: none; }
+.ar-t .ar-face { fill: var(--surface); }
+.ar-t .ar-wall { fill: none; stroke: var(--sage-deep); stroke-width: 5; }
+.ar-t .ar-n { fill: var(--ink); stroke: none; font-family: var(--font-body); font-size: 9px; font-weight: 600; }
+.ar-t .ar-n.ar-nf { fill: var(--forest); }
+.ar-t .ar-k2 + text { fill: var(--ink); }
+[data-theme="dark"] .ar-t .ar-q { fill: var(--on-forest); }
+
+.ar-card__body { display: flex; flex: 1; flex-direction: column; padding: clamp(18px, 2.2vw, 26px); }
+.fg .ar-card h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.6rem); line-height: 1.12; letter-spacing: -0.01em; margin: 0; }
+.fg .ar-card p { margin: 8px 0 0; color: var(--ink-soft); font-size: 15px; line-height: 1.45; }
+.fg .ar-card p.ar-card__chip {
+  display: inline-flex; align-items: center; gap: 6px; align-self: flex-start;
+  margin-top: 12px; padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--sage-mist);
+  color: var(--ink);
+  font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
+}
+.fg .ar-card p.ar-card__chip.is-done { background: var(--forest); color: var(--on-forest); }
+.fg .ar-card p.ar-card__chip.is-empty { background: transparent; color: var(--ink-muted); padding-inline: 0; }
+.fg .ar-card__play { margin-top: auto; padding-top: 0; width: 100%; justify-content: space-between; }
+.fg .ar-card__body .ar-card__play { margin-top: 18px; }
+.ar-card__play span { font-weight: 400; }
+.ar-card__play.is-loading { cursor: progress; }
+.ar-card__play.is-loading span { display: none; }
+.ar-card__play.is-loading::after { content: "Loading\2026"; font-weight: 400; font-size: 14px; }
+.ar-card .gms-arcade-load-error { margin-top: 12px; font-size: 14px; color: var(--ink); }
+.arcade-page .gms-arcade-title span { display: none; }

@@ -858,18 +858,18 @@
     blocks: "/assets/js/blocks-game.js?v=3afdd4c976",
     breakout: "/assets/js/breakout-game.js?v=e1fe1e5634",
     dino: "/assets/js/dino-game.js?v=1533fb6fd7",
-    echo: "/assets/js/echo-game.js?v=882d4a5a60",
-    hopper: "/assets/js/hopper-game.js?v=6d2ebb5518",
+    echo: "/assets/js/echo-game.js?v=657ff60dd0",
+    hopper: "/assets/js/hopper-game.js?v=a1af9da27c",
     invaders: "/assets/js/invaders-game.js?v=66e6664da7",
-    maze: "/assets/js/maze-game.js?v=c28e1229ed",
+    maze: "/assets/js/maze-game.js?v=63b720deef",
     pong: "/assets/js/pong-game.js?v=3ed0b0ec37",
     snake: "/assets/js/snake-game.js?v=e96c03429f",
     // Daily puzzles (DOM games on the same shell)
     five: "/assets/js/daily-five.js?v=54e0a74c2d",
-    groups: "/assets/js/daily-groups.js?v=0",
-    nest: "/assets/js/daily-nest.js?v=0",
-    mini: "/assets/js/daily-mini.js?v=0",
-    six: "/assets/js/daily-six.js?v=0"
+    groups: "/assets/js/daily-groups.js?v=060460edf9",
+    nest: "/assets/js/daily-nest.js?v=986c1ed050",
+    mini: "/assets/js/daily-mini.js?v=2d0d539012",
+    six: "/assets/js/daily-six.js?v=639eb12940"
   };
   var GAME_CSS = {};
 
@@ -1024,6 +1024,24 @@
     });
   }
   ready(bindPlayButtons);
+
+  // Hub chips: best local score per game, today's state per daily puzzle.
+  function decorateHub() {
+    [].forEach.call(document.querySelectorAll("[data-arcade-best]"), function (chip) {
+      var best = leaderboard.best(chip.getAttribute("data-arcade-best"));
+      chip.textContent = best ? "Best " + best.toLocaleString() : "Not played yet";
+      chip.classList.toggle("is-empty", !best);
+    });
+    var n = dayNumber();
+    [].forEach.call(document.querySelectorAll("[data-arcade-daily]"), function (chip) {
+      var key = chip.getAttribute("data-arcade-daily");
+      var s = streak.get(key), res = streak.result(key);
+      var text = res ? (res === "win" ? "Done today" : "Played today") : "Puzzle #" + n;
+      if (s.current > 1) text += " · " + s.current + "-day streak";
+      chip.textContent = text;
+      chip.classList.toggle("is-done", !!res);
+    });
+  }
 
   // ======================================================================
   //  Core v2 — the field-guide arcade.
@@ -1972,6 +1990,7 @@
     runSummary: runSummary,
     makeLoop: makeLoop,
     debug: debug,
+    decorateHub: decorateHub,
     loadJSON: loadJSON,
     el: el,
     prefersReducedMotion: prefersReducedMotion,
@@ -2000,4 +2019,7 @@
     onViewportChange: onViewportChange,
     makeStick: makeStick,
   };
+  // After the export: decorateHub reads stores defined above, and ready()
+  // runs synchronously when the script is deferred.
+  ready(decorateHub);
 })();

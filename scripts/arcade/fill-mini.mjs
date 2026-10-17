@@ -16,7 +16,7 @@ const dict = new Set(readFileSync(DICT_PATH, "utf8").split("\n").filter(alpha));
 const names = new Set(existsSync("/usr/share/dict/propernames") ? readFileSync("/usr/share/dict/propernames", "utf8").split("\n").map((w) => w.trim().toLowerCase()) : []);
 const ranked = readFileSync(join(HERE, "words-20k.txt"), "utf8").split("\n").map((w) => w.trim()).filter(alpha);
 const EXCLUDE = new Set("penis spam das san gnu anal anus sex sexy porn nude rape nazi damn hell piss crap tits dick cock slut whore semen sperm boob boobs drug drugs died dead kill guns gun bomb nuke tnt thats dont cant wont isnt corp admin yahoo coco inc ltd llc www http html org com net edu gov etc misc info asap faq url usa uk ny la dc tv pc mp dvd cd gif jpg png pdf xml php sql ebay msn aol ibm cgi ftp ssl seo blog".split(" "));
-const LIMIT = 5500; // the familiar end of the list
+const LIMIT = 7000; // the familiar end of the list
 const common = ranked.filter((w, i) => i < LIMIT && dict.has(w) && !names.has(w) && !EXCLUDE.has(w) && w.length >= 3 && w.length <= 5);
 const byLen = { 3: [], 4: [], 5: [] };
 for (const w of common) byLen[w.length].push(w);
@@ -58,9 +58,9 @@ function mulberry(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5
 
 function fill(pattern, rnd) {
   const grid = pattern.map((row) => row.split(""));
-  const sl = slots(pattern);
+  const sl = slots(pattern).sort((a, b) => b.len - a.len);
   const used = new Set();
-  const rot = Math.floor(rnd() * 1000); // vary which common words come first
+  const rot = 0;
   function cells(s) { const out = []; for (let i = 0; i < s.len; i++) out.push(s.dir === "A" ? [s.r, s.c + i] : [s.r + i, s.c]); return out; }
   function candidates(s) {
     const cs = cells(s);
@@ -68,44 +68,32 @@ function fill(pattern, rnd) {
     const list = [];
     for (let k = 0; k < pool.length; k++) {
       const w = pool[(k + rot) % pool.length];
-      if (used.has(w)) continue;
+      if (used.has(w) || taken.has(w)) continue;
       let ok = true;
       for (let i = 0; i < cs.length; i++) { const g = grid[cs[i][0]][cs[i][1]]; if (g !== "." && g !== w[i]) { ok = false; break; } }
       if (ok) list.push(w);
     }
-    // shuffle the front of the list so each run finds a different fill
-    for (let i = Math.min(list.length, 120) - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); const t = list[i]; list[i] = list[j]; list[j] = t; }
-    return list;
+    // common words first, but jittered, so each run finds a different fill
+    return list.map((w, i) => ({ w, k: i + rnd() * 400 })).sort((a, b) => a.k - b.k).map((x) => x.w);
   }
-  function filled(s) { return cells(s).every(([r, c]) => grid[r][c] !== "."); }
   let steps = 0;
-  function solve() {
-    if (++steps > 20000) return false;
-    // most constrained open slot first
-    let best = null, bestList = null;
-    for (const s of sl) {
-      if (filled(s)) continue;
-      const list = candidates(s);
-      if (!list.length) return false;
-      if (!best || list.length < bestList.length) { best = s; bestList = list; }
-    }
-    if (!best) return sl.every((s) => { const w = cells(s).map(([r, c]) => grid[r][c]).join(""); return dict.has(w) || byLen[s.len].includes(w); });
-    const cs = cells(best);
-    for (const w of bestList.slice(0, 40)) {
+  function solve(i) {
+    if (++steps > 12000) return false;
+    if (i === sl.length) return true;
+    const s = sl[i];
+    const cs = cells(s);
+    for (const w of candidates(s).slice(0, 24)) {
       const prev = cs.map(([r, c]) => grid[r][c]);
       cs.forEach(([r, c], k) => { grid[r][c] = w[k]; });
       used.add(w);
-      if (solve()) return true;
+      if (solve(i + 1)) return true;
       used.delete(w);
       cs.forEach(([r, c], k) => { grid[r][c] = prev[k]; });
     }
     return false;
   }
-  if (!solve()) return null;
-  // every entry must be a common word (not merely dictionary-valid)
-  const commonSet = new Set(common);
-  const words = sl.map((s) => ({ ...s, word: cells(s).map(([r, c]) => grid[r][c]).join("") }));
-  if (!words.every((w) => commonSet.has(w.word))) return null;
+  if (!solve(0)) return null;
+  const words = slots(pattern).map((s) => ({ ...s, word: cells(s).map(([r, c]) => grid[r][c]).join("") }));
   if (new Set(words.map((w) => w.word)).size !== words.length) return null;
   return { grid: grid.map((r) => r.join("")), words };
 }
@@ -115,6 +103,7 @@ const seed = +(process.argv[3] || 7);
 const rnd = mulberry(seed);
 let made = 0, tries = 0;
 const seenGrid = new Set();
+const taken = new Set(); // words already used by an accepted fill: forces variety
 while (made < count && tries < count * 20) {
   tries++;
   const p = PATTERNS[tries % PATTERNS.length];
@@ -124,6 +113,7 @@ while (made < count && tries < count * 20) {
   if (seenGrid.has(key)) continue;
   seenGrid.add(key);
   made++;
+  for (const w of f.words) taken.add(w.word);
   console.log(`--- fill ${made}`);
   console.log(f.grid.join("\n"));
   console.log(f.words.map((w) => `${w.dir}${w.r},${w.c}:${w.word}`).join("  "));
