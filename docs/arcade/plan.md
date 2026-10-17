@@ -154,3 +154,18 @@ Worth adding:
 - Sound packs beyond the synth.
 - Multiplayer over the network.
 - Any change to class, tool, or article pages.
+
+## 10. Status, 2026-10-17
+
+- Phase A done: core v2 and `arcade.css` (commit "Arcade core v2 and Synapse Snake").
+- Phase B done: all ten games rebuilt. Nine were built by parallel subagents from `game-brief.md` and reviewed by screenshot and in the shared preview; Snake is the hand-built reference. Each registers a localhost debug handle.
+- Phase C done: Five Letters, Groupings, Letter Nest, Six Sudoku; Little Crossword ships with its first authored grids.
+- Phase D done: the hub, with chips for best scores and streaks.
+- Phase E: `tests/arcade/*.test.mjs` in `gates.yml`; stamping run after every change.
+
+Known follow-ups:
+- `pages.css` still carries the old `.arcade-*` card rules (dead now that the hub uses `ar-*`). Remove in a follow-up that restamps every page.
+- Nobody has played a full run of each game by hand yet; difficulty curves past the middle chapters are untested by a person.
+- Landscape phones at 375 px tall shrink the portrait fields (Invaders, Tidy Up, Crumb Chase, Serve and Return) until small labels are hard to read.
+- Tidy Up shares one leaderboard between Marathon and Bedtime.
+- The repo skill `arcade-game` (section 8) is not written yet; `game-brief.md` is its draft.
