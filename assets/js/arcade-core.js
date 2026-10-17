@@ -752,7 +752,7 @@
     return fallbackFocus(s);
   }
   function fallbackFocus(s) {
-    var c = s.opts.canvas || s.dialog.querySelector("canvas[tabindex]");
+    var c = s.opts.canvas || s.dialog.querySelector("[data-arcade-focus]") || s.dialog.querySelector("canvas[tabindex]");
     if (canFocus(c)) return c;
     var any = s.dialog.querySelectorAll("button, [href], input, [tabindex]:not([tabindex='-1'])");
     for (var i = 0; i < any.length; i++) if (canFocus(any[i])) return any[i];
@@ -854,18 +854,24 @@
   // scripts/stamp-assets.mjs can version it: /assets is served immutable, and a
   // URL that never changes would keep serving a stale game.
   var GAME_JS = {
-    asteroids: "/assets/js/asteroids-game.js?v=3f98d07fcc",
-    blocks: "/assets/js/blocks-game.js?v=90e0306b81",
-    breakout: "/assets/js/breakout-game.js?v=e23e122b92",
-    dino: "/assets/js/dino-game.js?v=249fd44627",
-    echo: "/assets/js/echo-game.js?v=f29f08198c",
-    hopper: "/assets/js/hopper-game.js?v=1409325d50",
-    invaders: "/assets/js/invaders-game.js?v=a94f39e62c",
-    maze: "/assets/js/maze-game.js?v=d90875d458",
-    pong: "/assets/js/pong-game.js?v=ec48566888",
-    snake: "/assets/js/snake-game.js?v=e96c03429f"
+    asteroids: "/assets/js/asteroids-game.js?v=3e19b7a194",
+    blocks: "/assets/js/blocks-game.js?v=3afdd4c976",
+    breakout: "/assets/js/breakout-game.js?v=e1fe1e5634",
+    dino: "/assets/js/dino-game.js?v=1533fb6fd7",
+    echo: "/assets/js/echo-game.js?v=882d4a5a60",
+    hopper: "/assets/js/hopper-game.js?v=6d2ebb5518",
+    invaders: "/assets/js/invaders-game.js?v=66e6664da7",
+    maze: "/assets/js/maze-game.js?v=c28e1229ed",
+    pong: "/assets/js/pong-game.js?v=3ed0b0ec37",
+    snake: "/assets/js/snake-game.js?v=e96c03429f",
+    // Daily puzzles (DOM games on the same shell)
+    five: "/assets/js/daily-five.js?v=54e0a74c2d",
+    groups: "/assets/js/daily-groups.js?v=0",
+    nest: "/assets/js/daily-nest.js?v=0",
+    mini: "/assets/js/daily-mini.js?v=0",
+    six: "/assets/js/daily-six.js?v=0"
   };
-  var GAME_CSS = { pong: ["/assets/css/pong.css?v=08e7f7f61f"] };
+  var GAME_CSS = {};
 
   function registerGame(key, open) { registry[key] = open; }
 
@@ -1519,7 +1525,7 @@
   }
   function dailySeed(salt, offsetDays) { return hashString(dayKey(offsetDays) + "|" + (salt || "")); }
   // Day number since the arcade's epoch, for "Puzzle #N" labels.
-  var DAILY_EPOCH = Date.UTC(2026, 9, 20);
+  var DAILY_EPOCH = Date.UTC(2026, 9, 17);
   function dayNumber(offsetDays) {
     var d = new Date(); if (offsetDays) d.setDate(d.getDate() + offsetDays);
     return Math.floor((Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) - DAILY_EPOCH) / 86400000) + 1;
@@ -1810,6 +1816,7 @@
         board: pBoard
       },
       toast: function (text, ms) {
+        if (canvas) toastEl.style.top = (canvas.el.offsetTop + 12) + "px";
         toastEl.textContent = text; toastEl.hidden = false;
         toastEl.classList.remove("is-in"); void toastEl.offsetWidth; toastEl.classList.add("is-in");
         if (toastTimer) window.clearTimeout(toastTimer);
@@ -1825,6 +1832,9 @@
       // Render power-up pips from makePowerups().list(). Cheap: only touches DOM when the set changes; bars update by transform.
       renderPips: function (list, pal) {
         var ids = list.map(function (p) { return p.id; }).join("|");
+        // Anchor the pips to the canvas's top-left corner, not the stage's,
+        // so they sit inside the field whatever the letterboxing.
+        if (canvas && list.length) { pips.style.left = (canvas.el.offsetLeft + 10) + "px"; pips.style.top = (canvas.el.offsetTop + 10) + "px"; }
         if (pips.getAttribute("data-ids") !== ids) {
           pips.setAttribute("data-ids", ids); pips.textContent = "";
           list.forEach(function (p) {
@@ -1893,6 +1903,17 @@
   function lastInitials() { try { return window.localStorage.getItem(INITIALS_KEY) || "AAA"; } catch (e) { return "AAA"; } }
   function rememberInitials(v) { try { window.localStorage.setItem(INITIALS_KEY, sanitizeInitials(v)); } catch (e) {} }
 
+  // Fetch a JSON data file once and share it between opens of the same game.
+  var jsonCache = {};
+  function loadJSON(url, ok, fail) {
+    if (jsonCache[url]) { ok(jsonCache[url]); return; }
+    if (!window.fetch) { fail(new Error("no fetch")); return; }
+    window.fetch(url, { credentials: "same-origin" }).then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    }).then(function (data) { jsonCache[url] = data; ok(data); }).catch(function (err) { fail(err); });
+  }
+
   // Local-only debug handles (window.__gmsArcade[key]) so a game's states can
   // be driven from the console while verifying. Never registered on the live site.
   var debugHost = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(window.location.hostname);
@@ -1951,6 +1972,7 @@
     runSummary: runSummary,
     makeLoop: makeLoop,
     debug: debug,
+    loadJSON: loadJSON,
     el: el,
     prefersReducedMotion: prefersReducedMotion,
     tearPageAway: tearPageAway,

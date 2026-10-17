@@ -26,7 +26,7 @@
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=9ee704dd6a" />
   <link rel="stylesheet" href="/assets/css/tools.css?v=7fce784071" />
   <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
-  <link rel="stylesheet" href="/assets/css/arcade.css?v=edf8e2a4e5" />
+  <link rel="stylesheet" href="/assets/css/arcade.css?v=f57adae47f" />
   <link rel="stylesheet" href="/assets/css/pages.css?v=5e2e6382f0" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=a618e65a75" />
 </head>
@@ -207,16 +207,11 @@
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
 
-  <div id="pong-game" hidden role="dialog" aria-label="Pong game" aria-modal="true">
-    <div class="pong-hud"><span><b id="pong-score-cpu">0</b> CPU</span><span class="pong-brand">PONG</span><span>YOU <b id="pong-score-you">0</b></span></div>
-    <div class="pong-stage"><canvas id="pong-canvas"></canvas><div class="pong-msg" id="pong-msg" hidden><div><h2 id="pong-msg-title">Ready?</h2><p id="pong-msg-text">Move your mouse or use ↑ ↓ to play.</p><button class="btn btn--primary" id="pong-msg-btn" type="button">Start</button></div></div></div>
-    <div class="pong-foot"><div class="pong-foot__left"><button id="pong-mute" type="button" aria-pressed="true">♪ Music</button><span class="pong-hint">You control the right paddle · mouse, touch, or ↑ ↓ / W S · first to 7 wins</span></div><button id="pong-exit" type="button">← Back to arcade</button></div>
-  </div>
 
   <script src="../assets/js/main.js?v=d04bd3b1b9" defer></script>
-  <!-- arcade-core.js binds the Play buttons and loads each game (and
-       pong.css for Pong) only when its button is pressed. -->
-  <script src="../assets/js/arcade-core.js?v=fc2a5ea8f6" defer></script>
+  <!-- arcade-core.js binds the Play buttons and loads each game only when
+       its button is pressed. -->
+  <script src="../assets/js/arcade-core.js?v=d100bfc80f" defer></script>
   <script src="/assets/js/home.js?v=c7f5c746df" defer></script>
 </body>
 </html>
