@@ -1,131 +1,131 @@
 /* Growing Minds Science — snake-game.js
-   "Synapse Snake" — a Snake game on the Arcade page.
+   "Synapse Snake" on the Arcade page: steer a growing neural pathway through
+   five developmental fields, linking sparks of curiosity. Each spark makes the
+   pathway longer; every field is a little faster and busier. Tangle the
+   pathway or hit a distraction and the run ends.
 
-   Trigger: the "Play Synapse Snake" card on /arcade ([data-arcade-game="snake"]).
-   Opening tears the page away (GMSArcade) then shows the game. You steer a growing
-   neural pathway around the play field, linking up sparks of curiosity: every
-   spark makes the pathway longer, and every few sparks marks a developmental
-   milestone that gently speeds things up and adds a "distraction" block or
-   two. Crossing your own pathway (a tangle) or a distraction ends the run.
+   Core v2 reference game (see docs/arcade/plan.md): reads the live brand
+   tokens through A.theme(), draws at device resolution through the shell's
+   canvas, uses makeShell for the overlay, makeStory for chapters,
+   makePowerups for timed effects, runSummary for the end card. Everything
+   else is gameplay and art. CSP-safe: no eval, no external assets, audio is
+   the shared Web Audio synth. Honors prefers-reduced-motion.
 
-   Built on window.GMSArcade (arcade-core.js) for the page-tear, the local
-   leaderboard, and the initials entry. Self-contained otherwise: own overlay
-   DOM, own rAF loop, full teardown on close. CSP-safe (no eval, no external
-   assets; audio is Web Audio oscillator synth). Honors prefers-reduced-motion.
-   Mobile: the whole stage is a swipe surface, a wake lock holds the screen on
-   during play, hiding the tab pauses the run, and haptics mark the big beats.
+   Power-ups: Myelin (pass through your own path for a while, research blue),
+   Prune (drop three segments, sage), Bridge (a pair of portals, ochre),
+   Focus (the clock slows, forest).
 */
 (function () {
   "use strict";
 
   var A = window.GMSArcade;
-  if (!A) return;
+  if (!A || !A.makeShell) return;
 
   var GAME_KEY = "synapse-snake";
   var MUTE_KEY = "gms-snake-muted";
 
-  function ready(fn) {
-    if (document.readyState !== "loading") fn();
-    else document.addEventListener("DOMContentLoaded", fn);
-  }
-
-  // ---------- Palette (sampled from the GMS mark) ----------
-  var INK = "#0E2A2D";
-  var BRAIN = "#FD951F";
-  var LEAF_TOP = "#9FCB43";
-  var LEAF_SIDE = "#40C099";
-  var WARM = "#D5BE98";
-  var CREAM = "#F4EFE3";
-
   // ---------- Grid ----------
-  var CELL = 10, COLS = 26, ROWS = 18;
+  // Landscape by default; a portrait phone gets the same grid turned on end
+  // (chosen when the game opens, see activate()).
+  var CELL = 20, COLS = 28, ROWS = 18;
   var W = COLS * CELL, H = ROWS * CELL;
+  function setGrid(cols, rows) { COLS = cols; ROWS = rows; W = COLS * CELL; H = ROWS * CELL; }
 
-  // ---------- Milestones (spark-count gates) ----------
-  // Every gate: banner + slightly faster pathway; later gates add distractions.
+  // ---------- Story: five fields, gated on sparks ----------
   var CHAPTERS = [
-    { name: "Crib",        lo: 0,  interval: 9, blocks: 0 },
-    { name: "First Steps", lo: 6,  interval: 8, blocks: 0 },
-    { name: "First Words", lo: 14, interval: 7, blocks: 3 },
-    { name: "Why Stage",   lo: 24, interval: 6, blocks: 6 },
-    { name: "Big Ideas",   lo: 36, interval: 5, blocks: 10 }
+    { name: "Crib", at: 0, text: "Sparks everywhere. Link them up.", interval: 10, blocks: 0, movers: 0 },
+    { name: "First Steps", at: 6, text: "A little faster now.", interval: 9, blocks: 0, movers: 0 },
+    { name: "First Words", at: 14, text: "Distractions appear. Steer around them.", interval: 8, blocks: 3, movers: 0 },
+    { name: "Why Stage", at: 24, text: "More questions, more clutter.", interval: 7, blocks: 6, movers: 0 },
+    { name: "Big Ideas", at: 36, text: "Some distractions wander. Keep your line.", interval: 6, blocks: 9, movers: 3 }
   ];
 
+  var POWERUPS = {
+    myelin: { label: "Myelin", color: "research", duration: 330, text: "Pass through your own path" },
+    focus: { label: "Focus", color: "forest", duration: 270, text: "The clock slows" },
+    bridge: { label: "Bridge", color: "ochre", duration: 1200, text: "Two portals, one path" },
+    prune: { label: "Prune", color: "sageDeep", duration: 1, text: "Three segments shorter" }
+  };
+  var POWER_ORDER = ["myelin", "focus", "bridge", "prune"];
+
   function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
-
-  function blockyRect(ctx, x, y, w, h, fill) {
-    ctx.fillStyle = INK;
-    ctx.fillRect(Math.round(x) - 1, Math.round(y) - 1, Math.round(w) + 2, Math.round(h) + 2);
-    ctx.fillStyle = fill;
-    ctx.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h));
-  }
+  function cx(c) { return c.x * CELL + CELL / 2; }
+  function cy(c) { return c.y * CELL + CELL / 2; }
 
   // ======================================================================
-  //  Game controller
+  //  Game
   // ======================================================================
-  function createGame(canvas, els) {
-    var ctx = canvas.getContext("2d");
-    var backingScale = 1; // hi-res backing store so text stays crisp when scaled up
-    ctx.imageSmoothingEnabled = false;
-    canvas.width = W;
-    canvas.height = H;
-
+  function createGame(shell) {
+    var cv = shell.canvas, ctx = cv.ctx, draw = A.draw;
+    var pal = A.theme();
+    var offTheme = A.onThemeChange(function (p) { pal = p; });
     var reduce = A.prefersReducedMotion();
-    // Shared juice: crisp shake + hit-stop, chain multiplier. Audio-mute is
-    // deliberately independent of reduced-motion (a11y: motion-sensitive
-    // players still get sound).
-    var camera = A.makeCamera({ reduce: reduce, maxPx: 3 });
-    var combo = A.makeCombo({ window: 110, max: 5 });
 
-    // Shared mobile toolkit: everything no-ops where the platform lacks the
-    // API, so these are called unconditionally.
+    var camera = A.makeCamera({ reduce: reduce, maxPx: 5 });
+    var combo = A.makeCombo({ window: 110, max: 5 });
+    var particles = A.makeParticles({ cap: 90, reduce: reduce });
+    var floaters = A.makeFloaters({ cap: 10, reduce: reduce });
     var wake = A.makeWakeLock();
     var unsubHidden = null;
+    var synth = A.makeSynth({ muteKey: MUTE_KEY });
+    shell.bindSynth(synth);
+
+    var story = A.makeStory(CHAPTERS, { onEnter: onChapter, bannerFrames: 160 });
+    var powers = A.makePowerups(POWERUPS, { onExpire: function (id) { if (id === "bridge") portals = null; } });
 
     var state = "idle"; // idle | running | paused | dying | gameover
-    var snake, dirQ, dir, growth, moveTimer, moveInterval;
-    var spark, book, bookTimer, blocks, sparksEaten, score;
-    var chapterIdx, milestoneText, milestoneTimer;
-    var particles, floaters, pulse, pulses;
-    var deathTimer, deathFlash, deadDissolved, dyingScore;
-    var PARTICLE_CAP = 48, FLOATER_CAP = 10;
+    var snake, prevSnake, dirQ, dir, growth, moveTimer, moveInterval;
+    var spark, book, bookTimer, blocks, sparksEaten, score, best;
+    var pickup, pickupTimer, sinceDrop, portals;
+    var deathTimer, time;
+    var runStats;
 
-    function cellKey(c) { return c.x + "," + c.y; }
+    best = A.leaderboard.best(GAME_KEY);
 
+    // ---------- Audio ----------
+    var sfx = {
+      spark: function (mult) { synth.beep(620 + mult * 50, 920 + mult * 50, 0.07, "triangle", 0.42); },
+      book: function () { synth.arp([523, 784, 1046], 0.05, 0.14, "triangle", 0.4); },
+      power: function () { synth.arp([659, 880, 1318], 0.045, 0.12, "triangle", 0.4); },
+      portal: function () { synth.beep(300, 900, 0.12, "sine", 0.35); },
+      chapter: function () { synth.arp([523, 659, 784, 1046], 0.07, 0.18, "triangle", 0.42); },
+      turn: function () { synth.beep(240, 220, 0.025, "square", 0.08); },
+      hit: function () { synth.beep(200, 70, 0.26, "sawtooth", 0.5); synth.noise(0.32, 900, 0.4); }
+    };
+
+    // ---------- World ----------
     function resetWorld() {
-      var sx = 6, sy = Math.floor(ROWS / 2);
-      snake = [{ x: sx, y: sy }, { x: sx - 1, y: sy }, { x: sx - 2, y: sy }];
-      dir = { x: 1, y: 0 };
-      dirQ = [];
+      var sx = 7, sy = Math.floor(ROWS / 2);
+      snake = [{ x: sx, y: sy }, { x: sx - 1, y: sy }, { x: sx - 2, y: sy }, { x: sx - 3, y: sy }];
+      prevSnake = snake.map(function (c) { return { x: c.x, y: c.y }; });
+      dir = { x: 1, y: 0 }; dirQ = [];
       growth = 0;
-      moveInterval = CHAPTERS[0].interval;
-      moveTimer = moveInterval;
-      blocks = [];
-      book = null; bookTimer = 0;
-      sparksEaten = 0; score = 0;
-      combo.reset(true);
-      chapterIdx = 0; milestoneText = ""; milestoneTimer = 0;
-      particles = particles || []; floaters = floaters || []; pulses = pulses || [];
-      particles.length = 0; floaters.length = 0; pulses.length = 0;
-      pulse = 0;
-      deathTimer = 0; deathFlash = 0; deadDissolved = 0; dyingScore = 0;
-      spark = null;
-      placeSpark();
+      moveInterval = CHAPTERS[0].interval; moveTimer = moveInterval;
+      blocks = []; book = null; bookTimer = 0;
+      pickup = null; pickupTimer = 0; sinceDrop = 0; portals = null;
+      sparksEaten = 0; score = 0; time = 0;
+      combo.reset(true); powers.clear(); story.reset();
+      particles.clear(); floaters.clear();
+      deathTimer = 0;
+      runStats = { chapter: 0, bestChain: 0, powers: 0 };
+      spark = null; placeSpark();
+      syncHud();
     }
 
     function occupied(x, y) {
-      for (var i = 0; i < snake.length; i++) { if (snake[i].x === x && snake[i].y === y) return true; }
-      for (var b = 0; b < blocks.length; b++) { if (blocks[b].x === x && blocks[b].y === y) return true; }
+      var i;
+      for (i = 0; i < snake.length; i++) if (snake[i].x === x && snake[i].y === y) return true;
+      for (i = 0; i < blocks.length; i++) if (blocks[i].x === x && blocks[i].y === y) return true;
       if (spark && spark.x === x && spark.y === y) return true;
       if (book && book.x === x && book.y === y) return true;
+      if (pickup && pickup.x === x && pickup.y === y) return true;
+      if (portals && ((portals[0].x === x && portals[0].y === y) || (portals[1].x === x && portals[1].y === y))) return true;
       return false;
     }
-
     function randomFreeCell(minHeadDist) {
       var head = snake[0];
-      for (var tries = 0; tries < 200; tries++) {
-        var x = Math.floor(Math.random() * COLS);
-        var y = Math.floor(Math.random() * ROWS);
+      for (var tries = 0; tries < 300; tries++) {
+        var x = Math.floor(Math.random() * COLS), y = Math.floor(Math.random() * ROWS);
         if (occupied(x, y)) continue;
         if (minHeadDist) {
           var dx = Math.abs(x - head.x), dy = Math.abs(y - head.y);
@@ -135,639 +135,498 @@
       }
       return null;
     }
-
     function placeSpark() {
       var c = randomFreeCell(2);
-      if (c) spark = { x: c.x, y: c.y, glint: Math.random() * Math.PI * 2 };
+      spark = c ? { x: c.x, y: c.y, bob: Math.random() * Math.PI * 2 } : null;
     }
-
     function maybePlaceBook() {
       if (book || sparksEaten === 0 || sparksEaten % 6 !== 0) return;
       var c = randomFreeCell(4);
-      if (c) { book = { x: c.x, y: c.y }; bookTimer = 300; }
+      if (c) { book = { x: c.x, y: c.y }; bookTimer = 320; }
     }
-
-    function syncChapter() {
-      var ci = 0;
-      for (var c = CHAPTERS.length - 1; c >= 0; c--) { if (sparksEaten >= CHAPTERS[c].lo) { ci = c; break; } }
-      if (ci === chapterIdx) return;
-      chapterIdx = ci;
-      moveInterval = CHAPTERS[ci].interval;
-      triggerMilestone(CHAPTERS[ci].name + "!");
-      while (blocks.length < CHAPTERS[ci].blocks) {
+    function maybePlacePickup() {
+      if (pickup) return;
+      sinceDrop += 1;
+      if (sinceDrop < 4 || Math.random() > 0.45) return;
+      var c = randomFreeCell(4);
+      if (!c) return;
+      var pool = POWER_ORDER.filter(function (id) { return !(id === "bridge" && portals) && !(id === "prune" && snake.length < 8); });
+      pickup = { x: c.x, y: c.y, id: pool[Math.floor(Math.random() * pool.length)] };
+      pickupTimer = 480; sinceDrop = 0;
+    }
+    function placePortals() {
+      var a = randomFreeCell(3); if (!a) return;
+      var b = null;
+      for (var t = 0; t < 40 && !b; t++) {
+        var c = randomFreeCell(3);
+        if (c && (Math.abs(c.x - a.x) + Math.abs(c.y - a.y)) >= 8) b = c;
+      }
+      if (!b) return;
+      portals = [a, b];
+    }
+    function onChapter(ch, idx) {
+      moveInterval = ch.interval;
+      if (idx > 0) {
+        score += 100;
+        floaters.spawn(cx(snake[0]), cy(snake[0]) - 14, "+100", pal.forest, { size: 12 });
+        sfx.chapter(); A.haptics.win();
+        A.announce("Field " + (idx + 1) + ", " + ch.name + ". " + ch.text);
+      }
+      runStats.chapter = Math.max(runStats.chapter, idx);
+      var head = snake[0];
+      while (blocks.length < ch.blocks) {
         var cell = randomFreeCell(5);
         if (!cell) break;
-        // never drop a distraction straight ahead of the pathway
-        var head = snake[0];
-        if (cell.y === head.y && dir.y === 0) continue;
-        if (cell.x === head.x && dir.x === 0) continue;
-        blocks.push(cell);
+        if ((cell.y === head.y && dir.y === 0) || (cell.x === head.x && dir.x === 0)) continue; // never straight ahead
+        blocks.push({ x: cell.x, y: cell.y, mover: false, t: 0 });
       }
+      var movers = 0;
+      for (var i = 0; i < blocks.length; i++) if (blocks[i].mover) movers++;
+      for (var j = blocks.length - 1; j >= 0 && movers < ch.movers; j--) { if (!blocks[j].mover) { blocks[j].mover = true; blocks[j].t = 40 + j * 7; movers++; } }
     }
 
-    // ---------- Audio (shared GMSArcade synth: compressor + noise + arp) ----------
-    var audio = A.makeSynth({ muteKey: MUTE_KEY });
-    function ensureAudio() { audio.ensure(); }
-    var sfx = {
-      spark: function (mult) { audio.beep(560 + mult * 45, 860 + mult * 45, 0.06, "triangle", 0.45); },
-      book: function () { audio.arp([523, 784, 1046], 0.05, 0.14, "triangle", 0.42); },
-      milestone: function () { audio.arp([523, 659, 784, 1046], 0.07, 0.18, "triangle", 0.45); },
-      hit: function () { audio.beep(200, 70, 0.24, "sawtooth", 0.5); audio.noise(0.3, 900, 0.4); }
-    };
-
-    // ---------- Particles / floaters (pooled) ----------
-    function spawnParticle(x, y, vx, vy, life, color) {
-      if (reduce) return;
-      var p;
-      for (var i = 0; i < particles.length; i++) { if (particles[i].life <= 0) { p = particles[i]; break; } }
-      if (!p) { if (particles.length >= PARTICLE_CAP) return; p = {}; particles.push(p); }
-      p.x = x; p.y = y; p.vx = vx; p.vy = vy; p.life = life; p.maxLife = life; p.color = color;
-    }
-    function spawnBurst(x, y, color, n) {
-      for (var i = 0; i < n; i++) {
-        var a = Math.random() * Math.PI * 2, sp = 0.4 + Math.random() * 1.2;
-        spawnParticle(x, y, Math.cos(a) * sp, Math.sin(a) * sp, 10 + Math.random() * 8, color);
-      }
-    }
-    function spawnFloater(x, y, text, color) {
-      if (reduce) return;
-      var f;
-      for (var i = 0; i < floaters.length; i++) { if (floaters[i].life <= 0) { f = floaters[i]; break; } }
-      if (!f) { if (floaters.length >= FLOATER_CAP) return; f = {}; floaters.push(f); }
-      f.x = x; f.y = y; f.life = 26; f.maxLife = 26; f.text = text; f.color = color;
+    function syncHud() {
+      shell.hud.set("score", score);
+      shell.hud.set("best", Math.max(best, score));
+      shell.hud.set("sparks", sparksEaten);
+      shell.hud.set("field", CHAPTERS[story.index()].name);
     }
 
-    // A "synapse firing": a bright signal that travels head -> tail along the
-    // pathway. render() brightens the segment at floor(age). Chains at combo.
-    function firePulse() {
-      if (reduce) return;
-      pulses.push({ age: 0 });
-      if (pulses.length > 6) pulses.shift();
+    // ---------- Flow ----------
+    function showStart() {
+      var p = A.progress.get(GAME_KEY);
+      shell.prompt.show({
+        kicker: "Synapse Snake",
+        title: p.plays ? "Link the sparks again" : "Link the sparks. Grow the pathway.",
+        text: "Steer with the arrow keys or a swipe. Every spark makes you longer; every field is a little faster. Don't cross your own line.",
+        actions: [{ label: "Start", primary: true, onClick: start }],
+        board: p.plays ? function (m) { A.renderLeaderboard(m, GAME_KEY, {}); } : null
+      });
     }
-
-    function triggerMilestone(text) {
-      milestoneText = text;
-      milestoneTimer = 90;
-      camera.shake(0.35);
-      ensureAudio(); sfx.milestone();
-      A.haptics.thump();
+    function start() {
+      synth.ensure();
+      resetWorld();
+      state = "running";
+      shell.prompt.hide();
+      wake.acquire();
+      shell.setHelp("Arrows or WASD steer · swipe on the field · Space pauses · M mutes · Esc closes");
+      A.announce("Go. Field one, Crib.");
     }
-
-    // ---------- Controls ----------
-    // Returns true only when the turn was accepted into the queue — touch
-    // callers gate haptics on this so a buzz always means a real turn.
-    function queueDir(x, y) {
-      if (state === "idle") { start(); }
-      if (state === "paused" || state === "gameover" || state === "dying") return false;
-      var last = dirQ.length ? dirQ[dirQ.length - 1] : dir;
-      if (last.x === x && last.y === y) return false;       // same way
-      if (last.x === -x && last.y === -y) return false;      // no 180s
-      if (dirQ.length >= 2) return false;
-      dirQ.push({ x: x, y: y });
-      return true;
-    }
-
-    function start() { resetWorld(); state = "running"; hidePrompt(); }
-    function restart() { resetWorld(); state = "running"; hidePrompt(); }
-
-    // Auto-pause: a hidden tab must not burn the run. Resume zeroes lastTime
-    // so the first frame back can't produce a dt jump.
-    function pauseGame() {
+    function pause() {
       if (state !== "running") return;
       state = "paused";
-      showPaused();
+      wake.release();
+      shell.prompt.show({ kicker: "Paused", title: CHAPTERS[story.index()].name, text: "Score " + score + " · " + snake.length + " segments long.",
+        actions: [{ label: "Resume", primary: true, onClick: resume }, { label: "Quit", onClick: function () { A.closeGame(); } }], compact: true });
     }
-    function resumeGame() {
+    function resume() {
       if (state !== "paused") return;
-      state = "running";
-      lastTime = 0;
-      hidePrompt();
+      synth.ensure();
+      state = "running"; shell.prompt.hide(); wake.acquire();
     }
-
-    function gameOver() {
-      ensureAudio(); sfx.hit();
-      A.haptics.crash();
-      camera.shake(0.9); camera.freeze(reduce ? 0 : 6);
-      combo.reset();
-      dyingScore = Math.floor(score);
-      spawnBurst(snake[0].x * CELL + CELL / 2, snake[0].y * CELL + CELL / 2, BRAIN, 12);
-      // Reduced-motion players skip the dissolve and go straight to the card.
-      if (reduce) { finalizeGameOver(); return; }
-      state = "dying";
-      deathTimer = 34; deathFlash = 6; deadDissolved = 0;
-    }
-    function finalizeGameOver() {
-      state = "gameover";
-      showGameOver(dyingScore);
-    }
-    // Dissolve the pathway into pixel confetti, head -> tail, over ~34 frames.
-    function tickDeath(dt) {
-      if (deathFlash > 0) deathFlash -= dt;
-      deathTimer -= dt;
-      var total = snake.length;
-      var revealed = Math.floor((1 - Math.max(0, deathTimer) / 34) * total);
-      while (deadDissolved < revealed && deadDissolved < total) {
-        var seg = snake[deadDissolved];
-        spawnBurst(seg.x * CELL + CELL / 2, seg.y * CELL + CELL / 2, deadDissolved % 2 ? LEAF_SIDE : LEAF_TOP, 4);
-        deadDissolved++;
+    function die() {
+      if (state !== "running") return;
+      state = "dying"; deathTimer = 54;
+      wake.release();
+      sfx.hit(); A.haptics.crash();
+      camera.shake(0.9); camera.freeze(6);
+      for (var i = 0; i < snake.length; i += 2) {
+        particles.burst(cx(snake[i]), cy(snake[i]), { n: 3, color: [pal.forest, pal.sage, pal.clay], speed: 1.6, life: 30, size: 3, kind: ["dot", "leaf"], gravity: 0.04 });
       }
-      updateParticles(dt);
-      if (deathTimer <= 0) finalizeGameOver();
+    }
+    function gameOver() {
+      state = "gameover";
+      var placed = score > 0 && score >= best;
+      if (score > best) best = score;
+      runStats.bestChain = combo.best();
+      A.progress.record(GAME_KEY, { score: score, chapter: runStats.chapter, badges: runStats.chapter >= 4 ? ["big-ideas"] : [] });
+      syncHud();
+      var ch = CHAPTERS[story.index()];
+      shell.prompt.show({
+        kicker: "The pathway tangled",
+        title: placed ? "A new best: " + score : "Score " + score,
+        text: "You reached " + ch.name + " with " + sparksEaten + " sparks and a pathway " + snake.length + " segments long.",
+        board: function (m) {
+          A.runSummary(m, { gameKey: GAME_KEY, score: score, lines: [["Field", ch.name], ["Sparks", sparksEaten], ["Best chain", runStats.bestChain + "x"], ["Power-ups", runStats.powers]],
+            onSaved: function () { best = A.leaderboard.best(GAME_KEY); syncHud(); } });
+        },
+        actions: [{ label: "Play again", primary: true, onClick: start }, { label: "Back to arcade", onClick: function () { A.closeGame(); } }]
+      });
+      A.announce("Game over. Score " + score + ".");
     }
 
-    // ---------- Update ----------
+    // ---------- Input ----------
+    function queueDir(x, y) {
+      if (state === "idle" || state === "gameover") { start(); }
+      if (state !== "running") return;
+      var last = dirQ.length ? dirQ[dirQ.length - 1] : dir;
+      if ((last.x === x && last.y === y) || (last.x === -x && last.y === -y)) return;
+      if (dirQ.length >= 2) dirQ.shift();
+      dirQ.push({ x: x, y: y });
+      if (!reduce) sfx.turn();
+      A.haptics.tick();
+    }
+    var input = A.makeInput(cv.el, {
+      canvas: cv,
+      keys: { ArrowLeft: "left", a: "left", ArrowRight: "right", d: "right", ArrowUp: "up", w: "up", ArrowDown: "down", s: "down", " ": "action", p: "pause", Enter: "action" },
+      onAction: function (a, repeat, e) {
+        if (e && e.preventDefault) e.preventDefault();
+        if (a === "left") queueDir(-1, 0);
+        else if (a === "right") queueDir(1, 0);
+        else if (a === "up") queueDir(0, -1);
+        else if (a === "down") queueDir(0, 1);
+        else if (a === "action") { if (state === "idle" || state === "gameover") start(); else if (state === "running") pause(); else if (state === "paused") resume(); }
+        else if (a === "pause") { if (state === "running") pause(); else if (state === "paused") resume(); }
+      },
+      onSwipe: function (d) { if (d === "left") queueDir(-1, 0); else if (d === "right") queueDir(1, 0); else if (d === "up") queueDir(0, -1); else queueDir(0, 1); },
+      onTap: function () { if (state === "idle" || state === "gameover") start(); else if (state === "paused") resume(); }
+    });
+    shell.onTap(function (id) {
+      if (id === "left") queueDir(-1, 0); else if (id === "right") queueDir(1, 0); else if (id === "up") queueDir(0, -1); else if (id === "down") queueDir(0, 1);
+      else if (id === "pause") { if (state === "running") pause(); else if (state === "paused") resume(); else start(); }
+    });
+
+    // ---------- Step ----------
     function step() {
       if (dirQ.length) dir = dirQ.shift();
+      prevSnake = snake.map(function (c) { return { x: c.x, y: c.y }; });
       var head = snake[0];
-      var nx = (head.x + dir.x + COLS) % COLS;
-      var ny = (head.y + dir.y + ROWS) % ROWS;
+      var nx = (head.x + dir.x + COLS) % COLS, ny = (head.y + dir.y + ROWS) % ROWS;
 
-      // tangle check: body (the tail cell is fine unless we're growing)
-      var lastIdx = snake.length - 1;
-      for (var i = 0; i < snake.length; i++) {
-        if (i === lastIdx && growth <= 0) continue;
-        if (snake[i].x === nx && snake[i].y === ny) { gameOver(); return; }
+      // portals
+      if (portals) {
+        for (var p = 0; p < 2; p++) {
+          if (portals[p].x === nx && portals[p].y === ny) {
+            var o = portals[1 - p];
+            nx = (o.x + dir.x + COLS) % COLS; ny = (o.y + dir.y + ROWS) % ROWS;
+            sfx.portal(); particles.burst(cx(o), cy(o), { n: 10, color: pal.ochre, speed: 1.4, life: 22, size: 2.4, kind: "ring" });
+            particles.burst(cx(portals[p]), cy(portals[p]), { n: 8, color: pal.ochre, speed: 1.2, life: 18, size: 2 });
+            break;
+          }
+        }
       }
-      for (var b = 0; b < blocks.length; b++) {
-        if (blocks[b].x === nx && blocks[b].y === ny) { gameOver(); return; }
+      // tangle
+      var tailIdx = growth > 0 ? snake.length : snake.length - 1; // the tail cell will move away unless we grow
+      for (var i = 0; i < tailIdx; i++) {
+        if (snake[i].x === nx && snake[i].y === ny) {
+          if (powers.active("myelin")) break;
+          die(); return;
+        }
       }
+      for (var b = 0; b < blocks.length; b++) { if (blocks[b].x === nx && blocks[b].y === ny) { die(); return; } }
 
       snake.unshift({ x: nx, y: ny });
-      if (growth > 0) growth--;
-      else snake.pop();
+      if (growth > 0) growth--; else snake.pop();
 
-      // spark
-      if (spark && spark.x === nx && spark.y === ny) {
-        var mult = combo.hit();
+      var hx = nx, hy = ny, mult;
+      if (spark && spark.x === hx && spark.y === hy) {
+        mult = combo.hit();
         var pts = 10 * mult;
-        score += pts;
-        sparksEaten++;
-        growth += 1;
-        spawnBurst(nx * CELL + CELL / 2, ny * CELL + CELL / 2, LEAF_TOP, 6);
-        spawnFloater(nx * CELL + CELL / 2, ny * CELL - 2, "+" + pts + (mult > 1 ? " x" + mult : ""), LEAF_SIDE);
-        firePulse();
-        camera.freeze(reduce ? 0 : 2);           // micro hit-stop = crunch
+        score += pts; sparksEaten += 1; growth += 1;
+        sfx.spark(mult); A.haptics.pop();
+        particles.burst(cx(spark), cy(spark), { n: 9, color: [pal.ochre, pal.sageDeep, pal.surface], speed: 1.6, life: 20, size: 2.4, kind: ["dot", "leaf"] });
+        floaters.spawn(cx(spark), cy(spark) - 10, "+" + pts + (mult > 1 ? " ×" + mult : ""), mult > 1 ? pal.forest : pal.inkSoft, { size: mult > 1 ? 12 : 10 });
         if (mult >= 3) camera.shake(0.12);
-        ensureAudio(); sfx.spark(mult);
-        A.haptics.pop();
-        spark = null;
-        placeSpark();
-        maybePlaceBook();
-        syncChapter();
+        placeSpark(); maybePlaceBook(); maybePlacePickup();
+        story.advance(sparksEaten);
+        syncHud(); shell.hud.flash("score");
       }
-
-      // book bonus
-      if (book && book.x === nx && book.y === ny) {
-        score += 50;
-        growth += 2;
-        spawnBurst(nx * CELL + CELL / 2, ny * CELL + CELL / 2, BRAIN, 10);
-        spawnFloater(nx * CELL + CELL / 2, ny * CELL - 2, "+50", BRAIN);
-        firePulse();
-        camera.shake(0.3); camera.freeze(reduce ? 0 : 3);
-        ensureAudio(); sfx.book();
-        A.haptics.thump();
-        book = null;
+      if (book && book.x === hx && book.y === hy) {
+        score += 50; growth += 2; book = null;
+        sfx.book(); A.haptics.thump(); camera.shake(0.2);
+        particles.burst(cx({ x: hx, y: hy }), cy({ x: hx, y: hy }), { n: 14, color: [pal.research, pal.surface, pal.sage], speed: 2, life: 26, size: 2.6, kind: "square", gravity: 0.05 });
+        floaters.spawn(cx({ x: hx, y: hy }), cy({ x: hx, y: hy }) - 12, "Picture book +50", pal.research, { size: 11 });
+        syncHud();
       }
-    }
-
-    function updateParticles(dt) {
-      for (var p = 0; p < particles.length; p++) {
-        var pt = particles[p];
-        if (pt.life <= 0) continue;
-        pt.x += pt.vx * dt; pt.y += pt.vy * dt; pt.life -= dt;
-      }
-      for (var f = 0; f < floaters.length; f++) {
-        var fl = floaters[f];
-        if (fl.life <= 0) continue;
-        fl.y -= 0.35 * dt; fl.life -= dt;
-      }
-      for (var pz = pulses.length - 1; pz >= 0; pz--) {
-        pulses[pz].age += 0.6 * dt;
-        if (pulses[pz].age > (snake ? snake.length : 0) + 3) pulses.splice(pz, 1);
+      if (pickup && pickup.x === hx && pickup.y === hy) {
+        var def = POWERUPS[pickup.id];
+        runStats.powers += 1;
+        sfx.power(); A.haptics.thump(); camera.shake(0.15);
+        particles.burst(cx(pickup), cy(pickup), { n: 16, color: [pal[def.color], pal.surface], speed: 2.2, life: 26, size: 2.6, kind: ["ring", "dot"] });
+        floaters.spawn(cx(pickup), cy(pickup) - 12, def.label, pal[def.color], { size: 13, font: "display" });
+        if (pickup.id === "prune") {
+          var drop = Math.min(3, snake.length - 4);
+          for (var k = 0; k < drop; k++) { var t = snake.pop(); particles.burst(cx(t), cy(t), { n: 4, color: pal.sageDeep, speed: 1, life: 18, size: 2, kind: "leaf" }); }
+          score += 15; shell.toast("Prune: three segments shorter", 1400);
+        } else {
+          powers.grant(pickup.id);
+          if (pickup.id === "bridge") placePortals();
+          shell.toast(def.label + ": " + def.text, 1600);
+        }
+        A.announce(def.label + ". " + def.text + ".");
+        pickup = null;
       }
     }
 
+    // ---------- Tick ----------
     function tick(dt) {
-      if (state === "dying") { tickDeath(dt); return; }
-      pulse += dt;
-      combo.tick(dt);
-      if (milestoneTimer > 0) milestoneTimer -= dt;
-      if (book) { bookTimer -= dt; if (bookTimer <= 0) book = null; }
-      if (spark) spark.glint += dt * 0.25;
-
-      moveTimer -= dt;
-      while (moveTimer <= 0 && state === "running") {
-        step();
-        moveTimer += moveInterval;
+      time += dt;
+      camera.tick(dt); particles.tick(dt); floaters.tick(dt); story.tick(dt);
+      if (state === "dying") {
+        deathTimer -= dt;
+        if (deathTimer <= 0) gameOver();
+        return;
       }
+      if (state !== "running") return;
+      if (camera.frozen()) return;
+      combo.tick(dt); powers.tick(dt);
+      shell.renderPips(powers.list(), pal);
 
-      updateParticles(dt);
+      var speed = powers.active("focus") ? 0.6 : 1;
+      moveTimer -= dt * speed;
+      while (moveTimer <= 0 && state === "running") { step(); moveTimer += moveInterval; }
+
+      if (book) { bookTimer -= dt; if (bookTimer <= 0) book = null; }
+      if (pickup) { pickupTimer -= dt; if (pickupTimer <= 0) pickup = null; }
+      if (!spark) placeSpark();
+
+      // wandering distractions
+      for (var i = 0; i < blocks.length; i++) {
+        var bl = blocks[i]; if (!bl.mover) continue;
+        bl.t -= dt * speed;
+        if (bl.t <= 0) {
+          bl.t = 46;
+          var dirs = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+          var d = dirs[Math.floor(Math.random() * 4)];
+          var nx = (bl.x + d[0] + COLS) % COLS, ny = (bl.y + d[1] + ROWS) % ROWS;
+          var head = snake[0];
+          var tooClose = Math.abs(nx - head.x) + Math.abs(ny - head.y) < 3;
+          if (!tooClose && !occupied(nx, ny)) { bl.x = nx; bl.y = ny; }
+        }
+      }
     }
 
     // ---------- Render ----------
+    function segPos(i, t) {
+      var c = snake[i], p = prevSnake[i];
+      if (!p) return { x: cx(c), y: cy(c) };
+      if (Math.abs(c.x - p.x) > 1 || Math.abs(c.y - p.y) > 1) return { x: cx(c), y: cy(c) }; // wrapped: no lerp
+      return { x: cx(p) + (cx(c) - cx(p)) * t, y: cy(p) + (cy(c) - cy(p)) * t };
+    }
     function render() {
-      ctx.setTransform(backingScale, 0, 0, backingScale, 0, 0);
-      ctx.imageSmoothingEnabled = false;
-      ctx.save();
-      var sh = camera.offset();
-      ctx.translate(sh.x, sh.y);
-      ctx.fillStyle = CREAM;
-      ctx.fillRect(-4, -4, W + 8, H + 8);
+      cv.begin(camera);
+      draw.paper(ctx, W, H, pal, { step: CELL, dot: 1 });
 
-      // faint dot grid
-      ctx.fillStyle = "rgba(14,42,45,0.07)";
-      for (var gy = 0; gy < ROWS; gy++) {
-        for (var gx = (gy % 2); gx < COLS; gx += 2) {
-          ctx.fillRect(gx * CELL + CELL / 2, gy * CELL + CELL / 2, 1, 1);
+      // field frame: a quiet rule just inside the edge
+      ctx.strokeStyle = pal.rule; ctx.lineWidth = 1; ctx.strokeRect(0.5, 0.5, W - 1, H - 1);
+
+      var t = state === "running" ? clamp(1 - moveTimer / moveInterval, 0, 1) : 1;
+      var dying = state === "dying";
+      var dyingFrac = dying ? clamp(deathTimer / 54, 0, 1) : 1;
+
+      // portals
+      if (portals) {
+        for (var p = 0; p < 2; p++) {
+          var px = cx(portals[p]), py = cy(portals[p]);
+          var spin = time * 0.05 + p * Math.PI;
+          ctx.save(); ctx.translate(px, py); ctx.rotate(spin);
+          draw.circle(ctx, 0, 0, CELL * 0.42, { fill: pal.alpha(pal.ochre, 0.18), stroke: pal.ochre, lineWidth: 1.6 });
+          draw.dashes(ctx, -CELL * 0.3, 0, CELL * 0.3, 0, 3, 3, { stroke: pal.ochre, lineWidth: 1.4 });
+          draw.dashes(ctx, 0, -CELL * 0.3, 0, CELL * 0.3, 3, 3, { stroke: pal.ochre, lineWidth: 1.4 });
+          ctx.restore();
+          var frac = powers.frac("bridge");
+          draw.ring(ctx, px, py, CELL * 0.46, frac, { stroke: pal.ink, lineWidth: 1.2 });
         }
       }
 
-      // wrap hint: dashed frame
-      ctx.strokeStyle = "rgba(81,121,101,0.3)";
-      ctx.lineWidth = 1;
-      ctx.setLineDash([3, 4]);
-      ctx.strokeRect(0.5, 0.5, W - 1, H - 1);
-      ctx.setLineDash([]);
-
-      // distraction blocks
+      // distractions: small clay-rimmed blocks with an X
       for (var b = 0; b < blocks.length; b++) {
-        blockyRect(ctx, blocks[b].x * CELL + 1, blocks[b].y * CELL + 1, CELL - 2, CELL - 2, WARM);
-        ctx.fillStyle = INK;
-        ctx.fillRect(blocks[b].x * CELL + 4, blocks[b].y * CELL + 4, 2, 2);
+        var bl = blocks[b], bx = bl.x * CELL, by = bl.y * CELL;
+        var wob = bl.mover && !reduce ? Math.sin(time * 0.15 + b) * 1.2 : 0;
+        draw.box(ctx, bx + 3, by + 3 + wob, CELL - 6, CELL - 6, 4, { fill: pal.surface, stroke: pal.clay, lineWidth: 1.5, shadow: 2, shadowColor: pal.shadow });
+        ctx.strokeStyle = pal.clay; ctx.lineWidth = 1.6; ctx.beginPath();
+        ctx.moveTo(bx + 7, by + 7 + wob); ctx.lineTo(bx + CELL - 7, by + CELL - 7 + wob);
+        ctx.moveTo(bx + CELL - 7, by + 7 + wob); ctx.lineTo(bx + 7, by + CELL - 7 + wob); ctx.stroke();
       }
 
-      // book bonus (blinks when about to fade)
-      if (book && !(bookTimer < 80 && Math.floor(bookTimer / 6) % 2 === 0)) {
-        var bcx = book.x * CELL + CELL / 2, bcy = book.y * CELL + CELL / 2;
-        if (!reduce) A.pixelGlow(ctx, bcx, bcy, 5, BRAIN, 0.16);
-        blockyRect(ctx, book.x * CELL, book.y * CELL + 2, CELL, CELL - 4, BRAIN);
-        ctx.fillStyle = INK;
-        ctx.fillRect(book.x * CELL + 2, book.y * CELL + 2, 2, CELL - 4);
-      }
-
-      // spark (soft leaf halo so it reads as a beacon)
-      if (spark) {
-        var sx = spark.x * CELL + CELL / 2, sy = spark.y * CELL + CELL / 2;
-        var r = reduce ? 2 : 2 + Math.sin(pulse * 0.18) * 0.8;
-        if (!reduce) A.pixelGlow(ctx, sx, sy, 4, LEAF_TOP, 0.14);
-        blockyRect(ctx, sx - r, sy - r, r * 2, r * 2, LEAF_TOP);
-        var gx2 = sx + Math.round(Math.cos(spark.glint) * 3);
-        var gy2 = sy + Math.round(Math.sin(spark.glint) * 3);
-        ctx.fillStyle = LEAF_SIDE; ctx.fillRect(gx2, gy2, 1, 1);
-      }
-
-      // pathway body (tail → head so the head draws on top). During the death
-      // dissolve, already-scattered segments [0, deadDissolved) are hidden.
-      for (var i = snake.length - 1; i >= 1; i--) {
-        if (state === "dying" && i < deadDissolved) continue;
-        var seg = snake[i];
-        var fill = i % 2 === 0 ? LEAF_SIDE : LEAF_TOP;
-        // a travelling "synapse" signal brightens the segment it's passing
-        for (var pz = 0; pz < pulses.length; pz++) {
-          if (Math.floor(pulses[pz].age) === i) { fill = CREAM; break; }
+      // picture book
+      if (book) {
+        var bkx = book.x * CELL, bky = book.y * CELL;
+        var blink = bookTimer < 90 && !reduce && Math.floor(bookTimer / 8) % 2 === 0;
+        if (!blink) {
+          draw.box(ctx, bkx + 3, bky + 4, CELL - 6, CELL - 8, 2, { fill: pal.research, stroke: pal.ink, lineWidth: 1.3, shadow: 2, shadowColor: pal.shadow });
+          ctx.fillStyle = pal.surface; ctx.fillRect(bkx + CELL / 2 - 0.6, bky + 5, 1.2, CELL - 10);
+          ctx.strokeStyle = pal.alpha(pal.surface, 0.8); ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(bkx + 6, bky + 9); ctx.lineTo(bkx + CELL / 2 - 3, bky + 9); ctx.moveTo(bkx + 6, bky + 12); ctx.lineTo(bkx + CELL / 2 - 3, bky + 12); ctx.stroke();
         }
-        var inset = i === snake.length - 1 ? 2 : 1;
-        blockyRect(ctx, seg.x * CELL + inset, seg.y * CELL + inset, CELL - inset * 2, CELL - inset * 2, fill);
-      }
-      // head: little brain-sprout
-      if (!(state === "dying" && deadDissolved > 0)) {
-        var hd = snake[0];
-        var hcx = hd.x * CELL + CELL / 2, hcy = hd.y * CELL + CELL / 2;
-        // warm aura that intensifies with the combo
-        if (!reduce && combo.mult() >= 3) A.pixelGlow(ctx, hcx, hcy, 5, BRAIN, 0.08 + combo.mult() * 0.03);
-        blockyRect(ctx, hd.x * CELL, hd.y * CELL, CELL, CELL, BRAIN);
-        ctx.fillStyle = INK;
-        ctx.fillRect(hd.x * CELL + CELL / 2 - 1, hd.y * CELL + 2, 1, CELL - 4);
-        // leaf points the way it's heading
-        var lx = hd.x * CELL + CELL / 2 - 2 + dir.x * 4;
-        var ly = hd.y * CELL + CELL / 2 - 2 + dir.y * 4;
-        blockyRect(ctx, lx, ly, 4, 4, LEAF_TOP);
       }
 
-      // particles
-      for (var p = 0; p < particles.length; p++) {
-        var pt = particles[p];
-        if (pt.life <= 0) continue;
-        ctx.globalAlpha = clamp(pt.life / pt.maxLife, 0, 1);
-        ctx.fillStyle = pt.color;
-        ctx.fillRect(Math.round(pt.x), Math.round(pt.y), 2, 2);
-      }
-      ctx.globalAlpha = 1;
-
-      // floaters
-      ctx.font = "7px monospace"; ctx.textAlign = "center";
-      for (var f = 0; f < floaters.length; f++) {
-        var fl = floaters[f];
-        if (fl.life <= 0) continue;
-        ctx.globalAlpha = clamp(fl.life / fl.maxLife, 0, 1);
-        ctx.fillStyle = fl.color;
-        ctx.fillText(fl.text, Math.round(fl.x), Math.round(fl.y));
-      }
-      ctx.globalAlpha = 1; ctx.textAlign = "left";
-
-      // combo pips (top-left) + a thin draining "window" bar
-      var cm = combo.mult();
-      if (cm > 1) {
-        var cc = cm >= 4 ? BRAIN : LEAF_SIDE;
-        for (var cp = 0; cp < cm; cp++) blockyRect(ctx, 6 + cp * 5, 6, 3, 3, cc);
-        ctx.fillStyle = "rgba(64,192,153,0.55)";
-        ctx.fillRect(6, 11, Math.round((cm * 5 - 2) * combo.frac()), 1);
+      // power-up pickup: coloured disc with its initial
+      if (pickup) {
+        var def = POWERUPS[pickup.id], col = pal[def.color];
+        var pux = cx(pickup), puy = cy(pickup) + (reduce ? 0 : Math.sin(time * 0.12) * 1.5);
+        var fade = pickupTimer < 90 && !reduce && Math.floor(pickupTimer / 8) % 2 === 0;
+        if (!fade) {
+          draw.circle(ctx, pux, puy, CELL * 0.42, { fill: col, stroke: pal.ink, lineWidth: 1.5, shadow: 2.5, shadowColor: pal.shadow });
+          draw.circle(ctx, pux, puy, CELL * 0.42 + 3 + (reduce ? 0 : Math.sin(time * 0.1) * 1.5), { stroke: pal.alpha(col, 0.5), lineWidth: 1.2 });
+          draw.label(ctx, def.label.charAt(0), pux, puy + 0.5, { font: "display", size: 13, color: pal.surface, weight: 600 });
+        }
       }
 
-      // milestone banner
-      if (milestoneTimer > 0) {
-        ctx.globalAlpha = clamp(milestoneTimer / 90, 0, 1);
-        ctx.fillStyle = INK; ctx.font = "bold 10px monospace"; ctx.textAlign = "center";
-        ctx.fillText(milestoneText, W / 2, 20);
-        ctx.globalAlpha = 1; ctx.textAlign = "left";
+      // spark
+      if (spark) {
+        var sbob = reduce ? 0 : Math.sin(time * 0.1 + spark.bob) * 1.4;
+        var glowR = CELL * 0.6 + (reduce ? 0 : Math.sin(time * 0.08 + spark.bob) * 2);
+        ctx.fillStyle = pal.alpha(pal.ochre, pal.isDark ? 0.22 : 0.16);
+        ctx.beginPath(); ctx.arc(cx(spark), cy(spark) + sbob, glowR, 0, Math.PI * 2); ctx.fill();
+        draw.seed(ctx, cx(spark), cy(spark) + sbob, CELL * 0.3, pal);
       }
 
-      // death flash (full-frame cream pop as the pathway shatters)
-      if (deathFlash > 0) {
-        ctx.globalAlpha = clamp(deathFlash / 6, 0, 1) * 0.8;
-        ctx.fillStyle = CREAM;
-        ctx.fillRect(-4, -4, W + 8, H + 8);
-        ctx.globalAlpha = 1;
+      // the pathway
+      var n = snake.length;
+      var pos = [];
+      for (var i = 0; i < n; i++) pos.push(segPos(i, t));
+      var myelin = powers.active("myelin");
+      var bodyFill = myelin ? pal.research : pal.forest;
+      var baseR = CELL * 0.4;
+      function radiusAt(i) { var k = n > 6 ? Math.max(0, (i - (n - 6)) / 6) : i / Math.max(1, n); return baseR * (1 - 0.55 * k); }
+      function connected(i) { var a = pos[i], c = pos[i + 1]; return c && Math.abs(a.x - c.x) <= CELL * 1.5 && Math.abs(a.y - c.y) <= CELL * 1.5; }
+      ctx.save();
+      if (dying) ctx.globalAlpha = 0.35 + 0.65 * dyingFrac;
+      // glow trail when myelin is on
+      if (myelin) {
+        ctx.strokeStyle = pal.alpha(pal.research, 0.22);
+        for (var g = 0; g < n - 1; g++) { if (!connected(g)) continue; ctx.lineWidth = radiusAt(g) * 2 + 10; ctx.beginPath(); ctx.moveTo(pos[g].x, pos[g].y); ctx.lineTo(pos[g + 1].x, pos[g + 1].y); ctx.stroke(); }
       }
-
+      // shadow pass
+      ctx.fillStyle = pal.shadow; ctx.strokeStyle = pal.shadow;
+      for (var s1 = 0; s1 < n; s1++) {
+        var r1 = radiusAt(s1);
+        if (connected(s1)) { ctx.lineWidth = r1 * 2; ctx.beginPath(); ctx.moveTo(pos[s1].x, pos[s1].y + 2.5); ctx.lineTo(pos[s1 + 1].x, pos[s1 + 1].y + 2.5); ctx.stroke(); }
+        ctx.beginPath(); ctx.arc(pos[s1].x, pos[s1].y + 2.5, r1, 0, Math.PI * 2); ctx.fill();
+      }
+      // ink pass
+      ctx.fillStyle = pal.ink; ctx.strokeStyle = pal.ink;
+      for (var s2 = 0; s2 < n; s2++) {
+        var r2 = radiusAt(s2) + 1.5;
+        if (connected(s2)) { ctx.lineWidth = r2 * 2; ctx.beginPath(); ctx.moveTo(pos[s2].x, pos[s2].y); ctx.lineTo(pos[s2 + 1].x, pos[s2 + 1].y); ctx.stroke(); }
+        ctx.beginPath(); ctx.arc(pos[s2].x, pos[s2].y, r2, 0, Math.PI * 2); ctx.fill();
+      }
+      // fill pass
+      ctx.fillStyle = bodyFill; ctx.strokeStyle = bodyFill;
+      for (var s3 = 0; s3 < n; s3++) {
+        var r3 = radiusAt(s3);
+        if (connected(s3)) { ctx.lineWidth = r3 * 2; ctx.beginPath(); ctx.moveTo(pos[s3].x, pos[s3].y); ctx.lineTo(pos[s3 + 1].x, pos[s3 + 1].y); ctx.stroke(); }
+        ctx.beginPath(); ctx.arc(pos[s3].x, pos[s3].y, r3, 0, Math.PI * 2); ctx.fill();
+      }
+      // a lighter spine along the top edge, so the body reads as a rounded tube
+      ctx.strokeStyle = myelin ? pal.alpha(pal.surface, 0.5) : pal.alpha(pal.sage, pal.isDark ? 0.5 : 0.7);
+      for (var s5 = 0; s5 < n - 1; s5++) {
+        if (!connected(s5)) continue;
+        var r5 = radiusAt(s5);
+        ctx.lineWidth = Math.max(1, r5 * 0.42);
+        ctx.beginPath(); ctx.moveTo(pos[s5].x, pos[s5].y - r5 * 0.38); ctx.lineTo(pos[s5 + 1].x, pos[s5 + 1].y - radiusAt(s5 + 1) * 0.38); ctx.stroke();
+      }
+      // myelin sheath marks: a sage bead every other segment
+      ctx.fillStyle = myelin ? pal.alpha(pal.surface, 0.85) : pal.sageMist;
+      for (var s4 = 2; s4 < n; s4 += 2) { var r4 = radiusAt(s4) * 0.3; ctx.beginPath(); ctx.arc(pos[s4].x, pos[s4].y + 1, r4, 0, Math.PI * 2); ctx.fill(); }
+      // head: a touch larger, with a sprout leaf and eyes that look where it goes
+      var hd = pos[0], hr = baseR * 1.18;
+      ctx.beginPath(); ctx.arc(hd.x, hd.y + 2.5, hr + 1.5, 0, Math.PI * 2); ctx.fillStyle = pal.shadow; ctx.fill();
+      ctx.beginPath(); ctx.arc(hd.x, hd.y, hr + 1.5, 0, Math.PI * 2); ctx.fillStyle = pal.ink; ctx.fill();
+      ctx.beginPath(); ctx.arc(hd.x, hd.y, hr, 0, Math.PI * 2); ctx.fillStyle = myelin ? pal.research : pal.forest; ctx.fill();
+      ctx.beginPath(); ctx.arc(hd.x - hr * 0.25, hd.y - hr * 0.3, hr * 0.45, 0, Math.PI * 2); ctx.fillStyle = pal.alpha(pal.sage, 0.35); ctx.fill();
+      var leafAng = -Math.PI / 2 - 0.55 + (dir.x * 0.35);
+      draw.leaf(ctx, hd.x - dir.x * 2, hd.y - hr * 0.95, CELL * 0.55, leafAng, { fill: pal.sageDeep, stroke: pal.ink, lineWidth: 1.1 });
+      var eyeGap = dir.x !== 0 ? CELL * 0.3 : CELL * 0.52;
+      var eyeOffX = dir.x * CELL * 0.16, eyeOffY = dir.y * CELL * 0.16;
+      var blinkNow = !reduce && (Math.floor(time / 90) % 7 === 0) && (time % 90) < 6 ? 1 : 0;
+      if (dir.x !== 0) draw.eyes(ctx, hd.x + eyeOffX, hd.y - CELL * 0.06, eyeGap, CELL * 0.14, dir.x, 0, pal, { blink: blinkNow });
+      else draw.eyes(ctx, hd.x, hd.y + eyeOffY, eyeGap, CELL * 0.14, 0, dir.y, pal, { blink: blinkNow });
       ctx.restore();
-    }
 
-    // ---------- HUD bridge ----------
-    function updateHud() {
-      if (els.score) els.score.textContent = String(Math.floor(score)).padStart(5, "0");
-      if (els.len) els.len.textContent = String(snake ? snake.length : 3);
-      if (els.best) els.best.textContent = String(A.leaderboard.best(GAME_KEY)).padStart(5, "0");
-    }
-
-    // ---------- Prompt screens ----------
-    function hidePrompt() { if (els.prompt) els.prompt.hidden = true; }
-    function showIdle() {
-      if (!els.prompt) return;
-      els.promptTitle.textContent = "Synapse Snake";
-      els.promptText.textContent = "Link the sparks and grow the pathway. Just don't tangle it.";
-      els.promptActions.textContent = "";
-      A.renderLeaderboard(els.promptActions, GAME_KEY, { title: "Local top scores" });
-      var btn = document.createElement("button");
-      btn.type = "button"; btn.className = "btn btn--primary"; btn.textContent = "Start";
-      btn.addEventListener("click", function () { start(); try { canvas.focus(); } catch (e) {} });
-      els.promptActions.appendChild(btn);
-      els.prompt.hidden = false;
-    }
-    function showPaused() {
-      if (!els.prompt) return;
-      els.promptTitle.textContent = "Paused";
-      els.promptText.textContent = "The pathway is waiting. No sparks lost.";
-      els.promptActions.textContent = "";
-      var btn = document.createElement("button");
-      btn.type = "button"; btn.className = "btn btn--primary"; btn.textContent = "Resume";
-      btn.addEventListener("click", function () { resumeGame(); try { canvas.focus(); } catch (e) {} });
-      els.promptActions.appendChild(btn);
-      els.prompt.hidden = false;
-    }
-    function showGameOver(finalScore) {
-      updateHud();
-      els.promptTitle.textContent = "The pathway tangled";
-      els.promptText.textContent = "Score " + String(finalScore).padStart(5, "0") +
-        " · reached " + CHAPTERS[chapterIdx].name + " · " + sparksEaten + " sparks linked";
-      els.promptActions.textContent = "";
-      if (A.leaderboard.qualifies(GAME_KEY, finalScore)) {
-        A.mountInitialsEntry(els.promptActions, {
-          gameKey: GAME_KEY, score: finalScore,
-          onDone: function (rank) {
-            updateHud();
-            els.promptActions.textContent = "";
-            A.renderLeaderboard(els.promptActions, GAME_KEY, { title: "Local top scores", highlightRank: rank });
-            addPlayAgain("Play again");
-            try { canvas.focus(); } catch (e) {}
-          }
-        });
-        addPlayAgain("Skip & play again", "btn--ghost");
-      } else {
-        A.renderLeaderboard(els.promptActions, GAME_KEY, { title: "Local top scores" });
-        addPlayAgain("Play again");
+      // combo meter under the head when a chain is live
+      if (combo.active() && combo.mult() > 1 && state === "running") {
+        var cf = combo.frac();
+        draw.pill(ctx, hd.x - 14, hd.y + hr + 5, 28, 4, { fill: pal.alpha(pal.ink, 0.12) });
+        draw.pill(ctx, hd.x - 14, hd.y + hr + 5, 28 * cf, 4, { fill: pal.forest });
       }
-      els.prompt.hidden = false;
-    }
-    function addPlayAgain(label, variant) {
-      var btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "btn " + (variant || "btn--primary");
-      btn.textContent = label;
-      btn.addEventListener("click", function () { restart(); try { canvas.focus(); } catch (e) {} });
-      els.promptActions.appendChild(btn);
+
+      particles.render(ctx);
+      floaters.render(ctx);
+
+      // chapter banner
+      var bn = story.banner();
+      if (bn && state === "running") {
+        var a = Math.min(1, bn.frac * 3) * Math.min(1, (1 - bn.frac) * 6 + 0.2);
+        ctx.save(); ctx.globalAlpha = a;
+        var ty = 26 + (reduce ? 0 : (1 - Math.min(1, (1 - bn.frac) * 4)) * -10);
+        draw.label(ctx, bn.name, W / 2, ty, { font: "display", size: 26, color: pal.ink, weight: 500 });
+        draw.label(ctx, bn.text, W / 2, ty + 22, { size: 11, color: pal.inkMuted, weight: 500 });
+        ctx.restore();
+      }
+
+      // field progress along the bottom rule
+      if (state === "running" || state === "paused") {
+        var prog = story.progress(sparksEaten);
+        ctx.fillStyle = pal.alpha(pal.forest, 0.55); ctx.fillRect(0, H - 2, W * prog, 2);
+      }
+
+      cv.end();
     }
 
-    // ---------- Loop ----------
-    var rafId = null, lastTime = 0;
-    function loop(now) {
-      if (!lastTime) lastTime = now;
-      var dt = Math.min(2.5, (now - lastTime) / (1000 / 60));
-      lastTime = now;
-      camera.tick(dt);
-      if ((state === "running" || state === "dying") && !camera.frozen()) tick(dt);
-      render();
-      updateHud();
-      rafId = window.requestAnimationFrame(loop);
-    }
+    var loop = A.makeLoop(tick, render);
+
+    function onHidden() { if (state === "running") pause(); }
+
+    A.debug("snake", {
+      state: function () { return state; },
+      die: die,
+      grant: function (id) { powers.grant(id); if (id === "bridge") placePortals(); },
+      eat: function (n) { for (var i = 0; i < (n || 1); i++) { if (!spark) placeSpark(); var h = snake[0]; var d = dir; spark.x = (h.x + d.x + COLS) % COLS; spark.y = (h.y + d.y + ROWS) % ROWS; moveTimer = 0; tick(0.01); } },
+      score: function () { return score; }
+    });
 
     return {
-      queueDir: queueDir,
-      resize: function (cssW, cssH) {
-        var dpr = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
-        var nextW = Math.max(W, Math.round(cssW * dpr));
-        var nextH = Math.max(H, Math.round(cssH * dpr));
-        if (canvas.width !== nextW || canvas.height !== nextH) {
-          canvas.width = nextW;
-          canvas.height = nextH;
-          ctx.imageSmoothingEnabled = false;
-        }
-        canvas.style.width = Math.round(cssW) + "px";
-        canvas.style.height = Math.round(cssH) + "px";
-        backingScale = nextW / W;
-      },
-      tapStart: function () {
-        ensureAudio();
-        if (state === "idle") { start(); return; }
-        if (state === "paused") { resumeGame(); return; }
-        if (state === "gameover") {
-          if (document.activeElement && document.activeElement.tagName === "INPUT") return;
-          restart();
-        }
-      },
-      toggleMute: function () { return audio.toggleMute(); },
-      isMuted: function () { return audio.isMuted(); },
+      held: input.held,
       activate: function () {
-        resetWorld(); state = "idle"; lastTime = 0;
-        updateHud(); showIdle();
-        wake.acquire();
-        unsubHidden = A.onHidden(pauseGame);
-        rafId = window.requestAnimationFrame(loop);
+        pal = A.theme();
+        cv.fit();
+        if (cv.aspect() < 0.9) setGrid(18, 28); else setGrid(28, 18);
+        cv.setSize(W, H);
+        state = "idle"; resetWorld();
+        render();
+        loop.start();
+        unsubHidden = A.onHidden(onHidden);
+        showStart();
       },
       deactivate: function () {
-        if (rafId) window.cancelAnimationFrame(rafId);
-        rafId = null;
-        wake.release();
+        loop.stop();
         if (unsubHidden) { unsubHidden(); unsubHidden = null; }
-        audio.close();
-      }
+        wake.release();
+        synth.close();
+        input.release();
+        state = "idle";
+      },
+      onKeydown: function (e) { if (input.onKeydown(e)) e.preventDefault(); },
+      onKeyup: function (e) { input.onKeyup(e); },
+      destroy: function () { offTheme(); input.destroy(); }
     };
   }
 
   // ======================================================================
-  //  Overlay scaffolding
+  //  Overlay
   // ======================================================================
-  function buildOverlay() {
-    var overlay = document.createElement("div");
-    overlay.className = "gms-arcade-overlay";
-    overlay.setAttribute("role", "dialog");
-    overlay.setAttribute("aria-modal", "true");
-    overlay.setAttribute("aria-label", "Synapse Snake, a hidden mini game");
-    overlay.innerHTML =
-      '<div class="gms-arcade-backdrop" data-egg-close></div>' +
-      '<div class="gms-arcade-panel">' +
-        '<div class="gms-arcade-panel__head">' +
-          '<p class="gms-arcade-title">Synapse Snake<span>: you found it!</span></p>' +
-          '<div style="display:flex;gap:8px;align-items:center">' +
-            '<button type="button" class="gms-arcade-close" data-egg-mute aria-label="Sound">♪</button>' +
-            '<button type="button" class="gms-arcade-close" data-egg-close aria-label="Close game">&times;</button>' +
-          '</div>' +
-        '</div>' +
-        '<div class="gms-arcade-scores">' +
-          '<span>SCORE <strong data-egg-score>00000</strong></span>' +
-          '<span>LENGTH <strong data-egg-len>3</strong></span>' +
-          '<span>BEST <strong data-egg-best>00000</strong></span>' +
-        '</div>' +
-        '<div class="gms-arcade-stage gms-arcade-stage--snake">' +
-          '<canvas class="gms-arcade-canvas" tabindex="0" role="application" aria-label="Synapse Snake play area. Arrow keys or W A S D steer, Space starts, M mutes."></canvas>' +
-          '<div class="gms-arcade-prompt" data-egg-prompt hidden>' +
-            '<p class="gms-arcade-prompt__title" data-egg-prompt-title></p>' +
-            '<p class="gms-arcade-prompt__text" data-egg-prompt-text></p>' +
-            '<div class="gms-arcade-prompt__actions" data-egg-prompt-actions></div>' +
-          '</div>' +
-        '</div>' +
-        '<p class="gms-arcade-help">Arrows / WASD steer · swipe anywhere on the field or tap the d-pad · edges wrap around · M to mute</p>' +
-        '<div class="gms-arcade-touchrow">' +
-          '<button type="button" class="gms-arcade-touchbtn" data-egg-dir="-1,0" aria-label="Left">◀</button>' +
-          '<button type="button" class="gms-arcade-touchbtn" data-egg-dir="0,-1" aria-label="Up">▲</button>' +
-          '<button type="button" class="gms-arcade-touchbtn" data-egg-dir="0,1" aria-label="Down">▼</button>' +
-          '<button type="button" class="gms-arcade-touchbtn" data-egg-dir="1,0" aria-label="Right">▶</button>' +
-        '</div>' +
-      '</div>';
-    document.body.appendChild(overlay);
-
-    var canvas = overlay.querySelector(".gms-arcade-canvas");
-    function fitCanvas() {
-      var stage = overlay.querySelector(".gms-arcade-stage");
-      if (!stage) return;
-      var rect = stage.getBoundingClientRect();
-      if (!rect.width || !rect.height) return;
-      // Fractional scale is fine: the backing store is already rendered at
-      // devicePixelRatio resolution, so this stays crisp while filling the
-      // available space (no wasted margin from flooring to whole numbers).
-      var scale = Math.max(0.5, Math.min(rect.width / W, rect.height / H));
-      game.resize(W * scale, H * scale);
-    }
-    var game = createGame(canvas, {
-      score: overlay.querySelector("[data-egg-score]"),
-      len: overlay.querySelector("[data-egg-len]"),
-      best: overlay.querySelector("[data-egg-best]"),
-      prompt: overlay.querySelector("[data-egg-prompt]"),
-      promptTitle: overlay.querySelector("[data-egg-prompt-title]"),
-      promptText: overlay.querySelector("[data-egg-prompt-text]"),
-      promptActions: overlay.querySelector("[data-egg-prompt-actions]")
+  A.ready(function () {
+    A.defineGame("snake", function () {
+      var shell = A.makeShell({
+        key: GAME_KEY,
+        title: "Synapse Snake",
+        tagline: "Link the sparks. Grow the pathway.",
+        label: "Synapse Snake game",
+        canvas: { w: W, h: H, label: "Synapse Snake play field" },
+        hud: [{ id: "score", label: "Score", value: 0 }, { id: "best", label: "Best", value: A.leaderboard.best(GAME_KEY) }, { id: "sparks", label: "Sparks", value: 0 }, { id: "field", label: "Field", value: "Crib" }],
+        help: "Arrows or WASD steer · swipe on the field · Space starts and pauses · M mutes · Esc closes",
+        touch: [
+          { id: "left", label: "◀", aria: "Turn left", tap: true },
+          { id: "up", label: "▲", aria: "Turn up", tap: true },
+          { id: "down", label: "▼", aria: "Turn down", tap: true },
+          { id: "right", label: "▶", aria: "Turn right", tap: true },
+          { id: "pause", label: "Pause", aria: "Pause or resume", tap: true }
+        ]
+      });
+      var game = createGame(shell);
+      return shell.mount(game);
     });
-
-    overlay.querySelectorAll("[data-egg-close]").forEach(function (el) {
-      el.addEventListener("click", function () { closeOverlay(overlay); });
-    });
-
-    var muteBtn = overlay.querySelector("[data-egg-mute]");
-    function syncMute() { muteBtn.textContent = game.isMuted() ? "♪̶" : "♪"; muteBtn.setAttribute("aria-pressed", game.isMuted() ? "false" : "true"); }
-    muteBtn.addEventListener("click", function () { game.toggleMute(); syncMute(); });
-    syncMute();
-
-    // D-pad buttons (tap = queue a turn). Touch presses get a brief .is-held
-    // flash (mobile browsers don't reliably show :active) and a haptic tick,
-    // but only when the queue actually accepted the turn.
-    overlay.querySelectorAll("[data-egg-dir]").forEach(function (el) {
-      var parts = el.getAttribute("data-egg-dir").split(",");
-      var dx = parseInt(parts[0], 10), dy = parseInt(parts[1], 10);
-      var press = function (e) { e.preventDefault(); return game.queueDir(dx, dy); };
-      el.addEventListener("touchstart", function (e) {
-        el.classList.add("is-held");
-        window.setTimeout(function () { el.classList.remove("is-held"); }, 120);
-        if (press(e)) A.haptics.tick();
-      }, { passive: false });
-      el.addEventListener("mousedown", press);
-    });
-
-    // Stage: tap starts/restarts/resumes; swiping steers (resets origin each
-    // turn so you can snake around without lifting your finger). The canvas is
-    // letterboxed inside the stage, so the whole stage is the control surface
-    // — dead margins around the canvas read as broken on a phone. Taps on
-    // interactive elements (prompt buttons, initials form) must keep native
-    // behavior, so those bail before preventDefault.
-    var stage = overlay.querySelector(".gms-arcade-stage");
-    var swipe = null, suppressMouse = 0;
-    stage.addEventListener("touchstart", function (e) {
-      if (e.target.closest && e.target.closest("button, a, input, label, form")) return;
-      e.preventDefault();
-      suppressMouse = Date.now() + 500;
-      var t = e.touches[0];
-      swipe = { x: t.clientX, y: t.clientY, moved: false };
-      game.tapStart();
-    }, { passive: false });
-    stage.addEventListener("touchmove", function (e) {
-      if (e.target.closest && e.target.closest("button, a, input, label, form")) return;
-      e.preventDefault();
-      if (!swipe || !e.touches.length) return;
-      var t = e.touches[0];
-      var dx = t.clientX - swipe.x, dy = t.clientY - swipe.y;
-      if (Math.abs(dx) < 14 && Math.abs(dy) < 14) return;
-      var queued;
-      if (Math.abs(dx) > Math.abs(dy)) queued = game.queueDir(dx > 0 ? 1 : -1, 0);
-      else queued = game.queueDir(0, dy > 0 ? 1 : -1);
-      if (queued) A.haptics.tick();
-      swipe = { x: t.clientX, y: t.clientY, moved: true };
-    }, { passive: false });
-    stage.addEventListener("touchend", function (e) {
-      if (e.target.closest && e.target.closest("button, a, input, label, form")) return;
-      swipe = null;
-    }, { passive: false });
-    canvas.addEventListener("mousedown", function (e) {
-      if (Date.now() < suppressMouse) return;
-      e.preventDefault();
-      game.tapStart();
-    });
-
-    function onKeydown(e) {
-      // While typing initials, leave all keys (incl. Escape/Enter) to the form
-      // so a stray Escape never closes the game and drops the high score.
-      if (e.target && e.target.tagName === "INPUT") return;
-      if (e.key === "Escape") { closeOverlay(overlay); return; }
-      if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") { e.preventDefault(); game.queueDir(-1, 0); }
-      else if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") { e.preventDefault(); game.queueDir(1, 0); }
-      else if (e.key === "ArrowUp" || e.key === "w" || e.key === "W") { e.preventDefault(); game.queueDir(0, -1); }
-      else if (e.key === "ArrowDown" || e.key === "s" || e.key === "S") { e.preventDefault(); game.queueDir(0, 1); }
-      else if (e.code === "Space" || e.key === " ") { e.preventDefault(); game.tapStart(); }
-      else if (e.key === "m" || e.key === "M") { game.toggleMute(); syncMute(); }
-    }
-
-    overlay.game = game;
-    overlay._onKeydown = onKeydown;
-    overlay._canvas = canvas;
-    overlay._fitCanvas = fitCanvas;
-    return overlay;
-  }
-
-  // Close in place: GMSArcade runs the teardown (loop, wake lock, audio,
-  // listeners), puts the page back and returns focus to the opener.
-  function closeOverlay() { A.closeGame(); }
-
-  // Arcade-only: no hidden trigger elsewhere on the site. The Play button on
-  // /arcade opens it through GMSArcade.play().
-  ready(function () {
-    A.defineGame("snake", buildOverlay);
   });
 })();
