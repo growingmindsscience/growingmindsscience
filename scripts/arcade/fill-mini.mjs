@@ -15,7 +15,7 @@ const alpha = (w) => /^[a-z]+$/.test(w);
 const dict = new Set(readFileSync(DICT_PATH, "utf8").split("\n").filter(alpha));
 const names = new Set(existsSync("/usr/share/dict/propernames") ? readFileSync("/usr/share/dict/propernames", "utf8").split("\n").map((w) => w.trim().toLowerCase()) : []);
 const ranked = readFileSync(join(HERE, "words-20k.txt"), "utf8").split("\n").map((w) => w.trim()).filter(alpha);
-const EXCLUDE = new Set("penis spam das san gnu anal anus sex sexy porn nude rape nazi damn hell piss crap tits dick cock slut whore semen sperm boob boobs drug drugs died dead kill guns gun bomb nuke tnt thats dont cant wont isnt corp admin yahoo coco inc ltd llc www http html org com net edu gov etc misc info asap faq url usa uk ny la dc tv pc mp dvd cd gif jpg png pdf xml php sql ebay msn aol ibm cgi ftp ssl seo blog".split(" "));
+const EXCLUDE = new Set("chad dod deg ness hale mon carr saga rap che spec hash kos acta soma blah logos odor aye neo cult rep ass naked ons mel ins ers als ens eds tis ids ims oms ums ups uns ans ors urs ats ets ots uts ees ess ies oes eos ios ais ays eys oys uys acne latex clone ebony yen gay lesbian bdsm fetish erotic strip stripper bra thong lingerie booty horny kinky pee poop fart hoe bastard vagina weed meth coke heroin booze beer wine vodka whisky kill dead death died dying corpse murder rifle pistol war scam coca costa mae sen rel alto penis spam das san gnu anal anus sex sexy porn nude rape nazi damn hell piss crap tits dick cock slut whore semen sperm boob boobs drug drugs died dead kill guns gun bomb nuke tnt thats dont cant wont isnt corp admin yahoo coco inc ltd llc www http html org com net edu gov etc misc info asap faq url usa uk ny la dc tv pc mp dvd cd gif jpg png pdf xml php sql ebay msn aol ibm cgi ftp ssl seo blog".split(" "));
 // Five-letter answers stay at the familiar end of the list; three- and
 // four-letter crossings may reach further down (still everyday words).
 const LIMIT5 = 7000, LIMIT34 = 15000;
@@ -87,7 +87,7 @@ function fill(pattern, rnd) {
       if (!set.size) return [];
     }
     const list = set ? [...set] : order[s.len].slice();
-    return list.filter((w) => !used.has(w) && !(w.length === 5 && taken.has(w))).sort((a, b) => rank[a] - rank[b]);
+    return list.filter((w) => !used.has(w) && !taken.has(w)).sort((a, b) => rank[a] - rank[b]);
   }
   let steps = 0;
   function solve() {
@@ -98,7 +98,7 @@ function fill(pattern, rnd) {
       if (cs.every(([r, c]) => grid[r][c] !== ".")) {
         // completed by crossings: it still has to be a real, unused word
         const w = cs.map(([r, c]) => grid[r][c]).join("");
-        if (!commonSet.has(w) || (w.length === 5 && taken.has(w))) return false;
+        if (!commonSet.has(w) || taken.has(w)) return false;
         continue;
       }
       const list = candidates(s);
@@ -130,6 +130,15 @@ const rnd = mulberry(seed);
 let made = 0, tries = 0;
 const seenGrid = new Set();
 const taken = new Set(); // words already used by an accepted fill: forces variety
+// ...and words already in the shipped puzzles, so a new run adds new grids.
+try {
+  const shipped = JSON.parse(readFileSync(join(HERE, "..", "..", "assets", "data", "arcade", "mini.json"), "utf8"));
+  for (const p of shipped.puzzles) {
+    const n = p.grid.length;
+    for (let r = 0; r < n; r++) for (const run of p.grid[r].toLowerCase().split("#")) if (run.length >= 3) taken.add(run);
+    for (let c = 0; c < n; c++) for (const run of p.grid.map((row) => row[c]).join("").toLowerCase().split("#")) if (run.length >= 3) taken.add(run);
+  }
+} catch (e) { /* no shipped puzzles yet */ }
 const EASY = [2, 3, 5, 6, 0, 1, 4]; // patterns with fewer five-letter slots first
 while (made < count && tries < count * 40) {
   tries++;
@@ -140,7 +149,7 @@ while (made < count && tries < count * 40) {
   if (seenGrid.has(key)) continue;
   seenGrid.add(key);
   made++;
-  for (const w of f.words) taken.add(w.word);
+  for (const w of f.words) if (w.word.length === 5) taken.add(w.word);
   console.log(`--- fill ${made}`);
   console.log(f.grid.join("\n"));
   console.log(f.words.map((w) => `${w.dir}${w.r},${w.c}:${w.word}`).join("  "));
