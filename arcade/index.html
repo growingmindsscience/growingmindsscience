@@ -6,7 +6,7 @@
   <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
   /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <title>Arcade | Growing Minds Science</title>
-  <meta name="description" content="Play all ten Growing Minds Science arcade games in one place: Snake, Pong, Brain Sprint, Invaders, Breakout, Synapse Drift, Special Delivery, Tidy Up, Serve &amp; Return, and Crumb Chase." />
+  <meta name="description" content="Five daily puzzles (Five Letters, Groupings, Letter Nest, Little Crossword, Six Sudoku) and ten arcade games from Growing Minds Science, all on one page." />
   <meta name="theme-color" content="#F7F4EC" />
   <meta name="color-scheme" content="light dark" />
   <link rel="icon" href="/assets/img/brand/favicon.svg" type="image/svg+xml" />
@@ -15,7 +15,7 @@
   <link rel="canonical" href="https://growingmindsscience.com/arcade/" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Arcade | Growing Minds Science" />
-  <meta property="og:description" content="Ten little games, all in one place. Pick one and play." />
+  <meta property="og:description" content="Five daily puzzles and ten little games, all in one place." />
   <meta property="og:image" content="https://growingmindsscience.com/assets/img/og/site-home.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
@@ -26,9 +26,9 @@
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=9ee704dd6a" />
   <link rel="stylesheet" href="/assets/css/tools.css?v=7fce784071" />
   <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
-  <link rel="stylesheet" href="/assets/css/arcade.css?v=b619526dfb" />
   <link rel="stylesheet" href="/assets/css/pages.css?v=5e2e6382f0" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=a618e65a75" />
+  <link rel="stylesheet" href="/assets/css/arcade.css?v=9a9dcf2160" />
 </head>
 <body class="fg fg--page hub arcade-page">
   <!-- header:start -->
@@ -84,59 +84,147 @@
       <div class="hb-container hub-title__grid">
         <div data-rise>
           <h1 class="hb-display">Welcome to the arcade.</h1>
-          <p class="hb-lead">The seven games tucked around the site are all here, plus three you&rsquo;ll only find in the arcade. Pick one, play a round, and come back for another.</p>
+          <p class="hb-lead">Five little puzzles that change every day, and ten games drawn in the field guide&rsquo;s own hand. Everything stays on this page: open a game, play a round, close it, and you are back here.</p>
           <div class="hub-title__actions">
-            <a class="hb-btn hb-btn--quiet" href="#games">Choose a game <span aria-hidden="true">↓</span></a>
+            <a class="hb-btn hb-btn--quiet" href="#daily">Today&rsquo;s puzzles <span aria-hidden="true">↓</span></a>
+            <a class="hb-btn hb-btn--quiet" href="#games">The games <span aria-hidden="true">↓</span></a>
           </div>
         </div>
       </div>
     </section>
-    <section class="hub-sec hub-sec--white arcade-gallery" id="games" aria-labelledby="games-heading">
+
+    <section class="hub-sec hub-sec--white ar-daily" id="daily" aria-labelledby="daily-heading">
       <div class="hb-container">
-        <div class="pg-arcade__head">
-          <h2 class="hb-display" id="games-heading">Pick your next round</h2>
-          <p>Each game opens here and has its own controls. Close a game to return to the arcade.</p>
+        <div class="ar-head">
+          <h2 class="hb-display" id="daily-heading">Today&rsquo;s puzzles</h2>
+          <p>One of each a day, the same for everyone. Your progress and streaks stay on this device.</p>
         </div>
-        <div class="arcade-grid">
-          <article class="arcade-card arcade-card--snake">
-            <div class="arcade-card__art" aria-hidden="true"><span>●</span><span>▪ ▪ ▪ ▪</span></div>
-            <div class="arcade-card__body"><h3>Synapse Snake</h3><p>Collect sparks, grow your path, and avoid tangles.</p><button class="hb-btn hb-btn--quiet arcade-card__play" type="button" data-arcade-game="snake">Play Synapse Snake <span aria-hidden="true">↗</span></button></div>
+        <div class="ar-daily-grid">
+          <article class="ar-card ar-card--daily">
+            <div class="ar-card__art" aria-hidden="true">
+              <svg viewBox="0 0 120 80"><g class="ar-t"><rect x="14" y="14" width="18" height="18" rx="4"/><rect x="36" y="14" width="18" height="18" rx="4" class="ar-f"/><rect x="58" y="14" width="18" height="18" rx="4"/><rect x="80" y="14" width="18" height="18" rx="4" class="ar-o"/><rect x="25" y="36" width="18" height="18" rx="4" class="ar-f"/><rect x="47" y="36" width="18" height="18" rx="4" class="ar-f"/><rect x="69" y="36" width="18" height="18" rx="4" class="ar-f"/><rect x="36" y="58" width="18" height="18" rx="4" class="ar-s"/><rect x="58" y="58" width="18" height="18" rx="4" class="ar-s"/></g></svg>
+            </div>
+            <div class="ar-card__body">
+              <h3>Five Letters</h3>
+              <p>Six guesses at one five-letter word.</p>
+              <p class="ar-card__chip" data-arcade-daily="five-letters">Puzzle</p>
+              <button class="hb-btn hb-btn--quiet ar-card__play" type="button" data-arcade-game="five" aria-label="Play Five Letters">Play <span aria-hidden="true">↗</span></button>
+            </div>
           </article>
-          <article class="arcade-card arcade-card--pong">
-            <div class="arcade-card__art" aria-hidden="true"><span>▌</span><span>•</span><span>▐</span></div>
-            <div class="arcade-card__body"><h3>Pong</h3><p>Take the right paddle and be first to seven.</p><button class="hb-btn hb-btn--quiet arcade-card__play" type="button" data-arcade-game="pong" aria-label="Play Pong">Play Pong <span aria-hidden="true">↗</span></button></div>
+          <article class="ar-card ar-card--daily">
+            <div class="ar-card__art" aria-hidden="true">
+              <svg viewBox="0 0 120 80"><g class="ar-t"><rect x="10" y="10" width="100" height="14" rx="4" class="ar-m"/><rect x="10" y="28" width="22" height="14" rx="3"/><rect x="36" y="28" width="22" height="14" rx="3"/><rect x="62" y="28" width="22" height="14" rx="3"/><rect x="88" y="28" width="22" height="14" rx="3"/><rect x="10" y="46" width="22" height="14" rx="3" class="ar-i"/><rect x="36" y="46" width="22" height="14" rx="3"/><rect x="62" y="46" width="22" height="14" rx="3" class="ar-i"/><rect x="88" y="46" width="22" height="14" rx="3"/><rect x="10" y="64" width="22" height="12" rx="3"/><rect x="36" y="64" width="22" height="12" rx="3" class="ar-i"/><rect x="62" y="64" width="22" height="12" rx="3"/><rect x="88" y="64" width="22" height="12" rx="3" class="ar-i"/></g></svg>
+            </div>
+            <div class="ar-card__body">
+              <h3>Groupings</h3>
+              <p>Sixteen words, four hidden groups.</p>
+              <p class="ar-card__chip" data-arcade-daily="groupings">Puzzle</p>
+              <button class="hb-btn hb-btn--quiet ar-card__play" type="button" data-arcade-game="groups" aria-label="Play Groupings">Play <span aria-hidden="true">↗</span></button>
+            </div>
           </article>
-          <article class="arcade-card arcade-card--dino">
-            <div class="arcade-card__art" aria-hidden="true"><span>◕</span><span>▁ ▁ ▂</span></div>
-            <div class="arcade-card__body"><h3>Brain Sprint</h3><p>Jump, duck, and keep the little sprout moving.</p><button class="hb-btn hb-btn--quiet arcade-card__play" type="button" data-arcade-game="dino" aria-label="Play Brain Sprint">Play Brain Sprint <span aria-hidden="true">↗</span></button></div>
+          <article class="ar-card ar-card--daily">
+            <div class="ar-card__art" aria-hidden="true">
+              <svg viewBox="0 0 120 80"><g class="ar-t"><path d="M60 10l12 7v14l-12 7-12-7V17z" class="ar-s"/><path d="M60 38l12 7v14l-12 7-12-7V45z" class="ar-f"/><path d="M36 24l12 7v14l-12 7-12-7V31z" class="ar-s"/><path d="M84 24l12 7v14l-12 7-12-7V31z" class="ar-s"/><path d="M36 52l12 7v10l-12 7-12-7V59z" class="ar-s"/><path d="M84 52l12 7v10l-12 7-12-7V59z" class="ar-s"/></g></svg>
+            </div>
+            <div class="ar-card__body">
+              <h3>Letter Nest</h3>
+              <p>Seven letters, one in the middle. Make words.</p>
+              <p class="ar-card__chip" data-arcade-daily="letter-nest">Puzzle</p>
+              <button class="hb-btn hb-btn--quiet ar-card__play" type="button" data-arcade-game="nest" aria-label="Play Letter Nest">Play <span aria-hidden="true">↗</span></button>
+            </div>
           </article>
-          <article class="arcade-card arcade-card--invaders">
-            <div class="arcade-card__art" aria-hidden="true"><span>✦ ✦ ✦</span><span>▲</span></div>
-            <div class="arcade-card__body"><h3>GMS Invaders</h3><p>Steer, fire, and clear the incoming wave.</p><button class="hb-btn hb-btn--quiet arcade-card__play" type="button" data-arcade-game="invaders">Play GMS Invaders <span aria-hidden="true">↗</span></button></div>
+          <article class="ar-card ar-card--daily">
+            <div class="ar-card__art" aria-hidden="true">
+              <svg viewBox="0 0 120 80"><g class="ar-t"><rect x="25" y="5" width="70" height="70" rx="4"/><rect x="25" y="5" width="14" height="14" class="ar-k"/><rect x="81" y="61" width="14" height="14" class="ar-k"/><path d="M39 5v70M53 5v70M67 5v70M81 5v70M25 19h70M25 33h70M25 47h70M25 61h70"/><rect x="53" y="33" width="14" height="14" class="ar-o"/></g></svg>
+            </div>
+            <div class="ar-card__body">
+              <h3>Little Crossword</h3>
+              <p>Five by five, with plain clues.</p>
+              <p class="ar-card__chip" data-arcade-daily="little-crossword">Puzzle</p>
+              <button class="hb-btn hb-btn--quiet ar-card__play" type="button" data-arcade-game="mini" aria-label="Play Little Crossword">Play <span aria-hidden="true">↗</span></button>
+            </div>
           </article>
-          <article class="arcade-card arcade-card--breakout">
-            <div class="arcade-card__art" aria-hidden="true"><span>▦ ▦ ▦</span><span>●</span><span>━━━━</span></div>
-            <div class="arcade-card__body"><h3>Myth Buster</h3><p>Keep the ball alive and break through parenting myths.</p><button class="hb-btn hb-btn--quiet arcade-card__play" type="button" data-arcade-game="breakout" aria-label="Play Myth Buster">Play Myth Buster <span aria-hidden="true">↗</span></button></div>
+          <article class="ar-card ar-card--daily">
+            <div class="ar-card__art" aria-hidden="true">
+              <svg viewBox="0 0 120 80"><g class="ar-t"><rect x="21" y="4" width="78" height="72" rx="4"/><path d="M34 4v72M47 4v72M73 4v72M86 4v72M21 16h78M21 28h78M21 52h78M21 64h78"/><path d="M60 4v72M21 40h78" class="ar-k2"/><text x="27" y="13" class="ar-n">3</text><text x="79" y="25" class="ar-n">1</text><text x="53" y="49" class="ar-n ar-nf">5</text><text x="40" y="61" class="ar-n">2</text><text x="92" y="73" class="ar-n">6</text></g></svg>
+            </div>
+            <div class="ar-card__body">
+              <h3>Six Sudoku</h3>
+              <p>A small grid for a clear head.</p>
+              <p class="ar-card__chip" data-arcade-daily="six-sudoku">Puzzle</p>
+              <button class="hb-btn hb-btn--quiet ar-card__play" type="button" data-arcade-game="six" aria-label="Play Six Sudoku">Play <span aria-hidden="true">↗</span></button>
+            </div>
           </article>
-          <article class="arcade-card arcade-card--asteroids">
-            <div class="arcade-card__art" aria-hidden="true"><span>✧</span><span>△</span><span>✦</span></div>
-            <div class="arcade-card__body"><h3>Synapse Drift</h3><p>Drift through space and dodge the asteroids.</p><button class="hb-btn hb-btn--quiet arcade-card__play" type="button" data-arcade-game="asteroids" aria-label="Play Synapse Drift">Play Synapse Drift <span aria-hidden="true">↗</span></button></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hub-sec ar-games" id="games" aria-labelledby="games-heading">
+      <div class="hb-container">
+        <div class="ar-head">
+          <h2 class="hb-display" id="games-heading">The games</h2>
+          <p>Ten rounds of play, each with its own chapters and power-ups. Keyboard, mouse or thumbs; light or dark.</p>
+        </div>
+        <div class="ar-grid">
+          <article class="ar-card">
+            <div class="ar-card__art" aria-hidden="true">
+              <svg viewBox="0 0 120 80"><g class="ar-t"><path d="M14 56c0-14 10-22 24-22h26c10 0 14-6 14-12" class="ar-body"/><circle cx="78" cy="22" r="8" class="ar-f"/><circle cx="76" cy="21" r="1.6" class="ar-eye"/><circle cx="81" cy="21" r="1.6" class="ar-eye"/><path d="M78 14c3-7 8-8 12-7-1 5-6 9-12 7z" class="ar-leaf"/><circle cx="100" cy="56" r="6" class="ar-o"/><path d="M101 50c2-5 6-6 9-5-1 4-5 7-9 5z" class="ar-leaf"/></g></svg>
+            </div>
+            <div class="ar-card__body"><h3>Synapse Snake</h3><p>Link the sparks, grow the pathway, mind the distractions.</p><p class="ar-card__chip" data-arcade-best="synapse-snake">Best</p><button class="hb-btn hb-btn--quiet ar-card__play" type="button" data-arcade-game="snake">Play Synapse Snake <span aria-hidden="true">↗</span></button></div>
           </article>
-          <article class="arcade-card arcade-card--hopper">
-            <div class="arcade-card__art" aria-hidden="true"><span>✉</span><span>▤ ▤ ▤</span></div>
-            <div class="arcade-card__body"><h3>Special Delivery</h3><p>Carry your letter through the crossing.</p><button class="hb-btn hb-btn--quiet arcade-card__play" type="button" data-arcade-game="hopper" aria-label="Play Special Delivery">Play Special Delivery <span aria-hidden="true">↗</span></button></div>
+          <article class="ar-card">
+            <div class="ar-card__art" aria-hidden="true">
+              <svg viewBox="0 0 120 80"><g class="ar-t"><rect x="14" y="20" width="8" height="30" rx="4" class="ar-s"/><rect x="98" y="34" width="8" height="30" rx="4" class="ar-f"/><path d="M60 10v60" class="ar-dash"/><circle cx="54" cy="40" r="5" class="ar-o"/><circle cx="44" cy="44" r="3.5" class="ar-trail"/><circle cx="36" cy="47" r="2.5" class="ar-trail"/></g></svg>
+            </div>
+            <div class="ar-card__body"><h3>Pong</h3><p>Rallies, spin, three CPU moods. Or two players on one keyboard.</p><p class="ar-card__chip" data-arcade-best="pong">Best</p><button class="hb-btn hb-btn--quiet ar-card__play" type="button" data-arcade-game="pong">Play Pong <span aria-hidden="true">↗</span></button></div>
           </article>
-          <article class="arcade-card arcade-card--blocks">
-            <div class="arcade-card__art" aria-hidden="true"><span>▣</span><span>▣▣▣</span></div>
-            <div class="arcade-card__body"><h3>Tidy Up</h3><p>Stack the falling toy blocks and fill a row to put it away.</p><button class="hb-btn hb-btn--quiet arcade-card__play" type="button" data-arcade-game="blocks" aria-label="Play Tidy Up">Play Tidy Up <span aria-hidden="true">↗</span></button></div>
+          <article class="ar-card">
+            <div class="ar-card__art" aria-hidden="true">
+              <svg viewBox="0 0 120 80"><g class="ar-t"><path d="M6 64h108" class="ar-ground"/><circle cx="40" cy="48" r="12" class="ar-f"/><path d="M40 36c-1-9 4-13 10-13 0 7-4 11-10 13zM40 36c1-9-4-13-10-13 0 7 4 11 10 13z" class="ar-leaf"/><circle cx="36" cy="47" r="1.8" class="ar-eye"/><circle cx="44" cy="47" r="1.8" class="ar-eye"/><rect x="80" y="50" width="20" height="6" rx="1" class="ar-i"/><rect x="82" y="44" width="16" height="6" rx="1" class="ar-s"/><path d="M100 24l8 6-8 6-8-6z" class="ar-k2"/></g></svg>
+            </div>
+            <div class="ar-card__body"><h3>Brain Sprint</h3><p>A sprout runs from the crib to the cosmos. Jump, duck, bloom.</p><p class="ar-card__chip" data-arcade-best="brain-sprint">Best</p><button class="hb-btn hb-btn--quiet ar-card__play" type="button" data-arcade-game="dino">Play Brain Sprint <span aria-hidden="true">↗</span></button></div>
           </article>
-          <article class="arcade-card arcade-card--echo">
-            <div class="arcade-card__art" aria-hidden="true"><span>●</span><span>● ♪ ●</span><span>●</span></div>
-            <div class="arcade-card__body"><h3>Serve &amp; Return</h3><p>Watch the pattern, echo it back, and see how long the conversation goes.</p><button class="hb-btn hb-btn--quiet arcade-card__play" type="button" data-arcade-game="echo">Play Serve &amp; Return <span aria-hidden="true">↗</span></button></div>
+          <article class="ar-card">
+            <div class="ar-card__art" aria-hidden="true">
+              <svg viewBox="0 0 120 80"><g class="ar-t"><path d="M22 12h16l4 4v12H22zM52 12h16l4 4v12H52zM82 12h16l4 4v12H82z" class="ar-s"/><path d="M28 32h16l4 4v12H28zM58 32h16l4 4v12H58zM88 32h16l4 4v12H88z" class="ar-m"/><text x="30" y="25" class="ar-q">?</text><text x="60" y="25" class="ar-q">?</text><text x="90" y="25" class="ar-q">?</text><circle cx="60" cy="64" r="7" class="ar-f"/><path d="M60 71v6"/></g></svg>
+            </div>
+            <div class="ar-card__body"><h3>GMS Invaders</h3><p>Waves of questions, a lens to answer them, one headline boss.</p><p class="ar-card__chip" data-arcade-best="gms-invaders">Best</p><button class="hb-btn hb-btn--quiet ar-card__play" type="button" data-arcade-game="invaders">Play GMS Invaders <span aria-hidden="true">↗</span></button></div>
           </article>
-          <article class="arcade-card arcade-card--maze">
-            <div class="arcade-card__art" aria-hidden="true"><span>●</span><span>• • •</span><span>✺</span></div>
-            <div class="arcade-card__body"><h3>Crumb Chase</h3><p>Sweep up every crumb in the playroom and stay ahead of the dust bunnies.</p><button class="hb-btn hb-btn--quiet arcade-card__play" type="button" data-arcade-game="maze" aria-label="Play Crumb Chase">Play Crumb Chase <span aria-hidden="true">↗</span></button></div>
+          <article class="ar-card">
+            <div class="ar-card__art" aria-hidden="true">
+              <svg viewBox="0 0 120 80"><g class="ar-t"><path d="M12 10h28l4 4v10H12zM48 10h24l4 4v10H48zM80 10h28l4 4v10H80z" class="ar-m"/><path d="M12 30h28l4 4v10H12zM80 30h28l4 4v10H80z" class="ar-s"/><path d="M44 30h32l4 4v10H44z" class="ar-card-m"/><rect x="40" y="66" width="40" height="7" rx="3.5" class="ar-o"/><circle cx="68" cy="56" r="4" class="ar-k"/></g></svg>
+            </div>
+            <div class="ar-card__body"><h3>Myth Buster</h3><p>Break through walls of index cards. The labelled ones hold a myth.</p><p class="ar-card__chip" data-arcade-best="myth-buster">Best</p><button class="hb-btn hb-btn--quiet ar-card__play" type="button" data-arcade-game="breakout">Play Myth Buster <span aria-hidden="true">↗</span></button></div>
+          </article>
+          <article class="ar-card">
+            <div class="ar-card__art" aria-hidden="true">
+              <svg viewBox="0 0 120 80"><g class="ar-t"><path d="M22 20l18 6-4 18-20 2-8-14z" class="ar-m"/><path d="M78 44l22-4 10 14-12 14-20-6z" class="ar-m"/><path d="M52 58l20-32 4 30-10-6z" class="ar-pl"/><circle cx="72" cy="27" r="4" class="ar-ring"/><circle cx="18" cy="60" r="2" class="ar-dot"/><circle cx="104" cy="20" r="2" class="ar-dot"/><circle cx="60" cy="12" r="1.5" class="ar-dot"/></g></svg>
+            </div>
+            <div class="ar-card__body"><h3>Synapse Drift</h3><p>A paper plane among the noise. Clear the rocks, charge the Bloom.</p><p class="ar-card__chip" data-arcade-best="synapse-drift">Best</p><button class="hb-btn hb-btn--quiet ar-card__play" type="button" data-arcade-game="asteroids">Play Synapse Drift <span aria-hidden="true">↗</span></button></div>
+          </article>
+          <article class="ar-card">
+            <div class="ar-card__art" aria-hidden="true">
+              <svg viewBox="0 0 120 80"><g class="ar-t"><rect x="8" y="26" width="104" height="18" rx="3" class="ar-i"/><rect x="14" y="30" width="22" height="10" rx="2" class="ar-k2"/><rect x="60" y="30" width="22" height="10" rx="2" class="ar-k2"/><rect x="42" y="50" width="36" height="24" rx="3" class="ar-pl"/><path d="M42 50l18 12 18-12"/><rect x="68" y="54" width="6" height="6" class="ar-o"/><circle cx="54" cy="66" r="1.6" class="ar-eye"/><circle cx="62" cy="66" r="1.6" class="ar-eye"/><rect x="18" y="8" width="10" height="12" rx="2" class="ar-f"/><rect x="92" y="8" width="10" height="12" rx="2" class="ar-f"/></g></svg>
+            </div>
+            <div class="ar-card__body"><h3>Special Delivery</h3><p>Carry your letter over the story stream and past the rolling toys.</p><p class="ar-card__chip" data-arcade-best="special-delivery">Best</p><button class="hb-btn hb-btn--quiet ar-card__play" type="button" data-arcade-game="hopper">Play Special Delivery <span aria-hidden="true">↗</span></button></div>
+          </article>
+          <article class="ar-card">
+            <div class="ar-card__art" aria-hidden="true">
+              <svg viewBox="0 0 120 80"><g class="ar-t"><rect x="16" y="50" width="16" height="16" rx="3" class="ar-o"/><rect x="32" y="50" width="16" height="16" rx="3" class="ar-o"/><rect x="48" y="50" width="16" height="16" rx="3" class="ar-f"/><rect x="64" y="50" width="16" height="16" rx="3" class="ar-k2"/><rect x="80" y="50" width="16" height="16" rx="3" class="ar-k2"/><rect x="32" y="34" width="16" height="16" rx="3" class="ar-s"/><rect x="48" y="34" width="16" height="16" rx="3" class="ar-s"/><rect x="48" y="18" width="16" height="16" rx="3" class="ar-s"/><rect x="88" y="10" width="16" height="16" rx="3" class="ar-f"/><path d="M12 70h96"/></g></svg>
+            </div>
+            <div class="ar-card__body"><h3>Tidy Up</h3><p>Stack the wooden blocks. Fill a row and it folds away.</p><p class="ar-card__chip" data-arcade-best="tidy-up">Best</p><button class="hb-btn hb-btn--quiet ar-card__play" type="button" data-arcade-game="blocks">Play Tidy Up <span aria-hidden="true">↗</span></button></div>
+          </article>
+          <article class="ar-card">
+            <div class="ar-card__art" aria-hidden="true">
+              <svg viewBox="0 0 120 80"><g class="ar-t"><circle cx="60" cy="40" r="14" class="ar-face"/><circle cx="55" cy="38" r="1.8" class="ar-eye"/><circle cx="65" cy="38" r="1.8" class="ar-eye"/><path d="M57 46c2 2 4 2 6 0"/><rect x="48" y="8" width="24" height="16" rx="5" class="ar-f"/><rect x="48" y="56" width="24" height="16" rx="5" class="ar-k2"/><rect x="14" y="32" width="24" height="16" rx="5" class="ar-s"/><rect x="82" y="32" width="24" height="16" rx="5" class="ar-o"/></g></svg>
+            </div>
+            <div class="ar-card__body"><h3>Serve &amp; Return</h3><p>The baby serves a pattern. Echo it back, one step longer each time.</p><p class="ar-card__chip" data-arcade-best="serve-and-return">Best</p><button class="hb-btn hb-btn--quiet ar-card__play" type="button" data-arcade-game="echo">Play Serve &amp; Return <span aria-hidden="true">↗</span></button></div>
+          </article>
+          <article class="ar-card">
+            <div class="ar-card__art" aria-hidden="true">
+              <svg viewBox="0 0 120 80"><g class="ar-t"><path d="M12 14h96M12 14v52h96V14M36 14v30M60 30v36M84 14v22M36 44h24M60 30h24" class="ar-wall"/><circle cx="24" cy="30" r="2.4" class="ar-o"/><circle cx="24" cy="44" r="2.4" class="ar-o"/><circle cx="24" cy="58" r="2.4" class="ar-o"/><circle cx="48" cy="24" r="2.4" class="ar-o"/><circle cx="72" cy="52" r="2.4" class="ar-o"/><circle cx="96" cy="50" r="7" class="ar-face"/><path d="M92 44l-2-8M100 44l2-8"/><circle cx="94" cy="49" r="1.3" class="ar-eye"/><circle cx="98" cy="49" r="1.3" class="ar-eye"/></g></svg>
+            </div>
+            <div class="ar-card__body"><h3>Crumb Chase</h3><p>Sweep every crumb from three playrooms, ahead of the dust bunnies.</p><p class="ar-card__chip" data-arcade-best="crumb-chase">Best</p><button class="hb-btn hb-btn--quiet ar-card__play" type="button" data-arcade-game="maze">Play Crumb Chase <span aria-hidden="true">↗</span></button></div>
           </article>
         </div>
       </div>
@@ -207,16 +295,11 @@
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
 
-  <div id="pong-game" hidden role="dialog" aria-label="Pong game" aria-modal="true">
-    <div class="pong-hud"><span><b id="pong-score-cpu">0</b> CPU</span><span class="pong-brand">PONG</span><span>YOU <b id="pong-score-you">0</b></span></div>
-    <div class="pong-stage"><canvas id="pong-canvas"></canvas><div class="pong-msg" id="pong-msg" hidden><div><h2 id="pong-msg-title">Ready?</h2><p id="pong-msg-text">Move your mouse or use ↑ ↓ to play.</p><button class="btn btn--primary" id="pong-msg-btn" type="button">Start</button></div></div></div>
-    <div class="pong-foot"><div class="pong-foot__left"><button id="pong-mute" type="button" aria-pressed="true">♪ Music</button><span class="pong-hint">You control the right paddle · mouse, touch, or ↑ ↓ / W S · first to 7 wins</span></div><button id="pong-exit" type="button">← Back to arcade</button></div>
-  </div>
 
   <script src="../assets/js/main.js?v=d04bd3b1b9" defer></script>
-  <!-- arcade-core.js binds the Play buttons and loads each game (and
-       pong.css for Pong) only when its button is pressed. -->
-  <script src="../assets/js/arcade-core.js?v=e82376ce48" defer></script>
+  <!-- arcade-core.js binds the Play buttons and loads each game only when
+       its button is pressed. -->
+  <script src="../assets/js/arcade-core.js?v=46cebb8674" defer></script>
   <script src="/assets/js/home.js?v=c7f5c746df" defer></script>
 </body>
 </html>

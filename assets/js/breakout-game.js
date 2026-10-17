@@ -1,881 +1,952 @@
 /* Growing Minds Science — breakout-game.js
-   "Myth Buster" — a brick-breaker game on the Arcade page.
+   "Myth Buster" on the Arcade page: a card-breaker. The wall is a pinboard of
+   index cards, and the double-wide ones carry common parenting myths. Bounce
+   the ball off a wooden ruler to bust them. A myth card cracks on the first
+   hit; on the second it flips over to show a short, plain truth, then falls
+   away. Eight walls, each a family of myths, end in a boss card that moves.
 
-   Trigger: the "Play Myth Buster" card on /arcade ([data-arcade-game="breakout"]).
-   Opening tears the page away (GMSArcade) then shows the game. The wall is built from parenting
-   myths — the wide, stubborn bricks carry the myth labels and take two hits —
-   and you bounce a spark of curiosity off a paddle of patience to bust them.
-   Some bricks drop help: CALM slows the ball, WIDE stretches the paddle,
-   SPARK splits the ball.
+   Core v2 game (see docs/arcade/game-brief.md): reads the live brand tokens
+   through A.theme(), draws through the shell's canvas, uses makeShell for the
+   overlay, makeStory for the walls, makePowerups for timed effects and
+   runSummary for the end card. CSP-safe: no eval, no external assets, audio
+   is the shared Web Audio synth. Honors prefers-reduced-motion.
 
-   Built on window.GMSArcade (arcade-core.js) for the page-tear, the local
-   leaderboard, and the initials entry. Self-contained otherwise: own overlay
-   DOM, own rAF loop, full teardown on close. CSP-safe (no eval, no external
-   assets; audio is Web Audio oscillator synth). Honors prefers-reduced-motion.
-   Mobile: relative "touchpad" drag anywhere on the stage steers the paddle,
-   a wake lock holds the screen through a run, and a hidden tab auto-pauses.
+   Power-ups: Calm (the ball slows, research blue), Patience (a wider ruler,
+   sage), Curiosity (the ball splits, ochre), Sticky (catch and aim, forest),
+   Pointed Question (Space fires a bolt that busts one card, clay, 3 uses),
+   Magnet (the ball bends toward the ruler, research blue). They last through
+   a lost ball and clear when the wall does.
+
+   Collision: the ball moves in sub-steps no longer than half its radius, so
+   a fast ball never tunnels through a card, and it can hit several cards in
+   one frame.
 */
 (function () {
   "use strict";
 
   var A = window.GMSArcade;
-  if (!A) return;
+  if (!A || !A.makeShell) return;
 
   var GAME_KEY = "myth-buster";
   var MUTE_KEY = "gms-breakout-muted";
 
-  function ready(fn) {
-    if (document.readyState !== "loading") fn();
-    else document.addEventListener("DOMContentLoaded", fn);
+  // ---------- Field ----------
+  // Landscape 480 x 320 with eight columns; a portrait phone gets 320 x 480
+  // with the same rows and six columns (chosen when the game opens).
+  var W = 480, H = 320, COLS = 8, BRICK_W = 52, FIELD_X = 18, FIELD_Y = 56, PADDLE_Y = 292, PADDLE_W = 80;
+  var BRICK_H = 20, GAP = 4, ROW_H = 25, PADDLE_H = 10, R = 4.5;
+  var BOSS_H = 40;
+  function setField(portrait) {
+    var margin;
+    if (portrait) { W = 320; H = 480; COLS = 6; margin = 12; PADDLE_W = 72; FIELD_Y = 76; }
+    else { W = 480; H = 320; COLS = 8; margin = 18; PADDLE_W = 80; FIELD_Y = 56; }
+    BRICK_W = Math.floor((W - margin * 2 - (COLS - 1) * GAP) / COLS);
+    FIELD_X = Math.round((W - (COLS * BRICK_W + (COLS - 1) * GAP)) / 2);
+    PADDLE_Y = H - 28;
   }
+  function fieldW() { return COLS * BRICK_W + (COLS - 1) * GAP; }
 
-  // ---------- Palette ----------
-  var INK = "#0E2A2D";
-  var BRAIN = "#FD951F";
-  var LEAF_TOP = "#9FCB43";
-  var LEAF_SIDE = "#40C099";
-  var WARM = "#D5BE98";
-  var CREAM = "#F4EFE3";
-  var ROW_COLORS = [BRAIN, LEAF_SIDE, LEAF_TOP, WARM];
+  // ---------- Speed curve (the old one, scaled to the larger field) ----------
+  var SPEED_SCALE = 1.6;
+  function wallSpeed(wall) { return Math.min(2.1 + (wall - 1) * 0.25, 3.2) * SPEED_SCALE; }
+  var SPEED_STEP = 0.045 * SPEED_SCALE, SPEED_MAX = 3.6 * SPEED_SCALE;
 
-  // ---------- Logical resolution / layout ----------
-  var W = 240, H = 210;
-  var PADDLE_Y = 196, PADDLE_H = 5, PADDLE_W = 40;
-  var BALL = 4;
-  var COLS = 8, BRICK_W = 28, BRICK_H = 10, FIELD_X = 8, FIELD_Y = 24;
-
+  // ---------- Myths and truths ----------
   var MYTHS = ["spoiling", "sugar high", "terrible 2s", "just a phase", "genius apps", "too young", "bad habits", "cry it out"];
+  var TRUTHS = {
+    "spoiling": "Responding builds trust",
+    "sugar high": "Studies don't find a sugar high",
+    "terrible 2s": "Big feelings, small bodies",
+    "just a phase": "Phases still deserve support",
+    "genius apps": "Talk beats apps",
+    "too young": "Learning starts at birth",
+    "bad habits": "Habits can change",
+    "cry it out": "Comfort isn't a habit",
+    "perfect parent": "Good enough is good enough"
+  };
+  var BOSS_MYTH = "perfect parent";
+
+  // ---------- Story: eight walls, each a family of myths ----------
+  var CHAPTERS = [
+    { name: "Sleep", at: 1, text: "Myths about nights and naps.", myths: ["cry it out", "spoiling", "bad habits"] },
+    { name: "Food", at: 2, text: "Myths from the kitchen table.", myths: ["sugar high", "bad habits", "just a phase"] },
+    { name: "Feelings", at: 3, text: "Myths about big feelings.", myths: ["terrible 2s", "just a phase", "spoiling"] },
+    { name: "Screens", at: 4, text: "Myths about apps and screens.", myths: ["genius apps", "too young", "just a phase"] },
+    { name: "Play", at: 5, text: "Myths about how play teaches.", myths: ["genius apps", "bad habits", "too young"] },
+    { name: "Talk", at: 6, text: "Myths about first words.", myths: ["too young", "genius apps", "cry it out"] },
+    { name: "Limits", at: 7, text: "Myths about rules and kindness.", myths: ["spoiling", "terrible 2s", "bad habits"] },
+    { name: "The Boss Wall", at: 8, text: "One big myth. It moves. Six hits.", myths: ["cry it out", "sugar high"], boss: true }
+  ];
+
+  var POWERUPS = {
+    calm: { label: "Calm", color: "research", duration: 360, text: "The ball slows down" },
+    patience: { label: "Patience", color: "sage", duration: 600, text: "A wider ruler" },
+    curiosity: { label: "Curiosity", color: "ochre", duration: 1, text: "The ball splits" },
+    sticky: { label: "Sticky", color: "forest", duration: 720, text: "Catch the ball, then aim. Space lets go" },
+    question: { label: "Question", name: "Pointed Question", color: "clay", uses: 3, text: "Space fires a question that busts a card" },
+    magnet: { label: "Magnet", color: "research", duration: 480, text: "The ball bends toward the ruler" }
+  };
+  var POWER_ORDER = ["calm", "patience", "curiosity", "sticky", "question", "magnet"];
 
   function clamp(v, lo, hi) { return v < lo ? lo : v > hi ? hi : v; }
 
-  function blockyRect(ctx, x, y, w, h, fill) {
-    ctx.fillStyle = INK;
-    ctx.fillRect(Math.round(x) - 1, Math.round(y) - 1, Math.round(w) + 2, Math.round(h) + 2);
-    ctx.fillStyle = fill;
-    ctx.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h));
-  }
-
-  // ---------- Level layouts ----------
-  // Each returns bricks: { c, r, span, hp, myth } (span in columns).
-  // A "myth" brick is double-wide, labeled, and takes 2 hits.
-  function layoutFor(level) {
-    var idx = (level - 1) % 4;
+  // ---------- Layouts ----------
+  // Each returns bricks { c, r, span, hp, myth }. Written against COLS so the
+  // portrait field gets the same shapes with fewer columns. The first four are
+  // the old game's walls; arch and split are new. The boss wall is its own.
+  function layoutFor(idx, mythList) {
     var bricks = [];
-    var mythBag = MYTHS.slice().sort(function () { return Math.random() - 0.5; });
-    function myth(c, r) { bricks.push({ c: c, r: r, span: 2, hp: 2, myth: mythBag.pop() || "myth" }); }
+    var bag = mythList.slice();
+    function nextMyth() {
+      if (bag.length) return bag.shift();
+      return MYTHS[Math.floor(Math.random() * MYTHS.length)];
+    }
+    function myth(c, r) { bricks.push({ c: c, r: r, span: 2, hp: 2, myth: nextMyth() }); }
     function plain(c, r) { bricks.push({ c: c, r: r, span: 1, hp: 1 }); }
-    var c, r;
+    function drop(fn) { bricks = bricks.filter(function (b) { return !fn(b); }); }
+    var c, r, mid = Math.floor(COLS / 2) - 1;
     if (idx === 0) {
       // Full wall, two myths seeded mid-field.
       for (r = 0; r < 4; r++) for (c = 0; c < COLS; c++) plain(c, r);
-      bricks = bricks.filter(function (b) { return !(b.r === 2 && (b.c === 1 || b.c === 2 || b.c === 5 || b.c === 6)); });
-      myth(1, 2); myth(5, 2);
+      drop(function (b) { return b.r === 2 && (b.c === 1 || b.c === 2 || b.c === COLS - 3 || b.c === COLS - 2); });
+      myth(1, 2); myth(COLS - 3, 2);
     } else if (idx === 1) {
       // Checkerboard with a myth beam across the top.
-      myth(0, 0); myth(3, 0); myth(6, 0);
+      for (c = 0; c + 1 < COLS; c += 3) myth(c, 0);
       for (r = 1; r < 5; r++) for (c = 0; c < COLS; c++) { if ((c + r) % 2 === 0) plain(c, r); }
     } else if (idx === 2) {
-      // Pyramid; myths form the base corners.
+      // Pyramid; myths form the base corners and a keystone below.
       for (r = 0; r < 4; r++) for (c = r; c < COLS - r; c++) plain(c, 3 - r);
-      bricks = bricks.filter(function (b) { return !(b.r === 3 && (b.c <= 1 || b.c >= 6)); });
-      myth(0, 3); myth(6, 3);
-      myth(3, 4);
-    } else {
-      // Fortress: hollow center guarded by myth lintels.
+      drop(function (b) { return b.r === 3 && (b.c <= 1 || b.c >= COLS - 2); });
+      myth(0, 3); myth(COLS - 2, 3); myth(mid, 4);
+    } else if (idx === 3) {
+      // Fortress: a hollow centre guarded by myth lintels.
       for (r = 0; r < 5; r++) for (c = 0; c < COLS; c++) {
-        if (r >= 1 && r <= 3 && c >= 2 && c <= 5) continue;
+        if (r >= 1 && r <= 3 && c >= 2 && c <= COLS - 3) continue;
         plain(c, r);
       }
-      bricks = bricks.filter(function (b) { return !(b.r === 2 && (b.c <= 1 || b.c >= 6)); });
-      myth(0, 2); myth(6, 2);
-      myth(3, 2);
+      drop(function (b) { return b.r === 2 && (b.c <= 1 || b.c >= COLS - 2); });
+      myth(0, 2); myth(COLS - 2, 2); myth(mid, 2);
+    } else if (idx === 4) {
+      // Arch: a two-row lintel with a keystone myth, two pillars, myth feet.
+      for (r = 0; r < 2; r++) for (c = 0; c < COLS; c++) {
+        if (r === 0 && (c === mid || c === mid + 1)) continue;
+        plain(c, r);
+      }
+      myth(mid, 0);
+      for (r = 2; r < 4; r++) { plain(0, r); plain(1, r); plain(COLS - 2, r); plain(COLS - 1, r); }
+      plain(2, 2); plain(COLS - 3, 2);
+      myth(0, 4); myth(COLS - 2, 4);
+    } else {
+      // Split wall: two blocks with myths stacked in the gap between them.
+      for (r = 0; r < 5; r++) for (c = 0; c < COLS; c++) {
+        if (c === mid || c === mid + 1) continue;
+        plain(c, r);
+      }
+      myth(mid, 1); myth(mid, 3);
     }
+    return bricks;
+  }
+  function bossLayout(mythList) {
+    var bricks = [];
+    for (var c = 0; c < COLS; c += 2) bricks.push({ c: c + 1, r: 3, span: 1, hp: 1 });
+    bricks.push({ c: 0, r: 4, span: 2, hp: 2, myth: mythList[0] });
+    bricks.push({ c: COLS - 2, r: 4, span: 2, hp: 2, myth: mythList[1] });
+    bricks.push({ boss: true, hp: 6, myth: BOSS_MYTH });
     return bricks;
   }
 
   // ======================================================================
-  //  Game controller
+  //  Game
   // ======================================================================
-  function createGame(canvas, els) {
-    var ctx = canvas.getContext("2d");
-    var backingScale = 1; // hi-res backing store so text stays crisp when scaled up
-    ctx.imageSmoothingEnabled = false;
-    canvas.width = W;
-    canvas.height = H;
-
+  function createGame(shell) {
+    var cv = shell.canvas, ctx = cv.ctx, draw = A.draw;
+    var pal = A.theme();
+    var offTheme = A.onThemeChange(function (p) { pal = p; });
     var reduce = A.prefersReducedMotion();
-    // Shared juice: crisp shake + hit-stop, and the "Curiosity Chain" rally
-    // multiplier. Audio-mute is deliberately independent of reduced-motion
-    // (a11y: motion-sensitive players still get sound).
-    var camera = A.makeCamera({ reduce: reduce, maxPx: 3 });
+
+    var camera = A.makeCamera({ reduce: reduce, maxPx: 4 });
     var combo = A.makeCombo({ window: 150, max: 5 });
+    var particles = A.makeParticles({ cap: 120, reduce: reduce });
+    var floaters = A.makeFloaters({ cap: 12, reduce: reduce });
+    var wake = A.makeWakeLock();
+    var unsubHidden = null;
+    var synth = A.makeSynth({ muteKey: MUTE_KEY });
+    shell.bindSynth(synth);
 
-    var state = "idle"; // idle | running | banner | paused | gameover
-    var held = { left: false, right: false };
-    var paddleX, balls, bricks, drops, particles, floaters, trail;
-    var level, lives, score, calmTimer, wideTimer, bannerText, bannerTimer, pausedFrom;
-    var PARTICLE_CAP = 32, FLOATER_CAP = 10, TRAIL_CAP = 6;
-    var brickBuzzed = false; // haptic budget: one brick pop per frame, multiball included
+    var story = A.makeStory(CHAPTERS, { bannerFrames: 170 });
+    var powers = A.makePowerups(POWERUPS, { onExpire: onPowerExpire });
 
-    function paddleW() { return wideTimer > 0 ? PADDLE_W * 1.5 : PADDLE_W; }
+    var state = "idle"; // idle | running | paused | dying | gameover
+    var wall, lives, score, best, time;
+    var paddleCX, balls, bricks, flips, drops, bolts;
+    var wallTotal, clearT, deathTimer, boltCool, bossT;
+    var runStats;
+    var touchLastX = null;
+    var buzzed = false; // haptic budget: one card pop per frame, multiball included
 
-    function resetWorld() {
-      level = 1; lives = 3; score = 0;
-      calmTimer = 0; wideTimer = 0;
-      particles = particles || []; floaters = floaters || []; trail = trail || [];
-      particles.length = 0; floaters.length = 0; trail.length = 0;
-      combo.reset(true);
-      drops = [];
-      paddleX = W / 2 - PADDLE_W / 2;
-      buildLevel();
-      spawnBall();
-    }
+    best = A.leaderboard.best(GAME_KEY);
 
-    function buildLevel() {
-      bricks = layoutFor(level);
-      drops = [];
-    }
-
-    function spawnBall() {
-      balls = [{ x: 0, y: 0, vx: 0, vy: 0, stuck: true, speed: ballSpeed() }];
-    }
-    function ballSpeed() { return Math.min(2.1 + (level - 1) * 0.25, 3.2); }
-
-    function brickBox(b) {
-      return {
-        x: FIELD_X + b.c * (BRICK_W + 1),
-        y: FIELD_Y + b.r * (BRICK_H + 2),
-        w: BRICK_W * b.span + (b.span - 1),
-        h: BRICK_H
-      };
-    }
-
-    // ---------- Audio (shared GMSArcade synth: compressor + noise + arp) ----------
-    var audio = A.makeSynth({ muteKey: MUTE_KEY });
-    function ensureAudio() { audio.ensure(); }
+    // ---------- Audio ----------
     var sfx = {
-      paddle: function () { audio.beep(220, 330, 0.05, "square", 0.4); },
-      wall: function () { audio.beep(160, 160, 0.04, "square", 0.3); },
-      // Rally xylophone: the brick pitch climbs with the curiosity chain
-      // (clamped so a long rally can't drive it painfully high).
-      brick: function (chain) { var c = Math.min(chain || 0, 14); audio.beep(480 + c * 70, 660 + c * 70, 0.06, "triangle", 0.45); },
-      crack: function () { audio.beep(320, 240, 0.07, "square", 0.4); },
-      bust: function (chain) { var c = Math.min(chain || 0, 12); audio.beep(520 + c * 60, 1040 + c * 60, 0.18, "triangle", 0.5); audio.noise(0.14, 1600, 0.28); },
-      drop: function () { audio.beep(660, 880, 0.1, "triangle", 0.4); },
-      lose: function () { audio.beep(220, 70, 0.3, "sawtooth", 0.55); audio.noise(0.3, 900, 0.4); },
-      // Downward cue when the rally is broken on paddle contact.
-      chainBroken: function () { audio.beep(440, 150, 0.16, "square", 0.32); },
-      level: function () { audio.arp([523, 659, 784, 988], 0.09, 0.2, "triangle", 0.46); }
+      paddle: function () { synth.beep(220, 330, 0.05, "square", 0.32); },
+      wall: function () { synth.beep(170, 160, 0.035, "square", 0.2); },
+      card: function (chain) { var c = Math.min(chain || 0, 14); synth.beep(480 + c * 70, 660 + c * 70, 0.06, "triangle", 0.42); },
+      crack: function () { synth.beep(320, 240, 0.07, "square", 0.34); },
+      bust: function (chain) { var c = Math.min(chain || 0, 12); synth.beep(520 + c * 60, 1040 + c * 60, 0.18, "triangle", 0.48); synth.noise(0.14, 1600, 0.24); },
+      boss: function () { synth.beep(260, 180, 0.12, "sawtooth", 0.3); synth.noise(0.1, 700, 0.22); },
+      drop: function () { synth.arp([659, 880, 1318], 0.045, 0.12, "triangle", 0.4); },
+      bolt: function () { synth.beep(900, 1400, 0.07, "triangle", 0.3); },
+      catchIt: function () { synth.beep(300, 260, 0.05, "sine", 0.3); },
+      lose: function () { synth.beep(220, 70, 0.3, "sawtooth", 0.5); synth.noise(0.3, 900, 0.36); },
+      chainBroken: function () { synth.beep(440, 150, 0.16, "square", 0.28); },
+      level: function () { synth.arp([523, 659, 784, 988], 0.09, 0.2, "triangle", 0.44); }
     };
 
-    // ---------- Particles / floaters (pooled) ----------
-    function spawnParticle(x, y, vx, vy, life, color) {
-      if (reduce) return;
-      var p;
-      for (var i = 0; i < particles.length; i++) { if (particles[i].life <= 0) { p = particles[i]; break; } }
-      if (!p) { if (particles.length >= PARTICLE_CAP) return; p = {}; particles.push(p); }
-      p.x = x; p.y = y; p.vx = vx; p.vy = vy; p.life = life; p.maxLife = life; p.color = color;
-    }
-    function spawnBurst(x, y, color, n) {
-      for (var i = 0; i < n; i++) {
-        var a = Math.random() * Math.PI * 2, sp = 0.4 + Math.random() * 1.3;
-        spawnParticle(x, y, Math.cos(a) * sp, Math.sin(a) * sp, 10 + Math.random() * 10, color);
+    // ---------- Geometry ----------
+    function paddleW() { return PADDLE_W * (powers.active("patience") ? 1.5 : 1); }
+    function paddleX() { return paddleCX - paddleW() / 2; }
+    function clampPaddle() { var hw = paddleW() / 2; paddleCX = clamp(paddleCX, hw + 2, W - hw - 2); }
+    function placeBrick(b) {
+      if (b.boss) {
+        b.w = 3 * BRICK_W + 2 * GAP; b.h = BOSS_H; b.y = FIELD_Y;
+        b.x = FIELD_X + (fieldW() - b.w) / 2;
+        return;
       }
+      b.x = FIELD_X + b.c * (BRICK_W + GAP);
+      b.y = FIELD_Y + b.r * ROW_H;
+      b.w = BRICK_W * b.span + GAP * (b.span - 1);
+      b.h = BRICK_H;
     }
-    function spawnFloater(x, y, text, color) {
-      if (reduce) return;
-      var f;
-      for (var i = 0; i < floaters.length; i++) { if (floaters[i].life <= 0) { f = floaters[i]; break; } }
-      if (!f) { if (floaters.length >= FLOATER_CAP) return; f = {}; floaters.push(f); }
-      f.x = x; f.y = y; f.life = 30; f.maxLife = 30; f.text = text; f.color = color;
+    function tintFor(r) {
+      var k = r % 4;
+      return k === 0 ? pal.sageMist : k === 1 ? pal.sage : k === 2 ? pal.sageDeep : pal.forest;
     }
 
-    // ---------- Lifecycle ----------
-    // Wake lock + hidden-tab pause live only while the overlay is active
-    // (acquired in activate, torn down in deactivate).
-    var wake = A.makeWakeLock();
-    var unHidden = null;
+    // ---------- World ----------
+    function resetWorld() {
+      wall = 1; lives = 3; score = 0; time = 0;
+      paddleCX = W / 2;
+      flips = []; drops = []; bolts = [];
+      clearT = 0; deathTimer = 0; boltCool = 0; bossT = 0;
+      combo.reset(true); powers.clear(); story.reset();
+      particles.clear(); floaters.clear();
+      runStats = { chapter: 0, myths: 0, powers: 0, boss: false };
+      buildWall();
+      spawnBall();
+      syncHud();
+    }
+    function buildWall() {
+      var ch = CHAPTERS[(wall - 1) % CHAPTERS.length];
+      bricks = ch.boss ? bossLayout(ch.myths) : layoutFor((wall - 1) % 6, ch.myths);
+      for (var i = 0; i < bricks.length; i++) { placeBrick(bricks[i]); bricks[i].maxHp = bricks[i].hp; bricks[i].cracks = []; bricks[i].hitT = 0; }
+      wallTotal = bricks.length;
+      drops = []; bolts = [];
+      bossT = 0;
+    }
+    function spawnBall() {
+      balls = [{ x: paddleCX, y: PADDLE_Y - R - 0.5, vx: 0, vy: 0, stuck: true, off: 0, caught: false, speed: wallSpeed(wall), trail: [] }];
+    }
+    function enterWall(announce) {
+      var idx = (wall - 1) % CHAPTERS.length;
+      // Story on wall number: the first lap advances through the chapters;
+      // later laps (after the boss) set the chapter directly.
+      if (!(wall <= CHAPTERS.length && story.advance(wall))) story.set(idx);
+      runStats.chapter = Math.max(runStats.chapter, Math.min(wall - 1, CHAPTERS.length - 1));
+      var ch = CHAPTERS[idx];
+      if (announce) A.announce("Wall " + wall + ", " + ch.name + ". " + ch.text);
+    }
 
-    function start() { resetWorld(); state = "running"; hidePrompt(); ensureAudio(); }
-    function startBanner(text) { bannerText = text; bannerTimer = 100; state = "banner"; }
+    function syncHud() {
+      shell.hud.set("score", Math.floor(score));
+      shell.hud.set("best", Math.max(best, Math.floor(score)));
+      shell.hud.set("wall", wall);
+      shell.hud.set("lives", lives);
+    }
 
-    // Pause preserves the banner state too: resume returns to whichever
-    // state was live, with its timer intact.
-    function pauseGame() {
-      if (state !== "running" && state !== "banner") return;
-      pausedFrom = state;
+    // ---------- Flow ----------
+    function showStart() {
+      var p = A.progress.get(GAME_KEY);
+      shell.prompt.show({
+        kicker: "Myth Buster",
+        title: p.plays ? "Back to the wall" : "Bust the myths, card by card.",
+        text: "Move the ruler with the mouse, the arrow keys or a drag. Space, a click or a tap launches the ball. Myth cards take two hits, then flip to show what is true.",
+        actions: [{ label: "Start", primary: true, onClick: start }],
+        board: p.plays ? function (m) { A.renderLeaderboard(m, GAME_KEY, {}); } : null
+      });
+    }
+    function start() {
+      synth.ensure();
+      resetWorld();
+      state = "running";
+      shell.prompt.hide();
+      wake.acquire();
+      enterWall(false);
+      shell.setHelp("Mouse, arrows or drag move · Space, click or tap launches · P pauses · M mutes · Esc closes");
+      A.announce("Go. Wall one, Sleep. " + CHAPTERS[0].text);
+      try { cv.el.focus({ preventScroll: true }); } catch (e) {}
+    }
+    function pause() {
+      if (state !== "running") return;
       state = "paused";
-      showPause();
+      wake.release();
+      input.release();
+      shell.prompt.show({ kicker: "Paused", title: CHAPTERS[story.index()].name, text: "The myths will wait. Score " + Math.floor(score) + " · wall " + wall + " · " + lives + (lives === 1 ? " ball" : " balls") + " left.",
+        actions: [{ label: "Resume", primary: true, onClick: resume }, { label: "Quit", onClick: function () { A.closeGame(); } }], compact: true });
     }
-    function resumeGame() {
+    function resume() {
       if (state !== "paused") return;
-      state = pausedFrom || "running";
-      pausedFrom = null;
-      hidePrompt();
-      lastTime = 0; // no dt jump across the pause
+      synth.ensure();
+      state = "running"; shell.prompt.hide(); wake.acquire();
+      try { cv.el.focus({ preventScroll: true }); } catch (e) {}
+    }
+    function gameOver() {
+      state = "gameover";
+      wake.release();
+      var final = Math.floor(score);
+      var placed = final > 0 && final >= best;
+      if (final > best) best = final;
+      A.progress.record(GAME_KEY, { score: final, chapter: runStats.chapter, badges: runStats.boss ? ["boss-wall"] : [] });
+      syncHud();
+      var ch = CHAPTERS[story.index()];
+      shell.prompt.show({
+        kicker: "The wall held, this time",
+        title: placed ? "A new best: " + final : "Score " + final,
+        text: "You reached wall " + wall + ", " + ch.name + ", and busted " + runStats.myths + (runStats.myths === 1 ? " myth." : " myths."),
+        board: function (m) {
+          A.runSummary(m, { gameKey: GAME_KEY, score: final, lines: [["Wall", wall + " · " + ch.name], ["Myths busted", runStats.myths], ["Best chain", combo.best() + "x"], ["Power-ups", runStats.powers]],
+            onSaved: function () { best = A.leaderboard.best(GAME_KEY); syncHud(); } });
+        },
+        actions: [{ label: "Play again", primary: true, onClick: start }, { label: "Back to arcade", onClick: function () { A.closeGame(); } }]
+      });
+      A.announce("Game over. Score " + final + ".");
     }
 
-    function launch() {
-      var launched = false;
+    // ---------- Actions ----------
+    function launchBalls() {
+      var any = false;
       for (var i = 0; i < balls.length; i++) {
         var b = balls[i];
         if (!b.stuck) continue;
         b.stuck = false;
-        var a = -Math.PI / 2 + (Math.random() * 0.5 - 0.25);
-        b.vx = Math.cos(a) * b.speed;
-        b.vy = Math.sin(a) * b.speed;
-        launched = true;
+        var rel = clamp(b.off / (paddleW() / 2), -1, 1);
+        var a = b.caught ? -Math.PI / 2 + rel * (Math.PI * 0.36) : -Math.PI / 2 + (Math.random() * 0.5 - 0.25);
+        b.vx = Math.cos(a) * b.speed; b.vy = Math.sin(a) * b.speed;
+        b.caught = false; b.off = 0;
+        any = true;
       }
-      if (launched) { ensureAudio(); sfx.paddle(); }
+      if (any) { sfx.paddle(); A.haptics.tick(); }
+      return any;
+    }
+    function fireBolt() {
+      if (boltCool > 0 || !powers.active("question")) return false;
+      powers.use("question");
+      bolts.push({ x: paddleCX, y: PADDLE_Y - 4 });
+      boltCool = 14;
+      sfx.bolt(); A.haptics.tick();
+      return true;
+    }
+    function act() {
+      if (state === "idle" || state === "gameover") { start(); return; }
+      if (state === "paused") { resume(); return; }
+      if (state !== "running") return;
+      synth.ensure();
+      if (!launchBalls()) fireBolt();
+    }
+    function togglePause() {
+      if (state === "running") pause();
+      else if (state === "paused") resume();
+      else if (state === "idle" || state === "gameover") start();
     }
 
-    function loseBall() {
-      if (balls.length) return; // other balls still live
-      lives--;
-      ensureAudio(); sfx.lose();
-      A.haptics.crash(); // covers game over too — it is reached through here
-      combo.reset();
-      camera.shake(0.7); camera.freeze(reduce ? 0 : 3);
-      calmTimer = 0; wideTimer = 0;
-      if (lives <= 0) {
-        state = "gameover";
-        showEnd(Math.floor(score));
-        return;
+    // ---------- Input ----------
+    var input = A.makeInput(cv.el, {
+      canvas: cv,
+      keys: { ArrowLeft: "left", a: "left", ArrowRight: "right", d: "right", " ": "action", ArrowUp: "action", w: "action", Enter: "action", p: "pause" },
+      onAction: function (a, repeat, e) {
+        if (e && e.preventDefault) e.preventDefault();
+        if (repeat) return;
+        if (a === "action") act();
+        else if (a === "pause") togglePause();
+      },
+      onMove: function (p, e) {
+        if (!e || e.pointerType !== "mouse" || state !== "running") return;
+        paddleCX = p.x; clampPaddle();
+      },
+      onDown: function (p, e) {
+        touchLastX = p.x;
+        if (e && e.pointerType === "mouse") act();
+      },
+      // Touch steers relative, touchpad-style: the ruler moves by the finger's
+      // travel, so a thumb never has to cover it.
+      onDrag: function (p, d, e) {
+        if (!e || e.pointerType === "mouse" || touchLastX == null) return;
+        if (state === "running") { paddleCX += (p.x - touchLastX) * 1.4; clampPaddle(); }
+        touchLastX = p.x;
+      },
+      onUp: function () { touchLastX = null; },
+      onTap: function (p, e) { if (e && e.pointerType !== "mouse") act(); }
+    });
+    shell.onTap(function (id) {
+      if (id === "launch") act();
+      else if (id === "pause") togglePause();
+    });
+
+    // ---------- Power-ups ----------
+    function onPowerExpire(id) {
+      if (id === "sticky") {
+        var caught = balls.some(function (b) { return b.caught; });
+        if (caught) launchBalls();
       }
-      spawnBall();
+      if (id === "patience") clampPaddle();
+    }
+    function splitBalls() {
+      var free = balls.filter(function (b) { return !b.stuck; });
+      if (!free.length) { launchBalls(); free = balls.slice(); }
+      var extra = [];
+      for (var i = 0; i < free.length && balls.length + extra.length < 4; i++) {
+        var b = free[i];
+        for (var s = -1; s <= 1 && balls.length + extra.length < 4; s += 2) {
+          var a = Math.atan2(b.vy, b.vx) + s * 0.5;
+          extra.push({ x: b.x, y: b.y, vx: Math.cos(a) * b.speed, vy: Math.sin(a) * b.speed, stuck: false, off: 0, caught: false, speed: b.speed, trail: [] });
+        }
+      }
+      for (var k = 0; k < extra.length; k++) { steady(extra[k]); balls.push(extra[k]); }
+    }
+    function applyPower(id, x, y) {
+      var def = POWERUPS[id];
+      runStats.powers += 1;
+      sfx.drop(); A.haptics.thump();
+      particles.burst(x, y, { n: 14, color: [pal[def.color], pal.surface], speed: 2, life: 24, size: 2.4, kind: ["ring", "dot"] });
+      floaters.spawn(x, y - 12, def.name || def.label, pal[def.color] === pal.sage ? pal.sageDeep : pal[def.color], { size: 13, font: "display" });
+      if (id === "curiosity") splitBalls();
+      else powers.grant(id, def.uses || 1);
+      if (id === "patience") clampPaddle();
+      shell.toast((def.name || def.label) + ": " + def.text, 1700);
+      A.announce((def.name || def.label) + ". " + def.text + ".");
+    }
+    function maybeDrop(x, y, chance) {
+      if (Math.random() >= chance) return;
+      var pool = POWER_ORDER.filter(function (id) { return !(id === "curiosity" && balls.length >= 4); });
+      drops.push({ x: x, y: y, id: pool[Math.floor(Math.random() * pool.length)], bob: Math.random() * 6 });
     }
 
-    // ---------- Update ----------
-    function tick(dt) {
-      brickBuzzed = false;
-      if (state === "banner") {
-        bannerTimer -= dt;
-        if (bannerTimer <= 0) { state = "running"; }
+    // ---------- Cards ----------
+    function addCrack(br) {
+      var cx = br.x + br.w * (0.25 + Math.random() * 0.5);
+      br.cracks.push({ x: cx - br.x, k: Math.random() < 0.5 ? -1 : 1 });
+    }
+    function damage(br, full) {
+      if (br.boss) {
+        br.hp -= 1; br.hitT = reduce ? 0 : 8;
+        addCrack(br);
+        score += 30 * combo.mult();
+        sfx.boss(); camera.shake(0.3);
+        floaters.spawn(br.x + br.w / 2, br.y + br.h + 8, br.hp > 0 ? br.hp + " to go" : "busted", pal.clayText, { size: 11 });
+        maybeDrop(br.x + br.w / 2, br.y + br.h, 0.35);
+        if (br.hp <= 0) bust(br);
         return;
       }
-
-      // Paddle (keyboard; mouse sets paddleX absolutely, touch drags it by delta)
-      var pv = 3.2;
-      if (held.left) paddleX -= pv * dt;
-      if (held.right) paddleX += pv * dt;
-      paddleX = clamp(paddleX, 2, W - 2 - paddleW());
-
-      if (calmTimer > 0) calmTimer -= dt;
-      if (wideTimer > 0) wideTimer -= dt;
-      combo.tick(dt);
-
-      // Ball trail — the spark of curiosity. Sample the lead ball each frame.
-      if (!reduce && balls.length) {
-        var lead = balls[0];
-        trail.unshift({ x: lead.x, y: lead.y });
-        if (trail.length > TRAIL_CAP) trail.length = TRAIL_CAP;
-      } else if (trail.length) {
-        trail.length = 0;
+      br.hp = full ? 0 : br.hp - 1;
+      if (br.hp > 0) {
+        if (!br.cracks.length) addCrack(br);
+        br.hitT = reduce ? 0 : 6;
+        sfx.crack();
+        particles.burst(br.x + br.w / 2, br.y + br.h / 2, { n: 4, color: pal.inkMuted, speed: 1, life: 14, size: 1.6, kind: "square", gravity: 0.06 });
+        return;
       }
+      bust(br);
+    }
+    function bust(br) {
+      var i = bricks.indexOf(br);
+      if (i === -1) return;
+      bricks.splice(i, 1);
+      var mult = combo.hit(), chain = combo.count();
+      var cx = br.x + br.w / 2, cy = br.y + br.h / 2;
+      var base = br.boss ? 300 : br.myth ? 50 : 10 + (3 - Math.min(br.r, 3)) * 5;
+      var pts = base * mult;
+      score += pts;
+      if (!buzzed) { A.haptics.pop(); buzzed = true; }
+      if (br.myth) {
+        runStats.myths += 1;
+        if (br.boss) { runStats.boss = true; A.haptics.win(); camera.shake(0.8); camera.freeze(reduce ? 0 : 6); }
+        else { camera.shake(0.45); camera.freeze(reduce ? 0 : 3); }
+        sfx.bust(chain);
+        flips.push({ x: br.x, y: br.y, w: br.w, h: br.h, label: br.myth, truth: TRUTHS[br.myth] || "", t: 40, max: 40, boss: !!br.boss });
+        floaters.spawn(cx, br.y - 6, "busted +" + pts + (mult > 1 ? " ×" + mult : ""), pal.forest, { size: 11 });
+        A.announce("Busted: " + br.myth + ". " + (TRUTHS[br.myth] || "") + ".");
+        if (!br.boss) maybeDrop(cx, cy, 0.55);
+      } else {
+        sfx.card(chain);
+        camera.shake(0.1);
+        particles.burst(cx, cy, { n: 7, color: [tintFor(br.r), pal.surface], speed: 1.4, life: 20, size: 2.2, kind: ["square", "dot"], gravity: 0.08 });
+        floaters.spawn(cx, br.y, "+" + pts + (mult > 1 ? " ×" + mult : ""), mult > 1 ? pal.forest : pal.inkSoft, { size: mult > 1 ? 11 : 10 });
+        maybeDrop(cx, cy, 0.08);
+      }
+      syncHud(); shell.hud.flash("score");
+    }
 
-      var speedScale = calmTimer > 0 ? 0.65 : 1;
-
-      // Balls
+    // ---------- Ball physics ----------
+    // Keep a ball from settling into a near-horizontal loop.
+    function steady(b) {
+      var sp = Math.sqrt(b.vx * b.vx + b.vy * b.vy) || 1;
+      b.vx = b.vx / sp * b.speed; b.vy = b.vy / sp * b.speed;
+      var minVy = b.speed * 0.3;
+      if (Math.abs(b.vy) < minVy) {
+        b.vy = (b.vy < 0 ? -1 : 1) * minVy;
+        b.vx = (b.vx < 0 ? -1 : 1) * Math.sqrt(Math.max(0, b.speed * b.speed - minVy * minVy));
+      }
+    }
+    function overlaps(b, br) {
+      var nx = clamp(b.x, br.x, br.x + br.w), ny = clamp(b.y, br.y, br.y + br.h);
+      var dx = b.x - nx, dy = b.y - ny;
+      return dx * dx + dy * dy < R * R;
+    }
+    // One sub-step for one ball. Returns "lost" when it leaves the floor.
+    function subStep(b, s) {
+      var px = b.x, py = b.y;
+      b.x += b.vx * s; b.y += b.vy * s;
+      // walls
+      if (b.x < R) { b.x = R; b.vx = Math.abs(b.vx); sfx.wall(); }
+      else if (b.x > W - R) { b.x = W - R; b.vx = -Math.abs(b.vx); sfx.wall(); }
+      if (b.y < R) { b.y = R; b.vy = Math.abs(b.vy); sfx.wall(); }
+      // the ruler
+      var pw = paddleW(), pl = paddleCX - pw / 2;
+      if (b.vy > 0 && py + R <= PADDLE_Y + 2 && b.y + R >= PADDLE_Y && b.x >= pl - R && b.x <= pl + pw + R) {
+        b.y = PADDLE_Y - R;
+        if (combo.active() && combo.count() > 1) sfx.chainBroken(); else sfx.paddle();
+        combo.reset();
+        A.haptics.tick();
+        if (powers.active("sticky")) {
+          b.stuck = true; b.caught = true; b.off = clamp(b.x - paddleCX, -pw / 2 + R, pw / 2 - R);
+          b.vx = 0; b.vy = 0; sfx.catchIt();
+          return null;
+        }
+        var rel = clamp((b.x - paddleCX) / (pw / 2), -1, 1);
+        var ang = -Math.PI / 2 + rel * (Math.PI * 0.36);
+        b.speed = Math.min(b.speed + SPEED_STEP, SPEED_MAX);
+        b.vx = Math.cos(ang) * b.speed; b.vy = Math.sin(ang) * b.speed;
+        return null;
+      }
+      // cards: every card the ball touches this sub-step takes a hit, and
+      // each axis flips at most once.
+      var flipX = false, flipY = false, hits = null;
+      for (var i = 0; i < bricks.length; i++) {
+        var br = bricks[i];
+        if (!overlaps(b, br)) continue;
+        var wasOutX = px + R <= br.x || px - R >= br.x + br.w;
+        var wasOutY = py + R <= br.y || py - R >= br.y + br.h;
+        if (wasOutX && !wasOutY) {
+          if (!flipX) { b.vx = b.x < br.x + br.w / 2 ? -Math.abs(b.vx) : Math.abs(b.vx); b.x = px; flipX = true; }
+        } else if (!flipY) {
+          b.vy = b.y < br.y + br.h / 2 ? -Math.abs(b.vy) : Math.abs(b.vy); b.y = py; flipY = true;
+        }
+        (hits || (hits = [])).push(br);
+      }
+      if (hits) {
+        for (var h = 0; h < hits.length; h++) damage(hits[h], false);
+        steady(b);
+      }
+      if (b.y > H + 12) return "lost";
+      return null;
+    }
+    function moveBalls(dt) {
+      var speedScale = powers.active("calm") ? 0.65 : 1;
+      var magnet = powers.active("magnet");
       for (var i = balls.length - 1; i >= 0; i--) {
         var b = balls[i];
         if (b.stuck) {
-          b.x = paddleX + paddleW() / 2;
-          b.y = PADDLE_Y - BALL / 2 - 1;
+          b.x = paddleCX + b.off; b.y = PADDLE_Y - R - 0.5;
+          b.trail.length = 0;
           continue;
         }
-        b.x += b.vx * dt * speedScale;
-        b.y += b.vy * dt * speedScale;
-
-        // walls
-        if (b.x < BALL / 2) { b.x = BALL / 2; b.vx = Math.abs(b.vx); ensureAudio(); sfx.wall(); }
-        if (b.x > W - BALL / 2) { b.x = W - BALL / 2; b.vx = -Math.abs(b.vx); ensureAudio(); sfx.wall(); }
-        if (b.y < BALL / 2 + 14) { b.y = BALL / 2 + 14; b.vy = Math.abs(b.vy); ensureAudio(); sfx.wall(); }
-
-        // paddle
-        if (b.vy > 0 && b.y + BALL / 2 >= PADDLE_Y && b.y + BALL / 2 <= PADDLE_Y + PADDLE_H + 3 &&
-            b.x >= paddleX - 2 && b.x <= paddleX + paddleW() + 2) {
-          var rel = clamp((b.x - (paddleX + paddleW() / 2)) / (paddleW() / 2), -1, 1);
-          var ang = -Math.PI / 2 + rel * (Math.PI * 0.36);
-          b.speed = Math.min(b.speed + 0.045, 3.6);
-          b.vx = Math.cos(ang) * b.speed;
-          b.vy = Math.sin(ang) * b.speed;
-          b.y = PADDLE_Y - BALL / 2;
-          ensureAudio();
-          A.haptics.tick();
-          // Rally broken: the paddle catch resets the curiosity chain.
-          if (combo.active() && combo.count() > 1) { sfx.chainBroken(); } else { sfx.paddle(); }
-          combo.reset();
+        if (magnet && b.vy > 0 && b.y > H * 0.35) {
+          b.vx += clamp((paddleCX - b.x) * 0.0016, -0.07, 0.07) * dt;
+          steady(b);
         }
-
-        // bricks
-        if (hitBricks(b)) { /* bounce handled inside */ }
-
-        // floor
-        if (b.y > H + 8) {
-          balls.splice(i, 1);
-          loseBall();
-          if (state !== "running") return;
+        var dist = b.speed * speedScale * dt;
+        var steps = Math.max(1, Math.ceil(dist / (R / 2)));
+        var s = speedScale * dt / steps;
+        var lost = false;
+        for (var k = 0; k < steps; k++) {
+          if (subStep(b, s) === "lost") { lost = true; break; }
+          if (b.stuck) break;
         }
+        b.trail.unshift({ x: b.x, y: b.y });
+        if (b.trail.length > 6) b.trail.length = 6;
+        if (lost) { balls.splice(i, 1); onBallGone(); if (state !== "running") return; }
+      }
+    }
+    function onBallGone() {
+      if (balls.length || clearT > 0) { if (!balls.length) spawnBall(); return; }
+      lives -= 1;
+      sfx.lose(); A.haptics.crash();
+      combo.reset();
+      camera.shake(0.6); camera.freeze(reduce ? 0 : 4);
+      syncHud();
+      if (lives <= 0) {
+        state = "dying"; deathTimer = 40; wake.release();
+        A.announce("Last ball lost.");
+        return;
+      }
+      A.announce(lives + (lives === 1 ? " ball" : " balls") + " left.");
+      spawnBall();
+    }
+
+    function nextWall() {
+      score += 100 + wall * 50;
+      floaters.spawn(W / 2, H / 2, "Wall cleared +" + (100 + wall * 50), pal.forest, { size: 16, font: "display", life: 60 });
+      wall += 1;
+      sfx.level(); A.haptics.win();
+      powers.clear();
+      buildWall();
+      spawnBall();
+      enterWall(true);
+      syncHud();
+    }
+
+    // ---------- Tick ----------
+    function tick(dt) {
+      time += dt;
+      buzzed = false;
+      camera.tick(dt); particles.tick(dt); floaters.tick(dt); story.tick(dt);
+      tickFlips(dt);
+      if (state === "dying") {
+        deathTimer -= dt;
+        if (deathTimer <= 0) gameOver();
+        return;
+      }
+      if (state !== "running") return;
+      if (camera.frozen()) return;
+      combo.tick(dt); powers.tick(dt);
+      shell.renderPips(powers.list(), pal);
+      if (boltCool > 0) boltCool -= dt;
+
+      // ruler: keys and touch holds
+      var left = input.held.left || shell.held.left, right = input.held.right || shell.held.right;
+      if (left) paddleCX -= 6.4 * dt;
+      if (right) paddleCX += 6.4 * dt;
+      clampPaddle();
+
+      // the boss slides along the top row, quicker as it weakens
+      for (var bi = 0; bi < bricks.length; bi++) {
+        var bb = bricks[bi];
+        if (bb.hitT > 0) bb.hitT -= dt;
+        if (!bb.boss) continue;
+        bossT += dt * (0.014 + (6 - bb.hp) * 0.004);
+        var span = (fieldW() - bb.w) / 2;
+        bb.x = FIELD_X + span + Math.sin(bossT) * span;
+      }
+
+      moveBalls(dt);
+      if (state !== "running") return;
+
+      // pointed questions
+      for (var q = bolts.length - 1; q >= 0; q--) {
+        var bo = bolts[q];
+        bo.y -= 8 * dt;
+        var hit = null;
+        for (var j = 0; j < bricks.length; j++) {
+          var br = bricks[j];
+          if (bo.x >= br.x && bo.x <= br.x + br.w && bo.y - 10 <= br.y + br.h && bo.y >= br.y) { hit = br; break; }
+        }
+        if (hit) {
+          particles.burst(bo.x, hit.y + hit.h, { n: 6, color: pal.clay, speed: 1.2, life: 14, size: 1.8, kind: "spark" });
+          damage(hit, true);
+          bolts.splice(q, 1);
+        } else if (bo.y < -12) bolts.splice(q, 1);
       }
 
       // drops
+      var pw = paddleW(), pl = paddleCX - pw / 2;
       for (var d = drops.length - 1; d >= 0; d--) {
         var dr = drops[d];
-        dr.y += 0.9 * dt;
-        if (dr.y > H + 6) { drops.splice(d, 1); continue; }
-        if (dr.y + 3 >= PADDLE_Y && dr.y <= PADDLE_Y + PADDLE_H + 2 &&
-            dr.x >= paddleX - 4 && dr.x <= paddleX + paddleW() + 4) {
-          applyDrop(dr.type);
+        dr.y += 1.4 * dt;
+        if (dr.y > H + 10) { drops.splice(d, 1); continue; }
+        if (dr.y + 8 >= PADDLE_Y && dr.y - 8 <= PADDLE_Y + PADDLE_H && dr.x >= pl - 8 && dr.x <= pl + pw + 8) {
+          applyPower(dr.id, dr.x, PADDLE_Y);
           drops.splice(d, 1);
         }
       }
 
-      // particles / floaters
-      for (var p = 0; p < particles.length; p++) {
-        var pt = particles[p];
-        if (pt.life <= 0) continue;
-        pt.x += pt.vx * dt; pt.y += pt.vy * dt; pt.vy += 0.06 * dt; pt.life -= dt;
-      }
-      for (var f = 0; f < floaters.length; f++) {
-        var fl = floaters[f];
-        if (fl.life <= 0) continue;
-        fl.y -= 0.3 * dt; fl.life -= dt;
-      }
-
-      // level clear
-      if (!bricks.length && state === "running") {
-        score += 100 + level * 50;
-        level++;
-        ensureAudio(); sfx.level();
-        A.haptics.win(); // clearing a wall is the biggest beat the game has
-        buildLevel();
-        spawnBall();
-        startBanner("Wall " + level + ": keep asking");
+      // wall clear: a short beat so the last flip plays out, then the next wall
+      if (!bricks.length) {
+        if (clearT <= 0) clearT = 50;
+        clearT -= dt;
+        if (clearT <= 0) { clearT = 0; nextWall(); }
       }
     }
-
-    function hitBricks(b) {
-      for (var i = bricks.length - 1; i >= 0; i--) {
-        var br = bricks[i];
-        var box = brickBox(br);
-        if (b.x + BALL / 2 < box.x || b.x - BALL / 2 > box.x + box.w ||
-            b.y + BALL / 2 < box.y || b.y - BALL / 2 > box.y + box.h) continue;
-
-        // pick bounce axis from the shallower overlap
-        var overlapX = Math.min(b.x + BALL / 2 - box.x, box.x + box.w - (b.x - BALL / 2));
-        var overlapY = Math.min(b.y + BALL / 2 - box.y, box.y + box.h - (b.y - BALL / 2));
-        if (overlapX < overlapY) b.vx = b.x < box.x + box.w / 2 ? -Math.abs(b.vx) : Math.abs(b.vx);
-        else b.vy = b.y < box.y + box.h / 2 ? -Math.abs(b.vy) : Math.abs(b.vy);
-
-        br.hp--;
-        if (br.hp <= 0) {
-          // Curiosity Chain: each destroyed brick extends the rally.
-          var mult = combo.hit();
-          var chain = combo.count();
-          var base = br.myth ? 50 : 10 + (3 - Math.min(br.r, 3)) * 5;
-          var pts = base * mult;
-          score += pts;
-          spawnBurst(box.x + box.w / 2, box.y + box.h / 2, br.myth ? BRAIN : ROW_COLORS[br.r % ROW_COLORS.length], br.myth ? 12 : 6);
-          spawnFloater(box.x + box.w / 2, box.y,
-            (br.myth ? "busted!" : "+" + pts) + (mult > 1 ? " x" + mult : ""),
-            br.myth ? BRAIN : LEAF_SIDE);
-          ensureAudio();
-          if (!brickBuzzed) { A.haptics.pop(); brickBuzzed = true; }
-          if (br.myth) {
-            sfx.bust(chain);
-            camera.shake(0.5); camera.freeze(reduce ? 0 : 3);   // busting a myth = a satisfying crunch
-          } else {
-            sfx.brick(chain);
-            camera.shake(0.14);                                  // tiny tap per brick
-          }
-          if (Math.random() < (br.myth ? 0.55 : 0.14)) {
-            var types = ["calm", "wide", "spark"];
-            drops.push({ x: box.x + box.w / 2, y: box.y + box.h / 2, type: types[Math.floor(Math.random() * types.length)] });
-          }
-          bricks.splice(i, 1);
-        } else {
-          ensureAudio(); sfx.crack();
-          spawnBurst(b.x, b.y, WARM, 4);
+    function tickFlips(dt) {
+      for (var i = flips.length - 1; i >= 0; i--) {
+        var f = flips[i];
+        f.t -= dt;
+        if (f.t <= 0) {
+          flips.splice(i, 1);
+          var cx = f.x + f.w / 2, cy = f.y + f.h / 2;
+          particles.burst(cx, cy, { n: f.boss ? 30 : 14, color: [pal.surface, pal.forest, pal.sage, pal.ochre], speed: f.boss ? 2.6 : 1.7, life: 34, size: 2.6, kind: ["square", "leaf", "dot"], gravity: 0.09 });
         }
-        return true;
-      }
-      return false;
-    }
-
-    function applyDrop(type) {
-      ensureAudio(); sfx.drop();
-      A.haptics.thump();
-      if (type === "calm") {
-        calmTimer = 420;
-        spawnFloater(paddleX + paddleW() / 2, PADDLE_Y - 8, "calm", LEAF_SIDE);
-      } else if (type === "wide") {
-        wideTimer = 540;
-        spawnFloater(paddleX + paddleW() / 2, PADDLE_Y - 8, "patience", LEAF_TOP);
-      } else {
-        // spark: split every live ball (cap 4 total)
-        var extra = [];
-        for (var i = 0; i < balls.length && balls.length + extra.length < 4; i++) {
-          var b = balls[i];
-          if (b.stuck) continue;
-          var a = Math.atan2(b.vy, b.vx) + 0.5;
-          extra.push({ x: b.x, y: b.y, vx: Math.cos(a) * b.speed, vy: Math.sin(a) * b.speed, stuck: false, speed: b.speed });
-        }
-        balls = balls.concat(extra);
-        spawnFloater(paddleX + paddleW() / 2, PADDLE_Y - 8, "curiosity!", BRAIN);
       }
     }
 
     // ---------- Render ----------
-    function render() {
-      ctx.setTransform(backingScale, 0, 0, backingScale, 0, 0);
-      ctx.imageSmoothingEnabled = false;
+    function cardPath(c, x, y, w, h, f) {
+      c.beginPath();
+      c.moveTo(x, y); c.lineTo(x + w - f, y); c.lineTo(x + w, y + f); c.lineTo(x + w, y + h); c.lineTo(x, y + h); c.closePath();
+    }
+    // An index card: surface (or a row tint), ink outline, 2 px shadow, a
+    // folded corner and a light rule line near the top.
+    function drawCard(x, y, w, h, fill, ruleColor) {
+      var f = Math.min(7, h * 0.35);
+      draw.shape(ctx, function (c) { cardPath(c, x, y, w, h, f); }, { fill: fill, stroke: pal.ink, lineWidth: 1.3, shadow: 2, shadowColor: pal.shadow });
+      ctx.strokeStyle = ruleColor; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(x + 3, y + 5.5); ctx.lineTo(x + w - f - 1, y + 5.5); ctx.stroke();
+      // the fold
+      draw.shape(ctx, function (c) { c.beginPath(); c.moveTo(x + w - f, y); c.lineTo(x + w - f, y + f); c.lineTo(x + w, y + f); c.closePath(); },
+        { fill: pal.mix(fill, pal.ink, 0.16), stroke: pal.ink, lineWidth: 1 });
+    }
+    function drawCracks(br) {
+      ctx.strokeStyle = pal.ink; ctx.lineWidth = 1.2;
+      for (var i = 0; i < br.cracks.length; i++) {
+        var cr = br.cracks[i], x = br.x + cr.x, k = cr.k;
+        var y0 = br.y + 1, y1 = br.y + br.h * 0.5, y2 = br.y + br.h - 1;
+        ctx.beginPath();
+        ctx.moveTo(x, y0); ctx.lineTo(x + 3 * k, y1 - 2); ctx.lineTo(x - 1 * k, y1 + 2); ctx.lineTo(x + 2 * k, y2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x - 1 * k, y1 + 2); ctx.lineTo(x - 7 * k, y1 + 5);
+        ctx.stroke();
+      }
+    }
+    function drawBrick(br) {
+      var flash = br.hitT > 0 ? 0.35 : 0;
+      if (br.boss) {
+        var fill = flash ? pal.mix(pal.surface, pal.clay, flash) : pal.surface;
+        drawCard(br.x, br.y, br.w, br.h, fill, pal.alpha(pal.clay, 0.55));
+        ctx.strokeStyle = pal.alpha(pal.research, 0.25); ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(br.x + 4, br.y + 30.5); ctx.lineTo(br.x + br.w - 4, br.y + 30.5); ctx.stroke();
+        draw.label(ctx, br.myth, br.x + br.w / 2, br.y + 17, { font: "display", size: 15, weight: 600, color: pal.ink });
+        // hit points as six small dots
+        var n = br.maxHp, gap = 9, sx = br.x + br.w / 2 - (n - 1) * gap / 2;
+        for (var i = 0; i < n; i++) {
+          draw.circle(ctx, sx + i * gap, br.y + 31, 2.6, i < br.hp ? { fill: pal.clay, stroke: pal.ink, lineWidth: 1 } : { fill: pal.surface, stroke: pal.inkMuted, lineWidth: 1 });
+        }
+        drawCracks(br);
+        return;
+      }
+      if (br.myth) {
+        drawCard(br.x, br.y, br.w, br.h, flash ? pal.mix(pal.surface, pal.ochre, flash) : pal.surface, pal.alpha(pal.clay, 0.5));
+        draw.label(ctx, br.myth, br.x + br.w / 2, br.y + br.h / 2 + 2.5, { size: 11, weight: 600, color: pal.ink, maxWidth: br.w - 10 });
+        drawCracks(br);
+        return;
+      }
+      var tint = tintFor(br.r);
+      var dark = (br.r % 4) === 3;
+      drawCard(br.x, br.y, br.w, br.h, tint, dark ? pal.alpha(pal.onForest, 0.35) : pal.alpha(pal.ink, 0.16));
+      // two faint writing lines so a plain card still reads as a card
+      ctx.strokeStyle = dark ? pal.alpha(pal.onForest, 0.22) : pal.alpha(pal.ink, 0.1); ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(br.x + 4, br.y + 11.5); ctx.lineTo(br.x + br.w - 6, br.y + 11.5);
+      ctx.moveTo(br.x + 4, br.y + 15.5); ctx.lineTo(br.x + br.w * 0.6, br.y + 15.5); ctx.stroke();
+    }
+    function drawFlip(f) {
+      // 0..8 frames: the front squashes shut; then the truth side opens and holds.
+      var age = f.max - f.t;
+      var front = age < 8 && !reduce;
+      var sy = reduce ? 1 : front ? 1 - age / 8 : Math.min(1, (age - 8) / 8);
+      var fade = Math.min(1, f.t / 6);
       ctx.save();
-      var sh = camera.offset();
-      ctx.translate(sh.x, sh.y);
-      ctx.fillStyle = CREAM;
-      ctx.fillRect(-4, -4, W + 8, H + 8);
-
-      // ceiling line
-      ctx.fillStyle = "rgba(14,42,45,0.25)";
-      ctx.fillRect(0, 13, W, 1);
-
-      // bricks
-      ctx.font = "6px monospace";
-      for (var i = 0; i < bricks.length; i++) {
-        var br = bricks[i];
-        var box = brickBox(br);
-        if (br.myth) {
-          blockyRect(ctx, box.x, box.y, box.w, box.h, br.hp > 1 ? WARM : "#E8DCC2");
-          ctx.fillStyle = INK;
-          ctx.textAlign = "center";
-          ctx.fillText(br.myth, box.x + box.w / 2, box.y + 7);
-          ctx.textAlign = "left";
-          if (br.hp === 1) { // cracked
-            ctx.fillStyle = INK;
-            ctx.fillRect(box.x + 4, box.y + 2, 1, 6);
-            ctx.fillRect(box.x + box.w - 6, box.y + 3, 1, 5);
-          }
-        } else {
-          blockyRect(ctx, box.x, box.y, box.w, box.h, ROW_COLORS[br.r % ROW_COLORS.length]);
-          ctx.fillStyle = "rgba(255,255,255,0.35)";
-          ctx.fillRect(box.x + 1, box.y + 1, box.w - 2, 1);
-        }
+      ctx.globalAlpha = fade;
+      var cx = f.x + f.w / 2, cy = f.y + f.h / 2;
+      ctx.translate(cx, cy); ctx.scale(1, Math.max(0.05, sy)); ctx.translate(-cx, -cy);
+      if (front) {
+        drawCard(f.x, f.y, f.w, f.h, pal.surface, pal.alpha(pal.clay, 0.5));
+        draw.label(ctx, f.label, cx, cy + 2.5, { size: 11, weight: 600, color: pal.ink, maxWidth: f.w - 10 });
+      } else {
+        ctx.font = "italic 500 11px " + pal.fontDisplay;
+        var tw = Math.min(W - 8, Math.max(f.w, ctx.measureText(f.truth).width + 18));
+        var th = f.boss ? f.h : f.h + 4;
+        var tx = clamp(cx - tw / 2, 4, W - 4 - tw), ty = cy - th / 2;
+        draw.box(ctx, tx, ty, tw, th, 3, { fill: pal.forest, stroke: pal.ink, lineWidth: 1.3, shadow: 2, shadowColor: pal.shadow });
+        draw.label(ctx, f.truth, tx + tw / 2, ty + th / 2 + 0.5, { font: "display", size: f.boss ? 13 : 11, italic: true, weight: 500, color: pal.onForest, maxWidth: tw - 10 });
       }
-
-      // drops
-      ctx.font = "6px monospace"; ctx.textAlign = "center";
-      for (var d = 0; d < drops.length; d++) {
-        var dr = drops[d];
-        var color = dr.type === "calm" ? LEAF_SIDE : dr.type === "wide" ? LEAF_TOP : BRAIN;
-        blockyRect(ctx, dr.x - 3, dr.y - 3, 6, 6, color);
-        ctx.fillStyle = INK;
-        ctx.fillText(dr.type === "calm" ? "C" : dr.type === "wide" ? "W" : "S", dr.x, dr.y + 2);
-      }
-      ctx.textAlign = "left";
-
-      // paddle
-      var pw = paddleW();
-      blockyRect(ctx, paddleX, PADDLE_Y, pw, PADDLE_H, wideTimer > 0 ? LEAF_TOP : "#517965");
-      ctx.fillStyle = BRAIN;
-      ctx.fillRect(Math.round(paddleX + pw / 2 - 2), PADDLE_Y + 1, 4, PADDLE_H - 2);
-
-      // ball trail — the spark of curiosity, tinted by the rally: white when
-      // idle, warming to LEAF_SIDE then BRAIN as the chain climbs.
-      var cm = combo.mult();
-      var trailColor = cm >= 4 ? BRAIN : cm >= 2 ? LEAF_SIDE : "#FFFFFF";
-      if (!reduce) {
-        for (var tr = trail.length - 1; tr >= 1; tr--) {
-          var tp = trail[tr];
-          ctx.globalAlpha = clamp((1 - tr / TRAIL_CAP) * 0.5, 0, 1);
-          ctx.fillStyle = trailColor;
-          var ts = tr <= 2 ? 3 : 2;
-          ctx.fillRect(Math.round(tp.x - ts / 2), Math.round(tp.y - ts / 2), ts, ts);
-        }
-        ctx.globalAlpha = 1;
-      }
-
-      // balls
-      for (var b = 0; b < balls.length; b++) {
-        var ball = balls[b];
-        if (!reduce) A.pixelGlow(ctx, ball.x, ball.y, 4, calmTimer > 0 ? LEAF_SIDE : trailColor, 0.14);
-        blockyRect(ctx, ball.x - BALL / 2, ball.y - BALL / 2, BALL, BALL, calmTimer > 0 ? LEAF_SIDE : "#FFFFFF");
-      }
-
-      // particles
-      for (var p = 0; p < particles.length; p++) {
-        var pt = particles[p];
-        if (pt.life <= 0) continue;
-        ctx.globalAlpha = clamp(pt.life / pt.maxLife, 0, 1);
-        ctx.fillStyle = pt.color;
-        ctx.fillRect(Math.round(pt.x), Math.round(pt.y), 2, 2);
-      }
-      ctx.globalAlpha = 1;
-
-      // floaters
-      ctx.font = "7px monospace"; ctx.textAlign = "center";
-      for (var f = 0; f < floaters.length; f++) {
-        var fl = floaters[f];
-        if (fl.life <= 0) continue;
-        ctx.globalAlpha = clamp(fl.life / fl.maxLife, 0, 1);
-        ctx.fillStyle = fl.color;
-        ctx.fillText(fl.text, Math.round(fl.x), Math.round(fl.y));
-      }
-      ctx.globalAlpha = 1; ctx.textAlign = "left";
-
-      // lives (paddle pips, top-left) + effect labels
-      for (var lv = 0; lv < lives; lv++) {
-        ctx.fillStyle = "#517965";
-        ctx.fillRect(6 + lv * 10, 6, 7, 3);
-      }
-      ctx.font = "7px monospace";
-      if (calmTimer > 0) { ctx.fillStyle = LEAF_SIDE; ctx.fillText("CALM", W - 66, 10); }
-      if (wideTimer > 0) { ctx.fillStyle = LEAF_TOP; ctx.fillText("WIDE", W - 34, 10); }
-
-      // Curiosity Chain readout — colour escalates LEAF_SIDE -> BRAIN as the
-      // rally grows, with a thin draining bar for the combo window.
-      var chainN = combo.count();
-      if (chainN > 1) {
-        var cMult = combo.mult();
-        var chainColor = cMult >= 4 ? BRAIN : cMult >= 2 ? LEAF_SIDE : LEAF_TOP;
-        ctx.font = "bold 7px monospace"; ctx.textAlign = "center";
-        ctx.fillStyle = chainColor;
-        ctx.fillText("CHAIN x" + cMult + " (" + chainN + ")", W / 2, 10);
-        ctx.fillStyle = "rgba(64,192,153,0.55)";
-        ctx.fillRect(W / 2 - 20, 12, Math.round(40 * combo.frac()), 1);
-        ctx.textAlign = "left";
-      }
-
-      // banner
-      if (state === "banner" && bannerTimer > 0) {
-        ctx.globalAlpha = clamp(bannerTimer / 100, 0, 1);
-        ctx.fillStyle = "rgba(244,239,227,0.88)"; ctx.fillRect(0, H / 2 - 15, W, 30);
-        ctx.fillStyle = INK; ctx.font = "bold 9px monospace"; ctx.textAlign = "center";
-        ctx.fillText(bannerText, W / 2, H / 2 + 2);
-        ctx.globalAlpha = 1; ctx.textAlign = "left";
-      }
-
       ctx.restore();
     }
-
-    // ---------- HUD / prompt ----------
-    function updateHud() {
-      if (els.score) els.score.textContent = String(Math.floor(score)).padStart(5, "0");
-      if (els.best) els.best.textContent = String(A.leaderboard.best(GAME_KEY)).padStart(5, "0");
-      if (els.level) els.level.textContent = String(level || 1);
-    }
-    function hidePrompt() { if (els.prompt) els.prompt.hidden = true; }
-    function showIdle() {
-      els.promptTitle.textContent = "Myth Buster";
-      els.promptText.textContent = "Bust the parenting myths brick by brick. The labeled ones take two hits.";
-      els.promptActions.textContent = "";
-      A.renderLeaderboard(els.promptActions, GAME_KEY, { title: "Local top scores" });
-      var btn = document.createElement("button");
-      btn.type = "button"; btn.className = "btn btn--primary"; btn.textContent = "Start";
-      btn.addEventListener("click", function () { start(); try { canvas.focus(); } catch (e) {} });
-      els.promptActions.appendChild(btn);
-      els.prompt.hidden = false;
-    }
-    function showPause() {
-      els.promptTitle.textContent = "Paused";
-      els.promptText.textContent = "The myths will wait. Take a breath.";
-      els.promptActions.textContent = "";
-      var btn = document.createElement("button");
-      btn.type = "button"; btn.className = "btn btn--primary"; btn.textContent = "Resume";
-      btn.addEventListener("click", function () { resumeGame(); try { canvas.focus(); } catch (e) {} });
-      els.promptActions.appendChild(btn);
-      els.prompt.hidden = false;
-    }
-    function showEnd(finalScore) {
-      updateHud();
-      els.promptTitle.textContent = "The wall held, this time";
-      els.promptText.textContent = "Score " + String(finalScore).padStart(5, "0") + " · wall " + level +
-        (combo.best() > 1 ? " · best chain " + combo.best() : "");
-      els.promptActions.textContent = "";
-      if (A.leaderboard.qualifies(GAME_KEY, finalScore)) {
-        A.mountInitialsEntry(els.promptActions, {
-          gameKey: GAME_KEY, score: finalScore,
-          onDone: function (rank) {
-            updateHud();
-            els.promptActions.textContent = "";
-            A.renderLeaderboard(els.promptActions, GAME_KEY, { title: "Local top scores", highlightRank: rank });
-            addPlayAgain("Play again");
-            try { canvas.focus(); } catch (e) {}
-          }
-        });
-        addPlayAgain("Skip & play again", "btn--ghost");
-      } else {
-        A.renderLeaderboard(els.promptActions, GAME_KEY, { title: "Local top scores" });
-        addPlayAgain("Play again");
+    function drawRuler() {
+      var pw = paddleW(), px = paddleCX - pw / 2, py = PADDLE_Y;
+      var wood = pal.mix(pal.ochre, pal.paper, 0.4);
+      if (powers.active("magnet")) {
+        // a quiet field under the ruler: two short research-blue arcs
+        ctx.strokeStyle = pal.alpha(pal.research, 0.55); ctx.lineWidth = 1.2;
+        ctx.beginPath(); ctx.ellipse(paddleCX, py + PADDLE_H / 2, pw / 2 + 4, PADDLE_H / 2 + 4, 0, 0.15 * Math.PI, 0.85 * Math.PI); ctx.stroke();
+        ctx.beginPath(); ctx.ellipse(paddleCX, py + PADDLE_H / 2, pw / 2 + 8, PADDLE_H / 2 + 7, 0, 0.25 * Math.PI, 0.75 * Math.PI); ctx.stroke();
       }
-      els.prompt.hidden = false;
+      draw.pill(ctx, px, py, pw, PADDLE_H, { fill: wood, stroke: pal.ink, lineWidth: 1.3, shadow: 2.5, shadowColor: pal.shadow });
+      // tick marks along the top edge, a long one every fifth
+      ctx.strokeStyle = pal.ink; ctx.lineWidth = 1;
+      ctx.beginPath();
+      var n = 0;
+      for (var x = px + 6; x <= px + pw - 6; x += 4, n++) {
+        var len = n % 5 === 0 ? 4.5 : 2.4;
+        ctx.moveTo(Math.round(x) + 0.5, py + 1.2); ctx.lineTo(Math.round(x) + 0.5, py + 1.2 + len);
+      }
+      ctx.stroke();
+      if (powers.active("sticky")) {
+        ctx.strokeStyle = pal.forest; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(px + 5, py + PADDLE_H - 2.2); ctx.lineTo(px + pw - 5, py + PADDLE_H - 2.2); ctx.stroke();
+      }
+      if (powers.active("question")) {
+        draw.circle(ctx, paddleCX, py - 1, 2.2, { fill: pal.clay, stroke: pal.ink, lineWidth: 1 });
+      }
     }
-    function addPlayAgain(label, variant) {
-      var btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "btn " + (variant || "btn--primary");
-      btn.textContent = label;
-      btn.addEventListener("click", function () { start(); try { canvas.focus(); } catch (e) {} });
-      els.promptActions.appendChild(btn);
+    function drawBall(b, calm) {
+      for (var i = b.trail.length - 1; i >= 1; i--) {
+        var tp = b.trail[i], k = i / 6;
+        ctx.fillStyle = pal.alpha(pal.ink, 0.28 * (1 - k));
+        ctx.beginPath(); ctx.arc(tp.x, tp.y, R * (1 - k * 0.55), 0, Math.PI * 2); ctx.fill();
+      }
+      if (calm) draw.circle(ctx, b.x, b.y, R + 3, { stroke: pal.alpha(pal.research, 0.7), lineWidth: 1.4 });
+      ctx.fillStyle = pal.shadow; ctx.beginPath(); ctx.arc(b.x, b.y + 2, R, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = pal.ink; ctx.beginPath(); ctx.arc(b.x, b.y, R, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = pal.alpha(pal.surface, 0.55); ctx.beginPath(); ctx.arc(b.x - R * 0.35, b.y - R * 0.35, R * 0.3, 0, Math.PI * 2); ctx.fill();
+    }
+    function drawDrop(dr) {
+      var def = POWERUPS[dr.id], col = pal[def.color];
+      var y = dr.y + (reduce ? 0 : Math.sin(time * 0.12 + dr.bob) * 1.2);
+      var light = def.color === "sage" || def.color === "ochre";
+      draw.circle(ctx, dr.x, y, 8, { fill: col, stroke: pal.ink, lineWidth: 1.3, shadow: 2, shadowColor: pal.shadow });
+      draw.label(ctx, (def.name || def.label).charAt(0), dr.x, y + 0.5, { font: "display", size: 11, weight: 600, color: light ? pal.ink : pal.surface });
     }
 
-    // ---------- Loop ----------
-    var rafId = null, lastTime = 0;
-    function loop(now) {
-      if (!lastTime) lastTime = now;
-      var dt = Math.min(2.5, (now - lastTime) / (1000 / 60));
-      lastTime = now;
-      camera.tick(dt);
-      if ((state === "running" || state === "banner") && !camera.frozen()) tick(dt);
-      render();
-      updateHud();
-      rafId = window.requestAnimationFrame(loop);
+    function render() {
+      cv.begin(camera);
+      draw.paper(ctx, W, H, pal, { step: 16, dot: 0.9 });
+      ctx.strokeStyle = pal.rule; ctx.lineWidth = 1; ctx.strokeRect(0.5, 0.5, W - 1, H - 1);
+
+      var i;
+      for (i = 0; i < bricks.length; i++) drawBrick(bricks[i]);
+      for (i = 0; i < drops.length; i++) drawDrop(drops[i]);
+      for (i = 0; i < bolts.length; i++) {
+        var bo = bolts[i];
+        ctx.strokeStyle = pal.ink; ctx.lineWidth = 4.2; ctx.beginPath(); ctx.moveTo(bo.x, bo.y); ctx.lineTo(bo.x, bo.y - 10); ctx.stroke();
+        ctx.strokeStyle = pal.clay; ctx.lineWidth = 2.2; ctx.beginPath(); ctx.moveTo(bo.x, bo.y); ctx.lineTo(bo.x, bo.y - 10); ctx.stroke();
+      }
+      drawRuler();
+      var calm = powers.active("calm");
+      ctx.save();
+      if (state === "dying") ctx.globalAlpha = 0.4;
+      for (i = 0; i < balls.length; i++) drawBall(balls[i], calm);
+      ctx.restore();
+      for (i = 0; i < flips.length; i++) drawFlip(flips[i]);
+
+      particles.render(ctx);
+      floaters.render(ctx);
+
+      // aim hint while a ball waits on the ruler
+      if (state === "running" && balls.length && balls[0].stuck && !story.banner()) {
+        draw.label(ctx, balls[0].caught ? "Space or tap lets go" : "Space or tap to launch", W / 2, PADDLE_Y - 26, { size: 11, weight: 500, color: pal.inkMuted });
+      }
+
+      // chain readout, top right
+      if (state === "running" && combo.count() > 1) {
+        var cm = combo.mult();
+        draw.label(ctx, "Chain ×" + cm + " · " + combo.count(), W - 12, 16, { size: 11, weight: 600, color: cm >= 3 ? pal.forest : pal.inkSoft, align: "right" });
+        ctx.fillStyle = pal.alpha(pal.forest, 0.5); ctx.fillRect(W - 72, 25, 60 * combo.frac(), 2);
+      }
+
+      // wall banner
+      var bn = story.banner();
+      if (bn && state === "running") {
+        var a = Math.min(1, bn.frac * 3) * Math.min(1, (1 - bn.frac) * 6 + 0.2);
+        ctx.save(); ctx.globalAlpha = a;
+        var ty = 24 + (reduce ? 0 : (1 - Math.min(1, (1 - bn.frac) * 4)) * -10);
+        var bw = Math.min(W - 24, 300);
+        draw.box(ctx, W / 2 - bw / 2, ty - 20, bw, 54, 6, { fill: pal.alpha(pal.paper, 0.92), stroke: pal.rule, lineWidth: 1 });
+        draw.label(ctx, "Wall " + wall + " · " + bn.name, W / 2, ty, { font: "display", size: 22, color: pal.ink, weight: 500 });
+        draw.label(ctx, bn.text, W / 2, ty + 21, { size: 11, color: pal.inkMuted, weight: 500 });
+        ctx.restore();
+      }
+
+      // wall progress along the bottom rule
+      if (state === "running" || state === "paused") {
+        var prog = wallTotal ? (wallTotal - bricks.length) / wallTotal : 0;
+        ctx.fillStyle = pal.alpha(pal.forest, 0.55); ctx.fillRect(0, H - 2, W * prog, 2);
+      }
+
+      cv.end();
     }
+
+    var loop = A.makeLoop(function (dt) { tick(dt); input.consume(); }, render);
+
+    function onHidden() { if (state === "running") pause(); }
+
+    A.debug("breakout", {
+      state: function () { return state; },
+      score: function () { return Math.floor(score); },
+      info: function () { return { wall: wall, lives: lives, balls: balls.length, cards: bricks.length, flips: flips.length, drops: drops.length, powers: powers.list().map(function (p) { return p.id; }), size: [W, H], cols: COLS }; },
+      grant: function (id) { if (!POWERUPS[id]) return false; applyPower(id, paddleCX, PADDLE_Y); return true; },
+      skipToWall: function (n) {
+        if (state !== "running") start();
+        wall = Math.max(1, Math.floor(n) || 1);
+        powers.clear(); flips = [];
+        buildWall(); spawnBall(); enterWall(true); syncHud();
+        return wall;
+      },
+      clearWall: function () { if (state !== "running") return false; bricks.length = 0; return true; },
+      loseBall: function () { if (state !== "running") return false; balls.length = 0; onBallGone(); return true; },
+      launch: function () { act(); },
+      // put the ruler under a logical x (for aiming in tests)
+      aim: function (x) { paddleCX = x; clampPaddle(); return paddleCX; },
+      cards: function () { return bricks.map(function (b) { return { x: b.x + b.w / 2, y: b.y, myth: b.myth || null, hp: b.hp, boss: !!b.boss }; }); }
+    });
 
     return {
-      held: held,
-      resize: function (cssW, cssH) {
-        var dpr = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
-        var nextW = Math.max(W, Math.round(cssW * dpr));
-        var nextH = Math.max(H, Math.round(cssH * dpr));
-        if (canvas.width !== nextW || canvas.height !== nextH) {
-          canvas.width = nextW;
-          canvas.height = nextH;
-          ctx.imageSmoothingEnabled = false;
-        }
-        canvas.style.width = Math.round(cssW) + "px";
-        canvas.style.height = Math.round(cssH) + "px";
-        backingScale = nextW / W;
-      },
-      launchOrStart: function () {
-        ensureAudio();
-        if (state === "paused") { resumeGame(); return; }
-        if (state === "idle") { start(); return; }
-        if (state === "gameover") {
-          if (document.activeElement && document.activeElement.tagName === "INPUT") return;
-          start(); return;
-        }
-        launch();
-      },
-      movePaddleTo: function (lx) {
-        if (state !== "running" && state !== "banner") return;
-        paddleX = clamp(lx - paddleW() / 2, 2, W - 2 - paddleW());
-      },
-      movePaddleBy: function (dlx) {
-        if (state !== "running" && state !== "banner") return;
-        paddleX = clamp(paddleX + dlx, 2, W - 2 - paddleW());
-      },
-      isPaused: function () { return state === "paused"; },
-      resume: function () { resumeGame(); },
-      toggleMute: function () { return audio.toggleMute(); },
-      isMuted: function () { return audio.isMuted(); },
+      held: input.held,
       activate: function () {
-        resetWorld(); state = "idle"; lastTime = 0;
-        updateHud(); showIdle();
-        wake.acquire();
-        unHidden = A.onHidden(pauseGame);
-        rafId = window.requestAnimationFrame(loop);
+        pal = A.theme();
+        cv.fit();
+        setField(cv.aspect() < 0.9);
+        cv.setSize(W, H);
+        state = "idle"; resetWorld();
+        render();
+        loop.start();
+        unsubHidden = A.onHidden(onHidden);
+        showStart();
       },
       deactivate: function () {
-        if (rafId) window.cancelAnimationFrame(rafId);
-        rafId = null;
+        loop.stop();
+        if (unsubHidden) { unsubHidden(); unsubHidden = null; }
         wake.release();
-        if (unHidden) { unHidden(); unHidden = null; }
-        audio.close();
-      }
+        synth.close();
+        input.release();
+        state = "idle";
+      },
+      onKeydown: function (e) { if (input.onKeydown(e)) e.preventDefault(); },
+      onKeyup: function (e) { input.onKeyup(e); },
+      destroy: function () { offTheme(); input.destroy(); }
     };
   }
 
   // ======================================================================
-  //  Overlay scaffolding
+  //  Overlay
   // ======================================================================
-  function buildOverlay() {
-    var overlay = document.createElement("div");
-    overlay.className = "gms-arcade-overlay";
-    overlay.setAttribute("role", "dialog");
-    overlay.setAttribute("aria-modal", "true");
-    overlay.setAttribute("aria-label", "Myth Buster, a hidden mini game");
-    overlay.innerHTML =
-      '<div class="gms-arcade-backdrop" data-egg-close></div>' +
-      '<div class="gms-arcade-panel">' +
-        '<div class="gms-arcade-panel__head">' +
-          '<p class="gms-arcade-title">Myth Buster<span>: you found it!</span></p>' +
-          '<div style="display:flex;gap:8px;align-items:center">' +
-            '<button type="button" class="gms-arcade-close" data-egg-mute aria-label="Sound">♪</button>' +
-            '<button type="button" class="gms-arcade-close" data-egg-close aria-label="Close game">&times;</button>' +
-          '</div>' +
-        '</div>' +
-        '<div class="gms-arcade-scores">' +
-          '<span>SCORE <strong data-egg-score>00000</strong></span>' +
-          '<span>WALL <strong data-egg-level>1</strong></span>' +
-          '<span>BEST <strong data-egg-best>00000</strong></span>' +
-        '</div>' +
-        '<div class="gms-arcade-stage gms-arcade-stage--breakout">' +
-          '<canvas class="gms-arcade-canvas" tabindex="0" role="application" aria-label="Myth Buster play area. Left and right arrows move the paddle, Space launches, M mutes."></canvas>' +
-          '<div class="gms-arcade-prompt" data-egg-prompt hidden>' +
-            '<p class="gms-arcade-prompt__title" data-egg-prompt-title></p>' +
-            '<p class="gms-arcade-prompt__text" data-egg-prompt-text></p>' +
-            '<div class="gms-arcade-prompt__actions" data-egg-prompt-actions></div>' +
-          '</div>' +
-        '</div>' +
-        '<p class="gms-arcade-help">Mouse or drag anywhere steers (touchpad-style) · tap / click / Space launches · M to mute</p>' +
-        '<div class="gms-arcade-touchrow">' +
-          '<button type="button" class="gms-arcade-touchbtn" data-egg-left aria-label="Move left">◀</button>' +
-          '<button type="button" class="gms-arcade-touchbtn" data-egg-launch aria-label="Launch">LAUNCH</button>' +
-          '<button type="button" class="gms-arcade-touchbtn" data-egg-right aria-label="Move right">▶</button>' +
-        '</div>' +
-      '</div>';
-    document.body.appendChild(overlay);
-
-    var canvas = overlay.querySelector(".gms-arcade-canvas");
-    var stage = overlay.querySelector(".gms-arcade-stage");
-    function fitCanvas() {
-      if (!stage) return;
-      var rect = stage.getBoundingClientRect();
-      if (!rect.width || !rect.height) return;
-      // Fractional scale is fine: the backing store is already rendered at
-      // devicePixelRatio resolution, so this stays crisp while filling the
-      // available space (no wasted margin from flooring to whole numbers).
-      var scale = Math.max(0.5, Math.min(rect.width / W, rect.height / H));
-      game.resize(W * scale, H * scale);
-    }
-    var game = createGame(canvas, {
-      score: overlay.querySelector("[data-egg-score]"),
-      best: overlay.querySelector("[data-egg-best]"),
-      level: overlay.querySelector("[data-egg-level]"),
-      prompt: overlay.querySelector("[data-egg-prompt]"),
-      promptTitle: overlay.querySelector("[data-egg-prompt-title]"),
-      promptText: overlay.querySelector("[data-egg-prompt-text]"),
-      promptActions: overlay.querySelector("[data-egg-prompt-actions]")
+  A.ready(function () {
+    A.defineGame("breakout", function () {
+      var shell = A.makeShell({
+        key: GAME_KEY,
+        title: "Myth Buster",
+        tagline: "Bust the myths, card by card.",
+        label: "Myth Buster game",
+        canvas: { w: W, h: H, label: "Myth Buster play field", smooth: true },
+        hud: [{ id: "score", label: "Score", value: 0 }, { id: "best", label: "Best", value: A.leaderboard.best(GAME_KEY) }, { id: "wall", label: "Wall", value: 1 }, { id: "lives", label: "Balls", value: 3 }],
+        help: "Mouse, arrows or drag move · Space, click or tap launches · P pauses · M mutes · Esc closes",
+        touch: [
+          { id: "left", label: "◀", aria: "Move left" },
+          { id: "launch", label: "Launch", aria: "Launch or fire", wide: true, tap: true },
+          { id: "right", label: "▶", aria: "Move right" },
+          { id: "pause", label: "Pause", aria: "Pause or resume", tap: true }
+        ]
+      });
+      var game = createGame(shell);
+      return shell.mount(game);
     });
-
-    overlay.querySelectorAll("[data-egg-close]").forEach(function (el) {
-      el.addEventListener("click", function () { closeOverlay(overlay); });
-    });
-
-    var muteBtn = overlay.querySelector("[data-egg-mute]");
-    function syncMute() { muteBtn.textContent = game.isMuted() ? "♪̶" : "♪"; muteBtn.setAttribute("aria-pressed", game.isMuted() ? "false" : "true"); }
-    muteBtn.addEventListener("click", function () { game.toggleMute(); syncMute(); });
-    syncMute();
-
-    // The canvas is object-fit:contain — map pointer x through the letterbox.
-    function logicalX(clientX) {
-      var rect = canvas.getBoundingClientRect();
-      var scale = Math.min(rect.width / W, rect.height / H);
-      var offX = (rect.width - W * scale) / 2;
-      return (clientX - rect.left - offX) / scale;
-    }
-    var suppressMouse = 0;
-    canvas.addEventListener("mousemove", function (e) { game.movePaddleTo(logicalX(e.clientX)); });
-    canvas.addEventListener("mousedown", function (e) {
-      if (Date.now() < suppressMouse) return;
-      e.preventDefault();
-      game.launchOrStart();
-    });
-
-    // Touch steers relative, touchpad-style: paddle moves by finger delta x
-    // sensitivity, so a thumb resting anywhere on the stage (letterbox
-    // margins included) never has to cover the paddle. Handlers live on the
-    // stage, not the canvas; prompt buttons and the initials form pass through
-    // untouched. Origin refreshes every move so direction flips never lag.
-    var TOUCH_SENS = 1.4, TAP_SLOP = 8;
-    var touchId = null, touchLastX = 0, tapX = 0, tapY = 0, isTap = false, tapSpent = false;
-    function findTouch(list, id) {
-      for (var i = 0; i < list.length; i++) { if (list[i].identifier === id) return list[i]; }
-      return null;
-    }
-    function stageScale() {
-      var rect = canvas.getBoundingClientRect();
-      return Math.min(rect.width / W, rect.height / H) || 1;
-    }
-    stage.addEventListener("touchstart", function (e) {
-      if (e.target.closest && e.target.closest("button, a, input, label, form")) return;
-      e.preventDefault();
-      suppressMouse = Date.now() + 500;
-      if (touchId !== null) return; // first finger keeps the paddle
-      var t = e.changedTouches[0];
-      touchId = t.identifier;
-      touchLastX = t.clientX;
-      tapX = t.clientX; tapY = t.clientY;
-      isTap = true;
-      // A pause-breaking tap only resumes — it must not also serve the ball.
-      tapSpent = game.isPaused();
-      if (tapSpent) game.resume();
-    }, { passive: false });
-    stage.addEventListener("touchmove", function (e) {
-      if (e.target.closest && e.target.closest("button, a, input, label, form")) return;
-      e.preventDefault();
-      var t = findTouch(e.changedTouches, touchId);
-      if (!t) return;
-      if (Math.abs(t.clientX - tapX) > TAP_SLOP || Math.abs(t.clientY - tapY) > TAP_SLOP) isTap = false;
-      game.movePaddleBy(((t.clientX - touchLastX) / stageScale()) * TOUCH_SENS);
-      touchLastX = t.clientX;
-    }, { passive: false });
-    function onTouchEnd(e) {
-      if (e.target.closest && e.target.closest("button, a, input, label, form")) return;
-      var t = findTouch(e.changedTouches, touchId);
-      if (!t) return;
-      e.preventDefault();
-      touchId = null;
-      // Tap (< 8px travel) starts, resumes, or serves; a drag never launches.
-      if (e.type === "touchend" && isTap && !tapSpent) game.launchOrStart();
-    }
-    stage.addEventListener("touchend", onTouchEnd, { passive: false });
-    stage.addEventListener("touchcancel", onTouchEnd, { passive: false });
-
-    // Touch buttons.
-    function holdBtn(sel, key) {
-      var el = overlay.querySelector(sel);
-      var down = function (e) { e.preventDefault(); game.held[key] = true; el.classList.add("is-held"); };
-      var up = function (e) { e.preventDefault(); game.held[key] = false; el.classList.remove("is-held"); };
-      el.addEventListener("touchstart", down, { passive: false });
-      el.addEventListener("touchend", up, { passive: false });
-      el.addEventListener("touchcancel", up, { passive: false });
-      el.addEventListener("mousedown", down);
-      el.addEventListener("mouseup", up);
-      el.addEventListener("mouseleave", up);
-    }
-    holdBtn("[data-egg-left]", "left");
-    holdBtn("[data-egg-right]", "right");
-    var launchBtn = overlay.querySelector("[data-egg-launch]");
-    var ldown = function (e) { e.preventDefault(); launchBtn.classList.add("is-held"); game.launchOrStart(); };
-    var lup = function () { launchBtn.classList.remove("is-held"); };
-    launchBtn.addEventListener("touchstart", ldown, { passive: false });
-    launchBtn.addEventListener("touchend", lup);
-    launchBtn.addEventListener("touchcancel", lup);
-    launchBtn.addEventListener("mousedown", ldown);
-    launchBtn.addEventListener("mouseup", lup);
-    launchBtn.addEventListener("mouseleave", lup);
-
-    function onKeydown(e) {
-      // While typing initials, leave all keys (incl. Escape/Enter) to the form
-      // so a stray Escape never closes the game and drops the high score.
-      if (e.target && e.target.tagName === "INPUT") return;
-      if (e.key === "Escape") { closeOverlay(overlay); return; }
-      if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") { e.preventDefault(); game.held.left = true; }
-      else if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") { e.preventDefault(); game.held.right = true; }
-      else if (e.code === "Space" || e.key === " " || e.key === "ArrowUp" || e.key === "w" || e.key === "W") { e.preventDefault(); if (!e.repeat) game.launchOrStart(); }
-      else if (e.key === "m" || e.key === "M") { game.toggleMute(); syncMute(); }
-    }
-    function onKeyup(e) {
-      if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") game.held.left = false;
-      else if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") game.held.right = false;
-    }
-
-    overlay.game = game;
-    overlay._onKeydown = onKeydown;
-    overlay._onKeyup = onKeyup;
-    overlay._canvas = canvas;
-    overlay._fitCanvas = fitCanvas;
-    return overlay;
-  }
-
-  // Close in place: GMSArcade runs the teardown (loop, wake lock, audio,
-  // listeners), puts the page back and returns focus to the opener.
-  function closeOverlay() { A.closeGame(); }
-
-  // Arcade-only: no hidden trigger elsewhere on the site. The Play button on
-  // /arcade opens it through GMSArcade.play().
-  ready(function () {
-    A.defineGame("breakout", buildOverlay);
   });
 })();
