@@ -1,0 +1,34 @@
+{
+  "id": "2026-11-03-eighteen-months-not-talking",
+  "date": "2026-11-03",
+  "series": "is-this-normal",
+  "ground": "sage",
+  "bodyGround": "paper",
+  "age": "18 months",
+  "row": "is this normal",
+  "link": { "label": "Free tool, link in bio", "page": "Communication Snapshot, 6 to 36 months, no account needed", "url": "/tools/communication-snapshot" },
+  "music": { "brief": "Sparse felt piano, slow, room tone, instrumental, 30 seconds." },
+  "sources": [
+    "CDC, Learn the Signs. Act Early. Developmental milestone checklists, revised 2022. cdc.gov/ncbddd/actearly",
+    "Zubler et al. Evidence-informed milestones for developmental surveillance tools. Pediatrics 149(3) (2022). The revised checklists list what most children (75% or more) do by each age.",
+    "Center on the Developing Child, Harvard University, and the language-development entry of the site's certified corpus."
+  ],
+  "slides": [
+    { "type": "cover", "lead": "18 months and not saying much yet?", "sub": "What is typical, what is a wide range, and what is worth a conversation." },
+    { "type": "range", "head": "When first words tend to arrive", "range": { "from": 6, "to": 30, "step": 6, "most": [10, 18], "mostLabel": "Most children's first words", "mark": 18, "markLabel": "18 months" }, "body": "First words often come around the first birthday, with wide variation. By 18 months most children try to say three or more words beyond \"mama\" and \"dada\". Understanding runs well ahead of speech the whole time." },
+    { "type": "text", "head": "What matters more than the word count", "body": "At this age the signs of communication are mostly not words. Pointing to show you something. Following a simple instruction without a gesture. Looking where you look. Taking turns with sounds.\n\nA child doing those things with few words is usually on a wide, normal path." },
+    { "type": "signs", "head": "Worth a conversation with your paediatrician", "items": [
+      "Not pointing or gesturing to share something with you",
+      "Not responding to their name most of the time",
+      "Very little eye contact or back-and-forth",
+      "Words they used to say that have gone",
+      "A lag across several areas, not one"
+    ], "note": "Not a diagnosis. A reason to ask, early." },
+    { "type": "try", "head": "This week", "items": [
+      "Narrate what she is looking at, not what you want her to look at.",
+      "Treat every sound as a turn. Answer it, then wait.",
+      "Read the same book again. Pause before the word she knows is coming."
+    ], "note": "Interaction builds language; exposure alone does not." },
+    { "type": "sources" }
+  ]
+}

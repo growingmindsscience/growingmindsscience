@@ -1,0 +1,32 @@
+{
+  "id": "2026-11-10-word-gap",
+  "date": "2026-11-10",
+  "series": "what-we-got-wrong",
+  "ground": "paper",
+  "bodyGround": "paper",
+  "age": "Birth to 3 years",
+  "row": "language and communication",
+  "link": { "label": "Free, link in bio", "page": "Parenting claims, graded: talking to your baby", "url": "/claims/talking-to-baby" },
+  "music": { "brief": "Dry plucked motif, slightly wry, sparse, instrumental, 30 seconds." },
+  "sources": [
+    "Hart and Risley. Meaningful Differences in the Everyday Experience of Young American Children (1995). 42 families, recorded one hour a month.",
+    "Sperry, Sperry and Miller. Reexamining the verbal environments of children from different socioeconomic backgrounds. Child Development 90(4):1303-1318 (2019). Did not replicate the gap.",
+    "Dailey and Bergelson. Language input to infants of different socioeconomic statuses: a quantitative meta-analysis. Developmental Science 25(3):e13192 (2022).",
+    "Romeo et al. Beyond the 30-million-word gap. Psychological Science 29(5):700-710 (2018)."
+  ],
+  "slides": [
+    { "type": "cover", "claim": "Poorer children hear 30 million fewer words by age three.", "now": "A famous number from 42 families in the 1980s. What the evidence says now is more useful, and less bleak." },
+    { "type": "text", "head": "Where the number came from", "body": "Hart and Risley recorded 42 families for one hour a month and extrapolated to a 30-million-word difference by age three between the richest and poorest homes.\n\nIt became a headline, a policy, and a quiet source of parental guilt." },
+    { "type": "text", "head": "What happened when others looked again", "body": "A 2019 study that recorded whole days, and counted the talk of everyone in the home rather than only the mother, found no such gap.\n\nA 2022 meta-analysis found a difference that is real but far smaller, and that changes with what you count." },
+    { "type": "figure", "head": "What predicts language better than the count", "bars": [
+      { "label": "Conversational turns", "value": 0.51, "display": "r = .51", "highlight": true },
+      { "label": "Adult words heard", "value": 0.36, "display": "r = .36" }
+    ], "caption": "Romeo et al. (2018), 36 children aged 4 to 6. Turns, not word count, also predicted language-area brain activity." },
+    { "type": "try", "head": "The useful version", "items": [
+      "You do not need to monologue all day.",
+      "Answer your baby's sounds and gestures as turns. Then wait.",
+      "Quality over volume: varied words in real exchanges."
+    ], "note": "Clear about what's known. Honest about what's not." },
+    { "type": "sources" }
+  ]
+}

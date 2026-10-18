@@ -1,0 +1,24 @@
+{
+  "id": "2026-11-24-overimitation",
+  "date": "2026-11-24",
+  "series": "one-study",
+  "ground": "paper",
+  "bodyGround": "paper",
+  "age": "3 to 5 years",
+  "row": "play and attention",
+  "link": { "label": "Free article, link in bio", "page": "The cliff at three", "url": "/articles/cliff-at-three" },
+  "music": { "brief": "Low pulse under a soft string pad, one lift near the end, instrumental, 35 seconds." },
+  "sources": [
+    "Lyons, Young and Keil. The hidden structure of overimitation. PNAS 104(50):19751-19756 (2007). 63 children aged 3 to 5.",
+    "Hoehl et al. 'Over-imitation': a review and appraisal of a decade of research. Developmental Review 51:90-108 (2019). Replicated across cultures, varying in how much rather than whether.",
+    "Stengelin, Hepach and Haun, Developmental Science (2020), cross-cultural replication."
+  ],
+  "slides": [
+    { "type": "cover", "lead": "Your toddler is not being silly. They are taking notes.", "sub": "Children trained to spot pointless actions copied them anyway. A puzzle box, 63 children, odds of 147 to 1.", "figure": { "value": "147×", "label": "the odds of copying a useless step after watching an adult do it" } },
+    { "type": "text", "head": "The setup", "body": "Yale researchers trained 63 three- to five-year-olds to spot an adult's pointless actions, and praised them for it.\n\nThen they showed each child how to open a clear plastic puzzle box, adding two steps that visibly did nothing." },
+    { "type": "figure", "head": "What the children did", "stat": { "value": "147×", "label": "higher odds of using the useless mechanism than children who had never watched an adult at all" }, "body": "Warning them did not work. A separate group was told outright to skip anything silly, reminded seconds before their turn, and copied it anyway." },
+    { "type": "text", "head": "The one thing that stopped it", "body": "Splitting the box into two halves that no longer touched. Once the extra action could not physically matter, the copying vanished.\n\nSo this is not blind mimicry. It is a three-year-old building a theory of how the object works, and treating your hands as the best evidence available." },
+    { "type": "text", "head": "The catch, and the point", "body": "One lab, one task, 63 children. Since then the finding has replicated across cultures, varying in how much children copy rather than whether.\n\nWorth remembering the next time you jiggle a key in a lock, or tap the side of the toaster. Someone is taking notes." },
+    { "type": "sources" }
+  ]
+}

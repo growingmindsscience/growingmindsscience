@@ -1,0 +1,28 @@
+{
+  "id": "2026-11-19-goldilocks-effect",
+  "date": "2026-11-19",
+  "series": "one-study",
+  "ground": "forest",
+  "bodyGround": "paper",
+  "age": "7 to 8 months",
+  "row": "play and attention",
+  "link": { "label": "Free guide, link in bio", "page": "Screens, language and attention", "url": "/tools/screens-language-attention" },
+  "music": { "brief": "Low pulse under a soft string pad, one lift near the end, instrumental, 35 seconds." },
+  "sources": [
+    "Kidd, Piantadosi and Aslin. The Goldilocks effect: human infants allocate attention to visual sequences that are neither too simple nor too complex. PLOS ONE 7(5):e36399 (2012). Open access.",
+    "Kidd, Piantadosi and Aslin, Child Development (2014), the auditory replication. Piantadosi, Kidd and Aslin, Developmental Science (2014), the within-infant confirmation.",
+    "Poli, Serino, Mars and Hunnius. Infants tailor their attention to maximize learning. Science Advances 6(39) (2020)."
+  ],
+  "slides": [
+    { "type": "cover", "lead": "Your baby is not bored. They are budgeting.", "sub": "Seven-month-olds look away from what is too predictable, and from what is too surprising.", "figure": { "value": "72", "label": "infants across two eye-tracking experiments" } },
+    { "type": "text", "head": "The setup", "body": "At the University of Rochester, 7- and 8-month-olds watched animated boxes rise to reveal a toy, or nothing, in sequences with fixed odds.\n\nEach sequence ran until the baby looked away for one full second. A model scored every event for how surprising it was, given everything the baby had seen so far." },
+    { "type": "figure", "head": "Where attention went", "bars": [
+      { "label": "Almost certain events", "value": 0.42, "display": "look away" },
+      { "label": "In-between events", "value": 1, "display": "stay", "highlight": true },
+      { "label": "Wildly unpredictable events", "value": 0.4, "display": "look away" }
+    ], "caption": "A U-shaped curve with a sweet spot near 1.25 bits of information. Not too simple, not too complex. Bar lengths are illustrative of the pattern, not the published values." },
+    { "type": "text", "head": "The catch", "body": "Seventy-two babies, one lab, one task. The U-curve could have been an average of babies with different tastes.\n\nIt was not: the same curve holds within individual infants, it appeared again with sound sequences, and an independent lab has since shown infants steer attention toward what they can learn from." },
+    { "type": "text", "head": "At home", "body": "When your baby turns away from the rattle, they may simply be finished with it. Attention goes where the information rate is just right.\n\nWorth remembering before you run the same game an eleventh time, or swap it for something entirely new." },
+    { "type": "sources" }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "2026-12-01-sounds-you-cannot-hear",
+  "date": "2026-12-01",
+  "series": "one-study",
+  "ground": "paper",
+  "bodyGround": "paper",
+  "age": "6 to 12 months",
+  "row": "language and communication",
+  "link": { "label": "Free lesson, link in bio", "page": "Birth to 12 months: watch the first lesson free", "url": "/nsc/classes/infant/preview" },
+  "music": { "brief": "Low pulse under a soft string pad, one lift near the end, instrumental, 35 seconds." },
+  "sources": [
+    "Werker and Tees. Cross-language speech perception: evidence for perceptual reorganization during the first year of life. Infant Behavior and Development 7:49-63 (1984).",
+    "Kuhl, Tsao and Liu. Foreign-language experience in infancy: effects of short-term exposure and social interaction on phonetic learning. PNAS 100(15):9096-9101 (2003)."
+  ],
+  "slides": [
+    { "type": "cover", "lead": "Your baby can hear sounds you can't. For a few more months.", "sub": "Between 6 and 12 months the ear stops tracking differences its language never uses.", "figure": { "value": "8 of 10", "label": "babies at 6 to 8 months heard a contrast most adults cannot" } },
+    { "type": "text", "head": "The setup", "body": "In 1984, Janet Werker and Richard Tees played English-learning babies two consonants from Thompson, a Salish language of British Columbia.\n\nThe sounds differ only in where the back of the tongue blocks the air. English uses one of them, so English-speaking adults hear them as the same sound." },
+    { "type": "figure", "head": "Who could tell them apart", "bars": [
+      { "label": "Babies, 6 to 8 months", "value": 8, "display": "8 of 10", "highlight": true },
+      { "label": "Babies, 10 to 12 months", "value": 1, "display": "1 of 10" },
+      { "label": "English-speaking adults", "value": 3, "display": "3 of 10" }
+    ], "body": "Same test, same sounds, four months apart. Nothing was wrong with their ears." },
+    { "type": "text", "head": "The catch", "body": "Small groups, one lab, one contrast. And it is about experience, not age: babies raised in Hindi- or Thompson-speaking homes still heard their own contrasts easily at 11 to 12 months.\n\nThe window is not a wall, either. It narrows; it does not slam." },
+    { "type": "text", "head": "The part that matters at home", "body": "Kuhl, Tsao and Liu later gave 9-month-olds twelve short sessions with live Mandarin speakers. Those babies kept hearing Mandarin contrasts.\n\nBabies given the same material on video or audio alone learned nothing from it. A person in the room did what a screen could not." },
+    { "type": "sources" }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "id": "2026-11-17-newborn-knows-your-voice",
+  "date": "2026-11-17",
+  "series": "one-study",
+  "ground": "paper",
+  "bodyGround": "paper",
+  "age": "Birth to 3 days",
+  "row": "language and communication",
+  "link": { "label": "Free lesson, link in bio", "page": "Birth to 12 months: watch the first lesson free", "url": "/nsc/classes/infant/preview" },
+  "music": { "brief": "Low pulse under a soft string pad, one lift near the end, instrumental, 35 seconds." },
+  "sources": [
+    "DeCasper and Fifer. Of human bonding: newborns prefer their mothers' voices. Science 208:1174-1176 (1980). 10 infants under three days old.",
+    "DeCasper and Spence. Prenatal maternal speech influences newborns' perception of speech sounds. Infant Behavior and Development 9:133-150 (1986).",
+    "Kisilevsky et al. Effects of experience on fetal voice recognition. Psychological Science 14:220-224 (2003)."
+  ],
+  "slides": [
+    { "type": "cover", "lead": "Your newborn already knows your voice.", "sub": "Under three days old, and already working to hear you over a stranger. A 1980 study in Science.", "figure": { "value": "8 of 10", "label": "babies under three days old chose their mother's voice" } },
+    { "type": "text", "head": "The setup", "body": "Ten babies, all under three days old, sucked on a pacifier wired to a tape player.\n\nSuck in one rhythm and they heard their mother reading a Dr. Seuss story. Suck in another and they heard a stranger reading the same story." },
+    { "type": "figure", "head": "What they did", "stat": { "value": "8 of 10", "label": "changed the timing of their sucking to keep their mother's voice playing" }, "body": "With at most twelve hours of contact since birth. Sign test, p = .02." },
+    { "type": "text", "head": "The catch", "body": "Ten babies is a small study, and the effect was found with one method in one lab.\n\nWhat makes it hold up: later work found newborns prefer a story their mother read aloud before birth, and fetuses respond to her voice with measurable heart-rate changes." },
+    { "type": "text", "head": "Why so fast", "body": "A baby has been hearing your muffled voice through the last trimester. By birth it is already the most familiar sound in the world.\n\nWhich is why ordinary talking, reading aloud and singing matter more than they seem to. You are not introducing yourself. You are continuing." },
+    { "type": "sources" }
+  ]
+}

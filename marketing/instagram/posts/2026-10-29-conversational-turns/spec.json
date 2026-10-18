@@ -1,0 +1,31 @@
+{
+  "id": "2026-10-29-conversational-turns",
+  "date": "2026-10-29",
+  "series": "one-study",
+  "ground": "forest",
+  "bodyGround": "paper",
+  "age": "4 to 6 years",
+  "row": "language and communication",
+  "link": { "label": "Free, link in bio", "page": "Parenting claims, graded: talking to your baby", "url": "/claims/talking-to-baby" },
+  "music": { "brief": "Low pulse under a soft string pad, one lift near the end, instrumental, 35 seconds." },
+  "sources": [
+    "Romeo, Leonard, Robinson, West, Mackey, Rowe and Gabrieli. Beyond the 30-million-word gap. Psychological Science 29(5):700-710 (2018). Free full text, PubMed Central.",
+    "Romeo et al., Journal of Neuroscience (2018), white-matter tracts. Romeo et al., Developmental Cognitive Neuroscience (2021), randomized trial.",
+    "Donnelly and Kidd, Child Development (2021), 122 infants, 9 to 24 months."
+  ],
+  "slides": [
+    { "type": "cover", "lead": "It is not how many words your child hears.", "sub": "It is how many they exchange. A study of 36 families, a pocket recorder and an MRI scanner.", "figure": { "value": "36", "label": "children aged four to six, recorded across two weekend days" } },
+    { "type": "text", "head": "The setup", "body": "A two-ounce recorder rode in each child's shirt pocket for two full days, logging every adult word and every back-and-forth.\n\nA turn was simple: an adult speaks and the child replies, or the reverse, within five seconds. Then each child listened to stories in the scanner." },
+    { "type": "figure", "head": "What predicted verbal skill", "bars": [
+      { "label": "Conversational turns", "value": 0.51, "display": "r = .51", "highlight": true },
+      { "label": "Adult words heard", "value": 0.36, "display": "r = .36" }
+    ], "body": "Only turns predicted activity in Broca's area, the brain's core language region, during the stories. That held after income, parental education, IQ and the raw amount of speech were accounted for." },
+    { "type": "text", "head": "The catch", "body": "Thirty-six children, measured once. A correlation, not a cause, and the recorder counts turns imperfectly.\n\nWhat moves it from interesting to trustworthy: the same team later ran a randomized trial. Families coached into more turn-taking saw their children's language gains follow." },
+    { "type": "try", "head": "At home", "items": [
+      "Ask, then wait for the answer. The pause is the intervention.",
+      "Build on whatever comes back, even one word about a truck.",
+      "Every 11 extra turns an hour went with one more verbal point, at any income."
+    ], "note": "The serve matters less than the return." },
+    { "type": "sources" }
+  ]
+}
