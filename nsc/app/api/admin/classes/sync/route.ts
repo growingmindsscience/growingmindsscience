@@ -59,7 +59,8 @@ export async function POST(request: Request) {
         });
       }
     }
-    const replacing = lesson.mux_asset_id !== asset.data.id;
+    // A first upload is not a replacement: keep the written version that was seeded before the video arrived.
+    const replacing = Boolean(lesson.mux_asset_id) && lesson.mux_asset_id !== asset.data.id;
     let transcript = replacing ? "" : lesson.transcript;
     const readyCaption = textTracks.find((track) => track.status === "ready" && track.language_code?.startsWith("en"));
     if (!transcript && readyCaption) {
