@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Field notes</title>
+<link rel="stylesheet" href="../../../../assets/css/tokens-field-guide.css">
+<link rel="stylesheet" href="_base.css">
+<style>
+  /* The plate: an ordinary scene in ink silhouette on paper, sage fills for the
+     environment, annotation dots with leader lines. Labels reveal one per slide. */
+  .slide { padding-top: 80px; }
+  .plate { width: 904px; height: 642px; display: block; margin-top: 36px; margin-bottom: 48px; overflow: hidden; }
+  .plate--crop { height: 588px; margin-top: 0; margin-bottom: 0; }
+  .plate .ink { fill: var(--ink); }
+  .plate .sage { fill: var(--sage); }
+  .plate .sage-deep { fill: var(--sage-deep); }
+  .plate .wash { fill: var(--surface); }
+  .plate .floor { fill: var(--sage-mist-2); }
+  .plate .pl line { stroke: var(--ink-muted); stroke-width: 2.5; }
+  .plate .pl circle { fill: var(--ink-muted); }
+  .plate .pl text { font-family: "Inter", sans-serif; font-size: 30px; fill: var(--ink-soft); font-weight: 500; }
+  .plate .pl--active line { stroke: var(--forest); stroke-width: 3; }
+  .plate .pl--active circle { fill: var(--forest); }
+  .plate .pl--active text { fill: var(--forest); font-weight: 600; }
+  .plate .pl--note line { stroke: var(--note-warm); }
+  .plate .pl--note circle { fill: var(--note-warm); }
+  .plate .pl--note text { fill: var(--clay-text); }
+  .plate .pl--note.pl--active line { stroke: var(--note-warm); }
+  .plate .pl--note.pl--active circle { fill: var(--note-warm); }
+  .plate .pl--note.pl--active text { fill: var(--clay-text); }
+
+  .fn-label { margin-top: 40px; }
+  .head--fn { font-size: 60px; }
+  .fn-label .body { font-size: 42px; }
+</style>
+</head>
+<body>
+<div class="slide" id="slide"></div>
+<script src="_scenes.js"></script>
+<script src="_render.js"></script>
+<script>renderSlide("field-notes");</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Is this normal?</title>
+<link rel="stylesheet" href="../../../../assets/css/tokens-field-guide.css">
+<link rel="stylesheet" href="_base.css">
+<style>
+  /* Cover: sage mist ground, the question parents search, an age chip. */
+  .slide[data-ground="sage"] .chip { border-color: var(--forest); color: var(--forest); }
+
+  .range__track { position: relative; height: 34px; border-radius: 6px; background: rgba(25,60,57,0.10); }
+  .range__span { position: absolute; top: 0; bottom: 0; border-radius: 6px; background: var(--sage-deep); }
+  .range__mark { position: absolute; top: -14px; width: 6px; height: 62px; margin-left: -3px; border-radius: 3px; background: var(--note-warm); }
+  .range__ticks { position: relative; height: 56px; margin-top: 14px; }
+  .range__ticks i { position: absolute; top: 0; width: 2px; height: 16px; background: rgba(25,60,57,0.35); }
+  .range__ticks i span { position: absolute; top: 22px; left: 50%; transform: translateX(-50%); font-size: 26px; font-style: normal; color: var(--ink-muted); white-space: nowrap; }
+  .range__ticks i:first-child span { transform: none; left: 0; }
+  .range__ticks i:last-child span { transform: translateX(-100%); left: 0; }
+  .range__legend { display: flex; gap: 40px; margin-top: 10px; }
+  .range__legend span { display: inline-flex; align-items: center; gap: 12px; }
+  .sw { display: inline-block; width: 28px; height: 16px; border-radius: 4px; }
+  .sw--span { background: var(--sage-deep); }
+  .sw--mark { background: var(--note-warm); width: 8px; height: 28px; }
+
+  .signs { list-style: none; display: flex; flex-direction: column; gap: 30px; }
+  .signs li { font-size: 42px; line-height: 1.34; padding-left: 44px; position: relative; }
+  .signs li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 16px; height: 16px; border-radius: 50%; background: var(--note-warm); }
+</style>
+</head>
+<body>
+<div class="slide" id="slide"></div>
+<script src="_render.js"></script>
+<script>renderSlide("is-this-normal");</script>
+</body>
+</html>

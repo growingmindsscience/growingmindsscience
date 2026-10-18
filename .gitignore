@@ -35,3 +35,8 @@ node_modules/
 .fg-gate/
 scripts/brand-mark/fonts/
 scripts/brand-mark/out/
+
+# Instagram pipeline: renders and the local review page are generated, never committed
+marketing/instagram/posts/*/out/
+marketing/instagram/review.html
+marketing/instagram/templates/carousel/.stage-*.html

@@ -1,0 +1,135 @@
+{
+  "_schema": "One record per post. status: draft | edit | approved | scheduled | published | rejected. Approval is Matthew's; publish.mjs (Phase 2) only ever acts on approved posts whose scheduled_at has arrived.",
+  "posts": [
+    {
+      "id": "2026-10-27-dropped-spoon",
+      "series": "field-notes",
+      "age": "8 to 14 months",
+      "row": "play and attention",
+      "scheduled_at": "2026-10-27T11:00:00-04:00",
+      "status": "approved",
+      "approved_on": "2026-10-18"
+    },
+    {
+      "id": "2026-10-28-dropped-spoon-reel",
+      "kind": "reel",
+      "series": "watch-for-this",
+      "age": "8 to 14 months",
+      "row": "play and attention",
+      "scheduled_at": "2026-10-28T19:00:00-04:00",
+      "status": "approved",
+      "source": "2026-10-27-dropped-spoon",
+      "approved_on": "2026-10-18"
+    },
+    {
+      "id": "2026-10-29-conversational-turns",
+      "series": "one-study",
+      "age": "4 to 6 years",
+      "row": "language and communication",
+      "scheduled_at": "2026-10-29T11:00:00-04:00",
+      "status": "approved",
+      "approved_on": "2026-10-18"
+    },
+    {
+      "id": "2026-10-31-conversational-turns-reel",
+      "kind": "reel",
+      "series": "study-in-30",
+      "age": "4 to 6 years",
+      "row": "language and communication",
+      "scheduled_at": "2026-10-31T19:00:00-04:00",
+      "status": "approved",
+      "source": "2026-10-29-conversational-turns",
+      "approved_on": "2026-10-18"
+    },
+    {
+      "id": "2026-11-03-eighteen-months-not-talking",
+      "series": "is-this-normal",
+      "age": "18 months",
+      "row": "is this normal",
+      "scheduled_at": "2026-11-03T11:00:00-05:00",
+      "status": "approved",
+      "approved_on": "2026-10-18"
+    },
+    {
+      "id": "2026-11-05-still-face",
+      "series": "one-study",
+      "age": "1 to 12 months",
+      "row": "big feelings",
+      "scheduled_at": "2026-11-05T11:00:00-05:00",
+      "status": "approved",
+      "approved_on": "2026-10-18"
+    },
+    {
+      "id": "2026-11-10-word-gap",
+      "series": "what-we-got-wrong",
+      "age": "Birth to 3 years",
+      "row": "language and communication",
+      "scheduled_at": "2026-11-10T11:00:00-05:00",
+      "status": "approved",
+      "approved_on": "2026-10-18"
+    },
+    {
+      "id": "2026-11-12-learning-to-walk",
+      "series": "one-study",
+      "age": "12 to 19 months",
+      "row": "play and attention",
+      "scheduled_at": "2026-11-12T11:00:00-05:00",
+      "status": "approved",
+      "approved_on": "2026-10-18"
+    },
+    {
+      "id": "2026-11-17-newborn-knows-your-voice",
+      "series": "one-study",
+      "age": "Birth to 3 days",
+      "row": "language and communication",
+      "scheduled_at": "2026-11-17T11:00:00-05:00",
+      "status": "approved",
+      "approved_on": "2026-10-18"
+    },
+    {
+      "id": "2026-11-19-goldilocks-effect",
+      "series": "one-study",
+      "age": "7 to 8 months",
+      "row": "play and attention",
+      "scheduled_at": "2026-11-19T11:00:00-05:00",
+      "status": "approved",
+      "approved_on": "2026-10-18"
+    },
+    {
+      "id": "2026-11-24-overimitation",
+      "series": "one-study",
+      "age": "3 to 5 years",
+      "row": "play and attention",
+      "scheduled_at": "2026-11-24T11:00:00-05:00",
+      "status": "approved",
+      "approved_on": "2026-10-18"
+    },
+    {
+      "id": "2026-11-26-baby-talk",
+      "series": "one-study",
+      "age": "3 to 15 months",
+      "row": "language and communication",
+      "scheduled_at": "2026-11-26T11:00:00-05:00",
+      "status": "approved",
+      "approved_on": "2026-10-18"
+    },
+    {
+      "id": "2026-12-01-sounds-you-cannot-hear",
+      "series": "one-study",
+      "age": "6 to 12 months",
+      "row": "language and communication",
+      "scheduled_at": "2026-12-01T11:00:00-05:00",
+      "status": "approved",
+      "approved_on": "2026-10-18"
+    },
+    {
+      "id": "2026-12-03-marshmallow-test",
+      "series": "what-we-got-wrong",
+      "age": "3 to 5 years",
+      "row": "big feelings",
+      "scheduled_at": "2026-12-03T11:00:00-05:00",
+      "status": "approved",
+      "approved_on": "2026-10-18"
+    }
+  ]
+}
