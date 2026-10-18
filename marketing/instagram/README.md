@@ -51,7 +51,9 @@ The profile grid alternates paper, forest and sage covers so it reads as a patte
 | **The study in 30 seconds** | 30 to 45 s | Kinetic text version of a One-study carousel. The figure animates once. Voice over. | Fully rendered |
 | **On camera** | 30 to 60 s | Matthew, phone, one take, one idea. The pipeline supplies the script, trims, captions and picks the cover frame. | Script and post-production automated; the recording is his |
 
-Voice (decided 2026-10-18): Matthew narrates every reel that talks. Two routes to the same result, chosen per post: he records the script on his phone (the pipeline cleans it with the voice isolator and times the captions from it), or the pipeline renders it with his ElevenLabs voice using the settings that already work for the class audio (speed 1.05, stability 30, similarity 90), one take at a time. Scripts are written to be read aloud in under 40 seconds and marked for breath and emphasis, so the recorded and rendered versions sound like the same person on the same day. A stock voice is never used.
+Voice (decided 2026-10-18): Matthew's ElevenLabs voice, the same one the class audio uses, rendered by the pipeline with the settings that already work for it (speed 1.05, stability 30, similarity 90), one take at a time and checked before it ships. Phone recordings remain an option for later, not the default. Scripts are written to be read aloud in under 40 seconds and marked for breath and emphasis. A stock voice is never used.
+
+On camera (decided 2026-10-18): not yet. The two rendered series carry the reel slot for now; the On-camera series stays in the spec for when Matthew wants it, and the post-production path for it is built only then.
 
 Reel captions are burned in with word timing, because most of the audience watches muted.
 
@@ -175,7 +177,7 @@ marketing/instagram/
 
 ## Cadence
 
-Four posts a week to start: two carousels, two reels. Tuesday and Thursday carousels at 11:00, Wednesday and Saturday reels at 19:00. One of the two reels is an "On camera" slot when Matthew has recorded one; otherwise both are rendered. Stories are out of scope for the automation; if he wants them, the carousel cover with a link sticker is a thirty-second manual job.
+Four posts a week to start: two carousels, two reels. Tuesday and Thursday carousels at 11:00, Wednesday and Saturday reels at 19:00. Both reels are rendered (one Watch for this, one Study in 30 seconds) until Matthew opts into the On-camera slot. Stories are out of scope for the automation; if he wants them, the carousel cover with a link sticker is a thirty-second manual job.
 
 Consistency for twelve weeks before changing anything about cadence.
 
@@ -195,8 +197,8 @@ Consistency for twelve weeks before changing anything about cadence.
 
 These do not block Phase 1.
 
-1. **Voice.** Decided: Matthew's own, recorded or rendered from his ElevenLabs voice. Still to pick: which reels he records himself and which the pipeline renders.
-2. **On camera.** The highest-reach format for a researcher-led account is the researcher on camera. The system makes it a ten-minute weekly job, but only he can decide whether to do it.
+1. **Voice.** Decided: Matthew's ElevenLabs voice, rendered by the pipeline.
+2. **On camera.** Decided: not yet. Both weekly reel slots are rendered until he says otherwise.
 3. **Milestone Navigator links.** It is launch-held on attorney review. "Is this normal?" posts point to Communication Snapshot until it clears.
 
 ## Operating (Phase 2, added 2026-10-18)
