@@ -10,7 +10,7 @@ import { siteOrigin } from "@/lib/site";
 export async function startClassCheckout() {
   const user = await requireClassAuth("/app/classes/toddlerhood");
   if (await hasClassAccess(user.id)) redirect("/app/classes/toddlerhood");
-  if (!(await classSalesOpen())) redirect("/app/classes/toddlerhood?error=not-open");
+  if (!(await classSalesOpen(TODDLER_COURSE.slug, user.id))) redirect("/app/classes/toddlerhood?error=not-open");
   const priceId = process.env.TODDLER_CLASS_PRICE_ID;
   if (!priceId) redirect("/app/classes/toddlerhood?error=checkout-unavailable");
   const origin = siteOrigin();

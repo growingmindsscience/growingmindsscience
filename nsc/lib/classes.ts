@@ -6,14 +6,13 @@ export const TODDLER_COURSE = {
   product: "class_bundle_toddlerhood",
   priceDisplay: "$49",
   ages: "Ages 1 to 3",
-  blurb: "Five modules of developmental science and practical guidance for everyday family life.",
+  blurb: "Four modules on the toddler brain, language, autonomy, and big feelings.",
   detailsPath: "/classes/toddlerhood.html",
   modules: [
     "The Toddler Brain, Briefly",
-    "Language: The Everyday Version",
-    "Autonomy and “No”",
-    "Big Feelings, Meltdowns, and Repair",
-    "Transitions and Routines",
+    "Language, the Everyday Version",
+    "Autonomy and No",
+    "Big Feelings, Transitions, and Repair",
   ],
 } as const;
 
@@ -98,6 +97,8 @@ export function lessonPath(slug: string, courseSlug: ClassCourseSlug = TODDLER_C
 export const INFANT_MODULE_LESSON_COUNTS = [5, 4, 3, 4] as const;
 /** Published lessons each preschool module must have before sales open. */
 export const PRESCHOOL_MODULE_LESSON_COUNTS = [4, 4, 3, 4] as const;
+/** Published lessons each toddler module must have before sales open (the 2026 rebuild: 13 lessons). */
+export const TODDLER_MODULE_LESSON_COUNTS = [3, 3, 3, 4] as const;
 
 export type SalesGate = { open: true } | { open: false; reason: string };
 
@@ -126,7 +127,12 @@ export function preschoolSalesGate(input: SalesGateInput): SalesGate {
   return salesGate("PRESCHOOL", PRESCHOOL_MODULE_LESSON_COUNTS, input);
 }
 
-function salesGate(prefix: "INFANT" | "PRESCHOOL", required: readonly number[], input: SalesGateInput): SalesGate {
+/** The same gate for the toddler class, read from the TODDLER_CLASS_* variables. */
+export function toddlerSalesGate(input: SalesGateInput): SalesGate {
+  return salesGate("TODDLER", TODDLER_MODULE_LESSON_COUNTS, input);
+}
+
+function salesGate(prefix: "INFANT" | "PRESCHOOL" | "TODDLER", required: readonly number[], input: SalesGateInput): SalesGate {
   // Env values pasted into a dashboard or piped from a shell often carry a
   // trailing newline or space; compare the trimmed value.
   const flag = input.salesFlag?.trim().toLowerCase();
