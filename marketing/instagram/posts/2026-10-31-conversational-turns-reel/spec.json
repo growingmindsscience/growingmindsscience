@@ -10,17 +10,17 @@
   "link": { "label": "Free, link in bio", "page": "Parenting claims, graded: talking to your baby", "url": "/claims/talking-to-baby" },
   "music": { "brief": "Low steady pulse under a soft string pad, calm and focused, one gentle lift near the end, instrumental, for a short explainer video.", "duration": 45 },
   "beats": [
-    { "id": "hook", "kind": "hook", "text": "It is not how many words your child hears.", "say": "It is not how many words your child hears.", "pause": 0.3 },
-    { "id": "promise", "text": "It is how many they exchange.", "sub": "The study, in thirty seconds.", "say": "It is how many they exchange. The study, in thirty seconds.", "pause": 0.45 },
-    { "id": "setup", "text": "36 families. A recorder in a shirt pocket. Two full days.", "say": "Thirty six families. A recorder in a shirt pocket for two days, logging every word and every exchange.", "pause": 0.35 },
-    { "id": "result", "text": "What predicted verbal skill", "say": "Turns predicted verbal skill better than the number of words heard.", "bars": [
-      { "label": "Conversational turns", "value": 0.51, "display": "r = .51", "highlight": true },
-      { "label": "Adult words heard", "value": 0.36, "display": "r = .36" }
+    { "id": "hook", "kind": "hook", "text": "It is not how many words your child hears that matters most.", "say": "It is not how many words your child hears that matters most.", "pause": 0.3 },
+    { "id": "promise", "text": "It is how many conversations they have with you.", "sub": "Here is the study behind that.", "say": "It is how many conversations they have with you. Here is the study behind that.", "pause": 0.45 },
+    { "id": "setup", "text": "36 children wore a small recorder for two days.", "sub": "It counted every word they heard, and every back-and-forth with an adult.", "say": "Thirty six children wore a small recorder for two days. It counted every word they heard, and every back and forth exchange with an adult.", "pause": 0.35 },
+    { "id": "result", "text": "What predicted the children's language skills", "say": "Those back and forth exchanges predicted the children's language skills better than the number of words they heard.", "bars": [
+      { "label": "Back-and-forth exchanges", "value": 0.51, "display": "r = .51", "highlight": true },
+      { "label": "Words heard", "value": 0.36, "display": "r = .36" }
     ], "pause": 0.5 },
-    { "id": "brain", "text": "Only turns lit up Broca's area.", "sub": "After income, education and IQ were accounted for.", "say": "And only turns lit up Broca's area, after income, education and IQ were accounted for.", "pause": 0.35 },
-    { "id": "catch", "text": "The honest catch: 36 children, measured once.", "sub": "The same team's randomized trial found the same direction.", "say": "The honest catch: thirty six children, measured once. The same team's randomized trial found the same direction.", "pause": 0.45 },
-    { "id": "home", "text": "Ask. Then wait.", "sub": "Build on whatever comes back, even one word about a truck.", "say": "So ask, then wait. Build on whatever comes back.", "pause": 0.45 },
-    { "id": "close", "kind": "close", "text": "The full claim, graded, with every source.", "say": "The full claim, graded, with every source. Free, link in bio.", "pause": 0.3 },
+    { "id": "brain", "text": "Only the exchanges were linked to activity in the speech part of the brain.", "sub": "Whatever the family's income or education.", "say": "And only the exchanges were linked to activity in the part of the brain that handles speech, whatever the family's income or education.", "pause": 0.35 },
+    { "id": "catch", "text": "The honest catch: this was a small study.", "sub": "But a later trial that coached families into more back-and-forth found the same thing.", "say": "The honest catch is that this was a small study. But a later trial that coached families into more back and forth found the same thing.", "pause": 0.45 },
+    { "id": "home", "text": "Ask your child a question, then wait for the answer.", "sub": "Build on whatever they say, even one word about a truck.", "say": "So ask your child a question, wait for the answer, and build on whatever they say, even one word about a truck.", "pause": 0.45 },
+    { "id": "close", "kind": "close", "text": "The full claim, with every source, is free.", "say": "The full claim, with every source, is free on our site. The link is in the bio.", "pause": 0.3 },
     { "id": "mark", "kind": "mark", "dur": 1.0 }
   ]
 }

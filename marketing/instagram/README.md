@@ -47,8 +47,8 @@ The profile grid alternates paper, forest and sage covers so it reads as a patte
 
 | Series | Length | How it is made | Automation |
 | --- | --- | --- | --- |
-| **Watch for this** | 20 to 35 s | One annotated scene. Matthew's voice names what to notice; labels appear as he names them. Burned-in captions. | Fully rendered: HTML animation, voice from script, captions from the voice timestamps |
-| **The study in 30 seconds** | 30 to 45 s | Kinetic text version of a One-study carousel. The figure animates once. Voice over. | Fully rendered |
+| **Watch for this** | 45 to 50 s | One annotated scene. Matthew's voice names what to notice; labels appear as he names them. Burned-in captions. | Fully rendered: HTML animation, voice from script, captions from the voice timestamps |
+| **The study in 30 seconds** | 55 to 60 s | Kinetic text version of a One-study carousel. The figure animates once. Voice over. | Fully rendered |
 | **On camera** | 30 to 60 s | Matthew, phone, one take, one idea. The pipeline supplies the script, trims, captions and picks the cover frame. | Script and post-production automated; the recording is his |
 
 Voice (decided 2026-10-18): Matthew's ElevenLabs voice, the same one the class audio uses, rendered by the pipeline with the settings that already work for it (speed 1.05, stability 30, similarity 90), one take at a time and checked before it ships. Phone recordings remain an option for later, not the default. Scripts are written to be read aloud in under 40 seconds and marked for breath and emphasis. A stock voice is never used.
@@ -181,7 +181,7 @@ A reel post is a folder like a carousel's, with `"kind": "reel"` in `spec.json`,
 
 `scripts/render-reel.mjs <post>` voices each beat with Matthew's ElevenLabs clone (word timestamps come back with the audio, so captions are exact), generates the music bed from the brief with ElevenLabs Music, lays beats end to end from the real audio lengths, captures frames from `templates/reel/<series>.html` at 30 fps with headless Chrome and pipes them straight into ffmpeg, and mixes the voice over the bed (ducked to 0.12 while someone is talking, 0.45 before and after). Output: `out/reel.mp4`, `out/cover.jpg` (the hook frame), `out/timeline.json`, `out/check.json`. Voice and music takes are cached in `out/` by content hash, so a layout change costs no credits; a changed line re-records only that beat. Without an API key the reel renders silent and says so; no other voice is ever used.
 
-Length is governed by the script, not the renderer: at Matthew's speed the voice runs about 2.3 words a second including the pauses inside sentences, so a 35-second Watch for this is about 70 spoken words and a 45-second Study in 30 about 95. `publish.mjs` treats a reel like any post: render, upload `reel.mp4` and `cover.jpg`, create a `REELS` container, wait for processing, publish, record.
+Length is governed by the script, not the renderer: at Matthew's speed the voice runs about 2.3 words a second including the pauses inside sentences. Scripts are written as full, plain sentences a parent can follow on first hearing (decided 2026-10-18 after the first takes): no fragments or tagline phrases, no anatomy or lab jargon (the part of the brain that handles speech, not Broca's area), the study told as something that happened to children and families. That puts Watch for this at about 110 words and 45 to 50 seconds, and Study in 30 at about 130 words and 55 to 60 seconds; clarity wins over the original 35 and 45 second targets. `publish.mjs` treats a reel like any post: render, upload `reel.mp4` and `cover.jpg`, create a `REELS` container, wait for processing, publish, record.
 
 ## Cadence
 

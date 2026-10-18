@@ -17,14 +17,14 @@
     { "anchor": "parent", "title": "Your return" }
   ],
   "beats": [
-    { "id": "hook", "kind": "hook", "text": "She dropped the spoon again.", "say": "She dropped the spoon again. Ninth time.", "labels": 1, "pause": 0.35 },
-    { "id": "promise", "text": "Here is what may be growing.", "say": "Here is what may be growing.", "labels": 1, "pause": 0.45 },
-    { "id": "drop", "text": "Letting go on purpose is new.", "sub": "The vanishing spoon is worth repeating.", "say": "Letting go on purpose is new. The vanishing spoon is worth repeating.", "labels": 1, "pause": 0.35 },
-    { "id": "eyes", "text": "Now watch her eyes.", "sub": "They go straight to your face.", "say": "Now watch her eyes. They go straight to your face.", "labels": 2, "pause": 0.35 },
-    { "id": "serve", "text": "That look is a serve.", "sub": "Any bid for your attention counts.", "say": "That look is a serve. Any bid for your attention counts.", "labels": 3, "pause": 0.35 },
-    { "id": "return", "text": "Your return: a word, then a pause.", "sub": "Spoon. Down it goes. Then wait.", "say": "Your return: a word, then a pause. Spoon, down it goes. Then wait.", "labels": 4, "pause": 0.45 },
-    { "id": "catch", "text": "A reading of the age, not a measure.", "say": "One honest note: a reading of the age, not a measure of your child.", "labels": 4, "pause": 0.45 },
-    { "id": "close", "kind": "close", "text": "The page behind the post.", "say": "The full article is free. Link in bio.", "labels": 4, "pause": 0.3 },
+    { "id": "hook", "kind": "hook", "text": "Your baby just dropped the spoon. Again.", "say": "Your baby just dropped the spoon again. Probably the ninth time.", "labels": 1, "pause": 0.35 },
+    { "id": "promise", "text": "Here is what is really going on.", "say": "Here is what is really going on.", "labels": 1, "pause": 0.45 },
+    { "id": "drop", "text": "Letting go on purpose is a new skill.", "sub": "Watching the spoon disappear is interesting enough to do again.", "say": "Letting go on purpose is a new skill at this age, and watching the spoon disappear is interesting enough to do again.", "labels": 1, "pause": 0.35 },
+    { "id": "eyes", "text": "Notice where your baby looks right after it lands.", "sub": "Usually straight at your face.", "say": "Now notice where your baby looks right after it lands. Usually, straight at your face.", "labels": 2, "pause": 0.35 },
+    { "id": "serve", "text": "That look is an invitation to respond.", "sub": "Responding is how attention and language grow.", "say": "That look is an invitation to respond, and responding is how attention and language grow.", "labels": 3, "pause": 0.35 },
+    { "id": "return", "text": "Say what happened, then pause.", "sub": "The spoon fell down. Then wait, so your baby can answer you.", "say": "Your part is simple. Say what happened in a few words, then pause, so your baby can answer you with a look or a sound.", "labels": 4, "pause": 0.45 },
+    { "id": "catch", "text": "This describes babies of this age in general, not your child.", "say": "One honest note. This describes babies of this age in general, not your child in particular.", "labels": 4, "pause": 0.45 },
+    { "id": "close", "kind": "close", "text": "The full article is free.", "say": "The full article on serve and return is free on our site. The link is in the bio.", "labels": 4, "pause": 0.3 },
     { "id": "mark", "kind": "mark", "dur": 1.0 }
   ]
 }
