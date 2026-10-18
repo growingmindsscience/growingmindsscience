@@ -1,5 +1,5 @@
 -- Growing Minds Science: public storage bucket for Instagram renders.
--- Project: xtepkichenvvyewqpolg (the science site). Run once in the SQL editor.
+-- Project: kxljngtmnqarvsawakmf (the science site). Run once in the SQL editor.
 --
 -- The Instagram Graph API fetches media by public URL at publish time, so renders
 -- are uploaded here by marketing/instagram/scripts/publish.mjs with the service role
