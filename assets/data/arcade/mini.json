@@ -1,0 +1,213 @@
+{
+ "note": "Little Crossword grids. grid rows hold the answer letters with # for black squares; numbering is derived by the game. clues are keyed by number under A (across) and D (down). Fills from scripts/arcade/fill-mini.mjs, clues written by hand.",
+ "puzzles": [
+  {
+   "id": 1,
+   "grid": [
+    "#SAGE",
+    "#CLAN",
+    "SOLID",
+    "UPON#",
+    "NEWS#"
+   ],
+   "clues": {
+    "A": {
+     "1": "Herb, or a wise person",
+     "5": "Scottish family group",
+     "6": "Neither liquid nor gas",
+     "7": "Once ___ a time",
+     "8": "What the morning paper brings"
+    },
+    "D": {
+     "1": "Range or extent",
+     "2": "Permit",
+     "3": "Profits",
+     "4": "Finish",
+     "6": "It rises in the east"
+    }
+   }
+  },
+  {
+   "id": 2,
+   "grid": [
+    "ACT##",
+    "QUITE",
+    "ULTRA",
+    "ATLAS",
+    "##EYE"
+   ],
+   "clues": {
+    "A": {
+     "1": "Part of a play",
+     "4": "Rather, fairly",
+     "7": "Prefix meaning beyond",
+     "8": "Book of maps",
+     "9": "It has a pupil"
+    },
+    "D": {
+     "1": "Water-blue shade",
+     "2": "Group with a devoted following",
+     "3": "Name of a book or film",
+     "5": "Serving platter",
+     "6": "Comfort, or lack of difficulty"
+    }
+   }
+  },
+  {
+   "id": 3,
+   "grid": [
+    "HERO#",
+    "EXAM#",
+    "RIDER",
+    "#SAGE",
+    "#TRAP"
+   ],
+   "clues": {
+    "A": {
+     "1": "Brave one, or a sandwich on a long roll",
+     "5": "End-of-term test",
+     "6": "One on a bike or a horse",
+     "8": "Herb that goes into stuffing",
+     "9": "Snare"
+    },
+    "D": {
+     "1": "Belonging to that woman",
+     "2": "Have being",
+     "3": "Palindrome that spots planes",
+     "4": "Last Greek letter",
+     "7": "One lift at the gym, for short"
+    }
+   }
+  },
+  {
+   "id": 4,
+   "grid": [
+    "#CAR#",
+    "SALAD",
+    "UNITY",
+    "MOVIE",
+    "#NEO#"
+   ],
+   "clues": {
+    "A": {
+     "1": "It has a child seat in the back",
+     "4": "Greens with dressing",
+     "6": "Oneness",
+     "7": "Film",
+     "8": "Prefix meaning new"
+    },
+    "D": {
+     "1": "Camera brand, or an accepted body of work",
+     "2": "Living",
+     "3": "One number set against another",
+     "4": "Total",
+     "5": "Colour cloth or hair"
+    }
+   }
+  },
+  {
+   "id": 5,
+   "grid": [
+    "FLAG#",
+    "EARN#",
+    "ERROR",
+    "#GAME",
+    "#EYED"
+   ],
+   "clues": {
+    "A": {
+     "1": "It goes up a pole",
+     "5": "Make, as a wage",
+     "6": "Mistake",
+     "8": "Hide and seek, for one",
+     "9": "Wide-___ (amazed)"
+    },
+    "D": {
+     "1": "Charge for a service",
+     "2": "Big",
+     "3": "Orderly arrangement",
+     "4": "Little garden statue",
+     "7": "Stop-light colour"
+    }
+   }
+  },
+  {
+   "id": 6,
+   "grid": [
+    "##SAT",
+    "AWARE",
+    "RIVER",
+    "CREAM",
+    "HER##"
+   ],
+   "clues": {
+    "A": {
+     "1": "Took a seat",
+     "4": "Conscious of",
+     "6": "It flows to the sea",
+     "7": "Top of the milk",
+     "8": "Belonging to that woman"
+    },
+    "D": {
+     "1": "Someone putting money by",
+     "2": "Region",
+     "3": "School period",
+     "4": "Curve over a doorway",
+     "5": "Cable"
+    }
+   }
+  },
+  {
+   "id": 7,
+   "grid": [
+    "##BIT",
+    "THESE",
+    "EAGLE",
+    "ALIEN",
+    "MEN##"
+   ],
+   "clues": {
+    "A": {
+     "1": "A little piece",
+     "4": "Not those, but ___",
+     "6": "Bird on many a coin",
+     "7": "Visitor from another planet",
+     "8": "Gentlemen"
+    },
+    "D": {
+     "1": "Start",
+     "2": "Small island",
+     "3": "Thirteen to nineteen",
+     "4": "Group that plays together",
+     "5": "___ and hearty"
+    }
+   }
+  },
+  {
+   "id": 8,
+   "grid": [
+    "ATOM#",
+    "MILE#",
+    "PRIDE",
+    "#EVIL",
+    "#DEAF"
+   ],
+   "clues": {
+    "A": {
+     "1": "Tiny building block of matter",
+     "5": "5,280 feet",
+     "6": "Group of lions",
+     "8": "Wicked",
+     "9": "Unable to hear"
+    },
+    "D": {
+     "1": "Guitar booster, for short",
+     "2": "In need of a nap",
+     "3": "Green oil source",
+     "4": "The press, collectively",
+     "7": "Santa's helper"
+    }
+   }
+  }
+ ]
+}
