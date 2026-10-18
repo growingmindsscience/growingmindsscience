@@ -24,7 +24,9 @@ import { dirname, join, relative } from "node:path";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CHECK = process.argv.includes("--check");
 const HASH_LEN = 10;
-const SKIP_DIRS = new Set(["node_modules", ".git", ".next", ".claude", ".vercel", "nsc", "course", "answers"]);
+// marketing/ is working material (.vercelignore keeps it out of the deploy); its
+// Instagram templates reference the CSS by relative path for file:// rendering.
+const SKIP_DIRS = new Set(["node_modules", ".git", ".next", ".claude", ".vercel", "nsc", "course", "answers", "marketing"]);
 const TEMPLATES = ["scripts/build-claims.mjs", "scripts/build-library.mjs"];
 
 // A file name ending in .css/.js that doesn't run on into a longer name (x.css.map).

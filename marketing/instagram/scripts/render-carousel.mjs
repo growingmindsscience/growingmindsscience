@@ -35,7 +35,10 @@ if (args.includes("--all") || folders.length === 0) {
     .filter((d) => statSync(d).isDirectory() && existsSync(join(d, "spec.json")));
 }
 
+// Playwright, from the nearest node_modules (CI installs it there) or from the
+// global playwright-cli this Mac already has. Neither is required: see the fallback.
 function loadPlaywright() {
+  try { return createRequire(import.meta.url)("playwright"); } catch {}
   try {
     const root = execFileSync("npm", ["root", "-g"], { encoding: "utf8" }).trim();
     const require = createRequire(join(root, "@playwright/cli/node_modules/playwright", "package.json"));
@@ -65,7 +68,9 @@ function stageHtml(spec, i) {
 }
 
 async function renderWithPlaywright(pw, jobs) {
-  const browser = await pw.chromium.launch({ channel: "chrome" });
+  // Prefer the installed Chrome; fall back to Playwright's own Chromium (CI).
+  let browser;
+  try { browser = await pw.chromium.launch({ channel: "chrome" }); } catch { browser = await pw.chromium.launch(); }
   const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
   const checks = [];
   for (const j of jobs) {
@@ -88,7 +93,9 @@ function renderWithChrome(jobs) {
       "--headless", "--disable-gpu", "--hide-scrollbars", "--force-device-scale-factor=1",
       `--window-size=${W},${H}`, "--virtual-time-budget=3000", `--screenshot=${png}`, pathToFileURL(j.html).href,
     ], { stdio: "ignore" });
-    execFileSync("sips", ["-s", "format", "jpeg", "-s", "formatOptions", "90", png, "--out", j.out], { stdio: "ignore" });
+    // PNG to JPEG: sips on macOS, ImageMagick elsewhere.
+    if (process.platform === "darwin") execFileSync("sips", ["-s", "format", "jpeg", "-s", "formatOptions", "90", png, "--out", j.out], { stdio: "ignore" });
+    else execFileSync("convert", [png, "-quality", "90", j.out], { stdio: "ignore" });
     rmSync(png, { force: true });
     checks.push({ slide: j.i + 1, note: "rendered with plain Chrome; no in-page checks" });
   }

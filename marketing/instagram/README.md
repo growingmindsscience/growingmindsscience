@@ -198,3 +198,37 @@ These do not block Phase 1.
 1. **Voice.** Decided: Matthew's own, recorded or rendered from his ElevenLabs voice. Still to pick: which reels he records himself and which the pipeline renders.
 2. **On camera.** The highest-reach format for a researcher-led account is the researcher on camera. The system makes it a ten-minute weekly job, but only he can decide whether to do it.
 3. **Milestone Navigator links.** It is launch-held on attorney review. "Is this normal?" posts point to Communication Snapshot until it clears.
+
+## Operating (Phase 2, added 2026-10-18)
+
+The pieces: `calendar.json` (the queue), `ledger.json` (topics used and rejected), `scripts/publish.mjs` (publishes what is approved and due), `from-instagram.html` at the repo root (the bio-link landing page, rewritten on every publish), and `.github/workflows/instagram-publish.yml` (runs the publisher hourly through the posting day and commits the records back to main).
+
+### Approving a post
+
+Open the review page (`node marketing/instagram/scripts/review.mjs`, then serve the repo and open `/marketing/instagram/review.html`), decide, and set the post's `status` in `calendar.json` to `approved`, `edit` or `rejected`. Approval lands on main through the weekly review pull request. Nothing publishes from a branch, and nothing publishes with any status other than `approved`.
+
+### Dry run
+
+```bash
+node marketing/instagram/scripts/publish.mjs --dry-run --as-of 2026-10-30T12:00:00-04:00
+```
+
+Renders every approved post due by that moment, checks the slide rules and the caption length, and prints the destination URL with its UTM tags. No uploads, no API calls, no environment variables needed. Without `--as-of` it uses the real clock, so with nothing due it prints `nothing due` and exits 0. That is the same check the workflow runs first.
+
+### Phase 0, before the first real publish
+
+1. The Instagram account must be a professional account (Business or Creator).
+2. In the Meta developer dashboard, create an app, add the Instagram product, and connect the account with Business Login for Instagram, granting `instagram_business_basic` and `instagram_business_content_publish`.
+3. Generate a long-lived access token (60 days) and note the Instagram user id.
+4. Add four repository secrets on GitHub: `IG_USER_ID`, `IG_ACCESS_TOKEN`, `SUPABASE_URL` (`https://xtepkichenvvyewqpolg.supabase.co`) and `SUPABASE_SERVICE_ROLE_KEY` (from the science project's API settings; service role only, never a publishable key).
+5. The public `social` bucket must exist in the science Supabase project. The SQL is in `supabase/migrations/20261018_social_bucket.sql`; run it once in the SQL editor if the MCP could not (it needs the project owner).
+6. Locally, with the four variables exported, run `node marketing/instagram/scripts/publish.mjs --check-token`. It prints the account it sees. Then `--refresh-token` once, which creates `token.json` so the age warning works; commit `token.json` (it holds a date, never the token).
+7. Watch the first publish: `node marketing/instagram/scripts/publish.mjs --only <post-id>` locally with Matthew present. After that the workflow runs on its own.
+
+### Token life
+
+Long-lived tokens last 60 days. From day 45 the publisher warns; from day 56 it refuses to publish. Refresh locally with `--refresh-token`, paste the printed token into the `IG_ACCESS_TOKEN` secret, and commit the updated `token.json`. The token is never written to disk or to a log by the scripts.
+
+### Music on carousels
+
+The API cannot attach audio to an image carousel. The review page shows each post's music brief; adding a track is a thirty-second step in the app after the post publishes, if wanted.

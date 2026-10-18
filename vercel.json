@@ -63,6 +63,7 @@
     { "source": "/account",        "destination": "/account.html" },
     { "source": "/milestones",     "destination": "/milestones.html" },
     { "source": "/thank-you",      "destination": "/thank-you.html" },
+    { "source": "/from-instagram", "destination": "/from-instagram.html" },
     { "source": "/classes/toddlerhood",                     "destination": "/classes/toddlerhood.html" },
     { "source": "/lens/leaving-the-playground",             "destination": "/lens/leaving-the-playground.html" },
     { "source": "/classes/birth-to-12-months",              "destination": "/classes/birth-to-12-months.html" },
