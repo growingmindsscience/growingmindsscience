@@ -1,0 +1,30 @@
+{
+  "id": "2026-10-28-dropped-spoon-reel",
+  "kind": "reel",
+  "date": "2026-10-28",
+  "series": "watch-for-this",
+  "source": "2026-10-27-dropped-spoon",
+  "ground": "paper",
+  "age": "8 to 14 months",
+  "row": "play and attention",
+  "scene": "spoon",
+  "link": { "label": "Free article, link in bio", "page": "What serve and return actually means", "url": "/articles/serve-and-return" },
+  "music": { "brief": "Sparse felt piano, slow, warm room tone, no melody that resolves, gentle, instrumental, for a short video about a baby.", "duration": 40 },
+  "labels": [
+    { "anchor": "spoon", "title": "The drop" },
+    { "anchor": "eyes", "title": "Her eyes go to you" },
+    { "anchor": "hand", "title": "A serve" },
+    { "anchor": "parent", "title": "Your return" }
+  ],
+  "beats": [
+    { "id": "hook", "kind": "hook", "text": "She dropped the spoon again.", "say": "She dropped the spoon again. Ninth time.", "labels": 1, "pause": 0.35 },
+    { "id": "promise", "text": "Here is what may be growing.", "say": "Here is what may be growing.", "labels": 1, "pause": 0.45 },
+    { "id": "drop", "text": "Letting go on purpose is new.", "sub": "The vanishing spoon is worth repeating.", "say": "Letting go on purpose is new. The vanishing spoon is worth repeating.", "labels": 1, "pause": 0.35 },
+    { "id": "eyes", "text": "Now watch her eyes.", "sub": "They go straight to your face.", "say": "Now watch her eyes. They go straight to your face.", "labels": 2, "pause": 0.35 },
+    { "id": "serve", "text": "That look is a serve.", "sub": "Any bid for your attention counts.", "say": "That look is a serve. Any bid for your attention counts.", "labels": 3, "pause": 0.35 },
+    { "id": "return", "text": "Your return: a word, then a pause.", "sub": "Spoon. Down it goes. Then wait.", "say": "Your return: a word, then a pause. Spoon, down it goes. Then wait.", "labels": 4, "pause": 0.45 },
+    { "id": "catch", "text": "A reading of the age, not a measure.", "say": "One honest note: a reading of the age, not a measure of your child.", "labels": 4, "pause": 0.45 },
+    { "id": "close", "kind": "close", "text": "The page behind the post.", "say": "The full article is free. Link in bio.", "labels": 4, "pause": 0.3 },
+    { "id": "mark", "kind": "mark", "dur": 1.0 }
+  ]
+}

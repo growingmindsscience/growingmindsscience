@@ -104,8 +104,14 @@ function loadPost(id) {
   return { id, folder, spec, caption };
 }
 function renderPost(p) {
-  execFileSync(process.execPath, [join(HERE, "render-carousel.mjs"), p.folder], { stdio: "inherit" });
   const out = join(p.folder, "out");
+  if (p.spec.kind === "reel") {
+    execFileSync(process.execPath, [join(HERE, "render-reel.mjs"), p.folder], { stdio: "inherit" });
+    const check = readJson(join(out, "check.json"));
+    if (check.problems?.length) die(`${p.id}: reel checks fail:\n  ${check.problems.join("\n  ")}`);
+    return [join(out, "reel.mp4"), join(out, "cover.jpg")];
+  }
+  execFileSync(process.execPath, [join(HERE, "render-carousel.mjs"), p.folder], { stdio: "inherit" });
   const slides = readdirSync(out).filter((f) => /^slide-\d+\.jpg$/.test(f)).sort();
   if (slides.length < 2 || slides.length > 10) die(`${p.id}: ${slides.length} slides; a carousel takes 2 to 10`);
   const check = readJson(join(out, "check.json"));
@@ -114,14 +120,15 @@ function renderPost(p) {
 }
 
 // ---------- storage ----------
-async function upload(p, file, i) {
+async function upload(p, file, name) {
   const base = process.env.SUPABASE_URL?.replace(/\/$/, "");
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!base || !key) die("SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are required");
-  const path = `instagram/${p.id}/slide-${String(i + 1).padStart(2, "0")}.jpg`;
+  const path = `instagram/${p.id}/${name}`;
+  const type = name.endsWith(".mp4") ? "video/mp4" : "image/jpeg";
   const res = await fetch(`${base}/storage/v1/object/social/${path}`, {
     method: "POST",
-    headers: { authorization: `Bearer ${key}`, apikey: key, "content-type": "image/jpeg", "x-upsert": "true", "cache-control": "public, max-age=31536000" },
+    headers: { authorization: `Bearer ${key}`, apikey: key, "content-type": type, "x-upsert": "true", "cache-control": "public, max-age=31536000" },
     body: readFileSync(file),
   });
   if (!res.ok) die(`${p.id}: upload of ${path} failed: ${res.status} ${await res.text()}`);
@@ -152,6 +159,13 @@ async function publishCarousel(p, urls) {
   const pub = await graph(`${ig}/media_publish`, { creation_id: car.id }, "POST");
   const media = await graph(pub.id, { fields: "id,permalink,timestamp" });
   return media;
+}
+async function publishReel(p, videoUrl, coverUrl) {
+  const ig = process.env.IG_USER_ID;
+  const c = await graph(`${ig}/media`, { media_type: "REELS", video_url: videoUrl, cover_url: coverUrl, caption: p.caption, share_to_feed: "true" }, "POST");
+  await waitFinished(c.id, `${p.id} reel`); // video processing: up to five minutes
+  const pub = await graph(`${ig}/media_publish`, { creation_id: c.id }, "POST");
+  return graph(pub.id, { fields: "id,permalink,timestamp" });
 }
 
 // ---------- records ----------
@@ -214,16 +228,27 @@ let published = 0;
 for (const entry of due) {
   const p = loadPost(entry.id);
   log(`\n${p.id}  (${p.spec.series}, scheduled ${entry.scheduled_at})`);
-  const slides = renderPost(p);
-  log(`  ${slides.length} slides rendered; caption ${p.caption.length} chars; destination ${utm(p.spec.link.url, p.id)}`);
+  const isReel = p.spec.kind === "reel";
+  const files = renderPost(p);
+  log(`  ${isReel ? "reel + cover" : `${files.length} slides`} rendered; caption ${p.caption.length} chars; destination ${utm(p.spec.link.url, p.id)}`);
   if (DRY) {
-    log(`  would upload to social/instagram/${p.id}/, create ${slides.length} item containers + 1 carousel, publish, then record.`);
+    log(isReel
+      ? `  would upload reel.mp4 and cover.jpg to social/instagram/${p.id}/, create a REELS container, wait for processing, publish, then record.`
+      : `  would upload to social/instagram/${p.id}/, create ${files.length} item containers + 1 carousel, publish, then record.`);
     continue;
   }
-  const urls = [];
-  for (let i = 0; i < slides.length; i++) urls.push(await upload(p, slides[i], i));
-  log(`  uploaded ${urls.length} slides`);
-  const media = await publishCarousel(p, urls);
+  let media;
+  if (isReel) {
+    const videoUrl = await upload(p, files[0], "reel.mp4");
+    const coverUrl = await upload(p, files[1], "cover.jpg");
+    log("  uploaded reel and cover");
+    media = await publishReel(p, videoUrl, coverUrl);
+  } else {
+    const urls = [];
+    for (let i = 0; i < files.length; i++) urls.push(await upload(p, files[i], `slide-${String(i + 1).padStart(2, "0")}.jpg`));
+    log(`  uploaded ${urls.length} slides`);
+    media = await publishCarousel(p, urls);
+  }
   entry.status = "published";
   entry.published_at = new Date().toISOString();
   entry.media_id = media.id;

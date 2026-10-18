@@ -35,13 +35,17 @@ function captionParts(md) {
 const cards = posts.map((folder) => {
   const spec = JSON.parse(readFileSync(join(folder, "spec.json"), "utf8"));
   const out = join(folder, "out");
-  const slides = existsSync(out) ? readdirSync(out).filter((f) => /^slide-\d+\.jpg$/.test(f)).sort() : [];
+  const isReel = spec.kind === "reel";
+  const slides = existsSync(out) && !isReel ? readdirSync(out).filter((f) => /^slide-\d+\.jpg$/.test(f)).sort() : [];
   const check = existsSync(join(out, "check.json")) ? JSON.parse(readFileSync(join(out, "check.json"), "utf8")) : null;
   const capFile = join(folder, "caption.md");
   const { caption, tags } = existsSync(capFile) ? captionParts(readFileSync(capFile, "utf8")) : { caption: "", tags: "" };
   const fold = caption.slice(0, FOLD), rest = caption.slice(FOLD);
   const rel = (f) => relative(IG, join(out, f)).split("\\").join("/");
-  const imgs = slides.map((f, i) => `<figure><img src="${rel(f)}" alt="slide ${i + 1}" loading="lazy"><figcaption>${i + 1} / ${slides.length}</figcaption></figure>`).join("");
+  const reel = isReel && existsSync(join(out, "reel.mp4"))
+    ? `<figure class="reel"><video controls muted playsinline preload="metadata" poster="${rel("cover.jpg")}" src="${rel("reel.mp4")}"></video><figcaption>${check?.duration ? check.duration.toFixed(0) + " s" : "reel"}${check?.voice?.startsWith("SILENT") ? " · silent render" : ""}</figcaption></figure>`
+    : "";
+  const imgs = reel || slides.map((f, i) => `<figure><img src="${rel(f)}" alt="slide ${i + 1}" loading="lazy"><figcaption>${i + 1} / ${slides.length}</figcaption></figure>`).join("");
   const problems = check?.problems?.length ? `<ul class="problems">${check.problems.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>` : `<p class="ok">All slide rules pass.</p>`;
   const sources = (spec.sources || []).map((s) => `<li>${esc(s)}</li>`).join("");
   const music = spec.music?.brief ? `<p class="meta"><b>Music (add in the app, or none):</b> ${esc(spec.music.brief)}</p>` : "";
@@ -53,7 +57,7 @@ const cards = posts.map((folder) => {
       <p class="meta">${esc(spec.age)} · ${esc(spec.row || "")} · scheduled ${esc(spec.date || spec.id.slice(0, 10))}</p>
     </header>
     <div class="feed">
-      <div class="strip">${imgs || "<p class='meta'>Not rendered yet. Run render-carousel.mjs.</p>"}</div>
+      <div class="strip">${imgs || `<p class='meta'>Not rendered yet. Run ${isReel ? "render-reel.mjs" : "render-carousel.mjs"}.</p>`}</div>
       <div class="caption">
         <p><span class="fold">${esc(fold)}</span><span class="rest">${esc(rest)}</span></p>
         <p class="tags">${esc(tags)}</p>

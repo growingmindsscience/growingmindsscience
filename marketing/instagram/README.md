@@ -175,6 +175,14 @@ marketing/instagram/
 
 **Measurement.** `insights.mjs` runs Monday morning, pulls per-post reach, saves, shares, profile visits and follows for the last four weeks, and writes `marketing/instagram/readouts/<date>.md`. The drafting routine reads the latest readout and weights the matrix toward rows and series that are saving and sharing. Saves per reach is the number to move.
 
+### Reel specs (Phase 3, added 2026-10-18)
+
+A reel post is a folder like a carousel's, with `"kind": "reel"` in `spec.json`, a `series` of `watch-for-this` or `study-in-30`, a `source` (the carousel it was cut from; `caption.md` and `sources.md` are copied from it), a `music.brief`, and `beats` instead of slides. Each beat has an `id`, the on-screen `text` (and optional `sub`), what the voice says in `say`, a `pause` after it in seconds, and for Watch for this how many plate `labels` are shown. Two beats are special: the first has `kind: "hook"` (no mark on screen) and the last two are `kind: "close"` (the destination line) and `kind: "mark"` (the mark alone for `dur` seconds). A Study in 30 beat may carry `bars` or a `stat`, which animate once when the beat begins.
+
+`scripts/render-reel.mjs <post>` voices each beat with Matthew's ElevenLabs clone (word timestamps come back with the audio, so captions are exact), generates the music bed from the brief with ElevenLabs Music, lays beats end to end from the real audio lengths, captures frames from `templates/reel/<series>.html` at 30 fps with headless Chrome and pipes them straight into ffmpeg, and mixes the voice over the bed (ducked to 0.12 while someone is talking, 0.45 before and after). Output: `out/reel.mp4`, `out/cover.jpg` (the hook frame), `out/timeline.json`, `out/check.json`. Voice and music takes are cached in `out/` by content hash, so a layout change costs no credits; a changed line re-records only that beat. Without an API key the reel renders silent and says so; no other voice is ever used.
+
+Length is governed by the script, not the renderer: at Matthew's speed the voice runs about 2.3 words a second including the pauses inside sentences, so a 35-second Watch for this is about 70 spoken words and a 45-second Study in 30 about 95. `publish.mjs` treats a reel like any post: render, upload `reel.mp4` and `cover.jpg`, create a `REELS` container, wait for processing, publish, record.
+
 ## Cadence
 
 Four posts a week to start: two carousels, two reels. Tuesday and Thursday carousels at 11:00, Wednesday and Saturday reels at 19:00. Both reels are rendered (one Watch for this, one Study in 30 seconds) until Matthew opts into the On-camera slot. Stories are out of scope for the automation; if he wants them, the carousel cover with a link sticker is a thirty-second manual job.
