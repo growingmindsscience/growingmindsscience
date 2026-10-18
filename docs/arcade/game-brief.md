@@ -7,7 +7,7 @@ Read this before touching any `assets/js/*-game.js`. The reference implementatio
 One IIFE, ES5 style (`var`, `function`), no modules, no eval, no external assets, no inline handlers. It does three things:
 
 1. `A.defineGame("<key>", build)` inside `A.ready(...)`, where `build()` makes a shell with `A.makeShell({...})`, calls `createGame(shell)`, and returns `shell.mount(game)`.
-2. `createGame(shell)` owns the world, the tick, the render, and the prompts. It returns `{ activate, deactivate, onKeydown, onKeyup, held }`.
+2. `createGame(shell)` owns the world, the tick, the render, and the prompts. It returns `{ activate, deactivate, onKeydown, onKeyup, held, onViewport }`. `onViewport(portraitStage)` fires when the stage's shape or the phone's orientation flips mid-session: pause a run; if the game chooses its field by aspect, re-lay an idle field too, and choose again at every start (a `layoutField()` called from `activate` and `start`, as Snake does).
 3. Art is drawn into `shell.canvas` with `A.draw.*` and plain canvas calls, in the live palette from `A.theme()`.
 
 Do not edit `arcade-core.js`, `arcade.css`, `arcade/index.html` or any other game. Do not run `stamp-assets`. Do not commit. One file in, one file out.
@@ -72,7 +72,8 @@ Pick a logical size where the smallest thing a player must read is at least 10 p
 - [ ] Start prompt (with leaderboard when the player has played before), pause prompt (hidden tab pauses too), game-over prompt with `runSummary`.
 - [ ] Story spine with at least four chapters and a drawn banner; progress rule at the bottom.
 - [ ] At least two new power-ups, each with a pip, a toast or floater on pickup, and an announcement.
-- [ ] Keyboard, touch and pointer control; every touch target is 44 px or larger; the touch row is wired.
+- [ ] Keyboard, touch and pointer control; every touch target is 44 px or larger; the touch row is wired. Touch labels are 12 characters or fewer (five share a 320 px row). Pointer events only: never `mouse*` or `touch*` listeners.
+- [ ] `onViewport` pauses a run when the phone turns; an aspect-chosen field is laid out again when idle and at every start.
 - [ ] Reduced motion: no shake, no particles, no flashing; the game stays playable.
 - [ ] `A.announce` on start, chapter, game over.
 - [ ] Theme: light and dark both look right. Portrait phone (375 px wide) and landscape phone (max-height 480) both fit.
@@ -85,3 +86,5 @@ Pick a logical size where the smallest thing a player must read is at least 10 p
 The static server for this worktree runs at `http://localhost:4211/` and serves files live. The arcade page is `/arcade/`. The Play buttons have `data-arcade-game="<key>"`. Opening a game tears the page away and mounts the overlay; the prompt's Start button is `.gms-arcade-prompt .btn--primary`. The debug handle is `window.__gmsArcade.<key>`.
 
 Use a headless browser of your own (the `agent-browser` or `playwright-cli` skill, or a one-off Playwright script if either is installed) rather than the shared Browser pane. Take screenshots into the session scratchpad and look at them. Check light and dark (`document.documentElement.setAttribute("data-theme", "dark")`), a 375 by 812 viewport and an 800 by 600 one.
+
+For phones, `node scripts/arcade/mobile-sweep.mjs --games <key>` opens the game at ten phone and tablet viewports in both orientations, starts it, rotates it mid-run, and reports the field scale, any button under 44 px, anything outside the viewport, and console errors, with screenshots. Read the scale column: a field under about 0.7 CSS px per logical unit is hard to read on a phone.

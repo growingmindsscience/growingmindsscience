@@ -162,10 +162,41 @@ Worth adding:
 - Phase C done: Five Letters, Groupings, Letter Nest, Six Sudoku; Little Crossword ships with its first authored grids.
 - Phase D done: the hub, with chips for best scores and streaks.
 - Phase E: `tests/arcade/*.test.mjs` in `gates.yml`; stamping run after every change.
+- Mobile pass (same day, after the build): see section 11.
 
 Known follow-ups:
 - `pages.css` still carries the old `.arcade-*` card rules (dead now that the hub uses `ar-*`). Remove in a follow-up that restamps every page.
 - Nobody has played a full run of each game by hand yet; difficulty curves past the middle chapters are untested by a person.
-- Landscape phones at 375 px tall shrink the portrait fields (Invaders, Tidy Up, Crumb Chase, Serve and Return) until small labels are hard to read.
 - Tidy Up shares one leaderboard between Marathon and Bedtime.
+- Real iOS Safari has not been touched: the sweep runs in Chrome with phone metrics. The scroll lock, `touch-action`, safe-area padding and the `interrupted` audio state are coded for Safari from its documented behaviour, not observed.
 - The repo skill `arcade-game` (section 8) is not written yet; `game-brief.md` is its draft.
+
+## 11. Mobile pass, 2026-10-17
+
+A sweep of the hub, the ten games and the five puzzles at ten phone and tablet viewports (320x568, iPhone SE, iPhone 15, Pixel 7, iPad; portrait and landscape; 2x, 2.625x and 3x pixel density) with Chrome's phone emulation, driven by `scripts/arcade/mobile-sweep.mjs`. Every game was opened, started, rotated mid-run and closed; the sweep records the field's CSS px per logical unit (`data-scale` on the canvas), buttons under 44 px, elements outside the viewport, the canvas backing store against the device ratio, console errors, and frame rate under 4x CPU throttling.
+
+What the sweep found, and what changed:
+
+- **The page widened behind every game.** The tear-away leaves each page piece translated 125vh and rotated; those transforms stayed on the hidden pieces, so the document grew from 375 to 943 px wide on a phone. Mobile browsers could pan and zoom behind the overlay and the URL bar moved with every pan. The fall transform is now cleared once the piece is hidden, and the body is pinned (`position: fixed` at its scroll offset) while a game is open; `closeGame` restores the offset.
+- **Phones held sideways.** The single column gave a portrait field 0.32 to 0.63 of its logical size (Serve and Return at 0.32 on a 568x320 phone). Under `max-height: 480px` landscape the panel is now a grid: title, sound, close and the HUD in a column on the left, the touch buttons in a column on the right, the whole height to the field. Portrait fields now sit at 0.61 to 0.90 on the same phones; landscape fields gained too (Snake 0.72 to 1.05 on an iPhone 15 sideways). Where a portrait field still lands under 0.72 on a touch screen (320 px phones), the shell shows a tappable "Turn your phone upright" hint over the field.
+- **Orientation changes mid-game.** The shell now tells the game when the stage or the window flips (`onViewport(portraitStage)`). Every canvas game pauses a run; the five games that choose a field by aspect (Snake, Pong, Brain Sprint, Myth Buster, Synapse Drift) also re-lay an idle field and choose again at every start, so a phone turned between runs gets the right shape.
+- **Puzzle boards squashed, not scrolled.** The boards are column flex containers; a grid with `overflow: hidden` (Little Crossword, Six Sudoku) shrank to nothing when the stage was short, so the crossword opened with no grid on an iPhone SE. Board children no longer shrink; the board scrolls. Five Letters' keyboard overflowed a 320 px row (ten 30 px keys); keys are 26 px there. Short and sideways screens get smaller tiles and no meta line so grid and keyboard share the stage. The prompt card centres with auto margins instead of `align-items: center`, so a tall game-over card can be scrolled to its top.
+- **Touch targets.** Sound and close were 40 px (34 sideways); mode choices 40 px; the touch buttons 42 px sideways; crossword clue rows 31 px. All are 44 px now. Exceptions, on purpose: Five Letters keys (30x38 to 42x48, like a phone keyboard) and the sudoku and crossword cells (42 px sideways, 44 px and up otherwise).
+- **Touch handling.** The overlay allows vertical pans only (`touch-action: pan-y`; the canvas and touch buttons `none`), which also stops pinch and double-tap zoom over a game. `-webkit-touch-callout` is off. The virtual stick's zone is `touch-action: none` (preventDefault on pointer events does not stop a touch scroll). The keyboard help line is hidden on touch screens; its height goes to the field.
+- **Safe areas.** The panel pads all four `env(safe-area-inset-*)` values. The hub keeps `width=device-width, initial-scale=1` without `viewport-fit=cover`: the insets are zero until a page opts into the notch, and opting in would pull the site header under it.
+- **Audio.** The synth resumes whenever the context is not running, which covers iOS's `interrupted` state after a call or a switch away, not only `suspended`.
+- **Performance.** `draw.paper` painted hundreds of dot-grid arcs per frame in every game; it now paints the ground once per size, palette and device scale into an offscreen canvas and stamps it. Under 4x CPU throttling at 3x density every game and puzzle holds 59 to 61 fps in the sweep.
+- **Gates.** `tests/arcade/mobile.test.mjs` guards the structure: the scroll lock, `touch-action`, the sideways layout, the 44 px floors, the board rule, `onViewport` in every game, pointer events only, touch labels at most 12 characters.
+
+Sweep numbers (field scale, CSS px per logical unit, baseline in parentheses):
+
+| Game | 320x568 | 568x320 | SE portrait | SE landscape | 15 landscape |
+| --- | --- | --- | --- | --- | --- |
+| Synapse Snake | 0.71 (0.53) | 0.63 (0.52) | 0.89 (0.82) | 0.80 (0.68) | 1.05 (0.72) |
+| Tidy Up | 0.64 (0.54) | 0.61 (0.38) | 0.93 (0.78) | 0.72 (0.49) | 0.76 (0.52) |
+| GMS Invaders | 0.82 (0.82) | 0.69 (0.43) | 0.98 (0.98) | 0.82 (0.55) | 0.86 (0.59) |
+| Serve and Return | 0.73 (0.60) | 0.69 (0.32) | 0.88 (0.88) | 0.82 (0.55) | 0.86 (0.59) |
+| Crumb Chase | 0.78 (0.65) | 0.64 (0.40) | 0.92 (0.92) | 0.76 (0.52) | 0.80 (0.55) |
+| Special Delivery | 0.71 (0.65) | 0.68 (0.42) | 0.84 (0.84) | 0.80 (0.54) | 0.84 (0.58) |
+
+Not done: a real iPhone or Android in hand (the sweep is Chrome with phone metrics, so WebKit-only behaviour is reasoned, not observed), and the landscape fields on a 568x320 phone are still small enough that the rotate hint is the honest answer there.
