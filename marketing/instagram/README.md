@@ -9,7 +9,7 @@ The June to September pipeline (`~/growing-minds-science-brand/` and `marketing/
 1. **Nothing shipped.** Nine carousels were built between July and September. One was posted. The log for the other eight says some version of "Canva MCP not connected, Chrome not logged in, awaiting approval". Publishing depended on a logged-in browser and on Canva, and approval was a chat message nobody acted on. The content was fine. The last mile never existed.
 2. **Every post looked the same.** Navy slab, orange "DID YOU KNOW?" eyebrow, a headline, a paragraph, a citation, the brain logo. Six slides per carousel in that one template, nine carousels in a row. No picture, no person, no figure, no variation in the cover. In a feed it reads as a text wall, and the profile grid reads as one post repeated.
 3. **The reel was a slide with a timer.** Seven seconds, a number counting up on a teal field, synthesized piano, no voice, no captions, no footage. That is the lowest-reach reel format there is.
-4. **It is off-brand now.** Poppins, teal and orange, the brain-and-sprout mark. The 2026-10-14 brand guidelines (Newsreader and Inter, forest ink on field paper, no warm colour at scale, no brain imagery) make every old asset unusable as is.
+4. **It is off-brand now.** Poppins, teal and orange, the brain-and-sprout mark. The 2026-10-14 brand guidelines (Newsreader and Inter, forest ink on field paper, no warm color at scale, no brain imagery) make every old asset unusable as is.
 5. **Paper first, parent second.** Topics were picked by "which study have we not used", not "what is the parent of a fourteen-month-old worried about tonight". The hooks were study names.
 6. **It could not re-run.** Fonts and the logo were hardcoded to a cloud sandbox path (`/sessions/...`), so the build scripts died on this Mac.
 7. **No feedback loop.** Nothing read Instagram's own numbers back, so there was no way to learn what to make more of.
@@ -22,7 +22,7 @@ What to keep: the primary-source verification, the replication notes, the reject
 - **One human gate, once a week.** Matthew reviews a batch in one place and approves with one action. Approved posts publish themselves on their dates. No per-post chat pings.
 - **The posts use the site's own design system.** Templates are HTML rendered with headless Chrome, reading `assets/css/tokens-field-guide.css` and the site fonts. A post should look like a page of the site cut out and held up to the camera.
 - **Lead with the moment, cite the study.** Every post starts from an ordinary parent moment (the ninth dropped spoon, the 7pm meltdown, "18 months and not talking yet") and earns its citation on the last slide.
-- **Four recurring series, four recognisable covers.** Variety comes from the series, not from improvising each post.
+- **Four recurring series, four recognizable covers.** Variety comes from the series, not from improvising each post.
 - **Every post points somewhere useful on the site.** A free tool, an article, a class. That is the funnel and it is also the brand's promise.
 - **Measure saves and shares, not likes.** Pull Insights weekly and let them steer the next batch.
 
@@ -36,7 +36,7 @@ All stills are 1080 x 1350 (4:5). Instagram shows carousels at 4:5 in the feed a
 | --- | --- | --- | --- |
 | **Field notes** | The site's annotated plate, as a carousel. Slide 1 is an ordinary scene drawn in silhouette with one label. Each swipe adds one label, the explanatory reveal. Second to last: what to try. Last: sources. | Paper ground, the plate, one Newsreader sentence under it ("What's growing when she drops the spoon again"). | A Lens page or a tool |
 | **One study, plainly** | The research carousel, rebuilt. Cover is the surprising human sentence, not the study name. Then the setup as a story, the result as one small figure, the catch (what it does not show), what it means at home, sources. | Forest-ink ground, a large Newsreader sentence, one research-blue figure number in the corner. | An article or Growing Minds AI |
-| **Is this normal?** | Age-tagged ranges from the milestones corpus. Cover is the question parents search. Slides give the range, the normal variation, and the signs that merit a conversation with a paediatrician. | Sage-mist ground, the question in Newsreader, an age chip in Inter. | Communication Snapshot, Milestone Navigator once cleared |
+| **Is this normal?** | Age-tagged ranges from the milestones corpus. Cover is the question parents search. Slides give the range, the normal variation, and the signs that merit a conversation with a pediatrician. | Sage-mist ground, the question in Newsreader, an age chip in Inter. | Communication Snapshot, Milestone Navigator once cleared |
 | **What we got wrong** | The correction series: the word gap, the marshmallow test, helper and hinderer. Cover is the claim with a strike through it. | Paper ground, the claim in Newsreader with a clay rule through it, "what the evidence says now" below. | The Claims Library |
 
 Cover rules for all four: one lead sentence of twelve words or fewer, no eyebrow, no "swipe" arrow, the small mark in one corner. Slide bodies: Inter at 44px or larger, never more than 55 words on a slide, one idea per slide. Last slide always carries the sources in research blue and "Educational content, not medical advice" in ink-muted.
@@ -61,7 +61,7 @@ Every reel carries a music bed generated with ElevenLabs Music v2.5, which the c
 
 Rules for the bed:
 
-- Instrumental only, one brief per series so the series is recognisable by ear: Field notes and Watch for this get a sparse felt piano with room tone; One study gets a low pulse with a soft string pad that lifts once at the result; the correction series gets a dry, slightly wry plucked motif. The brief is stored in `spec.json` as `music.brief` and reused, not reinvented per post.
+- Instrumental only, one brief per series so the series is recognizable by ear: Field notes and Watch for this get a sparse felt piano with room tone; One study gets a low pulse with a soft string pad that lifts once at the result; the correction series gets a dry, slightly wry plucked motif. The brief is stored in `spec.json` as `music.brief` and reused, not reinvented per post.
 - Ducked under the voice to about minus 18 dB, raised in the first two seconds and the last three.
 - Generated once per post and stored with the post's renders; never Instagram's audio library, which the API cannot attach.
 

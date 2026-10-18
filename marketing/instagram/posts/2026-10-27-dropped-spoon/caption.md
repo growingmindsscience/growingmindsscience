@@ -12,7 +12,7 @@ Free article, link in bio: What "serve and return" actually means, and what it d
 
 Educational content, not medical advice. The plate is a conceptual reading of this age in general, not a description of any one child.
 
-What is your baby's favourite thing to drop?
+What is your baby's favorite thing to drop?
 
 ## Hashtags
 #servendreturn #babydevelopment #infantdevelopment #highchair #firstyear #parentingscience #growingmindsscience

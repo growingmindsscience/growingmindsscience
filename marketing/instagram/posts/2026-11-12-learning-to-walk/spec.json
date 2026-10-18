@@ -17,7 +17,7 @@
     { "type": "text", "head": "The setup", "body": "For a century, walking was studied by coaxing infants down a straight, flat path.\n\nIn 2012 Karen Adolph's lab at NYU filmed 151 infants aged 12 to 19 months during ordinary free play, then coded every step and every fall from video, frame by frame." },
     { "type": "figure", "head": "One hour of play", "bars": [
       { "label": "Steps", "value": 2368, "display": "2,368", "highlight": true },
-      { "label": "Metres travelled", "value": 701, "display": "701" },
+      { "label": "Meters traveled", "value": 701, "display": "701" },
       { "label": "Falls", "value": 17, "display": "17" }
     ], "body": "Per hour, and the infants were only in motion a third of the time. Nearly half of all walking bouts were one to three steps long." },
     { "type": "text", "head": "So why give up crawling?", "body": "New walkers fell almost twice as often per hour as expert crawlers, yet they were the ones who abandoned crawling.\n\nBecause walking took them three times as far. Per distance covered, the fall rate was the same. Falling is not the price of walking. It is the price of moving." },

@@ -17,7 +17,7 @@
     { "type": "cover", "lead": "18 months and not saying much yet?", "sub": "What is typical, what is a wide range, and what is worth a conversation." },
     { "type": "range", "head": "When first words tend to arrive", "range": { "from": 6, "to": 30, "step": 6, "most": [10, 18], "mostLabel": "Most children's first words", "mark": 18, "markLabel": "18 months" }, "body": "First words often come around the first birthday, with wide variation. By 18 months most children try to say three or more words beyond \"mama\" and \"dada\". Understanding runs well ahead of speech the whole time." },
     { "type": "text", "head": "What matters more than the word count", "body": "At this age the signs of communication are mostly not words. Pointing to show you something. Following a simple instruction without a gesture. Looking where you look. Taking turns with sounds.\n\nA child doing those things with few words is usually on a wide, normal path." },
-    { "type": "signs", "head": "Worth a conversation with your paediatrician", "items": [
+    { "type": "signs", "head": "Worth a conversation with your pediatrician", "items": [
       "Not pointing or gesturing to share something with you",
       "Not responding to their name most of the time",
       "Very little eye contact or back-and-forth",
