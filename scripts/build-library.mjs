@@ -134,12 +134,12 @@ ${extraHead}
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=57ab480f20" />
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=303d86446c" />
   <link rel="stylesheet" href="/assets/css/field-guide.css?v=ececc69b57" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=9ee704dd6a" />
   <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
   <link rel="stylesheet" href="/assets/css/article.css?v=01dcd82f94" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=165c6d088e" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=a618e65a75" />
 </head>
 <body class="fg fg--page hub art">
   ${header}
@@ -151,7 +151,7 @@ ${body}
   ${footer}
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
-  <script src="/assets/js/main.js?v=742e637d07" defer></script>
+  <script src="/assets/js/main.js?v=d04bd3b1b9" defer></script>
   <script src="/assets/js/home.js?v=c7f5c746df" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>

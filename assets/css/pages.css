@@ -17,6 +17,20 @@
 .pg-faq .qa details p { line-height: 1.65; }
 .pg-faq .qa details p a { color: var(--forest); }
 
+/* ---------- Legal: privacy, terms of use, terms of sale ---------- */
+.pg-legal { max-width: 68ch; }
+.pg-legal h2 { margin-top: clamp(40px, 5vw, 56px); font-family: var(--font-display); font-weight: 400; font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem); line-height: 1.15; letter-spacing: -0.01em; scroll-margin-top: 96px; }
+.pg-legal h2:first-child { margin-top: 0; }
+.pg-legal h3 { margin-top: 28px; font-size: 1.0625rem; font-weight: 600; line-height: 1.35; color: var(--ink); }
+.pg-legal p, .pg-legal li { line-height: 1.65; color: var(--ink-soft); }
+.pg-legal p { margin-top: 14px; }
+.pg-legal h3 + p { margin-top: 6px; }
+.pg-legal ul { margin: 14px 0 0; padding-left: 1.25em; list-style: disc; }
+.pg-legal li + li { margin-top: 8px; }
+.pg-legal li::marker { color: var(--ink-muted); }
+.pg-legal b { color: var(--ink); font-weight: 600; }
+.pg-legal a, .pg-legal-page .hb-lead a { color: var(--forest); }
+
 /* ---------- Contact: what to write about, beside the form ---------- */
 .pg-contact { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 40px clamp(32px, 5vw, 80px); align-items: start; }
 .pg-contact__intro h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem); line-height: 1.08; letter-spacing: -0.015em; }

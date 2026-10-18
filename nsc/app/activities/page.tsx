@@ -49,10 +49,7 @@ export default async function ActivitiesPage({
   return (
     <main className="mx-auto flex min-h-screen max-w-3xl flex-col gap-8 px-6 py-10">
       <header>
-        <p className="text-[0.9375rem] font-semibold text-amber-deep">
-          Growing Minds Science
-        </p>
-        <h1 className="mt-1 text-3xl font-semibold text-ink-deep">
+        <h1 className="text-3xl font-semibold text-ink-deep">
           Activity Library
         </h1>
         <p className="mt-2 max-w-xl text-ink">
@@ -182,15 +179,20 @@ export default async function ActivitiesPage({
             {activities.length}{" "}
             {activities.length === 1 ? "activity" : "activities"}
           </p>
-          {activities.map((a) => (
-            <Link key={a.id} href={`/activities/${a.slug}`}>
-              <Card className="transition-colors hover:bg-sea-glass/20">
-                <div className="flex items-start justify-between gap-4">
+          {/* Rows under quiet rules, the site's list form: a rule on top
+              of every row but the first, the name in Newsreader. */}
+          <ul>
+            {activities.map((a) => (
+              <li key={a.id} className="border-t border-line-soft first:border-t-0">
+                <Link
+                  href={`/activities/${a.slug}`}
+                  className="group flex items-start justify-between gap-4 py-[22px] no-underline"
+                >
                   <div>
-                    <h2 className="text-lg font-semibold text-ink-deep">
+                    <h2 className="font-display text-[clamp(1.25rem,1.05rem+0.7vw,1.625rem)] font-medium leading-[1.15] tracking-[-0.01em] text-ink-deep underline decoration-transparent underline-offset-[0.16em] group-hover:text-teal group-hover:decoration-current">
                       {a.title}
                     </h2>
-                    <p className="mt-1 text-sm text-ink">{a.intention}</p>
+                    <p className="mt-1 text-[0.9375rem] text-ink-soft">{a.intention}</p>
                     <p className="mt-2 text-xs text-ink-muted">
                       {a.months_min}–{a.months_max} months ·{" "}
                       {a.domains.map((d) => DOMAIN_LABEL[d]).join(", ")} ·{" "}
@@ -202,10 +204,10 @@ export default async function ActivitiesPage({
                       Free
                     </span>
                   )}
-                </div>
-              </Card>
-            </Link>
-          ))}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </section>
       )}
     </main>

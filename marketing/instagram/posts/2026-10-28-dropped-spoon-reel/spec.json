@@ -1,0 +1,30 @@
+{
+  "id": "2026-10-28-dropped-spoon-reel",
+  "kind": "reel",
+  "date": "2026-10-28",
+  "series": "watch-for-this",
+  "source": "2026-10-27-dropped-spoon",
+  "ground": "paper",
+  "age": "8 to 14 months",
+  "row": "play and attention",
+  "scene": "spoon",
+  "link": { "label": "Free article, link in bio", "page": "What serve and return actually means", "url": "/articles/serve-and-return" },
+  "music": { "brief": "Sparse felt piano, slow, warm room tone, no melody that resolves, gentle, instrumental, for a short video about a baby.", "duration": 40 },
+  "labels": [
+    { "anchor": "spoon", "title": "The drop" },
+    { "anchor": "eyes", "title": "Her eyes go to you" },
+    { "anchor": "hand", "title": "A serve" },
+    { "anchor": "parent", "title": "Your return" }
+  ],
+  "beats": [
+    { "id": "hook", "kind": "hook", "text": "Your baby just dropped the spoon. Again.", "say": "Your baby just dropped the spoon again. Probably the ninth time.", "labels": 1, "pause": 0.35 },
+    { "id": "promise", "text": "Here is what is really going on.", "say": "Here is what is really going on.", "labels": 1, "pause": 0.45 },
+    { "id": "drop", "text": "Letting go on purpose is a new skill.", "sub": "Watching the spoon disappear is interesting enough to do again.", "say": "Letting go on purpose is a new skill at this age, and watching the spoon disappear is interesting enough to do again.", "labels": 1, "pause": 0.35 },
+    { "id": "eyes", "text": "Notice where your baby looks right after it lands.", "sub": "Usually straight at your face.", "say": "Now notice where your baby looks right after it lands. Usually, straight at your face.", "labels": 2, "pause": 0.35 },
+    { "id": "serve", "text": "That look is an invitation to respond.", "sub": "Responding is how attention and language grow.", "say": "That look is an invitation to respond, and responding is how attention and language grow.", "labels": 3, "pause": 0.35 },
+    { "id": "return", "text": "Say what happened, then pause.", "sub": "The spoon fell down. Then wait, so your baby can answer you.", "say": "Your part is simple. Say what happened in a few words, then pause, so your baby can answer you with a look or a sound.", "labels": 4, "pause": 0.45 },
+    { "id": "catch", "text": "This describes babies of this age in general, not your child.", "say": "One honest note. This describes babies of this age in general, not your child in particular.", "labels": 4, "pause": 0.45 },
+    { "id": "close", "kind": "close", "text": "The full article is free.", "say": "The full article on serve and return is free on our site. The link is in the bio.", "labels": 4, "pause": 0.3 },
+    { "id": "mark", "kind": "mark", "dur": 1.0 }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "2026-10-27-dropped-spoon",
+  "date": "2026-10-27",
+  "series": "field-notes",
+  "ground": "paper",
+  "bodyGround": "paper",
+  "age": "8 to 14 months",
+  "row": "play and attention",
+  "scene": "spoon",
+  "link": { "label": "Free article, link in bio", "page": "What serve and return actually means", "url": "/articles/serve-and-return" },
+  "music": { "brief": "Sparse felt piano, slow, room tone, no melody that resolves, 30 seconds." },
+  "labels": [
+    { "anchor": "spoon", "title": "The drop", "text": "A spoon goes over the edge for the ninth time. Not an accident, and not a test of you. At this age, letting go on purpose is new, and a thing that disappears and lands with a sound is worth repeating." },
+    { "anchor": "eyes", "title": "Her eyes go to you", "text": "Watch where she looks the moment it lands. Usually at your face. The drop is only half of the game. The other half is what you do next, and she is waiting for it." },
+    { "anchor": "hand", "title": "A serve", "text": "Any bid for your attention counts as a serve: a look, a sound, a point, a spoon on the floor. Returning it, with a word or a face or the spoon, is the ordinary exchange that builds attention and language." },
+    { "anchor": "parent", "title": "Your return", "text": "\"Spoon. Down it goes.\" A name for the thing and the event, then a pause so she can answer. The return does not have to be fun or patient every time. It has to happen more often than not." },
+    { "anchor": "note", "kind": "note", "title": "A conceptual reading", "text": "What is drawn here is what may be developing in a baby of this age in general. It is not what this child is thinking, and it is not a measure of anything." }
+  ],
+  "slides": [
+    { "type": "cover", "reveal": 1, "active": 0, "lead": "She dropped the spoon again. Here is what may be growing.", "sub": "Fig. 1. The high chair, at about 8 to 14 months. A conceptual reading." },
+    { "type": "plate", "reveal": 1, "active": 0 },
+    { "type": "plate", "reveal": 2, "active": 1 },
+    { "type": "plate", "reveal": 3, "active": 2 },
+    { "type": "plate", "reveal": 4, "active": 3 },
+    { "type": "try", "head": "What to try at the table", "items": [
+      "Name it once, plainly: \"spoon, down.\" Then wait a beat.",
+      "Return the look before the spoon. Her face is the serve.",
+      "Three rounds is plenty. Then the spoon stays on the tray.",
+      "On tired days, a glance and a word is a full return."
+    ] },
+    { "type": "sources", "sources": [
+      "Center on the Developing Child, Harvard University. Serve and return. developingchild.harvard.edu/science/key-concepts/serve-and-return",
+      "The plate is a conceptual reading of this age in general, drawn from the site's Developmental Lens, not a description of any one child."
+    ] }
+  ]
+}

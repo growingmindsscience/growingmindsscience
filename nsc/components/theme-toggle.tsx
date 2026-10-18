@@ -17,7 +17,7 @@ export function ThemeToggle({ className }: { className?: string }) {
     try { localStorage.setItem(THEME_KEY, next ? "dark" : "light"); } catch { /* private mode: the choice lasts for this page */ }
   }
   return (
-    <button type="button" onClick={toggle} className={className}>
+    <button type="button" onClick={toggle} className={className} data-theme-toggle>
       {dark ? "Light theme" : "Dark theme"}
     </button>
   );

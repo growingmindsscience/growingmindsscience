@@ -65,15 +65,20 @@ export default async function handler(request) {
     return errorResponse(request, 400, "Please enter a message.");
   }
 
+  // The /programs form marks itself so organization inquiries stand out.
+  const isProgram = payload.topic === "programs";
+  const organization = cleanHeaderText(payload.organization, 200);
+
   const submission = {
     access_key: accessKey,
-    subject: "Contact Request — Growing Minds Science",
+    subject: isProgram ? "Program inquiry — Growing Minds Science" : "Contact Request — Growing Minds Science",
     // Header-bound (sender name): no CR/LF or other control characters.
     name: cleanHeaderText(payload.name, 100),
     email,
     message,
     from_name: "Growing Minds Science Contact Form",
   };
+  if (organization) submission.organization = organization;
 
   let upstreamResponse;
   try {

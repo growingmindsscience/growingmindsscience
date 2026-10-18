@@ -1,0 +1,52 @@
+{
+  "_schema": "The brand's single topic register, shared by Instagram and LinkedIn drafting. `used` is appended by publish.mjs when a post goes out and by hand when a LinkedIn post runs. `rejected` lists claims that never run uncorrected; the correction series may cite them as the claim being corrected.",
+  "used": [
+    {
+      "topic": "Statistical learning: 8-month-olds segment words from a continuous speech stream after 2 minutes",
+      "source": "Saffran, Aslin & Newport, Science 274:1926-1928 (1996)",
+      "channel": "instagram",
+      "date": "2026-07-16",
+      "series": "legacy carousel",
+      "post": "marketing/carousels/2026-07-16 (posted under the old pipeline)"
+    },
+    {
+      "topic": "She dropped the spoon again. Here is what may be growing.",
+      "source": "Center on the Developing Child, Harvard University. Serve and return.",
+      "channel": "instagram",
+      "date": "2026-10-18",
+      "series": "field-notes",
+      "post": "2026-10-27-dropped-spoon",
+      "permalink": "https://www.instagram.com/p/DepJUO1ER7x/"
+    }
+  ],
+  "rejected": [
+    {
+      "claim": "Hamlin et al. helper/hinderer paradigm (infants prefer helpers)",
+      "why": "Failed to replicate in Lucca et al. (2025), ManyBabies, 1,018 infants",
+      "may_run_as": "what-we-got-wrong"
+    },
+    {
+      "claim": "Hart & Risley '30 million word gap'",
+      "why": "Contested; Sperry et al. (2019) failed to replicate; Dailey & Bergelson (2022) meta-analysis finds a much smaller, count-dependent difference",
+      "may_run_as": "what-we-got-wrong",
+      "scheduled": "2026-11-10-word-gap"
+    },
+    {
+      "claim": "Marshmallow test / delay of gratification predicts life outcomes",
+      "why": "Effect substantially attenuated in Watts, Duncan & Quan (2018), n = 918",
+      "may_run_as": "what-we-got-wrong",
+      "scheduled": "2026-12-03-marshmallow-test"
+    }
+  ],
+  "legacy_built_never_posted": [
+    "2026-07-17-perceptual-narrowing",
+    "2026-07-20-newborn-mother-voice",
+    "2026-07-22-still-face",
+    "2026-08-19-infant-directed-speech",
+    "2026-08-24-learning-to-walk",
+    "2026-08-28-overimitation",
+    "2026-08-31-goldilocks-effect",
+    "2026-09-02-conversational-turns"
+  ],
+  "_note": "The eight legacy carousels above were rebuilt as the first One study posts in marketing/instagram/posts/; publish.mjs records each here under `used` when it publishes."
+}

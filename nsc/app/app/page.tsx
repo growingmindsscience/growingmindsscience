@@ -69,10 +69,10 @@ export default async function AppHome({
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-6 py-10">
       <header className="flex items-center justify-between">
         <div>
-          <p className="text-[0.9375rem] font-semibold text-amber-deep">
+          <h1 className="text-2xl font-semibold text-ink-deep">Your children</h1>
+          <p className="mt-1 text-[0.9375rem] font-semibold text-amber-deep">
             {brand.productName}
           </p>
-          <h1 className="text-2xl font-semibold text-ink-deep">Your children</h1>
         </div>
         <div className="flex items-center gap-2">
           {ownsClass && (

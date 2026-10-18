@@ -20,7 +20,7 @@
 .lens__text { color: var(--ink); max-width: 60ch; }
 .lens__text--soft { color: var(--ink-soft); }
 .lens__block { display: grid; gap: 8px; }
-.lens__subhead { font-family: var(--font-body); font-size: 15px; font-weight: 600; color: var(--ink); }
+.fg .lens__subhead { letter-spacing: normal; font-family: var(--font-body); font-size: 15px; font-weight: 600; color: var(--ink); }
 .fg ul.lens__list, .fg ul.lens__prompts { display: grid; gap: 6px; }
 .lens__list li, .lens__prompts li { display: grid; grid-template-columns: auto 1fr; gap: 12px; }
 .lens__list li::before, .lens__prompts li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--note-amber); margin-top: 0.6em; }
@@ -28,7 +28,7 @@
 .lens__aside { font-size: 15px; color: var(--ink-muted); max-width: 60ch; }
 .fg ul.lens__mechanisms { display: grid; gap: 10px; }
 .lens__mech { background: var(--surface); border-radius: var(--radius); padding: 16px 18px; display: grid; gap: 8px; }
-.lens__mech-title { font-family: var(--font-body); font-size: 1rem; font-weight: 600; line-height: 1.35; color: var(--ink); }
+.fg .lens__mech-title { letter-spacing: normal; font-family: var(--font-body); font-size: 1rem; font-weight: 600; line-height: 1.35; color: var(--ink); }
 .lens__mech--parent { background: var(--paper); }
 .lens__evidence { font-size: 14px; font-weight: 500; color: var(--research); }
 .fg ol.lens__options { display: grid; counter-reset: opt; }

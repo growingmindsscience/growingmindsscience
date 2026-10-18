@@ -22,7 +22,7 @@
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=57ab480f20" />
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=303d86446c" />
   <link rel="stylesheet" href="/assets/css/field-guide.css?v=ececc69b57" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=9ee704dd6a" />
   <link rel="stylesheet" href="/assets/css/tools.css?v=7fce784071" />
@@ -148,8 +148,8 @@
   <!-- Printable pocket card (hidden on screen; shown only when printing) -->
   <div class="pocket-card" id="rn-pocket" aria-hidden="true"></div>
 
-  <script src="../assets/js/main.js?v=742e637d07" defer></script>
-  <script src="../assets/js/gms-tools.js?v=3befd65812" defer></script>
+  <script src="../assets/js/main.js?v=d04bd3b1b9" defer></script>
+  <script src="../assets/js/gms-tools.js?v=73433a023c" defer></script>
   <script>
   (function () {
     var DATA = JSON.parse(document.getElementById('router-data').textContent);
@@ -171,6 +171,7 @@
     }
 
     function renderStart() {
+      if (window.GMS && GMS.stopListening) GMS.stopListening();
       pocket.innerHTML = '';
       main.innerHTML = '';
       var step = el('div', { class: 'rn-step' }, [
@@ -209,22 +210,18 @@
       });
       row.appendChild(save);
 
-      // Listen
-      if (window.GMS && GMS.speechSupported) {
-        var speaking = false;
-        var listen = el('button', { type: 'button', class: 'btn btn--ghost', text: 'Listen' });
-        var text = [s.title, s.body, s.seq.join('. '), 'Try saying: ' + s.tryLine].join('. ');
-        var stopped = function () { speaking = false; listen.textContent = 'Listen'; };
-        listen.addEventListener('click', function () {
-          if (speaking) { GMS.stopSpeaking(); stopped(); return; }
-          if (GMS.speak(text, stopped)) { speaking = true; listen.textContent = 'Stop'; }
-        });
-        row.appendChild(listen);
-      }
-
       // Ask AI
       var ask = el('a', { class: 'btn btn--ghost', href: (window.GMS ? GMS.askUrl(s.aiQuestion) : '/tools/growing-minds-ai') , text: 'Ask about this' });
       row.appendChild(ask);
+
+      // Listen: Matthew's recording of this answer, placed before Ask once it is known to exist.
+      if (window.GMS && GMS.mountListen) {
+        var text = [s.title, s.body].concat(s.seq).concat(['Try saying: ' + s.tryLine]).map(function (t) {
+          t = String(t).trim();
+          return /[.?!:;]$/.test(t) ? t : t + '.';
+        }).join(' ');
+        GMS.mountListen(row, text, 'btn btn--ghost', ask);
+      }
 
       // Print pocket card
       var print = el('button', { type: 'button', class: 'btn btn--ghost', text: 'Print pocket card' });
@@ -248,6 +245,7 @@
     }
 
     function renderAnswer(id) {
+      if (window.GMS && GMS.stopListening) GMS.stopListening();
       var s = byId(id);
       if (!s) return renderStart();
       fillPocket(s);

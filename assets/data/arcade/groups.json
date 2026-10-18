@@ -1,0 +1,165 @@
+{
+  "note": "Groupings puzzles: 16 words in four groups of four. level 1 is the easiest group, 4 the trickiest. tests/arcade/puzzles.test.mjs checks the shape.",
+  "puzzles": [
+    { "id": 1, "groups": [
+      { "title": "In the nursery", "level": 1, "words": ["CRIB", "MOBILE", "BLANKET", "MONITOR"] },
+      { "title": "Bedtime routine", "level": 2, "words": ["BATH", "BOOK", "SONG", "CUDDLE"] },
+      { "title": "Nap, by other names", "level": 3, "words": ["DOZE", "SNOOZE", "REST", "KIP"] },
+      { "title": "___ time", "level": 4, "words": ["STORY", "SCREEN", "TUMMY", "PLAY"] } ] },
+    { "id": 2, "groups": [
+      { "title": "Fruit", "level": 1, "words": ["APPLE", "PEAR", "PLUM", "FIG"] },
+      { "title": "Shades of green", "level": 2, "words": ["SAGE", "FOREST", "OLIVE", "MINT"] },
+      { "title": "Things with keys", "level": 3, "words": ["PIANO", "MAP", "LOCK", "KEYBOARD"] },
+      { "title": "Baby ___", "level": 4, "words": ["STEPS", "TALK", "SHOWER", "TEETH"] } ] },
+    { "id": 3, "groups": [
+      { "title": "Playground", "level": 1, "words": ["SWING", "SLIDE", "SEESAW", "SANDBOX"] },
+      { "title": "Baby sounds", "level": 2, "words": ["COO", "BABBLE", "GIGGLE", "GURGLE"] },
+      { "title": "___ block", "level": 3, "words": ["WOODEN", "MENTAL", "CITY", "ROAD"] },
+      { "title": "Things you can lose", "level": 4, "words": ["TEMPER", "TOOTH", "TRACK", "TOUCH"] } ] },
+    { "id": 4, "groups": [
+      { "title": "Weather", "level": 1, "words": ["RAIN", "SNOW", "HAIL", "FOG"] },
+      { "title": "Out at night", "level": 2, "words": ["OWL", "BAT", "FOX", "BADGER"] },
+      { "title": "Things you count", "level": 3, "words": ["SHEEP", "STEPS", "STARS", "BLESSINGS"] },
+      { "title": "Hiding an EAR", "level": 4, "words": ["HEART", "PEARL", "EARLY", "BEARD"] } ] },
+    { "id": 5, "groups": [
+      { "title": "Dairy", "level": 1, "words": ["MILK", "CHEESE", "YOGURT", "BUTTER"] },
+      { "title": "Mealtime kit", "level": 2, "words": ["SPOON", "BIB", "HIGHCHAIR", "SIPPY"] },
+      { "title": "Cry ___", "level": 3, "words": ["WOLF", "FOUL", "UNCLE", "HAVOC"] },
+      { "title": "Things with teeth", "level": 4, "words": ["COMB", "SAW", "ZIPPER", "GEAR"] } ] },
+    { "id": 6, "groups": [
+      { "title": "Shapes", "level": 1, "words": ["CIRCLE", "SQUARE", "TRIANGLE", "STAR"] },
+      { "title": "In a sandwich", "level": 2, "words": ["HAM", "LETTUCE", "TOMATO", "CHEESE"] },
+      { "title": "Ways to settle a baby", "level": 3, "words": ["SOOTHE", "CRADLE", "HUM", "SWAY"] },
+      { "title": "___ band", "level": 4, "words": ["RUBBER", "ROCK", "HAIR", "WEDDING"] } ] },
+    { "id": 7, "groups": [
+      { "title": "Colours", "level": 1, "words": ["RED", "BLUE", "YELLOW", "GREEN"] },
+      { "title": "Things you draw", "level": 2, "words": ["PICTURE", "BATH", "CURTAINS", "BREATH"] },
+      { "title": "Garden birds", "level": 3, "words": ["ROBIN", "WREN", "FINCH", "JAY"] },
+      { "title": "___bug", "level": 4, "words": ["LADY", "LITTER", "BED", "LOVE"] } ] },
+    { "id": 8, "groups": [
+      { "title": "Tools", "level": 1, "words": ["HAMMER", "WRENCH", "DRILL", "SAW"] },
+      { "title": "Things you pack", "level": 2, "words": ["LUNCH", "BAG", "PUNCH", "SUITCASE"] },
+      { "title": "Ways to carry a baby", "level": 3, "words": ["SLING", "CARRIER", "WRAP", "ARMS"] },
+      { "title": "Sound like numbers", "level": 4, "words": ["WON", "TOO", "FOR", "ATE"] } ] },
+    { "id": 9, "groups": [
+      { "title": "Grains", "level": 1, "words": ["OAT", "RICE", "WHEAT", "CORN"] },
+      { "title": "Comfort objects", "level": 2, "words": ["BLANKIE", "TEDDY", "PACIFIER", "THUMB"] },
+      { "title": "Things with rings", "level": 3, "words": ["SATURN", "TREE", "PHONE", "CIRCUS"] },
+      { "title": "Milk ___", "level": 4, "words": ["TOOTH", "SHAKE", "MAN", "CHOCOLATE"] } ] },
+    { "id": 10, "groups": [
+      { "title": "Pets", "level": 1, "words": ["DOG", "CAT", "FISH", "HAMSTER"] },
+      { "title": "Things that pop", "level": 2, "words": ["BALLOON", "BUBBLE", "CORK", "QUESTION"] },
+      { "title": "Parts of a book", "level": 3, "words": ["SPINE", "COVER", "PAGE", "JACKET"] },
+      { "title": "Feelings", "level": 4, "words": ["JOY", "FEAR", "ANGER", "CALM"] } ] },
+    { "id": 11, "groups": [
+      { "title": "Vegetables", "level": 1, "words": ["PEA", "CARROT", "BEAN", "LEEK"] },
+      { "title": "___hand", "level": 2, "words": ["FARM", "SECOND", "BACK", "SHORT"] },
+      { "title": "Quiet sounds", "level": 3, "words": ["HUSH", "WHISPER", "MURMUR", "SIGH"] },
+      { "title": "Green ___", "level": 4, "words": ["LIGHT", "THUMB", "CARD", "ROOM"] } ] },
+    { "id": 12, "groups": [
+      { "title": "Breakfast", "level": 1, "words": ["TOAST", "CEREAL", "EGG", "PANCAKE"] },
+      { "title": "Things you raise", "level": 2, "words": ["CHILD", "FLAG", "VOICE", "ROOF"] },
+      { "title": "Baby gear", "level": 3, "words": ["STROLLER", "CARSEAT", "BOUNCER", "PLAYMAT"] },
+      { "title": "Read the same backwards", "level": 4, "words": ["MOM", "DAD", "NOON", "LEVEL"] } ] },
+    { "id": 13, "groups": [
+      { "title": "Ball games", "level": 1, "words": ["SOCCER", "TENNIS", "GOLF", "CRICKET"] },
+      { "title": "Insects", "level": 2, "words": ["ANT", "BEE", "MOTH", "FLEA"] },
+      { "title": "Things you throw", "level": 3, "words": ["PARTY", "TANTRUM", "SHADE", "TOWEL"] },
+      { "title": "Big ___", "level": 4, "words": ["SISTER", "DEAL", "TOE", "BANG"] } ] },
+    { "id": 14, "groups": [
+      { "title": "Baby clothes", "level": 1, "words": ["ONESIE", "BOOTIES", "BIB", "MITTENS"] },
+      { "title": "Seasons", "level": 2, "words": ["SPRING", "SUMMER", "FALL", "WINTER"] },
+      { "title": "Things that fall", "level": 3, "words": ["LEAVES", "RAIN", "NIGHT", "PRICES"] },
+      { "title": "Bodies of water", "level": 4, "words": ["LAKE", "POND", "RIVER", "SEA"] } ] },
+    { "id": 15, "groups": [
+      { "title": "On the farm", "level": 1, "words": ["COW", "PIG", "HEN", "GOAT"] },
+      { "title": "What they say", "level": 2, "words": ["MOO", "OINK", "CLUCK", "BAA"] },
+      { "title": "Things with legs", "level": 3, "words": ["TABLE", "CHAIR", "RACE", "TROUSERS"] },
+      { "title": "___ puppet", "level": 4, "words": ["SOCK", "HAND", "SHADOW", "FINGER"] } ] },
+    { "id": 16, "groups": [
+      { "title": "In a lunchbox", "level": 1, "words": ["SANDWICH", "APPLE", "JUICE", "CRACKERS"] },
+      { "title": "Things you crack", "level": 2, "words": ["CODE", "JOKE", "EGG", "SMILE"] },
+      { "title": "Trees", "level": 3, "words": ["OAK", "ELM", "BIRCH", "MAPLE"] },
+      { "title": "___board", "level": 4, "words": ["CHALK", "SKATE", "KEY", "CUP"] } ] },
+    { "id": 17, "groups": [
+      { "title": "In the sea", "level": 1, "words": ["WHALE", "CRAB", "OCTOPUS", "SEAL"] },
+      { "title": "Things you seal", "level": 2, "words": ["ENVELOPE", "DEAL", "LIPS", "JAR"] },
+      { "title": "Art supplies", "level": 3, "words": ["CRAYON", "PAINT", "GLUE", "GLITTER"] },
+      { "title": "Hiding an animal", "level": 4, "words": ["CATALOG", "DOGMA", "BEARING", "BOWL"] } ] },
+    { "id": 18, "groups": [
+      { "title": "Nursery rhyme names", "level": 1, "words": ["HUMPTY", "JILL", "MUFFET", "PETER"] },
+      { "title": "Ways to jump", "level": 2, "words": ["HOP", "SKIP", "LEAP", "BOUND"] },
+      { "title": "Things with wings", "level": 3, "words": ["BIRD", "PLANE", "BUILDING", "STAGE"] },
+      { "title": "Bath ___", "level": 4, "words": ["TUB", "MAT", "TOWEL", "BOMB"] } ] },
+    { "id": 19, "groups": [
+      { "title": "First instruments", "level": 1, "words": ["SHAKER", "XYLOPHONE", "TAMBOURINE", "RECORDER"] },
+      { "title": "Things you beat", "level": 2, "words": ["EGGS", "DRUM", "RECORD", "TRAFFIC"] },
+      { "title": "Sweets", "level": 3, "words": ["TOFFEE", "FUDGE", "MINT", "GUM"] },
+      { "title": "Relatives", "level": 4, "words": ["AUNT", "UNCLE", "COUSIN", "NIECE"] } ] },
+    { "id": 20, "groups": [
+      { "title": "Round things", "level": 1, "words": ["BALL", "MOON", "COIN", "WHEEL"] },
+      { "title": "Things you turn", "level": 2, "words": ["PAGE", "CORNER", "HEAD", "KEY"] },
+      { "title": "Milestones, in order", "level": 3, "words": ["ROLL", "SIT", "CRAWL", "WALK"] },
+      { "title": "Cheeses", "level": 4, "words": ["BRIE", "FETA", "GOUDA", "EDAM"] } ] },
+    { "id": 21, "groups": [
+      { "title": "Bread", "level": 1, "words": ["BAGEL", "ROLL", "LOAF", "PITA"] },
+      { "title": "Things that roll", "level": 2, "words": ["DICE", "EYES", "CREDITS", "THUNDER"] },
+      { "title": "Baby firsts", "level": 3, "words": ["SMILE", "WORD", "STEP", "TOOTH"] },
+      { "title": "___step", "level": 4, "words": ["SIDE", "DOOR", "FOOT", "GOOSE"] } ] },
+    { "id": 22, "groups": [
+      { "title": "Soft", "level": 1, "words": ["PILLOW", "FLEECE", "VELVET", "DOWN"] },
+      { "title": "Directions", "level": 2, "words": ["UP", "LEFT", "RIGHT", "BACK"] },
+      { "title": "Shades of blue", "level": 3, "words": ["NAVY", "TEAL", "SKY", "DENIM"] },
+      { "title": "Things with stories", "level": 4, "words": ["BUILDING", "NEWSPAPER", "GRANDPA", "PODCAST"] } ] },
+    { "id": 23, "groups": [
+      { "title": "Garden tools", "level": 1, "words": ["RAKE", "HOE", "TROWEL", "SHEARS"] },
+      { "title": "Card suits", "level": 2, "words": ["HEART", "CLUB", "SPADE", "DIAMOND"] },
+      { "title": "Things you grow", "level": 3, "words": ["HAIR", "BEARD", "DEBT", "OLD"] },
+      { "title": "___ jam", "level": 4, "words": ["TRAFFIC", "STRAWBERRY", "LOG", "PAPER"] } ] },
+    { "id": 24, "groups": [
+      { "title": "Picnic", "level": 1, "words": ["BASKET", "BLANKET", "LEMONADE", "ANTS"] },
+      { "title": "Basketball", "level": 2, "words": ["DUNK", "DRIBBLE", "REBOUND", "HOOP"] },
+      { "title": "Things that bounce", "level": 3, "words": ["BALL", "CHECK", "IDEA", "EMAIL"] },
+      { "title": "Things with a crust", "level": 4, "words": ["PIE", "EARTH", "BREAD", "PIZZA"] } ] },
+    { "id": 25, "groups": [
+      { "title": "Yellow things", "level": 1, "words": ["SUN", "BANANA", "LEMON", "DUCKLING"] },
+      { "title": "Water birds", "level": 2, "words": ["SWAN", "GOOSE", "HERON", "PELICAN"] },
+      { "title": "Rubber ___", "level": 3, "words": ["DUCK", "BAND", "STAMP", "SOLE"] },
+      { "title": "Things you lose", "level": 4, "words": ["SLEEP", "KEYS", "MARBLES", "WEIGHT"] } ] },
+    { "id": 26, "groups": [
+      { "title": "Pasta shapes", "level": 1, "words": ["BOW", "SHELL", "TUBE", "TWIST"] },
+      { "title": "Hairstyles", "level": 2, "words": ["BRAID", "BUN", "PONYTAIL", "BOB"] },
+      { "title": "Things with knots", "level": 3, "words": ["ROPE", "WOOD", "STOMACH", "SHOELACE"] },
+      { "title": "Grandma", "level": 4, "words": ["NANA", "GRAN", "MEEMAW", "OMA"] } ] },
+    { "id": 27, "groups": [
+      { "title": "___box", "level": 1, "words": ["SAND", "TOY", "LUNCH", "SHOE"] },
+      { "title": "Things you wind", "level": 2, "words": ["CLOCK", "YARN", "WATCH", "BOBBIN"] },
+      { "title": "Dinosaurs", "level": 3, "words": ["RAPTOR", "STEGOSAURUS", "TRICERATOPS", "DIPLODOCUS"] },
+      { "title": "Cuddly words", "level": 4, "words": ["SNUG", "COSY", "WARM", "SOFT"] } ] },
+    { "id": 28, "groups": [
+      { "title": "Citrus", "level": 1, "words": ["LIME", "ORANGE", "LEMON", "GRAPEFRUIT"] },
+      { "title": "Things that peel", "level": 2, "words": ["PAINT", "SUNBURN", "BANANA", "ONION"] },
+      { "title": "Short sleeps", "level": 3, "words": ["SIESTA", "CATNAP", "SNOOZE", "DOZE"] },
+      { "title": "Little ___", "level": 4, "words": ["FINGER", "LEAGUE", "MERMAID", "PIGGY"] } ] },
+    { "id": 29, "groups": [
+      { "title": "In the kitchen drawer", "level": 1, "words": ["WHISK", "LADLE", "SPATULA", "TONGS"] },
+      { "title": "Comic-book sounds", "level": 2, "words": ["POW", "ZAP", "BAM", "WHAM"] },
+      { "title": "Calm-down steps", "level": 3, "words": ["PAUSE", "BREATHE", "COUNT", "STRETCH"] },
+      { "title": "Things with tails", "level": 4, "words": ["COMET", "KITE", "COIN", "PONY"] } ] },
+    { "id": 30, "groups": [
+      { "title": "Parts of a text", "level": 1, "words": ["PAGE", "CHAPTER", "LINE", "VERSE"] },
+      { "title": "Fishing gear", "level": 2, "words": ["ROD", "REEL", "HOOK", "BAIT"] },
+      { "title": "Parts of a shoe", "level": 3, "words": ["SOLE", "HEEL", "LACE", "TONGUE"] },
+      { "title": "Spanish words in English", "level": 4, "words": ["PATIO", "SIESTA", "PLAZA", "TACO"] } ] },
+    { "id": 31, "groups": [
+      { "title": "Garden bugs", "level": 1, "words": ["LADYBUG", "BUTTERFLY", "FIREFLY", "BEETLE"] },
+      { "title": "Things with shells", "level": 2, "words": ["SNAIL", "EGG", "TURTLE", "PEANUT"] },
+      { "title": "Hatch a ___", "level": 3, "words": ["PLAN", "PLOT", "SCHEME", "IDEA"] },
+      { "title": "Dances", "level": 4, "words": ["WALTZ", "TANGO", "SALSA", "TWIST"] } ] },
+    { "id": 32, "groups": [
+      { "title": "Not big", "level": 1, "words": ["SMALL", "TINY", "LITTLE", "WEE"] },
+      { "title": "In the diaper bag", "level": 2, "words": ["WIPES", "DIAPER", "CREAM", "SNACKS"] },
+      { "title": "Snow___", "level": 3, "words": ["MAN", "BALL", "FLAKE", "DAY"] },
+      { "title": "Things that melt", "level": 4, "words": ["ICE", "BUTTER", "HEART", "WAX"] } ] }
+  ]
+}

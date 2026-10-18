@@ -73,6 +73,11 @@ jobs:
       - name: "API functions: unit tests (node --test, mocked fetch)"
         run: node --test "tests/api/*.test.mjs"
 
+      # Arcade: every registered game has a file, a hub card and no retired
+      # brand colour; the daily puzzle data is well formed.
+      - name: "Arcade: registry, games and daily puzzle data"
+        run: node --test "tests/arcade/*.test.mjs"
+
       - name: Eval harness — deterministic checks (planted-violation gate)
         run: |
           if [ -f evals/selftest.mjs ]; then

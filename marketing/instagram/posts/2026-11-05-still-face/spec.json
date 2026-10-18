@@ -1,0 +1,24 @@
+{
+  "id": "2026-11-05-still-face",
+  "date": "2026-11-05",
+  "series": "one-study",
+  "ground": "paper",
+  "bodyGround": "paper",
+  "age": "1 to 12 months",
+  "row": "big feelings",
+  "link": { "label": "Free tool, link in bio", "page": "Repair after the hard moment", "url": "/tools/repair-after-the-hard-moment" },
+  "music": { "brief": "Low pulse under a soft string pad, one lift near the end, instrumental, 35 seconds." },
+  "sources": [
+    "Tronick, Als, Adamson, Wise and Brazelton. Journal of the American Academy of Child Psychiatry 17:1-13 (1978).",
+    "Mesman, van IJzendoorn and Bakermans-Kranenburg. The many faces of the Still-Face Paradigm: a review and meta-analysis. Developmental Review 29:120-162 (2009). More than 80 studies.",
+    "Tronick et al. (1982), the 6-month follow-up to attachment at one year, 17 infants."
+  ],
+  "slides": [
+    { "type": "cover", "lead": "Go blank for two minutes. Your baby will notice in seconds.", "sub": "The still-face experiment, repeated in more than 80 studies since 1978.", "figure": { "value": "80+", "label": "studies in the 2009 meta-analysis" } },
+    { "type": "text", "head": "The setup", "body": "A parent plays face to face with the baby. Then, on cue, holds a neutral, silent, unresponsive face for a short stretch. Then plays again.\n\nThree brief episodes, back to back. First run in 1978 by Edward Tronick's lab." },
+    { "type": "figure", "head": "What babies do when the face goes still", "stat": { "value": "3", "label": "reliable changes, across more than 80 studies: less looking at the parent, less smiling, more distress" }, "body": "And they work at it. Smiling, reaching, calling out, trying to pull the parent back in before they give up." },
+    { "type": "text", "head": "The catch", "body": "A two-minute still face in a lab is not everyday life, and no single blank moment harms a baby. Phones, tiredness and a hard day all produce short stills, and babies recover when you come back.\n\nThe effect shows up from about one month, not in newborns." },
+    { "type": "text", "head": "Why it is hopeful", "body": "The finding is not that babies need a perfect face. It is that they are built to seek the connection back, and to recover when it returns.\n\nIn one small early study, the six-month-olds who kept trying to re-engage were the ones most likely to be securely attached a year later." },
+    { "type": "sources" }
+  ]
+}

@@ -4,9 +4,11 @@ import {
   checkRateLimit,
   clientKey,
   createDailyAllowance,
+  createSharedDailyAllowance,
   createWindowLimiter,
   ipKey,
 } from "../../api/_ratelimit.js";
+import { json, mockFetch } from "./_helpers.mjs";
 
 test("ipKey keeps IPv4 addresses whole", () => {
   assert.equal(ipKey("203.0.113.7"), "203.0.113.7");
@@ -96,4 +98,82 @@ test("checkRateLimit treats addresses in one IPv6 /64 as one client", () => {
   const results = [1, 2, 3, 4].map((n) => checkRateLimit(request(`2001:db8:77:1::${n}`), opts).limited);
   assert.deepEqual(results, [false, false, false, true]);
   assert.equal(checkRateLimit(request("2001:db8:77:2::1"), opts).limited, false);
+});
+
+// ---------- shared daily allowance (Supabase RPC) ----------
+
+const SUPA = "https://usage.supabase.test";
+const RPC_TAKE = `${SUPA}/rest/v1/rpc/ai_take_free_question`;
+const RPC_REFUND = `${SUPA}/rest/v1/rpc/ai_refund_free_question`;
+const sharedOpts = { limit: 2, url: `${SUPA}/`, serviceKey: "service-key", secret: "test-secret", now: () => Date.UTC(2026, 9, 16, 12) };
+
+test("shared allowance: not configured, it is the in-memory allowance", async () => {
+  const net = mockFetch([]);
+  try {
+    const a = createSharedDailyAllowance({ limit: 1 });
+    assert.equal(a.enabled, false);
+    const t = await a.reserve("203.0.113.7");
+    assert.ok(t && t.shared === false);
+    assert.equal(await a.reserve("203.0.113.7"), null);
+    await t.refund();
+    assert.ok(await a.reserve("203.0.113.7"));
+    assert.equal(net.calls.length, 0);
+  } finally { net.restore(); }
+});
+
+test("shared allowance: counts through the RPC and never sends the address", async () => {
+  const counts = new Map();
+  const net = mockFetch([
+    [RPC_TAKE, (url, init) => {
+      const { p_key_hash, p_limit } = JSON.parse(init.body);
+      const n = counts.get(p_key_hash) || 0;
+      if (n >= p_limit) return json(false);
+      counts.set(p_key_hash, n + 1);
+      return json(true);
+    }],
+    [RPC_REFUND, (url, init) => {
+      const { p_key_hash } = JSON.parse(init.body);
+      counts.set(p_key_hash, Math.max(0, (counts.get(p_key_hash) || 0) - 1));
+      return json(null);
+    }],
+  ]);
+  try {
+    const a = createSharedDailyAllowance(sharedOpts);
+    assert.equal(a.enabled, true);
+    const first = await a.reserve("203.0.113.7");
+    assert.ok(first && first.shared === true);
+    assert.ok(await a.reserve("203.0.113.7"));
+    assert.equal(await a.reserve("203.0.113.7"), null, "third question of the day is refused");
+    await first.refund();
+    assert.ok(await a.reserve("203.0.113.7"), "a refunded question can be asked again");
+    assert.ok(await a.reserve("198.51.100.4"), "another visitor has their own count");
+    for (const c of net.calls) {
+      assert.equal(c.init.headers.Authorization, "Bearer service-key");
+      assert.ok(!c.init.body.includes("203.0.113.7") && !c.init.body.includes("198.51.100.4"), "no address leaves the server");
+      assert.match(JSON.parse(c.init.body).p_key_hash, /^[0-9a-f]{64}$/);
+    }
+  } finally { net.restore(); }
+});
+
+test("shared allowance: the visitor hash changes every day", async () => {
+  const hashes = [];
+  const net = mockFetch([[RPC_TAKE, (url, init) => { hashes.push(JSON.parse(init.body).p_key_hash); return json(true); }]]);
+  try {
+    await createSharedDailyAllowance(sharedOpts).reserve("203.0.113.7");
+    await createSharedDailyAllowance({ ...sharedOpts, now: () => Date.UTC(2026, 9, 17, 12) }).reserve("203.0.113.7");
+    assert.equal(hashes.length, 2);
+    assert.notEqual(hashes[0], hashes[1]);
+  } finally { net.restore(); }
+});
+
+test("shared allowance: an outage falls back to the in-memory count, not to unlimited", async () => {
+  const net = mockFetch([[RPC_TAKE, () => new Response("boom", { status: 503 })]]);
+  try {
+    const a = createSharedDailyAllowance({ ...sharedOpts, limit: 1 });
+    const t = await a.reserve("203.0.113.7");
+    assert.ok(t && t.shared === false, "served from the fallback");
+    assert.equal(await a.reserve("203.0.113.7"), null, "the fallback still enforces the limit");
+    await t.refund();
+    assert.ok(await a.reserve("203.0.113.7"), "the refund went back to the fallback");
+  } finally { net.restore(); }
 });

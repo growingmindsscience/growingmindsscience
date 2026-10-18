@@ -72,12 +72,12 @@ ${extraHead}
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=57ab480f20" />
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=303d86446c" />
   <link rel="stylesheet" href="/assets/css/field-guide.css?v=ececc69b57" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=9ee704dd6a" />
   <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
-  <link rel="stylesheet" href="/assets/css/claims.css?v=0b2ffbc319" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=165c6d088e" />
+  <link rel="stylesheet" href="/assets/css/claims.css?v=0c4b4ab099" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=a618e65a75" />
 </head>
 <body class="fg fg--page hub claims">
   <!-- header:start -->
@@ -169,6 +169,7 @@ ${body}
             <li><a href="/about/">Our approach</a></li>
             <li><a href="/articles/">Articles</a></li>
             <li><a href="/faq/">FAQ</a></li>
+            <li><a href="/programs/">For programs</a></li>
             <li><a href="/contact/">Contact</a></li>
           </ul>
         </div>
@@ -185,6 +186,7 @@ ${body}
       <p class="site-footer__wordmark" aria-hidden="true">growing minds <span class="site-footer__wordmark-desc">science</span></p>
       <div class="footer-bottom">
         <p>&copy; <span data-year>2026</span> Growing Minds Science</p>
+        <p><a href="/privacy/">Privacy</a> &middot; <a href="/terms/">Terms of use</a> &middot; <a href="/terms-of-sale/">Terms of sale</a></p>
         <p>Educational content only. Not medical or psychological advice.</p>
       </div>
     </div>
@@ -193,7 +195,7 @@ ${body}
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
 
-  <script src="/assets/js/main.js?v=742e637d07" defer></script>
+  <script src="/assets/js/main.js?v=d04bd3b1b9" defer></script>
   <script src="/assets/js/home.js?v=c7f5c746df" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>

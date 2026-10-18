@@ -1,26 +1,25 @@
 /* Site chrome: the one header and footer every page shares.
-   Loaded last on every page, after the page's own stylesheet (home.css, or
-   styles.css + refresh.css, or a standalone page's inline styles). It reads the
-   Seminar tokens from whichever system the page uses and falls back to the
-   literal values, so the header and footer look identical everywhere.
+   Loaded last on every page, after the page's own stylesheet. It reads the
+   field-guide tokens (tokens-field-guide.css) and falls back to their literal
+   values, so the header and footer look the same on a page that lacks them.
    Behavior lives in assets/js/chrome.js. */
 
 .site-header,
 .site-footer {
-  --chrome-ground: var(--ground, var(--bg, #F6F9F8));
-  --chrome-surface: var(--surface, #FFFFFF);
-  --chrome-tint: var(--tint, var(--surface-2, #E6EFED));
-  --chrome-line: var(--line, var(--border, #D3DEDC));
-  --chrome-line-soft: var(--line-soft, var(--border-soft, #E3EBE9));
-  --chrome-ink: var(--ink, #12262C);
-  --chrome-ink-soft: var(--ink-soft, #3A5058);
-  --chrome-ink-muted: var(--ink-muted, #52676C);
-  --chrome-action: var(--teal, var(--primary, #1E5F62));
-  --chrome-action-ink: var(--btn-primary-ink, var(--primary-ink, #FFFFFF));
-  --chrome-mark: var(--primary, #1E5F62);
-  --chrome-focus: var(--primary, #1E5F62);
-  --chrome-display: var(--font-display, "Geologica", "Helvetica Neue", Arial, sans-serif);
-  --chrome-body: var(--font-body, "Literata", Georgia, serif);
+  --chrome-ground: var(--ground, var(--bg, #F7F4EC));
+  --chrome-surface: var(--surface, #FFFDF8);
+  --chrome-tint: var(--tint, var(--surface-2, #E6E3D7));
+  --chrome-line: var(--line, var(--border, #CDD3CB));
+  --chrome-line-soft: var(--line-soft, var(--border-soft, #DEE2D8));
+  --chrome-ink: var(--ink, #193C39);
+  --chrome-ink-soft: var(--ink-soft, #35504C);
+  --chrome-ink-muted: var(--ink-muted, #546965);
+  --chrome-action: var(--teal, var(--primary, #245F58));
+  --chrome-action-ink: var(--btn-primary-ink, var(--primary-ink, #FFFDF8));
+  --chrome-mark: var(--primary, #245F58);
+  --chrome-focus: var(--primary, #245F58);
+  --chrome-display: var(--font-display, "Newsreader", Georgia, "Times New Roman", serif);
+  --chrome-body: var(--font-body, "Inter", "Helvetica Neue", Arial, sans-serif);
   --chrome-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --chrome-t: 240ms var(--chrome-ease);
 }

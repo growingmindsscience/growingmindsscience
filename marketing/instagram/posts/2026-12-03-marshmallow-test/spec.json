@@ -1,0 +1,28 @@
+{
+  "id": "2026-12-03-marshmallow-test",
+  "date": "2026-12-03",
+  "series": "what-we-got-wrong",
+  "ground": "paper",
+  "bodyGround": "paper",
+  "age": "3 to 5 years",
+  "row": "big feelings",
+  "link": { "label": "Free article, link in bio", "page": "Self-regulation, briefly", "url": "/articles/self-regulation" },
+  "music": { "brief": "Dry plucked motif, slightly wry, sparse, instrumental, 30 seconds." },
+  "sources": [
+    "Mischel, Shoda and Rodriguez. Delay of gratification in children. Science 244:933-938 (1989). The original follow-ups, small samples from one preschool.",
+    "Watts, Duncan and Quan. Revisiting the marshmallow test: a conceptual replication investigating links between early delay of gratification and later outcomes. Psychological Science 29(7):1159-1177 (2018). 918 children.",
+    "Mischel and colleagues' own strategy studies: children waited far longer when taught to distract themselves or reframe the treat."
+  ],
+  "slides": [
+    { "type": "cover", "claim": "The marshmallow test predicts your child's future.", "now": "A famous follow-up of a few dozen children at one preschool. A replication of 918 found the link much weaker, and mostly explained by the child's circumstances." },
+    { "type": "text", "head": "Where the claim came from", "body": "In Walter Mischel's experiments, preschoolers were offered one treat now or two if they could wait alone with the first one.\n\nSmall follow-ups of children from one Stanford preschool linked longer waits to better outcomes years later. The test became shorthand for willpower as a fixed trait." },
+    { "type": "figure", "head": "What the bigger study found", "stat": { "value": "918", "label": "children in the 2018 replication, a more diverse sample than the original" }, "body": "The link between waiting at four and achievement at fifteen was much weaker than the popular story. Most of it disappeared once family background and early cognitive skills were accounted for." },
+    { "type": "text", "head": "The part Mischel himself showed", "body": "Willpower was never brute force. In his own later studies, children waited far longer when taught a simple strategy: look away, think of the marshmallow as a cloud, sing.\n\nSelf-control in young children is a skill in a context, not a verdict." },
+    { "type": "try", "head": "The useful version", "items": [
+      "A child who cannot wait is showing normal development, not a character flaw.",
+      "Waiting gets easier when the world feels safe and predictable.",
+      "Teach the trick, not the test: distraction and reframing work."
+    ], "note": "Clear about what's known. Honest about what's not." },
+    { "type": "sources" }
+  ]
+}

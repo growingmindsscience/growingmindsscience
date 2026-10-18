@@ -9,6 +9,7 @@ import { SubmitButton } from "@/components/submit-button";
 import { sitePath } from "@/lib/site";
 import { startPreschoolClassCheckout } from "./actions";
 import { CLASS_REFUND_POLICY } from "@/lib/refund-policy";
+import { PurchaseTerms } from "@/components/purchase-terms";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Preschool years class" };
@@ -42,6 +43,7 @@ export default async function PreschoolClassPage({ searchParams }: {
             error !== "not-open" && <p className="mt-4 text-sm text-ink-muted">Enrollment is not open yet.</p>
           )}
           <a href={sitePath(PRESCHOOL_COURSE.detailsPath)} className={buttonClasses("ghost", "md", "mt-4 border border-line")}>View class details</a>
+          <PurchaseTerms narration className="mt-4" />
         </Card>
       ) : (
         <ClassResume lessons={lessons} progress={progress} courseSlug="preschool" modules={PRESCHOOL_COURSE.modules} />

@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>One study, plainly</title>
+<link rel="stylesheet" href="../../../../assets/css/tokens-field-guide.css">
+<link rel="stylesheet" href="_base.css">
+<style>
+  /* Cover: forest ink by default, one Newsreader sentence, one research figure in the corner. */
+  .os-fig { display: flex; flex-direction: column; gap: 10px; }
+  .os-fig b { font-family: var(--font-display); font-weight: 500; font-size: 120px; line-height: 0.95; letter-spacing: -0.03em; color: var(--research); }
+  .slide[data-ground="forest"] .os-fig b { color: #9DBAD8; }
+  .os-fig span { font-size: 32px; line-height: 1.35; max-width: 700px; }
+  .slide[data-ground="forest"] .head { color: var(--on-ink); }
+</style>
+</head>
+<body>
+<div class="slide" id="slide"></div>
+<script src="_render.js"></script>
+<script>renderSlide("one-study");</script>
+</body>
+</html>
