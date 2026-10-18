@@ -9,6 +9,10 @@
 
 /* ---------- Page tear-away ---------- */
 body.gms-arcade-lock { overflow: hidden; }
+/* While a game is open the body is pinned at its scroll offset (top is set by
+   core). overflow:hidden alone does not stop iOS Safari panning the page under
+   the overlay, and each pan resizes the viewport as the URL bar moves. */
+body.gms-arcade-fixed { position: fixed; left: 0; right: 0; width: 100%; overflow: hidden; }
 .gms-arcade-falling { will-change: transform, opacity; }
 
 /* ---------- Overlay ---------- */
@@ -24,9 +28,13 @@ body.gms-arcade-lock { overflow: hidden; }
   overflow: hidden;
   overscroll-behavior: contain;
   -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
   user-select: none;
   -webkit-user-select: none;
-  touch-action: manipulation;
+  /* Vertical pans only (the prompt and the puzzle boards scroll); no pinch
+     zoom and no double-tap zoom anywhere over a game. The canvas and the
+     touch buttons narrow this to none. */
+  touch-action: pan-y;
   color: var(--ink);
   font-family: var(--font-body);
 }
@@ -57,7 +65,7 @@ body.gms-arcade-lock { overflow: hidden; }
   max-height: 100dvh;
   overflow: hidden;
   background: var(--paper);
-  padding: clamp(10px, 2vh, 20px) clamp(12px, 4vw, 48px) calc(clamp(10px, 2vh, 18px) + env(safe-area-inset-bottom, 0px));
+  padding: calc(clamp(10px, 2vh, 20px) + env(safe-area-inset-top, 0px)) calc(clamp(12px, 4vw, 48px) + env(safe-area-inset-right, 0px)) calc(clamp(10px, 2vh, 18px) + env(safe-area-inset-bottom, 0px)) calc(clamp(12px, 4vw, 48px) + env(safe-area-inset-left, 0px));
   display: flex;
   flex-direction: column;
   gap: clamp(8px, 1.4vh, 14px);
@@ -110,7 +118,7 @@ body.gms-arcade-lock { overflow: hidden; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px; height: 40px;
+  width: 44px; height: 44px; /* the touch-target floor */
   border-radius: 999px;
   border: 1px solid var(--border);
   background: var(--surface);
@@ -118,6 +126,7 @@ body.gms-arcade-lock { overflow: hidden; }
   cursor: pointer;
   padding: 0;
   flex-shrink: 0;
+  touch-action: manipulation;
   transition: color var(--t-hover, 180ms) ease, border-color var(--t-hover, 180ms) ease, background-color var(--t-hover, 180ms) ease;
 }
 .gms-arcade-iconbtn:hover,
@@ -257,6 +266,29 @@ body.gms-arcade-lock { overflow: hidden; }
 }
 @media (prefers-reduced-motion: reduce) { .gms-arcade-toast.is-in { animation: gms-arcade-fade 200ms ease both; } }
 
+/* ---------- Rotate hint (portrait field, phone held sideways) ---------- */
+.gms-arcade-rotate {
+  position: absolute;
+  top: 8px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  max-width: calc(100% - 16px);
+  min-height: 44px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+  text-align: center;
+  cursor: pointer;
+}
+.gms-arcade-rotate[hidden] { display: none; }
+.gms-arcade-rotate:focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
+
 /* ---------- Prompt: start / pause / chapter / game over ---------- */
 .gms-arcade-prompt[hidden] { display: none; }
 .gms-arcade-prompt {
@@ -264,7 +296,10 @@ body.gms-arcade-lock { overflow: hidden; }
   inset: 0;
   margin: 0;
   display: flex;
-  align-items: center;
+  /* The card centres itself with auto margins: align-items:center would clip
+     the top of a card taller than the stage (a game-over card on a short
+     phone) and leave it unreachable by scrolling. */
+  align-items: flex-start;
   justify-content: center;
   padding: 16px;
   overflow-y: auto;
@@ -274,6 +309,7 @@ body.gms-arcade-lock { overflow: hidden; }
 .gms-arcade-prompt__card {
   width: 100%;
   max-width: 440px;
+  margin: auto;
   padding: clamp(20px, 3vw, 32px);
   border-radius: var(--radius-lg, 10px);
   background: var(--surface);
@@ -332,8 +368,9 @@ body.gms-arcade-lock { overflow: hidden; }
 /* Chapter and mode choices on a start card. */
 .gms-arcade-choices { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
 .gms-arcade-choice {
-  min-height: 40px;
+  min-height: 44px;
   padding: 0 14px;
+  touch-action: manipulation;
   border-radius: var(--radius, 6px);
   border: 1px solid var(--border);
   background: var(--paper);
@@ -472,6 +509,11 @@ body.gms-arcade-lock { overflow: hidden; }
 @media (hover: hover) and (pointer: fine) {
   .gms-arcade-touchrow { display: none; }
 }
+/* Touch screens hide the keyboard help line: it is keyboard hints, and the
+   height goes to the field. The dialog's description still reads it. */
+@media (hover: none) and (pointer: coarse) {
+  .gms-arcade-help { display: none; }
+}
 
 /* ---------- DOM games (the daily puzzles) ---------- */
 /* They put a .gms-arcade-board in the stage instead of a canvas. */
@@ -480,6 +522,7 @@ body.gms-arcade-lock { overflow: hidden; }
   max-width: 520px;
   max-height: 100%;
   overflow: auto;
+  overscroll-behavior: contain;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -487,6 +530,9 @@ body.gms-arcade-lock { overflow: hidden; }
   padding: 4px;
   outline: none;
 }
+/* A short stage must scroll the board, never squash it: a grid with
+   overflow:hidden would otherwise shrink to nothing as a flex child. */
+.gms-arcade-board > * { flex-shrink: 0; }
 .gms-arcade-board:focus-visible { box-shadow: inset 0 0 0 2px var(--forest); border-radius: var(--radius-lg, 10px); }
 .daily__meta { margin: 0; font-size: 13px; color: var(--ink-muted); text-align: center; }
 .daily__share {
@@ -568,9 +614,22 @@ body.gms-arcade-lock { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .five__row.is-shake, .five__tile.is-pop, .five__tile.is-reveal { animation: none; }
 }
+.five__kb { max-width: 100%; }
 @media (max-width: 400px) {
   .five__tile { width: 48px; height: 48px; }
   .five__key { min-width: 30px; padding: 0 4px; height: 46px; }
+}
+/* 320px phones: ten keys and nine gaps must fit 296px. */
+@media (max-width: 340px) {
+  .five__kbrow { gap: 4px; }
+  .five__key { min-width: 26px; padding: 0 2px; font-size: 13px; }
+  .five__key.is-wide { min-width: 40px; font-size: 11px; }
+}
+/* Short screens: smaller tiles so grid and keyboard share the stage. */
+@media (max-height: 640px) {
+  .five__tile { width: 38px; height: 38px; font-size: 1.15rem; }
+  .five__grid, .five__row { gap: 5px; }
+  .five__key { height: 42px; }
 }
 
 /* Groupings: a 4x4 of word tiles, solved bands above, controls below. */
@@ -714,7 +773,7 @@ body.gms-arcade-lock { overflow: hidden; }
 
 /* ---------- Phones ---------- */
 @media (max-width: 700px) {
-  .gms-arcade-panel { padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px)); gap: 8px; }
+  .gms-arcade-panel { padding: calc(10px + env(safe-area-inset-top, 0px)) calc(12px + env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) calc(12px + env(safe-area-inset-left, 0px)); gap: 8px; }
   .gms-arcade-panel__head { align-items: center; padding-bottom: 8px; }
   .gms-arcade-title { font-size: 1.15rem; }
   .gms-arcade-title span { display: none; }
@@ -722,21 +781,43 @@ body.gms-arcade-lock { overflow: hidden; }
   .gms-arcade-scores strong, .gms-arcade-hud__value { font-size: 14px; }
   .gms-arcade-help { font-size: 12px; }
   .gms-arcade-touchrow { flex-wrap: wrap; gap: 6px; }
-  .gms-arcade-touchbtn { min-width: 62px; padding: 6px 10px; }
+  /* Five buttons share a 320px row (52px each); six wrap one onto a second row. */
+  .gms-arcade-touchbtn { min-width: 52px; padding: 6px 6px; font-size: 12px; white-space: nowrap; }
   .gms-arcade-pips { top: 6px; left: 6px; }
   .gms-arcade-pip { min-width: 0; font-size: 10px; padding: 3px 8px 5px; }
+  .gms-arcade-prompt { padding: 10px; }
+  .gms-arcade-prompt__card { padding: 18px 16px; }
 }
 
-/* Phones held sideways: everything vertical goes to the play field. */
+/* Phones held sideways: the head and HUD stack in a column on the left, the
+   touch buttons in a column on the right, and the whole height goes to the
+   play field. (The old single column gave a portrait field half the height.) */
 @media (max-height: 480px) and (orientation: landscape) {
-  .gms-arcade-panel { padding: 6px clamp(10px, 3vw, 20px) calc(6px + env(safe-area-inset-bottom, 0px)); gap: 6px; }
-  .gms-arcade-panel__head { padding-bottom: 4px; border-bottom: 0; }
+  .gms-arcade-panel {
+    display: grid;
+    grid-template-columns: minmax(88px, 118px) minmax(0, 1fr) auto;
+    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-areas: "head stage touch" "hud stage touch";
+    column-gap: 10px;
+    row-gap: 8px;
+    align-items: start;
+    padding: calc(8px + env(safe-area-inset-top, 0px)) calc(10px + env(safe-area-inset-right, 0px)) calc(8px + env(safe-area-inset-bottom, 0px)) calc(10px + env(safe-area-inset-left, 0px));
+  }
+  .gms-arcade-panel__head { grid-area: head; flex-direction: column; align-items: flex-start; gap: 8px; padding-bottom: 0; border-bottom: 0; margin: 0; }
   .gms-arcade-title { font-size: 1rem; }
   .gms-arcade-title span { display: none; }
+  .gms-arcade-head__actions { gap: 6px; }
+  .gms-arcade-scores { grid-area: hud; flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 4px; font-size: 10px; text-align: left; }
+  .gms-arcade-scores strong, .gms-arcade-hud__value { font-size: 13px; }
   .gms-arcade-help { display: none; }
-  .gms-arcade-scores { font-size: 10px; gap: 2px 12px; }
-  .gms-arcade-iconbtn, .gms-arcade-close { width: 34px; height: 34px; }
-  .gms-arcade-touchbtn { min-height: 42px; padding: 4px 10px; }
+  .gms-arcade-stage { grid-area: stage; align-self: stretch; }
+  .gms-arcade-touchrow { grid-area: touch; flex-direction: column; flex-wrap: nowrap; justify-content: center; align-self: stretch; gap: 6px; }
+  .gms-arcade-touchbtn, .gms-arcade-touchbtn.is-wide { flex: 0 0 auto; width: 100%; min-width: 60px; max-width: 96px; min-height: 44px; padding: 4px 6px; font-size: 12px; }
+  .gms-arcade-iconbtn, .gms-arcade-close { width: 44px; height: 44px; }
+  .gms-arcade-prompt { padding: 8px; }
+  .gms-arcade-prompt__card { padding: 14px 16px; gap: 6px; }
+  .gms-arcade-prompt__title { font-size: 1.3rem; }
+  .gms-arcade-prompt__text { font-size: 14px; }
 }
 
 /* Six Sudoku: a 6x6 grid with 2x3 boxes, a digit pad, tools. */
@@ -825,13 +906,31 @@ body.gms-arcade-lock { overflow: hidden; }
 .mini__lists { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; width: 100%; }
 .mini__listhead { margin: 0 0 4px; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); }
 .mini__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
-.mini__cluebtn { display: flex; gap: 8px; width: 100%; text-align: left; padding: 6px 8px; border: 0; border-radius: var(--radius-sm, 4px); background: transparent; color: var(--ink); font-family: var(--font-body); font-size: 14px; line-height: 1.35; cursor: pointer; }
+.mini__cluebtn { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 44px; text-align: left; padding: 6px 8px; border: 0; touch-action: manipulation; border-radius: var(--radius-sm, 4px); background: transparent; color: var(--ink); font-family: var(--font-body); font-size: 14px; line-height: 1.35; cursor: pointer; }
 .mini__cluenum { flex: 0 0 1.4em; font-weight: 600; color: var(--ink-muted); }
 .mini__clueitem.is-current .mini__cluebtn { background: var(--sage-mist); }
 .mini__clueitem.is-done .mini__cluetext { color: var(--ink-muted); text-decoration: line-through; text-decoration-color: var(--border); }
 .mini__cluebtn:focus-visible { outline: 2px solid var(--forest); outline-offset: 1px; }
 .mini__kb[hidden] { display: none; }
 @media (max-width: 480px) { .mini__lists { grid-template-columns: 1fr; } .mini__cluebtn { font-size: 13px; } }
+
+/* Phones held sideways, the puzzle boards: smaller cells and no meta line, so
+   a board fits a stage about 360px tall. After every board's base rules so
+   these win on equal specificity. */
+@media (max-height: 480px) and (orientation: landscape) {
+  .daily__meta { display: none; }
+  .gms-arcade-board { gap: 8px; }
+  .five__tile { width: 34px; height: 34px; font-size: 1.05rem; }
+  .five__grid, .five__row { gap: 4px; }
+  .five__key { height: 38px; min-width: 30px; }
+  .six__cell { width: 42px; height: 42px; font-size: 1.2rem; }
+  .six__digit { height: 44px; }
+  .mini__cell { width: 42px; height: 42px; font-size: 1.15rem; }
+  .mini__clue { min-height: 40px; padding: 6px 10px; font-size: 14px; }
+  .groups__word { min-height: 46px; }
+  .nest__hive { transform: scale(0.82); transform-origin: top center; height: 176px; }
+  .nest__found { max-height: 72px; }
+}
 
 /* =========================================================================
    The hub page (/arcade/): the Daily band and the games grid. Card art is

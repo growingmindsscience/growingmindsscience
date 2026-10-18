@@ -228,9 +228,16 @@
 
     document.body.classList.add(NS + "-lock");
 
-    // Once the page is gone it is hidden outright, not just transparent.
+    // Once the page is gone it is hidden outright, not just transparent, and
+    // its fall transform is cleared: a piece left translated 125vh and rotated
+    // widens the document (375px became 943px on a phone), which lets mobile
+    // browsers pan and zoom behind the game and toggles the URL bar.
     function finish() {
-      pieces.forEach(function (p) { p.style.visibility = "hidden"; });
+      pieces.forEach(function (p) {
+        p.style.visibility = "hidden";
+        p.style.transition = "none";
+        p.style.transform = "none";
+      });
       done();
     }
 
@@ -377,7 +384,9 @@
         sfxGain.connect(comp); musicGain.connect(comp);
         comp.connect(master); master.connect(actx.destination);
       }
-      if (actx.state === "suspended") actx.resume();
+      // "suspended" before the first gesture; "interrupted" on iOS after a
+      // call or a switch away. Either way, resume on the next gesture.
+      if (actx.state !== "running") { try { actx.resume(); } catch (e) {} }
     }
     function noiseBuffer() {
       if (noiseBuf || !actx) return noiseBuf;
@@ -600,6 +609,10 @@
     base.appendChild(nub);
     base.style.display = "none";
     zone.appendChild(base);
+    // The zone must not pan or zoom: preventDefault on pointer events does
+    // not stop a touch scroll, only touch-action does.
+    var zoneTouchAction = zone.style.touchAction;
+    zone.style.touchAction = "none";
 
     function place(px, py) {
       base.style.left = px + "px";
@@ -656,6 +669,7 @@
         zone.removeEventListener("pointermove", move);
         zone.removeEventListener("pointerup", up);
         zone.removeEventListener("pointercancel", up);
+        zone.style.touchAction = zoneTouchAction;
         if (base.parentNode) base.parentNode.removeChild(base);
       }
     };
@@ -811,6 +825,7 @@
     liveRegion();
     s.saved = tearPageAway(function () {
       if (session !== s) return;
+      lockScroll(s);
       inertPage(s);
       describeDialog(s.dialog);
       opts.show();
@@ -836,11 +851,29 @@
     try { s.opts.hide(); }
     catch (err) { window.setTimeout(function () { throw err; }); } // still restore the page
     uninertPage(s);
+    unlockScroll(s);
     restorePage(s.saved);
     scrollBack(s);
     if (canFocus(s.opener)) focusEl(s.opener);
     scrollBack(s); // in case focusing nudged the page
     session = null;
+  }
+
+  // Scroll lock for touch browsers. overflow:hidden on body does not stop
+  // iOS Safari from panning the document under a fixed overlay, and every pan
+  // collapses or reveals the URL bar, which resizes the game. Pinning the body
+  // at its current scroll offset leaves nothing to pan. closeGame() restores
+  // the offset through scrollBack().
+  function lockScroll(s) {
+    var b = document.body;
+    s.bodyTop = b.style.top;
+    b.style.top = (-s.y) + "px";
+    b.classList.add(NS + "-fixed");
+  }
+  function unlockScroll(s) {
+    var b = document.body;
+    b.classList.remove(NS + "-fixed");
+    b.style.top = s.bodyTop || "";
   }
 
   function isOpen() { return !!session; }
@@ -1160,6 +1193,8 @@
       if (el.width !== bw || el.height !== bh) { el.width = bw; el.height = bh; }
       scale = bw / w;
       ctx.imageSmoothingEnabled = smooth;
+      // CSS px per logical unit, readable from outside (the mobile sweep and tests).
+      el.setAttribute("data-scale", s.toFixed(3));
     }
     function begin(camera) {
       ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -1227,20 +1262,35 @@
     shape: shape,
     paint: paintPath,
     // The paper ground: flat fill, a faint dot grid, an optional quiet frame.
+    // The dot grid is hundreds of arcs a frame, which a throttled phone feels,
+    // so it is painted once per (size, colours, device scale) into an
+    // offscreen canvas and stamped from then on. One cache per target canvas.
     paper: function (ctx, w, h, pal, opts) {
       opts = opts || {};
-      ctx.fillStyle = opts.fill || pal.paper;
-      ctx.fillRect(0, 0, w, h);
-      var step = opts.step || 16;
-      if (opts.grid !== false) {
-        ctx.fillStyle = opts.gridColor || pal.grid;
-        var r = opts.dot || 0.9;
-        for (var y = step / 2; y < h; y += step) {
-          for (var x = step / 2; x < w; x += step) {
-            ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+      var fill = opts.fill || pal.paper, step = opts.step || 16, r = opts.dot || 0.9;
+      var gridOn = opts.grid !== false, gridColor = opts.gridColor || pal.grid;
+      var scale = 1;
+      try { var m = ctx.getTransform(); scale = m.a || 1; } catch (e) {}
+      var key = [w, h, fill, gridOn ? gridColor : "", step, r, scale.toFixed(3)].join("|");
+      var cache = ctx.canvas._gmsPaper;
+      if (!cache || cache.key !== key) {
+        var off = document.createElement("canvas");
+        off.width = Math.max(1, Math.round(w * scale)); off.height = Math.max(1, Math.round(h * scale));
+        var oc = off.getContext("2d");
+        oc.setTransform(scale, 0, 0, scale, 0, 0);
+        oc.fillStyle = fill;
+        oc.fillRect(0, 0, w, h);
+        if (gridOn) {
+          oc.fillStyle = gridColor;
+          for (var y = step / 2; y < h; y += step) {
+            for (var x = step / 2; x < w; x += step) {
+              oc.beginPath(); oc.arc(x, y, r, 0, Math.PI * 2); oc.fill();
+            }
           }
         }
+        cache = ctx.canvas._gmsPaper = { key: key, el: off };
       }
+      ctx.drawImage(cache.el, 0, 0, w, h);
       if (opts.frame) {
         ctx.strokeStyle = pal.rule; ctx.lineWidth = 1;
         ctx.strokeRect(opts.frame + 0.5, opts.frame + 0.5, w - opts.frame * 2 - 1, h - opts.frame * 2 - 1);
@@ -1752,6 +1802,26 @@
     if (opts.canvas !== false) canvas = makeCanvas(stage, opts.canvas || {});
     var pips = el("div", NS + "-pips"); pips.setAttribute("aria-hidden", "true"); stage.appendChild(pips);
     var toastEl = el("div", NS + "-toast"); toastEl.hidden = true; stage.appendChild(toastEl);
+    // A portrait field on a phone held sideways shrinks until its labels are
+    // hard to read. The hint sits over the top of the field, taps away, and
+    // disappears on its own once the phone turns.
+    var rotateHint = null, rotateDismissed = false;
+    if (canvas) {
+      rotateHint = el("button", NS + "-rotate", "Turn your phone upright for a bigger field");
+      rotateHint.type = "button"; rotateHint.hidden = true;
+      rotateHint.setAttribute("aria-label", "Turn your phone upright for a bigger field. Dismiss this hint.");
+      rotateHint.addEventListener("click", function () { rotateDismissed = true; rotateHint.hidden = true; });
+      stage.appendChild(rotateHint);
+    }
+    function checkFit() {
+      if (!rotateHint) return;
+      var s = parseFloat(canvas.el.getAttribute("data-scale")) || 1;
+      var portraitField = canvas.h > canvas.w;
+      // The window's shape, not the stage's: with the sideways layout the
+      // stage is nearly square even on a phone held lengthwise.
+      var sideways = window.innerWidth > window.innerHeight && window.innerHeight < 500;
+      rotateHint.hidden = !(portraitField && sideways && s < 0.72 && !rotateDismissed && isCoarsePointer());
+    }
     var prompt = el("div", NS + "-prompt"); prompt.setAttribute("data-egg-prompt", ""); prompt.hidden = true;
     var pCard = el("div", NS + "-prompt__card");
     var pKicker = el("p", NS + "-prompt__kicker"); pKicker.hidden = true;
@@ -1870,9 +1940,27 @@
       },
       // Fill in defineGame's contract. game: { activate, deactivate, onKeydown(e), onKeyup(e), held }
       mount: function (game) {
-        overlay.game = { activate: game.activate, deactivate: game.deactivate, held: game.held || held };
+        // Orientation class: the stage's shape (portrait below 0.9, as the
+        // games choose their field) and the window's. When either flips
+        // mid-session the game hears onViewport(portraitStage): it pauses a
+        // run, or re-lays an idle field.
+        var orient = null;
+        function orientation() {
+          return (canvas.aspect() < 0.9 ? "p" : "l") + (window.innerWidth > window.innerHeight ? "L" : "P");
+        }
+        function fitAll() {
+          canvas.fit();
+          checkFit();
+          var o = orientation();
+          if (orient !== null && o !== orient && typeof game.onViewport === "function") game.onViewport(o.charAt(0) === "p");
+          orient = o;
+        }
+        overlay.game = {
+          activate: function () { if (canvas) orient = orientation(); game.activate(); checkFit(); },
+          deactivate: game.deactivate, held: game.held || held
+        };
         overlay._canvas = canvas ? canvas.el : null;
-        overlay._fitCanvas = canvas ? canvas.fit : null;
+        overlay._fitCanvas = canvas ? fitAll : null;
         overlay._onKeydown = function (e) {
           var t = e.target;
           var tag = t && t.tagName;
