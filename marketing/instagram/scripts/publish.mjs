@@ -4,7 +4,7 @@
 //   node marketing/instagram/scripts/publish.mjs                 # publish what is due
 //   node marketing/instagram/scripts/publish.mjs --dry-run       # plan only, no uploads, no API calls
 //   node marketing/instagram/scripts/publish.mjs --as-of 2026-10-30T12:00:00-04:00   # pretend it is that moment
-//   node marketing/instagram/scripts/publish.mjs --only <post-id>
+//   node marketing/instagram/scripts/publish.mjs --only <post-id> [--now]   # --now ignores the slot for that one post
 //   node marketing/instagram/scripts/publish.mjs --check-token   # verify the token works and report its age
 //   node marketing/instagram/scripts/publish.mjs --refresh-token # exchange the token for a fresh 60-day one (run locally)
 //
@@ -62,6 +62,9 @@ const opt = (n) => { const i = args.indexOf(n); return i >= 0 ? args[i + 1] : nu
 const DRY = flag("--dry-run");
 const NOW = opt("--as-of") ? new Date(opt("--as-of")) : new Date();
 const ONLY = opt("--only");
+// --now with --only: publish that one approved post ahead of its slot (a watched first post).
+const FORCE_NOW = flag("--now");
+if (FORCE_NOW && !ONLY) die("--now needs --only <post-id>");
 if (Number.isNaN(NOW.getTime())) die("--as-of is not a date");
 
 function die(msg, code = 1) { console.error(`publish: ${msg}`); process.exit(code); }
@@ -213,7 +216,7 @@ function recordLedger(p, media) {
   const s = p.spec.slides[0];
   ledger.used.push({
     topic: s.lead || s.claim || p.id,
-    source: (p.spec.sources || [])[0] || "",
+    source: (p.spec.sources || (p.spec.slides.find((s) => s.type === "sources") || {}).sources || [])[0] || "",
     channel: "instagram",
     date: NOW.toISOString().slice(0, 10),
     series: p.spec.series,
@@ -231,7 +234,7 @@ const calendar = readJson(CALENDAR);
 // --rewrite-landing: rebuild the bio-link list from calendar.json without publishing
 // (after a manual post, or when the page markup changes).
 if (flag("--rewrite-landing")) { rewriteLanding(calendar); log("landing page rewritten from calendar.json"); process.exit(0); }
-const due = calendar.posts.filter((p) => p.status === "approved" && new Date(p.scheduled_at) <= NOW && (!ONLY || p.id === ONLY));
+const due = calendar.posts.filter((p) => p.status === "approved" && (FORCE_NOW || new Date(p.scheduled_at) <= NOW) && (!ONLY || p.id === ONLY));
 if (!due.length) { log(`nothing due at ${NOW.toISOString()}${ONLY ? ` for ${ONLY}` : ""}`); process.exit(0); }
 
 log(`${DRY ? "dry run" : "publishing"}: ${due.length} post(s) due at ${NOW.toISOString()}`);
