@@ -7,8 +7,8 @@
       "age": "8 to 14 months",
       "row": "play and attention",
       "scheduled_at": "2026-10-27T11:00:00-04:00",
-      "status": "edit",
-      "note": "2026-10-18 Matthew: the figures looked disfigured. Plate redrawn; awaiting his second look."
+      "status": "approved",
+      "approved_on": "2026-10-18"
     },
     {
       "id": "2026-10-28-dropped-spoon-reel",
@@ -47,8 +47,8 @@
       "age": "18 months",
       "row": "is this normal",
       "scheduled_at": "2026-11-03T11:00:00-05:00",
-      "status": "edit",
-      "note": "2026-10-18 Matthew: American spelling (pediatrician). Fixed; awaiting his second look."
+      "status": "approved",
+      "approved_on": "2026-10-18"
     },
     {
       "id": "2026-11-05-still-face",
