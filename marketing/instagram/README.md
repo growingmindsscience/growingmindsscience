@@ -229,10 +229,10 @@ Renders every approved post due by that moment, checks the slide rules and the c
 
 1. The Instagram account must be a professional account (Business or Creator).
 2. In the Meta developer dashboard, create an app, add the Instagram product, and connect the account with Business Login for Instagram, granting `instagram_business_basic` and `instagram_business_content_publish`.
-3. Generate a long-lived access token (60 days) and note the Instagram user id.
+3. Generate a long-lived access token (60 days) and note the Instagram user id. Done 2026-10-18: app id 29134116289612955, Instagram app id 1637872071071253, Instagram user id 17841470147811390; @growingmindsscience holds the Instagram Tester role; permissions added: business_basic, manage_comments, manage_messages, content_publish, manage_insights.
 4. Add four repository secrets on GitHub: `IG_USER_ID`, `IG_ACCESS_TOKEN`, `SUPABASE_URL` (`https://xtepkichenvvyewqpolg.supabase.co`) and `SUPABASE_SERVICE_ROLE_KEY` (from the science project's API settings; service role only, never a publishable key).
 5. The public `social` bucket must exist in the science Supabase project. The SQL is in `supabase/migrations/20261018_social_bucket.sql`; run it once in the SQL editor if the MCP could not (it needs the project owner).
-6. Locally, with the four variables exported, run `node marketing/instagram/scripts/publish.mjs --check-token`. It prints the account it sees. Then `--refresh-token` once, which creates `token.json` so the age warning works; commit `token.json` (it holds a date, never the token).
+6. Locally, save the four values once to `~/.config/growingminds/instagram.env` (four `KEY=VALUE` lines, outside the repo; `publish.mjs` reads it when a variable is not already set and never logs it), then run `node marketing/instagram/scripts/publish.mjs --check-token`. It prints the account it sees. Then `--refresh-token` once, which creates `token.json` so the age warning works; commit `token.json` (it holds a date, never the token).
 7. Watch the first publish: `node marketing/instagram/scripts/publish.mjs --only <post-id>` locally with Matthew present. After that the workflow runs on its own.
 
 ### Token life

@@ -35,6 +35,19 @@ import { fileURLToPath } from "node:url";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const IG = resolve(HERE, "..");
+
+// Local runs: values not in the environment are read from
+// ~/.config/growingminds/instagram.env (KEY=VALUE lines, outside the repo, never
+// logged). CI sets them as repository secrets and never has this file.
+{
+  const envFile = join(process.env.HOME || "", ".config", "growingminds", "instagram.env");
+  if (existsSync(envFile)) {
+    for (const line of readFileSync(envFile, "utf8").split("\n")) {
+      const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/);
+      if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, "");
+    }
+  }
+}
 const ROOT = resolve(IG, "..", "..");
 const CALENDAR = process.env.PUBLISH_CALENDAR || join(IG, "calendar.json"); // override for tests
 const LEDGER = join(IG, "ledger.json");
