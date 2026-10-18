@@ -937,6 +937,8 @@
       },
       onKeydown: function (e) { if (input.onKeydown(e)) e.preventDefault(); },
       onKeyup: function (e) { input.onKeyup(e); },
+      // The phone turned: a run pauses while the field refits.
+      onViewport: function () { pause(); },
       destroy: function () { offTheme(); input.destroy(); }
     };
   }

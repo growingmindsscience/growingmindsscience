@@ -203,8 +203,16 @@
         board: p.plays ? function (m) { A.renderLeaderboard(m, GAME_KEY, {}); } : null
       });
     }
+    // Landscape grid, or the same grid on end for a portrait phone. Chosen on
+    // open and again at every start, so a phone turned between runs gets the
+    // right field.
+    function layoutField() {
+      if (cv.aspect() < 0.9) setGrid(18, 28); else setGrid(28, 18);
+      cv.setSize(W, H);
+    }
     function start() {
       synth.ensure();
+      layoutField();
       resetWorld();
       state = "running";
       shell.prompt.hide();
@@ -582,13 +590,18 @@
       activate: function () {
         pal = A.theme();
         cv.fit();
-        if (cv.aspect() < 0.9) setGrid(18, 28); else setGrid(28, 18);
-        cv.setSize(W, H);
+        layoutField();
         state = "idle"; resetWorld();
         render();
         loop.start();
         unsubHidden = A.onHidden(onHidden);
         showStart();
+      },
+      // The phone turned: a run pauses (the field refits as is); an idle
+      // field is laid out again for the new shape.
+      onViewport: function () {
+        if (state === "running") pause();
+        else if (state === "idle") { layoutField(); resetWorld(); render(); }
       },
       deactivate: function () {
         loop.stop();

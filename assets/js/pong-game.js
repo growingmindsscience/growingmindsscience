@@ -256,8 +256,17 @@
         }
       });
     }
+    // The court lengthwise, or on end for a portrait phone; chosen on open and
+    // at every start so a phone turned between matches gets the right court.
+    function layoutField() {
+      rot = cv.aspect() < 0.9;
+      SW = rot ? H : W; SH = rot ? W : H;
+      cv.setSize(SW, SH);
+      setTouchLabels();
+    }
     function start() {
       synth.ensure();
+      layoutField();
       resetWorld();
       setHudLabels();
       state = "running";
@@ -716,10 +725,7 @@
       activate: function () {
         pal = A.theme();
         cv.fit();
-        rot = cv.aspect() < 0.9;
-        SW = rot ? H : W; SH = rot ? W : H;
-        cv.setSize(SW, SH);
-        setTouchLabels();
+        layoutField();
         state = "idle"; resetWorld();
         setHudLabels();
         shell.setHelp(helpText());
@@ -727,6 +733,11 @@
         loop.start();
         unsubHidden = A.onHidden(onHidden);
         showStart();
+      },
+      // The phone turned: a match pauses; an idle court is laid out again.
+      onViewport: function () {
+        if (state === "running") pause();
+        else if (state === "idle") { layoutField(); resetWorld(); render(); }
       },
       deactivate: function () {
         loop.stop();

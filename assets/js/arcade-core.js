@@ -854,16 +854,16 @@
   // scripts/stamp-assets.mjs can version it: /assets is served immutable, and a
   // URL that never changes would keep serving a stale game.
   var GAME_JS = {
-    asteroids: "/assets/js/asteroids-game.js?v=3e19b7a194",
-    blocks: "/assets/js/blocks-game.js?v=3afdd4c976",
-    breakout: "/assets/js/breakout-game.js?v=e1fe1e5634",
-    dino: "/assets/js/dino-game.js?v=1533fb6fd7",
-    echo: "/assets/js/echo-game.js?v=657ff60dd0",
-    hopper: "/assets/js/hopper-game.js?v=a1af9da27c",
-    invaders: "/assets/js/invaders-game.js?v=66e6664da7",
-    maze: "/assets/js/maze-game.js?v=63b720deef",
-    pong: "/assets/js/pong-game.js?v=3ed0b0ec37",
-    snake: "/assets/js/snake-game.js?v=e96c03429f",
+    asteroids: "/assets/js/asteroids-game.js?v=ec66f43dd7",
+    blocks: "/assets/js/blocks-game.js?v=5e2c8990af",
+    breakout: "/assets/js/breakout-game.js?v=7586ab1234",
+    dino: "/assets/js/dino-game.js?v=6b7ac939d1",
+    echo: "/assets/js/echo-game.js?v=277f25f3df",
+    hopper: "/assets/js/hopper-game.js?v=1c5a997842",
+    invaders: "/assets/js/invaders-game.js?v=524418a582",
+    maze: "/assets/js/maze-game.js?v=bc32394d7d",
+    pong: "/assets/js/pong-game.js?v=bb9b028bed",
+    snake: "/assets/js/snake-game.js?v=d2a3500dcc",
     // Daily puzzles (DOM games on the same shell)
     five: "/assets/js/daily-five.js?v=54e0a74c2d",
     groups: "/assets/js/daily-groups.js?v=060460edf9",

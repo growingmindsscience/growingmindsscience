@@ -253,8 +253,15 @@
         board: p.plays ? function (m) { A.renderLeaderboard(m, GAME_KEY, {}); } : null
       });
     }
+    // Landscape field, or a tall one for a portrait phone; chosen on open and
+    // at every start so a phone turned between runs gets the right field.
+    function layoutField() {
+      if (cv.aspect() < 0.9) setField(440, 640); else setField(640, 440);
+      cv.setSize(W, H);
+    }
     function start() {
       synth.ensure();
+      layoutField();
       resetWorld();
       state = "running"; stateBeforePause = null;
       story.set(0);
@@ -962,8 +969,7 @@
       activate: function () {
         pal = A.theme();
         cv.fit();
-        if (cv.aspect() < 0.9) setField(440, 640); else setField(640, 440);
-        cv.setSize(W, H);
+        layoutField();
         state = "idle"; resetWorld();
         shell.setHelp(coarse ? HELP_TOUCH : HELP_DESK);
         render();
@@ -978,6 +984,11 @@
         synth.close();
         input.release(); mouseFiring = false;
         state = "idle";
+      },
+      // The phone turned: a run pauses; an idle field is laid out again.
+      onViewport: function () {
+        if (state === "running" || state === "waveclear") pause();
+        else if (state === "idle") { layoutField(); resetWorld(); render(); }
       },
       onKeydown: function (e) {
         if (e.key === "Shift") {
