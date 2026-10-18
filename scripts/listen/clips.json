@@ -1,0 +1,463 @@
+{
+  "voice": {
+    "id": "KjZZHIOnbFqvGnNEwISh",
+    "model": "eleven_v4",
+    "settings": {
+      "stability": 0.3,
+      "similarity_boost": 0.9,
+      "speed": 1.05
+    }
+  },
+  "clips": [
+    {
+      "page": "/tools/beyond-less-is-better",
+      "key": "background",
+      "hash": "5c6f4d2a",
+      "chars": 505,
+      "text": "Background TV is the underrated one. Mostly filling space. A TV on that no one is really watching is associated with less back-and-forth talk and more disrupted play. Marie Evans Schmidt and Heather Kirkorian's work suggests the harm here can be quieter, and arguably larger, than a show the child is actually engaged with. Your child isn't watching it, but it's still pulling at the room. One adjustment: turn it off when no one is actively watching. The quiet usually fills back up with talk on its own.",
+      "narration": "Background TV is the underrated one. Mostly filling space. A TV on that no one is really watching is associated with less back-and-forth talk and more disrupted play. Marie Evans Schmidt and Heather Kirkorian's work suggests the harm here can be quieter, and arguably larger, than a show the child is actually engaged with. Your child isn't watching it, but it's still pulling at the room. One adjustment: turn it off when no one is actively watching. The quiet usually fills back up with talk on its own.",
+      "also": []
+    },
+    {
+      "page": "/tools/beyond-less-is-better",
+      "key": "together",
+      "hash": "8aac0e64",
+      "chars": 451,
+      "text": "This is close to reading a book together. Doing real work. When an adult watches alongside and talks about what's happening, screens shift toward what researchers call joint media engagement. The video deficit shrinks, because the screen now sits inside a real conversation. You're the bridge between what's on screen and the world. One adjustment: keep narrating in plain turns. \"What do you think happens next?\" does more than the show does alone.",
+      "narration": "This is close to reading a book together. Doing real work. When an adult watches alongside and talks about what's happening, screens shift toward what researchers call joint media engagement. The video deficit shrinks, because the screen now sits inside a real conversation. You're the bridge between what's on screen and the world. One adjustment: keep narrating in plain turns. Asking what they think happens next does more than the show does alone.",
+      "also": []
+    },
+    {
+      "page": "/tools/beyond-less-is-better",
+      "key": "reset",
+      "hash": "bb95abb4",
+      "chars": 467,
+      "text": "A reset in a hard moment is allowed. A tool, used on purpose. Handing over a tablet to help a flooded child settle is a reasonable tool, not a failure. It only becomes worth a second look if it's the main way big feelings get resolved most days, because then it can crowd out practice with frustration. One hard afternoon is not a pattern. One adjustment: notice what happens afterward. If transitions off the device are rough, give a clear ending up front next time.",
+      "narration": "A reset in a hard moment is allowed. A tool, used on purpose. Handing over a tablet to help a flooded child settle is a reasonable tool, not a failure. It only becomes worth a second look if it's the main way big feelings get resolved most days, because then it can crowd out practice with frustration. One hard afternoon is not a pattern. One adjustment: notice what happens afterward. If transitions off the device are rough, give a clear ending up front next time.",
+      "also": []
+    },
+    {
+      "page": "/tools/beyond-less-is-better",
+      "key": "grandparents",
+      "hash": "4587c587",
+      "chars": 535,
+      "text": "A real-time call is barely \"screen time\" at all. In a category of its own. Bidirectional video calls work differently from passive video. When a grandparent responds in real time to what your child does and says, the exchange resembles a real conversation, the contingent, back-and-forth quality that early learning is built on. The AAP treats live video chat as a reasonable exception even for the youngest children. One adjustment: nothing needed. Maybe hand the child something to show the screen, so the call stays a two-way thing.",
+      "narration": "A real-time call is barely screen time at all. In a category of its own. Bidirectional video calls work differently from passive video. When a grandparent responds in real time to what your child does and says, the exchange resembles a real conversation, the contingent, back-and-forth quality that early learning is built on. The A-A-P treats live video chat as a reasonable exception even for the youngest children. One adjustment: nothing needed. Maybe hand the child something to show the screen, so the call stays a two-way thing.",
+      "also": []
+    },
+    {
+      "page": "/tools/beyond-less-is-better",
+      "key": "bedtime",
+      "hash": "c7f25485",
+      "chars": 465,
+      "text": "The timing is the part to look at. Working against the night. A fast-paced app close to bedtime tends to make winding down harder: the content is exciting and the device is hard to put away. The concern here is less the app itself than what it's displacing, which is sleep. Protecting the wind-down is one of the higher-value moves you can make. One adjustment: move the device out of the bedtime hour, and trade it for something slower if a screen is still needed.",
+      "narration": "The timing is the part to look at. Working against the night. A fast-paced app close to bedtime tends to make winding down harder: the content is exciting and the device is hard to put away. The concern here is less the app itself than what it's displacing, which is sleep. Protecting the wind-down is one of the higher-value moves you can make. One adjustment: move the device out of the bedtime hour, and trade it for something slower if a screen is still needed.",
+      "also": []
+    },
+    {
+      "page": "/tools/co-regulation-primer",
+      "key": "revved",
+      "hash": "7ef5daa6",
+      "chars": 416,
+      "text": "Bring your pace down, and they’ll drift toward it. Their system needs: a slower one to match. Wound-up, giddy energy is still dysregulation. The child isn’t going to find the brakes on their own. They’ll borrow your tempo, so slow your own body first: quieter voice, slower movements, less stimulation around you both. Move: drop your volume and slow down rather than getting louder and faster to be heard over them.",
+      "narration": "Bring your pace down, and they’ll drift toward it. Their system needs: a slower one to match. Wound-up, giddy energy is still dysregulation. The child isn’t going to find the brakes on their own. They’ll borrow your tempo, so slow your own body first: quieter voice, slower movements, less stimulation around you both. Move: drop your volume and slow down rather than getting louder and faster to be heard over them.",
+      "also": []
+    },
+    {
+      "page": "/tools/co-regulation-primer",
+      "key": "meltdown",
+      "hash": "245a5cb9",
+      "chars": 356,
+      "text": "Be the calm body in the room, and talk less. Their system needs: steady presence, not words. A flooded child can’t process language or logic. This isn’t the moment to explain. Get low, stay near, keep your face and voice soft, and let your steadiness do the work while the wave passes. Move: less talking, more presence. Your regulated body is the message.",
+      "narration": "Be the calm body in the room, and talk less. Their system needs: steady presence, not words. A flooded child can’t process language or logic. This isn’t the moment to explain. Get low, stay near, keep your face and voice soft, and let your steadiness do the work while the wave passes. Move: less talking, more presence. Your regulated body is the message.",
+      "also": []
+    },
+    {
+      "page": "/tools/co-regulation-primer",
+      "key": "frozen",
+      "hash": "ed23eee4",
+      "chars": 384,
+      "text": "Come close gently and lower the demand to zero. Their system needs: safety and no pressure. Going quiet or limp is a stress response too, not stubbornness or calm. Pushing harder makes a frozen system retreat further. Offer a soft, unhurried presence, drop any demand for now, and give them time to come back. Move: get close and quiet, wait, and let them re-engage at their own pace.",
+      "narration": "Come close gently and lower the demand to zero. Their system needs: safety and no pressure. Going quiet or limp is a stress response too, not stubbornness or calm. Pushing harder makes a frozen system retreat further. Offer a soft, unhurried presence, drop any demand for now, and give them time to come back. Move: get close and quiet, wait, and let them re-engage at their own pace.",
+      "also": []
+    },
+    {
+      "page": "/tools/co-regulation-primer",
+      "key": "testing",
+      "hash": "611a36ff",
+      "chars": 374,
+      "text": "Hold the limit with a regulated body. Their system needs: a calm, steady edge. Frustration plus a boundary is normal, and you can be calm and firm at the same time. Steady is not soft. Keep the limit simple, let the feeling exist, and don’t add new arguments or match the intensity coming at you. Move: keep your voice level and the limit unchanged, even while they protest.",
+      "narration": "Hold the limit with a regulated body. Their system needs: a calm, steady edge. Frustration plus a boundary is normal, and you can be calm and firm at the same time. Steady is not soft. Keep the limit simple, let the feeling exist, and don’t add new arguments or match the intensity coming at you. Move: keep your voice level and the limit unchanged, even while they protest.",
+      "also": []
+    },
+    {
+      "page": "/tools/co-regulation-primer",
+      "key": "scared",
+      "hash": "4ac3f6cf",
+      "chars": 423,
+      "text": "Be the signal that this is safe. Their system needs: your steadiness as a reference. A child meeting something new checks your face and tone to decide how alarmed to be. If your body reads calm and unhurried, that’s the cue their system uses. Stay close, narrate gently, and let them approach the new thing from the safety of you. Move: settle your own body first, then stay alongside them rather than pushing them forward.",
+      "narration": "Be the signal that this is safe. Their system needs: your steadiness as a reference. A child meeting something new checks your face and tone to decide how alarmed to be. If your body reads calm and unhurried, that’s the cue their system uses. Stay close, narrate gently, and let them approach the new thing from the safety of you. Move: settle your own body first, then stay alongside them rather than pushing them forward.",
+      "also": []
+    },
+    {
+      "page": "/tools/limits-without-escalation",
+      "key": "repeat",
+      "hash": "879004a3",
+      "chars": 379,
+      "text": "Focus on follow-through, not stronger language. When the child repeats the behavior. If the child keeps doing it after a clear no, the next move is usually less talking and more action. Move closer, block what needs blocking, remove what needs removing, or help the child transition out of the setup that is not working. Try saying: \"I'm not letting you throw that. I'm moving it.\"",
+      "narration": "Focus on follow-through, not stronger language. When the child repeats the behavior. If the child keeps doing it after a clear no, the next move is usually less talking and more action. Move closer, block what needs blocking, remove what needs removing, or help the child transition out of the setup that is not working. Try saying: I'm not letting you throw that. I'm moving it.",
+      "also": []
+    },
+    {
+      "page": "/tools/limits-without-escalation",
+      "key": "meltdown",
+      "hash": "69c040f2",
+      "chars": 344,
+      "text": "Keep the limit and make room for the feeling. When the limit triggers big feelings. A child falling apart does not automatically mean the limit was too harsh. If the boundary is reasonable and necessary, the job is to stay nearby, keep the limit intact, and avoid arguing with the feeling. Try saying: \"You're mad. I'm still not letting you hit.\"",
+      "narration": "Keep the limit and make room for the feeling. When the limit triggers big feelings. A child falling apart does not automatically mean the limit was too harsh. If the boundary is reasonable and necessary, the job is to stay nearby, keep the limit intact, and avoid arguing with the feeling. Try saying: You're mad. I'm still not letting you hit.",
+      "also": []
+    },
+    {
+      "page": "/tools/limits-without-escalation",
+      "key": "escalated",
+      "hash": "1cd07d43",
+      "chars": 373,
+      "text": "Repair the tone, not the boundary. When the adult already escalated. If you yelled, threatened, or got pulled into a power struggle, you can come back without pretending the limit disappeared. Lower your voice, simplify, and return to the clearest version of the boundary. Try saying: \"I got too loud. I'm going to say it again more clearly. I'm not letting you climb there.\"",
+      "narration": "Repair the tone, not the boundary. When the adult already escalated. If you yelled, threatened, or got pulled into a power struggle, you can come back without pretending the limit disappeared. Lower your voice, simplify, and return to the clearest version of the boundary. Try saying: I got too loud. I'm going to say it again more clearly. I'm not letting you climb there.",
+      "also": []
+    },
+    {
+      "page": "/tools/limits-without-escalation",
+      "key": "unclear",
+      "hash": "ca99744b",
+      "chars": 410,
+      "text": "Ask whether the child can use the limit right now. When you are unsure what kind of moment this is. If the child is exhausted, dysregulated, sick, overloaded, or moving toward panic, the first task may be reducing stimulation and helping the system settle. If the child is organized enough to keep testing, the limit likely needs steadier follow-through. Ask: \"Is my child unable right now, or mostly unwilling?\"",
+      "narration": "Ask whether the child can use the limit right now. When you are unsure what kind of moment this is. If the child is exhausted, dysregulated, sick, overloaded, or moving toward panic, the first task may be reducing stimulation and helping the system settle. If the child is organized enough to keep testing, the limit likely needs steadier follow-through. Ask: Is my child unable right now, or mostly unwilling?",
+      "also": []
+    },
+    {
+      "page": "/tools/regulating-yourself-first",
+      "key": "yell",
+      "hash": "8bde26b1",
+      "chars": 379,
+      "text": "Buy one beat and drop your volume. Right at the edge. You don't have to fix the situation in this second. You have to not pour fuel on it. Say out loud that you need a moment, then make your next sentence quieter and slower than the last one. Volume down tends to bring everything else down with it. Try saying: \"I need a second.\" Then one long exhale before you say anything else.",
+      "narration": "Buy one beat and drop your volume. Right at the edge. You don't have to fix the situation in this second. You have to not pour fuel on it. Say out loud that you need a moment, then make your next sentence quieter and slower than the last one. Volume down tends to bring everything else down with it. Try saying: I need a second. Then one long exhale before you say anything else.",
+      "also": []
+    },
+    {
+      "page": "/tools/regulating-yourself-first",
+      "key": "body",
+      "hash": "98b17edb",
+      "chars": 422,
+      "text": "Good. That noticing is the skill. You caught it early. If you can feel the jaw and the heat, you are ahead of where most people are, which is already mid-yell. Unclench your jaw, let your shoulders drop, and make your out-breath longer than your in-breath. A slower exhale is one of the few quick ways to nudge your own body off the gas. Try saying: a slow breath out, shoulders down, hands unclenched, before you respond.",
+      "narration": "Good. That noticing is the skill. You caught it early. If you can feel the jaw and the heat, you are ahead of where most people are, which is already mid-yell. Unclench your jaw, let your shoulders drop, and make your out-breath longer than your in-breath. A slower exhale is one of the few quick ways to nudge your own body off the gas. Try saying: a slow breath out, shoulders down, hands unclenched, before you respond.",
+      "also": []
+    },
+    {
+      "page": "/tools/regulating-yourself-first",
+      "key": "disrespected",
+      "hash": "6cd45427",
+      "chars": 450,
+      "text": "This one is usually about you, and that's okay. An old thread, not the child. Feeling defied or disrespected can hit hard, because it touches your own history and your sense of authority. But a young child saying no is doing their developmental job, not staging a coup. Naming it to yourself takes some of the charge out: this is my trigger, not their crime. Try internally: \"They're not trying to disrespect me. I can hold the limit without the heat.\"",
+      "narration": "This one is usually about you, and that's okay. An old thread, not the child. Feeling defied or disrespected can hit hard, because it touches your own history and your sense of authority. But a young child saying no is doing their developmental job, not staging a coup. Naming it to yourself takes some of the charge out: this is my trigger, not their crime. Try internally: They're not trying to disrespect me. I can hold the limit without the heat.",
+      "also": []
+    },
+    {
+      "page": "/tools/regulating-yourself-first",
+      "key": "rushed",
+      "hash": "8df0bbea",
+      "chars": 454,
+      "text": "Lower the demand before you raise your voice. The clock is the trigger. The 7:45am shoe standoff is rarely about the shoes. It's the deadline pressing on you. You can't add minutes, but you can cut the task: do it for them, drop a step, carry the shoes to the car. Getting there a little late and a little connected usually beats getting there on time and blown up. Try saying: \"I'm going to help your body get to the car. We'll finish the shoes there.\"",
+      "narration": "Lower the demand before you raise your voice. The clock is the trigger. The 7:45 a.m. shoe standoff is rarely about the shoes. It's the deadline pressing on you. You can't add minutes, but you can cut the task: do it for them, drop a step, carry the shoes to the car. Getting there a little late and a little connected usually beats getting there on time and blown up. Try saying: I'm going to help your body get to the car. We'll finish the shoes there.",
+      "also": []
+    },
+    {
+      "page": "/tools/regulating-yourself-first",
+      "key": "nosleep",
+      "hash": "accefbd6",
+      "chars": 452,
+      "text": "Lower the bar for today, on purpose. Running on empty. On no sleep, your reserves are gone before the day starts. This is not the day to teach the big lesson or win the standoff. Aim for safe and connected, keep the demands small, and let some things slide that you'd normally hold. Doing less today isn't giving up. It's parenting from the floor you actually have. Try saying: pick the one limit that truly matters right now, and let the rest be easy.",
+      "narration": "Lower the bar for today, on purpose. Running on empty. On no sleep, your reserves are gone before the day starts. This is not the day to teach the big lesson or win the standoff. Aim for safe and connected, keep the demands small, and let some things slide that you'd normally hold. Doing less today isn't giving up. It's parenting from the floor you actually have. Try saying: pick the one limit that truly matters right now, and let the rest be easy.",
+      "also": []
+    },
+    {
+      "page": "/tools/regulating-yourself-first",
+      "key": "lostit",
+      "hash": "c683c478",
+      "chars": 431,
+      "text": "Now the move is repair, not shame. It already happened. You yelled, or you got too harsh, and now you feel awful. That feeling means you care; it doesn't mean you broke anything that can't be mended. Once your own body settles, come back, name your part briefly, and reconnect. Repair is what protects the relationship, and your child learns from watching you do it. See the repair tool for the words. Short is better than perfect.",
+      "narration": "Now the move is repair, not shame. It already happened. You yelled, or you got too harsh, and now you feel awful. That feeling means you care; it doesn't mean you broke anything that can't be mended. Once your own body settles, come back, name your part briefly, and reconnect. Repair is what protects the relationship, and your child learns from watching you do it. See the repair tool for the words. Short is better than perfect.",
+      "also": []
+    },
+    {
+      "page": "/tools/repair-after-the-hard-moment",
+      "key": "yelled",
+      "hash": "ee138a0c",
+      "chars": 304,
+      "text": "Repair the tone first. When your intensity scared or overwhelmed them. The child needs to know the adult is safe again. Keep it short, own your part, and avoid explaining why you lost it while the child is still activated. Try saying: \"I got too loud. That was my job to handle. I am sorry. I am here now.\"",
+      "narration": "Repair the tone first. When your intensity scared or overwhelmed them. The child needs to know the adult is safe again. Keep it short, own your part, and avoid explaining why you lost it while the child is still activated. Try saying: I got too loud. That was my job to handle. I am sorry. I am here now.",
+      "also": []
+    },
+    {
+      "page": "/tools/repair-after-the-hard-moment",
+      "key": "unfair",
+      "hash": "3ceca4ed",
+      "chars": 360,
+      "text": "Name the miss without making the child manage you. When your response did not fit the moment. Children do not need a perfect parent. They do need a parent who can say, \"I see that I got that wrong,\" without asking the child to reassure the adult. Try saying: \"I was too harsh. You did need help, and I reacted like you were trying to make things hard. I am sorry.\"",
+      "narration": "Name the miss without making the child manage you. When your response did not fit the moment. Children do not need a perfect parent. They do need a parent who can say, I see that I got that wrong, without asking the child to reassure the adult. Try saying: I was too harsh. You did need help, and I reacted like you were trying to make things hard. I am sorry.",
+      "also": []
+    },
+    {
+      "page": "/tools/repair-after-the-hard-moment",
+      "key": "upset",
+      "hash": "ba5bc510",
+      "chars": 333,
+      "text": "Do not rush forgiveness. When the child is not ready to move on. Repair is an offer, not a demand. If the child pulls away, cries, or stays angry, you can stay warm and steady without forcing a hug, a smile, or an \"it's okay.\" Try saying: \"You are still upset. I understand. I will stay close, and you can come to me when you are ready.\"",
+      "narration": "Do not rush forgiveness. When the child is not ready to move on. Repair is an offer, not a demand. If the child pulls away, cries, or stays angry, you can stay warm and steady without forcing a hug, a smile, or an it's okay. Try saying: You are still upset. I understand. I will stay close, and you can come to me when you are ready.",
+      "also": []
+    },
+    {
+      "page": "/tools/repair-after-the-hard-moment",
+      "key": "boundary",
+      "hash": "a1fb7f6d",
+      "chars": 331,
+      "text": "Separate the boundary from the rupture. When the limit was right but the delivery was not. A useful repair keeps both truths in the room: the adult's reaction needs repair, and the unsafe or impossible behavior still cannot continue. Try saying: \"I am sorry I yelled. I will work on that. And I still cannot let you throw the truck.\"",
+      "narration": "Separate the boundary from the rupture. When the limit was right but the delivery was not. A useful repair keeps both truths in the room: the adult's reaction needs repair, and the unsafe or impossible behavior still cannot continue. Try saying: I am sorry I yelled. I will work on that. And I still cannot let you throw the truck.",
+      "also": []
+    },
+    {
+      "page": "/tools/repair-after-the-hard-moment",
+      "key": "guilt",
+      "hash": "67f8179e",
+      "chars": 354,
+      "text": "Move from self-attack to responsibility. When the adult is flooded with shame. Guilt can point you toward repair. Shame often traps you in collapse. A steadier adult question is: \"What needs repair, and what support do I need so this pattern is less likely next time?\" Try internally: \"I can take responsibility without making this moment my whole identity.\"",
+      "narration": "Move from self-attack to responsibility. When the adult is flooded with shame. Guilt can point you toward repair. Shame often traps you in collapse. A steadier adult question is: What needs repair, and what support do I need so this pattern is less likely next time? Try internally: I can take responsibility without making this moment my whole identity.",
+      "also": []
+    },
+    {
+      "page": "/tools/routines-transitions-night-waking",
+      "key": "stalling",
+      "hash": "74f1e042",
+      "chars": 634,
+      "text": "Autonomy often shows up at the doorway. Bedtime stalling. Stalling can be a toddler's way of seeking control, connection, or clarity when the day is ending. The goal isn't to remove all protest, but to make the sequence predictable enough that the protest has less room to grow. Try first: Use a short visual or spoken sequence: pajamas, teeth, two books, song, bed. Offer two small choices before the final limit. Limit line: \"You can choose the truck book or the bear book. After the book, it is time for bed.\" Watch for: A bedtime that starts too late, too much screen stimulation, or a nap ending so late that sleep pressure is low.",
+      "narration": "Autonomy often shows up at the doorway. Bedtime stalling. Stalling can be a toddler's way of seeking control, connection, or clarity when the day is ending. The goal isn't to remove all protest, but to make the sequence predictable enough that the protest has less room to grow. Try first: Use a short visual or spoken sequence: pajamas, teeth, two books, song, bed. Offer two small choices before the final limit. Limit line: You can choose the truck book or the bear book. After the book, it is time for bed. Watch for: A bedtime that starts too late, too much screen stimulation, or a nap ending so late that sleep pressure is low.",
+      "also": []
+    },
+    {
+      "page": "/tools/routines-transitions-night-waking",
+      "key": "separation",
+      "hash": "8294621d",
+      "chars": 564,
+      "text": "The need is connection plus a clear ending. Separation distress. Separation gets more complicated as toddlers understand distance, absence, and return. Comfort matters, but comfort works best when it comes with a consistent path toward sleep. Try first: Add connection before the routine tightens: a few minutes of undistracted play, then a predictable wind-down. Limit line: \"I am close. You are safe. I will check on you after I put the cup away.\" Watch for: Recent changes: travel, illness, new school, a new sibling, family stress, or a caregiver schedule shift.",
+      "narration": "The need is connection plus a clear ending. Separation distress. Separation gets more complicated as toddlers understand distance, absence, and return. Comfort matters, but comfort works best when it comes with a consistent path toward sleep. Try first: Add connection before the routine tightens: a few minutes of undistracted play, then a predictable wind-down. Limit line: I am close. You are safe. I will check on you after I put the cup away. Watch for: Recent changes: travel, illness, new school, a new sibling, family stress, or a caregiver schedule shift.",
+      "also": []
+    },
+    {
+      "page": "/tools/routines-transitions-night-waking",
+      "key": "waking",
+      "hash": "e6ce21d8",
+      "chars": 652,
+      "text": "Ask what changed before deciding what it means. Middle-of-night waking. Night-waking can reflect illness, discomfort, hunger, overtiredness, a new skill, fear, schedule mismatch, or a learned pattern around how sleep resumes. One bad night is information. A repeating pattern is a map. Try first: Keep the response calm, brief, and boring. Offer reassurance, check basic needs, and return to the same sleep cue. Limit line: \"It is still nighttime. I will help you get cozy, and then your body can rest.\" Watch for: Snoring, breathing pauses, pain, fever, frequent vomiting, unusual daytime sleepiness, or sleep issues that are affecting daytime behavior.",
+      "narration": "Ask what changed before deciding what it means. Middle-of-night waking. Night-waking can reflect illness, discomfort, hunger, overtiredness, a new skill, fear, schedule mismatch, or a learned pattern around how sleep resumes. One bad night is information. A repeating pattern is a map. Try first: Keep the response calm, brief, and boring. Offer reassurance, check basic needs, and return to the same sleep cue. Limit line: It is still nighttime. I will help you get cozy, and then your body can rest. Watch for: Snoring, breathing pauses, pain, fever, frequent vomiting, unusual daytime sleepiness, or sleep issues that are affecting daytime behavior.",
+      "also": []
+    },
+    {
+      "page": "/tools/routines-transitions-night-waking",
+      "key": "nap",
+      "hash": "a7edcd44",
+      "chars": 545,
+      "text": "Nap changes can make bedtime look mysterious. Nap transition trouble. A toddler dropping or shifting a nap may seem tired and wired at the same time. Too little daytime sleep can lead to overtiredness; a nap too late can make bedtime harder. Try first: Adjust gradually. Protect a predictable rest window, and watch the evening mood rather than only the clock. Limit line: \"You do not have to sleep, but your body gets quiet rest now.\" Watch for: Late afternoon naps, repeated car naps, or a bedtime that shifted later after daytime sleep changed.",
+      "narration": "Nap changes can make bedtime look mysterious. Nap transition trouble. A toddler dropping or shifting a nap may seem tired and wired at the same time. Too little daytime sleep can lead to overtiredness; a nap too late can make bedtime harder. Try first: Adjust gradually. Protect a predictable rest window, and watch the evening mood rather than only the clock. Limit line: You do not have to sleep, but your body gets quiet rest now. Watch for: Late afternoon naps, repeated car naps, or a bedtime that shifted later after daytime sleep changed.",
+      "also": []
+    },
+    {
+      "page": "/tools/routines-transitions-night-waking",
+      "key": "fear",
+      "hash": "32e68f4e",
+      "chars": 653,
+      "text": "Comfort first, then return to the sleep path. Fears and bad dreams. Fear at night is not manipulation. Imagination is growing, and toddlers may not easily separate dream, shadow, story, and real danger. Comfort them, keep the environment boring, and avoid accidentally making the fear the center of the night. Try first: Use brief reassurance, a nightlight if helpful, and calmer media earlier in the day. Avoid scary content before bed. Limit line: \"That dream felt scary. You are safe in your bed. I will tuck you back in.\" Watch for: Frequent intense nightmares, sleepwalking, night terrors, trauma exposure, or fear that starts affecting daytime life.",
+      "narration": "Comfort first, then return to the sleep path. Fears and bad dreams. Fear at night is not manipulation. Imagination is growing, and toddlers may not easily separate dream, shadow, story, and real danger. Comfort them, keep the environment boring, and avoid accidentally making the fear the center of the night. Try first: Use brief reassurance, a nightlight if helpful, and calmer media earlier in the day. Avoid scary content before bed. Limit line: That dream felt scary. You are safe in your bed. I will tuck you back in. Watch for: Frequent intense nightmares, sleepwalking, night terrors, trauma exposure, or fear that starts affecting daytime life.",
+      "also": []
+    },
+    {
+      "page": "/tools/screens-language-attention",
+      "key": "background",
+      "hash": "e5a85b55",
+      "chars": 536,
+      "text": "This one is about the talk it quietly crowds out. Mostly touches: language. A TV running in the background pulls a surprising amount out of a room. Christakis and Schmidt found it lowers both how much parents and children talk and how rich that talk is, even when no one is watching. Your child isn't being harmed by the pictures so much as missing the conversation those minutes would have held. One tweak: turn it off when no one is actually watching. Quiet rooms leave more room for your child to say something and for you to answer.",
+      "narration": "This one is about the talk it quietly crowds out. Mostly touches: language. A TV running in the background pulls a surprising amount out of a room. Christakis and Schmidt found it lowers both how much parents and children talk and how rich that talk is, even when no one is watching. Your child isn't being harmed by the pictures so much as missing the conversation those minutes would have held. One tweak: turn it off when no one is actually watching. Quiet rooms leave more room for your child to say something and for you to answer.",
+      "also": []
+    },
+    {
+      "page": "/tools/screens-language-attention",
+      "key": "fast",
+      "hash": "1cc31c62",
+      "chars": 587,
+      "text": "Likely a short-term wobble, not lasting damage. Mostly touches: attention (briefly). Lillard and Peterson found a fast, frantic cartoon left preschoolers temporarily worse at focus and self-control right afterward. The key word is temporarily. It was measured minutes later, and the claim that fast shows permanently rewire attention is not well supported. Pacing and what comes next matter more than banning cartoons. One tweak: if you notice a rough patch after a particular show, follow it with something calm (blocks, a snack, outside time) rather than straight into the next demand.",
+      "narration": "Likely a short-term wobble, not lasting damage. Mostly touches: attention (briefly). Lillard and Peterson found a fast, frantic cartoon left preschoolers temporarily worse at focus and self-control right afterward. The key word is temporarily. It was measured minutes later, and the claim that fast shows permanently rewire attention is not well supported. Pacing and what comes next matter more than banning cartoons. One tweak: if you notice a rough patch after a particular show, follow it with something calm (blocks, a snack, outside time) rather than straight into the next demand.",
+      "also": []
+    },
+    {
+      "page": "/tools/screens-language-attention",
+      "key": "coview",
+      "hash": "8327677c",
+      "chars": 510,
+      "text": "This is closer to how kids actually learn. Can support: language. Watching together and talking about what's happening, joint media engagement, is one of the few screen setups research treats kindly for vocabulary. A slower show gives your child time to notice things, and your comments turn a passive minute into a small conversation. One tweak: narrate and connect it to real life. \"That's a tractor. We saw one at the farm, remember?\" The bridge to the real world is where the learning sticks.",
+      "narration": "This is closer to how kids actually learn. Can support: language. Watching together and talking about what's happening, joint media engagement, is one of the few screen setups research treats kindly for vocabulary. A slower show gives your child time to notice things, and your comments turn a passive minute into a small conversation. One tweak: narrate and connect it to real life, something like: That's a tractor. We saw one at the farm, remember? The bridge to the real world is where the learning sticks.",
+      "also": []
+    },
+    {
+      "page": "/tools/screens-language-attention",
+      "key": "app",
+      "hash": "9bcc4a3d",
+      "chars": 558,
+      "text": "\"Educational\" is a label, not a guarantee. Mixed: depends on what it replaces. Some apps are thoughtfully built; plenty are mostly stimulation with a learning sticker. For young kids, even good content usually teaches more when an adult connects it to the real world. The bigger question is what the solo time is replacing. Free play and conversation are where a lot of early attention and language get built. One tweak: now and then, sit alongside and talk about what they're doing, and keep an eye that the app isn't eating the play and talk it sits next to.",
+      "narration": "Educational is a label, not a guarantee. Mixed: depends on what it replaces. Some apps are thoughtfully built; plenty are mostly stimulation with a learning sticker. For young kids, even good content usually teaches more when an adult connects it to the real world. The bigger question is what the solo time is replacing. Free play and conversation are where a lot of early attention and language get built. One tweak: now and then, sit alongside and talk about what they're doing, and keep an eye that the app isn't eating the play and talk it sits next to.",
+      "also": []
+    },
+    {
+      "page": "/tools/screens-language-attention",
+      "key": "videocall",
+      "hash": "912eb0ef",
+      "chars": 516,
+      "text": "This one is real interaction that happens to be on a screen. The friendly exception. Video chat is the partial exception to the video deficit. When a grandparent laughs back, answers, and responds to what your child just did, the exchange behaves like a real conversation: contingent and back-and-forth. That's the ingredient passive video is missing. One tweak: nothing to fix here. Help the call stay a real exchange (peekaboo, showing a toy, naming things together) rather than a screen your child just stares at.",
+      "narration": "This one is real interaction that happens to be on a screen. The friendly exception. Video chat is the partial exception to the video deficit. When a grandparent laughs back, answers, and responds to what your child just did, the exchange behaves like a real conversation: contingent and back-and-forth. That's the ingredient passive video is missing. One tweak: nothing to fix here. Help the call stay a real exchange (peekaboo, showing a toy, naming things together) rather than a screen your child just stares at.",
+      "also": []
+    },
+    {
+      "page": "/tools/whats-typical-by-stage",
+      "key": "newborn",
+      "hash": "5b445ac4",
+      "chars": 593,
+      "text": "Fragmented sleep is expected. 0-2 months. Newborns do not yet have mature circadian rhythms. Sleep is spread across day and night, and feeding needs usually drive the pattern. Typical pattern: Many short sleep periods across 24 hours, with frequent waking for feeding, comfort, and regulation. What helps: Protect safe sleep, use daylight and ordinary household cues during the day, keep nights low-stimulation, and follow medical feeding guidance. What not to overread: A newborn who wakes often is not failing to self-soothe. The nervous system is immature, and sleep is still organizing.",
+      "narration": "Fragmented sleep is expected. 0 to 2 months. Newborns do not yet have mature circadian rhythms. Sleep is spread across day and night, and feeding needs usually drive the pattern. Typical pattern: Many short sleep periods across 24 hours, with frequent waking for feeding, comfort, and regulation. What helps: Protect safe sleep, use daylight and ordinary household cues during the day, keep nights low-stimulation, and follow medical feeding guidance. What not to overread: A newborn who wakes often is not failing to self-soothe. The nervous system is immature, and sleep is still organizing.",
+      "also": []
+    },
+    {
+      "page": "/tools/whats-typical-by-stage",
+      "key": "early",
+      "hash": "e177d95a",
+      "chars": 604,
+      "text": "Rhythm starts to emerge, but it is fragile. 2-4 months. Some babies begin giving longer stretches, especially at night, while others remain highly variable. Growth, feeding, reflux, temperament, and family routines can all matter. Typical pattern: Sleep may still happen in several blocks, but day-night differences often become clearer. What helps: A simple bedtime rhythm, consistent light cues, and a safe sleep space can support organization without forcing a rigid schedule. What not to overread: A rough patch around this age is common. It may reflect development, not a permanent sleep problem.",
+      "narration": "Rhythm starts to emerge, but it is fragile. 2 to 4 months. Some babies begin giving longer stretches, especially at night, while others remain highly variable. Growth, feeding, reflux, temperament, and family routines can all matter. Typical pattern: Sleep may still happen in several blocks, but day-night differences often become clearer. What helps: A simple bedtime rhythm, consistent light cues, and a safe sleep space can support organization without forcing a rigid schedule. What not to overread: A rough patch around this age is common. It may reflect development, not a permanent sleep problem.",
+      "also": []
+    },
+    {
+      "page": "/tools/whats-typical-by-stage",
+      "key": "middle",
+      "hash": "5ba573e2",
+      "chars": 618,
+      "text": "Total sleep range becomes more useful. 4-6 months. From 4 months onward, the AASM-supported benchmark is 12-16 total hours per 24 hours, including naps. Some babies begin more predictable nap and bedtime patterns here. Typical pattern: Many babies still wake at night, while some begin longer stretches. Naps may be inconsistent before they consolidate. What helps: Look at the whole 24-hour rhythm: wake time, naps, bedtime, feeding, and how the baby gets help returning to sleep. What not to overread: The 12-16 hour range is a total sleep-duration guide, not a promise that nights will be uninterrupted.",
+      "narration": "Total sleep range becomes more useful. 4 to 6 months. From 4 months onward, the A-A-S-M-supported benchmark is 12 to 16 total hours per 24 hours, including naps. Some babies begin more predictable nap and bedtime patterns here. Typical pattern: Many babies still wake at night, while some begin longer stretches. Naps may be inconsistent before they consolidate. What helps: Look at the whole 24-hour rhythm: wake time, naps, bedtime, feeding, and how the baby gets help returning to sleep. What not to overread: The 12 to 16 hour range is a total sleep-duration guide, not a promise that nights will be uninterrupted.",
+      "also": []
+    },
+    {
+      "page": "/tools/whats-typical-by-stage",
+      "key": "older",
+      "hash": "f8f478fb",
+      "chars": 646,
+      "text": "Development can show up at night. 6-9 months. Rolling, sitting, crawling practice, new foods, illness, teething discomfort, and separation awareness can all disturb sleep. More skills can mean more night activity for a while. Typical pattern: Some babies move toward two or three naps and longer night stretches. Others still need help overnight. What helps: Keep the response predictable and boring at night, give motor practice during the day, and keep the sleep surface safe as mobility increases. What not to overread: A baby who was sleeping longer and starts waking again has not lost all progress. Sleep often changes around new skills.",
+      "narration": "Development can show up at night. 6 to 9 months. Rolling, sitting, crawling practice, new foods, illness, teething discomfort, and separation awareness can all disturb sleep. More skills can mean more night activity for a while. Typical pattern: Some babies move toward two or three naps and longer night stretches. Others still need help overnight. What helps: Keep the response predictable and boring at night, give motor practice during the day, and keep the sleep surface safe as mobility increases. What not to overread: A baby who was sleeping longer and starts waking again has not lost all progress. Sleep often changes around new skills.",
+      "also": []
+    },
+    {
+      "page": "/tools/whats-typical-by-stage",
+      "key": "late",
+      "hash": "a40efa9a",
+      "chars": 679,
+      "text": "More pattern does not mean no waking. 9-12 months. By the end of the first year, many babies have more predictable sleep, but normal variation remains wide. Travel, illness, separation, feeding changes, and nap transitions can still disrupt nights. Typical pattern: Many babies are moving toward two naps and a steadier bedtime rhythm, with total sleep still commonly understood within the 12-16 hour range. What helps: A repeatable wind-down, enough daytime sleep, and a response plan caregivers can use consistently. What not to overread: One rough week is not a diagnosis. Look for persistent patterns, daytime functioning, growth, feeding, breathing, and family strain.",
+      "narration": "More pattern does not mean no waking. 9 to 12 months. By the end of the first year, many babies have more predictable sleep, but normal variation remains wide. Travel, illness, separation, feeding changes, and nap transitions can still disrupt nights. Typical pattern: Many babies are moving toward two naps and a steadier bedtime rhythm, with total sleep still commonly understood within the 12 to 16 hour range. What helps: A repeatable wind-down, enough daytime sleep, and a response plan caregivers can use consistently. What not to overread: One rough week is not a diagnosis. Look for persistent patterns, daytime functioning, growth, feeding, breathing, and family strain.",
+      "also": []
+    },
+    {
+      "page": "/tools/whats-underneath-the-meltdown",
+      "key": "overloaded",
+      "hash": "be7e9220",
+      "chars": 292,
+      "text": "Start with regulation, not reasoning. Likely state: flooded. The child may not be able to use language, choices, or logic yet. Reduce input, stay nearby, keep your voice low, and wait for signs that the body is coming back down before teaching. Try saying: \"I'm here. You're safe. We can wait.\"",
+      "narration": "Start with regulation, not reasoning. Likely state: flooded. The child may not be able to use language, choices, or logic yet. Reduce input, stay nearby, keep your voice low, and wait for signs that the body is coming back down before teaching. Try saying: I'm here. You're safe. We can wait.",
+      "also": []
+    },
+    {
+      "page": "/tools/whats-underneath-the-meltdown",
+      "key": "limit",
+      "hash": "a9272d19",
+      "chars": 318,
+      "text": "Hold the limit and make room for protest. Likely state: frustration plus boundary. A meltdown after a limit does not always mean the limit was wrong. Keep the boundary simple, acknowledge the feeling, and avoid adding new arguments while the feeling is peaking. Try saying: \"You really wanted that. I won't let you hit.\"",
+      "narration": "Hold the limit and make room for protest. Likely state: frustration plus boundary. A meltdown after a limit does not always mean the limit was wrong. Keep the boundary simple, acknowledge the feeling, and avoid adding new arguments while the feeling is peaking. Try saying: You really wanted that. I won't let you hit.",
+      "also": []
+    },
+    {
+      "page": "/tools/whats-underneath-the-meltdown",
+      "key": "tired",
+      "hash": "69a291f1",
+      "chars": 367,
+      "text": "Simplify the task and lower the demand. Likely state: depleted capacity. Fatigue and hunger shrink the child's ability to cope. This is a setup problem as much as a behavior problem. Use fewer steps, more help, and less teaching until the child is fed, rested, or through the transition. Try saying: \"This is hard right now. I'm going to help your body get to the car.\"",
+      "narration": "Simplify the task and lower the demand. Likely state: depleted capacity. Fatigue and hunger shrink the child's ability to cope. This is a setup problem as much as a behavior problem. Use fewer steps, more help, and less teaching until the child is fed, rested, or through the transition. Try saying: This is hard right now. I'm going to help your body get to the car.",
+      "also": []
+    },
+    {
+      "page": "/tools/whats-underneath-the-meltdown",
+      "key": "sensory",
+      "hash": "1c0b1b2a",
+      "chars": 348,
+      "text": "Change the environment before you correct the behavior. Likely state: sensory overload. If the trigger is sound, texture, crowding, light, or rapid transitions, the child may need less input before they can cooperate. Move to a quieter place, loosen the demand, or give predictable sensory support. Try saying: \"Too much noise. Let's step over here.\"",
+      "narration": "Change the environment before you correct the behavior. Likely state: sensory overload. If the trigger is sound, texture, crowding, light, or rapid transitions, the child may need less input before they can cooperate. Move to a quieter place, loosen the demand, or give predictable sensory support. Try saying: Too much noise. Let's step over here.",
+      "also": []
+    },
+    {
+      "page": "/tools/whats-underneath-the-meltdown",
+      "key": "unsafe",
+      "hash": "46433d57",
+      "chars": 339,
+      "text": "Block harm with as little extra intensity as possible. Likely state: dysregulated and unsafe. Safety comes first. Move objects, block hits, pick up only when necessary, and use very short language. The adult body becomes the boundary while the child's brain is not able to use words well. Try saying: \"I won't let you bite. I'm moving back.\"",
+      "narration": "Block harm with as little extra intensity as possible. Likely state: dysregulated and unsafe. Safety comes first. Move objects, block hits, pick up only when necessary, and use very short language. The adult body becomes the boundary while the child's brain is not able to use words well. Try saying: I won't let you bite. I'm moving back.",
+      "also": []
+    },
+    {
+      "page": "/tools/right-now",
+      "key": "meltdown",
+      "hash": "3ce62fb1",
+      "chars": 528,
+      "text": "Start with regulation, not reasoning. A meltdown is usually a young nervous system hitting a limit (too much wanting, too little language, too much input), not a plan to misbehave. Reduce input, stay close, and wait for the body to come back down before you teach. Make it safe: block harm, move breakable things, lower the audience. Regulate first: lower your voice, slow your body, fewer words, stay close. Teach after: once calmer, briefly name what happened and one next step. Try saying: I'm here. You're safe. We can wait.",
+      "narration": "Start with regulation, not reasoning. A meltdown is usually a young nervous system hitting a limit (too much wanting, too little language, too much input), not a plan to misbehave. Reduce input, stay close, and wait for the body to come back down before you teach. Make it safe: block harm, move breakable things, lower the audience. Regulate first: lower your voice, slow your body, fewer words, stay close. Teach after: once calmer, briefly name what happened and one next step. Try saying: I'm here. You're safe. We can wait.",
+      "also": []
+    },
+    {
+      "page": "/tools/right-now",
+      "key": "limit",
+      "hash": "c185f0fd",
+      "chars": 502,
+      "text": "Hold the limit and make room for the feeling. A child falling apart doesn't mean the limit was wrong. Keep the boundary simple, acknowledge the feeling, and avoid adding new arguments while it is peaking. Less talking, more calm follow-through. State it once, simply: one clear boundary, not a lecture. Allow the protest: the feeling is okay; the unsafe behavior is not. Follow through with your body: move closer, block, or help the transition. Try saying: You really wanted that. I won't let you hit.",
+      "narration": "Hold the limit and make room for the feeling. A child falling apart doesn't mean the limit was wrong. Keep the boundary simple, acknowledge the feeling, and avoid adding new arguments while it is peaking. Less talking, more calm follow-through. State it once, simply: one clear boundary, not a lecture. Allow the protest: the feeling is okay; the unsafe behavior is not. Follow through with your body: move closer, block, or help the transition. Try saying: You really wanted that. I won't let you hit.",
+      "also": []
+    },
+    {
+      "page": "/tools/right-now",
+      "key": "sleep",
+      "hash": "61d656e5",
+      "chars": 485,
+      "text": "Keep it calm, brief, and a little boring. Offer reassurance, check the basics, and return to the same sleep cue. One hard night is information; a repeating pattern is a map. Your steady, low-key presence is doing the work. Check needs: hunger, discomfort, temperature, illness, fear. Stay boring: calm voice, dim light, minimal engagement. Return to the same cue: the routine ending you always use. Try saying: It's still nighttime. I'll help you get cozy, and then your body can rest.",
+      "narration": "Keep it calm, brief, and a little boring. Offer reassurance, check the basics, and return to the same sleep cue. One hard night is information; a repeating pattern is a map. Your steady, low-key presence is doing the work. Check needs: hunger, discomfort, temperature, illness, fear. Stay boring: calm voice, dim light, minimal engagement. Return to the same cue: the routine ending you always use. Try saying: It's still nighttime. I'll help you get cozy, and then your body can rest.",
+      "also": []
+    },
+    {
+      "page": "/tools/right-now",
+      "key": "patience",
+      "hash": "0fa9b2fd",
+      "chars": 493,
+      "text": "Steady yourself first. It isn't selfish. Your child borrows calm from your body before they can make their own. Regulating yourself is the intervention, not a break from it. You don't have to feel calm; you just have to act a notch calmer than you feel. Notice it. Say to yourself: \"I'm activated.\". Buy a second: one slow breath out, unclench your jaw, drop your shoulders. Shrink the moment: make the next 60 seconds smaller, not bigger. Try saying: I'm going to take a slow breath. We're okay.",
+      "narration": "Steady yourself first. It isn't selfish. Your child borrows calm from your body before they can make their own. Regulating yourself is the intervention, not a break from it. You don't have to feel calm; you just have to act a notch calmer than you feel. Notice it. Say to yourself: I'm activated. Buy a second: one slow breath out, unclench your jaw, drop your shoulders. Shrink the moment: make the next 60 seconds smaller, not bigger. Try saying: I'm going to take a slow breath. We're okay.",
+      "also": []
+    },
+    {
+      "page": "/tools/right-now",
+      "key": "repair",
+      "hash": "acde4214",
+      "chars": 511,
+      "text": "Repair the connection, not the whole day. Rupture is normal; repair is what keeps the relationship and your child's sense of safety intact. You can reconnect without pretending the limit disappeared, and repair works at any age, even after the fact. Reset yourself first. You can't repair from activation. Name it simply: no long apology, no taking away the boundary. Reconnect: offer warmth and presence; let the closeness do the work. Try saying: That was hard. I'm sorry I got loud. I love you, and I'm here.",
+      "narration": "Repair the connection, not the whole day. Rupture is normal; repair is what keeps the relationship and your child's sense of safety intact. You can reconnect without pretending the limit disappeared, and repair works at any age, even after the fact. Reset yourself first. You can't repair from activation. Name it simply: no long apology, no taking away the boundary. Reconnect: offer warmth and presence; let the closeness do the work. Try saying: That was hard. I'm sorry I got loud. I love you, and I'm here.",
+      "also": []
+    }
+  ]
+}

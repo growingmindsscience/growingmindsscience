@@ -7,7 +7,7 @@
      - Safe storage (mirrors the main.js localStorage-with-memory-fallback pattern)
      - Child profile   (gms-child-v1)  — local only, no account, never transmitted
      - Saved shelf      (gms-shelf-v1)  — "what works for us"
-     - Speech           (Web Speech API, feature-detected)
+     - Listen           (recorded narration in Matthew's voice)
      - Ask-AI link builder
      - Decoder enhancer (one toggle for every "pick your situation" chooser:
                          .decoder, and the .scenario / .pattern / .stage wraps
@@ -249,29 +249,79 @@
     onChange: shelfEvents.on
   };
 
-  /* ---------- Speech (Listen) ---------- */
-  var speechSupported = ("speechSynthesis" in window) && ("SpeechSynthesisUtterance" in window);
-  var currentUtterance = null;
-  function speak(text, onEnd) {
-    if (!speechSupported || !text) return false;
-    try {
-      window.speechSynthesis.cancel();
-      var u = new SpeechSynthesisUtterance(text);
-      u.rate = 0.96; u.pitch = 1.0;
-      u.onend = u.onerror = function () { currentUtterance = null; if (onEnd) onEnd(); };
-      currentUtterance = u;
-      window.speechSynthesis.speak(u);
-      return true;
-    } catch (_) { return false; }
+  /* ---------- Listen (recorded narration) ---------- */
+  // Each Listen button plays Matthew reading that answer, recorded ahead of
+  // time (assets/audio/listen/<hash>.mp3, made with scripts/build-listen.mjs).
+  // A recording is named by a hash of the exact text the button reads, so an
+  // edited answer has no recording until it is re-recorded; its button stays
+  // out of the page until then rather than playing the old words.
+  var LISTEN_DIR = "/assets/audio/listen/";
+  // FNV-1a over the text with whitespace collapsed. Mirrors listenHash in
+  // scripts/build-listen.mjs.
+  function listenHash(text) {
+    var s = String(text || "").replace(/\s+/g, " ").trim();
+    var h = 0x811c9dc5;
+    for (var i = 0; i < s.length; i++) {
+      h ^= s.charCodeAt(i);
+      h = Math.imul(h, 0x01000193) >>> 0;
+    }
+    return ("0000000" + h.toString(16)).slice(-8);
   }
-  function stopSpeaking() {
-    if (!speechSupported) return;
-    try { window.speechSynthesis.cancel(); } catch (_) {}
-    currentUtterance = null;
+  var recordings = null;
+  function loadRecordings() {
+    if (!recordings) {
+      recordings = (window.fetch ? fetch(LISTEN_DIR + "manifest.json", { cache: "no-cache" }) : Promise.reject())
+        .then(function (r) { return r.ok ? r.json() : { clips: [] }; })
+        .then(function (m) {
+          var set = {};
+          (m.clips || []).forEach(function (h) { set[h] = true; });
+          return set;
+        })
+        .catch(function () { return {}; });
+    }
+    return recordings;
+  }
+  var listenSeen = []; // every text a Listen button was asked for (read by build-listen.mjs)
+  var playing = null;  // { audio, done }
+  function stopListening() {
+    if (!playing) return;
+    var p = playing;
+    playing = null;
+    try { p.audio.pause(); } catch (_) {}
+    p.done();
+  }
+  function listenButton(text, className) {
+    var btn = el("button", { type: "button", class: className }, ["Listen"]);
+    var mine = null;
+    btn.addEventListener("click", function () {
+      if (mine && playing === mine) { stopListening(); return; }
+      stopListening();
+      var audio = new Audio(LISTEN_DIR + listenHash(text) + ".mp3");
+      mine = { audio: audio, done: function () { btn.textContent = "Listen"; } };
+      var finish = function () { if (playing === mine) { playing = null; mine.done(); } };
+      audio.addEventListener("ended", finish);
+      audio.addEventListener("error", finish);
+      playing = mine;
+      btn.textContent = "Stop";
+      var started = audio.play();
+      if (started && started.catch) started.catch(finish);
+    });
+    return btn;
+  }
+  // Adds a Listen button for `text` to `row` (before `before`, if given) once
+  // the recording is known to exist. Without one, nothing is added.
+  function mountListen(row, text, className, before) {
+    if (!text || !row) return;
+    listenSeen.push({ text: text, row: row });
+    loadRecordings().then(function (set) {
+      if (!set[listenHash(text)]) return;
+      var btn = listenButton(text, className);
+      if (before && before.parentNode === row) row.insertBefore(btn, before);
+      else row.appendChild(btn);
+    });
   }
   // Stop narration when the page is hidden or navigated away.
-  window.addEventListener("pagehide", stopSpeaking);
-  window.addEventListener("beforeunload", stopSpeaking);
+  window.addEventListener("pagehide", stopListening);
 
   /* ---------- Print a pocket card ---------- */
   // Adds a body flag so the scoped @media print rule shows only .pocket-card,
@@ -411,8 +461,36 @@
     return {
       title: heading ? heading.textContent.trim() : "",
       body: body,
-      tryLine: tryEl ? tryEl.textContent.replace(/^Try:\s*/i, "").trim() : ""
+      tryLine: tryEl ? tryEl.textContent.replace(/^Try:\s*/i, "").trim() : "",
+      listenText: readAloudText(output)
     };
+  }
+
+  // What Listen reads: every visible block of the answer in page order, each
+  // ending as a sentence, so a label like "0-2 months" does not run into the
+  // next line. Stage and pattern facts read as "Label: text". A "Try:" line
+  // reads as "Try saying:"; other closing lines read as written.
+  function readAloudText(output) {
+    function sentence(t) {
+      t = String(t || "").replace(/\s+/g, " ").trim();
+      if (!t) return "";
+      return /[.?!:;"”]$/.test(t) ? t : t + ".";
+    }
+    var parts = [];
+    [].forEach.call(output.children, function (node) {
+      if (node.hidden || node.getAttribute("aria-hidden") === "true" || node.classList.contains("gms-actions")) return;
+      var facts = node.querySelectorAll(".stage-fact, .pattern-fact");
+      if (facts.length) {
+        [].forEach.call(facts, function (f) {
+          var label = f.querySelector("strong");
+          var text = f.querySelector("span");
+          parts.push((label ? label.textContent.trim() + ": " : "") + sentence(text ? text.textContent : f.textContent));
+        });
+        return;
+      }
+      parts.push(sentence(node.textContent.replace(/^\s*Try:\s*/i, "Try saying: ")));
+    });
+    return parts.filter(Boolean).join(" ");
   }
 
   function toolMeta() {
@@ -439,7 +517,7 @@
     var aiQuestion = output.dataset.aiQuestion || (dec && dec.dataset.aiQuestion) ||
       (content.title ? "Tell me more about this: " + content.title.replace(/[.?!]+$/, "") : ("Tell me more about " + meta.title.toLowerCase()));
     output.appendChild(buildActionRow({
-      key: key, meta: meta, content: content, aiQuestion: aiQuestion,
+      key: key, meta: meta, content: content, aiQuestion: aiQuestion, listenText: content.listenText,
       personalize: !(dec && dec.dataset.aiPersonalize === "false"),
       toolUrl: output.dataset.output ? meta.path + "#answer=" + encodeURIComponent(outKey) : meta.path
     }));
@@ -476,27 +554,14 @@
     row.appendChild(saveBtn);
     row.appendChild(viewLink);
 
-    // Listen
-    if (speechSupported) {
-      var speaking = false;
-      var listenBtn = el("button", { type: "button", class: "gms-action gms-action--listen" }, ["Listen"]);
-      var toText = function () {
-        return [cfg.content.title, cfg.content.body, cfg.content.tryLine ? ("Try saying: " + cfg.content.tryLine) : ""]
-          .filter(Boolean).join(". ");
-      };
-      var reset = function () { speaking = false; listenBtn.textContent = "Listen"; };
-      listenBtn.addEventListener("click", function () {
-        if (speaking) { stopSpeaking(); reset(); return; }
-        if (speak(toText(), reset)) { speaking = true; listenBtn.textContent = "Stop"; }
-      });
-      row.appendChild(listenBtn);
-    }
-
     // Ask AI
     var askOpts = { personalize: cfg.personalize !== false };
     var askLink = el("a", { class: "gms-action gms-action--ask", href: askUrl(cfg.aiQuestion, askOpts) }, ["Ask about this"]);
     askLink.addEventListener("click", function () { askLink.href = askUrl(cfg.aiQuestion, askOpts); });
     row.appendChild(askLink);
+
+    // Listen sits between Save and Ask once its recording is confirmed.
+    mountListen(row, cfg.listenText, "gms-action gms-action--listen", askLink);
 
     return row;
   }
@@ -505,9 +570,10 @@
   window.GMS = {
     profile: profile,
     shelf: shelf,
-    speak: speak,
-    stopSpeaking: stopSpeaking,
-    speechSupported: speechSupported,
+    mountListen: mountListen,
+    stopListening: stopListening,
+    listenHash: listenHash,
+    _listenSeen: listenSeen,
     printCard: printCard,
     askUrl: askUrl,
     agePhrase: agePhrase,
