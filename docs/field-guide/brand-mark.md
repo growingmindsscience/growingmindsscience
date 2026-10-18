@@ -22,6 +22,7 @@ Matthew supplied a concept on 2026-10-15: three arcs rising into a leaf, with th
 | `favicon-16/32/48.png` | Fallbacks for browsers without SVG favicons |
 | `apple-touch-icon-180.png` | iOS home screen, on a paper tile |
 | `icon-192.png`, `icon-512.png`, `app-icon.svg` | Android, PWA manifest, large uses |
+| `social-avatar-1080.png` | Social profile pictures: the mark at 62% on forest ink, so a circular crop keeps it whole. Set on Instagram 2026-10-18 |
 
 ## Rules
 
