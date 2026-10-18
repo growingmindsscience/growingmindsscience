@@ -17,8 +17,9 @@
       "age": "8 to 14 months",
       "row": "play and attention",
       "scheduled_at": "2026-10-28T19:00:00-04:00",
-      "status": "draft",
-      "source": "2026-10-27-dropped-spoon"
+      "status": "approved",
+      "source": "2026-10-27-dropped-spoon",
+      "approved_on": "2026-10-18"
     },
     {
       "id": "2026-10-29-conversational-turns",
@@ -36,8 +37,9 @@
       "age": "4 to 6 years",
       "row": "language and communication",
       "scheduled_at": "2026-10-31T19:00:00-04:00",
-      "status": "draft",
-      "source": "2026-10-29-conversational-turns"
+      "status": "approved",
+      "source": "2026-10-29-conversational-turns",
+      "approved_on": "2026-10-18"
     },
     {
       "id": "2026-11-03-eighteen-months-not-talking",
