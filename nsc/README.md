@@ -120,6 +120,7 @@ NEXT_PUBLIC_NSC_PRICE_DISPLAY      # e.g. "$34" (display only)
 CRON_SECRET                        # server-only; Vercel sends it as the cron Bearer token
 RESEND_API_KEY                     # server-only; without it the engagement cron logs + skips sends
 NSC_EMAIL_FROM                     # optional; default "Number Path <hello@growingmindsscience.com>"
+NSC_EMAIL_REPLY_TO                 # optional; default growingmindsscience@gmail.com (hello@ has no inbox)
 MEMBERSHIP_PRICE_MONTHLY           # optional until membership SKUs exist; $9/mo price id
 MEMBERSHIP_PRICE_ANNUAL            # optional; $79/yr price id
 LEGACY_AI_PRO_PRICE                # optional; the live AI Pro $9/mo price id (absorbed into membership)
