@@ -4,6 +4,18 @@ This folder is where **you** add your own content — class slide decks, scripts
 handouts, lesson notes — so Growing Minds AI grounds its answers in *your*
 teaching, not just generic knowledge.
 
+## Class lessons (Infant, Toddler, Preschool)
+
+The `infant-*`, `toddler-*` and `preschool-*` files are generated from each
+lesson's `script/script.py` in `~/Desktop/GMS_Classes/`. Don't edit them here;
+after a script changes, or a new class is added to the exporter, run:
+
+```bash
+python3 scripts/export-class-knowledge.py
+node scripts/build-knowledge.mjs
+node scripts/corpus/certify.mjs
+```
+
 ## How to add a slide deck or script
 
 1. Export your material to **plain text** or **Markdown**:
