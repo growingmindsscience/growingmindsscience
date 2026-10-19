@@ -22,7 +22,7 @@ export const TODDLER_COURSE = {
  * holders today (only free visitors, at FREE_DAILY_LIMIT in api/_ai-chat.js).
  * The static pages repeat this number; change them together.
  */
-export const CLASS_AI_FAIR_USE_PER_DAY = 5;
+export const CLASS_AI_FAIR_USE_PER_DAY = 50;
 
 export const INFANT_COURSE = {
   slug: "infant",

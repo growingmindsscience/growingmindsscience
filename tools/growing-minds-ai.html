@@ -620,7 +620,7 @@
       <!-- Access code panel -->
       <div class="access-panel" id="accessPanel" role="region" aria-labelledby="accessPanelTitle" hidden>
         <h3 id="accessPanelTitle">Enter your class access code</h3>
-        <p>Growing Minds AI is included with your class, with a fair-use limit of 5 questions a day. Your access code is in your class confirmation email.</p>
+        <p>Growing Minds AI is included with your class, with a fair-use limit of 50 questions a day. Your access code is in your class confirmation email.</p>
         <div class="access-panel__row">
           <input class="access-input" type="password" id="accessCodeInput" placeholder="Your access code" autocomplete="off" aria-label="Access code" />
           <button class="access-btn" type="button" id="accessCodeSubmit">Unlock</button>
@@ -671,7 +671,8 @@
           </div>
           <div class="chat-meta__right" id="unlockLinks">
             <button class="access-code-toggle" type="button" id="accessCodeToggle" aria-expanded="false" aria-controls="accessPanel">Have a class access code?</button>
-            <button class="access-code-toggle" type="button" id="subscriberLoginToggle" aria-expanded="false" aria-controls="subscriberPanel">Existing AI&nbsp;Pro subscriber?</button>
+            <!-- AI Pro is no longer sold and never had subscribers; the sign-in stays wired but hidden. -->
+            <button class="access-code-toggle" type="button" id="subscriberLoginToggle" aria-expanded="false" aria-controls="subscriberPanel" hidden>Existing AI&nbsp;Pro subscriber?</button>
           </div>
         </div>
       </div>
@@ -683,7 +684,7 @@
         <div class="plans-strip__card">
           <div class="plans-strip__text">
             <h2 id="plans-strip-title">Free gives you 5 questions a day.</h2>
-            <p>Want more? Growing Minds AI is included with the toddler class, with a fair-use limit of 5 questions a day.</p>
+            <p>Want more? Growing Minds AI is included with the toddler class, with a fair-use limit of 50 questions a day.</p>
           </div>
           <div class="plans-strip__cta">
             <a class="btn btn--teal" href="/pricing">See plans &amp; pricing <span aria-hidden="true">→</span></a>
@@ -1557,7 +1558,7 @@
       accessCode = code;
       session.set(ACCESS_CODE_KEY, code);
       codeInput.value = '';
-      setStatus(codeStatus, 'Access unlocked. Growing Minds AI is included with your class, with a fair-use limit of 5 questions a day.', 'success');
+      setStatus(codeStatus, 'Access unlocked. Growing Minds AI is included with your class, with a fair-use limit of 50 questions a day.', 'success');
       updateTierBadge();
       closePanelSoon(accessPanel, accessToggle);
     }

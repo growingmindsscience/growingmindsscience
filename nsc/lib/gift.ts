@@ -27,10 +27,10 @@ export function secureRandom(): number {
  * cryptographic source. `rand` is injectable only so tests can be
  * deterministic.
  */
-export function makeGiftCode(rand: () => number = secureRandom): string {
+export function makeGiftCode(rand: () => number = secureRandom, prefix = "NP"): string {
   const block = () =>
     Array.from({ length: 4 }, () => ALPHABET[Math.floor(rand() * ALPHABET.length)]).join("");
-  return `NP-${block()}-${block()}`;
+  return `${prefix}-${block()}-${block()}`;
 }
 
 /**

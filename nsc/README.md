@@ -12,9 +12,8 @@ Full app: assessment → placement → weekly plan → paywall → printables.
 The same Supabase account now has `/app/classes` and a protected Toddlerhood
 lesson area. Admins create lessons and upload MP4s at `/admin/classes`; uploads
 go directly to signed-only Mux assets. Stripe purchases grant `class:toddlerhood`
-plus unlimited AI, and customer progress is stored per lesson. The public class
-sales links remain on Thinkific until the 29 lessons and prior-buyer migration
-are ready. Setup and launch steps are in
+plus unlimited AI, and customer progress is stored per lesson. The rebuilt
+13-lesson class is sold on this site. Setup and launch steps are in
 [`docs/on-site-classes-runbook.md`](../docs/on-site-classes-runbook.md).
 
 ## Architecture
@@ -120,6 +119,7 @@ NEXT_PUBLIC_NSC_PRICE_DISPLAY      # e.g. "$34" (display only)
 CRON_SECRET                        # server-only; Vercel sends it as the cron Bearer token
 RESEND_API_KEY                     # server-only; without it the engagement cron logs + skips sends
 NSC_EMAIL_FROM                     # optional; default "Number Path <hello@growingmindsscience.com>"
+NSC_EMAIL_REPLY_TO                 # optional; default growingmindsscience@gmail.com (hello@ has no inbox)
 MEMBERSHIP_PRICE_MONTHLY           # optional until membership SKUs exist; $9/mo price id
 MEMBERSHIP_PRICE_ANNUAL            # optional; $79/yr price id
 LEGACY_AI_PRO_PRICE                # optional; the live AI Pro $9/mo price id (absorbed into membership)
