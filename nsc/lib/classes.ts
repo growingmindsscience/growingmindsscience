@@ -16,6 +16,14 @@ export const TODDLER_COURSE = {
   ],
 } as const;
 
+/**
+ * The daily fair-use limit the site states for Growing Minds AI included with
+ * the toddler class. Wording only: api/growing-minds-ai.js does not cap class
+ * holders today (only free visitors, at FREE_DAILY_LIMIT in api/_ai-chat.js).
+ * The static pages repeat this number; change them together.
+ */
+export const CLASS_AI_FAIR_USE_PER_DAY = 50;
+
 export const INFANT_COURSE = {
   slug: "infant",
   title: "Birth to 12 months: cues, attachment, and the first year",

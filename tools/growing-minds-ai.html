@@ -620,7 +620,7 @@
       <!-- Access code panel -->
       <div class="access-panel" id="accessPanel" role="region" aria-labelledby="accessPanelTitle" hidden>
         <h3 id="accessPanelTitle">Enter your class access code</h3>
-        <p>Class members get unlimited questions. Your access code is in your class confirmation email.</p>
+        <p>Growing Minds AI is included with your class, with a fair-use limit of 50 questions a day. Your access code is in your class confirmation email.</p>
         <div class="access-panel__row">
           <input class="access-input" type="password" id="accessCodeInput" placeholder="Your access code" autocomplete="off" aria-label="Access code" />
           <button class="access-btn" type="button" id="accessCodeSubmit">Unlock</button>
@@ -642,7 +642,7 @@
       <!-- Input -->
       <div class="chat-input-wrap">
         <div id="limitReached" class="chat-limit" hidden>
-          <p>You've used your <strong>5 free questions</strong> for today. Go unlimited with a class or AI Pro, or come back tomorrow.</p>
+          <p>You've used your <strong>5 free questions</strong> for today. Come back tomorrow, or see what the toddler class and AI Pro include.</p>
           <a class="btn btn--teal" href="/pricing">See plans <span aria-hidden="true">→</span></a>
         </div>
         <div id="inputArea">
@@ -683,7 +683,7 @@
         <div class="plans-strip__card">
           <div class="plans-strip__text">
             <h2 id="plans-strip-title">Free gives you 5 questions a day.</h2>
-            <p>Want unlimited? The toddler class includes it for life, or AI Pro is $9 a month on its own.</p>
+            <p>Want more? Growing Minds AI is included with the toddler class, with a fair-use limit of 50 questions a day. Or AI Pro is $9 a month on its own.</p>
           </div>
           <div class="plans-strip__cta">
             <a class="btn btn--teal" href="/pricing">See plans &amp; pricing <span aria-hidden="true">→</span></a>
@@ -1004,8 +1004,8 @@
       const unlimited = isUnlimited();
       const remaining = questionsRemaining();
       if (subscriberToken) setTierText('AI Pro', 'Unlimited');
-      else if (sessionUnlimited) setTierText('Signed in', 'Unlimited');
-      else if (accessCode) setTierText('Class member', 'Unlimited');
+      else if (sessionUnlimited) setTierText('Signed in', 'Included with your class');
+      else if (accessCode) setTierText('Class member', 'Included with your class');
       else if (remaining > 0) setTierText('Free', String(remaining), remaining === 1 ? ' question today' : ' questions today');
       else setTierText('Free', 'Limit reached');
 
@@ -1557,7 +1557,7 @@
       accessCode = code;
       session.set(ACCESS_CODE_KEY, code);
       codeInput.value = '';
-      setStatus(codeStatus, 'Access unlocked. Unlimited questions.', 'success');
+      setStatus(codeStatus, 'Access unlocked. Growing Minds AI is included with your class, with a fair-use limit of 50 questions a day.', 'success');
       updateTierBadge();
       closePanelSoon(accessPanel, accessToggle);
     }

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { PurchaseTerms } from "@/components/purchase-terms";
 import { requireClassAuth } from "@/lib/auth";
 import { classSalesOpen, hasClassAccess, progressForUser, publishedLessons } from "@/lib/classes.server";
-import { TODDLER_COURSE } from "@/lib/classes";
+import { CLASS_AI_FAIR_USE_PER_DAY, TODDLER_COURSE } from "@/lib/classes";
 import { Eyebrow } from "@/components/class-chrome";
 import { ClassOutline, ClassResume } from "@/components/class-outline";
 import { Card, Button } from "@/components/ui";
@@ -33,7 +33,7 @@ export default async function ToddlerClassPage({ searchParams }: {
       {!owned ? (
         <Card>
           <h2 className="text-xl font-semibold text-ink-deep">Get lifetime access</h2>
-          <p className="mt-2 text-sm text-ink">One payment of {TODDLER_COURSE.priceDisplay} includes the class and unlimited Growing Minds AI.</p>
+          <p className="mt-2 text-sm text-ink">One payment of {TODDLER_COURSE.priceDisplay} includes the class and Growing Minds AI, with a fair-use limit of {CLASS_AI_FAIR_USE_PER_DAY} questions a day.</p>
           {error === "not-open" && <p role="alert" className="mt-3 text-sm text-coral-deep">Enrollment is not open for this account yet.</p>}
           {error === "checkout-unavailable" && <p role="alert" className="mt-3 text-sm text-coral-deep">Checkout is unavailable right now. Please try again later.</p>}
           {salesOpen ? <form action={startClassCheckout} className="mt-5"><Button type="submit">Enroll now</Button></form> : (
