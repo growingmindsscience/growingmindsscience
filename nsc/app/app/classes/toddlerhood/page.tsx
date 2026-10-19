@@ -19,7 +19,7 @@ export default async function ToddlerClassPage({ searchParams }: {
   const [lessons, progress] = await Promise.all([
     publishedLessons(), owned ? progressForUser(user.id) : [],
   ]);
-  const salesOpen = owned ? false : await classSalesOpen();
+  const salesOpen = owned ? false : await classSalesOpen(TODDLER_COURSE.slug, user.id);
   const { error } = await searchParams;
 
   return (
@@ -28,7 +28,7 @@ export default async function ToddlerClassPage({ searchParams }: {
         <Link href="/app/classes" className="inline-flex min-h-11 items-center text-sm text-ink-muted underline">← My classes</Link>
         <Eyebrow className="mt-2">Self-paced class · ages 1–3</Eyebrow>
         <h1 className="mt-2 text-3xl text-ink-deep sm:text-4xl">{TODDLER_COURSE.title}</h1>
-        <p className="mt-3 text-ink">Five modules of developmental science and practical guidance for everyday family life.</p>
+        <p className="mt-3 text-ink">{TODDLER_COURSE.blurb}</p>
       </header>
       {!owned ? (
         <Card>
@@ -37,7 +37,7 @@ export default async function ToddlerClassPage({ searchParams }: {
           {error === "not-open" && <p role="alert" className="mt-3 text-sm text-coral-deep">Enrollment is not open for this account yet.</p>}
           {error === "checkout-unavailable" && <p role="alert" className="mt-3 text-sm text-coral-deep">Checkout is unavailable right now. Please try again later.</p>}
           {salesOpen ? <form action={startClassCheckout} className="mt-5"><Button type="submit">Enroll now</Button></form> : (
-            <p className="mt-4 text-sm text-ink-muted">On-site enrollment opens after all 29 lessons have been prepared. You can still enroll through the current class page.</p>
+            <p className="mt-4 text-sm text-ink-muted">Enrollment opens once all 13 lessons are published.</p>
           )}
           <p className="mt-3 text-xs text-ink-muted">Already bought this on Thinkific? Your purchase will be linked during migration.</p>
           <PurchaseTerms narration />
