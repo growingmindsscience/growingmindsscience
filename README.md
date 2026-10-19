@@ -189,9 +189,11 @@ backed by a Vercel API route:
 - Optional Vercel environment variable: `GMS_SESSION_SECRET` (verifies AI Pro
   subscriber tokens; also used elsewhere for the parent-site session cookie,
   under a separately derived key)
-- AI Pro checkout (`api/create-checkout-session.js`) reads `STRIPE_SECRET_KEY`
-  and `AI_PRO_PRICE_ID` (falls back to the live price id in that file); the
-  webhook reads `STRIPE_WEBHOOK_SECRET`. See `.env.example` for the full list.
+- AI Pro is no longer sold: `api/create-checkout-session.js` only redirects
+  old links to `/pricing`. `api/verify-subscription.js` still reads
+  `STRIPE_SECRET_KEY` so existing subscribers can unlock until their
+  subscriptions end; the webhook reads `STRIPE_WEBHOOK_SECRET`. See
+  `.env.example` for the full list.
 
 Set environment variables in Vercel. The API key must never be placed in
 browser JavaScript or committed to the repository.

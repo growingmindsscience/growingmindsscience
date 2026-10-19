@@ -642,7 +642,7 @@
       <!-- Input -->
       <div class="chat-input-wrap">
         <div id="limitReached" class="chat-limit" hidden>
-          <p>You've used your <strong>5 free questions</strong> for today. Come back tomorrow, or see what the toddler class and AI Pro include.</p>
+          <p>You've used your <strong>5 free questions</strong> for today. Come back tomorrow, or see what the toddler class includes.</p>
           <a class="btn btn--teal" href="/pricing">See plans <span aria-hidden="true">→</span></a>
         </div>
         <div id="inputArea">
@@ -671,7 +671,8 @@
           </div>
           <div class="chat-meta__right" id="unlockLinks">
             <button class="access-code-toggle" type="button" id="accessCodeToggle" aria-expanded="false" aria-controls="accessPanel">Have a class access code?</button>
-            <button class="access-code-toggle" type="button" id="subscriberLoginToggle" aria-expanded="false" aria-controls="subscriberPanel">AI&nbsp;Pro subscriber?</button>
+            <!-- AI Pro is no longer sold and never had subscribers; the sign-in stays wired but hidden. -->
+            <button class="access-code-toggle" type="button" id="subscriberLoginToggle" aria-expanded="false" aria-controls="subscriberPanel" hidden>Existing AI&nbsp;Pro subscriber?</button>
           </div>
         </div>
       </div>
@@ -683,7 +684,7 @@
         <div class="plans-strip__card">
           <div class="plans-strip__text">
             <h2 id="plans-strip-title">Free gives you 5 questions a day.</h2>
-            <p>Want more? Growing Minds AI is included with the toddler class, with a fair-use limit of 50 questions a day. Or AI Pro is $9 a month on its own.</p>
+            <p>Want more? Growing Minds AI is included with the toddler class, with a fair-use limit of 50 questions a day.</p>
           </div>
           <div class="plans-strip__cta">
             <a class="btn btn--teal" href="/pricing">See plans &amp; pricing <span aria-hidden="true">→</span></a>
