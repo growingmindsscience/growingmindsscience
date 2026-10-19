@@ -13,8 +13,7 @@ The same Supabase account now has `/app/classes` and a protected Toddlerhood
 lesson area. Admins create lessons and upload MP4s at `/admin/classes`; uploads
 go directly to signed-only Mux assets. Stripe purchases grant `class:toddlerhood`
 plus unlimited AI, and customer progress is stored per lesson. The rebuilt
-13-lesson class is sold on this site; parents who bought the earlier version on
-Thinkific keep that login. Setup and launch steps are in
+13-lesson class is sold on this site. Setup and launch steps are in
 [`docs/on-site-classes-runbook.md`](../docs/on-site-classes-runbook.md).
 
 ## Architecture

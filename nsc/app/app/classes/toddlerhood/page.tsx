@@ -6,7 +6,6 @@ import { TODDLER_COURSE } from "@/lib/classes";
 import { Eyebrow } from "@/components/class-chrome";
 import { ClassOutline, ClassResume } from "@/components/class-outline";
 import { Card, Button } from "@/components/ui";
-import { sitePath } from "@/lib/site";
 import { startClassCheckout } from "./actions";
 
 export const dynamic = "force-dynamic";
@@ -40,10 +39,6 @@ export default async function ToddlerClassPage({ searchParams }: {
           {salesOpen ? <form action={startClassCheckout} className="mt-5"><Button type="submit">Enroll now</Button></form> : (
             <p className="mt-4 text-sm text-ink-muted">Enrollment opens once all 13 lessons are published.</p>
           )}
-          <p className="mt-3 text-xs text-ink-muted">
-            Bought the earlier version on Thinkific? Those lessons stay there. To add this class to My classes,{" "}
-            <a href={sitePath("/contact/")} className="underline">email Matthew</a> with the address you bought with.
-          </p>
           <PurchaseTerms narration />
         </Card>
       ) : (

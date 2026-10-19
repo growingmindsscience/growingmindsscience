@@ -8,16 +8,16 @@ describe("class ownership", () => {
     expect(ownsToddlerClass([{ source: "comp", source_ref: "class-access-code", expires_at: null }], now)).toBe(false);
   });
 
-  it("accepts a verified lifetime purchase or migrated buyer", () => {
+  it("accepts a verified lifetime purchase or a comp grant", () => {
     expect(ownsToddlerClass([{ source: "stripe_otp_legacy", source_ref: "cs_123", expires_at: null }], now)).toBe(true);
-    expect(ownsToddlerClass([{ source: "comp", source_ref: "thinkific:order-123", expires_at: null }], now)).toBe(true);
+    expect(ownsToddlerClass([{ source: "comp", source_ref: "support:order-123", expires_at: null }], now)).toBe(true);
   });
 
   it("honors expiry without hiding a separate valid grant", () => {
     expect(ownsToddlerClass([{ source: "stripe_otp_legacy", source_ref: "cs_123", expires_at: "2026-09-26T12:00:00Z" }], now)).toBe(false);
     expect(ownsToddlerClass([
       { source: "stripe_otp_legacy", source_ref: "cs_123", expires_at: "2026-09-26T12:00:00Z" },
-      { source: "comp", source_ref: "thinkific:order-123", expires_at: null },
+      { source: "comp", source_ref: "support:order-123", expires_at: null },
     ], now)).toBe(true);
   });
 });
