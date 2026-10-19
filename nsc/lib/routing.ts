@@ -175,6 +175,16 @@ export function personalizePrompts(prompts: readonly string[], name: string): st
 }
 
 /**
+ * The free tier plays the first game of each week's plan; the rest show as
+ * locked teasers. The plan page and the game-audio route both read this.
+ */
+export const FREE_GAMES_PER_WEEK = 1;
+
+export function freeGames(plan: Pick<WeeklyPlan, "games">): Game[] {
+  return plan.games.slice(0, FREE_GAMES_PER_WEEK);
+}
+
+/**
  * What a locked game card may carry to the browser: only what the locked
  * card shows (title, time, goal). The script, materials, and adaptations
  * are the paid content and stay on the server. Built field by field, so a

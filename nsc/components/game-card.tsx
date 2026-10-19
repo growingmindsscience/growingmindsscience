@@ -5,6 +5,7 @@ import { Card } from "@/components/ui";
 import { AudioButton } from "@/components/audio-button";
 import { EvidenceChips } from "@/components/evidence-chip";
 import { interpolate } from "@/lib/assessment";
+import { gameClipPath } from "@/lib/audio";
 import type { Game } from "@/lib/content-types";
 import { logPlay } from "@/app/app/child/[id]/plan/actions";
 
@@ -96,7 +97,7 @@ export function GameCard({
                   <li key={i}>
                     <span className="inline-flex items-center gap-1">
                       <span>{interpolate(line, vars)}</span>
-                      <AudioButton key={line} line={line} available={audioSet} />
+                      <AudioButton key={line} line={line} available={audioSet} clipPath={gameClipPath} />
                     </span>
                   </li>
                 ))}

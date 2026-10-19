@@ -18,8 +18,11 @@ const nextConfig: NextConfig = {
   // The runtime reads the frozen content + cert report by raw bytes (hash
   // verification), via a computed path Next's tracer won't follow. Force the
   // files into every serverless function bundle so prod reads don't ENOENT.
+  // The paid game clips sit outside public/ and only the audio route reads
+  // them, so they ship in that one function's bundle.
   outputFileTracingIncludes: {
     "/**": ["./content/**/*.json"],
+    "/api/audio/**": ["./private/audio/*.mp3"],
   },
 };
 
