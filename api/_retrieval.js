@@ -66,6 +66,8 @@ function inferAgeBands(question) {
     else if (totalMonths <= 24) bands.add("19-24 months");
     else if (totalMonths <= 36) bands.add("25-36 months");
     else bands.add("3-5 years");
+    // A three-year-old is the end of toddlerhood and the start of preschool.
+    if (totalMonths === 36) bands.add("3-5 years");
   }
   if (/\bnewborn\b/.test(q)) bands.add("0-3 months");
   if (/\binfant\b/.test(q)) { bands.add("4-6 months"); bands.add("7-9 months"); }
