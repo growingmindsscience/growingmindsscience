@@ -18,7 +18,7 @@ const THINKIFIC_CLASS =
 const SCOPE_LABELS: Record<string, string> = {
   membership: "Membership: everything, including Number Path",
   numberpath_full: "Number Path: full access",
-  "ai:unlimited": "Growing Minds AI: unlimited",
+  "ai:unlimited": "Growing Minds AI: included with your class",
   "class:toddlerhood": "Toddler class: lifetime access",
   "class:infant": "Infant class: lifetime access",
   "class:preschool": "Preschool class: lifetime access",
@@ -30,7 +30,7 @@ function scopeLabel(scope: string): string {
 
 function Notice({ kind }: { kind: string | undefined }) {
   const messages: Record<string, { tone: "ok" | "err"; text: string }> = {
-    "code=ok": { tone: "ok", text: "Access code accepted. Unlimited AI is linked to your account." },
+    "code=ok": { tone: "ok", text: "Access code accepted. Growing Minds AI is linked to your account." },
     "code=invalid": { tone: "err", text: "That access code isn't right. Check your class confirmation email." },
     "code=empty": { tone: "err", text: "Enter your access code first." },
     "code=error": { tone: "err", text: "Something went wrong linking your code. Please try again." },
@@ -186,8 +186,8 @@ export default async function AccountPage({
         {!summary.unlimitedAi && (
           <div className="mt-5 border-t border-line pt-5">
             <p className="text-sm text-ink">
-              Have a previous AI access code? Enter it to link unlimited Growing
-              Minds AI to this account. Class access is linked from a verified purchase.
+              Have a previous AI access code? Enter it to link Growing Minds AI
+              to this account. Class access is linked from a verified purchase.
             </p>
             <form action={redeemAccessCode} className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-end">
               <Field label="AI access code" htmlFor="code">

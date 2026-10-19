@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { requireClassAuth } from "@/lib/auth";
 import { classSalesOpen, ownedClassSlugs, progressForUser, publishedLessons } from "@/lib/classes.server";
-import { CLASS_COURSES, lessonPath, type ClassCourseSlug } from "@/lib/classes";
+import { CLASS_AI_FAIR_USE_PER_DAY, CLASS_COURSES, lessonPath, type ClassCourseSlug } from "@/lib/classes";
 import { getEntitlementSummary } from "@/lib/entitlements.server";
 import { sitePath } from "@/lib/site";
 import { Card, LinkButton, buttonClasses } from "@/components/ui";
@@ -137,11 +137,11 @@ export default async function MyClassesPage() {
           <Card className="flex flex-col">
             <Eyebrow>Growing Minds AI</Eyebrow>
             <h3 className="mt-2 text-lg text-ink-deep">
-              {summary.unlimitedAi ? "Unlimited questions" : `${FREE_AI_QUESTIONS_PER_DAY} free questions a day`}
+              {summary.unlimitedAi ? "Included with your class" : `${FREE_AI_QUESTIONS_PER_DAY} free questions a day`}
             </h3>
             <p className="mt-1 text-sm text-ink-soft">
               {summary.unlimitedAi
-                ? "Your account has unlimited access. Stay signed in and ask as much as you need."
+                ? `Growing Minds AI is included with your class, with a fair-use limit of ${CLASS_AI_FAIR_USE_PER_DAY} questions a day. Stay signed in to use it.`
                 : "Ask about your child's development any time. The free allowance resets each day."}
             </p>
             <div className="mt-auto pt-5">
