@@ -22,9 +22,8 @@ import {
  *
  * Scope + limits:
  *  - Subscriptions only. Standalone Number Path one-time buys already grant at
- *    checkout via client_reference_id, so there's nothing to recover. The
- *    legacy $49 class bundle lives on Thinkific, not Stripe, so it cannot be
- *    recovered here — that unlock stays on the emailed access-code path.
+ *    checkout via client_reference_id, so there's nothing to recover. Class
+ *    purchases grant at checkout through the class webhook path.
  *  - Email match is the identity link. Stripe email is not identity-verified,
  *    but the caller only invokes this for the *authenticated* user's own
  *    verified Supabase email, so the join is sound.

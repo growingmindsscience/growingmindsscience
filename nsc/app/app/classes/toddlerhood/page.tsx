@@ -39,7 +39,6 @@ export default async function ToddlerClassPage({ searchParams }: {
           {salesOpen ? <form action={startClassCheckout} className="mt-5"><Button type="submit">Enroll now</Button></form> : (
             <p className="mt-4 text-sm text-ink-muted">Enrollment opens once all 13 lessons are published.</p>
           )}
-          <p className="mt-3 text-xs text-ink-muted">Already bought this on Thinkific? Your purchase will be linked during migration.</p>
           <PurchaseTerms narration />
         </Card>
       ) : (
