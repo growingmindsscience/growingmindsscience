@@ -51,8 +51,12 @@ export default async function handler(request) {
     return errorResponse(request, error.status || 400, error.message);
   }
 
+  // Without JavaScript the browser lands back on the form's own page, where
+  // #sent shows the confirmation (the waitlist's /thank-you is not a reply to a message).
+  const sentPage = payload.topic === "programs" ? "/programs/#sent" : "/contact/#sent";
+
   if (payload.botcheck || payload["bot-field"]) {
-    return acceptsHtml(request) ? redirectResponse("/thank-you") : jsonResponse(200, { ok: true });
+    return acceptsHtml(request) ? redirectResponse(sentPage) : jsonResponse(200, { ok: true });
   }
 
   const email = normalizeEmail(payload.email);
@@ -95,6 +99,6 @@ export default async function handler(request) {
     return errorResponse(request, 502, "The message could not be sent. Please try again.");
   }
 
-  if (acceptsHtml(request)) return redirectResponse("/thank-you");
+  if (acceptsHtml(request)) return redirectResponse(sentPage);
   return jsonResponse(200, { ok: true });
 }

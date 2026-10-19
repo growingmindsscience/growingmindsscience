@@ -120,7 +120,7 @@
       var status = form.querySelector("[data-form-status]") || form.querySelector(".form-status, .inline-signup__status");
       var submit = form.querySelector('button[type="submit"]');
       var successText = form.getAttribute("data-success") ||
-        "You're on the list. We'll send one short note when the class opens.";
+        "You're on the list. We'll send a note when the class opens, and an occasional research note in between.";
       var busy = false;
 
       // JS owns validation from here; without JS the native required /
