@@ -86,7 +86,7 @@ const MESSAGES = {
   codeRequired: "Please enter your access code.",
   invalidCode: "That access code isn't right. Check your class confirmation email.",
   tooManyCodes: "Too many access codes were tried from here. Please wait an hour, then try the code from your class confirmation email.",
-  freeLimit: "You've reached today's free question limit. Use your class access code, AI Pro subscriber login, or sign in to keep going.",
+  freeLimit: "You've reached today's free question limit. Use your class access code or sign in to keep going, or come back tomorrow.",
   unreachable: "Could not reach the AI service. Please try again in a moment.",
   unavailable: "Growing Minds AI couldn't answer right now. Please try again.",
 };
