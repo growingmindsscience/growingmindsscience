@@ -23,8 +23,11 @@ const CHECKOUT = {
 /** Mirrors FREE_DAILY_LIMIT in the static site's api/_ai-chat.js. */
 const FREE_AI_QUESTIONS_PER_DAY = 5;
 
-export default async function MyClassesPage() {
+export default async function MyClassesPage({ searchParams }: {
+  searchParams: Promise<{ gift?: string }>;
+}) {
   const user = await requireClassAuth("/app/classes");
+  const { gift } = await searchParams;
   const [owned, progress, summary] = await Promise.all([
     ownedClassSlugs(user.id), progressForUser(user.id), getEntitlementSummary(),
   ]);
@@ -41,6 +44,15 @@ export default async function MyClassesPage() {
       <header>
         <h1 className="text-4xl text-ink-deep">My classes</h1>
         <p className="mt-2 text-ink-soft">Everything you own, and where you left off.</p>
+        {gift === "ok" ? (
+          <p role="status" className="mt-4 rounded-card bg-tint px-5 py-4 text-ink">
+            Gift code accepted. Every class is now yours, with Growing Minds AI included.
+          </p>
+        ) : (
+          <Link href="/app/classes/redeem" className="mt-3 inline-flex min-h-11 items-center text-sm font-semibold text-teal underline underline-offset-4">
+            Have a gift code?
+          </Link>
+        )}
       </header>
 
       <section aria-labelledby="owned-heading" className="flex flex-col gap-4">
