@@ -7,6 +7,7 @@ import { requireAuth } from "@/lib/auth";
 import { stripe } from "@/lib/stripe";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
 import { applyGrants } from "@/lib/entitlement-writes";
+import { takeAccessCodeAttemptWith, type AccessCodeAttempt } from "@/lib/access-code";
 import { siteOrigin } from "@/lib/site";
 import type { Grant } from "@/lib/grants";
 
@@ -67,6 +68,17 @@ export async function redeemAccessCode(formData: FormData) {
   const user = await requireAuth();
   const submitted = String(formData.get("code") ?? "").trim();
   if (!submitted) redirect("/app/account?code=empty");
+
+  // Counted before the comparison, right or wrong (lib/access-code), so the
+  // shared code can't be found by guessing.
+  let attempt: AccessCodeAttempt = "unavailable";
+  try {
+    attempt = await takeAccessCodeAttemptWith(createServiceClient(), user.id);
+  } catch (err) {
+    console.error(`[account] access-code counter unavailable: ${(err as Error).message}`);
+  }
+  if (attempt === "locked") redirect("/app/account?code=locked");
+  if (attempt !== "ok") redirect("/app/account?code=unavailable");
 
   const configured = String(process.env.GMS_AI_ACCESS_CODE ?? "").trim();
   if (!configured || !safeEqual(submitted, configured)) {

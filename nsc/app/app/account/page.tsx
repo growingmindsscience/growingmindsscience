@@ -31,6 +31,8 @@ function Notice({ kind }: { kind: string | undefined }) {
     "code=invalid": { tone: "err", text: "That access code isn't right. Check your class confirmation email." },
     "code=empty": { tone: "err", text: "Enter your access code first." },
     "code=error": { tone: "err", text: "Something went wrong linking your code. Please try again." },
+    "code=locked": { tone: "err", text: "You've reached today's limit for trying access codes. Please try again tomorrow." },
+    "code=unavailable": { tone: "err", text: "We couldn't check access codes just now. Please try again later." },
     "billing=none": { tone: "err", text: "No subscription to manage yet. Billing opens once you have an active plan." },
     "billing=error": { tone: "err", text: "Couldn't open the billing portal. Please try again." },
   };
