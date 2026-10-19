@@ -11,9 +11,6 @@ import { openBillingPortal, redeemAccessCode } from "./actions";
 
 export const metadata = { title: "Your account" };
 
-const THINKIFIC_CLASS =
-  "https://matthew-s-site-de0b.thinkific.com/products/courses/ToddlerYears";
-
 /** Human labels for the raw entitlement scopes. */
 const SCOPE_LABELS: Record<string, string> = {
   membership: "Membership: everything, including Number Path",
@@ -158,26 +155,14 @@ export default async function AccountPage({
         </div>
       </Card>
 
-      {/* Class + AI */}
+      {/* Growing Minds AI */}
       <Card>
-        <p className="text-[0.9375rem] font-semibold text-amber-deep">Previous Thinkific enrollment &amp; AI</p>
-        <h2 className="mt-1 text-lg font-semibold text-ink-deep">Your existing class link</h2>
-        <p className="mt-2 text-sm text-ink">
-          If you enrolled through Thinkific, you can continue using that login while
-          previous purchases are moved into My classes.
-        </p>
+        <p className="text-[0.9375rem] font-semibold text-amber-deep">Growing Minds AI</p>
+        <h2 className="mt-1 text-lg font-semibold text-ink-deep">Ask about your child&apos;s development</h2>
         <div className="mt-4 flex flex-wrap gap-3">
           <a
-            href={THINKIFIC_CLASS}
-            target="_blank"
-            rel="noopener"
-            className="inline-flex min-h-11 items-center justify-center rounded-control bg-teal px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-teal-hover"
-          >
-            Open Thinkific class
-          </a>
-          <a
             href={sitePath("/tools/growing-minds-ai")}
-            className="inline-flex min-h-11 items-center justify-center rounded-control px-4 py-2 text-sm font-semibold text-teal transition-colors hover:bg-sea-glass/40"
+            className="inline-flex min-h-11 items-center justify-center rounded-control bg-teal px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-teal-hover"
           >
             Open Growing Minds AI
           </a>

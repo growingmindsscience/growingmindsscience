@@ -14,6 +14,13 @@ const FROM =
   process.env.NSC_EMAIL_FROM ??
   "Number Path <hello@growingmindsscience.com>";
 
+/**
+ * Where replies go. The From address must stay on the domain verified in
+ * Resend, but hello@growingmindsscience.com has no inbox (no MX record), so
+ * every email asks for replies at the Gmail address that is read.
+ */
+const REPLY_TO = process.env.NSC_EMAIL_REPLY_TO ?? "growingmindsscience@gmail.com";
+
 /** How long one Resend call may take before it counts as a failed send. */
 const SEND_TIMEOUT_MS = 15_000;
 
@@ -58,6 +65,7 @@ export async function sendEmail(opts: {
       body: JSON.stringify({
         from: FROM,
         to: [opts.to],
+        reply_to: REPLY_TO,
         subject: opts.subject,
         html: opts.html,
         text: opts.text,

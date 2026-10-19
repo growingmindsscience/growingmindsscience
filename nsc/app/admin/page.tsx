@@ -52,6 +52,9 @@ export default async function AdminQueuePage({
       {isClassAdmin(admin) && <Link href="/admin/classes" className="rounded-xl border border-line bg-surface px-5 py-4 font-semibold text-teal hover:bg-sea-glass/20">
         Manage class lessons →
       </Link>}
+      {isClassAdmin(admin) && <Link href="/admin/classes/gift-codes" className="rounded-xl border border-line bg-surface px-5 py-4 font-semibold text-teal hover:bg-sea-glass/20">
+        Make class gift codes →
+      </Link>}
 
       {imported !== undefined && (
         <Card className="bg-rung-glow/50">
