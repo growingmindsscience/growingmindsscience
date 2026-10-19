@@ -163,8 +163,10 @@ export default async function AccountPage({
         <p className="text-[0.9375rem] font-semibold text-amber-deep">Previous Thinkific enrollment &amp; AI</p>
         <h2 className="mt-1 text-lg font-semibold text-ink-deep">Your existing class link</h2>
         <p className="mt-2 text-sm text-ink">
-          If you enrolled through Thinkific, you can continue using that login while
-          previous purchases are moved into My classes.
+          If you bought the earlier toddler class on Thinkific, those lessons stay
+          there and that login still works. To add the rebuilt class to My classes,{" "}
+          <a href={sitePath("/contact/")} className="font-semibold text-teal underline underline-offset-4">email Matthew</a>{" "}
+          with the address you bought with.
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
           <a
