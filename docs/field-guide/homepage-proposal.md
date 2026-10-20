@@ -12,7 +12,7 @@ Claim: behavior has a developmental process beneath it. Proof: the masthead plat
 
 ## 2. Lens preview
 
-Claim: you can learn a way of looking, not a script. Proof: the Developmental Lens working on leaving the playground. Composition: a heading with a short introduction beside it, the component running wide below. Interaction: four tabs (Observe, Understand, Respond, Reflect); in Understand the plate callouts and the readings light together. Links: the full Lens page at /lens/leaving-the-playground, and the Read, Try and Learn connections inside the component.
+Claim: you can learn a way of looking, not a script. Proof: the Developmental Lens working on leaving the playground, headed with the question parents ask ("Why is leaving the playground so hard?"). Composition: a heading with a short introduction beside it, then the visit as four frames running wide: absorbed in play, "time to go", the run back, on the floor. Each frame pairs its photograph with the scene, what may be developing beneath it, and what helps at that moment. Interaction: a sideways carousel with a four-stop rail and arrows that follow the scroll; no tabs. The four-step Observe, Understand, Respond, Reflect structure lives on the full Lens page. Links: the full Lens page at /lens/leaving-the-playground, and one Read, Try and Learn line under the carousel.
 
 ## 3. Explore by age
 

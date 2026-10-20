@@ -21,24 +21,24 @@ Tools menu, in order:
 
 ## 1. Hero (masthead plate, then the title on the axis)
 
-Title (authored break): See what grows / beneath the behavior.
-Standfirst: Developmental science for the first five years. Understand what your child is building, why everyday moments matter, and what the research can actually tell us.
+Title: See what's growing.
+Standfirst: A developmental-science education for parents of children 0 to 5. Learn what your child is building, why ordinary moments matter, and how to respond with the confidence that comes from knowing the research.
 Primary button: Explore a moment (→ #lens)
-Secondary text link: Explore by age (→ #explore)
-Quiet line under the actions: Something hard happening right now? Start here. (→ /tools/right-now)
+Secondary button: Explore by age (→ #explore)
+Quiet line under the actions: Something hard right now? Start here. (→ /tools/right-now)
 
-Masthead plate: "A baby drops the spoon. Again."
-Four annotations (each a short label on the plate, with a sentence that appears when the label is active):
-1. Label: An experiment. Sentence: Does it fall every time? Babies who see something surprising go on to test it, by banging it, dropping it, throwing it. [verify: infant class, Lesson 4.3]
-2. Label: A serve. Sentence: The look back at you is a bid. A coo, a reach, a spoon on the floor: a serve is any bid for you. [verify: infant class, Lesson 1.3]
-3. Label: Where did it go? Sentence: Expectations about hidden objects build gradually across the first year, and are fragile early on. [verify: infant class, Lesson 4.3]
-4. Label: The return. Sentence: What you do next is the return. Nobody gets every one; what builds the pattern is coming back. [verify: infant class, Lesson 1.3]
-Plate caption: A conceptual reading of a typical moment at about nine months. It describes processes, not what any particular baby is thinking. Sources: Growing Minds infant class, Lessons 1.3 and 4.3.
+Masthead plate: a parent and a toddler on the floor by a window; the child points at something outside the frame and the parent looks toward it. "Show what's growing" reveals four labels (on phones, a list under the photograph). Each names who does what, in plain words:
+1. Note: At about 12 to 18 months. Looking at the same thing together is how words get attached to things.
+2. The child points. A way of saying "Look at that!" Any bid for attention counts. [infant class, Lesson 1.3: a serve is any bid]
+3. The parent looks too. That answers the bid. Nobody catches every one; coming back again and again is what counts. [infant class, Lesson 1.3: the return]
+4. A general picture. What tends to happen at this age, not what this child is thinking.
+Plate caption: Fig. 1. Looking at the same thing together, at about 12 to 18 months. A general picture, not a diagnosis.
 
 ## 2. The Developmental Lens: leaving the playground
 
-Section heading: Leaving the playground
+Section heading (homepage): Why is leaving the playground so hard? (The full Lens page keeps "Leaving the playground".)
 Intro paragraph: The Developmental Lens takes an ordinary moment and shows what may be developing underneath it: observe, understand, respond, reflect. Here it is on the moment every parent of a toddler knows. Scientific copy is a prototype awaiting source review.
+Homepage intro (the four-frame sequence): One ordinary visit in four frames, and what may be developing beneath each. Nothing about the playground changes. The plan does. The frames are absorbed in play, "time to go", the run back and on the floor; each pairs one scene line with one reading from Understand and one option from Respond, in the wording below.
 Link below the component: Open the full Lens, with sources and reflection prompts (→ /lens/leaving-the-playground)
 
 ### Step tabs
