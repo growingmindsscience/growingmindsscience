@@ -2,13 +2,17 @@ name: instagram-publish
 
 # Publishes approved, due Instagram posts (marketing/instagram/calendar.json) through
 # the Graph API, then commits the updated calendar, ledger and bio-link landing page.
-# Runs hourly through the posting day (14:00 to 01:00 UTC covers 10:00 to 21:00 Eastern
-# in both halves of the year). With nothing due it exits 0 and touches nothing, so a
-# fork or a checkout without secrets is safe. See marketing/instagram/README.md, "Operating".
+# Before that it applies any Hold ticks from the batch issues (holds.mjs) and keeps
+# the Instagram token fresh (publish.mjs --maintain-token, a no-op until day 30).
+# Runs twice an hour through the posting day (14:00 to 01:00 UTC covers 10:00 to
+# 21:00 Eastern in both halves of the year), off the hour: GitHub drops many
+# scheduled runs at busy times, and the extra runs keep a slot close to its time.
+# With nothing due it exits 0 and touches nothing, so a fork or a checkout without
+# secrets is safe. See marketing/instagram/README.md, "Operating".
 
 on:
   schedule:
-    - cron: "0 0-1,14-23 * * *"
+    - cron: "7,37 0-1,14-23 * * *"
   workflow_dispatch:
     inputs:
       dry_run:
@@ -22,6 +26,7 @@ concurrency:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   publish:
@@ -35,6 +40,21 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
+
+      - name: Holds from the batch issues
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node marketing/instagram/scripts/holds.mjs
+
+      - name: Keep the Instagram token fresh
+        env:
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          if [ -n "$IG_ACCESS_TOKEN" ]; then
+            node marketing/instagram/scripts/publish.mjs --maintain-token || echo "::warning::token refresh failed; publishing with the current token"
+          fi
 
       - name: Anything due?
         id: due
@@ -69,12 +89,13 @@ jobs:
 
       # Runs even when a post failed: any post that did go out is already marked
       # published in calendar.json, and losing that record would post it again.
+      # Also records holds and a token refresh on runs with nothing due.
       - name: Commit the records
-        if: always() && steps.due.outputs.due == 'true'
+        if: always()
         run: |
           git config user.name "instagram-publish"
           git config user.email "noreply@growingmindsscience.com"
-          git add marketing/instagram/calendar.json marketing/instagram/ledger.json from-instagram.html
+          git add marketing/instagram/calendar.json marketing/instagram/ledger.json marketing/instagram/token.json from-instagram.html
           if git diff --cached --quiet; then echo "nothing to commit"; exit 0; fi
           git commit -m "Instagram: record published posts ($(date -u +%Y-%m-%dT%H:%MZ))"
           git pull --rebase origin main

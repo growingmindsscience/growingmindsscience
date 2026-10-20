@@ -1,0 +1,122 @@
+{
+  "id": "2026-10-24-tantrums-are-short-with-shape",
+  "kind": "reel",
+  "date": "2026-10-24",
+  "series": "study-in-30",
+  "ground": "forest",
+  "age": "18 months to 5 years",
+  "row": "big feelings and meltdowns",
+  "link": {
+    "label": "Free tool, link in bio",
+    "page": "What's underneath the meltdown, a free tool for looking at what sits under your child's meltdowns",
+    "url": "/tools/whats-underneath-the-meltdown"
+  },
+  "music": {
+    "brief": "Low steady pulse under a soft string pad, calm and focused, one gentle lift near the end, instrumental, for a short explainer video, about 60 seconds."
+  },
+  "sources": [
+    "Potegal & Davidson (2003). Temper Tantrums in Young Children: 2. Tantrum Duration and Temporal Organization. Journal of Developmental & Behavioral Pediatrics. 335 children, 18 to 60 months.",
+    "Wakschlag et al. (2012). Defining the developmental parameters of temper loss in early childhood: implications for developmental psychopathology. Journal of Child Psychology and Psychiatry. Nearly 1,500 preschoolers."
+  ],
+  "research": [
+    "toddler-4-1-inside-a-tantrum#f6",
+    "toddler-4-1-inside-a-tantrum#f2"
+  ],
+  "drafted": {
+    "by": "draft.mjs",
+    "model": "claude-opus-5-5",
+    "on": "2026-10-20"
+  },
+  "beats": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "text": "It feels endless. The most common tantrum: 30 seconds to a minute.",
+      "say": "It feels endless, but the most common tantrum lasts a minute or less.",
+      "pause": 0.3
+    },
+    {
+      "id": "promise",
+      "text": "And it has a shape.",
+      "sub": "Anger first, then the part where your child needs you.",
+      "say": "And it has a shape, with a part where your child needs you.",
+      "pause": 0.4
+    },
+    {
+      "id": "setup",
+      "text": "Parents of 335 children, 18 months to 5 years, described their tantrums.",
+      "sub": "Written soon after each one.",
+      "say": "Parents of three hundred thirty five children described their tantrums.",
+      "pause": 0.35
+    },
+    {
+      "id": "result",
+      "text": "3 in 4 tantrums were over within 5 minutes.",
+      "say": "Three in four were over within five minutes.",
+      "stat": {
+        "value": "75%",
+        "label": "over within 5 minutes"
+      },
+      "pause": 0.45
+    },
+    {
+      "id": "common",
+      "text": "How often nearly 1,500 preschoolers had tantrums",
+      "say": "Over eight in ten preschoolers had tantrums sometimes, and under one in ten daily.",
+      "bars": [
+        {
+          "label": "Sometimes",
+          "value": 83.7,
+          "display": "83.7%",
+          "highlight": true
+        },
+        {
+          "label": "Every day",
+          "value": 8.6,
+          "display": "8.6%"
+        }
+      ],
+      "pause": 0.5
+    },
+    {
+      "id": "pattern",
+      "text": "Out of nowhere, very long, or breaking things?",
+      "sub": "Or many a day for weeks? That is worth asking a pediatrician about.",
+      "say": "Tantrums that come from nowhere, go on and on, break things, or come many times a day for weeks are worth asking a pediatrician about.",
+      "pause": 0.45
+    },
+    {
+      "id": "shape",
+      "text": "Anger comes first, then fades.",
+      "sub": "The upset and crying build slowly underneath it.",
+      "say": "The anger came first and faded. The crying built slowly underneath.",
+      "pause": 0.4
+    },
+    {
+      "id": "catch",
+      "text": "The honest catch: parents reported these times.",
+      "sub": "Nobody used a stopwatch.",
+      "say": "The honest catch is that parents reported these times. Nobody used a stopwatch.",
+      "pause": 0.45
+    },
+    {
+      "id": "home",
+      "text": "Try this: stay close and quiet through the first minute.",
+      "sub": "When the crying turns to reaching for you, that is your moment to comfort.",
+      "say": "Try staying close and quiet through the first minute, when almost nothing reaches them. When they start reaching for you, comfort them.",
+      "pause": 0.45
+    },
+    {
+      "id": "close",
+      "kind": "close",
+      "text": "See what sits under the next meltdown.",
+      "say": "Our free tool, What's underneath the meltdown, is in the bio.",
+      "pause": 0.3
+    },
+    {
+      "id": "mark",
+      "kind": "mark",
+      "dur": 1
+    }
+  ]
+}

@@ -19,7 +19,7 @@ What to keep: the primary-source verification, the replication notes, the reject
 ## Principles for the new system
 
 - **Publish through the Instagram API, never a browser.** The last mile is a script with a token, run on a schedule.
-- **One human gate, once a week.** Matthew reviews a batch in one place and approves with one action. Approved posts publish themselves on their dates. No per-post chat pings.
+- **One human gate, once a week.** Matthew reviews a batch in one place and approves with one action. Approved posts publish themselves on their dates. No per-post chat pings. (Since 2026-10-20 the gate is a veto rather than an approval: see "Phase 4: the automated loop".)
 - **The posts use the site's own design system.** Templates are HTML rendered with headless Chrome, reading `assets/css/tokens-field-guide.css` and the site fonts. A post should look like a page of the site cut out and held up to the camera.
 - **Lead with the moment, cite the study.** Every post starts from an ordinary parent moment (the ninth dropped spoon, the 7pm meltdown, "18 months and not talking yet") and earns its citation on the last slide.
 - **Four recurring series, four recognizable covers.** Variety comes from the series, not from improvising each post.
@@ -169,7 +169,7 @@ marketing/instagram/
 
 **Scheduling.** A GitHub Actions cron in this repo runs `publish.mjs` daily at 11:00 and 19:00 Eastern. It publishes any post in `calendar.json` whose status is `approved` and whose date has arrived, then commits the status change and the ledger update. The token lives in repository secrets. This reuses the gates workflow pattern that already runs here.
 
-**Drafting.** A weekly Claude Code routine (Sunday) reads the ledger and the Insights readout, picks four topics by the matrix, writes the spec, caption and sources for each, renders them, and opens a pull request titled "Instagram batch, week of <date>" with the review page attached. That is the one place Matthew looks.
+**Drafting.** (Superseded by Phase 4, below.) A weekly Claude Code routine (Sunday) reads the ledger and the Insights readout, picks four topics by the matrix, writes the spec, caption and sources for each, renders them, and opens a pull request titled "Instagram batch, week of <date>" with the review page attached. That is the one place Matthew looks.
 
 **Review.** The review page shows each post as the feed will show it: cover at feed size, slides swipeable, reel playing muted with captions, caption with the 125-character fold marked. Approve, edit, or reject per post. Merging the PR is the approval. Nothing publishes from an unmerged branch.
 
@@ -199,7 +199,7 @@ Consistency for twelve weeks before changing anything about cadence.
 
 **Phase 3, reels.** `render-reel.mjs` for the two rendered series, voice, captions. The "On camera" post-production path (trim, captions, cover) once he has recorded one.
 
-**Phase 4, the loop.** `insights.mjs`, the weekly drafting routine, the PR-based review. From here the weekly cost to Matthew is the review and, when he wants, a recording.
+**Phase 4, the loop.** Built 2026-10-20 as a fully automated loop instead of a PR-based review: see "Phase 4: the automated loop". From here the weekly cost to Matthew is a glance at the batch issue and, when he wants, a recording.
 
 ## Decisions for Matthew
 
@@ -237,8 +237,61 @@ Renders every approved post due by that moment, checks the slide rules and the c
 
 ### Token life
 
-Long-lived tokens last 60 days. From day 45 the publisher warns; from day 56 it refuses to publish. Refresh locally with `--refresh-token`, paste the printed token into the `IG_ACCESS_TOKEN` secret, and commit the updated `token.json`. The token is never written to disk or to a log by the scripts.
+Long-lived tokens last 60 days. From day 45 the publisher warns; from day 56 it refuses to publish. Since 2026-10-20 the publish workflow runs `--maintain-token` on every run: from day 30 it refreshes the token, keeps the new one in the private `ops` bucket of the science Supabase project (created on first use), and commits the new date in `token.json`. Every later run reads the stored token ahead of the `IG_ACCESS_TOKEN` secret, so nothing needs pasting. The manual path still works: refresh locally with `--refresh-token`, paste the printed token into the `IG_ACCESS_TOKEN` secret, and commit the updated `token.json`. The token is never written to the repository or to a log by the scripts.
 
 ### Music on carousels
 
 The API cannot attach audio to an image carousel. The review page shows each post's music brief; adding a track is a thirty-second step in the app after the post publishes, if wanted.
+
+## Phase 4: the automated loop (added 2026-10-20)
+
+Matthew asked for the account to run itself: intelligent drafting, the most engaging posts the research supports, fresh topics, no manual steps. The loop below replaces the weekly PR review. Approval becomes a veto window: every post that passes the gates is queued as approved, and Matthew can hold any of them from a GitHub issue until it publishes.
+
+### The pieces
+
+- `automation.json`: the settings. Posting slots (Tuesday and Thursday 11:00 carousels, Wednesday and Saturday 19:00 reels), the window (`lead_days` 3, `trigger_days` 10, `horizon_days` 17), the model, the critic's pass scores, cooldowns, the series allowed, and the launch-held links.
+- `prompts/playbook.md`: the standard every step works to: audience, what earns reach, how to make a post people save and send, the honesty rules, house style, the series and the music briefs. `prompts/strategist.md`, `prompts/writer.md` and `prompts/critic.md` are each step's brief. Editing these files changes how posts are made; the scripts read them fresh on every run.
+- `scripts/research.mjs`: the research the drafter may use, and what is still fresh. 1,124 findings and 171 myths from the 44 class lessons (`knowledge/sources/*.md`, with their citations and confidence notes; callback-only, LOW and pending findings left out), the 9 graded claims of the Claims Library, and the 18 curated cards. A card is stale once it is on a post, or when its lead study (first author and year) was on any post in the last 150 days. Fresh cards are ranked by confidence, by the age band, matrix row and lesson that have gone longest without a post, by concrete numbers, and once there are enough settled posts, by the rows that earn saves. Destinations come from `assets/data/explore.json` (classes excluded), the claim pages and the free preview lesson.
+- `scripts/draft.mjs`: the drafter (its header lists the seven steps). Claude plans the batch (one idea, series, hook and free page per slot, every post a different lesson), writes each post from its cards, the whole lesson behind them and an approved example of the series, then a separate critic pass checks every claim against the cards, the honesty rules and the craft and scores it. Posts short of the bar go back with the notes, up to three times, and each later critique checks its own earlier notes so the revisions converge instead of chasing new preferences. Accuracy, the rules and freshness must be clean on every pass; craft must reach `pass_scores`, or `floor_scores` (still publishable) on the last round. A post that never passes is not queued and its slot is tried again on the next run. The first live batch (2026-10-20) took two to three rounds per post; each critic pass takes a few minutes because it checks every claim against the lesson behind it.
+- `scripts/validate.mjs`: the deterministic gates. Series shape (cover first, sources last, a try slide on every carousel, the catch on one-study, signs on is-this-normal, hook, catch, close and mark beats on reels), lengths (lead 12 words, 55 per slide via the render, spoken words per reel series), the caption (disclaimer, link line, one closing question, 4 to 8 hashtags, under 2,200 characters), a destination that exists and is not launch-held, and house style (no em dashes, no emoji, no "studies show"). Carousels are also rendered during drafting, so overflow is caught before anything is queued. A reel's close beat carries one line and no sub: the template prints the link label and page under it.
+- `scripts/llm.mjs`: Claude through the Claude Code CLI in print mode, with no tools and a JSON schema per step. Locally it uses Matthew's own login; in CI, the `CLAUDE_CODE_OAUTH_TOKEN` secret (or `ANTHROPIC_API_KEY`).
+- `scripts/insights.mjs`: the account's numbers per post into `insights.json` (read by the drafter), and with `--readout` the weekly memo in `readouts/`.
+- `scripts/holds.mjs`: applies Hold ticks from the batch issues to `calendar.json`.
+- `.github/workflows/instagram-draft.yml`: three times a day, asks `draft.mjs --check` whether a slot inside ten days is empty; if so, refreshes insights, drafts, commits the posts and calendar to main and opens the batch issue. Mondays it writes the readout.
+- `.github/workflows/instagram-publish.yml`: twice an hour through the posting day, applies holds, keeps the token fresh, publishes what is approved and due, and commits the records.
+
+### What Matthew sees
+
+One GitHub issue per batch, labeled `instagram-batch`, a few days to two weeks before the posts go out: each post's slot, hook, age, destination, critic scores, cover and second slide for carousels, and the full slides or script with the caption. To stop a post, tick its **Hold** box; the publisher reads the issue on every run and skips it (untick to release it). A held slot is not refilled. Batch issues close themselves once their posts have gone out.
+
+### What the drafter will not do
+
+- Use a fact that is not on a research card, or a study used in the last 150 days.
+- Post field-notes or watch-for-this without a drawn scene that has not been used. Only the spoon scene exists and it is used, so until a new scene is drawn into `templates/carousel/_scenes.js`, carousels are one-study, is-this-normal and what-we-got-wrong, and reels are study-in-30.
+- Link to Milestone Navigator, a class page, or anything not in the destination list.
+- Run without a Claude credential: the draft workflow fails with a clear message instead.
+
+### Setup, once
+
+The drafter needs one secret, a Claude credential for the workflow. On the Mac:
+
+```bash
+claude setup-token
+```
+
+Then save the printed token as the repository secret (the prompt hides what is pasted):
+
+```bash
+gh secret set CLAUDE_CODE_OAUTH_TOKEN --repo growingmindsscience/growingmindsscience
+```
+
+An `ANTHROPIC_API_KEY` secret works instead. Everything else (Instagram, Supabase, ElevenLabs) is already set.
+
+### Running it by hand
+
+```bash
+node marketing/instagram/scripts/draft.mjs --plan-only
+```
+
+prints the plan for the empty slots without writing anything. `--force` drafts every empty slot in the horizon now, `--limit N` caps a run, `--summary <file>` writes the batch issue text. The workflow can also be started from the Actions tab with the same options.
+

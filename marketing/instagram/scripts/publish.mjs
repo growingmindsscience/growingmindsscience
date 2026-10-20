@@ -7,6 +7,7 @@
 //   node marketing/instagram/scripts/publish.mjs --only <post-id> [--now]   # --now ignores the slot for that one post
 //   node marketing/instagram/scripts/publish.mjs --check-token   # verify the token works and report its age
 //   node marketing/instagram/scripts/publish.mjs --refresh-token # exchange the token for a fresh 60-day one (run locally)
+//   node marketing/instagram/scripts/publish.mjs --maintain-token # refresh and store it when it is 30 days old (CI, daily)
 //
 // What it does for each post in calendar.json whose status is "approved" and whose
 // scheduled_at has arrived:
@@ -25,9 +26,12 @@
 //
 // Token life: a long-lived Instagram Login token lasts 60 days and can be refreshed
 // once it is a day old. The script tracks the last refresh in token.json and warns
-// from day 45, fails from day 56. Refreshing prints the new token to the terminal,
-// so --refresh-token is a local, manual step: paste the result into the repository
-// secret IG_ACCESS_TOKEN. Nothing here ever writes a token to disk.
+// from day 45, fails from day 56. --maintain-token (run by the workflow) refreshes it
+// from day 30 and keeps the new token in the private "ops" bucket of the science
+// Supabase project, which every run then reads ahead of IG_ACCESS_TOKEN, so the
+// token never lapses and no secret needs pasting. --refresh-token is the manual
+// fallback: it prints the new token for the repository secret. The token is never
+// written to the repository or a log.
 
 import { readFileSync, writeFileSync, existsSync, readdirSync } from "node:fs";
 import { execFileSync } from "node:child_process";
@@ -99,6 +103,46 @@ async function checkToken() {
   if (age != null && age >= 56) die(`token is ${age.toFixed(0)} days old; it expires at 60. Run --refresh-token locally and update the IG_ACCESS_TOKEN secret.`, 2);
   if (age != null && age >= 45) console.warn(`publish: token is ${age.toFixed(0)} days old. Refresh it before day 56.`);
   return me;
+}
+// The refreshed token lives in Supabase storage, private bucket "ops", readable only
+// with the service role key that publishing already needs.
+const STORE = "ops", STORE_PATH = "instagram/token.json";
+function storeAuth() {
+  const base = process.env.SUPABASE_URL?.replace(/\/$/, ""), key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  return base && key ? { base, headers: { authorization: `Bearer ${key}`, apikey: key } } : null;
+}
+async function useStoredToken() {
+  const s = storeAuth();
+  if (!s) return false;
+  const res = await fetch(`${s.base}/storage/v1/object/authenticated/${STORE}/${STORE_PATH}`, { headers: s.headers }).catch(() => null);
+  if (!res?.ok) return false;
+  const t = await res.json().catch(() => null);
+  if (!t?.access_token) return false;
+  process.env.IG_ACCESS_TOKEN = t.access_token;
+  return true;
+}
+async function storeToken(token) {
+  const s = storeAuth();
+  if (!s) throw new Error("SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are required to store the token");
+  // Create the private bucket on first use; an "already exists" answer is fine.
+  await fetch(`${s.base}/storage/v1/bucket`, { method: "POST", headers: { ...s.headers, "content-type": "application/json" }, body: JSON.stringify({ id: STORE, name: STORE, public: false }) });
+  const res = await fetch(`${s.base}/storage/v1/object/${STORE}/${STORE_PATH}`, {
+    method: "POST", headers: { ...s.headers, "content-type": "application/json", "x-upsert": "true" },
+    body: JSON.stringify({ access_token: token, refreshed_at: new Date().toISOString() }),
+  });
+  if (!res.ok) throw new Error(`storing the token failed: ${res.status} ${await res.text()}`);
+}
+async function maintainToken(minAge = 30) {
+  if (!process.env.IG_ACCESS_TOKEN) die("IG_ACCESS_TOKEN is required");
+  const age = tokenAge();
+  if (age != null && age < minAge) { log(`token is ${age.toFixed(0)} days old; refreshed at ${minAge}`); return; }
+  const res = await fetch(`https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${encodeURIComponent(process.env.IG_ACCESS_TOKEN)}`);
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok || json.error) die(`refresh failed: ${json.error?.message || res.status}`);
+  await storeToken(json.access_token);
+  process.env.IG_ACCESS_TOKEN = json.access_token;
+  writeJson(TOKEN_FILE, { refreshed_at: new Date().toISOString(), expires_in_days: Math.round(json.expires_in / 86400), note: "Age tracking only. The current token lives in the private ops bucket of the science Supabase project (written by --maintain-token); the IG_ACCESS_TOKEN secret is the fallback." });
+  log(`token refreshed (valid ${Math.round(json.expires_in / 86400)} days) and stored`);
 }
 async function refreshToken() {
   if (!process.env.IG_ACCESS_TOKEN) die("IG_ACCESS_TOKEN is required");
@@ -232,8 +276,11 @@ function recordLedger(p, media) {
 }
 
 // ---------- main ----------
+// A token refreshed by --maintain-token outranks the repository secret.
+const stored = await useStoredToken();
+if (flag("--maintain-token")) { await maintainToken(); process.exit(0); }
 if (flag("--refresh-token")) { await refreshToken(); process.exit(0); }
-if (flag("--check-token")) { await checkToken(); process.exit(0); }
+if (flag("--check-token")) { log(stored ? "using the stored token" : "using IG_ACCESS_TOKEN"); await checkToken(); process.exit(0); }
 
 const calendar = readJson(CALENDAR);
 // --rewrite-landing: rebuild the bio-link list from calendar.json without publishing
