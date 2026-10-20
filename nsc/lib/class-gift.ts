@@ -80,6 +80,21 @@ export async function mintClassGiftCodesWith(
   return codes;
 }
 
+/**
+ * The codes a batch just made, read back from the list (newest first): the
+ * newest `count` unused codes this admin made. The redirect after minting
+ * carries only the count, since a code in a URL ends up in request logs and
+ * browser history.
+ */
+export function newestUnusedCodes<T extends { created_by: string | null; redeemed_at: string | null }>(
+  rows: readonly T[],
+  createdBy: string,
+  count: number,
+): T[] {
+  const n = Math.min(Math.max(Math.trunc(count) || 0, 0), MAX_CLASS_GIFT_BATCH);
+  return rows.filter((row) => row.created_by === createdBy && !row.redeemed_at).slice(0, n);
+}
+
 export type ClassGiftRedeemResult =
   | { ok: true }
   | { ok: false; reason: "unknown" | "already_redeemed" | "error" };

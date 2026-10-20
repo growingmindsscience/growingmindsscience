@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { requireClassAdmin } from "@/lib/admin";
 import { createServiceClient } from "@/lib/supabase/server";
-import { CLASS_GIFT_REDEEM_PATH, MAX_CLASS_GIFT_BATCH } from "@/lib/class-gift";
+import { CLASS_GIFT_REDEEM_PATH, MAX_CLASS_GIFT_BATCH, newestUnusedCodes } from "@/lib/class-gift";
 import { siteOrigin } from "@/lib/site";
 import { Button, Card, Field, Input } from "@/components/ui";
 import { makeClassGiftCodes } from "./actions";
@@ -13,24 +13,29 @@ interface GiftRow {
   code: string;
   note: string;
   created_at: string;
+  created_by: string | null;
   redeemed_at: string | null;
 }
+
+// A fixed message: the URL says only that minting failed, never why.
+const MINT_ERROR = "Something went wrong making codes. Any that were made are in the list below.";
 
 const day = (iso: string) => new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 
 export default async function ClassGiftCodesPage({ searchParams }: {
   searchParams: Promise<{ made?: string; error?: string }>;
 }) {
-  await requireClassAdmin();
+  const admin = await requireClassAdmin();
   const params = await searchParams;
-  const made = (params.made ?? "").split(",").filter(Boolean);
   const redeemUrl = `${siteOrigin()}/nsc${CLASS_GIFT_REDEEM_PATH}`;
   const { data, error } = await createServiceClient()
     .from("class_gift_codes")
-    .select("code, note, created_at, redeemed_at")
+    .select("code, note, created_at, created_by, redeemed_at")
     .order("created_at", { ascending: false })
     .limit(50);
   const rows = (data ?? []) as GiftRow[];
+  // The URL carries only how many were just made; the codes come from here.
+  const made = newestUnusedCodes(rows, admin.id, Number(params.made)).map((row) => row.code);
 
   return (
     <main className="mx-auto flex min-h-screen max-w-3xl flex-col gap-8 px-6 py-10">
@@ -45,7 +50,7 @@ export default async function ClassGiftCodesPage({ searchParams }: {
 
       {(params.error || error) && (
         <p role="alert" className="rounded-xl bg-rung-glow p-4 text-sm text-danger">
-          {params.error || `Gift codes unavailable: ${error?.message}. Has migration 0023_class_gift_codes.sql been applied?`}
+          {params.error ? MINT_ERROR : `Gift codes unavailable: ${error?.message}. Has migration 0023_class_gift_codes.sql been applied?`}
         </p>
       )}
 

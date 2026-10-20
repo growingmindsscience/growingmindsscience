@@ -13,14 +13,19 @@ import { createClipPlayer, type ClipPlayer } from "@/lib/clip-player";
  * The player is bound to the clip it was created for: when the line changes
  * (the next step reuses this component), playback stops and the next tap
  * loads the new clip. Callers also key the button by its line.
+ *
+ * `clipPath` says where the clip is served: the public check-in path by
+ * default, or gameClipPath for paid game narration.
  */
 export function AudioButton({
   line,
   available,
+  clipPath = audioClipPath,
   className,
 }: {
   line: string;
   available: Set<string>;
+  clipPath?: (id: string) => string;
   className?: string;
 }) {
   const playerRef = useRef<ClipPlayer | null>(null);
@@ -46,7 +51,7 @@ export function AudioButton({
         onPlayingChange: setPlaying,
       });
     }
-    playerRef.current.toggle(audioClipPath(clipId));
+    playerRef.current.toggle(clipPath(clipId));
   }
 
   return (

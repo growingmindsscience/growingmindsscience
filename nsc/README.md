@@ -36,6 +36,15 @@ plus unlimited AI, and customer progress is stored per lesson. The rebuilt
   page (full detail is paid; free tier sees a teaser). Give-N reads only —
   Point-and-Seek results are soft routing signals and are never compared.
 
+## Narrated audio
+
+`npm run audio` (`tools/nsc-compiler/gen-audio.ts`) voices the scripts offline
+and writes `content/audio.manifest.v1.json`. Check-in clips are free and live in
+`public/audio/`. Game clips are paid narration: they live in `private/audio/`
+and are served only by `/api/audio/[id]` (`lib/game-audio.ts`), to an account
+with Number Path or, on the free tier, for the one free game on its plan this
+week. `next.config.ts` bundles `private/audio` into that route's function.
+
 ## Data model (`supabase/migrations/0001_nsc_core.sql`, applied)
 
 `nsc_children`, `nsc_assessments` (holds the serialized engine state for

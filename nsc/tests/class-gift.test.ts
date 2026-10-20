@@ -6,6 +6,7 @@ import {
   grantsForClassGift,
   makeClassGiftCode,
   mintClassGiftCodesWith,
+  newestUnusedCodes,
   normalizeClassGiftCode,
   redeemClassGiftCodeWith,
 } from "../lib/class-gift";
@@ -58,6 +59,23 @@ describe("minting (admin side)", () => {
   it("throws on a database error", async () => {
     const down = new FakeDb({ uniques }).fail("class_gift_codes", "insert", { code: "08006", message: "down" });
     await expect(mintClassGiftCodesWith(asDb(down), { count: 1, note: "", createdBy: "a" })).rejects.toThrow(/insert failed/);
+  });
+
+  it("reads a new batch back from the list: this admin's newest unused codes", () => {
+    // Newest first, as the page lists them.
+    const rows = [
+      { code: "GM-NEW2", created_by: "admin-1", redeemed_at: null },
+      { code: "GM-OTHR", created_by: "admin-2", redeemed_at: null },
+      { code: "GM-NEW1", created_by: "admin-1", redeemed_at: null },
+      { code: "GM-USED", created_by: "admin-1", redeemed_at: "2026-10-01T00:00:00Z" },
+      { code: "GM-OLD1", created_by: "admin-1", redeemed_at: null },
+    ];
+    const codes = (count: number) => newestUnusedCodes(rows, "admin-1", count).map((r) => r.code);
+    expect(codes(2)).toEqual(["GM-NEW2", "GM-NEW1"]);
+    expect(codes(3)).toEqual(["GM-NEW2", "GM-NEW1", "GM-OLD1"]);
+    // A missing or hand-edited count shows nothing rather than guessing.
+    for (const bad of [NaN, 0, -4]) expect(codes(bad)).toEqual([]);
+    expect(newestUnusedCodes(Array.from({ length: 40 }, () => rows[0]), "admin-1", 500)).toHaveLength(MAX_CLASS_GIFT_BATCH);
   });
 });
 
