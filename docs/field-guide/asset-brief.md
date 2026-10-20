@@ -38,8 +38,8 @@ Avoid: a crying child, a parent pulling an arm, a bright plastic multicolour pla
 The homepage Lens shows the visit as a carousel of four frames. Frame 3 is picture 2 above (`child-learning.jpg`, the run back). Frames 1, 2 and 4 are new. The closing photograph (`walk-home.jpg`) is the same visit's ending and stays at the bottom of the page, so it is not part of the sequence.
 
 Continuity is the whole effect: the four frames must read as one visit, about ten minutes long, by one photographer. Generate with `child-learning.jpg` and `walk-home.jpg` as references and keep, in every frame:
-- The child: about two and a half, shoulder-length wavy light-brown hair, an oatmeal knit jumper, olive-green trousers, white trainers with velcro straps.
-- The parent: dark brown hair in a high loose bun, an oversized cream ribbed jumper, olive-green trousers, white trainers.
+- The child: about two and a half, shoulder-length wavy light-brown hair, an oatmeal knit sweater, olive-green pants, white sneakers with velcro straps.
+- The parent: dark brown hair in a high loose bun, an oversized cream ribbed sweater, olive-green pants, white sneakers.
 - The place: the wooden play structure with the faded sage-green slide, a ground of bark chips and fallen leaves, autumn trees behind. Nobody else in frame.
 - The light: soft overcast daylight, as in `child-learning.jpg`, unchanged across the four frames.
 
@@ -49,7 +49,7 @@ Each is 1200 × 1500 px, portrait 4:5. Frames are shown about 520 px wide on des
 
 File: `assets/img/site/lens-1-play.jpg`.
 
-Subject: the child halfway down the sage-green slide, hands on its sides, face in profile, completely absorbed: concentration or quiet delight, not a grin at the camera. The parent stands two or three metres away at the edge of the frame, relaxed, weight on one leg, saying something toward the child (the two-minute warning). The child is not looking at the parent.
+Subject: the child halfway down the sage-green slide, hands on its sides, face in profile, completely absorbed: concentration or quiet delight, not a grin at the camera. The parent stands two or three meters away at the edge of the frame, relaxed, weight on one leg, saying something toward the child (the two-minute warning). The child is not looking at the parent.
 Composition: child's eye level, the slide running diagonally through the frame, the parent smaller and to one side so the child is clearly the subject.
 Mood: ten minutes ago, everything was fine.
 Avoid: a phone or watch in hand, a big open-mouthed laugh, motion blur, other children on the structure.
