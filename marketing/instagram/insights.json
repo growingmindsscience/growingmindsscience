@@ -1,0 +1,269 @@
+{
+  "_schema": "Written by insights.mjs. One record per post on the account, newest first. rates are per reach. top and bottom rank settled posts (two days or older) by saves, shares and follows per reach; the drafter reads them.",
+  "pulled_at": "2026-10-20T13:57:52.799Z",
+  "account": {
+    "username": "growingmindsscience",
+    "followers": 21,
+    "media": 6
+  },
+  "by_series": {
+    "legacy": {
+      "posts": 5,
+      "reach": 270,
+      "saved": 1,
+      "shares": 2,
+      "save_rate": 0.0037,
+      "share_rate": 0.0074,
+      "avg_reach": 54
+    }
+  },
+  "by_row": {
+    "unknown": {
+      "posts": 5,
+      "reach": 270,
+      "saved": 1,
+      "shares": 2,
+      "save_rate": 0.0037,
+      "share_rate": 0.0074,
+      "avg_reach": 54
+    }
+  },
+  "top": [
+    {
+      "post": null,
+      "series": "legacy",
+      "row": null,
+      "hook": "Messy isn’t a problem. It’s practice.",
+      "rates": {
+        "save": 0.0077,
+        "share": 0.0077,
+        "profile_visit": 0.0615,
+        "follow": 0.0077
+      },
+      "reach": 130
+    },
+    {
+      "post": null,
+      "series": "legacy",
+      "row": null,
+      "hook": "🇫🇮 Finland replaced playgrounds with DIRT.",
+      "rates": {
+        "save": 0,
+        "share": 0.0101,
+        "profile_visit": 0,
+        "follow": 0
+      },
+      "reach": 99
+    },
+    {
+      "post": null,
+      "series": "legacy",
+      "row": null,
+      "hook": "Did you know that when babies learn to walk, they’re not just getting around—they’re expanding their vocabularies too? 🧠💬",
+      "rates": {
+        "save": 0,
+        "share": 0,
+        "profile_visit": 0,
+        "follow": 0
+      },
+      "reach": 15
+    },
+    {
+      "post": null,
+      "series": "legacy",
+      "row": null,
+      "hook": "Imagine a game of catch with words! Just like a ball goes back and forth, “serve-and-return” interactions between a caregiver and a child he",
+      "rates": {
+        "save": 0,
+        "share": 0,
+        "profile_visit": 0,
+        "follow": 0
+      },
+      "reach": 14
+    },
+    {
+      "post": null,
+      "series": "legacy",
+      "row": null,
+      "hook": "Did you know that the words we speak to children in their early years can have a lasting impact on their future? 📚👶",
+      "rates": {
+        "save": 0,
+        "share": 0,
+        "profile_visit": 0,
+        "follow": 0
+      },
+      "reach": 12
+    }
+  ],
+  "bottom": [],
+  "posts": [
+    {
+      "media_id": "17912517390471796",
+      "post": "2026-10-27-dropped-spoon",
+      "kind": "carousel",
+      "series": "field-notes",
+      "row": "play and attention",
+      "age": "8 to 14 months",
+      "hook": "She dropped the spoon again. Here is what may be growing.",
+      "published_at": "2026-10-18T16:46:50+0000",
+      "permalink": "https://www.instagram.com/p/DepJUO1ER7x/",
+      "metrics": {
+        "reach": 8,
+        "saved": 0,
+        "shares": 0,
+        "likes": 1,
+        "comments": 0,
+        "total_interactions": 1,
+        "views": 26,
+        "profile_visits": 5,
+        "follows": 0
+      },
+      "rates": {
+        "save": 0,
+        "share": 0,
+        "profile_visit": 0.625,
+        "follow": 0
+      }
+    },
+    {
+      "media_id": "18089018153612494",
+      "post": null,
+      "kind": "carousel",
+      "series": "legacy",
+      "row": null,
+      "age": null,
+      "hook": "🇫🇮 Finland replaced playgrounds with DIRT.",
+      "published_at": "2026-04-30T19:25:27+0000",
+      "permalink": "https://www.instagram.com/p/DXxHir6Dyxu/",
+      "metrics": {
+        "reach": 99,
+        "saved": 0,
+        "shares": 1,
+        "likes": 0,
+        "comments": 0,
+        "total_interactions": 1,
+        "views": 138,
+        "profile_visits": 0,
+        "follows": 0
+      },
+      "rates": {
+        "save": 0,
+        "share": 0.0101,
+        "profile_visit": 0,
+        "follow": 0
+      }
+    },
+    {
+      "media_id": "18145347376441800",
+      "post": null,
+      "kind": "carousel",
+      "series": "legacy",
+      "row": null,
+      "age": null,
+      "hook": "Messy isn’t a problem. It’s practice.",
+      "published_at": "2026-04-29T02:29:27+0000",
+      "permalink": "https://www.instagram.com/p/DXsueZqFN8Z/",
+      "metrics": {
+        "reach": 130,
+        "saved": 1,
+        "shares": 1,
+        "likes": 5,
+        "comments": 0,
+        "total_interactions": 8,
+        "views": 211,
+        "profile_visits": 8,
+        "follows": 1
+      },
+      "rates": {
+        "save": 0.0077,
+        "share": 0.0077,
+        "profile_visit": 0.0615,
+        "follow": 0.0077
+      }
+    },
+    {
+      "media_id": "18000007814652002",
+      "post": null,
+      "kind": "carousel",
+      "series": "legacy",
+      "row": null,
+      "age": null,
+      "hook": "Did you know that when babies learn to walk, they’re not just getting around—they’re expanding their vocabularies too? 🧠💬",
+      "published_at": "2024-10-26T19:51:26+0000",
+      "permalink": "https://www.instagram.com/p/DBmYg5XyjkM/",
+      "metrics": {
+        "reach": 15,
+        "saved": 0,
+        "shares": 0,
+        "likes": 2,
+        "comments": 0,
+        "total_interactions": 2,
+        "views": 35,
+        "profile_visits": 0,
+        "follows": 0
+      },
+      "rates": {
+        "save": 0,
+        "share": 0,
+        "profile_visit": 0,
+        "follow": 0
+      }
+    },
+    {
+      "media_id": "18039885929325492",
+      "post": null,
+      "kind": "carousel",
+      "series": "legacy",
+      "row": null,
+      "age": null,
+      "hook": "Imagine a game of catch with words! Just like a ball goes back and forth, “serve-and-return” interactions between a caregiver and a child he",
+      "published_at": "2024-10-25T21:22:27+0000",
+      "permalink": "https://www.instagram.com/p/DBj-IsOzb7r/",
+      "metrics": {
+        "reach": 14,
+        "saved": 0,
+        "shares": 0,
+        "likes": 2,
+        "comments": 0,
+        "total_interactions": 2,
+        "views": 33,
+        "profile_visits": 0,
+        "follows": 0
+      },
+      "rates": {
+        "save": 0,
+        "share": 0,
+        "profile_visit": 0,
+        "follow": 0
+      }
+    },
+    {
+      "media_id": "18460398136036142",
+      "post": null,
+      "kind": "carousel",
+      "series": "legacy",
+      "row": null,
+      "age": null,
+      "hook": "Did you know that the words we speak to children in their early years can have a lasting impact on their future? 📚👶",
+      "published_at": "2024-10-22T18:18:53+0000",
+      "permalink": "https://www.instagram.com/p/DBb6vfVSlPm/",
+      "metrics": {
+        "reach": 12,
+        "saved": 0,
+        "shares": 0,
+        "likes": 1,
+        "comments": 0,
+        "total_interactions": 1,
+        "views": 28,
+        "profile_visits": 0,
+        "follows": 0
+      },
+      "rates": {
+        "save": 0,
+        "share": 0,
+        "profile_visit": 0,
+        "follow": 0
+      }
+    }
+  ]
+}

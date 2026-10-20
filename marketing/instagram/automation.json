@@ -1,0 +1,25 @@
+{
+  "_schema": "Settings for the automated drafter (scripts/draft.mjs) and its daily workflow. Times are New York wall-clock. A slot is empty when no calendar post other than a rejected or held one sits on it. The drafter runs when an empty slot falls between lead_days and trigger_days from now, then fills every empty slot from lead_days out to horizon_days. auto_approve true means posts that pass every gate are queued as approved; Matthew can still hold any of them from the batch issue until it publishes.",
+  "auto_approve": true,
+  "slots": [
+    { "day": "tue", "time": "11:00", "kind": "carousel" },
+    { "day": "wed", "time": "19:00", "kind": "reel" },
+    { "day": "thu", "time": "11:00", "kind": "carousel" },
+    { "day": "sat", "time": "19:00", "kind": "reel" }
+  ],
+  "lead_days": 3,
+  "trigger_days": 10,
+  "horizon_days": 17,
+  "max_posts_per_run": 8,
+  "model": "claude-opus-5-5",
+  "effort": "high",
+  "max_revisions": 2,
+  "pass_scores": { "hook": 8, "clarity": 8, "save": 7, "voice": 7, "slide2": 6, "share": 6 },
+  "cooldown_days": { "research": 150, "row": 6 },
+  "series": {
+    "carousel": ["one-study", "is-this-normal", "what-we-got-wrong", "field-notes"],
+    "reel": ["study-in-30", "watch-for-this"]
+  },
+  "blocked_links": ["/tools/milestone-navigator"],
+  "blocked_links_why": "Milestone Navigator is launch-held on attorney review; is-this-normal posts point to Communication Snapshot until it clears."
+}
