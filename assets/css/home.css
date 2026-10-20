@@ -118,6 +118,49 @@ html:not(.anim) .label { transition: none; }
   .lens__plate .label[data-active="true"] { display: block; }
 }
 
+/* The homepage Lens: one visit as a carousel of four frames. The rail fills to the frame in view;
+   the arrows and rail scroll the track. Without script the frames stack in order. */
+.seq__bar { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: start; }
+.seq__steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.fg .seq__step { width: 100%; min-height: 48px; display: grid; gap: 2px; justify-items: start; align-content: start; padding: 12px 4px 4px 0; border-top: 3px solid var(--sage-mist-2); background: none; color: var(--ink-muted); font-size: 15px; font-weight: 500; text-align: left; line-height: 1.3; }
+.seq__step small { font-size: 13px; color: var(--clay-text); letter-spacing: 0.08em; }
+.fg .seq__step:hover, .fg .seq__step[data-state="past"] { color: var(--ink); }
+.fg .seq__step[data-state="past"] { border-top-color: var(--sage-deep); }
+.fg .seq__step[aria-current="step"] { border-top-color: var(--ink); color: var(--ink); }
+.seq__arrows { display: flex; gap: 6px; }
+.fg .seq__arrow { width: 48px; height: 48px; display: grid; place-items: center; border-radius: var(--radius); background: rgba(255, 253, 248, 0.6); color: var(--ink); }
+[data-theme="dark"] .fg .seq__arrow { background: var(--surface); }
+.fg .seq__arrow:not(:disabled):hover { background: var(--ink); color: var(--paper); }
+.fg .seq__arrow:disabled { opacity: 0.4; cursor: default; }
+.seq__track { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: 100%; align-items: start; gap: 32px; margin-top: 28px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; }
+.seq__track::-webkit-scrollbar { display: none; }
+.seq__slide { scroll-snap-align: start; display: grid; grid-template-columns: minmax(0, 520px) minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); align-items: start; align-content: start; }
+.seq__photo picture { display: contents; }
+.seq__photo img, .seq__pending { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-lg); }
+.seq__pending { display: grid; place-items: center; padding: 24px; background: var(--sage-mist-2); color: var(--ink); font-size: 14px; text-align: center; }
+.seq__pending b { display: block; font-weight: 600; }
+.seq__text { display: grid; gap: 12px; align-content: start; max-width: 64ch; }
+.seq__text b { font-weight: 600; }
+.seq__text .ev { color: var(--research); font-size: 13px; font-weight: 500; }
+.seq__sub { margin-top: 12px; padding-top: 16px; border-top: 1px solid var(--sage-mist-2); font-size: 15px; font-weight: 600; }
+.seq__foot { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px 32px; align-items: center; margin-top: clamp(32px, 4vw, 56px); padding-top: 24px; border-top: 1px solid var(--sage-mist-2); font-size: 15px; }
+.seq__after { font-size: 17px; max-width: 64ch; }
+.seq__links, .seq__status { grid-column: 1 / -1; }
+.seq__status { font-size: 14px; }
+.fg--home:not(.js) .seq__bar { display: none; }
+.fg--home:not(.js) .seq__track { grid-auto-flow: row; gap: 56px; overflow: visible; }
+@media (max-width: 900px) {
+  .seq__bar { grid-template-columns: minmax(0, 1fr); }
+  .seq__arrows { display: none; }
+  .seq__track { grid-auto-columns: 86%; gap: 16px; margin-inline: calc(-1 * var(--hb-gutter)); padding-inline: var(--hb-gutter); scroll-padding-inline: var(--hb-gutter); }
+  .seq__slide { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .seq__foot { grid-template-columns: minmax(0, 1fr); justify-items: start; }
+  .fg--home:not(.js) .seq__track { margin-inline: 0; padding-inline: 0; }
+}
+@media (max-width: 600px) {
+  .fg .seq__step { font-size: 14px; }
+}
+
 /* ---------- 03 Age: five periods in a row ---------- */
 .age { background: var(--paper); overflow: hidden; }
 .age__head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }

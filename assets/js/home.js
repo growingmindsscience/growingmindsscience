@@ -4,6 +4,7 @@
    The header, menu and theme live in chrome.js.
    - The plate: "Show what's growing" reveals the typeset labels over the photograph.
    - The Lens: a four-step tablist; the plate's labels follow the active step.
+   - The Lens sequence (homepage): a carousel of four frames; its rail and arrows follow the scroll.
    - The age row: a progress bar for the sideways row on narrow screens.
    - Entrances: [data-rise] parts rise once as they enter; a failsafe reveals
      everything shortly after load so nothing ships blank.
@@ -84,6 +85,52 @@
     var hash = location.hash.replace("#", "");
     tabs.forEach(function (t) { if (t.getAttribute("data-tab") === hash) initial = hash; });
     select(initial, false);
+  });
+
+  /* The Lens sequence: a carousel of frames. The rail and arrows follow the scroll position,
+     so swiping, the rail and the arrows always agree. */
+  document.querySelectorAll("[data-seq]").forEach(function (seq) {
+    var track = seq.querySelector("[data-seq-track]");
+    var slides = Array.prototype.slice.call(track.children);
+    var steps = Array.prototype.slice.call(seq.querySelectorAll("[data-seq-go]"));
+    var prev = seq.querySelector("[data-seq-prev]");
+    var next = seq.querySelector("[data-seq-next]");
+    var status = seq.querySelector("[data-seq-status]");
+    var current = -1;
+    function mark(i) {
+      if (i === current) return;
+      current = i;
+      steps.forEach(function (s, k) {
+        s.setAttribute("data-state", k < i ? "past" : k === i ? "now" : "next");
+        if (k === i) s.setAttribute("aria-current", "step"); else s.removeAttribute("aria-current");
+      });
+      if (prev) prev.disabled = i === 0;
+      if (next) next.disabled = i === slides.length - 1;
+    }
+    function go(i) {
+      i = Math.max(0, Math.min(slides.length - 1, i));
+      track.scrollTo({ left: slides[i].offsetLeft - slides[0].offsetLeft, behavior: root.classList.contains("anim") ? "smooth" : "auto" });
+      mark(i);
+      if (status) status.textContent = "Frame " + slides[i].getAttribute("aria-label");
+    }
+    var ticking = false;
+    track.addEventListener("scroll", function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        ticking = false;
+        var x = track.scrollLeft, best = 0, d = Infinity;
+        slides.forEach(function (s, k) {
+          var dk = Math.abs(s.offsetLeft - slides[0].offsetLeft - x);
+          if (dk < d) { d = dk; best = k; }
+        });
+        mark(best);
+      });
+    }, { passive: true });
+    steps.forEach(function (s, k) { s.addEventListener("click", function () { go(k); }); });
+    if (prev) prev.addEventListener("click", function () { go(current - 1); });
+    if (next) next.addEventListener("click", function () { go(current + 1); });
+    mark(0);
   });
 
   /* The age row's progress bar */

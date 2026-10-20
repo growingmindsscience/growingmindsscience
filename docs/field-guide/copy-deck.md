@@ -37,8 +37,9 @@ Plate caption: A conceptual reading of a typical moment at about nine months. It
 
 ## 2. The Developmental Lens: leaving the playground
 
-Section heading: Leaving the playground
+Section heading (homepage): Why is leaving the playground so hard? (The full Lens page keeps "Leaving the playground".)
 Intro paragraph: The Developmental Lens takes an ordinary moment and shows what may be developing underneath it: observe, understand, respond, reflect. Here it is on the moment every parent of a toddler knows. Scientific copy is a prototype awaiting source review.
+Homepage intro (the four-frame sequence): One ordinary visit in four frames, and what may be developing beneath each. Nothing about the playground changes. The plan does. The frames are absorbed in play, "time to go", the run back and on the floor; each pairs one scene line with one reading from Understand and one option from Respond, in the wording below.
 Link below the component: Open the full Lens, with sources and reflection prompts (→ /lens/leaving-the-playground)
 
 ### Step tabs
