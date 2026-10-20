@@ -26,7 +26,7 @@
   <link rel="stylesheet" href="/assets/css/field-guide.css?v=ececc69b57" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=9ee704dd6a" />
   <link rel="stylesheet" href="/assets/css/tools.css?v=7fce784071" />
-  <link rel="stylesheet" href="/assets/css/rightnow.css?v=d2aa7f1ce4" />
+  <link rel="stylesheet" href="/assets/css/rightnow.css?v=b6783d5006" />
   <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
   /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 </head>
@@ -56,6 +56,11 @@
       </div>
     </div>
   </main>
+
+  <aside class="rn-safety" aria-label="If you need help now">
+    <p>If you feel you might hurt your child, put them somewhere safe, like a crib, and step away for a few minutes. In the US, call or text 988 any time, or 911 in an emergency.</p>
+    <p class="rn-safety__fine">Educational content only. Not medical or psychological advice.</p>
+  </aside>
 
   <!-- Situation → short answer. Shared source of truth for this page. -->
   <script id="router-data" type="application/json">
@@ -148,7 +153,7 @@
   <!-- Printable pocket card (hidden on screen; shown only when printing) -->
   <div class="pocket-card" id="rn-pocket" aria-hidden="true"></div>
 
-  <script src="../assets/js/main.js?v=d04bd3b1b9" defer></script>
+  <script src="../assets/js/main.js?v=3f7e70ab67" defer></script>
   <script src="../assets/js/gms-tools.js?v=73433a023c" defer></script>
   <script>
   (function () {

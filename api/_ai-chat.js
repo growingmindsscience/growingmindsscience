@@ -18,6 +18,8 @@ export const LIMITS = Object.freeze({
   BODY_MAX_CHARS: 24000,
   // Free questions per visitor per UTC day (a soft, per-isolate limit; see _ratelimit.js).
   FREE_DAILY_LIMIT: 5,
+  // Questions per UTC day for class families: the fair-use limit the class pages state.
+  CLASS_DAILY_LIMIT: 50,
 });
 
 /**

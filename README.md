@@ -214,24 +214,28 @@ There is no embeddings service and no OpenAI dependency; the corpus is small and
 curated, so lexical scoring is a good fit (upgradable to embeddings later
 without touching callers).
 
-**Access tiers.** The server checks every call: unlimited for a matching
-`GMS_AI_ACCESS_CODE` (share only with enrolled class families), for a valid AI
-Pro subscriber token, or for a signed-in account whose Number Path / membership
-session carries an unlimited-AI entitlement; otherwise a free allowance of 5
-questions a day applies. The browser counter is UX only. The chat page checks a
-code with a `{ "validateOnly": true, "accessCode": "..." }` request, which never
-calls the model. The endpoint accepts only same-origin JSON (`Content-Type:
-application/json`; requests marked `Sec-Fetch-Site: cross-site` are refused).
+**Access tiers.** The server checks every call. Class families get 50
+questions a day (the fair-use limit the class pages state): counted per account
+for a signed-in account whose session carries `ai:unlimited` (a class, a gift
+code, or the legacy shared code's grant), and per client for a matching
+`GMS_AI_ACCESS_CODE` (share only with enrolled class families) or a legacy AI
+Pro subscriber token. Membership has no daily cap. Everyone else gets a free
+allowance of 5 questions a day. The browser counter is UX only. The chat page
+checks a code with a `{ "validateOnly": true, "accessCode": "..." }` request,
+which never calls the model. The endpoint accepts only same-origin JSON
+(`Content-Type: application/json`; requests marked `Sec-Fetch-Site: cross-site`
+are refused).
 
-**These limits are soft.** The free allowance, the burst limit (10 requests a
-minute) and the wrong-code limit (8 an hour) are counted in the memory of each
-Edge isolate, per IPv4 address or IPv6 /64. They reset on cold start and are not
-shared between isolates or regions, so a determined client can get past them;
-they are not a spending cap. The real fix is a shared store with an atomic
-counter (Vercel KV, Upstash Redis or a Supabase table) behind
-`api/_ratelimit.js`, plus a monthly spend limit on the Anthropic workspace that
-owns `ANTHROPIC_API_KEY`. Until a shared store exists, that spend limit is the
-only hard cap on what the free tier can cost.
+**Shared and soft limits.** The two daily allowances are counted in one
+Supabase table (`nsc/supabase/migrations/0021_ai_free_usage.sql`) when
+`AI_USAGE_SUPABASE_URL`, `AI_USAGE_SUPABASE_SERVICE_ROLE_KEY` and
+`GMS_SESSION_SECRET` are all set; keys are HMACs of the day and the client or
+account, never an address. Without them, or when Supabase does not answer, they
+fall back to the memory of each Edge isolate. The burst limit (10 requests a
+minute) and the wrong-code limit (8 an hour) are always per isolate, per IPv4
+address or IPv6 /64: they reset on cold start and are not shared between
+isolates or regions. None of this is a spending cap, so keep a monthly spend
+limit on the Anthropic workspace that owns `ANTHROPIC_API_KEY`.
 
 ## Milestone tracker
 
