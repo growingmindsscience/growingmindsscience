@@ -1,6 +1,6 @@
 {
   "_schema": "Written by insights.mjs. One record per post on the account, newest first. rates are per reach. top and bottom rank settled posts (two days or older) by saves, shares and follows per reach; the drafter reads them.",
-  "pulled_at": "2026-10-20T13:57:52.799Z",
+  "pulled_at": "2026-10-20T14:11:32.143Z",
   "account": {
     "username": "growingmindsscience",
     "followers": 21,
@@ -54,45 +54,6 @@
         "follow": 0
       },
       "reach": 99
-    },
-    {
-      "post": null,
-      "series": "legacy",
-      "row": null,
-      "hook": "Did you know that when babies learn to walk, they’re not just getting around—they’re expanding their vocabularies too? 🧠💬",
-      "rates": {
-        "save": 0,
-        "share": 0,
-        "profile_visit": 0,
-        "follow": 0
-      },
-      "reach": 15
-    },
-    {
-      "post": null,
-      "series": "legacy",
-      "row": null,
-      "hook": "Imagine a game of catch with words! Just like a ball goes back and forth, “serve-and-return” interactions between a caregiver and a child he",
-      "rates": {
-        "save": 0,
-        "share": 0,
-        "profile_visit": 0,
-        "follow": 0
-      },
-      "reach": 14
-    },
-    {
-      "post": null,
-      "series": "legacy",
-      "row": null,
-      "hook": "Did you know that the words we speak to children in their early years can have a lasting impact on their future? 📚👶",
-      "rates": {
-        "save": 0,
-        "share": 0,
-        "profile_visit": 0,
-        "follow": 0
-      },
-      "reach": 12
     }
   ],
   "bottom": [],
