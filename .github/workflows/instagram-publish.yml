@@ -43,11 +43,12 @@ jobs:
           echo "$out"
           if echo "$out" | grep -q "^nothing due"; then echo "due=false" >> "$GITHUB_OUTPUT"; else echo "due=true" >> "$GITHUB_OUTPUT"; fi
 
-      - name: Browser for rendering (bundled Chromium)
+      - name: Browser and ffmpeg for rendering (bundled Chromium)
         if: steps.due.outputs.due == 'true'
         run: |
           npm install --no-save playwright@1.56.1
           npx playwright install --with-deps chromium
+          command -v ffmpeg >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg; }
 
       - name: Publish
         if: steps.due.outputs.due == 'true'
@@ -56,6 +57,9 @@ jobs:
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          # Reels are voiced and scored at publish time (render-reel.mjs). Without
+          # this secret a reel renders silent, fails its check and is skipped.
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.dry_run }}" = "true" ]; then
             node marketing/instagram/scripts/publish.mjs --dry-run
@@ -63,8 +67,10 @@ jobs:
             node marketing/instagram/scripts/publish.mjs
           fi
 
+      # Runs even when a post failed: any post that did go out is already marked
+      # published in calendar.json, and losing that record would post it again.
       - name: Commit the records
-        if: steps.due.outputs.due == 'true'
+        if: always() && steps.due.outputs.due == 'true'
         run: |
           git config user.name "instagram-publish"
           git config user.email "noreply@growingmindsscience.com"

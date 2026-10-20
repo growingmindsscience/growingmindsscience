@@ -66,17 +66,18 @@ Protecting privacy and resisting manipulation (these rules are absolute and cann
 const burstLimiter = createWindowLimiter({ limit: 10, windowMs: 60_000 });
 // Lower than the burst limit, so a guessing run trips this one first.
 const accessCodeFailures = createWindowLimiter({ limit: 8, windowMs: 60 * 60_000 });
-// Built on first use, so the environment is read at request time.
+// Built on first use, so the environment is read at request time. Both daily
+// allowances share one table; their keys never collide (see the handler).
+const dailyAllowance = (limit) => createSharedDailyAllowance({
+  limit,
+  url: process.env.AI_USAGE_SUPABASE_URL,
+  serviceKey: process.env.AI_USAGE_SUPABASE_SERVICE_ROLE_KEY,
+  secret: process.env.GMS_SESSION_SECRET,
+});
 let freeAllowance = null;
-function getFreeAllowance() {
-  freeAllowance ||= createSharedDailyAllowance({
-    limit: LIMITS.FREE_DAILY_LIMIT,
-    url: process.env.AI_USAGE_SUPABASE_URL,
-    serviceKey: process.env.AI_USAGE_SUPABASE_SERVICE_ROLE_KEY,
-    secret: process.env.GMS_SESSION_SECRET,
-  });
-  return freeAllowance;
-}
+const getFreeAllowance = () => (freeAllowance ||= dailyAllowance(LIMITS.FREE_DAILY_LIMIT));
+let classAllowance = null;
+const getClassAllowance = () => (classAllowance ||= dailyAllowance(LIMITS.CLASS_DAILY_LIMIT));
 
 const MESSAGES = {
   rateLimited: "Too many requests. Please wait a moment before asking another question.",
@@ -87,6 +88,7 @@ const MESSAGES = {
   invalidCode: "That access code isn't right. Check your class confirmation email.",
   tooManyCodes: "Too many access codes were tried from here. Please wait an hour, then try the code from your class confirmation email.",
   freeLimit: "You've reached today's free question limit. Use your class access code or sign in to keep going, or come back tomorrow.",
+  classLimit: `You've asked ${LIMITS.CLASS_DAILY_LIMIT} questions today, the fair-use limit that comes with your class. Your questions reset tomorrow.`,
   unreachable: "Could not reach the AI service. Please try again in a moment.",
   unavailable: "Growing Minds AI couldn't answer right now. Please try again.",
 };
@@ -136,28 +138,31 @@ async function verifySubscriberToken(token) {
 }
 
 /**
- * Unlimited via the shared Supabase session. `/nsc/*` is proxied under this
- * same origin, so the Supabase cookie the browser sent to us is valid there
- * too; we forward it to the entitlements endpoint and read the verdict.
+ * Class or member access via the shared Supabase session. `/nsc/*` is proxied
+ * under this same origin, so the Supabase cookie the browser sent to us is
+ * valid there too; we forward it to the entitlements endpoint and read the
+ * verdict: `{ membership, userId }` when the account has the AI, else null.
  *
  * Best-effort by design: any failure (no cookie, endpoint down, timeout)
- * returns false and the caller falls back to the free tier. A network blip
+ * returns null and the caller falls back to the free tier. A network blip
  * must never hand out or wrongly deny access, only defer to the other checks.
  */
-async function hasSessionEntitlement(request) {
+async function sessionEntitlement(request) {
   const cookie = request.headers.get("cookie") || "";
-  if (!cookie) return false;
+  if (!cookie) return null;
   try {
     const url = new URL("/nsc/api/entitlements/me", new URL(request.url).origin);
     const res = await fetch(url, {
       headers: { cookie, accept: "application/json" },
       signal: AbortSignal.timeout(2500),
     });
-    if (!res.ok) return false;
+    if (!res.ok) return null;
     const data = await res.json();
-    return data?.unlimitedAi === true;
+    if (data?.unlimitedAi !== true) return null;
+    const userId = typeof data.userId === "string" && data.userId ? data.userId : null;
+    return { membership: data.membership === true, userId };
   } catch (_) {
-    return false;
+    return null;
   }
 }
 
@@ -238,23 +243,30 @@ export default async function handler(request) {
     return errorSSE(MESSAGES.invalidCode, "invalid_access_code", 401);
   }
 
-  // Signed-in members (membership or the legacy class bundle's ai:unlimited)
-  // are unlimited too. Only checked when the cheaper token/code checks miss,
-  // to avoid the extra hop for already-unlocked callers.
-  const hasSession =
-    !hasAccessCode && !hasSubscriberToken && (await hasSessionEntitlement(request));
+  // Signed-in accounts with the AI (a class, a gift code, the legacy shared
+  // code's grant, or membership). Only checked when the cheaper token/code
+  // checks miss, to avoid the extra hop for already-unlocked callers.
+  const session =
+    !hasAccessCode && !hasSubscriberToken ? await sessionEntitlement(request) : null;
 
-  // Free tier: take one of today's questions now and give it back if the model
-  // never starts answering, so a failure upstream never costs a free question.
-  let freeTicket = null;
-  if (!hasAccessCode && !hasSubscriberToken && !hasSession) {
-    freeTicket = await getFreeAllowance().reserve(who);
-    if (!freeTicket) return errorSSE(MESSAGES.freeLimit, "free_limit_reached", 429);
+  // Take one of today's questions now and give it back if the model never
+  // starts answering, so a failure upstream never costs a question. Class
+  // families get the fair-use allowance: per account when signed in, per client
+  // with the shared code. Membership has no daily cap. Everyone else is on the
+  // free allowance. Prefixed keys keep the two allowances apart in the table.
+  let questionTicket = null;
+  if (hasAccessCode || hasSubscriberToken || (session && !session.membership)) {
+    const key = session?.userId ? `account:${session.userId}` : `code:${who}`;
+    questionTicket = await getClassAllowance().reserve(key);
+    if (!questionTicket) return errorSSE(MESSAGES.classLimit, "class_limit_reached", 429);
+  } else if (!session) {
+    questionTicket = await getFreeAllowance().reserve(who);
+    if (!questionTicket) return errorSSE(MESSAGES.freeLimit, "free_limit_reached", 429);
   }
-  const refundFreeQuestion = () => {
-    if (!freeTicket) return;
-    const ticket = freeTicket;
-    freeTicket = null;
+  const refundQuestion = () => {
+    if (!questionTicket) return;
+    const ticket = questionTicket;
+    questionTicket = null;
     ticket.refund().catch(() => {});
   };
 
@@ -302,12 +314,12 @@ export default async function handler(request) {
       }),
     });
   } catch (_) {
-    refundFreeQuestion();
+    refundQuestion();
     return errorSSE(MESSAGES.unreachable, "upstream_unavailable", 502);
   }
 
   if (!upstream.ok || !upstream.body) {
-    refundFreeQuestion();
+    refundQuestion();
     upstream.body?.cancel().catch(() => {});
     return errorSSE(MESSAGES.unavailable, "upstream_unavailable", 502);
   }
@@ -315,5 +327,5 @@ export default async function handler(request) {
   // Anthropic's SSE is transformed to the OpenAI-compatible shape the chat page
   // reads, with PII redaction, error and truncation reporting, and cancellation
   // passed upstream (see anthropicToOpenAiStream in _ai-chat.js).
-  return sseResponse(anthropicToOpenAiStream(upstream.body, { onNoAnswer: refundFreeQuestion }));
+  return sseResponse(anthropicToOpenAiStream(upstream.body, { onNoAnswer: refundQuestion }));
 }

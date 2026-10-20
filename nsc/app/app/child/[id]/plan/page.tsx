@@ -4,14 +4,15 @@ import { getPlanContext } from "@/lib/plan.server";
 import { hasFullAccess } from "@/lib/entitlements.server";
 import { dayIndex } from "@/lib/isoweek";
 import { getTimeZone } from "@/lib/tz.server";
-import { teaserGame } from "@/lib/routing";
+import { FREE_GAMES_PER_WEEK, teaserGame } from "@/lib/routing";
 import { Card, EnrichmentFooter, LinkButton } from "@/components/ui";
 import { Ladder } from "@/components/ladder";
 import { GameCard } from "@/components/game-card";
 import { brand } from "@/lib/config/brand";
 import { RUNG_LABEL } from "@/lib/labels";
 import { nextCheckin, shortDate } from "@/lib/checkin";
-import { getAudioIds } from "@/lib/audio.server";
+import { getAudioManifest } from "@/lib/audio.server";
+import { gameAudioIds } from "@/lib/audio";
 
 const NAV_LINK = "inline-flex min-h-11 items-center";
 
@@ -50,7 +51,7 @@ export default async function PlanPage({
   const pointAndSeek = ctx.instrument === "point_and_seek";
   const rung = RUNG_LABEL(ctx.placement, ctx.nearCP);
   const checkin = nextCheckin(ctx.assessedAt, now, ctx.confidence);
-  const audioIds = await getAudioIds();
+  const { games: gameClips } = await getAudioManifest();
 
   return (
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-8 px-6 py-10">
@@ -136,7 +137,7 @@ export default async function PlanPage({
           </p>
         </div>
         {ctx.plan.games.map((game, i) => {
-          const locked = !full && i > 0;
+          const locked = !full && i >= FREE_GAMES_PER_WEEK;
           return (
             <GameCard
               key={game.id}
@@ -147,7 +148,7 @@ export default async function PlanPage({
               childName={ctx.child.nickname}
               playedReaction={playedThisWeek.get(game.id)}
               locked={locked}
-              audioIds={locked ? [] : audioIds}
+              audioIds={locked ? [] : gameAudioIds(game, gameClips)}
             />
           );
         })}

@@ -82,6 +82,9 @@ export interface EntitlementSummary {
   /** Unlimited Growing Minds AI: membership, or the legacy class bundle's
    * `ai:unlimited` grant. This is what the parent AI tool reads. */
   unlimitedAi: boolean;
+  /** The account's id, so the parent AI tool counts its fair-use limit per
+   * account rather than per network. Null when signed out. */
+  userId: string | null;
 }
 
 const SIGNED_OUT_SUMMARY: EntitlementSummary = {
@@ -90,6 +93,7 @@ const SIGNED_OUT_SUMMARY: EntitlementSummary = {
   numberPath: false,
   membership: false,
   unlimitedAi: false,
+  userId: null,
 };
 
 /**
@@ -160,5 +164,6 @@ export async function getEntitlementSummary(): Promise<EntitlementSummary> {
     numberPath: scopes.has("numberpath_full") || membership,
     membership,
     unlimitedAi: membership || scopes.has("ai:unlimited"),
+    userId: user.id,
   };
 }

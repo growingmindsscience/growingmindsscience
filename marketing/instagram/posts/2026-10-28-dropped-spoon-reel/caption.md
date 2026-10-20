@@ -15,4 +15,4 @@ Educational content, not medical advice. The plate is a conceptual reading of th
 What is your baby's favorite thing to drop?
 
 ## Hashtags
-#servendreturn #babydevelopment #infantdevelopment #highchair #firstyear #parentingscience #growingmindsscience
+#serveandreturn #babydevelopment #infantdevelopment #highchair #firstyear #parentingscience #growingmindsscience

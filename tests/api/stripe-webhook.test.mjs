@@ -116,10 +116,12 @@ test("A8: a failed insert is a 500 (so Stripe retries) and nothing else runs", a
   }
 });
 
-test("A8: a duplicate insert (409, a retried event) counts as stored", async () => {
+test("A8: a duplicate insert (409, a retried event) counts as stored and tells no one twice", async () => {
   const net = services({ store: () => json({ code: "23505" }, 409) });
   try {
     assert.equal((await deliver(checkoutEvent({ payment_status: "paid" }))).status, 200);
+    assert.equal(net.count(WEB3FORMS), 0);
+    assert.equal(net.count(KIT), 0);
   } finally { net.restore(); }
 });
 

@@ -5,12 +5,17 @@
  *
  * Audio is a pre-generated, static enhancement, not certified content: clips
  * are voiced offline (ElevenLabs, voice below), named by a deterministic id
- * of their exact text, committed under public/audio, and listed in
- * audio.manifest. The runtime computes the same id for a line it's about to
- * show; if a clip exists it renders a play button, otherwise nothing. Lines
- * containing a child's name are not voiced (the audio can't say the name), so
- * they simply have no button — a clean degrade, not an error.
+ * of their exact text, and listed in audio.manifest. The runtime computes the
+ * same id for a line it's about to show; if a clip exists it renders a play
+ * button, otherwise nothing. Lines containing a child's name are not voiced
+ * (the audio can't say the name), so they simply have no button — a clean
+ * degrade, not an error.
+ *
+ * Check-in clips are free and committed under public/audio. Game clips are
+ * paid narration: they live under private/audio and are served by
+ * /api/audio/[id] only to an account that can play that game.
  */
+import type { AssessmentCopy, Game } from "@/lib/content-types";
 
 export const AUDIO_VOICE_ID = "EXAVITQu4vr4xnSDxMaL"; // Sarah — reassuring
 export const AUDIO_MODEL_ID = "eleven_multilingual_v2";
@@ -52,8 +57,54 @@ export function voiceableText(rawLine: string): string | null {
   return s.includes("{") ? null : s;
 }
 
+/** A clip id as audioClipId makes it. Anything else names no clip. */
+export function isAudioClipId(id: string): boolean {
+  return /^[0-9a-f]{16}$/.test(id);
+}
+
+/** Clip ids for the voiceable lines among `lines`, deduped, in order. */
+export function clipIdsForLines(lines: readonly string[]): string[] {
+  const ids = new Set<string>();
+  for (const line of lines) {
+    const text = voiceableText(line);
+    if (text) ids.add(audioClipId(text));
+  }
+  return [...ids];
+}
+
+/** Every raw line of the check-in copy (what the assess runners can show). */
+export function checkinLines(copy: Pick<AssessmentCopy, "states">): string[] {
+  return Object.values(copy.states).flatMap((state) => state.lines ?? []);
+}
+
+/**
+ * The clips the check-in runners may play: voiceable check-in lines that
+ * have a generated clip. Game narration is never in this list.
+ */
+export function checkinAudioIds(
+  copy: Pick<AssessmentCopy, "states">,
+  available: readonly string[],
+): string[] {
+  const have = new Set(available);
+  return clipIdsForLines(checkinLines(copy)).filter((id) => have.has(id));
+}
+
+/** The clips one game card may play: its own script lines that have a clip. */
+export function gameAudioIds(
+  game: Pick<Game, "script">,
+  available: readonly string[],
+): string[] {
+  const have = new Set(available);
+  return clipIdsForLines(game.script).filter((id) => have.has(id));
+}
+
 export function audioClipPath(id: string): string {
   // basePath (/nsc) must be explicit — the runtime plays these via the raw
   // `new Audio()` browser API, which doesn't get Next's basePath prefix.
   return `/nsc/audio/${id}.mp3`;
+}
+
+/** A game clip, through the route that checks the account can play it. */
+export function gameClipPath(id: string): string {
+  return `/nsc/api/audio/${id}`;
 }

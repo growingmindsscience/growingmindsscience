@@ -27,6 +27,9 @@
 
 /* ---------- The question ---------- */
 .fg .rn-main { width: min(100% - 2 * var(--hb-gutter, 16px), 720px); max-width: none; margin-inline: auto; padding: clamp(24px, 6vw, 72px) 0 clamp(72px, 10vw, 128px); }
+/* The page has no footer, so the safety line and disclaimer sit under every step. */
+.fg .rn-safety { width: min(100% - 2 * var(--hb-gutter, 16px), 720px); margin-inline: auto; padding: 20px 0 48px; border-top: 1px solid var(--border-soft); font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
+.fg .rn-safety__fine { margin-top: 8px; font-size: 14px; color: var(--ink-muted); }
 /* The page name reads as the question's subline, not a kicker above it. */
 .rn-step { display: flex; flex-direction: column; }
 .rn-step__title { order: -1; }

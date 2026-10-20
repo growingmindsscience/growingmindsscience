@@ -13,7 +13,7 @@ Action: Enroll, from $49
 
 Tools menu, in order:
 - It's hard right now: A calm next step in two minutes. (/tools/right-now)
-- Growing Minds AI: Ask a parenting question. Every answer shows its sources. (/tools/growing-minds-ai)
+- Growing Minds AI: Ask a parenting question, answered from the research. (/tools/growing-minds-ai)
 - Milestone tracker: What's typical at each age, birth to three. (/milestones)
 - Communication Snapshot: Turn what you notice about talking into notes for a checkup. (/tools/communication-snapshot)
 - Number Path: A free ten-minute counting check-in. (/nsc)

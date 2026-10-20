@@ -2,7 +2,8 @@ import { notFound, redirect } from "next/navigation";
 import { requireAuth } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { getAssessmentCopy } from "@/lib/content.server";
-import { getAudioIds } from "@/lib/audio.server";
+import { getAudioManifest } from "@/lib/audio.server";
+import { checkinAudioIds } from "@/lib/audio";
 import { ageInMonths, RESUME_WINDOW_MS } from "@/lib/age";
 import type { Placement, TitrationState } from "@/lib/titration";
 import type { PSState } from "@/lib/pointandseek";
@@ -76,7 +77,9 @@ export default async function AssessPage({
       "english") !== "english";
 
   const copy = await getAssessmentCopy();
-  const audioIds = await getAudioIds();
+  // Only the check-in's own lines: game narration is paid and served behind
+  // /api/audio, so its ids never reach this page.
+  const audioIds = checkinAudioIds(copy, (await getAudioManifest()).checkin);
 
   if (assessment.instrument === "point_and_seek") {
     return (

@@ -18,7 +18,8 @@
 //      ledger.json, and rewrites the destination list on from-instagram.html.
 //
 // Environment: IG_USER_ID, IG_ACCESS_TOKEN (Instagram Login, long-lived),
-//              SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, optional SITE_ORIGIN.
+//              SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, optional SITE_ORIGIN, and
+//              ELEVENLABS_API_KEY for reels (read by render-reel.mjs).
 // With nothing due it exits 0 without needing any of them. With something due and
 // a variable missing it fails loudly: an approved post that cannot go out is an error.
 //
@@ -111,12 +112,12 @@ async function refreshToken() {
 // ---------- posts ----------
 function loadPost(id) {
   const folder = join(IG, "posts", id);
-  if (!existsSync(join(folder, "spec.json"))) die(`${id}: no spec.json`);
+  if (!existsSync(join(folder, "spec.json"))) throw new Error(`${id}: no spec.json`);
   const spec = readJson(join(folder, "spec.json"));
   const md = readFileSync(join(folder, "caption.md"), "utf8");
   const [body, tags = ""] = md.split(/\n## Hashtags\s*\n/);
   const caption = `${body.replace(/^#.*\n+/, "").trim()}\n\n${tags.trim()}`.trim();
-  if (caption.length > 2200) die(`${id}: caption is ${caption.length} characters (Instagram allows 2,200)`);
+  if (caption.length > 2200) throw new Error(`${id}: caption is ${caption.length} characters (Instagram allows 2,200)`);
   return { id, folder, spec, caption };
 }
 function renderPost(p) {
@@ -124,14 +125,14 @@ function renderPost(p) {
   if (p.spec.kind === "reel") {
     execFileSync(process.execPath, [join(HERE, "render-reel.mjs"), p.folder], { stdio: "inherit" });
     const check = readJson(join(out, "check.json"));
-    if (check.problems?.length) die(`${p.id}: reel checks fail:\n  ${check.problems.join("\n  ")}`);
+    if (check.problems?.length) throw new Error(`${p.id}: reel checks fail:\n  ${check.problems.join("\n  ")}`);
     return [join(out, "reel.mp4"), join(out, "cover.jpg")];
   }
   execFileSync(process.execPath, [join(HERE, "render-carousel.mjs"), p.folder], { stdio: "inherit" });
   const slides = readdirSync(out).filter((f) => /^slide-\d+\.jpg$/.test(f)).sort();
-  if (slides.length < 2 || slides.length > 10) die(`${p.id}: ${slides.length} slides; a carousel takes 2 to 10`);
+  if (slides.length < 2 || slides.length > 10) throw new Error(`${p.id}: ${slides.length} slides; a carousel takes 2 to 10`);
   const check = readJson(join(out, "check.json"));
-  if (check.problems?.length) die(`${p.id}: slide rules fail:\n  ${check.problems.join("\n  ")}`);
+  if (check.problems?.length) throw new Error(`${p.id}: slide rules fail:\n  ${check.problems.join("\n  ")}`);
   return slides.map((f) => join(out, f));
 }
 
@@ -147,7 +148,7 @@ async function upload(p, file, name) {
     headers: { authorization: `Bearer ${key}`, apikey: key, "content-type": type, "x-upsert": "true", "cache-control": "public, max-age=31536000" },
     body: readFileSync(file),
   });
-  if (!res.ok) die(`${p.id}: upload of ${path} failed: ${res.status} ${await res.text()}`);
+  if (!res.ok) throw new Error(`${p.id}: upload of ${path} failed: ${res.status} ${await res.text()}`);
   return `${base}/storage/v1/object/public/social/${path}`;
 }
 
@@ -192,13 +193,17 @@ function utm(url, id) {
   u.searchParams.set("utm_campaign", id);
   return u.pathname + u.search;
 }
+// Carousels open on slides[0]; reels open on beats[0]. A correction post's cover
+// states the debunked claim, so the landing page shows the correction ("now") instead.
+const opener = (spec) => spec.slides?.[0] ?? spec.beats?.[0] ?? {};
+const hookOf = (spec) => { const s = opener(spec); return s.lead || s.now || s.text || s.claim || ""; };
 function rewriteLanding(calendar) {
   if (!existsSync(LANDING)) { console.warn("publish: from-instagram.html missing; skipped the landing page"); return; }
   const published = calendar.posts.filter((p) => p.status === "published").sort((a, b) => (b.published_at || "").localeCompare(a.published_at || "")).slice(0, 4);
   const items = published.length === 0 ? `        <li class="fi-empty">Nothing has gone out yet. The first posts land here the day they publish.</li>` : published.map((p) => {
     const spec = readJson(join(IG, "posts", p.id, "spec.json"));
     const when = new Date(p.published_at).toLocaleDateString("en-US", { month: "long", day: "numeric", timeZone: "America/New_York" });
-    const hook = spec.slides[0].lead || spec.slides[0].claim || "";
+    const hook = hookOf(spec);
     return `        <li class="fi-item">
           <a class="fi-item__link" href="${utm(spec.link.url, p.id)}">
             <span class="fi-item__page">${spec.link.page}</span>
@@ -213,10 +218,10 @@ function rewriteLanding(calendar) {
 }
 function recordLedger(p, media) {
   const ledger = readJson(LEDGER);
-  const s = p.spec.slides[0];
+  const s = opener(p.spec);
   ledger.used.push({
-    topic: s.lead || s.claim || p.id,
-    source: (p.spec.sources || (p.spec.slides.find((s) => s.type === "sources") || {}).sources || [])[0] || "",
+    topic: s.lead || s.claim || s.text || p.id,
+    source: (p.spec.sources || (p.spec.slides?.find((s) => s.type === "sources") || {}).sources || [])[0] || p.spec.source || "",
     channel: "instagram",
     date: NOW.toISOString().slice(0, 10),
     series: p.spec.series,
@@ -240,39 +245,57 @@ if (!due.length) { log(`nothing due at ${NOW.toISOString()}${ONLY ? ` for ${ONLY
 log(`${DRY ? "dry run" : "publishing"}: ${due.length} post(s) due at ${NOW.toISOString()}`);
 if (!DRY) await checkToken();
 
+// One post that cannot go out (a failed check, render or upload) is skipped and
+// reported at the end, so it never holds back the posts queued behind it. It
+// stays "approved" and is tried again on the next run.
 let published = 0;
+const failed = [];
 for (const entry of due) {
-  const p = loadPost(entry.id);
-  log(`\n${p.id}  (${p.spec.series}, scheduled ${entry.scheduled_at})`);
-  const isReel = p.spec.kind === "reel";
-  const files = renderPost(p);
-  log(`  ${isReel ? "reel + cover" : `${files.length} slides`} rendered; caption ${p.caption.length} chars; destination ${utm(p.spec.link.url, p.id)}`);
-  if (DRY) {
-    log(isReel
-      ? `  would upload reel.mp4 and cover.jpg to social/instagram/${p.id}/, create a REELS container, wait for processing, publish, then record.`
-      : `  would upload to social/instagram/${p.id}/, create ${files.length} item containers + 1 carousel, publish, then record.`);
+  let p, media;
+  try {
+    p = loadPost(entry.id);
+    log(`\n${p.id}  (${p.spec.series}, scheduled ${entry.scheduled_at})`);
+    const isReel = p.spec.kind === "reel";
+    const files = renderPost(p);
+    log(`  ${isReel ? "reel + cover" : `${files.length} slides`} rendered; caption ${p.caption.length} chars; destination ${utm(p.spec.link.url, p.id)}`);
+    if (DRY) {
+      log(isReel
+        ? `  would upload reel.mp4 and cover.jpg to social/instagram/${p.id}/, create a REELS container, wait for processing, publish, then record.`
+        : `  would upload to social/instagram/${p.id}/, create ${files.length} item containers + 1 carousel, publish, then record.`);
+      continue;
+    }
+    if (isReel) {
+      const videoUrl = await upload(p, files[0], "reel.mp4");
+      const coverUrl = await upload(p, files[1], "cover.jpg");
+      log("  uploaded reel and cover");
+      media = await publishReel(p, videoUrl, coverUrl);
+    } else {
+      const urls = [];
+      for (let i = 0; i < files.length; i++) urls.push(await upload(p, files[i], `slide-${String(i + 1).padStart(2, "0")}.jpg`));
+      log(`  uploaded ${urls.length} slides`);
+      media = await publishCarousel(p, urls);
+    }
+  } catch (err) {
+    failed.push(entry.id);
+    console.error(`publish: ${entry.id} did not go out: ${err.message}`);
     continue;
   }
-  let media;
-  if (isReel) {
-    const videoUrl = await upload(p, files[0], "reel.mp4");
-    const coverUrl = await upload(p, files[1], "cover.jpg");
-    log("  uploaded reel and cover");
-    media = await publishReel(p, videoUrl, coverUrl);
-  } else {
-    const urls = [];
-    for (let i = 0; i < files.length; i++) urls.push(await upload(p, files[i], `slide-${String(i + 1).padStart(2, "0")}.jpg`));
-    log(`  uploaded ${urls.length} slides`);
-    media = await publishCarousel(p, urls);
-  }
+  // The post is live. Mark it published on disk before anything else can fail,
+  // so the commit step records it and the next run cannot post it again.
   entry.status = "published";
   entry.published_at = new Date().toISOString();
   entry.media_id = media.id;
   entry.permalink = media.permalink;
   writeJson(CALENDAR, calendar);
-  recordLedger(p, media);
-  rewriteLanding(calendar);
   published++;
   log(`  published: ${media.permalink}`);
+  try {
+    recordLedger(p, media);
+    rewriteLanding(calendar);
+  } catch (err) {
+    failed.push(`${entry.id} (published; ledger or landing page not updated)`);
+    console.error(`publish: ${entry.id} is live, but its records failed: ${err.message}`);
+  }
 }
 log(`\n${DRY ? "dry run complete" : `${published} post(s) published`}`);
+if (failed.length) die(`${failed.length} post(s) need attention: ${failed.join(", ")}`);

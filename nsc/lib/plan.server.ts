@@ -2,8 +2,10 @@ import "server-only";
 import { createClient } from "@/lib/supabase/server";
 import { getCitations, getGamesCatalog, getPromptsDeck } from "@/lib/content.server";
 import { ageBand } from "@/lib/age";
+import { clipIdsForLines } from "@/lib/audio";
 import {
   buildWeeklyPlan,
+  freeGames,
   oneRungLower,
   personalizePrompts,
   suppressedGameIds,
@@ -120,4 +122,29 @@ export async function getPlanContext(
     citations,
     recentPlays,
   };
+}
+
+/**
+ * The game clips a free account may hear: the script lines of the free game
+ * on each of its children's plans this week, the same card the plan page
+ * leaves unlocked.
+ */
+export async function freeGameClipIds(
+  userId: string,
+  now: Date,
+  tz: string = DEFAULT_TZ,
+): Promise<string[]> {
+  const supabase = await createClient();
+  const { data: children } = await supabase
+    .from("nsc_children")
+    .select("id")
+    .eq("owner_id", userId);
+  const ids = new Set<string>();
+  for (const child of children ?? []) {
+    const ctx = await getPlanContext(child.id, now, tz);
+    for (const game of ctx ? freeGames(ctx.plan) : []) {
+      for (const id of clipIdsForLines(game.script)) ids.add(id);
+    }
+  }
+  return [...ids];
 }

@@ -199,7 +199,46 @@ test("question and body size limits", async () => {
   } finally { net.restore(); }
 });
 
-test("a valid subscriber token is unlimited; a session cookie is not a subscriber token", async () => {
+test("a signed-in class account gets 50 questions a day, counted per account across networks", async () => {
+  const net = mockFetch([
+    [ANTHROPIC, () => anthropicSse([textDelta("ok"), stop()])],
+    [ENTITLEMENTS, () => json({ authenticated: true, unlimitedAi: true, membership: false, userId: "user-class-1" })],
+  ]);
+  try {
+    // Ten questions from each of five networks stays under the burst limit.
+    for (let n = 0; n < 5; n += 1) {
+      const ip = freshIp();
+      for (let i = 0; i < 10; i += 1) {
+        const res = await ask({ question: `q${n}-${i}` }, ip, { cookie: "sb-session=present" });
+        assert.equal(res.status, 200, `question ${n * 10 + i + 1}`);
+        await res.text();
+      }
+    }
+    const extra = await ask({ question: "one more" }, freshIp(), { cookie: "sb-session=present" });
+    assert.equal(extra.status, 429);
+    assert.equal((await sseEvents(extra))[0].code, "class_limit_reached");
+    assert.equal(net.count(ANTHROPIC), 50);
+  } finally { net.restore(); }
+});
+
+test("membership has no daily cap", async () => {
+  const net = mockFetch([
+    [ANTHROPIC, () => anthropicSse([textDelta("ok"), stop()])],
+    [ENTITLEMENTS, () => json({ authenticated: true, unlimitedAi: true, membership: true, userId: "user-member-1" })],
+  ]);
+  try {
+    for (let n = 0; n < 6; n += 1) {
+      const ip = freshIp();
+      for (let i = 0; i < 10; i += 1) {
+        const res = await ask({ question: `q${n}-${i}` }, ip, { cookie: "sb-session=present" });
+        assert.equal(res.status, 200, `question ${n * 10 + i + 1}`);
+        await res.text();
+      }
+    }
+  } finally { net.restore(); }
+});
+
+test("a valid subscriber token gets past the free tier; a session cookie is not a subscriber token", async () => {
   const net = network();
   try {
     const payload = base64UrlEncode(new TextEncoder().encode(JSON.stringify({ email: "a@example.com", exp: Math.floor(Date.now() / 1000) + 3600, type: "subscriber" })));

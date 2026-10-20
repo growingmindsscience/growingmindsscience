@@ -64,26 +64,31 @@ export default async function handler(request) {
 
     // The purchase record must be stored before we acknowledge the event. If it
     // fails, answer 500 so Stripe retries (it retries for up to three days).
-    // The side effects below only run once the record is safe.
+    // The side effects below only run once the record is safe, and only the
+    // first time: a redelivered event finds its row already there.
     const stored = await storePurchase(email, sessionId, product);
     if (!stored) {
       return jsonResponse(500, { error: "Could not record the purchase. Stripe will retry." });
     }
 
-    await Promise.allSettled([
-      subscribeToKit(email),
-      notifyOwner(email, product),
-    ]);
+    if (stored !== "duplicate") {
+      await Promise.allSettled([
+        subscribeToKit(email),
+        notifyOwner(email, product),
+      ]);
+    }
   }
 
   return jsonResponse(200, { received: true });
 }
 
-// Returns true when the purchase is stored (or storage is not configured).
+// Returns "stored" when the purchase is newly stored (or storage is not
+// configured), "duplicate" when this checkout was stored by an earlier delivery,
+// and false when it could not be stored.
 async function storePurchase(email, sessionId, product) {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key || !email) return true;
+  if (!url || !key || !email) return "stored";
   let res;
   try {
     res = await fetch(`${url}/rest/v1/purchases`, {
@@ -101,7 +106,8 @@ async function storePurchase(email, sessionId, product) {
   }
   // 409: a unique constraint already holds this checkout, so a retried event
   // was stored the first time.
-  return res.ok || res.status === 409;
+  if (res.status === 409) return "duplicate";
+  return res.ok ? "stored" : false;
 }
 
 async function subscribeToKit(email) {

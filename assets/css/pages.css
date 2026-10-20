@@ -55,6 +55,9 @@
 .pg-form .field-error { font-size: 14px; color: var(--danger); }
 .pg-form .field-error:empty, .pg-form .form-status:empty { display: none; }
 .pg-form .form-status { font-size: 15px; color: var(--ink-soft); }
+/* The no-JavaScript confirmation: /api/contact redirects back to #sent. */
+.pg-form .form-sent { display: none; }
+.pg-form .form-sent:target { display: block; }
 .fg .pg-form__send { width: 100%; }
 
 /* ---------- 404 and thank-you: places to go, as rows ---------- */
