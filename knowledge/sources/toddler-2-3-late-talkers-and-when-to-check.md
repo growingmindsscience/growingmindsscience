@@ -277,9 +277,9 @@ Confidence: MEDIUM. A professional position paper. The old script said the Ameri
 
 ## Research behind this lesson (continued)
 
-Finding: 61 two-year-olds with expressive language delay and normal understanding were selected and 58 randomized to a 3-month parent programme or a 12-month wait: at 3 years, 75 percent versus 44 percent had normal expressive language.
+Finding: 61 two-year-olds with expressive language delay and normal understanding were selected and 58 randomized to a 3-month parent program or a 12-month wait: at 3 years, 75 percent versus 44 percent had normal expressive language.
 Sources: Buschmann et al. (2009), Parent based language intervention for 2-year-old children with specific expressive language delay: a randomised controlled trial, Archives of Disease in Childhood, DOI 10.1136/adc.2008.141572.
-Confidence: HIGH. 47 children analysed. A favorable group, since all understood normally, and the narration says so. The outcome is expressive language.
+Confidence: HIGH. 47 children analyzed. A favorable group, since all understood normally, and the narration says so. The outcome is expressive language.
 
 Finding: 25 mothers and late-talking toddlers randomized to parent-delivered focused stimulation or delayed treatment: more target words, larger vocabularies, more multiword combinations.
 Sources: Girolametto et al. (1996), Interactive focused stimulation for toddlers with expressive vocabulary delays, Journal of speech and hearing research, DOI 10.1044/jshr.3906.1274.

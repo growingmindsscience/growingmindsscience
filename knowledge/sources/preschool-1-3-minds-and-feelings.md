@@ -251,7 +251,7 @@ Finding: Meta-emotion: emotion-coaching parents notice low-intensity emotions, s
 Sources: Gottman, Katz & Hooven (1996), Parental meta-emotion philosophy and the emotional life of families, Journal of Family Psychology, DOI 10.1037/0893-3200.10.3.243; Katz, Maliken & Stettler (2012), Parental meta-emotion philosophy: A review of research and theoretical framework, Child Development Perspectives, DOI 10.1111/j.1750-8606.2012.00244.x.
 Confidence: HIGH for the description; the original outcome findings came from a small sample.
 
-Finding: Tuning in to Kids RCT: 216 parents of 4 to 5-year-olds; 6 sessions plus 2 boosters; more emotion coaching, less dismissing; observed more emotion labelling and discussion of causes; child emotion knowledge improved; fewer behavior problems by parent and teacher report.
+Finding: Tuning in to Kids RCT: 216 parents of 4 to 5-year-olds; 6 sessions plus 2 boosters; more emotion coaching, less dismissing; observed more emotion labeling and discussion of causes; child emotion knowledge improved; fewer behavior problems by parent and teacher report.
 Sources: Havighurst et al. (2010), Tuning in to Kids: improving emotion socialization practices in parents of preschool children, Journal of Child Psychology and Psychiatry, DOI 10.1111/j.1469-7610.2010.02303.x.
 Confidence: MODERATE-HIGH. Randomized; teacher reports were not blind to every aspect; 'about two hundred' rounds 216.
 

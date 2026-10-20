@@ -56,8 +56,8 @@ var shell = A.makeShell({
 `var pal = A.theme();` and `A.onThemeChange(function (p) { pal = p; })`. Keys: `paper, paper2, surface, surface2, ink, inkSoft, inkMuted, forest, forestDeep, onForest, sage, sageDeep, sageMist, sageMist2, ochre, clay, clayText, research, danger, success, border, borderSoft, fieldInk, onInk, onInkMuted`, plus `isDark`, `shadow`, `rule`, `grid`, `fontDisplay`, `fontBody`, and `alpha(hex, a)`, `mix(a, b, t)`, `shade(hex, t)`.
 
 Rules:
-- No hex literals in a game file. The only exception is a colour with no token (skin in Serve and Return, a sky tint in Brain Sprint); derive it with `pal.mix` where possible and say so in a comment.
-- Proportions inside the play field: about 70 percent paper and surface, 20 percent forest and sage, 10 percent accents. Ochre marks pickups and play. Clay marks hazard. Research blue marks rare or "thinking" power-ups. Never orange, never lime, never a warm colour as a large fill.
+- No hex literals in a game file. The only exception is a color with no token (skin in Serve and Return, a sky tint in Brain Sprint); derive it with `pal.mix` where possible and say so in a comment.
+- Proportions inside the play field: about 70 percent paper and surface, 20 percent forest and sage, 10 percent accents. Ochre marks pickups and play. Clay marks hazard. Research blue marks rare or "thinking" power-ups. Never orange, never lime, never a warm color as a large fill.
 - Outlines are `pal.ink` at 1.2 to 1.6 logical px. Shadows are `pal.shadow` offset 2 to 3 px down, never blurred. No gradients beyond a small highlight. No `shadowBlur`.
 - Ground is `A.draw.paper(ctx, W, H, pal, { step })` or a flat token fill with the same dot grid. Dark theme must look intentional: test it by setting `data-theme="dark"` on `<html>`.
 - Text inside the canvas: `A.draw.label(ctx, text, x, y, { font: "display" | "body", size, weight, color, align, baseline })`. Display for chapter names and big moments, body for numbers and small labels. Minimum 10 px logical for anything a player must read.
@@ -79,7 +79,7 @@ Pick a logical size where the smallest thing a player must read is at least 10 p
 - [ ] Theme: light and dark both look right. Portrait phone (375 px wide) and landscape phone (max-height 480) both fit.
 - [ ] `node --check assets/js/<game>-game.js` passes. No console errors.
 - [ ] `A.debug(key, ...)` registered.
-- [ ] The retired colours `#FD951F`, `#9FCB43`, `#40C099`, `#D5BE98`, `#0E2A2D` do not appear anywhere in the file.
+- [ ] The retired colors `#FD951F`, `#9FCB43`, `#40C099`, `#D5BE98`, `#0E2A2D` do not appear anywhere in the file.
 
 ## Verifying without the shared browser pane
 

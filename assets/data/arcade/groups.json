@@ -32,7 +32,7 @@
       { "title": "Ways to settle a baby", "level": 3, "words": ["SOOTHE", "CRADLE", "HUM", "SWAY"] },
       { "title": "___ band", "level": 4, "words": ["RUBBER", "ROCK", "HAIR", "WEDDING"] } ] },
     { "id": 7, "groups": [
-      { "title": "Colours", "level": 1, "words": ["RED", "BLUE", "YELLOW", "GREEN"] },
+      { "title": "Colors", "level": 1, "words": ["RED", "BLUE", "YELLOW", "GREEN"] },
       { "title": "Things you draw", "level": 2, "words": ["PICTURE", "BATH", "CURTAINS", "BREATH"] },
       { "title": "Garden birds", "level": 3, "words": ["ROBIN", "WREN", "FINCH", "JAY"] },
       { "title": "___bug", "level": 4, "words": ["LADY", "LITTER", "BED", "LOVE"] } ] },
@@ -135,7 +135,7 @@
       { "title": "___box", "level": 1, "words": ["SAND", "TOY", "LUNCH", "SHOE"] },
       { "title": "Things you wind", "level": 2, "words": ["CLOCK", "YARN", "WATCH", "BOBBIN"] },
       { "title": "Dinosaurs", "level": 3, "words": ["RAPTOR", "STEGOSAURUS", "TRICERATOPS", "DIPLODOCUS"] },
-      { "title": "Cuddly words", "level": 4, "words": ["SNUG", "COSY", "WARM", "SOFT"] } ] },
+      { "title": "Cuddly words", "level": 4, "words": ["SNUG", "COZY", "WARM", "SOFT"] } ] },
     { "id": 28, "groups": [
       { "title": "Citrus", "level": 1, "words": ["LIME", "ORANGE", "LEMON", "GRAPEFRUIT"] },
       { "title": "Things that peel", "level": 2, "words": ["PAINT", "SUNBURN", "BANANA", "ONION"] },

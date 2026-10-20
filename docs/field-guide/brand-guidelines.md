@@ -1,6 +1,6 @@
 # Brand guidelines, as they apply to the build
 
-Distilled from `Growing_Minds_Science_Brand_Guidelines.pdf` (ten pages, "Field Notes & Discovery", supplied 2026-10-14). The PDF is the authority; this file records what the build has to honour and where it differs from what shipped in Phases 1 and 2.
+Distilled from `Growing_Minds_Science_Brand_Guidelines.pdf` (ten pages, "Field Notes & Discovery", supplied 2026-10-14). The PDF is the authority; this file records what the build has to honor and where it differs from what shipped in Phases 1 and 2.
 
 ## The one filter
 
@@ -31,7 +31,7 @@ Preferred: Newsreader for display and Inter for interface and reading. Named sec
 
 Wordmark direction: lowercase "growing minds" with a widely tracked "SCIENCE" descriptor. Type before symbol. No tree, sprout, brain or puzzle-piece marks; if a motif is wanted, an observation motif (overlapping fields of view, a calibrated lens, an annotation mark).
 
-Layout: generous whitespace, quiet rules, strong editorial grids, small figure numbering, calm rounded corners, occasional edge annotations. No stacked heavy coloured cards, no ornamental icons filling space.
+Layout: generous whitespace, quiet rules, strong editorial grids, small figure numbering, calm rounded corners, occasional edge annotations. No stacked heavy colored cards, no ornamental icons filling space.
 
 ## Messaging architecture
 
@@ -42,7 +42,7 @@ Four lines, one job each. Never all four on one screen; one lead message and one
 | See what's growing. | Primary tagline | Logo lockups, homepage hero, campaigns |
 | The first five years, understood. | Educational promise | Course pages, editorial intros, platform descriptions |
 | Mental models, not scripts. | Teaching philosophy | About page, pedagogy, product reviews |
-| Less pressure. Better explanations. | Parent-centred promise | Reassurance, benefit statements, onboarding |
+| Less pressure. Better explanations. | Parent-centered promise | Reassurance, benefit statements, onboarding |
 
 Supporting language, never a primary line: "There's more to every moment." (editorial campaign), "Understand first. Respond better." (practical learning), "Clear about what's known. Honest about what's not." (sources and evidence features).
 
@@ -50,7 +50,7 @@ Supporting language, never a primary line: "There's more to every moment." (edit
 
 Photography is observational: real families, ordinary rooms, exploratory gestures, concentration, natural light. No generic smiling stock, no immaculate homes, no exaggerated distress, no brain imagery.
 
-Illustration reveals mechanisms: annotated scenes, relationship maps, developmental timelines, process diagrams, small multiples. One reusable grammar: precise labels, restrained arrows, consistent stroke weights, meaningful accents, figure captions. Conceptual explanations are labelled conceptual.
+Illustration reveals mechanisms: annotated scenes, relationship maps, developmental timelines, process diagrams, small multiples. One reusable grammar: precise labels, restrained arrows, consistent stroke weights, meaningful accents, figure captions. Conceptual explanations are labeled conceptual.
 
 Three signature moves: annotated observation (a naturalistic moment, labels on request), the explanatory reveal (a simple model introduced progressively), field-guide notation (ages, topics, figure IDs, sources as quiet metadata).
 

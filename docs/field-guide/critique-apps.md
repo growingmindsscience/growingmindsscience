@@ -46,7 +46,7 @@ ROUND 2
 G6: tap targets, axe, no-script and keyboard pass on both. One reduced-motion item remains, defended below.
 ```
 
-## Fails and warnings kept, with the defence
+## Fails and warnings kept, with the defense
 
 - **`reduced motion` on `div.topic-sheet` (AI):** the mobile "Browse questions" sheet is a closed dialog. It is `inert`, hidden and translated off-screen until opened, so it is not a stuck entrance.
 - **`shadow` (both):** the quiet buttons' inset outline, plus the AI question box's 1px focus-within ring (it is autofocused).

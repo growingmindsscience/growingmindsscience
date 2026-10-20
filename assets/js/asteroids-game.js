@@ -34,7 +34,7 @@
 
   // The old game ran at 320 by 220. Everything spatial (sizes, speeds,
   // ranges) is scaled by S so the feel matches on the larger field, with a
-  // little more room to manoeuvre than a straight 2x would give.
+  // little more room to maneuver than a straight 2x would give.
   var S = 1.8;
   var ROCK_R = { 1: 9 * S, 2: 15 * S, 3: 22 * S, 4: 32 * S };
   var ROCK_POINTS = { 1: 180, 2: 110, 3: 70, 4: 45 };

@@ -165,7 +165,7 @@ export default async function handler(request) {
       return jsonResponse(404, { error: "No completed subscription found for this checkout." });
     }
 
-    // Guard against replaying an old checkout link after cancelling: the
+    // Guard against replaying an old checkout link after canceling: the
     // subscription this checkout created must still be active.
     const check = await checkSubscription(subscriptionId, stripeKey);
     if (check.error) return jsonResponse(502, { error: NOT_REACHABLE });

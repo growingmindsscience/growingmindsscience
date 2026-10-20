@@ -142,7 +142,7 @@
       syncHud();
     }
 
-    // Floater colours that stay readable on the Cosmos ink field.
+    // Floater colors that stay readable on the Cosmos ink field.
     function inCosmos() { return sceneTo === 4; }
     function fgForest() { return inCosmos() && !pal.isDark ? pal.sage : pal.forest; }
     function fgSoft() { return inCosmos() ? pal.onInkMuted : pal.inkSoft; }
@@ -576,7 +576,7 @@
 
     // ---------- Scenery ----------
     // The sky is paper, nudged per chapter with pal.mix; Cosmos is the ink field.
-    // These derived tints are the only colours here not read straight from a token.
+    // These derived tints are the only colors here not read straight from a token.
     function tones(i) {
       var p = pal, sky;
       if (i === 4) {

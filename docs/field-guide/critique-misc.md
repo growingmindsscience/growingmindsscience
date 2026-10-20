@@ -21,7 +21,7 @@ Live thing: the arcade's small screens; on contact, errors that answer in place.
 Scores (contact): design 7 · usability 8 · creativity 6 · content 7.5 → 7.1
 Caps applied: no pictures (no stock allowed).
 Top problems:
-1. 404 and thank-you descriptions opened lowercase once split from their names. Fixed: capitalised in CSS, words unchanged.
+1. 404 and thank-you descriptions opened lowercase once split from their names. Fixed: capitalized in CSS, words unchanged.
 2. The FAQ row link was 38px wide at 390. Fixed: 44px minimum.
 3. The contact crisis note was 14px fine print. Fixed: 16px, ink-soft.
 Also: the arcade's decorative counters removed and its glyphs moved off monospace.
@@ -35,7 +35,7 @@ Scores (contact): design 7 · usability 8.5 · creativity 6 · content 7.5 → 7
 G6 passes on all five pages.
 ```
 
-## Fails and warnings kept, with the defence
+## Fails and warnings kept, with the defense
 
 The standing defences carry over: quiet rules (`hairline`), field paper, the wordmark lockup, no pictures, `still-page`. New here:
 

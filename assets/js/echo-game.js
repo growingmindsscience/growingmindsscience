@@ -48,7 +48,7 @@
   // (arrow keys and 1-4 always press a place; in Echo Plus the pads move).
   var SLOTS = [{ x: 200, y: 112 }, { x: 72, y: 246 }, { x: 328, y: 246 }, { x: 200, y: 372 }];
 
-  // Four pads, each with its own colour AND its own icon, so colour is never
+  // Four pads, each with its own color AND its own icon, so color is never
   // the only cue. Notes are A-minor pentatonic (A4 C5 E5 G5): any order
   // sounds musical.
   var PADS = [
@@ -89,7 +89,7 @@
   function readMode() { try { var m = window.localStorage.getItem(MODE_KEY); return MODES[m] ? m : "classic"; } catch (e) { return "classic"; } }
   function saveMode(m) { try { window.localStorage.setItem(MODE_KEY, m); } catch (e) {} }
 
-  // A heart path centred on (x, y), about 2r wide.
+  // A heart path centered on (x, y), about 2r wide.
   function heartPath(c, x, y, r) {
     c.beginPath();
     c.moveTo(x, y + r * 0.95);
@@ -135,7 +135,7 @@
 
     best = A.leaderboard.best(GAME_KEY);
 
-    // Skin is the one colour with no brand token: a warm paper tone mixed
+    // Skin is the one color with no brand token: a warm paper tone mixed
     // from paper and clay (light), or paper-2 and clay (dark).
     function skin() { return pal.isDark ? pal.mix(pal.paper2, pal.clay, 0.45) : pal.mix(pal.paper, pal.clay, 0.28); }
     function padColor(i) { return pal[PADS[i].color]; }
@@ -304,7 +304,7 @@
       shell.prompt.hide(); wake.acquire();
     }
 
-    // Player input: light and sound first (feedback before judgement), then check.
+    // Player input: light and sound first (feedback before judgment), then check.
     function press(i) {
       if (state === "idle") { start(); return; }
       if (state === "paused") { resume(); return; }
@@ -786,7 +786,7 @@
     }
 
     // Step pips along the bottom: how far the serve or the return has got.
-    // Deliberately colourless per pad so they never give the pattern away.
+    // Deliberately colorless per pad so they never give the pattern away.
     function drawSteps(v) {
       var len = pattern.length;
       if (!len || v === "idle" || v === "gameover" || v === "napping" || v === "lead") return;

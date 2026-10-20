@@ -2,7 +2,7 @@
 
 What Phases 0 to 2 do to each existing feature, and what Phase 3 must do. Status meanings:
 
-- **Untouched:** the page and its behaviour do not change.
+- **Untouched:** the page and its behavior do not change.
 - **Linked from new homepage:** the page is untouched; the new homepage keeps its link.
 - **Restyled:** the page's look changes in Phases 0 to 2.
 
@@ -14,7 +14,7 @@ What Phases 0 to 2 do to each existing feature, and what Phase 3 must do. Status
 
 ## Existing URLs unchanged
 
-Every route in the Phase 0 inventory keeps its URL and behaviour, except `/`, whose content changes. This includes `/nsc/*`, every `/api/*` endpoint and the 37 redirects.
+Every route in the Phase 0 inventory keeps its URL and behavior, except `/`, whose content changes. This includes `/nsc/*`, every `/api/*` endpoint and the 37 redirects.
 
 ## Preservation table
 
@@ -24,7 +24,7 @@ Every route in the Phase 0 inventory keeps its URL and behaviour, except `/`, wh
 | Toddler Years | Class 2, checkout on Thinkific | Linked from new homepage | Restyle; keep the off-site checkout note |
 | Preschool Years | Class 3, Stripe checkout | Linked from new homepage | Restyle; keep price copy in step with class facts |
 | Family Systems | Class 4, waitlist only | Linked from new homepage | Restyle; keep the waitlist form and subject label |
-| Pricing | Plans and the enrol band | Linked from new homepage | Restyle; one source for offer copy |
+| Pricing | Plans and the enroll band | Linked from new homepage | Restyle; one source for offer copy |
 | Lesson access and purchase flows | nsc class pages, upgrade, gift | Untouched | Restyle pre-purchase pages; keep URLs and playback APIs |
 | Growing Minds AI | AI tutor page and endpoint | Linked from new homepage | Restyle; keep endpoint, limits and access-code flow |
 | Number Path | Separate Next.js app at `/nsc` | Linked from new homepage | Move nsc from Seminar to field-guide tokens |

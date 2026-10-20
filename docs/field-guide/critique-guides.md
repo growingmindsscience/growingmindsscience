@@ -27,7 +27,7 @@ Caps applied: no pictures (no stock allowed).
 Before the gate, from screenshots:
 - The body class `guide` collided with the tools hub's `.guide` row (a two-column grid): the whole page split in two. Renamed `gpage`.
 - The tag-moving step could reach across elements and lifted a decoder heading into the "What is happening" panel. The pattern is now bounded, and the build checks the reading order is unchanged.
-- The body column was centred while the title block sat on the left edge. The column now shares the edge.
+- The body column was centered while the title block sat on the left edge. The column now shares the edge.
 Top problems from the gate (most visible first):
 1. Save / Listen / Ask controls 33px tall at 390 (tools.css). Fix: 44px on the guides.
 2. Source links 20px tall where a guide used a bare .source-list. Fix: the same research module and 44px links.
@@ -42,7 +42,7 @@ Scores (co-regulation-primer): design 7 · usability 8 · creativity 6 · conten
 Remaining: two close statements of 14 and 15 words wrap to three lines at 390. Kept: the words are the guides' own.
 ```
 
-## Fails and warnings kept, with the defence
+## Fails and warnings kept, with the defense
 
 The standing defences in the earlier critiques carry over: quiet rules (`hairline`), field paper (`palette-cream`), the wordmark lockup, the size count, no footage, no pictures (`few-pictures`, `focal-point`: no stock; a type-led first screen), and `still-page` (the title and close rise; a reference page stays still). New here:
 

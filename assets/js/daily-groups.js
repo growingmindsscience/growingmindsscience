@@ -3,7 +3,7 @@
    mistakes or fewer. One puzzle a day for everyone, walked in order through
    /assets/data/arcade/groups.json, plus a practice mode that picks any other
    puzzle. A DOM game on the arcade shell (no canvas). Solved groups collapse
-   into labelled bands, so colour is never the only cue.
+   into labeled bands, so color is never the only cue.
 */
 (function () {
   "use strict";

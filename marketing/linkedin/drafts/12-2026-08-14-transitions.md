@@ -9,7 +9,7 @@
 
 If you logged every hard moment in a week with a young child and sorted them, a striking number would fall in the same place. Not the middle of an activity. The seam between two of them.
 
-Leaving the park. Turning off the show. Coming to the table. Getting in the car seat. Bath to pyjamas. Awake to asleep.
+Leaving the park. Turning off the show. Coming to the table. Getting in the car seat. Bath to pajamas. Awake to asleep.
 
 That is not a coincidence and it is not personal. Transitions ask for three things at once from a brain that is still assembling all three: stop what you are absorbed in, tolerate the feeling of it ending, and start something you did not choose.
 

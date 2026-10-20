@@ -236,7 +236,7 @@ Confidence: MODERATE. From the paper's introduction summarizing clinical reports
 
 Finding: 282 parents of 12- to 36-month-olds: 95% named unmet requests and 91.5% named resistance to starting, stopping or changing activities as triggers.
 Sources: Ayed et al. (2025), Assessment of Temper Tantrums Behavior among Toddler Children, Palestinian Medical and Pharmaceutical Journal, DOI 10.59049/2790-0231.10.4.2416.
-Confidence: LOW. Convenience sample from health centres, unreviewed journal; used only for the trigger list, which matches the clinic study.
+Confidence: LOW. Convenience sample from health centers, unreviewed journal; used only for the trigger list, which matches the clinic study.
 
 Finding: 213 Jordanian parents of 2- to 4-year-olds: unfamiliar situations and visits to someone else's home were the most common contexts.
 Sources: Bani Salameh et al. (2021), Assessment of temper tantrums behaviour among preschool children in Jordan, Journal of pediatric nursing, DOI 10.1016/j.pedn.2021.02.008.

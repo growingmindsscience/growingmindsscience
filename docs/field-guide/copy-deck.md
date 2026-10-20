@@ -63,7 +63,7 @@ Mechanism 3. Title: Autonomy is the work of this age. Text: Between roughly 18 m
 
 Mechanism 4. Title: Once overwhelmed, reasoning does not land. Text: When a child is overwhelmed, the thinking parts of the brain are much harder to reach, so words and reasons tend not to land until they have calmed down. Young children borrow a calm adult to get there. Evidence note: Supported. The two-zone picture of the brain is a conceptual model, not a scan. Diamond, 2013; Growing Minds toddler class, Module 4.
 
-The parent (a fifth callout, drawn in the annotation colour). Title: You are inside the system too. Text: Being late, being watched by other parents, being tired: your own state shapes how you respond, and research on co-regulation suggests that how calmly you respond matters, not only what you say. Evidence note: Supported. Waters and colleagues, 2014; see "When your own nervous system is the variable".
+The parent (a fifth callout, drawn in the annotation color). Title: You are inside the system too. Text: Being late, being watched by other parents, being tired: your own state shapes how you respond, and research on co-regulation suggests that how calmly you respond matters, not only what you say. Evidence note: Supported. Waters and colleagues, 2014; see "When your own nervous system is the variable".
 
 ### Respond
 Heading: What can this understanding change?
@@ -136,7 +136,7 @@ Birth to 1
 - Learn · Class 2, Toddler years (/classes/toddlerhood)
 
 2 to 3
-- Growing now · "No" is a developmental milestone, not defiance. Toddlers are practising self-determination while the prefrontal cortex is still profoundly immature, so big feelings outrun the brakes.
+- Growing now · "No" is a developmental milestone, not defiance. Toddlers are practicing self-determination while the prefrontal cortex is still profoundly immature, so big feelings outrun the brakes.
 - What helps · Real choices where you can, calm limits where you must. Your steadiness during a meltdown is the scaffold their regulation is built on.
 - Read · The toddler "no" is not the war you think it is (/articles/toddler-no)
 - Try · It's hard right now (/tools/right-now)

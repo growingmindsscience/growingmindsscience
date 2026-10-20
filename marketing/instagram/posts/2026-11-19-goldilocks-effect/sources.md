@@ -15,4 +15,4 @@ Verified from the open-access primary source for the 2026-08-31 carousel (built 
 | 3 | U-shaped curve, sweet spot near 1.25 bits | Kidd 2012 |
 | 4 | Holds within individual infants; auditory replication; independent support | Piantadosi 2014; Kidd 2014; Poli 2020 |
 
-The bar figure on slide 3 is labelled as illustrative of the pattern; the published result is a U-shaped relationship between surprisal and look-away probability, not three bar values.
+The bar figure on slide 3 is labeled as illustrative of the pattern; the published result is a U-shaped relationship between surprisal and look-away probability, not three bar values.

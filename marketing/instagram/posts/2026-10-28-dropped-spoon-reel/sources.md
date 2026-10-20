@@ -1,7 +1,7 @@
 # Sources
 
 - Center on the Developing Child, Harvard University. *Serve and return.* https://developingchild.harvard.edu/science/key-concepts/serve-and-return/ (corpus entry `serve-and-return` in `knowledge/curated.mjs`).
-- The plate and its labels follow the site's Developmental Lens grammar (`docs/field-guide/creative-direction.md`): observations first, a conceptual reading labelled as such, no claim about any one child.
+- The plate and its labels follow the site's Developmental Lens grammar (`docs/field-guide/creative-direction.md`): observations first, a conceptual reading labeled as such, no claim about any one child.
 
 ## Claims traced
 

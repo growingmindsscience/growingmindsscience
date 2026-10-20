@@ -3,7 +3,7 @@
    courier carries a letter from the bottom of the field to one of five
    mailboxes at the top: first across five lanes of rolling wooden toys,
    then over a story stream you can only cross by riding floating picture
-   books. Fill all five mailboxes to move to the next neighbourhood, where
+   books. Fill all five mailboxes to move to the next neighborhood, where
    everything moves a little quicker.
 
    Core v2 game (see docs/arcade/plan.md and docs/arcade/game-brief.md):
@@ -58,7 +58,7 @@
     [11, -1, 0.84, 2, "blocks"]
   ];
 
-  // ---------- Story: five neighbourhoods, one per round ----------
+  // ---------- Story: five neighborhoods, one per round ----------
   // tint / amt shift the ground a little each round; Night Walk darkens it.
   var CHAPTERS = [
     { name: "Hallway", at: 1, text: "Hop past the toys, ride the books, find a mailbox.", tint: null, amt: 0 },
@@ -182,7 +182,7 @@
       }
       return -1;
     }
-    // Is the cell at (row, centre x) safe to land on `ahead` frames from now?
+    // Is the cell at (row, center x) safe to land on `ahead` frames from now?
     function safeAt(row, x, ahead) {
       if (row < HOME_ROW || row > START_ROW) return false;
       if (row === HOME_ROW) return slotNear(x) !== -1;
@@ -282,7 +282,7 @@
         text: "You reached " + ch.name + " (round " + round + ") and delivered " + delivered + (delivered === 1 ? " letter." : " letters."),
         board: function (m) {
           A.runSummary(m, { gameKey: GAME_KEY, score: score,
-            lines: [["Neighbourhood", ch.name], ["Round", round], ["Letters delivered", delivered], ["Best streak", combo.best() + "x"], ["Power-ups", runStats.powers]],
+            lines: [["Neighborhood", ch.name], ["Round", round], ["Letters delivered", delivered], ["Best streak", combo.best() + "x"], ["Power-ups", runStats.powers]],
             onSaved: function () { best = A.leaderboard.best(GAME_KEY); syncHud(); } });
         },
         actions: [{ label: "Play again", primary: true, onClick: start }, { label: "Back to arcade", onClick: function () { A.closeGame(); } }]

@@ -6,7 +6,7 @@ The taste skill's method: the browser inspector measures the house rules at 1440
 
 Inspector: 9 fails, 8 warnings. Causes: the sticky full-height footer put its wordmark under the page (covered text, a 12-screen pin) and made the page scroll sideways; `max-width: 12ch` on two headlines forced a third line; a page-wide `.fg a { color: inherit }` beat the button class and put ink text on forest buttons; the skip link inherited the same; three pictures against a floor of four; 17 font sizes.
 
-Fixes: the footer became a static ink field under the close; headline measures were removed and the display step was lowered to fit the two-line budget on the 42% axis (75px at 1440, 32px at 390); link colour inheritance was moved off the `.fg` scope; the price cell lost its small text; sizes were mapped onto the five steps plus one statement size; a fourth photograph was placed in the explorer's margin zone.
+Fixes: the footer became a static ink field under the close; headline measures were removed and the display step was lowered to fit the two-line budget on the 42% axis (75px at 1440, 32px at 390); link color inheritance was moved off the `.fg` scope; the price cell lost its small text; sizes were mapped onto the five steps plus one statement size; a fourth photograph was placed in the explorer's margin zone.
 
 ## Round 2
 
@@ -30,7 +30,7 @@ Top three problems (most visible first), each with the screenshot it shows in an
 3. On desktop the explorer's heading row (photo, two-line heading, button under it) is the busiest moment on the page (desktop-page-01, bottom right). Fix: once the real photograph is in, try the button on the heading's baseline again at a 48px heading size.
 ```
 
-## Warnings kept, with the defence
+## Warnings kept, with the defense
 
 - `palette-cream`: the paper (#F7F5EF) is the brief's own proposed ground, and the palette carries no terracotta or rust fill; the warning targets the cream-and-terracotta pairing.
 - `size-count` (10): five steps plus one statement size (22–36px, for paragraphs set large, never a heading), the close headline at 9.4vw, and two sizes that belong to the shared header in `chrome.css`.

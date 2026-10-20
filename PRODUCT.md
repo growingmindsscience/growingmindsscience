@@ -75,7 +75,7 @@ inclusion need).
 
 ## Brand commitments
 
-- **Colour (2026-10-13, Matthew):** never orange as a main colour. The palette is
+- **Color (2026-10-13, Matthew):** never orange as a main color. The palette is
   calm and inviting but collegiate and respectable: cool map-white ground, navy
   ink, slate and sage, one teal for action. Warm accents, if any, stay small.
 - **Message (2026-10-13, Matthew):** science is the vehicle for parent

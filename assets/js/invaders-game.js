@@ -35,13 +35,13 @@
   var SCALE = 1.6;                 // the old field was 220 wide; speeds scale with it
   var FLOOR_Y = 418;               // a question touching this line ends the run
   var WARN_Y = FLOOR_Y - 36;
-  var SHIP_Y = 386, SHIP_R = 11;   // lens centre and radius
+  var SHIP_Y = 386, SHIP_R = 11;   // lens center and radius
   var SHELF_Y = 326;
   var MARGIN_L = 10, MARGIN_R = W - 10;
   var COLS = 7, ROWS = 5;
   var CELL_W = 42, CELL_H = 30;
-  var FORM_X = (W - (COLS - 1) * CELL_W) / 2;  // centre of column 0
-  var FORM_Y = 78;                              // centre of row 0
+  var FORM_X = (W - (COLS - 1) * CELL_W) / 2;  // center of column 0
+  var FORM_Y = 78;                              // center of row 0
   var HALF_W = 15, HALF_H = 11;                 // the widest tag's half extents
   var STEP_X = 10, STEP_Y = 12;
   var PLANE_Y = 50;
@@ -150,7 +150,7 @@
       syncHud();
     }
 
-    // Three small bookshelves. Each cell holds one book spine; the colour index
+    // Three small bookshelves. Each cell holds one book spine; the color index
     // is fixed per cell so the shelf reads the same frame to frame.
     function buildShelves() {
       shelves = [];
@@ -735,7 +735,7 @@
       draw.label(ctx, "The Headline", bb.x + bb.w / 2, bb.y + 10, { font: "display", size: 11, weight: 600, color: pal.ink, maxWidth: bb.w - 8 });
       ctx.fillStyle = pal.ink; ctx.fillRect(bb.x + 4, bb.y + 17, bb.w - 8, 1.6);
       ctx.fillRect(bb.x + 4, bb.y + 20, bb.w - 8, 0.6);
-      // columns of grey text lines; more columns open up as it unfolds
+      // columns of gray text lines; more columns open up as it unfolds
       var colsN = 2 + Math.floor(unfold * 2.99);
       var inner = bb.w - 8, colW = (inner - (colsN - 1) * 4) / colsN;
       ctx.fillStyle = pal.alpha(pal.inkMuted, 0.55);

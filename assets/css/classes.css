@@ -28,7 +28,7 @@
 .tl__row--ink { color: var(--paper); --bar: var(--ink); --bar-hover: var(--ink-700); }
 .tl__row--soon { color: var(--ink); --bar: var(--sage-mist); --bar-hover: var(--sage-mist-2); }
 .tl__name, .tl__bar { grid-column: var(--from) / var(--to); grid-row: 1; }
-/* On wide screens the name is the bar: it carries the colour, so its text and ground are one element. */
+/* On wide screens the name is the bar: it carries the color, so its text and ground are one element. */
 .tl__bar { display: none; }
 .tl__name { min-height: 40px; display: flex; align-items: center; border-radius: var(--radius); background: var(--bar); padding: 9px 12px; font-size: 14px; font-weight: 500; line-height: 1.3; transition: background-color 160ms ease; }
 .tl__row:hover .tl__name { background: var(--bar-hover); }

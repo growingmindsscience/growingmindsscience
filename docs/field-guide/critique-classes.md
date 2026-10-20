@@ -35,14 +35,14 @@ Caps applied: fewer than four real pictures (design ≤ 6.5). The inspector's fe
 Top three problems (most visible first):
 1. The outcomes heading ("By the end of the class, you'll have a clearer picture of what your toddler is doing, and why.") set three to four lines in the left column at 1440. Fix: the heading is "By the end of the class" and the rest of the sentence, word for word, is its lead line.
 2. The hub's h1 wrapped to three lines at 1440 (84px in a 5/12 column). Fix: a 6/6 title grid and a 68px top size; two lines at every width.
-3. The inspector read Fig. 1's names as light text on the light panel, because the coloured bar was a sibling element; axe found the infant enroll fine print's links overlapping as targets; the hub's class-name links were 28px tall at 390. Fix: on wide screens the name carries its bar's colour itself; the fine print has 2.1 line spacing instead of a padding trick; the class-name links have a 44px hit area.
+3. The inspector read Fig. 1's names as light text on the light panel, because the colored bar was a sibling element; axe found the infant enroll fine print's links overlapping as targets; the hub's class-name links were 28px tall at 390. Fix: on wide screens the name carries its bar's color itself; the fine print has 2.1 line spacing instead of a padding trick; the class-name links have a 44px hit area.
 Also: the class pages barely moved (`still-page`); their content blocks now rise once as they enter (the headline does not, so the largest paint is not delayed), using the homepage's own script.
 ```
 
-## Warnings and fails kept, with the defence
+## Warnings and fails kept, with the defense
 
-- `hairline` (lint and inspector): quiet rules between rows are the guidelines' own instruction ("quiet rules"); `compositions.md` records the defence for the system.
-- `shadow` on `.btn--ghost` and `.hb-btn--quiet`: an inset outline drawing the quiet button, not a shadow; same defence as the homepage.
+- `hairline` (lint and inspector): quiet rules between rows are the guidelines' own instruction ("quiet rules"); `compositions.md` records the defense for the system.
+- `shadow` on `.btn--ghost` and `.hb-btn--quiet`: an inset outline drawing the quiet button, not a shadow; same defense as the homepage.
 - `few-pictures` (FAIL): no photographs by decision. The class photographs were stock placeholders that do not match the generated series, and stock is not allowed. These pages wait on Matthew's pictures.
 - `covered-text` at 390 on the class pages: the phone enroll bar, a sticky overlay that appears once the hero buttons scroll away; it is chrome, not content.
 - `micro-label` ("science"): the wordmark's tracked descriptor, from the guidelines.

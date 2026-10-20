@@ -3,7 +3,7 @@
    everyone (seeded from the date through GMSArcade.dailySeed), plus a
    practice mode with a fresh word each time. A DOM game on the arcade shell
    (no canvas): tiles, an on-screen keyboard, a results card with streaks and
-   a shareable grid. Colour is never the only cue: placed letters carry a tick,
+   a shareable grid. Color is never the only cue: placed letters carry a tick,
    present letters a dot. Word data: /assets/data/arcade/five.json (built by
    scripts/arcade/build-words.mjs).
 */

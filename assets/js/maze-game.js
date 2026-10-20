@@ -37,8 +37,8 @@
   var W = MAZE_W, H = TOP + MAZE_H + BOTTOM;
   var TUNNEL_ROW = 10;
   var S = TILE / 8;          // the speeds below were tuned on an 8 px tile
-  var TURN_TOL = 3 * S;      // px either side of a tile centre where a buffered turn still takes
-  var HIT_DIST = 13;         // px between centres that counts as touching a bunny
+  var TURN_TOL = 3 * S;      // px either side of a tile center where a buffered turn still takes
+  var HIT_DIST = 13;         // px between centers that counts as touching a bunny
   var LW = 12;               // wall body width; the ink outline adds 1.5 px each side
   var DIRS = [{ x: 0, y: -1 }, { x: -1, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 0 }]; // tie-break order
 
@@ -305,7 +305,7 @@
     best = A.leaderboard.best(GAME_KEY);
     time = 0;
 
-    // Colours derived from the live palette, rebuilt when the theme changes.
+    // Colors derived from the live palette, rebuilt when the theme changes.
     var colCache = { pal: null };
     function colors() {
       if (colCache.pal === pal) return colCache;
@@ -685,8 +685,8 @@
     });
 
     // ---------- Movement ----------
-    // Slide an actor `dist` px along its heading. Tile centres are exact stops:
-    // the actor snaps onto each centre it reaches (so fractional speeds never
+    // Slide an actor `dist` px along its heading. Tile centers are exact stops:
+    // the actor snaps onto each center it reaches (so fractional speeds never
     // overshoot a turn) and `decide` picks the heading from there.
     function advance(a, dist, decide, doorOk) {
       var guard = 0;
@@ -720,7 +720,7 @@
       if ((p.dx || p.dy) && !openFor(c + p.dx, r + p.dy, false)) { p.dx = 0; p.dy = 0; }
     }
     // Buffered steering: reverse instantly; a perpendicular turn takes as soon
-    // as the child is within TURN_TOL px of a centre whose side is open.
+    // as the child is within TURN_TOL px of a center whose side is open.
     function applyWant(p) {
       if (!p.wantX && !p.wantY) return;
       if (p.wantX === p.dx && p.wantY === p.dy) return;
@@ -1047,7 +1047,7 @@
       ctx.restore();
     }
 
-    // Dust bunnies: round body, two ears, eyes, a personality colour.
+    // Dust bunnies: round body, two ears, eyes, a personality color.
     function drawBunny(b, x, y) {
       var C = colors();
       if (b.mode === "puff") {

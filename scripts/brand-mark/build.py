@@ -1,12 +1,12 @@
 """Growing Minds Science mark: arcs and a sprout, drawn as vectors.
 
 Changes from the concept image (Matthew, 2026-10-15: keep the sprout):
-- The arcs no longer share one centre. Each centre steps down and right, so
+- The arcs no longer share one center. Each center steps down and right, so
   the gaps widen toward the leaf and the set reads as a stem unfurling, not as
   a Wi-Fi signal. The arcs' ends are staggered for the same reason.
 - A small-size drawing (two arcs, heavier strokes, larger leaf) for 32px and
   below, where three arcs merge.
-- Colours are the brand tokens: forest ink #193C39, sage-deep #8DAE9A,
+- Colors are the brand tokens: forest ink #193C39, sage-deep #8DAE9A,
   sage #A9C3B2, sage-mist-2 #CFDFD6, verdigris #245F58, paper #F7F4EC.
 - SCIENCE is verdigris on paper (7.4:1) and sage on forest ink.
 - Type is outlined (Newsreader 500 for the name, Inter 500 for SCIENCE), so
@@ -33,7 +33,7 @@ VERDIGRIS = '#245F58'
 def arc_path(cx, cy, r, phi_end_deg, stub_bottom, stub_right):
     """Vertical stub, arc from 180 degrees (left) to phi_end, then a straight run.
 
-    Angles are measured from the centre, counter-clockwise from +x, with y down
+    Angles are measured from the center, counter-clockwise from +x, with y down
     on screen, so the arc climbs from the left and turns right over the top."""
     x0, y0 = cx - r, cy
     pe = math.radians(phi_end_deg)
@@ -69,7 +69,7 @@ def mark(small=False):
         arcs = [
             # cx, cy, r, phi_end, stub_bottom, stub_right
             arc_path(60.0, 80.0, 44.0, 102, 6, 0),    # outer: runs into the leaf
-            arc_path(64.0, 85.0, 31.0, 90, 4, 15),    # middle: centre steps down-right
+            arc_path(64.0, 85.0, 31.0, 90, 4, 15),    # middle: center steps down-right
             arc_path(68.5, 90.0, 19.0, 90, 2, 9),     # inner: shorter run
         ]
         end, _ = arcs[0][1], arcs[0][2]
@@ -85,7 +85,7 @@ def mark(small=False):
     return [a[0] for a in arcs], leaf, sw
 
 def mark_svg(arcs, leaf, sw, arc_col, leaf_col, bg=None, box=100, pad=0):
-    # the drawing spans about x 10..98, y -6..96: centre it in a square
+    # the drawing spans about x 10..98, y -6..96: center it in a square
     x0, y0, side = 6 - pad, -8 - pad, 104 + 2*pad
     vb = f'{x0} {y0} {side} {side}'
     bgr = f'<rect x="{x0}" y="{y0}" width="{side}" height="{side}" fill="{bg}"/>' if bg else ''

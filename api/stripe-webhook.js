@@ -46,8 +46,8 @@ export default async function handler(request) {
   if (FULFILMENT_EVENTS.has(event.type)) {
     const session = isPlainObject(event.data?.object) ? event.data.object : {};
     if (!PAID_STATUSES.has(session.payment_status)) {
-      // Not paid yet (or failed): nothing to fulfil. Acknowledge so Stripe does
-      // not retry; a later async_payment_succeeded event fulfils it.
+      // Not paid yet (or failed): nothing to fulfill. Acknowledge so Stripe does
+      // not retry; a later async_payment_succeeded event fulfills it.
       return jsonResponse(200, { received: true, fulfilled: false });
     }
 
@@ -129,7 +129,7 @@ async function notifyOwner(email, product) {
   const safeProduct = cleanHeaderText(product || "unknown", 80).replace(/[<>"]/g, "");
   const unlabelledNote =
     safeProduct === "unknown"
-      ? `\n\nHEADS UP: this checkout arrived without a product label, so it was recorded as "unknown". Check which product it was, and set metadata.product on the Stripe Checkout Session or Payment Link that produced it (see api/create-checkout-session.js) so future purchases are labelled correctly.`
+      ? `\n\nHEADS UP: this checkout arrived without a product label, so it was recorded as "unknown". Check which product it was, and set metadata.product on the Stripe Checkout Session or Payment Link that produced it (see api/create-checkout-session.js) so future purchases are labeled correctly.`
       : "";
   await fetch("https://api.web3forms.com/submit", {
     method: "POST",

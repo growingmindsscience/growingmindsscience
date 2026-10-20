@@ -155,7 +155,7 @@
     function newBall(x, y, vx, vy, speed, lastTouch, extra) {
       return { x: x, y: y, vx: vx, vy: vy, speed: speed, lastTouch: lastTouch, extra: !!extra, trail: [] };
     }
-    // Serve from the centre toward serveDir (+1 = toward you). The side that
+    // Serve from the center toward serveDir (+1 = toward you). The side that
     // serves counts as the last touch, so an early capsule goes to them.
     function serve() {
       var ang = (Math.random() * 0.7 - 0.35);
@@ -438,7 +438,7 @@
       var targetH = p.side === "you" ? (powers.active("wide") ? PH * 1.5 : PH) : (powers.active("cpuWide") ? PH * 1.5 : PH);
       var oldH = p.h;
       p.h += (targetH - p.h) * Math.min(1, 0.2 * dt);
-      p.y -= (p.h - oldH) / 2; // grow from the centre
+      p.y -= (p.h - oldH) / 2; // grow from the center
       var prev = p.y;
       if (d) p.y += d * KEY_SPEED * dt;
       else if (target != null) {
@@ -609,7 +609,7 @@
       var y0 = p.y + 7, y1 = p.y + p.h - 7;
       ctx.strokeStyle = mine ? pal.forest : pal.inkMuted; ctx.lineWidth = 1.6;
       ctx.beginPath(); ctx.moveTo(sx(faceX, y0), sy(faceX, y0)); ctx.lineTo(sx(faceX, y1), sy(faceX, y1)); ctx.stroke();
-      // a centre notch, the sweet spot
+      // a center notch, the sweet spot
       var mx = p.x + PW / 2, my = p.y + p.h / 2;
       ctx.fillStyle = mine ? pal.forest : pal.inkMuted;
       ctx.beginPath(); ctx.arc(sx(mx, my), sy(mx, my), 1.6, 0, Math.PI * 2); ctx.fill();
@@ -657,7 +657,7 @@
       draw.paper(ctx, SW, SH, pal, { step: 20, dot: 1 });
       ctx.strokeStyle = pal.rule; ctx.lineWidth = 1; ctx.strokeRect(0.5, 0.5, SW - 1, SH - 1);
       cornerTicks();
-      // the centre line: a quiet dashed rule
+      // the center line: a quiet dashed rule
       draw.dashes(ctx, sx(W / 2, 10), sy(W / 2, 10), sx(W / 2, H - 10), sy(W / 2, H - 10), 7, 8, { stroke: pal.rule, lineWidth: 1.6 });
       draw.circle(ctx, sx(W / 2, H / 2), sy(W / 2, H / 2), 3, { fill: pal.rule });
       scoreDigits();
@@ -687,7 +687,7 @@
         ctx.save(); ctx.globalAlpha = a;
         var base = rot ? SH * 0.3 : 30;
         var ty = base + (reduce ? 0 : (1 - Math.min(1, (1 - bn.frac) * 4)) * -10);
-        // a paper band under the words so the centre rule does not cut through them
+        // a paper band under the words so the center rule does not cut through them
         ctx.fillStyle = pal.alpha(pal.paper, 0.9);
         ctx.fillRect(16, ty - 18, SW - 32, bn.text ? 52 : 34);
         draw.label(ctx, bn.name, SW / 2, ty, { font: "display", size: 26, color: pal.ink, weight: 500 });

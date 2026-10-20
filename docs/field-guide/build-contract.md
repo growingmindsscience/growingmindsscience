@@ -6,7 +6,7 @@ Everyone building on branch `redesign/field-guide` works to this. It is short on
 
 | File | Owner | Purpose |
 | --- | --- | --- |
-| `assets/css/tokens-field-guide.css` | lead | Colour, type, space, motion tokens. Read-only for everyone else. |
+| `assets/css/tokens-field-guide.css` | lead | Color, type, space, motion tokens. Read-only for everyone else. |
 | `assets/css/field-guide.css` | lead | Page shell, editorial components, homepage sections, header and footer overrides. |
 | `assets/css/lens.css`, `assets/js/lens.js` | Lens builder | The Developmental Lens component (used on the homepage and the Lens page). |
 | `lens/leaving-the-playground.html` | Lens builder | The standalone Lens page. |
@@ -17,12 +17,12 @@ A builder edits only the files in their row. Shared markup fragments are handed 
 
 ## Tokens only
 
-Every colour, size, space and easing comes from `tokens-field-guide.css`. A raw hex or pixel size in a component is a second palette starting. The names to use:
+Every color, size, space and easing comes from `tokens-field-guide.css`. A raw hex or pixel size in a component is a second palette starting. The names to use:
 
 - Ground and surfaces: `--paper`, `--paper-2`, `--surface`, `--surface-2`.
 - Ink: `--ink`, `--ink-soft`, `--ink-muted`.
-- The one action colour: `--forest` with `--on-forest`; hover `--forest-deep`.
-- The field colour for whole sections: `--sage` with `--on-sage`; `--sage-deep` for an active element on sage.
+- The one action color: `--forest` with `--on-forest`; hover `--forest-deep`.
+- The field color for whole sections: `--sage` with `--on-sage`; `--sage-deep` for an active element on sage.
 - The inverted field: `--field-ink` with `--on-ink`, `--on-ink-soft`, `--on-ink-muted`.
 - Annotation marks inside figures only: `--note-warm`, `--note-amber`. Never a fill larger than a mark, never on a button or heading.
 - Type: `--font-display` (Newsreader: headings, statements, the big figure) and `--font-body` (DM Sans: everything read or clicked). Steps: `--step-small`, `--step-body`, `--step-lead`, `--step-head`, `--step-display`. No sixth size.
@@ -40,7 +40,7 @@ Dark mode comes free from the tokens (`[data-theme="dark"]`). Do not write a dar
 - No gradients, no shadows at rest, no glass or backdrop blur, no emoji, no decorative blobs.
 - One corner radius: 0. One button shape: square, filled `--forest`, at least 48px tall, text in `--font-body` 500.
 - Running text in `--ink` at `--step-body` or larger. `--ink-muted` only for meta.
-- Two typefaces, each with one job. No italic or coloured accent word inside a headline.
+- Two typefaces, each with one job. No italic or colored accent word inside a headline.
 - Every image: `width`, `height`, `alt`, square corners, `loading="lazy"` except the hero.
 - Transform, opacity and clip-path only. Every move inside `@media (prefers-reduced-motion: no-preference)`; the reduced state is the finished state. Hidden-until-revealed states only under `html.js`.
 - Content is complete without JavaScript: tabs are sections that stack; the explorer shows every stage; the figure's annotations are readable as a list.
@@ -61,4 +61,4 @@ Informative drawings are inline SVG "plates" in one language across the site:
 
 - Copy comes from `docs/field-guide/copy-deck.md`. Do not add claims, numbers or citations that are not in the deck.
 - Keep every "[verify]" marker's meaning: the Lens page shows a visible status line saying the science is a prototype awaiting source review.
-- Evidence notes use exactly three phrasings: "Well established", "Supported", "Conceptual model" (plus a qualifying clause from the deck). They are editorial characterisations, not Claims Library grades.
+- Evidence notes use exactly three phrasings: "Well established", "Supported", "Conceptual model" (plus a qualifying clause from the deck). They are editorial characterizations, not Claims Library grades.

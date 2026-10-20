@@ -1,6 +1,6 @@
 // Arcade gates (keyless): every game key in arcade-core's registry has a file
 // and a hub card, every game file parses, and no game file carries a retired
-// brand colour. Runs with: node --test "tests/arcade/*.test.mjs"
+// brand color. Runs with: node --test "tests/arcade/*.test.mjs"
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
@@ -33,7 +33,7 @@ for (const { key, file } of entries) {
     const src = readFileSync(path, "utf8");
     assert.match(src, new RegExp(`defineGame\\("${key}"`), `${file} does not call A.defineGame("${key}", ...)`);
   });
-  test(`${key}: no retired brand colours`, () => {
+  test(`${key}: no retired brand colors`, () => {
     const src = readFileSync(path, "utf8");
     for (const hex of ["FD951F", "9FCB43", "40C099", "D5BE98", "0E2A2D"]) {
       assert.ok(!new RegExp(hex, "i").test(src), `${file} still carries #${hex}`);

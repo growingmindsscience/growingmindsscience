@@ -51,6 +51,6 @@ The same fragment sits in two places: the homepage band (`#lens`) and the standa
 1. One Lens at a time. Each is a new fragment, a new plate and a new page route, reusing the component code unchanged.
 2. Choose the moment first, then write the Observe scene so it contains only what a bystander could see.
 3. Draft mechanisms from class scripts and articles already published on the site, adding no claim that is not already there.
-4. Review every mechanism and evidence note against primary sources before the prototype line is removed. A named reviewer signs off; a Lens with open `data-verify` notes stays labelled as a prototype.
+4. Review every mechanism and evidence note against primary sources before the prototype line is removed. A named reviewer signs off; a Lens with open `data-verify` notes stays labeled as a prototype.
 5. Draw each plate to the plate conventions, with a text alternative and a caption.
 6. Never mass-generate: no templated batches, and no generated plates or copy published without review.
