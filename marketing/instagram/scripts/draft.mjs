@@ -21,7 +21,10 @@
 //      (overflow, words per slide).
 //   6. Critic. Claude checks every claim against the cards, the honesty rules and the
 //      craft, and scores it. Anything short of the bar goes back to the writer with the
-//      notes, up to max_revisions times. A post that never passes is not queued.
+//      notes, up to max_revisions times; each later critique sees its own earlier notes.
+//      Accuracy, rules and freshness must be clean every time; craft must reach
+//      pass_scores, or floor_scores on the last round. A post that never passes is
+//      not queued.
 //   7. Queue. Passing posts are written to posts/<id>/ and added to calendar.json as
 //      approved (auto_approve) on their slot; --summary writes the batch issue text.
 //
@@ -196,7 +199,7 @@ const WRITER_SCHEMA = {
           lead: str, sub: str, claim: str, now: str, head: str, body: str, note: str, caption: str,
           items: { type: "array", items: str },
           figure: STAT, bars: BARS, stat: STAT,
-          range: { type: "object", additionalProperties: false, required: ["from", "to", "most"], properties: { from: num, to: num, step: num, most: { type: "array", items: num }, mostLabel: str, mark: num, markLabel: str } },
+          range: { type: "object", additionalProperties: false, required: ["from", "to", "most"], properties: { from: num, to: num, step: num, unit: { type: "string", description: "axis unit shown on the first tick: mo (default), wk or yr" }, most: { type: "array", items: num }, mostLabel: str, mark: num, markLabel: str } },
           reveal: num, active: num,
         },
       },
@@ -263,7 +266,7 @@ function assemble(item, slot, d) {
   const captionMd = `# Caption\n\n${String(d.caption_body).trim()}\n\n## Hashtags\n${tags.join(" ")}\n`;
   const sourcesMd = `# Sources
 
-Drafted on ${TODAY} by the automated drafter (scripts/draft.mjs, ${cfg.model}) from the site's collected research: ${item.cards.map((c) => `\`${c}\``).join(", ")}. Every claim below was checked against those cards in the critic pass before the post was queued.
+Drafted on ${TODAY} by the automated drafter (scripts/draft.mjs, ${cfg.model}) from the site's collected research: ${item.cards.map((c) => `\`${c}\``).join(", ")}. Each claim is traced below to the card it comes from; a separate critic pass checks the trace before a post is queued.
 
 ${(d.citations || d.sources).map((c) => `- ${c}`).join("\n")}
 
@@ -287,8 +290,7 @@ function renderCheck(post) {
   return { dir, problems };
 }
 
-function bar(scores) {
-  const need = cfg.pass_scores;
+function bar(scores, need) {
   return Object.entries(need).filter(([k, v]) => (scores?.[k] ?? 0) < v).map(([k, v]) => `${k} ${scores?.[k] ?? 0} (needs ${v})`);
 }
 
@@ -320,7 +322,7 @@ ${lessonFiles.map((f) => `### ${research.lessons.get(f).label}\n${research.lesso
 ## An approved ${item.series} post, for structure and voice
 ${exemplar(item.series)}
 `;
-  let feedback = "", last = null;
+  let feedback = "", last = null, priorNotes = "";
   for (let round = 0; round <= cfg.max_revisions; round++) {
     const { data: d } = await ask({
       system: `${PLAYBOOK}\n\n${prompt("writer")}`,
@@ -333,13 +335,19 @@ ${exemplar(item.series)}
     if (SERIES[item.series].kind === "carousel") { render = renderCheck(post); problems.push(...render.problems); }
     const { data: crit } = await ask({
       system: `${PLAYBOOK}\n\n${prompt("critic")}`,
-      prompt: `## The draft\n### spec.json\n${JSON.stringify(post.spec, null, 2)}\n### caption.md\n${post.captionMd}\n### sources.md\n${post.sourcesMd}\n\n## Problems the automatic gates found\n${problems.length ? problems.map((p) => `- ${p}`).join("\n") : "none"}\n\n## Posts already made or queued\n${recentLines.join("\n")}\n\n${base}`,
+      prompt: `## The draft${round ? ` (revision ${round})` : ""}\n### spec.json\n${JSON.stringify(post.spec, null, 2)}\n### caption.md\n${post.captionMd}\n### sources.md\n${post.sourcesMd}\n\n## Problems the automatic gates found\n${problems.length ? problems.map((p) => `- ${p}`).join("\n") : "none"}\n${priorNotes ? `\n## Your notes on the previous draft (check each was addressed)\n${priorNotes}\n` : ""}\n## Posts already made or queued\n${recentLines.join("\n")}\n\n${base}`,
       schema: CRITIC_SCHEMA, model: cfg.model, effort: cfg.effort, label: `critic ${slot.date} r${round}`,
     });
     const unsupported = crit.claims.filter((c) => c.support !== "yes");
-    const short = bar(crit.scores);
-    const pass = !problems.length && crit.verdict === "pass" && !unsupported.length && !crit.violations.length && !crit.stale && !short.length;
+    // Accuracy, the rules and freshness are never traded. Craft must reach
+    // pass_scores; on the last round, floor_scores (still publishable) will do.
+    const lastRound = round === cfg.max_revisions;
+    const sound = !problems.length && !unsupported.length && !crit.violations.length && !crit.stale;
+    const short = bar(crit.scores, cfg.pass_scores);
+    const pass = sound && ((crit.verdict === "pass" && !short.length) || (lastRound && !bar(crit.scores, cfg.floor_scores).length));
     last = { draft: d, post, problems, crit, render };
+    // DRAFT_LOG_DIR keeps every round's draft and critique, for tuning the prompts.
+    if (process.env.DRAFT_LOG_DIR) { mkdirSync(process.env.DRAFT_LOG_DIR, { recursive: true }); writeJson(join(process.env.DRAFT_LOG_DIR, `${post.id}-r${round}.json`), { spec: post.spec, caption: post.captionMd, sources: post.sourcesMd, problems, critique: crit }); }
     say(`  ${post.id} round ${round}: ${pass ? "PASS" : "revise"} | scores ${Object.entries(crit.scores).map(([k, v]) => `${k} ${v}`).join(", ")}${problems.length ? ` | gates: ${problems.length}` : ""}${unsupported.length ? ` | claims: ${unsupported.length} not fully supported` : ""}`);
     if (pass) return { ok: true, item, slot, ...last };
     if (render?.dir && round < cfg.max_revisions) rmSync(render.dir, { recursive: true, force: true });
@@ -352,6 +360,7 @@ ${exemplar(item.series)}
       `Critic's edits:\n${crit.edits.map((e) => `- ${e}`).join("\n")}`,
       crit.better_hook ? `A stronger hook the critic suggests: "${crit.better_hook}"` : "",
     ].filter(Boolean).join("\n\n");
+    priorNotes = [...crit.violations.map((v) => `- rule: ${v}`), ...unsupported.map((c) => `- claim (${c.support}): ${c.claim}`), ...crit.edits.map((e) => `- edit: ${e}`)].join("\n");
   }
   if (last?.render?.dir) rmSync(last.render.dir, { recursive: true, force: true });
   return { ok: false, item, slot, ...last, reason: feedback };

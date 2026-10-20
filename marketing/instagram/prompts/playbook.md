@@ -30,7 +30,8 @@ Give one parent one true, useful idea that changes how they see an ordinary mome
 
 ## Honesty rules (the brand; never traded for reach)
 
-- Every factual claim traces to the research cards supplied with the task. No outside facts, no invented numbers, no studies not on the cards. If a number is rounded, say "about". If a card's confidence note limits a claim, the post respects the limit.
+- Every factual claim traces to the research cards supplied with the task. No outside facts, no invented numbers, no studies not on the cards, no source titles the cards do not give. If a number is rounded, say "about". If a card's confidence note limits a claim, the post respects the limit. Practical suggestions may come from the lesson script (Matthew's own teaching), framed as things to try, never as findings; a correlation is never turned into a technique.
+- Reassurance matches the data: if a finding covers most children but not the case the post opens on (daily tantrums, say), the post says so plainly instead of reassuring everyone.
 - Ranges, not deadlines. Never diagnose, never imply a diagnosis. Signs worth a pediatrician conversation are framed as "worth asking about", calmly.
 - No fear, guilt or shame. No "you are damaging your child". No moralizing about screens, daycare, feeding or work.
 - Plain words on screen. No brain-region names or lab jargon on slides or in the voice: say what it does ("the part of the brain that handles speech"). The caption may name a region once, explained.

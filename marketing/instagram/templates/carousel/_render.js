@@ -89,10 +89,12 @@ function normalCover(spec, slide) {
 
 function rangeSlide(slide) {
   // A horizontal age range: ticks across the band, a sage span for "most children", a marker for the asked age.
+  // range.unit labels the axis ("mo" by default).
   const r = slide.range;
   const pct = (m) => ((m - r.from) / (r.to - r.from)) * 100;
   const ticks = [];
-  for (let m = r.from; m <= r.to; m += r.step || 6) ticks.push(`<i style="left:${pct(m)}%"><span>${m}${m === r.from ? " mo" : ""}</span></i>`);
+  // The first tick carries the unit: months unless the spec says otherwise ("wk", "yr").
+  for (let m = r.from; m <= r.to; m += r.step || 6) ticks.push(`<i style="left:${pct(m)}%"><span>${m}${m === r.from ? ` ${esc(r.unit || "mo")}` : ""}</span></i>`);
   return `
     <div class="head">${rich(slide.head)}</div>
     <div class="range" style="margin-top:72px">

@@ -151,7 +151,7 @@ for (let i = 0; i < beats.length; i++) {
   b._mp3 = join(out, "voice", `${b.id}-${key}.mp3`);
   b._json = join(out, "voice", `${b.id}-${key}.json`);
   if (existsSync(b._mp3) && existsSync(b._json)) { log(`voice: ${b.id} (cached)`); continue; }
-  if (!KEY) { b._mp3 = null; continue; }
+  if (!KEY) { b._mp3 = null; b._json = null; continue; }
   log(`voice: ${b.id}`);
   await tts(voiced[i], voiced[i - 1] || "", voiced[i + 1] || "", b._mp3, b._json);
 }

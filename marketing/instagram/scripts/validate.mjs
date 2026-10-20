@@ -98,6 +98,8 @@ export function validatePost(spec, captionMd, sourcesMd, cfg = readJson(AUTOMATI
     if (beats.at(-1)?.kind !== "mark") p.push("the last beat must be kind mark");
     if (beats.at(-2)?.kind !== "close") p.push("the second-to-last beat must be kind close");
     if (!beats.some((b) => /catch/i.test(b.id || ""))) p.push("no beat with id catch (the honest catch)");
+    // The template prints the link label and page under the close line itself.
+    if (beats.find((b) => b.kind === "close")?.sub) p.push("the close beat has a sub; the template already shows the link label and page there");
     const ids = beats.map((b) => b.id);
     if (new Set(ids).size !== ids.length) p.push("beat ids repeat");
     const say = beats.reduce((n, b) => n + words(b.say), 0);

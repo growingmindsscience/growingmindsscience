@@ -1,0 +1,101 @@
+{
+  "id": "2026-10-27-newborn-crying-normal-range",
+  "date": "2026-10-27",
+  "series": "is-this-normal",
+  "ground": "sage",
+  "bodyGround": "paper",
+  "age": "Birth to 3 months",
+  "row": "is this normal",
+  "link": {
+    "label": "Free tool, link in bio",
+    "page": "What’s typical, by stage: the normal range at each age, something to check against on the hard evenings",
+    "url": "/tools/whats-typical-by-stage"
+  },
+  "music": {
+    "brief": "Sparse felt piano, slow, warm room tone, instrumental, 30 seconds."
+  },
+  "sources": [
+    "Wolke, Bilgin & Samara (2017). Systematic review and meta-analysis: fussing and crying durations and prevalence of colic in infants. Journal of Pediatrics. 28 diary studies, 8,690 infants. With Vermillet et al. (2022), Child Development, 57 studies, 17 countries.",
+    "Cabana et al. (2020). Recorder study of 20 infants, which measured far less crying than parent diaries.",
+    "St James-Roberts, Conroy & Wilsher (1998). Links between maternal care and persistent infant crying in the early months. Child: Care, Health and Development. With St James-Roberts & Peachey (2011), Archives of Disease in Childhood.",
+    "Rothbart, Sheese, Rueda & Posner (2011). Developing mechanisms of self-regulation in early life. Emotion Review."
+  ],
+  "research": [
+    "infant-1-4-states-crying-and-the-borrowed-nervous-system#f3",
+    "infant-1-4-states-crying-and-the-borrowed-nervous-system#f6",
+    "infant-1-4-states-crying-and-the-borrowed-nervous-system#f8"
+  ],
+  "drafted": {
+    "by": "draft.mjs",
+    "model": "claude-opus-5-5",
+    "on": "2026-10-20"
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "lead": "Fed, changed, rocked, and still crying at 6 weeks?",
+      "sub": "Is this much crying normal? Here is the real range."
+    },
+    {
+      "type": "range",
+      "head": "About 2 hours of fussing and crying a day is average in the first 6 weeks",
+      "range": {
+        "from": 0,
+        "to": 14,
+        "step": 2,
+        "most": [
+          0,
+          6
+        ],
+        "mostLabel": "Weeks 0 to 6: about 2 hours of fussing and crying a day",
+        "mark": 11,
+        "markLabel": "Weeks 10 to 12: about 68 minutes a day",
+        "unit": "wk"
+      },
+      "body": "From parent diaries of 8,690 babies in 28 studies (Wolke, 2017). Across studies there was no single sharp peak at 6 weeks, more a hard early stretch that eases."
+    },
+    {
+      "type": "figure",
+      "head": "Colic is common early, then rare",
+      "stat": {
+        "value": "17 to 25%",
+        "label": "of babies cry enough to count as colic in the first 6 weeks"
+      },
+      "body": "By 10 to 12 weeks, it is 0.6%.\n\nThe catch: these are parents' diary records. One small study that used recorders on 20 babies measured far less crying."
+    },
+    {
+      "type": "text",
+      "head": "It is not a sign you are doing it wrong",
+      "body": "Persistent crying at 6 weeks usually happens even with a sensitive, affectionate mother (St James-Roberts, 1998).\n\nAnd most heavy criers at 5 to 6 weeks were settled at night by 12 weeks (St James-Roberts, 2011)."
+    },
+    {
+      "type": "text",
+      "head": "Your baby has very few ways to calm down alone",
+      "body": "Self-control grows out of being calmed by someone else. The brain's own brakes take charge at about 3 to 4 years (Rothbart, 2011).\n\nFor now, a baby's main tool of their own is looking away. Much of the rest, they borrow from you."
+    },
+    {
+      "type": "signs",
+      "head": "Worth asking your pediatrician about",
+      "items": [
+        "Crying with a fever, poor feeding or vomiting, or a cry unlike their usual one. Call, rather than wait.",
+        "Crying that is not easing by about 3 months",
+        "Anything that feels wrong to you, at any age"
+      ],
+      "note": "Not a diagnosis. Asking calmly is never overreacting."
+    },
+    {
+      "type": "try",
+      "head": "On the hard evenings",
+      "items": [
+        "Catch fussing early: dim the lights, let them look away.",
+        "Hold them and walk around instead of sitting.",
+        "Trade off, so the calmer adult holds them.",
+        "At your edge, lay them on their back in the crib, step out, breathe, go back when you are steady."
+      ],
+      "note": "Things to try, not cures."
+    },
+    {
+      "type": "sources"
+    }
+  ]
+}

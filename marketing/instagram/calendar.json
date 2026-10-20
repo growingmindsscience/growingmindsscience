@@ -2,6 +2,25 @@
   "_schema": "One record per post. status: draft | edit | approved | scheduled | published | rejected. Approval is Matthew's; publish.mjs (Phase 2) only ever acts on approved posts whose scheduled_at has arrived.",
   "posts": [
     {
+      "id": "2026-10-24-tantrums-are-short-with-shape",
+      "kind": "reel",
+      "series": "study-in-30",
+      "age": "18 months to 5 years",
+      "row": "big feelings and meltdowns",
+      "scheduled_at": "2026-10-24T19:00:00-04:00",
+      "status": "approved",
+      "approved_on": "2026-10-20",
+      "drafted_by": "draft.mjs",
+      "scores": {
+        "hook": 8,
+        "slide2": 7,
+        "clarity": 8,
+        "save": 7,
+        "share": 7,
+        "voice": 8
+      }
+    },
+    {
       "id": "2026-10-27-dropped-spoon",
       "series": "field-notes",
       "age": "8 to 14 months",
@@ -12,6 +31,24 @@
       "published_at": "2026-10-18T16:46:55.828Z",
       "media_id": "17912517390471796",
       "permalink": "https://www.instagram.com/p/DepJUO1ER7x/"
+    },
+    {
+      "id": "2026-10-27-newborn-crying-normal-range",
+      "series": "is-this-normal",
+      "age": "Birth to 3 months",
+      "row": "is this normal",
+      "scheduled_at": "2026-10-27T11:00:00-04:00",
+      "status": "approved",
+      "approved_on": "2026-10-20",
+      "drafted_by": "draft.mjs",
+      "scores": {
+        "hook": 8,
+        "slide2": 8,
+        "clarity": 8,
+        "save": 8,
+        "share": 8,
+        "voice": 8
+      }
     },
     {
       "id": "2026-10-28-dropped-spoon-reel",
@@ -52,6 +89,25 @@
       "scheduled_at": "2026-11-03T11:00:00-05:00",
       "status": "approved",
       "approved_on": "2026-10-18"
+    },
+    {
+      "id": "2026-11-04-baby-word-videos-routine-talk",
+      "kind": "reel",
+      "series": "study-in-30",
+      "age": "12 to 18 months",
+      "row": "screens",
+      "scheduled_at": "2026-11-04T19:00:00-05:00",
+      "status": "approved",
+      "approved_on": "2026-10-20",
+      "drafted_by": "draft.mjs",
+      "scores": {
+        "hook": 8,
+        "slide2": 7,
+        "clarity": 8,
+        "save": 8,
+        "share": 7,
+        "voice": 8
+      }
     },
     {
       "id": "2026-11-05-still-face",

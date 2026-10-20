@@ -1,0 +1,106 @@
+{
+  "id": "2026-11-04-baby-word-videos-routine-talk",
+  "kind": "reel",
+  "date": "2026-11-04",
+  "series": "study-in-30",
+  "ground": "forest",
+  "age": "12 to 18 months",
+  "row": "screens",
+  "link": {
+    "label": "Free, link in bio",
+    "page": "Screens, language, and attention: the fuller picture on screens and early words, free",
+    "url": "/tools/screens-language-attention"
+  },
+  "music": {
+    "brief": "Low steady pulse under a soft string pad, calm and focused, one gentle lift near the end, instrumental, for a short explainer video, about 60 seconds."
+  },
+  "sources": [
+    "DeLoache et al. (2010). Do babies learn from baby media? Psychological Science.",
+    "Robb et al. (2009). Just a talking book? British Journal of Developmental Psychology.",
+    "Strouse et al. (2021). Learning from video: A meta-analysis of the video deficit in children ages 0 to 6 years. Child Development."
+  ],
+  "research": [
+    "infant-4-4-screens-and-the-year-ahead#f3",
+    "infant-4-4-screens-and-the-year-ahead#f4",
+    "infant-4-4-screens-and-the-year-ahead#f1"
+  ],
+  "drafted": {
+    "by": "draft.mjs",
+    "model": "claude-opus-5-5",
+    "on": "2026-10-20"
+  },
+  "beats": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "text": "Baby word videos taught no extra words.",
+      "say": "Baby word videos taught no extra words.",
+      "pause": 0.3
+    },
+    {
+      "id": "promise",
+      "text": "Stay for three everyday moments to teach words tonight.",
+      "say": "Stay for three everyday moments to teach words tonight.",
+      "pause": 0.4
+    },
+    {
+      "id": "setup",
+      "text": "Babies 12 to 18 months watched a popular word DVD for 4 weeks.",
+      "sub": "They learned no more words than babies who never saw it.",
+      "say": "Twelve to eighteen month olds watched a word video for four weeks and learned no more words than babies without it.",
+      "pause": 0.45
+    },
+    {
+      "id": "routines",
+      "text": "The most learning came from parents teaching the words in everyday routines.",
+      "say": "The most learning came from parents teaching the words in everyday routines.",
+      "pause": 0.4
+    },
+    {
+      "id": "belief",
+      "text": "Parents who liked the DVD thought it taught more than it did.",
+      "say": "Parents who liked the video thought it taught more than it did.",
+      "pause": 0.4
+    },
+    {
+      "id": "second",
+      "text": "A second trial: 12 to 15 months, 6 weeks of a word DVD.",
+      "sub": "No added vocabulary growth.",
+      "say": "A six week trial with twelve to fifteen month olds found the same.",
+      "pause": 0.35
+    },
+    {
+      "id": "review",
+      "text": "Across 59 reports, children learned less from video than from a live person.",
+      "sub": "Ages 0 to 6. The gap shrank as children grew.",
+      "say": "Across fifty nine reports, children learned less from video than from a live person.",
+      "pause": 0.45
+    },
+    {
+      "id": "catch",
+      "text": "The honest catch: these trials tested only word videos and word learning.",
+      "sub": "Not every kind of screen use. And the review's authors say some studies may overstate the gap.",
+      "say": "The honest catch is that these trials only tested word videos, and the review's authors say some studies may overstate the gap.",
+      "pause": 0.45
+    },
+    {
+      "id": "home",
+      "text": "Name the cup in the bath, the spoon at dinner, the sock while dressing.",
+      "sub": "Then wait for your baby's turn.",
+      "say": "Tonight, name the cup in the bath, the spoon at dinner, the sock while dressing, then wait.",
+      "pause": 0.45
+    },
+    {
+      "id": "close",
+      "kind": "close",
+      "text": "The fuller picture on screens and early words is free.",
+      "say": "Screens, language, and attention is our free page with the fuller picture. The link is in the bio.",
+      "pause": 0.3
+    },
+    {
+      "id": "mark",
+      "kind": "mark",
+      "dur": 1
+    }
+  ]
+}
