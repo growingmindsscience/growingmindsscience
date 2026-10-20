@@ -64,8 +64,9 @@ html:not(.anim) .label { transition: none; }
   .labels { position: static; display: none; gap: 8px; padding: 12px 0 4px; }
   .labels[data-on="true"] { display: grid; }
   .fg--home:not(.js) .labels { display: grid; }
-  .label, .label--1, .label--2, .label--3, .label--4 { position: relative; inset: auto; max-width: none; font-size: 14px; padding: 10px 12px 10px 30px; opacity: 1; transform: none; }
-  .label::before { left: 12px; top: 14px; }
+  .label, .label--1, .label--2, .label--3, .label--4 { position: relative; inset: auto; max-width: none; font-size: 14px; padding: 8px 12px 8px 30px; opacity: 1; transform: none; }
+  .labels > .label { margin: 0; } /* the grid gap spaces the list; a running-text p + p margin would double it */
+  .label::before { left: 12px; top: 12px; }
 }
 
 /* ---------- 02 The Lens: the plate again, step by step ---------- */

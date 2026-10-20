@@ -135,7 +135,7 @@ ${extraHead}
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
   <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=303d86446c" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=ececc69b57" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=d5e7244653" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=9ee704dd6a" />
   <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
   <link rel="stylesheet" href="/assets/css/article.css?v=01dcd82f94" />
