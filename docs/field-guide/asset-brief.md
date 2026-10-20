@@ -33,6 +33,45 @@ Composition: eye level with the child, the slide's sage-green or faded colour fi
 Mood: the ordinary end of an ordinary visit. Quiet tension at most.
 Avoid: a crying child, a parent pulling an arm, a bright plastic multicolour play structure, other families crowding the background, any branding on clothes.
 
+## 2a–2d. The Lens sequence: one visit in four frames
+
+The homepage Lens shows the visit as a carousel of four frames. Frame 3 is picture 2 above (`child-learning.jpg`, the run back). Frames 1, 2 and 4 are new. The closing photograph (`walk-home.jpg`) is the same visit's ending and stays at the bottom of the page, so it is not part of the sequence.
+
+Continuity is the whole effect: the four frames must read as one visit, about ten minutes long, by one photographer. Generate with `child-learning.jpg` and `walk-home.jpg` as references and keep, in every frame:
+- The child: about two and a half, shoulder-length wavy light-brown hair, an oatmeal knit sweater, olive-green pants, white sneakers with velcro straps.
+- The parent: dark brown hair in a high loose bun, an oversized cream ribbed sweater, olive-green pants, white sneakers.
+- The place: the wooden play structure with the faded sage-green slide, a ground of bark chips and fallen leaves, autumn trees behind. Nobody else in frame.
+- The light: soft overcast daylight, as in `child-learning.jpg`, unchanged across the four frames.
+
+Each is 1200 × 1500 px, portrait 4:5. Frames are shown about 520 px wide on desktop and at 86% of the screen on phones, so the figures must be large in frame and the subject held in the central 70%.
+
+### Frame 1: absorbed in play
+
+File: `assets/img/site/lens-1-play.jpg`.
+
+Subject: the child halfway down the sage-green slide, hands on its sides, face in profile, completely absorbed: concentration or quiet delight, not a grin at the camera. The parent stands two or three meters away at the edge of the frame, relaxed, weight on one leg, saying something toward the child (the two-minute warning). The child is not looking at the parent.
+Composition: child's eye level, the slide running diagonally through the frame, the parent smaller and to one side so the child is clearly the subject.
+Mood: ten minutes ago, everything was fine.
+Avoid: a phone or watch in hand, a big open-mouthed laugh, motion blur, other children on the structure.
+
+### Frame 2: "Time to go"
+
+File: `assets/img/site/lens-2-time-to-go.jpg`.
+
+Subject: at the foot of the slide, the parent crouches to the child's eye level, one hand open and low between them, speaking calmly. The child stands with their body still pointed toward the slide and their head turned back toward it, away from the parent. Their face is still, with the start of a frown at most: the moment the plan changes.
+Composition: a little wider than picture 2, both figures in profile or three-quarter profile, the slide behind the child so the pull of it is visible.
+Mood: a pause before the hard part. Quiet tension.
+Avoid: tears, a pointing finger, a parent standing over the child, the parent holding the child's arm.
+
+### Frame 4: on the floor
+
+File: `assets/img/site/lens-4-floor.jpg`.
+
+Subject: the child sits slumped or curled on the bark chips near the foot of the slide, face hidden in their arms or turned fully away from the camera. The parent kneels close beside them, low and still, one hand resting on the ground near the child or lightly on their back, not lifting or pulling. The parent's face is calm and turned toward the child. The picture is about the parent's steadiness as much as the child's distress.
+Composition: slightly wider than the other frames and from a little higher, so the stillness of the two figures reads; open ground around them.
+Mood: hard, but held.
+Avoid: a visible crying face, an open-mouthed scream, tears, flailing limbs, a parent pulling or carrying the child, onlookers.
+
 ## 3. Mosaic photograph: hands at work
 
 File: `assets/img/site/toddler-blocks.jpg`.
