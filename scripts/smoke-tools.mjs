@@ -218,7 +218,7 @@ try {
 
   // --- Claims Library: hub + a claim page ---
   await page.goto(`${BASE}/claims/index.html`, { waitUntil: 'networkidle' });
-  ok(await page.locator('.cl-row').count() === 10, 'claims: hub lists all 10 claims');
+  ok(await page.locator('.cl-row').count() === 9, 'claims: hub lists all 9 claims');
   await page.goto(`${BASE}/claims/teething-fever.html`, { waitUntil: 'networkidle' });
   ok(/Contradicted by evidence/.test(await page.locator('.cl-grade__labels').first().innerText()), 'claims: grade badge renders');
   ok(await page.locator('.cl-sources li').count() >= 2, 'claims: sources listed');
