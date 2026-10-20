@@ -70,7 +70,7 @@ on the homepage in the role described below:
 | `hero-parent-baby.jpg`| Homepage hero (right column desktop / under hero on mobile)   |
 | `baby-hands.jpg`      | Birth to 12 months class card thumbnail                       |
 | `learning-blocks.jpg` | Toddler class card thumbnail                                  |
-| `child-learning.jpg`  | Preschool class card thumbnail                                |
+| `lens-1-play.jpg` … `lens-4-floor.jpg` | The homepage Lens frames (frame 3, `lens-3-run-back.jpg`, also heads the full Lens page) |
 | `family-reading.jpg`  | Family systems class card thumbnail                           |
 | `notebook-coffee.jpg` | "Why parents trust this" supporting image                     |
 
