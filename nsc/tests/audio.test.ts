@@ -73,11 +73,18 @@ describe("audio clip ids", () => {
 });
 
 describe("who can fetch which clip", () => {
-  it("the manifest matches the certified scripts it was voiced from", () => {
-    expect(manifest.checkin).toEqual(clipIdsForLines(checkinLines(copy)).sort());
-    expect(manifest.games).toEqual(
-      [...new Set(catalog.games.flatMap((g) => clipIdsForLines(g.script)))].sort(),
-    );
+  // A copy edit without new audio just leaves a line with no button, so
+  // these check the split, not that every line has a clip.
+  const checkinLineIds = new Set(clipIdsForLines(checkinLines(copy)));
+  const gameOnly = (id: string) =>
+    !checkinLineIds.has(id) && catalog.games.some((g) => clipIdsForLines(g.script).includes(id));
+
+  it("the manifest files every game line's clip as a game clip, never as check-in", () => {
+    for (const id of manifest.checkin) expect(gameOnly(id)).toBe(false);
+    for (const g of catalog.games) {
+      for (const id of clipIdsForLines(g.script)) expect(ids.has(id) && gameOnly(id)).toBe(false);
+    }
+    expect(manifest.games.length).toBeGreaterThan(0);
   });
 
   it("public/audio holds only check-in clips: game narration is never a static file", () => {
@@ -86,6 +93,7 @@ describe("who can fetch which clip", () => {
     for (const file of served) {
       expect(file).toMatch(/^[0-9a-f]{16}\.mp3$/);
       expect(ids.has(file.slice(0, 16))).toBe(true);
+      expect(gameOnly(file.slice(0, 16))).toBe(false);
     }
   });
 
