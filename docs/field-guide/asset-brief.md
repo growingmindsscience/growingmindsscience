@@ -25,7 +25,7 @@ Avoid: a hug pose, a kiss on the head, both smiling at the camera, a tidy nurser
 
 ## 2. Lens photograph: the moment before leaving the playground
 
-File: `assets/img/site/child-learning.jpg` (and a 640-wide copy as `child-learning-640.jpg`).
+File: `assets/img/site/lens-3-run-back.jpg` (with `-640.jpg`, `-640.webp` and `-1122.webp` copies). It replaced the first-generation `child-learning.jpg` in October 2026, under a new name so cached copies of the old photograph are not served.
 Size: 1200 × 1500 px, portrait 4:5. Shown small on desktop (about 230 px wide) and at 60% width on phones, so the figures must be large in frame.
 
 Subject: a toddler of two to three at the bottom of a small playground slide or near a low gate, body turned back toward the slide, one hand on it. An adult crouches a step or two behind, hand held out low, not grabbing. It is the moment before the hard part: no tears, no tantrum, no stiff body. The child's face can be turned away from the camera.
@@ -35,13 +35,13 @@ Avoid: a crying child, a parent pulling an arm, a bright plastic multicolour pla
 
 ## 2a–2d. The Lens sequence: one visit in four frames
 
-The homepage Lens shows the visit as a carousel of four frames. Frame 3 is picture 2 above (`child-learning.jpg`, the run back). Frames 1, 2 and 4 are new. The closing photograph (`walk-home.jpg`) is the same visit's ending and stays at the bottom of the page, so it is not part of the sequence.
+The homepage Lens shows the visit as a carousel of four frames. Frame 3 is picture 2 above (`lens-3-run-back.jpg`, the run back). Frames 1, 2 and 4 are new. The closing photograph (`walk-home.jpg`) is the same visit's ending and stays at the bottom of the page, so it is not part of the sequence.
 
-Continuity is the whole effect: the four frames must read as one visit, about ten minutes long, by one photographer. Generate with `child-learning.jpg` and `walk-home.jpg` as references and keep, in every frame:
+Continuity is the whole effect: the four frames must read as one visit, about ten minutes long, by one photographer. Generate with `lens-3-run-back.jpg` and `walk-home.jpg` as references and keep, in every frame:
 - The child: about two and a half, shoulder-length wavy light-brown hair, an oatmeal knit sweater, olive-green pants, white sneakers with velcro straps.
 - The parent: dark brown hair in a high loose bun, an oversized cream ribbed sweater, olive-green pants, white sneakers.
 - The place: the wooden play structure with the faded sage-green slide, a ground of bark chips and fallen leaves, autumn trees behind. Nobody else in frame.
-- The light: soft overcast daylight, as in `child-learning.jpg`, unchanged across the four frames.
+- The light: the warm, soft autumn daylight of `lens-3-run-back.jpg`, unchanged across the four frames.
 
 Each is 1200 × 1500 px, portrait 4:5. Frames are shown about 520 px wide on desktop and at 86% of the screen on phones, so the figures must be large in frame and the subject held in the central 70%.
 
