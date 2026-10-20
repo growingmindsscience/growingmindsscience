@@ -12,7 +12,7 @@ The part that matters at home came later. Kuhl, Tsao and Liu gave 9-month-olds t
 
 The languages your baby hears from people in the first year are the ones their ear holds on to. It is not a lesson plan. It is just talking.
 
-Free lesson, link in bio: the first lesson of Birth to 12 Months, no account needed.
+Free lesson, link in bio: Serve and Return, a full lesson from Birth to 12 Months, no account needed.
 
 Educational content, not medical advice.
 

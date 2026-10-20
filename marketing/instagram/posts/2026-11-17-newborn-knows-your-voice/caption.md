@@ -10,7 +10,7 @@ The honest catch: ten babies is a small study with one method. What makes it hol
 
 So by birth your voice is already the most familiar sound in the world. Ordinary talking, reading aloud and singing are not an introduction. They are a continuation.
 
-Free lesson, link in bio: the first lesson of Birth to 12 Months, no account needed.
+Free lesson, link in bio: Serve and Return, a full lesson from Birth to 12 Months, no account needed.
 
 Educational content, not medical advice.
 
