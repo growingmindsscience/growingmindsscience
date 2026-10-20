@@ -60,7 +60,6 @@
     { "type": "article", "title": "The cliff at three", "href": "/articles/cliff-at-three", "ages": ["y2", "y3"], "topics": ["learning", "communication"], "moments": [] },
     { "type": "article", "title": "The counting ladder", "href": "/articles/counting-ladder", "ages": ["y2", "y3", "y4"], "topics": ["learning", "play"], "moments": [] },
 
-    { "type": "claim", "title": "Sleep training will damage my baby’s attachment", "href": "/claims/sleep-training-attachment", "ages": ["y0"], "topics": ["sleep", "relationships"], "moments": ["sleep"] },
     { "type": "claim", "title": "Hearing two languages will confuse my baby", "href": "/claims/bilingual-confusion", "ages": ["y0", "y1", "y2"], "topics": ["communication"], "moments": ["worry"] },
     { "type": "claim", "title": "A baby walker will help my baby walk sooner", "href": "/claims/baby-walkers", "ages": ["y0"], "topics": ["learning"], "moments": [] },
     { "type": "claim", "title": "Tummy time actually matters", "href": "/claims/tummy-time", "ages": ["y0"], "topics": ["learning"], "moments": [] },

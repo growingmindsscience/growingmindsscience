@@ -33,46 +33,6 @@
   },
   "claims": [
     {
-      "slug": "sleep-training-attachment",
-      "domain": "sleep",
-      "claim_text": "Sleep training will damage my baby's attachment to me.",
-      "grade_strength": "contradicted",
-      "grade_consensus": "majority",
-      "verdict_label": "For babies six months and older, the studies that looked for harm to the bond did not find it.",
-      "summary_public": "This is one of the most anxiety-producing claims in parenting, so it matters that it has actually been tested. Randomized trials of gradual behavioral sleep methods, such as timed check-ins or a parent staying in the room, measured infant stress, child behavior, emotional health, and the parent-child relationship, and did not find harm. One trial checked attachment directly a year later and found no difference. The longest follow-up tracked families until the children were six and found no differences in behavior, emotional health, stress, or closeness with parents between families who were taught these methods and families who got usual care. When the children were two, fewer mothers in the sleep-program group reported signs of depression (about 15% versus 26%); by age six, that difference was gone. Two honest caveats belong here. First, these trials involved babies six months and older, so they say little about sleep training a younger baby; there the evidence is thin, and one systematic review urges caution. Second, the trials tested gradual or parent-present methods, not leaving a baby to cry with no check-ins. What the evidence contradicts is the specific claim that these gradual methods, used with babies six months and older, damage the parent-child bond. It does not tell any family that they must sleep train. That remains a values call, and in these studies, children did about as well whichever way their families went.",
-      "sources": [
-        {
-          "citation": "Gradisar M, Jackson K, Spurrier NJ, et al. Behavioral interventions for infant sleep problems: a randomized controlled trial. Pediatrics. 2016;137(6):e20151486.",
-          "role": "Randomized trial, babies 6 to 16 months: infant stress measured, attachment checked a year later"
-        },
-        {
-          "citation": "Price AM, Wake M, Ukoumunne OC, Hiscock H. Five-year follow-up of harms and benefits of behavioral infant sleep intervention: randomized trial. Pediatrics. 2012;130(4):643-651.",
-          "role": "Longest randomized follow-up, to age six: no differences in behavior, emotional health, stress, or child-parent closeness"
-        },
-        {
-          "citation": "Hiscock H, Bayer JK, Hampton A, et al. Long-term mother and child mental health effects of a population-based infant sleep intervention: cluster-randomized, controlled trial. Pediatrics. 2008;122(3):e621-e627.",
-          "role": "Follow-up of the same trial at age two: no harm to child mental health; fewer mothers with depression symptoms"
-        },
-        {
-          "citation": "Bilgin A, Wolke D. Parental use of 'cry it out' in infants: no adverse effects on attachment and behavioural development at 18 months. Journal of Child Psychology and Psychiatry. 2020;61(11):1184-1193.",
-          "role": "Observational cohort of 178 infants: leaving a baby to cry in the first six months was not linked to attachment or behavior problems at 18 months"
-        },
-        {
-          "citation": "Douglas PS, Hill PS. Behavioral sleep interventions in the first six months of life do not improve outcomes for mothers or infants: a systematic review. Journal of Developmental & Behavioral Pediatrics. 2013;34(7):497-507.",
-          "role": "Systematic review urging caution before six months"
-        },
-        {
-          "citation": "Mindell JA, Kuhn B, Lewin DS, Meltzer LJ, Sadeh A. Behavioral treatment of bedtime problems and night wakings in infants and young children. Sleep. 2006;29(10):1263-1276.",
-          "role": "Task-force review: behavioral methods improve sleep"
-        }
-      ],
-      "related_tools": [
-        "/tools/whats-typical-by-stage",
-        "/tools/routines-transitions-night-waking"
-      ],
-      "last_reviewed": "2026-10-15"
-    },
-    {
       "slug": "bilingual-confusion",
       "domain": "language",
       "claim_text": "Hearing two languages will confuse my baby and delay their speech.",
