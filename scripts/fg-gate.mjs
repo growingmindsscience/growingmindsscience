@@ -22,7 +22,7 @@
 //   Playwright                the copy bundled with the global playwright-cli (or FG_PLAYWRIGHT)
 //   axe-core, Lighthouse      installed once into .fg-gate/tools (gitignored), pinned below
 //
-// The local server honours vercel.json rewrites and compresses text like Vercel does. It does not
+// The local server honors vercel.json rewrites and compresses text like Vercel does. It does not
 // apply vercel.json headers (CSP, caching), so local Lighthouse numbers are indicative; the
 // definitive G8 numbers come from a --base run against the PR's preview.
 

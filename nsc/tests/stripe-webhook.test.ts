@@ -78,7 +78,7 @@ describe("checkout fulfillment plan (pure)", () => {
 describe("stripe webhook: on-site classes", () => {
   const classSession = { metadata: { product: "class_bundle_toddlerhood", owner_id: "user-1" } };
 
-  it("hands a paid class checkout to class fulfilment, not the generic grant", async () => {
+  it("hands a paid class checkout to class fulfillment, not the generic grant", async () => {
     const db = new FakeDb({ uniques });
     const d = deps(db);
     for (const type of ["checkout.session.completed", "checkout.session.async_payment_succeeded"]) {
@@ -91,14 +91,14 @@ describe("stripe webhook: on-site classes", () => {
     expect(db.rows("entitlements")).toEqual([]);
   });
 
-  it("routes a preschool checkout to class fulfilment", async () => {
+  it("routes a preschool checkout to class fulfillment", async () => {
     const d = deps(new FakeDb({ uniques }));
     const out = await handleStripeEvent(checkout({ metadata: { product: "class_preschool", owner_id: "user-1" } }), d);
     expect(out).toEqual({ status: 200, body: { received: true, class: "preschool" } });
     expect(d.classes.fulfill).toHaveBeenCalledTimes(1);
   });
 
-  it("routes an infant checkout to class fulfilment", async () => {
+  it("routes an infant checkout to class fulfillment", async () => {
     const d = deps(new FakeDb({ uniques }));
     const out = await handleStripeEvent(checkout({ metadata: { product: "class_infant", owner_id: "user-1" } }), d);
     expect(out).toEqual({ status: 200, body: { received: true, class: "infant" } });
@@ -112,7 +112,7 @@ describe("stripe webhook: on-site classes", () => {
     expect(d.classes.fulfill).not.toHaveBeenCalled();
   });
 
-  it("answers 500 when class fulfilment fails, so Stripe retries", async () => {
+  it("answers 500 when class fulfillment fails, so Stripe retries", async () => {
     const d = deps(new FakeDb({ uniques }), {
       classes: {
         fulfill: vi.fn(async () => {

@@ -11,7 +11,7 @@ You have almost certainly met this number. By age three, children in lower-incom
 
 It came from Betty Hart and Todd Risley's 1995 work, which followed 42 families. Forty-two. The 30 million figure was an extrapolation from monthly hour-long recordings in a small sample, projected out across four years.
 
-In 2019, Douglas Sperry, Linda Sperry and Peggy Miller looked again across a wider set of communities, and did not find the gap. Part of the reason is what gets counted as language. The original method centred speech directed at the child by a primary caregiver in the home. In communities where children spend their days inside multigenerational talk, or amid the speech of many adults and older kids, a great deal of real language exposure is invisible to that method.
+In 2019, Douglas Sperry, Linda Sperry and Peggy Miller looked again across a wider set of communities, and did not find the gap. Part of the reason is what gets counted as language. The original method centered speech directed at the child by a primary caregiver in the home. In communities where children spend their days inside multigenerational talk, or amid the speech of many adults and older kids, a great deal of real language exposure is invisible to that method.
 
 So the honest position today is that the size, and possibly the existence, of a 30 million word gap is contested.
 

@@ -37,7 +37,7 @@ Top three problems (most visible first):
 Also: the "For your child" flag lost the tan pill tools.css gave it; it is forest text, like the rest of the page's metadata.
 ```
 
-## Fails and warnings kept, with the defence
+## Fails and warnings kept, with the defense
 
 The standing defences in `critique-classes.md` carry over: quiet rules (`hairline`, the guidelines' instruction), the quiet button's inset outline (`shadow`), field paper (`palette-cream`), the wordmark lockup (`mixed-font-headline`, `micro-label`), the size count, and no footage. New for these pages:
 
@@ -49,7 +49,7 @@ The standing defences in `critique-classes.md` carry over: quiet rules (`hairlin
 Matthew flagged the homepage's reading photograph: it ran the full width of the page, sat flush on the portrait below it, and the heading touched its paragraph. Two things were wrong, and the second turned out to be site-wide.
 
 1. **Composition.** A full-width photograph turned a moment of teaching into a banner. The photograph now sits in the left half at 4:3, beside "Mental models, not scripts." and its paragraph. On phones it leads the section at full width. The separate headshot is dropped from this section: Matthew is in the photograph, and the about page carries the portrait.
-2. **Cancelled spacing.** `field-guide.css` reset margins with `.fg h1, .fg p, .fg figure` and the rest at (0,1,1), which outranks any single-class rule such as `.trust__para { margin-top: 20px }` (0,1,0). Every component's own spacing was silently zeroed. On the homepage that was the hero headline's top margin (72px at 1440), the lead and the "Something hard right now?" line, the classes intro and terms, the tools evidence note, and the age and Lens footnotes. The reset now sits at `:where()` weight, so the spacing the homepage's designer wrote applies. A computed-style diff confirms the only changes are those margins. The Lens page shows no margin change.
+2. **Canceled spacing.** `field-guide.css` reset margins with `.fg h1, .fg p, .fg figure` and the rest at (0,1,1), which outranks any single-class rule such as `.trust__para { margin-top: 20px }` (0,1,0). Every component's own spacing was silently zeroed. On the homepage that was the hero headline's top margin (72px at 1440), the lead and the "Something hard right now?" line, the classes intro and terms, the tools evidence note, and the age and Lens footnotes. The reset now sits at `:where()` weight, so the spacing the homepage's designer wrote applies. A computed-style diff confirms the only changes are those margins. The Lens page shows no margin change.
 
 Found in the same inspection round (desktop and phone captured together) and fixed in one batch:
 

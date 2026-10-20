@@ -296,7 +296,7 @@ body.gms-arcade-fixed { position: fixed; left: 0; right: 0; width: 100%; overflo
   inset: 0;
   margin: 0;
   display: flex;
-  /* The card centres itself with auto margins: align-items:center would clip
+  /* The card centers itself with auto margins: align-items:center would clip
      the top of a card taller than the stage (a game-over card on a short
      phone) and leave it unreachable by scrolling. */
   align-items: flex-start;
@@ -549,7 +549,7 @@ body.gms-arcade-fixed { position: fixed; left: 0; right: 0; width: 100%; overflo
 .daily__next { margin: 0; font-size: 13px; color: var(--ink-muted); }
 .daily__stats { display: flex; gap: 18px; justify-content: center; font-size: 14px; }
 
-/* Five Letters: tiles and keyboard. Colour plus a glyph for every state. */
+/* Five Letters: tiles and keyboard. Color plus a glyph for every state. */
 .five__grid { display: flex; flex-direction: column; gap: 6px; }
 .five__row { display: flex; gap: 6px; }
 .five__row.is-shake { animation: five-shake 420ms ease; }
@@ -934,7 +934,7 @@ body.gms-arcade-fixed { position: fixed; left: 0; right: 0; width: 100%; overflo
 
 /* =========================================================================
    The hub page (/arcade/): the Daily band and the games grid. Card art is
-   inline SVG coloured by these classes, so it follows the theme.
+   inline SVG colored by these classes, so it follows the theme.
    ========================================================================= */
 .ar-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 16px clamp(32px, 5vw, 80px); align-items: end; margin-bottom: clamp(28px, 4vw, 48px); }
 .ar-head h2 { font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem); line-height: 1.05; }

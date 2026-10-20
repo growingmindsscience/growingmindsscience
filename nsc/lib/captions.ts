@@ -113,7 +113,7 @@ export function realignCues(cues: Cue[], text: string): Realigned {
     matchedParts++;
     if (assigned[owner[a]] === null) assigned[owner[a]] = captionCue[b];
   }
-  // Unmatched words sit between two matched neighbours: the first half of a run
+  // Unmatched words sit between two matched neighbors: the first half of a run
   // joins the cue before it, the second half the cue after it.
   let index = 0;
   while (index < words.length) {

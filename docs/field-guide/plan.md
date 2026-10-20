@@ -35,7 +35,7 @@ S0 to S8 have merged, and C5 was approved with PR 132. The one gate C5 missed, L
 | Explore hub | Does not exist. The nav's Explore link points at the homepage anchor. No by-moment or by-topic door. |
 | Lens science | Prototype label on the page. No source review yet. |
 | Number Path (nsc) | Still on the Seminar look. Phase 3 report lists what it needs. |
-| Brand guidelines | Supplied today. Token values, the type pairing, corners and the hero line differ from what shipped. Summarised in `brand-guidelines.md`. |
+| Brand guidelines | Supplied today. Token values, the type pairing, corners and the hero line differ from what shipped. Summarized in `brand-guidelines.md`. |
 | Dead code | `terrain.js`, `home.js` unused; `decor.js`, `animate.js` loaded by older inner pages. |
 
 ## The ship gate
@@ -60,9 +60,9 @@ Every pull request on this project passes all of this before it is offered for m
 
 **G9. Preview on a phone.** The Vercel preview URL for the PR is opened at phone width (playwright-cli with the mobile device) and the first screen, the header, the footer and every control are checked on the deployed build, not the local server. Matthew opens the same preview on his own phone before saying merge.
 
-**One command.** Step S0 adds `scripts/fg-gate.mjs`, which runs G1, G2, G3, G6 and G8 over a page list and writes the report to `docs/field-guide/gate-reports/`. Gates G4, G5, G7 and G9 are judgement and stay manual, but the script prints their checklist at the end so none is forgotten.
+**One command.** Step S0 adds `scripts/fg-gate.mjs`, which runs G1, G2, G3, G6 and G8 over a page list and writes the report to `docs/field-guide/gate-reports/`. Gates G4, G5, G7 and G9 are judgment and stay manual, but the script prints their checklist at the end so none is forgotten.
 
-**Model tiers.** Mechanical steps (merges, template application across many files, gate runs, report writing) go to Sonnet sessions with a tight brief. Design judgement (G4, G5, compositions, figure drawing, critique) stays with Fable. Nothing merges on a session's own report; the diff and the screenshots are checked here first.
+**Model tiers.** Mechanical steps (merges, template application across many files, gate runs, report writing) go to Sonnet sessions with a tight brief. Design judgment (G4, G5, compositions, figure drawing, critique) stays with Fable. Nothing merges on a session's own report; the diff and the screenshots are checked here first.
 
 ## Design checkpoints
 
@@ -71,7 +71,7 @@ A checkpoint is a place where work stops until Matthew has looked. Each one says
 **C0. Brand reconciliation (before any further page work).**
 What he sees: this document and `brand-guidelines.md`.
 What he decides:
-- Colour values: adopt the guidelines' hex values (ink `#193C39`, paper `#F7F4EC`, verdigris `#245F58`, white `#FFFDF8`) in place of the brief's earlier proposals. Recommendation: yes. The change is a token swap and a contrast re-check.
+- Color values: adopt the guidelines' hex values (ink `#193C39`, paper `#F7F4EC`, verdigris `#245F58`, white `#FFFDF8`) in place of the brief's earlier proposals. Recommendation: yes. The change is a token swap and a contrast re-check.
 - Sage: the guidelines' sage mist `#E0EBE5` is a pale explanatory surface; the shipped sage `#A9C3B2` is a mid-tone field that whole sections sit on. Recommendation: keep both, sage mist for panels and explanatory surfaces, the deeper sage for the field sections and figure fills, and check both against the 70/20/10 proportion on each page.
 - Research blue `#426B91`: adopt for sources, citations and the claims library's technical detail. Recommendation: yes.
 - Type: Inter (preferred) or DM Sans (the named second direction, shipped). Recommendation: keep DM Sans. It is already measured and tuned across every page, and the guidelines allow it. Switching is a two-line token change if he wants Inter.
@@ -93,7 +93,7 @@ If he says nothing: the one the critique scores higher is built.
 **C3. Lens source sheet (before the prototype label comes off).**
 What he sees: every scientific sentence on the Lens page in a table with its candidate source from the claims library or the class sources, its evidence grade, and a proposed rewording where the sentence overreaches.
 What he decides: approve, reword or cut each line. This is his review as the scientist; it is not delegated.
-If he says nothing: the label stays. The page remains a labelled prototype indefinitely rather than carry unreviewed claims.
+If he says nothing: the label stays. The page remains a labeled prototype indefinitely rather than carry unreviewed claims.
 
 **C4. Number Path preview (before the nsc deploy).**
 What he sees: screenshots of the nsc home, a lesson and the class login on the preview, beside the same pages on the main site.
@@ -123,7 +123,7 @@ Apply the C0 decisions in `tokens-field-guide.css`, the header and footer fragme
 Output: one PR, one gate report, the critique updated.
 
 **S3. The Explore hub (days 4 to 8).**
-Build `/explore/` with three doors on one page: by age (the homepage explorer's stages, each linking to its classes, articles and tools), by moment (the Lens, the hard-moment guides and the tools, each as a recognisable situation), by topic (communication, learning, play, relationships, sleep, behaviour, regulation, each a list of the existing articles, guides and claims). Metadata lives in one JSON file so the three doors read one content base, and the homepage explorer reads the same file. The nav's Explore link moves from the homepage anchor to `/explore/`. Checkpoint C2 after the two first-screen compositions. Full gate. The Lens gets its age and topic metadata and its contextual links from the same file.
+Build `/explore/` with three doors on one page: by age (the homepage explorer's stages, each linking to its classes, articles and tools), by moment (the Lens, the hard-moment guides and the tools, each as a recognisable situation), by topic (communication, learning, play, relationships, sleep, behavior, regulation, each a list of the existing articles, guides and claims). Metadata lives in one JSON file so the three doors read one content base, and the homepage explorer reads the same file. The nav's Explore link moves from the homepage anchor to `/explore/`. Checkpoint C2 after the two first-screen compositions. Full gate. The Lens gets its age and topic metadata and its contextual links from the same file.
 Compositions and page: here. Metadata file and link audit: Sonnet.
 
 **S4. The older inner pages (days 8 to 12).**
@@ -135,7 +135,7 @@ Build the source sheet for C3 from the claims library and the class sources. On 
 Sheet: here. Nothing on the page changes before C3.
 
 **S6. Number Path (days 12 to 15).**
-Port the tokens and fonts into the nsc app's `globals.css`, give it the Field Guide header and footer, strip the Seminar remnants the Phase 3 report lists, keep every cert-gated behaviour. Redeploy without build cache and verify the live CSS carries the tokens. Checkpoint C4.
+Port the tokens and fonts into the nsc app's `globals.css`, give it the Field Guide header and footer, strip the Seminar remnants the Phase 3 report lists, keep every cert-gated behavior. Redeploy without build cache and verify the live CSS carries the tokens. Checkpoint C4.
 Port: Sonnet. Review: here.
 
 **S7. Assets (when the pictures exist).**

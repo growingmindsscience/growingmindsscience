@@ -4,7 +4,7 @@ S4 batch (c). The Evidence-Graded Claims Library's template in `scripts/build-cl
 
 ## What the pages are now
 
-- A claim page: the claim in Newsreader, one meta line (Claims, "Evidence-graded claim", the domain, the review date), and its grade and verdict on sage mist beside it. The strength label is coloured by grade (forest when the evidence holds, clay when it contradicts the claim, muted when it is thin); the words carry the grade, the colour repeats it.
+- A claim page: the claim in Newsreader, one meta line (Claims, "Evidence-graded claim", the domain, the review date), and its grade and verdict on sage mist beside it. The strength label is colored by grade (forest when the evidence holds, clay when it contradicts the claim, muted when it is thin); the words carry the grade, the color repeats it.
 - One reading column: the summary at 64ch, sources in the research-blue module, the related pages as quiet buttons, the method on sage mist, the note.
 - The hub: the title block, then the ten claims as rows under quiet rules (the claim, its strength and domain, the verdict, "Read the grade"), then the method.
 - Every word is carried over; a script compares each page's words against the previous build. The eyebrows move into the meta line (the hub's "Free · Evidence-graded · 10 claims and growing" sits under the lede). The related links now use the pages' own titles ("What's typical, by stage") instead of names built from the URL ("Whats Typical By Stage").
@@ -22,7 +22,7 @@ Caps applied: no pictures (no stock allowed).
 Top problems: the related links' names were built from URLs ("Whats Typical By Stage"). Fixed with a title map.
 ```
 
-## Fails and warnings kept, with the defence
+## Fails and warnings kept, with the defense
 
 The standing defences in the earlier critiques carry over: quiet rules (`hairline`), field paper (`palette-cream`), the wordmark lockup (`micro-label`), the size count, no footage, no pictures (`few-pictures`, `focal-point`), `still-page` (the title rises; a reference page stays still). New here:
 

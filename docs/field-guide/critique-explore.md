@@ -1,6 +1,6 @@
 # Design critique: the Explore hub
 
-S3. Checkpoint C2 showed two first screens: three doors side by side, and the age line. Matthew's direction (2026-10-15): age is the first gate, with moments and topics organised inside each age bracket, because much of the advice differs by age. Built on that direction, not on either composition as drawn.
+S3. Checkpoint C2 showed two first screens: three doors side by side, and the age line. Matthew's direction (2026-10-15): age is the first gate, with moments and topics organized inside each age bracket, because much of the advice differs by age. Built on that direction, not on either composition as drawn.
 
 ## What the pages are now
 
@@ -12,7 +12,7 @@ S3. Checkpoint C2 showed two first screens: three doors side by side, and the ag
 - **`/explore/<period>`:**
   - The age line, compact, moves between periods; the current one is marked in ink.
   - Then the period's name, years and summary, and its class.
-  - Then "Moments at this age" and "Topics at this age". Each row lists only that age's pages, each labelled Tool, Guide, Article, Graded claim or Lens.
+  - Then "Moments at this age" and "Topics at this age". Each row lists only that age's pages, each labeled Tool, Guide, Article, Graded claim or Lens.
   - "It's hard right now" covers every hard moment, so it is named once in the moments lede rather than in every row.
   - Pages with no moment or topic at that age sit under "Also for this age".
 - **One content base:** `assets/data/explore.json`. `scripts/build-explore.mjs` writes all six pages and the homepage's age row from it. Graded claims take their wording from the claims artifact. `--check` is in CI.
@@ -40,7 +40,7 @@ ROUND 2
 G6 passes on the gate and a period page. Remaining items are the standing defences.
 ```
 
-## Fails and warnings kept, with the defence
+## Fails and warnings kept, with the defense
 
 The standing defences carry over: quiet rules (`hairline`), no pictures, `still-page`, field paper, the wordmark lockup. On the homepage, the gate's other items are already defended, and this PR changes only the age row's five links:
 - the Lens kicker and "01" to "04" numbering

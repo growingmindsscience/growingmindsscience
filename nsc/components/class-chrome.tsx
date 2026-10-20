@@ -10,7 +10,7 @@ const NAV_LINK =
 
 /**
  * The site wordmark lockup (the mark, "growing minds", SCIENCE), the same as
- * the site header's, for the centred sign-in and sign-up frames.
+ * the site header's, for the centered sign-in and sign-up frames.
  */
 export function ClassWordmark({ href = "/app/classes" }: { href?: string }) {
   return <SiteWordmark href={href} label="Growing Minds Science classes" />;

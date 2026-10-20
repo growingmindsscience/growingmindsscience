@@ -126,7 +126,7 @@ def base(eyebrow, headline, body, source):
 
 
 def band(body_end, h, bottom=890):
-    """Vertically centre a visual of height h in the space left below the body."""
+    """Vertically center a visual of height h in the space left below the body."""
     top = body_end + 40
     return max(top, top + (bottom - top - h) // 2)
 
@@ -199,7 +199,7 @@ def main():
         "infants at free play and counted every single step and stumble.",
         SRC)
     stat_strip(d, band(y, 176),
-               [("2,368", "STEPS"), ("701 m", "TRAVELLED"), ("17", "FALLS")],
+               [("2,368", "STEPS"), ("701 m", "TRAVELED"), ("17", "FALLS")],
                caption="PER HOUR, AGES 12 TO 19 MONTHS")
     img.save(f"{OUT}/slide-1.png")
 

@@ -23,16 +23,16 @@
     { "id": "play", "name": "Play" },
     { "id": "relationships", "name": "Relationships" },
     { "id": "sleep", "name": "Sleep" },
-    { "id": "behaviour", "name": "Behaviour" },
+    { "id": "behavior", "name": "Behavior" },
     { "id": "regulation", "name": "Regulation" }
   ],
   "types": {
     "lens": "Lens", "guide": "Guide", "tool": "Tool", "article": "Article", "claim": "Graded claim", "class": "Class"
   },
   "items": [
-    { "type": "lens", "title": "Leaving the playground", "href": "/lens/leaving-the-playground", "ages": ["y1", "y2", "y3"], "topics": ["regulation", "behaviour"], "moments": ["leaving"] },
+    { "type": "lens", "title": "Leaving the playground", "href": "/lens/leaving-the-playground", "ages": ["y1", "y2", "y3"], "topics": ["regulation", "behavior"], "moments": ["leaving"] },
 
-    { "type": "tool", "title": "It’s hard right now", "href": "/tools/right-now", "ages": ["y0", "y1", "y2", "y3", "y4"], "topics": ["behaviour", "regulation"], "moments": ["meltdown", "limit", "sleep", "patience", "repair"] },
+    { "type": "tool", "title": "It’s hard right now", "href": "/tools/right-now", "ages": ["y0", "y1", "y2", "y3", "y4"], "topics": ["behavior", "regulation"], "moments": ["meltdown", "limit", "sleep", "patience", "repair"] },
     { "type": "tool", "title": "Communication Snapshot", "href": "/tools/communication-snapshot", "ages": ["y0", "y1", "y2"], "topics": ["communication"], "moments": ["worry"] },
     { "type": "tool", "title": "Milestone Navigator", "href": "/tools/milestone-navigator", "ages": ["y0", "y1", "y2", "y3", "y4"], "topics": ["learning", "communication"], "moments": ["worry"] },
     { "type": "tool", "title": "Milestone tracker", "href": "/milestones", "ages": ["y0", "y1", "y2"], "topics": ["learning"], "moments": ["worry"] },
@@ -41,8 +41,8 @@
     { "type": "tool", "title": "Number Path", "href": "/nsc", "ages": ["y3", "y4"], "topics": ["learning"], "moments": [] },
     { "type": "tool", "title": "Growing Minds AI", "href": "/tools/growing-minds-ai", "ages": ["y0", "y1", "y2", "y3", "y4"], "topics": [], "moments": [] },
 
-    { "type": "guide", "title": "What’s underneath the meltdown", "href": "/tools/whats-underneath-the-meltdown", "ages": ["y1", "y2"], "topics": ["behaviour", "regulation"], "moments": ["meltdown"] },
-    { "type": "guide", "title": "Limits without escalation", "href": "/tools/limits-without-escalation", "ages": ["y1", "y2", "y3", "y4"], "topics": ["behaviour"], "moments": ["limit"] },
+    { "type": "guide", "title": "What’s underneath the meltdown", "href": "/tools/whats-underneath-the-meltdown", "ages": ["y1", "y2"], "topics": ["behavior", "regulation"], "moments": ["meltdown"] },
+    { "type": "guide", "title": "Limits without escalation", "href": "/tools/limits-without-escalation", "ages": ["y1", "y2", "y3", "y4"], "topics": ["behavior"], "moments": ["limit"] },
     { "type": "guide", "title": "Routines, transitions, and night-waking", "href": "/tools/routines-transitions-night-waking", "ages": ["y1", "y2"], "topics": ["sleep", "regulation"], "moments": ["sleep", "leaving"] },
     { "type": "guide", "title": "Regulating yourself first", "href": "/tools/regulating-yourself-first", "ages": ["y0", "y1", "y2", "y3", "y4"], "topics": ["regulation", "relationships"], "moments": ["patience"] },
     { "type": "guide", "title": "Repair after the hard moment", "href": "/tools/repair-after-the-hard-moment", "ages": ["y0", "y1", "y2", "y3", "y4"], "topics": ["relationships"], "moments": ["repair"] },
@@ -52,7 +52,7 @@
     { "type": "guide", "title": "Beyond “less is better”", "href": "/tools/beyond-less-is-better", "ages": ["y0", "y1", "y2", "y3", "y4"], "topics": ["learning"], "moments": ["screens"] },
 
     { "type": "article", "title": "What “serve and return” actually means", "href": "/articles/serve-and-return", "ages": ["y0", "y1"], "topics": ["communication", "relationships"], "moments": [] },
-    { "type": "article", "title": "The toddler “no” is not the war you think it is", "href": "/articles/toddler-no", "ages": ["y1", "y2"], "topics": ["behaviour", "regulation"], "moments": ["limit"] },
+    { "type": "article", "title": "The toddler “no” is not the war you think it is", "href": "/articles/toddler-no", "ages": ["y1", "y2"], "topics": ["behavior", "regulation"], "moments": ["limit"] },
     { "type": "article", "title": "A short, honest take on screen time", "href": "/articles/screen-time", "ages": ["y1", "y2", "y3", "y4"], "topics": ["learning", "communication"], "moments": ["screens"] },
     { "type": "article", "title": "Self-regulation, briefly", "href": "/articles/self-regulation", "ages": ["y2", "y3", "y4"], "topics": ["regulation"], "moments": [] },
     { "type": "article", "title": "When your own nervous system is the variable", "href": "/articles/parents-nervous-system", "ages": ["y0", "y1", "y2", "y3", "y4"], "topics": ["regulation", "relationships"], "moments": ["patience"] },

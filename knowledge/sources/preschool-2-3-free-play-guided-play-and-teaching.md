@@ -189,7 +189,7 @@ Confidence: MODERATE. 'Long, skinny triangle' is an illustrative example of a no
 
 ## Research behind this lesson (continued)
 
-Finding: Meta-analysis (39 studies reviewed, 17 meta-analyzed, N = 3,893, ages 1 to 8): guided play > direct instruction for early maths, shape knowledge, task switching; > free play for spatial vocabulary; no differences for other outcomes; heterogeneous definitions.
+Finding: Meta-analysis (39 studies reviewed, 17 meta-analyzed, N = 3,893, ages 1 to 8): guided play > direct instruction for early math, shape knowledge, task switching; > free play for spatial vocabulary; no differences for other outcomes; heterogeneous definitions.
 Sources: Skene et al. (2022), Can guidance during play enhance children's learning and development in educational contexts?, Child Development, DOI 10.1111/cdev.13730.
 Confidence: HIGH. 'Nearly four thousand' rounds 3,893; 'switching flexibly between rules' glosses task switching.
 

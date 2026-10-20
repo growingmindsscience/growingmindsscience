@@ -1,5 +1,5 @@
 /* Growing Minds Science: carousel slide base. One 1080 x 1350 slide per render.
-   Colours come from the site's field-guide tokens (linked by each template);
+   Colors come from the site's field-guide tokens (linked by each template);
    the fonts are the site's own files, declared here with relative paths so the
    templates render from file:// without a server. */
 

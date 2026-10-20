@@ -1,5 +1,5 @@
 /* Growing Minds Science: home.js
-   The homepage's behaviour, also loaded by inner pages on the same system for
+   The homepage's behavior, also loaded by inner pages on the same system for
    their entrances (every other part is guarded and does nothing there).
    The header, menu and theme live in chrome.js.
    - The plate: "Show what's growing" reveals the typeset labels over the photograph.

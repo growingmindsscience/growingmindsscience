@@ -26,14 +26,14 @@ The inspector ran on all 55 pages at 1440, 768 and 390. It reports something on 
 
 **Rules that contradict the brand guidelines or the known quirks, so not defects.** These account for almost every line:
 - `hairline` (53 pages): the guidelines call for quiet 1px rules.
-- `palette-cream`: the paper colour, #F7F4EC.
+- `palette-cream`: the paper color, #F7F4EC.
 - `no-footage` and `still-page`: the site is meant to be calm.
 - `few-pictures` (53): photographs wait on S7, and stock is not allowed.
 - `covered-text` on `/classes/preschool` at 390: the sticky header, a known quirk.
 - `micro-label` "science": the tracked SCIENCE in the wordmark lockup.
 - "01" to "04" on the homepage and the Lens page: the four Lens steps in their real order.
 
-**Judgement calls flagged for C5:**
+**Judgment calls flagged for C5:**
 - `focal-point` (32 pages): the first screen has no single dominant element. That is true of the text pages by design, where the headline leads.
 - `headline-lines` (28): long titles wrap to three lines at 390. These are mostly claim questions and the right-now choices, where the full sentence is the point.
 
@@ -47,7 +47,7 @@ The inspector ran on all 55 pages at 1440, 768 and 390. It reports something on 
 
 ## 2. Axe
 
-0 WCAG 2.2 A and AA violations on all 55 pages at 1440 and 390 (110 runs), including colour contrast.
+0 WCAG 2.2 A and AA violations on all 55 pages at 1440 and 390 (110 runs), including color contrast.
 
 ## 3. No JavaScript, reduced motion, keyboard and tap targets
 
@@ -69,7 +69,7 @@ Mobile, simulated throttling, on the live site. First run, at C5:
 Performance cleared 90 everywhere, but LCP was over the 2.5s target on all three pages. The cause was the same on each: the Google Fonts stylesheet blocked rendering for about 810ms, and the font files came from a second origin after it, even though both origins were preconnected. On `/classes/` the LCP is the lead paragraph, so it waited for Newsreader (2.6s render delay).
 
 Two PRs fixed it, each kept out of C5 because it touches every page's head:
-- **PR 133** self-hosts Newsreader and Inter. The files are the same woff2 files Google served, latin and latin-ext subsets only, with the OFL licences alongside, in `assets/fonts/`. They are preloaded and cached for a year. The CSP now allows fonts and styles from this site only. After it, the classes hub came under the target, but the Lens got slower (3.03 to 3.15s), because its LCP image now competed with the font files for the early bandwidth.
+- **PR 133** self-hosts Newsreader and Inter. The files are the same woff2 files Google served, latin and latin-ext subsets only, with the OFL licenses alongside, in `assets/fonts/`. They are preloaded and cached for a year. The CSP now allows fonts and styles from this site only. After it, the classes hub came under the target, but the Lens got slower (3.03 to 3.15s), because its LCP image now competed with the font files for the early bandwidth.
 - **PR 134** removes the last render-blocking chain and lightens the Lens image. `field-guide.css` no longer `@import`s the tokens; every page links `tokens-field-guide.css` directly, so the browser fetches both at once instead of one after the other. The Lens photograph is served as WebP at 640 and 1122 wide (64KB and 137KB) through `<picture>`, with the JPEG kept as the fallback. The homepage Lens band uses the same files.
 
 Rerun on the live site after both merged (`gate-reports/2026-10-15-c5-live-g8.md`):
@@ -92,7 +92,7 @@ Each literal redirect in `vercel.json` was requested on the live site without fo
 
 ## 7. Purchase links
 
-Every enrol link on the four class pages and `/pricing` was followed to the step before payment, and stopped there. No account was created and no form was submitted.
+Every enroll link on the four class pages and `/pricing` was followed to the step before payment, and stopped there. No account was created and no form was submitted.
 
 | Link | Live result |
 |------|-------------|

@@ -41,7 +41,7 @@ const TOOL_NAME = {
   "/articles/serve-and-return": "What \u201cserve and return\u201d actually means",
 };
 
-// The strength label's colour: forest for evidence that holds, clay for a
+// The strength label's color: forest for evidence that holds, clay for a
 // claim the evidence contradicts, muted for thin evidence.
 const strengthClass = (s) => (s === "contradicted" ? "cl-grade--contra" : s === "strong" || s === "moderate" ? "cl-grade--solid" : "cl-grade--thin");
 
@@ -72,12 +72,12 @@ ${extraHead}
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=303d86446c" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=ececc69b57" />
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=9bef5b4f4c" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=c7c11c154e" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=9ee704dd6a" />
   <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
-  <link rel="stylesheet" href="/assets/css/claims.css?v=0c4b4ab099" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=a618e65a75" />
+  <link rel="stylesheet" href="/assets/css/claims.css?v=d0d715b886" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=827ba51d2c" />
 </head>
 <body class="fg fg--page hub claims">
   <!-- header:start -->
@@ -196,7 +196,7 @@ ${body}
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
 
   <script src="/assets/js/main.js?v=3f7e70ab67" defer></script>
-  <script src="/assets/js/home.js?v=c7f5c746df" defer></script>
+  <script src="/assets/js/home.js?v=682754d523" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

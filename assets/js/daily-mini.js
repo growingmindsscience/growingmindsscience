@@ -20,7 +20,7 @@
   // Standard numbering: a square starts an across entry when it is white and
   // the square to its left is black or the edge (and the run is 2+ long), same
   // for down.
-  function analyse(grid) {
+  function analyze(grid) {
     var n = grid.length, numbers = [], entries = { A: [], D: [] }, k = 0;
     for (var r = 0; r < n; r++) { numbers.push([]); for (var c = 0; c < n; c++) numbers[r].push(0); }
     for (var r2 = 0; r2 < n; r2++) {
@@ -79,7 +79,7 @@
       if (mode === "daily") { puzzle = puzzleForToday(); puzzleNo = A.dayNumber(); }
       else { var today = puzzleForToday(); var pool = data.puzzles.filter(function (p) { return p !== today; }); puzzle = pool[Math.floor(Math.random() * pool.length)]; }
       n = puzzle.grid.length;
-      info = analyse(puzzle.grid);
+      info = analyze(puzzle.grid);
       letters = puzzle.grid.map(function (row) { return row.split("").map(function (ch) { return ch === "#" ? "#" : ""; }); });
       if (mode === "daily") {
         var saved = A.daily.load(GAME_KEY);

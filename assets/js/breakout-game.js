@@ -120,7 +120,7 @@
       drop(function (b) { return b.r === 3 && (b.c <= 1 || b.c >= COLS - 2); });
       myth(0, 3); myth(COLS - 2, 3); myth(mid, 4);
     } else if (idx === 3) {
-      // Fortress: a hollow centre guarded by myth lintels.
+      // Fortress: a hollow center guarded by myth lintels.
       for (r = 0; r < 5; r++) for (c = 0; c < COLS; c++) {
         if (r >= 1 && r <= 3 && c >= 2 && c <= COLS - 3) continue;
         plain(c, r);

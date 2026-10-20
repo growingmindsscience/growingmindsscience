@@ -2,7 +2,7 @@
    Growing Minds Science
    Tokens: "The Living Field Guide to the Growing Mind".
    Warm paper ground, botanical ink for every word, scientific forest
-   green as the one action colour, muted sage as the field colour, and
+   green as the one action color, muted sage as the field color, and
    one inverted ink field for the close and the footer. Newsreader
    (headlines, statements) over Inter (reading and interface).
    Calm corners (4 / 6 / 10px); no shadows at rest; no gradients.
@@ -33,7 +33,7 @@
 }
 
 :root {
-  /* ---------- Colour: the field guide ---------- */
+  /* ---------- Color: the field guide ---------- */
   --paper: #F7F4EC;          /* ground: field paper (brand guidelines) */
   --paper-2: #EFEBE0;        /* one tone step: alternate sections, bands */
   --surface: #FFFDF8;        /* soft white: cards, reading surfaces */
@@ -44,7 +44,7 @@
   --forest: #245F58;         /* deep verdigris: actions and navigation */
   --forest-deep: #1C4D47;    /* hover */
   --on-forest: #FFFDF8;
-  --sage: #A9C3B2;           /* muted sage: the field colour for whole sections */
+  --sage: #A9C3B2;           /* muted sage: the field color for whole sections */
   --sage-deep: #8DAE9A;      /* active tab on a sage field, figure fills */
   --on-sage: #193C39;
   --sage-mist: #E0EBE5;      /* explanatory surfaces, panels (brand guidelines) */
@@ -54,9 +54,9 @@
   --on-ink: #F2EFE6;
   --on-ink-soft: #C9D0CB;
   --on-ink-muted: #9FAEA8;
-  /* Annotation colours, reserved for marks inside figures (leader lines,
+  /* Annotation colors, reserved for marks inside figures (leader lines,
      a highlighted layer). Never a fill larger than a mark; never on a
-     button or a heading. The brand rule stands: no warm colour at scale. */
+     button or a heading. The brand rule stands: no warm color at scale. */
   --note-warm: #C46C4D;      /* discovery clay: annotation marks only */
   --clay-text: #9E5236;      /* clay for small text: 5.1:1 on paper, 4.6:1 on sage mist */
   --research: #426B91;       /* research blue: sources and technical detail */

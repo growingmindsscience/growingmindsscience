@@ -24,7 +24,7 @@ The brand guidelines PDF (`reference/brand-guidelines.pdf`, "Field Notes & Disco
 Built as working pages at `/lab/a/`, `/lab/b/` and `/lab/c/` (PR #107, kept as the record), all on the same copy, tokens and eight-section story:
 
 - **A, The lens.** The observation motif from the guidelines' cover as the page's structure: a forest first screen, type at poster scale, the four rings as the four steps, a relationship map in the Lens.
-- **B, Annotated observation.** Signature move 01 as the whole page: a real moment fills the first screen and the visitor reveals typeset labels over it. The Lens is the same plate, re-labelled step by step.
+- **B, Annotated observation.** Signature move 01 as the whole page: a real moment fills the first screen and the visitor reveals typeset labels over it. The Lens is the same plate, re-labeled step by step.
 - **C, The field guide entry.** Signature move 03 as the object: the moment as Entry 01 with field marks, where found and a range bar; the five periods as tiles that grow with age; the classes on a timeline.
 
 ## The decision

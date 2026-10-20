@@ -16,4 +16,4 @@
 | 4 | Asking early is not overreacting; earlier support tends to be more effective | corpus `milestones-are-ranges` |
 | 5 | Interaction builds language; exposure alone does not | corpus `language-development` |
 
-The range figure is illustrative of "most children" between about 10 and 18 months and is labelled as such on the slide; it is not a percentile curve from a single dataset.
+The range figure is illustrative of "most children" between about 10 and 18 months and is labeled as such on the slide; it is not a percentile curve from a single dataset.

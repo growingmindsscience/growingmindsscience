@@ -7,7 +7,7 @@ The redesign ships with the site's existing photographs standing in. Matthew rep
 All five pictures must read as one photographer's work on one afternoon:
 - Natural window light, soft and from one side; no flash, no studio backdrop, no golden-hour glow.
 - Ordinary rooms and places with the clutter left in: a kitchen table with crumbs, a worn rug, a playground with a scuffed slide. Never a styled or pristine home.
-- Colour grade: neutral and slightly warm, muted saturation, nothing teal-and-orange. The palette of the page is paper, deep green-black ink, forest green and sage, so greens, creams, wood and skin tones sit well; avoid bright primaries and anything neon.
+- Color grade: neutral and slightly warm, muted saturation, nothing teal-and-orange. The palette of the page is paper, deep green-black ink, forest green and sage, so greens, creams, wood and skin tones sit well; avoid bright primaries and anything neon.
 - Film-like softness is fine; heavy grain, vignettes, bokeh balls, lens flare and HDR are not.
 - Real-looking families of different backgrounds, without posing for the camera; nobody looks into the lens except Matthew. No logos, no screens showing content, no text in frame.
 - Each picture must be describable in one plain sentence, because that sentence becomes its alt text.
@@ -19,7 +19,7 @@ File: `assets/img/site/hero-parent-baby.jpg` (and a 640-wide copy as `hero-paren
 Size: 1200 × 1800 px, portrait 2:3. It is shown as a 4:5 crop on desktop and a 3:2 crop on phones, so keep the subject in the central 60% of the frame both ways.
 
 Subject: a parent and a child of about 18 months on a sofa or the floor by a window, both looking at the same thing just outside the frame to the left: a book, a toy, something on the sill. The child is pointing or reaching; the parent's face is turned toward what the child sees, not toward the child. Neither looks at the camera. We see both faces in three-quarter profile.
-Composition: shot from slightly below the adult's eye level, a metre or two away, 50mm feel. Calm, plain wall or window behind them so the left and top of the frame are quiet.
+Composition: shot from slightly below the adult's eye level, a meter or two away, 50mm feel. Calm, plain wall or window behind them so the left and top of the frame are quiet.
 Mood: shared attention, unhurried. The picture is about two people looking at one thing.
 Avoid: a hug pose, a kiss on the head, both smiling at the camera, a tidy nursery.
 
@@ -29,7 +29,7 @@ File: `assets/img/site/child-learning.jpg` (and a 640-wide copy as `child-learni
 Size: 1200 × 1500 px, portrait 4:5. Shown small on desktop (about 230 px wide) and at 60% width on phones, so the figures must be large in frame.
 
 Subject: a toddler of two to three at the bottom of a small playground slide or near a low gate, body turned back toward the slide, one hand on it. An adult crouches a step or two behind, hand held out low, not grabbing. It is the moment before the hard part: no tears, no tantrum, no stiff body. The child's face can be turned away from the camera.
-Composition: eye level with the child, the slide's sage-green or faded colour filling part of the background, open ground at the bottom of the frame. Overcast or shaded daylight so there are no hard shadows.
+Composition: eye level with the child, the slide's sage-green or faded color filling part of the background, open ground at the bottom of the frame. Overcast or shaded daylight so there are no hard shadows.
 Mood: the ordinary end of an ordinary visit. Quiet tension at most.
 Avoid: a crying child, a parent pulling an arm, a bright plastic multicolour play structure, other families crowding the background, any branding on clothes.
 
@@ -61,7 +61,7 @@ Size: 1200 × 1500 px, portrait 4:5; it is cropped square at the top for the dro
 Subject: Matthew, indoors by a window, seated or leaning in, looking at the camera or just past it with an easy, direct expression. Plain shirt, no lanyard or branding. A hint of a real room behind (bookshelf, kitchen), not a backdrop.
 Composition: head and shoulders, 85mm feel, the eyes on the upper third line, window light from one side so one cheek is a little darker.
 Mood: the person who will answer; warm, credible, not corporate.
-Avoid: a studio grey backdrop, a white-coat clinic look, a laughing stock-style headshot, heavy retouching.
+Avoid: a studio gray backdrop, a white-coat clinic look, a laughing stock-style headshot, heavy retouching.
 
 ## Optional later
 

@@ -1,5 +1,5 @@
 /* Growing Minds Science: field-guide.js
-   The homepage's own behaviour (the header, menu and theme live in chrome.js;
+   The homepage's own behavior (the header, menu and theme live in chrome.js;
    the explorer and the Lens have their own scripts).
    - The masthead plate: four notes beside the plate are the controls; the
      callouts drawn on the plate mirror the active note.

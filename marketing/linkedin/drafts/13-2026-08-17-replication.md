@@ -9,7 +9,7 @@
 
 You may know this one even if you do not know its name. Babies watch a puppet show. One shape helps another shape up a hill. A third shape pushes it back down. Afterwards, the babies are offered a choice, and they reach for the helper.
 
-The 2007 result from Kiley Hamlin, Karen Wynn and Paul Bloom was widely reported as evidence of infant moral evaluation. It was a genuinely striking finding and it travelled far.
+The 2007 result from Kiley Hamlin, Karen Wynn and Paul Bloom was widely reported as evidence of infant moral evaluation. It was a genuinely striking finding and it traveled far.
 
 In 2025, the ManyBabies4 consortium ran a preregistered replication across 37 labs on five continents. They tested 1,018 infants, with 567 meeting inclusion criteria for the main analysis.
 

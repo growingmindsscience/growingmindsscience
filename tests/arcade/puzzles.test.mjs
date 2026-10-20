@@ -43,20 +43,20 @@ test("Groupings: every puzzle has four groups of four unique words with levels 1
   }
 });
 
-test("Letter Nest: every set has seven distinct letters, a centre, 18 to 60 words, a pangram", () => {
+test("Letter Nest: every set has seven distinct letters, a center, 18 to 60 words, a pangram", () => {
   const { sets } = load("nest.json");
   assert.ok(sets.length >= 60, `only ${sets.length} sets`);
   const seen = new Set();
   for (const s of sets) {
     assert.match(s.letters, /^[a-z]{7}$/, `letters ${s.letters}`);
     assert.equal(new Set(s.letters).size, 7, `letters repeat in ${s.letters}`);
-    assert.ok(s.letters.includes(s.center), `centre ${s.center} not in ${s.letters}`);
+    assert.ok(s.letters.includes(s.center), `center ${s.center} not in ${s.letters}`);
     assert.ok(!seen.has(s.letters), `duplicate set ${s.letters}`); seen.add(s.letters);
     assert.ok(s.words.length >= 18 && s.words.length <= 60, `${s.letters}: ${s.words.length} words`);
     assert.ok(s.pangrams.length >= 1, `${s.letters} has no pangram`);
     for (const w of s.words) {
       assert.ok(w.length >= 4, `${s.letters}: ${w} too short`);
-      assert.ok(w.includes(s.center), `${s.letters}: ${w} lacks the centre`);
+      assert.ok(w.includes(s.center), `${s.letters}: ${w} lacks the center`);
       assert.ok([...w].every((ch) => s.letters.includes(ch)), `${s.letters}: ${w} uses a letter outside the set`);
     }
     for (const p of s.pangrams) {

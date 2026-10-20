@@ -82,7 +82,7 @@ export const INTERRUPTED_MESSAGE = "Growing Minds AI was interrupted before it c
  *   or truncated answer.
  * - `onNoAnswer` runs when the stream failed before any text arrived, so the
  *   caller can refund the visitor's free question.
- * - Cancelling the returned stream (the visitor closed the page or started a
+ * - Canceling the returned stream (the visitor closed the page or started a
  *   new conversation) cancels the upstream body, which ends the Anthropic
  *   request instead of paying for the rest of an answer nobody reads.
  */
@@ -172,7 +172,7 @@ export function anthropicToOpenAiStream(upstreamBody, { onNoAnswer } = {}) {
       try {
         controller.close();
       } catch (_) {
-        // Already closed or cancelled.
+        // Already closed or canceled.
       }
     },
 

@@ -1,6 +1,6 @@
 /* Reel frame base: 1080 x 1920. Everything that matters sits inside the central
    1080 x 1350 (y 285 to 1635) so the feed crop (4:5) and the profile crop keep it.
-   Fonts and colours are the site's own; see ../carousel/_base.css for the same
+   Fonts and colors are the site's own; see ../carousel/_base.css for the same
    declarations at carousel scale. Nothing here animates with CSS time: every
    frame is drawn for an explicit t by _reel.js, so renders are deterministic. */
 

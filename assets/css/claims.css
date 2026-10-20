@@ -22,7 +22,7 @@
 
 /* The strength label: forest when the evidence holds, clay when it
    contradicts the claim, muted when it is thin. Words carry the grade;
-   the colour only repeats it. */
+   the color only repeats it. */
 .cl-grade--solid { color: var(--forest); }
 .cl-grade--contra { color: var(--clay-text); }
 .cl-grade--thin { color: var(--ink-muted); }

@@ -36,7 +36,7 @@ Scores (serve-and-return): design 7 · usability 8 · creativity 6 · content 8 
 Remaining: titles of ten or more words wrap to three lines at 390 (32px). Kept: the titles are the articles' own words, and three lines of a long title on a phone read better than a smaller headline.
 ```
 
-## Fails and warnings kept, with the defence
+## Fails and warnings kept, with the defense
 
 The standing defences in `critique-classes.md` and `critique-hubs.md` carry over: quiet rules (`hairline`, the guidelines' instruction), field paper (`palette-cream`), the wordmark lockup (`mixed-font-headline`, `micro-label`), the size count, no footage. New for these pages:
 

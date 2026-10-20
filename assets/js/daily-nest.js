@@ -1,5 +1,5 @@
 /* Growing Minds Science — daily-nest.js
-   "Letter Nest": seven letters in a hive, one in the centre that every word
+   "Letter Nest": seven letters in a hive, one in the center that every word
    must use. Words are four letters or longer; a word that uses all seven is a
    pangram. One nest a day for everyone, walked in order through
    /assets/data/arcade/nest.json (built by scripts/arcade/build-words.mjs),
@@ -123,7 +123,7 @@
       if (!current) return;
       var w = current;
       if (w.length < 4) { reject("Too short"); return; }
-      if (w.indexOf(set.center) === -1) { reject("Missing the centre letter"); return; }
+      if (w.indexOf(set.center) === -1) { reject("Missing the center letter"); return; }
       if (foundWords.indexOf(w) !== -1) { reject("Already found"); return; }
       if (set.words.indexOf(w) === -1) { reject("Not in the word list"); return; }
       var pts = wordScore(w, set.letters);
@@ -179,7 +179,7 @@
       shell.prompt.show({
         kicker: "Letter Nest",
         title: "How many words can you make?",
-        text: "Words need four letters or more and must use the centre letter. Letters can repeat. A word that uses all seven is a pangram and scores extra." + (s.current ? " Current streak: " + s.current + "." : ""),
+        text: "Words need four letters or more and must use the center letter. Letters can repeat. A word that uses all seven is a pangram and scores extra." + (s.current ? " Current streak: " + s.current + "." : ""),
         actions: [
           { label: "Today's nest", primary: true, onClick: function () { shell.prompt.hide(); setup("daily"); board.focus({ preventScroll: true }); } },
           { label: "Practice", onClick: function () { shell.prompt.hide(); setup("practice"); board.focus({ preventScroll: true }); } }

@@ -1,6 +1,6 @@
 ---
 name: Growing Minds Science
-description: A developmental-science education for parents of children 0 to 5, set as a living field guide. Field paper, forest ink, one verdigris action colour, sage mist for explanation, research blue for sources, and ordinary moments annotated on request.
+description: A developmental-science education for parents of children 0 to 5, set as a living field guide. Field paper, forest ink, one verdigris action color, sage mist for explanation, research blue for sources, and ordinary moments annotated on request.
 colors:
   paper: "#F7F4EC"
   paper-2: "#EFEBE0"
@@ -231,14 +231,14 @@ components:
 
 **Creative North Star: "The Living Field Guide"**
 
-The site reads like a well-made field guide to the first five years. An ordinary moment (a parent, a child, a playground, a walk home) is shown as a real photograph, and the science is laid over it as typeset labels the visitor reveals on request. The same plate, re-labelled step by step, becomes the Developmental Lens: Observe, Understand, Respond, Reflect. Every other page carries the guide's notation rather than its pictures: a Newsreader name, a quiet line of Inter metadata, rows separated by hairline rules, explanations on sage mist, and sources in research blue.
+The site reads like a well-made field guide to the first five years. An ordinary moment (a parent, a child, a playground, a walk home) is shown as a real photograph, and the science is laid over it as typeset labels the visitor reveals on request. The same plate, re-labeled step by step, becomes the Developmental Lens: Observe, Understand, Respond, Reflect. Every other page carries the guide's notation rather than its pictures: a Newsreader name, a quiet line of Inter metadata, rows separated by hairline rules, explanations on sage mist, and sources in research blue.
 
 The ground is warm field paper and every word is forest ink. One deep verdigris green does all the acting (buttons, links, chosen options, focus), sage mist holds anything that explains, and a single inverted ink field closes each page with one statement and one action before the footer continues on the same field. Nothing lifts. Surfaces separate by a tone step or a 1px rule, corners are calm (6px on controls, 10px on panels and photographs), and the warm accents (clay, ochre) appear only at the size of an annotation mark.
 
 The tone is calm and collegiate, warm but not sentimental. Photographs are observational and real or absent; there is no stock imagery and no decorative illustration filling space. The visual test, from the brand guidelines: the page should still read as Growing Minds Science with the logo removed.
 
 **Key Characteristics:**
-- Field paper ground, forest ink type, one verdigris action colour, sage mist for explanatory panels.
+- Field paper ground, forest ink type, one verdigris action color, sage mist for explanatory panels.
 - Newsreader for headings, names and statements over Inter for reading, labels and controls.
 - Calm corners: 6px controls, 10px panels and photographs, square bands and rows.
 - Quiet 1px rules between rows; a 2px ink rule opens an index list; no shadows at rest.
@@ -252,7 +252,7 @@ The tone is calm and collegiate, warm but not sentimental. Photographs are obser
 A warm paper-and-forest palette with one action green, one explanatory mist, and three accents held to annotation size.
 
 ### Primary
-- **Deep Verdigris** (`forest`): the one action colour. Filled buttons, text links, the chosen option in every choice set, the forest segment of the age-range bar, focus outlines and text selection. **Verdigris Deep** (`forest-deep`) is its hover. Text on it is **Soft White** (`on-forest`).
+- **Deep Verdigris** (`forest`): the one action color. Filled buttons, text links, the chosen option in every choice set, the forest segment of the age-range bar, focus outlines and text selection. **Verdigris Deep** (`forest-deep`) is its hover. Text on it is **Soft White** (`on-forest`).
 
 ### Secondary
 - **Sage Mist** (`sage-mist`): the explanatory surface. "The short version" beside an article title, callouts, checklists, guide panels, the claim's grade, the method note, the contact form, the Lens section ground, the hover wash on quiet buttons and choices. **Sage Mist Deep** (`sage-mist-2`) is the hairline inside a mist panel and the inactive bar in the class timeline.
@@ -271,11 +271,11 @@ A warm paper-and-forest palette with one action green, one explanatory mist, and
 - **Danger** (`danger`) for field errors and invalid borders; **Success** (`success`) for confirmations.
 
 ### Named Rules
-**The One Action Colour Rule.** Verdigris is the only colour that acts. A filled button, a link, a chosen option and a focus ring are forest; nothing else is. Sage, research blue, clay and ochre never fill a button.
+**The One Action Color Rule.** Verdigris is the only color that acts. A filled button, a link, a chosen option and a focus ring are forest; nothing else is. Sage, research blue, clay and ochre never fill a button.
 
 **The Annotation Scale Rule.** Clay and ochre never appear larger than a mark: a 10px dot, an 8px bullet, a numeral, a 14px label. No warm fill at the size of a panel, a button or a heading.
 
-**The Research Blue Rule.** Blue means "this is evidence". It is reserved for sources modules, reference links and evidence lines, so a parent can find the citations on any page by colour alone.
+**The Research Blue Rule.** Blue means "this is evidence". It is reserved for sources modules, reference links and evidence lines, so a parent can find the citations on any page by color alone.
 
 ## Typography
 
@@ -371,7 +371,7 @@ The inverted ink field closing each inner page: `field-ink` ground, square, full
 The one full sage band: a five-column row of periods (birth to 1, 1 to 2, 2 to 3, 3 to 4, 4 to 5) under a 2px ink rule, separated by 1px translucent ink rules, each with tabular years in Inter 500 and the period name in Newsreader. Hover deepens to `sage-deep`; the current period fills ink with paper text (the reverse in dark). The axis sits under the periods as a scale, never above them. On a period's page it becomes compact navigation (years only on phones, 44px cells). The homepage's age row and class pages use the smaller **age-range bar**: an 8px sage-mist track with a forest segment from `--from` to `--to`, 4px corners.
 
 ### The Lens (signature)
-Annotated observation in four steps. On the homepage it opens as the hero plate: a real photograph filling the right seven columns, a "show the labels" toggle (paper, 1.5px ink inset outline, ochre swatch; mist when pressed) and typeset labels (paper chips, 6px corners, 14px Inter with a 600 lead word, an ochre leader dot ringed in paper) that rise in over the image. A note label inverts to ink. Labels keep fixed light colours in both themes because they sit on a photograph.
+Annotated observation in four steps. On the homepage it opens as the hero plate: a real photograph filling the right seven columns, a "show the labels" toggle (paper, 1.5px ink inset outline, ochre swatch; mist when pressed) and typeset labels (paper chips, 6px corners, 14px Inter with a 600 lead word, an ochre leader dot ringed in paper) that rise in over the image. A note label inverts to ink. Labels keep fixed light colors in both themes because they sit on a photograph.
 
 The Lens section sits on sage mist: a sticky 4:5 plate (10px corners) beside the panel. Four tabs (Observe, Understand, Respond, Reflect) in a four-column grid, 6px corners, translucent soft white at rest, ink fill with paper text when selected, each with its clay step numeral. Each step re-labels the same plate; Reflect desaturates it. Understand lists mechanisms as soft-white 6px cards with an ochre dot and a research-blue evidence line; Respond lists options under quiet rules; Reflect sets prompts in Newsreader. The full Lens page adds a title block, a text alternative under a `sage-mist-2` rule, Read / Try / Learn link columns, the sources module and the age doors. Without script every panel shows in order and only the Observe labels stay on the plate. On phones the labels become a list under the photograph.
 
@@ -385,7 +385,7 @@ One header and one footer on every page, structured and scripted in `chrome.css`
 - **Footer:** the ink field at least 70svh tall: the brand and tagline on the left, four link columns (Inter, on-ink-soft, on-ink on hover), then the name set again at display size in Newsreader 500 so the page closes on the wordmark; the fine-print row in on-ink-muted.
 
 ### Dark theme
-`[data-theme="dark"]` swaps the token values and nothing else: a deep green-black paper (`#141F1C`), light ink (`#EDEBE3`), verdigris lifted to `#8FC4AE` with near-black text on it so it still reads as the one action colour, sage mist darkened to `#22362F`, research blue lifted to `#9DBBDD`, clay text to `#E0A48E`. The ink field goes darker than the ground (`#0B1210`) so the close and footer still read as the closing mass. The theme toggle works on every page.
+`[data-theme="dark"]` swaps the token values and nothing else: a deep green-black paper (`#141F1C`), light ink (`#EDEBE3`), verdigris lifted to `#8FC4AE` with near-black text on it so it still reads as the one action color, sage mist darkened to `#22362F`, research blue lifted to `#9DBBDD`, clay text to `#E0A48E`. The ink field goes darker than the ground (`#0B1210`) so the close and footer still read as the closing mass. The theme toggle works on every page.
 
 ### Print
 Printing shows everything: entrance animations are forced visible and the header and footer are hidden. The tool apps print their own sheets (the visit sheet, the activity pocket card) in black Georgia at 12pt with Helvetica headings, independent of the screen system.
@@ -402,7 +402,7 @@ The games on `/arcade` keep their own isolated retro palettes in `arcade.css` an
 ## Do's and Don'ts
 
 ### Do:
-- **Do** set every word in forest ink on field paper, and use deep verdigris for every action and nothing else (The One Action Colour Rule).
+- **Do** set every word in forest ink on field paper, and use deep verdigris for every action and nothing else (The One Action Color Rule).
 - **Do** put explanation on a sage-mist panel with 10px corners and no border.
 - **Do** separate rows with a 1px `border-soft` rule on top of each row but the first, and open an index list with a 2px ink rule.
 - **Do** put sources in the research-blue module: a 2px research-blue rule, an Inter 600 heading, research-blue links.
@@ -411,7 +411,7 @@ The games on `/arcade` keep their own isolated retro palettes in `arcade.css` an
 - **Do** draw choices as calm outlined buttons that fill forest when chosen.
 - **Do** close each inner page with one statement and one action on the ink field, flowing into the footer.
 - **Do** use real, observational photographs at 10px corners, or none.
-- **Do** keep entrances gated by `html.anim`, honour reduced motion, and keep every panel visible without script.
+- **Do** keep entrances gated by `html.anim`, honor reduced motion, and keep every panel visible without script.
 - **Do** write copy without em dashes; use commas, colons or a new sentence.
 
 ### Don't:
@@ -420,7 +420,7 @@ The games on `/arcade` keep their own isolated retro palettes in `arcade.css` an
 - **Don't** use clay, ochre or amber at any size larger than an annotation mark, or on a button or heading (The Annotation Scale Rule).
 - **Don't** use research blue for anything that is not a source or evidence (The Research Blue Rule).
 - **Don't** use stock photography, generic smiling families, brain imagery or decorative icons that fill space.
-- **Don't** stack heavy coloured cards; a list is rows under quiet rules.
-- **Don't** use `border-left` or `border-right` as a coloured accent stripe on a panel or callout.
+- **Don't** stack heavy colored cards; a list is rows under quiet rules.
+- **Don't** use `border-left` or `border-right` as a colored accent stripe on a panel or callout.
 - **Don't** restyle `.site-header` or `.site-footer` outside `chrome.css` and the field-guide layer in `field-guide.css`.
 - **Don't** reintroduce a retired value from an earlier system (Geologica, Literata, Besley, amber highlighter, square-only corners).

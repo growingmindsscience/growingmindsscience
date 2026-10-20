@@ -100,7 +100,7 @@ export function planCheckout(session: CheckoutSessionLike): CheckoutPlan {
   if (session.mode !== "payment") return { kind: "ignore", reason: "not a one-time payment" };
   if (!isFulfillable(session)) return { kind: "ignore", reason: "payment not settled yet" };
   if (session.metadata?.kind === "gift") return { kind: "gift" };
-  // On-site classes have their own fulfilment: owner and price verification,
+  // On-site classes have their own fulfillment: owner and price verification,
   // a class_orders row, and revocation on a refund or dispute.
   if (courseForProduct(session.metadata?.product)) return { kind: "class" };
 

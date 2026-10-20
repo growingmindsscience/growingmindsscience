@@ -129,7 +129,7 @@ ${ageLine(s.id)}
     <section class="hub-sec hub-sec--white ex-sec" id="moments" aria-labelledby="moments-heading">
       <div class="hb-container">
         <h2 class="hb-display ex-sec__title" id="moments-heading">Moments at this age</h2>
-        <p class="ex-sec__lede">Situations you would recognise, and the pages that start from them. In the middle of one now? <a href="/tools/right-now">It&rsquo;s hard right now</a> gives a calm next step in two minutes.</p>
+        <p class="ex-sec__lede">Situations you would recognize, and the pages that start from them. In the middle of one now? <a href="/tools/right-now">It&rsquo;s hard right now</a> gives a calm next step in two minutes.</p>
 ${momentRows}
       </div>
     </section>

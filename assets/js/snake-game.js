@@ -459,7 +459,7 @@
         }
       }
 
-      // power-up pickup: coloured disc with its initial
+      // power-up pickup: colored disc with its initial
       if (pickup) {
         var def = POWERUPS[pickup.id], col = pal[def.color];
         var pux = cx(pickup), puy = cy(pickup) + (reduce ? 0 : Math.sin(time * 0.12) * 1.5);

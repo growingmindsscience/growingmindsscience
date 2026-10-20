@@ -20,7 +20,7 @@ CI gates in `.github/workflows/gates.yml`. Every script they call exists on this
 | Path | File | What it is |
 |---|---|---|
 | `/` | `index.html` | Homepage: Terrain survey map and age explorer |
-| `/classes` | `classes/index.html` | Class catalogue |
+| `/classes` | `classes/index.html` | Class catalog |
 | `/classes/birth-to-12-months` | `classes/birth-to-12-months.html` | Class 1, Stripe checkout |
 | `/classes/toddlerhood` | `classes/toddlerhood.html` | Class 2, checkout on Thinkific (off-site) |
 | `/classes/preschool` | `classes/preschool.html` | Class 3, Stripe checkout |
@@ -59,7 +59,7 @@ Article titles, from each page's `<title>`:
 
 ## Workflows that must not break
 
-- **Stripe:** `api/create-checkout-session.js` (AI Pro subscription), `api/stripe-webhook.js` (fulfils on `checkout.session.completed` and `async_payment_succeeded`), `api/verify-subscription.js` (signed subscriber tokens bound to the Stripe subscription). Class purchases run in nsc server actions. nsc has its own `stripe-webhook` route, so two webhook handlers exist.
+- **Stripe:** `api/create-checkout-session.js` (AI Pro subscription), `api/stripe-webhook.js` (fulfills on `checkout.session.completed` and `async_payment_succeeded`), `api/verify-subscription.js` (signed subscriber tokens bound to the Stripe subscription). Class purchases run in nsc server actions. nsc has its own `stripe-webhook` route, so two webhook handlers exist.
 - **Login and session:** `api/login.js` (one configured account, per-IP throttle), `api/session.js`, `api/logout.js`, `api/auth/google/` (allow-listed emails or domain only), signed cookie in `api/_auth.js`.
 - **Growing Minds AI:** `api/growing-minds-ai.js` with `_ai-chat.js` (1,200-character questions, 5 free questions a day), `_retrieval.js` (lexical search over `_knowledge-data.js`), `_ratelimit.js` (per-isolate soft limits: 10 a minute, 8 wrong access codes an hour) and `_pii-guard.js` (output redaction).
 - **Waitlist and contact:** `api/waitlist.js` (Kit) and `api/contact.js` (Web3Forms).
@@ -67,7 +67,7 @@ Article titles, from each page's `<title>`:
 
 ## Design-system conflicts
 
-- Three lineages coexist: Seminar names (`seminar.css`, parts of `styles.css`), Terrain tokens (`tokens-terrain.css`) and legacy aliases such as `--amber` (the teal route colour).
+- Three lineages coexist: Seminar names (`seminar.css`, parts of `styles.css`), Terrain tokens (`tokens-terrain.css`) and legacy aliases such as `--amber` (the teal route color).
 - `tokens-field-guide.css` is untracked and imported nowhere yet. It reuses Terrain names (`--bg`, `--ink`, `--primary`, `--font-display`, `--font-body`) with different values and fonts. A page that loads both sheets gets the later value.
 - `chrome.css` reads shared names through fallbacks, so any new token file must keep those names.
 - The nsc app still uses Seminar: Besley and Atkinson Hyperlegible Next, an amber highlighter, 10px radii.

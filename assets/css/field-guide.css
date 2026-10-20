@@ -3,11 +3,11 @@
    The Living Field Guide to the Growing Mind. Page shell, the editorial
    components, and the homepage sections, laid out like a printed annual:
    a masthead plate, a title that begins on the 42% axis, text pages that
-   hang from that axis, and whole pages of flat colour. Quiet 1px rules
+   hang from that axis, and whole pages of flat color. Quiet 1px rules
    between rows, no shadows at rest, no gradients, calm corners. Reads only the tokens in
    tokens-field-guide.css, which every page links directly just before this file (an
    @import here would make the tokens wait for this download). Header and footer
-   behaviour stays in chrome.js.
+   behavior stays in chrome.js.
    ========================================================= */
 
 /* ---------- Reset and base ---------- */
@@ -24,7 +24,7 @@ body.fg {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-/* :where() keeps the margin reset at class weight, so a component's own spacing (a single-class rule) is not cancelled. */
+/* :where() keeps the margin reset at class weight, so a component's own spacing (a single-class rule) is not canceled. */
 .fg :where(h1, h2, h3, h4, p, figure, blockquote, ul, ol, dl, dd) { margin: 0; }
 .fg ul[class], .fg ol[class] { padding: 0; list-style: none; }
 .fg img, .fg video, .fg svg, .fg canvas { display: block; max-width: 100%; }

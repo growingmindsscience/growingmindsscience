@@ -4,9 +4,9 @@ Matthew supplied a concept on 2026-10-15: three arcs rising into a leaf, with th
 
 ## What the redraw changed, and why
 
-- **The arcs no longer share one centre.** Each arc's centre steps down and to the right, and their ends are staggered, so the gaps widen toward the leaf. Three concentric quarter-arcs with round ends read as a Wi-Fi signal; stepped arcs read as a stem unfurling.
+- **The arcs no longer share one center.** Each arc's center steps down and to the right, and their ends are staggered, so the gaps widen toward the leaf. Three concentric quarter-arcs with round ends read as a Wi-Fi signal; stepped arcs read as a stem unfurling.
 - **A second drawing for small sizes.** At 32px and below, three arcs merge. `mark-small.svg` has two arcs, heavier strokes and a larger leaf. The favicon and the home-screen icon use it.
-- **Brand colours only.** Arcs in forest ink `#193C39` with the leaf in sage-deep `#8DAE9A` on paper. On forest ink, arcs in sage `#A9C3B2` with the leaf in `#CFDFD6`.
+- **Brand colors only.** Arcs in forest ink `#193C39` with the leaf in sage-deep `#8DAE9A` on paper. On forest ink, arcs in sage `#A9C3B2` with the leaf in `#CFDFD6`.
 - **SCIENCE in verdigris `#245F58` on paper** (7.4:1), and sage on forest ink. Pale sage on paper, as in the concept, is too light for small text.
 - **Outlined type.** The name is Newsreader 500 and SCIENCE is Inter 600, tracked 0.30em, converted to outlines so the files look the same everywhere.
 
@@ -18,7 +18,7 @@ Matthew supplied a concept on 2026-10-15: three arcs rising into a leaf, with th
 | `mark-small.svg`, `mark-small-dark.svg` | The mark at 48px and below |
 | `lockup-horizontal.svg`, `-dark` | Mark beside the name: header, email, documents |
 | `lockup-stacked.svg`, `-dark` | Mark above the name: covers, social avatars, title slides |
-| `favicon.svg` | Browser tab; switches to the light-on-dark colours when the browser is in dark mode |
+| `favicon.svg` | Browser tab; switches to the light-on-dark colors when the browser is in dark mode |
 | `favicon-16/32/48.png` | Fallbacks for browsers without SVG favicons |
 | `apple-touch-icon-180.png` | iOS home screen, on a paper tile |
 | `icon-192.png`, `icon-512.png`, `app-icon.svg` | Android, PWA manifest, large uses |

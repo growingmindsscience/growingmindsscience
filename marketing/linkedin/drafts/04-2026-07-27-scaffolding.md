@@ -18,7 +18,7 @@ What the paper did that mattered was describe what the tutor was actually doing,
 **Direction maintenance.** Keeping them pointed at the goal when momentum drops.
 **Marking critical features.** Drawing attention to what matters here, and away from what does not.
 **Frustration control.** Keeping the difficulty tolerable.
-**Demonstration.** Modelling a solution in a form the child can take up, not just doing it for them.
+**Demonstration.** Modeling a solution in a form the child can take up, not just doing it for them.
 
 The age pattern in the study is the part I find most useful. The youngest children needed things shown rather than explained, and needed the most help staying in the task at all. The middle group mostly needed prompting and correction. The oldest mostly needed confirmation that they were on track.
 

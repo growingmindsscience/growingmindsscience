@@ -887,21 +887,21 @@
   // scripts/stamp-assets.mjs can version it: /assets is served immutable, and a
   // URL that never changes would keep serving a stale game.
   var GAME_JS = {
-    asteroids: "/assets/js/asteroids-game.js?v=ec66f43dd7",
+    asteroids: "/assets/js/asteroids-game.js?v=94eec66920",
     blocks: "/assets/js/blocks-game.js?v=5e2c8990af",
-    breakout: "/assets/js/breakout-game.js?v=7586ab1234",
-    dino: "/assets/js/dino-game.js?v=6b7ac939d1",
-    echo: "/assets/js/echo-game.js?v=277f25f3df",
-    hopper: "/assets/js/hopper-game.js?v=1c5a997842",
-    invaders: "/assets/js/invaders-game.js?v=524418a582",
-    maze: "/assets/js/maze-game.js?v=bc32394d7d",
-    pong: "/assets/js/pong-game.js?v=bb9b028bed",
-    snake: "/assets/js/snake-game.js?v=d2a3500dcc",
+    breakout: "/assets/js/breakout-game.js?v=e4be87b4dc",
+    dino: "/assets/js/dino-game.js?v=726e654361",
+    echo: "/assets/js/echo-game.js?v=2cf8428aef",
+    hopper: "/assets/js/hopper-game.js?v=be33bbbeb8",
+    invaders: "/assets/js/invaders-game.js?v=eb594aa79d",
+    maze: "/assets/js/maze-game.js?v=161ebc3d55",
+    pong: "/assets/js/pong-game.js?v=9ccd6de2c5",
+    snake: "/assets/js/snake-game.js?v=94bbf0eb93",
     // Daily puzzles (DOM games on the same shell)
-    five: "/assets/js/daily-five.js?v=54e0a74c2d",
-    groups: "/assets/js/daily-groups.js?v=060460edf9",
-    nest: "/assets/js/daily-nest.js?v=986c1ed050",
-    mini: "/assets/js/daily-mini.js?v=2d0d539012",
+    five: "/assets/js/daily-five.js?v=d90b74d3c5",
+    groups: "/assets/js/daily-groups.js?v=f27ae0eba8",
+    nest: "/assets/js/daily-nest.js?v=7e6f4ab44e",
+    mini: "/assets/js/daily-mini.js?v=86a4357ac2",
     six: "/assets/js/daily-six.js?v=639eb12940"
   };
   var GAME_CSS = {};
@@ -1263,7 +1263,7 @@
     paint: paintPath,
     // The paper ground: flat fill, a faint dot grid, an optional quiet frame.
     // The dot grid is hundreds of arcs a frame, which a throttled phone feels,
-    // so it is painted once per (size, colours, device scale) into an
+    // so it is painted once per (size, colors, device scale) into an
     // offscreen canvas and stamped from then on. One cache per target canvas.
     paper: function (ctx, w, h, pal, opts) {
       opts = opts || {};

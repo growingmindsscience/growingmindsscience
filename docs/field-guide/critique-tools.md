@@ -40,7 +40,7 @@ Top problems, from the screenshots:
 3. The discuss-level badge was an amber fill (off palette). Fixed: clay text, clay outline.
 ```
 
-## Fails and warnings kept, with the defence
+## Fails and warnings kept, with the defense
 
 The standing defences carry over: quiet rules (`hairline`), field paper, the wordmark lockup, no pictures, `still-page`. New here:
 

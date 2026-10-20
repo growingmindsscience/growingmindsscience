@@ -102,7 +102,7 @@ test("stream: malformed lines are skipped and PII is still redacted", async () =
   assert.ok(text.includes("[contact details removed]"));
 });
 
-test("stream: cancelling the page's stream cancels the upstream (A4)", async () => {
+test("stream: canceling the page's stream cancels the upstream (A4)", async () => {
   let reads = 0;
   let upstreamCancelled = false;
   const encoder = new TextEncoder();

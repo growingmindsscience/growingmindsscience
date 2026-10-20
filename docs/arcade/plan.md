@@ -14,7 +14,7 @@ This plan covers the five asks: better graphics, graphics on brand, better play 
 4. **Draw at device resolution.** Logical coordinates stay small for physics; rendering happens at devicePixelRatio with smoothing on. Rounded shapes, 1.5px ink outlines, offset ink shadows at low alpha, a faint dot grid on the paper. No blur filters, no gradients larger than a highlight.
 5. **One shell, ten games.** The overlay, HUD, prompt card, help line, touch row, mute and close move into core. A game file is gameplay plus art.
 6. **Every game gets a story spine and at least two new power-ups.** Chapters named for developmental moments, a short card between chapters, a run summary at the end with best chain and chapter reached.
-7. **Accessibility stays ahead of where it was.** Reduced motion, hidden-tab pause, focus management, live announcements, no colour as the only cue, touch controls on every game, 44px targets.
+7. **Accessibility stays ahead of where it was.** Reduced motion, hidden-tab pause, focus management, live announcements, no color as the only cue, touch controls on every game, 44px targets.
 8. **Science copy stays honest.** Myth cards, chapter names and puzzle clues are plain and verifiable. No invented findings. Playful, not clinical.
 
 ## 2. Phases
@@ -38,7 +38,7 @@ New exports on `window.GMSArcade`, all additive. Old exports stay so an unconver
 - `draw` kit: `paper(ctx, w, h, pal)` (ground plus dot grid), `shape(ctx, path, { fill, stroke, shadow })`, `roundRect`, `circle`, `pill`, `leaf`, `seed`, `star`, `label(ctx, text, x, y, opts)` in Newsreader or Inter, `dashes`, `ring`. Shadows are an ink offset at 10 percent alpha.
 - `makeShell({ key, title, tagline, hud, help, touch, onClose })` builds the overlay once. Returns `{ overlay, stage, hud.set(name, value), prompt.show({ title, text, actions, board }), prompt.hide(), toast(text), setHelp(text), touchButtons }`. Handles mute and close buttons, sets `_onKeydown` hooks, and wires `defineGame`.
 - `makeStory(chapters, { onEnter })` with `advance(progressValue)`, `current()`, `banner()` state for the renderer.
-- `makePowerups(defs)` timed-effect manager: `grant(id)`, `active(id)`, `frac(id)`, `tick(dt)`, `list()` for HUD pips. Each def names a token colour and a one-word label.
+- `makePowerups(defs)` timed-effect manager: `grant(id)`, `active(id)`, `frac(id)`, `tick(dt)`, `list()` for HUD pips. Each def names a token color and a one-word label.
 - `progress` store: `record(key, { score, chapter, badges })`, `get(key)`, `badge(key, id)`. Separate from the leaderboard.
 - `dailySeed(offsetDays)` and `rng(seed)` (mulberry32) for the brain games. `dayKey()` as `YYYY-MM-DD` local.
 - `streak` store for daily games: `mark(key, dayKey)`, `get(key)` returning current and best.
@@ -59,7 +59,7 @@ Each entry: new look, story spine, new power-ups, fixes.
 
 ### Pong (`pong`)
 - Rebuilt on the shell with a leaderboard. Score is rally length plus margin.
-- Look: paddles as rounded paper slips with an ink edge, ball with a short trail, centre line as a dashed quiet rule, court corners marked like a field-guide plate.
+- Look: paddles as rounded paper slips with an ink edge, ball with a short trail, center line as a dashed quiet rule, court corners marked like a field-guide plate.
 - Play: spin from paddle movement, serve direction alternates, three CPU personalities over a match (steady, eager, tired). Rally combo multiplies the point value. Local two-player on one keyboard (W/S and arrows), toggled from the start card.
 - Power-ups: Wide (sage), Slow (research blue), Split (ochre; second ball for ten seconds).
 - Fixes: hidden-tab pause, wake lock, haptics, reduced motion, the keyboard lockout after pointer use.
@@ -83,13 +83,13 @@ Each entry: new look, story spine, new power-ups, fixes.
 - Fixes: sub-stepped ball collision, multiple brick hits per frame, remove the empty branch.
 
 ### Synapse Drift (`asteroids`)
-- Look: rocks as word-labelled paper boulders with cracks, the ship as a paper plane with a lens, stars as a quiet dot field, seeds with leaves, Bloom as a sage halo.
+- Look: rocks as word-labeled paper boulders with cracks, the ship as a paper plane with a lens, stars as a quiet dot field, seeds with leaves, Bloom as a sage halo.
 - Play: Blink gets a touch button and a cooldown ring. Wave events: meteor shower, calm pocket (extra seeds). Orbit drone power-up (research blue) that fires with you for 12 seconds. Bomb (clay) clears small rocks nearby.
 - Fixes: dead `held.blink`, consistent mute label, stop fire from starting a run from game over.
 
 ### Special Delivery (`hopper`)
 - Look: a courier (envelope with hands and legs, ochre stamp), hop arc animation, picture books float on a story stream with ripples, wooden toys with wheels in the lanes, a hedge median, a mailbox row with flags that rise on delivery.
-- Story: five rounds, each a neighbourhood (Hallway, Playroom, Garden, Library, Night Walk) with a card.
+- Story: five rounds, each a neighborhood (Hallway, Playroom, Garden, Library, Night Walk) with a card.
 - Power-ups: Umbrella (one safe splash), Skates (double hop), Lantern (slows toys for 5 seconds), Bonus Parcel (timed extra points).
 - Fixes: queue two hops, the safe row carries a bench that gives a second's shelter.
 
@@ -114,9 +114,9 @@ All five live in `assets/js/daily-*.js`, DOM-based (no canvas), on the same shel
 
 | Game | Model | Data | Notes |
 | --- | --- | --- | --- |
-| Five Letters | Wordle | answer list (~500 everyday and development words), guess list from a 5-letter dictionary | Six guesses, keyboard with states, colour plus shape cues |
+| Five Letters | Wordle | answer list (~500 everyday and development words), guess list from a 5-letter dictionary | Six guesses, keyboard with states, color plus shape cues |
 | Groupings | Connections | ~40 authored puzzles, 16 words in 4 groups, difficulty tiers | Four mistakes, shuffle, reveal with group names |
-| Letter Nest | Spelling Bee | ~60 authored seven-letter sets with a centre letter, word list from the dictionary filtered to the set | Pangram bonus, rank names |
+| Letter Nest | Spelling Bee | ~60 authored seven-letter sets with a center letter, word list from the dictionary filtered to the set | Pangram bonus, rank names |
 | Little Crossword | NYT Mini | ~14 authored 5x5 grids with clues, validated for symmetry and fill | Tap-to-type on phones, check and reveal |
 | Six Sudoku | Sudoku 6x6 | generated from the daily seed, verified unique | Pencil marks, error check |
 
@@ -168,7 +168,7 @@ Known follow-ups:
 - `pages.css` still carries the old `.arcade-*` card rules (dead now that the hub uses `ar-*`). Remove in a follow-up that restamps every page.
 - Nobody has played a full run of each game by hand yet; difficulty curves past the middle chapters are untested by a person.
 - Tidy Up shares one leaderboard between Marathon and Bedtime.
-- Real iOS Safari has not been touched: the sweep runs in Chrome with phone metrics. The scroll lock, `touch-action`, safe-area padding and the `interrupted` audio state are coded for Safari from its documented behaviour, not observed.
+- Real iOS Safari has not been touched: the sweep runs in Chrome with phone metrics. The scroll lock, `touch-action`, safe-area padding and the `interrupted` audio state are coded for Safari from its documented behavior, not observed.
 - The repo skill `arcade-game` (section 8) is not written yet; `game-brief.md` is its draft.
 
 ## 11. Mobile pass, 2026-10-17
@@ -180,7 +180,7 @@ What the sweep found, and what changed:
 - **The page widened behind every game.** The tear-away leaves each page piece translated 125vh and rotated; those transforms stayed on the hidden pieces, so the document grew from 375 to 943 px wide on a phone. Mobile browsers could pan and zoom behind the overlay and the URL bar moved with every pan. The fall transform is now cleared once the piece is hidden, and the body is pinned (`position: fixed` at its scroll offset) while a game is open; `closeGame` restores the offset.
 - **Phones held sideways.** The single column gave a portrait field 0.32 to 0.63 of its logical size (Serve and Return at 0.32 on a 568x320 phone). Under `max-height: 480px` landscape the panel is now a grid: title, sound, close and the HUD in a column on the left, the touch buttons in a column on the right, the whole height to the field. Portrait fields now sit at 0.61 to 0.90 on the same phones; landscape fields gained too (Snake 0.72 to 1.05 on an iPhone 15 sideways). Where a portrait field still lands under 0.72 on a touch screen (320 px phones), the shell shows a tappable "Turn your phone upright" hint over the field.
 - **Orientation changes mid-game.** The shell now tells the game when the stage or the window flips (`onViewport(portraitStage)`). Every canvas game pauses a run; the five games that choose a field by aspect (Snake, Pong, Brain Sprint, Myth Buster, Synapse Drift) also re-lay an idle field and choose again at every start, so a phone turned between runs gets the right shape.
-- **Puzzle boards squashed, not scrolled.** The boards are column flex containers; a grid with `overflow: hidden` (Little Crossword, Six Sudoku) shrank to nothing when the stage was short, so the crossword opened with no grid on an iPhone SE. Board children no longer shrink; the board scrolls. Five Letters' keyboard overflowed a 320 px row (ten 30 px keys); keys are 26 px there. Short and sideways screens get smaller tiles and no meta line so grid and keyboard share the stage. The prompt card centres with auto margins instead of `align-items: center`, so a tall game-over card can be scrolled to its top.
+- **Puzzle boards squashed, not scrolled.** The boards are column flex containers; a grid with `overflow: hidden` (Little Crossword, Six Sudoku) shrank to nothing when the stage was short, so the crossword opened with no grid on an iPhone SE. Board children no longer shrink; the board scrolls. Five Letters' keyboard overflowed a 320 px row (ten 30 px keys); keys are 26 px there. Short and sideways screens get smaller tiles and no meta line so grid and keyboard share the stage. The prompt card centers with auto margins instead of `align-items: center`, so a tall game-over card can be scrolled to its top.
 - **Touch targets.** Sound and close were 40 px (34 sideways); mode choices 40 px; the touch buttons 42 px sideways; crossword clue rows 31 px. All are 44 px now. Exceptions, on purpose: Five Letters keys (30x38 to 42x48, like a phone keyboard) and the sudoku and crossword cells (42 px sideways, 44 px and up otherwise).
 - **Touch handling.** The overlay allows vertical pans only (`touch-action: pan-y`; the canvas and touch buttons `none`), which also stops pinch and double-tap zoom over a game. `-webkit-touch-callout` is off. The virtual stick's zone is `touch-action: none` (preventDefault on pointer events does not stop a touch scroll). The keyboard help line is hidden on touch screens; its height goes to the field.
 - **Safe areas.** The panel pads all four `env(safe-area-inset-*)` values. The hub keeps `width=device-width, initial-scale=1` without `viewport-fit=cover`: the insets are zero until a page opts into the notch, and opting in would pull the site header under it.
@@ -199,4 +199,4 @@ Sweep numbers (field scale, CSS px per logical unit, baseline in parentheses):
 | Crumb Chase | 0.78 (0.65) | 0.64 (0.40) | 0.92 (0.92) | 0.76 (0.52) | 0.80 (0.55) |
 | Special Delivery | 0.71 (0.65) | 0.68 (0.42) | 0.84 (0.84) | 0.80 (0.54) | 0.84 (0.58) |
 
-Not done: a real iPhone or Android in hand (the sweep is Chrome with phone metrics, so WebKit-only behaviour is reasoned, not observed), and the landscape fields on a 568x320 phone are still small enough that the rotate hint is the honest answer there.
+Not done: a real iPhone or Android in hand (the sweep is Chrome with phone metrics, so WebKit-only behavior is reasoned, not observed), and the landscape fields on a 568x320 phone are still small enough that the rotate hint is the honest answer there.

@@ -1,4 +1,4 @@
-/* Shared behaviour for the homepage compositions: nav toggle, entrances, tablists. */
+/* Shared behavior for the homepage compositions: nav toggle, entrances, tablists. */
 (function () {
   var nav = document.querySelector('.lab-nav');
   var toggle = document.querySelector('.nav-toggle');

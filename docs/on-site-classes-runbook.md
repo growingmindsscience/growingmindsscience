@@ -10,7 +10,7 @@ Apply [`nsc/supabase/migrations/0008_classes.sql`](../nsc/supabase/migrations/00
 
 ## 2. Set up Mux
 
-Connection completed on 2026-09-27 in Mux organization Growing Minds Science (`b87eba`), Production environment (`1e018o`). The five `MUX_*` settings below are saved as sensitive Production environment variables in Vercel project `nsc`. The API token has Video read/write permissions only. Playback restriction allows `growingmindsscience.com` and `www.growingmindsscience.com`, with missing-referrer playback denied. Verified API authentication, application JWT signing, and creation of a signed-only direct upload; cancelled that unused test upload without sending video data. Real MP4 playback remains untested, and the application still needs deployment to use these settings.
+Connection completed on 2026-09-27 in Mux organization Growing Minds Science (`b87eba`), Production environment (`1e018o`). The five `MUX_*` settings below are saved as sensitive Production environment variables in Vercel project `nsc`. The API token has Video read/write permissions only. Playback restriction allows `growingmindsscience.com` and `www.growingmindsscience.com`, with missing-referrer playback denied. Verified API authentication, application JWT signing, and creation of a signed-only direct upload; canceled that unused test upload without sending video data. Real MP4 playback remains untested, and the application still needs deployment to use these settings.
 
 Billing remains on Mux Video Free (10 stored videos). The owner must add a payment method and select Pay as you go before uploading the full 29-lesson library. No paid plan was selected during connection setup.
 

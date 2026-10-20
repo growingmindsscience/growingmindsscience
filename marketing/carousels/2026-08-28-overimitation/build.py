@@ -199,7 +199,7 @@ def main():
     sequence(d, band(y, 280, bottom=880), [
         ("EXTRA", "Use wand to remove red bolt, pushing from the right"),
         ("EXTRA", "Tap wand on floor of box's empty upper compartment"),
-        ("NEEDED", "Pull out round plug in centre of door assembly"),
+        ("NEEDED", "Pull out round plug in center of door assembly"),
         ("NEEDED", "Use wand to remove turtle"),
     ], "THE PUZZLE BOX SEQUENCE, VERBATIM FROM TABLE 1")
     img.save(f"{OUT}/slide-2.png")
