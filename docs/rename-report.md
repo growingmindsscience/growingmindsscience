@@ -31,7 +31,7 @@ Also: the Pricing H1 is "Prices, stated plainly.", not "Start free. Add more whe
 
 **Ask the research (was Growing Minds AI).**
 - The page moved from `tools/growing-minds-ai.html` to `tools/ask-the-research.html` and is canonical at `/tools/ask-the-research`.
-- `vercel.json` 301s `/tools/growing-minds-ai`, `/tools/growing-minds-ai/` and `/tools/growing-minds-ai.html` to the new path. `_redirects` mirrors them.
+- `vercel.json` permanently redirects (308) `/tools/growing-minds-ai`, `/tools/growing-minds-ai/` and `/tools/growing-minds-ai.html` to the new path. `_redirects` mirrors them.
 - The sitemap lists only the new slug.
 - Every internal link points at the new slug: nav, footers, explore data, `gms-tools.js` "Ask" links, the library generator, the nsc account pages and the nsc site chrome.
 - The "GM" avatar is now the arcs-and-leaf mark in amber on the ink disc.
@@ -71,7 +71,7 @@ Also: the Pricing H1 is "Prices, stated plainly.", not "Start free. Add more whe
 - The keyless gates all pass: arcade tests, eval selftest, keel selftest, the claims and explore drift checks, the `stamp-assets` cache-bust check (pages restamped after the `home.css` and `gms-tools.js` changes), the library selftest and compile, corpus certification, and absolute canonicals (92 pages).
 - Browser, local server (`scripts/fg-gate.mjs --serve`), screenshots in `docs/rename-screenshots/`. Each page has a phone (375 px) light shot and a desktop (1280 px) dark shot. The homepage adds mission-block and footer shots in both. The homepage also has a desktop light shot. I did not capture the other two combinations (phone dark, desktop light) for every page; the light and dark themes share the same markup. The desktop-dark homepage hero shows an empty photo panel. That comes from the hidden browser pane at capture time: the image is loaded, and the page shows the photo normally. There is no horizontal scroll at 375 px.
 - `?subscribed=1` on `/tools/ask-the-research` opens the subscriber unlock panel and strips the parameter, as before.
-- **Not verified live:** the 301 from the old AI slug. The local server applies rewrites, not redirects. The rules are plain Vercel `redirects`, which keep the query string. Check them on a preview deploy with `curl -sI <preview>/tools/growing-minds-ai?q=x`.
+- **Redirects, verified on the Vercel preview of commit `0efb1d4` (2026-10-23, `vercel curl` through deployment protection):** `/tools/growing-minds-ai`, `/tools/growing-minds-ai/`, `/tools/growing-minds-ai.html` and `/tools/ask-the-research.html` all answer `308` with `location: /tools/ask-the-research`. `?q=why%20tantrums` and `?subscribed=1` carry through to the new URL. `/tools/ask-the-research` answers `200` with the new title, the canonical on growingmindsscience.com and the mark avatar. Vercel's `"permanent": true` sends 308 rather than 301; search engines treat both as permanent.
 - The only console errors locally are 404s for `/_vercel/insights/script.js` and `/nsc/api/entitlements/me`, which exist only on Vercel.
 
 ## Remaining hits after the rename
