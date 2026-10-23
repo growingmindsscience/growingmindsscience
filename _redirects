@@ -50,7 +50,7 @@
 /tools/right-now   /tools/right-now.html  200
 /tools/right-now/  /tools/right-now.html  200
 
-# Pretty URL for the Growing Minds AI product page.
+# Pretty URL for the Ask the research page (formerly Growing Minds AI).
 /tools/ask-the-research   /tools/ask-the-research.html  200
 /tools/ask-the-research/  /tools/ask-the-research.html  200
 /tools/growing-minds-ai   /tools/ask-the-research  301
