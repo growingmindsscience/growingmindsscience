@@ -10,7 +10,7 @@ export const brand = {
   codename: "nsc",
   assessmentName: "The Feed-the-Bear Game",
   tagline: "Reading together, but numbers.",
-  parentSite: "Growing Minds Science",
+  parentSite: "From Little Onward",
   parentSiteUrl: "https://growingmindsscience.com",
   // §3.1(6) — static neutral footer, rendered on every readout, never
   // conditionally triggered or alarmed.

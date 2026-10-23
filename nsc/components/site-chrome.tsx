@@ -20,13 +20,13 @@ export function SiteMark({ className }: { className?: string }) {
   );
 }
 
-/** The wordmark lockup: the mark, "growing minds" in Newsreader, a tracked SCIENCE in Inter. */
-export function SiteWordmark({ href, label = "Growing Minds Science, home" }: { href: string; label?: string }) {
+/** The wordmark lockup: the mark, "from little" in Newsreader, a tracked ONWARD in Inter. */
+export function SiteWordmark({ href, label = "From Little Onward, home" }: { href: string; label?: string }) {
   return (
     <a href={href} aria-label={label} className="site-wordmark inline-flex min-h-11 items-center gap-[0.6em] no-underline">
       <SiteMark className="size-8 shrink-0" />
-      <span className="font-display text-[1.35rem] font-medium leading-none tracking-[-0.01em]">growing minds</span>
-      <span className="site-wordmark__desc relative top-[0.22em] font-body text-[11px] font-medium uppercase tracking-[0.32em]">Science</span>
+      <span className="font-display text-[1.35rem] font-medium leading-none tracking-[-0.01em]">from little</span>
+      <span className="site-wordmark__desc relative top-[0.22em] font-body text-[11px] font-medium uppercase tracking-[0.32em]">Onward</span>
     </a>
   );
 }
@@ -77,7 +77,7 @@ export function SiteHeader() {
 
 const FOOTER_COLS: [string, [string, string][]][] = [
   ["Classes", [["Birth to 12 months", "/classes/birth-to-12-months"], ["Toddler years", "/classes/toddlerhood"], ["Preschool years", "/classes/preschool"], ["Pricing", "/pricing"]]],
-  ["Tools", [["It’s hard right now", "/tools/right-now"], ["Growing Minds AI", "/tools/growing-minds-ai"], ["Milestone tracker", "/milestones"], ["All tools and guides", "/tools/"]]],
+  ["Tools", [["It’s hard right now", "/tools/right-now"], ["Ask the research", "/tools/ask-the-research"], ["Milestone tracker", "/milestones"], ["All tools and guides", "/tools/"]]],
   ["About", [["Our approach", "/about/"], ["Articles", "/articles/"], ["FAQ", "/faq/"], ["For programs", "/programs/"], ["Contact", "/contact/"]]],
 ];
 
@@ -98,7 +98,7 @@ export function SiteFooter() {
         <div className="flex flex-col gap-4">
           <SiteWordmark href={sitePath("/")} />
           <p className="max-w-[30ch] text-[0.9375rem] text-on-dark-soft">
-            A living field guide to the growing mind, for parents of children 0 to 5.
+            Science-backed parent education, open to any parent who seeks it.
           </p>
         </div>
         <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-3">
@@ -115,7 +115,8 @@ export function SiteFooter() {
         </nav>
       </div>
       <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-6 gap-y-1 border-t border-white/15 px-4 py-4 text-xs text-on-dark-muted sm:px-6">
-        <p>&copy; 2026 Growing Minds Science &middot; Educational content only. Not medical or psychological advice.</p>
+        {/* TODO legal: confirm entity name and structure with attorney */}
+        <p>&copy; 2026 From Little Onward &middot; Educational content only. Not medical or psychological advice.</p>
         <p className="flex flex-wrap gap-x-4">
           {LEGAL_LINKS.map(([label, path]) => (
             <a key={path} href={sitePath(path)} className={FOOTER_LINK}>{label}</a>

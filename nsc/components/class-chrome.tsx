@@ -9,11 +9,11 @@ const NAV_LINK =
   "inline-flex min-h-11 items-center rounded-control px-3 text-sm font-medium text-ink-soft underline decoration-transparent decoration-1 underline-offset-[0.35em] transition-colors hover:text-ink-deep hover:decoration-current";
 
 /**
- * The site wordmark lockup (the mark, "growing minds", SCIENCE), the same as
+ * The site wordmark lockup (the mark, "from little", ONWARD), the same as
  * the site header's, for the centered sign-in and sign-up frames.
  */
 export function ClassWordmark({ href = "/app/classes" }: { href?: string }) {
-  return <SiteWordmark href={href} label="Growing Minds Science classes" />;
+  return <SiteWordmark href={href} label="From Little Onward classes" />;
 }
 
 /**

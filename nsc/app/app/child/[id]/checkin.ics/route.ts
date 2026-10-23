@@ -58,7 +58,7 @@ export async function GET(
   const ics = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//Growing Minds Science//Number Path//EN",
+    "PRODID:-//From Little Onward//Number Path//EN",
     "BEGIN:VEVENT",
     `UID:nsc-checkin-${id}-${day(dueISO)}@growingmindsscience.com`,
     `DTSTAMP:${stamp}`,

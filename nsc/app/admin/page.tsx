@@ -38,7 +38,7 @@ export default async function AdminQueuePage({
     <main className="mx-auto flex min-h-screen max-w-3xl flex-col gap-8 px-6 py-10">
       <header>
         <p className="text-[0.9375rem] font-semibold text-amber-deep">
-          Growing Minds — internal
+          From Little Onward: internal
         </p>
         <h1 className="mt-1 text-2xl font-semibold text-ink-deep">
           Review queue

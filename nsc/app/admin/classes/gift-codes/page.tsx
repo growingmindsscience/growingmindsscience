@@ -43,7 +43,7 @@ export default async function ClassGiftCodesPage({ searchParams }: {
         <Link href="/admin/classes" className="text-sm text-ink-muted underline">← Classes</Link>
         <h1 className="mt-5 text-2xl font-semibold text-ink-deep">Class gift codes</h1>
         <p className="mt-2 text-sm text-ink">
-          Each code gives one person every class, plus Growing Minds AI, for life. A code works once.
+          Each code gives one person every class, plus Ask the research (the AI tool), for life. A code works once.
           They redeem it at <span className="font-semibold">{redeemUrl}</span> after making a free account.
         </p>
       </header>
@@ -62,7 +62,7 @@ export default async function ClassGiftCodesPage({ searchParams }: {
           </ul>
           <p className="mt-4 text-sm text-ink">A message you can send with a code:</p>
           <p className="mt-2 rounded-xl border border-line bg-surface p-4 text-sm text-ink">
-            Here is a gift for you: every Growing Minds Science class, for life. Go to {redeemUrl}, make a free
+            Here is a gift for you: every From Little Onward class, for life. Go to {redeemUrl}, make a free
             account, and enter this code: {made[0]}
           </p>
         </Card>

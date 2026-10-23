@@ -10,8 +10,8 @@ import { classDestination, enrollingCourse } from "@/lib/class-paths";
 import { sitePath } from "@/lib/site";
 
 export const metadata = {
-  title: "Sign in to your classes | Growing Minds Science",
-  description: "Sign in to watch your Growing Minds Science classes and pick up where you left off.",
+  title: "Sign in to your classes | From Little Onward",
+  description: "Sign in to watch your From Little Onward classes and pick up where you left off.",
 };
 
 export default async function ClassLoginPage({ searchParams }: {
@@ -28,7 +28,7 @@ export default async function ClassLoginPage({ searchParams }: {
       title={confirm ? "Check your email" : "Sign in to your classes"}
       lede={confirm
         ? `We sent you a link to confirm your account. Open it on this device and it takes you straight to ${enrolling ? "checkout" : "your classes"}.`
-        : "Classes you enrolled in on this site, and your lesson progress, live in your Growing Minds Science account."}
+        : "Classes you enrolled in on this site, and your lesson progress, live in your From Little Onward account."}
       wordmarkHref={`/class-login?next=${encodeURIComponent(destination)}`}
       footer={
         <p>New here?{" "}

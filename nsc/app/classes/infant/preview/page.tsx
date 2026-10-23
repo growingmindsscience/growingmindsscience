@@ -37,13 +37,13 @@ export async function generateMetadata(): Promise<Metadata> {
   const lesson = await loadPreview();
   if (!lesson) {
     return {
-      title: "Free lesson coming soon · Growing Minds Science Classes",
+      title: "Free lesson coming soon · From Little Onward Classes",
       description: `A free lesson from the ${INFANT_COURSE.shortTitle} class is coming soon.`,
       robots: { index: false },
     };
   }
   return {
-    title: `Free lesson: ${lesson.title} · Growing Minds Science Classes`,
+    title: `Free lesson: ${lesson.title} · From Little Onward Classes`,
     description: `Watch ${lesson.title}, a full lesson from the ${INFANT_COURSE.shortTitle} class, free. No account needed.`,
     alternates: { canonical: sitePath(`/nsc${INFANT_PREVIEW_PATH}`) },
   };

@@ -4,7 +4,7 @@ import { getUser } from "@/lib/auth";
 import { ownedClassSlugs } from "@/lib/classes.server";
 import { hasFullAccess } from "@/lib/entitlements.server";
 
-export const metadata = { title: { default: "My classes", template: "%s | Growing Minds Science Classes" } };
+export const metadata = { title: { default: "My classes", template: "%s | From Little Onward Classes" } };
 
 /**
  * The classes area has its own chrome. Each page still gates itself with

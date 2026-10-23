@@ -13,8 +13,8 @@ export async function generateMetadata({ searchParams }: {
   // Class visitors stay on class branding; everyone else keeps the default.
   if ((await searchParams).class !== "1") return {};
   return {
-    title: "Reset your password | Growing Minds Science",
-    description: "Reset the password for your Growing Minds Science classes account.",
+    title: "Reset your password | From Little Onward",
+    description: "Reset the password for your From Little Onward classes account.",
   };
 }
 
