@@ -1,7 +1,7 @@
 import type Stripe from "stripe";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { applyGrants } from "@/lib/entitlement-writes";
-import { courseForProduct } from "@/lib/classes";
+import { classOfferForProduct } from "@/lib/classes";
 import {
   grantsForOneTimePurchase,
   grantsForSubscription,
@@ -102,7 +102,7 @@ export function planCheckout(session: CheckoutSessionLike): CheckoutPlan {
   if (session.metadata?.kind === "gift") return { kind: "gift" };
   // On-site classes have their own fulfillment: owner and price verification,
   // a class_orders row, and revocation on a refund or dispute.
-  if (courseForProduct(session.metadata?.product)) return { kind: "class" };
+  if (classOfferForProduct(session.metadata?.product)) return { kind: "class" };
 
   // Never guess the product: every session this app creates labels it, and
   // other checkouts on the same Stripe account reach this endpoint too.
@@ -148,7 +148,7 @@ async function handleCheckout(
 
   if (plan.kind === "class") {
     await deps.classes.fulfill(session as Stripe.Checkout.Session);
-    return ok({ received: true, class: courseForProduct(session.metadata?.product)?.slug });
+    return ok({ received: true, class: classOfferForProduct(session.metadata?.product)?.slug });
   }
 
   if (plan.kind === "gift") {

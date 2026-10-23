@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from "vitest";
 import { infantSalesGate, preschoolSalesGate } from "@/lib/classes";
-import { INFANT_ENROLL_PATH, PRESCHOOL_ENROLL_PATH, classDestination, enrollingCourse, isClassPath } from "@/lib/class-paths";
+import { BUNDLE_ENROLL_PATH, INFANT_ENROLL_PATH, PRESCHOOL_ENROLL_PATH, classDestination, enrollingCourse, isClassPath } from "@/lib/class-paths";
 import { sitePath } from "@/lib/site";
 
 const USER = "3f2b8c1e-0d4a-4b6f-9a7e-1c2d3e4f5a6b";
@@ -116,6 +116,7 @@ describe("enroll intent", () => {
   it("names the class only for an enroll destination", () => {
     expect(enrollingCourse(INFANT_ENROLL_PATH)?.slug).toBe("infant");
     expect(enrollingCourse("/app/classes/infant")).toBeNull();
+    expect(enrollingCourse(BUNDLE_ENROLL_PATH)).toMatchObject({ slug: "bundle", priceDisplay: "$119" });
     expect(enrollingCourse(PRESCHOOL_ENROLL_PATH)?.slug).toBe("preschool");
     expect(enrollingCourse("/app/classes/preschool")).toBeNull();
     expect(enrollingCourse("/app/classes")).toBeNull();

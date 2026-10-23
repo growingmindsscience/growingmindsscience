@@ -173,6 +173,16 @@ describe("one-time purchase grants", () => {
     }]);
   });
 
+  it("bundle purchase grants all three classes and class AI, perpetual", () => {
+    const grants = grantsForOneTimePurchase({ sessionId: "cs_bundle", product: "class_bundle_all" });
+    expect(grants.map((g) => g.product_scope)).toEqual([
+      "class:infant", "class:toddlerhood", "class:preschool", "ai:unlimited",
+    ]);
+    for (const g of grants) {
+      expect(g).toMatchObject({ source: "stripe_otp", source_ref: "cs_bundle", expires_at: null });
+    }
+  });
+
   it("gift redemption grants perpetual Number Path from source gift", () => {
     const g = grantForGiftRedemption({ giftCodeId: "gc_1" });
     expect(g.product_scope).toBe("numberpath_full");

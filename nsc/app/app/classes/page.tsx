@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { requireClassAuth } from "@/lib/auth";
 import { classSalesOpen, ownedClassSlugs, progressForUser, publishedLessons } from "@/lib/classes.server";
-import { CLASS_AI_FAIR_USE_PER_DAY, CLASS_COURSES, lessonPath, type ClassCourseSlug } from "@/lib/classes";
+import { CLASS_AI_FAIR_USE_PER_DAY, CLASS_BUNDLE, CLASS_COURSES, lessonPath, type ClassCourseSlug } from "@/lib/classes";
 import { getEntitlementSummary } from "@/lib/entitlements.server";
 import { sitePath } from "@/lib/site";
 import { Card, LinkButton, buttonClasses } from "@/components/ui";
@@ -10,6 +10,7 @@ import { Eyebrow } from "@/components/class-chrome";
 import { startInfantClassCheckout } from "./infant/actions";
 import { startPreschoolClassCheckout } from "./preschool/actions";
 import { startClassCheckout } from "./toddlerhood/actions";
+import { startBundleCheckout } from "./bundle/actions";
 import { CLASS_REFUND_POLICY } from "@/lib/refund-policy";
 
 export const dynamic = "force-dynamic";
@@ -24,10 +25,10 @@ const CHECKOUT = {
 const FREE_AI_QUESTIONS_PER_DAY = 5;
 
 export default async function MyClassesPage({ searchParams }: {
-  searchParams: Promise<{ gift?: string }>;
+  searchParams: Promise<{ gift?: string; error?: string }>;
 }) {
   const user = await requireClassAuth("/app/classes");
-  const { gift } = await searchParams;
+  const { gift, error } = await searchParams;
   const [owned, progress, summary] = await Promise.all([
     ownedClassSlugs(user.id), progressForUser(user.id), getEntitlementSummary(),
   ]);
@@ -37,6 +38,8 @@ export default async function MyClassesPage({ searchParams }: {
     Promise.all(ownedCourses.map((slug) => publishedLessons(slug))),
     Promise.all(otherCourses.map((slug) => classSalesOpen(slug, user.id))),
   ]);
+  // The bundle is offered only to a parent who owns none of its classes, while all of them are on sale.
+  const bundleOpen = ownedCourses.length === 0 && salesOpen.every(Boolean);
   const done = new Set(progress.filter((row) => row.completed_at).map((row) => row.lesson_id));
 
   return (
@@ -53,6 +56,9 @@ export default async function MyClassesPage({ searchParams }: {
             Have a gift code?
           </Link>
         )}
+        {error === "not-open" && <p role="alert" className="mt-3 text-sm text-coral-deep">Enrollment is not open for this account yet.</p>}
+        {error === "checkout-unavailable" && <p role="alert" className="mt-3 text-sm text-coral-deep">Checkout is unavailable right now. Please try again later.</p>}
+        {error === "bundle-owned" && <p role="alert" className="mt-3 text-sm text-coral-deep">You already own one of these classes, so the bundle would charge you twice. Enroll in the others one at a time below.</p>}
       </header>
 
       <section aria-labelledby="owned-heading" className="flex flex-col gap-4">
@@ -114,6 +120,27 @@ export default async function MyClassesPage({ searchParams }: {
           <h2 id="more-heading" className="text-xl text-ink-deep">
             {ownedCourses.length ? "More classes" : "Available classes"}
           </h2>
+          {bundleOpen && (
+            <Card className="flex flex-col gap-1 border-2 border-teal sm:flex-row sm:items-center sm:gap-6">
+              <div className="flex-1">
+                <Eyebrow>Birth to age 5 · Best value</Eyebrow>
+                <h3 className="mt-2 text-xl text-ink-deep">{CLASS_BUNDLE.title}</h3>
+                <p className="mt-1 text-sm text-ink-soft">
+                  Birth to 12 months, Toddler years, and Preschool years, ready as your child grows.
+                  Ask the research is included, with a fair-use limit of {CLASS_AI_FAIR_USE_PER_DAY} questions a day.
+                </p>
+                <p className="mt-4 text-ink">
+                  <span className="font-[family-name:var(--font-display)] text-2xl font-semibold text-ink-deep">{CLASS_BUNDLE.priceDisplay}</span>
+                  <span className="ml-2 text-sm text-ink-muted">
+                    <s>{CLASS_BUNDLE.separateDisplay}</s> separately, so you save {CLASS_BUNDLE.savingsDisplay}. One payment, lifetime access. {CLASS_REFUND_POLICY}
+                  </span>
+                </p>
+              </div>
+              <form action={startBundleCheckout} className="pt-4 sm:pt-0">
+                <SubmitButton pendingLabel="Opening checkout…">Enroll in all three</SubmitButton>
+              </form>
+            </Card>
+          )}
           <div className={`grid gap-4 ${otherCourses.length > 1 ? "sm:grid-cols-2" : ""}`}>
             {otherCourses.map((slug, index) => {
               const course = CLASS_COURSES[slug];

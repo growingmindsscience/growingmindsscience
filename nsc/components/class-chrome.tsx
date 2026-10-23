@@ -111,12 +111,12 @@ export function Eyebrow({ children, className, as: Tag = "p" }: { children: Reac
  * commitment. The policy text is shared with every other purchase surface.
  */
 export function EnrollContext({ course, step }: {
-  course: { shortTitle: string; priceDisplay: string };
+  course: { shortTitle: string; priceDisplay: string; heading?: string };
   step: "sign-in" | "sign-up";
 }) {
   return (
     <section aria-label={`Enrolling in ${course.shortTitle}`} className="rounded-card border border-line bg-surface px-5 py-4 shadow-sm">
-      <p className="font-display text-lg font-semibold text-ink-deep">{course.shortTitle} class</p>
+      <p className="font-display text-lg font-semibold text-ink-deep">{course.heading ?? `${course.shortTitle} class`}</p>
       <p className="mt-2 text-[0.9375rem] font-semibold text-amber-deep">
         Step 1 of 2: {step === "sign-up" ? "create your account" : "sign in"}.
       </p>

@@ -14,6 +14,7 @@
  * | Legacy $49 class bundle      | class:toddlerhood + ai:unlimited, perpetual   |
  * | Infant class $49 one-time    | class:infant, perpetual                       |
  * | Preschool class $49 one-time | class:preschool, perpetual                    |
+ * | All-classes bundle $119      | all three class scopes + ai:unlimited, perp.  |
  * | Number Path $34 one-time     | numberpath_full, perpetual (kept standalone)  |
  * | Number Path gift redemption  | numberpath_full, perpetual, source gift       |
  */
@@ -191,6 +192,13 @@ export function grantsForOneTimePurchase(args: {
           expires_at: null,
         },
       ];
+    case "class_bundle_all": // all three classes; AI comes with the toddler class
+      return ["class:infant", "class:toddlerhood", "class:preschool", "ai:unlimited"].map((product_scope): Grant => ({
+        product_scope,
+        source: "stripe_otp",
+        source_ref: sessionId,
+        expires_at: null,
+      }));
     default:
       return [];
   }
