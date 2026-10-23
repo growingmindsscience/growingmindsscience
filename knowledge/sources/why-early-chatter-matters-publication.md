@@ -1,5 +1,5 @@
 <!--
-source-label: Growing Minds founder's peer-reviewed publication — McArthur & Friend (2024), Frontiers for Young Minds, doi:10.3389/frym.2024.1426649
+source-label: From Little Onward founder's peer-reviewed publication: McArthur & Friend (2024), Frontiers for Young Minds, doi:10.3389/frym.2024.1426649
 Growing Minds Science — peer-reviewed publication by the founder.
 McArthur, M. & Friend, M. (2024). "Why Early Chatter Matters: The Role of
 Language in Shaping Futures." Frontiers for Young Minds, 12:1426649.
@@ -9,7 +9,7 @@ San Diego State University. Open access (CC BY).
 
 ## Why Early Chatter Matters — early vocabulary as the building blocks of the mind
 
-This is from a peer-reviewed publication by the Growing Minds Science founder: McArthur, M. & Friend, M. (2024), "Why Early Chatter Matters: The Role of Language in Shaping Futures," *Frontiers for Young Minds*, 12:1426649 (doi:10.3389/frym.2024.1426649), from the Infant and Child Development Lab at San Diego State University.
+This is from a peer-reviewed publication by the From Little Onward founder: McArthur, M. & Friend, M. (2024), "Why Early Chatter Matters: The Role of Language in Shaping Futures," *Frontiers for Young Minds*, 12:1426649 (doi:10.3389/frym.2024.1426649), from the Infant and Child Development Lab at San Diego State University.
 
 The words children learn early in life are building blocks for the brain. As a child learns new words and the concepts behind them, they build the foundation on which future learning, relationships, and achievements rest. A rich early vocabulary opens the door to understanding complex ideas, solving problems, and expressing thoughts and emotions more clearly. Early language is even linked to distant future outcomes such as academic success in high school and employment in adulthood. A helpful image is a snowball rolling downhill: the developing mind is the snowball and words are the snow — the more a child knows, the more easily they learn new things, because they have a foundation on which to build.
 
