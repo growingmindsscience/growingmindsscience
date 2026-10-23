@@ -33,9 +33,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { domain } = await params;
   const label = DOMAIN_LABELS.get(domain);
-  if (!label) return { title: "Should I Be Worried? | Growing Minds Science" };
+  if (!label) return { title: "Should I Be Worried? | From Little Onward" };
   return {
-    title: `${label}: should I be worried? | Growing Minds Science`,
+    title: `${label}: should I be worried? | From Little Onward`,
     description: `A calm, citation-backed check on ${label.toLowerCase()} for your child's age, with the exact words to say to your pediatrician and how free early intervention works.`,
   };
 }

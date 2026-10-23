@@ -14,7 +14,7 @@ export const metadata = { title: "Account" };
 const SCOPE_LABELS: Record<string, string> = {
   membership: "Membership",
   numberpath_full: "Number Path, full access",
-  "ai:unlimited": "Growing Minds AI, included with your class",
+  "ai:unlimited": "Ask the research, included with your class",
   "class:toddlerhood": `${CLASS_COURSES.toddlerhood.shortTitle} class, lifetime access`,
   "class:infant": `${CLASS_COURSES.infant.shortTitle} class, lifetime access`,
   "class:preschool": `${CLASS_COURSES.preschool.shortTitle} class, lifetime access`,
@@ -72,7 +72,7 @@ export default async function ClassAccountPage({ searchParams }: {
           </ul>
         ) : (
           <p className="mt-3 text-ink-soft">
-            Nothing purchased yet. Growing Minds AI is free for five questions a day.
+            Nothing purchased yet. Ask the research, the AI tool, is free for five questions a day.
           </p>
         )}
         {sub?.stripe_customer_id && (

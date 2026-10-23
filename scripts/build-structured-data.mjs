@@ -24,7 +24,7 @@ const AUTHOR = {
 };
 const PUBLISHER = {
   "@type": "Organization",
-  name: "Growing Minds Science",
+  name: "From Little Onward",
   url: ORIGIN,
   logo: {
     "@type": "ImageObject",
@@ -110,7 +110,7 @@ function contentModifiedDate(relPath) {
 
 function buildArticleLd(file, html) {
   const rawTitle = decode(pick(html, /<title>([^<]*)<\/title>/i) || "");
-  const title = rawTitle.replace(/\s*[-–—|]\s*Growing Minds Science\s*$/i, "").trim();
+  const title = rawTitle.replace(/\s*[-–—|]\s*From Little Onward\s*$/i, "").trim();
   const description = decode(pick(html, /<meta\s+name="description"\s+content="([^"]*)"/i) || "");
   const canonicalPath = pick(html, /<link\s+rel="canonical"\s+href="([^"]*)"/i);
   const url = abs(canonicalPath);
@@ -202,7 +202,7 @@ function buildClassLd(file, html, meta) {
     description,
     inLanguage: "en",
     ...(url ? { url } : {}),
-    provider: { "@type": "Organization", name: "Growing Minds Science", url: ORIGIN },
+    provider: { "@type": "Organization", name: "From Little Onward", url: ORIGIN },
     author: { "@type": "Person", name: "Matthew McArthur", jobTitle: "Child Development Specialist" },
     courseMode: "online",
     educationalLevel: "General",

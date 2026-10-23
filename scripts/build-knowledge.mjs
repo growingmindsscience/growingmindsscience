@@ -67,7 +67,7 @@ function loadMilestones() {
       ],
       ageBands: [ms.age],
       source: {
-        label: sourceLabels.length ? sourceLabels.join(", ") : "Growing Minds milestone tracker",
+        label: sourceLabels.length ? sourceLabels.join(", ") : "From Little Onward milestone tracker",
         ...(sourceUrl ? { url: sourceUrl } : {}),
       },
       text: parts.join(" "),
@@ -156,7 +156,7 @@ function loadSources() {
     const labelMatch = rawFile.match(/<!--[\s\S]*?source-label:\s*(.+?)\s*(?:-->|\n)/i);
     const sourceLabel = labelMatch
       ? labelMatch[1].trim()
-      : `Growing Minds class material — ${niceName}`;
+      : `From Little Onward class material, ${niceName}`;
 
     // Optional "age-bands:" directive (comma-separated, using the retrieval
     // bands, e.g. "0-3 months, 4-6 months") gives every chunk from this file

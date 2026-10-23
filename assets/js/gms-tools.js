@@ -1,4 +1,4 @@
-/* Growing Minds Science — gms-tools.js
+/* From Little Onward: gms-tools.js
    Shared, no-build helper layer for the parent tools. Exposes a single global
    `window.GMS`. Loaded alongside main.js on tool pages, the tools hub, the
    milestone tracker, and the "right now" router.
@@ -343,7 +343,7 @@
   }
 
   /* ---------- Ask-AI link builder ---------- */
-  // Builds a /tools/growing-minds-ai?q=... link. When a profile exists and
+  // Builds a /tools/ask-the-research?q=... link. When a profile exists and
   // `personalize` is true, prepends a coarse age phrase (never name/birthdate).
   function askUrl(question, opts) {
     opts = opts || {};
@@ -353,7 +353,7 @@
       var phrase = child ? profile.agePhrase(child) : "";
       if (phrase) q = "For my " + phrase + ": " + q;
     }
-    return "/tools/growing-minds-ai?q=" + encodeURIComponent(q);
+    return "/tools/ask-the-research?q=" + encodeURIComponent(q);
   }
 
   /* ---------- Decoder enhancer ---------- */

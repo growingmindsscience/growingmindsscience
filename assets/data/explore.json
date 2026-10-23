@@ -39,7 +39,7 @@
     { "type": "tool", "title": "Activity library", "href": "/tools/activity-library", "ages": ["y0", "y1", "y2"], "topics": ["play", "learning"], "moments": [] },
     { "type": "tool", "title": "Reading prompt cards", "href": "/tools/reading-prompt-cards", "ages": ["y1", "y2", "y3", "y4"], "topics": ["communication", "play"], "moments": [] },
     { "type": "tool", "title": "Number Path", "href": "/nsc", "ages": ["y3", "y4"], "topics": ["learning"], "moments": [] },
-    { "type": "tool", "title": "Growing Minds AI", "href": "/tools/growing-minds-ai", "ages": ["y0", "y1", "y2", "y3", "y4"], "topics": [], "moments": [] },
+    { "type": "tool", "title": "Ask the research", "href": "/tools/ask-the-research", "ages": ["y0", "y1", "y2", "y3", "y4"], "topics": [], "moments": [] },
 
     { "type": "guide", "title": "What’s underneath the meltdown", "href": "/tools/whats-underneath-the-meltdown", "ages": ["y1", "y2"], "topics": ["behavior", "regulation"], "moments": ["meltdown"] },
     { "type": "guide", "title": "Limits without escalation", "href": "/tools/limits-without-escalation", "ages": ["y1", "y2", "y3", "y4"], "topics": ["behavior"], "moments": ["limit"] },

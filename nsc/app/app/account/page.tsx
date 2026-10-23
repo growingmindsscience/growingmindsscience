@@ -15,7 +15,7 @@ export const metadata = { title: "Your account" };
 const SCOPE_LABELS: Record<string, string> = {
   membership: "Membership: everything, including Number Path",
   numberpath_full: "Number Path: full access",
-  "ai:unlimited": "Growing Minds AI: included with your class",
+  "ai:unlimited": "Ask the research: included with your class",
   "class:toddlerhood": "Toddler class: lifetime access",
   "class:infant": "Infant class: lifetime access",
   "class:preschool": "Preschool class: lifetime access",
@@ -27,7 +27,7 @@ function scopeLabel(scope: string): string {
 
 function Notice({ kind }: { kind: string | undefined }) {
   const messages: Record<string, { tone: "ok" | "err"; text: string }> = {
-    "code=ok": { tone: "ok", text: "Access code accepted. Growing Minds AI is linked to your account." },
+    "code=ok": { tone: "ok", text: "Access code accepted. Ask the research is linked to your account." },
     "code=invalid": { tone: "err", text: "That access code isn't right. Check your class confirmation email." },
     "code=empty": { tone: "err", text: "Enter your access code first." },
     "code=error": { tone: "err", text: "Something went wrong linking your code. Please try again." },
@@ -112,7 +112,7 @@ export default async function AccountPage({
         ) : (
           <p className="mt-3 text-sm text-ink-muted">
             You're on the free tier. The counting check-in, one sample game, and five
-            Growing Minds AI questions a day are yours with no purchase.
+            AI questions a day in Ask the research are yours with no purchase.
           </p>
         )}
         {hasBilling && (
@@ -157,23 +157,23 @@ export default async function AccountPage({
         </div>
       </Card>
 
-      {/* Growing Minds AI */}
+      {/* Ask the research (the AI tool) */}
       <Card>
-        <p className="text-[0.9375rem] font-semibold text-amber-deep">Growing Minds AI</p>
+        <p className="text-[0.9375rem] font-semibold text-amber-deep">Ask the research</p>
         <h2 className="mt-1 text-lg font-semibold text-ink-deep">Ask about your child&apos;s development</h2>
         <div className="mt-4 flex flex-wrap gap-3">
           <a
-            href={sitePath("/tools/growing-minds-ai")}
+            href={sitePath("/tools/ask-the-research")}
             className="inline-flex min-h-11 items-center justify-center rounded-control bg-teal px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-teal-hover"
           >
-            Open Growing Minds AI
+            Open Ask the research
           </a>
         </div>
 
         {!summary.unlimitedAi && (
           <div className="mt-5 border-t border-line pt-5">
             <p className="text-sm text-ink">
-              Have a previous AI access code? Enter it to link Growing Minds AI
+              Have a previous AI access code? Enter it to link Ask the research
               to this account. Class access is linked from a verified purchase.
             </p>
             <form action={redeemAccessCode} className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-end">

@@ -8,11 +8,11 @@ import { fileURLToPath } from "node:url";
 import { LIMITS } from "../../api/_ai-chat.js";
 import { extractSystemPrompt } from "../../evals/lib/persona.mjs";
 
-const PAGE = readFileSync(fileURLToPath(new URL("../../tools/growing-minds-ai.html", import.meta.url)), "utf8");
+const PAGE = readFileSync(fileURLToPath(new URL("../../tools/ask-the-research.html", import.meta.url)), "utf8");
 
 function pageLimits() {
   const m = PAGE.match(/const LIMITS = \{([\s\S]*?)\};/);
-  assert.ok(m, "tools/growing-minds-ai.html defines const LIMITS = { ... };");
+  assert.ok(m, "tools/ask-the-research.html defines const LIMITS = { ... };");
   return Object.fromEntries([...m[1].matchAll(/([A-Z_]+):\s*(\d+)/g)].map(([, k, v]) => [k, Number(v)]));
 }
 
@@ -50,6 +50,6 @@ test("page contracts: safe storage, validate-only unlock, text-only errors", () 
 
 test("the eval harness can still read the live system prompt", () => {
   const prompt = extractSystemPrompt();
-  assert.ok(prompt.startsWith("You are Growing Minds AI"));
+  assert.ok(prompt.startsWith("You are Ask the research"));
   assert.ok(!prompt.includes("${"));
 });

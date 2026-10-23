@@ -5,7 +5,7 @@ import { visibleDomains } from "@/lib/navigator.server";
 import { Card } from "@/components/ui";
 
 export const metadata: Metadata = {
-  title: "Should I Be Worried? | Growing Minds Science",
+  title: "Should I Be Worried? | From Little Onward",
   description:
     "A calm, citation-backed guide for the 2am worry: what's typical at your child's age, exactly what to say to your pediatrician, and how free early intervention works.",
 };

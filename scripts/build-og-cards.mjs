@@ -66,7 +66,7 @@ function cardHtml({ title, kicker }) {
   }
   .edge { position:absolute; left:0; top:0; bottom:0; width:12px; background:#DE7356; }
   .top { display:flex; align-items:center; gap:16px; }
-  .mark { width:44px; height:44px; border-radius:10px; }
+  .mark { width:44px; height:44px; }
   .word { font-weight:700; font-size:26px; letter-spacing:.02em; color:#15393C; }
   .kicker {
     margin-top:44px; font-size:22px; font-weight:700; letter-spacing:.16em;
@@ -85,8 +85,8 @@ function cardHtml({ title, kicker }) {
   <div class="edge"></div>
   <div>
     <div class="top">
-      <img class="mark" src="file://${join(ROOT, "assets/img/original-logo-mark-no-words-512.png")}" alt="">
-      <div class="word">Growing Minds Science</div>
+      <img class="mark" src="file://${join(ROOT, "assets/img/brand/mark-small.svg")}" alt="">
+      <div class="word">From Little Onward</div>
     </div>
     <div class="kicker">${esc(kicker)}</div>
     <div class="title">${esc(title)}</div>
@@ -160,14 +160,14 @@ for (const file of files) {
   const path = join(dir, file);
   const html = readFileSync(path, "utf8");
   const rawTitle = decode(pick(html, /<title>([^<]*)<\/title>/i) || "");
-  const title = rawTitle.replace(/\s*[-–—]\s*Growing Minds Science\s*$/i, "").trim();
-  const kicker = decode(pick(html, /<p class="article-kicker"[^>]*>([^<]*)<\/p>/i) || "Growing Minds Science");
+  const title = rawTitle.replace(/\s*[-–—|]\s*From Little Onward\s*$/i, "").trim();
+  const kicker = decode(pick(html, /<p class="article-kicker"[^>]*>([^<]*)<\/p>/i) || "Research, explained");
   const slug = file.replace(/\.html$/, "");
   const outPng = join(OUT_DIR, `${slug}.png`);
 
   render(cardHtml({ title, kicker }), outPng);
   const cardUrl = `/assets/img/og/${slug}.png`;
-  const next = wireMeta(html, cardUrl, `Growing Minds Science — ${title}`);
+  const next = wireMeta(html, cardUrl, `From Little Onward | ${title}`);
   if (next !== html) writeFileSync(path, next);
   made++;
   console.log(`  ✓ ${slug}.png — [${kicker}] ${title}`);
@@ -191,12 +191,12 @@ for (const t of TOOL_PAGES) {
   if (!existsSync(path)) continue;
   const html = readFileSync(path, "utf8");
   const rawTitle = decode(pick(html, /<title>([^<]*)<\/title>/i) || "");
-  const title = rawTitle.replace(/\s*[-–—]\s*Growing Minds Science\s*$/i, "").trim();
+  const title = rawTitle.replace(/\s*[-–—|]\s*From Little Onward\s*$/i, "").trim();
   const outPng = join(OUT_DIR, `${slug}.png`);
   render(cardHtml({ title, kicker: t.kicker }), outPng);
   if (!t.renderOnly) {
     const cardUrl = `/assets/img/og/${slug}.png`;
-    const next = wireMeta(html, cardUrl, `Growing Minds Science — ${title}`);
+    const next = wireMeta(html, cardUrl, `From Little Onward | ${title}`);
     if (next !== html) writeFileSync(path, next);
   }
   made++;

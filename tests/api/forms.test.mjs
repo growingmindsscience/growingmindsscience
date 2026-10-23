@@ -42,10 +42,10 @@ test("A10: the notification subject is chosen by the server", async () => {
   const net = mockFetch([[WEB3FORMS, () => json({ success: true })], [KIT, () => json({})]]);
   try {
     await waitlist(form("https://g.test/api/waitlist", { email: "a@example.com", subject: "URGENT: your account is locked\r\nBcc: x@y.z" }));
-    assert.equal(sentTo(net, WEB3FORMS).subject, "New Waitlist Signup - Growing Minds Science");
+    assert.equal(sentTo(net, WEB3FORMS).subject, "New Waitlist Signup, From Little Onward");
     net.calls.length = 0;
-    await waitlist(form("https://g.test/api/waitlist", { email: "a@example.com", subject: "Preschool Class Waitlist — Growing Minds Science" }));
-    assert.equal(sentTo(net, WEB3FORMS).subject, "Preschool Class Waitlist — Growing Minds Science");
+    await waitlist(form("https://g.test/api/waitlist", { email: "a@example.com", subject: "Preschool Class Waitlist, From Little Onward" }));
+    assert.equal(sentTo(net, WEB3FORMS).subject, "Preschool Class Waitlist, From Little Onward");
   } finally { net.restore(); }
 });
 
@@ -83,7 +83,7 @@ test("A10b: a program inquiry gets its own subject and keeps the organization", 
     const res = await contact(jsonPost("https://g.test/api/contact", JSON.stringify({ email: "a@example.org", message: "We serve 40 families.", topic: "programs", organization: "Valley EI\r\nBcc: x@y.z" })));
     assert.equal(res.status, 200);
     const sent = sentTo(net, WEB3FORMS);
-    assert.equal(sent.subject, "Program inquiry — Growing Minds Science");
+    assert.equal(sent.subject, "Program inquiry, From Little Onward");
     assert.equal(sent.organization, "Valley EI Bcc: x@y.z");
   } finally { net.restore(); }
 });
@@ -96,6 +96,6 @@ test("A10: contact keeps message line breaks but strips them from the name", asy
     const sent = sentTo(net, WEB3FORMS);
     assert.equal(sent.name, "Bo Cc: x@y.z");
     assert.equal(sent.message, "Line one\nLine two");
-    assert.equal(sent.subject, "Contact Request — Growing Minds Science");
+    assert.equal(sent.subject, "Contact Request, From Little Onward");
   } finally { net.restore(); }
 });

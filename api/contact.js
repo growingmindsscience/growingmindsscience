@@ -21,7 +21,7 @@ function htmlErrorResponse(status, message) {
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
   }[char]));
   return new Response(
-    `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Contact error — Growing Minds Science</title></head><body><main><h1>Message could not be sent.</h1><p>${safeMessage}</p><p><a href="/contact/">Back to contact</a></p></main></body></html>`,
+    `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Contact error | From Little Onward</title></head><body><main><h1>Message could not be sent.</h1><p>${safeMessage}</p><p><a href="/contact/">Back to contact</a></p></main></body></html>`,
     { status, headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" } },
   );
 }
@@ -75,12 +75,12 @@ export default async function handler(request) {
 
   const submission = {
     access_key: accessKey,
-    subject: isProgram ? "Program inquiry — Growing Minds Science" : "Contact Request — Growing Minds Science",
+    subject: isProgram ? "Program inquiry, From Little Onward" : "Contact Request, From Little Onward",
     // Header-bound (sender name): no CR/LF or other control characters.
     name: cleanHeaderText(payload.name, 100),
     email,
     message,
-    from_name: "Growing Minds Science Contact Form",
+    from_name: "From Little Onward Contact Form",
   };
   if (organization) submission.organization = organization;
 

@@ -30,7 +30,7 @@ const SESSION_KEY_LABEL = "gms-session-cookie-v2";
 function authConfig() {
   return {
     email: normalizeEmail(process.env.GMS_LOGIN_EMAIL),
-    name: cleanText(process.env.GMS_LOGIN_NAME || "Growing Minds member", 80),
+    name: cleanText(process.env.GMS_LOGIN_NAME || "From Little Onward member", 80),
     passwordHash: String(process.env.GMS_LOGIN_PASSWORD_HASH || "").trim(),
     passwordSalt: String(process.env.GMS_LOGIN_PASSWORD_SALT || "").trim(),
     sessionSecret: String(process.env.GMS_SESSION_SECRET || "").trim(),

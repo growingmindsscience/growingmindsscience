@@ -46,7 +46,7 @@ export default async function MyClassesPage({ searchParams }: {
         <p className="mt-2 text-ink-soft">Everything you own, and where you left off.</p>
         {gift === "ok" ? (
           <p role="status" className="mt-4 rounded-card bg-tint px-5 py-4 text-ink">
-            Gift code accepted. Every class is now yours, with Growing Minds AI included.
+            Gift code accepted. Every class is now yours, with Ask the research (the AI tool) included.
           </p>
         ) : (
           <Link href="/app/classes/redeem" className="mt-3 inline-flex min-h-11 items-center text-sm font-semibold text-teal underline underline-offset-4">
@@ -147,18 +147,18 @@ export default async function MyClassesPage({ searchParams }: {
         <h2 id="also-heading" className="text-xl text-ink-deep">Also in your account</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           <Card className="flex flex-col">
-            <Eyebrow>Growing Minds AI</Eyebrow>
+            <Eyebrow>Ask the research</Eyebrow>
             <h3 className="mt-2 text-lg text-ink-deep">
               {summary.unlimitedAi ? "Included with your class" : `${FREE_AI_QUESTIONS_PER_DAY} free questions a day`}
             </h3>
             <p className="mt-1 text-sm text-ink-soft">
               {summary.unlimitedAi
-                ? `Growing Minds AI is included with your class, with a fair-use limit of ${CLASS_AI_FAIR_USE_PER_DAY} questions a day. Stay signed in to use it.`
+                ? `Ask the research, the AI tool, is included with your class, with a fair-use limit of ${CLASS_AI_FAIR_USE_PER_DAY} questions a day. Stay signed in to use it.`
                 : "Ask about your child's development any time. The free allowance resets each day."}
             </p>
             <div className="mt-auto pt-5">
-              <a href={sitePath("/tools/growing-minds-ai")} className={buttonClasses("ghost", "sm", "border border-line")}>
-                Open Growing Minds AI
+              <a href={sitePath("/tools/ask-the-research")} className={buttonClasses("ghost", "sm", "border border-line")}>
+                Open Ask the research
               </a>
             </div>
           </Card>
@@ -166,7 +166,7 @@ export default async function MyClassesPage({ searchParams }: {
             <Card className="flex flex-col">
               <Eyebrow>Membership</Eyebrow>
               <h3 className="mt-2 text-lg text-ink-deep">Active</h3>
-              <p className="mt-1 text-sm text-ink-soft">Includes unlimited Growing Minds AI and Number Path.</p>
+              <p className="mt-1 text-sm text-ink-soft">Includes unlimited Ask the research and Number Path.</p>
               <div className="mt-auto pt-5">
                 <LinkButton href="/app/classes/account" variant="ghost" size="sm" className="border border-line">Manage in Account</LinkButton>
               </div>

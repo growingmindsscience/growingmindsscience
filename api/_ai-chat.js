@@ -2,7 +2,7 @@
 // the size limits, conversation-history cleanup, and the streaming transform
 // from Anthropic's SSE events to the OpenAI-style events the chat page reads.
 //
-// The chat page (tools/growing-minds-ai.html) keeps a copy of LIMITS so it only
+// The chat page (tools/ask-the-research.html) keeps a copy of LIMITS so it only
 // sends what the server keeps; tests/api/limits.test.mjs fails if they drift.
 
 import { createPiiRedactor } from "./_pii-guard.js";
@@ -67,7 +67,7 @@ export function finishReasonFor(stopReason) {
   return "stop";
 }
 
-export const INTERRUPTED_MESSAGE = "Growing Minds AI was interrupted before it could finish. Please try again.";
+export const INTERRUPTED_MESSAGE = "Ask the research was interrupted before it could finish. Please try again.";
 
 /**
  * Turns Anthropic's Messages SSE stream into the OpenAI-compatible stream the

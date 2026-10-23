@@ -53,7 +53,7 @@ function shell({ title, description, canonicalPath, body, extraHead = "" }) {
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
   /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>${esc(title)} | Growing Minds Science</title>
+  <title>${esc(title)} | From Little Onward</title>
   <meta name="description" content="${esc(description)}" />
   <meta name="theme-color" content="#F7F4EC" />
   <meta name="color-scheme" content="light dark" />
@@ -64,7 +64,7 @@ function shell({ title, description, canonicalPath, body, extraHead = "" }) {
   <link rel="canonical" href="${ORIGIN}${canonicalPath}" />
 
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="${esc(title)} | Growing Minds Science" />
+  <meta property="og:title" content="${esc(title)} | From Little Onward" />
   <meta property="og:description" content="${esc(description)}" />
   <meta property="og:image" content="${ORIGIN}/assets/img/og/claims-library.png" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -85,9 +85,9 @@ ${extraHead}
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+      <a class="brand" href="/" aria-label="From Little Onward, home">
         <svg class="brand__mark" viewBox="8 -6 96 96" width="32" height="32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="11.0" stroke-linecap="round" stroke-linejoin="round"><path d="M16.00,88.00 L16.00,82.00 A44.00,44.00 0 0 1 50.85,38.96"/><path d="M39.00,91.00 L39.00,88.00 A27.00,27.00 0 0 1 66.00,61.00 L78.00,61.00"/></g><path class="brand__leaf" d="M49.35,39.96 C43.58,16.28 74.29,-4.99 95.31,1.39 C94.25,18.80 69.07,42.93 49.35,39.96 Z"/></svg>
-        <span class="brand__name">growing minds</span><span class="brand__desc">Science</span>
+        <span class="brand__name">from little</span><span class="brand__desc">Onward</span>
       </a>
 
       <nav class="nav" aria-label="Primary">
@@ -105,7 +105,7 @@ ${extraHead}
               <div class="nav__menu">
                 <ul class="nav__submenu">
                   <li><a class="nav__submenu-link" href="/tools/right-now"><span class="nav__submenu-title">It&rsquo;s hard right now</span><span class="nav__submenu-desc">A calm next step in two minutes.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/tools/growing-minds-ai"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question, answered from the research.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/ask-the-research"><span class="nav__submenu-title">Ask the research</span><span class="nav__submenu-desc">A calm, research-grounded answer to a parenting question.</span></a></li>
                   <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
                   <li><a class="nav__submenu-link" href="/tools/communication-snapshot"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
                   <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A free ten-minute counting check-in.</span></a></li>
@@ -136,11 +136,11 @@ ${body}
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <a class="brand" href="/" aria-label="From Little Onward, home">
           <svg class="brand__mark" viewBox="8 -6 96 96" width="32" height="32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="11.0" stroke-linecap="round" stroke-linejoin="round"><path d="M16.00,88.00 L16.00,82.00 A44.00,44.00 0 0 1 50.85,38.96"/><path d="M39.00,91.00 L39.00,88.00 A27.00,27.00 0 0 1 66.00,61.00 L78.00,61.00"/></g><path class="brand__leaf" d="M49.35,39.96 C43.58,16.28 74.29,-4.99 95.31,1.39 C94.25,18.80 69.07,42.93 49.35,39.96 Z"/></svg>
-          <span class="brand__name">growing minds</span><span class="brand__desc">Science</span>
+          <span class="brand__name">from little</span><span class="brand__desc">Onward</span>
         </a>
-        <p class="site-footer__tag">A living field guide to the growing mind, for parents of children 0 to 5.</p>
+        <p class="site-footer__tag">Science-backed parent education, open to any parent who seeks it.</p>
       </div>
       <nav class="site-footer__nav" aria-label="Footer">
         <div>
@@ -157,7 +157,7 @@ ${body}
           <h2 class="site-footer__heading">Tools</h2>
           <ul class="footer-list">
             <li><a href="/tools/right-now">It&rsquo;s hard right now</a></li>
-            <li><a href="/tools/growing-minds-ai">Growing Minds AI</a></li>
+            <li><a href="/tools/ask-the-research">Ask the research</a></li>
             <li><a href="/milestones">Milestone tracker</a></li>
             <li><a href="/tools/communication-snapshot">Communication Snapshot</a></li>
             <li><a href="/tools/">All tools and guides</a></li>
@@ -183,9 +183,9 @@ ${body}
       </nav>
     </div>
     <div class="container site-footer__close">
-      <p class="site-footer__wordmark" aria-hidden="true">growing minds <span class="site-footer__wordmark-desc">science</span></p>
+      <p class="site-footer__wordmark" aria-hidden="true">from little <span class="site-footer__wordmark-desc">onward</span></p>
       <div class="footer-bottom">
-        <p>&copy; <span data-year>2026</span> Growing Minds Science</p>
+        <p>&copy; <span data-year>2026</span> From Little Onward</p><!-- TODO legal: confirm entity name and structure with attorney -->
         <p><a href="/privacy/">Privacy</a> &middot; <a href="/terms/">Terms of use</a> &middot; <a href="/terms-of-sale/">Terms of sale</a></p>
         <p>Educational content only. Not medical or psychological advice.</p>
       </div>
@@ -220,7 +220,7 @@ function claimPage(c) {
     inLanguage: "en",
     isAccessibleForFree: true,
     author: { "@type": "Person", name: "Matthew McArthur", jobTitle: "Child Development Specialist", url: `${ORIGIN}/about` },
-    publisher: { "@type": "Organization", name: "Growing Minds Science", url: ORIGIN },
+    publisher: { "@type": "Organization", name: "From Little Onward", url: ORIGIN },
     mainEntityOfPage: `${ORIGIN}/claims/${c.slug}`,
   };
   const related = (c.related_tools || [])

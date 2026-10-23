@@ -16,9 +16,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const a = await getActivity(slug);
-  if (!a) return { title: "Activity | Growing Minds Science" };
+  if (!a) return { title: "Activity | From Little Onward" };
   return {
-    title: `${a.title} (${a.months_min}–${a.months_max} months) | Growing Minds Science`,
+    title: `${a.title} (${a.months_min}–${a.months_max} months) | From Little Onward`,
     description: a.intention,
   };
 }

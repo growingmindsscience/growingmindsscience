@@ -16,7 +16,7 @@ import { markDone, createLibraryChild } from "./actions";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Today's 3 | Growing Minds Science",
+  title: "Today's 3 | From Little Onward",
   description:
     "Three developmental activities picked for your child today, balanced across areas of development.",
 };

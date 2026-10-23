@@ -11,7 +11,7 @@ import { Card } from "@/components/ui";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Activity Library | Growing Minds Science",
+  title: "Activity Library | From Little Onward",
   description:
     "Developmental activities for ages 0–36 months, each with an explicit why, household materials, and easier/harder adaptations.",
 };
