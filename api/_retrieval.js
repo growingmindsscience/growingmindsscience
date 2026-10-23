@@ -133,7 +133,7 @@ export function formatContext(results) {
   const blocks = results.map(({ card }, i) => {
     const src = card.source?.url
       ? `${card.source.label} (${card.source.url})`
-      : card.source?.label || "Growing Minds knowledge base";
+      : card.source?.label || "From Little Onward knowledge base";
     return `[${i + 1}] ${card.title}\nSource: ${src}\n${card.text}`;
   });
   return blocks.join("\n\n");

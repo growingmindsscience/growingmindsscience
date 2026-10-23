@@ -106,7 +106,7 @@ try {
   ok(new URL(page.url()).hash === '#meltdown', 'right-now: the answer has its own #hash');
   ok(await page.locator('.rn-seq li').count() === 3, 'right-now: 3-step sequence');
   const askHref = await page.locator('.rn-actions a', { hasText: 'Ask about this' }).getAttribute('href');
-  ok(/growing-minds-ai\?q=/.test(askHref), 'right-now: Ask link seeds ?q=');
+  ok(/ask-the-research\?q=/.test(askHref), 'right-now: Ask link seeds ?q=');
   await page.locator('.rn-actions button', { hasText: 'Save this' }).click();
   ok(await page.locator('.rn-actions button', { hasText: 'Saved ✓' }).count() > 0, 'right-now: Save toggles to Saved');
   await page.locator('button', { hasText: 'Something else is happening' }).click();
@@ -161,7 +161,7 @@ try {
   ok(await page.locator('.cs-sev--discuss').count() > 0, 'snapshot: no words at 20m compiles to discuss');
   ok(await page.locator('.cs-flag', { hasText: 'No words yet' }).count() > 0, 'snapshot: no_words_16m flag surfaces');
   ok(await page.locator('.cs-report .btn--primary', { hasText: 'Print notes' }).count() > 0, 'snapshot: print visit notes offered');
-  const csAsk = await page.locator('.cs-report a', { hasText: 'Ask Growing Minds AI' }).getAttribute('href');
+  const csAsk = await page.locator('.cs-report a', { hasText: 'Ask the research' }).getAttribute('href');
   ok(decodeURIComponent(csAsk.split('?q=')[1]).length <= 500 && /while%20we%20wait/.test(csAsk), 'snapshot: AI question fits the 500-character prefill and keeps its ask');
 
   // --- Milestone Navigator: hearing concern routes discuss (audiology-led) ---
@@ -224,7 +224,7 @@ try {
   ok(await page.locator('.cl-sources li').count() >= 2, 'claims: sources listed');
 
   // AI ?q= prefill — fills the box, does NOT send, cleans the URL
-  await page.goto(`${BASE}/tools/growing-minds-ai.html?q=Why%20does%20my%20toddler%20melt%20down`, { waitUntil: 'networkidle' });
+  await page.goto(`${BASE}/tools/ask-the-research.html?q=Why%20does%20my%20toddler%20melt%20down`, { waitUntil: 'networkidle' });
   await page.waitForTimeout(150);
   ok((await page.locator('#chatInput').inputValue()).includes('melt down'), 'ai: ?q= prefills the textarea');
   ok(await page.locator('.msg--user').count() === 0, 'ai: prefill does not auto-send');

@@ -9,13 +9,13 @@ const KIT_API_URL = "https://api.convertkit.com/v3/forms";
 // The notification subject is chosen here, not taken from the request. Each
 // signup form sends a hidden `subject` naming the page it lives on; only these
 // known labels are used, anything else gets the default.
-const DEFAULT_SUBJECT = "New Waitlist Signup - Growing Minds Science";
+const DEFAULT_SUBJECT = "New Waitlist Signup, From Little Onward";
 const KNOWN_SUBJECTS = new Set([
-  "New Class Notify Signup — Growing Minds Science",
-  "Articles Email Signup — Growing Minds Science",
-  "Birth to 12 Months Waitlist — Growing Minds Science",
-  "Preschool Class Waitlist — Growing Minds Science",
-  "Family Systems Class Waitlist — Growing Minds Science",
+  "New Class Notify Signup, From Little Onward",
+  "Articles Email Signup, From Little Onward",
+  "Birth to 12 Months Waitlist, From Little Onward",
+  "Preschool Class Waitlist, From Little Onward",
+  "Family Systems Class Waitlist, From Little Onward",
 ]);
 
 // Awaited (with a timeout) rather than fired and forgotten: an Edge function
@@ -58,7 +58,7 @@ function htmlErrorResponse(status, message) {
     '"': "&quot;",
     "'": "&#39;",
   }[char]));
-  return new Response(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Waitlist error - Growing Minds Science</title></head><body><main><h1>Waitlist signup could not be sent.</h1><p>${safeMessage}</p><p><a href="/#signup">Back to the waitlist</a></p></main></body></html>`, {
+  return new Response(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Waitlist error | From Little Onward</title></head><body><main><h1>Waitlist signup could not be sent.</h1><p>${safeMessage}</p><p><a href="/#signup">Back to the waitlist</a></p></main></body></html>`, {
     status,
     headers: {
       "content-type": "text/html; charset=utf-8",
@@ -108,7 +108,7 @@ export default async function handler(request) {
     name: cleanHeaderText(payload.name, 100),
     email,
     interest: cleanHeaderText(payload.interest, 120) || "General waitlist",
-    from_name: "Growing Minds Science",
+    from_name: "From Little Onward",
   };
 
   let upstreamResponse;

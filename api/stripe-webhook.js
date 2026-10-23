@@ -136,8 +136,8 @@ async function notifyOwner(email, product) {
     headers: { "content-type": "application/json" },
     body: JSON.stringify({
       access_key: accessKey,
-      subject: `New Purchase, Growing Minds Science`,
-      from_name: "Growing Minds Science (Purchase Notification)",
+      subject: `New Purchase, From Little Onward`,
+      from_name: "From Little Onward (Purchase Notification)",
       message: `New purchase received.\n\nEmail: ${safeEmail}\nProduct: ${safeProduct}${unlabelledNote}\n\nIf this is a class purchase, send the AI access code to this customer via your ConvertKit sequence or by replying to their confirmation email. AI Pro (ai_pro) subscriptions unlock automatically, no action needed.`,
     }),
     signal: AbortSignal.timeout(5000),
