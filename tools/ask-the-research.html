@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
   /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>Growing Minds AI: ask a developmental science question | Growing Minds Science</title>
-  <meta name="description" content="Growing Minds AI answers your parenting questions with developmental science, not judgment and not generic advice. 5 free questions a day, no account needed." />
+  <title>Ask the research: ask a developmental science question | From Little Onward</title>
+  <meta name="description" content="Ask the research answers your parenting questions with developmental science, not judgment and not generic advice. 5 free questions a day, no account needed." />
   <meta name="theme-color" content="#F7F4EC" />
   <meta name="color-scheme" content="light dark" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Growing Minds AI" />
+  <meta property="og:title" content="Ask the research" />
   <meta property="og:description" content="Ask a developmental science question. Get a calm, research-grounded answer." />
   <meta property="og:image" content="https://growingmindsscience.com/assets/img/og/site-home.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -19,7 +19,7 @@
   <link rel="icon" href="/assets/img/brand/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/assets/img/brand/favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="/assets/img/brand/apple-touch-icon-180.png" />
-  <link rel="canonical" href="https://growingmindsscience.com/tools/growing-minds-ai" />
+  <link rel="canonical" href="https://growingmindsscience.com/tools/ask-the-research" />
 
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
@@ -190,8 +190,8 @@
 
     /* Welcome state */
     .chat-welcome { text-align: center; padding: 2.25rem 0 1rem; }
-    /* Solid ink disc with Besley initials in amber, like the homepage chat
-       avatar; a hairline ring keeps it defined on the dark ground. */
+    /* Solid ink disc with the site mark in amber; a hairline ring keeps it
+       defined on the dark ground. */
     .chat-welcome__icon {
       width: 56px; height: 56px; border-radius: 50%;
       display: grid; place-items: center; margin: 0 auto 1.25rem;
@@ -522,9 +522,9 @@
 
   <header class="site-header" role="banner">
     <div class="container site-header__inner">
-      <a class="brand" href="/" aria-label="Growing Minds Science, home">
+      <a class="brand" href="/" aria-label="From Little Onward, home">
         <svg class="brand__mark" viewBox="8 -6 96 96" width="32" height="32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="11.0" stroke-linecap="round" stroke-linejoin="round"><path d="M16.00,88.00 L16.00,82.00 A44.00,44.00 0 0 1 50.85,38.96"/><path d="M39.00,91.00 L39.00,88.00 A27.00,27.00 0 0 1 66.00,61.00 L78.00,61.00"/></g><path class="brand__leaf" d="M49.35,39.96 C43.58,16.28 74.29,-4.99 95.31,1.39 C94.25,18.80 69.07,42.93 49.35,39.96 Z"/></svg>
-        <span class="brand__name">growing minds</span><span class="brand__desc">Science</span>
+        <span class="brand__name">from little</span><span class="brand__desc">Onward</span>
       </a>
 
       <nav class="nav" aria-label="Primary">
@@ -542,7 +542,7 @@
               <div class="nav__menu">
                 <ul class="nav__submenu">
                   <li><a class="nav__submenu-link" href="/tools/right-now"><span class="nav__submenu-title">It&rsquo;s hard right now</span><span class="nav__submenu-desc">A calm next step in two minutes.</span></a></li>
-                  <li><a class="nav__submenu-link" href="/tools/growing-minds-ai"><span class="nav__submenu-title">Growing Minds AI</span><span class="nav__submenu-desc">Ask a parenting question, answered from the research.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/tools/ask-the-research"><span class="nav__submenu-title">Ask the research</span><span class="nav__submenu-desc">A calm, research-grounded answer to a parenting question.</span></a></li>
                   <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
                   <li><a class="nav__submenu-link" href="/tools/communication-snapshot"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
                   <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Number Path</span><span class="nav__submenu-desc">A free ten-minute counting check-in.</span></a></li>
@@ -572,7 +572,7 @@
       <div class="container ai-page-header__inner">
         <div>
           <h1>Ask a developmental science question.</h1>
-          <p class="ai-label">Growing Minds AI · free, no account needed</p>
+          <p class="ai-label">Ask the research · free, no account needed</p>
           <p>Get a calm, research-grounded answer, not generic internet advice and not judgment. Grounded in developmental neuroscience and 50+ years of published research.</p>
         </div>
         <div class="ai-tier-badge" id="tierBadge" aria-live="polite">
@@ -602,7 +602,7 @@
       <!-- Welcome and topic browser. Kept outside the conversation log so
            screen readers do not announce the topic cards as chat. -->
       <div class="chat-welcome" id="chatWelcome">
-        <div class="chat-welcome__icon" aria-hidden="true">GM</div>
+        <div class="chat-welcome__icon" aria-hidden="true"><svg viewBox="8 -6 96 96" width="28" height="28" focusable="false"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"><path d="M16,88 L16,82 A44,44 0 0 1 50.85,38.96"/><path d="M39,91 L39,88 A27,27 0 0 1 66,61 L78,61"/></g><path fill="currentColor" d="M49.35,39.96 C43.58,16.28 74.29,-4.99 95.31,1.39 C94.25,18.80 69.07,42.93 49.35,39.96 Z"/></svg></div>
         <h2>What's on your mind today?</h2>
         <p>Ask anything about your child's behavior, feelings, sleep, language, or development. You'll get a calm, research-grounded answer, with no judgment and never a diagnosis.</p>
 
@@ -620,7 +620,7 @@
       <!-- Access code panel -->
       <div class="access-panel" id="accessPanel" role="region" aria-labelledby="accessPanelTitle" hidden>
         <h3 id="accessPanelTitle">Enter your class access code</h3>
-        <p>Growing Minds AI is included with your class, with a fair-use limit of 50 questions a day. Your access code is in your class confirmation email.</p>
+        <p>Ask the research, the AI tool, is included with your class, with a fair-use limit of 50 questions a day. Your access code is in your class confirmation email.</p>
         <div class="access-panel__row">
           <input class="access-input" type="password" id="accessCodeInput" placeholder="Your access code" autocomplete="off" aria-label="Access code" />
           <button class="access-btn" type="button" id="accessCodeSubmit">Unlock</button>
@@ -666,7 +666,7 @@
             <p>For adults. General information, not a screening, diagnosis, or medical advice. In an emergency, call 911; in a crisis, call or text 988.</p>
             <details class="chat-about">
               <summary>How this works</summary>
-              <p>Answers are written by Claude, an AI model from Anthropic, using a curated library of developmental research and Growing Minds class material. To write each answer, your question and the recent part of this conversation are sent to our server and on to Anthropic. We don't save your conversation: it stays in this browser tab and clears when you start over or leave the page. Please leave out names and other details that could identify your child. It can&rsquo;t assess a specific child: if you&rsquo;re worried about your child&rsquo;s development, talk to your pediatrician or contact your state&rsquo;s early intervention program.</p>
+              <p>Answers are written by Claude, an AI model from Anthropic, using a curated library of developmental research and From Little Onward class material. To write each answer, your question and the recent part of this conversation are sent to our server and on to Anthropic. We don't save your conversation: it stays in this browser tab and clears when you start over or leave the page. Please leave out names and other details that could identify your child. It can&rsquo;t assess a specific child: if you&rsquo;re worried about your child&rsquo;s development, talk to your pediatrician or contact your state&rsquo;s early intervention program.</p>
             </details>
           </div>
           <div class="chat-meta__right" id="unlockLinks">
@@ -684,7 +684,7 @@
         <div class="plans-strip__card">
           <div class="plans-strip__text">
             <h2 id="plans-strip-title">Free gives you 5 questions a day.</h2>
-            <p>Want more? Growing Minds AI is included with the toddler class, with a fair-use limit of 50 questions a day.</p>
+            <p>Want more? Ask the research, the AI tool, is included with the toddler class, with a fair-use limit of 50 questions a day.</p>
           </div>
           <div class="plans-strip__cta">
             <a class="btn btn--teal" href="/classes/">See the classes <span aria-hidden="true">→</span></a>
@@ -713,11 +713,11 @@
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
       <div class="site-footer__brand">
-        <a class="brand" href="/" aria-label="Growing Minds Science, home">
+        <a class="brand" href="/" aria-label="From Little Onward, home">
           <svg class="brand__mark" viewBox="8 -6 96 96" width="32" height="32" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="11.0" stroke-linecap="round" stroke-linejoin="round"><path d="M16.00,88.00 L16.00,82.00 A44.00,44.00 0 0 1 50.85,38.96"/><path d="M39.00,91.00 L39.00,88.00 A27.00,27.00 0 0 1 66.00,61.00 L78.00,61.00"/></g><path class="brand__leaf" d="M49.35,39.96 C43.58,16.28 74.29,-4.99 95.31,1.39 C94.25,18.80 69.07,42.93 49.35,39.96 Z"/></svg>
-          <span class="brand__name">growing minds</span><span class="brand__desc">Science</span>
+          <span class="brand__name">from little</span><span class="brand__desc">Onward</span>
         </a>
-        <p class="site-footer__tag">A living field guide to the growing mind, for parents of children 0 to 5.</p>
+        <p class="site-footer__tag">Science-backed parent education, open to any parent who seeks it.</p>
       </div>
       <nav class="site-footer__nav" aria-label="Footer">
         <div>
@@ -734,7 +734,7 @@
           <h2 class="site-footer__heading">Tools</h2>
           <ul class="footer-list">
             <li><a href="/tools/right-now">It&rsquo;s hard right now</a></li>
-            <li><a href="/tools/growing-minds-ai">Growing Minds AI</a></li>
+            <li><a href="/tools/ask-the-research">Ask the research</a></li>
             <li><a href="/milestones">Milestone tracker</a></li>
             <li><a href="/tools/communication-snapshot">Communication Snapshot</a></li>
             <li><a href="/tools/">All tools and guides</a></li>
@@ -760,9 +760,9 @@
       </nav>
     </div>
     <div class="container site-footer__close">
-      <p class="site-footer__wordmark" aria-hidden="true">growing minds <span class="site-footer__wordmark-desc">science</span></p>
+      <p class="site-footer__wordmark" aria-hidden="true">from little <span class="site-footer__wordmark-desc">onward</span></p>
       <div class="footer-bottom">
-        <p>&copy; <span data-year>2026</span> Growing Minds Science</p>
+        <p>&copy; <span data-year>2026</span> From Little Onward</p><!-- TODO legal: confirm entity name and structure with attorney -->
         <p><a href="/privacy/">Privacy</a> &middot; <a href="/terms/">Terms of use</a> &middot; <a href="/terms-of-sale/">Terms of sale</a></p>
         <p>Educational content only. Not medical or psychological advice.</p>
       </div>
@@ -933,7 +933,7 @@
     let activeRequest = null;    // { controller } for the question being answered
     let accessCode = session.get(ACCESS_CODE_KEY) || '';
     let subscriberToken = local.get(SUB_TOKEN_KEY) || '';
-    // Unlimited via a signed-in Growing Minds account (membership or the
+    // Unlimited via a signed-in From Little Onward account (membership or the
     // legacy class bundle). Resolved async from the shared session; the
     // server re-checks independently, so this only drives the UI.
     let sessionUnlimited = false;
@@ -1285,7 +1285,7 @@
         if (finishReason === 'length') {
           addNote(answer.bubble, 'This answer was cut short. Ask a follow-up to hear the rest.');
         } else if (finishReason === 'content_filter') {
-          addNote(answer.bubble, "Growing Minds AI couldn't finish this answer. Try asking in a different way.");
+          addNote(answer.bubble, "Ask the research couldn't finish this answer. Try asking in a different way.");
         }
         conversationHistory.push({ role: 'user', content: question });
         conversationHistory.push({ role: 'assistant', content: fullText });
@@ -1295,7 +1295,7 @@
         // the question goes back in the box so it can be sent again.
         const message = failure ? failure.message
           : fullText.trim() ? 'The answer was interrupted before it finished. Please try again.'
-          : "Growing Minds AI didn't send an answer. Please try again.";
+          : "Ask the research didn't send an answer. Please try again.";
         if (answer) {
           answer.bubble.innerHTML = renderMarkdown(fullText);
           addNote(answer.bubble, message, 'error');
@@ -1559,7 +1559,7 @@
       accessCode = code;
       session.set(ACCESS_CODE_KEY, code);
       codeInput.value = '';
-      setStatus(codeStatus, 'Access unlocked. Growing Minds AI is included with your class, with a fair-use limit of 50 questions a day.', 'success');
+      setStatus(codeStatus, 'Access unlocked. Ask the research, the AI tool, is included with your class, with a fair-use limit of 50 questions a day.', 'success');
       updateTierBadge();
       closePanelSoon(accessPanel, accessToggle);
     }
@@ -1683,7 +1683,7 @@
     }
 
     /* ── Signed-in unlock ─────────────────────────────── */
-    // A Growing Minds account (membership or the legacy class bundle) unlocks
+    // A From Little Onward account (membership or the legacy class bundle) unlocks
     // unlimited without an access code or subscriber email. /nsc is proxied on
     // this origin, so the shared Supabase session cookie reaches the endpoint.
     // Best-effort and non-blocking: a signed-out or failed check just leaves

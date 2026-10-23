@@ -160,9 +160,9 @@ for (const s of d.stages) {
   const name = `${s.name}, ${s.years.toLowerCase()}`;
   const desc = `${s.summary} The guides, tools, articles and graded claims for this period, by moment and by topic.`;
   let html = fill(template, stagePage(s))
-    .replace(/<title>.*?<\/title>/, `<title>${esc(name)} | Explore | Growing Minds Science</title>`)
+    .replace(/<title>.*?<\/title>/, `<title>${esc(name)} | Explore | From Little Onward</title>`)
     .replace(/(<meta name="description" content=")[^"]*"/, (_, a) => `${a}${esc(desc)}"`)
-    .replace(/(<meta property="og:title" content=")[^"]*"/, (_, a) => `${a}${esc(name)} | Growing Minds Science"`)
+    .replace(/(<meta property="og:title" content=")[^"]*"/, (_, a) => `${a}${esc(name)} | From Little Onward"`)
     .replace(/(<meta property="og:description" content=")[^"]*"/, (_, a) => `${a}${esc(desc)}"`)
     .replace(/(<link rel="canonical" href=")[^"]*"/, (_, a) => `${a}${ORIGIN}${href(s)}"`)
     .replace(/(<meta property="og:url" content=")[^"]*"/, (_, a) => `${a}${ORIGIN}${href(s)}"`);

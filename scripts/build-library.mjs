@@ -73,7 +73,7 @@ function jsonLd(entry, url, published, modified) {
     headline: entry.question, description: entry.shortAnswer,
     inLanguage: "en", isAccessibleForFree: true,
     author: { "@type": "Person", name: "Matthew McArthur", jobTitle: "Child Development Specialist", url: `${ORIGIN}/about` },
-    publisher: { "@type": "Organization", name: "Growing Minds Science", url: ORIGIN, logo: { "@type": "ImageObject", url: `${ORIGIN}/assets/img/brand/icon-512.png` } },
+    publisher: { "@type": "Organization", name: "From Little Onward", url: ORIGIN, logo: { "@type": "ImageObject", url: `${ORIGIN}/assets/img/brand/icon-512.png` } },
     mainEntityOfPage: { "@type": "WebPage", "@id": url }, url,
     ...(published ? { datePublished: published } : {}), ...(modified ? { dateModified: modified } : {}),
   };
@@ -117,7 +117,7 @@ function shell({ title, description, canonical, draft, body, extraHead = "" }) {
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
   /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>${esc(title)} | Growing Minds Science</title>
+  <title>${esc(title)} | From Little Onward</title>
   <meta name="description" content="${escAttr(description)}" />
   <meta name="theme-color" content="#F7F4EC" />
   <meta name="color-scheme" content="light dark" />${robots}
@@ -126,7 +126,7 @@ function shell({ title, description, canonical, draft, body, extraHead = "" }) {
   <link rel="apple-touch-icon" href="/assets/img/brand/apple-touch-icon-180.png" />
   <link rel="canonical" href="${canonical}" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="${escAttr(title)} | Growing Minds Science" />
+  <meta property="og:title" content="${escAttr(title)} | From Little Onward" />
   <meta property="og:description" content="${escAttr(description)}" />
   <meta property="og:image" content="${ORIGIN}/assets/img/og/site-home.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -183,7 +183,7 @@ function renderPage(entry, { draft }) {
   const explore = [
     ...(related.articles || []).map((s) => `<li><a href="/articles/${s}">${esc(ARTICLE_TITLE[s] || s)}</a></li>`),
     ...(cls ? [`<li><a href="${cls.href}">The ${esc(cls.title)} class</a>${cls.tag === "Waitlist" ? " (waitlist open)" : ""}</li>`] : []),
-    `<li><a href="/tools/growing-minds-ai?q=${encodeURIComponent(entry.question)}">Ask Growing Minds AI about this</a></li>`,
+    `<li><a href="/tools/ask-the-research?q=${encodeURIComponent(entry.question)}">Ask the research about this</a></li>`,
   ];
 
   const draftBanner = draft
