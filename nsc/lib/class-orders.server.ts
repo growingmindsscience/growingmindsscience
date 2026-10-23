@@ -3,20 +3,23 @@ import type Stripe from "stripe";
 import { createServiceClient } from "@/lib/supabase/server";
 import { applyGrants } from "@/lib/entitlements.server";
 import { grantsForOneTimePurchase } from "@/lib/grants";
-import { CLASS_COURSES, TODDLER_COURSE, courseForProduct, isClassCourseSlug, validClassPayment } from "@/lib/classes";
+import { CLASS_BUNDLE, CLASS_COURSES, TODDLER_COURSE, classOfferForProduct, isClassCourseSlug, validClassPayment } from "@/lib/classes";
 import { stripe } from "@/lib/stripe";
+
+const PRICE_VARIABLES = {
+  toddlerhood: "TODDLER_CLASS_PRICE_ID",
+  infant: "INFANT_CLASS_PRICE_ID",
+  preschool: "PRESCHOOL_CLASS_PRICE_ID",
+  bundle: "CLASS_BUNDLE_PRICE_ID",
+} as const;
 
 /** A signed Stripe event is necessary; price verification is an additional guard. */
 export async function fulfillClassCheckout(session: Stripe.Checkout.Session) {
-  const course = courseForProduct(session.metadata?.product);
+  const course = classOfferForProduct(session.metadata?.product);
   if (!course) return;
   if (session.payment_status !== "paid" && session.payment_status !== "no_payment_required") return;
   const userId = session.client_reference_id;
-  const priceVariable = ({
-    toddlerhood: "TODDLER_CLASS_PRICE_ID",
-    infant: "INFANT_CLASS_PRICE_ID",
-    preschool: "PRESCHOOL_CLASS_PRICE_ID",
-  } as const)[course.slug];
+  const priceVariable = PRICE_VARIABLES[course.slug];
   const expectedPrice = process.env[priceVariable];
   if (!expectedPrice) throw new Error(`${priceVariable} is not configured`);
   const items = await stripe().checkout.sessions.listLineItems(session.id, { limit: 10 });
@@ -75,11 +78,13 @@ async function revokeClassPayment(paymentIntent: string, status: "refunded" | "d
     .eq("status", "paid");
   if (error) throw new Error(`Could not find class order: ${error.message}`);
   for (const order of orders ?? []) {
-    // Only the legacy toddler bundle also granted unlimited AI.
+    // The toddler class and the bundle also granted unlimited AI.
+    const bundle = order.course_slug === CLASS_BUNDLE.slug;
     const single = isClassCourseSlug(order.course_slug) && order.course_slug !== TODDLER_COURSE.slug
       ? CLASS_COURSES[order.course_slug] : null;
-    const scopes = single ? [single.scope] : [TODDLER_COURSE.scope, "ai:unlimited"];
-    const source = single ? "stripe_otp" : "stripe_otp_legacy";
+    const scopes = bundle ? [...CLASS_BUNDLE.courses.map((slug) => CLASS_COURSES[slug].scope), "ai:unlimited"]
+      : single ? [single.scope] : [TODDLER_COURSE.scope, "ai:unlimited"];
+    const source = bundle || single ? "stripe_otp" : "stripe_otp_legacy";
     const now = new Date().toISOString();
     const { error: grantError } = await service.from("entitlements")
       .update({ expires_at: now, updated_at: now })
