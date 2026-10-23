@@ -1,0 +1,17 @@
+{
+  "_comment": "INACTIVE. Not read by Vercel: this file lives in docs/, which is never deployed. To switch domains, copy the two entries under redirects to the TOP of the redirects array in vercel.json (redirects run before rewrites, so /nsc and /api are covered too). Do this only after fromlittleonward.com is added to the Vercel project and serving. See docs/domain-move.md.",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "growingmindsscience.com" }],
+      "destination": "https://fromlittleonward.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.growingmindsscience.com" }],
+      "destination": "https://fromlittleonward.com/:path*",
+      "permanent": true
+    }
+  ]
+}
