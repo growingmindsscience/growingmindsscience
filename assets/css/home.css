@@ -18,6 +18,7 @@
 .hero__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
 .hero__quiet { margin-top: 24px; font-size: 15px; color: var(--ink-muted); }
 .hero__bottom { padding-top: 32px; color: var(--ink-soft); }
+.hero__nowrap { white-space: nowrap; } /* "grown-up" never splits at its hyphen */
 
 .plate { position: relative; display: flex; flex-direction: column; margin: 0; }
 .plate__img { position: relative; flex: 1 1 auto; min-height: 0; overflow: hidden; background: var(--sage-mist); }
@@ -49,15 +50,16 @@ html:not(.anim) .label { transition: none; }
 @media (max-width: 900px) {
   .hero { display: flex; flex-direction: column; min-height: 0; }
   .hero__text, .hero__text > div { display: contents; }
-  .hero__title { order: 0; margin-top: 24px; }
-  .plate { order: 1; margin: 24px 0 24px; display: flex; }
+  /* Phones: a smaller title keeps "Every grown-up" on one line, and a wider crop lifts the lead and first button into the first screen. */
+  .hero__title { order: 0; margin-top: 16px; font-size: clamp(2.75rem, 1.6rem + 5.6vw, 3.25rem); }
+  .plate { order: 1; margin: 20px 0; display: flex; }
   .plate__img { position: relative; flex: none; border-radius: var(--radius-lg); }
-  .plate picture, .plate img { position: relative; inset: auto; aspect-ratio: 5 / 4; object-position: 50% 22%; }
+  .plate picture, .plate img { position: relative; inset: auto; aspect-ratio: 3 / 2; object-position: 50% 22%; }
   .fg .plate__toggle { position: static; width: 100%; justify-content: center; border-radius: 0; min-height: 50px; background: var(--paper); color: var(--ink); box-shadow: none; border-top: 1.5px solid var(--ink); }
   .fg .plate__toggle[aria-pressed="true"] { background: var(--sage-mist); color: var(--ink); }
   .plate__fig { margin-top: 8px; }
   .hero__lead { order: 2; margin-top: 0; }
-  .hero__actions { order: 3; }
+  .hero__actions { order: 3; margin-top: 24px; }
   .hero__quiet { order: 4; margin-bottom: 40px; }
   .hero__bottom { display: none; }
   /* On a phone the labels are a list under the photograph, not overlays */
@@ -180,12 +182,13 @@ html:not(.anim) .label { transition: none; }
 
 /* ---------- 03 Age: five periods in a row ---------- */
 .age { background: var(--paper); overflow: hidden; }
+/* Each column holds its visually hidden spans; unpositioned, they escaped the clip and widened the page at 900 to 1100px. */
 .age__head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
 .age__bar { height: 6px; background: var(--paper-2); border-radius: 3px; margin-top: 24px; overflow: hidden; }
 .age__bar i { display: block; height: 100%; width: 20%; background: var(--ink); border-radius: 3px; transition: transform 200ms ease; }
 .age__row { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 32px var(--hb-gutter) 8px; margin-inline: calc(-1 * var(--hb-gutter)); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
 .age__row::-webkit-scrollbar { display: none; }
-.age__col { flex: 0 0 300px; scroll-snap-align: start; display: grid; grid-template-rows: auto auto 1fr auto auto; gap: 10px; }
+.age__col { position: relative; flex: 0 0 300px; scroll-snap-align: start; display: grid; grid-template-rows: auto auto 1fr auto auto; gap: 10px; }
 .age__col .yrs { color: var(--ink-muted); font-family: var(--font-body); font-size: 14px; font-weight: 500; letter-spacing: 0; margin-left: 0.5em; white-space: nowrap; }
 .age__col h3 { font-family: var(--font-display); font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); line-height: 1.05; letter-spacing: -0.015em; font-weight: 400; }
 .age__col h3 a { text-decoration: none; display: inline-block; padding-block: 10px; margin-block: -10px; }
