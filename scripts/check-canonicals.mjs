@@ -7,7 +7,7 @@
 // Why this matters: the site is reachable from mirrors we do not fully control —
 // two live *.netlify.app copies (one serving stale content) and Vercel preview
 // domains. A RELATIVE canonical resolves against whatever host served the page,
-// so each mirror self-canonicalises and competes with growingmindsscience.com
+// so each mirror self-canonicalises and competes with fromlittleonward.com
 // for the same content. An absolute canonical makes every mirror point home,
 // consolidating ranking signals no matter who is serving.
 
@@ -16,7 +16,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, join, relative } from "node:path";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const ORIGIN = "https://growingmindsscience.com";
+const ORIGIN = "https://www.fromlittleonward.com";
 const FIX = process.argv.includes("--fix");
 const SKIP_DIRS = new Set(["node_modules", ".git", ".next", "nsc", "answers", ".claude", ".vercel"]);
 

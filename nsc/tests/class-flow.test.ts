@@ -104,7 +104,7 @@ describe("static-site links", () => {
     process.env.NEXT_PUBLIC_SITE_URL = "https://preview.example/";
     expect(sitePath("/classes/")).toBe("https://preview.example/classes/");
     delete process.env.NEXT_PUBLIC_SITE_URL;
-    expect(sitePath("classes/")).toBe("https://growingmindsscience.com/classes/");
+    expect(sitePath("classes/")).toBe("https://www.fromlittleonward.com/classes/");
   });
 });
 

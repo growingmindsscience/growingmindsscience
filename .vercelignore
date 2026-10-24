@@ -1,7 +1,7 @@
-# Files the growingmindsscience.com project does not upload.
+# Files the fromlittleonward.com project does not upload.
 #
 # This project has no build step: Vercel serves every uploaded file as-is, so
-# anything not listed here is public at growingmindsscience.com/<path>. Keep
+# anything not listed here is public at fromlittleonward.com/<path>. Keep
 # working files (class scripts, drafts, reviews, tooling) out of the deploy.
 #
 # The nsc project (Root Directory nsc/) has its own nsc/.vercelignore. Vercel

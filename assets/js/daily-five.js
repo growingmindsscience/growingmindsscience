@@ -186,7 +186,7 @@
     }
     function shareText(won) {
       var head = mode === "daily" ? "Five Letters #" + puzzleNo : "Five Letters (practice)";
-      return head + " " + (won ? guesses.length : "X") + "/6\n" + resultGrid() + "\ngrowingmindsscience.com/arcade";
+      return head + " " + (won ? guesses.length : "X") + "/6\n" + resultGrid() + "\nfromlittleonward.com/arcade";
     }
     function finish(won, restored) {
       if (mode === "daily" && !restored) A.streak.mark(GAME_KEY, won ? "win" : "loss");

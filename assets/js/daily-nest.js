@@ -144,7 +144,7 @@
 
     function shareText() {
       var r = rankFor(score)[0];
-      return (mode === "daily" ? "Letter Nest #" + puzzleNo : "Letter Nest (practice)") + " · " + r + "\n" + foundWords.length + " words · " + score + " points" + (foundWords.some(function (w) { return set.pangrams.indexOf(w) !== -1; }) ? " · pangram ✦" : "") + "\ngrowingmindsscience.com/arcade";
+      return (mode === "daily" ? "Letter Nest #" + puzzleNo : "Letter Nest (practice)") + " · " + r + "\n" + foundWords.length + " words · " + score + " points" + (foundWords.some(function (w) { return set.pangrams.indexOf(w) !== -1; }) ? " · pangram ✦" : "") + "\nfromlittleonward.com/arcade";
     }
     function finish(all) {
       A.progress.record(GAME_KEY, { score: score });

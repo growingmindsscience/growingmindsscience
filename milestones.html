@@ -8,11 +8,11 @@
   <link rel="icon" href="/assets/img/brand/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/assets/img/brand/favicon-32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="/assets/img/brand/apple-touch-icon-180.png" />
-  <link rel="canonical" href="https://growingmindsscience.com/milestones" />
+  <link rel="canonical" href="https://www.fromlittleonward.com/milestones" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Milestone Tracker | From Little Onward" />
   <meta property="og:description" content="Browse developmental milestones by age and domain, from birth to 36 months. Each card pairs what parents might notice with everyday ways to support growth." />
-  <meta property="og:image" content="https://growingmindsscience.com/assets/img/site/caregiving-newborn.jpg" />
+  <meta property="og:image" content="https://www.fromlittleonward.com/assets/img/site/caregiving-newborn.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
@@ -268,7 +268,7 @@ function renderStageGuide(){var box=el('stageGuide');if(!box)return;var cfg=SG_S
 /* Printable, on-device reflection: a calm per-domain snapshot of what a parent
    has marked as noticed, plus stage next-steps. Save/print to share with a
    partner or clinician. Never sent anywhere. */
-function reportLink(href,label,tag){var url='growingmindsscience.com'+href;return '<a href="'+href+'">'+esc(label)+(tag?': '+esc(tag):'')+'</a> <span class="r-print-url">('+esc(url)+')</span>';}
+function reportLink(href,label,tag){var url='fromlittleonward.com'+href;return '<a href="'+href+'">'+esc(label)+(tag?': '+esc(tag):'')+'</a> <span class="r-print-url">('+esc(url)+')</span>';}
 function buildReport(){var box=el('milestoneReport');var byId={};DATA.milestones.forEach(function(m){byId[m.id]=m});var noticed=Object.keys(done).filter(function(id){return done[id]&&byId[id]});var byDomain={};DATA.domains.forEach(function(d){byDomain[d]=[]});var bands={};noticed.forEach(function(id){var m=byId[id];if(byDomain[m.domain])byDomain[m.domain].push(m);bands[m.age]=(bands[m.age]||0)+1});var date=new Date().toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'});
   var body='';
   if(noticed.length){body+='<div class="r-domains">'+DATA.domains.filter(function(d){return byDomain[d].length}).map(function(d){var items=byDomain[d];return '<div class="r-domain"><h3>'+esc(d)+' <b>'+items.length+'</b></h3><ul>'+items.map(function(m){return '<li>'+esc(m.title)+' <span style="color:var(--muted)">('+esc(m.age)+')</span></li>'}).join('')+'</ul></div>'}).join('')+'</div>';}
@@ -280,7 +280,7 @@ function buildReport(){var box=el('milestoneReport');var byId={};DATA.milestones
     '<h2 class="rh-title" tabindex="-1">What you’ve been noticing</h2>'+
     '<p class="rh-sub">A personal snapshot from the milestone tracker, just for you and saved on this device. Milestones are windows, not deadlines. This is a reflection, not an assessment of your child.</p>'+
     body+
-    '<p class="r-foot">Educational content only. Not a screening or diagnosis, and not medical or psychological advice. If anything here concerns you, talk to your pediatrician or contact your state’s early intervention program. · growingmindsscience.com/milestones</p>'+
+    '<p class="r-foot">Educational content only. Not a screening or diagnosis, and not medical or psychological advice. If anything here concerns you, talk to your pediatrician or contact your state’s early intervention program. · fromlittleonward.com/milestones</p>'+
     '<div class="r-actions"><button type="button" class="btn btn--teal" id="reportPrint">Print / save as PDF</button><button type="button" class="btn" id="reportClose">Close</button></div></div>';
   box.hidden=false;
   el('reportPrint').addEventListener('click',printReport);

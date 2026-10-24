@@ -173,7 +173,7 @@
     }
     function shareText(won) {
       var head = mode === "daily" ? "Groupings #" + puzzleNo : "Groupings (practice)";
-      return head + (won ? " · " + mistakes + (mistakes === 1 ? " mistake" : " mistakes") : " · not today") + "\n" + resultGrid() + "\ngrowingmindsscience.com/arcade";
+      return head + (won ? " · " + mistakes + (mistakes === 1 ? " mistake" : " mistakes") : " · not today") + "\n" + resultGrid() + "\nfromlittleonward.com/arcade";
     }
     function finish(won, restored) {
       if (mode === "daily" && !restored) A.streak.mark(GAME_KEY, won ? "win" : "loss");

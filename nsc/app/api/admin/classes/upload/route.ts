@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   if (!isClassAdmin(user)) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
-  const configuredOrigin = new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://growingmindsscience.com").origin;
+  const configuredOrigin = new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://www.fromlittleonward.com").origin;
   const origin = request.headers.get("origin");
   if (!origin || origin !== configuredOrigin) {
     return NextResponse.json({ error: "Invalid origin" }, { status: 403 });

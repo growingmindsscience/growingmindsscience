@@ -225,7 +225,7 @@
     revealBtn.addEventListener("click", function (e) { e.preventDefault(); reveal(); board.focus({ preventScroll: true }); });
     clearBtn.addEventListener("click", function (e) { e.preventDefault(); clearAll(); board.focus({ preventScroll: true }); });
 
-    function shareText() { return (mode === "daily" ? "Little Crossword #" + puzzleNo : "Little Crossword (practice)") + " · " + fmt(elapsed) + (reveals ? " · " + reveals + " revealed" : " · nothing revealed") + "\ngrowingmindsscience.com/arcade"; }
+    function shareText() { return (mode === "daily" ? "Little Crossword #" + puzzleNo : "Little Crossword (practice)") + " · " + fmt(elapsed) + (reveals ? " · " + reveals + " revealed" : " · nothing revealed") + "\nfromlittleonward.com/arcade"; }
     function finish(restored) {
       if (timer) { window.clearInterval(timer); timer = null; }
       syncHud();
