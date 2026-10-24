@@ -35,6 +35,9 @@ body.fg {
 a { color: inherit; }
 .fg :target { scroll-margin-top: calc(var(--header-h) + 1rem); }
 .fg ::selection { background: var(--forest); color: var(--on-forest); }
+/* The browser's own parts: scrollbar, caret, checkboxes and radios take the palette instead of system blue and gray. */
+html:has(> body.fg) { scrollbar-color: var(--sage-deep) var(--paper); }
+.fg { accent-color: var(--forest); caret-color: var(--forest); }
 .fg :focus-visible { outline: 2.5px solid var(--forest); outline-offset: 3px; border-radius: 0; }
 
 .fg h1, .fg h2, .fg h3 {
