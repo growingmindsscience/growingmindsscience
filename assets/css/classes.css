@@ -21,7 +21,9 @@
 .tl { background: var(--surface); border-radius: var(--radius-lg); padding: clamp(18px, 2.4vw, 32px); }
 .tl__axis, .tl__row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
 .tl__axis { color: var(--ink-muted); font-size: 13px; margin-bottom: 12px; }
-.tl__axis span:last-child { display: flex; justify-content: space-between; }
+.tl__axis > span:last-child { display: flex; justify-content: space-between; }
+/* Phones: the last column is too narrow for "4" and "5 years" side by side, so the unit drops. */
+@media (max-width: 480px) { .tl__yrs { display: none; } }
 .tl__rows { display: grid; gap: 8px; }
 /* Each row is one link: the bar spans the class's window and carries its name. */
 .tl__row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); text-decoration: none; color: var(--on-forest); --bar: var(--forest); --bar-hover: var(--forest-deep); }

@@ -35,6 +35,9 @@ body.fg {
 a { color: inherit; }
 .fg :target { scroll-margin-top: calc(var(--header-h) + 1rem); }
 .fg ::selection { background: var(--forest); color: var(--on-forest); }
+/* The browser's own parts: scrollbar, caret, checkboxes and radios take the palette instead of system blue and gray. */
+html:has(> body.fg) { scrollbar-color: var(--sage-deep) var(--paper); }
+.fg { accent-color: var(--forest); caret-color: var(--forest); }
 .fg :focus-visible { outline: 2.5px solid var(--forest); outline-offset: 3px; border-radius: 0; }
 
 .fg h1, .fg h2, .fg h3 {
@@ -59,7 +62,7 @@ a { color: inherit; }
   position: absolute; left: var(--margin); top: -200px;
   --skip-top: calc(var(--header-h) + 0.5rem);
   padding: 0.75rem 1rem;
-  background: var(--ink); color: var(--on-ink);
+  background: var(--field-ink); color: var(--on-ink); /* the ink field stays dark in both themes; --ink turns light in dark mode */
   font-weight: 500; text-decoration: none; z-index: 200;
 }
 .fg .skip-link:focus { top: var(--skip-top); }
@@ -130,7 +133,9 @@ a { color: inherit; }
 .fg .site-header { background: var(--paper); }
 .fg .site-header.is-scrolled { background: var(--paper-2); }
 .fg .site-header .nav__auth::before { display: none; }
-.fg .site-header .nav__auth { margin-left: 0.75rem; }
+@media (min-width: 1000px) { .fg .site-header .nav__auth { margin-left: 0.75rem; } } /* the sheet below 1000px lines it up with the other rows */
+/* "It's hard right now" opens the header order on wide desktops too, not only in the phone sheet; from 1000 to 1279px the row has no room, and the Tools menu and the hero line carry it. */
+@media (min-width: 1280px) { .fg .site-header .nav__list > .nav__now { display: block; } }
 .fg .site-header .brand__mark { border: 0; background: none; }
 .fg .site-header .theme-toggle,
 .fg .site-header .nav-toggle { border: 0; background: var(--surface-2); }
