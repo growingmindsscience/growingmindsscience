@@ -170,13 +170,37 @@ for (const s of d.stages) {
 }
 
 // ---------- the homepage's age explorer reads the same file ----------
-// Same markup as before; each period's name now opens its Explore page.
+// The five windows sit under the three classes, each class a bracket over the windows it covers,
+// so a parent never has to map one scheme onto the other. Each period's name opens its Explore page;
+// a window's Learn link is dropped when it only repeats its class.
 const ent = (t) => esc(t).replace(/\u2018/g, "&lsquo;").replace(/\u2019/g, "&rsquo;").replace(/\u201c/g, "&ldquo;").replace(/\u201d/g, "&rdquo;");
-const homeCols = d.stages.map((s, i) => {
+const CLASSES = [
+  { id: "infant", name: "Birth to 12 months", href: "/classes/birth-to-12-months", stages: ["birth-to-1"] },
+  { id: "toddler", name: "Toddler years, 1 to 3", href: "/classes/toddlerhood", stages: ["1-to-2", "2-to-3"] },
+  { id: "preschool", name: "Preschool years, 3 to 5", href: "/classes/preschool", stages: ["3-to-4", "4-to-5"] },
+];
+const PRICE = "$49";
+const homeCol = (s, i, cls) => {
   const h = s.home;
   const link = (k, v) => `${k}: <a href="${esc(v.href)}">${ent(v.label)}</a>`;
-  return `          <div class="age__col"><h3><a href="${href(s)}">${ent(s.name)}</a><span class="u-visually-hidden">, </span><span class="yrs">${ent(s.years)}</span></h3><p>${ent(s.summary)}</p><p class="age__links">${link("Read", h.read)} &middot; ${link("Try", h.try)} &middot; ${link("Learn", h.learn)}</p><div class="range"><div class="range__track" style="--from:${(s.from / 60) * 100}%;--to:${(s.to / 60) * 100}%"><i></i></div><small${i ? ' class="axis-repeat"' : ""}><span>birth</span><span>5 years</span></small></div></div>`;
+  const links = [link("Read", h.read), link("Try", h.try)];
+  if (h.learn.href !== cls.href) links.push(link("Learn", h.learn));
+  return `            <div class="age__col"><h4><a href="${href(s)}">${ent(s.name)}</a><span class="u-visually-hidden">, </span><span class="yrs">${ent(s.years)}</span></h4><p>${ent(s.summary)}</p><p class="age__links">${links.join(" &middot; ")}</p><div class="range"><div class="range__track" style="--from:${(s.from / 60) * 100}%;--to:${(s.to / 60) * 100}%"><i></i></div><small${i ? ' class="axis-repeat"' : ""}><span>birth</span><span>5 years</span></small></div></div>`;
+};
+let colIndex = 0;
+const homeCols = CLASSES.map((c) => {
+  const stages = c.stages.map((slug) => {
+    const s = d.stages.find((x) => x.slug === slug);
+    if (!s) throw new Error(`explore.json: no stage ${slug} for the ${c.id} class`);
+    return s;
+  });
+  const cols = stages.map((s) => homeCol(s, colIndex++, c)).join("\n");
+  return `          <div class="age__group" role="group" aria-labelledby="age-class-${c.id}" style="--span:${stages.length}">
+            <h3 class="age__bracket" id="age-class-${c.id}"><a href="${c.href}">${ent(c.name)}<span class="u-visually-hidden"> class</span></a><span class="age__price">${PRICE}</span></h3>
+${cols}
+          </div>`;
 }).join("\n");
+if (colIndex !== d.stages.length) throw new Error(`explore.json: ${d.stages.length - colIndex} stage(s) sit under no class`);
 const homePath = join(ROOT, "index.html");
 const home = readFileSync(homePath, "utf8");
 const HOME = /(<!-- explore:home:start -->\n)[\s\S]*?(\n<!-- explore:home:end -->)/;
