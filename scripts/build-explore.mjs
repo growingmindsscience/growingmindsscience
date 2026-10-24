@@ -169,19 +169,34 @@ for (const s of d.stages) {
   outputs.push([`explore/${s.slug}.html`, html]);
 }
 
-// ---------- the homepage's age explorer reads the same file ----------
-// Same markup as before; each period's name now opens its Explore page.
+// ---------- the homepage's class rows list their windows from the same file ----------
+// Each class row on the homepage names the windows it covers, each opening its Explore page,
+// over one range bar for the class. Every stage must sit under exactly one class.
 const ent = (t) => esc(t).replace(/\u2018/g, "&lsquo;").replace(/\u2019/g, "&rsquo;").replace(/\u201c/g, "&ldquo;").replace(/\u201d/g, "&rdquo;");
-const homeCols = d.stages.map((s, i) => {
-  const h = s.home;
-  const link = (k, v) => `${k}: <a href="${esc(v.href)}">${ent(v.label)}</a>`;
-  return `          <div class="age__col"><h3><a href="${href(s)}">${ent(s.name)}</a><span class="u-visually-hidden">, </span><span class="yrs">${ent(s.years)}</span></h3><p>${ent(s.summary)}</p><p class="age__links">${link("Read", h.read)} &middot; ${link("Try", h.try)} &middot; ${link("Learn", h.learn)}</p><div class="range"><div class="range__track" style="--from:${(s.from / 60) * 100}%;--to:${(s.to / 60) * 100}%"><i></i></div><small${i ? ' class="axis-repeat"' : ""}><span>birth</span><span>5 years</span></small></div></div>`;
-}).join("\n");
+const CLASSES = [
+  { id: "infant", stages: ["birth-to-1"] },
+  { id: "toddler", stages: ["1-to-2", "2-to-3"] },
+  { id: "preschool", stages: ["3-to-4", "4-to-5"] },
+];
 const homePath = join(ROOT, "index.html");
-const home = readFileSync(homePath, "utf8");
-const HOME = /(<!-- explore:home:start -->\n)[\s\S]*?(\n<!-- explore:home:end -->)/;
-if (!HOME.test(home)) throw new Error("index.html: no explore:home markers");
-outputs.push(["index.html", home.replace(HOME, (_, a, b) => a + homeCols + b)]);
+let home = readFileSync(homePath, "utf8");
+let placed = 0;
+for (const c of CLASSES) {
+  const stages = c.stages.map((slug) => {
+    const s = d.stages.find((x) => x.slug === slug);
+    if (!s) throw new Error(`explore.json: no stage ${slug} for the ${c.id} class`);
+    return s;
+  });
+  placed += stages.length;
+  const items = stages.map((s) => `<li><span class="yrs">${ent(s.years)}</span><a href="${href(s)}">${ent(s.name)}</a></li>`).join("");
+  const from = (stages[0].from / 60) * 100, to = (stages[stages.length - 1].to / 60) * 100;
+  const block = `            <ul class="menu__windows" aria-label="Ages in this class">${items}</ul>\n            <div class="range" aria-hidden="true"><div class="range__track" style="--from:${from}%;--to:${to}%"><i></i></div><small><span>birth</span><span>5 years</span></small></div>`;
+  const re = new RegExp(`(<!-- explore:class:${c.id}:start -->)[\\s\\S]*?(<!-- explore:class:${c.id}:end -->)`);
+  if (!re.test(home)) throw new Error(`index.html: no explore:class:${c.id} markers`);
+  home = home.replace(re, (_, a, b) => `${a}\n${block}\n${b}`);
+}
+if (placed !== d.stages.length) throw new Error(`explore.json: ${d.stages.length - placed} stage(s) sit under no class`);
+outputs.push(["index.html", home]);
 
 let drift = 0;
 for (const [rel, html] of outputs) {

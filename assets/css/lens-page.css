@@ -31,6 +31,8 @@
 .fg .lens__mech-title { letter-spacing: normal; font-family: var(--font-body); font-size: 1rem; font-weight: 600; line-height: 1.35; color: var(--ink); }
 .lens__mech--parent { background: var(--paper); }
 .lens__evidence { font-size: 14px; font-weight: 500; color: var(--research); }
+.lens__class { margin-top: 4px; font-size: 14px; color: var(--ink-muted); }
+.lens__class a { color: var(--forest); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
 .fg ol.lens__options { display: grid; counter-reset: opt; }
 .lens__options > li { display: grid; gap: 6px; padding-block: 14px; border-top: 1px solid var(--sage-mist-2); }
 .lens__options > li:first-child { border-top: 0; padding-top: 0; }

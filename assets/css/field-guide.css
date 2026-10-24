@@ -63,6 +63,7 @@ a { color: inherit; }
   font-weight: 500; text-decoration: none; z-index: 200;
 }
 .fg .skip-link:focus { top: var(--skip-top); }
+.fg .skip-link:hover { color: var(--on-ink); } /* outranks the forest link hover, which sat on ink at 1.6:1 */
 .fg main:focus { outline: none; }
 
 /* ---------- Layout primitives ---------- */
@@ -198,8 +199,11 @@ a { color: inherit; }
 }
 .fg .site-footer .footer-bottom p { margin: 0; }
 .fg .site-footer :focus-visible { outline-color: var(--on-ink); }
-@media (max-width: 900px) {
+/* Below 1180px the wordmark sits above the columns, so four columns keep room for "Communication Snapshot". */
+@media (max-width: 1180px) {
   .fg .site-footer .site-footer__inner { grid-template-columns: 1fr; gap: 2rem; }
+}
+@media (max-width: 900px) {
   .fg .site-footer .site-footer__nav { grid-template-columns: 1fr 1fr; gap: 2rem 1.5rem; }
 }
 @media (max-width: 600px) {
