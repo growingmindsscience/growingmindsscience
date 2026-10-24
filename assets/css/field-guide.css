@@ -63,6 +63,7 @@ a { color: inherit; }
   font-weight: 500; text-decoration: none; z-index: 200;
 }
 .fg .skip-link:focus { top: var(--skip-top); }
+.fg .skip-link:hover { color: var(--on-ink); } /* outranks the forest link hover, which sat on ink at 1.6:1 */
 .fg main:focus { outline: none; }
 
 /* ---------- Layout primitives ---------- */

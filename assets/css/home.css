@@ -183,14 +183,14 @@ html:not(.anim) .label { transition: none; }
 }
 
 /* ---------- 03 Age: five windows under three classes ---------- */
-/* Each class is a bracket over the windows it covers: a rule with end ticks, the class and its price
-   beneath. Wide screens line all five windows up on one subgrid; 900 to 1100px scrolls them sideways;
+/* Each class is a bracket over the windows it covers: a rule with end ticks and the class beneath;
+   prices stay in the classes section. Wide screens line all five windows up on one subgrid; 900 to 1100px scrolls them sideways;
    phones stack each class with its windows. */
 .age { background: var(--paper); overflow: hidden; }
 .age__head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
 .age__bar { height: 6px; background: var(--paper-2); border-radius: 3px; margin-top: 24px; overflow: hidden; }
 .age__bar i { display: block; height: 100%; width: 20%; background: var(--ink); border-radius: 3px; transition: transform 200ms ease; }
-.age__row { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 32px var(--hb-gutter) 8px; margin-inline: calc(-1 * var(--hb-gutter)); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.age__row { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 32px var(--hb-gutter) 8px; margin-inline: calc(-1 * var(--hb-gutter)); -webkit-overflow-scrolling: touch; scrollbar-width: none; scroll-padding-inline: var(--hb-gutter); }
 .age__row::-webkit-scrollbar { display: none; }
 .age__group { flex: none; display: grid; grid-template-columns: repeat(var(--span), 300px); grid-template-rows: auto 1fr; gap: 0 24px; } /* columns fill the row, so every range bar sits on one line */
 .fg .age__bracket { grid-column: 1 / -1; position: relative; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 14px 12px 0; margin-bottom: 22px; border-top: 2px solid var(--ink); font-family: var(--font-body); font-size: 15px; font-weight: 600; line-height: 1.4; letter-spacing: 0; }
@@ -199,7 +199,6 @@ html:not(.anim) .label { transition: none; }
 .age__bracket::after { right: 0; }
 .age__bracket a { color: var(--forest); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; padding-block: 12px; margin-block: -12px; }
 .age__bracket a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
-.age__price { color: var(--ink-muted); font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
 /* position: relative keeps each column's visually hidden spans inside the section's clip; unpositioned, they widened the page at 900 to 1100px. */
 .age__col { position: relative; scroll-snap-align: start; display: grid; grid-template-rows: auto auto 1fr auto auto; gap: 10px; }
 .age__col .yrs { color: var(--ink-muted); font-family: var(--font-body); font-size: 14px; font-weight: 500; letter-spacing: 0; margin-left: 0.5em; white-space: nowrap; }

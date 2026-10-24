@@ -179,7 +179,6 @@ const CLASSES = [
   { id: "toddler", name: "Toddler years, 1 to 3", href: "/classes/toddlerhood", stages: ["1-to-2", "2-to-3"] },
   { id: "preschool", name: "Preschool years, 3 to 5", href: "/classes/preschool", stages: ["3-to-4", "4-to-5"] },
 ];
-const PRICE = "$49";
 const homeCol = (s, i, cls) => {
   const h = s.home;
   const link = (k, v) => `${k}: <a href="${esc(v.href)}">${ent(v.label)}</a>`;
@@ -196,7 +195,7 @@ const homeCols = CLASSES.map((c) => {
   });
   const cols = stages.map((s) => homeCol(s, colIndex++, c)).join("\n");
   return `          <div class="age__group" role="group" aria-labelledby="age-class-${c.id}" style="--span:${stages.length}">
-            <h3 class="age__bracket" id="age-class-${c.id}"><a href="${c.href}">${ent(c.name)}<span class="u-visually-hidden"> class</span></a><span class="age__price">${PRICE}</span></h3>
+            <h3 class="age__bracket" id="age-class-${c.id}"><a href="${c.href}">${ent(c.name)}<span class="u-visually-hidden"> class</span></a></h3>
 ${cols}
           </div>`;
 }).join("\n");
