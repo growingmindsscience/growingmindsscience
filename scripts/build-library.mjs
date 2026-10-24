@@ -135,8 +135,8 @@ ${extraHead}
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
   <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=9bef5b4f4c" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=b352f990a8" />
-  <link rel="stylesheet" href="/assets/css/fg-base.css?v=9ee704dd6a" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=46d4d4e37a" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=975e9133b4" />
   <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
   <link rel="stylesheet" href="/assets/css/article.css?v=01dcd82f94" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=531abe07ab" />
@@ -152,7 +152,7 @@ ${body}
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
   <script src="/assets/js/main.js?v=3f7e70ab67" defer></script>
-  <script src="/assets/js/home.js?v=b5ceb4cddf" defer></script>
+  <script src="/assets/js/home.js?v=78ff6722df" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

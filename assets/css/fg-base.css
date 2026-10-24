@@ -61,6 +61,6 @@ html.anim :is(.fg--home, .fg--page) [data-rise].is-in { opacity: 1; transform: n
 
 /* The age-range bar: where a period or a class sits across birth to five */
 .range { display: grid; gap: 6px; }
-.range__track { height: 8px; background: var(--sage-mist); border-radius: 4px; position: relative; }
+.range__track { height: 8px; background: var(--sage-mist); border-radius: 4px; position: relative; box-shadow: inset 0 0 0 1px var(--sage-deep); } /* the hairline draws the whole span, birth to five, on paper and on mist */
 .range__track i { position: absolute; top: 0; bottom: 0; background: var(--forest); border-radius: 4px; left: var(--from); right: calc(100% - var(--to)); }
 .range small { color: var(--ink-muted); font-size: 13px; display: flex; justify-content: space-between; }

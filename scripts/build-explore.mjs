@@ -170,8 +170,8 @@ for (const s of d.stages) {
 }
 
 // ---------- the homepage's class rows list their windows from the same file ----------
-// Each class row on the homepage names the windows it covers, each opening its Explore page,
-// over one range bar for the class. Every stage must sit under exactly one class.
+// Each class row on the homepage names the windows it covers, over one range bar for the class.
+// The names are text, not links: the whole row opens the class, so a tap in it never lands on Explore. Every stage must sit under exactly one class.
 const ent = (t) => esc(t).replace(/\u2018/g, "&lsquo;").replace(/\u2019/g, "&rsquo;").replace(/\u201c/g, "&ldquo;").replace(/\u201d/g, "&rdquo;");
 const CLASSES = [
   { id: "infant", stages: ["birth-to-1"] },
@@ -188,7 +188,7 @@ for (const c of CLASSES) {
     return s;
   });
   placed += stages.length;
-  const items = stages.map((s) => `<li><span class="yrs">${ent(s.years)}</span><a href="${href(s)}">${ent(s.name)}</a></li>`).join("");
+  const items = stages.map((s) => `<li><span class="yrs">${ent(s.years)}</span><span class="win">${ent(s.name)}</span></li>`).join("");
   const from = (stages[0].from / 60) * 100, to = (stages[stages.length - 1].to / 60) * 100;
   const block = `            <ul class="menu__windows" aria-label="Ages in this class">${items}</ul>\n            <div class="range" aria-hidden="true"><div class="range__track" style="--from:${from}%;--to:${to}%"><i></i></div><small><span>birth</span><span>5 years</span></small></div>`;
   const re = new RegExp(`(<!-- explore:class:${c.id}:start -->)[\\s\\S]*?(<!-- explore:class:${c.id}:end -->)`);

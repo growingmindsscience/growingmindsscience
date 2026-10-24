@@ -33,12 +33,11 @@
   var toggle = document.querySelector("[data-plate-toggle]");
   var labels = toggle && document.getElementById(toggle.getAttribute("aria-controls"));
   if (toggle && labels) {
-    var label = toggle.querySelector("[data-plate-label]");
+    // The name stays "Show what's beneath"; aria-pressed and the pressed fill carry the state.
     toggle.addEventListener("click", function () {
       var on = toggle.getAttribute("aria-pressed") !== "true";
       toggle.setAttribute("aria-pressed", String(on));
       labels.setAttribute("data-on", String(on));
-      if (label) label.textContent = on ? "Hide the labels" : "Show what’s beneath";
     });
   }
 
@@ -114,11 +113,17 @@
         if (k === i) s.setAttribute("aria-current", "step"); else s.removeAttribute("aria-current");
       });
       dots.forEach(function (d, k) { d.setAttribute("data-state", state(k)); });
-      slides.forEach(function (s, k) { if (k === i) s.setAttribute("data-current", ""); else s.removeAttribute("data-current"); });
+      // Only the frame in view is in the reading and tab order; the others stay tappable to move to them.
+      slides.forEach(function (s, k) {
+        if (k === i) { s.setAttribute("data-current", ""); s.removeAttribute("aria-hidden"); }
+        else { s.removeAttribute("data-current"); s.setAttribute("aria-hidden", "true"); }
+        s.querySelectorAll("a, button").forEach(function (el) { if (k === i) el.removeAttribute("tabindex"); else el.tabIndex = -1; });
+      });
       var label = steps[i] && steps[i].querySelector("span");
       if (now) now.textContent = (i + 1) + " of " + slides.length + (label ? " \u00b7 " + label.textContent : "");
-      if (prev) prev.disabled = i === 0;
-      if (next) next.disabled = i === slides.length - 1;
+      // aria-disabled rather than disabled, so keyboard focus stays on the arrow at either end.
+      if (prev) prev.setAttribute("aria-disabled", String(i === 0));
+      if (next) next.setAttribute("aria-disabled", String(i === slides.length - 1));
     }
     function fit() {
       if (current >= 0) track.style.height = slides[current].offsetHeight + "px";
@@ -131,7 +136,11 @@
     }
     function settle() {
       fit();
-      if (current !== settled) { settled = current; reveal(); }
+      if (current !== settled) {
+        settled = current;
+        reveal();
+        if (status) status.textContent = "Frame " + slides[current].getAttribute("aria-label");
+      }
     }
     function go(i) {
       i = Math.max(0, Math.min(slides.length - 1, i));

@@ -13,11 +13,14 @@
 /* ---------- 01 Hero: the annotated plate ---------- */
 .hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); min-height: calc(100svh - var(--header-h)); }
 .hero__text { display: grid; align-content: space-between; padding: 0 var(--hb-gutter) clamp(32px, 5vh, 64px) 0; }
-.hero__title { font-size: clamp(3.25rem, 2rem + 5.2vw, 7rem); line-height: 0.96; letter-spacing: -0.025em; margin-top: clamp(32px, 8vh, 96px); }
+/* The title also caps by height, so on a laptop screen the column fits and the plate is not stretched past the fold. */
+.hero__title { font-size: min(clamp(3.25rem, 2rem + 5.2vw, 7rem), 11.5vh); line-height: 0.96; letter-spacing: -0.025em; margin-top: clamp(32px, 8vh, 96px); }
 .hero__lead { margin-top: 24px; color: var(--ink-soft); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
 .hero__quiet { margin-top: 24px; font-size: 15px; color: var(--ink-muted); }
-.hero__bottom { padding-top: 32px; color: var(--ink-soft); }
+/* One action colour: every link in running text on the homepage is forest, like the class and age links. */
+.fg .hero__quiet a, .fg .mission__body a, .fg .seq__links a { color: var(--forest); }
+.fg .hero__quiet a:hover, .fg .mission__body a:hover, .fg .seq__links a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
 .hero__nowrap { white-space: nowrap; } /* "grown-up" never splits at its hyphen */
 
 .plate { position: relative; display: flex; flex-direction: column; margin: 0; }
@@ -25,7 +28,8 @@
 .plate picture, .plate img { position: absolute; inset: 0; width: 100%; height: 100%; }
 .plate img { object-fit: cover; object-position: 50% 30%; transition: transform 12s linear; }
 html.anim .plate img { transform: scale(1.04); }
-.fg .plate__toggle { position: absolute; left: 24px; bottom: 24px; z-index: 3; min-height: 48px; padding: 0 18px; border-radius: var(--radius); background: #F7F4EC; color: #193C39; box-shadow: inset 0 0 0 1.5px #193C39; font-weight: 500; display: inline-flex; align-items: center; gap: 10px; }
+/* The toggle sits at the top of the photograph, in the first screen with all four labels below it. */
+.fg .plate__toggle { position: absolute; left: 24px; top: 24px; z-index: 3; min-height: 48px; padding: 0 18px; border-radius: var(--radius); background: #F7F4EC; color: #193C39; box-shadow: inset 0 0 0 1.5px #193C39; font-weight: 500; display: inline-flex; align-items: center; gap: 10px; }
 .fg .plate__toggle[aria-pressed="true"] { background: #E0EBE5; color: #193C39; }
 .plate__toggle .sw { width: 10px; height: 10px; border-radius: 50%; background: #D2A453; }
 .plate__fig { margin-top: 10px; font-size: 14px; color: var(--ink-muted); }
@@ -42,7 +46,6 @@ html:not(.anim) .label { transition: none; }
 /* positions on the parent-and-baby photograph (object-position 50% 30%) */
 .label--1 { left: 8%; top: 56%; }
 .label--2 { left: 55%; top: 10%; }
-.label--3 { left: 54%; top: 72%; }
 .label--4 { left: 8%; top: 30%; max-width: 22ch; }
 /* No script: the labels are simply shown and the toggle is hidden */
 .fg--home:not(.js) .labels .label { opacity: 1; transform: none; }
@@ -62,7 +65,7 @@ html:not(.anim) .label { transition: none; }
   .hero__lead { order: 2; margin-top: 0; }
   .hero__actions { order: 3; margin-top: 24px; }
   .hero__quiet { order: 4; margin-bottom: 40px; }
-  .hero__bottom { display: none; }
+
   /* On a phone the labels are a list under the photograph, not overlays */
   .labels { position: static; display: none; gap: 8px; padding: 12px 0 4px; }
   .labels[data-on="true"] { display: grid; }
@@ -74,6 +77,7 @@ html:not(.anim) .label { transition: none; }
 
 /* ---------- 02 The Lens: the plate again, step by step ---------- */
 .lens-section { background: var(--sage-mist); }
+#lens { scroll-margin-top: var(--header-h); } /* lands flush under the header, with no sliver of the hero caption above */
 .lens-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: clamp(28px, 4vw, 48px); }
 .lens-head p { max-width: 42ch; }
 .lens__meta { margin-top: 10px; color: var(--ink-muted); font-size: 15px; }
@@ -131,14 +135,16 @@ html:not(.anim) .label { transition: none; }
 .fg .seq__step { width: 100%; min-height: 48px; display: grid; gap: 2px; justify-items: start; align-content: start; padding: 12px 4px 4px 0; border-top: 3px solid var(--sage-mist-2); background: none; color: var(--ink-muted); font-size: 15px; font-weight: 500; text-align: left; line-height: 1.3; }
 .seq__step small { font-size: 13px; color: var(--clay-text); letter-spacing: 0.08em; }
 .fg .seq__step:hover, .fg .seq__step[data-state="past"] { color: var(--ink); }
-.fg .seq__step[data-state="past"] { border-top-color: var(--sage-deep); }
+.fg .seq__step[data-state="past"] { border-top-color: var(--forest); }
+/* Frames still ahead: a dashed rule, so ahead and past differ by more than a tint. */
+.fg .seq__step[data-state="next"] { border-top-style: dashed; border-top-color: var(--sage-deep); }
 .fg .seq__step[aria-current="step"] { border-top-color: var(--ink); color: var(--ink); }
 .seq__now { display: none; }
 .seq__arrows { display: flex; gap: 6px; }
 .fg .seq__arrow { width: 48px; height: 48px; display: grid; place-items: center; border-radius: var(--radius); background: rgba(255, 253, 248, 0.6); color: var(--ink); }
 [data-theme="dark"] .fg .seq__arrow { background: var(--surface); }
-.fg .seq__arrow:not(:disabled):hover { background: var(--ink); color: var(--paper); }
-.fg .seq__arrow:disabled { opacity: 0.4; cursor: default; }
+.fg .seq__arrow:not([aria-disabled="true"]):hover { background: var(--ink); color: var(--paper); }
+.fg .seq__arrow[aria-disabled="true"] { opacity: 0.4; cursor: default; }
 .seq__track { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: 100%; align-items: start; gap: 32px; margin-top: 28px; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; transition: height 250ms ease; }
 .seq__track::-webkit-scrollbar { display: none; }
 .seq__slide { scroll-snap-align: start; display: grid; grid-template-columns: minmax(0, min(520px, 44%)) minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); align-items: start; align-content: start; }
@@ -167,7 +173,8 @@ html:not(.anim) .label { transition: none; }
   .seq__now > span:first-child { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
   .seq__dots { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
   .seq__dots i { height: 3px; border-radius: 2px; background: var(--sage-mist-2); transition: background-color 200ms ease; }
-  .seq__dots i[data-state="past"] { background: var(--sage-deep); }
+  .seq__dots i[data-state="past"] { background: var(--forest); }
+  .seq__dots i[data-state="next"] { background: none; box-shadow: inset 0 0 0 1px var(--sage-deep); }
   .seq__dots i[data-state="now"] { background: var(--ink); }
   .seq__track { order: 1; grid-auto-columns: 86%; gap: 12px; margin: 20px calc(-1 * var(--hb-gutter)) 0; padding-inline: var(--hb-gutter); scroll-padding-inline: var(--hb-gutter); }
   .seq__slide { grid-template-columns: minmax(0, 1fr); gap: 14px; }
@@ -220,8 +227,9 @@ html:not(.anim) .label { transition: none; }
 .menu__windows { grid-column: 1 / -1; display: grid; gap: 0; margin-top: 16px; font-size: 15px; }
 .menu__windows li { display: flex; gap: 12px; align-items: baseline; }
 .menu__windows .yrs { flex: none; width: 6.5em; color: var(--ink-muted); font-size: 14px; font-variant-numeric: tabular-nums; }
-.menu__windows a { position: relative; z-index: 1; display: inline-block; padding-block: 12px; margin-block: -6px; color: var(--forest); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
-.menu__windows a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
+.menu__windows .win { padding-block: 6px; color: var(--ink-soft); }
+.menu__item .meta a { position: relative; z-index: 1; color: var(--forest); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+.menu__item .meta a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
 .classes .menu__item .range { grid-column: 1 / -1; max-width: 340px; margin-top: 16px; }
 .classes__terms { margin-top: 28px; color: var(--ink-muted); font-size: 15px; max-width: 60ch; }
 @media (max-width: 860px) { .classes__grid { grid-template-columns: 1fr; } }
