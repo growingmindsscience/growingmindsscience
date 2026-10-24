@@ -184,10 +184,15 @@ html:not(.anim) .label { transition: none; }
 }
 
 /* ---------- Why this exists: one sentence that opens the classes, on the same paper ---------- */
+/* The mission is a preface, not a second menu heading: a subhead-sized title, then a hairline
+   before the classes heading takes the lead. */
 .mission { background: var(--paper); padding-bottom: 0; }
-.mission + .classes { padding-top: clamp(40px, 5vw, 72px); }
-.mission__inner { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 5vw, 80px); align-items: start; }
+.mission + .classes { padding-top: 0; }
+.mission + .classes .classes__grid { margin-top: clamp(48px, 6vw, 88px); padding-top: clamp(48px, 6vw, 88px); border-top: 1px solid var(--border-soft); }
+.mission__inner { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(16px, 5vw, 80px); align-items: baseline; }
+.mission h2 { font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); line-height: 1.1; }
 .mission__body p + p { margin-top: 18px; }
+.mission__body a { display: inline-block; padding-block: 12px; margin-block: -12px; }
 .mission__body .hb-soft { max-width: 52ch; }
 @media (max-width: 900px) { .mission__inner { grid-template-columns: 1fr; } }
 
@@ -196,6 +201,15 @@ html:not(.anim) .label { transition: none; }
 .classes__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
 .classes__grid h2 { font-size: clamp(2rem, 1.2rem + 2.4vw, 3.25rem); }
 .classes__intro { margin-top: 16px; max-width: 34ch; }
+/* The heading and intro stay beside the list while it scrolls, so the left track is never empty. */
+@media (min-width: 861px) { .classes__grid > div:first-child { position: sticky; top: calc(var(--header-h) + 40px); } }
+/* Row rhythm: title and price, then the pitch close beneath, the facts tight under it,
+   the age windows as their own group, the range, then the action. */
+.classes .menu__item { row-gap: 0; padding-block: clamp(24px, 3vw, 36px); }
+.classes .menu__item:first-child { padding-top: 0; }
+.classes .menu__item p { margin-top: 12px; }
+.classes .menu__item .meta { margin-top: 8px; }
+.classes .menu__item .menu__go { margin-top: 20px; }
 .classes .menu__go { grid-column: 1 / -1; justify-self: start; font-size: 15px; font-weight: 500; color: var(--forest); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
 .classes .menu__item:hover .menu__go { color: var(--forest-deep); text-decoration-thickness: 2px; }
 /* A class row: the title link stretches over the row, so the whole row still opens the class,
@@ -203,19 +217,20 @@ html:not(.anim) .label { transition: none; }
 .classes .menu__item--class { position: relative; }
 .classes .menu__item--class h3 a { color: inherit; text-decoration: none; }
 .classes .menu__item--class h3 a::after { content: ""; position: absolute; inset: 0; }
-.menu__windows { grid-column: 1 / -1; display: grid; gap: 2px; margin-top: 2px; font-size: 15px; }
+.menu__windows { grid-column: 1 / -1; display: grid; gap: 0; margin-top: 16px; font-size: 15px; }
 .menu__windows li { display: flex; gap: 12px; align-items: baseline; }
 .menu__windows .yrs { flex: none; width: 6.5em; color: var(--ink-muted); font-size: 14px; font-variant-numeric: tabular-nums; }
-.menu__windows a { position: relative; z-index: 1; display: inline-block; padding-block: 6px; color: var(--forest); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+.menu__windows a { position: relative; z-index: 1; display: inline-block; padding-block: 12px; margin-block: -6px; color: var(--forest); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
 .menu__windows a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
-.classes .menu__item .range { grid-column: 1 / -1; max-width: 340px; margin-top: 4px; }
+.classes .menu__item .range { grid-column: 1 / -1; max-width: 340px; margin-top: 16px; }
 .classes__terms { margin-top: 28px; color: var(--ink-muted); font-size: 15px; max-width: 60ch; }
 @media (max-width: 860px) { .classes__grid { grid-template-columns: 1fr; } }
 
-/* ---------- 07 Tools and evidence: statement, table pushed right ---------- */
+/* ---------- 07 Tools and evidence: photograph and note left, the index opens level with it ---------- */
 .tools { background: var(--surface); }
 .tools h2 { max-width: 16ch; }
-.tools__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 80px); align-items: end; margin-top: clamp(32px, 4vw, 56px); }
+.tools__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 80px); align-items: start; margin-top: clamp(32px, 4vw, 56px); }
+.tools__grid > div:last-child { border-top: 2px solid var(--ink); }
 .tools__photo { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 5; max-width: 360px; width: 100%; margin: 0; }
 .tools__photo img { width: 100%; height: 100%; object-fit: cover; }
 .tools__row { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 16px; padding: 13px 0; border-top: 1px solid var(--border-soft); text-decoration: none; min-height: 48px; align-items: baseline; }
