@@ -34,7 +34,7 @@ export default async function GiftCardPage({
           <div className="mx-auto my-7 h-px w-24 bg-[#CFE3DE]" />
           <p className="text-sm">Redeem your code at</p>
           <p className="text-lg font-semibold text-[#1E5F62]">
-            growingmindsscience.com/nsc/redeem
+            fromlittleonward.com/nsc/redeem
           </p>
           <p className="mt-4 font-mono text-2xl font-bold tracking-[0.25em] text-[#1E5F62]">
             {shown}

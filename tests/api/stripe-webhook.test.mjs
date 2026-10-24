@@ -24,7 +24,7 @@ const sign = (body, secret, t = Math.floor(Date.now() / 1000)) =>
 function deliver(event, { header, secret = SECRET } = {}) {
   const body = typeof event === "string" ? event : JSON.stringify(event);
   const t = Math.floor(Date.now() / 1000);
-  return handler(new Request("https://growingmindsscience.com/api/stripe-webhook", {
+  return handler(new Request("https://www.fromlittleonward.com/api/stripe-webhook", {
     method: "POST",
     headers: { "content-type": "application/json", "stripe-signature": header ?? `t=${t},v1=${sign(body, secret, t)}` },
     body,

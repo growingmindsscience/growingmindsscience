@@ -14,9 +14,9 @@ process.env.AI_USAGE_SUPABASE_SERVICE_ROLE_KEY = "service-role-test";
 
 const { default: handler } = await import("../../api/growing-minds-ai.js");
 
-const URL_AI = "https://growingmindsscience.com/api/growing-minds-ai";
+const URL_AI = "https://www.fromlittleonward.com/api/growing-minds-ai";
 const ANTHROPIC = "https://api.anthropic.com/";
-const ENTITLEMENTS = "https://growingmindsscience.com/nsc/api/entitlements/me";
+const ENTITLEMENTS = "https://www.fromlittleonward.com/nsc/api/entitlements/me";
 const TAKE = "https://usage-project.supabase.test/rest/v1/rpc/ai_take_free_question";
 const REFUND = "https://usage-project.supabase.test/rest/v1/rpc/ai_refund_free_question";
 

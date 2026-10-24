@@ -19,7 +19,7 @@ import { dirname, join } from "node:path";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CHECK = process.argv.includes("--check");
-const ORIGIN = "https://growingmindsscience.com";
+const ORIGIN = "https://www.fromlittleonward.com";
 
 const d = JSON.parse(readFileSync(join(ROOT, "assets", "data", "explore.json"), "utf8"));
 const claims = JSON.parse(readFileSync(join(ROOT, "keel", "artifacts", "claims", "claims.v1.json"), "utf8")).claims;
