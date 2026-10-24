@@ -13,7 +13,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const ORIGIN = "https://growingmindsscience.com";
+const ORIGIN = "https://fromlittleonward.com";
 const OUT = join(ROOT, "claims");
 const CHECK = process.argv.includes("--check");
 

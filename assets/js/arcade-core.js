@@ -898,11 +898,11 @@
     pong: "/assets/js/pong-game.js?v=9ccd6de2c5",
     snake: "/assets/js/snake-game.js?v=94bbf0eb93",
     // Daily puzzles (DOM games on the same shell)
-    five: "/assets/js/daily-five.js?v=d90b74d3c5",
-    groups: "/assets/js/daily-groups.js?v=f27ae0eba8",
-    nest: "/assets/js/daily-nest.js?v=7e6f4ab44e",
-    mini: "/assets/js/daily-mini.js?v=86a4357ac2",
-    six: "/assets/js/daily-six.js?v=639eb12940"
+    five: "/assets/js/daily-five.js?v=985bf60346",
+    groups: "/assets/js/daily-groups.js?v=5da97da408",
+    nest: "/assets/js/daily-nest.js?v=357ded8b43",
+    mini: "/assets/js/daily-mini.js?v=bccec371d4",
+    six: "/assets/js/daily-six.js?v=722be5f3ea"
   };
   var GAME_CSS = {};
 

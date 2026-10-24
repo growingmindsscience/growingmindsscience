@@ -10,7 +10,7 @@ describe("site origin (one helper for every absolute link)", () => {
   });
 
   it("repairs a missing scheme, whitespace and trailing slashes", () => {
-    expect(normalizeOrigin(" growingmindsscience.com/ ")).toBe("https://growingmindsscience.com");
+    expect(normalizeOrigin(" fromlittleonward.com/ ")).toBe("https://fromlittleonward.com");
     expect(normalizeOrigin("http://localhost:3000//")).toBe("http://localhost:3000");
     expect(normalizeOrigin("")).toBe("");
     expect(normalizeOrigin(undefined)).toBe("");

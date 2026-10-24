@@ -15,7 +15,7 @@ export async function startGiftCheckout() {
   if (!priceId) redirect("/gift?error=Gifting+is+not+configured+yet.");
 
   const hdrs = await headers();
-  const origin = siteOrigin(`https://${hdrs.get("host") ?? "growingmindsscience.com"}`);
+  const origin = siteOrigin(`https://${hdrs.get("host") ?? "fromlittleonward.com"}`);
 
   let url: string | null = null;
   try {

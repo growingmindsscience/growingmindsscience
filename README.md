@@ -55,7 +55,7 @@ growing-minds-science/
 > (`growingmindsscience.netlify.app`, and `growing-minds-science.netlify.app`
 > serving *stale* content). Because these serve the same pages from a different
 > host, every page now declares an **absolute** canonical so the mirrors
-> consolidate to growingmindsscience.com instead of competing with it
+> consolidate to fromlittleonward.com instead of competing with it
 > (`scripts/check-canonicals.mjs` enforces this). The real fix is to disconnect
 > or unpublish those Netlify sites — that has to be done in the Netlify
 > dashboard, not here.
@@ -144,7 +144,7 @@ letting in every Google account.
 Use this authorized redirect URI in Google Cloud for the OAuth client:
 
 ```text
-https://growingmindsscience.com/api/auth/google/callback
+https://fromlittleonward.com/api/auth/google/callback
 ```
 
 Generate the password salt and hash locally:

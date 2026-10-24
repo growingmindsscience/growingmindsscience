@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://growingmindsscience.com/sitemap.xml
+Sitemap: https://fromlittleonward.com/sitemap.xml

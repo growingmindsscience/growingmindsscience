@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-// Served under growingmindsscience.com/nsc via multi-zone rewrite from the
+// Served under fromlittleonward.com/nsc via multi-zone rewrite from the
 // static site's vercel.json (see nsc/README.md for the wiring step).
 const nextConfig: NextConfig = {
   basePath: "/nsc",
@@ -11,8 +11,8 @@ const nextConfig: NextConfig = {
   // to the public site instead.
   async redirects() {
     return ["classes", "tools"].flatMap((section) => [
-      { source: `/${section}`, destination: `https://growingmindsscience.com/${section}/`, basePath: false as const, permanent: false },
-      { source: `/${section}/:path+`, destination: `https://growingmindsscience.com/${section}/:path+`, basePath: false as const, permanent: false },
+      { source: `/${section}`, destination: `https://fromlittleonward.com/${section}/`, basePath: false as const, permanent: false },
+      { source: `/${section}/:path+`, destination: `https://fromlittleonward.com/${section}/:path+`, basePath: false as const, permanent: false },
     ]);
   },
   // The runtime reads the frozen content + cert report by raw bytes (hash

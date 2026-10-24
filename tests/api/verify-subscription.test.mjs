@@ -8,7 +8,7 @@ process.env.GMS_SESSION_SECRET = "test-session-secret-0123456789abcdef";
 const { default: handler } = await import("../../api/verify-subscription.js");
 const { base64UrlDecode, base64UrlEncode, hmacSha256 } = await import("../../api/_security.js");
 
-const URL_VERIFY = "https://growingmindsscience.com/api/verify-subscription";
+const URL_VERIFY = "https://fromlittleonward.com/api/verify-subscription";
 const STRIPE = "https://api.stripe.com/v1";
 const SUB_A = "sub_1AttackerLapsed00";
 const SUB_V = "sub_1VictimActive0000";

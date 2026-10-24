@@ -22,7 +22,7 @@ import { gradeEntry, AGE_BANDS } from "../tools/library/grader.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const ENTRIES_DIR = join(ROOT, "library", "entries");
 const OUT_DIR = join(ROOT, "answers");
-const ORIGIN = "https://growingmindsscience.com";
+const ORIGIN = "https://fromlittleonward.com";
 
 const args = process.argv.slice(2);
 const MODE = args.includes("--publish") ? "publish" : args.includes("--preview") ? "preview" : "report";

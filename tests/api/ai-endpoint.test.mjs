@@ -10,9 +10,9 @@ const { default: handler } = await import("../../api/growing-minds-ai.js");
 const { extractSystemPrompt } = await import("../../evals/lib/persona.mjs");
 const { base64UrlEncode, hmacSha256 } = await import("../../api/_security.js");
 
-const URL_AI = "https://growingmindsscience.com/api/growing-minds-ai";
+const URL_AI = "https://fromlittleonward.com/api/growing-minds-ai";
 const ANTHROPIC = "https://api.anthropic.com/";
-const ENTITLEMENTS = "https://growingmindsscience.com/nsc/api/entitlements/me";
+const ENTITLEMENTS = "https://fromlittleonward.com/nsc/api/entitlements/me";
 
 // Default network: a short answer from the model, a signed-out entitlement check.
 function network(anthropic = () => anthropicSse([textDelta("A calm answer."), stop()])) {

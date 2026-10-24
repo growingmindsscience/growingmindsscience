@@ -21,7 +21,7 @@ export async function startCheckout() {
   }
 
   const hdrs = await headers();
-  const origin = siteOrigin(`https://${hdrs.get("host") ?? "growingmindsscience.com"}`);
+  const origin = siteOrigin(`https://${hdrs.get("host") ?? "fromlittleonward.com"}`);
 
   let url: string | null = null;
   try {

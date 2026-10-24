@@ -5,7 +5,7 @@ import { getEntitlementSummary } from "@/lib/entitlements.server";
  * Current user's live entitlements, as JSON. The parent marketing site's
  * Growing Minds AI tool calls this to decide whether to unlock unlimited
  * access from the shared Supabase session — same-origin because /nsc/* is
- * proxied under growingmindsscience.com, so the session cookie rides along.
+ * proxied under fromlittleonward.com, so the session cookie rides along.
  *
  * Public route (added to middleware allowlist): it gates itself by returning
  * `authenticated: false` for signed-out callers rather than redirecting, so a

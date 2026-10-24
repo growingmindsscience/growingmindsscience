@@ -5,7 +5,7 @@
  * trailing slash) is repaired the same way everywhere.
  */
 
-export const DEFAULT_SITE_ORIGIN = "https://growingmindsscience.com";
+export const DEFAULT_SITE_ORIGIN = "https://fromlittleonward.com";
 
 /** Coerce a configured origin into `https://host` form; "" when blank. */
 export function normalizeOrigin(raw: string | null | undefined): string {

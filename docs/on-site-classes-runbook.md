@@ -10,14 +10,14 @@ Apply [`nsc/supabase/migrations/0008_classes.sql`](../nsc/supabase/migrations/00
 
 ## 2. Set up Mux
 
-Connection completed on 2026-09-27 in Mux organization Growing Minds Science (`b87eba`), Production environment (`1e018o`). The five `MUX_*` settings below are saved as sensitive Production environment variables in Vercel project `nsc`. The API token has Video read/write permissions only. Playback restriction allows `growingmindsscience.com` and `www.growingmindsscience.com`, with missing-referrer playback denied. Verified API authentication, application JWT signing, and creation of a signed-only direct upload; canceled that unused test upload without sending video data. Real MP4 playback remains untested, and the application still needs deployment to use these settings.
+Connection completed on 2026-09-27 in Mux organization Growing Minds Science (`b87eba`), Production environment (`1e018o`). The five `MUX_*` settings below are saved as sensitive Production environment variables in Vercel project `nsc`. The API token has Video read/write permissions only. Playback restriction allows `fromlittleonward.com` and `fromlittleonward.com`, with missing-referrer playback denied. Verified API authentication, application JWT signing, and creation of a signed-only direct upload; canceled that unused test upload without sending video data. Real MP4 playback remains untested, and the application still needs deployment to use these settings.
 
 Billing remains on Mux Video Free (10 stored videos). The owner must add a payment method and select Pay as you go before uploading the full 29-lesson library. No paid plan was selected during connection setup.
 
 1. Create a Mux environment on a paid/pay-as-you-go plan (the free plan's 10 stored video limit is below the advertised 29 lessons).
 2. Create a Mux API token with Video read/write access. Set `MUX_TOKEN_ID` and `MUX_TOKEN_SECRET` in the **nsc Vercel project**.
 3. Create a URL signing key; store its key ID as `MUX_SIGNING_KEY_ID` and its Base64 PEM private key as `MUX_SIGNING_PRIVATE_KEY`. These are server-only secrets.
-4. Create a playback restriction permitting `growingmindsscience.com`, with no-referrer playback disallowed. Set its ID as `MUX_PLAYBACK_RESTRICTION_ID`. The app refuses to issue playback tokens until this is configured.
+4. Create a playback restriction permitting `fromlittleonward.com`, with no-referrer playback disallowed. Set its ID as `MUX_PLAYBACK_RESTRICTION_ID`. The app refuses to issue playback tokens until this is configured.
 5. Set `CLASS_ADMIN_USER_IDS` to the exact Supabase `auth.users.id` UUID(s) that may upload/publish lessons. The existing `ADMIN_EMAILS` allowlist must also include their email address.
 
 Admin page: `/nsc/admin/classes`. Add a lesson, open it, upload an MP4 directly to Mux, and select **Check video status** after processing. This uses resumable browser uploads. The sync action verifies that the video has a signed playback ID and requests English captions. Check status again when captions are ready; the app attempts to import the generated transcript as a starting draft. Review and edit that text, review captions in Mux, check the captions box, and publish. The database refuses to publish without a signed video, written text, and caption-review confirmation.

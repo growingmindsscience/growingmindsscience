@@ -59,7 +59,7 @@ const LEDGER = join(IG, "ledger.json");
 const TOKEN_FILE = join(IG, "token.json");
 const LANDING = join(ROOT, "from-instagram.html");
 const GRAPH = "https://graph.instagram.com/v22.0";
-const SITE = process.env.SITE_ORIGIN || "https://growingmindsscience.com";
+const SITE = process.env.SITE_ORIGIN || "https://fromlittleonward.com";
 
 const args = process.argv.slice(2);
 const flag = (n) => args.includes(n);

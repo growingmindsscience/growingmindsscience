@@ -61,7 +61,7 @@ edit("sitemap.xml", (xml) => {
     return null;
   }
   return xml.replace(marker, `  <url>
-    <loc>https://growingmindsscience.com/tools/milestone-navigator</loc>
+    <loc>https://fromlittleonward.com/tools/milestone-navigator</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

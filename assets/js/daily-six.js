@@ -235,7 +235,7 @@
     hintBtn.addEventListener("click", function (e) { e.preventDefault(); hint(); board.focus({ preventScroll: true }); });
 
     function shareText() {
-      return (mode === "daily" ? "Six Sudoku #" + puzzleNo : "Six Sudoku (practice)") + " · " + fmt(elapsed) + (hints ? " · " + hints + (hints === 1 ? " hint" : " hints") : " · no hints") + "\ngrowingmindsscience.com/arcade";
+      return (mode === "daily" ? "Six Sudoku #" + puzzleNo : "Six Sudoku (practice)") + " · " + fmt(elapsed) + (hints ? " · " + hints + (hints === 1 ? " hint" : " hints") : " · no hints") + "\nfromlittleonward.com/arcade";
     }
     function finish(restored) {
       if (timer) { window.clearInterval(timer); timer = null; }
