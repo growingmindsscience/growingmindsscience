@@ -19,7 +19,7 @@ export default async function ClassLoginPage({ searchParams }: {
 }) {
   const { error, next, confirm } = await searchParams;
   const destination = classDestination(next);
-  // Already signed in (for example through Number Path): go straight to classes.
+  // Already signed in (for example through Tallykin): go straight to classes.
   if (await getUser()) redirect(destination);
   const enrolling = enrollingCourse(destination);
   return (

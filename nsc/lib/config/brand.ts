@@ -1,12 +1,12 @@
 /**
- * Number Path — brand + product strings.
+ * Tallykin — brand + product strings.
  * Single source of truth for consumer-facing naming (mirrors the
  * lib/config/brand.ts pattern in growingmindslaw).
  *
  * Codename everywhere in code, schema, and artifacts stays `nsc`.
  */
 export const brand = {
-  productName: "Number Path",
+  productName: "Tallykin",
   codename: "nsc",
   assessmentName: "The Feed-the-Bear Game",
   tagline: "Reading together, but numbers.",

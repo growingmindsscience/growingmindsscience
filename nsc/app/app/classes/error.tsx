@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { Button, Card } from "@/components/ui";
 import { sitePath } from "@/lib/site";
 
-/** Error fallback for the classes area, in class terms (the root one speaks Number Path). */
+/** Error fallback for the classes area, in class terms (the root one speaks Tallykin). */
 export default function ClassRouteError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
     console.error(error);

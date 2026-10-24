@@ -29,9 +29,9 @@ async function safeBackfill(user: { id: string; email?: string | null } | null):
 }
 
 /**
- * Classes and Number Path share one account but not one destination. The
+ * Classes and Tallykin share one account but not one destination. The
  * class forms post `flow=class`, which pins the landing page to a class
- * path even when `next` is missing or points at the Number Path dashboard.
+ * path even when `next` is missing or points at the Tallykin dashboard.
  */
 function authTarget(formData: FormData) {
   const classFlow = formData.get("flow") === "class";

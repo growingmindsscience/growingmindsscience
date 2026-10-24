@@ -12,7 +12,7 @@ import "server-only";
 
 const FROM =
   process.env.NSC_EMAIL_FROM ??
-  "Number Path <hello@growingmindsscience.com>";
+  "Tallykin <hello@growingmindsscience.com>";
 
 /**
  * Where replies go. The From address must stay on the domain verified in

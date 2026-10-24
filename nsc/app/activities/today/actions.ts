@@ -9,7 +9,7 @@ import { SAVE_FAILED } from "@/lib/friendly-error";
 import { localDateISO } from "@/lib/tz";
 import { getTimeZone } from "@/lib/tz.server";
 
-/** Child creation for the library (same spine table as Number Path). */
+/** Child creation for the library (same spine table as Tallykin). */
 export async function createLibraryChild(formData: FormData) {
   const user = await requireAuth();
   const supabase = await createClient();

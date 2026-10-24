@@ -193,7 +193,7 @@ export default async function MyClassesPage({ searchParams }: {
             <Card className="flex flex-col">
               <Eyebrow>Membership</Eyebrow>
               <h3 className="mt-2 text-lg text-ink-deep">Active</h3>
-              <p className="mt-1 text-sm text-ink-soft">Includes unlimited Ask the research and Number Path.</p>
+              <p className="mt-1 text-sm text-ink-soft">Includes unlimited Ask the research and Tallykin.</p>
               <div className="mt-auto pt-5">
                 <LinkButton href="/app/classes/account" variant="ghost" size="sm" className="border border-line">Manage in Account</LinkButton>
               </div>
@@ -201,11 +201,11 @@ export default async function MyClassesPage({ searchParams }: {
           )}
           {summary.numberPath && (
             <Card className="flex flex-col">
-              <Eyebrow>Number Path</Eyebrow>
+              <Eyebrow>Tallykin</Eyebrow>
               <h3 className="mt-2 text-lg text-ink-deep">Full access</h3>
               <p className="mt-1 text-sm text-ink-soft">The early-math check-in, games, and weekly plans.</p>
               <div className="mt-auto pt-5">
-                <LinkButton href="/app" variant="ghost" size="sm" className="border border-line">Open Number Path</LinkButton>
+                <LinkButton href="/app" variant="ghost" size="sm" className="border border-line">Open Tallykin</LinkButton>
               </div>
             </Card>
           )}

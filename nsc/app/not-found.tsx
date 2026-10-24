@@ -18,7 +18,7 @@ export default function NotFound() {
             Back to your children
           </Link>
           <Link href="/" className="inline-flex min-h-11 items-center text-sm text-ink-muted underline">
-            Number Path home
+            Tallykin home
           </Link>
         </div>
       </Card>

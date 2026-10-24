@@ -18,7 +18,7 @@ export function ClassWordmark({ href = "/app/classes" }: { href?: string }) {
 
 /**
  * The classes area's own navigation, a quiet bar under the site header.
- * Classes and Number Path share an account and nothing else, so no Number
+ * Classes and Tallykin share an account and nothing else, so no Number
  * Path navigation appears here unless the account owns both (`showNumberPath`).
  */
 export function ClassHeader({ email, showNumberPath }: { email?: string; showNumberPath: boolean }) {
@@ -29,7 +29,7 @@ export function ClassHeader({ email, showNumberPath }: { email?: string; showNum
         <nav aria-label="Classes" className="flex flex-wrap items-center gap-x-1">
           <Link href="/app/classes" className={NAV_LINK}>My classes</Link>
           {email && <Link href="/app/classes/account" className={NAV_LINK}>Account</Link>}
-          {showNumberPath && <Link href="/app" className={NAV_LINK}>Number Path</Link>}
+          {showNumberPath && <Link href="/app" className={NAV_LINK}>Tallykin</Link>}
           {email && (
             <form action={signoutClasses}>
               <button type="submit" className={NAV_LINK}>Sign out</button>

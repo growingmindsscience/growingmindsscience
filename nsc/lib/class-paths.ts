@@ -11,7 +11,7 @@ export function isClassPath(path: string): boolean {
 
 /**
  * Where a class sign-in or sign-up lands. Anything that is not a class
- * path, including the Number Path dashboard at /app, becomes My classes.
+ * path, including the Tallykin dashboard at /app, becomes My classes.
  */
 export function classDestination(raw: unknown): string {
   const next = safeNextPath(raw, CLASS_HOME);

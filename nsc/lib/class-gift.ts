@@ -7,7 +7,7 @@ import { makeGiftCode } from "@/lib/gift";
 /**
  * Class gift codes: codes an admin makes and gives away. Each one unlocks
  * every class, plus Growing Minds AI (the toddler class includes it), for the
- * account that redeems it, for life. Unlike Number Path gift codes they are
+ * account that redeems it, for life. Unlike Tallykin gift codes they are
  * not tied to a payment. The flows take the database client as an argument so
  * they are unit-testable; callers pass the service-role client (the table has
  * RLS on and no policies).

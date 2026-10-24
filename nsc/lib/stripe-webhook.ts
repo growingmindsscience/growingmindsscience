@@ -122,7 +122,7 @@ export function giftEmail(code: string, site: string): { subject: string; html: 
   const redeemUrl = `${site}/nsc/redeem`;
   const html = `<!doctype html><html><body style="margin:0;background:#F0F5F3;font-family:Georgia,serif">
   <div style="max-width:520px;margin:0 auto;padding:32px 20px">
-    <p style="margin:0 0 20px;color:#1E5F62;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-family:Helvetica,Arial,sans-serif">Number Path</p>
+    <p style="margin:0 0 20px;color:#1E5F62;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-family:Helvetica,Arial,sans-serif">Tallykin</p>
     <div style="background:#fff;border:1px solid #CFE3DE;border-radius:16px;padding:28px 24px">
       <h1 style="margin:0 0 16px;color:#0E2A2D;font-size:22px">Your gift is ready</h1>
       <p style="margin:0 0 14px;color:#15393C;font-size:16px;line-height:1.55">Here&rsquo;s the code to give:</p>
@@ -133,8 +133,8 @@ export function giftEmail(code: string, site: string): { subject: string; html: 
     </div>
   </div>
 </body></html>`;
-  const text = `Your Number Path gift is ready.\n\nCode to give: ${code}\n\nThe family redeems it at ${redeemUrl} whenever they're ready. It's theirs for good, no subscription.\n\nPrintable card: ${cardUrl}\n`;
-  return { subject: "Your Number Path gift code", html, text };
+  const text = `Your Tallykin gift is ready.\n\nCode to give: ${code}\n\nThe family redeems it at ${redeemUrl} whenever they're ready. It's theirs for good, no subscription.\n\nPrintable card: ${cardUrl}\n`;
+  return { subject: "Your Tallykin gift code", html, text };
 }
 
 const ok = (body: Record<string, unknown>): WebhookOutcome => ({ status: 200, body });

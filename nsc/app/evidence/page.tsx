@@ -5,9 +5,9 @@ import { brand } from "@/lib/config/brand";
 import type { Citation } from "@/lib/content-types";
 
 export const metadata = {
-  title: "The evidence | Number Path",
+  title: "The evidence | Tallykin",
   description:
-    "Every study behind Number Path: the counting-ladder research, the trials behind each game, and what we deliberately left out.",
+    "Every study behind Tallykin: the counting-ladder research, the trials behind each game, and what we deliberately left out.",
 };
 
 /** Display order + headings for citation groups, keyed by tag_id prefix. */
@@ -67,7 +67,7 @@ export default async function EvidencePage() {
           The evidence
         </h1>
         <p className="max-w-xl text-lg text-ink">
-          Number Path makes narrow claims on purpose. This page is the receipt
+          Tallykin makes narrow claims on purpose. This page is the receipt
           for the check-in and the games: the studies they lean on, what each
           one actually shows, and the one popular idea we examined and left
           out. Every entry below was verified by a human against the published

@@ -7,7 +7,7 @@ import { brand } from "@/lib/config/brand";
 import { PRICE_DISPLAY } from "@/lib/stripe";
 
 export const metadata = {
-  title: "Give Number Path as a gift",
+  title: "Give Tallykin as a gift",
   description:
     "Gift a warm, screen-free early-math ritual. One payment, no subscription: a code the family redeems whenever they're ready.",
 };
@@ -22,7 +22,7 @@ export default async function GiftPage({
     <main className="mx-auto flex min-h-screen max-w-2xl flex-col gap-10 px-6 py-16">
       <section className="flex flex-col items-center gap-5 text-center">
         <h1 className="text-4xl font-semibold text-ink-deep">
-          Give Number Path
+          Give Tallykin
         </h1>
         <p className="max-w-md text-lg text-ink">
           A warm, screen-free way to share numbers with a two-to-five-year-old:

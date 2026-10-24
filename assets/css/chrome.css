@@ -652,3 +652,14 @@
   .site-header,
   .site-footer { display: none; }
 }
+
+/* Footer brand line: the tagline sits above the descriptor, a step larger, in the display face. */
+.site-footer .site-footer__line {
+  max-width: 30ch;
+  margin: 1.1rem 0 0;
+  color: var(--chrome-on-dark);
+  font-family: var(--chrome-display);
+  font-size: 1.1875rem;
+  line-height: 1.35;
+}
+.site-footer .site-footer__line + .site-footer__tag { margin-top: 0.35rem; }

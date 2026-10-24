@@ -9,7 +9,7 @@ import { ownsToddlerClass } from "@/lib/classes";
  * Entitlements. The original one-time SKU (`numberpath_full` in
  * nsc_purchases) stays authoritative for standalone purchases; the Phase 0
  * `entitlements` table layers the portfolio's additive grants on top
- * (membership includes Number Path — plan 2.2). Free tier is the
+ * (membership includes Tallykin — plan 2.2). Free tier is the
  * top-of-funnel taste — pre-screen + one sample game + a single prompt.
  */
 export async function hasFullAccess(): Promise<boolean> {
@@ -40,8 +40,8 @@ export async function hasFullAccess(): Promise<boolean> {
 
 /**
  * Membership gate (Activity Library, full Claims Library, …). Distinct from
- * hasFullAccess: a standalone Number Path purchase does NOT unlock
- * membership surfaces; membership unlocks Number Path (plan 2.2).
+ * hasFullAccess: a standalone Tallykin purchase does NOT unlock
+ * membership surfaces; membership unlocks Tallykin (plan 2.2).
  */
 export async function hasMembership(): Promise<boolean> {
   const supabase = await createClient();
@@ -112,7 +112,7 @@ export async function getEntitlementSummary(): Promise<EntitlementSummary> {
   const now = new Date();
   const scopes = new Set<string>();
 
-  // Standalone Number Path purchase (authoritative, pre-spine).
+  // Standalone Tallykin purchase (authoritative, pre-spine).
   const { data: purchase } = await supabase
     .from("nsc_purchases")
     .select("id")
@@ -160,7 +160,7 @@ export async function getEntitlementSummary(): Promise<EntitlementSummary> {
   return {
     authenticated: true,
     scopes: [...scopes],
-    // Membership includes Number Path (plan 2.2).
+    // Membership includes Tallykin (plan 2.2).
     numberPath: scopes.has("numberpath_full") || membership,
     membership,
     unlimitedAi: membership || scopes.has("ai:unlimited"),
