@@ -5,8 +5,8 @@ import { isAudioClipId } from "@/lib/audio";
 /**
  * The gate in front of the paid game narration (/api/audio/[id]). Check-in
  * clips are free and static under public/audio; a game clip is served only
- * to an account that can play that game: Number Path full access (a
- * purchase, a redeemed Number Path gift, or membership), or, on the free
+ * to an account that can play that game: Tallykin full access (a
+ * purchase, a redeemed Tallykin gift, or membership), or, on the free
  * tier, the one free game on each of its children's plans this week.
  *
  * Kept free of Next and Supabase so the allow/deny decisions are unit-tested
@@ -18,7 +18,7 @@ export interface GameClipDeps {
   userId(): Promise<string | null>;
   /** Every game clip id in the audio manifest. */
   gameIds(): Promise<readonly string[]>;
-  /** Number Path full access. */
+  /** Tallykin full access. */
   fullAccess(): Promise<boolean>;
   /** Clip ids of the free game(s) on this account's plans this week. */
   freeClipIds(userId: string): Promise<readonly string[]>;
@@ -53,7 +53,7 @@ export async function gameClipResponse(
   const userId = await deps.userId();
   if (!userId) return json("Sign in required", 401);
   const allowed = (await deps.fullAccess()) || (await deps.freeClipIds(userId)).includes(id);
-  if (!allowed) return json("Number Path purchase required", 403);
+  if (!allowed) return json("Tallykin purchase required", 403);
 
   const bytes = await deps.readClip(id);
   if (!bytes) return json("Not found", 404);

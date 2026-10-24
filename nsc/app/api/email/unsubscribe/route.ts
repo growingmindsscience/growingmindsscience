@@ -16,7 +16,7 @@ const TOKEN_SHAPE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{1
 
 function page(body: string, status: number): NextResponse {
   return new NextResponse(
-    `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>Number Path emails</title></head>
+    `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><title>Tallykin emails</title></head>
 <body style="margin:0;background:#F0F5F3;font-family:Georgia,serif;color:#15393C;line-height:1.6">
 <main style="max-width:480px;margin:15vh auto 0;padding:0 20px;text-align:center">${body}</main>
 </body></html>`,
@@ -43,7 +43,7 @@ export async function GET(req: Request) {
   if (!TOKEN_SHAPE.test(token)) return badLink();
   // No action attribute: the form posts back to this exact URL, token included.
   return page(
-    `<h1>Stop Number Path emails?</h1>
+    `<h1>Stop Tallykin emails?</h1>
 <p>You&rsquo;ll stop getting the Monday plan note and the check-in reminders. Your plan keeps refreshing in the app either way.</p>
 <form method="post" style="margin-top:24px">
   <button type="submit" style="min-height:48px;padding:12px 28px;border:0;border-radius:999px;background:#1E5F62;color:#fff;font:600 16px Helvetica,Arial,sans-serif;cursor:pointer">Stop the emails</button>
@@ -75,7 +75,7 @@ export async function POST(req: Request) {
   }
   if (!data || data.length === 0) return badLink();
   return page(
-    "<h1>Done.</h1><p>No more emails from Number Path. The weekly plan keeps refreshing in the app either way.</p>",
+    "<h1>Done.</h1><p>No more emails from Tallykin. The weekly plan keeps refreshing in the app either way.</p>",
     200,
   );
 }

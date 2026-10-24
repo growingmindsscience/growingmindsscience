@@ -251,3 +251,4 @@
 .cp .enroll-bar .btn { min-height: 44px; }
 @media (min-width: 761px) { .cp .enroll-bar { display: none !important; } }
 @media (prefers-reduced-motion: reduce) { .cp .enroll-bar { transition: none; } }
+.cl-terms--trust { color: var(--ink-soft); font-weight: 600; }

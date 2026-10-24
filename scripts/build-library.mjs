@@ -139,7 +139,7 @@ ${extraHead}
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=9ee704dd6a" />
   <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
   <link rel="stylesheet" href="/assets/css/article.css?v=01dcd82f94" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=827ba51d2c" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=531abe07ab" />
 </head>
 <body class="fg fg--page hub art">
   ${header}
@@ -152,7 +152,7 @@ ${body}
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
   <script src="/assets/js/main.js?v=3f7e70ab67" defer></script>
-  <script src="/assets/js/home.js?v=55bb0c9cfc" defer></script>
+  <script src="/assets/js/home.js?v=b5ceb4cddf" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

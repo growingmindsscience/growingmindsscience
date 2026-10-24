@@ -174,7 +174,7 @@ export default async function WeeklyPlanPage({
                   {activities.length === 0
                     ? "The library is still filling. The planner lights up as soon as activities are published."
                     : months >= 36
-                      ? `The Activity Library covers 0–36 months for now. For ${child.nickname}, Number Path plans the week instead.`
+                      ? `The Activity Library covers 0–36 months for now. For ${child.nickname}, Tallykin plans the week instead.`
                       : "Nothing fits that budget yet. Loosen the mess or time filter and rebuild."}
                 </p>
               </Card>

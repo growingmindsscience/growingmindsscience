@@ -190,12 +190,12 @@ export default async function TodaysThreePage({
                   {activities.length === 0
                     ? "The library is still filling. Picks appear as soon as activities are published."
                     : months >= 36
-                      ? `The Activity Library covers 0–36 months for now. For ${child.nickname}'s age, Number Path has a full week of counting games.`
+                      ? `The Activity Library covers 0–36 months for now. For ${child.nickname}'s age, Tallykin has a full week of counting games.`
                       : "No age-matched activities yet. New batches are on the way."}
                 </p>
                 {months >= 36 && activities.length > 0 && (
                   <Link href="/" className="mt-1 inline-flex min-h-11 items-center text-sm font-semibold text-teal underline">
-                    Meet Number Path →
+                    Meet Tallykin →
                   </Link>
                 )}
               </Card>

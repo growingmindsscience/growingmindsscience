@@ -2,7 +2,7 @@ import { sitePath } from "@/lib/site";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 /**
- * The Field Guide chrome for every page of this app (Number Path and the
+ * The Field Guide chrome for every page of this app (Tallykin and the
  * classes), matching the marketing site's header and footer so the two read
  * as one site. Links point at the main site through `sitePath`.
  */
@@ -97,9 +97,14 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-5xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[minmax(0,4fr)_minmax(0,8fr)]">
         <div className="flex flex-col gap-4">
           <SiteWordmark href={sitePath("/")} />
-          <p className="max-w-[30ch] text-[0.9375rem] text-on-dark-soft">
-            Science-backed parent education, open to any parent who seeks it.
-          </p>
+          <div className="flex flex-col gap-1.5">
+            <p className="max-w-[30ch] font-display text-[1.1875rem] leading-snug text-on-dark">
+              Every grown-up starts little.
+            </p>
+            <p className="max-w-[30ch] text-[0.9375rem] text-on-dark-soft">
+              Science-backed parent education, open to any parent who seeks it.
+            </p>
+          </div>
         </div>
         <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-3">
           {FOOTER_COLS.map(([heading, links]) => (

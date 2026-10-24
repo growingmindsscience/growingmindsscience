@@ -2,7 +2,7 @@
    The homepage's behavior, also loaded by inner pages on the same system for
    their entrances (every other part is guarded and does nothing there).
    The header, menu and theme live in chrome.js.
-   - The plate: "Show what's growing" reveals the typeset labels over the photograph.
+   - The plate: "Show what's beneath" reveals the typeset labels over the photograph.
    - The Lens: a four-step tablist; the plate's labels follow the active step.
    - The Lens sequence (homepage): a carousel of four frames; its rail, arrows and phone bar
      follow the scroll.
@@ -38,7 +38,7 @@
       var on = toggle.getAttribute("aria-pressed") !== "true";
       toggle.setAttribute("aria-pressed", String(on));
       labels.setAttribute("data-on", String(on));
-      if (label) label.textContent = on ? "Hide the labels" : "Show what’s growing";
+      if (label) label.textContent = on ? "Hide the labels" : "Show what’s beneath";
     });
   }
 

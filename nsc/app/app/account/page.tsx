@@ -13,8 +13,8 @@ export const metadata = { title: "Your account" };
 
 /** Human labels for the raw entitlement scopes. */
 const SCOPE_LABELS: Record<string, string> = {
-  membership: "Membership: everything, including Number Path",
-  numberpath_full: "Number Path: full access",
+  membership: "Membership: everything, including Tallykin",
+  numberpath_full: "Tallykin: full access",
   "ai:unlimited": "Ask the research: included with your class",
   "class:toddlerhood": "Toddler class: lifetime access",
   "class:infant": "Infant class: lifetime access",
@@ -139,9 +139,9 @@ export default async function AccountPage({
         </Card>
       )}
 
-      {/* Number Path */}
+      {/* Tallykin */}
       <Card>
-        <p className="text-[0.9375rem] font-semibold text-amber-deep">Number Path</p>
+        <p className="text-[0.9375rem] font-semibold text-amber-deep">Tallykin</p>
         <h2 className="mt-1 text-lg font-semibold text-ink-deep">
           {summary.numberPath ? "Full access" : "Free check-in"}
         </h2>
@@ -152,7 +152,7 @@ export default async function AccountPage({
         </p>
         <div className="mt-4">
           <LinkButton href="/app" size="sm">
-            Open Number Path
+            Open Tallykin
           </LinkButton>
         </div>
       </Card>
@@ -187,7 +187,7 @@ export default async function AccountPage({
       </Card>
 
       <p className="text-center text-sm text-ink-muted">
-        <Link href="/" className="underline">Back to Number Path home</Link>
+        <Link href="/" className="underline">Back to Tallykin home</Link>
       </p>
     </main>
   );

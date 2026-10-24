@@ -2,7 +2,7 @@
   "name": "nsc",
   "version": "1.1.0",
   "private": true,
-  "description": "Number Path (codename nsc) — parent-run early-math check-in. Next.js app + compiled-artifact content + titration engine.",
+  "description": "Tallykin (codename nsc) — parent-run early-math check-in. Next.js app + compiled-artifact content + titration engine.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

@@ -54,7 +54,7 @@
   /* Legacy name for the error text color. */
   --color-coral-deep: #a6371f;
 
-  /* Number Path only: the Counting Ladder's current-rung field (child-facing
+  /* Tallykin only: the Counting Ladder's current-rung field (child-facing
      game UI), in sage mist. Class pages do not use it. */
   --color-rung-glow: #e0ebe5;
 
@@ -101,7 +101,7 @@ body {
 }
 
 /* Classes area. `.class-theme` wraps every class page (sign-in, catalog,
-   classroom, lessons) and paints its own ground. Number Path has no dark
+   classroom, lessons) and paints its own ground. Tallykin has no dark
    design, so dark applies only to a page that holds `.class-theme`, and to the
    whole of it, header and footer included. Values mirror the main site's
    [data-theme="dark"] field-guide tokens; the attribute is set before paint by

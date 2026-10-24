@@ -13,7 +13,7 @@ export const metadata = { title: "Account" };
 
 const SCOPE_LABELS: Record<string, string> = {
   membership: "Membership",
-  numberpath_full: "Number Path, full access",
+  numberpath_full: "Tallykin, full access",
   "ai:unlimited": "Ask the research, included with your class",
   "class:toddlerhood": `${CLASS_COURSES.toddlerhood.shortTitle} class, lifetime access`,
   "class:infant": `${CLASS_COURSES.infant.shortTitle} class, lifetime access`,

@@ -58,13 +58,13 @@ export async function GET(
   const ics = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//From Little Onward//Number Path//EN",
+    "PRODID:-//From Little Onward//Tallykin//EN",
     "BEGIN:VEVENT",
     `UID:nsc-checkin-${id}-${day(dueISO)}@growingmindsscience.com`,
     `DTSTAMP:${stamp}`,
     `DTSTART;VALUE=DATE:${day(dueISO)}`,
     `DTEND;VALUE=DATE:${day(addDaysISO(dueISO, 1))}`,
-    `SUMMARY:Number Path check-in: ${icsText(child.nickname)}`,
+    `SUMMARY:Tallykin check-in: ${icsText(child.nickname)}`,
     "DESCRIPTION:Ten minutes\\, a bowl\\, ten blocks\\, and the bear. Re-run " +
       "the counting-ladder check-in and see where things stand: " +
       `${siteOrigin()}/nsc/app`,

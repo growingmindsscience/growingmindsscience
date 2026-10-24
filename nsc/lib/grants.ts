@@ -15,8 +15,8 @@
  * | Infant class $49 one-time    | class:infant, perpetual                       |
  * | Preschool class $49 one-time | class:preschool, perpetual                    |
  * | All-classes bundle $119      | all three class scopes + ai:unlimited, perp.  |
- * | Number Path $34 one-time     | numberpath_full, perpetual (kept standalone)  |
- * | Number Path gift redemption  | numberpath_full, perpetual, source gift       |
+ * | Tallykin $34 one-time     | numberpath_full, perpetual (kept standalone)  |
+ * | Tallykin gift redemption  | numberpath_full, perpetual, source gift       |
  */
 
 export type GrantSource =
@@ -215,8 +215,8 @@ export function grantForGiftRedemption(args: {
   };
 }
 
-/** Scopes that unlock the full Number Path experience. Membership includes
- * Number Path (plan 2.2); a member who cancels but bought Number Path
+/** Scopes that unlock the full Tallykin experience. Membership includes
+ * Tallykin (plan 2.2); a member who cancels but bought Tallykin
  * standalone keeps it — grants are a union. */
 const NUMBERPATH_SCOPES = new Set(["numberpath_full", "membership"]);
 

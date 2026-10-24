@@ -4,7 +4,7 @@ import { ACTIVITY_DOMAINS, type ActivityRow } from "@/lib/activity-types";
  * Weekly activity planner (plan 2.1 PR4) — the Monday-morning habit. A
  * printable 7-day grid: one anchor activity per day plus one backup, inside
  * a parent-set mess/time budget. Deterministic under the same contract as
- * Number Path's weekly plan: (child, ISO week, catalog, budget) always
+ * Tallykin's weekly plan: (child, ISO week, catalog, budget) always
  * yields the same grid, so the printout never disagrees with the screen.
  *
  * Balance: picks carry a simulated domain-coverage count across the whole

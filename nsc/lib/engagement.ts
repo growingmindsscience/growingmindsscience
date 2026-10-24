@@ -98,7 +98,7 @@ export function renderEmail(opts: {
     .join("");
   const html = `<!doctype html><html><body style="margin:0;padding:0;background:#F0F5F3;font-family:Georgia,'Times New Roman',serif">
   <div style="max-width:520px;margin:0 auto;padding:32px 20px">
-    <p style="margin:0 0 20px;color:#1E5F62;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-family:Helvetica,Arial,sans-serif">Number Path</p>
+    <p style="margin:0 0 20px;color:#1E5F62;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-family:Helvetica,Arial,sans-serif">Tallykin</p>
     <div style="background:#FFFFFF;border:1px solid #CFE3DE;border-radius:16px;padding:28px 24px">
       <h1 style="margin:0 0 16px;color:#0E2A2D;font-size:22px;line-height:1.3">${escapeHtml(opts.heading)}</h1>
       ${ps}

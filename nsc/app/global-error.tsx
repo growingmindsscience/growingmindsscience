@@ -26,7 +26,7 @@ export default function GlobalError({
       >
         <main style={{ maxWidth: 440, margin: "0 auto", padding: "18vh 24px 0", textAlign: "center" }}>
           <h1 style={{ fontSize: 26, color: "#0E2A2D", margin: "0 0 12px" }}>
-            Number Path didn&rsquo;t load
+            Tallykin didn&rsquo;t load
           </h1>
           <p style={{ margin: "0 0 24px" }}>
             That&rsquo;s on our side, not yours. Your children, check-ins and

@@ -14,7 +14,7 @@ import type { Grant } from "@/lib/grants";
 /**
  * Open the Stripe billing portal so a subscriber can update or cancel their
  * plan. Requires a stored Stripe customer id — only subscription buyers have
- * one (one-time Number Path purchases don't). Redirects back to the account
+ * one (one-time Tallykin purchases don't). Redirects back to the account
  * page with a flag if there's nothing to manage.
  */
 async function billingPortal(returnPath: string) {

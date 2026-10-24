@@ -21,7 +21,7 @@ import {
  * user id, exactly as the webhook would have.
  *
  * Scope + limits:
- *  - Subscriptions only. Standalone Number Path one-time buys already grant at
+ *  - Subscriptions only. Standalone Tallykin one-time buys already grant at
  *    checkout via client_reference_id, so there's nothing to recover. Class
  *    purchases grant at checkout through the class webhook path.
  *  - Email match is the identity link. Stripe email is not identity-verified,

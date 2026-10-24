@@ -59,6 +59,7 @@ export default async function Home() {
           counting ladder, then hands you a week of playful, evidence-backed
           games.
         </p>
+        <p className="-mt-3 text-sm text-ink-muted">A From Little Onward tool</p>
         <p className="text-sm text-ink-muted">Ten minutes. A bowl. A bear.</p>
         <LinkButton href={start}>Start the game</LinkButton>
         <p className="text-sm text-ink-muted">
@@ -130,7 +131,7 @@ export default async function Home() {
           house. In a randomized trial of parent number talk, which numbers
           helped depended on where the child stood: small numbers for most,
           bigger ones once a child was further along the climb. Generic
-          counting apps send every family the same drills. Number Path
+          counting apps send every family the same drills. Tallykin
           routes every game and every prompt to the rung your child is actually
           on, and re-routes as they climb.
         </p>
@@ -163,7 +164,7 @@ export default async function Home() {
             {exclusion
               ? "The evidence that it transfers to real math is genuinely contested, so we won't charge you for it."
               : ""}{" "}
-            Number Path only does what the research actually supports: everyday
+            Tallykin only does what the research actually supports: everyday
             counting, together.
           </p>
         </Card>
@@ -172,7 +173,7 @@ export default async function Home() {
             No red flags, ever
           </h3>
           <p className="text-ink">
-            Number Path never ranks your child, gives a score, or sounds an
+            Tallykin never ranks your child, gives a score, or sounds an
             alarm. The for-their-age view shows only a wide typical range from
             published studies, never a percentile. The words it will never use
             are enforced by a mechanical check on every line of the check-in,

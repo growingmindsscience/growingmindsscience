@@ -12,7 +12,7 @@ export const metadata = { title: { default: "My classes", template: "%s | From L
  */
 export default async function ClassesLayout({ children }: { children: ReactNode }) {
   const user = await getUser();
-  // The link to Number Path appears only for an account that owns both.
+  // The link to Tallykin appears only for an account that owns both.
   let ownsBoth = false;
   if (user) {
     const [classes, numberPath] = await Promise.all([
