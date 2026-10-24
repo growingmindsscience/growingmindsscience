@@ -32,7 +32,8 @@ html.anim .plate img { transform: scale(1.04); }
 .plate__fig b { color: var(--research); font-weight: 600; }
 .labels { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
 .label { position: absolute; max-width: 26ch; background: #F7F4EC; color: #193C39; border-radius: var(--radius); padding: 10px 12px; font-size: 14px; line-height: 1.35; pointer-events: auto; opacity: 0; transform: translateY(6px); transition: opacity 360ms ease, transform 360ms ease; transition-delay: calc(var(--i, 0) * 140ms); }
-.labels[data-on="true"] .label { opacity: 1; transform: none; }
+.labels[data-on="true"] .label, .labels .label--lead { opacity: 1; transform: none; }
+/* One label shows from the start, so the photograph reads as a figure before anyone presses the toggle. */
 html:not(.anim) .label { transition: none; }
 .label b { display: block; font-weight: 600; margin-bottom: 2px; }
 .label::before { content: ""; position: absolute; width: 10px; height: 10px; border-radius: 50%; background: #D2A453; box-shadow: 0 0 0 2px #F7F4EC; left: -18px; top: 12px; }
@@ -182,51 +183,9 @@ html:not(.anim) .label { transition: none; }
   .seq__track, .seq__text, .seq__photo .plate__fig, .seq__dots i { transition: none; }
 }
 
-/* ---------- 03 Age: five windows under three classes ---------- */
-/* Each class is a bracket over the windows it covers: a rule with end ticks and the class beneath;
-   prices stay in the classes section. Wide screens line all five windows up on one subgrid; 900 to 1100px scrolls them sideways;
-   phones stack each class with its windows. */
-.age { background: var(--paper); overflow: hidden; }
-.age__head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
-.age__bar { height: 6px; background: var(--paper-2); border-radius: 3px; margin-top: 24px; overflow: hidden; }
-.age__bar i { display: block; height: 100%; width: 20%; background: var(--ink); border-radius: 3px; transition: transform 200ms ease; }
-.age__row { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 32px var(--hb-gutter) 8px; margin-inline: calc(-1 * var(--hb-gutter)); -webkit-overflow-scrolling: touch; scrollbar-width: none; scroll-padding-inline: var(--hb-gutter); }
-.age__row::-webkit-scrollbar { display: none; }
-.age__group { flex: none; display: grid; grid-template-columns: repeat(var(--span), 300px); grid-template-rows: auto 1fr; gap: 0 24px; } /* columns fill the row, so every range bar sits on one line */
-.fg .age__bracket { grid-column: 1 / -1; position: relative; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 14px 12px 0; margin-bottom: 22px; border-top: 2px solid var(--ink); font-family: var(--font-body); font-size: 15px; font-weight: 600; line-height: 1.4; letter-spacing: 0; }
-.age__bracket::before, .age__bracket::after { content: ""; position: absolute; top: -2px; width: 2px; height: 10px; background: var(--ink); }
-.age__bracket::before { left: 0; }
-.age__bracket::after { right: 0; }
-.age__bracket a { color: var(--forest); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; padding-block: 12px; margin-block: -12px; }
-.age__bracket a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
-/* position: relative keeps each column's visually hidden spans inside the section's clip; unpositioned, they widened the page at 900 to 1100px. */
-.age__col { position: relative; scroll-snap-align: start; display: grid; grid-template-rows: auto auto 1fr auto auto; gap: 10px; }
-.age__col .yrs { color: var(--ink-muted); font-family: var(--font-body); font-size: 14px; font-weight: 500; letter-spacing: 0; margin-left: 0.5em; white-space: nowrap; }
-.age__col h4 { font-family: var(--font-display); font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); line-height: 1.05; letter-spacing: -0.015em; font-weight: 400; }
-.age__col h4 a { text-decoration: none; display: inline-block; padding-block: 10px; margin-block: -10px; }
-.age__col h4 a:hover { color: var(--forest); text-decoration: underline; text-underline-offset: 0.2em; }
-.age__col p { color: var(--ink-soft); font-size: 15px; }
-.age__links { font-size: 14px; color: var(--ink-muted); line-height: 1.6; }
-.age__links a { color: var(--forest); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
-.age__links a:hover { color: var(--forest-deep); }
-.age__foot { color: var(--ink-muted); font-size: 15px; margin-top: 20px; max-width: 70ch; }
-@media (min-width: 1100px) {
-  .age__row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); column-gap: 24px; overflow: visible; margin-inline: 0; padding-inline: 0; }
-  .age__group { grid-column: span var(--span); grid-template-columns: subgrid; }
-  .age__bar { display: none; }
-}
-@media (max-width: 900px) {
-  .age__bar { display: none; }
-  .age__row { display: grid; gap: 44px; overflow: visible; margin-inline: 0; padding: 28px 0 0; scroll-snap-type: none; }
-  .age__group { grid-template-columns: minmax(0, 1fr); gap: 0; }
-  .age__bracket { margin-bottom: 20px; }
-  .age__col { grid-template-rows: auto; gap: 6px; padding-top: 20px; margin-top: 20px; border-top: 1px solid var(--border-soft); }
-  .age__bracket + .age__col { border-top: 0; padding-top: 0; margin-top: 0; }
-  .age__col .range { margin-top: 10px; }
-  .age__col .axis-repeat { display: none; }
-}
-
-/* ---------- Why this exists: the mission, directly under the hero ---------- */
+/* ---------- Why this exists: one sentence that opens the classes, on the same paper ---------- */
+.mission { background: var(--paper); padding-bottom: 0; }
+.mission + .classes { padding-top: clamp(40px, 5vw, 72px); }
 .mission__inner { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(24px, 5vw, 80px); align-items: start; }
 .mission__body p + p { margin-top: 18px; }
 .mission__body .hb-soft { max-width: 52ch; }
@@ -239,6 +198,17 @@ html:not(.anim) .label { transition: none; }
 .classes__intro { margin-top: 16px; max-width: 34ch; }
 .classes .menu__go { grid-column: 1 / -1; justify-self: start; font-size: 15px; font-weight: 500; color: var(--forest); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
 .classes .menu__item:hover .menu__go { color: var(--forest-deep); text-decoration-thickness: 2px; }
+/* A class row: the title link stretches over the row, so the whole row still opens the class,
+   while the age windows inside it stay their own links to the Explore pages. */
+.classes .menu__item--class { position: relative; }
+.classes .menu__item--class h3 a { color: inherit; text-decoration: none; }
+.classes .menu__item--class h3 a::after { content: ""; position: absolute; inset: 0; }
+.menu__windows { grid-column: 1 / -1; display: grid; gap: 2px; margin-top: 2px; font-size: 15px; }
+.menu__windows li { display: flex; gap: 12px; align-items: baseline; }
+.menu__windows .yrs { flex: none; width: 6.5em; color: var(--ink-muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+.menu__windows a { position: relative; z-index: 1; display: inline-block; padding-block: 6px; color: var(--forest); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+.menu__windows a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
+.classes .menu__item .range { grid-column: 1 / -1; max-width: 340px; margin-top: 4px; }
 .classes__terms { margin-top: 28px; color: var(--ink-muted); font-size: 15px; max-width: 60ch; }
 @media (max-width: 860px) { .classes__grid { grid-template-columns: 1fr; } }
 
