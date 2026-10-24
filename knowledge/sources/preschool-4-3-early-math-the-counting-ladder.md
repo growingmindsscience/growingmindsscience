@@ -76,7 +76,7 @@ You can find your child's rung with the same game researchers use. At snack time
 
 Then aim your number talk at the next rung. For a two-knower, that means pointing out lots of threes. Treat one try as a rough guess, because in one study the game gave less steady answers at some stages than at others.
 
-If you'd like help, Number Path on the Growing Minds Science site is a short check-in that finds your child's rung and suggests games to match.
+If you'd like help, Tallykin on the From Little Onward site is a short check-in that finds your child's rung and suggests games to match.
 
 ## Board Games
 
@@ -176,7 +176,7 @@ What the research shows: Parents' math anxiety is linked to slower progress (Bec
 
 Finding: Give-a-number game: twenty-four 2- and 3-year-olds asked to give a puppet one, two, three, five and six items. Younger children succeeded only at one and sometimes two, and never counted to solve it; older children (mean 3 years 6 months) counted. Children learn the cardinal word principle at roughly three and a half.
 Sources: Wynn (1990), Children's understanding of counting, Cognition, DOI 10.1016/0010-0277(90)90003-3; Wynn (1992), Cognitive Psychology, 24, 220-251 (about a year from the first number word to the cardinal principle).
-Confidence: HIGH. The 'alphabet song' comparison, 'grabbed a handful' (the paper's grabbers), and 'two children who can both count to ten' are glosses. Wynn (1992) is cited from Number Path's verified citation file, not from this search.
+Confidence: HIGH. The 'alphabet song' comparison, 'grabbed a handful' (the paper's grabbers), and 'two children who can both count to ten' are glosses. Wynn (1992) is cited from Tallykin's verified citation file, not from this search.
 
 ## Research behind this lesson (continued)
 
@@ -250,7 +250,7 @@ Confidence: HIGH. The snack-time version on slide 9 is an informal use of the re
 
 ## Research behind this lesson (continued)
 
-Finding: Number Path: a parent-run check-in for ages about 2 to 5 that places a child on the counting ladder with a guided give-a-number game and suggests matched household games.
+Finding: Tallykin: a parent-run check-in for ages about 2 to 5 that places a child on the counting ladder with a guided give-a-number game and suggests matched household games.
 Sources: growingmindsscience.com/nsc (the site's class page calls it a free ten-minute check-in).
 Confidence: Your own product: please check the wording. The script says 'a short check-in' and does not say free or name the game.
 

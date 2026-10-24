@@ -3,7 +3,7 @@
 // Rebuild after changing curated cards or adding files to knowledge/sources/:
 //   node scripts/build-knowledge.mjs
 //
-// Generated: 2026-10-23T13:11:20.663Z
+// Generated: 2026-10-24T20:26:44.976Z
 
 export const KNOWLEDGE = [
   {
@@ -34386,7 +34386,7 @@ export const KNOWLEDGE = [
     "source": {
       "label": "From Little Onward class, Preschool Years (3 to 5): Lesson 4.3, Early Math: The Counting Ladder"
     },
-    "text": "You can find your child's rung with the same game researchers use. At snack time, ask for one cracker, then two, then three, and watch what happens. A child who gets one and two right, but grabs a handful for three, is a two-knower.\n\nThen aim your number talk at the next rung. For a two-knower, that means pointing out lots of threes. Treat one try as a rough guess, because in one study the game gave less steady answers at some stages than at others.\n\nIf you'd like help, Number Path on the Growing Minds Science site is a short check-in that finds your child's rung and suggests games to match."
+    "text": "You can find your child's rung with the same game researchers use. At snack time, ask for one cracker, then two, then three, and watch what happens. A child who gets one and two right, but grabs a handful for three, is a two-knower.\n\nThen aim your number talk at the next rung. For a two-knower, that means pointing out lots of threes. Treat one try as a rough guess, because in one study the game gave less steady answers at some stages than at others.\n\nIf you'd like help, Tallykin on the From Little Onward site is a short check-in that finds your child's rung and suggests games to match."
   },
   {
     "id": "source-preschool-4-3-early-math-the-counting-ladder-10",
@@ -34856,7 +34856,7 @@ export const KNOWLEDGE = [
     "source": {
       "label": "From Little Onward class, Preschool Years (3 to 5): Lesson 4.3, Early Math: The Counting Ladder"
     },
-    "text": "Finding: Give-a-number game: twenty-four 2- and 3-year-olds asked to give a puppet one, two, three, five and six items. Younger children succeeded only at one and sometimes two, and never counted to solve it; older children (mean 3 years 6 months) counted. Children learn the cardinal word principle at roughly three and a half.\nSources: Wynn (1990), Children's understanding of counting, Cognition, DOI 10.1016/0010-0277(90)90003-3; Wynn (1992), Cognitive Psychology, 24, 220-251 (about a year from the first number word to the cardinal principle).\nConfidence: HIGH. The 'alphabet song' comparison, 'grabbed a handful' (the paper's grabbers), and 'two children who can both count to ten' are glosses. Wynn (1992) is cited from Number Path's verified citation file, not from this search."
+    "text": "Finding: Give-a-number game: twenty-four 2- and 3-year-olds asked to give a puppet one, two, three, five and six items. Younger children succeeded only at one and sometimes two, and never counted to solve it; older children (mean 3 years 6 months) counted. Children learn the cardinal word principle at roughly three and a half.\nSources: Wynn (1990), Children's understanding of counting, Cognition, DOI 10.1016/0010-0277(90)90003-3; Wynn (1992), Cognitive Psychology, 24, 220-251 (about a year from the first number word to the cardinal principle).\nConfidence: HIGH. The 'alphabet song' comparison, 'grabbed a handful' (the paper's grabbers), and 'two children who can both count to ten' are glosses. Wynn (1992) is cited from Tallykin's verified citation file, not from this search."
   },
   {
     "id": "source-preschool-4-3-early-math-the-counting-ladder-22",
@@ -35184,7 +35184,7 @@ export const KNOWLEDGE = [
     "source": {
       "label": "From Little Onward class, Preschool Years (3 to 5): Lesson 4.3, Early Math: The Counting Ladder"
     },
-    "text": "Finding: Number Path: a parent-run check-in for ages about 2 to 5 that places a child on the counting ladder with a guided give-a-number game and suggests matched household games.\nSources: growingmindsscience.com/nsc (the site's class page calls it a free ten-minute check-in).\nConfidence: Your own product: please check the wording. The script says 'a short check-in' and does not say free or name the game.\n\nFinding: Low-income preschoolers (mean 5.4 years) played a linear number board game for roughly one hour: gains on magnitude comparison, number line estimation, counting and numeral identification, still present 9 weeks later; classmates who played the color version did not improve.\nSources: Ramani & Siegler (2008), Promoting broad and stable improvements in low-income children's numerical knowledge through playing number board games, Child Development, DOI 10.1111/j.1467-8624.2007.01131.x.\nConfidence: HIGH. 'A straight row of squares numbered one to ten' and saying the numbers on the squares while moving are from the published method, not the abstract: please check."
+    "text": "Finding: Tallykin: a parent-run check-in for ages about 2 to 5 that places a child on the counting ladder with a guided give-a-number game and suggests matched household games.\nSources: growingmindsscience.com/nsc (the site's class page calls it a free ten-minute check-in).\nConfidence: Your own product: please check the wording. The script says 'a short check-in' and does not say free or name the game.\n\nFinding: Low-income preschoolers (mean 5.4 years) played a linear number board game for roughly one hour: gains on magnitude comparison, number line estimation, counting and numeral identification, still present 9 weeks later; classmates who played the color version did not improve.\nSources: Ramani & Siegler (2008), Promoting broad and stable improvements in low-income children's numerical knowledge through playing number board games, Child Development, DOI 10.1111/j.1467-8624.2007.01131.x.\nConfidence: HIGH. 'A straight row of squares numbered one to ten' and saying the numbers on the squares while moving are from the published method, not the abstract: please check."
   },
   {
     "id": "source-preschool-4-3-early-math-the-counting-ladder-30",

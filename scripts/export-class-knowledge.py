@@ -134,9 +134,19 @@ CLASSES = {
 }
 
 
+# Recorded lessons predate the brand renames; Ask the research uses the current
+# names. script.py stays as recorded, since it is the transcript of the audio.
+RENAMES = [
+    ("Growing Minds Science", "From Little Onward"),
+    ("Number Path", "Tallykin"),
+]
+
+
 def clean(s):
     # House rule: no em dashes. En dashes become plain hyphens.
     s = s.replace(" — ", ", ").replace("—", ", ").replace("–", "-")
+    for old, new in RENAMES:
+        s = s.replace(old, new)
     return re.sub(r"[ \t]+", " ", s).strip()
 
 
