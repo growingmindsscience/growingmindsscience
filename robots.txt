@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://fromlittleonward.com/sitemap.xml
+Sitemap: https://www.fromlittleonward.com/sitemap.xml

@@ -18,7 +18,7 @@ export async function POST(request: Request) {
   if (!isClassAdmin(user)) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
-  const configuredOrigin = new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://fromlittleonward.com").origin;
+  const configuredOrigin = new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://www.fromlittleonward.com").origin;
   if (request.headers.get("origin") !== configuredOrigin) {
     return NextResponse.json({ error: "Invalid origin" }, { status: 403 });
   }

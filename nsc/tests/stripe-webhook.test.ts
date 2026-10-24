@@ -16,7 +16,7 @@ function deps(db: FakeDb, over: Partial<WebhookDeps> = {}): WebhookDeps {
     mintGiftCode: vi.fn(async () => "NP-AAAA-BBBB"),
     sendEmail: vi.fn(async () => ({ ok: true })),
     prices: { membershipMonthly: "price_mo", membershipAnnual: "price_yr" },
-    site: "https://fromlittleonward.com",
+    site: "https://www.fromlittleonward.com",
     classes: {
       fulfill: vi.fn(async () => {}),
       revokeRefunded: vi.fn(async () => {}),
@@ -230,7 +230,7 @@ describe("stripe webhook: gifts", () => {
     const mail = vi.mocked(d.sendEmail).mock.calls[0][0];
     expect(mail.to).toBe("parent@example.com");
     expect(mail.text).toContain("NP-AAAA-BBBB");
-    expect(mail.html).toContain("https://fromlittleonward.com/nsc/gift/card?code=NP-AAAA-BBBB");
+    expect(mail.html).toContain("https://www.fromlittleonward.com/nsc/gift/card?code=NP-AAAA-BBBB");
   });
 
   it("answers 500 when no code could be minted, or minting throws", async () => {

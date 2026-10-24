@@ -420,7 +420,7 @@ if (SUMMARY) {
     const s = r.post.spec, o = s.slides?.[0] ?? s.beats?.[0] ?? {};
     const imgs = await preview(r);
     lines.push(`- [ ] Hold \`${s.id}\``);
-    lines.push(`  **${weekday(r.slot.at)}, ${s.kind === "reel" ? "7 pm reel" : "11 am carousel"} (${s.series})**: "${o.lead || o.claim || o.text}" ${s.age}. Links to [${s.link.page}](https://fromlittleonward.com${s.link.url}). Scores: ${Object.entries(r.crit.scores).map(([k, v]) => `${k} ${v}`).join(", ")}.`);
+    lines.push(`  **${weekday(r.slot.at)}, ${s.kind === "reel" ? "7 pm reel" : "11 am carousel"} (${s.series})**: "${o.lead || o.claim || o.text}" ${s.age}. Links to [${s.link.page}](https://www.fromlittleonward.com${s.link.url}). Scores: ${Object.entries(r.crit.scores).map(([k, v]) => `${k} ${v}`).join(", ")}.`);
     for (const u of imgs) lines.push(`  <img src="${u}" width="270">`);
     const { body } = splitCaption(r.post.captionMd);
     const script = s.kind === "reel" ? s.beats.filter((b) => b.say).map((b) => `> ${b.say}`).join("\n") : s.slides.map((x, i) => `${i + 1}. ${[x.lead, x.claim, x.head, x.sub, x.now, x.body, ...(x.items || [])].filter(Boolean).join(" / ")}`).join("\n");

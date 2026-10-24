@@ -11,7 +11,7 @@ export const brand = {
   assessmentName: "The Feed-the-Bear Game",
   tagline: "Reading together, but numbers.",
   parentSite: "From Little Onward",
-  parentSiteUrl: "https://fromlittleonward.com",
+  parentSiteUrl: "https://www.fromlittleonward.com",
   // §3.1(6) — static neutral footer, rendered on every readout, never
   // conditionally triggered or alarmed.
   enrichmentFooter:

@@ -9,8 +9,8 @@ already applied to `kxljngtmnqarvsawakmf`, so the database side is ready.
 | Thing | Value |
 |---|---|
 | Stripe account | `acct_1Tgtk3LIy3W5wQUy` (Growing minds science, live) |
-| nsc webhook URL | `https://fromlittleonward.com/nsc/api/stripe-webhook` |
-| Parent webhook URL | `https://fromlittleonward.com/api/stripe-webhook` |
+| nsc webhook URL | `https://www.fromlittleonward.com/nsc/api/stripe-webhook` |
+| Parent webhook URL | `https://www.fromlittleonward.com/api/stripe-webhook` |
 | Legacy AI Pro price | `price_1Tgu9yLIy3W5wQUyOw1FYEPA` ($9/mo subscription) |
 | Number Path price | `price_1Tqh56LIy3W5wQUy3yLbcd6r` ($34 one-time) |
 | nsc Vercel project | nsc-lake |
@@ -26,7 +26,7 @@ already applied to `kxljngtmnqarvsawakmf`, so the database side is ready.
 2. Go to **Developers → Webhooks** (Developers is in the left sidebar footer,
    or press `~` and type "webhooks").
 3. Write down every endpoint listed, its URL, and its enabled events.
-   - If `https://fromlittleonward.com/api/stripe-webhook` is there: leave it.
+   - If `https://www.fromlittleonward.com/api/stripe-webhook` is there: leave it.
      It still handles the ConvertKit subscribe and your purchase notification
      email. It stays until Phase 5.
    - If an endpoint points at a URL that no longer exists (for example the old
@@ -36,7 +36,7 @@ already applied to `kxljngtmnqarvsawakmf`, so the database side is ready.
 ## Step 2: add the nsc webhook endpoint (5 min)
 
 1. Still in **Developers → Webhooks**, click **+ Add endpoint**.
-2. Endpoint URL: `https://fromlittleonward.com/nsc/api/stripe-webhook`
+2. Endpoint URL: `https://www.fromlittleonward.com/nsc/api/stripe-webhook`
 3. Click **+ Select events** and pick exactly these four:
    - `checkout.session.completed`
    - `customer.subscription.created`
@@ -63,7 +63,7 @@ already applied to `kxljngtmnqarvsawakmf`, so the database side is ready.
 
 ## Step 4: optional parent-site env (2 min)
 
-In the Vercel project for fromlittleonward.com, add:
+In the Vercel project for www.fromlittleonward.com, add:
 
 - `AI_PRO_PRICE_ID` = `price_1Tgu9yLIy3W5wQUyOw1FYEPA`
 

@@ -8,7 +8,7 @@ the generated copy inventory beside it, and the live page.
 ## What is being reviewed
 
 **Milestone Navigator**, a free, no-account web tool at
-`https://fromlittleonward.com/tools/milestone-navigator` (currently live but
+`https://www.fromlittleonward.com/tools/milestone-navigator` (currently live but
 unlinked and noindexed pending this review). A parent picks a developmental
 worry (talking, understanding, walking/movement, hands, play, social
 connection, hearing, behavior), answers 2-6 plain-language yes/no/not-yet

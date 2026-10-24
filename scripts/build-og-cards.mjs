@@ -122,7 +122,7 @@ function hash(s) {
 
 function wireMeta(html, cardUrl, alt) {
   let out = html;
-  const abs = `https://fromlittleonward.com${cardUrl}`;
+  const abs = `https://www.fromlittleonward.com${cardUrl}`;
   // Drop any dimension/alt tags we previously added so re-runs stay clean.
   out = out.replace(/\s*<meta\s+property="og:image:(?:width|height|alt)"[^>]*>/gi, "");
   const dims =

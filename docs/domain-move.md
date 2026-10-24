@@ -1,28 +1,26 @@
 # Domain move: growingmindsscience.com to fromlittleonward.com
 
-Status: **code switched on branch `domain/fromlittleonward`, not deployed.** fromlittleonward.com was registered at Spaceship on 2026-10-24 and attached to the static Vercel project, but its DNS still points at Spaceship parking. The old-domain redirect is still inactive in `docs/domain-move-redirects.json`.
+Status: **live as of 2026-10-24.** The site serves at https://www.fromlittleonward.com. fromlittleonward.com, fromlittleonward.org, growingmindsscience.com and www.growingmindsscience.com all 308-redirect there through Vercel's domain settings (not `vercel.json`, so the block in `docs/domain-move-redirects.json` is not needed). DNS for both new domains is at Spaceship. Unchecked items below are still open.
 
 Do the steps in order. The old domain keeps working the whole time; the switch is the redirect in step 4.
 
 ## 1. Get the new domain ready
 
-- [x] Buy fromlittleonward.com (Spaceship, 2026-10-24) (and consider www and common misspellings).
-- [ ] Decide where its DNS lives (today: Spaceship nameservers, parked). Point it at Vercel: `A @ 76.76.21.21` and `CNAME www cname.vercel-dns.com`, or switch nameservers to Vercel. growingmindsscience.com is registered at Netlify, and Netlify still holds its DNS zone; never delete either.
-- [x] Add fromlittleonward.com and www.fromlittleonward.com to the static Vercel project (done; the apex currently redirects to www, but canonicals use the apex, so flip it: www redirects to the apex) (`growingmindsscience`), and wait for the certificate.
+- [x] Buy fromlittleonward.com (and consider www and common misspellings).
+- [x] Decide where its DNS lives. growingmindsscience.com is registered at Netlify, and Netlify still holds its DNS zone; never delete either.
+- [x] Add fromlittleonward.com and www.fromlittleonward.com to the static Vercel project (`growingmindsscience`), and wait for the certificate.
 - [ ] Add the same domains to the nsc Vercel project if it is ever reached directly (today it is reached through the `/nsc` rewrite, so this may not be needed).
 - [ ] Load https://fromlittleonward.com/ and https://fromlittleonward.com/nsc/class-login and confirm both serve.
 
 ## 2. Point the code at the new origin
 
-Done on branch `domain/fromlittleonward`. Left on the old domain on purpose: the `hello@` sender in `nsc/lib/email.server.ts` (Resend verifies only growingmindsscience.com), the calendar UIDs in `checkin.ics` (changing them duplicates events people already imported), and dated reports and drafts.
-
-All of these hard-coded `https://growingmindsscience.com`:
+All of these hard-code `https://growingmindsscience.com` today:
 
 - [x] Every page's `<link rel="canonical">`, `og:url`, `og:image` and `twitter:image` (about 120 HTML files; `scripts/check-canonicals.mjs` enforces absolute canonicals and holds the expected `ORIGIN`).
 - [x] The `ORIGIN` constant in `scripts/build-claims.mjs`, `scripts/build-explore.mjs`, `scripts/build-library.mjs`, `scripts/build-structured-data.mjs`, `scripts/check-canonicals.mjs`, and the absolute URL in `scripts/build-og-cards.mjs`. Rerun each generator after the change.
 - [x] JSON-LD `url` fields (Organization, WebSite, Person, BreadcrumbList) on the homepage, About, classes, articles and claims pages.
 - [x] `sitemap.xml` (every `<loc>`) and the `Sitemap:` line in `robots.txt`.
-- [ ] nsc: `DEFAULT_SITE_ORIGIN` in `nsc/lib/site.ts`, the redirects in `nsc/next.config.ts`, and the `NEXT_PUBLIC_SITE_URL` env var on the nsc Vercel project. Code done; the `NEXT_PUBLIC_SITE_URL` env var is still the old origin and must change at the switch, together with the deploy.
+- [ ] nsc: `DEFAULT_SITE_ORIGIN` in `nsc/lib/site.ts` and the redirects in `nsc/next.config.ts` are done; the `NEXT_PUBLIC_SITE_URL` env var on the nsc Vercel project still needs to be set to `https://www.fromlittleonward.com`.
 - [x] The entitlements URL the AI tool page calls (`tools/ask-the-research.html`).
 - [x] Share text in the arcade daily puzzles (`assets/js/daily-*.js` print `growingmindsscience.com/arcade`).
 - [x] Tests that assert the old origin (`tests/api`, `nsc/tests/site.test.ts`).
