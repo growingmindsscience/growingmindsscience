@@ -19,8 +19,8 @@
 .hero__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
 .hero__quiet { margin-top: 24px; font-size: 15px; color: var(--ink-muted); }
 /* One action colour: every link in running text on the homepage is forest, like the class and age links. */
-.fg .hero__quiet a, .fg .mission__body a, .fg .seq__links a { color: var(--forest); }
-.fg .hero__quiet a:hover, .fg .mission__body a:hover, .fg .seq__links a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
+.fg .hero__quiet a, .fg .seq__links a { color: var(--forest); }
+.fg .hero__quiet a:hover, .fg .seq__links a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
 /* Short laptop screens (1024x768 and the like): tighter steps so both buttons stay in the first screen. */
 @media (min-width: 901px) and (max-height: 820px) {
   .hero__title { font-size: min(clamp(3.25rem, 2rem + 5.2vw, 7rem), 9vh); margin-top: 4vh; }
@@ -197,12 +197,13 @@ html:not(.anim) .label { transition: none; }
   .seq__track, .seq__text, .seq__photo .plate__fig, .seq__dots i { transition: none; }
 }
 
-/* ---------- Why this exists: one sentence that opens the classes, on the same paper ---------- */
-/* The mission is a preface, not a second menu heading: a subhead-sized title, then a hairline
-   before the classes heading takes the lead. */
-.mission { background: var(--paper); padding-bottom: 0; }
-.mission + .classes { padding-top: 0; }
-.mission + .classes .classes__grid { margin-top: clamp(48px, 6vw, 88px); padding-top: clamp(48px, 6vw, 88px); border-top: 1px solid var(--border-soft); }
+/* ---------- Why this exists: the mission on the ink field ---------- */
+/* Its own dark band, so it never reads as part of the classes heading below it. */
+.mission { background: var(--field-ink); color: var(--on-ink); }
+.mission .hb-display { color: var(--on-ink); }
+.mission .hb-soft { color: var(--on-ink-soft); }
+.fg .mission__body a { color: var(--on-ink); }
+.fg .mission__body a:hover { color: var(--on-ink); text-decoration-thickness: 2px; }
 .mission__inner { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(16px, 5vw, 80px); align-items: baseline; }
 .mission h2 { font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); line-height: 1.1; }
 .mission__body p + p { margin-top: 18px; }
