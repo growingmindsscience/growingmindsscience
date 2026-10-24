@@ -235,6 +235,8 @@ html:not(.anim) .label { transition: none; }
 .classes__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
 .classes__grid h2 { font-size: clamp(2rem, 1.2rem + 2.4vw, 3.25rem); }
 .classes__intro { margin-top: 16px; max-width: 34ch; }
+.classes .menu__go { grid-column: 1 / -1; justify-self: start; font-size: 15px; font-weight: 500; color: var(--forest); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+.classes .menu__item:hover .menu__go { color: var(--forest-deep); text-decoration-thickness: 2px; }
 .classes__terms { margin-top: 28px; color: var(--ink-muted); font-size: 15px; max-width: 60ch; }
 @media (max-width: 860px) { .classes__grid { grid-template-columns: 1fr; } }
 
@@ -274,5 +276,6 @@ html:not(.anim) .label { transition: none; }
 .close h2 { color: #FFFDF8; font-size: clamp(2.25rem, 1.2rem + 3.2vw, 4rem); line-height: 0.98; letter-spacing: -0.025em; }
 .close p { margin-top: 20px; max-width: 36ch; color: #F3EFE4; }
 .close .hb-btn { margin-top: 28px; }
+.close .close__terms { margin-top: 16px; font-size: 15px; }
 /* Phones: the photo stacks above the words, so drop field-guide.css's .close padding (it showed as an empty band) and frame the pair and the slide instead of anchoring right. */
 @media (max-width: 800px) { .close { min-height: 0; padding-block: 0; } .close img { position: relative; height: auto; aspect-ratio: 4 / 3; object-position: 25% 50%; filter: none; } .close__inner { display: block; padding-top: 32px; } }
