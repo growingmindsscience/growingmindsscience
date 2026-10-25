@@ -1,0 +1,109 @@
+{
+  "id": "2026-10-24-tantrum-two-parts-recut",
+  "kind": "reel",
+  "date": "2026-10-24",
+  "series": "study-in-30",
+  "ground": "forest",
+  "age": "18 months to 5 years",
+  "row": "big feelings and meltdowns",
+  "recut_of": "2026-10-24-tantrums-are-short-with-shape",
+  "link": {
+    "label": "Free tool, link in bio",
+    "page": "What's underneath the meltdown, a free tool for looking at what sits under your child's meltdowns",
+    "url": "/tools/whats-underneath-the-meltdown"
+  },
+  "music": {
+    "brief": "Low steady pulse under a soft string pad, calm and focused, one gentle lift near the end, instrumental, for a short explainer video, about 60 seconds."
+  },
+  "sources": [
+    "Potegal & Davidson (2003). Temper Tantrums in Young Children: 2. Tantrum Duration and Temporal Organization. Journal of Developmental & Behavioral Pediatrics. 335 children, 18 to 60 months."
+  ],
+  "research": [
+    "toddler-4-1-inside-a-tantrum#f6"
+  ],
+  "drafted": {
+    "by": "hand",
+    "on": "2026-10-25",
+    "note": "Rewrite of the 2026-10-24 reel as one study told in order: the length, the closer look, the two parts, and the advice that comes out of them."
+  },
+  "beats": [
+    {
+      "id": "hook",
+      "kind": "hook",
+      "text": "A tantrum has two parts. The second one reaches for you.",
+      "say": "A tantrum has two parts, and the second one reaches for you.",
+      "pause": 0.35
+    },
+    {
+      "id": "promise",
+      "text": "Here is how researchers found them, and what to do in each.",
+      "say": "Here is how researchers found them, and what to do in each.",
+      "pause": 0.4
+    },
+    {
+      "id": "setup",
+      "text": "Parents of 335 children, 18 months to 5 years, wrote down each tantrum.",
+      "sub": "Soon after it ended.",
+      "say": "The parents of three hundred thirty five toddlers and preschoolers wrote down each tantrum soon after it ended.",
+      "pause": 0.4
+    },
+    {
+      "id": "length",
+      "text": "The most common tantrum lasted half a minute to a minute.",
+      "sub": "3 in 4 were over within 5 minutes.",
+      "say": "The most common one lasted half a minute to a minute. Three in four were over within five minutes.",
+      "stat": {
+        "value": "75%",
+        "label": "over within 5 minutes"
+      },
+      "pause": 0.45
+    },
+    {
+      "id": "closer",
+      "text": "Then they looked at every half minute.",
+      "sub": "Two things were happening at once.",
+      "say": "Then the researchers looked at each half minute, and saw two things happening at once.",
+      "pause": 0.4
+    },
+    {
+      "id": "anger",
+      "text": "Part one is anger. It peaks at the start, then falls away.",
+      "sub": "Screaming, kicking, throwing.",
+      "say": "The first part was anger. Screaming and kicking peaked right at the start, then fell away.",
+      "pause": 0.4
+    },
+    {
+      "id": "sadness",
+      "text": "Part two is sadness. It builds slowly underneath, and lasts longer.",
+      "sub": "Whining, crying, reaching for comfort.",
+      "say": "Underneath it, sadness built slowly, from whining to crying to reaching for comfort.",
+      "pause": 0.45
+    },
+    {
+      "id": "catch",
+      "text": "The honest catch: the times came from parents' accounts.",
+      "sub": "Nobody used a stopwatch.",
+      "say": "The honest catch is that parents reported these times. Nobody used a stopwatch.",
+      "pause": 0.4
+    },
+    {
+      "id": "home",
+      "text": "In the anger, stay close and quiet. In the sadness, comfort.",
+      "sub": "When they reach for you, that is your moment.",
+      "say": "So in the anger, stay close and quiet. When they reach for you, that is your moment to comfort them.",
+      "pause": 0.45
+    },
+    {
+      "id": "close",
+      "kind": "close",
+      "text": "See what sits under the next meltdown.",
+      "say": "Our free tool, What's underneath the meltdown, is in the bio.",
+      "pause": 0.3
+    },
+    {
+      "id": "mark",
+      "kind": "mark",
+      "dur": 1
+    }
+  ]
+}
