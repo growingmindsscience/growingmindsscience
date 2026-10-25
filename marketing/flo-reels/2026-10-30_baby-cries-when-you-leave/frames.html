@@ -165,7 +165,7 @@
 </div>
 
 <script>
-// Captions, broken by hand at natural phrases; each starts on its first word's time in words.json.
+// Captions, broken by hand at natural phrases; each starts on its first word's time in words-take1.json (WARP below maps them onto the current take).
 const CAPS = [
   [0.08, "Your baby cries"], [0.95, "the second you leave the room?"],
   [3.12, "That's often a sign"], [3.95, "of healthy development."], [5.48, "Not something you did wrong."],
@@ -213,6 +213,13 @@ window.renderAt = function (t) {
   const span = $("#cap span"); span.textContent = cap; span.style.visibility = cap ? "visible" : "hidden";
 };
 window.END = END;
+// Retimed to narration-v2 (Matthew's voice settings): new time -> original timeline, anchored on each word.
+const WARP = [[0, 0], [0.32, 0.4], [0.6, 0.64], [1.0, 1.08], [1.28, 1.36], [1.52, 1.6], [1.68, 1.76], [1.8, 1.92], [1.92, 2.16], [2.76, 3.12], [3.04, 3.36], [3.36, 3.64], [3.56, 3.76], [3.72, 4], [3.84, 4.2], [4.24, 4.4], [5.32, 5.48], [5.6, 5.76], [5.84, 5.96], [6.0, 6.08], [6.16, 6.24], [6.92, 7.24], [7.04, 7.36], [7.28, 7.6], [7.56, 7.84], [7.72, 8.08], [7.84, 8.24], [8.0, 8.48], [8.32, 8.72], [8.96, 9.28], [9.2, 9.52], [9.72, 9.96], [9.88, 10.12], [10.0, 10.24], [10.64, 10.88], [10.84, 11.08], [11.08, 11.32], [11.28, 11.72], [11.84, 12.08], [11.973, 12.187], [12.12, 12.32], [12.24, 12.48], [12.613, 12.64], [13.307, 13.6], [13.52, 14], [13.68, 14.24], [14.04, 14.6], [14.24, 14.96], [15.333, 15.64], [15.52, 15.76], [15.68, 15.92], [15.92, 16.08], [16.52, 16.8], [16.88, 17.12], [17.68, 18.16], [17.84, 18.32], [18.76, 19.32], [19.0, 19.52], [19.64, 20.12], [20.24, 20.72], [20.48, 20.96], [20.64, 21.12], [20.96, 21.44], [21.44, 22], [21.84, 22.32], [22.4, 22.92], [22.56, 23.16], [22.8, 23.4], [23.08, 23.6], [23.2, 23.76], [23.44, 23.92], [23.6, 24.08], [23.8, 24.28], [24.36, 25.024], [25.0, 25.6], [25.32, 25.96], [25.6, 26.24], [25.84, 26.48], [26.4, 27.04], [26.56, 27.2], [27.333, 28], [27.44, 28.2], [27.76, 28.4], [28.16, 28.84], [28.48, 29.12], [29.08, 29.893], [29.36, 30.2], [29.68, 30.4], [29.76, 30.56], [30.04, 30.76], [30.24, 30.96], [30.36, 31.12], [30.64, 31.48], [31.08, 31.68], [31.6, 32.4], [31.8, 32.6], [31.92, 32.72], [32.48, 33.28], [33.6, 34.4]];
+const toOld = t => { for (let i = 1; i < WARP.length; i++) if (t <= WARP[i][0]) { const [a0, b0] = WARP[i - 1], [a1, b1] = WARP[i]; return b0 + (b1 - b0) * (t - a0) / (a1 - a0); } return t - WARP[WARP.length - 1][0] + WARP[WARP.length - 1][1]; };
+const renderOld = window.renderAt;
+window.renderAt = t => renderOld(toOld(t));
+window.END = 33.6;
+
 const q = new URLSearchParams(location.search);
 if (q.has("cover")) document.body.classList.add("cover");
 else window.renderAt(q.has("t") ? +q.get("t") : 1.5);

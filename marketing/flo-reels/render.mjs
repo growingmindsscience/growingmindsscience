@@ -23,7 +23,7 @@ const dir = resolve(folder);
 const url = pathToFileURL(join(dir, "frames.html")).href;
 const FPS = 30;
 
-const browser = await chromium.launch();
+const browser = await chromium.launch({ channel: "chrome" });
 const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
 
 if (mode === "cover") {
@@ -50,7 +50,7 @@ if (mode === "cover") {
     "-f", "image2pipe", "-framerate", String(FPS), "-c:v", "png", "-i", "-",
     "-i", audio, "-af", "apad", "-t", end.toFixed(3),
     "-c:v", "libx264", "-preset", "slow", "-crf", "18", "-pix_fmt", "yuv420p", "-r", String(FPS),
-    "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart",
+    "-c:a", "aac", "-b:a", "256k", "-ar", "48000", "-movflags", "+faststart",
     join(dir, "final.mp4")], { stdio: ["pipe", "inherit", "inherit"] });
   for (let i = 0; i < frames; i++) {
     await page.evaluate((t) => window.renderAt(t), i / FPS);
