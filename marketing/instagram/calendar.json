@@ -8,7 +8,7 @@
       "age": "18 months to 5 years",
       "row": "big feelings and meltdowns",
       "scheduled_at": "2026-10-24T19:00:00-04:00",
-      "status": "approved",
+      "status": "published",
       "approved_on": "2026-10-20",
       "drafted_by": "draft.mjs",
       "scores": {
@@ -18,7 +18,10 @@
         "save": 7,
         "share": 7,
         "voice": 8
-      }
+      },
+      "published_at": "2026-10-25T00:32:38.656Z",
+      "media_id": "18148152721604239",
+      "permalink": "https://www.instagram.com/reel/De5bTjoH9rt/"
     },
     {
       "id": "2026-10-27-dropped-spoon",
