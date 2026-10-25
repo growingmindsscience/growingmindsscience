@@ -372,7 +372,7 @@ No new ones added. Removed: the homepage "Mental models, not scripts." H2. Remai
 ## Needs a manual update outside the repo
 
 - **Stripe:** product and price names (the $34 one-time product, printables, gift) still say Number Path. Checkout pages and receipts show the Stripe product name.
-- **Email sender:** `NSC_EMAIL_FROM` in the nsc Vercel project overrides the in-repo default. If it is set to "Number Path <…>", change it to "Tallykin <hello@growingmindsscience.com>". Also check the Resend sender display name.
+- **Email sender:** `NSC_EMAIL_FROM` in the nsc Vercel project overrides the in-repo default. If it is set to "Number Path <…>", change it to "Tallykin <hello@fromlittleonward.com>". Also check the Resend sender display name.
 - **Static OG images:** `site-home.jpg` has no text, so nothing to change. Article cards (`assets/img/og/*.png`) carry article titles only.
 - **Instagram handle** `@growingmindsscience` (out of scope).
 - **Third-party listings:** none found in the repo.

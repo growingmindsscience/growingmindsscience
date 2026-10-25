@@ -27,7 +27,7 @@ All of these hard-code `https://growingmindsscience.com` today:
 
 ## 3. Outside the repo
 
-- [ ] Email from-address: verify fromlittleonward.com in Resend (SPF, DKIM, DMARC), then set `NSC_EMAIL_FROM` and the static site's sender. Keep replies going to the Gmail inbox.
+- [x] Email from-address: fromlittleonward.com is verified in Resend and hello@fromlittleonward.com forwards to an inbox. The nsc default sender is `Tallykin <hello@fromlittleonward.com>`; replies still go to the Gmail inbox. The static site sends no email. `NSC_EMAIL_FROM` is not set on the nsc Vercel project (checked 2026-10-25), so the default applies once deployed.
 - [ ] Stripe: update the webhook endpoint URLs, Checkout success and cancel URLs (env vars), the customer portal's return URL, receipt links, and the business website in account settings.
 - [ ] Supabase auth (project `xtepkichenvvyewqpolg`): Site URL and allowed redirect URLs, and the links in the auth email templates.
 - [ ] Mux: the playback restriction's allowed referrers must include the new domain before the switch, or class videos stop playing.
