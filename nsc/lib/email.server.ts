@@ -10,18 +10,16 @@ import "server-only";
  * ready, never a guilt trip. Templates live in lib/engagement.ts.
  */
 
-// TODO(domain): switch this default to "Tallykin <hello@fromlittleonward.com>"
-// once Resend has verified fromlittleonward.com (SPF, DKIM, DMARC), and first
-// confirm fromlittleonward.com has MX records so replies to it do not bounce.
-// Until then NSC_EMAIL_FROM on the nsc Vercel project can override it.
+// fromlittleonward.com is verified in Resend (SPF, DKIM, DMARC).
+// NSC_EMAIL_FROM on the nsc Vercel project still overrides this default.
 const FROM =
   process.env.NSC_EMAIL_FROM ??
-  "Tallykin <hello@growingmindsscience.com>";
+  "Tallykin <hello@fromlittleonward.com>";
 
 /**
- * Where replies go. The From address must stay on the domain verified in
- * Resend, but hello@growingmindsscience.com has no inbox (no MX record), so
- * every email asks for replies at the Gmail address that is read.
+ * Where replies go. hello@fromlittleonward.com forwards, but replies are
+ * pointed straight at the Gmail inbox that is read, so a forwarding change
+ * can never strand them.
  */
 const REPLY_TO = process.env.NSC_EMAIL_REPLY_TO ?? "growingmindsscience@gmail.com";
 
