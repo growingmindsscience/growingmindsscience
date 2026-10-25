@@ -532,11 +532,11 @@ Generated 2026-10-23 from `git ls-files` on branch `rename/from-little-onward`. 
 | `assets/img/og/screen-time.png` | asset | regenerate with new wordmark and arcs-and-leaf mark | done |
 | `assets/img/og/self-regulation.png` | asset | regenerate with new wordmark and arcs-and-leaf mark | done |
 | `assets/img/og/serve-and-return.png` | asset | regenerate with new wordmark and arcs-and-leaf mark | done |
-| `assets/img/og/site-birth-to-12-months.jpg` | asset | photograph, no text: keep | done (no change needed) |
-| `assets/img/og/site-classes.jpg` | asset | photograph, no text: keep | done (no change needed) |
-| `assets/img/og/site-family-systems.jpg` | asset | photograph, no text: keep | done (no change needed) |
-| `assets/img/og/site-home.jpg` | asset | photograph, no text: keep | done (no change needed) |
-| `assets/img/og/site-preschool.jpg` | asset | photograph, no text: keep | done (no change needed) |
+| `assets/img/og/site-birth-to-12-months.jpg` | asset | stock photograph: removed, pages use `site-brand.png` (the lockup) | done |
+| `assets/img/og/site-classes.jpg` | asset | stock photograph: removed, pages use `site-brand.png` (the lockup) | done |
+| `assets/img/og/site-family-systems.jpg` | asset | stock photograph: removed, pages use `site-brand.png` (the lockup) | done |
+| `assets/img/og/site-home.jpg` | asset | stock photograph: removed, pages use `site-brand.png` (the lockup) | done |
+| `assets/img/og/site-preschool.jpg` | asset | stock photograph: removed, pages use `site-brand.png` (the lockup) | done |
 | `assets/img/og/toddler-no.png` | asset | regenerate with new wordmark and arcs-and-leaf mark | done |
 | `assets/img/original-logo-mark-no-words-128.png` | asset | retired brain logo, no letters; no longer used by any page or generator | needs-me (retired; delete when ready) |
 | `assets/img/original-logo-mark-no-words-180.png` | asset | retired brain logo, no letters; no longer used by any page or generator | needs-me (retired; delete when ready) |
