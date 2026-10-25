@@ -34,7 +34,7 @@ for (const issue of issues) {
   }
   const done = marks.length && marks.every(({ id }) => {
     const p = byId.get(id);
-    return !p || p.status === "published" || (["held", "rejected"].includes(p.status) && new Date(p.scheduled_at) < new Date());
+    return !p || ["published", "removed"].includes(p.status) || (["held", "rejected"].includes(p.status) && new Date(p.scheduled_at) < new Date());
   });
   if (done) {
     try { gh("issue", "close", String(issue.number), "--comment", "Every post in this batch has gone out or was held past its slot. Closing."); console.log(`holds: closed issue #${issue.number}`); }
