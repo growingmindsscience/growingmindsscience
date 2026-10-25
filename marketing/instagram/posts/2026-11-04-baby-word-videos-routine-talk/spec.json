@@ -27,74 +27,78 @@
   "drafted": {
     "by": "draft.mjs",
     "model": "claude-opus-5-5",
-    "on": "2026-10-20"
+    "on": "2026-10-20",
+    "revised": {
+      "by": "hand",
+      "on": "2026-10-25",
+      "note": "Rewritten as one study told in order (DeLoache et al., 2010), the second trial kept only to answer 'was it a fluke'; the meta-analysis moved to the caption."
+    }
   },
   "beats": [
     {
       "id": "hook",
       "kind": "hook",
-      "text": "Baby word videos taught no extra words.",
-      "say": "Baby word videos taught no extra words.",
-      "pause": 0.3
+      "text": "The babies who learned the most words never saw the video.",
+      "say": "The babies who learned the most words never saw the video.",
+      "pause": 0.35
     },
     {
       "id": "promise",
-      "text": "Stay for three everyday moments to teach words tonight.",
-      "say": "Stay for three everyday moments to teach words tonight.",
+      "text": "Here is the study, and the part even the parents got wrong.",
+      "say": "Here is the study, and the part even the parents got wrong.",
       "pause": 0.4
     },
     {
       "id": "setup",
-      "text": "Babies 12 to 18 months watched a popular word DVD for 4 weeks.",
-      "sub": "They learned no more words than babies who never saw it.",
-      "say": "Twelve to eighteen month olds watched a word video for four weeks and learned no more words than babies without it.",
+      "text": "12 to 18 months. A popular word video at home for a month.",
+      "say": "Families of twelve to eighteen month olds played a popular word video at home for a month.",
+      "pause": 0.4
+    },
+    {
+      "id": "result",
+      "text": "They learned no more of its words than babies who never saw it.",
+      "say": "Those babies learned no more of its words than babies who never saw it.",
       "pause": 0.45
     },
     {
       "id": "routines",
-      "text": "The most learning came from parents teaching the words in everyday routines.",
-      "say": "The most learning came from parents teaching the words in everyday routines.",
-      "pause": 0.4
+      "text": "The most learning: parents teaching the same words in everyday routines.",
+      "sub": "No video at all.",
+      "say": "The most learning was in a group with no video, where parents taught the same words in everyday routines.",
+      "pause": 0.45
     },
     {
       "id": "belief",
-      "text": "Parents who liked the DVD thought it taught more than it did.",
-      "say": "Parents who liked the video thought it taught more than it did.",
+      "text": "And parents who liked the video thought their baby had learned more.",
+      "sub": "More than the babies actually had.",
+      "say": "And the parents who liked the video tended to think their baby had learned more than they had.",
+      "pause": 0.45
+    },
+    {
+      "id": "fluke",
+      "text": "A fluke? A second trial, 12 to 15 months, found the same.",
+      "say": "Was it a fluke? A second trial, with twelve to fifteen month olds, found the same.",
       "pause": 0.4
     },
     {
-      "id": "second",
-      "text": "A second trial: 12 to 15 months, 6 weeks of a word DVD.",
-      "sub": "No added vocabulary growth.",
-      "say": "A six week trial with twelve to fifteen month olds found the same.",
-      "pause": 0.35
-    },
-    {
-      "id": "review",
-      "text": "Across 59 reports, children learned less from video than from a live person.",
-      "sub": "Ages 0 to 6. The gap shrank as children grew.",
-      "say": "Across fifty nine reports, children learned less from video than from a live person.",
-      "pause": 0.45
-    },
-    {
       "id": "catch",
-      "text": "The honest catch: these trials tested only word videos and word learning.",
-      "sub": "Not every kind of screen use. And the review's authors say some studies may overstate the gap.",
-      "say": "The honest catch is that these trials only tested word videos, and the review's authors say some studies may overstate the gap.",
-      "pause": 0.45
+      "text": "The honest catch: these trials tested word videos and word learning.",
+      "sub": "Not every screen in your home.",
+      "say": "The honest catch is that these trials tested word videos, not every screen in your home.",
+      "pause": 0.4
     },
     {
       "id": "home",
-      "text": "Name the cup in the bath, the spoon at dinner, the sock while dressing.",
-      "sub": "Then wait for your baby's turn.",
-      "say": "Tonight, name the cup in the bath, the spoon at dinner, the sock while dressing, then wait.",
+      "text": "So do what that group did. Name the cup in the bath.",
+      "sub": "The spoon at dinner. The sock while dressing. Then wait.",
+      "say": "So do what that group did. Name the cup in the bath, the spoon at dinner, the sock while dressing, then wait.",
       "pause": 0.45
     },
     {
       "id": "close",
       "kind": "close",
       "text": "The fuller picture on screens and early words is free.",
-      "say": "Screens, language, and attention is our free page with the fuller picture. The link is in the bio.",
+      "say": "Screens, language, and attention is our free page. The link is in the bio.",
       "pause": 0.3
     },
     {

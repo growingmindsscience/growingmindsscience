@@ -12,6 +12,7 @@ Check, in this order:
    - `slide2`: does the second slide (or the promise beat) work as a hook on its own?
    - `clarity`: one idea, followed on first read or first hearing, no wasted slide or beat?
    - `save`: is the "try" content concrete enough to keep and use tonight?
+   - `story`: does it hold together as one story? Read the beats (or slides) in order with "so", "but" or "then" between them; every join that reads "and also" is a beat on a new topic and costs a point. A reel that brings in a second study the first did not raise a question for, opens a loop and pays it off later with other beats in between, has on-screen text that says a different number or claim from the voice, or gives home advice that does not come out of the finding, scores 6 or lower. Write the story in one sentence in your edits; if you cannot, it is not a story.
    - `share`: would a parent send it to their partner, a friend, a grandparent?
    - `voice`: warm, plain and exact, like the approved example?
 5. **Edits.** Concrete changes that would raise the weakest scores or fix every accuracy and rule problem: the line, the slide or beat, the replacement. If the hook can be better, write the better hook.
@@ -22,4 +23,4 @@ How to score: 7 is a solid post you would publish without embarrassment. 8 is on
 
 On a revision you are shown your notes on the earlier draft. Check each one. Where it was addressed well, the scores must reflect that. Do not move the goalposts: raise a new point only when it fixes a real weakness, an accuracy problem or a rule break, never to swap one good line for another.
 
-Verdict `pass` only when every claim is fully supported, there is no rule break, it is fresh, and every score is at least 8 for hook and clarity, 7 for save and voice, 6 for slide2 and share. Otherwise `revise`.
+Verdict `pass` only when every claim is fully supported, there is no rule break, it is fresh, and every score is at least 8 for hook, story and clarity, 7 for save and voice, 6 for slide2 and share. Otherwise `revise`.
