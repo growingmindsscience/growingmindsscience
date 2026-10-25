@@ -65,10 +65,12 @@ function shell({ title, description, canonicalPath, body, extraHead = "" }) {
   <link rel="canonical" href="${ORIGIN}${canonicalPath}" />
 
   <meta property="og:type" content="article" />
+  <meta property="og:url" content="${ORIGIN}${canonicalPath}" />
   <meta property="og:title" content="${esc(title)} | From Little Onward" />
   <meta property="og:description" content="${esc(description)}" />
   <meta property="og:image" content="${ORIGIN}/assets/img/og/claims-library.png" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="${ORIGIN}/assets/img/og/claims-library.png" />
 ${extraHead}
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
