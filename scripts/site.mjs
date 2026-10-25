@@ -19,7 +19,7 @@ export const SITE_ORIGIN = "https://www.fromlittleonward.com";
 
 // Social card for pages without one of their own (check-canonicals.mjs --fix
 // gives such pages this og:image and twitter:image).
-export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/assets/img/og/site-home.jpg`;
+export const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/assets/img/og/site-brand.png`;
 
 // The Instagram account every footer and the homepage JSON-LD sameAs link to.
 // check-canonicals.mjs fails on any other handle in a deployed page, and its

@@ -9,7 +9,7 @@ Note: `/lab/a`, `/lab/b`, `/lab/c` are the archived homepage compositions from t
 ## 0. Findings that change the brief
 
 - **The About page is already rebranded on `main`.** Title, `og:title`, `og:description`, meta description, alt text, body copy, and the "Ask the research" tools entry all read From Little Onward / Ask the research. "How From Little Onward teaches" is already the section label. The Growing Minds Science version you saw was likely a cached page.
-- **`/assets/img/og/site-home.jpg` has no baked-in text.** It is a plain photograph, so it needs no change.
+- **`/assets/img/og/site-home.jpg` was a stock photograph.** Replaced by `/assets/img/og/site-brand.png`, the From Little Onward lockup (`scripts/build-site-og-card.mjs`).
 - **"A living field guide to the growing mind" footer text** appears only in `lab/a` and in `docs/field-guide/fragments/footer.html` (not deployed). Every live page footer already uses the access line.
 
 ## 1. `growing` (case-insensitive)

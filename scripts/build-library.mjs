@@ -130,9 +130,9 @@ function shell({ title, description, canonical, draft, body, extraHead = "" }) {
   <meta property="og:url" content="${canonical}" />
   <meta property="og:title" content="${escAttr(title)} | From Little Onward" />
   <meta property="og:description" content="${escAttr(description)}" />
-  <meta property="og:image" content="${ORIGIN}/assets/img/og/site-home.jpg" />
+  <meta property="og:image" content="${ORIGIN}/assets/img/og/site-brand.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="${ORIGIN}/assets/img/og/site-home.jpg" />
+  <meta name="twitter:image" content="${ORIGIN}/assets/img/og/site-brand.png" />
 ${extraHead}
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
