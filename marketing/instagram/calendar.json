@@ -32,9 +32,12 @@
       "age": "18 months to 5 years",
       "row": "big feelings and meltdowns",
       "scheduled_at": "2026-10-25T11:45:00-04:00",
-      "status": "approved",
+      "status": "published",
       "approved_on": "2026-10-25",
-      "recut_of": "2026-10-24-tantrums-are-short-with-shape"
+      "recut_of": "2026-10-24-tantrums-are-short-with-shape",
+      "published_at": "2026-10-25T16:29:43.045Z",
+      "media_id": "18082752599350623",
+      "permalink": "https://www.instagram.com/reel/De7I1U8iHzl/"
     },
     {
       "id": "2026-10-27-dropped-spoon",
