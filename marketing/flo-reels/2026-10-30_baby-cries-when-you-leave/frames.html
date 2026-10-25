@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Why your baby cries when you leave · FLO Reel frames</title>
+<style>
+  @font-face { font-family: "Newsreader"; src: url("../../../assets/fonts/newsreader-v26-latin.woff2") format("woff2"); font-weight: 200 800; }
+  @font-face { font-family: "Inter"; src: url("../../../assets/fonts/inter-v20-latin.woff2") format("woff2"); font-weight: 100 900; }
+  :root {
+    --flo-ink: #193C39; --flo-paper: #F7F4EC; --flo-white: #FFFDF8; --flo-sage: #E0EBE5;
+    --flo-verdigris: #245F58; --flo-clay: #C46C4D; --flo-ochre: #D2A453; --flo-research: #426B91;
+    --muted: #546965; --arc: #A9C3B2; --leaf-pale: #CFDFD6; --leaf: #8DAE9A;
+    --serif: "Newsreader", Georgia, serif; --sans: "Inter", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--flo-paper); }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+  .beat { position: absolute; inset: 0; opacity: 0; }
+  .beat.paper { background: var(--flo-paper); color: var(--flo-ink); }
+  .beat.ink { background: var(--flo-ink); color: var(--flo-white); }
+  /* Safe area: y 250 to 1520. Everything readable sits inside it. */
+  .meta { position: absolute; left: 96px; top: 290px; font: 600 26px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .ink .meta { color: var(--arc); }
+  .meta::before { content: ""; display: block; width: 72px; height: 4px; background: var(--flo-clay); margin-bottom: 22px; border-radius: 2px; }
+  .ink .meta::before { background: var(--flo-ochre); }
+  .head { position: absolute; left: 96px; right: 96px; top: 380px; font: 500 104px/1.04 var(--serif); letter-spacing: -.01em; }
+  .art { position: absolute; left: 0; right: 0; top: 760px; height: 520px; display: flex; align-items: center; justify-content: center; }
+  .art svg { width: 840px; height: 520px; overflow: visible; }
+  .lbl { font: 500 30px var(--sans); fill: var(--muted); letter-spacing: .02em; }
+  .ink .lbl { fill: var(--arc); }
+  #cap { position: absolute; left: 80px; right: 80px; top: 1330px; height: 170px; display: flex; align-items: center; justify-content: center; }
+  #cap span { display: inline-block; max-width: 920px; text-align: center; font: 600 50px/1.18 var(--sans); color: var(--flo-ink); background: var(--flo-white); padding: 18px 30px; border-radius: 14px; box-shadow: 0 0 0 2px rgba(25,60,57,.08); }
+  .steps { position: absolute; left: 96px; right: 96px; top: 640px; }
+  .step { display: flex; align-items: baseline; gap: 34px; padding: 34px 0; border-top: 2px solid #CDD3CB; }
+  .step:last-child { border-bottom: 2px solid #CDD3CB; }
+  .step b { font: 600 34px var(--sans); color: var(--flo-clay); letter-spacing: .06em; width: 64px; }
+  .step span { font: 400 84px/1 var(--serif); }
+  .close-name { position: absolute; left: 96px; right: 96px; top: 760px; font: 500 112px/1.02 var(--serif); }
+  .close-sub { position: absolute; left: 96px; top: 1000px; font: 500 36px var(--sans); color: var(--arc); }
+  .close-link { position: absolute; left: 96px; top: 1080px; font: 600 44px var(--sans); color: var(--flo-white); display: flex; align-items: center; gap: 18px; }
+  .close-link i { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: var(--flo-ochre); }
+  .mark { position: absolute; left: 96px; top: 1190px; width: 110px; height: 110px; }
+  /* Cover (its own frame, not part of the timeline) */
+  #cover { position: absolute; inset: 0; background: var(--flo-ink); color: var(--flo-white); display: none; }
+  body.cover #stage { display: none; } body.cover #cover { display: block; }
+  #cover .meta { top: 520px; }
+  #cover .head { top: 610px; font-size: 128px; line-height: 1.0; }
+  #cover .mark { top: 1180px; }
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <!-- 1 Hook -->
+  <section class="beat ink" data-start="0">
+    <div class="meta">FIG. 01 / BIRTH TO 12 MONTHS</div>
+    <h1 class="head">You leave the room.<br>Tears.</h1>
+    <div class="art" data-zoom>
+      <svg viewBox="0 0 840 520">
+        <!-- doorway, door swinging shut -->
+        <rect x="300" y="40" width="240" height="440" rx="6" fill="none" stroke="#A9C3B2" stroke-width="7"/>
+        <polygon id="door" points="300,40 420,72 420,452 300,480" fill="#214744" stroke="#A9C3B2" stroke-width="7" stroke-linejoin="round"/>
+        <line x1="120" y1="480" x2="720" y2="480" stroke="#A9C3B2" stroke-width="5" stroke-linecap="round" opacity=".5"/>
+        <!-- cry marks -->
+        <g stroke="#D2A453" stroke-width="7" stroke-linecap="round" data-pulse>
+          <line x1="150" y1="230" x2="196" y2="210"/><line x1="140" y1="280" x2="196" y2="280"/><line x1="150" y1="330" x2="196" y2="350"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- 2 Healthy development -->
+  <section class="beat paper" data-start="3.05">
+    <div class="meta">FIG. 02 / WHAT IT OFTEN MEANS</div>
+    <h1 class="head" data-in>Often a sign of healthy development</h1>
+    <div class="art" data-zoom>
+      <svg viewBox="0 0 840 520">
+        <line x1="80" y1="300" x2="760" y2="300" stroke="#193C39" stroke-width="6" stroke-linecap="round"/>
+        <rect id="half" x="420" y="276" width="340" height="48" rx="24" fill="#E0EBE5"/>
+        <line x1="80" y1="300" x2="760" y2="300" stroke="#193C39" stroke-width="6" stroke-linecap="round"/>
+        <g fill="#193C39"><circle cx="80" cy="300" r="10"/><circle cx="420" cy="300" r="10"/><circle cx="760" cy="300" r="10"/></g>
+        <text class="lbl" x="80" y="370" text-anchor="middle">Birth</text>
+        <text class="lbl" x="420" y="370" text-anchor="middle">6 months</text>
+        <text class="lbl" x="760" y="370" text-anchor="middle">12 months</text>
+        <circle id="dot2" cx="590" cy="300" r="18" fill="#D2A453"/>
+        <text class="lbl" x="590" y="236" text-anchor="middle" style="fill:#9E5236">often shows up here</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- 3 Still exist -->
+  <section class="beat paper" data-start="7.15">
+    <div class="meta">FIG. 03 / OUT OF SIGHT</div>
+    <h1 class="head" data-in>You still exist, out of sight</h1>
+    <div class="art" data-zoom>
+      <svg viewBox="0 0 840 520">
+        <circle id="you" cx="220" cy="270" r="80" fill="#E0EBE5" stroke="#193C39" stroke-width="6"/>
+        <rect x="470" y="110" width="250" height="320" rx="10" fill="#245F58"/>
+        <circle id="ghost" cx="595" cy="270" r="80" fill="none" stroke="#FFFDF8" stroke-width="5" stroke-dasharray="14 12" opacity="0"/>
+        <text class="lbl" x="595" y="480" text-anchor="middle">a wall, a door</text>
+        <text id="still" class="lbl" x="595" y="80" text-anchor="middle" style="fill:#9E5236" opacity="0">still there</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- 4 Their person -->
+  <section class="beat paper" data-start="13.45">
+    <div class="meta">FIG. 04 / WHO THEY COUNT ON</div>
+    <h1 class="head" data-in>And you're their person</h1>
+    <div class="art" data-zoom>
+      <svg viewBox="0 0 840 520">
+        <g stroke="#CDD3CB" stroke-width="4"><line x1="420" y1="290" x2="160" y2="140"/><line x1="420" y1="290" x2="700" y2="140"/><line x1="420" y1="290" x2="700" y2="430"/></g>
+        <line id="bond" x1="420" y1="290" x2="160" y2="420" stroke="#193C39" stroke-width="12" stroke-linecap="round"/>
+        <g fill="#FFFDF8" stroke="#CDD3CB" stroke-width="4"><circle cx="160" cy="140" r="34"/><circle cx="700" cy="140" r="34"/><circle cx="700" cy="430" r="34"/></g>
+        <circle cx="420" cy="290" r="54" fill="#E0EBE5" stroke="#193C39" stroke-width="6"/>
+        <circle cx="160" cy="420" r="62" fill="#193C39"/>
+        <circle cx="160" cy="420" r="14" fill="#D2A453"/>
+        <text class="lbl" x="420" y="390" text-anchor="middle">baby</text>
+        <text class="lbl" x="160" y="520" text-anchor="middle" style="fill:#193C39;font-weight:600">you</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- 5 Try this -->
+  <section class="beat paper" data-start="18.05">
+    <div class="meta">TRY THIS / WHAT HELPS</div>
+    <div class="steps">
+      <div class="step" data-at="19.32"><b>01</b><span>Short goodbye.</span></div>
+      <div class="step" data-at="20.72"><b>02</b><span>Same phrase.</span></div>
+      <div class="step" data-at="22.92"><b>03</b><span>Come back.</span></div>
+    </div>
+  </section>
+
+  <!-- 6 Peekaboo -->
+  <section class="beat paper" data-start="24.95">
+    <div class="meta">FIG. 05 / PRACTICE</div>
+    <h1 class="head" data-in>Peekaboo is practice</h1>
+    <div class="art" data-zoom>
+      <svg viewBox="0 0 840 520">
+        <circle cx="420" cy="250" r="110" fill="#E0EBE5" stroke="#193C39" stroke-width="6"/>
+        <circle id="back" cx="420" cy="250" r="20" fill="#D2A453"/>
+        <rect id="cloth" x="250" y="80" width="340" height="340" rx="22" fill="#245F58"/>
+        <text id="gone" class="lbl" x="420" y="480" text-anchor="middle">gone...</text>
+        <text id="again" class="lbl" x="420" y="480" text-anchor="middle" style="fill:#9E5236" opacity="0">and back again</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- 7 Close -->
+  <section class="beat ink" data-start="29.8">
+    <div class="meta">FROM LITTLE ONWARD</div>
+    <div class="close-name" data-in>Birth to 12 Months class</div>
+    <div class="close-sub">a From Little Onward class</div>
+    <div class="close-link"><i></i>Link in bio</div>
+    <svg class="mark" viewBox="-6 -20 128 128"><g fill="none" stroke="#A9C3B2" stroke-width="7.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.00,86.00 L16.00,80.00 A44.00,44.00 0 0 1 50.85,36.96"/><path d="M33.00,89.00 L33.00,85.00 A31.00,31.00 0 0 1 64.00,54.00 L79.00,54.00"/><path d="M49.50,92.00 L49.50,90.00 A19.00,19.00 0 0 1 68.50,71.00 L77.50,71.00"/></g><path d="M49.85,37.56 C45.03,15.57 74.60,-5.13 94.28,0.28 C92.82,16.58 68.40,39.82 49.85,37.56 Z" fill="#CFDFD6"/></svg>
+  </section>
+
+  <div id="cap"><span></span></div>
+</div>
+
+<div id="cover" class="ink">
+  <div class="meta">BIRTH TO 12 MONTHS</div>
+  <h1 class="head">Why your baby cries when you leave</h1>
+  <svg class="mark" viewBox="-6 -20 128 128"><g fill="none" stroke="#A9C3B2" stroke-width="7.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.00,86.00 L16.00,80.00 A44.00,44.00 0 0 1 50.85,36.96"/><path d="M33.00,89.00 L33.00,85.00 A31.00,31.00 0 0 1 64.00,54.00 L79.00,54.00"/><path d="M49.50,92.00 L49.50,90.00 A19.00,19.00 0 0 1 68.50,71.00 L77.50,71.00"/></g><path d="M49.85,37.56 C45.03,15.57 74.60,-5.13 94.28,0.28 C92.82,16.58 68.40,39.82 49.85,37.56 Z" fill="#CFDFD6"/></svg>
+</div>
+
+<script>
+// Captions, broken by hand at natural phrases; each starts on its first word's time in words.json.
+const CAPS = [
+  [0.08, "Your baby cries"], [0.95, "the second you leave the room?"],
+  [3.12, "That's often a sign"], [3.95, "of healthy development."], [5.48, "Not something you did wrong."],
+  [7.24, "In the second half"], [8.05, "of the first year,"], [9.28, "many babies start to understand"],
+  [10.88, "that you still exist"], [12.08, "when you're out of sight."],
+  [13.6, "And that you're their person."], [15.64, "So when you go,"], [16.8, "they notice."],
+  [18.16, "What helps:"], [19.32, "keep goodbyes short,"], [20.72, "use the same phrase"], [22.0, "every time,"],
+  [22.92, "and come back"], [23.6, "when you said you would."],
+  [25.02, "Peekaboo is practice for this."], [27.04, "You disappear,"], [28.0, "and you always come back."],
+  [29.89, "There's more in our"], [30.76, "Birth to 12 Months class."], [32.4, "Link in bio."],
+];
+const CAP_END = 33.6;
+const END = 34.4;               // narration ends 33.23; hold the close a beat
+const FADE = 0.28;
+const beats = [...document.querySelectorAll("#stage .beat")];
+const starts = beats.map(b => +b.dataset.start);
+const ease = x => x <= 0 ? 0 : x >= 1 ? 1 : 1 - Math.pow(1 - x, 3);
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const $ = s => document.querySelector(s);
+
+window.renderAt = function (t) {
+  beats.forEach((b, i) => {
+    const s = starts[i], e = i + 1 < beats.length ? starts[i + 1] : END + 1;
+    const op = i === 0 ? clamp((e + FADE - t) / FADE) * (t < e + FADE ? 1 : 0)
+                       : clamp((t - s) / FADE) * clamp((e + FADE - t) / FADE);
+    b.style.opacity = op;
+    b.style.visibility = op > 0 ? "visible" : "hidden";
+    const local = t - s, len = e - s;
+    const h = b.querySelector("[data-in]");
+    if (h) { const k = ease(local / 0.6); h.style.opacity = k; h.style.transform = `translateY(${(1 - k) * 34}px)`; }
+    const z = b.querySelector("[data-zoom]");
+    if (z) { const k = clamp(local / len); z.style.transform = `scale(${1 + 0.035 * k})`; z.style.opacity = i === 0 ? 1 : ease((local - 0.2) / 0.6); }
+    b.querySelectorAll("[data-at]").forEach(el => { const k = ease((t - +el.dataset.at + 0.15) / 0.5); el.style.opacity = 0.18 + 0.82 * k; el.style.transform = `translateX(${(1 - k) * 28}px)`; });
+  });
+  // beat-specific motion
+  { const k = ease((t - 0.3) / 1.4); $("#door").setAttribute("points", `300,40 ${420 + 110 * k},${72 - 25 * k} ${420 + 110 * k},${452 + 25 * k} 300,480`); }
+  { const p = 0.55 + 0.45 * Math.abs(Math.sin(t * 3.2)); $("[data-pulse]").style.opacity = t > 1.2 ? p : 0; }
+  { const k = ease((t - 4.2) / 0.8); $("#dot2").setAttribute("r", 18 * k + 0.01); $("#half").style.opacity = k; }
+  { const k = ease((t - 9.3) / 1.6); $("#you").setAttribute("cx", 220 + 375 * k); const g = ease((t - 11.3) / 0.6); $("#ghost").style.opacity = g; $("#still").style.opacity = g; }
+  { const k = ease((t - 14.9) / 0.7); $("#bond").setAttribute("stroke-width", 4 + 10 * k); }
+  { const c = ease((t - 27.15) / 0.55) - ease((t - 28.45) / 0.7); $("#cloth").setAttribute("height", Math.max(0.01, 340 * c)); $("#gone").style.opacity = t < 28.45 ? ease((t - 27.2) / 0.4) : 1 - ease((t - 28.45) / 0.4); $("#again").style.opacity = ease((t - 28.6) / 0.5); }
+  // caption
+  let cap = "";
+  for (let i = 0; i < CAPS.length; i++) if (t >= CAPS[i][0] && t < (CAPS[i + 1] ? CAPS[i + 1][0] : CAP_END)) cap = CAPS[i][1];
+  const span = $("#cap span"); span.textContent = cap; span.style.visibility = cap ? "visible" : "hidden";
+};
+window.END = END;
+const q = new URLSearchParams(location.search);
+if (q.has("cover")) document.body.classList.add("cover");
+else window.renderAt(q.has("t") ? +q.get("t") : 1.5);
+</script>
+</body>
+</html>

@@ -6,7 +6,7 @@ One folder per Reel, `<YYYY-MM-DD>_<short-slug>/`, holding script.md, frames (HT
 
 | Date | Reel | Points to | Status |
 | --- | --- | --- | --- |
-| 2026-10-30 | Why your baby cries when you leave | Birth to 12 Months class | waiting for calendar entry |
+| 2026-10-30 | Why your baby cries when you leave | Birth to 12 Months class | rendered (final.mp4, cover.png, caption.txt); not yet sent to Muse |
 | 2026-11-03 | Counting is not the same as knowing numbers | Teach | waiting for calendar entry |
 | 2026-11-06 | Why preschoolers struggle to share | Preschool Years class | waiting for calendar entry |
 | 2026-11-10 | Read with, not to | Teach | waiting for calendar entry |
@@ -22,3 +22,11 @@ One folder per Reel, `<YYYY-MM-DD>_<short-slug>/`, holding script.md, frames (HT
 | 2026-12-29 | A new year of growing together | All three classes | waiting for calendar entry |
 
 Single-image posts made elsewhere: Nov 13 (free pilot for organizations), Nov 27 (the best toys are simple), Dec 22 (small family rituals).
+
+## Making one
+
+1. `script.md`: on-screen text and narration per beat, from the approved calendar entry.
+2. Narration: ElevenLabs `eleven_v4`, "Matthew's Voice" (voice id `KjZZHIOnbFqvGnNEwISh`), saved as `narration.mp3`. Word timings from a transcription go in `words.json`.
+3. `frames.html`: the animated frames (1080x1920, brand guide 2.1, see `BRAND.md`), with the captions timed from `words.json`.
+4. Render: `node marketing/flo-reels/render.mjs <folder> cover`, `... stills <t> ...`, `... video narration.mp3`. Output is `final.mp4` (H.264, AAC, 30 fps).
+5. `caption.txt`: the calendar caption, with its source line and hashtags, ready to paste to Muse.
