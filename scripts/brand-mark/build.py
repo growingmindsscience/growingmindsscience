@@ -1,4 +1,4 @@
-"""Growing Minds Science mark: arcs and a sprout, drawn as vectors.
+"""From Little Onward mark: arcs and a sprout, drawn as vectors.
 
 Changes from the concept image (Matthew, 2026-10-15: keep the sprout):
 - The arcs no longer share one center. Each center steps down and right, so
@@ -7,10 +7,12 @@ Changes from the concept image (Matthew, 2026-10-15: keep the sprout):
 - A small-size drawing (two arcs, heavier strokes, larger leaf) for 32px and
   below, where three arcs merge.
 - Colors are the brand tokens: forest ink #193C39, sage-deep #8DAE9A,
-  sage #A9C3B2, sage-mist-2 #CFDFD6, verdigris #245F58, paper #F7F4EC.
-- SCIENCE is verdigris on paper (7.4:1) and sage on forest ink.
-- Type is outlined (Newsreader 500 for the name, Inter 500 for SCIENCE), so
-  the files render the same everywhere.
+  sage #A9C3B2, sage-mist-2 #CFDFD6, paper #F7F4EC.
+- The lockups set the wordmark as the site header does (2026-10-25): "from
+  little" in Newsreader 500, then ONWARD in Inter 500, uppercase, tracked
+  0.32em. Forest ink on paper; white on forest ink. Horizontal puts ONWARD on
+  the name's baseline; stacked puts it on its own line, centered.
+- Type is outlined, so the files render the same everywhere.
 """
 import math, os, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -27,7 +29,6 @@ os.makedirs(OUT, exist_ok=True)
 
 INK, PAPER = '#193C39', '#F7F4EC'
 SAGE, SAGE_DEEP, SAGE_LIGHT = '#A9C3B2', '#8DAE9A', '#CFDFD6'
-VERDIGRIS = '#245F58'
 
 # ---------------------------------------------------------------- the mark
 def arc_path(cx, cy, r, phi_end_deg, stub_bottom, stub_right):
@@ -127,40 +128,42 @@ def shape(fontfile, axes, text, size, tracking_em=0.0):
     asc = st['hhea'].ascent * scale
     return ' '.join(parts), width
 
-NEWS = os.path.join(HERE, 'fonts', 'Newsreader.ttf')
-INTER = os.path.join(HERE, 'fonts', 'Inter.ttf')
+# MARK_FONTS points at a folder holding Newsreader.ttf and Inter.ttf (the
+# variable fonts; the site's woff2 files work once decompressed to TTF).
+FONTS = os.environ.get('MARK_FONTS', os.path.join(HERE, 'fonts'))
+NEWS = os.path.join(FONTS, 'Newsreader.ttf')
+INTER = os.path.join(FONTS, 'Inter.ttf')
 
 def lockup(kind, dark):
     arcs, leaf, sw = mark()
     arc_col, leaf_col = (SAGE, SAGE_LIGHT) if dark else (INK, SAGE_DEEP)
-    name_col = '#F3EFE4' if dark else INK
-    sci_col = SAGE if dark else VERDIGRIS
+    name_col = desc_col = '#FFFFFF' if dark else INK
     bg = INK if dark else PAPER
-    name_d, name_w = shape(NEWS, {'wght': 500, 'opsz': 36}, 'growing minds', 100)
-    sci_d, sci_w = shape(INTER, {'wght': 600, 'opsz': 14}, 'SCIENCE', 34, tracking_em=0.30)
+    name_d, name_w = shape(NEWS, {'wght': 500, 'opsz': 36}, 'from little', 100)
+    desc_d, desc_w = shape(INTER, {'wght': 500}, 'ONWARD', 40, tracking_em=0.32)
     g_mark = (f'<g fill="none" stroke="{arc_col}" stroke-width="{sw}" stroke-linecap="round" stroke-linejoin="round">'
               + ''.join(f'<path d="{d}"/>' for d in arcs) + f'</g><path d="{leaf}" fill="{leaf_col}"/>')
     if kind == 'horizontal':
         ms = 1.75
         gap = 26
         name_x = 100 * ms + gap
-        W = name_x + max(name_w, sci_w) + 6
-        H = 170
+        desc_x = name_x + name_w + 30
+        W = desc_x + desc_w + 6
         H = 175
         body = (f'<g transform="translate(-14,6) scale({ms})">{g_mark}</g>'
-                f'<path transform="translate({name_x:.1f},92)" d="{name_d}" fill="{name_col}"/>'
-                f'<path transform="translate({name_x + 3:.1f},146)" d="{sci_d}" fill="{sci_col}"/>')
+                f'<path transform="translate({name_x:.1f},128)" d="{name_d}" fill="{name_col}"/>'
+                f'<path transform="translate({desc_x:.1f},128)" d="{desc_d}" fill="{desc_col}"/>')
     else:  # stacked
         ms = 3.0
         mw = 100 * ms
         W = max(name_w, mw) + 20
         mx = (W - mw) / 2
         name_x = (W - name_w) / 2
-        sci_x = (W - sci_w) / 2
+        desc_x = (W - desc_w) / 2
         H = mw + 170
         body = (f'<g transform="translate({mx - 20:.1f},10) scale({ms})">{g_mark}</g>'
                 f'<path transform="translate({name_x:.1f},{mw + 92:.1f})" d="{name_d}" fill="{name_col}"/>'
-                f'<path transform="translate({sci_x:.1f},{mw + 152:.1f})" d="{sci_d}" fill="{sci_col}"/>')
+                f'<path transform="translate({desc_x:.1f},{mw + 152:.1f})" d="{desc_d}" fill="{desc_col}"/>')
     pad = 40
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{-pad} {-pad} {W + 2*pad:.1f} {H + 2*pad:.1f}">'
             f'<rect x="{-pad}" y="{-pad}" width="{W + 2*pad:.1f}" height="{H + 2*pad:.1f}" fill="{bg}"/>{body}</svg>'), \
