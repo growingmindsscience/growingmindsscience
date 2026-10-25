@@ -3,7 +3,7 @@
 // Rebuild after changing curated cards or adding files to knowledge/sources/:
 //   node scripts/build-knowledge.mjs
 //
-// Generated: 2026-10-23T13:11:20.663Z
+// Generated: 2026-10-25T16:07:26.693Z
 
 export const KNOWLEDGE = [
   {
@@ -35184,7 +35184,7 @@ export const KNOWLEDGE = [
     "source": {
       "label": "From Little Onward class, Preschool Years (3 to 5): Lesson 4.3, Early Math: The Counting Ladder"
     },
-    "text": "Finding: Number Path: a parent-run check-in for ages about 2 to 5 that places a child on the counting ladder with a guided give-a-number game and suggests matched household games.\nSources: growingmindsscience.com/nsc (the site's class page calls it a free ten-minute check-in).\nConfidence: Your own product: please check the wording. The script says 'a short check-in' and does not say free or name the game.\n\nFinding: Low-income preschoolers (mean 5.4 years) played a linear number board game for roughly one hour: gains on magnitude comparison, number line estimation, counting and numeral identification, still present 9 weeks later; classmates who played the color version did not improve.\nSources: Ramani & Siegler (2008), Promoting broad and stable improvements in low-income children's numerical knowledge through playing number board games, Child Development, DOI 10.1111/j.1467-8624.2007.01131.x.\nConfidence: HIGH. 'A straight row of squares numbered one to ten' and saying the numbers on the squares while moving are from the published method, not the abstract: please check."
+    "text": "Finding: Number Path: a parent-run check-in for ages about 2 to 5 that places a child on the counting ladder with a guided give-a-number game and suggests matched household games.\nSources: fromlittleonward.com/nsc (the site's class page calls it a free ten-minute check-in).\nConfidence: Your own product: please check the wording. The script says 'a short check-in' and does not say free or name the game.\n\nFinding: Low-income preschoolers (mean 5.4 years) played a linear number board game for roughly one hour: gains on magnitude comparison, number line estimation, counting and numeral identification, still present 9 weeks later; classmates who played the color version did not improve.\nSources: Ramani & Siegler (2008), Promoting broad and stable improvements in low-income children's numerical knowledge through playing number board games, Child Development, DOI 10.1111/j.1467-8624.2007.01131.x.\nConfidence: HIGH. 'A straight row of squares numbered one to ten' and saying the numbers on the squares while moving are from the published method, not the abstract: please check."
   },
   {
     "id": "source-preschool-4-3-early-math-the-counting-ladder-30",

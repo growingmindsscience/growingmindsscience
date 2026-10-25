@@ -123,7 +123,7 @@ SUPABASE_SERVICE_ROLE_KEY          # server-only; used by the Stripe webhook
 STRIPE_SECRET_KEY                  # server-only
 STRIPE_WEBHOOK_SECRET              # server-only; from the webhook endpoint
 NSC_PRICE_ID                       # the one-time price id
-NEXT_PUBLIC_SITE_URL               # https://growingmindsscience.com (for redirects)
+NEXT_PUBLIC_SITE_URL               # https://www.fromlittleonward.com (for redirects; default DEFAULT_SITE_ORIGIN in lib/site.ts)
 NEXT_PUBLIC_NSC_PRICE_DISPLAY      # e.g. "$34" (display only)
 CRON_SECRET                        # server-only; Vercel sends it as the cron Bearer token
 RESEND_API_KEY                     # server-only; without it the engagement cron logs + skips sends
@@ -148,7 +148,7 @@ dev. Set the server-only secrets via `vercel env add`.
    so it serves at `https://<nsc-project>.vercel.app/nsc/*`.
 2. Add all env vars above in the Vercel project.
 3. In the **static site's root `vercel.json`**, add rewrites so
-   growingmindsscience.com/nsc proxies to the app:
+   www.fromlittleonward.com/nsc proxies to the app:
    ```json
    { "source": "/nsc", "destination": "https://<nsc-project>.vercel.app/nsc" },
    { "source": "/nsc/:path*", "destination": "https://<nsc-project>.vercel.app/nsc/:path*" }
@@ -161,7 +161,7 @@ Account: **Growing minds science** (`acct_1Tgtk3LIy3W5wQUy`), LIVE.
 - ✅ Product created: **Number Path — full access** (`prod_UqNqkOL2xt8fWK`)
 - ✅ Price created: **$34 one-time** → `NSC_PRICE_ID=price_1Tqh56LIy3W5wQUy3yLbcd6r`
 - ⚠ **Webhook** (do in the Stripe dashboard): add an endpoint →
-  `https://growingmindsscience.com/nsc/api/stripe-webhook`, events
+  `https://www.fromlittleonward.com/nsc/api/stripe-webhook`, events
   `checkout.session.completed` and `checkout.session.async_payment_succeeded`
   (plus `customer.subscription.created/updated/deleted` once the membership
   prices exist). Reveal its signing secret and set `STRIPE_WEBHOOK_SECRET` via
@@ -195,9 +195,9 @@ lands on `/auth/callback`) and shows "check your email" when no session comes
 back.
 
 Password reset: `/reset` → email link → `/auth/callback?next=/reset/update`.
-The Supabase project now uses `https://growingmindsscience.com` as its Site URL.
+The Supabase project should use `https://www.fromlittleonward.com` as its Site URL.
 Its redirect allowlist includes the exact `/nsc/auth/callback` URL and
-`https://growingmindsscience.com/nsc/auth/callback?next=**` for reset return paths.
+`https://www.fromlittleonward.com/nsc/auth/callback?next=**` for reset return paths.
 Keep these settings when updating authentication; an unmatched redirect falls
 back to the Site URL.
 

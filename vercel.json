@@ -1,5 +1,7 @@
 {
   "redirects": [
+    { "source": "/:path*", "has": [{ "type": "host", "value": "growingmindsscience.com" }],     "destination": "https://www.fromlittleonward.com/:path*", "permanent": true },
+    { "source": "/:path*", "has": [{ "type": "host", "value": "www.growingmindsscience.com" }], "destination": "https://www.fromlittleonward.com/:path*", "permanent": true },
     { "source": "/milestones.html", "destination": "/milestones", "permanent": true },
     { "source": "/pricing.html",    "destination": "/pricing",    "permanent": true },
     { "source": "/thank-you.html",  "destination": "/thank-you",  "permanent": true },

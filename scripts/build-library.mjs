@@ -15,6 +15,7 @@ import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from 
 import { execSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { SITE_ORIGIN } from "./site.mjs";
 
 import { KNOWLEDGE } from "../api/_knowledge-data.js";
 import { gradeEntry, AGE_BANDS } from "../tools/library/grader.mjs";
@@ -22,7 +23,7 @@ import { gradeEntry, AGE_BANDS } from "../tools/library/grader.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const ENTRIES_DIR = join(ROOT, "library", "entries");
 const OUT_DIR = join(ROOT, "answers");
-const ORIGIN = "https://www.fromlittleonward.com";
+const ORIGIN = SITE_ORIGIN;
 
 const args = process.argv.slice(2);
 const MODE = args.includes("--publish") ? "publish" : args.includes("--preview") ? "preview" : "report";

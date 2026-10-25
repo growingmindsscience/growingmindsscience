@@ -11,9 +11,10 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { SITE_ORIGIN } from "./site.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const ORIGIN = "https://www.fromlittleonward.com";
+const ORIGIN = SITE_ORIGIN;
 const OUT = join(ROOT, "claims");
 const CHECK = process.argv.includes("--check");
 

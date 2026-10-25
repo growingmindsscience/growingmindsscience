@@ -14,6 +14,7 @@ import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { tmpdir } from "node:os";
+import { SITE_ORIGIN } from "./site.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT_DIR = join(ROOT, "assets", "img", "og");
@@ -122,7 +123,7 @@ function hash(s) {
 
 function wireMeta(html, cardUrl, alt) {
   let out = html;
-  const abs = `https://www.fromlittleonward.com${cardUrl}`;
+  const abs = `${SITE_ORIGIN}${cardUrl}`;
   // Drop any dimension/alt tags we previously added so re-runs stay clean.
   out = out.replace(/\s*<meta\s+property="og:image:(?:width|height|alt)"[^>]*>/gi, "");
   const dims =
