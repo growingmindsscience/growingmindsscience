@@ -19,4 +19,4 @@ Educational content, not medical advice.
 How many times a day does your new walker go down and get straight back up?
 
 ## Hashtags
-#learningtowalk #toddlerlife #motordevelopment #firststeps #infantdevelopment #parentingscience #growingmindsscience
+#learningtowalk #toddlerlife #motordevelopment #firststeps #infantdevelopment #parentingscience #fromlittleonward

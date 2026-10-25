@@ -39,7 +39,7 @@ import { IG, HERE, POSTS, CALENDAR, INSIGHTS, AUTOMATION, loadEnv, readJson, wri
 import { loadResearch, usedSoFar, freshCandidates, ROWS } from "./research.mjs";
 import { validatePost, splitCaption, sceneNames, SERIES } from "./validate.mjs";
 import { ask } from "./llm.mjs";
-import { SITE_ORIGIN } from "../../../scripts/site.mjs";
+import { SITE_ORIGIN, INSTAGRAM_HANDLE, PREVIOUS_INSTAGRAM_HANDLES } from "../../../scripts/site.mjs";
 
 loadEnv();
 const a = args();
@@ -263,7 +263,9 @@ function assemble(item, slot, d) {
     ...(d.labels?.length ? { labels: d.labels } : {}),
     ...(isReel ? { beats: d.beats || [] } : { slides: d.slides || [] }),
   };
-  const tags = (d.hashtags || []).map((t) => `#${String(t).replace(/^#+/, "").replace(/[^\p{L}\p{N}_]/gu, "").toLowerCase()}`).filter((t) => t.length > 1);
+  // The old brand tag becomes the current handle; duplicates drop out.
+  const tags = [...new Set((d.hashtags || []).map((t) => String(t).replace(/^#+/, "").replace(/[^\p{L}\p{N}_]/gu, "").toLowerCase())
+    .map((t) => (PREVIOUS_INSTAGRAM_HANDLES.includes(t) ? INSTAGRAM_HANDLE : t)).filter(Boolean))].map((t) => `#${t}`);
   const captionMd = `# Caption\n\n${String(d.caption_body).trim()}\n\n## Hashtags\n${tags.join(" ")}\n`;
   const sourcesMd = `# Sources
 

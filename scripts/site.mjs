@@ -17,6 +17,13 @@
 
 export const SITE_ORIGIN = "https://www.fromlittleonward.com";
 
+// The Instagram account every footer and the homepage JSON-LD sameAs link to.
+// check-canonicals.mjs fails on any other handle in a deployed page, and its
+// --fix rewrites PREVIOUS_INSTAGRAM_HANDLES to this one.
+export const INSTAGRAM_HANDLE = "fromlittleonward";
+export const INSTAGRAM_URL = `https://www.instagram.com/${INSTAGRAM_HANDLE}/`;
+export const PREVIOUS_INSTAGRAM_HANDLES = ["growingmindsscience"];
+
 // Origins the site used to live at. They redirect to SITE_ORIGIN (vercel.json
 // and Vercel's domain settings) and must not appear in deployed files.
 export const PREVIOUS_ORIGINS = [

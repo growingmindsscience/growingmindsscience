@@ -19,11 +19,13 @@
 //   - sitemap.xml or robots.txt not on SITE_ORIGIN
 //   - nsc/lib/site.ts DEFAULT_SITE_ORIGIN disagreeing with SITE_ORIGIN
 //   - vercel.json not redirecting each previous origin to SITE_ORIGIN first
+//   - a link to a previous Instagram handle, or a homepage JSON-LD sameAs
+//     without INSTAGRAM_URL
 
 import { readFileSync, writeFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join, relative } from "node:path";
-import { SITE_ORIGIN, PREVIOUS_ORIGINS } from "./site.mjs";
+import { SITE_ORIGIN, PREVIOUS_ORIGINS, INSTAGRAM_URL, PREVIOUS_INSTAGRAM_HANDLES } from "./site.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const ORIGIN = SITE_ORIGIN;
@@ -43,6 +45,7 @@ const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const OLD_HOSTS = [...new Set(PREVIOUS_ORIGINS.map((o) => new URL(o).host.replace(/^www\./, "")))];
 // Email addresses on the old domain are skipped: mail is a separate decision.
 const OLD_RE = new RegExp(`(?<![@\\w.-])(?:https?://)?(?:www\\.)?(?:${OLD_HOSTS.map(escapeRe).join("|")})\\b`, "gi");
+const OLD_IG_RE = new RegExp(`https?://(?:www\\.)?instagram\\.com/(?:${PREVIOUS_INSTAGRAM_HANDLES.map(escapeRe).join("|")})(?![\\w.])/?`, "gi");
 
 function walk(dir, out = [], top = true) {
   for (const name of readdirSync(dir)) {
@@ -81,6 +84,12 @@ for (const file of files) {
   }
   OLD_RE.lastIndex = 0;
 
+  if (OLD_IG_RE.test(text)) {
+    if (FIX) text = text.replace(OLD_IG_RE, INSTAGRAM_URL);
+    else for (const hit of new Set(text.match(OLD_IG_RE))) problems.push(`${rel}: old Instagram link ${hit}`);
+  }
+  OLD_IG_RE.lastIndex = 0;
+
   if (text !== before) {
     writeFileSync(file, text);
     fixed++;
@@ -112,6 +121,10 @@ if (existsSync(nscSite)) {
   const m = readFileSync(nscSite, "utf8").match(/DEFAULT_SITE_ORIGIN\s*=\s*"([^"]*)"/);
   if (!m || m[1] !== ORIGIN) problems.push(`nsc/lib/site.ts: DEFAULT_SITE_ORIGIN is ${m ? m[1] : "missing"}, expected ${ORIGIN}`);
 }
+
+const home = readFileSync(join(ROOT, "index.html"), "utf8");
+const sameAs = [...home.matchAll(/"sameAs"\s*:\s*\[([^\]]*)\]/g)].map((m) => m[1]).join(" ");
+if (!sameAs.includes(`"${INSTAGRAM_URL}"`)) problems.push(`index.html: JSON-LD sameAs does not list ${INSTAGRAM_URL}`);
 
 // Old hosts must redirect, path and query intact, before any other rule runs
 // (redirects run before rewrites, so /nsc and /api are covered too).

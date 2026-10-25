@@ -10,6 +10,10 @@ import "server-only";
  * ready, never a guilt trip. Templates live in lib/engagement.ts.
  */
 
+// TODO(domain): switch this default to "Tallykin <hello@fromlittleonward.com>"
+// once Resend has verified fromlittleonward.com (SPF, DKIM, DMARC), and first
+// confirm fromlittleonward.com has MX records so replies to it do not bounce.
+// Until then NSC_EMAIL_FROM on the nsc Vercel project can override it.
 const FROM =
   process.env.NSC_EMAIL_FROM ??
   "Tallykin <hello@growingmindsscience.com>";

@@ -17,4 +17,4 @@ Educational content, not medical advice.
 What does your baby stare at longest right now?
 
 ## Hashtags
-#babyattention #infantdevelopment #goldilockseffect #babybrain #7months #parentingscience #growingmindsscience
+#babyattention #infantdevelopment #goldilockseffect #babybrain #7months #parentingscience #fromlittleonward

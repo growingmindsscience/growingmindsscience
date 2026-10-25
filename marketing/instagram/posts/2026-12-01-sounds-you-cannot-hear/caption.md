@@ -19,4 +19,4 @@ Educational content, not medical advice.
 Which languages does your baby hear at home?
 
 ## Hashtags
-#babylanguage #bilingualbaby #perceptualnarrowing #infantdevelopment #firstyear #parentingscience #growingmindsscience
+#babylanguage #bilingualbaby #perceptualnarrowing #infantdevelopment #firstyear #parentingscience #fromlittleonward
