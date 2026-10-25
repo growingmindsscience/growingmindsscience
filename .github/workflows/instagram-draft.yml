@@ -10,8 +10,10 @@ name: instagram-draft
 # "Phase 4: the automated loop".
 
 on:
-  schedule:
-    - cron: "23 11,17,23 * * *"
+  # Paused 2026-10-25: Muse now schedules and publishes @fromlittleonward. To resume,
+  # restore the schedule this commit removed:
+  # schedule:
+  #   - cron: "23 11,17,23 * * *"
   workflow_dispatch:
     inputs:
       force:
