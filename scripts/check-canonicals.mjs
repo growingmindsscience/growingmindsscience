@@ -4,7 +4,8 @@
 //
 //   node scripts/check-canonicals.mjs         # verify (exit 1 on any problem)
 //   node scripts/check-canonicals.mjs --fix   # rewrite relative canonicals and
-//                                             # old origins to SITE_ORIGIN
+//                                             # old origins to SITE_ORIGIN, and
+//                                             # add missing social tags
 //
 // Why this matters: the site is reachable from mirrors we do not fully control —
 // two live *.netlify.app copies (one serving stale content) and Vercel preview
@@ -14,6 +15,9 @@
 // consolidating ranking signals no matter who is serving.
 //
 // It also fails on:
+//   - a page with a canonical but no og:url (equal to the canonical), og:image
+//     or twitter:image (--fix adds og:url from the canonical, og:image from
+//     DEFAULT_OG_IMAGE, and twitter:image from og:image)
 //   - a canonical, og:url, og:image or twitter:image on another host
 //   - any previous origin (PREVIOUS_ORIGINS) left in a deployed file
 //   - sitemap.xml or robots.txt not on SITE_ORIGIN
@@ -25,7 +29,7 @@
 import { readFileSync, writeFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join, relative } from "node:path";
-import { SITE_ORIGIN, PREVIOUS_ORIGINS, INSTAGRAM_URL, PREVIOUS_INSTAGRAM_HANDLES } from "./site.mjs";
+import { SITE_ORIGIN, PREVIOUS_ORIGINS, INSTAGRAM_URL, PREVIOUS_INSTAGRAM_HANDLES, DEFAULT_OG_IMAGE } from "./site.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const ORIGIN = SITE_ORIGIN;
@@ -46,6 +50,19 @@ const OLD_HOSTS = [...new Set(PREVIOUS_ORIGINS.map((o) => new URL(o).host.replac
 // Email addresses on the old domain are skipped: mail is a separate decision.
 const OLD_RE = new RegExp(`(?<![@\\w.-])(?:https?://)?(?:www\\.)?(?:${OLD_HOSTS.map(escapeRe).join("|")})\\b`, "gi");
 const OLD_IG_RE = new RegExp(`https?://(?:www\\.)?instagram\\.com/(?:${PREVIOUS_INSTAGRAM_HANDLES.map(escapeRe).join("|")})(?![\\w.])/?`, "gi");
+
+const metaContent = (html, prop) =>
+  html.match(new RegExp(`<meta\\s+(?:property|name)="${escapeRe(prop)}"\\s+content="([^"]*)"`, "i"))?.[1] ?? null;
+const LINE = (prop) => new RegExp(`^([ \\t]*)<meta\\s+(?:property|name)="${escapeRe(prop)}"[^\\n]*$`, "m");
+const CANONICAL_LINE = /^([ \t]*)<link\s+rel="canonical"[^\n]*$/m;
+// Put `tag` on its own line after the first anchor line found, same indent.
+function insertAfter(html, anchors, tag) {
+  for (const re of anchors) {
+    const m = html.match(re);
+    if (m) return html.slice(0, m.index + m[0].length) + `\n${m[1]}${tag}` + html.slice(m.index + m[0].length);
+  }
+  return html;
+}
 
 function walk(dir, out = [], top = true) {
   for (const name of readdirSync(dir)) {
@@ -89,6 +106,30 @@ for (const file of files) {
     else for (const hit of new Set(text.match(OLD_IG_RE))) problems.push(`${rel}: old Instagram link ${hit}`);
   }
   OLD_IG_RE.lastIndex = 0;
+
+  // Every page with a canonical carries og:url (the canonical), og:image and
+  // twitter:image (the og:image), so shared links never fall back to guesses.
+  const canon = file.endsWith(".html") ? text.match(CANONICAL_RE)?.[2] : null;
+  if (canon && /^https?:\/\//i.test(canon)) {
+    const ogUrl = metaContent(text, "og:url");
+    if (ogUrl === null) {
+      if (FIX) text = insertAfter(text, [LINE("og:type"), CANONICAL_LINE], `<meta property="og:url" content="${canon}" />`);
+      else problems.push(`${rel}: no og:url`);
+    } else if (ogUrl !== canon) {
+      problems.push(`${rel}: og:url ${ogUrl} is not the canonical ${canon}`);
+    }
+    let ogImage = metaContent(text, "og:image");
+    if (ogImage === null) {
+      if (FIX) {
+        text = insertAfter(text, [LINE("og:url"), LINE("og:type"), CANONICAL_LINE], `<meta property="og:image" content="${DEFAULT_OG_IMAGE}" />`);
+        ogImage = DEFAULT_OG_IMAGE;
+      } else problems.push(`${rel}: no og:image`);
+    }
+    if (metaContent(text, "twitter:image") === null) {
+      if (FIX && ogImage) text = insertAfter(text, [LINE("twitter:card"), LINE("og:image")], `<meta name="twitter:image" content="${ogImage}" />`);
+      else problems.push(`${rel}: no twitter:image`);
+    }
+  }
 
   if (text !== before) {
     writeFileSync(file, text);

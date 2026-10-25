@@ -127,10 +127,12 @@ function shell({ title, description, canonical, draft, body, extraHead = "" }) {
   <link rel="apple-touch-icon" href="/assets/img/brand/apple-touch-icon-180.png" />
   <link rel="canonical" href="${canonical}" />
   <meta property="og:type" content="article" />
+  <meta property="og:url" content="${canonical}" />
   <meta property="og:title" content="${escAttr(title)} | From Little Onward" />
   <meta property="og:description" content="${escAttr(description)}" />
   <meta property="og:image" content="${ORIGIN}/assets/img/og/site-home.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="${ORIGIN}/assets/img/og/site-home.jpg" />
 ${extraHead}
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
