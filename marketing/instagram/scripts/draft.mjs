@@ -104,12 +104,13 @@ const PLAN_SCHEMA = {
       type: "array",
       items: {
         type: "object", additionalProperties: false,
-        required: ["slot", "series", "cards", "idea", "moment", "hook", "why_save", "why_share", "age", "row", "link_url"],
+        required: ["slot", "series", "cards", "idea", "moment", "turn", "hook", "why_save", "why_share", "age", "row", "link_url"],
         properties: {
           slot: { type: "string", description: "the slot's exact timestamp, as listed" },
           series: { type: "string", enum: [...SERIES_FOR.carousel, ...SERIES_FOR.reel] },
           cards: { type: "array", items: { type: "string" }, description: "card ids from the shortlist" },
           idea: { type: "string" }, moment: { type: "string" }, hook: { type: "string" },
+          turn: { type: "string", description: "the moment in the study where the picture changes; the home advice comes out of it" },
           why_save: { type: "string" }, why_share: { type: "string" },
           age: { type: "string", description: "the age range the post speaks to, e.g. '18 to 30 months'" },
           row: { type: "string", enum: Object.keys(ROWS) },
@@ -223,7 +224,7 @@ const CRITIC_SCHEMA = {
     claims: { type: "array", items: { type: "object", additionalProperties: false, required: ["claim", "support"], properties: { claim: str, where: str, support: { type: "string", enum: ["yes", "partly", "no"] }, note: str } } },
     violations: { type: "array", items: str },
     stale: { type: "boolean" },
-    scores: { type: "object", additionalProperties: false, required: ["hook", "slide2", "clarity", "save", "share", "voice"], properties: { hook: num, slide2: num, clarity: num, save: num, share: num, voice: num } },
+    scores: { type: "object", additionalProperties: false, required: ["hook", "slide2", "story", "clarity", "save", "share", "voice"], properties: { hook: num, slide2: num, story: num, clarity: num, save: num, share: num, voice: num } },
     edits: { type: "array", items: str },
     better_hook: str,
     verdict: { type: "string", enum: ["pass", "revise"] },

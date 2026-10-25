@@ -102,6 +102,9 @@ export function validatePost(spec, captionMd, sourcesMd, cfg = readJson(AUTOMATI
     if (beats.find((b) => b.kind === "close")?.sub) p.push("the close beat has a sub; the template already shows the link label and page there");
     const ids = beats.map((b) => b.id);
     if (new Set(ids).size !== ids.length) p.push("beat ids repeat");
+    // One study told as a story has one result worth animating; a second figure is a second topic.
+    const figures = beats.filter((b) => b.bars || b.stat).map((b) => b.id);
+    if (figures.length > 1) p.push(`${figures.length} beats carry bars or a stat (${figures.join(", ")}); a reel animates one`);
     const say = beats.reduce((n, b) => n + words(b.say), 0);
     if (say < s.say[0] || say > s.say[1]) p.push(`script is ${say} spoken words; ${spec.series} wants ${s.say[0]} to ${s.say[1]}`);
     if (words(beats[0]?.say) < 5) p.push("the hook line is too short to hold the first two seconds (5 words or more)");
