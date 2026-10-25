@@ -11,9 +11,10 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { SITE_ORIGIN, INSTAGRAM_URL } from "./site.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
-const ORIGIN = "https://www.fromlittleonward.com";
+const ORIGIN = SITE_ORIGIN;
 const OUT = join(ROOT, "claims");
 const CHECK = process.argv.includes("--check");
 
@@ -177,7 +178,7 @@ ${body}
         <div>
           <h2 class="site-footer__heading">Elsewhere</h2>
           <ul class="footer-list">
-            <li><a href="https://www.instagram.com/growingmindsscience/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer">Instagram</a></li>
             <li><a href="/arcade/">Arcade</a></li>
           </ul>
         </div>

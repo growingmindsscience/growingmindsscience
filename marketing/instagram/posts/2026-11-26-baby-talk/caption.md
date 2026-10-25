@@ -17,4 +17,4 @@ Educational content, not medical advice.
 Does your voice change the second a baby enters the room?
 
 ## Hashtags
-#babytalk #parentese #infantdirectedspeech #babylanguage #manybabies #parentingscience #growingmindsscience
+#babytalk #parentese #infantdirectedspeech #babylanguage #manybabies #parentingscience #fromlittleonward

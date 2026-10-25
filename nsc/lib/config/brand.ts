@@ -5,13 +5,15 @@
  *
  * Codename everywhere in code, schema, and artifacts stays `nsc`.
  */
+import { DEFAULT_SITE_ORIGIN } from "../site";
+
 export const brand = {
   productName: "Tallykin",
   codename: "nsc",
   assessmentName: "The Feed-the-Bear Game",
   tagline: "Reading together, but numbers.",
   parentSite: "From Little Onward",
-  parentSiteUrl: "https://www.fromlittleonward.com",
+  parentSiteUrl: DEFAULT_SITE_ORIGIN,
   // §3.1(6) — static neutral footer, rendered on every readout, never
   // conditionally triggered or alarmed.
   enrichmentFooter:

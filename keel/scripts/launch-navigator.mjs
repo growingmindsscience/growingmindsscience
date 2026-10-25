@@ -12,6 +12,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { SITE_ORIGIN } from "../../scripts/site.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const today = new Date().toISOString().slice(0, 10);
@@ -61,7 +62,7 @@ edit("sitemap.xml", (xml) => {
     return null;
   }
   return xml.replace(marker, `  <url>
-    <loc>https://growingmindsscience.com/tools/milestone-navigator</loc>
+    <loc>${SITE_ORIGIN}/tools/milestone-navigator</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

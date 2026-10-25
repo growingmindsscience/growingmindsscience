@@ -251,7 +251,7 @@ Confidence: HIGH. The snack-time version on slide 9 is an informal use of the re
 ## Research behind this lesson (continued)
 
 Finding: Number Path: a parent-run check-in for ages about 2 to 5 that places a child on the counting ladder with a guided give-a-number game and suggests matched household games.
-Sources: growingmindsscience.com/nsc (the site's class page calls it a free ten-minute check-in).
+Sources: fromlittleonward.com/nsc (the site's class page calls it a free ten-minute check-in).
 Confidence: Your own product: please check the wording. The script says 'a short check-in' and does not say free or name the game.
 
 Finding: Low-income preschoolers (mean 5.4 years) played a linear number board game for roughly one hour: gains on magnitude comparison, number line estimation, counting and numeral identification, still present 9 weeks later; classmates who played the color version did not improve.

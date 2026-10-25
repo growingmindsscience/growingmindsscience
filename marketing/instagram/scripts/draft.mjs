@@ -39,6 +39,7 @@ import { IG, HERE, POSTS, CALENDAR, INSIGHTS, AUTOMATION, loadEnv, readJson, wri
 import { loadResearch, usedSoFar, freshCandidates, ROWS } from "./research.mjs";
 import { validatePost, splitCaption, sceneNames, SERIES } from "./validate.mjs";
 import { ask } from "./llm.mjs";
+import { SITE_ORIGIN, INSTAGRAM_HANDLE, PREVIOUS_INSTAGRAM_HANDLES } from "../../../scripts/site.mjs";
 
 loadEnv();
 const a = args();
@@ -262,7 +263,9 @@ function assemble(item, slot, d) {
     ...(d.labels?.length ? { labels: d.labels } : {}),
     ...(isReel ? { beats: d.beats || [] } : { slides: d.slides || [] }),
   };
-  const tags = (d.hashtags || []).map((t) => `#${String(t).replace(/^#+/, "").replace(/[^\p{L}\p{N}_]/gu, "").toLowerCase()}`).filter((t) => t.length > 1);
+  // The old brand tag becomes the current handle; duplicates drop out.
+  const tags = [...new Set((d.hashtags || []).map((t) => String(t).replace(/^#+/, "").replace(/[^\p{L}\p{N}_]/gu, "").toLowerCase())
+    .map((t) => (PREVIOUS_INSTAGRAM_HANDLES.includes(t) ? INSTAGRAM_HANDLE : t)).filter(Boolean))].map((t) => `#${t}`);
   const captionMd = `# Caption\n\n${String(d.caption_body).trim()}\n\n## Hashtags\n${tags.join(" ")}\n`;
   const sourcesMd = `# Sources
 
@@ -420,7 +423,7 @@ if (SUMMARY) {
     const s = r.post.spec, o = s.slides?.[0] ?? s.beats?.[0] ?? {};
     const imgs = await preview(r);
     lines.push(`- [ ] Hold \`${s.id}\``);
-    lines.push(`  **${weekday(r.slot.at)}, ${s.kind === "reel" ? "7 pm reel" : "11 am carousel"} (${s.series})**: "${o.lead || o.claim || o.text}" ${s.age}. Links to [${s.link.page}](https://growingmindsscience.com${s.link.url}). Scores: ${Object.entries(r.crit.scores).map(([k, v]) => `${k} ${v}`).join(", ")}.`);
+    lines.push(`  **${weekday(r.slot.at)}, ${s.kind === "reel" ? "7 pm reel" : "11 am carousel"} (${s.series})**: "${o.lead || o.claim || o.text}" ${s.age}. Links to [${s.link.page}](${SITE_ORIGIN}${s.link.url}). Scores: ${Object.entries(r.crit.scores).map(([k, v]) => `${k} ${v}`).join(", ")}.`);
     for (const u of imgs) lines.push(`  <img src="${u}" width="270">`);
     const { body } = splitCaption(r.post.captionMd);
     const script = s.kind === "reel" ? s.beats.filter((b) => b.say).map((b) => `> ${b.say}`).join("\n") : s.slides.map((x, i) => `${i + 1}. ${[x.lead, x.claim, x.head, x.sub, x.now, x.body, ...(x.items || [])].filter(Boolean).join(" / ")}`).join("\n");

@@ -1,6 +1,6 @@
 # Domain move: growingmindsscience.com to fromlittleonward.com
 
-Status: **live as of 2026-10-24.** The site serves at https://www.fromlittleonward.com. fromlittleonward.com, fromlittleonward.org, growingmindsscience.com and www.growingmindsscience.com all 308-redirect there through Vercel's domain settings (not `vercel.json`, so the block in `docs/domain-move-redirects.json` is not needed). DNS for both new domains is at Spaceship. Unchecked items below are still open.
+Status: **live as of 2026-10-24.** The site serves at https://www.fromlittleonward.com. fromlittleonward.com, fromlittleonward.org, growingmindsscience.com and www.growingmindsscience.com are set to 308-redirect there through Vercel's domain settings. `vercel.json` also redirects both growingmindsscience.com hosts (the first two entries under `redirects`), so the redirect holds even if a domain is ever attached to the project as a serving domain instead of a redirect. The production origin lives in one place, `SITE_ORIGIN` in `scripts/site.mjs` (and `DEFAULT_SITE_ORIGIN` in `nsc/lib/site.ts` for the class app); `node scripts/check-canonicals.mjs` fails CI if a page, the sitemap, robots.txt, the nsc default or the `vercel.json` redirect disagree with it. DNS for both new domains is at Spaceship. Unchecked items below are still open.
 
 Do the steps in order. The old domain keeps working the whole time; the switch is the redirect in step 4.
 
@@ -37,8 +37,8 @@ All of these hard-code `https://growingmindsscience.com` today:
 
 ## 4. Switch
 
-- [ ] Copy the two entries from `docs/domain-move-redirects.json` to the top of `redirects` in `vercel.json`, open a PR, and deploy.
-- [ ] Verify: `curl -sI https://growingmindsscience.com/pricing` returns `301` with `location: https://fromlittleonward.com/pricing`; the same for `/nsc/class-login`, `/tools/ask-the-research?q=test` (query string kept) and `/tools/growing-minds-ai` (should reach `/tools/ask-the-research` on the new domain).
+- [x] Host redirects for growingmindsscience.com and www.growingmindsscience.com are the first two entries under `redirects` in `vercel.json` (destination `https://www.fromlittleonward.com/:path*`, permanent). Vercel's domain-level redirect, when set, runs before them.
+- [ ] Verify: `curl -sI https://growingmindsscience.com/pricing` returns `308` with `location: https://www.fromlittleonward.com/pricing`; the same for `/nsc/class-login`, `/tools/ask-the-research?q=test` (query string kept) and `/tools/growing-minds-ai` (should reach `/tools/ask-the-research` on the new domain).
 - [ ] Buy a class with a test card on a preview, sign in, play a lesson, and confirm the receipt and access emails link to the new domain.
 
 ## 5. Afterwards

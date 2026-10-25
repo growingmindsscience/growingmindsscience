@@ -17,4 +17,4 @@ Educational content, not medical advice.
 Did the 30-million number ever make you feel like you were not talking enough?
 
 ## Hashtags
-#wordgap #languagedevelopment #parentingmyths #evidencebasedparenting #babytalk #childdevelopment #growingmindsscience
+#wordgap #languagedevelopment #parentingmyths #evidencebasedparenting #babytalk #childdevelopment #fromlittleonward

@@ -37,6 +37,7 @@ import { readFileSync, writeFileSync, existsSync, readdirSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { join, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { SITE_ORIGIN } from "../../../scripts/site.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const IG = resolve(HERE, "..");
@@ -59,7 +60,7 @@ const LEDGER = join(IG, "ledger.json");
 const TOKEN_FILE = join(IG, "token.json");
 const LANDING = join(ROOT, "from-instagram.html");
 const GRAPH = "https://graph.instagram.com/v22.0";
-const SITE = process.env.SITE_ORIGIN || "https://growingmindsscience.com";
+const SITE = process.env.SITE_ORIGIN || SITE_ORIGIN;
 
 const args = process.argv.slice(2);
 const flag = (n) => args.includes(n);
