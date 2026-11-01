@@ -191,6 +191,7 @@
 .cl-hub .cl-row__body > p:first-child { max-width: 44ch; }
 .cl-hub .cl-row__body .cl-row__meta { color: var(--ink-muted); font-size: 14px; }
 .cl-hub .cl-row__act { gap: 10px; }
+.cl-hub .cl-row__act > .cl-row__note { grid-column: 1 / -1; }
 .cl-hub .cl-row__act .hb-btn { width: 100%; min-width: 0; white-space: nowrap; }
 .cl-hub .cl-row__links { font-size: 14px; gap: 0 12px; }
 .cl-peek { margin-top: 12px; font-size: 15px; }
