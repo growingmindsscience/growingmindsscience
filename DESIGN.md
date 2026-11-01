@@ -1,33 +1,33 @@
 ---
 name: Growing Minds Science
-description: A developmental-science education for parents of children 0 to 5, set as a living field guide. Field paper, forest ink, one verdigris action color, sage mist for explanation, research blue for sources, and ordinary moments annotated on request.
+description: A developmental-science education for parents of children 0 to 5, set as a living field guide. Cool porcelain, forest ink, one verdigris action color, sage mist for explanation, research blue for sources, and ordinary moments annotated on request.
 colors:
-  paper: "#F7F4EC"
-  paper-2: "#EFEBE0"
-  surface: "#FFFDF8"
-  surface-2: "#E6E3D7"
+  paper: "#F6F8F6"
+  paper-2: "#E9F0EC"
+  surface: "#FFFFFF"
+  surface-2: "#E2EAE5"
   ink: "#193C39"
   ink-soft: "#35504C"
   ink-muted: "#546965"
   ink-700: "#2A3F3B"
   forest: "#245F58"
   forest-deep: "#1C4D47"
-  on-forest: "#FFFDF8"
+  on-forest: "#FFFFFF"
   sage: "#A9C3B2"
   sage-deep: "#8DAE9A"
   sage-mist: "#E0EBE5"
   sage-mist-2: "#CFDFD6"
   field-ink: "#193C39"
   field-ink-2: "#214744"
-  on-ink: "#F2EFE6"
+  on-ink: "#EEF3F0"
   on-ink-soft: "#C9D0CB"
   on-ink-muted: "#9FAEA8"
   research: "#426B91"
   note-warm: "#C46C4D"
   clay-text: "#9E5236"
   note-amber: "#D2A453"
-  border: "#CDD3CB"
-  border-soft: "#DEE2D8"
+  border: "#CCD6D1"
+  border-soft: "#DFE6E2"
   danger: "#A6371F"
   success: "#2F6B4A"
 typography:
@@ -233,12 +233,12 @@ components:
 
 The site reads like a well-made field guide to the first five years. An ordinary moment (a parent, a child, a playground, a walk home) is shown as a real photograph, and the science is laid over it as typeset labels the visitor reveals on request. The same plate, re-labeled step by step, becomes the Developmental Lens: Observe, Understand, Respond, Reflect. Every other page carries the guide's notation rather than its pictures: a Newsreader name, a quiet line of Inter metadata, rows separated by hairline rules, explanations on sage mist, and sources in research blue.
 
-The ground is warm field paper and every word is forest ink. One deep verdigris green does all the acting (buttons, links, chosen options, focus), sage mist holds anything that explains, and a single inverted ink field closes each page with one statement and one action before the footer continues on the same field. Nothing lifts. Surfaces separate by a tone step or a 1px rule, corners are calm (6px on controls, 10px on panels and photographs), and the warm accents (clay, ochre) appear only at the size of an annotation mark.
+The ground is cool porcelain, a near-white with a hint of sage, and every word is forest ink. One deep verdigris green does all the acting (buttons, links, chosen options, focus), sage mist holds anything that explains, and a single inverted ink field closes each page with one statement and one action before the footer continues on the same field. Nothing lifts. Surfaces separate by a tone step or a 1px rule, corners are calm (6px on controls, 10px on panels and photographs), and the warm accents (clay, ochre) appear only at the size of an annotation mark.
 
 The tone is calm and collegiate, warm but not sentimental. Photographs are observational and real or absent; there is no stock imagery and no decorative illustration filling space. The visual test, from the brand guidelines: the page should still read as Growing Minds Science with the logo removed.
 
 **Key Characteristics:**
-- Field paper ground, forest ink type, one verdigris action color, sage mist for explanatory panels.
+- Porcelain ground, forest ink type, one verdigris action color, sage mist for explanatory panels.
 - Newsreader for headings, names and statements over Inter for reading, labels and controls.
 - Calm corners: 6px controls, 10px panels and photographs, square bands and rows.
 - Quiet 1px rules between rows; a 2px ink rule opens an index list; no shadows at rest.
@@ -249,7 +249,7 @@ The tone is calm and collegiate, warm but not sentimental. Photographs are obser
 
 ## Colors
 
-A warm paper-and-forest palette with one action green, one explanatory mist, and three accents held to annotation size.
+A cool porcelain-and-forest palette with one action green, one explanatory mist, and three accents held to annotation size.
 
 ### Primary
 - **Deep Verdigris** (`forest`): the one action color. Filled buttons, text links, the chosen option in every choice set, the forest segment of the age-range bar, focus outlines and text selection. **Verdigris Deep** (`forest-deep`) is its hover. Text on it is **Soft White** (`on-forest`).
@@ -263,7 +263,7 @@ A warm paper-and-forest palette with one action green, one explanatory mist, and
 - **Discovery Clay** (`note-warm`) and **Golden Ochre** (`note-amber`): annotation marks only. Ochre is the dot that leads each plate label, the bullet on Lens lists and mechanism cards, and the swatch on the label toggle. **Clay Text** (`clay-text`) is the small-text form of clay (5.1:1 on paper), used for the Lens step numerals and the Read, Try, Learn headings on the Lens page.
 
 ### Neutral
-- **Field Paper** (`paper`): the page ground and the paper button on dark grounds. **Paper Step** (`paper-2`): the scrolled header, the trust section, the "All tools" row in the menu.
+- **Porcelain** (`paper`): the page ground and the paper button on dark grounds. **Paper Step** (`paper-2`): the scrolled header, the trust section, the "All tools" row in the menu.
 - **Soft White** (`surface`): reading surfaces: decoder answers, tool working cards, the class timeline, mechanism cards, alternating `hub-sec--white` sections, form inputs on mist. **Paper Tint** (`surface-2`): header icon buttons.
 - **Forest Ink** (`ink`): all type and the 2px index rules. **Ink Soft** (`ink-soft`, 7.6:1) for ledes and secondary copy; **Ink Muted** (`ink-muted`, 5.2:1) for meta lines, captions, fine print, input outlines.
 - **The Ink Field** (`field-ink`, raised step `field-ink-2`): the close band, the footer, the tools hub's hard-moment door, the homepage hard-moments band. Text tiers on it are `on-ink`, `on-ink-soft`, `on-ink-muted`.
@@ -307,7 +307,7 @@ Both load from Google Fonts with `display=swap`: Newsreader with italics and opt
 
 ## Layout
 
-One container, `min(100% - 2 × gutter, 1320px)`, with a gutter of `clamp(16px, 4vw, 56px)`. Homepage sections run `clamp(72px, 10vw, 150px)` of vertical padding (`clamp(48px, 6vw, 88px)` when tight); hub sections run `clamp(56px, 8vw, 120px)`. Sections alternate field paper, soft white (`hub-sec--white`) and sage mist (`hub-sec--mist`); the change of ground is the separator. The header is 72px and its height is a token so sticky asides and scroll margins read it.
+One container, `min(100% - 2 × gutter, 1320px)`, with a gutter of `clamp(16px, 4vw, 56px)`. Homepage sections run `clamp(72px, 10vw, 150px)` of vertical padding (`clamp(48px, 6vw, 88px)` when tight); hub sections run `clamp(56px, 8vw, 120px)`. Sections alternate porcelain, soft white (`hub-sec--white`) and sage mist (`hub-sec--mist`); the change of ground is the separator. The header is 72px and its height is a token so sticky asides and scroll margins read it.
 
 The recurring composition is the **split**: a heading and its one-line explanation in a 4-column left track, the content (rows, a panel, a form) in an 8-column right track, with a `clamp(32px, 5vw, 80px)` column gap. Title blocks use 7 to 5 (title and lead beside one photograph or one panel). Below about 860px every split becomes one column; where a split holds a photograph, the list comes first on a phone and the photograph follows.
 
@@ -383,7 +383,7 @@ Labels above fields in Inter 500 at 15px; optional hints in ink-muted. Inputs ar
 ### Header and footer
 One header and one footer on every page, structured and scripted in `chrome.css` and `chrome.js`, tuned for the field guide in `field-guide.css`.
 - **Wordmark lockup:** the brand mark (inline SVG, 32px: the small two-arc drawing in currentColor rising into a leaf in sage-deep; sage arcs and a pale sage leaf in dark mode and on the footer), then lowercase "from little" in Newsreader 500 at 1.5rem, then "ONWARD" in Inter 500 at 11px, uppercase, tracked 0.32em, nudged onto the name's baseline. No disc or border behind the mark. `assets/img/brand/lockup-*.svg` are the same lockup as files, drawn with the full three-arc mark.
-- **Header:** 72px, field paper, steps to paper-2 once scrolled, no shadow. Links in Inter 500 at 15px, ink-soft at rest, ink on hover with a 2px bar that scales in underneath (held on the current page). Order: It's hard right now, Explore, Classes, Tools (a details menu), Articles, About, then My classes and the Enroll button. The tools menu is a soft-white panel with a 6px forest top bar and no shadow. Below 1000px the list becomes a full-width sheet of field paper under the bar, reaching the foot of the screen so the page never shows beneath it, its items on the same 16px-and-up gutter as the wordmark, with "It's hard right now" first on a sage-mist tile with 6px corners; the theme and menu buttons become bare icons.
+- **Header:** 72px, porcelain, steps to paper-2 once scrolled, no shadow. Links in Inter 500 at 15px, ink-soft at rest, ink on hover with a 2px bar that scales in underneath (held on the current page). Order: It's hard right now, Explore, Classes, Tools (a details menu), Articles, About, then My classes and the Enroll button. The tools menu is a soft-white panel with a 6px forest top bar and no shadow. Below 1000px the list becomes a full-width sheet of porcelain under the bar, reaching the foot of the screen so the page never shows beneath it, its items on the same 16px-and-up gutter as the wordmark, with "It's hard right now" first on a sage-mist tile with 6px corners; the theme and menu buttons become bare icons.
 - **Footer:** the ink field at least 70svh tall: the brand and tagline on the left, four link columns (Inter, on-ink-soft, on-ink on hover), then the name set again at display size in Newsreader 500 so the page closes on the wordmark; the fine-print row in on-ink-muted.
 
 ### Dark theme
@@ -396,7 +396,7 @@ Printing shows everything: entrance animations are forced visible and the header
 Entrances only, once, in reading order: elements marked `data-rise` rise 18px and fade in over about 640 to 800ms, staggered by index. They run only when the page has `html.anim`; with reduced motion or without script everything is simply shown. Hover and press transitions are 140 to 180ms. Plate labels fade and rise 6px when revealed; the hero photograph settles from a 4% scale.
 
 ### The class app (`/nsc`)
-The Next.js class app reads the same field-guide values under its own Tailwind token names in `nsc/app/globals.css`: `ground` is field paper, `surface` is soft white, `tint` and `sea-glass` are sage mist, `ink`, `ink-deep` and `ink-800` are forest ink (`ink-900` a deeper `#12302D`), `teal` is deep verdigris with `teal-soft` and `teal-hover` as its hover and `on-teal` as soft white, `teal-light` is sage. The retired amber names now resolve to the field guide (`amber` is sage for marks on ink, `amber-bright` is sage-deep, `amber-deep` is verdigris for label text, `amber-tint` is sage mist). `line` and `line-soft` are the two hairlines, and `field-line` (`#789690`) is an app-only input outline at 3:1. Fonts are Newsreader over Inter through `next/font`; `radius-control` is 6px and `radius-card` / `radius-panel` are 10px; every shadow is `none` except `shadow-lg`, kept for real overlays.
+The Next.js class app reads the same field-guide values under its own Tailwind token names in `nsc/app/globals.css`: `ground` is porcelain, `surface` is white, `tint` and `sea-glass` are sage mist, `ink`, `ink-deep` and `ink-800` are forest ink (`ink-900` a deeper `#12302D`), `teal` is deep verdigris with `teal-soft` and `teal-hover` as its hover and `on-teal` as soft white, `teal-light` is sage. The retired amber names now resolve to the field guide (`amber` is sage for marks on ink, `amber-bright` is sage-deep, `amber-deep` is verdigris for label text, `amber-tint` is sage mist). `line` and `line-soft` are the two hairlines, and `field-line` (`#789690`) is an app-only input outline at 3:1. Fonts are Newsreader over Inter through `next/font`; `radius-control` is 6px and `radius-card` / `radius-panel` are 10px; every shadow is `none` except `shadow-lg`, kept for real overlays.
 
 ### Arcade palettes
 The games on `/arcade` keep their own isolated retro palettes in `arcade.css` and `pong.css`. They are not design-system drift.
@@ -404,7 +404,7 @@ The games on `/arcade` keep their own isolated retro palettes in `arcade.css` an
 ## Do's and Don'ts
 
 ### Do:
-- **Do** set every word in forest ink on field paper, and use deep verdigris for every action and nothing else (The One Action Color Rule).
+- **Do** set every word in forest ink on porcelain, and use deep verdigris for every action and nothing else (The One Action Color Rule).
 - **Do** put explanation on a sage-mist panel with 10px corners and no border.
 - **Do** separate rows with a 1px `border-soft` rule on top of each row but the first, and open an index list with a 2px ink rule.
 - **Do** put sources in the research-blue module: a 2px research-blue rule, an Inter 600 heading, research-blue links.

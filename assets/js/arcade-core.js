@@ -1090,16 +1090,16 @@
   // tokens-field-guide.css so a canvas never paints black on black if a
   // stylesheet is late.
   var THEME_VARS = [
-    ["paper", "paper", "#F7F4EC"], ["paper-2", "paper2", "#EFEBE0"],
-    ["surface", "surface", "#FFFDF8"], ["surface-2", "surface2", "#E6E3D7"],
+    ["paper", "paper", "#F6F8F6"], ["paper-2", "paper2", "#E9F0EC"],
+    ["surface", "surface", "#FFFFFF"], ["surface-2", "surface2", "#E2EAE5"],
     ["ink", "ink", "#193C39"], ["ink-soft", "inkSoft", "#35504C"], ["ink-muted", "inkMuted", "#546965"],
-    ["forest", "forest", "#245F58"], ["forest-deep", "forestDeep", "#1C4D47"], ["on-forest", "onForest", "#FFFDF8"],
+    ["forest", "forest", "#245F58"], ["forest-deep", "forestDeep", "#1C4D47"], ["on-forest", "onForest", "#FFFFFF"],
     ["sage", "sage", "#A9C3B2"], ["sage-deep", "sageDeep", "#8DAE9A"],
     ["sage-mist", "sageMist", "#E0EBE5"], ["sage-mist-2", "sageMist2", "#CFDFD6"],
     ["note-amber", "ochre", "#D2A453"], ["note-warm", "clay", "#C46C4D"], ["clay-text", "clayText", "#9E5236"],
     ["research", "research", "#426B91"], ["danger", "danger", "#A6371F"], ["success", "success", "#2F6B4A"],
-    ["border", "border", "#CDD3CB"], ["border-soft", "borderSoft", "#DEE2D8"],
-    ["field-ink", "fieldInk", "#193C39"], ["on-ink", "onInk", "#F2EFE6"], ["on-ink-muted", "onInkMuted", "#9FAEA8"]
+    ["border", "border", "#CCD6D1"], ["border-soft", "borderSoft", "#DFE6E2"],
+    ["field-ink", "fieldInk", "#193C39"], ["on-ink", "onInk", "#EEF3F0"], ["on-ink-muted", "onInkMuted", "#9FAEA8"]
   ];
   var FONT_DISPLAY = '"Newsreader", "Newsreader Fallback", Georgia, "Times New Roman", serif';
   var FONT_BODY = '"Inter", "DM Sans", "DM Sans Fallback", "Helvetica Neue", Arial, sans-serif';

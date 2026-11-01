@@ -8,8 +8,8 @@
    amber is retired: label text is forest, marks on ink are sage. */
 @theme {
   /* Grounds */
-  --color-ground: #f7f4ec;
-  --color-surface: #fffdf8;
+  --color-ground: #f6f8f6;
+  --color-surface: #ffffff;
   --color-tint: #e0ebe5;
   /* sea-glass is the older name for the tinted fill (chips, progress tracks). */
   --color-sea-glass: #e0ebe5;
@@ -28,7 +28,7 @@
   --color-teal-hover: #1c4d47;
   --color-teal-light: #a9c3b2;
   /* Text on a verdigris fill (primary buttons). Dark flips the fill light, so this flips too. */
-  --color-on-teal: #fffdf8;
+  --color-on-teal: #ffffff;
 
   /* Former amber names, kept so the components need no edits. amber: marks
      and buttons on ink bands (sage). amber-deep: label text on light grounds
@@ -39,13 +39,13 @@
   --color-amber-tint: #e0ebe5;
 
   /* Text tiers on ink bands. */
-  --color-on-dark: #f2efe6;
+  --color-on-dark: #eef3f0;
   --color-on-dark-soft: #c9d0cb;
   --color-on-dark-muted: #9faea8;
 
   /* Rules and borders. */
-  --color-line: #cdd3cb;
-  --color-line-soft: #dee2d8;
+  --color-line: #ccd6d1;
+  --color-line-soft: #dfe6e2;
   /* Input outlines: 3:1 on the ground and white, so a field edge is visible (WCAG 1.4.11). */
   --color-field-line: #789690;
 
@@ -183,7 +183,7 @@ html[data-theme="dark"] body:has(.class-theme) {
   top: -100px;
   z-index: 100;
   background: #245f58;
-  color: #fffdf8;
+  color: #ffffff;
   padding: 0.75rem 1.25rem;
   border-radius: 6px;
   font-family: var(--font-body);
@@ -194,7 +194,7 @@ html[data-theme="dark"] body:has(.class-theme) {
 }
 .skip-link:focus {
   top: 1rem;
-  color: #fffdf8;
+  color: #ffffff;
 }
 
 /* The Seminar highlighter is retired: the field guide has no typographic
