@@ -6,16 +6,16 @@
 
 .site-header,
 .site-footer {
-  --chrome-ground: var(--ground, var(--bg, #F7F4EC));
-  --chrome-surface: var(--surface, #FFFDF8);
-  --chrome-tint: var(--tint, var(--surface-2, #E6E3D7));
-  --chrome-line: var(--line, var(--border, #CDD3CB));
-  --chrome-line-soft: var(--line-soft, var(--border-soft, #DEE2D8));
+  --chrome-ground: var(--ground, var(--bg, #F6F8F6));
+  --chrome-surface: var(--surface, #FFFFFF);
+  --chrome-tint: var(--tint, var(--surface-2, #E2EAE5));
+  --chrome-line: var(--line, var(--border, #CCD6D1));
+  --chrome-line-soft: var(--line-soft, var(--border-soft, #DFE6E2));
   --chrome-ink: var(--ink, #193C39);
   --chrome-ink-soft: var(--ink-soft, #35504C);
   --chrome-ink-muted: var(--ink-muted, #546965);
   --chrome-action: var(--teal, var(--primary, #245F58));
-  --chrome-action-ink: var(--btn-primary-ink, var(--primary-ink, #FFFDF8));
+  --chrome-action-ink: var(--btn-primary-ink, var(--primary-ink, #FFFFFF));
   --chrome-mark: var(--primary, #245F58);
   --chrome-focus: var(--primary, #245F58);
   --chrome-display: var(--font-display, "Newsreader", Georgia, "Times New Roman", serif);

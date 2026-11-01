@@ -1,7 +1,7 @@
 /* =========================================================
    Growing Minds Science
    Tokens: "The Living Field Guide to the Growing Mind".
-   Warm paper ground, botanical ink for every word, scientific forest
+   Cool porcelain ground, botanical ink for every word, scientific forest
    green as the one action color, muted sage as the field color, and
    one inverted ink field for the close and the footer. Newsreader
    (headlines, statements) over Inter (reading and interface).
@@ -34,16 +34,16 @@
 
 :root {
   /* ---------- Color: the field guide ---------- */
-  --paper: #F7F4EC;          /* ground: field paper (brand guidelines) */
-  --paper-2: #EFEBE0;        /* one tone step: alternate sections, bands */
-  --surface: #FFFDF8;        /* soft white: cards, reading surfaces */
-  --surface-2: #E6E3D7;      /* second tone step: chips, inactive tabs */
+  --paper: #F6F8F6;          /* ground: cool porcelain, a hint of sage */
+  --paper-2: #E9F0EC;        /* one tone step: alternate sections, bands */
+  --surface: #FFFFFF;        /* soft white: cards, reading surfaces */
+  --surface-2: #E2EAE5;      /* second tone step: chips, inactive tabs */
   --ink: #193C39;            /* forest ink: all type, dark brand surfaces */
   --ink-soft: #35504C;       /* secondary copy: 7.6:1 on paper */
   --ink-muted: #546965;      /* meta and captions: 5.2:1 on paper */
   --forest: #245F58;         /* deep verdigris: actions and navigation */
   --forest-deep: #1C4D47;    /* hover */
-  --on-forest: #FFFDF8;
+  --on-forest: #FFFFFF;
   --sage: #A9C3B2;           /* muted sage: the field color for whole sections */
   --sage-deep: #8DAE9A;      /* active tab on a sage field, figure fills */
   --on-sage: #193C39;
@@ -51,7 +51,7 @@
   --sage-mist-2: #CFDFD6;    /* one tone step from sage mist */
   --field-ink: #193C39;      /* the inverted field: close and footer */
   --field-ink-2: #214744;    /* raised surfaces on the ink field */
-  --on-ink: #F2EFE6;
+  --on-ink: #EEF3F0;
   --on-ink-soft: #C9D0CB;
   --on-ink-muted: #9FAEA8;
   /* Annotation colors, reserved for marks inside figures (leader lines,
@@ -68,8 +68,8 @@
   /* ---------- Aliases for chrome.css and shared components ---------- */
   --bg: var(--paper);
   --bg-alt: var(--paper-2);
-  --border: #CDD3CB;
-  --border-soft: #DEE2D8;
+  --border: #CCD6D1;
+  --border-soft: #DFE6E2;
   --ink-700: #2A3F3B;
   --ink-800: #1B2A27;
   --ink-900: #141F1C;
