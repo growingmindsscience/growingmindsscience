@@ -8,7 +8,7 @@
    amber is retired: label text is forest, marks on ink are sage. */
 @theme {
   /* Grounds */
-  --color-ground: #f6f8f6;
+  --color-ground: #f8f9fb;
   --color-surface: #ffffff;
   --color-tint: #e0ebe5;
   /* sea-glass is the older name for the tinted fill (chips, progress tracks). */
@@ -44,8 +44,8 @@
   --color-on-dark-muted: #9faea8;
 
   /* Rules and borders. */
-  --color-line: #ccd6d1;
-  --color-line-soft: #dfe6e2;
+  --color-line: #ccd3dc;
+  --color-line-soft: #dfe4ea;
   /* Input outlines: 3:1 on the ground and white, so a field edge is visible (WCAG 1.4.11). */
   --color-field-line: #789690;
 
