@@ -36,18 +36,18 @@
 .plate img { object-fit: cover; object-position: 50% 30%; transition: transform 12s linear; }
 html.anim .plate img { transform: scale(1.04); }
 /* The toggle sits at the top of the photograph, in the first screen with all four labels below it. */
-.fg .plate__toggle { position: absolute; left: 24px; top: 24px; z-index: 3; min-height: 48px; padding: 0 18px; border-radius: var(--radius); background: #F6F8F6; color: #193C39; box-shadow: inset 0 0 0 1.5px #193C39; font-weight: 500; display: inline-flex; align-items: center; gap: 10px; }
+.fg .plate__toggle { position: absolute; left: 24px; top: 24px; z-index: 3; min-height: 48px; padding: 0 18px; border-radius: var(--radius); background: #F8F9FB; color: #193C39; box-shadow: inset 0 0 0 1.5px #193C39; font-weight: 500; display: inline-flex; align-items: center; gap: 10px; }
 .fg .plate__toggle[aria-pressed="true"] { background: #E0EBE5; color: #193C39; }
 .plate__toggle .sw { width: 10px; height: 10px; border-radius: 50%; background: #D2A453; }
 .plate__fig { margin-top: 10px; font-size: 14px; color: var(--ink-muted); }
 .plate__fig b { color: var(--research); font-weight: 600; }
 .labels { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
-.label { position: absolute; max-width: 26ch; background: #F6F8F6; color: #193C39; border-radius: var(--radius); padding: 10px 12px; font-size: 14px; line-height: 1.35; pointer-events: auto; opacity: 0; transform: translateY(6px); transition: opacity 360ms ease, transform 360ms ease; transition-delay: calc(var(--i, 0) * 140ms); }
+.label { position: absolute; max-width: 26ch; background: #F8F9FB; color: #193C39; border-radius: var(--radius); padding: 10px 12px; font-size: 14px; line-height: 1.35; pointer-events: auto; opacity: 0; transform: translateY(6px); transition: opacity 360ms ease, transform 360ms ease; transition-delay: calc(var(--i, 0) * 140ms); }
 .labels[data-on="true"] .label, .labels .label--lead { opacity: 1; transform: none; }
 /* One label shows from the start, so the photograph reads as a figure before anyone presses the toggle. */
 html:not(.anim) .label { transition: none; }
 .label b { display: block; font-weight: 600; margin-bottom: 2px; }
-.label::before { content: ""; position: absolute; width: 10px; height: 10px; border-radius: 50%; background: #D2A453; box-shadow: 0 0 0 2px #F6F8F6; left: -18px; top: 12px; }
+.label::before { content: ""; position: absolute; width: 10px; height: 10px; border-radius: 50%; background: #D2A453; box-shadow: 0 0 0 2px #F8F9FB; left: -18px; top: 12px; }
 .label--note { background: #193C39; color: #EEF3F0; }
 .label--note::before { display: none; }
 /* positions on the parent-and-baby photograph (object-position 50% 30%) */

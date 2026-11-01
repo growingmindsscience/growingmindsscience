@@ -6,11 +6,11 @@
 
 .site-header,
 .site-footer {
-  --chrome-ground: var(--ground, var(--bg, #F6F8F6));
+  --chrome-ground: var(--ground, var(--bg, #F8F9FB));
   --chrome-surface: var(--surface, #FFFFFF);
-  --chrome-tint: var(--tint, var(--surface-2, #E2EAE5));
-  --chrome-line: var(--line, var(--border, #CCD6D1));
-  --chrome-line-soft: var(--line-soft, var(--border-soft, #DFE6E2));
+  --chrome-tint: var(--tint, var(--surface-2, #E6EAF0));
+  --chrome-line: var(--line, var(--border, #CCD3DC));
+  --chrome-line-soft: var(--line-soft, var(--border-soft, #DFE4EA));
   --chrome-ink: var(--ink, #193C39);
   --chrome-ink-soft: var(--ink-soft, #35504C);
   --chrome-ink-muted: var(--ink-muted, #546965);

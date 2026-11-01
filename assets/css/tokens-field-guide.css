@@ -1,7 +1,7 @@
 /* =========================================================
    Growing Minds Science
    Tokens: "The Living Field Guide to the Growing Mind".
-   Cool porcelain ground, botanical ink for every word, scientific forest
+   Cool haze ground, botanical ink for every word, scientific forest
    green as the one action color, muted sage as the field color, and
    one inverted ink field for the close and the footer. Newsreader
    (headlines, statements) over Inter (reading and interface).
@@ -34,10 +34,10 @@
 
 :root {
   /* ---------- Color: the field guide ---------- */
-  --paper: #F6F8F6;          /* ground: cool porcelain, a hint of sage */
-  --paper-2: #E9F0EC;        /* one tone step: alternate sections, bands */
+  --paper: #F8F9FB;          /* ground: haze, a near-white with a cool blue cast */
+  --paper-2: #EDF0F4;        /* one tone step: alternate sections, bands */
   --surface: #FFFFFF;        /* soft white: cards, reading surfaces */
-  --surface-2: #E2EAE5;      /* second tone step: chips, inactive tabs */
+  --surface-2: #E6EAF0;      /* second tone step: chips, inactive tabs */
   --ink: #193C39;            /* forest ink: all type, dark brand surfaces */
   --ink-soft: #35504C;       /* secondary copy: 7.6:1 on paper */
   --ink-muted: #546965;      /* meta and captions: 5.2:1 on paper */
@@ -68,8 +68,8 @@
   /* ---------- Aliases for chrome.css and shared components ---------- */
   --bg: var(--paper);
   --bg-alt: var(--paper-2);
-  --border: #CCD6D1;
-  --border-soft: #DFE6E2;
+  --border: #CCD3DC;
+  --border-soft: #DFE4EA;
   --ink-700: #2A3F3B;
   --ink-800: #1B2A27;
   --ink-900: #141F1C;
