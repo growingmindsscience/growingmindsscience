@@ -33,10 +33,10 @@
   <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=4681d95c43" />
   <link rel="stylesheet" href="/assets/css/field-guide.css?v=46d4d4e37a" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=975e9133b4" />
-  <link rel="stylesheet" href="/assets/css/classes.css?v=dee14e3184" />
+  <link rel="stylesheet" href="/assets/css/classes.css?v=e19485ab5d" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=1db2085a47" />
 </head>
-<body class="fg fg--page">
+<body class="fg fg--page cl-hub">
   <!-- header:start -->
 <a class="skip-link" href="#main">Skip to content</a>
 
@@ -87,36 +87,97 @@
 <!-- header:end -->
   <main id="main" tabindex="-1">
     <!-- The lead line, and the map of the four classes -->
-    <section class="hb-container cl-title" aria-labelledby="page-heading">
+    <section class="hb-container cl-title" aria-labelledby="page-heading" data-age-explorer>
       <div class="cl-title__grid">
         <div>
-          <h1 class="hb-display" id="page-heading">The first five years, understood.</h1>
-          <p class="hb-lead" data-rise style="--i:1">One class for each window of the first five years. You learn the mechanism, the evidence, and the limits of what anyone can know about one child, at your own pace.</p>
-          <p class="cl-terms cl-terms--trust" data-rise style="--i:2">Clear about what&rsquo;s known. Honest about what&rsquo;s not.</p>
-          <p class="cl-terms" data-rise style="--i:2">$49 once per class, or all three for $119. Lifetime access, no subscription. Full refund within 14 days if you have watched four lessons or fewer. Matthew writes every lesson; the narration is an AI model of his own voice.</p>
+          <h1 class="hb-display" id="page-heading">The first five years, <em>understood.</em></h1>
+          <p class="hb-lead" data-rise style="--i:1">Self-paced classes to understand what your child is building, and how you can support it.</p>
+          <div class="cl-title__actions" data-rise style="--i:2">
+            <a class="hb-btn" href="#choose-class" data-age-action><span data-age-action-label>Find your class</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg></a>
+            <a class="cl-preview-link" href="/nsc/classes/infant/preview"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="m10 8 6 4-6 4Z" stroke-linejoin="round" /></svg>Watch a lesson free</a>
+          </div>
+          <p class="cl-terms" data-rise style="--i:2">$49 per class &middot; Lifetime access &middot; No subscription</p>
         </div>
-        <figure class="tl" data-rise style="--i:2" aria-labelledby="tl-caption">
-          <div class="tl__axis" aria-hidden="true"><span>birth</span><span>1</span><span>2</span><span>3</span><span><span>4</span><span>5<span class="tl__yrs"> years</span></span></span></div>
+        <figure class="cl-explorer" aria-labelledby="age-class-caption">
+          <div class="cl-explorer__viewport">
+            <button class="cl-explorer__photo" type="button" data-age-photo="infant" data-age-jump="6" data-placement="before" aria-label="Explore the infant class" aria-pressed="false" disabled>
+              <picture><source type="image/webp" srcset="/assets/img/site/class-infant-400.webp 400w, /assets/img/site/class-infant-640.webp 640w, /assets/img/site/class-infant-800.webp 800w" sizes="(min-width: 961px) 46vw, 92vw" /><img src="/assets/img/site/class-infant-400.jpg" width="800" height="800" alt="A baby holds a parent&rsquo;s finger." loading="lazy" decoding="async" /></picture>
+            </button>
+            <button class="cl-explorer__photo" type="button" data-age-photo="toddler" data-age-jump="18" data-placement="active" aria-label="Explore the toddler class" aria-pressed="true" disabled>
+              <picture><source type="image/webp" srcset="/assets/img/site/hero-parent-baby-640.webp 640w, /assets/img/site/hero-parent-baby-1000.webp 1000w" sizes="(min-width: 961px) 46vw, 92vw" /><img src="/assets/img/site/hero-parent-baby-640.jpg" srcset="/assets/img/site/hero-parent-baby-640.jpg 640w, /assets/img/site/hero-parent-baby.jpg 1024w" sizes="(min-width: 961px) 46vw, 92vw" width="1024" height="1536" alt="A toddler points while their parent follows their gaze." fetchpriority="high" decoding="async" /></picture>
+            </button>
+            <button class="cl-explorer__photo" type="button" data-age-photo="preschool" data-age-jump="48" data-placement="after" aria-label="Explore the preschool class" aria-pressed="false" disabled>
+              <img src="/assets/img/site/class-preschool-400.jpg" srcset="/assets/img/site/class-preschool-400.jpg 400w, /assets/img/site/class-preschool.jpg 800w" sizes="(min-width: 961px) 46vw, 92vw" width="800" height="800" alt="A preschooler explores a pretend kitchen." loading="lazy" decoding="async" />
+            </button>
+          </div>
+          <figcaption class="cl-explorer__caption" id="age-class-caption">
+            <a class="cl-explorer__class" href="/classes/toddlerhood" data-age-link><span><span class="cl-explorer__name" data-age-title>Toddler years, 1 to 3</span><span class="cl-explorer__meta" data-age-meta>13 lessons &middot; About 2.5 hours</span></span><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg></a>
+          </figcaption>
+          <div class="cl-explorer__controls">
+            <div class="cl-age" data-age-controls hidden>
+              <label class="cl-age__label" for="explorer-age">Explore their age</label>
+              <div class="cl-age__stages" role="group" aria-label="Jump to a stage">
+                <button type="button" data-age-jump="6" data-age-stage="infant" aria-pressed="false">Infant</button>
+                <button type="button" data-age-jump="18" data-age-stage="toddler" aria-pressed="true">Toddler</button>
+                <button type="button" data-age-jump="48" data-age-stage="preschool" aria-pressed="false">Preschool</button>
+              </div>
+              <div class="cl-age__ruler">
+                <span class="cl-age__track" aria-hidden="true"><span class="cl-age__fill"></span></span>
+                <svg class="cl-age__ticks" viewBox="0 0 600 18" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path data-age-ticks vector-effect="non-scaling-stroke" /></svg>
+                <input class="cl-age__input" type="range" id="explorer-age" min="0" max="60" step="1" value="18" aria-describedby="explorer-age-hint" />
+                <div class="cl-age__axis" aria-hidden="true"><span style="--year:0">Birth</span><span style="--year:1">1</span><span style="--year:2">2</span><span style="--year:3">3</span><span style="--year:4">4</span><span style="--year:5">5 yr</span></div>
+                <output class="cl-age__readout" for="explorer-age" aria-live="off" data-age-output>18 months</output>
+              </div>
+              <p class="u-visually-hidden" id="explorer-age-hint">Drag the marker or use the arrow keys to explore classes from birth to five years.</p>
+              <p class="u-visually-hidden" role="status" aria-live="polite" aria-atomic="true" data-age-status></p>
+            </div>
+            <nav class="cl-explorer__fallback" aria-label="Explore classes by age" data-age-fallback><a href="/classes/birth-to-12-months">Birth to 12 months</a><a href="/classes/toddlerhood">Toddler years</a><a href="/classes/preschool">Preschool years</a></nav>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="hb-container cl-finder" id="choose-class" aria-labelledby="finder-heading">
+      <div class="cl-finder__grid">
+        <div class="cl-finder__intro">
+          <h2 class="hb-display hb-display--l" id="finder-heading">Find your place in the first five years.</h2>
+        </div>
+        <figure class="tl tl--overview" data-rise style="--i:2" aria-labelledby="tl-caption">
+          <p class="tl__heading">Choose your child&rsquo;s stage</p>
+          <div class="tl__axis" aria-hidden="true"><span style="--year:0">Birth</span><span style="--year:1">1</span><span style="--year:2">2</span><span style="--year:3">3</span><span style="--year:4">4</span><span style="--year:5">5 years</span></div>
           <div class="tl__rows">
             <a class="tl__row tl__row--out" style="--from:1;--to:2" href="#infant"><span class="tl__name">Birth to 12 months</span><span class="tl__bar" aria-hidden="true"></span></a>
             <a class="tl__row tl__row--ink" style="--from:2;--to:4" href="#toddler"><span class="tl__name">Toddler years, 1 to 3</span><span class="tl__bar" aria-hidden="true"></span></a>
             <a class="tl__row tl__row--end" style="--from:4;--to:6" href="#preschool"><span class="tl__name">Preschool years, 3 to 5</span><span class="tl__bar" aria-hidden="true"></span></a>
-            <a class="tl__row tl__row--soon" style="--from:1;--to:6" href="#family"><span class="tl__name">The whole family, any age (in development)</span><span class="tl__bar" aria-hidden="true"></span></a>
+            <a class="tl__row tl__row--soon" style="--from:1;--to:6" href="#family"><span class="tl__name">The whole family <span class="tl__status">Any age &middot; In development</span></span><span class="tl__bar" aria-hidden="true"></span></a>
           </div>
-          <figcaption id="tl-caption"><b>Fig. 1</b>Each class covers one window of the same childhood. The family class applies at any age.</figcaption>
+          <figcaption class="u-visually-hidden" id="tl-caption">Select an age range to explore the class.</figcaption>
         </figure>
       </div>
     </section>
 
     <!-- The classes -->
     <section class="hb-container cl-list" aria-label="The classes">
-      <article class="cl-row" id="infant" data-rise>
+      <article class="cl-row" id="infant" aria-labelledby="infant-heading">
+        <a class="cl-row__image" href="/classes/birth-to-12-months" tabindex="-1" aria-hidden="true">
+          <picture><source type="image/webp" srcset="/assets/img/site/class-infant-400.webp 400w, /assets/img/site/class-infant-640.webp 640w" sizes="(min-width: 961px) 22vw, (min-width: 641px) 32vw, 92vw" /><img src="/assets/img/site/class-infant-400.jpg" srcset="/assets/img/site/class-infant-400.jpg 400w, /assets/img/site/class-infant.jpg 800w" sizes="(min-width: 961px) 22vw, (min-width: 641px) 32vw, 92vw" width="800" height="800" alt="" loading="lazy" decoding="async" /></picture>
+        </a>
+        <div class="cl-row__content">
         <div class="cl-row__head">
-          <h2><a href="/classes/birth-to-12-months">Birth to 12 months</a></h2>
+          <h2 id="infant-heading"><a href="/classes/birth-to-12-months">Birth to 12 months</a></h2>
         </div>
         <div class="cl-row__body">
-          <p>Why responsive care builds security rather than spoiling, and how language begins before the first word.</p>
-          <p class="cl-row__meta">16 lessons, about 3 hours. Captions and a written version of every lesson.</p>
+          <p>How connection builds security, sleep changes, and language begins before the first word.</p>
+          <p class="cl-row__meta">16 lessons &middot; About 3 hours</p>
+        </div>
+        <details class="cl-peek">
+          <summary><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14m-7-7v14" /></svg>Take a peek inside<span class="u-visually-hidden">: Birth to 12 months</span></summary>
+          <div class="cl-peek__body">
+            <p class="cl-peek__label">Inside the four modules</p>
+            <ul><li>The Newborn Brain</li><li>Reading Your Baby&rsquo;s Cues</li><li>Attachment in the First Year</li><li>The Explorer: Language, Movement, and Play</li></ul>
+            <a href="/classes/birth-to-12-months#syllabus">Explore the full curriculum <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </details>
         </div>
         <div class="cl-row__act">
           <span class="cl-row__price">$49, once</span>
@@ -125,29 +186,50 @@
         </div>
       </article>
 
-      <article class="cl-row" id="toddler" data-rise>
+      <article class="cl-row" id="toddler" aria-labelledby="toddler-heading">
+        <a class="cl-row__image" href="/classes/toddlerhood" tabindex="-1" aria-hidden="true"><img src="/assets/img/site/class-toddler-400.jpg" srcset="/assets/img/site/class-toddler-400.jpg 400w, /assets/img/site/class-toddler.jpg 800w" sizes="(min-width: 961px) 22vw, (min-width: 641px) 32vw, 92vw" width="800" height="800" alt="" loading="lazy" decoding="async" /></a>
+        <div class="cl-row__content">
         <div class="cl-row__head">
-          <h2><a href="/classes/toddlerhood">Toddler years, 1 to 3</a></h2>
+          <h2 id="toddler-heading"><a href="/classes/toddlerhood">Toddler years, 1 to 3</a></h2>
         </div>
         <div class="cl-row__body">
-          <p>Why &ldquo;no&rdquo; is a milestone, why words stop landing during a meltdown, and how your calm scaffolds theirs.</p>
-          <p class="cl-row__meta">13 lessons, about 2.5 hours. Ask the research, the AI tool, is included with your class, with a fair-use limit of 50 questions a day.</p>
+          <p>Understand big feelings, growing independence, and how your calm helps them find theirs.</p>
+          <p class="cl-row__meta">13 lessons, about 2.5 hours. Ask the research is included, with a fair-use limit of 50 questions a day.</p>
+        </div>
+        <details class="cl-peek">
+          <summary><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14m-7-7v14" /></svg>Take a peek inside<span class="u-visually-hidden">: Toddler years</span></summary>
+          <div class="cl-peek__body">
+            <p class="cl-peek__label">Inside the four modules</p>
+            <ul><li>The Toddler Brain, Briefly</li><li>Language, the Everyday Version</li><li>Autonomy and No</li><li>Big Feelings, Transitions, and Repair</li></ul>
+            <a href="/classes/toddlerhood#syllabus">Explore the full curriculum <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </details>
         </div>
         <div class="cl-row__act">
           <span class="cl-row__price">$49, once</span>
           <a class="hb-btn" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Ftoddlerhood%2Fenroll">Enroll, $49<span class="u-visually-hidden">: Toddler years</span></a>
-          <p class="cl-row__note">Checkout is here, with Stripe; lessons live in My classes.</p>
           <p class="cl-row__links"><a href="/classes/toddlerhood">See the class</a></p>
         </div>
       </article>
 
-      <article class="cl-row" id="preschool" data-rise>
+      <article class="cl-row" id="preschool" aria-labelledby="preschool-heading">
+        <a class="cl-row__image" href="/classes/preschool" tabindex="-1" aria-hidden="true"><img src="/assets/img/site/class-preschool-400.jpg" srcset="/assets/img/site/class-preschool-400.jpg 400w, /assets/img/site/class-preschool.jpg 800w" sizes="(min-width: 961px) 22vw, (min-width: 641px) 32vw, 92vw" width="800" height="800" alt="" loading="lazy" decoding="async" /></a>
+        <div class="cl-row__content">
         <div class="cl-row__head">
-          <h2><a href="/classes/preschool">Preschool years, 3 to 5</a></h2>
+          <h2 id="preschool-heading"><a href="/classes/preschool">Preschool years, 3 to 5</a></h2>
         </div>
         <div class="cl-row__body">
-          <p>Why pretend play is cognitive work, and what readiness means in the research rather than the brochure.</p>
+          <p>How play builds thinking, self-control grows, and school readiness takes shape.</p>
           <p class="cl-row__meta">15 lessons in 4 modules, about 2 hours 45 minutes.</p>
+        </div>
+        <details class="cl-peek">
+          <summary><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14m-7-7v14" /></svg>Take a peek inside<span class="u-visually-hidden">: Preschool years</span></summary>
+          <div class="cl-peek__body">
+            <p class="cl-peek__label">Inside the four modules</p>
+            <ul><li>The Thinking Preschooler</li><li>Play as the Work</li><li>Friends and Feelings</li><li>Ready for School</li></ul>
+            <a href="/classes/preschool#syllabus">Explore the full curriculum <span aria-hidden="true">&rarr;</span></a>
+          </div>
+        </details>
         </div>
         <div class="cl-row__act">
           <span class="cl-row__price">$49, once</span>
@@ -171,13 +253,16 @@
         </div>
       </article>
 
-      <article class="cl-row" id="family" data-rise>
+      <article class="cl-row cl-row--family" id="family" aria-labelledby="family-heading">
+        <a class="cl-row__image" href="/classes/family-systems" tabindex="-1" aria-hidden="true"><img src="/assets/img/site/class-family-400.jpg" srcset="/assets/img/site/class-family-400.jpg 400w, /assets/img/site/class-family.jpg 800w" sizes="(min-width: 961px) 22vw, (min-width: 641px) 32vw, 92vw" width="800" height="800" alt="" loading="lazy" decoding="async" /></a>
+        <div class="cl-row__content">
         <div class="cl-row__head">
-          <h2><a href="/classes/family-systems">The whole family</a></h2>
+          <h2 id="family-heading"><a href="/classes/family-systems">The whole family</a></h2>
         </div>
         <div class="cl-row__body">
-          <p>How household stress reaches a child&rsquo;s nervous system, and which protective factors hold up.</p>
+          <p>How family stress affects children, and which everyday supports make a difference.</p>
           <p class="cl-row__meta">6 modules, any age.</p>
+        </div>
         </div>
         <div class="cl-row__act">
           <span class="cl-row__price soon">In development</span>
@@ -188,16 +273,22 @@
     </section>
 
     <!-- Not sure yet -->
-    <section class="hb-container hb-section--tight" aria-labelledby="free-heading" style="padding-top:0">
-      <div class="cl-free" data-rise>
+    <section class="cl-free-section" aria-labelledby="free-heading">
+      <div class="hb-container cl-free">
         <div>
-          <h2 class="hb-display hb-display--m" id="free-heading">Not sure yet?</h2>
-          <p>Watch a full infant lesson free: 14 minutes, no account. The articles and free tools are written the way the classes are taught.</p>
-        </div>
-        <div class="cl-free__act">
-          <a class="hb-btn" href="/nsc/classes/infant/preview">Watch the free lesson</a>
+          <h2 class="hb-display" id="free-heading">A little understanding goes a long way.</h2>
+          <p>Try a full infant lesson: 14 minutes, no account needed.</p>
+          <div class="cl-free__act">
+          <a class="hb-btn hb-btn--paper" href="/nsc/classes/infant/preview"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="m10 8 6 4-6 4Z" stroke-linejoin="round" /></svg>Watch the free lesson</a>
           <p class="cl-free__links"><a href="/articles/">Articles</a><a href="/tools/">Free tools</a><a href="/milestones">Milestone tracker</a></p>
+          </div>
+          <p class="cl-free__note">Written by Matthew, narrated with an AI model of his voice. Captions and transcripts included. <a href="/terms-of-sale/">Refund policy</a>.</p>
         </div>
+        <a class="cl-lesson" href="/nsc/classes/infant/preview">
+          <img src="/assets/img/site/class-infant-400.webp" srcset="/assets/img/site/class-infant-400.webp 400w, /assets/img/site/class-infant-640.webp 640w" sizes="(min-width: 961px) 34vw, 92vw" width="800" height="800" alt="A baby holds a parent&rsquo;s finger." loading="lazy" decoding="async" />
+          <span class="cl-lesson__play" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"><path d="m9 5 11 7-11 7Z" /></svg></span>
+          <span class="cl-lesson__caption"><span><b>Serve and Return</b><span>A full lesson from the infant class</span></span><span class="cl-lesson__duration">14 min</span></span>
+        </a>
       </div>
     </section>
   </main>
@@ -266,6 +357,7 @@
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
   <script src="/assets/js/home.js?v=78ff6722df" defer></script>
+  <script src="/assets/js/classes.js?v=6b63eaa556" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
