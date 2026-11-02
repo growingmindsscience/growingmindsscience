@@ -35,6 +35,7 @@
   <link rel="preload" as="image" type="image/webp" imagesrcset="/assets/img/site/hero-parent-baby-640.webp 640w, /assets/img/site/hero-parent-baby-1000.webp 1000w" imagesizes="(min-width: 901px) 58vw, 100vw" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
   <link rel="stylesheet" href="/assets/css/home.css?v=492c36db81" />
+  <link rel="stylesheet" href="/assets/css/home-lens.css?v=8905b941bc" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=475f0abf7f" />
 
   <script type="application/ld+json">
@@ -140,85 +141,64 @@
       </figure>
     </section>
 
-    <!-- 02 The Developmental Lens: a short introduction in four frames -->
-    <section class="hb-section lens-section" id="lens" aria-labelledby="lens-heading">
+    <!-- 02 The Developmental Lens -->
+    <section class="hb-section lens-story" id="lens" aria-labelledby="lens-heading" data-guided-lens data-step="observe">
       <div class="hb-container">
-        <div class="lens-head">
+        <div class="story-heading">
           <div>
-            <h2 class="hb-display hb-display--l" id="lens-heading">Why is leaving the playground so hard?</h2>
-            <p class="lens__meta">The Developmental Lens &middot; 18 months to 4 years</p>
+            <h2 class="hb-display hb-display--l" id="lens-heading">Leaving the playground</h2>
+            <p class="story-meta">The Developmental Lens &middot; 18 months to 4 years</p>
           </div>
-          <p class="hb-soft">Four ordinary moments, and what is still growing underneath each one.</p>
+          <p class="story-invitation">One ordinary moment.<br />A different way of seeing it.</p>
         </div>
-
-        <div class="seq" data-seq role="region" aria-roledescription="carousel" aria-label="Leaving the playground, in four frames">
-          <div class="seq__bar">
-            <ol class="seq__steps">
-              <li><button class="seq__step" type="button" data-seq-go="0" aria-controls="seq-1"><small>1</small><span>Absorbed in play</span></button></li>
-              <li><button class="seq__step" type="button" data-seq-go="1" aria-controls="seq-2"><small>2</small><span>&ldquo;Time to go&rdquo;</span></button></li>
-              <li><button class="seq__step" type="button" data-seq-go="2" aria-controls="seq-3"><small>3</small><span>The run back</span></button></li>
-              <li><button class="seq__step" type="button" data-seq-go="3" aria-controls="seq-4"><small>4</small><span>On the ground</span></button></li>
+        <div class="story-walkthrough">
+          <figure class="story-scene" aria-describedby="story-scene-caption">
+            <div class="story-photo">
+              <picture>
+                <source type="image/webp" srcset="/assets/img/site/child-learning-640.webp 640w, /assets/img/site/child-learning-1122.webp 1122w" sizes="(min-width: 901px) 46vw, 100vw" />
+                <img src="/assets/img/site/child-learning.jpg" srcset="/assets/img/site/child-learning-640.jpg 640w, /assets/img/site/child-learning.jpg 1122w" sizes="(min-width: 901px) 46vw, 100vw" width="1122" height="1402" alt="A toddler at the bottom of a slide, one hand on it, turned back toward it; an adult crouches behind with a hand held out low." loading="lazy" />
+              </picture>
+              <div class="story-focus" aria-hidden="true" data-story-focus>
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false"><path class="story-focus__under" d="M0 18V0h18M82 0h18v18M100 82v18H82M18 100H0V82" vector-effect="non-scaling-stroke" /><path d="M0 18V0h18M82 0h18v18M100 82v18H82M18 100H0V82" vector-effect="non-scaling-stroke" /></svg>
+              </div>
+            </div>
+            <figcaption class="story-caption" id="story-scene-caption">
+              <p data-story-caption="observe"><strong>A change of plan.</strong><span>&ldquo;Time to go.&rdquo;</span></p>
+              <p data-story-caption="understand" hidden><strong>The brakes arrive last.</strong><span>Stopping an action under way develops slowly.</span></p>
+              <p data-story-caption="respond" hidden><strong>The hand held low.</strong><span>Close, steady, not grabbing.</span></p>
+              <p data-story-caption="reflect" hidden><strong>The wider moment.</strong><span>Notice what came just before.</span></p>
+            </figcaption>
+            <ol class="story-progress" aria-label="Reading through the Developmental Lens">
+              <li data-story-stage="observe" aria-current="step">Observe</li>
+              <li data-story-stage="understand">Understand</li>
+              <li data-story-stage="respond">Respond</li>
+              <li data-story-stage="reflect">Reflect</li>
             </ol>
-            <span class="seq__dots" data-seq-dots aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-            <div class="seq__arrows">
-              <button class="seq__arrow" type="button" data-seq-prev aria-label="Previous frame"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
-              <button class="seq__arrow" type="button" data-seq-next aria-label="Next frame"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
-            </div>
-          </div>
-          <span class="u-visually-hidden" aria-live="polite" data-seq-status></span>
-
-          <div class="seq__track" data-seq-track tabindex="0" role="group" aria-label="The four frames; use the arrow keys to move between them">
-            <div class="seq__slide" id="seq-1" role="group" aria-roledescription="slide" aria-label="1 of 4: Absorbed in play">
-              <figure class="seq__photo">
-                <picture><source type="image/webp" srcset="/assets/img/site/lens-1-play-640.webp 640w, /assets/img/site/lens-1-play-1122.webp 1122w" sizes="(min-width: 1200px) 520px, (min-width: 700px) 42vw, 84vw" /><img src="/assets/img/site/lens-1-play.jpg" srcset="/assets/img/site/lens-1-play-640.jpg 640w, /assets/img/site/lens-1-play.jpg 1122w" sizes="(min-width: 1200px) 520px, (min-width: 700px) 42vw, 84vw" width="1122" height="1402" alt="A toddler slides down a sage-green slide, hands on its sides, looking down; a parent stands beside it, one hand in a pocket, watching." loading="lazy" /></picture>
-                <figcaption class="plate__fig"><b>Fig. 2a</b> &nbsp;A happy child, absorbed in play.</figcaption>
-              </figure>
-              <div class="seq__text">
-                <h3 class="lens__q">Ten happy minutes on the slide.</h3>
-                <p>Then the two-minute warning. Saying what comes next, &ldquo;two more slides, then lunch,&rdquo; gives your child something to hold on to.</p>
-              </div>
-            </div>
-
-            <div class="seq__slide" id="seq-2" role="group" aria-roledescription="slide" aria-label="2 of 4: Time to go">
-              <figure class="seq__photo">
-                <picture><source type="image/webp" srcset="/assets/img/site/lens-2-time-to-go-640.webp 640w, /assets/img/site/lens-2-time-to-go-1122.webp 1122w" sizes="(min-width: 1200px) 520px, (min-width: 700px) 42vw, 84vw" /><img src="/assets/img/site/lens-2-time-to-go.jpg" srcset="/assets/img/site/lens-2-time-to-go-640.jpg 640w, /assets/img/site/lens-2-time-to-go.jpg 1122w" sizes="(min-width: 1200px) 520px, (min-width: 700px) 42vw, 84vw" width="1122" height="1402" alt="At the foot of the slide, the parent crouches beside the toddler with one hand open and low; the toddler stands with hands in pockets, looking away." loading="lazy" /></picture>
-                <figcaption class="plate__fig"><b>Fig. 2b</b> &nbsp;An announcement, a hand held out low, and a head turned away.</figcaption>
-              </figure>
-              <div class="seq__text">
-                <h3 class="lens__q">&ldquo;Time to go.&rdquo;</h3>
-                <p>Switching from &ldquo;play&rdquo; to &ldquo;go&rdquo; is genuinely hard at this age. The skill of changing plans is still being built.</p>
-              </div>
-            </div>
-
-            <div class="seq__slide" id="seq-3" role="group" aria-roledescription="slide" aria-label="3 of 4: The run back">
-              <figure class="seq__photo">
-                <picture><source type="image/webp" srcset="/assets/img/site/lens-3-run-back-640.webp 640w, /assets/img/site/lens-3-run-back-1122.webp 1122w" sizes="(min-width: 1200px) 520px, (min-width: 700px) 42vw, 84vw" /><img src="/assets/img/site/lens-3-run-back.jpg" srcset="/assets/img/site/lens-3-run-back-640.jpg 640w, /assets/img/site/lens-3-run-back.jpg 1122w" sizes="(min-width: 1200px) 520px, (min-width: 700px) 42vw, 84vw" width="1122" height="1402" alt="A toddler at the bottom of a slide, one hand on it, turned back toward it; an adult crouches behind with a hand held out low." loading="lazy" /></picture>
-                <figcaption class="plate__fig"><b>Fig. 2c</b> &nbsp;A hand on the slide; a hand held out low.</figcaption>
-              </figure>
-              <div class="seq__text">
-                <h3 class="lens__q">A run back to the slide.</h3>
-                <p>Stopping something fun is one of the last skills to arrive. The brakes are still under construction. It is not a child ignoring you.</p>
-              </div>
-            </div>
-
-            <div class="seq__slide" id="seq-4" role="group" aria-roledescription="slide" aria-label="4 of 4: On the ground">
-              <figure class="seq__photo">
-                <picture><source type="image/webp" srcset="/assets/img/site/lens-4-floor-640.webp 640w, /assets/img/site/lens-4-floor-1122.webp 1122w" sizes="(min-width: 1200px) 520px, (min-width: 700px) 42vw, 84vw" /><img src="/assets/img/site/lens-4-floor.jpg" srcset="/assets/img/site/lens-4-floor-640.jpg 640w, /assets/img/site/lens-4-floor.jpg 1122w" sizes="(min-width: 1200px) 520px, (min-width: 700px) 42vw, 84vw" width="1122" height="1402" alt="The toddler sits on the leaf-covered ground by the slide, back to the camera; the parent kneels close beside, one hand resting on the ground." loading="lazy" /></picture>
-                <figcaption class="plate__fig"><b>Fig. 2d</b> &nbsp;On the ground, with an adult close and still.</figcaption>
-              </figure>
-              <div class="seq__text">
-                <h3 class="lens__q">Down on the ground, crying.</h3>
-                <p>Once a child is overwhelmed, reasons don&rsquo;t land. Stay close and calm first. The explaining can wait for the car.</p>
-                <p class="seq__class">Taught in Module 4 of <a href="/classes/toddlerhood">the toddler class</a>.</p>
-              </div>
-            </div>
+          </figure>
+          <div class="story-lessons">
+            <section class="story-beat" data-story-beat="observe" aria-labelledby="story-observe">
+              <h3 id="story-observe">Nothing about the playground changed. The plan did.</h3>
+              <p>Two-minute warning given. &ldquo;Time to go.&rdquo; A run back to the slide. A body on the ground. Loud, fast crying. Ten minutes ago, everything was fine.</p>
+            </section>
+            <section class="story-beat" data-story-beat="understand" aria-labelledby="story-understand">
+              <h3 id="story-understand">The brakes are the last part to arrive.</h3>
+              <p>Strong feelings and fast reactions are there from early on. The ability to hold them back comes later.</p>
+            </section>
+            <section class="story-beat" data-story-beat="respond" aria-labelledby="story-respond">
+              <h3 id="story-respond">Say what is next before the end.</h3>
+              <p>A plan said out loud gives your child something to hold on to, even if it does not stop the protest.</p>
+              <blockquote>&ldquo;Two more slides, then lunch.&rdquo;</blockquote>
+            </section>
+            <section class="story-beat" data-story-beat="reflect" aria-labelledby="story-reflect">
+              <h3 id="story-reflect">What might you notice next time?</h3>
+              <p>What came just before the hard moment? What helped you stay steady?</p>
+              <p class="story-reassurance">Observations, not scores. Curiosity about one child, not a verdict.</p>
+            </section>
           </div>
         </div>
-
-        <div class="seq__foot">
-          <p class="seq__after">Easy on Tuesday, hard on Wednesday? That is ordinary at this age.</p>
-          <a class="hb-btn" href="/lens/leaving-the-playground">Read the full Lens</a>
-          <p class="seq__status hb-muted">A typical moment, not a diagnosis. <a href="/lens/leaving-the-playground#sources">See the research</a></p>
+        <div class="story-footer">
+          <a class="story-full" href="/lens/leaving-the-playground">Read the full Lens, with sources <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
+          <p>Clear about what&rsquo;s known. Honest about what&rsquo;s not.</p>
         </div>
       </div>
     </section>
@@ -391,6 +371,7 @@
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
   <script src="/assets/js/home.js?v=1f1dfef590" defer></script>
+  <script src="/assets/js/home-lens.js?v=5219cef4da" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
