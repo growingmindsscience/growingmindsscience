@@ -53,7 +53,7 @@ Age note: Most common from about 18 months to 3 years and still common at 4, wit
 
 ### Understand
 Heading: What might be developing beneath the surface?
-Lead: Four processes can be read in this one moment. None is a flaw. Each is a skill still being built.
+Lead: Four processes in your child can be read in this one moment, and one in you. None is a flaw: your child’s are skills still being built, and yours is a state you can notice.
 
 Mechanism 1. Title: Switching rules is hard at this age. Text: In a classic card-sorting game, most three-year-olds keep sorting by the first rule even after they are told the new one. By four or five, most children switch easily. Leaving the playground asks for a similar switch, from "play" to "go", while the first plan is still running, and in a moment that matters far more to a child than a card game. Evidence note: Well established in laboratory tasks. Zelazo, 2006; Zelazo and colleagues, 2003.
 
