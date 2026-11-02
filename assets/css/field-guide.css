@@ -132,6 +132,14 @@ html:has(> body.fg) { scrollbar-color: var(--sage-deep) var(--paper); }
    ========================================================= */
 .fg .site-header { background: var(--paper); }
 .fg .site-header.is-scrolled { background: var(--paper-2); }
+/* One left edge: on every page built on fg-base.css the header and footer share the page's
+   container (.hb-container: 1320px inside the --hb-gutter of clamp(16px, 4vw, 56px)), so the
+   wordmark, every page title and the footer start on the same line at every width. A page without
+   fg-base.css (milestones, Ask the research) has no --hb-gutter and keeps chrome.css's 1200px
+   measure, which its own container follows. */
+.fg { --fg-chrome-gutter: var(--hb-gutter, clamp(1rem, 4vw, 2rem)); --fg-chrome-max: calc(1320px + 2 * var(--hb-gutter, -60px)); }
+.fg .site-header .site-header__inner,
+.fg .site-footer > .container { max-width: var(--fg-chrome-max); padding-inline: var(--fg-chrome-gutter); }
 .fg .site-header .nav__auth::before { display: none; }
 @media (min-width: 1000px) { .fg .site-header .nav__auth { margin-left: 0.75rem; } } /* the sheet below 1000px lines it up with the other rows */
 /* "It's hard right now" opens the header order on wide desktops too, not only in the phone sheet; from 1000 to 1279px the row has no room, and the Tools menu and the hero line carry it. */
@@ -158,7 +166,7 @@ html:has(> body.fg) { scrollbar-color: var(--sage-deep) var(--paper); }
   /* The open menu is a full sheet of paper down to the foot of the screen, so the page never shows
      through under it. Its side padding is restated here because the list reset above outranks
      chrome.css's, which left the items flush to the screen edge. */
-  .fg .site-header .nav__list { border-bottom: 0; background: var(--paper); height: calc(100dvh - var(--header-h)); padding: 0.5rem clamp(1rem, 4vw, 2.25rem) calc(1.5rem + env(safe-area-inset-bottom)); }
+  .fg .site-header .nav__list { border-bottom: 0; background: var(--paper); height: calc(100dvh - var(--header-h)); padding: 0.5rem var(--fg-chrome-gutter) calc(1.5rem + env(safe-area-inset-bottom)); }
 }
 
 /* Footer: columns above, the wordmark below, on the same ink field as the close. */
@@ -200,7 +208,7 @@ html:has(> body.fg) { scrollbar-color: var(--sage-deep) var(--paper); }
 .fg .site-footer .footer-bottom {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 2rem;
   margin-top: 1.25rem; padding-top: 0; border-top: 0;
-  color: var(--on-ink-muted); font-size: var(--step-small);
+  color: var(--on-ink-muted); font-family: var(--font-body); font-size: var(--step-small); /* fine print is Inter (the Two Hands Rule) */
 }
 .fg .site-footer .footer-bottom p { margin: 0; }
 .fg .site-footer :focus-visible { outline-color: var(--on-ink); }
@@ -540,11 +548,21 @@ html:has(> body.fg) { scrollbar-color: var(--sage-deep) var(--paper); }
 
 /* =========================================================
    Motion layer: entrances, once, in reading order
+   [data-rise] rises 18px and fades in (DESIGN, Motion). One keyframe, two moments:
+   - At load. With html.anim (each page's head script sets it when motion is welcome) every
+     [data-rise] plays fg-rise from page load, staggered by --i. CSS alone finishes it, so a page
+     that does not load home.js never keeps anything hidden.
+   - As it enters. home.js marks each [data-rise] that starts below the first screen with
+     .rise-wait, which holds it until the observer adds .is-in as it scrolls into view; then the
+     same keyframe plays there. Anything in the first screen keeps its load sequence.
+   Reduced motion, no script and print show everything at rest.
    ========================================================= */
 @media (prefers-reduced-motion: no-preference) {
   .anim [data-reveal] { opacity: 0; transform: translateY(22px); transition: opacity 700ms var(--ease-out), transform 900ms var(--ease-out); transition-delay: calc(var(--i, 0) * 80ms); }
   .anim [data-reveal].is-in { opacity: 1; transform: none; }
-  .anim [data-rise] { opacity: 0; transform: translateY(18px); animation: fg-rise var(--t-reveal) var(--ease-out) forwards; animation-delay: calc(var(--i, 0) * 90ms + 160ms); }
+  html.anim [data-rise] { opacity: 0; transform: translateY(18px); animation: fg-rise var(--t-reveal) var(--ease-out) forwards; animation-delay: calc(var(--i, 0) * 90ms + 160ms); }
+  html.anim [data-rise].rise-wait { animation-delay: calc(var(--i, 0) * 80ms); }
+  html.anim [data-rise].rise-wait:not(.is-in) { animation: none; }
   @supports (animation-timeline: view()) {
     .anim .fg-drift img { animation: fg-drift linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; }
   }
@@ -562,5 +580,5 @@ html:has(> body.fg) { scrollbar-color: var(--sage-deep) var(--paper); }
 /* Print: everything visible, nothing sticky */
 @media print {
   .fg .site-header, .fg .site-footer { position: static; }
-  .fg [data-reveal], .fg [data-rise] { opacity: 1 !important; transform: none !important; }
+  .fg [data-reveal], .fg [data-rise] { opacity: 1 !important; transform: none !important; animation: none !important; }
 }

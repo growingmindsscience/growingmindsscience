@@ -2,11 +2,14 @@
    Growing Minds Science: fg-base.css
    The shared primitives of the annotated-observation system, used by the
    homepage and every inner page rebuilt on it: the container and section
-   rhythm, display type, one button shape, entrances, the menu rows that
-   list classes with their prices, and the age-range bar. Moved out of
-   home.css unchanged; scoped to the homepage and to inner pages
-   (body.fg--page). Loaded after field-guide.css, before the page's own
-   stylesheet. Tokens from tokens-field-guide.css.
+   rhythm, display type, one button shape, the action rows, the menu rows
+   that list classes with their prices, the age-range bar, and the small
+   shared components every surface may use (Keep reading, figures, the
+   short version, words to say, crisis lines). Scoped to the homepage and
+   to inner pages (body.fg--page). Loaded after field-guide.css, before the
+   page's own stylesheet. Tokens from tokens-field-guide.css.
+   Entrances ([data-rise]) live in field-guide.css's motion layer, so they
+   behave the same on every field-guide page; home.js holds the observer.
    ========================================================= */
 
 :is(.fg--home, .fg--page) { --hb-gutter: clamp(16px, 4vw, 56px); }
@@ -40,13 +43,34 @@
 .fg .hb-btn--paper:hover { background: var(--surface); color: var(--ink); }
 .fg .hb-btn--quiet { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
 .fg .hb-btn--quiet:hover { background: var(--sage-mist); color: var(--ink); }
-:is(.fg--home, .fg--page) a { text-decoration-thickness: 1px; text-underline-offset: 0.16em; }
-:is(.fg--home, .fg--page) a:hover { color: var(--forest); }
+.fg .hb-btn[aria-busy="true"] { cursor: progress; }
+.fg .hb-btn:disabled:not([aria-busy="true"]) { background: var(--surface-2); color: var(--ink-muted); box-shadow: none; cursor: not-allowed; }
+/* On the ink field the paper button is the primary action. In the dark theme --paper is the night
+   ground (#141F1C), which sinks into the darker field (#0B1210, 1.12:1), so there it takes the
+   action fill instead, hover included. */
+[data-theme="dark"] .fg .hub-close .hb-btn--paper,
+[data-theme="dark"] .fg .fg-ink-field .hb-btn--paper,
+[data-theme="dark"] .fg--home .close .hb-btn--paper { background: var(--forest); color: var(--on-forest); }
+[data-theme="dark"] .fg .hub-close .hb-btn--paper:hover,
+[data-theme="dark"] .fg .fg-ink-field .hb-btn--paper:hover,
+[data-theme="dark"] .fg--home .close .hb-btn--paper:hover { background: var(--forest-deep); color: var(--on-forest); }
 
-/* Entrances: gated by html.anim; reduced motion and no-script show everything */
-html.anim :is(.fg--home, .fg--page) [data-rise] { opacity: 0; transform: translateY(18px); transition: opacity 640ms cubic-bezier(.2,.7,.2,1), transform 640ms cubic-bezier(.2,.7,.2,1); transition-delay: calc(var(--i, 0) * 70ms); }
-html.anim :is(.fg--home, .fg--page) [data-rise].is-in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { html.anim :is(.fg--home, .fg--page) [data-rise] { opacity: 1; transform: none; transition: none; } }
+/* Action rows: the buttons under a title or in a close, 12px apart. Under 640px every button in a
+   title block or a close band takes the full width (DESIGN, Buttons). The older row classes are
+   listed so the rule holds everywhere; new markup uses .hb-actions. */
+.hb-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+@media (max-width: 640px) {
+  .fg :is(.hb-actions, .hub-title__actions, .hub-close__act, .g-title__actions, .cl-title__actions, .cl-free__act, .hero__actions) { width: 100%; justify-self: stretch; }
+  .fg :is(.hb-actions, .hub-title__actions, .hub-close__act, .g-title__actions, .cl-title__actions, .cl-free__act, .hero__actions) > .hb-btn,
+  .fg--home .close__text > .hb-btn { width: 100%; }
+}
+
+/* Links. Inline links turn verdigris on hover. :where() keeps the rule at element weight, so any
+   component that sets its own hover colour wins: the Explore age band, rows, doors, menus. On the
+   ink field verdigris would sink (about 1.3:1), so inline links there brighten to on-ink. */
+:is(.fg--home, .fg--page) a { text-decoration-thickness: 1px; text-underline-offset: 0.16em; }
+:where(.fg--home, .fg--page) a:hover { color: var(--forest); }
+:where(.hub-close, .fg-ink-field, .mission, .fg--home .close) a:hover { color: var(--on-ink); text-decoration-thickness: 2px; }
 
 /* Menu rows: a class, its price, one line of promise, quiet rules between */
 .menu { display: grid; }
@@ -64,3 +88,112 @@ html.anim :is(.fg--home, .fg--page) [data-rise].is-in { opacity: 1; transform: n
 .range__track { height: 8px; background: var(--sage-mist); border-radius: 4px; position: relative; box-shadow: inset 0 0 0 1px var(--sage-deep); } /* the hairline draws the whole span, birth to five, on paper and on mist */
 .range__track i { position: absolute; top: 0; bottom: 0; background: var(--forest); border-radius: 4px; left: var(--from); right: calc(100% - var(--to)); }
 .range small { color: var(--ink-muted); font-size: 13px; display: flex; justify-content: space-between; }
+
+/* =========================================================
+   Shared components. Every value is a field-guide token, so each works
+   in both themes; the markup each expects is noted above its rules.
+   ========================================================= */
+
+/* ---------- Keep reading / Keep going: two to four places to go next ----------
+   A heading, then rows opened by a 2px ink rule with quiet rules between. The name is a
+   Newsreader link stretched over its row; one Inter line under it. Hover turns the name
+   verdigris and underlines it (DESIGN, Rows). Rows go two-up (name | line) when the block
+   is wide enough, whatever column it sits in. */
+.hb-next { container-type: inline-size; display: grid; gap: 20px; }
+.hb-next__title { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); line-height: 1.1; letter-spacing: -0.02em; }
+.fg .hb-next__list { display: grid; margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--ink); }
+.hb-next__row { position: relative; display: grid; gap: 4px; padding-block: 18px; border-top: 1px solid var(--border-soft); }
+.hb-next__row:first-child { border-top: 0; }
+.fg .hb-next__name { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem); line-height: 1.15; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; text-wrap: balance; }
+.hb-next__name::after { content: ""; position: absolute; inset: 0; }
+.fg .hb-next__row:hover .hb-next__name { color: var(--forest); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.16em; }
+.fg .hb-next__name:focus-visible { outline: none; }
+.fg .hb-next__name:focus-visible::after { outline: 2.5px solid var(--forest); outline-offset: 2px; }
+.fg .hb-next__line { color: var(--ink-soft); max-width: 60ch; }
+.fg .hb-next__meta { font-size: 14px; color: var(--ink-muted); }
+@container (min-width: 620px) {
+  .hb-next__row { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 28px; align-items: baseline; }
+  .hb-next__name, .hb-next__meta { grid-column: 1; }
+  .hb-next__line { grid-column: 2; grid-row: 1 / span 2; }
+}
+/* The split variant: heading in a 4-column track beside the rows, like a hub section. */
+@media (min-width: 861px) {
+  .hb-next--split { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(32px, 5vw, 80px); align-items: start; }
+}
+
+/* ---------- Figures: a plate, then a caption with a research-blue Fig. marker ----------
+   The plate holds inline SVG or HTML on soft white (sage mist on a soft-white section, or with
+   .hb-fig--mist). Captions are Inter small in ink-soft; .hb-fig__src names the source in
+   research blue ("After ..."). Fill and stroke helpers keep SVG drawings on the tokens. */
+.fg .hb-fig { display: grid; gap: 14px; margin: 0; }
+.hb-fig__plate { padding: clamp(18px, 3vw, 32px); border-radius: var(--radius-lg); background: var(--surface); overflow: hidden; }
+.hb-fig--mist .hb-fig__plate, .hub-sec--white .hb-fig__plate { background: var(--sage-mist); }
+.hb-fig__plate > svg { display: block; width: 100%; height: auto; margin-inline: auto; overflow: visible; }
+.fg .hb-fig figcaption { font-size: 14px; line-height: 1.55; color: var(--ink-soft); max-width: 62ch; text-wrap: pretty; }
+.fg .hb-fig__n { margin-right: 0.4em; font-weight: 600; color: var(--research); font-variant-numeric: tabular-nums; }
+.fg .hb-fig__src { display: block; margin-top: 4px; color: var(--research); }
+.hb-fig svg text { font-family: var(--font-body); }
+.hb-fig .f-ink { fill: var(--ink); }
+.hb-fig .f-soft { fill: var(--ink-soft); }
+.hb-fig .f-muted { fill: var(--ink-muted); }
+.hb-fig .f-forest { fill: var(--forest); }
+.hb-fig .f-area { fill: var(--sage-mist-2); }
+.hb-fig .f-sage { fill: var(--sage-deep); }
+.hb-fig .f-ground { fill: var(--surface); }
+.hb-fig .f-mark { fill: var(--note-warm); }      /* annotation marks only: dots, rings, arrowheads */
+.hb-fig .f-ochre { fill: var(--note-amber); }    /* annotation marks only */
+.hb-fig .s-ink { stroke: var(--ink); fill: none; }
+.hb-fig .s-soft { stroke: var(--ink-muted); fill: none; }
+.hb-fig .s-forest { stroke: var(--forest); fill: none; }
+.hb-fig .s-rule { stroke: var(--border); fill: none; }
+.hb-fig .s-mark { stroke: var(--note-warm); fill: none; }
+/* The draw-in: .hb-fig[data-draw][data-rise] draws each .hb-draw stroke (give it pathLength="1")
+   once, as the figure rises into view; --d orders the strokes. Without html.anim (no script,
+   reduced motion) and in print every stroke is simply drawn. */
+@media (prefers-reduced-motion: no-preference) {
+  html.anim .hb-fig[data-draw].is-in .hb-draw {
+    stroke-dasharray: 1;
+    animation: hb-draw 1100ms var(--ease-out) both;
+    animation-delay: calc(var(--i, 0) * 90ms + 280ms + var(--d, 0) * 160ms);
+  }
+  html.anim .hb-fig[data-draw].rise-wait.is-in .hb-draw { animation-delay: calc(var(--i, 0) * 80ms + 200ms + var(--d, 0) * 160ms); }
+}
+@keyframes hb-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@media print { .hb-fig .hb-draw { animation: none !important; stroke-dashoffset: 0 !important; } }
+
+/* ---------- The short version: the explanatory panel on sage mist ----------
+   For FAQ, legal pages and anything that opens with a summary (the general form of the
+   article's .art-short). Internal rules in sage-mist-2. */
+.fg .hb-short { padding: clamp(24px, 3vw, 36px); border-radius: var(--radius-lg); background: var(--sage-mist); color: var(--ink); }
+.fg .hb-short > * + * { margin-top: 10px; }
+.fg .hb-short__title { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); line-height: 1.15; letter-spacing: -0.01em; }
+.fg .hb-short :is(p, li) { color: var(--ink-soft); max-width: 62ch; }
+.fg .hb-short :is(ul, ol) { display: grid; margin: 14px 0 0; padding: 0; list-style: none; }
+.fg .hb-short ol { padding-left: 1.25em; list-style: decimal; }
+.fg .hb-short li { padding-block: 10px; border-top: 1px solid var(--sage-mist-2); }
+.fg .hb-short li:first-child { border-top: 0; padding-top: 0; }
+.fg .hb-short :is(b, strong) { color: var(--ink); font-weight: 600; }
+.fg .hb-short a { color: var(--forest); }
+.fg .hb-short a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
+
+/* ---------- Words to say: a label over the words, on sage mist ----------
+   The right-now anatomy: an Inter 600 label, then the line in Newsreader at statement size.
+   On a mist ground or inside a mist panel it steps to soft white. */
+.fg .hb-say { display: grid; gap: 6px; margin: 0; padding: 16px 20px 18px; border-radius: var(--radius); background: var(--sage-mist); }
+.fg .hb-say__label { font-size: 15px; font-weight: 600; line-height: 1.4; color: var(--ink-soft); }
+.fg .hb-say__words { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); line-height: 1.3; letter-spacing: -0.01em; color: var(--ink); max-width: 46ch; text-wrap: pretty; }
+.fg :is(.hub-sec--mist, .hb-short, .pg-form) .hb-say { background: var(--surface); }
+.fg .hb-say > * + * { margin-top: 0; }
+
+/* ---------- Crisis lines: calm, tappable tel: and sms: links ----------
+   The number in Inter 600, a few words beside it, a chip-shaped 44px target with a hairline
+   outline; no alarm colour. Works on haze, on mist (hover steps to soft white) and on the ink
+   field (outline and text turn on-ink; also .hb-crisis--ink on any other dark ground). */
+.hb-crisis { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.fg .hb-crisis__line { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 6px 14px; border-radius: var(--radius); box-shadow: inset 0 0 0 1.5px var(--border); color: var(--ink); font-size: 15px; line-height: 1.3; text-decoration: none; transition: background-color var(--t-hover) ease, box-shadow var(--t-hover) ease; }
+.hb-crisis__line b { font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: 0.01em; }
+.fg .hb-crisis__line:hover { background: var(--sage-mist); color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink-muted); }
+.fg :is(.hub-sec--mist, .hb-short, .pg-form) .hb-crisis__line:hover { background: var(--surface); }
+.fg :is(.hub-close, .fg-ink-field, .hb-crisis--ink) .hb-crisis__line { color: var(--on-ink); box-shadow: inset 0 0 0 1.5px var(--on-ink-muted); }
+.fg :is(.hub-close, .fg-ink-field, .hb-crisis--ink) .hb-crisis__line:hover { background: var(--field-ink-2); color: var(--on-ink); box-shadow: inset 0 0 0 1.5px var(--on-ink); }
+.fg :is(.hub-close, .fg-ink-field, .hb-crisis--ink) .hb-crisis__line:focus-visible { outline-color: var(--on-ink); }

@@ -623,7 +623,7 @@
   padding-top: 1.25rem;
   border-top: 3px solid var(--chrome-on-dark);
   color: var(--chrome-on-dark-muted);
-  font-family: var(--chrome-display);
+  font-family: var(--chrome-body); /* fine print is the text face, never the display face */
   font-size: 0.8125rem;
   line-height: 1.5;
 }

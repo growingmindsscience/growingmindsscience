@@ -1,10 +1,12 @@
-/* Growing Minds Science — main.js
+/* Growing Minds Science: main.js
    Header, menu, theme toggle, and footer year live in chrome.js.
    - Theme preference applied on load (localStorage with safe fallback, respects system pref)
    - Waitlist / email forms ([data-newsletter]): inline validation, one request
      at a time, errors and success shown in place; native POST if the network
      call itself fails
-   - Contact form: inline validation and confirmation; native POST without JS
+   - Contact form ([data-contact]): inline validation; errors shown and announced in
+     place; once sent, a confirmation panel takes the form's place and receives focus.
+     Native POST (and the #sent note) without JS.
 */
 (function () {
   "use strict";
@@ -194,9 +196,83 @@
     // Submit via fetch so we can show an inline confirmation instead of a
     // redirect. Falls back to a native POST (handled by /api/contact) when
     // JavaScript is unavailable.
+    //
+    // The confirmation (styles: .hb-confirm in hubs.css) replaces the form:
+    //   a Newsreader statement      form[data-confirm-title], else the default below
+    //   one line under it           form[data-confirm-line] ("" for none), else the default below
+    //   next steps                  the contents of <template data-confirm> inside the form,
+    //                               else the first one on the page (optional)
+    //   "Send another message"      brings the emptied form back
+    // Focus moves to the panel so the statement is read out.
+    var CONFIRM_TITLE = "Thanks, your message is on its way.";
+    var CONFIRM_LINE = "Matthew reads every note personally and usually replies within a few business days.";
+    var CHECK_SVG = '<svg class="hb-confirm__mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="m7.5 12.5 3 3 6-6.5"/></svg>';
+    function showConfirmation(form) {
+      var uid = "confirm-" + Math.random().toString(36).slice(2, 9);
+      var panel = document.createElement("div");
+      panel.className = "hb-confirm";
+      panel.tabIndex = -1;
+      panel.setAttribute("role", "group");
+      panel.setAttribute("aria-labelledby", uid + "-title");
+
+      var statement = document.createElement("p");
+      statement.className = "hb-confirm__statement";
+      statement.id = uid + "-title";
+      statement.innerHTML = CHECK_SVG;
+      var words = document.createElement("span");
+      words.textContent = form.getAttribute("data-confirm-title") || CONFIRM_TITLE;
+      statement.appendChild(words);
+      panel.appendChild(statement);
+
+      var lineText = form.hasAttribute("data-confirm-line") ? form.getAttribute("data-confirm-line") : CONFIRM_LINE;
+      if (lineText) {
+        var line = document.createElement("p");
+        line.className = "hb-confirm__line";
+        line.id = uid + "-line";
+        line.textContent = lineText;
+        panel.appendChild(line);
+        panel.setAttribute("aria-describedby", line.id);
+      }
+
+      var tpl = form.querySelector("template[data-confirm]") || document.querySelector("template[data-confirm]");
+      if (tpl && tpl.content) panel.appendChild(document.importNode(tpl.content, true));
+
+      var again = document.createElement("button");
+      again.type = "button";
+      again.className = "hb-btn hb-btn--quiet";
+      again.textContent = "Send another message";
+      again.addEventListener("click", function () {
+        if (panel.parentNode) panel.parentNode.removeChild(panel);
+        form.hidden = false;
+        var first = form.querySelector('input:not([type="hidden"]):not([type="checkbox"]):not([hidden]), textarea, select');
+        if (first) first.focus();
+      });
+      panel.appendChild(again);
+
+      form.hidden = true;
+      form.parentNode.insertBefore(panel, form.nextSibling);
+      panel.focus({ preventScroll: true });
+      // Bring the panel to the reader if the taller form had left it off screen.
+      var head = document.querySelector(".site-header");
+      var top = panel.getBoundingClientRect().top;
+      var under = head ? head.getBoundingClientRect().bottom : 0;
+      if (top < under || top > window.innerHeight * 0.6) {
+        var smooth = document.documentElement.classList.contains("anim");
+        window.scrollTo({ top: window.pageYOffset + top - under - 24, behavior: smooth ? "smooth" : "auto" });
+      }
+    }
+
     var contactForm = document.querySelector("form[data-contact]");
     if (contactForm && window.fetch) {
       var contactStatus = contactForm.querySelector(".form-status");
+      // Errors interrupt (role=alert); progress stays polite.
+      var contactSay = function (text, tone) {
+        if (!contactStatus) return;
+        var error = tone === "error";
+        contactStatus.setAttribute("role", error ? "alert" : "status");
+        contactStatus.setAttribute("aria-live", error ? "assertive" : "polite");
+        setStatus(contactStatus, text, tone);
+      };
       var contactBtn = contactForm.querySelector('button[type="submit"]');
       var contactEmail = contactForm.querySelector('[name="email"]');
       var contactMessage = contactForm.querySelector('[name="message"]');
@@ -227,13 +303,13 @@
         else if (!isEmail(email)) { showFieldError(contactEmail, "Enter a valid email address."); firstInvalid = firstInvalid || contactEmail; }
         if (!message) { showFieldError(contactMessage, "Add a short message."); firstInvalid = firstInvalid || contactMessage; }
         if (firstInvalid) {
-          setStatus(contactStatus, "");
+          contactSay("");
           firstInvalid.focus();
           return;
         }
 
         contactBusy = true;
-        setStatus(contactStatus, "Sending…");
+        contactSay("Sending…");
         setBtnLoading(contactBtn, true, "Sending…");
 
         var payload = {
@@ -261,13 +337,14 @@
           })
           .then(function () {
             contactForm.reset();
-            setStatus(contactStatus, "Thanks, your message is on its way. Matthew reads every note personally and usually replies within a few business days.", "success");
+            contactSay("");
+            showConfirmation(contactForm);
           })
           .catch(function (error) {
             var text = error && error.name === "TypeError"
               ? NETWORK_MESSAGE
               : (error && error.message) || "Your message couldn't be sent. Please try again.";
-            setStatus(contactStatus, text, "error");
+            contactSay(text, "error");
           })
           .finally(function () {
             contactBusy = false;
