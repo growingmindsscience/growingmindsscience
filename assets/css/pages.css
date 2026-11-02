@@ -1,9 +1,10 @@
 /* =========================================================
    Growing Minds Science: pages.css
    The small pages on the annotated-observation system: FAQ, contact,
-   404, thank-you and the arcade hub (body.hub). Primitives from
-   fg-base.css; the title block, rows, questions and close band from
-   hubs.css. The arcade's game overlays keep their own arcade.css.
+   the three legal pages, 404, thank-you, the Instagram landing and the
+   arcade hub (body.hub). Primitives from fg-base.css; the title block,
+   rows (.row--link), questions, contents (.hb-read/.hb-toc) and close
+   band from hubs.css. The arcade hub and its games live in arcade.css.
    Tokens from tokens-field-guide.css.
    ========================================================= */
 
@@ -12,16 +13,20 @@
 .pg-body > .hb-container { border-top: 1px solid var(--border-soft); padding-top: clamp(40px, 5vw, 72px); }
 .pg-narrow { max-width: 880px; }
 
-/* ---------- FAQ ---------- */
-.pg-faq .qa summary { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.1875rem, 1.05rem + 0.5vw, 1.4375rem); line-height: 1.25; letter-spacing: -0.01em; }
-.pg-faq .qa details p { line-height: 1.65; }
-.pg-faq .qa details p a { color: var(--forest); }
+/* ---------- FAQ ----------
+   The questions are the shared .qa component in hubs.css (one summary style, Inter 500, as on
+   Pricing); nothing here restyles them. */
 
-/* ---------- Legal: privacy, terms of use, terms of sale ---------- */
+/* ---------- Legal: privacy, terms of use, terms of sale ----------
+   The words are the attorney's; only the structure is ours. The title block names the three
+   documents (the current one in ink); "The short version" sits beside the title as the shared
+   .hb-short panel; the text reads in .hb-read beside an "On this page" list (.hb-toc) built
+   from the sections' own headings. */
 .pg-legal { max-width: 68ch; }
-.pg-legal h2 { margin-top: clamp(40px, 5vw, 56px); font-family: var(--font-display); font-weight: 400; font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem); line-height: 1.15; letter-spacing: -0.01em; scroll-margin-top: 96px; }
-.pg-legal h2:first-child { margin-top: 0; }
-.pg-legal h3 { margin-top: 28px; font-size: 1.0625rem; font-weight: 600; line-height: 1.35; color: var(--ink); }
+.fg .pg-legal h2 { margin-top: clamp(40px, 5vw, 56px); font-family: var(--font-display); font-weight: 400; font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem); line-height: 1.15; letter-spacing: -0.01em; scroll-margin-top: calc(var(--header-h, 72px) + 24px); }
+.fg .pg-legal h2:first-child { margin-top: 0; }
+/* Subheads are labels (Inter 600), at least the size of the paragraph they head. */
+.fg .pg-legal h3 { margin-top: 28px; font-family: var(--font-body); font-size: inherit; font-weight: 600; line-height: 1.4; letter-spacing: 0; color: var(--ink); }
 .pg-legal p, .pg-legal li { line-height: 1.65; color: var(--ink-soft); }
 .pg-legal p { margin-top: 14px; }
 .pg-legal h3 + p { margin-top: 6px; }
@@ -30,6 +35,20 @@
 .pg-legal li::marker { color: var(--ink-muted); }
 .pg-legal b { color: var(--ink); font-weight: 600; }
 .pg-legal a, .pg-legal-page .hb-lead a { color: var(--forest); }
+.fg .pg-legal a:hover, .fg .pg-legal-page .hb-lead a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
+/* Terms of use: the paragraph with the emergency numbers reads as guidance, on mist, and each
+   number is a call link with a 44px target that does not move the line. */
+.fg .pg-legal p.pg-legal__safety { margin-top: 16px; padding: 16px 20px; border-radius: var(--radius); background: var(--sage-mist); color: var(--ink); }
+.fg .pg-legal .pg-tel { display: inline-block; padding: 10px; margin: -10px; font-weight: 600; white-space: nowrap; }
+/* Links in the running text reach 44px tall without moving the lines (inline padding). */
+.fg .pg-legal p > a:not(.pg-tel) { padding-block: 12px; }
+/* The three documents, under the date: one line of links, the one you are on in ink. */
+.pg-legal-nav { margin-top: 6px; }
+.fg .pg-legal-nav ul { display: flex; flex-wrap: wrap; align-items: center; margin: 0; padding: 0; list-style: none; font-size: 15px; }
+.pg-legal-nav li + li::before { content: "\00B7" / ""; padding-inline: 10px; color: var(--ink-muted); }
+.fg .pg-legal-nav a { display: inline-flex; align-items: center; min-height: 44px; color: var(--forest); }
+.fg .pg-legal-nav a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
+.fg .pg-legal-nav a[aria-current="page"] { color: var(--ink); font-weight: 600; text-decoration: none; }
 
 /* ---------- Contact: what to write about, beside the form ---------- */
 .pg-contact { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 40px clamp(32px, 5vw, 80px); align-items: start; }
@@ -55,46 +74,35 @@
 .pg-form .field-error { font-size: 14px; color: var(--danger); }
 .pg-form .field-error:empty, .pg-form .form-status:empty { display: none; }
 .pg-form .form-status { font-size: 15px; color: var(--ink-soft); }
+.pg-form .form-status[data-tone="error"] { color: var(--danger); font-weight: 500; }
 /* The no-JavaScript confirmation: /api/contact redirects back to #sent. */
 .pg-form .form-sent { display: none; }
 .pg-form .form-sent:target { display: block; }
 .fg .pg-form__send { width: 100%; }
 
-/* ---------- 404 and thank-you: places to go, as rows ---------- */
+/* ---------- 404, thank-you, Programs: places to go, as rows ----------
+   The 404 and thank-you lists are <ul class="rows pg-rows"> of whole-row links (.row--link). */
 .pg-row { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); }
-/* The descriptions followed a colon in running text; as a column they open with a capital. */
 .pg-row .row__name a { min-width: 44px; }
-.pg-row .row__desc::first-letter { text-transform: uppercase; }
+.fg .pg-rows { margin: 0; }
 @media (max-width: 760px) { .pg-row { grid-template-columns: minmax(0, 1fr); } }
 
-/* ---------- Arcade ---------- */
-.arcade-page .gms-arcade-title span { display: none; }
-.pg-arcade__head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 16px clamp(32px, 5vw, 80px); align-items: end; margin-bottom: clamp(32px, 4vw, 56px); }
-.pg-arcade__head h2 { font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem); line-height: 1.05; }
-.pg-arcade__head p { color: var(--ink-soft); max-width: 40ch; }
-@media (max-width: 760px) { .pg-arcade__head { grid-template-columns: minmax(0, 1fr); } }
+/* 404: the hard-moment door fills the title's second column; the age line follows the title. */
+.pg-ages__head h2 { font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem); line-height: 1.05; }
+.fg .pg-ages__head p { margin-top: 14px; color: var(--ink-soft); max-width: 52ch; }
+.pg-ages .ex-line { margin-top: clamp(24px, 3vw, 40px); }
 
-.arcade-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
-.arcade-card { display: flex; flex-direction: column; min-width: 0; border-radius: var(--radius-lg); background: var(--paper); overflow: hidden; }
-/* Each game's small screen: the inverted field, glyphs in sage. */
-.arcade-card__art { min-height: 148px; display: flex; align-items: center; justify-content: center; gap: .8rem; background: var(--field-ink); color: var(--sage); font-size: clamp(1.6rem, 3vw, 2.5rem); letter-spacing: .1em; line-height: 1; }
-.arcade-card--snake .arcade-card__art { flex-direction: column; gap: .15rem; }
-.arcade-card--echo .arcade-card__art { flex-direction: column; gap: 0; }
-.arcade-card--dino .arcade-card__art,
-.arcade-card--invaders .arcade-card__art,
-.arcade-card--breakout .arcade-card__art,
-.arcade-card--hopper .arcade-card__art,
-.arcade-card--blocks .arcade-card__art { flex-direction: column; gap: .3rem; }
-.arcade-card__body { display: flex; flex: 1; flex-direction: column; padding: clamp(20px, 2.4vw, 28px); }
-.arcade-page .arcade-card h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem); line-height: 1.12; letter-spacing: -0.01em; }
-.arcade-page .arcade-card p { flex: 1; margin-top: 8px; color: var(--ink-soft); }
-.fg .arcade-card__play { margin-top: 20px; width: 100%; justify-content: space-between; }
-.arcade-card__play span { font-weight: 400; }
-/* Games load on demand (GMSArcade.play). The label only shows when the fetch
-   takes a noticeable moment; a failed load leaves a message under the button. */
-.arcade-card__play.is-loading { cursor: progress; }
-.arcade-card__play.is-loading span { display: none; }
-.arcade-card__play.is-loading::after { content: "Loading\2026"; font-weight: 400; font-size: 14px; }
-.arcade-page .arcade-card .gms-arcade-load-error { flex: 0 0 auto; margin-top: 12px; font-size: 15px; color: var(--ink); }
-@media (max-width: 900px) { .arcade-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 620px) { .arcade-grid { grid-template-columns: minmax(0, 1fr); } .arcade-card__art { min-height: 132px; } }
+/* Thank-you: the free lesson beside the title, on mist. Its button keeps the button's own
+   colours (.hb-short colours its links forest). */
+.fg .pg-lesson .hb-actions { margin-top: 20px; }
+.fg .pg-lesson .hb-btn, .fg .pg-lesson .hb-btn:hover { color: var(--on-forest); text-decoration: none; }
+
+/* ---------- From Instagram: the page behind each post ----------
+   publish.mjs writes the rows between the from-instagram markers: the post's hook as the row
+   name (the whole row is its link), the page it points to, kind, ages and date, and the source
+   in research blue. The actions sit under the list, in its column. */
+.pg-from-instagram .fi-list .row { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+.pg-from-instagram .fi-item .row__meta { margin-top: 0; }
+.fg .fi-item__src { font-size: 14px; line-height: 1.45; color: var(--research); max-width: 62ch; overflow-wrap: anywhere; }
+.fg .fi-empty { color: var(--ink-muted); }
+.fi-actions { margin-top: clamp(28px, 4vw, 40px); }

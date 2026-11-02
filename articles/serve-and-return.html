@@ -152,7 +152,7 @@
         <div data-rise>
           <h1 class="hb-display">What &ldquo;serve and return&rdquo; actually means, and what it doesn&rsquo;t</h1>
           <p class="hb-lead art-dek">A clear translation of one of the most cited ideas in early-language research, including where it has been over-applied.</p>
-          <p class="art-meta"><a href="/articles/">Articles</a> <span aria-hidden="true">&middot;</span> By Matthew McArthur <span aria-hidden="true">&middot;</span> Early language <span aria-hidden="true">&middot;</span> 8 minute read</p>
+          <p class="art-meta"><a href="/articles/">Articles</a> <span aria-hidden="true">&middot;</span> By Matthew McArthur <span aria-hidden="true">&middot;</span> Early language <span aria-hidden="true">&middot;</span> 8 minute read <span aria-hidden="true">&middot;</span> Updated <time datetime="2026-10-14" data-updated>October 2026</time></p>
         </div>
         <aside class="art-short" aria-label="Article summary" data-rise style="--i:1">
           <h2>The short version</h2>
@@ -161,17 +161,20 @@
       </div>
     </section>
 
-    <div class="hb-container art-body">
-      <nav class="art-toc" aria-label="Article navigation">
-        <h2>In this article</h2>
-        <ol>
+    <div class="hb-container art-body hb-read">
+      <nav class="hb-toc art-toc" data-toc aria-label="In this article">
+        <details class="hb-toc__fold">
+          <summary>In this article</summary>
+          <ol class="hb-toc__list">
             <li><a href="#what-it-means">What it means</a></li>
             <li><a href="#why-it-matters">Why it matters</a></li>
             <li><a href="#what-it-is-not">What it is not</a></li>
             <li><a href="#what-to-do">What to do</a></li>
             <li><a href="#bottom-line">Bottom line</a></li>
           </ol>
+        </details>
       </nav>
+      <div class="hb-read__text">
       <article class="art-text">
         <p>Some research phrases escape the lab and start living ordinary lives. &ldquo;Serve and return&rdquo; is one of them.</p>
 
@@ -195,31 +198,41 @@
 
         <p>Harvard&rsquo;s Center on the Developing Child describes serve and return as contingent, reciprocal interaction: a back-and-forth exchange where the adult response is linked to the child&rsquo;s signal. That contingent part matters. It means the adult is not simply broadcasting language into the room. The adult is responding to the child in front of them.</p>
 
-        <figure class="art-figure">
+        <figure class="art-figure" data-rise>
           <svg viewBox="0 -4 480 308" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="fig-serve-and-return-title" aria-describedby="fig-serve-and-return-desc">
             <title id="fig-serve-and-return-title">The serve-and-return loop, in four beats.</title>
             <desc id="fig-serve-and-return-desc">A circular loop with four numbered beats: (1) the child serves with a babble, a point, or a look; (2) you return it in the same neighborhood of their attention; (3) you add a little, one new word rather than a lecture; (4) then you wait, leaving space for the child&rsquo;s next turn. Then the loop begins again: a responsive loop, not a script.</desc>
             <defs>
               <marker id="sr-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
-                <path d="M0 0 L10 5 L0 10 z" fill="var(--primary)" />
+                <path d="M0 0 L10 5 L0 10 z" fill="var(--forest)" />
               </marker>
             </defs>
-            <path d="M 263.8 52.9 A 100 100 0 0 1 335.9 121.6" fill="none" stroke="var(--primary)" stroke-width="2.5" marker-end="url(#sr-arrow)" />
-            <path d="M 337.1 173.8 A 100 100 0 0 1 268.4 245.9" fill="none" stroke="var(--primary)" stroke-width="2.5" marker-end="url(#sr-arrow)" />
-            <path d="M 216.2 247.1 A 100 100 0 0 1 144.1 178.4" fill="none" stroke="var(--primary)" stroke-width="2.5" marker-end="url(#sr-arrow)" />
-            <path d="M 142.9 126.2 A 100 100 0 0 1 211.6 54.1" fill="none" stroke="var(--primary)" stroke-width="2.5" marker-end="url(#sr-arrow)" />
-            <circle cx="240" cy="50" r="17" fill="var(--surface)" stroke="var(--warm)" stroke-width="4" />
-            <text class="af-text af-strong af-accent" x="240" y="50" dy=".35em" text-anchor="middle">1</text>
-            <circle cx="340" cy="150" r="17" fill="var(--surface)" stroke="var(--primary)" stroke-width="3" />
-            <text class="af-text af-strong af-primary" x="340" y="150" dy=".35em" text-anchor="middle">2</text>
-            <circle cx="240" cy="250" r="17" fill="var(--surface)" stroke="var(--primary)" stroke-width="3" />
-            <text class="af-text af-strong af-primary" x="240" y="250" dy=".35em" text-anchor="middle">3</text>
-            <circle cx="140" cy="150" r="17" fill="var(--surface)" stroke="var(--primary)" stroke-width="3" />
-            <text class="af-text af-strong af-primary" x="140" y="150" dy=".35em" text-anchor="middle">4</text>
-            <text class="af-text af-strong" x="240" y="20" text-anchor="middle">The child serves</text>
-            <text class="af-text af-strong" x="366" y="150" dy=".35em">Return it</text>
-            <text class="af-text af-strong" x="240" y="296" text-anchor="middle">Add a little</text>
-            <text class="af-text af-strong" x="114" y="150" dy=".35em" text-anchor="end">Wait</text>
+            <g class="art-beat" style="--b:0">
+              <circle cx="240" cy="50" r="17" fill="var(--surface)" stroke="var(--clay-text)" stroke-width="3" />
+              <text class="af-text af-strong af-accent" x="240" y="50" dy=".35em" text-anchor="middle">1</text>
+              <text class="af-text af-strong" x="240" y="20" text-anchor="middle">The child serves</text>
+            </g>
+            <g class="art-beat" style="--b:1">
+              <path d="M 263.8 52.9 A 100 100 0 0 1 335.9 121.6" fill="none" stroke="var(--forest)" stroke-width="2.5" marker-end="url(#sr-arrow)" />
+              <circle cx="340" cy="150" r="17" fill="var(--surface)" stroke="var(--forest)" stroke-width="3" />
+              <text class="af-text af-strong af-primary" x="340" y="150" dy=".35em" text-anchor="middle">2</text>
+              <text class="af-text af-strong" x="366" y="150" dy=".35em">Return it</text>
+            </g>
+            <g class="art-beat" style="--b:2">
+              <path d="M 337.1 173.8 A 100 100 0 0 1 268.4 245.9" fill="none" stroke="var(--forest)" stroke-width="2.5" marker-end="url(#sr-arrow)" />
+              <circle cx="240" cy="250" r="17" fill="var(--surface)" stroke="var(--forest)" stroke-width="3" />
+              <text class="af-text af-strong af-primary" x="240" y="250" dy=".35em" text-anchor="middle">3</text>
+              <text class="af-text af-strong" x="240" y="296" text-anchor="middle">Add a little</text>
+            </g>
+            <g class="art-beat" style="--b:3">
+              <path d="M 216.2 247.1 A 100 100 0 0 1 144.1 178.4" fill="none" stroke="var(--forest)" stroke-width="2.5" marker-end="url(#sr-arrow)" />
+              <circle cx="140" cy="150" r="17" fill="var(--surface)" stroke="var(--forest)" stroke-width="3" />
+              <text class="af-text af-strong af-primary" x="140" y="150" dy=".35em" text-anchor="middle">4</text>
+              <text class="af-text af-strong" x="114" y="150" dy=".35em" text-anchor="end">Wait</text>
+            </g>
+            <g class="art-beat" style="--b:4">
+              <path d="M 142.9 126.2 A 100 100 0 0 1 211.6 54.1" fill="none" stroke="var(--forest)" stroke-width="2.5" marker-end="url(#sr-arrow)" />
+            </g>
           </svg>
           <ol class="af-key">
             <li><span class="af-key__num af-key__num--warm" aria-hidden="true">1</span><span><b>The child serves:</b> a babble, a point, a look toward the door.</span></li>
@@ -307,7 +320,7 @@
         <p>That is enough to matter.</p>
 
         <div class="art-sources">
-          <h2>Sources and Further Reading</h2>
+          <h2>Sources and further reading</h2>
           <ul>
             <li><a href="https://developingchild.harvard.edu/resources/videos/how-to-5-steps-for-brain-building-serve-and-return/" target="_blank" rel="noopener noreferrer">Center on the Developing Child at Harvard University: How-to: 5 Steps for Brain-Building Serve and Return</a></li>
             <li><a href="https://kids.frontiersin.org/articles/10.3389/frym.2024.1426649" target="_blank" rel="noopener noreferrer">McArthur & Friend (2024): Why Early Chatter Matters: The Role of Language in Shaping Futures</a></li>
@@ -319,6 +332,29 @@
           </ul>
         </div>
       </article>
+      <section class="art-next" aria-labelledby="next-h">
+        <div class="hb-next" data-rise>
+          <h2 class="hb-next__title" id="next-h">Keep reading</h2>
+          <ul class="hb-next__list">
+            <li class="hb-next__row">
+              <a class="hb-next__name" href="/articles/screen-time">A short, honest take on screen time</a>
+              <p class="hb-next__line">A video call with Grandma and autoplay at bedtime are not the same thing. What the research supports, without the shame.</p>
+              <p class="hb-next__meta">Article &middot; 6 min</p>
+            </li>
+            <li class="hb-next__row">
+              <a class="hb-next__name" href="/articles/milestone-worry">What to do with milestone worry</a>
+              <p class="hb-next__line">Milestones are wide ranges, not deadlines. A few patterns are worth raising with a clinician, and here is how to tell them apart.</p>
+              <p class="hb-next__meta">Article &middot; 7 min</p>
+            </li>
+            <li class="hb-next__row">
+              <a class="hb-next__name" href="/claims/talking-to-baby">&ldquo;Talking to my baby, even before they can respond, builds their language.&rdquo;</a>
+              <p class="hb-next__line">Yes. Talking with your baby builds language, and back-and-forth exchanges look especially important.</p>
+              <p class="hb-next__meta">Graded claim &middot; Strong evidence, scientific consensus</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+      </div>
     </div>
 
     <section class="hub-sec hub-close" aria-labelledby="close-heading">

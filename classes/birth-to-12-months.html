@@ -175,44 +175,52 @@
             <div><dt>Includes</dt><dd>Captions and transcripts</dd></div>
             <div><dt>Price</dt><dd>$49 once, lifetime access</dd></div>
           </dl>
-          <div class="hero__ctas">
-            <a class="btn btn--primary btn--lg" href="#enroll">Enroll, $49</a>
-            <a class="btn btn--ghost btn--lg" href="/nsc/classes/infant/preview">Watch a lesson free</a>
+          <div class="hero__ctas hb-actions">
+            <a class="hb-btn" href="#enroll">Enroll, $49</a>
+            <a class="hb-btn hb-btn--quiet" href="/nsc/classes/infant/preview">Watch a lesson free</a>
           </div>
           <p class="class-intro__fine">Checkout is here, with Stripe, and the lessons live under <a href="/nsc/class-login">My classes</a>.</p>
         </div>
 
-        <figure class="fig fig--plate" aria-labelledby="fig-infant-caption">
-          <svg viewBox="0 0 480 300" role="img" aria-labelledby="fig-infant-title" aria-describedby="fig-infant-desc" xmlns="http://www.w3.org/2000/svg">
-            <title id="fig-infant-title">Figure 1. The normal crying curve.</title>
-            <desc id="fig-infant-desc">A line chart of average fussing and crying per day across a baby&rsquo;s first sixteen weeks. The line rises from birth to about two hours a day, is highest in the first six weeks, then falls to about one hour a day by ten to twelve weeks and stays there.</desc>
-            <g class="fig-grid" fill="none" stroke-width="1">
-              <line x1="163" y1="24" x2="163" y2="250"/>
-              <line x1="262" y1="24" x2="262" y2="250"/>
-              <line x1="361" y1="24" x2="361" y2="250"/>
-            </g>
-            <line class="fig-ref" x1="64" y1="100" x2="460" y2="100"/>
-            <line class="fig-ref" x1="64" y1="175" x2="460" y2="175"/>
-            <g class="fig-axis" fill="none" stroke-width="1.5" stroke-linecap="round">
-              <line x1="64" y1="24" x2="64" y2="250"/>
-              <line x1="64" y1="250" x2="460" y2="250"/>
-            </g>
-            <path class="fig-curve fig-curve--a" d="M64 168 C 92 124, 130 86, 172 85 C 212 84, 236 120, 284 146 S 400 174, 460 179"/>
-            <circle class="fig-dot" cx="172" cy="85" r="5.5"/>
-            <text class="fig-text" x="150" y="60">Highest: first 6 weeks</text>
-            <text class="fig-text" x="460" y="214" text-anchor="end">About half by 3 months</text>
-            <g class="fig-text fig-text--sm">
-              <text x="56" y="105" text-anchor="end">2 hrs</text>
-              <text x="56" y="180" text-anchor="end">1 hr</text>
-              <text x="64" y="276" text-anchor="middle">Birth</text>
-              <text x="163" y="276" text-anchor="middle">4 wks</text>
-              <text x="262" y="276" text-anchor="middle">8</text>
-              <text x="361" y="276" text-anchor="middle">12</text>
-              <text x="460" y="276" text-anchor="end">16 wks</text>
-              <text x="64" y="14">Fussing and crying, per day</text>
-            </g>
-          </svg>
-          <figcaption class="fig__caption" id="fig-infant-caption"><b>Fig. 1</b> &middot; The normal crying curve. On average, fussing and crying build after birth, are highest in the first six weeks at about two hours a day, and fall to about one hour by ten to twelve weeks. Schematic after Brazelton (1962) and the meta-analysis by Wolke, Bilgin and Samara (2017); individual babies vary widely. Module 1, lesson 4 covers what helps.</figcaption>
+        <figure class="hb-fig" data-rise data-draw style="--i:1" aria-labelledby="fig-infant-caption">
+          <div class="hb-fig__plate">
+            <svg viewBox="0 0 480 300" role="img" aria-labelledby="fig-infant-title" aria-describedby="fig-infant-desc" xmlns="http://www.w3.org/2000/svg">
+              <title id="fig-infant-title">Figure 1. The normal crying curve.</title>
+              <desc id="fig-infant-desc">A line chart of average fussing and crying per day across a baby&rsquo;s first sixteen weeks. The line rises from birth to about two hours a day, is highest in the first six weeks, then falls to about one hour a day by ten to twelve weeks and stays there.</desc>
+              <g class="fig-grid" fill="none" stroke-width="1">
+                <line x1="163" y1="24" x2="163" y2="250"/>
+                <line x1="262" y1="24" x2="262" y2="250"/>
+                <line x1="361" y1="24" x2="361" y2="250"/>
+              </g>
+              <line class="fig-ref" x1="64" y1="100" x2="460" y2="100"/>
+              <line class="fig-ref" x1="64" y1="175" x2="460" y2="175"/>
+              <g class="fig-axis" fill="none" stroke-width="1.5" stroke-linecap="round">
+                <line x1="64" y1="24" x2="64" y2="250"/>
+                <line x1="64" y1="250" x2="460" y2="250"/>
+              </g>
+              <path class="fig-curve fig-curve--a hb-draw" pathLength="1" style="--d:0" d="M64 168 C 92 124, 130 86, 172 85 C 212 84, 236 120, 284 146 S 400 174, 460 179"/>
+              <circle class="fig-dot fig-pop" style="--d:1" cx="172" cy="85" r="5.5"/>
+              <text class="fig-text fig-pop" style="--d:1" x="150" y="60">Highest: first 6 weeks</text>
+              <!-- The second note hangs from the curve at 12 weeks, where crying has come down to about an hour. -->
+              <g class="fig-pop" style="--d:3">
+                <line class="fig-tick" x1="361" y1="175" x2="361" y2="189"/>
+                <circle class="fig-ring" cx="361" cy="169.4" r="4"/>
+                <text class="fig-text fig-halo" x="361" y="207" text-anchor="middle">About half by 3 months</text>
+              </g>
+              <g class="fig-text fig-text--sm">
+                <text x="56" y="105" text-anchor="end">2 hrs</text>
+                <text x="56" y="180" text-anchor="end">1 hr</text>
+                <text x="64" y="276" text-anchor="middle">Birth</text>
+                <text x="163" y="276" text-anchor="middle">4 wks</text>
+                <text x="262" y="276" text-anchor="middle">8</text>
+                <text x="361" y="276" text-anchor="middle">12</text>
+                <text x="460" y="276" text-anchor="end">16 wks</text>
+                <text x="64" y="14">Fussing and crying, per day</text>
+              </g>
+            </svg>
+          </div>
+          <figcaption id="fig-infant-caption"><b class="hb-fig__n">Fig. 1</b> The normal crying curve. On average, fussing and crying build after birth, are highest in the first six weeks at about two hours a day, and fall to about one hour by ten to twelve weeks. Individual babies vary widely. Module 1, lesson 4 covers what helps.
+            <span class="hb-fig__src">Schematic after Brazelton (1962) and the meta-analysis by Wolke, Bilgin and Samara (2017).</span></figcaption>
         </figure>
       </div>
     </section>
@@ -221,7 +229,7 @@
     <section class="section--alt">
       <div class="container container--narrow">
         <div class="section-head" data-rise>
-          <h2 data-rise>By the end of the class</h2>
+          <h2>By the end of the class</h2>
           <p class="section-head__lede">The first year will feel a lot less like guessing.</p>
         </div>
         <ul class="check-list" data-rise>
@@ -238,12 +246,12 @@
     <section id="syllabus">
       <div class="container">
         <div class="section-head" data-rise>
-          <h2 data-rise>Four modules</h2>
-          <p class="section-head__lede" data-rise>For the year when everything is new.</p>
+          <h2>Four modules</h2>
+          <p class="section-head__lede">For the year when everything is new.</p>
         </div>
         <ol class="syllabus">
           <li class="syllabus__item" data-rise>
-            <div><p class="syllabus__num">Module 1</p><h3 class="syllabus__title">The Newborn Brain</h3><p class="syllabus__meta">5 lessons, about 1 hour</p></div>
+            <div><p class="syllabus__num">Module 1</p><h3 class="syllabus__title">The Newborn Brain</h3><p class="syllabus__meta">5 lessons &middot; About 1 hour</p></div>
             <div class="syllabus__body">
               <p>What newborns can already do, how experience builds the brain, the back-and-forth that shapes it, why babies cry and how to help them calm, and why a baby can be capable and fragile at the same time.</p>
               <ol class="syllabus__lessons">
@@ -256,7 +264,7 @@
             </div>
           </li>
           <li class="syllabus__item" data-rise>
-            <div><p class="syllabus__num">Module 2</p><h3 class="syllabus__title">Reading Your Baby&rsquo;s Cues</h3><p class="syllabus__meta">4 lessons, about 40 minutes</p></div>
+            <div><p class="syllabus__num">Module 2</p><h3 class="syllabus__title">Reading Your Baby&rsquo;s Cues</h3><p class="syllabus__meta">4 lessons &middot; About 40 minutes</p></div>
             <div class="syllabus__body">
               <p>The signals that mean ready, hungry, tired, or had enough. Your baby&rsquo;s temperament, feeding as a two-way conversation, and what sleep really looks like across the first year.</p>
               <ol class="syllabus__lessons">
@@ -268,7 +276,7 @@
             </div>
           </li>
           <li class="syllabus__item" data-rise>
-            <div><p class="syllabus__num">Module 3</p><h3 class="syllabus__title">Attachment in the First Year</h3><p class="syllabus__meta">3 lessons, about 30 minutes</p></div>
+            <div><p class="syllabus__num">Module 3</p><h3 class="syllabus__title">Attachment in the First Year</h3><p class="syllabus__meta">3 lessons &middot; About 30 minutes</p></div>
             <div class="syllabus__body">
               <p>What secure attachment is and isn&rsquo;t, how babies attach to more than one person (including in childcare), and why separation and stranger wariness show up later in the year.</p>
               <ol class="syllabus__lessons">
@@ -279,7 +287,7 @@
             </div>
           </li>
           <li class="syllabus__item" data-rise>
-            <div><p class="syllabus__num">Module 4</p><h3 class="syllabus__title">The Explorer: Language, Movement, and Play</h3><p class="syllabus__meta">4 lessons, about 40 minutes</p></div>
+            <div><p class="syllabus__num">Module 4</p><h3 class="syllabus__title">The Explorer: Language, Movement, and Play</h3><p class="syllabus__meta">4 lessons &middot; About 40 minutes</p></div>
             <div class="syllabus__body">
               <p>Babbling, pointing, and the first words your baby understands. Tummy time, crawling, and how moving changes everything. Play, hiding games, and what the evidence says about screens.</p>
               <ol class="syllabus__lessons">
@@ -309,7 +317,7 @@
     </section>
 
     <!-- WHO TEACHES IT -->
-    <section>
+    <section class="section--alt hb-section--tight">
       <div class="container container--narrow">
         <h2 data-rise>Who teaches it.</h2>
         <div class="educator" data-rise>
@@ -329,10 +337,10 @@
     </section>
 
     <!-- FREE READING -->
-    <section class="section--alt">
+    <section class="hb-section--tight">
       <div class="container container--narrow">
         <div class="section-head" data-rise>
-          <h2 data-rise>Free reading for the first year.</h2>
+          <h2>Free reading for the first year.</h2>
         </div>
         <ul class="reading" data-rise>
           <li><a href="/nsc/classes/infant/preview"><span class="reading__kind">Free lesson</span><span class="reading__title">Serve and Return, from Module 1</span><span class="reading__arrow" aria-hidden="true">&rarr;</span></a></li>
@@ -344,7 +352,7 @@
     </section>
 
     <!-- FAQ -->
-    <section>
+    <section class="section--alt hb-section--tight">
       <div class="container container--narrow">
         <h2 data-rise>A few things parents usually ask first.</h2>
         <div class="faq-class-list" data-rise>
@@ -369,14 +377,14 @@
     </section>
 
     <!-- ENROLL -->
-    <section id="enroll" class="signup">
+    <section id="enroll" class="signup fg-ink-field">
       <div class="container signup__inner signup__inner--offer">
         <h2 class="signup__head" data-rise>Start the first&#8209;year class for <mark>$49</mark>.</h2>
         <div class="signup__form" aria-labelledby="enroll-heading" data-rise>
           <h3 id="enroll-heading" class="signup__form-title">Birth to 12 months</h3>
           <p class="signup__price"><strong>$49</strong> once &middot; lifetime access</p>
           <p class="signup__note">You&rsquo;ll create a free account (or sign in), then pay securely with Stripe. The class opens the moment you&rsquo;re done.</p>
-          <a class="btn btn--primary btn--block btn--lg" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Finfant%2Fenroll">Enroll, $49</a>
+          <a class="hb-btn" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Finfant%2Fenroll">Enroll, $49</a>
           <p class="signup__refund">Full refund within 14 days if you&rsquo;ve watched 4 lessons or fewer. <a href="/terms-of-sale/">Terms of sale</a>.</p>
           <p class="signup__fine">Not sure yet? <a href="/nsc/classes/infant/preview">Watch a lesson free</a>. Already enrolled? <a href="/nsc/class-login">Open My classes</a>. Questions first? <a href="/contact/">Ask Matthew</a>.</p>
         </div>
@@ -392,7 +400,7 @@
        and steps aside for the enroll section and the footer. -->
   <div class="enroll-bar" data-enroll-bar hidden>
     <p class="enroll-bar__label"><strong>Birth to 12 months</strong> $49 once</p>
-    <a class="btn btn--primary" href="#enroll">Enroll</a>
+    <a class="hb-btn" href="#enroll">Enroll</a>
   </div>
 
   <!-- footer:start -->

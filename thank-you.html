@@ -6,7 +6,7 @@
   <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
   /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <title>Thank you | From Little Onward</title>
-  <meta name="description" content="Thank you for joining the From Little Onward waitlist." />
+  <meta name="description" content="Thank you for signing up. You are on the From Little Onward email list." />
   <meta name="robots" content="noindex, follow" />
   <meta name="theme-color" content="#F8F9FB" />
   <meta name="color-scheme" content="light dark" />
@@ -80,37 +80,48 @@
   </header>
 
   <main id="main" tabindex="-1">
-    <section class="hub-title hub-title--solo">
+    <section class="hub-title">
       <div class="hb-container hub-title__grid">
         <div data-rise>
           <h1 class="hb-display">You&rsquo;re on the list.</h1>
-          <p class="hb-lead">Your email is in. You'll hear from us when a new class opens, plus an occasional research note in between. While you wait, the milestone tracker is free to use right now.</p>
+          <p class="hb-lead">Your email is in. We&rsquo;ll write when what you signed up for is ready: new articles as they&rsquo;re published, or a note when the class opens. Every email has an unsubscribe link.</p>
           <div class="hub-title__actions">
-            <a class="hb-btn" href="/milestones">Open the milestone tracker</a>
-            <a class="hb-btn hb-btn--quiet" href="/classes/">Back to classes</a>
+            <a class="hb-btn hb-btn--quiet" href="/articles/">Browse the articles</a>
+            <a class="hb-btn hb-btn--quiet" href="/classes/">See the classes</a>
           </div>
         </div>
+        <aside class="hb-short pg-lesson" aria-labelledby="lesson-heading" data-rise style="--i:1">
+          <h2 class="hb-short__title" id="lesson-heading">Want to see the teaching first?</h2>
+          <p>&ldquo;Serve and Return&rdquo; is lesson 3 of the infant class: 14 minutes, with captions and the written version, and no account needed.</p>
+          <div class="hb-actions">
+            <a class="hb-btn" href="/nsc/classes/infant/preview">Watch the lesson free</a>
+          </div>
+        </aside>
       </div>
     </section>
-    <section class="hub-sec hub-sec--white">
+    <section class="hub-sec hub-sec--white" aria-labelledby="places-heading">
       <div class="hb-container hub-split">
-        <div class="hub-split__head">
-          <h2 class="hb-display">A few places to look around.</h2>
+        <div class="hub-split__head" data-rise>
+          <h2 class="hb-display" id="places-heading">A few places to look around.</h2>
         </div>
-        <div class="rows">
-          <div class="row pg-row">
-            <p class="row__name"><a href="/about/">About From Little Onward</a></p>
-            <p class="row__desc">the mission and the person behind it.</p>
-          </div>
-          <div class="row pg-row">
-            <p class="row__name"><a href="/tools/">Tools for parents</a></p>
-            <p class="row__desc">the growing free resource library.</p>
-          </div>
-          <div class="row pg-row">
-            <p class="row__name"><a href="/faq/">FAQ</a></p>
-            <p class="row__desc">common questions about the classes and how they work.</p>
-          </div>
-        </div>
+        <ul class="rows pg-rows" data-rise style="--i:1">
+          <li class="row pg-row row--link">
+            <h3 class="row__name"><a href="/milestones">Milestone tracker</a></h3>
+            <p class="row__desc">What&rsquo;s typical at each age, birth to three. Free to use right now.</p>
+          </li>
+          <li class="row pg-row row--link">
+            <h3 class="row__name"><a href="/tools/right-now">It&rsquo;s hard right now</a></h3>
+            <p class="row__desc">A calm next step in two minutes.</p>
+          </li>
+          <li class="row pg-row row--link">
+            <h3 class="row__name"><a href="/about/">About From Little Onward</a></h3>
+            <p class="row__desc">The mission and the person behind it.</p>
+          </li>
+          <li class="row pg-row row--link">
+            <h3 class="row__name"><a href="/faq/">FAQ</a></h3>
+            <p class="row__desc">Common questions about the classes and how they work.</p>
+          </li>
+        </ul>
       </div>
     </section>
   </main>
@@ -180,7 +191,7 @@
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
 
-  <script src="assets/js/main.js?v=3f7e70ab67" defer></script>
+  <script src="/assets/js/main.js?v=3f7e70ab67" defer></script>
   <script src="/assets/js/home.js?v=78ff6722df" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>

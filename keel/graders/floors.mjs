@@ -51,6 +51,15 @@ function exercised(rep, id) {
   if (!rep.coverage.floors_exercised.includes(id)) rep.coverage.floors_exercised.push(id);
 }
 
+/* The "nothing to report" answer for an item: "no" for yes/no concern items
+   (lost_skills, parent_hearing_concern), otherwise the first listed value
+   ("yes", or "most" for understood_by_others). The grid's baseline must be the
+   cleanest child possible, or a floor could pass only because an unrelated
+   absence or concern raised the severity. */
+export function typicalValue(item) {
+  return item.values.includes("no") ? "no" : item.values[0];
+}
+
 /* ---------------- condition schema (structural policy guard) -------------- */
 /* Conditions may reference only the declared field vocabulary. This is what
    makes "no severity logic keyed on languages" machine-checkable: a rule that
@@ -105,7 +114,45 @@ export function checkIntegrity(a) {
     });
   }
 
+  /* Every answer value a condition tests must be one the instrument can
+     produce; a misspelled value would silently never match. */
+  const itemValues = Object.fromEntries(a.instrument.behaviors.map((b) => [b.id, new Set(b.values)]));
+  const checkValues = (cond, where) => {
+    if (!cond) return;
+    if (cond.behavior && itemValues[cond.behavior] && !itemValues[cond.behavior].has(cond.value)) {
+      violate(rep, "value_integrity", where, `${cond.behavior}=${cond.value}`, [...itemValues[cond.behavior]].join("|"));
+    }
+    if (cond.metric && typeof cond.value !== "number") {
+      violate(rep, "value_integrity", where, `${cond.metric}=${cond.value}`, "numeric threshold");
+    }
+    (cond.all || []).forEach((c) => checkValues(c, where));
+    (cond.any || []).forEach((c) => checkValues(c, where));
+  };
+  a.lmcFloors.floors.forEach((f) => { if (!(f.condition && f.condition.meta === "policy")) checkValues(f.condition, `lmc_floor:${f.id}`); });
+
+  /* Every question the Snapshot asks must be read by at least one rule:
+     collecting an answer and never using it is a silent gap (a parent's
+     answer can contradict a "typical" report). */
+  const usedByRules = { behaviors: new Set(), metrics: new Set() };
   for (const r of a.interpretation.rules) {
+    const u = condFields(r.condition);
+    u.behaviors.forEach((b) => usedByRules.behaviors.add(b));
+    u.metrics.forEach((m) => usedByRules.metrics.add(m));
+  }
+  behaviorIds.forEach((b) => {
+    if (!usedByRules.behaviors.has(b)) violate(rep, "unused_item", `instrument:${b}`, "asked but read by no rule", "at least one rule");
+  });
+  Object.keys(a.instrument.vocab || {}).forEach((m) => {
+    if (!usedByRules.metrics.has(m)) violate(rep, "unused_item", `instrument:${m}`, "asked but read by no rule", "at least one rule");
+  });
+
+  /* Guidance blocks that cite sources must cite resolvable ones. */
+  for (const [key, b] of Object.entries(a.interpretation.guidance_blocks || {})) {
+    checkSources(b.sources, `lmc_guidance:${key}`);
+  }
+
+  for (const r of a.interpretation.rules) {
+    checkValues(r.condition, `lmc_rule:${r.id}`);
     checkSources(r.sources, `lmc_rule:${r.id}`);
     validateCondition(r.condition, `lmc_rule:${r.id}`, rep);
     const used = condFields(r.condition);
@@ -169,27 +216,41 @@ export function checkLmcFloors(a) {
     }
   }
 
-  /* Grid: floor-referenced behaviors take every value; the rest stay 'yes'
-     (extra absences can only raise severity, so 'yes' is the hardest test of
-     the floor). Vocab takes every UI bucket value. */
-  const floorBehaviors = [...new Set(floors.flatMap((f) => condFields(f.condition)))];
+  /* Grid: floor-referenced behaviors take every value; the rest stay at the
+     typical answer (extra absences can only raise severity, so the typical
+     answer is the hardest test of the floor). Vocab takes every UI bucket value. */
   const valuesFor = (id) => items[id] ? items[id].values : ["yes", "not_yet"];
   const saysValues = a.instrument.vocab.vocab_says.buckets.map((b) => b.value);
   const maxAge = a.instrument.age_range_months.max;
 
-  const combos = [[]];
-  for (const b of floorBehaviors) {
-    const next = [];
-    for (const c of combos) for (const v of valuesFor(b)) next.push([...c, [b, v]]);
-    combos.length = 0;
-    combos.push(...next);
-  }
-
   const baseBehaviors = {};
-  for (const b of a.instrument.behaviors) baseBehaviors[b.id] = b.id === "lost_skills" ? "no" : "yes";
+  for (const b of a.instrument.behaviors) baseBehaviors[b.id] = typicalValue(b);
+
+  /* Per age, the behaviors of every floor that applies at that age take all
+     their values; the rest stay at the typical answer. A floor that does not
+     apply at an age is never checked there, so varying its observable would
+     add cases without adding any check. (The grid-soundness integrity check
+     below keeps the "typical is the hardest test" premise honest.) */
+  const combosFor = new Map();
+  const combosAt = (age) => {
+    const ids = [...new Set(floors
+      .filter((f) => age >= f.applies_age_months_gte && (f.applies_age_months_lt == null || age < f.applies_age_months_lt))
+      .flatMap((f) => condFields(f.condition)))].sort();
+    const key = ids.join(",");
+    if (!combosFor.has(key)) {
+      let combos = [[]];
+      for (const b of ids) {
+        const next = [];
+        for (const c of combos) for (const v of valuesFor(b)) next.push([...c, [b, v]]);
+        combos = next;
+      }
+      combosFor.set(key, combos);
+    }
+    return combosFor.get(key);
+  };
 
   for (let age = minAge; age <= maxAge; age++) {
-    for (const combo of combos) {
+    for (const combo of combosAt(age)) {
       const behaviors = { ...baseBehaviors };
       for (const [id, v] of combo) behaviors[id] = v;
       for (const says of saysValues) {
@@ -207,6 +268,27 @@ export function checkLmcFloors(a) {
           }
         }
       }
+    }
+  }
+
+  /* Grid soundness: holding unvaried items at their typical answer is the
+     hardest test only if no rule needs a typical answer to fire. A rule that
+     tests an item's typical value (for example points_request eq "yes") is
+     allowed only when that item is varied by the grid at every age the rule
+     applies, i.e. a floor on the same item applies from the rule's start age
+     with no upper bound. */
+  for (const r of a.interpretation.rules) {
+    const positives = [];
+    const walk = (c) => {
+      if (!c) return;
+      if (c.behavior && items[c.behavior] && c.op === "eq" && c.value === typicalValue(items[c.behavior])) positives.push(c.behavior);
+      (c.all || []).forEach(walk);
+      (c.any || []).forEach(walk);
+    };
+    walk(r.condition);
+    for (const b of positives) {
+      const covered = floors.some((f) => f.applies_age_months_gte <= r.age_months_gte && f.applies_age_months_lt == null && condFields(f.condition).includes(b));
+      if (!covered) violate(rep, "grid_soundness", `lmc_rule:${r.id}`, `tests typical answer of '${b}'`, "a floor on that item varying it at every age the rule applies");
     }
   }
 
@@ -341,7 +423,7 @@ export function checkPolicyFloors(a) {
   /* Engine-level: a clean snapshot and a clean path must actually surface the
      invitation text, not just declare the flag. */
   const cleanBehaviors = {};
-  for (const b of a.instrument.behaviors) cleanBehaviors[b.id] = b.id === "lost_skills" ? "no" : "yes";
+  for (const b of a.instrument.behaviors) cleanBehaviors[b.id] = typicalValue(b);
   const clean = compile({ age_months: 20, weeks_early: 0, vocab_says: 300, vocab_understands: 300, behaviors: cleanBehaviors }, a.interpretation);
   rep.coverage.cases_evaluated++;
   if (clean.severity !== "none" || clean.invitation !== invitation) {
@@ -357,8 +439,11 @@ export function checkPolicyFloors(a) {
   ];
   const scan = (obj, where) => {
     if (typeof obj === "string") {
+      /* Typographic apostrophes and quotes must not hide a frame from the
+         patterns ("don\u2019t worry" is "don't worry"). */
+      const text = obj.replace(/[\u2018\u2019\u02bc]/g, "'").replace(/[\u201c\u201d]/g, '"');
       for (const re of softening) {
-        if (re.test(obj)) violate(rep, "bilingual_no_discount", where, obj.slice(0, 120), "no bilingual softening frame");
+        if (re.test(text)) violate(rep, "bilingual_no_discount", where, obj.slice(0, 120), "no bilingual softening frame");
       }
     } else if (Array.isArray(obj)) obj.forEach((v, i) => scan(v, `${where}[${i}]`));
     else if (obj && typeof obj === "object") Object.keys(obj).forEach((k) => scan(obj[k], `${where}.${k}`));

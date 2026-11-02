@@ -941,21 +941,44 @@ body.gms-arcade-fixed { position: fixed; left: 0; right: 0; width: 100%; overflo
 .ar-head p { color: var(--ink-soft); max-width: 42ch; margin: 0; }
 @media (max-width: 760px) { .ar-head { grid-template-columns: minmax(0, 1fr); } }
 
+/* Grids that always fill their rows: five daily puzzles and ten games, five across from 1100px;
+   between 621 and 1099px the puzzles run three then two (a six-column grid), and the games two
+   across as short side-by-side cards; on a phone every card is a row (see the phone block). */
 .ar-daily-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
-.ar-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
-@media (max-width: 1100px) { .ar-daily-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (max-width: 900px) { .ar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 620px) { .ar-grid, .ar-daily-grid { grid-template-columns: minmax(0, 1fr); } }
+.ar-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 1099px) {
+  .ar-daily-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .ar-daily-grid > .ar-card:nth-child(-n+3) { grid-column: span 2; }
+  .ar-daily-grid > .ar-card:nth-child(n+4) { grid-column: span 3; }
+  .ar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 
+/* The whole card opens its game: the Play button's hit area is stretched over the card (its
+   ::before; ::after is the loading label). Hover and keyboard focus step the card's tone, no lift.
+   The one other link on a card (the idea it is named after) sits above the stretched area. */
 .ar-card {
+  position: relative;
   display: flex; flex-direction: column; min-width: 0;
   border-radius: var(--radius-lg, 10px);
   background: var(--surface);
   border: 1px solid var(--border-soft);
   overflow: hidden;
+  transition: border-color var(--t-hover, 160ms) ease;
 }
 .hub-sec--white .ar-card { background: var(--paper); }
-.ar-card__art { aspect-ratio: 3 / 2; background: var(--sage-mist); display: flex; align-items: center; justify-content: center; padding: 10px 18px; }
+.ar-card__play::before { content: ""; position: absolute; inset: 0; z-index: 1; }
+/* No press nudge here: a transform would make the button the stretched area's containing block
+   mid-click, shrinking the target under the pointer so the click never reaches the button. */
+.fg .ar-card .ar-card__play:active { transform: none; }
+.ar-card__art { aspect-ratio: 3 / 2; background: var(--sage-mist); display: flex; align-items: center; justify-content: center; padding: 10px 18px; transition: background-color var(--t-hover, 160ms) ease; }
+.ar-card:is(:hover, :has(.ar-card__play:focus-visible)) { border-color: var(--border); }
+.ar-card:is(:hover, :has(.ar-card__play:focus-visible)) .ar-card__art { background: var(--sage-mist-2); }
+.fg .ar-card:hover .ar-card__play { background: var(--sage-mist); }
+.fg .ar-card__idea { position: relative; z-index: 2; }
+.fg .ar-card p.ar-card__idea { margin-top: 10px; margin-bottom: 4px; font-size: 15px; line-height: 1.4; }
+.fg .ar-card__idea a { display: inline-flex; align-items: center; min-height: 44px; margin-block: -12px; color: var(--forest); }
+.fg .ar-card__idea a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
+@media (prefers-reduced-motion: reduce) { .ar-card, .ar-card__art { transition: none; } }
 .ar-card--daily .ar-card__art { aspect-ratio: 2 / 1; padding: 8px 20px; }
 .ar-card__art svg { width: 100%; height: 100%; max-height: 150px; overflow: visible; }
 .ar-t { fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; }
@@ -988,21 +1011,66 @@ body.gms-arcade-fixed { position: fixed; left: 0; right: 0; width: 100%; overflo
 .ar-card__body { display: flex; flex: 1; flex-direction: column; padding: clamp(18px, 2.2vw, 26px); }
 .fg .ar-card h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.6rem); line-height: 1.12; letter-spacing: -0.01em; margin: 0; }
 .fg .ar-card p { margin: 8px 0 0; color: var(--ink-soft); font-size: 15px; line-height: 1.45; }
+/* The status chip is a badge: 4px corners, 13px Inter, no tracking. Done reads in ink on the
+   deeper mist (forest fill is for actions only). */
 .fg .ar-card p.ar-card__chip {
   display: inline-flex; align-items: center; gap: 6px; align-self: flex-start;
-  margin-top: 12px; padding: 4px 10px;
-  border-radius: 999px;
+  margin-top: 12px; padding: 3px 8px;
+  border-radius: var(--radius-sm, 4px);
   background: var(--sage-mist);
   color: var(--ink);
-  font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
+  font-size: 13px; font-weight: 500; line-height: 1.4; letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
 }
-.fg .ar-card p.ar-card__chip.is-done { background: var(--forest); color: var(--on-forest); }
+.fg .ar-card p.ar-card__chip.is-done { background: var(--sage-mist-2); color: var(--ink); font-weight: 600; }
 .fg .ar-card p.ar-card__chip.is-empty { background: transparent; color: var(--ink-muted); padding-inline: 0; }
 .fg .ar-card__play { margin-top: auto; padding-top: 0; width: 100%; justify-content: space-between; }
-.fg .ar-card__body .ar-card__play { margin-top: 18px; }
+/* The Play buttons line up along a row of cards: the chip keeps its distance, the button takes the rest. */
+.fg .ar-card__body .ar-card__play { margin-top: auto; }
+.fg .ar-card p.ar-card__chip { margin-bottom: 18px; }
 .ar-card__play span { font-weight: 400; }
 .ar-card__play.is-loading { cursor: progress; }
 .ar-card__play.is-loading span { display: none; }
 .ar-card__play.is-loading::after { content: "Loading\2026"; font-weight: 400; font-size: 14px; }
 .ar-card .gms-arcade-load-error { margin-top: 12px; font-size: 14px; color: var(--ink); }
 .arcade-page .gms-arcade-title span { display: none; }
+
+/* Between 621 and 1099px a game card is short: the drawing beside its words. */
+@media (min-width: 621px) and (max-width: 1099px) {
+  .ar-grid > .ar-card { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
+  .ar-grid .ar-card__art { aspect-ratio: auto; min-height: 100%; padding: 12px; }
+}
+
+/* Phones: every card is a row (the drawing as a tile, then the name, its line and its chip), and
+   the whole row is the Play button, marked by the rows' trailing arrow. The two jump buttons
+   share one line. A game is in the first screen. */
+@media (max-width: 620px) {
+  .ar-daily-grid, .ar-grid { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .ar-daily-grid > .ar-card:nth-child(n) { grid-column: auto; }
+  .ar-card { display: grid; grid-template-columns: 92px minmax(0, 1fr); }
+  .ar-card__art, .ar-card--daily .ar-card__art { aspect-ratio: auto; min-height: 100%; padding: 10px; }
+  .ar-card__art svg { max-height: 72px; }
+  .ar-card__body { padding: 14px 44px 14px 16px; }
+  .fg .ar-card h3 { font-size: 1.25rem; }
+  .fg .ar-card p { margin-top: 4px; font-size: 14px; }
+  .fg .ar-card p.ar-card__chip { margin-top: 8px; margin-bottom: 0; }
+  .fg .ar-card p.ar-card__idea { margin-top: 6px; font-size: 14px; }
+  .fg .ar-card__body .ar-card__play {
+    position: absolute; inset: 0; z-index: 1; width: auto; min-height: 0; margin: 0; padding: 0;
+    border-radius: inherit; background: transparent; box-shadow: none; color: transparent;
+  }
+  .fg .ar-card:hover .ar-card__play { background: transparent; }
+  .ar-card__play::before { content: none; }
+  .fg .ar-card__play:focus-visible { outline-offset: -3px; }
+  .ar-card::after {
+    content: ""; position: absolute; right: 14px; top: 50%; width: 20px; height: 20px; margin-top: -10px;
+    background: var(--ink-muted); pointer-events: none;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 12h15M13.5 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 12h15M13.5 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+  .ar-card:hover::after { background: var(--forest); }
+  /* A slow load still says so, at the row's foot. */
+  .fg .ar-card__body .ar-card__play.is-loading { color: var(--ink); align-items: flex-end; justify-content: flex-end; padding: 0 44px 10px 0; }
+  .fg .ar-card__play.is-loading::after { font-size: 13px; }
+  .fg.arcade-page .hub-title__actions > .hb-btn { flex: 1 1 0; width: auto; padding-inline: 0.75rem; }
+}

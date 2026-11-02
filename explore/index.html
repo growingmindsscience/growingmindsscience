@@ -6,7 +6,7 @@
   <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
   /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <title>Explore the field guide | From Little Onward</title>
-  <meta name="description" content="Three ways into From Little Onward: by your child’s age, by the moment you are in, or by topic. Every guide, tool, article, graded claim and class in one place." />
+  <meta name="description" content="Start from your child’s age. Each period from birth to five gathers its guides, tools, articles and graded claims by the moment you are in and by topic, with the class for that age." />
   <meta name="theme-color" content="#F8F9FB" />
   <meta name="color-scheme" content="light dark" />
 
@@ -18,7 +18,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.fromlittleonward.com/explore/" />
   <meta property="og:title" content="Explore the field guide | From Little Onward" />
-  <meta property="og:description" content="Three ways into From Little Onward: by your child’s age, by the moment you are in, or by topic. Every guide, tool, article, graded claim and class in one place." />
+  <meta property="og:description" content="Start from your child’s age. Each period from birth to five gathers its guides, tools, articles and graded claims by the moment you are in and by topic, with the class for that age." />
   <meta property="og:image" content="https://www.fromlittleonward.com/assets/img/site/baby-crawling.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://www.fromlittleonward.com/assets/img/site/baby-crawling.jpg" />
@@ -121,13 +121,13 @@
             <span class="ex-line__sum">Working memory, flexible thinking and impulse control are under construction, on a wide and normal range.</span>
           </a>
           </nav>
-          <div class="ex-line__track" aria-hidden="true"><span>birth</span><span>5 years</span></div>
+          <div class="ex-line__track" aria-hidden="true"><span>birth</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5 years</span></div>
         </div>
       </div>
     </section>
     <section class="hub-sec ex-sec" id="any-age" aria-labelledby="any-heading">
       <div class="hb-container ex-row">
-        <div class="ex-row__head">
+        <div class="ex-row__head" data-rise>
           <h2 class="hb-display" id="any-heading">For any age</h2>
           <p>Pages written for every period, from birth to five.</p>
         </div>
@@ -140,6 +140,15 @@
           <li><a href="/tools/beyond-less-is-better">Beyond “less is better”</a><span class="ex-type">Guide</span></li>
           <li><a href="/articles/parents-nervous-system">When your own nervous system is the variable</a><span class="ex-type">Article</span></li>
         </ul>
+      </div>
+    </section>
+    <section class="hub-sec hub-close" aria-labelledby="close-heading">
+      <div class="hb-container">
+        <div data-rise>
+          <h2 class="hb-display" id="close-heading">Go deeper, one age at a time.</h2>
+          <p>The classes explain the why. Three classes are open, one for each window of the first five years, $49 each with lifetime access.</p>
+        </div>
+        <div class="hub-close__act"><a class="hb-btn hb-btn--paper" href="/classes/">Browse the classes</a><a class="hb-btn hb-btn--quiet" href="/tools/right-now">It&rsquo;s hard right now</a></div>
       </div>
     </section>
 <!-- explore:end -->

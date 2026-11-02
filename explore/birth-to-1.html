@@ -52,7 +52,7 @@
 
         <ul class="nav__list" id="primary-nav-list">
           <li class="nav__now"><a class="nav__link" href="/tools/right-now">It&rsquo;s hard right now</a></li>
-          <li><a class="nav__link" href="/explore/" aria-current="page">Explore</a></li>
+          <li><a class="nav__link" href="/explore/" aria-current="true">Explore</a></li>
           <li><a class="nav__link" href="/classes/">Classes</a></li>
           <li class="nav__item">
             <details class="nav__details">
@@ -110,7 +110,6 @@
             <strong>Self-control, slowly</strong>
           </a>
           </nav>
-          <div class="ex-line__track" aria-hidden="true"><span>birth</span><span>5 years</span></div>
         </div>
       </div>
       <div class="hb-container ex-stage-head">
@@ -119,16 +118,22 @@
           <p class="ex-stage-head__years">Birth to 1</p>
           <p class="hb-lead">Attachment, the senses, and the rhythm of back-and-forth. Serve and return, not flashcards, builds the architecture.</p>
         </div>
-        <div class="ex-stage-head__class" data-rise style="--i:1">
-          <p>The class for this period</p>
-          <a class="hb-btn hb-btn--quiet" href="/classes/birth-to-12-months">Birth to 12 months</a>
+        <div class="ex-start" data-rise style="--i:1">
+          <h2 class="ex-start__title" id="start-heading">Start here</h2>
+          <ul class="ex-start__list" aria-labelledby="start-heading">
+            <li><span class="ex-start__k">Read</span><a class="ex-start__link" href="/articles/serve-and-return">What “serve and return” means</a></li>
+            <li><span class="ex-start__k">Try</span><a class="ex-start__link" href="/milestones">Milestone tracker</a></li>
+            <li><span class="ex-start__k">Learn</span><a class="ex-start__link" href="/nsc/classes/infant/preview">Watch a lesson free</a></li>
+          </ul>
         </div>
       </div>
     </section>
     <section class="hub-sec hub-sec--white ex-sec" id="moments" aria-labelledby="moments-heading">
       <div class="hb-container">
-        <h2 class="hb-display ex-sec__title" id="moments-heading">Moments at this age</h2>
-        <p class="ex-sec__lede">Situations you would recognize, and the pages that start from them. In the middle of one now? <a href="/tools/right-now">It&rsquo;s hard right now</a> gives a calm next step in two minutes.</p>
+        <div class="ex-sec__head" data-rise>
+          <h2 class="hb-display ex-sec__title" id="moments-heading">Moments at this age</h2>
+          <p class="ex-sec__lede">Situations you would recognize, and the pages that start from them. In the middle of one now? <a href="/tools/right-now">It&rsquo;s hard right now</a> gives a calm next step in two minutes.</p>
+        </div>
         <article class="ex-row" id="m-sleep">
           <div class="ex-row__head">
             <h3>Bedtime or night waking</h3>
@@ -167,7 +172,7 @@
             <li><a href="/tools/milestone-navigator">Milestone Navigator</a><span class="ex-type">Tool</span></li>
             <li><a href="/milestones">Milestone tracker</a><span class="ex-type">Tool</span></li>
             <li><a href="/articles/milestone-worry">What to do with milestone worry</a><span class="ex-type">Article</span></li>
-            <li><a href="/claims/bilingual-confusion">“Hearing two languages will confuse my baby and delay their speech”</a><span class="ex-type">Graded claim</span></li>
+            <li><a href="/claims/bilingual-confusion">“Hearing two languages will confuse my baby and delay their speech”</a><span class="ex-type">Graded claim</span><p class="ex-verdict"><span class="ex-grade ex-grade--contra">Contradicted by evidence</span> <span aria-hidden="true">&middot;</span> Bilingual children babble on time, and their vocabulary is on track when you count both languages.</p></li>
           </ul>
         </article>
         <article class="ex-row" id="m-screens">
@@ -183,20 +188,18 @@
     </section>
     <section class="hub-sec ex-sec" id="topics" aria-labelledby="topics-heading">
       <div class="hb-container">
-        <h2 class="hb-display ex-sec__title" id="topics-heading">Topics at this age</h2>
-        <p class="ex-sec__lede">One thread at a time, for this period.</p>
+        <div class="ex-sec__head" data-rise>
+          <h2 class="hb-display ex-sec__title" id="topics-heading">More by topic</h2>
+          <p class="ex-sec__lede">One thread at a time, for this period, without the pages above.</p>
+        </div>
         <article class="ex-row" id="t-communication">
           <div class="ex-row__head">
             <h3>Communication</h3>
           </div>
           <ul class="ex-list">
-            <li><a href="/tools/communication-snapshot">Communication Snapshot</a><span class="ex-type">Tool</span></li>
-            <li><a href="/tools/milestone-navigator">Milestone Navigator</a><span class="ex-type">Tool</span></li>
             <li><a href="/articles/serve-and-return">What “serve and return” actually means</a><span class="ex-type">Article</span></li>
-            <li><a href="/articles/milestone-worry">What to do with milestone worry</a><span class="ex-type">Article</span></li>
-            <li><a href="/claims/bilingual-confusion">“Hearing two languages will confuse my baby and delay their speech”</a><span class="ex-type">Graded claim</span></li>
-            <li><a href="/claims/pacifiers-speech">“Pacifier use will delay my child's speech”</a><span class="ex-type">Graded claim</span></li>
-            <li><a href="/claims/talking-to-baby">“Talking to my baby, even before they can respond, builds their language”</a><span class="ex-type">Graded claim</span></li>
+            <li><a href="/claims/pacifiers-speech">“Pacifier use will delay my child’s speech”</a><span class="ex-type">Graded claim</span><p class="ex-verdict"><span class="ex-grade ex-grade--thin">Not enough evidence</span> <span aria-hidden="true">&middot;</span> There is not enough evidence that ordinary pacifier use delays speech; the clearer tradeoffs are ear infections and, with long use, teeth.</p></li>
+            <li><a href="/claims/talking-to-baby">“Talking to my baby, even before they can respond, builds their language”</a><span class="ex-type">Graded claim</span><p class="ex-verdict"><span class="ex-grade ex-grade--solid">Strong evidence</span> <span aria-hidden="true">&middot;</span> Yes. Talking with your baby builds language, and back-and-forth exchanges look especially important.</p></li>
           </ul>
         </article>
         <article class="ex-row" id="t-learning">
@@ -204,58 +207,9 @@
             <h3>Learning</h3>
           </div>
           <ul class="ex-list">
-            <li><a href="/tools/milestone-navigator">Milestone Navigator</a><span class="ex-type">Tool</span></li>
-            <li><a href="/milestones">Milestone tracker</a><span class="ex-type">Tool</span></li>
             <li><a href="/tools/activity-library">Activity library</a><span class="ex-type">Tool</span></li>
-            <li><a href="/tools/beyond-less-is-better">Beyond “less is better”</a><span class="ex-type">Guide</span></li>
-            <li><a href="/articles/milestone-worry">What to do with milestone worry</a><span class="ex-type">Article</span></li>
-            <li><a href="/claims/baby-walkers">“A baby walker will help my baby learn to walk sooner”</a><span class="ex-type">Graded claim</span></li>
-            <li><a href="/claims/tummy-time">“Tummy time actually matters for my baby's development”</a><span class="ex-type">Graded claim</span></li>
-          </ul>
-        </article>
-        <article class="ex-row" id="t-play">
-          <div class="ex-row__head">
-            <h3>Play</h3>
-          </div>
-          <ul class="ex-list">
-            <li><a href="/tools/activity-library">Activity library</a><span class="ex-type">Tool</span></li>
-          </ul>
-        </article>
-        <article class="ex-row" id="t-relationships">
-          <div class="ex-row__head">
-            <h3>Relationships</h3>
-          </div>
-          <ul class="ex-list">
-            <li><a href="/tools/regulating-yourself-first">Regulating yourself first</a><span class="ex-type">Guide</span></li>
-            <li><a href="/tools/repair-after-the-hard-moment">Repair after the hard moment</a><span class="ex-type">Guide</span></li>
-            <li><a href="/articles/serve-and-return">What “serve and return” actually means</a><span class="ex-type">Article</span></li>
-            <li><a href="/articles/parents-nervous-system">When your own nervous system is the variable</a><span class="ex-type">Article</span></li>
-          </ul>
-        </article>
-        <article class="ex-row" id="t-sleep">
-          <div class="ex-row__head">
-            <h3>Sleep</h3>
-          </div>
-          <ul class="ex-list">
-            <li><a href="/tools/whats-typical-by-stage">What’s typical, by stage</a><span class="ex-type">Guide</span></li>
-          </ul>
-        </article>
-        <article class="ex-row" id="t-behavior">
-          <div class="ex-row__head">
-            <h3>Behavior</h3>
-          </div>
-          <ul class="ex-list">
-            <li><a href="/tools/right-now">It’s hard right now</a><span class="ex-type">Tool</span></li>
-          </ul>
-        </article>
-        <article class="ex-row" id="t-regulation">
-          <div class="ex-row__head">
-            <h3>Regulation</h3>
-          </div>
-          <ul class="ex-list">
-            <li><a href="/tools/right-now">It’s hard right now</a><span class="ex-type">Tool</span></li>
-            <li><a href="/tools/regulating-yourself-first">Regulating yourself first</a><span class="ex-type">Guide</span></li>
-            <li><a href="/articles/parents-nervous-system">When your own nervous system is the variable</a><span class="ex-type">Article</span></li>
+            <li><a href="/claims/baby-walkers">“A baby walker will help my baby learn to walk sooner”</a><span class="ex-type">Graded claim</span><p class="ex-verdict"><span class="ex-grade ex-grade--contra">Contradicted by evidence</span> <span aria-hidden="true">&middot;</span> Walkers don’t help babies walk sooner, and the injury record led the AAP to call for a ban.</p></li>
+            <li><a href="/claims/tummy-time">“Tummy time actually matters for my baby’s development”</a><span class="ex-type">Graded claim</span><p class="ex-verdict"><span class="ex-grade ex-grade--solid">Moderate evidence</span> <span aria-hidden="true">&middot;</span> Yes: awake tummy time is linked to better motor development; the head-shape evidence is mixed.</p></li>
           </ul>
         </article>
         <article class="ex-row" id="also">
@@ -264,10 +218,19 @@
           </div>
           <ul class="ex-list">
             <li><a href="/tools/ask-the-research">Ask the research</a><span class="ex-type">Tool</span></li>
-            <li><a href="/claims/teething-fever">“Teething causes fevers”</a><span class="ex-type">Graded claim</span></li>
-            <li><a href="/claims/baby-led-weaning">“Baby-led weaning is better than spoon-feeding purées”</a><span class="ex-type">Graded claim</span></li>
+            <li><a href="/claims/teething-fever">“Teething causes fevers”</a><span class="ex-type">Graded claim</span><p class="ex-verdict"><span class="ex-grade ex-grade--contra">Contradicted by evidence</span> <span aria-hidden="true">&middot;</span> Teething can nudge temperature up slightly; a real fever should not be blamed on teeth.</p></li>
+            <li><a href="/claims/baby-led-weaning">“Baby-led weaning is better than spoon-feeding purées”</a><span class="ex-type">Graded claim</span><p class="ex-verdict"><span class="ex-grade ex-grade--thin">Limited evidence</span> <span aria-hidden="true">&middot;</span> A reasonable option, not a clearly better one; the few trials so far show mixed results on growth.</p></li>
           </ul>
         </article>
+      </div>
+    </section>
+    <section class="hub-sec hub-close" aria-labelledby="close-heading">
+      <div class="hb-container">
+        <div data-rise>
+          <h2 class="hb-display" id="close-heading">Go deeper into this age.</h2>
+          <p>The class for this period, Birth to 12 months, explains the why in short, self-paced lessons built from the research. $49 one time, with lifetime access.</p>
+        </div>
+        <div class="hub-close__act"><a class="hb-btn hb-btn--paper" href="/classes/birth-to-12-months">See the class</a><a class="hb-btn hb-btn--quiet" href="/tools/right-now">It&rsquo;s hard right now</a></div>
       </div>
     </section>
 <!-- explore:end -->

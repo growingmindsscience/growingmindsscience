@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "status": "drafted_pending_matthew_verification",
   "semantics": "Each floor is a red line. For any snapshot whose computed fields match a floor's condition at or beyond applies_age_months_gte (corrected age where weeks_early > 3 and age < 24m), the compiled report's severity must be at least min_severity. Severity order: none < watch < discuss < priority_discuss. The interpretation artifact may flag earlier or harder than a floor, never later or softer. The floors grader enforces this at compile time by evaluating the interpretation artifact against a generated case grid; any floor-matching case that compiles below min_severity fails the build.",
-  "fields_contract": "Conditions reference only computable snapshot fields: vocab_says (int), vocab_understands (int), and the 12 behavior items by id with values yes | sometimes | not_yet (lost_skills uses yes | no). 'not_yet' matches only 'not_yet'; 'sometimes' never satisfies an absence condition.",
+  "fields_contract": "Conditions reference only computable snapshot fields: vocab_says (int), vocab_understands (int, or the string 'unsure', which never matches), and the 16 behavior items by id with values yes | sometimes | not_yet (parent_hearing_concern and lost_skills use yes | no; understood_by_others uses most | about_half | less_than_half). 'not_yet' matches only 'not_yet'; 'sometimes' never satisfies an absence condition.",
   "floors": [
     {
       "id": "skill_loss_any_age",
@@ -60,6 +60,22 @@
       "min_severity": "discuss",
       "sources": ["cdc_ltsae", "zubler2022"],
       "rationale": "Not following simple one-step directions without gesture cues by 24 months flags receptive language, which is easy for expressive-focused tools to miss. Receptive concerns are, if anything, more predictive than expressive ones."
+    },
+    {
+      "id": "hearing_concern_any_age",
+      "applies_age_months_gte": 0,
+      "condition": {"all": [{"behavior": "parent_hearing_concern", "op": "eq", "value": "yes"}]},
+      "min_severity": "discuss",
+      "sources": ["jcih2019"],
+      "rationale": "Added 2026-11-02. Same id and threshold as the Milestone Navigator hearing floor (the grader enforces the match): caregiver concern about hearing alone warrants a hearing test at any age, with no wait-and-see. JCIH 2019 lists caregiver concern about hearing, speech, language or development as a risk indicator calling for immediate referral."
+    },
+    {
+      "id": "stranger_intelligibility_36m",
+      "applies_age_months_gte": 36,
+      "condition": {"all": [{"behavior": "understood_by_others", "op": "eq", "value": "less_than_half"}]},
+      "min_severity": "discuss",
+      "sources": ["flipsen2006", "cdc_ltsae"],
+      "rationale": "Added 2026-11-02. Same id, threshold and answer value as the Milestone Navigator floor, so the two tools cannot disagree about a 3-year-old whom unfamiliar adults mostly cannot understand. CDC's 3-year checklist (2022) expects a child to talk well enough for others to understand most of the time."
     },
     {
       "id": "bilingual_no_discount",

@@ -143,41 +143,51 @@
             <div><dt>Includes</dt><dd>Ask the research, the AI tool, with a fair-use limit of 50 questions a day</dd></div>
             <div><dt>Price</dt><dd>$49 once, lifetime access</dd></div>
           </dl>
-          <div class="hero__ctas">
-            <a class="btn btn--primary btn--lg" href="#enroll">Enroll, $49</a>
-            <a class="btn btn--ghost btn--lg" href="#sample">Read part of a lesson</a>
+          <div class="hero__ctas hb-actions">
+            <a class="hb-btn" href="#enroll">Enroll, $49</a>
+            <a class="hb-btn hb-btn--quiet" href="#sample">Read part of a lesson</a>
           </div>
           <p class="class-intro__fine">Checkout is here, with Stripe, and the lessons live under <a href="/nsc/class-login">My classes</a>.</p>
         </div>
 
-        <figure class="fig fig--plate" aria-labelledby="fig-toddler-caption">
-          <svg viewBox="0 0 480 300" role="img" aria-labelledby="fig-toddler-title" aria-describedby="fig-toddler-desc" xmlns="http://www.w3.org/2000/svg">
-            <title id="fig-toddler-title">Figure 1. Why words don&rsquo;t land mid-meltdown.</title>
-            <desc id="fig-toddler-desc">A schematic line chart of a toddler&rsquo;s arousal over the course of a hard moment. A shaded band in the middle marks the window where words and reasoning land. Both lines start inside the window, rise steeply after a trigger to a peak well above it, and come back down. The line for a toddler on their own is still at the top edge of the window at the end of the chart; the line for a toddler with a calm adult nearby is back inside the window about halfway along.</desc>
-            <rect class="fig-band" x="40" y="128" width="420" height="72"/>
-            <line class="fig-band-edge" x1="40" y1="128" x2="460" y2="128"/>
-            <line class="fig-band-edge" x1="40" y1="200" x2="460" y2="200"/>
-            <text class="fig-text fig-label--band" x="52" y="190">Words land here</text>
-            <g class="fig-axis" fill="none" stroke-width="1.5" stroke-linecap="round">
-              <line x1="40" y1="16" x2="40" y2="250"/>
-              <line x1="40" y1="250" x2="460" y2="250"/>
-              <line x1="170" y1="250" x2="170" y2="257"/>
-            </g>
-            <path class="fig-curve fig-curve--a" d="M40 164 L170 164 C 192 164, 205 44, 240 44 C 300 44, 380 96, 460 126"/>
-            <path class="fig-curve fig-curve--b" d="M40 164 L170 164 C 192 164, 205 44, 240 44 C 270 44, 288 150, 330 160 S 420 164, 460 164"/>
-            <circle class="fig-dot" cx="240" cy="44" r="5.5"/>
-            <text class="fig-text" x="254" y="30">Too high for words</text>
-            <g class="fig-text fig-text--sm">
-              <text x="170" y="276" text-anchor="middle">Trigger</text>
-              <text x="460" y="276" text-anchor="end">Time</text>
-              <text transform="translate(22 133) rotate(-90)" text-anchor="middle">Arousal</text>
-            </g>
-          </svg>
-          <ul class="fig__key">
-            <li><span class="fig__key-line" aria-hidden="true"></span>On their own</li>
-            <li><span class="fig__key-line fig__key-line--b" aria-hidden="true"></span>With a calm adult nearby</li>
-          </ul>
-          <figcaption class="fig__caption" id="fig-toddler-caption"><b>Fig. 1</b> &middot; Why words don&rsquo;t land mid-meltdown. Above the window, a toddler loses access to language and reasoning, so explaining waits. A steady adult nearby helps them come back into it sooner. A teaching schematic after Siegel&rsquo;s window of tolerance (1999), not measured data. Module 4 follows a tantrum from start to finish and shows what a calm adult changes.</figcaption>
+        <figure class="hb-fig" data-rise data-draw style="--i:1" aria-labelledby="fig-toddler-caption">
+          <div class="hb-fig__plate">
+            <svg viewBox="0 0 480 300" role="img" aria-labelledby="fig-toddler-title" aria-describedby="fig-toddler-desc" xmlns="http://www.w3.org/2000/svg">
+              <title id="fig-toddler-title">Figure 1. Why words don&rsquo;t land mid-meltdown.</title>
+              <desc id="fig-toddler-desc">A schematic line chart of a toddler&rsquo;s arousal over the course of a hard moment. A shaded band in the middle marks the window where words and reasoning land. Both lines start inside the window, rise steeply after a trigger to a peak well above it, and come back down. The line for a toddler on their own is still at the top edge of the window at the end of the chart; the line for a toddler with a calm adult nearby is back inside the window about halfway along.</desc>
+              <defs>
+                <!-- The calm-adult line is dashed, so it is drawn in through a mask: the solid mask stroke is what draws. -->
+                <mask id="fig-toddler-reveal" maskUnits="userSpaceOnUse" x="0" y="0" width="480" height="300">
+                  <path class="hb-draw" pathLength="1" style="--d:1" fill="none" stroke="#fff" stroke-width="10" d="M240 44 C 270 44, 288 150, 330 160 S 420 164, 460 164"/>
+                </mask>
+              </defs>
+              <rect class="fig-band" x="40" y="128" width="420" height="72"/>
+              <line class="fig-band-edge" x1="40" y1="128" x2="460" y2="128"/>
+              <line class="fig-band-edge" x1="40" y1="200" x2="460" y2="200"/>
+              <text class="fig-text fig-label--band" x="52" y="190">Words land here</text>
+              <g class="fig-axis" fill="none" stroke-width="1.5" stroke-linecap="round">
+                <line x1="40" y1="16" x2="40" y2="250"/>
+                <line x1="40" y1="250" x2="460" y2="250"/>
+                <line x1="170" y1="250" x2="170" y2="257"/>
+              </g>
+              <!-- The two lines share the rise, so it is drawn once; the calm-adult line leaves it at the peak. -->
+              <path class="fig-curve fig-curve--a hb-draw" pathLength="1" style="--d:0" d="M40 164 L170 164 C 192 164, 205 44, 240 44 C 300 44, 380 96, 460 126"/>
+              <path class="fig-curve fig-curve--b" mask="url(#fig-toddler-reveal)" d="M240 44 C 270 44, 288 150, 330 160 S 420 164, 460 164"/>
+              <circle class="fig-dot fig-pop" style="--d:1" cx="240" cy="44" r="5.5"/>
+              <text class="fig-text fig-pop" style="--d:1" x="254" y="30">Too high for words</text>
+              <g class="fig-text fig-text--sm">
+                <text x="170" y="276" text-anchor="middle">Trigger</text>
+                <text x="460" y="276" text-anchor="end">Time</text>
+                <text transform="translate(22 133) rotate(-90)" text-anchor="middle">Arousal</text>
+              </g>
+            </svg>
+            <ul class="fig__key">
+              <li><span class="fig__key-line" aria-hidden="true"></span>On their own</li>
+              <li><span class="fig__key-line fig__key-line--b" aria-hidden="true"></span>With a calm adult nearby</li>
+            </ul>
+          </div>
+          <figcaption id="fig-toddler-caption"><b class="hb-fig__n">Fig. 1</b> Why words don&rsquo;t land mid-meltdown. Above the window, a toddler loses access to language and reasoning, so explaining waits. A steady adult nearby helps them come back into it sooner. Module 4 follows a tantrum from start to finish and shows what a calm adult changes.
+            <span class="hb-fig__src">A teaching schematic after Siegel&rsquo;s window of tolerance (1999), not measured data.</span></figcaption>
         </figure>
       </div>
     </section>
@@ -188,13 +198,13 @@
         <div class="section-head" data-rise>
           <h2 id="sample-heading">Read part of a lesson.</h2>
           <p class="section-head__lede">From Module 4, Lesson 1, &ldquo;Inside a Tantrum.&rdquo; Fig. 1 above is the idea this lesson builds on.</p>
+          <p class="lesson-sample__note">From the lesson transcript, lightly trimmed. The lesson goes on to what is typical at this age and which signs are worth a conversation with your child&rsquo;s doctor; the next three lessons cover heading tantrums off, staying calm in the moment, and repair afterward.</p>
         </div>
         <blockquote class="lesson-sample__text">
           <p>Module 1 gave us a fast alarm and slow brakes. A tantrum is what it looks like when the alarm is at full volume and the brakes have let go altogether. Researchers describe a tantrum as a sudden, intense burst of negative feeling out of proportion to what set it off. The word matters less than the picture, in which a wish is blocked, the body floods, and for a few minutes the toddler is not choosing anything.</p>
           <p>How long is a tantrum? The answer is shorter than it feels. In the largest study of its kind, parents of three hundred and thirty-five children from eighteen months to five wrote accounts of tantrums as they happened. The most common length was between half a minute and one minute. Three quarters of all tantrums were over within five minutes.</p>
           <p>Those detailed accounts also revealed a shape. Researchers coded what the children did in each half minute, and found two separate processes running at once, which they called anger and distress. Anger rises fast, peaks at or near the start, and then falls away. Distress rises slowly through the tantrum, and whining, crying, and reaching for comfort belong to that. A tantrum is anger with sadness underneath it, and the sadness outlasts the anger.</p>
         </blockquote>
-        <p class="lesson-sample__note">From the lesson transcript, lightly trimmed. The lesson goes on to what is typical at this age and which signs are worth a conversation with your child&rsquo;s doctor; the next three lessons cover heading tantrums off, staying calm in the moment, and repair afterward.</p>
       </div>
     </section>
 
@@ -202,7 +212,7 @@
     <section class="section--alt">
       <div class="container container--narrow">
         <div class="section-head" data-rise>
-          <h2 data-rise>By the end of the class</h2>
+          <h2>By the end of the class</h2>
           <p class="section-head__lede">You&rsquo;ll have a clearer picture of what your toddler is doing, and why.</p>
         </div>
         <ul class="check-list" data-rise>
@@ -219,8 +229,8 @@
     <section id="syllabus">
       <div class="container">
         <div class="section-head" data-rise>
-          <h2 data-rise>Four modules</h2>
-          <p class="section-head__lede" data-rise>For the moments that make toddlerhood feel hard.</p>
+          <h2>Four modules</h2>
+          <p class="section-head__lede">For the moments that make toddlerhood feel hard.</p>
         </div>
         <ol class="syllabus">
           <li class="syllabus__item" data-rise>
@@ -257,7 +267,7 @@
     </section>
 
     <!-- WHO TEACHES IT -->
-    <section>
+    <section class="section--alt hb-section--tight">
       <div class="container container--narrow">
         <h2 data-rise>Who teaches it.</h2>
         <div class="educator" data-rise>
@@ -277,10 +287,10 @@
     </section>
 
     <!-- FREE READING -->
-    <section class="section--alt">
+    <section class="hb-section--tight">
       <div class="container container--narrow">
         <div class="section-head" data-rise>
-          <h2 data-rise>Free reading for the toddler years.</h2>
+          <h2>Free reading for the toddler years.</h2>
         </div>
         <ul class="reading" data-rise>
           <li><a href="/articles/toddler-no"><span class="reading__kind">Free article</span><span class="reading__title">The toddler &ldquo;no&rdquo; is not the war you think it is</span><span class="reading__arrow" aria-hidden="true">&rarr;</span></a></li>
@@ -292,7 +302,7 @@
     </section>
 
     <!-- FAQ -->
-    <section>
+    <section class="section--alt hb-section--tight">
       <div class="container container--narrow">
         <h2 data-rise>A few things parents usually ask first.</h2>
         <div class="faq-class-list" data-rise>
@@ -317,14 +327,14 @@
     </section>
 
     <!-- ENROLL -->
-    <section id="enroll" class="signup">
+    <section id="enroll" class="signup fg-ink-field">
       <div class="container signup__inner signup__inner--offer">
         <h2 class="signup__head" data-rise>Start the toddler class for <mark>$49</mark>.</h2>
         <div class="signup__form" aria-labelledby="enroll-heading" data-rise>
           <h3 id="enroll-heading" class="signup__form-title">Toddler years</h3>
           <p class="signup__price"><strong>$49</strong> once &middot; lifetime access</p>
           <p class="signup__note">You&rsquo;ll create a free account (or sign in), then pay securely with Stripe. The class opens the moment you&rsquo;re done.</p>
-          <a class="btn btn--primary btn--block btn--lg" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Ftoddlerhood%2Fenroll">Enroll, $49</a>
+          <a class="hb-btn" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Ftoddlerhood%2Fenroll">Enroll, $49</a>
           <p class="signup__refund">Full refund within 14 days if you&rsquo;ve watched 4 lessons or fewer. <a href="/terms-of-sale/">Terms of sale</a>.</p>
           <p class="signup__fine">Already enrolled? <a href="/nsc/class-login">Open My classes</a>. Questions first? <a href="/contact/">Ask Matthew</a>.</p>
         </div>
@@ -344,7 +354,7 @@
        and steps aside for the enroll section and the footer. -->
   <div class="enroll-bar" data-enroll-bar hidden>
     <p class="enroll-bar__label"><strong>Toddler years</strong> $49 once</p>
-    <a class="btn btn--primary" href="#enroll">Enroll</a>
+    <a class="hb-btn" href="#enroll">Enroll</a>
   </div>
 
   <!-- footer:start -->

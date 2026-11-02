@@ -11,7 +11,8 @@
     "cdc_ltsae": {
       "citation": "CDC, Learn the Signs. Act Early. Developmental Milestones (2022 revision).",
       "role": "Public-domain milestone checklists; citable and reproducible.",
-      "url": "https://www.cdc.gov/ncbddd/actearly/milestones/"
+      "url": "https://www.cdc.gov/act-early/milestones/",
+      "note": "URL moved from /ncbddd/actearly/milestones/ to /act-early/milestones/ (updated 2026-11-02). Items the Snapshot cites: 6m takes turns making sounds; 9m looks when you call their name, 'mamamama'/'babababa', lifts arms up to be picked up; 15m tries one or two words besides mama or dada, points to ask for something; 18m tries three or more words besides mama or dada, follows one-step directions without gestures; 30m two or more words with one action word, words like I/me/we, about 50 words; 3y conversation with at least two back-and-forth exchanges, talks well enough for others to understand most of the time."
     },
     "filipek1999": {
       "citation": "Filipek PA, Accardo PJ, Baranek GT, et al. The screening and diagnosis of autistic spectrum disorders. J Autism Dev Disord. 1999;29(6):439-484.",
@@ -38,6 +39,11 @@
     "flipsen2006": {
       "citation": "Flipsen P Jr. Measuring the intelligibility of conversational speech in children. Clin Linguist Phon. 2006;20(4):303-312.",
       "role": "Intelligibility expectations underpinning the stranger-intelligibility floor at 36m+."
+    },
+    "idea_part_c": {
+      "citation": "Individuals with Disabilities Education Act, Part C (Early Intervention Program for Infants and Toddlers with Disabilities), 34 CFR 303.521(b): evaluation and assessment are carried out at public expense, at no cost to families; and IDEA Part B child find (34 CFR 300.111) for children 3 and older through the local school district. CDC Learn the Signs. Act Early., If You're Concerned: families can contact early intervention themselves, without a doctor's referral.",
+      "role": "Backs the visit_script copy: early intervention exists in every state for children under 3, families can self-refer, the evaluation is free; from 3, the public school district evaluates. Services after evaluation may carry state sliding-scale fees, so the copy claims only that the evaluation is free. Added 2026-11-02.",
+      "url": "https://www.law.cornell.edu/cfr/text/34/303.521"
     },
     "zwaigenbaum2015": {
       "citation": "Zwaigenbaum L, Bauman ML, Stone WL, et al. Early identification of autism spectrum disorder: recommendations for practice and research. Pediatrics. 2015;136(Suppl 1):S10-S40.",

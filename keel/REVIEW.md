@@ -166,3 +166,151 @@ they cannot verify content truth. That's this pass:
 - [ ] `node keel/graders/selftest.mjs` green after any edits
 
 Verified by: ____________  Date: ____________
+
+## 2026-11-02 — Communication Snapshot accuracy pass (needs your sign-off)
+
+An audit of the launched Snapshot found false reassurance at both ends of its
+6 to 36 month range. Every change below makes results stricter or more
+accurate; none softens a floor, and no floor threshold moved. All four LMC
+artifacts and `floor_sources` stay `drafted_pending_matthew_verification`.
+`node keel/graders/selftest.mjs` is green (434,141 floor cases; 17 of 17
+planted floor violations caught). Source checks this session were by web
+search: cdc.gov, ecfr.gov and jcih.org could not be fetched from the sandbox,
+so please read each item below in the source itself before ticking it.
+
+Source pull list additions: `idea_part_c` (new id: 34 CFR 303.521(b) and
+Part B child find, 34 CFR 300.111, plus CDC "If You're Concerned"). The
+`cdc_ltsae` URL moved to https://www.cdc.gov/act-early/milestones/ and now
+carries a note listing every CDC item the Snapshot cites.
+
+### New floors (Tier 1; both mirror existing Navigator floors, same id and threshold, grader-enforced)
+
+- [ ] `hearing_concern_any_age` → discuss at any age when a parent answers yes
+  to the new item `parent_hearing_concern` ("Do you have a feeling that your
+  child doesn't hear well?", same wording as the Navigator's `hr_concern`).
+  JCIH 2019 (`jcih2019`): caregiver concern about hearing, speech, language or
+  development is a risk indicator for immediate referral. Fixture:
+  `lmc_hearing_concern_unwired`.
+- [ ] `stranger_intelligibility_36m` → discuss at 36m when unfamiliar adults
+  understand less than half (new item `understood_by_others`, same answers as
+  the Navigator's `tk_clarity`). `flipsen2006`, `cdc_ltsae` (3y: "talks well
+  enough for others to understand, most of the time"). Fixture:
+  `lmc_soften_stranger_intelligibility`.
+
+### Rules changed (Tier 2)
+
+- [ ] `watch_babble_10m` → `watch_babble_9m` (9-11m). CDC 9m "makes different
+  sounds like 'mamamama' and 'babababa'". Copy now names the CDC item and the
+  hearing ask; adds `jcih2019`.
+- [ ] `watch_gestures_10m` → `watch_gestures_9m` (9-11m), now on
+  `waves_gestures` alone (the item includes reaching up). CDC 9m "lifts arms up
+  to be picked up".
+- [ ] `watch_turns_12m` (watch, 12m+) → `watch_turns_6m` (watch, 6-11m) plus
+  `no_turns_12m` (discuss, 12m+). CDC 6m "takes turns making sounds with
+  you"; a 6-month milestone still absent past the first birthday is raised.
+- [ ] `watch_onestep_18m` (watch) → `no_one_step_directions_18m` (discuss,
+  18-23m). CDC 18m "follows one-step directions without any gestures". The
+  shared 24m floor is unchanged. **The Navigator's `un_onestep` still waits to
+  24m; see the deferred item below so the two tools agree.**
+- [ ] `watch_words_18m` narrowed from `< 10` to `3 to 9` words, and "isn't a
+  red line" removed from its copy, so it never sits under the "No words yet"
+  card with a contradictory message.
+- [ ] `watch_first_words_13m` window 13-16m → 13-14m (15m now discusses).
+- [ ] `no_words_16m` body: mama/dada are left out of the count (see instrument).
+
+### Rules added (Tier 2)
+
+Discuss (each is a CDC 2022 milestone past its age; CDC's advice is to talk
+with the doctor when a child misses any milestone):
+- [ ] `early_communication_cluster_9m` (9-11m): 3 of name, babbling,
+  turn-taking, gestures not yet. CDC 6m/9m; `jcih2019` for the hearing ask.
+  Single misses at 9-11m stay watch, matching the Navigator's 9-11m posture.
+- [ ] `no_everyday_gestures_12m`: no everyday gestures at 12m+ while pointing
+  to ask is present (when both are absent the floor rule already fires). CDC
+  9m "lifts arms up"; `filipek1999`.
+- [ ] `no_point_to_request_15m`: CDC 15m "points to ask for something".
+- [ ] `no_words_15m` (15m only; the 16m floor takes over): CDC 15m "tries to
+  say one or two words besides mama or dada".
+- [ ] `few_words_18m` (1 or 2 words, 18-23m): CDC 18m "tries to say three or
+  more words besides mama or dada".
+- [ ] `few_words_understood_18m` (understands fewer than 10 words, 18m+):
+  first rule to read `vocab_understands`. Anchored to CDC 18m one-step
+  directions; the "10 words" number is my judgment, **check it hardest**. I
+  did not add the auditor's "under 50 understood at 24m" rule because I could
+  not source the number.
+- [ ] `no_action_word_phrases_30m`: CDC 30m "says two or more words, with one
+  action word, like 'doggie run'" (new item `action_word_phrases`).
+- [ ] `no_i_me_we_30m`: CDC 30m "says words like I, me, or we" (new item
+  `uses_i_me_we`). Single-item discuss for pronouns is the one most open to
+  your judgment; watch is the alternative.
+- [ ] `no_conversation_36m`: CDC 3y "talks with you in conversation using at
+  least two back-and-forth exchanges" (new item `converses_two_turns`).
+
+Watch:
+- [ ] `watch_name_9m` (9-11m, not yet): CDC 9m "looks when you call her name";
+  hearing tag shows "Check hearing first".
+- [ ] `watch_point_following_12m` (12-17m): Navigator recheck wording.
+- [ ] `watch_clarity_30m` (less than half, 30-35m) and `watch_clarity_36m`
+  (about half, 36m): CDC 3y "most of the time".
+- [ ] `watch_combines_sometimes_30m` and `watch_onestep_sometimes_24m`:
+  'sometimes' past the CDC age is now a watch, not silence.
+
+### Instrument changes
+
+- [ ] Four new items (above) plus `parent_hearing_concern`; 16 items total.
+- [ ] Says buckets: "1 to 5" split into "1 or 2" and "3 to 5" (CDC 18m three
+  words). Help text now says to leave out 'mama' and 'dada' (CDC counts words
+  besides them). This is stricter at 15m, 16m and 18m.
+- [ ] Understands buckets: "Only a few, or not sure" split into "Fewer than 10"
+  and "I'm not sure" (stored as 'unsure', never matches a rule).
+- [ ] Display-only `phrase` and `recap` strings so the recap and printed notes
+  read as sentences ("Says no words yet", not "Says about None yet words").
+- [ ] All visible copy in instrument and interpretation now uses typographic
+  quotes and apostrophes (punctuation only; the grader normalizes them before
+  the bilingual lexicon scan).
+
+### Copy changes (Tier 3)
+
+- [ ] `severity_templates.none.lead`: "Nothing you reported crosses the lines
+  this snapshot checks for {age_phrase}. Communication at this age has a wide
+  normal range." It no longer says "what you described sits inside it".
+- [ ] `visit_script`: replaces "early intervention programs can evaluate at no
+  cost in most US states" with: every US state has an early intervention
+  program for children under 3; parents can call it themselves without a
+  doctor's referral; the evaluation is free; from age 3 the local public school
+  district evaluates, also free. Sources `idea_part_c`, `cdc_ltsae` (CDC "If
+  You're Concerned"). Claims only that the evaluation is free, since services
+  can carry state fees. This resolves the Tier 3 "most US states" item for
+  the Snapshot; the Navigator's trees still say "most" (deferred).
+- [ ] `talk_boost`: removed the unsourced "Books count double" and "Ten
+  minutes of this beats an hour" lines.
+- [ ] `bilingual_note`: "how every serious instrument counts" → "how
+  clinicians count for children learning more than one language".
+- [ ] Page (tools/communication-snapshot.html): "Every line ... never softens
+  one" → "Its core red lines come from published research, and an automated
+  check stops any update from loosening them"; the How-this-works paragraph
+  now says what the check really guarantees (never softer than the stored
+  lines) and explains the CDC milestone posture; sources list gains Flipsen
+  2006 and IDEA Part C, with DOI/URL links; the past-range screen adds the
+  free school-district evaluation; corrected age is shown in completed months
+  (floor), so the age shown is always on the same side of a line as the
+  result; printed notes lead with the result and group flags under "To raise
+  promptly / To discuss / Watching".
+
+### Grader changes (keel/graders/floors.mjs; all stricter)
+
+- [ ] Grid baseline uses each item's typical answer ("no" for yes/no concern
+  items), so a hearing-concern "yes" can never mask a floor.
+- [ ] The grid varies, per age, every item of every floor that applies at that
+  age (same checks as before, fewer redundant cases). A new `grid_soundness`
+  check rejects any rule that needs a typical answer on an item the grid does
+  not vary.
+- [ ] New integrity checks: `unused_item` (every asked item must be read by a
+  rule), `value_integrity` (conditions may only test values the instrument
+  can produce), guidance-block sources must resolve.
+- [ ] Bilingual lexicon scan normalizes typographic apostrophes.
+- [ ] Seven new planted fixtures (`lmc_hearing_concern_unwired`,
+  `lmc_soften_stranger_intelligibility`, `lmc_understands_unused`,
+  `lmc_misspelled_answer_value`, `lmc_curly_quote_bilingual_softening`,
+  `lmc_grid_unsound_positive_condition`, `lmc_unresolved_guidance_source`),
+  all caught.

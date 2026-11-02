@@ -84,13 +84,23 @@
   </header>
 
   <main id="main" tabindex="-1">
-    <section class="hub-title hub-title--solo">
+    <section class="hub-title" aria-labelledby="page-heading">
       <div class="hb-container hub-title__grid">
         <div data-rise>
-          <h1 class="hb-display">For programs that work with families.</h1>
+          <h1 class="hb-display" id="page-heading">For programs that work with families.</h1>
           <p class="hb-lead">Early intervention agencies, home visiting programs, libraries, pediatric practices, and family resource centers can share From Little Onward with the families they serve.</p>
-          <p class="hb-soft" style="margin-top:16px;max-width:52ch">The mission is the same one your program has: parent education that is high quality, science-backed, and reachable by any family who wants it.</p>
+          <p class="hub-title__sub">The mission is the same one your program has: parent education that is high quality, science-backed, and reachable by any family who wants it.</p>
           <div class="hub-title__actions"><a class="hb-btn" href="#pilot">Ask about a pilot</a><a class="hb-btn hb-btn--quiet" href="/tools/">See the free tools</a></div>
+        </div>
+        <div class="hb-short" aria-labelledby="pilot-glance-h" role="group" data-rise style="--i:2">
+          <h2 class="hb-short__title" id="pilot-glance-h">The pilot at a glance</h2>
+          <ul>
+            <li><b>Free for 60 to 90 days.</b> Families in your program get free access to the classes.</li>
+            <li><b>Three self-paced classes,</b> birth to five, with captions and a written version of every lesson.</li>
+            <li><b>Free tools need no account,</b> and keep what a family enters on their own device.</li>
+            <li><b>Educational, not clinical.</b> Every tool points families back to their pediatrician and to early intervention.</li>
+          </ul>
+          <p>In exchange: honest feedback from staff and families. <a href="#pilot">Ask about a pilot</a></p>
         </div>
       </div>
     </section>
@@ -130,20 +140,34 @@
       </div>
     </section>
 
-    <section class="hub-sec" aria-labelledby="staff-heading">
+    <section class="hub-sec hub-sec--mist" id="commitments" aria-labelledby="staff-heading">
       <div class="hb-container hub-split">
         <div class="hub-split__head" data-rise>
           <h2 class="hb-display" id="staff-heading">Built to sit beside your services</h2>
-          <p>Clear about what&rsquo;s known. Honest about what&rsquo;s not.</p>
+          <p>Four commitments your staff can check before they share a single link.</p>
         </div>
-        <div class="pg-legal" data-rise style="--i:1">
-          <ul>
-            <li><b>Educational, not clinical.</b> Nothing here screens, diagnoses, or replaces your services. Every tool says so, and points families back to their pediatrician and to early intervention.</li>
-            <li><b>Private by design.</b> The free browser tools need no account and keep what a family enters on their own device.</li>
-            <li><b>Sourced.</b> Claims are graded for strength of evidence in the <a href="/claims/">claims library</a>, which also works as a training resource for staff.</li>
-            <li><b>Plain language.</b> Written for tired parents, with no fear marketing and no scripts to perform.</li>
-          </ul>
-          <p>In development: printable routine cards for bath, meals, the car, and bedtime, and a facilitator kit for a one-hour parent session.</p>
+        <div data-rise style="--i:1">
+          <div class="principles">
+            <div><h3>Educational, not clinical</h3><p>Nothing here screens, diagnoses, or replaces your services. Every tool says so, and points families back to their pediatrician and to early intervention.</p></div>
+            <div><h3>Private by design</h3><p>The free browser tools need no account and keep what a family enters on their own device.</p></div>
+            <div>
+              <h3>Sourced</h3>
+              <div class="principles__more">
+                <p>Claims are graded for strength of evidence in the <a href="/claims/">claims library</a>, which also works as a training resource for staff. One example:</p>
+                <figure class="hub-claim">
+                  <p class="hub-claim__claim">&ldquo;A baby walker will help my baby learn to walk sooner.&rdquo;</p>
+                  <div class="hub-claim__grade">
+                    <span class="hub-claim__scale" role="img" aria-label="Evidence strength: step 1 of 5, on a scale from Contradicted by evidence to Strong evidence"><i class="is-on"></i><i></i><i></i><i></i><i></i></span>
+                    <span><b>Contradicted by evidence</b> <span aria-hidden="true">&middot;</span> Scientific consensus</span>
+                  </div>
+                  <figcaption class="hub-claim__verdict">Walkers don&rsquo;t help babies walk sooner, and the injury record led the AAP to call for a ban.</figcaption>
+                  <a class="hub-claim__src" href="/claims/baby-walkers">Read the grade and its 5 sources</a>
+                </figure>
+              </div>
+            </div>
+            <div><h3>Plain language</h3><p>Written for tired parents, with no fear marketing and no scripts to perform.</p></div>
+          </div>
+          <p class="hub-fine">In development: printable routine cards for bath, meals, the car, and bedtime, and a facilitator kit for a one-hour parent session.</p>
         </div>
       </div>
     </section>
@@ -159,6 +183,7 @@
         <form
           class="pg-form"
           data-contact
+          data-confirm-title="Thanks, your note about your program is on its way."
           method="POST"
           action="/api/contact"
           aria-labelledby="programs-form-heading">
@@ -185,6 +210,7 @@
 
           <div class="form-row">
             <label class="form-label" for="message">About your families</label>
+            <p class="form-hint" id="programs-message-hint">Who you serve, the ages of the children, and what you&rsquo;re hoping families get from this.</p>
             <textarea
               class="form-input"
               id="message"
@@ -192,14 +218,21 @@
               rows="5"
               required
               maxlength="2000"
-              placeholder="Who you serve, the ages of the children, and what you're hoping families get from this."
-              aria-describedby="contact-message-error"></textarea>
+              aria-describedby="programs-message-hint contact-message-error"></textarea>
             <p class="field-error" id="contact-message-error" role="alert"></p>
           </div>
 
           <button class="hb-btn pg-form__send" type="submit">Send</button>
           <p class="form-status" role="status" aria-live="polite"></p>
           <p class="form-status form-sent" id="sent">Thank you. Your message is on its way to Matthew.</p>
+
+          <template data-confirm>
+            <ul class="hb-confirm__next">
+              <li><a href="/claims/">See how claims are graded</a></li>
+              <li><a href="/tools/">Try the free tools families would use</a></li>
+              <li><a href="/nsc/classes/infant/preview">Watch a full class lesson free</a></li>
+            </ul>
+          </template>
         </form>
       </div>
     </section>

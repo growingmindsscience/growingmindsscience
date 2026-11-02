@@ -107,15 +107,36 @@
     <section class="hub-sec hub-sec--white" aria-labelledby="feature-heading">
       <div class="hb-container">
         <article class="feature" data-slug="cliff-at-three" data-rise>
-          <div class="feature__art"><svg class="glyph glyph--lg" viewBox="0 0 96 96" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 34 H50 V80 H88"/><path class="g-soft" d="M56 34 C70 34 76 46 76 62" stroke-dasharray="2 9"/><path class="g-leaf" d="M30 30 C26 16 40 6 50 10 C50 20 40 32 30 30 Z"/></g></svg></div>
           <div class="feature__body">
-            <p class="feature__label">Newest article</p>
-            <p class="card__meta"><span class="kind kind--practical">Practical</span><span>Birth to 3</span><span>11 min read</span></p>
             <h2 class="feature__title" id="feature-heading"><a href="/articles/cliff-at-three">The cliff at three: what happens when early intervention ends</a></h2>
+            <p class="feature__meta">Newest article <span aria-hidden="true">&middot;</span> Practical <span aria-hidden="true">&middot;</span> Birth to 3 <span aria-hidden="true">&middot;</span> 11 min read <span class="ah-read" hidden><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Read</span></p>
             <p class="feature__pull">The criteria that qualified a child as a baby are not the criteria that qualify them for school. Knowing that early turns the third birthday into a planned handoff instead of a surprise.</p>
-            <p class="card__read" hidden><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Read</p>
-            <a class="hb-btn feature__go" href="/articles/cliff-at-three">Read the article <span aria-hidden="true">&rarr;</span></a>
+            <a class="hb-btn feature__go" href="/articles/cliff-at-three">Read the article</a>
           </div>
+          <figure class="hb-fig feature__art">
+            <div class="hb-fig__plate">
+              <svg viewBox="0 0 480 186" role="img" aria-labelledby="ah-fig-t ah-fig-d">
+                <title id="ah-fig-t">Three cliffs, one birthday</title>
+                <desc id="ah-fig-d">A profile of the ground a family stands on: the higher ground of Part C until age 3, a vertical line at the third birthday, and a drop to Part B for ages 3 to 5. Three numbered marks sit on the drop: the category can disappear, the threshold can move, and the calendar runs out.</desc>
+                <path class="f-area" d="M 16 50 H 240 V 182 H 16 Z" />
+                <path class="f-area" d="M 240 158 H 464 V 182 H 240 Z" />
+                <path class="s-forest" d="M 16 50 H 240 V 158 H 464" stroke-width="2.5" stroke-linejoin="round" />
+                <line class="s-ink" x1="240" y1="30" x2="240" y2="182" stroke-width="2" />
+                <text class="f-ink ah-fig__t" x="240" y="18" text-anchor="middle" font-weight="600">3rd birthday</text>
+                <text class="f-ink ah-fig__t" x="32" y="100" font-weight="600">Part C</text>
+                <text class="f-soft ah-fig__t" x="32" y="128">until age 3</text>
+                <text class="f-ink ah-fig__t" x="448" y="112" text-anchor="end" font-weight="600">Part B</text>
+                <text class="f-soft ah-fig__t" x="448" y="140" text-anchor="end">ages 3 to 5</text>
+                <circle class="f-ground" cx="240" cy="72" r="12" stroke="var(--clay-text)" stroke-width="2" />
+                <circle class="f-ground" cx="240" cy="104" r="12" stroke="var(--clay-text)" stroke-width="2" />
+                <circle class="f-ground" cx="240" cy="136" r="12" stroke="var(--clay-text)" stroke-width="2" />
+                <text class="ah-fig__n" x="240" y="72" dy=".35em" text-anchor="middle">1</text>
+                <text class="ah-fig__n" x="240" y="104" dy=".35em" text-anchor="middle">2</text>
+                <text class="ah-fig__n" x="240" y="136" dy=".35em" text-anchor="middle">3</text>
+              </svg>
+            </div>
+            <figcaption><b class="hb-fig__n">Fig. 1</b> Three cliffs, one birthday: the category can disappear, the threshold can move, and the calendar runs out, all on the day Part C ends.</figcaption>
+          </figure>
         </article>
       </div>
     </section>
@@ -125,9 +146,9 @@
         <div class="ah-list__head" data-rise>
           <div>
             <h2 class="hb-display" id="list-heading">All articles</h2>
-            <p>Eight so far, written one at a time and edited carefully. <span class="ah-progress" hidden></span></p>
+            <p>Eight so far, newest first, written one at a time and edited carefully. <span class="ah-progress" hidden></span></p>
           </div>
-          <div class="chips" data-chips hidden>
+          <div class="chips" data-chips role="group" aria-label="Show articles by kind" hidden>
             <button type="button" class="chip" data-filter="all" aria-pressed="true">All</button>
             <button type="button" class="chip" data-filter="research" aria-pressed="false">Research, explained</button>
             <button type="button" class="chip" data-filter="practical" aria-pressed="false">Practical</button>
@@ -135,56 +156,63 @@
           </div>
         </div>
         <p class="ah-count" role="status" aria-live="polite"></p>
-        <div class="cards" data-cards>
-          <article class="card" data-kind="research" data-slug="counting-ladder" data-rise style="--i:0">
-            <div class="card__art"><svg class="glyph" viewBox="0 0 96 96" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 84 H28 V68 H46 V52 H64 V36 H86"/><path class="g-soft" d="M76 28 V14" stroke-dasharray="2 8"/><circle class="g-dot" cx="76" cy="12" r="5"/></g></svg></div>
-            <p class="card__meta"><span class="kind kind--research">Research, explained</span><span>Ages 2 to 5</span><span>6 min</span></p>
-            <h3 class="card__title"><a href="/articles/counting-ladder">The counting ladder: what happens between &ldquo;one, two, three&rdquo; and actually counting</a></h3>
-            <p class="card__take">Reciting numbers and knowing what they mean are two skills. Children climb from one to the other in a steady, predictable order.</p>
-            <p class="card__read" hidden><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Read</p>
-          </article>
-          <article class="card" data-kind="research" data-slug="serve-and-return" data-rise style="--i:1">
-            <div class="card__art"><svg class="glyph" viewBox="0 0 96 96" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="54" r="7"/><circle cx="76" cy="50" r="11"/><path d="M28 44 C38 24 56 22 66 36"/><path class="g-soft" d="M66 64 C56 80 38 80 28 64"/></g></svg></div>
-            <p class="card__meta"><span class="kind kind--research">Research, explained</span><span>Early language</span><span>8 min</span></p>
-            <h3 class="card__title"><a href="/articles/serve-and-return">What &ldquo;serve and return&rdquo; actually means, and what it doesn&rsquo;t</a></h3>
-            <p class="card__take">A child reaches out and an adult answers what they reached for. Powerful, and not a demand to narrate every minute of the day.</p>
-            <p class="card__read" hidden><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Read</p>
-          </article>
-          <article class="card" data-kind="practical" data-slug="screen-time" data-rise style="--i:2">
-            <div class="card__art"><svg class="glyph" viewBox="0 0 96 96" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="12" y="18" width="72" height="48" rx="8"/><path d="M48 66 V80 M34 82 H62"/><path class="g-leaf" d="M42 32 L58 42 L42 52 Z"/></g></svg></div>
-            <p class="card__meta"><span class="kind kind--practical">Practical</span><span>Early childhood</span><span>6 min</span></p>
-            <h3 class="card__title"><a href="/articles/screen-time">A short, honest take on screen time</a></h3>
-            <p class="card__take">A video call with Grandma and autoplay at bedtime are not the same thing. What the research supports, without the shame.</p>
-            <p class="card__read" hidden><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Read</p>
-          </article>
-          <article class="card" data-kind="coaching" data-slug="toddler-no" data-rise style="--i:0">
-            <div class="card__art"><svg class="glyph" viewBox="0 0 96 96" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 18 H78 a8 8 0 0 1 8 8 V54 a8 8 0 0 1 -8 8 H44 L28 78 V62 H18 a8 8 0 0 1 -8 -8 V26 a8 8 0 0 1 8 -8 Z"/><path class="g-leaf" d="M40 50 C36 36 50 26 62 30 C62 42 52 52 40 50 Z"/></g></svg></div>
-            <p class="card__meta"><span class="kind kind--coaching">From coaching</span><span>Toddler years</span><span>7 min</span></p>
-            <h3 class="card__title"><a href="/articles/toddler-no">The toddler &ldquo;no&rdquo; is not the war you think it is</a></h3>
-            <p class="card__take">&ldquo;No&rdquo; is a first draft of identity more than an act of defiance, and there is a calmer way to meet it.</p>
-            <p class="card__read" hidden><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Read</p>
-          </article>
-          <article class="card" data-kind="research" data-slug="self-regulation" data-rise style="--i:1">
-            <div class="card__art"><svg class="glyph" viewBox="0 0 96 96" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path class="g-soft" d="M8 40 C16 14 24 66 32 40 C38 22 44 58 50 40"/><path d="M50 40 C58 30 66 50 74 40 C80 34 84 44 90 40"/><path d="M8 72 H90"/></g></svg></div>
-            <p class="card__meta"><span class="kind kind--research">Research, explained</span><span>Early childhood</span><span>8 min</span></p>
-            <h3 class="card__title"><a href="/articles/self-regulation">Self-regulation, briefly</a></h3>
-            <p class="card__take">Young children can&rsquo;t calm themselves yet. They borrow an adult&rsquo;s steadiness first, and that borrowing is how the skill grows.</p>
-            <p class="card__read" hidden><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Read</p>
-          </article>
-          <article class="card" data-kind="coaching" data-slug="parents-nervous-system" data-rise style="--i:2">
-            <div class="card__art"><svg class="glyph" viewBox="0 0 96 96" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="48" cy="48" r="8"/><circle cx="48" cy="48" r="22"/><circle class="g-soft" cx="48" cy="48" r="36" stroke-dasharray="2 9"/></g></svg></div>
-            <p class="card__meta"><span class="kind kind--coaching">From coaching</span><span>All ages</span><span>8 min</span></p>
-            <h3 class="card__title"><a href="/articles/parents-nervous-system">When your own nervous system is the variable</a></h3>
-            <p class="card__take">Children borrow calm before they can make their own, so a steady parent often matters more than the perfect script.</p>
-            <p class="card__read" hidden><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Read</p>
-          </article>
-          <article class="card" data-kind="practical" data-slug="milestone-worry" data-rise style="--i:0">
-            <div class="card__art"><svg class="glyph" viewBox="0 0 96 96" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="12" y="36" width="72" height="24" rx="12"/><circle class="g-dot" cx="30" cy="48" r="4"/><circle class="g-dot" cx="52" cy="48" r="4"/><circle class="g-dot" cx="68" cy="48" r="4"/><path class="g-soft" d="M12 76 H84" stroke-dasharray="2 8"/></g></svg></div>
-            <p class="card__meta"><span class="kind kind--practical">Practical</span><span>Birth to 3</span><span>7 min</span></p>
-            <h3 class="card__title"><a href="/articles/milestone-worry">What to do with milestone worry</a></h3>
-            <p class="card__take">Milestones are wide ranges, not deadlines. A few patterns are worth raising with a clinician, and here is how to tell them apart.</p>
-            <p class="card__read" hidden><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Read</p>
-          </article>
+        <div class="rows ah-rows" data-cards data-rise style="--i:1">
+          <div class="row row--link" data-kind="practical" data-slug="cliff-at-three">
+            <div>
+              <h3 class="row__name"><a href="/articles/cliff-at-three">The cliff at three: what happens when early intervention ends</a></h3>
+              <p class="row__meta">Practical <span aria-hidden="true">&middot;</span> Birth to 3 <span aria-hidden="true">&middot;</span> 11 min <span class="ah-read" hidden><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Read</span></p>
+            </div>
+            <p class="row__desc">The criteria that qualified a child as a baby are not the criteria that qualify them for school. Knowing that early turns the third birthday into a planned handoff instead of a surprise.</p>
+          </div>
+          <div class="row row--link" data-kind="research" data-slug="counting-ladder">
+            <div>
+              <h3 class="row__name"><a href="/articles/counting-ladder">The counting ladder: what happens between &ldquo;one, two, three&rdquo; and actually counting</a></h3>
+              <p class="row__meta">Research, explained <span aria-hidden="true">&middot;</span> Ages 2 to 5 <span aria-hidden="true">&middot;</span> 6 min <span class="ah-read" hidden><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Read</span></p>
+            </div>
+            <p class="row__desc">Reciting numbers and knowing what they mean are two skills. Children climb from one to the other in a steady, predictable order.</p>
+          </div>
+          <div class="row row--link" data-kind="coaching" data-slug="parents-nervous-system">
+            <div>
+              <h3 class="row__name"><a href="/articles/parents-nervous-system">When your own nervous system is the variable</a></h3>
+              <p class="row__meta">From coaching <span aria-hidden="true">&middot;</span> All ages <span aria-hidden="true">&middot;</span> 8 min <span class="ah-read" hidden><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Read</span></p>
+            </div>
+            <p class="row__desc">Children borrow calm before they can make their own, so a steady parent often matters more than the perfect script.</p>
+          </div>
+          <div class="row row--link" data-kind="practical" data-slug="milestone-worry">
+            <div>
+              <h3 class="row__name"><a href="/articles/milestone-worry">What to do with milestone worry</a></h3>
+              <p class="row__meta">Practical <span aria-hidden="true">&middot;</span> Birth to 3 <span aria-hidden="true">&middot;</span> 7 min <span class="ah-read" hidden><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Read</span></p>
+            </div>
+            <p class="row__desc">Milestones are wide ranges, not deadlines. A few patterns are worth raising with a clinician, and here is how to tell them apart.</p>
+          </div>
+          <div class="row row--link" data-kind="research" data-slug="self-regulation">
+            <div>
+              <h3 class="row__name"><a href="/articles/self-regulation">Self-regulation, briefly</a></h3>
+              <p class="row__meta">Research, explained <span aria-hidden="true">&middot;</span> Early childhood <span aria-hidden="true">&middot;</span> 8 min <span class="ah-read" hidden><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Read</span></p>
+            </div>
+            <p class="row__desc">Young children can&rsquo;t calm themselves yet. They borrow an adult&rsquo;s steadiness first, and that borrowing is how the skill grows.</p>
+          </div>
+          <div class="row row--link" data-kind="coaching" data-slug="toddler-no">
+            <div>
+              <h3 class="row__name"><a href="/articles/toddler-no">The toddler &ldquo;no&rdquo; is not the war you think it is</a></h3>
+              <p class="row__meta">From coaching <span aria-hidden="true">&middot;</span> Toddler years <span aria-hidden="true">&middot;</span> 7 min <span class="ah-read" hidden><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Read</span></p>
+            </div>
+            <p class="row__desc">&ldquo;No&rdquo; is a first draft of identity more than an act of defiance, and there is a calmer way to meet it.</p>
+          </div>
+          <div class="row row--link" data-kind="research" data-slug="serve-and-return">
+            <div>
+              <h3 class="row__name"><a href="/articles/serve-and-return">What &ldquo;serve and return&rdquo; actually means, and what it doesn&rsquo;t</a></h3>
+              <p class="row__meta">Research, explained <span aria-hidden="true">&middot;</span> Early language <span aria-hidden="true">&middot;</span> 8 min <span class="ah-read" hidden><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Read</span></p>
+            </div>
+            <p class="row__desc">A child reaches out and an adult answers what they reached for. Powerful, and not a demand to narrate every minute of the day.</p>
+          </div>
+          <div class="row row--link" data-kind="practical" data-slug="screen-time">
+            <div>
+              <h3 class="row__name"><a href="/articles/screen-time">A short, honest take on screen time</a></h3>
+              <p class="row__meta">Practical <span aria-hidden="true">&middot;</span> Early childhood <span aria-hidden="true">&middot;</span> 6 min <span class="ah-read" hidden><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Read</span></p>
+            </div>
+            <p class="row__desc">A video call with Grandma and autoplay at bedtime are not the same thing. What the research supports, without the shame.</p>
+          </div>
         </div>
       </div>
     </section>
