@@ -90,10 +90,12 @@ const SPOKEN = [
     'real life, something like: That\'s a tractor. We saw one at the farm, remember?'],
   ['AASM', 'A-A-S-M'],
   ['AAP', 'A-A-P'],
+  ['call 911', 'call nine one one'],
 ];
 
 export function narration(text) {
-  let t = normalize(text);
+  // Pages mix straight and curly quotes; SPOKEN is written with straight ones.
+  let t = normalize(text).replace(/[“”]/g, '"');
   for (const [from, to] of SPOKEN) t = t.split(from).join(to);
   return t
     .replace(/[“”"]/g, '')
