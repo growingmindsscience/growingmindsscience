@@ -7,8 +7,9 @@
      values) is compiled through the SAME engine the page uses
      (keel/lib/lmc.mjs). Any floor-matching case that compiles below the
      floor's min_severity is a violation.
-   - Navigator: exhaustive path enumeration per domain (every integer age 0-40
-     x every answer combination of the questions asked at that age) through
+   - Navigator: exhaustive path enumeration per domain (every integer age 0-72,
+     the page's whole input range, x every answer combination of the questions
+     asked at that age) through
      keel/lib/navigator.mjs. Any floor-matching path that terminates below
      min_class is a violation.
    - Cross-file: shared floor ids must carry identical thresholds; every
@@ -49,6 +50,15 @@ function violate(rep, floor_id, case_or_path, produced, required) {
 }
 function exercised(rep, id) {
   if (!rep.coverage.floors_exercised.includes(id)) rep.coverage.floors_exercised.push(id);
+}
+
+/* The "nothing to report" answer for an item: "no" for yes/no concern items
+   (lost_skills, parent_hearing_concern), otherwise the first listed value
+   ("yes", or "most" for understood_by_others). The grid's baseline must be the
+   cleanest child possible, or a floor could pass only because an unrelated
+   absence or concern raised the severity. */
+export function typicalValue(item) {
+  return item.values.includes("no") ? "no" : item.values[0];
 }
 
 /* ---------------- condition schema (structural policy guard) -------------- */
@@ -105,7 +115,45 @@ export function checkIntegrity(a) {
     });
   }
 
+  /* Every answer value a condition tests must be one the instrument can
+     produce; a misspelled value would silently never match. */
+  const itemValues = Object.fromEntries(a.instrument.behaviors.map((b) => [b.id, new Set(b.values)]));
+  const checkValues = (cond, where) => {
+    if (!cond) return;
+    if (cond.behavior && itemValues[cond.behavior] && !itemValues[cond.behavior].has(cond.value)) {
+      violate(rep, "value_integrity", where, `${cond.behavior}=${cond.value}`, [...itemValues[cond.behavior]].join("|"));
+    }
+    if (cond.metric && typeof cond.value !== "number") {
+      violate(rep, "value_integrity", where, `${cond.metric}=${cond.value}`, "numeric threshold");
+    }
+    (cond.all || []).forEach((c) => checkValues(c, where));
+    (cond.any || []).forEach((c) => checkValues(c, where));
+  };
+  a.lmcFloors.floors.forEach((f) => { if (!(f.condition && f.condition.meta === "policy")) checkValues(f.condition, `lmc_floor:${f.id}`); });
+
+  /* Every question the Snapshot asks must be read by at least one rule:
+     collecting an answer and never using it is a silent gap (a parent's
+     answer can contradict a "typical" report). */
+  const usedByRules = { behaviors: new Set(), metrics: new Set() };
   for (const r of a.interpretation.rules) {
+    const u = condFields(r.condition);
+    u.behaviors.forEach((b) => usedByRules.behaviors.add(b));
+    u.metrics.forEach((m) => usedByRules.metrics.add(m));
+  }
+  behaviorIds.forEach((b) => {
+    if (!usedByRules.behaviors.has(b)) violate(rep, "unused_item", `instrument:${b}`, "asked but read by no rule", "at least one rule");
+  });
+  Object.keys(a.instrument.vocab || {}).forEach((m) => {
+    if (!usedByRules.metrics.has(m)) violate(rep, "unused_item", `instrument:${m}`, "asked but read by no rule", "at least one rule");
+  });
+
+  /* Guidance blocks that cite sources must cite resolvable ones. */
+  for (const [key, b] of Object.entries(a.interpretation.guidance_blocks || {})) {
+    checkSources(b.sources, `lmc_guidance:${key}`);
+  }
+
+  for (const r of a.interpretation.rules) {
+    checkValues(r.condition, `lmc_rule:${r.id}`);
     checkSources(r.sources, `lmc_rule:${r.id}`);
     validateCondition(r.condition, `lmc_rule:${r.id}`, rep);
     const used = condFields(r.condition);
@@ -169,27 +217,41 @@ export function checkLmcFloors(a) {
     }
   }
 
-  /* Grid: floor-referenced behaviors take every value; the rest stay 'yes'
-     (extra absences can only raise severity, so 'yes' is the hardest test of
-     the floor). Vocab takes every UI bucket value. */
-  const floorBehaviors = [...new Set(floors.flatMap((f) => condFields(f.condition)))];
+  /* Grid: floor-referenced behaviors take every value; the rest stay at the
+     typical answer (extra absences can only raise severity, so the typical
+     answer is the hardest test of the floor). Vocab takes every UI bucket value. */
   const valuesFor = (id) => items[id] ? items[id].values : ["yes", "not_yet"];
   const saysValues = a.instrument.vocab.vocab_says.buckets.map((b) => b.value);
   const maxAge = a.instrument.age_range_months.max;
 
-  const combos = [[]];
-  for (const b of floorBehaviors) {
-    const next = [];
-    for (const c of combos) for (const v of valuesFor(b)) next.push([...c, [b, v]]);
-    combos.length = 0;
-    combos.push(...next);
-  }
-
   const baseBehaviors = {};
-  for (const b of a.instrument.behaviors) baseBehaviors[b.id] = b.id === "lost_skills" ? "no" : "yes";
+  for (const b of a.instrument.behaviors) baseBehaviors[b.id] = typicalValue(b);
+
+  /* Per age, the behaviors of every floor that applies at that age take all
+     their values; the rest stay at the typical answer. A floor that does not
+     apply at an age is never checked there, so varying its observable would
+     add cases without adding any check. (The grid-soundness integrity check
+     below keeps the "typical is the hardest test" premise honest.) */
+  const combosFor = new Map();
+  const combosAt = (age) => {
+    const ids = [...new Set(floors
+      .filter((f) => age >= f.applies_age_months_gte && (f.applies_age_months_lt == null || age < f.applies_age_months_lt))
+      .flatMap((f) => condFields(f.condition)))].sort();
+    const key = ids.join(",");
+    if (!combosFor.has(key)) {
+      let combos = [[]];
+      for (const b of ids) {
+        const next = [];
+        for (const c of combos) for (const v of valuesFor(b)) next.push([...c, [b, v]]);
+        combos = next;
+      }
+      combosFor.set(key, combos);
+    }
+    return combosFor.get(key);
+  };
 
   for (let age = minAge; age <= maxAge; age++) {
-    for (const combo of combos) {
+    for (const combo of combosAt(age)) {
       const behaviors = { ...baseBehaviors };
       for (const [id, v] of combo) behaviors[id] = v;
       for (const says of saysValues) {
@@ -207,6 +269,27 @@ export function checkLmcFloors(a) {
           }
         }
       }
+    }
+  }
+
+  /* Grid soundness: holding unvaried items at their typical answer is the
+     hardest test only if no rule needs a typical answer to fire. A rule that
+     tests an item's typical value (for example points_request eq "yes") is
+     allowed only when that item is varied by the grid at every age the rule
+     applies, i.e. a floor on the same item applies from the rule's start age
+     with no upper bound. */
+  for (const r of a.interpretation.rules) {
+    const positives = [];
+    const walk = (c) => {
+      if (!c) return;
+      if (c.behavior && items[c.behavior] && c.op === "eq" && c.value === typicalValue(items[c.behavior])) positives.push(c.behavior);
+      (c.all || []).forEach(walk);
+      (c.any || []).forEach(walk);
+    };
+    walk(r.condition);
+    for (const b of positives) {
+      const covered = floors.some((f) => f.applies_age_months_gte <= r.age_months_gte && f.applies_age_months_lt == null && condFields(f.condition).includes(b));
+      if (!covered) violate(rep, "grid_soundness", `lmc_rule:${r.id}`, `tests typical answer of '${b}'`, "a floor on that item varying it at every age the rule applies");
     }
   }
 
@@ -272,8 +355,9 @@ export function checkNavigatorFloors(a) {
       violate(rep, "skill_loss_any_domain", domKey, "skill-loss node missing or not always_asked", "always_asked node");
     }
 
-    /* (2) exhaustive path enumeration, integer ages 0..40. */
-    for (let age = 0; age <= 40; age++) {
+    /* (2) exhaustive path enumeration, integer ages 0..72 (the page accepts
+       0 to 72 months, so every age a parent can enter is graded). */
+    for (let age = 0; age <= NAV_MAX_AGE; age++) {
       const asked = askedQuestions(domain, age);
       const optionSets = asked.map((q) => trees.answer_sets[q.answers].map((o) => o.value));
       let paths = [{}];
@@ -310,6 +394,9 @@ export function checkNavigatorFloors(a) {
   return rep;
 }
 
+const NAV_MAX_AGE = 72;
+const NAV_ORDER = ["typical_range", "discuss", "priority_discuss"];
+
 /* ---------------------------- policy floors ------------------------------- */
 export function checkPolicyFloors(a) {
   const rep = report();
@@ -341,7 +428,7 @@ export function checkPolicyFloors(a) {
   /* Engine-level: a clean snapshot and a clean path must actually surface the
      invitation text, not just declare the flag. */
   const cleanBehaviors = {};
-  for (const b of a.instrument.behaviors) cleanBehaviors[b.id] = b.id === "lost_skills" ? "no" : "yes";
+  for (const b of a.instrument.behaviors) cleanBehaviors[b.id] = typicalValue(b);
   const clean = compile({ age_months: 20, weeks_early: 0, vocab_says: 300, vocab_understands: 300, behaviors: cleanBehaviors }, a.interpretation);
   rep.coverage.cases_evaluated++;
   if (clean.severity !== "none" || clean.invitation !== invitation) {
@@ -357,8 +444,11 @@ export function checkPolicyFloors(a) {
   ];
   const scan = (obj, where) => {
     if (typeof obj === "string") {
+      /* Typographic apostrophes and quotes must not hide a frame from the
+         patterns ("don\u2019t worry" is "don't worry"). */
+      const text = obj.replace(/[\u2018\u2019\u02bc]/g, "'").replace(/[\u201c\u201d]/g, '"');
       for (const re of softening) {
-        if (re.test(obj)) violate(rep, "bilingual_no_discount", where, obj.slice(0, 120), "no bilingual softening frame");
+        if (re.test(text)) violate(rep, "bilingual_no_discount", where, obj.slice(0, 120), "no bilingual softening frame");
       }
     } else if (Array.isArray(obj)) obj.forEach((v, i) => scan(v, `${where}[${i}]`));
     else if (obj && typeof obj === "object") Object.keys(obj).forEach((k) => scan(obj[k], `${where}.${k}`));
@@ -373,6 +463,58 @@ export function checkPolicyFloors(a) {
     for (const k of Object.keys(r)) {
       if (/language/i.test(k)) {
         violate(rep, "bilingual_no_discount", `lmc_rule:${r.id}`, k, "no language-keyed rule fields");
+      }
+    }
+  }
+
+  /* hearing_no_watch_and_wait: a possible hearing problem is never a
+     wait-and-see. The hearing tree carries no recheck notes, and a "not yet"
+     on any hearing question it asks, at any age, lands at least discuss. */
+  const hr = a.trees.domains.hearing_responding;
+  if (hr) {
+    for (const q of hr.questions) {
+      if (q.recheck) violate(rep, "hearing_no_watch_and_wait", `hearing_responding.${q.id}`, "recheck", "no recheck in hearing");
+    }
+    for (let age = 0; age <= NAV_MAX_AGE; age++) {
+      for (const q of askedQuestions(hr, age)) {
+        if (!a.trees.answer_sets[q.answers].some((o) => o.value === "not_yet")) continue;
+        rep.coverage.cases_evaluated++;
+        if (classify(hr, age, { [q.id]: "not_yet" }).class === "typical_range") {
+          violate(rep, "hearing_no_watch_and_wait", { domain: "hearing_responding", age, question: q.id }, "typical_range", "discuss");
+        }
+      }
+    }
+  } else {
+    violate(rep, "hearing_no_watch_and_wait", "navigator trees", "no hearing_responding domain", "a hearing tree");
+  }
+
+  /* sudden_change_exception: "soon, not an emergency" must never cover a
+     sudden change. The standing sudden-change sentence exists, and any Talk
+     soon body that says it "does not mean emergency" is qualified by
+     "built up gradually". */
+  const sc = (a.trees.required_copy || {}).sudden_change;
+  rep.coverage.cases_evaluated++;
+  if (!sc || sc.length < 40) violate(rep, "sudden_change_exception", "navigator required_copy", "missing/short", "sudden-change sentence");
+  for (const [k, d] of Object.entries(a.trees.domains)) {
+    const b = (d.terminals.priority_discuss || {}).body || "";
+    rep.coverage.cases_evaluated++;
+    if (/does not mean emergency/.test(b) && !/built up gradually/.test(b)) {
+      violate(rep, "sudden_change_exception", `${k}.priority_discuss`, "unqualified", "qualified by built up gradually");
+    }
+  }
+
+  /* sometimes_never_outranks_not_yet: on every three-way skill question at
+     every age, answering "sometimes" never lands higher than "not yet". */
+  for (const [k, d] of Object.entries(a.trees.domains)) {
+    for (let age = 0; age <= NAV_MAX_AGE; age++) {
+      for (const q of askedQuestions(d, age)) {
+        if (q.answers !== "skill3") continue;
+        rep.coverage.cases_evaluated++;
+        const some = NAV_ORDER.indexOf(classify(d, age, { [q.id]: "sometimes" }).class);
+        const notYet = NAV_ORDER.indexOf(classify(d, age, { [q.id]: "not_yet" }).class);
+        if (some > notYet) {
+          violate(rep, "sometimes_never_outranks_not_yet", { domain: k, age, question: q.id }, NAV_ORDER[some], `<= ${NAV_ORDER[notYet]}`);
+        }
       }
     }
   }

@@ -18,15 +18,16 @@
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=adb6f82c92" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=46d4d4e37a" />
-  <link rel="stylesheet" href="/assets/css/fg-base.css?v=975e9133b4" />
-  <link rel="stylesheet" href="/assets/css/tools.css?v=7fce784071" />
-  <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
-  <link rel="stylesheet" href="/assets/css/pages.css?v=4d6a085aa8" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=a7f09b41d2" />
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
+  <link rel="stylesheet" href="/assets/css/tools.css?v=4c6ab1c94c" />
+  <link rel="stylesheet" href="/assets/css/hubs.css?v=36987dd3b5" />
+  <link rel="stylesheet" href="/assets/css/explore.css?v=60b368c784" />
+  <link rel="stylesheet" href="/assets/css/pages.css?v=0967ade630" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=475f0abf7f" />
 </head>
-<body class="fg fg--page hub pg-404">
+<body class="fg fg--page hub explore pg-404">
   <!-- header:start -->
 <a class="skip-link" href="#main">Skip to content</a>
 
@@ -76,54 +77,81 @@
   </header>
 
   <main id="main" tabindex="-1">
-    <section class="hub-title hub-title--solo">
+    <section class="hub-title pg-lost">
       <div class="hb-container hub-title__grid">
         <div data-rise>
-          <h1 class="hb-display">This page doesn't exist.</h1>
-          <p class="hb-lead">The link may have moved or been mistyped. Here are a few places to find what you're looking for.</p>
+          <h1 class="hb-display">This page doesn&rsquo;t exist.</h1>
+          <p class="hb-lead">The link may have moved or been mistyped. Here are a few places to find what you&rsquo;re looking for.</p>
           <p class="hub-title__fine">Error 404: page not found</p>
           <div class="hub-title__actions">
             <a class="hb-btn" href="/">Back to home</a>
             <a class="hb-btn hb-btn--quiet" href="/tools/">Browse free tools</a>
           </div>
         </div>
+        <a class="hard-door" href="/tools/right-now" data-rise style="--i:1"><strong>Having a hard moment right now?</strong><span>Open the one-tap guide <span aria-hidden="true">&rarr;</span></span></a>
       </div>
     </section>
-    <section class="hub-sec hub-sec--white">
+    <section class="pg-ages" aria-labelledby="ages-heading">
+      <div class="hb-container pg-ages__head" data-rise>
+        <h2 class="hb-display" id="ages-heading">How old is your child?</h2>
+        <p>A lot of what helps depends on age. Pick a period, and you will find the moments and topics that matter in it.</p>
+      </div>
+      <div class="ex-line">
+        <div class="hb-container" data-rise style="--i:1">
+          <nav class="ex-line__stages" aria-label="Ages">
+          <a class="ex-line__stage" href="/explore/birth-to-1">
+            <span class="ex-line__years">Birth to 1</span>
+            <strong>Foundations</strong>
+            <span class="ex-line__sum">Attachment, the senses, and the rhythm of back-and-forth. Serve and return, not flashcards, builds the architecture.</span>
+          </a>
+          <a class="ex-line__stage" href="/explore/1-to-2">
+            <span class="ex-line__years">1 to 2</span>
+            <strong>First words, first steps</strong>
+            <span class="ex-line__sum">Understanding races ahead of speech. Looking at something together is how words get attached to things.</span>
+          </a>
+          <a class="ex-line__stage" href="/explore/2-to-3">
+            <span class="ex-line__years">2 to 3</span>
+            <strong>Autonomy and big feelings</strong>
+            <span class="ex-line__sum">&ldquo;No&rdquo; is a milestone, not defiance. Big feelings outrun the brakes while the brakes are still being built.</span>
+          </a>
+          <a class="ex-line__stage" href="/explore/3-to-4">
+            <span class="ex-line__years">3 to 4</span>
+            <strong>The imagination years</strong>
+            <span class="ex-line__sum">Pretend play is serious cognitive work: two realities at once, other perspectives, social roles rehearsed.</span>
+          </a>
+          <a class="ex-line__stage" href="/explore/4-to-5">
+            <span class="ex-line__years">4 to 5</span>
+            <strong>Self-control, slowly</strong>
+            <span class="ex-line__sum">Working memory, flexible thinking and impulse control are under construction, on a wide and normal range.</span>
+          </a>
+          </nav>
+          <div class="ex-line__track" aria-hidden="true"><span>birth</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5 years</span></div>
+        </div>
+      </div>
+    </section>
+    <section class="hub-sec hub-sec--white" aria-labelledby="places-heading">
       <div class="hb-container hub-split">
-        <div class="hub-split__head">
-          <h2 class="hb-display">Places worth visiting.</h2>
+        <div class="hub-split__head" data-rise>
+          <h2 class="hb-display" id="places-heading">Places worth visiting.</h2>
         </div>
-        <div class="rows">
-          <div class="row pg-row">
-            <p class="row__name"><a href="/classes/">Classes</a></p>
-            <p class="row__desc">self-paced developmental science courses for parents.</p>
-          </div>
-          <div class="row pg-row">
-            <p class="row__name"><a href="/articles/">Articles</a></p>
-            <p class="row__desc">research explained without buzzwords or parenting shame.</p>
-          </div>
-          <div class="row pg-row">
-            <p class="row__name"><a href="/tools/">Free tools</a></p>
-            <p class="row__desc">milestone tracker, meltdown guide, limits, repair, and more.</p>
-          </div>
-          <div class="row pg-row">
-            <p class="row__name"><a href="/tools/ask-the-research">Ask the research</a></p>
-            <p class="row__desc">ask a parenting question, grounded in a curated science library.</p>
-          </div>
-          <div class="row pg-row">
-            <p class="row__name"><a href="/milestones">Milestone tracker</a></p>
-            <p class="row__desc">what&rsquo;s typical at each age, birth to three.</p>
-          </div>
-          <div class="row pg-row">
-            <p class="row__name"><a href="/faq/">FAQ</a></p>
-            <p class="row__desc">common questions about From Little Onward.</p>
-          </div>
-          <div class="row pg-row">
-            <p class="row__name"><a href="/contact/">Contact</a></p>
-            <p class="row__desc">reach Matthew directly.</p>
-          </div>
-        </div>
+        <ul class="rows pg-rows" data-rise style="--i:1">
+          <li class="row pg-row row--link">
+            <h3 class="row__name"><a href="/classes/">Classes</a></h3>
+            <p class="row__desc">Three self-paced classes, birth to 12 months, the toddler years, and the preschool years, with captions and a written version of every lesson.</p>
+          </li>
+          <li class="row pg-row row--link">
+            <h3 class="row__name"><a href="/articles/">Articles</a></h3>
+            <p class="row__desc">Research explained without buzzwords or parenting shame.</p>
+          </li>
+          <li class="row pg-row row--link">
+            <h3 class="row__name"><a href="/tools/ask-the-research">Ask the research</a></h3>
+            <p class="row__desc">A calm, research-grounded answer to a parenting question.</p>
+          </li>
+          <li class="row pg-row row--link">
+            <h3 class="row__name"><a href="/contact/">Contact</a></h3>
+            <p class="row__desc">Reach Matthew directly.</p>
+          </li>
+        </ul>
       </div>
     </section>
   </main>
@@ -193,8 +221,8 @@
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
 
-  <script src="/assets/js/main.js?v=3f7e70ab67" defer></script>
-  <script src="/assets/js/home.js?v=78ff6722df" defer></script>
+  <script src="/assets/js/main.js?v=b5c8e48c2d" defer></script>
+  <script src="/assets/js/home.js?v=d3d063f882" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

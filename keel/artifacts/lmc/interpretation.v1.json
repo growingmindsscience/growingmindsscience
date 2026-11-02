@@ -2,10 +2,10 @@
   "artifact": "lmc_interpretation",
   "version": "1.0.0",
   "status": "drafted_pending_matthew_verification",
-  "semantics": "Compiles a Communication Snapshot into a report. Severity = the maximum severity across all matched rules (none < watch < discuss < priority_discuss), evaluated at corrected age where the corrected-age policy applies. Every non-policy floor in floors.v1.json appears here as a rule with an identical condition, age window, and severity, so floor compliance holds by construction; additional rules may only flag earlier or harder than the floors, never later or softer. The floors grader verifies this against a generated case grid in CI. 'sometimes' never satisfies an absence condition. No rule condition may reference the languages a family speaks (bilingual_no_discount policy floor; the lexicon grader also scans all copy for softening frames).",
+  "semantics": "Compiles a Communication Snapshot into a report. Severity = the maximum severity across all matched rules (none < watch < discuss < priority_discuss), evaluated at corrected age where the corrected-age policy applies. Every non-policy floor in floors.v1.json appears here as a rule with an identical condition, age window, and severity, so floor compliance holds by construction; additional rules may only flag earlier or harder than the floors, never later or softer. The floors grader verifies this against a generated case grid in CI. ‘sometimes’ never satisfies an absence condition. No rule condition may reference the languages a family speaks (bilingual_no_discount policy floor; the lexicon grader also scans all copy for softening frames). Where an item matches a CDC 2022 milestone whose age has passed, a ‘not yet’ is at least watch, and from 12 months on it is discuss, matching CDC’s advice to talk with the doctor when a child misses any milestone (rules revised 2026-11-02; see keel/REVIEW.md).",
   "corrected_age": { "weeks_early_gt": 3, "applies_under_months": 24 },
   "required_copy": {
-    "parent_gut_invitation": "If something still feels off to you, bring it up with your pediatrician anyway. Your sense of your child is real information, and raising it is never a waste of anyone's time."
+    "parent_gut_invitation": "If something still feels off to you, bring it up with your pediatrician anyway. Your sense of your child is real information, and raising it is never a waste of anyone’s time."
   },
   "rules": [
     {
@@ -41,7 +41,7 @@
       "severity": "discuss",
       "tags": ["social_communication"],
       "title": "Not yet using gestures",
-      "body": "Gestures like waving, reaching to be picked up, and pointing usually arrive before words and do a lot of a child's communicating in the second year. When they haven't appeared by 12 months, that's worth a conversation.",
+      "body": "Gestures like waving, reaching to be picked up, and pointing usually arrive before words and do a lot of a child’s communicating in the second year. When they haven’t appeared by 12 months, that’s worth a conversation.",
       "sources": ["filipek1999"]
     },
     {
@@ -52,7 +52,7 @@
       "severity": "discuss",
       "tags": ["social_communication"],
       "title": "Not yet pointing to show you things",
-      "body": "Pointing just to share something, not to ask for it, usually appears between 12 and 15 months. It is one of the clearest early signs of a child pulling you into what they're noticing, so its absence at this age is worth raising.",
+      "body": "Pointing just to share something, not to ask for it, usually appears between 12 and 15 months. It is one of the clearest early signs of a child pulling you into what they’re noticing, so its absence at this age is worth raising.",
       "sources": ["zwaigenbaum2015"]
     },
     {
@@ -63,7 +63,7 @@
       "severity": "discuss",
       "tags": ["expressive"],
       "title": "No words yet",
-      "body": "No single words by 16 months is one of the best-established markers for a language conversation. Remember that consistent word approximations count as words, so this flag means truly none yet. Many children who start late catch up, and the ones who benefit most from support are the ones whose parents raised it early.",
+      "body": "No single words by 16 months is one of the best-established markers for a language conversation. Consistent word approximations count as words; ‘mama’ and ‘dada’ are left out of the count, because the CDC milestones look for words beyond them. Many children who start late catch up, and the ones who benefit most from support are the ones whose parents raised it early.",
       "sources": ["filipek1999", "cdc_ltsae"]
     },
     {
@@ -77,7 +77,7 @@
       "severity": "discuss",
       "tags": ["expressive"],
       "title": "Fewer words or combinations than expected at two",
-      "body": "At 24 months, fewer than 50 words or no two-word combinations of their own is the standard marker for a 'late talker' conversation. Either one alone is enough to raise it. This is a common conversation for pediatricians and speech-language pathologists, and an early evaluation is useful whichever way it goes.",
+      "body": "At 24 months, fewer than 50 words or no two-word combinations of their own is the standard marker for a ‘late talker’ conversation. Either one alone is enough to raise it. This is a common conversation for pediatricians and speech-language pathologists, and an early evaluation is useful whichever way it goes.",
       "sources": ["rescorla1989", "filipek1999"]
     },
     {
@@ -99,7 +99,7 @@
       "severity": "discuss",
       "tags": ["expressive", "hearing"],
       "title": "Not yet babbling with consonants",
-      "body": "Consonant babbling like 'ba-ba' and 'da-da' usually appears well before 12 months. When it hasn't, pediatricians look at hearing first, because babbling is one of the earliest things hearing feeds.",
+      "body": "Consonant babbling like ‘ba-ba’ and ‘da-da’ usually appears well before 12 months. When it hasn’t, pediatricians look at hearing first, because babbling is one of the earliest things hearing feeds.",
       "sources": ["filipek1999", "jcih2019"]
     },
     {
@@ -123,40 +123,37 @@
       "sources": ["zwaigenbaum2015", "cdc_ltsae"]
     },
     {
-      "id": "watch_babble_10m",
-      "age_months_gte": 10,
+      "id": "watch_babble_9m",
+      "age_months_gte": 9,
       "age_months_lt": 12,
       "condition": { "all": [{ "behavior": "babbles_consonants", "op": "eq", "value": "not_yet" }] },
       "severity": "watch",
       "tags": ["expressive", "hearing"],
-      "title": "Babbling hasn't arrived yet",
-      "body": "Consonant babbling usually shows up between 6 and 10 months. There's still normal room here, and this is a good one to actively watch over the next few weeks rather than file away.",
-      "sources": ["cdc_ltsae"]
+      "title": "Babbling hasn’t arrived yet",
+      "body": "Strings of sounds like ‘mamamama’ and ‘babababa’ are on the CDC’s milestone list for 9 months. Watch for them on purpose over the next few weeks, mention it at the next visit, and ask about a hearing check, because babbling is one of the first things hearing feeds. If it hasn’t come by 12 months, raise it.",
+      "sources": ["cdc_ltsae", "zubler2022", "jcih2019"]
     },
     {
       "id": "watch_first_words_13m",
       "age_months_gte": 13,
-      "age_months_lt": 16,
+      "age_months_lt": 15,
       "condition": { "all": [{ "metric": "vocab_says", "op": "eq", "value": 0 }] },
       "severity": "watch",
       "tags": ["expressive"],
-      "title": "First words haven't arrived yet",
-      "body": "Most children say a first word between 10 and 15 months, and there is real range in that. 16 months without any words is the point where the research says to raise it, so this is one to watch closely now rather than worry about.",
+      "title": "First words haven’t arrived yet",
+      "body": "Most children say a first word between 10 and 15 months, and there is real range in that. The CDC’s 15-month list includes trying one or two words besides ‘mama’ or ‘dada’, so this is one to watch closely now, and to raise if none have come by 15 months.",
       "sources": ["filipek1999", "cdc_ltsae"]
     },
     {
-      "id": "watch_gestures_10m",
-      "age_months_gte": 10,
+      "id": "watch_gestures_9m",
+      "age_months_gte": 9,
       "age_months_lt": 12,
-      "condition": { "all": [
-        { "behavior": "waves_gestures", "op": "eq", "value": "not_yet" },
-        { "behavior": "points_request", "op": "eq", "value": "not_yet" }
-      ] },
+      "condition": { "all": [{ "behavior": "waves_gestures", "op": "eq", "value": "not_yet" }] },
       "severity": "watch",
       "tags": ["social_communication"],
-      "title": "Gestures haven't arrived yet",
-      "body": "Waving, reaching up, and pointing to ask usually appear between 9 and 12 months. Worth actively watching for over the next few weeks; gestures respond quickly to being modeled in games and routines.",
-      "sources": ["filipek1999"]
+      "title": "Gestures haven’t arrived yet",
+      "body": "Lifting arms up to be picked up is on the CDC’s milestone list for 9 months, and waving and pointing follow over the next few months. Gestures respond quickly to being modeled in games and routines, so model them on purpose, and mention it at the next visit. If there are still no gestures at 12 months, raise it.",
+      "sources": ["cdc_ltsae", "filipek1999"]
     },
     {
       "id": "watch_pointing_12m",
@@ -165,8 +162,8 @@
       "condition": { "all": [{ "behavior": "points_show", "op": "eq", "value": "not_yet" }] },
       "severity": "watch",
       "tags": ["social_communication"],
-      "title": "Pointing to show hasn't arrived yet",
-      "body": "Pointing to share something usually appears between 12 and 15 months, so there is still normal room here. If it hasn't appeared by 15 months, that's the time to raise it.",
+      "title": "Pointing to show hasn’t arrived yet",
+      "body": "Pointing to share something usually appears between 12 and 15 months, so there is still normal room here. If it hasn’t appeared by 15 months, that’s the time to raise it.",
       "sources": ["zwaigenbaum2015"]
     },
     {
@@ -176,18 +173,18 @@
       "severity": "watch",
       "tags": ["hearing"],
       "title": "Responds to their name inconsistently",
-      "body": "Sometimes-response is a real answer, not a failure. But when name-response is patchy past 12 months, it's worth quietly testing hearing at home (a voice from another room, a quiet sound behind them) and mentioning the pattern at your next visit.",
+      "body": "Sometimes-response is a real answer, not a failure. But when name-response is patchy past 12 months, it’s worth quietly testing hearing at home (a voice from another room, a quiet sound behind them) and mentioning the pattern at your next visit.",
       "sources": ["jcih2019", "zwaigenbaum2015"]
     },
     {
       "id": "watch_words_18m",
       "age_months_gte": 18,
       "age_months_lt": 24,
-      "condition": { "all": [{ "metric": "vocab_says", "op": "lt", "value": 10 }] },
+      "condition": { "all": [{ "metric": "vocab_says", "op": "gte", "value": 3 }, { "metric": "vocab_says", "op": "lt", "value": 10 }] },
       "severity": "watch",
       "tags": ["expressive"],
       "title": "A small word bank for 18 months and up",
-      "body": "By this stretch, most children have a fast-growing set of words. Under 10 words here isn't a red line, but it's worth an active watch, and it's a great window for the talk-boosting strategies below because vocabulary growth is steepest right now.",
+      "body": "By this stretch, most children have a fast-growing set of words. A handful of words here is worth an active watch, and it’s a great window for the talk-boosting strategies below because vocabulary growth is steepest right now.",
       "sources": ["cdc_ltsae", "rescorla1989"]
     },
     {
@@ -197,8 +194,8 @@
       "condition": { "all": [{ "behavior": "combines_two_words", "op": "eq", "value": "not_yet" }] },
       "severity": "watch",
       "tags": ["expressive"],
-      "title": "Two-word combinations haven't arrived yet",
-      "body": "Children usually start combining words between 18 and 24 months. There's still normal room, and combinations often appear in a burst once the single-word bank passes about 50 words. If there are none by 24 months, raise it then.",
+      "title": "Two-word combinations haven’t arrived yet",
+      "body": "Children usually start combining words between 18 and 24 months. There’s still normal room, and combinations often appear in a burst once the single-word bank passes about 50 words. If there are none by 24 months, raise it then.",
       "sources": ["rescorla1989"]
     },
     {
@@ -208,45 +205,234 @@
       "severity": "watch",
       "tags": ["expressive", "social_communication"],
       "title": "Not yet trying to copy sounds or words",
-      "body": "Imitation is how a lot of early language gets practiced. When a child isn't yet trying to copy sounds by this age, it's worth watching alongside the other items here and mentioning at your next visit.",
+      "body": "Imitation is how a lot of early language gets practiced. When a child isn’t yet trying to copy sounds by this age, it’s worth watching alongside the other items here and mentioning at your next visit.",
       "sources": ["zubler2022"]
     },
     {
-      "id": "watch_turns_12m",
-      "age_months_gte": 12,
+      "id": "watch_turns_6m",
+      "age_months_gte": 6,
+      "age_months_lt": 12,
       "condition": { "all": [{ "behavior": "takes_turns_vocalizing", "op": "eq", "value": "not_yet" }] },
       "severity": "watch",
       "tags": ["social_communication"],
       "title": "Back-and-forth exchanges are still rare",
-      "body": "The back-and-forth rhythm, sounds now, words later, is the engine early language runs on. If exchanges are still rare, the serve-and-return strategies below are the most direct thing you can practice this month.",
-      "sources": ["zubler2022"]
+      "body": "Taking turns making sounds with you is on the CDC’s milestone list for 6 months, and that back-and-forth rhythm, sounds now, words later, is the engine early language runs on. The serve-and-return strategies below are the most direct thing you can practice this month, and it’s worth mentioning at the next visit.",
+      "sources": ["cdc_ltsae", "zubler2022"]
     },
     {
-      "id": "watch_onestep_18m",
+      "id": "no_turns_12m",
+      "age_months_gte": 12,
+      "condition": { "all": [{ "behavior": "takes_turns_vocalizing", "op": "eq", "value": "not_yet" }] },
+      "severity": "discuss",
+      "tags": ["social_communication", "hearing"],
+      "title": "Back-and-forth exchanges haven’t started yet",
+      "body": "Taking turns making sounds with you is on the CDC’s milestone list for 6 months. When back-and-forth exchanges, in sounds, smiles, or words, still aren’t happening after the first birthday, that’s worth raising, along with a hearing check. The serve-and-return ideas below are still the best thing to practice at home.",
+      "sources": ["cdc_ltsae", "zubler2022"]
+    },
+    {
+      "id": "no_one_step_directions_18m",
       "age_months_gte": 18,
       "age_months_lt": 24,
       "condition": { "all": [{ "behavior": "follows_one_step", "op": "eq", "value": "not_yet" }] },
+      "severity": "discuss",
+      "tags": ["receptive", "hearing"],
+      "title": "Not yet following simple directions",
+      "body": "Following a one-step direction said in words alone, like ‘give it to me’ with no hand held out, is on the CDC’s milestone list for 18 months. It is about understanding, not talking, and understanding is easy to miss when everyone is watching for words. Raise it now rather than waiting for two, and ask about a developmental screen and a hearing check.",
+      "sources": ["cdc_ltsae", "zubler2022"]
+    },
+    {
+      "id": "hearing_concern_any_age",
+      "floor_id": "hearing_concern_any_age",
+      "age_months_gte": 0,
+      "condition": { "all": [{ "behavior": "parent_hearing_concern", "op": "eq", "value": "yes" }] },
+      "severity": "discuss",
+      "tags": ["hearing"],
+      "title": "You have a concern about your child’s hearing",
+      "body": "A parent’s sense that their child doesn’t hear well is, on its own, reason enough to ask for a hearing test, at any age. There is no wait-and-see for hearing. The test is painless and settles the question either way.",
+      "sources": ["jcih2019"]
+    },
+    {
+      "id": "stranger_intelligibility_36m",
+      "floor_id": "stranger_intelligibility_36m",
+      "age_months_gte": 36,
+      "condition": { "all": [{ "behavior": "understood_by_others", "op": "eq", "value": "less_than_half" }] },
+      "severity": "discuss",
+      "tags": ["expressive", "hearing"],
+      "title": "Unfamiliar adults understand less than half of their speech",
+      "body": "By 3, the CDC’s milestone list expects a child to talk well enough for others to understand most of the time. When unfamiliar adults understand less than half, that’s worth raising: a speech-language evaluation can tell a sound-pattern difference from other causes, and a hearing check belongs in the same ask.",
+      "sources": ["flipsen2006", "cdc_ltsae"]
+    },
+    {
+      "id": "watch_clarity_30m",
+      "age_months_gte": 30,
+      "age_months_lt": 36,
+      "condition": { "all": [{ "behavior": "understood_by_others", "op": "eq", "value": "less_than_half" }] },
+      "severity": "watch",
+      "tags": ["expressive"],
+      "title": "Unfamiliar adults understand less than half",
+      "body": "Clarity climbs steeply between 2 and 4. By age 3, the CDC’s milestone list expects others to understand your child most of the time. Watch this one on purpose, mention it at the next visit, and if it’s still below half at 3, raise it.",
+      "sources": ["cdc_ltsae", "flipsen2006"]
+    },
+    {
+      "id": "watch_clarity_36m",
+      "age_months_gte": 36,
+      "condition": { "all": [{ "behavior": "understood_by_others", "op": "eq", "value": "about_half" }] },
+      "severity": "watch",
+      "tags": ["expressive"],
+      "title": "Unfamiliar adults understand about half",
+      "body": "The CDC’s 3-year list expects others to understand your child most of the time. About half is worth an active watch and a mention at the next visit; clarity climbs steeply between 3 and 4, and a speech-language pathologist can tell you whether the pattern is on track.",
+      "sources": ["cdc_ltsae", "flipsen2006"]
+    },
+    {
+      "id": "no_action_word_phrases_30m",
+      "age_months_gte": 30,
+      "condition": { "all": [{ "behavior": "action_word_phrases", "op": "eq", "value": "not_yet" }] },
+      "severity": "discuss",
+      "tags": ["expressive"],
+      "title": "Not yet putting words together with an action word",
+      "body": "Saying two or more words together with one action word, like ‘doggie run’, is on the CDC’s milestone list for 30 months. It’s worth raising now, and a speech-language evaluation is a reasonable ask.",
+      "sources": ["cdc_ltsae", "zubler2022"]
+    },
+    {
+      "id": "no_i_me_we_30m",
+      "age_months_gte": 30,
+      "condition": { "all": [{ "behavior": "uses_i_me_we", "op": "eq", "value": "not_yet" }] },
+      "severity": "discuss",
+      "tags": ["expressive"],
+      "title": "Not yet using words like I, me, or we",
+      "body": "Using words like ‘I’, ‘me’, or ‘we’ is on the CDC’s milestone list for 30 months. On its own it can be a small thing, but a missed milestone is exactly what the CDC asks parents to mention, so bring it up with the rest of this snapshot.",
+      "sources": ["cdc_ltsae", "zubler2022"]
+    },
+    {
+      "id": "no_conversation_36m",
+      "age_months_gte": 36,
+      "condition": { "all": [{ "behavior": "converses_two_turns", "op": "eq", "value": "not_yet" }] },
+      "severity": "discuss",
+      "tags": ["expressive", "social_communication"],
+      "title": "Not yet keeping a short conversation going",
+      "body": "Talking with you in a conversation of at least two back-and-forth exchanges is on the CDC’s milestone list for 3 years. Conversation pulls together understanding, words, and turn-taking, so its absence is worth raising, and a speech-language evaluation is a reasonable ask.",
+      "sources": ["cdc_ltsae", "zubler2022"]
+    },
+    {
+      "id": "watch_combines_sometimes_30m",
+      "age_months_gte": 30,
+      "condition": { "all": [{ "behavior": "combines_two_words", "op": "eq", "value": "sometimes" }] },
+      "severity": "watch",
+      "tags": ["expressive"],
+      "title": "Two-word combinations are still occasional",
+      "body": "By 30 months, most children put words together every day, often with an action word. Combinations that show up only sometimes are worth an active watch and a mention at the next visit.",
+      "sources": ["cdc_ltsae", "rescorla1989"]
+    },
+    {
+      "id": "watch_onestep_sometimes_24m",
+      "age_months_gte": 24,
+      "condition": { "all": [{ "behavior": "follows_one_step", "op": "eq", "value": "sometimes" }] },
       "severity": "watch",
       "tags": ["receptive"],
-      "title": "One-step directions aren't landing yet",
-      "body": "Between 12 and 24 months, children get steadily better at following simple directions said in words alone. Worth watching, and worth testing gently without gestures now and then. If it's still not there at 24 months, raise it.",
+      "title": "Following directions is still patchy",
+      "body": "Following a one-step direction said in words alone is on the CDC’s list for 18 months. Past two, if it only lands some of the time, test it gently without gestures now and then, and mention the pattern at the next visit.",
+      "sources": ["cdc_ltsae", "zubler2022"]
+    },
+    {
+      "id": "watch_name_9m",
+      "age_months_gte": 9,
+      "age_months_lt": 12,
+      "condition": { "all": [{ "behavior": "responds_to_name", "op": "eq", "value": "not_yet" }] },
+      "severity": "watch",
+      "tags": ["hearing", "social_communication"],
+      "title": "Not yet turning to their name",
+      "body": "Most babies look when they hear their name by about 9 months, and it becomes reliable by 12. Test hearing gently at home (a voice from another room, a quiet sound behind them) and mention it at the next visit. If it isn’t there by 12 months, raise it.",
+      "sources": ["cdc_ltsae", "zubler2022", "jcih2019"]
+    },
+    {
+      "id": "early_communication_cluster_9m",
+      "age_months_gte": 9,
+      "age_months_lt": 12,
+      "condition": { "any": [{ "all": [{ "behavior": "responds_to_name", "op": "eq", "value": "not_yet" }, { "behavior": "babbles_consonants", "op": "eq", "value": "not_yet" }, { "behavior": "takes_turns_vocalizing", "op": "eq", "value": "not_yet" }] }, { "all": [{ "behavior": "responds_to_name", "op": "eq", "value": "not_yet" }, { "behavior": "babbles_consonants", "op": "eq", "value": "not_yet" }, { "behavior": "waves_gestures", "op": "eq", "value": "not_yet" }] }, { "all": [{ "behavior": "responds_to_name", "op": "eq", "value": "not_yet" }, { "behavior": "takes_turns_vocalizing", "op": "eq", "value": "not_yet" }, { "behavior": "waves_gestures", "op": "eq", "value": "not_yet" }] }, { "all": [{ "behavior": "babbles_consonants", "op": "eq", "value": "not_yet" }, { "behavior": "takes_turns_vocalizing", "op": "eq", "value": "not_yet" }, { "behavior": "waves_gestures", "op": "eq", "value": "not_yet" }] }] },
+      "severity": "discuss",
+      "tags": ["hearing", "social_communication"],
+      "title": "Several early communication skills haven’t arrived yet",
+      "body": "Turning to their name, babbling, back-and-forth sounds, and reaching up to be picked up are things most babies do by 9 months. When several are missing together, that is worth raising now rather than waiting, and a hearing check is a sensible first ask.",
+      "sources": ["cdc_ltsae", "zubler2022", "jcih2019"]
+    },
+    {
+      "id": "no_everyday_gestures_12m",
+      "age_months_gte": 12,
+      "condition": { "all": [{ "behavior": "waves_gestures", "op": "eq", "value": "not_yet" }, { "any": [{ "behavior": "points_request", "op": "eq", "value": "yes" }, { "behavior": "points_request", "op": "eq", "value": "sometimes" }] }] },
+      "severity": "discuss",
+      "tags": ["social_communication"],
+      "title": "Not yet using everyday gestures",
+      "body": "Reaching up to be picked up is on the CDC’s milestone list for 9 months, and waving, head shakes, and pushing away to mean ‘no’ usually join it by the first birthday. Pointing is a good start, but when the other everyday gestures haven’t appeared by 12 months, that’s worth a conversation.",
+      "sources": ["cdc_ltsae", "filipek1999"]
+    },
+    {
+      "id": "no_point_to_request_15m",
+      "age_months_gte": 15,
+      "condition": { "all": [{ "behavior": "points_request", "op": "eq", "value": "not_yet" }] },
+      "severity": "discuss",
+      "tags": ["social_communication"],
+      "title": "Not yet pointing to ask for things",
+      "body": "Pointing to ask for something, like a snack or a toy out of reach, is on the CDC’s milestone list for 15 months. It usually arrives well before many words do, so its absence is worth raising at this age even if your child waves or reaches. Ask your pediatrician about a developmental screen.",
+      "sources": ["cdc_ltsae", "zubler2022"]
+    },
+    {
+      "id": "watch_point_following_12m",
+      "age_months_gte": 12,
+      "age_months_lt": 18,
+      "condition": { "all": [{ "behavior": "looks_where_you_point", "op": "eq", "value": "not_yet" }] },
+      "severity": "watch",
+      "tags": ["receptive", "social_communication"],
+      "title": "Not yet following your point",
+      "body": "Following a point usually settles in between 12 and 18 months. Point at interesting things often, and name them as you do. If it hasn’t come by 18 months, raise it.",
+      "sources": ["zwaigenbaum2015"]
+    },
+    {
+      "id": "few_words_understood_18m",
+      "age_months_gte": 18,
+      "condition": { "all": [{ "metric": "vocab_understands", "op": "lt", "value": 10 }] },
+      "severity": "discuss",
+      "tags": ["receptive", "hearing"],
+      "title": "Understanding only a few words",
+      "body": "By 18 months, most children understand many everyday words and can follow a simple direction said in words alone, which is on the CDC’s milestone list for that age. Understanding fewer than 10 words is worth raising, and it runs through two checkable channels: hearing, and language itself. Your pediatrician can start on both at one visit.",
+      "sources": ["cdc_ltsae", "zubler2022"]
+    },
+    {
+      "id": "no_words_15m",
+      "age_months_gte": 15,
+      "age_months_lt": 16,
+      "condition": { "all": [{ "metric": "vocab_says", "op": "eq", "value": 0 }] },
+      "severity": "discuss",
+      "tags": ["expressive"],
+      "title": "No words yet",
+      "body": "Trying to say one or two words besides ‘mama’ or ‘dada’ is on the CDC’s milestone list for 15 months. None yet is worth raising now rather than waiting for the 16-month line, and a hearing check is a reasonable part of the ask. Many children who start late catch up, and the ones who benefit most are the ones whose parents raised it early.",
+      "sources": ["cdc_ltsae", "zubler2022"]
+    },
+    {
+      "id": "few_words_18m",
+      "age_months_gte": 18,
+      "age_months_lt": 24,
+      "condition": { "all": [{ "metric": "vocab_says", "op": "gte", "value": 1 }, { "metric": "vocab_says", "op": "lt", "value": 3 }] },
+      "severity": "discuss",
+      "tags": ["expressive"],
+      "title": "Fewer than three words at 18 months",
+      "body": "Trying to say three or more words besides ‘mama’ or ‘dada’ is on the CDC’s milestone list for 18 months. One or two is worth raising now rather than waiting for two, and the talk-boosting ideas below help whatever the visit finds.",
       "sources": ["cdc_ltsae", "zubler2022"]
     }
   ],
   "severity_templates": {
     "none": {
       "headline": "In the typical range right now",
-      "lead": "Nothing in this snapshot crosses any of the research-backed lines for {age_phrase}. Communication at this age has a wide normal range, and what you described sits inside it.",
+      "lead": "Nothing you reported crosses the lines this snapshot checks for {age_phrase}. Communication at this age has a wide normal range.",
       "includes_invitation": true
     },
     "watch": {
       "headline": "Mostly typical, with something worth watching",
-      "lead": "Nothing here crosses a red line for {age_phrase}. One or more things are worth an active watch, which means noticing on purpose for the next 4 to 6 weeks rather than filing it away. Retake this snapshot then; if a watch item hasn't moved, mention it at your next visit.",
+      "lead": "Nothing here crosses a red line for {age_phrase}. One or more things are worth an active watch, which means noticing on purpose for the next 4 to 6 weeks rather than filing it away. Retake this snapshot then; if a watch item hasn’t moved, mention it at your next visit.",
       "includes_invitation": true
     },
     "discuss": {
       "headline": "Worth a conversation with your pediatrician",
-      "lead": "Something in this snapshot has reached the point where the research says: bring it up. That is not a diagnosis and not an emergency. It means your child has earned a proper look from someone who can actually evaluate, and the earlier that conversation happens, the more options it opens. It's fine to call and make an appointment rather than waiting for the next scheduled well visit.",
+      "lead": "Something in this snapshot has reached the point where the research says: bring it up. That is not a diagnosis and not an emergency. It means your child has earned a proper look from someone who can actually evaluate, and the earlier that conversation happens, the more options it opens. It’s fine to call and make an appointment rather than waiting for the next scheduled well visit.",
       "includes_invitation": false
     },
     "priority_discuss": {
@@ -259,22 +445,23 @@
     "hearing_check": {
       "when_tags": ["hearing"],
       "title": "Check hearing first",
-      "body": "Several items in this snapshot run through hearing before they run through language. Ask your pediatrician about a hearing test; for babies and toddlers this is painless and routine. One important detail: a passed newborn hearing screen is a point-in-time result. It does not rule out hearing changes later, so 'she passed at birth' should never close this question."
+      "body": "Several items in this snapshot run through hearing before they run through language. Ask your pediatrician about a hearing test; for babies and toddlers this is painless and routine. One important detail: a passed newborn hearing screen is a point-in-time result. It does not rule out hearing changes later, so ‘she passed at birth’ should never close this question."
     },
     "regression_next_steps": {
       "when_tags": ["regression"],
       "title": "About lost skills",
-      "body": "When you call, say the words 'my child has lost skills they used to have' rather than describing it loosely. Those words reliably get the right response. Write down what was lost and roughly when you last saw it; that timeline is the most useful thing you can bring."
+      "body": "When you call, say the words ‘my child has lost skills they used to have’ rather than describing it loosely. Those words reliably get the right response. Write down what was lost and roughly when you last saw it; that timeline is the most useful thing you can bring."
     },
     "talk_boost": {
       "always": true,
       "title": "What builds language at every level",
-      "body": "Whatever else this snapshot says, the same engine drives growth: back-and-forth with you. Narrate what you're doing in short phrases. When your child makes any sound, gesture, or word, respond to it like a conversational turn, then wait, visibly, for their next one. Add one word to whatever they give you ('dog' becomes 'big dog'). Books count double because the pictures hold joint attention still. Ten minutes of this beats an hour of background enrichment."
+      "body": "Whatever else this snapshot says, the same engine drives growth: back-and-forth with you. Narrate what you’re doing in short phrases. When your child makes any sound, gesture, or word, respond to it like a conversational turn, then wait, visibly, for their next one. Add one word to whatever they give you (‘dog’ becomes ‘big dog’). Shared books are especially good for this, because the pictures hold both of your attention on the same thing."
     },
     "visit_script": {
       "min_severity": "discuss",
       "title": "What to say at the visit",
-      "body": "Bring the printed summary below, or your notes, and lead with the specifics rather than a general worry: 'I want to talk about communication. Specifically: ...' and name the flagged items. Specific observations get specific responses. If you want a concrete ask, 'Would a hearing test and a speech-language evaluation make sense?' is a reasonable, standard request, and early intervention programs can evaluate at no cost in most US states."
+      "body": "Bring the printed summary below, or your notes, and lead with the specifics rather than a general worry: ‘I want to talk about communication. Specifically: ...’ and name the flagged items. Specific observations get specific responses. If you want a concrete ask, ‘Would a hearing test and a speech-language evaluation make sense?’ is a reasonable, standard request. You don’t have to wait for the visit, either: every US state has an early intervention program for children under 3, you can call it yourself without a doctor’s referral, and the evaluation is free. From age 3, your local public school district does these evaluations, also free.",
+      "sources": ["idea_part_c", "cdc_ltsae"]
     },
     "recheck_plan": {
       "exact_severity": "watch",
@@ -289,7 +476,7 @@
     "bilingual_note": {
       "always": true,
       "title": "Raising a child with more than one language?",
-      "body": "Count words across all languages; that's how every serious instrument counts, and it's how this one counts. Hearing two languages does not cause language delay, and being bilingual is never a reason to wait on any of the lines in this snapshot. If someone tells you to drop a home language to help speech, the research does not support that trade."
+      "body": "Count words across all languages; that’s how clinicians count for children learning more than one language, and it’s how this one counts. Hearing two languages does not cause language delay, and being bilingual is never a reason to wait on any of the lines in this snapshot. If someone tells you to drop a home language to help speech, the research does not support that trade."
     }
   }
 }

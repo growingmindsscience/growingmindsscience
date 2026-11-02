@@ -60,7 +60,7 @@
     },
     {
       "artifact": "citations",
-      "sha256": "5fd33a58a845e6fe41831245b4e1a67d36462b203d0a391affd7605916f42d97",
+      "sha256": "912b033ea38c2d342e2481e34d993cf991a269d25314cfaa93c8821f74081729",
       "mode": "gold",
       "pass": true,
       "checks": [

@@ -223,6 +223,33 @@ components:
     backgroundColor: "{colors.sage-mist}"
     rounded: "{rounded.sm}"
     height: "8px"
+  figure-plate:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.lg}"
+    padding: "clamp(18px, 3vw, 32px)"
+  say:
+    backgroundColor: "{colors.sage-mist}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.md}"
+    padding: "16px 20px 18px"
+  crisis-line:
+    backgroundColor: "transparent"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.md}"
+    padding: "6px 14px"
+    height: "44px"
+  confirm:
+    backgroundColor: "{colors.sage-mist}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.lg}"
+    padding: "clamp(24px, 3vw, 40px)"
+  grade-step:
+    backgroundColor: "{colors.sage-mist-2}"
+    rounded: "{rounded.sm}"
+    height: "8px"
+  grade-step-on:
+    backgroundColor: "{colors.ink}"
 ---
 
 # Design System: Growing Minds Science
@@ -244,7 +271,7 @@ The tone is calm and collegiate, warm but not sentimental. Photographs are obser
 - Quiet 1px rules between rows; a 2px ink rule opens an index list; no shadows at rest.
 - Research blue marks sources and evidence and nothing else.
 - Annotated observation: real photographs with labels revealed on request.
-- One inverted ink field per page: the close band, flowing into the footer.
+- One inverted ink field closing each page: the close band, flowing into the footer (the homepage also sets its mission on the field).
 - Full light and dark theming through `[data-theme="dark"]`.
 
 ## Colors
@@ -255,18 +282,18 @@ A cool haze-and-forest palette with one action green, one explanatory mist, and 
 - **Deep Verdigris** (`forest`): the one action color. Filled buttons, text links, the chosen option in every choice set, the forest segment of the age-range bar, focus outlines and text selection. **Verdigris Deep** (`forest-deep`) is its hover. Text on it is **Soft White** (`on-forest`).
 
 ### Secondary
-- **Sage Mist** (`sage-mist`): the explanatory surface. "The short version" beside an article title, callouts, checklists, guide panels, the claim's grade, the method note, the contact form, the Lens section ground, the hover wash on quiet buttons and choices. **Sage Mist Deep** (`sage-mist-2`) is the hairline inside a mist panel and the inactive bar in the class timeline.
+- **Sage Mist** (`sage-mist`): the explanatory surface. "The short version" beside an article title, callouts, checklists, guide panels, the claim's grade, the method note, the contact form and its confirmation, words to say, the Lens section ground, the hover wash on quiet buttons, choices and whole-row links. **Sage Mist Deep** (`sage-mist-2`) is the hairline inside a mist panel and the inactive bar in the class timeline.
 - **Field Sage** (`sage`): the one place a whole band is sage, the Explore age line. **Sage Deep** (`sage-deep`) is the hover on that band and the leaf in the brand mark.
 
 ### Tertiary
-- **Research Blue** (`research`): sources, references, evidence lines inside mechanism cards, the "Fig." marker under the hero plate. Never an action, never a heading outside a sources module.
-- **Discovery Clay** (`note-warm`) and **Golden Ochre** (`note-amber`): annotation marks only. Ochre is the dot that leads each plate label, the bullet on Lens lists and mechanism cards, and the swatch on the label toggle. **Clay Text** (`clay-text`) is the small-text form of clay (5.1:1 on paper), used for the Lens step numerals and the Read, Try, Learn headings on the Lens page.
+- **Research Blue** (`research`): sources, references, evidence lines inside mechanism cards, the "Fig." marker and source line on every figure, the link from a grade to its sources. Never an action, never a heading outside a sources module.
+- **Discovery Clay** (`note-warm`) and **Golden Ochre** (`note-amber`): annotation marks only. Ochre is the dot that leads each plate label, the bullet on Lens lists and mechanism cards, the swatch on the label toggle and the you-are-here dot in a contents list; clay is the mark inside a figure. **Clay Text** (`clay-text`) is the small-text form of clay (5.1:1 on paper), used for the Lens step numerals and the Read, Try, Learn headings on the Lens page.
 
 ### Neutral
 - **Haze** (`paper`): the page ground and the paper button on dark grounds. **Paper Step** (`paper-2`): the scrolled header, the trust section, the "All tools" row in the menu.
 - **Soft White** (`surface`): reading surfaces: decoder answers, tool working cards, the class timeline, mechanism cards, alternating `hub-sec--white` sections, form inputs on mist. **Paper Tint** (`surface-2`): header icon buttons.
 - **Forest Ink** (`ink`): all type and the 2px index rules. **Ink Soft** (`ink-soft`, 7.6:1) for ledes and secondary copy; **Ink Muted** (`ink-muted`, 5.2:1) for meta lines, captions, fine print, input outlines.
-- **The Ink Field** (`field-ink`, raised step `field-ink-2`): the close band, the footer, the tools hub's hard-moment door, the homepage hard-moments band. Text tiers on it are `on-ink`, `on-ink-soft`, `on-ink-muted`.
+- **The Ink Field** (`field-ink`, raised step `field-ink-2`): the close band, the footer, the tools hub's hard-moment door, the homepage's mission band. Text tiers on it are `on-ink`, `on-ink-soft`, `on-ink-muted`.
 - **Hairline** (`border`) for choice and chip outlines; **Hairline Soft** (`border-soft`) for every rule between rows.
 - **Danger** (`danger`) for field errors and invalid borders; **Success** (`success`) for confirmations.
 
@@ -311,9 +338,9 @@ One container, `min(100% - 2 × gutter, 1320px)`, with a gutter of `clamp(16px, 
 
 The recurring composition is the **split**: a heading and its one-line explanation in a 4-column left track, the content (rows, a panel, a form) in an 8-column right track, with a `clamp(32px, 5vw, 80px)` column gap. Title blocks use 7 to 5 (title and lead beside one photograph or one panel). Below about 860px every split becomes one column; where a split holds a photograph, the list comes first on a phone and the photograph follows.
 
-Reading pages (articles, guides, claims) are one column at a reading measure (62 to 68ch) sharing the title block's left edge; articles put a sticky contents list in a 3-column track beside a 9-column text.
+Reading pages (articles, guides, claims, legal and FAQ pages) are one column at a reading measure (62 to 68ch) sharing the title block's left edge. From 1100px the long ones gain a contents rail: articles and `.hb-read` pages put a sticky contents list in a 3-column track beside a 9-column text, and the guides put their "On this page" rail to the right of an 880px column (`.g-layout`).
 
-Every inline link that sits in a list or action row reaches a 44px touch target with negative block margins, so the line keeps its rhythm. Breakpoints that matter: 1100 (homepage age row becomes five columns), 1000 (header menu becomes a sheet), 900 (hero stacks, labels become a list), 860 and 760 (splits and rows go single column).
+Every inline link that sits in a list or action row reaches a 44px touch target with negative block margins, so the line keeps its rhythm. Breakpoints that matter: 1100 (contents rails appear beside reading columns), 1000 (header menu becomes a sheet), 900 (hero stacks, labels become a list), 860 (splits go single column; the homepage age line becomes a five-cell strip), 760 (rows stack), 700 (the homepage Lens frames become a swiped carousel), 640 (action-row buttons go full width).
 
 ## Elevation & Depth
 
@@ -352,8 +379,10 @@ Calm outlined buttons, forest when chosen. Used by the guides' decoder, pattern,
 ### Rows with quiet rules
 The site's list form: tools, articles, guides, prices, principles, credentials, places to go, the homepage menu of classes. A grid of name (Newsreader row name), one-line description (Inter, ink-soft) and an action or price at the end, `22px` of block padding, a 1px `border-soft` rule on top of every row but the first. Hover turns the name verdigris and underlines it. Prices use tabular numerals at Inter 500. Below 760px the row stacks.
 
+**Whole-row links** (`.row--link`): when a row goes to one place, the name's link is stretched over the whole row, so the row is the target. Hover washes the row sage mist (soft white on a mist section), reaching 12px past the column on each side while the words and rules keep the column's edge, and a trailing drawn arrow turns verdigris and moves 3px. Focus draws the 2.5px verdigris outline round the whole row. One link per row; a row with its own action (`.row__go`) keeps that instead of the arrow.
+
 ### Questions
-`<details>` rows under the same 1px rules (top of each, plus a closing rule under the last), a 56px Inter 500 summary with a `+` that becomes `−` when open, the answer in ink-soft at 60ch.
+`<details>` rows under the same 1px rules (top of each, plus a closing rule under the last), a 56px Inter 500 summary with a drawn plus whose upright folds away into a minus when open, hover verdigris, the answer in ink-soft at 60ch with its lists styled. Every question carries a stable id (the slug of the question), so a link to `#refunds` opens that question and scrolls it under the header, on load and on a hash change.
 
 ### Hub title block
 The top of every inner page: the Newsreader headline, the lead in ink-soft, one meta or fine-print line in ink-muted, then the actions (12px gap). A 7 to 5 grid puts one photograph (10px corners, 4:3 or a 4:5 tall crop, sage-mist behind it while it loads) or one panel beside it; the solo variant drops the second column. No eyebrow above the title.
@@ -361,19 +390,46 @@ The top of every inner page: the Newsreader headline, the lead in ink-soft, one 
 ### Sage-mist panels
 The explanatory surface: sage-mist fill, 10px corners, `clamp(24px, 3vw, 36px)` padding, no border, no shadow, internal rows ruled in `sage-mist-2`. Used for the article's short version and callouts (callout text in Newsreader), guide glance and "what this covers" panels, the claim's grade and method, tool recaps and scripts, the contact form, the free-lesson panel on class pages. Small inline variants (scripts to say, tab tips) use 6px corners.
 
+**The short version** (`.hb-short`) is the general form, for FAQ, legal pages and anything that opens with a summary: a Newsreader 500 title, one or two sentences in ink-soft, then a list ruled in `sage-mist-2`, with verdigris links.
+
 ### The research-blue source module
 Sources sit under a 2px research-blue top rule with 20px of space above the list. The heading is Inter 600 at 15px in research blue (Newsreader at subhead size on class pages), and every source link is research blue with a 44px target. The same blue marks the evidence line inside a mechanism card and the "Fig." marker. Shipped on articles, guides, claims, class pages and the Lens page.
 
+### Figures
+The site's native imagery: a drawing or a small chart as a textbook figure (`.hb-fig`). The plate is soft white with 10px corners (sage mist on a soft-white section, or with `.hb-fig--mist`), holding inline SVG or HTML. Under it the caption, Inter 14px in ink-soft at 62ch, opens with "Fig. 1" in research blue, and the source line ("After Kuhl (2007)", "A schematic of this guide's sequence, not measured data") follows in research blue. Drawings use the theme-safe helper classes, never raw colors: ink, ink-soft, ink-muted and verdigris fills, a `sage-mist-2` area fill, and clay or ochre only for marks (dots, rings, arrowheads). Every figure has a `<title>`, a `<desc>` and a visible caption. "Fig." is reserved for evidence; a procedural sequence or a map of the site takes a plain caption.
+
+### Keep reading
+The two to four places to go next, before the close band (`.hb-next`): a Newsreader heading ("Keep reading", "Keep going"), then rows opened by a 2px ink rule with 1px rules between. Each name is a Newsreader link stretched over its row, with one Inter line in ink-soft (reused from that page's hub description) and an optional meta line. When the block is 620px wide or more, wherever it sits, name and line go two-up (5 to 7). The split variant puts the heading in a 4-column track beside the rows. Guides leave it out of print.
+
+### Reading layout and contents
+Long reading pages put "On this page" beside the text (`.hb-read`, `.hb-toc`): at 1100px and up a sticky 3-column contents list under the header, read as a label; below that a closed details row that closes again after a choice. The list is Inter 15px in ink-soft under quiet rules with 44px rows. As the reader moves, the section in view is marked: ink, 600, with an 8px ochre dot hung in the gutter. Every linked heading has an id and clears the header when jumped to.
+
+The guides use their own form of the same idea (`.g-layout`): the sections in an 880px column and a sticky rail to the right holding the "On this page" list (same words as the headings) and, where it helps, one quiet print button. Below 1100px the rail is not shown at all, so it never holds anything that is not also on the page.
+
+### Words to say
+A script a parent can say, or a single move, set apart (`.hb-say`; `.g-say` inside the guides' answers): an Inter 600 label in ink-soft ("Try saying", "Try:", "Limit line"), then the words in Newsreader at statement size, in typographic quotes, on sage mist with 6px corners and `16px 20px 18px` of padding. Inside a mist panel or on a mist section it steps to soft white. The label is never verdigris: it names, it does not act.
+
+### Crisis lines
+Help lines are tappable `tel:` and `sms:` links, never plain text (`.hb-crisis`): the number in Inter 600 with tabular numerals, a few words beside it ("Call or text the crisis line"), as a 44px chip with 6px corners and a 1.5px hairline outline, 8 to 12px apart. No alarm color; calm is the point. Hover washes sage mist (soft white on mist). On the ink field the outline and text turn `on-ink` and hover steps to `field-ink-2`.
+
+### Form confirmation
+A sent form is replaced by a confirmation panel that takes focus (`.hb-confirm`): sage mist, 10px corners, a drawn check in `success` beside a Newsreader statement ("Thanks, your message is on its way."), one ink-soft line about what happens next, a short list of places to go meanwhile under `sage-mist-2` rules, and a quiet "Send another message" button. Errors stay with the form, in `danger`, announced as an alert.
+
+### The grade (claims library)
+Every claim is graded on two independent scales, drawn as figures, not as badges. Evidence strength has five steps: Contradicted by evidence, Not enough evidence, Limited evidence, Moderate evidence, Strong evidence. The first step stands 7px apart from the four that rise, because contradicted is a different kind of answer, not a weaker one. Consensus has four steps: Fringe position, Field is divided, Majority view, Scientific consensus. Each step is an 8px segment with 4px corners and 3px gaps, `sage-mist-2` with a 1px `sage-deep` inset outline; the claim's own step fills ink. Above each scale sits the axis name in ink-soft and the value in Inter 600 ink; under it the two ends in ink-muted at 13px. On a claim page the grade sits on sage mist beside the claim: the verdict in Newsreader first, then both scales under a `sage-mist-2` rule, then a research-blue link to the sources. The claims hub groups claims by evidence strength (each group opened by a 2px ink rule) and keeps an open key to both scales. A small form (`.hub-claim`: the claim in Newsreader, a 16px-per-step scale, the verdict and a research-blue link) carries one graded claim onto other pages; the homepage's tools section shows one the same way, as a Newsreader verdict with its two labels. The grade is never colored by how good or bad the news is.
+
 ### The close band
-The inverted ink field closing each inner page: `field-ink` ground, square, full bleed, one Newsreader statement in `on-ink`, one supporting line in `on-ink-soft` at 46ch, and one or two buttons (paper or forest, plus a quiet button in on-ink outline) kept together on the left. Focus outlines turn `on-ink`. The footer continues on the same field directly below, so the page ends on one dark mass. The homepage variant sets the statement over the last photograph (darkened to 72% brightness) in the right-hand column.
+The inverted ink field closing each inner page: `field-ink` ground, square, full bleed, one Newsreader statement in `on-ink`, one supporting line in `on-ink-soft` at 46ch, and one or two buttons (paper or forest, plus a quiet button in on-ink outline) kept together on the left. Focus outlines turn `on-ink`. The footer continues on the same field directly below, so the page ends on one dark mass. The homepage variant sets the statement over the last photograph in the right-hand column: the photograph at `brightness(0.8)` under a forest-ink scrim that deepens toward the words (the one gradient on the site, there only to keep type legible over a photograph). Under 800px the photograph stacks above the words, unfiltered, and the scrim goes.
 
 ### The age line (Explore)
-The one full sage band: a five-column row of periods (birth to 1, 1 to 2, 2 to 3, 3 to 4, 4 to 5) under a 2px ink rule, separated by 1px translucent ink rules, each with tabular years in Inter 500 and the period name in Newsreader. Hover deepens to `sage-deep`; the current period fills ink with paper text (the reverse in dark). The axis sits under the periods as a scale, never above them. On a period's page it becomes compact navigation (years only on phones, 44px cells). The homepage's age row and class pages use the smaller **age-range bar**: an 8px sage-mist track with a forest segment from `--from` to `--to`, 4px corners.
+The one full sage band: a five-column row of periods (birth to 1, 1 to 2, 2 to 3, 3 to 4, 4 to 5) under a 2px ink rule, separated by 1px translucent ink rules, each with tabular years in Inter 500 and the period name in Newsreader. Hover deepens to `sage-deep`; the current period fills ink with paper text (the reverse in dark). The axis sits under the periods as a scale, never above them. On a period's page it becomes compact navigation (years only on phones, 44px cells).
+
+On the homepage the same five periods are a list in the classes section's left column, sticky beside the class menu on screens 861px wide and 700px tall or more: under a 2px ink rule, each row has the years in Inter 500 tabular ink-soft, the period's name in Newsreader and its one-line summary in Inter 14px, with 1px `border-soft` rules between; hover turns the name verdigris. At 860px and under it becomes a five-cell strip of years above the classes (48px cells, 1px rules between, sage-mist hover). The class menu and the class pages use the smaller **age-range bar**: an 8px sage-mist track with a forest segment from `--from` to `--to`, 4px corners.
 
 ### The Lens (signature)
-Annotated observation in four steps. On the homepage it opens as the hero plate: a real photograph filling the right seven columns, a "show the labels" toggle (paper, 1.5px ink inset outline, ochre swatch; mist when pressed) and typeset labels (paper chips, 6px corners, 14px Inter with a 600 lead word, an ochre leader dot ringed in paper) that rise in over the image. A note label inverts to ink. Labels keep fixed light colors in both themes because they sit on a photograph.
+Annotated observation in four steps. On the homepage it opens as the hero plate: a real photograph filling the right seven columns, a "Show what's beneath" toggle (paper, 1.5px ink inset outline, ochre swatch; mist when pressed) and typeset labels (paper chips, 6px corners, 14px Inter with a 600 lead word, an ochre leader dot ringed in paper). One lead label is set on the photograph at rest; the toggle brings in the rest, rising 6px. A note label inverts to ink. Labels keep fixed light colors in both themes because they sit on a photograph. Under the plate a research-blue "Fig. 1" caption names what can be seen.
 
-The full Lens page sits on sage mist: a sticky 4:5 plate (10px corners) beside the panel. Four tabs (Observe, Understand, Respond, Reflect) in a four-column grid, 6px corners, translucent soft white at rest, ink fill with paper text when selected, each with its clay step numeral. Each step re-labels the same plate; Reflect desaturates it. Understand lists mechanisms as soft-white 6px cards with an ochre dot and a research-blue evidence line; Respond lists options under quiet rules; Reflect sets prompts in Newsreader. The full Lens page adds a title block, a text alternative under a `sage-mist-2` rule, Read / Try / Learn link columns, the sources module and the age doors. Without script every panel shows in order and only the Observe labels stay on the plate. On phones the labels become a list under the photograph.
+The full Lens page sits on sage mist: a sticky 4:5 plate (10px corners) beside the panel. Four tabs (Observe, Understand, Respond, Reflect) in a four-column grid, 6px corners, translucent soft white at rest, ink fill with paper text when selected, each with its clay step numeral. Each step re-labels the same plate; Reflect desaturates it. Understand lists mechanisms as soft-white 6px cards with an ochre dot and a research-blue evidence line; Respond lists options under quiet rules; Reflect sets prompts in Newsreader. The full Lens page adds a title block, a text alternative under a `sage-mist-2` rule, Read / Try / Learn link columns, the sources module and the age doors. A step change is the page's one authored moment: the old labels go at once and the new ones are set down on the same photograph, each fading and rising 6px, its ochre mark landing first, one after another. Without script every panel shows in order and only the Observe labels stay on the plate. On phones the step tabs move above the plate and the labels become a list under the photograph.
 
 The homepage's guided-scene variant uses Haze as the light section ground. Four short passages remain visible in sequence beside one sticky photograph. Native scrolling changes a precise focus frame and caption as the reader moves from Observe to Understand, Respond, and Reflect; the four-stage notation is informational. On phones the compact photograph stays below the site header, leaving the lesson underneath; short landscape viewports use a static photograph. A single 420ms FLIP transition guides attention, with immediate changes for reduced motion. Image coordinates adapt to the crop so each frame stays on its subject. One optional link opens the full Lens with sources. Without the enhancement every lesson remains readable. The standalone Lens retains its existing presentation. Haze also supplies the light ground of Right Now.
 
@@ -395,7 +451,14 @@ One header and one footer on every page, structured and scripted in `chrome.css`
 Printing shows everything: entrance animations are forced visible and the header and footer are hidden. The tool apps print their own sheets (the visit sheet, the activity pocket card) in black Georgia at 12pt with Helvetica headings, independent of the screen system.
 
 ### Motion
-Entrances only, once, in reading order: elements marked `data-rise` rise 18px and fade in over about 640 to 800ms, staggered by index. They run only when the page has `html.anim`; with reduced motion or without script everything is simply shown. Hover and press transitions are 140 to 180ms. Plate labels fade and rise 6px when revealed; the hero photograph settles from a 4% scale.
+Entrances only, once, in reading order, gated by scroll. A block marked `data-rise` (with `--i` from 0 to 3 for its place in a group) rises 18px and fades in over 800ms on an exponential ease-out. Each page's head script sets `html.anim` only when motion is welcome; with reduced motion, without script and in print everything is simply shown at rest, and content is never gated on a reveal.
+
+- **In the first screen** the entrance plays at load, staggered by `--i` (90ms apart, after 160ms).
+- **Below the first screen** a block waits until it scrolls into view, then plays the same entrance (80ms apart). Focus moving into it, the print dialog and reaching the foot of the page release anything still waiting. Pages that do not run the entrance observer play everything at load on CSS alone, so nothing can stay hidden.
+- Animate groups and section openers, not every row or paragraph; never nest one `data-rise` inside another. A reading page has one focal moment at most.
+- An authored moment hooks onto the entrance, never a second observer: a figure marked `data-draw` draws its strokes in order as it arrives (1.1s each, 160ms apart); the claim's step on each grade scale draws in from the left; the Lens page sets its labels down one after another.
+
+On the homepage the hero plate's photograph settles from a 4% scale over 1.8s, then the lead label rises in (640ms, at 1.1s). Plate labels fade and rise 6px when revealed. Hover and press transitions are 140 to 180ms.
 
 ### The class app (`/nsc`)
 The Next.js class app reads the same field-guide values under its own Tailwind token names in `nsc/app/globals.css`: `ground` is haze, `surface` is white, `tint` and `sea-glass` are sage mist, `ink`, `ink-deep` and `ink-800` are forest ink (`ink-900` a deeper `#12302D`), `teal` is deep verdigris with `teal-soft` and `teal-hover` as its hover and `on-teal` as soft white, `teal-light` is sage. The retired amber names now resolve to the field guide (`amber` is sage for marks on ink, `amber-bright` is sage-deep, `amber-deep` is verdigris for label text, `amber-tint` is sage mist). `line` and `line-soft` are the two hairlines, and `field-line` (`#789690`) is an app-only input outline at 3:1. Fonts are Newsreader over Inter through `next/font`; `radius-control` is 6px and `radius-card` / `radius-panel` are 10px; every shadow is `none` except `shadow-lg`, kept for real overlays.
@@ -415,12 +478,14 @@ The games on `/arcade` keep their own isolated retro palettes in `arcade.css` an
 - **Do** draw choices as calm outlined buttons that fill forest when chosen.
 - **Do** close each inner page with one statement and one action on the ink field, flowing into the footer.
 - **Do** use real, observational photographs at 10px corners, or none.
-- **Do** keep entrances gated by `html.anim`, honor reduced motion, and keep every panel visible without script.
+- **Do** keep entrances gated by `html.anim` and by scroll, put `data-rise` on groups rather than rows, honor reduced motion, and keep every panel visible without script.
+- **Do** reach for the shared parts before writing a local one: `.hb-next`, `.row--link`, `.hb-fig`, `.hb-short`, `.hb-read` with `.hb-toc`, `.hb-say` (`.g-say` in guides), `.hb-crisis`, `.hb-confirm`, `.g-layout`.
+- **Do** make every help line a tappable `tel:` or `sms:` link.
 - **Do** write copy without em dashes; use commas, colons or a new sentence.
 
 ### Don't:
 - **Don't** put a kicker, eyebrow, step label or category above a heading; it goes below as a meta line (The Label Below Rule).
-- **Don't** add a box-shadow at rest, lift on hover, or use a gradient (The Flat At Rest Rule).
+- **Don't** add a box-shadow at rest, lift on hover, or use a gradient (The Flat At Rest Rule). The one gradient is the scrim that keeps the homepage close legible over its photograph.
 - **Don't** use clay, ochre or amber at any size larger than an annotation mark, or on a button or heading (The Annotation Scale Rule).
 - **Don't** use research blue for anything that is not a source or evidence (The Research Blue Rule).
 - **Don't** use stock photography, generic smiling families, brain imagery or decorative icons that fill space.

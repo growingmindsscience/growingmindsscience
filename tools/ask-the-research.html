@@ -26,8 +26,9 @@
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=adb6f82c92" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=46d4d4e37a" />
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
 
   <style>
     /* ── Tokens: the page's own names, the field guide's values (tokens-field-guide.css) ── */
@@ -141,41 +142,40 @@
     }
     .btn--teal:hover { background: var(--action-hover); color: var(--btn-primary-ink); }
 
-    /* ── Page header (ink band) ────────────────────── */
+    /* ── Page header (on the haze ground; the footer is the page's one ink field) ── */
     .ai-page-header {
-      position: relative; isolation: isolate; overflow: hidden;
-      background: var(--ink-800); color: var(--on-dark);
-      padding: 2.75rem 0 2.25rem;
+      padding: clamp(2.25rem, 1.5rem + 3vw, 4rem) 0 clamp(1.25rem, 1rem + 1vw, 1.75rem);
+      border-bottom: 1px solid var(--line-soft);
     }
     .ai-page-header__inner {
-      display: flex; align-items: flex-end; justify-content: space-between; gap: 1.5rem 2rem; flex-wrap: wrap;
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 1.25rem 2rem; flex-wrap: wrap;
+    }
+    .ai-page-header h1 {
+      font-size: clamp(2rem, 1.35rem + 2.6vw, 3.25rem); line-height: 1.05; letter-spacing: -.015em;
+      color: var(--ink); margin-bottom: .625rem; text-wrap: balance;
     }
     /* The label sits under the question as its subline, not above it as a kicker. */
     .ai-page-header .ai-label {
-      margin: -.25rem 0 1rem;
-      font-size: .9375rem; font-weight: 600; line-height: 1.4; color: var(--amber);
-    }
-    .ai-page-header h1 {
-      font-size: clamp(1.75rem, 1.25rem + 2vw, 2.5rem); line-height: 1.1;
-      color: #FFFFFF; margin-bottom: .75rem;
+      margin: 0 0 .875rem;
+      font-size: .9375rem; font-weight: 600; line-height: 1.4; color: var(--ink-soft);
     }
     .ai-page-header p {
-      font-size: 1.0625rem; line-height: 1.6; color: var(--on-dark-soft); max-width: 54ch;
+      font-size: 1.0625rem; line-height: 1.6; color: var(--ink-soft); max-width: 54ch;
     }
     .ai-tier-badge {
       display: inline-flex; align-items: center; flex-shrink: 0;
       padding: .625rem 1rem; border-radius: var(--radius);
-      background: rgba(238, 244, 243, .06); border: 1px solid var(--on-dark-line);
-      font-size: .9375rem; line-height: 1.4; color: var(--on-dark-soft); white-space: nowrap;
+      background: var(--surface); border: 1px solid var(--line);
+      font-size: .9375rem; line-height: 1.4; color: var(--ink-soft); white-space: nowrap;
     }
-    .ai-tier-badge strong { color: #FFFFFF; font-weight: 700; }
+    .ai-tier-badge strong { color: var(--ink); font-weight: 700; }
 
     /* ── Chat shell ────────────────────────────────── */
     .chat-shell {
       flex: 1; display: flex; flex-direction: column;
-      max-width: 860px; width: 100%; margin: 0 auto;
-      padding: 0 1.5rem;
     }
+    /* The conversation keeps a reading measure on the page container's left edge. */
+    .chat-shell > * { max-width: 860px; }
 
     /* ── Messages ──────────────────────────────────── */
     .chat-messages {
@@ -191,27 +191,17 @@
     .chat-messages::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
 
     /* Welcome state */
-    .chat-welcome { text-align: center; padding: 2.25rem 0 1rem; }
-    /* Solid ink disc with the site mark in amber; a hairline ring keeps it
-       defined on the dark ground. */
-    .chat-welcome__icon {
-      width: 56px; height: 56px; border-radius: 50%;
-      display: grid; place-items: center; margin: 0 auto 1.25rem;
-      background: var(--ink-800); color: var(--amber);
-      box-shadow: 0 0 0 1px var(--avatar-ring);
-      font-family: var(--font-display); font-weight: 600; font-size: 1.125rem; line-height: 1;
-    }
-    .chat-welcome h2 { font-size: clamp(1.375rem, 1.15rem + 1vw, 1.75rem); color: var(--ink); margin-bottom: .5rem; }
-    .chat-welcome > p { font-size: 1rem; line-height: 1.6; color: var(--ink-soft); max-width: 46ch; margin: 0 auto; }
+    .chat-welcome { padding: 1.75rem 0 1rem; }
+    .chat-welcome > p { font-size: 1rem; line-height: 1.6; color: var(--ink-soft); max-width: 60ch; }
 
     /* ── Topic browser (training cards) ────────────── */
     .topic-browser { margin-top: 1.75rem; text-align: left; }
     .topic-browser__hint {
-      text-align: center; font-size: .9375rem; line-height: 1.5; color: var(--ink-muted);
+      font-size: .9375rem; line-height: 1.5; color: var(--ink-muted);
       margin-bottom: 1rem;
     }
     .topic-tabs {
-      display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center;
+      display: flex; flex-wrap: wrap; gap: .5rem;
       margin-bottom: 1.25rem;
     }
     .topic-tab {
@@ -327,9 +317,37 @@
     /* Markdown rendering inside assistant bubble */
     .msg__bubble strong { font-weight: 700; }
     .msg__bubble em { font-style: italic; }
-    .msg__bubble ul { padding-left: 1.25rem; list-style: disc; margin: .5rem 0; display: flex; flex-direction: column; gap: .25rem; }
+    .msg__bubble ul, .msg__bubble ol { padding-left: 1.25rem; }
+    .msg__bubble ul { list-style: disc; }
+    .msg__bubble ol { list-style: decimal; }
     .msg__bubble li { line-height: 1.5; }
-    .msg__bubble p + p { margin-top: .625rem; }
+    .msg__bubble li + li { margin-top: .375rem; }
+    .msg__bubble li::marker { color: var(--ink-muted); }
+    .msg__bubble > * + * { margin-top: .75rem; }
+    .msg__bubble code { font-size: .9375em; }
+    /* Links the page allows in an answer: tap-to-call help lines and pages on
+       the verified source list. Numbers never wrap mid-number. */
+    .msg__bubble a {
+      color: var(--forest); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px;
+    }
+    .msg__bubble a:hover { text-decoration-thickness: 2px; }
+    .msg__bubble a.msg__src { color: var(--research); overflow-wrap: anywhere; }
+    .msg__bubble a.msg__tel { white-space: nowrap; font-weight: 600; }
+    .msg--user .msg__bubble a { color: inherit; }
+
+    /* Further reading: the research-blue source module, after a finished answer. */
+    .msg__reading {
+      margin-top: .75rem; padding-top: 1.25rem; border-top: 2px solid var(--research);
+      width: 100%;
+    }
+    .msg__reading-title { font-size: .9375rem; font-weight: 600; line-height: 1.4; color: var(--research); }
+    .msg__reading ul { margin-top: .125rem; }
+    .msg__reading a {
+      display: inline-flex; align-items: center; min-height: 44px;
+      font-size: .9375rem; line-height: 1.4; color: var(--research);
+      text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px;
+    }
+    .msg__reading a:hover { text-decoration-thickness: 2px; color: var(--research); }
     .msg__bubble .error { color: var(--danger); }
     .msg__note { font-size: .875rem; color: var(--ink-muted); margin-top: .625rem; }
 
@@ -402,6 +420,8 @@
     .chat-meta__left { font-size: .875rem; line-height: 1.5; color: var(--ink-muted); }
     /* Centered on the first 44px row, level with the unlock buttons. */
     .chat-meta__left > p { margin-top: .7rem; }
+    /* Tappable help lines with 44px targets that keep the line height. */
+    .chat-meta__left a.chat-tel { display: inline-block; padding: 12px 4px; margin: -12px -4px; font-weight: 600; white-space: nowrap; }
     .chat-meta__right { display: flex; align-items: center; gap: 0 1rem; flex-wrap: wrap; }
     /* Quiet text controls with 44px-tall hit areas. */
     .chat-about summary,
@@ -426,8 +446,9 @@
       border-radius: var(--radius-lg); padding: 1rem 1.25rem; margin-bottom: .75rem;
       display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
     }
+    .chat-limit:focus { outline: 2.5px solid var(--focus); outline-offset: 3px; }
     .chat-limit p { font-size: .9375rem; line-height: 1.55; color: var(--ink); }
-    .chat-limit strong { color: var(--amber-deep); }
+    .chat-limit strong { color: var(--ink); font-weight: 600; }
     .chat-limit .btn { white-space: nowrap; font-size: .9375rem; min-height: 44px; padding: .625rem 1.125rem; }
 
     /* ── Access code panel ─────────────────────────── */
@@ -468,7 +489,7 @@
       padding: 2.5rem 0 3.5rem;
     }
     .plans-strip__card {
-      max-width: 720px; margin: 0 auto;
+      max-width: 860px;
       background: var(--surface); border: 1px solid var(--line);
       border-radius: var(--radius-lg); padding: 1.75rem 2rem;
       display: flex; align-items: center; justify-content: space-between;
@@ -483,8 +504,9 @@
 
     /* ── Responsive ────────────────────────────────── */
     @media (max-width: 640px) {
-      .ai-page-header { padding: 2rem 0 1.75rem; }
       .ai-page-header__inner { flex-direction: column; align-items: flex-start; }
+      /* Phones: answers use the full width instead of a 30-character column. */
+      .msg--assistant { max-width: 100%; }
       /* Phones: no inner scroll box; the conversation scrolls with the page. */
       .chat-messages { max-height: none; overflow: visible; min-height: 0; }
       .topic-cards { grid-template-columns: 1fr; }
@@ -503,8 +525,26 @@
     .topic-tab:focus-visible, .topic-card:focus-visible, .chat-tool-btn:focus-visible,
     .access-code-toggle:focus-visible, .access-btn:focus-visible, .chat-send:focus-visible,
     .topic-sheet__close:focus-visible, .chat-about summary:focus-visible,
-    .chat-shell .btn:focus-visible, .plans-strip .btn:focus-visible, .skip-link:focus-visible {
+    .chat-shell .btn:focus-visible, .plans-strip .btn:focus-visible, .skip-link:focus-visible,
+    .msg__bubble a:focus-visible, .msg__reading a:focus-visible {
       outline: 2.5px solid var(--focus); outline-offset: 3px;
+    }
+    /* Print: the whole conversation, the safety line, nothing to click. */
+    @media print {
+      body { background: #fff; }
+      .site-header .nav, .site-footer, .skip-link, .chat-toolbar, .chat-welcome, #inputArea, .chat-limit,
+      .access-panel, .chat-meta__right, .chat-about, .ai-tier-badge, .plans-strip,
+      .topic-sheet, .topic-sheet-backdrop, .msg__thinking, .cursor { display: none !important; }
+      .site-header { position: static; }
+      .ai-page-header { padding: 0 0 .75rem; }
+      .chat-shell > * { max-width: none; }
+      .chat-messages { max-height: none; overflow: visible; min-height: 0; padding: 1rem 0; }
+      .msg, .msg--assistant { max-width: 100%; }
+      .msg__bubble { border: 1px solid #b8c0c8; break-inside: auto; }
+      .msg--user .msg__bubble { background: none; color: var(--ink); }
+      .msg__reading a { display: inline; min-height: 0; }
+      .msg__reading a::after { content: " (" attr(href) ")"; }
+      .chat-input-wrap { border-top: 0; padding: 0; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -515,7 +555,7 @@
       .topic-card:active, .topic-card:hover .topic-card__arrow { transform: none; }
     }
   </style>
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=a7f09b41d2" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=475f0abf7f" />
 </head>
 <body class="fg fg--page gm-ai">
 
@@ -571,7 +611,7 @@
 
     <!-- PAGE HEADER -->
     <div class="ai-page-header">
-      <div class="container ai-page-header__inner">
+      <div class="hb-container ai-page-header__inner">
         <div>
           <h1>Ask a developmental science question.</h1>
           <p class="ai-label">Ask the research · free, no account needed</p>
@@ -584,7 +624,7 @@
     </div>
 
     <!-- CHAT -->
-    <div class="chat-shell">
+    <div class="hb-container chat-shell">
 
       <!-- Toolbar (appears once a conversation starts) -->
       <div class="chat-toolbar" id="chatToolbar">
@@ -604,9 +644,7 @@
       <!-- Welcome and topic browser. Kept outside the conversation log so
            screen readers do not announce the topic cards as chat. -->
       <div class="chat-welcome" id="chatWelcome">
-        <div class="chat-welcome__icon" aria-hidden="true"><svg viewBox="8 -6 96 96" width="28" height="28" focusable="false"><g fill="none" stroke="currentColor" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"><path d="M16,88 L16,82 A44,44 0 0 1 50.85,38.96"/><path d="M39,91 L39,88 A27,27 0 0 1 66,61 L78,61"/></g><path fill="currentColor" d="M49.35,39.96 C43.58,16.28 74.29,-4.99 95.31,1.39 C94.25,18.80 69.07,42.93 49.35,39.96 Z"/></svg></div>
-        <h2>What's on your mind today?</h2>
-        <p>Ask anything about your child's behavior, feelings, sleep, language, or development. You'll get a calm, research-grounded answer, with no judgment and never a diagnosis.</p>
+        <p>Ask anything about your child&rsquo;s behavior, feelings, sleep, language, or development. You&rsquo;ll get a calm, research-grounded answer, with no judgment and never a diagnosis.</p>
 
         <!-- Topic browser (data-driven training cards) -->
         <div class="topic-browser" id="topicBrowser">
@@ -617,7 +655,8 @@
       </div>
 
       <!-- Messages -->
-      <div class="chat-messages is-empty" id="chatMessages" role="log" aria-label="Conversation" aria-live="polite" aria-busy="false"></div>
+      <div class="chat-messages is-empty" id="chatMessages" role="log" aria-label="Conversation" aria-live="polite"></div>
+      <p class="sr-only" id="chatStatus" role="status"></p>
 
       <!-- Access code panel -->
       <div class="access-panel" id="accessPanel" role="region" aria-labelledby="accessPanelTitle" hidden>
@@ -643,8 +682,8 @@
 
       <!-- Input -->
       <div class="chat-input-wrap">
-        <div id="limitReached" class="chat-limit" hidden>
-          <p>You've used your <strong>5 free questions</strong> for today. Come back tomorrow, or see what the toddler class includes.</p>
+        <div id="limitReached" class="chat-limit" tabindex="-1" hidden>
+          <p>You&rsquo;ve used your <strong>5 free questions</strong> for today. Come back tomorrow, or see what the toddler class includes.</p>
           <a class="btn btn--teal" href="/classes/">See the classes <span aria-hidden="true">→</span></a>
         </div>
         <div id="inputArea">
@@ -665,7 +704,7 @@
              questions run out and the input is hidden. -->
         <div class="chat-meta">
           <div class="chat-meta__left">
-            <p>For adults. General information, not a screening, diagnosis, or medical advice. In an emergency, call 911; in a crisis, call or text 988.</p>
+            <p>For adults. General information, not a screening, diagnosis, or medical advice. In an emergency, call <a class="chat-tel" href="tel:911">911</a>; in a crisis, call or text <a class="chat-tel" href="tel:988">988</a>.</p>
             <details class="chat-about">
               <summary>How this works</summary>
               <p>Answers are written by Claude, an AI model from Anthropic, using a curated library of developmental research and From Little Onward class material. To write each answer, your question and the recent part of this conversation are sent to our server and on to Anthropic. We don't save your conversation: it stays in this browser tab and clears when you start over or leave the page. Please leave out names and other details that could identify your child. It can&rsquo;t assess a specific child: if you&rsquo;re worried about your child&rsquo;s development, talk to your pediatrician or contact your state&rsquo;s early intervention program.</p>
@@ -682,7 +721,7 @@
 
     <!-- PLANS STRIP -->
     <section class="plans-strip" aria-labelledby="plans-strip-title">
-      <div class="container">
+      <div class="hb-container">
         <div class="plans-strip__card">
           <div class="plans-strip__text">
             <h2 id="plans-strip-title">Free gives you 5 questions a day.</h2>
@@ -972,6 +1011,9 @@
 
     /* ── DOM ──────────────────────────────────────────── */
     const messagesEl   = document.getElementById('chatMessages');
+    const statusEl     = document.getElementById('chatStatus');
+    const topicBrowserEl = document.getElementById('topicBrowser');
+    const browseBtn    = document.getElementById('browseTopicsBtn');
     const welcomeEl    = document.getElementById('chatWelcome');
     const toolbarEl    = document.getElementById('chatToolbar');
     const inputEl      = document.getElementById('chatInput');
@@ -1020,6 +1062,10 @@
       const canAsk = unlimited || remaining > 0;
       inputArea.hidden = !canAsk;
       limitEl.hidden = canAsk;
+      // At the limit a question card could not be sent, so the cards go too.
+      topicBrowserEl.hidden = !canAsk;
+      browseBtn.hidden = !canAsk;
+      if (!canAsk && sheet.classList.contains('is-open')) closeTopicSheet({ returnFocus: false });
     }
 
     function setStatus(el, text, kind) {
@@ -1028,55 +1074,116 @@
     }
 
     /* ── Markdown renderer ────────────────────────────── */
+    /* Answers are escaped first, then built block by block: a blank line
+       starts a new block, a run of "- " or "1. " lines is one list, and any
+       other lines are one paragraph joined by <br>. No markup is ever taken
+       from the model; only the tags built here reach the page. */
+    const BULLET = /^\s*[-•·*]\s+(.+)$/;
+    const NUMBERED = /^\s*\d{1,2}[.)]\s+(.+)$/;
     function renderMarkdown(raw) {
-      // Escape HTML
-      let t = raw
+      const t = String(raw)
+        .replace(/\r\n?/g, '\n')
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
-
-      // Process line by line for lists
-      const lines = t.split('\n');
       const out = [];
-      let inList = false;
-
-      for (const line of lines) {
-        const bullet = line.match(/^[-•·*]\s+(.+)/);
-        if (bullet) {
-          if (!inList) { out.push('<ul>'); inList = true; }
-          out.push(`<li>${applyInline(bullet[1])}</li>`);
-        } else {
-          if (inList) { out.push('</ul>'); inList = false; }
-          if (line.trim() === '') {
-            out.push('');
-          } else {
-            out.push(applyInline(line));
+      for (const block of t.split(/\n{2,}/)) {
+        const lines = block.split('\n').filter((line) => line.trim() !== '');
+        let para = [];
+        const endPara = () => {
+          if (para.length) out.push('<p>' + para.map((line) => applyInline(line.trim())).join('<br>') + '</p>');
+          para = [];
+        };
+        for (let i = 0; i < lines.length;) {
+          const kind = BULLET.test(lines[i]) ? BULLET : NUMBERED.test(lines[i]) ? NUMBERED : null;
+          if (!kind) { para.push(lines[i]); i += 1; continue; }
+          endPara();
+          const items = [];
+          while (i < lines.length && kind.test(lines[i])) {
+            items.push('<li>' + applyInline(lines[i].match(kind)[1].trim()) + '</li>');
+            i += 1;
           }
+          const tag = kind === BULLET ? 'ul' : 'ol';
+          out.push(`<${tag}>${items.join('')}</${tag}>`);
         }
+        endPara();
       }
-      if (inList) out.push('</ul>');
-
-      // Join and convert double newlines to paragraph breaks
-      let html = out.join('\n')
-        .replace(/\n{2,}/g, '</p><p>')
-        .replace(/\n/g, '<br>');
-
-      // Wrap non-list content in paragraphs
-      if (!html.startsWith('<ul>') && !html.startsWith('<p>')) {
-        html = '<p>' + html + '</p>';
-      }
-
-      // Clean up empty paragraphs
-      html = html.replace(/<p><\/p>/g, '').replace(/<p>\s*<br>\s*<\/p>/g, '');
-
-      return html;
+      return out.join('');
     }
 
+    /* Links: only pages on the verified source list (corpus/citations.json),
+       over https, and tap-to-call for the public help lines the server lets
+       through (Poison Help, the National Maternal Mental Health Hotline,
+       Childhelp), plus 911 and 988 after "call", "text" or "dial". Any other
+       URL or number stays plain text, so an answer can never carry a link to
+       anywhere else. */
+    const LINK_HOSTS = new Set([
+      'developingchild.harvard.edu', 'www.healthychildren.org', 'www.cdc.gov', 'pathways.org',
+      'www.zerotothree.org', 'www.naeyc.org', 'childdevelopmentinfo.com', 'doi.org',
+    ]);
+    const HELP_LINE_DIGITS = new Set(['8002221222', '8338526262', '8004224453']);
+    function safeUrl(escaped) {
+      try {
+        const url = new URL(String(escaped).replace(/&amp;/g, '&'));
+        if (url.protocol !== 'https:' || !LINK_HOSTS.has(url.hostname) || url.username || url.password) return null;
+        return url.href;
+      } catch (_) { return null; }
+    }
+    function attr(value) {
+      return String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
     function applyInline(text) {
-      return text
+      const kept = [];
+      const keep = (html) => `\u0000${kept.push(html) - 1}\u0000`;
+      const srcLink = (href, label) => keep(`<a class="msg__src" href="${attr(href)}" target="_blank" rel="noopener noreferrer">${label}</a>`);
+      const html = text
+        .replace(/\[([^\]\n]{1,200})\]\((https:\/\/[^\s)]+)\)/g, (m, label, href) => {
+          const url = safeUrl(href);
+          return url ? srcLink(url, label) : label;
+        })
+        .replace(/https:\/\/[^\s<>"\u0000]+/g, (m) => {
+          const trail = (m.match(/[.,;:!?)\]]+$/) || [''])[0];
+          const bare = m.slice(0, m.length - trail.length);
+          const url = safeUrl(bare);
+          return (url ? srcLink(url, bare) : bare) + trail;
+        })
+        .replace(/(?<![\d\w])(?:1[-‑])?\d{3}[-‑]\d{3}[-‑]\d{4}(?!\d)/g, (m) => {
+          const digits = m.replace(/\D/g, '').replace(/^1(?=\d{10}$)/, '');
+          return HELP_LINE_DIGITS.has(digits) ? keep(`<a class="msg__tel" href="tel:+1${digits}">${m}</a>`) : m;
+        })
+        .replace(/\b((?:call|text|dial)(?: or (?:call|text))? )(911|988)\b/gi, (m, lead, num) => lead + keep(`<a class="msg__tel" href="tel:${num}">${num}</a>`))
         .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
         .replace(/\*(.+?)\*/g, '<em>$1</em>')
         .replace(/`(.+?)`/g, '<code>$1</code>');
+      return html.replace(/\u0000(\d+)\u0000/g, (m, n) => kept[Number(n)]);
+    }
+
+    /* Further reading the server sent with the answer, shown as the
+       research-blue source module once the answer has finished. */
+    function addFurtherReading(wrap, sources) {
+      const items = (Array.isArray(sources) ? sources : [])
+        .map((src) => ({ label: String((src && src.label) || '').slice(0, 160), url: safeUrl(String((src && src.url) || '')) }))
+        .filter((src) => src.label && src.url)
+        .slice(0, 3);
+      if (!items.length) return;
+      const box = document.createElement('div');
+      box.className = 'msg__reading';
+      const title = document.createElement('p');
+      title.className = 'msg__reading-title';
+      title.textContent = 'Further reading';
+      const list = document.createElement('ul');
+      for (const src of items) {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = src.url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = src.label;
+        li.appendChild(a);
+        list.appendChild(li);
+      }
+      box.append(title, list);
+      wrap.insertBefore(box, wrap.querySelector('.msg__disclaimer'));
     }
 
     /* ── Messages ─────────────────────────────────────── */
@@ -1115,7 +1222,8 @@
       wrap.className = 'msg msg--assistant';
       const dots = document.createElement('div');
       dots.className = 'msg__thinking';
-      dots.innerHTML = '<span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><span class="sr-only">Writing an answer</span>';
+      dots.innerHTML = '<span></span><span></span><span></span>';
+      wrap.setAttribute('aria-hidden', 'true');   // the status line below the log says it
       wrap.appendChild(dots);
       messagesEl.appendChild(wrap);
       return wrap;
@@ -1145,9 +1253,14 @@
       el.scrollIntoView({ block: 'nearest', behavior: scrollBehavior() });
     }
 
+    /* Announcements. The log is never marked aria-busy: NVDA and Chromium
+       drop live-region changes made while busy and do not replay them. Instead
+       only finished items enter the polite log (the question, then the whole
+       answer once), the streaming text is hidden from screen readers while it
+       grows, and a separate status line says "Writing an answer". */
     function setStreaming(on) {
       isStreaming = on;
-      messagesEl.setAttribute('aria-busy', on ? 'true' : 'false');
+      if (!on) statusEl.textContent = '';
       sendBtn.disabled = on || !inputEl.value.trim();
     }
 
@@ -1195,7 +1308,11 @@
     async function sendMessage(rawQuestion) {
       const question = String(rawQuestion || '').trim().slice(0, LIMITS.QUESTION_MAX_CHARS);
       if (isStreaming || !question) return;
-      if (questionsRemaining() <= 0) { updateTierBadge(); return; }
+      if (questionsRemaining() <= 0) {
+        updateTierBadge();
+        limitEl.focus();
+        return;
+      }
 
       const myConversation = conversationId;
       const controller = new AbortController();
@@ -1209,12 +1326,14 @@
       reveal(userMessage.wrap);
       const thinkingEl = addThinkingIndicator();
       reveal(thinkingEl);
+      statusEl.textContent = 'Writing an answer';
 
       let answer = null;       // { wrap, bubble } once text arrives
       let fullText = '';
       let finishReason = null;
       let gotDone = false;
       let failure = null;      // { message, code }
+      let sources = [];        // further reading the server sent first
 
       try {
         const res = await fetch('/api/growing-minds-ai', {
@@ -1244,6 +1363,7 @@
             let parsed;
             try { parsed = JSON.parse(raw); } catch { continue; }
 
+            if (Array.isArray(parsed.sources)) { sources = parsed.sources; continue; }
             if (parsed.error) {
               failure = { message: String(parsed.error), code: String(parsed.code || '') };
               break outer;
@@ -1257,6 +1377,7 @@
               if (!answer) {
                 thinkingEl.remove();
                 answer = addMessage('assistant', '');
+                answer.wrap.setAttribute('aria-hidden', 'true');   // read once, when finished
                 reveal(answer.wrap);   // bring the start of the new answer into view once
               }
               const follow = isAtBottom();
@@ -1269,7 +1390,9 @@
         reader.cancel().catch(() => {});
       } catch (err) {
         if (!(err && err.name === 'AbortError')) {
-          failure = failure || { message: 'Something went wrong. Please try again.', code: 'network' };
+          failure = failure || (navigator.onLine === false
+            ? { message: "You’re offline. Your question is back in the box: send it again when you’re connected.", code: 'offline' }
+            : { message: 'Something went wrong. Please try again.', code: 'network' });
         }
       }
 
@@ -1288,8 +1411,9 @@
         if (finishReason === 'length') {
           addNote(answer.bubble, 'This answer was cut short. Ask a follow-up to hear the rest.');
         } else if (finishReason === 'content_filter') {
-          addNote(answer.bubble, "Ask the research couldn't finish this answer. Try asking in a different way.");
+          addNote(answer.bubble, "Ask the research couldn’t finish this answer. Try asking in a different way.");
         }
+        addFurtherReading(answer.wrap, sources);
         conversationHistory.push({ role: 'user', content: question });
         conversationHistory.push({ role: 'assistant', content: fullText });
         if (!isUnlimited()) incrementUsage();
@@ -1298,7 +1422,7 @@
         // the question goes back in the box so it can be sent again.
         const message = failure ? failure.message
           : fullText.trim() ? 'The answer was interrupted before it finished. Please try again.'
-          : "Ask the research didn't send an answer. Please try again.";
+          : "Ask the research didn’t send an answer. Please try again.";
         if (answer) {
           answer.bubble.innerHTML = renderMarkdown(fullText);
           addNote(answer.bubble, message, 'error');
@@ -1307,9 +1431,17 @@
           addNote(box.bubble, message, 'error');
         }
         if (!inputEl.value.trim()) inputEl.value = question;
+        // The server keeps a question once any of the answer has arrived.
+        if (fullText.trim() && !isUnlimited()) incrementUsage();
         handleErrorCode(failure && failure.code);
       }
 
+      // The finished answer (with any note) enters the log once, in one go.
+      if (answer) {
+        const shown = answer.wrap.cloneNode(true);
+        shown.removeAttribute('aria-hidden');
+        answer.wrap.replaceWith(shown);
+      }
       setStreaming(false);
       autoResize();
       updateTierBadge();
@@ -1415,7 +1547,6 @@
     const sheet         = document.getElementById('topicSheet');
     const sheetBackdrop = document.getElementById('topicSheetBackdrop');
     const sheetClose    = document.getElementById('topicSheetClose');
-    const browseBtn     = document.getElementById('browseTopicsBtn');
     let sheetOpener = null;
 
     function sheetFocusables() {

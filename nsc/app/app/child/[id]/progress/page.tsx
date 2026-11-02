@@ -10,7 +10,8 @@ import { brand } from "@/lib/config/brand";
 import { isRungReading, RUNG_LABEL } from "@/lib/labels";
 import { ageInMonths } from "@/lib/age";
 import { isoWeek } from "@/lib/isoweek";
-import { formatAge, NORMS_NOTE, standingSummary } from "@/lib/norms";
+import { ageReadout, formatAge, NORMS_NOTE } from "@/lib/norms";
+import { AgeCard } from "@/components/age-card";
 import type { Placement } from "@/lib/titration";
 import { nextCheckin, shortDate } from "@/lib/checkin";
 
@@ -66,9 +67,15 @@ export default async function ProgressPage({
   // never named as a knower level or compared (amendment A5).
   const giveNHistory = (history ?? []).filter(isRungReading);
   const latestGiveN = giveNHistory[giveNHistory.length - 1];
+  // Compare the reading with the child's age WHEN IT WAS TAKEN: ranges rise
+  // with age, so judging an old reading against today's age would slide it
+  // toward "before the range" just because time passed.
+  const readAt = latestGiveN?.completed_at ? new Date(latestGiveN.completed_at) : now;
+  const monthsAtRead = ageInMonths(String(child.birth_month).slice(0, 7), readAt);
+  const staleRead = now.getTime() - readAt.getTime() > 56 * 86400000;
   const summary = latestGiveN
-    ? standingSummary({
-        months,
+    ? ageReadout({
+        months: monthsAtRead,
         placement: latestGiveN.placement as Placement,
         name: child.nickname,
         confidence: latestGiveN.confidence,
@@ -144,25 +151,28 @@ export default async function ProgressPage({
       )}
 
       {summary &&
-        (full ? (
-          <Card>
-            <h2 className="text-[0.9375rem] font-semibold text-amber-deep">
-              For their age
-            </h2>
-            <p className="mt-2 text-lg font-semibold text-ink-deep">
-              {summary.headline}
-            </p>
-            <p className="mt-1 text-ink">{summary.detail}</p>
-            {summary.caveat && (
-              <p className="mt-2 text-sm text-ink-muted">{summary.caveat}</p>
-            )}
-            <p className="mt-3 text-xs leading-relaxed text-ink-muted">
-              {NORMS_NOTE}{" "}
-              <Link href="/evidence" className="underline">
-                The evidence →
-              </Link>
-            </p>
-          </Card>
+        // The checkup line is never behind the paywall: a reading that
+        // carries one shows the full card on the free tier too. So does a
+        // "no comparison" card (unclear session, age past the data): there
+        // is no range to sell.
+        (full || summary.followUp || summary.kind !== "compare" ? (
+          <AgeCard
+            readout={summary}
+            title={
+              staleRead && latestGiveN?.completed_at
+                ? `For their age, at the ${shortDate(readAt)} check-in`
+                : "For their age"
+            }
+            className="bg-surface"
+            footer={
+              <p className="mt-3 text-xs leading-relaxed text-ink-muted">
+                {NORMS_NOTE}{" "}
+                <Link href="/evidence#for-their-age" className="text-research underline">
+                  The evidence →
+                </Link>
+              </p>
+            }
+          />
         ) : (
           <Card className="bg-rung-glow/40">
             <h2 className="font-semibold text-ink-deep">

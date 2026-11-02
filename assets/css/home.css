@@ -19,8 +19,8 @@
 .hero__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
 .hero__quiet { margin-top: 24px; font-size: 15px; color: var(--ink-muted); }
 /* One action colour: every link in running text on the homepage is forest, like the class and age links. */
-.fg .hero__quiet a, .fg .seq__links a { color: var(--forest); }
-.fg .hero__quiet a:hover, .fg .seq__links a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
+.fg .hero__quiet a, .fg .seq__class a, .fg .trust__facts a { color: var(--forest); }
+.fg .hero__quiet a:hover, .fg .seq__class a:hover, .fg .trust__facts a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
 /* Short laptop screens (1024x768 and the like): tighter steps so both buttons stay in the first screen. */
 @media (min-width: 901px) and (max-height: 820px) {
   .hero__title { font-size: min(clamp(3.25rem, 2rem + 5.2vw, 7rem), 9vh); margin-top: 4vh; }
@@ -33,11 +33,10 @@
 .plate { position: relative; display: flex; flex-direction: column; margin: 0; }
 .plate__img { position: relative; flex: 1 1 auto; min-height: 0; overflow: hidden; background: var(--sage-mist); }
 .plate picture, .plate img { position: absolute; inset: 0; width: 100%; height: 100%; }
-.plate img { object-fit: cover; object-position: 50% 30%; transition: transform 12s linear; }
-html.anim .plate img { transform: scale(1.04); }
+.plate img { object-fit: cover; object-position: 50% 30%; }
 /* The toggle sits at the top of the photograph, in the first screen with all four labels below it. */
 .fg .plate__toggle { position: absolute; left: 24px; top: 24px; z-index: 3; min-height: 48px; padding: 0 18px; border-radius: var(--radius); background: #F8F9FB; color: #193C39; box-shadow: inset 0 0 0 1.5px #193C39; font-weight: 500; display: inline-flex; align-items: center; gap: 10px; }
-.fg .plate__toggle[aria-pressed="true"] { background: #E0EBE5; color: #193C39; }
+.fg .plate__toggle:hover, .fg .plate__toggle[aria-pressed="true"] { background: #E0EBE5; color: #193C39; }
 .plate__toggle .sw { width: 10px; height: 10px; border-radius: 50%; background: #D2A453; }
 .plate__fig { margin-top: 10px; font-size: 14px; color: var(--ink-muted); }
 .plate__fig b { color: var(--research); font-weight: 600; }
@@ -58,37 +57,51 @@ html:not(.anim) .label { transition: none; }
 .fg--home:not(.js) .labels .label { opacity: 1; transform: none; }
 .fg--home:not(.js) .plate__toggle { display: none; }
 
+/* The page's one authored moment: the photograph settles from a 4% scale, then the lead label
+   draws in over it, so the picture becomes Fig. 1 as the reader arrives. It plays from load (the
+   plate is in the first screen); if a short screen holds the plate below the fold, it waits for the
+   entrance like every other part. Without html.anim (no script, reduced motion) both are at rest. */
+@media (prefers-reduced-motion: no-preference) {
+  html.anim .plate img { animation: plate-settle 1800ms cubic-bezier(0.16, 1, 0.3, 1) 160ms both; }
+  html.anim .plate .label--lead { animation: plate-label 640ms cubic-bezier(0.16, 1, 0.3, 1) 1100ms both; }
+  html.anim .plate.rise-wait:not(.is-in) img, html.anim .plate.rise-wait:not(.is-in) .label--lead { animation: none; }
+}
+@keyframes plate-settle { from { transform: scale(1.04); } to { transform: none; } }
+@keyframes plate-label { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
 @media (max-width: 900px) {
   .hero { display: flex; flex-direction: column; min-height: 0; }
   .hero__text, .hero__text > div { display: contents; }
   /* Phones: a smaller title keeps "Every grown-up" on one line, and a wider crop lifts the lead and first button into the first screen. */
   .hero__title { order: 0; margin-top: 16px; font-size: clamp(2.75rem, 1.6rem + 5.6vw, 3.25rem); }
   .plate { order: 1; margin: 20px 0; display: flex; }
-  .plate__img { position: relative; flex: none; border-radius: var(--radius-lg); }
-  .plate picture, .plate img { position: relative; inset: auto; aspect-ratio: 3 / 2; object-position: 50% 22%; }
-  .fg .plate__toggle { position: static; width: 100%; justify-content: center; border-radius: 0; min-height: 50px; background: var(--paper); color: var(--ink); box-shadow: none; border-top: 1.5px solid var(--ink); }
-  .fg .plate__toggle[aria-pressed="true"] { background: var(--sage-mist); color: var(--ink); }
+  /* The photograph, then the toggle as its own quiet button under it. */
+  .plate__img { position: relative; flex: none; display: grid; gap: 8px; overflow: visible; background: none; }
+  .plate picture { position: relative; inset: auto; display: block; overflow: hidden; border-radius: var(--radius-lg); background: var(--sage-mist); }
+  .plate img { position: relative; inset: auto; display: block; aspect-ratio: 3 / 2; object-position: 50% 22%; }
+  .fg .plate__toggle { position: static; width: 100%; justify-content: center; min-height: 48px; background: var(--paper); color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
+  .fg .plate__toggle:hover, .fg .plate__toggle[aria-pressed="true"] { background: var(--sage-mist); color: var(--ink); }
   .plate__fig { margin-top: 8px; }
   .hero__lead { order: 2; margin-top: 0; }
   .hero__actions { order: 3; margin-top: 24px; }
   .hero__quiet { order: 4; margin-bottom: 40px; }
 
-  /* On a phone the labels are a list under the photograph, not overlays */
-  .labels { position: static; display: none; gap: 8px; padding: 12px 0 4px; }
-  .labels[data-on="true"] { display: grid; }
-  .fg--home:not(.js) .labels { display: grid; }
-  .label, .label--1, .label--2, .label--3, .label--4 { position: relative; inset: auto; max-width: none; font-size: 14px; padding: 8px 12px 8px 30px; opacity: 1; transform: none; }
+  /* On a phone the labels are a list under the photograph, not overlays. The lead label shows at
+     rest, as it does over the desktop plate; the toggle adds the other two. */
+  .labels { position: static; display: grid; gap: 8px; padding: 12px 0 4px; }
+  .fg--home.js .labels:not([data-on="true"]) .label:not(.label--lead) { display: none; }
+  .label, .label--1, .label--2, .label--4 { position: relative; inset: auto; max-width: none; font-size: 14px; padding: 8px 12px 8px 30px; opacity: 1; transform: none; }
   .labels > .label { margin: 0; } /* the grid gap spaces the list; a running-text p + p margin would double it */
   .label::before { left: 12px; top: 12px; }
 }
 
 /* ---------- 02 The Lens: the plate again, step by step ---------- */
 .lens-section { background: var(--sage-mist); }
-#lens { scroll-margin-top: var(--header-h); } /* lands flush under the header, with no sliver of the hero caption above */
+/* Both hero buttons land flush under the header, with no sliver of the band above showing. */
+#lens, #classes { scroll-margin-top: var(--header-h); }
 .lens-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: clamp(28px, 4vw, 48px); }
 .lens-head p { max-width: 42ch; }
 .lens__meta { margin-top: 10px; color: var(--ink-muted); font-size: 15px; }
-.lens__status { flex-basis: 100%; font-size: 14px; }
 .lens { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: clamp(24px, 4vw, 64px); align-items: start; }
 .lens__plate { position: sticky; top: calc(var(--header-h) + 16px); aspect-ratio: 4 / 5; border-radius: var(--radius-lg); overflow: hidden; background: var(--sage-mist-2); }
 .lens__plate picture { display: contents; } /* the WebP wrapper; the img keeps its place */
@@ -112,17 +125,7 @@ html:not(.anim) .label { transition: none; }
 .fg--home:not(.js) .lens__panel[hidden] { display: grid; }
 .fg--home:not(.js) .lens__tabs, .fg--home:not(.js) .lens__nav { display: none; }
 .lens__q { font-family: var(--font-display); font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); line-height: 1.12; letter-spacing: -0.015em; }
-.mech { display: grid; gap: 10px; }
-.mech li { background: var(--surface); border-radius: var(--radius); padding: 14px 16px; display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; }
-.mech i { width: 10px; height: 10px; border-radius: 50%; background: var(--note-amber); margin-top: 7px; }
-.mech b { font-weight: 600; display: block; }
-.mech .ev { color: var(--research); font-size: 14px; font-weight: 500; }
-.resp li { padding: 12px 0; border-top: 1px solid var(--border-soft); }
-.resp li:first-child { border-top: 0; padding-top: 0; }
-.refl li { font-family: var(--font-display); font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); line-height: 1.3; padding: 10px 0; }
 .lens__nav { display: flex; justify-content: space-between; gap: 12px; }
-.lens__foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: clamp(32px, 4vw, 56px); font-size: 15px; }
-.lens__foot p { max-width: 90ch; }
 @media (max-width: 900px) {
   .lens { grid-template-columns: 1fr; }
   .lens__plate { position: relative; top: auto; aspect-ratio: auto; display: grid; gap: 8px; background: none; border-radius: 0; overflow: visible; }
@@ -153,10 +156,14 @@ html:not(.anim) .label { transition: none; }
 .fg .seq__arrow[aria-disabled="true"] { opacity: 0.4; cursor: default; }
 .seq__track { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: 100%; align-items: start; gap: 32px; margin-top: 28px; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; transition: height 250ms ease; }
 .seq__track::-webkit-scrollbar { display: none; }
-.seq__slide { scroll-snap-align: start; display: grid; grid-template-columns: minmax(0, min(520px, 44%)) minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); align-items: center; }
+.seq__slide { scroll-snap-align: start; display: grid; grid-template-columns: minmax(0, min(520px, 44%)) minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); align-items: end; }
+.fg .seq__photo { margin: 0; }
 .seq__photo picture { display: contents; }
+.seq__photo .plate__fig { margin-top: 10px; }
 .seq__photo img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-lg); }
-.seq__text { display: grid; gap: 16px; align-content: start; max-width: 38ch; }
+.seq__text { display: grid; gap: 16px; align-content: start; max-width: 44ch; padding-bottom: 32px; } /* level with the photograph's foot, above its caption */
+.fg .seq__class { font-size: 15px; color: var(--ink-muted); }
+.seq__class a { display: inline-block; padding-block: 12px; margin-block: -12px; }
 .seq__text p { font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem); line-height: 1.55; color: var(--ink-soft); }
 .seq__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; margin-top: clamp(32px, 4vw, 56px); padding-top: 24px; border-top: 1px solid var(--sage-mist-2); }
 .seq__after { font-size: 17px; }
@@ -178,29 +185,31 @@ html:not(.anim) .label { transition: none; }
   .seq__track { order: 1; grid-auto-columns: 84%; gap: 12px; margin: 20px calc(-1 * var(--hb-gutter)) 0; padding-inline: var(--hb-gutter); scroll-padding-inline: var(--hb-gutter); }
   .seq__slide { grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: start; }
   .seq__photo img { max-height: 52svh; }
-  .seq__text { gap: 8px; max-width: none; }
+  .seq__text { gap: 8px; max-width: none; padding-bottom: 0; }
   .seq__text .lens__q { font-size: 1.5rem; }
   .seq__text { transition: opacity 250ms ease; }
-  .fg--home.js .seq__slide:not([data-current]) .seq__text { opacity: 0; }
+  .seq__photo .plate__fig { margin-top: 8px; transition: opacity 250ms ease; }
+  .fg--home.js .seq__slide:not([data-current]) :is(.seq__text, .plate__fig) { opacity: 0; }
   .seq__foot { display: grid; justify-items: start; }
   .fg--home:not(.js) .seq__track { margin-inline: 0; padding-inline: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .seq__track, .seq__text, .seq__dots i { transition: none; }
+  .seq__track, .seq__text, .seq__photo .plate__fig, .seq__dots i { transition: none; }
 }
 
 /* ---------- Why this exists: the mission on the ink field ---------- */
 /* Its own dark band, so it never reads as part of the classes heading below it. */
 .mission { background: var(--field-ink); color: var(--on-ink); }
 .mission .hb-display { color: var(--on-ink); }
-.mission .hb-soft { color: var(--on-ink-soft); }
 .fg .mission__body a { color: var(--on-ink); }
 .fg .mission__body a:hover { color: var(--on-ink); text-decoration-thickness: 2px; }
 .mission__inner { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(16px, 5vw, 80px); align-items: baseline; }
+/* The heading stays small; the founder's thesis is the statement, set at the title step. */
 .mission h2 { font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); line-height: 1.1; }
-.mission__body p + p { margin-top: 18px; }
+.fg .mission__thesis { font-family: var(--font-display); font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem); line-height: 1.15; letter-spacing: -0.02em; max-width: 30ch; color: var(--on-ink); text-wrap: pretty; }
+.fg .mission__line { margin-top: 24px; max-width: 46ch; color: var(--on-ink-soft); font-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem); line-height: 1.55; }
+.fg .mission__more { margin-top: 20px; }
 .mission__body a { display: inline-block; padding-block: 12px; margin-block: -12px; }
-.mission__body .hb-soft { max-width: 52ch; }
 @media (max-width: 900px) { .mission__inner { grid-template-columns: 1fr; } }
 
 /* ---------- 06 Classes: prices like a menu ---------- */
@@ -209,7 +218,7 @@ html:not(.anim) .label { transition: none; }
 .classes__grid h2 { font-size: clamp(2rem, 1.2rem + 2.4vw, 3.25rem); }
 .classes__intro { margin-top: 16px; max-width: 34ch; }
 /* The heading and intro stay beside the list while it scrolls, so the left track is never empty. */
-@media (min-width: 861px) { .classes__grid > div:first-child { position: sticky; top: calc(var(--header-h) + 40px); } }
+@media (min-width: 861px) and (min-height: 700px) { .classes__side { position: sticky; top: calc(var(--header-h) + 40px); } }
 /* Row rhythm: title and price, then the pitch close beneath, the facts tight under it,
    the age windows as their own group, the range, then the action. */
 .classes .menu__item { row-gap: 0; padding-block: clamp(24px, 3vw, 36px); }
@@ -241,7 +250,9 @@ html:not(.anim) .label { transition: none; }
 .classes .menu__item .range { grid-column: 1 / -1; max-width: 340px; margin-top: 16px; }
 .classes__terms { display: grid; gap: 6px; margin-top: 28px; color: var(--ink-muted); font-size: 15px; max-width: 60ch; }
 .classes__terms strong { color: var(--ink); font-weight: 500; }
-@media (max-width: 860px) { .classes__grid { grid-template-columns: 1fr; } }
+@media (max-width: 860px) {
+  .classes__grid { grid-template-columns: 1fr; }
+}
 /* On a phone, each class is a distinct reading unit with its own facts and action. */
 @media (max-width: 640px) {
   .classes__grid { gap: 28px; }
@@ -250,6 +261,7 @@ html:not(.anim) .label { transition: none; }
   .classes .menu__item { padding: 24px 20px; column-gap: 16px; align-items: start; border-top: 0; border-radius: var(--radius-lg); background: var(--surface); }
   .classes .menu__item:first-child { padding-top: 24px; }
   .classes .menu__item h3 { font-size: 1.75rem; line-height: 1.08; text-wrap: balance; }
+  .classes .menu__item--class h3 a { display: inline-block; padding-block: 8px; margin-block: -8px; } /* a 44px target of its own; the stretched ::after still opens the class from anywhere in the card */
   .classes .menu__item .price { font-size: 1.5rem; line-height: 1.1; }
   .classes .menu__item p { margin-top: 14px; font-size: 1rem; line-height: 1.55; }
   .classes .menu__item .menu__facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 18px; padding-block: 14px; border-block: 1px solid var(--border-soft); }
@@ -270,22 +282,33 @@ html:not(.anim) .label { transition: none; }
   .classes__terms { margin-top: 4px; font-size: 14px; text-align: center; }
 }
 
-/* ---------- 07 Tools and evidence: photograph and note left, the index opens level with it ---------- */
+/* ---------- 07 Tools and evidence: the index, and one graded claim beside it ---------- */
 .tools { background: var(--surface); }
 .tools h2 { max-width: 16ch; }
-.tools__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 80px); align-items: start; margin-top: clamp(32px, 4vw, 56px); }
-.tools__grid > div:last-child { border-top: 2px solid var(--ink); }
-.tools__photo { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4 / 5; max-width: 360px; width: 100%; margin: 0; }
-.tools__photo img { width: 100%; height: 100%; object-fit: cover; }
-.tools__row { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 16px; padding: 13px 0; border-top: 1px solid var(--border-soft); text-decoration: none; min-height: 48px; align-items: baseline; }
+/* The index of tools first, under the heading; one graded claim beside it as the proof. */
+.tools__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(32px, 5vw, 80px); align-items: start; margin-top: clamp(32px, 4vw, 56px); }
+.tools__list { border-top: 2px solid var(--ink); }
+/* A row: the situation in Inter, then the tool's name in Newsreader with one line of purpose. */
+.fg .tools__row { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 4px 16px; padding: 18px 0; border-top: 1px solid var(--border-soft); color: var(--ink); text-decoration: none; min-height: 48px; align-items: baseline; }
 .tools__row:first-child { border-top: 0; }
-.tools__row span { color: var(--ink-muted); font-size: 15px; }
-.tools__row b { font-weight: 500; }
-.tools__row:hover b { color: var(--forest); text-decoration: underline; text-underline-offset: 0.2em; }
-.tools__evidence { margin-top: 24px; color: var(--ink-soft); max-width: 48ch; }
-.tools__evidence b { color: var(--research); font-weight: 600; }
-/* On a phone the list comes first; the photograph and the evidence note follow it. */
-@media (max-width: 860px) { .tools__grid { grid-template-columns: 1fr; } .tools__grid > div:first-child { order: 2; } .tools__photo { max-width: none; aspect-ratio: 4 / 3; } }
+.tools__when { color: var(--ink-muted); font-size: 15px; }
+.tools__what { display: grid; gap: 4px; }
+.tools__what b { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem); line-height: 1.15; letter-spacing: -0.01em; }
+.tools__what span { color: var(--ink-soft); font-size: 15px; line-height: 1.45; }
+.fg .tools__row:hover b { color: var(--forest); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+/* One graded claim from the library, on sage mist like the grade on a claim page. */
+.grade { padding: clamp(24px, 3vw, 36px); border-radius: var(--radius-lg); background: var(--sage-mist); }
+.fg .grade__title { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem); line-height: 1.2; letter-spacing: -0.01em; }
+.fg .grade__intro { margin-top: 10px; font-size: 15px; line-height: 1.5; color: var(--ink-soft); max-width: 46ch; }
+.fg .grade__claim { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--sage-mist-2); font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
+.fg .grade__verdict { margin-top: 10px; font-family: var(--font-display); font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); line-height: 1.3; letter-spacing: -0.01em; color: var(--ink); text-wrap: pretty; }
+.fg .grade__marks { margin-top: 14px; font-size: 14px; font-weight: 600; color: var(--ink); }
+.fg .grade__marks span[aria-hidden] { margin-inline: 4px; color: var(--ink-muted); font-weight: 400; }
+.fg .grade__src { margin-top: 14px; font-size: 15px; }
+.fg .grade__src a { display: inline-flex; align-items: center; min-height: 44px; margin-block: -10px; font-weight: 500; color: var(--research); }
+.fg .grade__src a:hover { color: var(--research); text-decoration-thickness: 2px; }
+@media (max-width: 860px) { .tools__grid { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .fg .tools__row { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); column-gap: 12px; } .tools__when { font-size: 14px; } }
 
 /* ---------- 08 Trust ---------- */
 .trust { background: var(--paper-2); }
@@ -295,7 +318,11 @@ html:not(.anim) .label { transition: none; }
 /* The reading photograph beside the words, not across the page. */
 .trust__grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 32px clamp(32px, 5vw, 80px); align-items: center; }
 .fg .trust__para { font-family: var(--font-display); font-size: clamp(1.25rem, 1rem + 1.1vw, 1.75rem); line-height: 1.35; max-width: 40ch; margin-top: 20px; }
-.fg .trust__facts { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 24px; color: var(--ink-soft); font-size: 15px; }
+.fg .trust__facts { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 28px; margin-top: 24px; color: var(--ink-soft); font-size: 15px; }
+.trust__facts a { display: inline-block; padding-block: 12px; margin-block: -12px; font-weight: 500; }
+/* The article is a source, so it is research blue (DESIGN, The Research Blue Rule). */
+.fg .trust__src { color: var(--research); text-decoration-thickness: 1px; text-underline-offset: 0.16em; }
+.fg .trust__src:hover { color: var(--research); text-decoration-thickness: 2px; }
 @media (max-width: 860px) { .trust__grid { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------- 09 Close: last photograph, text beside ---------- */
@@ -312,3 +339,29 @@ html:not(.anim) .label { transition: none; }
 .close .close__terms { margin-top: 16px; font-size: 15px; }
 /* Phones: the photo stacks above the words, so drop field-guide.css's .close padding (it showed as an empty band) and frame the pair and the slide instead of anchoring right. */
 @media (max-width: 800px) { .close { min-height: 0; padding-block: 0; } .close img { position: relative; height: auto; aspect-ratio: 4 / 3; object-position: 25% 50%; filter: none; } .close::after { content: none; } .close__inner { display: block; padding-top: 32px; } }
+
+/* Age picker: one question, five ages; picking one marks the class that covers it */
+.agepick { margin-top: clamp(28px, 3vw, 40px); padding-top: 18px; border-top: 2px solid var(--ink); }
+.agepick__q { font-family: var(--font-display); font-size: clamp(1.25rem, 1.1rem + 0.4vw, 1.4375rem); line-height: 1.2; letter-spacing: -0.01em; color: var(--ink); }
+.agepick__list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.fg .agepick__opt { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 14px; border-radius: 6px; box-shadow: inset 0 0 0 1.5px var(--border); color: var(--ink); font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums; text-decoration: none; transition: background-color 160ms ease, box-shadow 160ms ease, color 160ms ease; }
+.fg .agepick__opt:hover { background: var(--sage-mist); box-shadow: inset 0 0 0 1.5px var(--ink-muted); color: var(--ink); }
+.fg .agepick__opt[aria-pressed="true"] { background: var(--forest); box-shadow: none; color: var(--on-forest); }
+.fg .agepick__opt:active { transform: translateY(1px); }
+.agepick__note { margin-top: 18px; padding: 18px 20px; border-radius: 10px; background: var(--sage-mist); }
+.agepick__name { font-family: var(--font-display); font-size: clamp(1.25rem, 1.1rem + 0.4vw, 1.4375rem); line-height: 1.2; color: var(--ink); }
+.agepick__line { margin-top: 4px; font-size: 15px; line-height: 1.5; color: var(--ink-soft); text-wrap: pretty; }
+.agepick__links { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 10px; font-size: 15px; font-weight: 500; }
+.fg .agepick__links a { display: inline-flex; align-items: center; min-height: 44px; margin-block: -10px; color: var(--forest); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+/* The class that covers the chosen age: a mist wash and its age row in ink */
+.classes .menu__item--class { transition: background-color 220ms ease; }
+.classes .menu__item--class.is-match { background: var(--sage-mist); margin-inline: -20px; padding-inline: 20px; border-radius: 10px; }
+.classes .menu__item--class.is-match:first-child { padding-top: clamp(24px, 3vw, 36px); }
+.menu__windows li.is-match .win { color: var(--ink); font-weight: 600; }
+.menu__windows li.is-match .yrs { color: var(--ink); }
+@media (prefers-reduced-motion: reduce) { .fg .agepick__opt, .classes .menu__item--class { transition: none; } }
+@media (max-width: 640px) {
+  .agepick__list { display: grid; grid-template-columns: minmax(0, 1.55fr) repeat(4, minmax(0, 1fr)); gap: 6px; }
+  .fg .agepick__opt { width: 100%; justify-content: center; padding: 6px 4px; font-size: 14px; text-align: center; line-height: 1.2; }
+  .classes .menu__item--class.is-match { margin-inline: 0; padding-inline: 20px; }
+}

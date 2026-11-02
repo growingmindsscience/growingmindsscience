@@ -8,7 +8,12 @@ import { ARTIFACT_VERSION } from "@/lib/content.server";
 import { createSession, type Outcome, type TitrationState } from "@/lib/titration";
 import { createPointSession, type PSPick, type PSState } from "@/lib/pointandseek";
 import { recordGiveNTap, recordPointTap, type TapResult } from "@/lib/assessment-store";
-import { ageInMonths, MIN_ASSESSMENT_MONTHS, RESUME_WINDOW_MS } from "@/lib/age";
+import {
+  ageInMonths,
+  MAX_ASSESSMENT_MONTHS,
+  MIN_ASSESSMENT_MONTHS,
+  RESUME_WINDOW_MS,
+} from "@/lib/age";
 import { birthMonthFromForm } from "@/lib/birth-month";
 import { SAVE_FAILED } from "@/lib/friendly-error";
 import { localDateISO } from "@/lib/tz";
@@ -16,6 +21,14 @@ import { getTimeZone } from "@/lib/tz.server";
 
 /** Below this age Point and Seek replaces Give-N as the default instrument (A5). */
 const POINT_AND_SEEK_MAX_MONTHS = 30;
+
+/**
+ * The Point and Seek retry after a skip-heavy bear game is offered only
+ * below this age: the instrument was validated with two- and three-year-olds
+ * (Silver et al. 2021) and its readout is written for them. Mirrors the
+ * offer in trial-runner.tsx.
+ */
+const POINT_AND_SEEK_RETRY_MAX_MONTHS = 36;
 
 /** Create a child (nickname + birth month + languages) and go to the pre-screen. */
 export async function createChild(formData: FormData) {
@@ -83,10 +96,10 @@ export async function beginAssessment(childId: string, formData: FormData) {
 
   const answer = (name: string, fallback = "") =>
     String(formData.get(name) ?? fallback).slice(0, 32);
+  // Only what the game uses. The earlier count-range, gives-one and
+  // points-while-counting answers were never read, so they are no longer
+  // asked or stored.
   const prescreen = {
-    count_band: answer("count_band"),
-    gives_one: answer("gives_one"),
-    points_counts: answer("points_counts"),
     // Small number words are learned per-language (Wagner, Kimura & Barner
     // 2015) — the check-in should run in the child's counting language.
     number_language: answer("number_language", "english"),
@@ -115,7 +128,7 @@ export async function beginAssessment(childId: string, formData: FormData) {
   const months = ageInMonths(String(child.birth_month).slice(0, 7), new Date());
   // Under ~2 there is no assessment at all — the prescreen page shows the
   // "just talk" guidance instead; this guard is defense in depth.
-  if (months < MIN_ASSESSMENT_MONTHS) {
+  if (months < MIN_ASSESSMENT_MONTHS || months >= MAX_ASSESSMENT_MONTHS) {
     redirect(`/app/child/${childId}/prescreen`);
   }
   const usePointAndSeek = months < POINT_AND_SEEK_MAX_MONTHS;
@@ -144,14 +157,20 @@ export async function beginAssessment(childId: string, formData: FormData) {
 }
 
 /**
- * Start a Point and Seek session directly — the gentle retry offered after
- * a skip-heavy Give-N session ("the bear just wants to watch this time").
+ * Start a Point and Seek session directly: the gentle retry offered after
+ * a skip-heavy Give-N session, for children under three.
  * Reuses the child's most recent prescreen answers for context.
  */
 export async function startPointAndSeek(childId: string) {
   const user = await requireAuth();
   const supabase = await createClient();
-  if (!(await ownChild(supabase, childId))) redirect("/app");
+  const child = await ownChild(supabase, childId);
+  if (!child) redirect("/app");
+  const months = ageInMonths(String(child.birth_month).slice(0, 7), new Date());
+  if (months >= POINT_AND_SEEK_RETRY_MAX_MONTHS) {
+    // An older child goes back to the bear game on a fresh day.
+    redirect(`/app/child/${childId}/prescreen`);
+  }
 
   const { data: latest } = await supabase
     .from("nsc_assessments")

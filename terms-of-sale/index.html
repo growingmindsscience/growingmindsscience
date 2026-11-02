@@ -27,13 +27,13 @@
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=adb6f82c92" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=46d4d4e37a" />
-  <link rel="stylesheet" href="/assets/css/fg-base.css?v=975e9133b4" />
-  <link rel="stylesheet" href="/assets/css/tools.css?v=7fce784071" />
-  <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
-  <link rel="stylesheet" href="/assets/css/pages.css?v=4d6a085aa8" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=a7f09b41d2" />
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
+  <link rel="stylesheet" href="/assets/css/tools.css?v=4c6ab1c94c" />
+  <link rel="stylesheet" href="/assets/css/hubs.css?v=36987dd3b5" />
+  <link rel="stylesheet" href="/assets/css/pages.css?v=0967ade630" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=475f0abf7f" />
 
 </head>
 <body class="fg fg--page hub pg-legal-page">
@@ -87,26 +87,45 @@
 
   <!-- TODO: attorney review (brand rename: Number Path is now Tallykin) -->
   <main id="main" tabindex="-1">
-    <section class="hub-title hub-title--solo">
+    <section class="hub-title">
       <div class="hb-container hub-title__grid">
         <div data-rise>
           <h1 class="hb-display">Terms of sale.</h1>
           <p class="hb-lead">What you get when you buy a class or Tallykin, and how refunds work.</p>
           <p class="hub-title__fine">Last updated October 23, 2026.</p>
+          <nav class="pg-legal-nav" aria-label="Legal documents"><ul><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms of use</a></li><li><a href="/terms-of-sale/" aria-current="page">Terms of sale</a></li></ul></nav>
         </div>
-      </div>
-    </section>
-    <section class="pg-body">
-      <div class="hb-container">
-        <div class="pg-legal">
-          <h2 id="short">The short version</h2>
+        <aside class="hb-short pg-legal-short" aria-labelledby="short" data-rise style="--i:1">
+          <h2 class="hb-short__title" id="short">The short version</h2>
           <ul>
             <li>Classes and Tallykin are one-time purchases. Nothing renews.</li>
             <li>Full refund on a class within 14 days of buying, if you have watched 4 lessons or fewer.</li>
             <li>Full refund on Tallykin within 14 days of buying, and a refund on a gift code within 14 days if it has not been redeemed.</li>
             <li>What you buy is for you and your household, not for sharing or resale.</li>
           </ul>
-
+        </aside>
+      </div>
+    </section>
+    <section class="pg-body">
+      <div class="hb-container hb-read">
+        <nav class="hb-toc" data-toc aria-label="On this page">
+          <details class="hb-toc__fold">
+            <summary>On this page</summary>
+            <ol class="hb-toc__list">
+              <li><a href="#buying">Buying</a></li>
+              <li><a href="#classes">Classes</a></li>
+              <li><a href="#refunds">Class refunds</a></li>
+              <li><a href="#number-path">Tallykin</a></li>
+              <li><a href="#gifts">Gift codes</a></li>
+              <li><a href="#ai-pro">AI Pro</a></li>
+              <li><a href="#license">Your license</a></li>
+              <li><a href="#educational">Educational, not clinical</a></li>
+              <li><a href="#law">Governing law</a></li>
+              <li><a href="#contact">Questions</a></li>
+            </ol>
+          </details>
+        </nav>
+        <div class="hb-read__text pg-legal">
           <h2 id="buying">Buying</h2>
           <p>Prices are in US dollars and are shown before you pay. Payments are processed by Stripe; we never see your full card number. If sales tax applies where you live, it is added at checkout. These terms work alongside our <a href="/terms/">terms of use</a> and <a href="/privacy/">privacy policy</a>.</p>
 
@@ -207,8 +226,8 @@
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
 
-  <script src="../assets/js/main.js?v=3f7e70ab67" defer></script>
-  <script src="/assets/js/home.js?v=78ff6722df" defer></script>
+  <script src="/assets/js/main.js?v=b5c8e48c2d" defer></script>
+  <script src="/assets/js/home.js?v=d3d063f882" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

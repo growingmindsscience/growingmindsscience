@@ -23,12 +23,22 @@ out.push("");
 out.push("## Standing invitation (appears on every typical-range result)");
 out.push("");
 out.push(`> ${trees.required_copy.parent_gut_invitation}`);
+if (trees.required_copy.sudden_change) {
+  out.push("");
+  out.push("## Sudden-change sentence (appears on every Talk soon result)");
+  out.push("");
+  out.push(`> ${trees.required_copy.sudden_change}`);
+}
 
 for (const [key, d] of Object.entries(trees.domains)) {
   out.push("");
   out.push(`## ${d.title} (${key})`);
   out.push("");
   out.push(`Entry description: "${d.entry}"`);
+  if ((d.thin_months || []).length) {
+    out.push("");
+    out.push(`Thin-coverage months (few questions are asked, so a clean result uses the typical_range_thin copy): ${d.thin_months.map(([a, b]) => `${a}m to ${b - 1}m`).join(", ")}`);
+  }
   out.push("");
   out.push("### Questions");
   for (const q of d.questions) {
@@ -45,7 +55,7 @@ for (const [key, d] of Object.entries(trees.domains)) {
       ].filter(Boolean).join(", ") || "any age";
       out.push(`- Flag on "${f.on}" (${w}) → **${f.class}**${f.floor_id ? ` [floor: ${f.floor_id}]` : " [no floor: judgment flag]"} — recap label: "${f.label}"`);
     }
-    if (q.recheck) out.push(`- Recheck note (on "${q.recheck.on}" before ${q.recheck.age_lt}m): ${q.recheck.note}`);
+    [].concat(q.recheck || []).forEach((r) => out.push(`- Recheck note (on "${r.on}"${r.age_gte != null ? ` from ${r.age_gte}m` : ""}${r.age_lt != null ? ` before ${r.age_lt}m` : ""}): ${r.note}`));
   }
   out.push("");
   out.push("### Results");
@@ -57,6 +67,8 @@ for (const [key, d] of Object.entries(trees.domains)) {
     if (t.includes_invitation) out.push("> (followed by the standing invitation above)");
     (t.actions || []).forEach((a, i) => out.push(`${i + 1}. ${a}`));
     if (t.script) out.push(`- Call script prefix: "${t.script}" (followed by the recap labels of triggered flags)`);
+    (t.ask || []).forEach((a) => out.push(`- Visit-sheet question: ${a}`));
+    if (t.see_also) out.push(`- Link: ${t.see_also.label} (${t.see_also.url})`);
   }
 }
 out.push("");

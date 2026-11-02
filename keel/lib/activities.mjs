@@ -37,23 +37,31 @@ function seededOrder(items, seed) {
 
 /* Today's 3.
    completions: [{ slug, date: 'YYYY-MM-DD', domains: [...] }]
-   Algorithm per the plan: filter to age; exclude activities completed in the
-   last 14 days; rank by least-covered domain over the trailing 28 days;
-   tie-break with a shuffle seeded by hash(childKey + isoDate). */
+   Algorithm per the plan: filter to age; exclude activities last done in the
+   14 days before isoDate; rank by least-covered domain over the trailing 28
+   days; tie-break with a shuffle seeded by hash(childKey + isoDate).
+   Only completions dated before isoDate count, so the set holds still while a
+   parent marks today's picks done. Young bands hold only a few activities, so
+   when fewer than three are fresh, the recently done ones fill the gap, done
+   longest ago first: repeating an activity is good practice, and the picks
+   never run dry. */
 export function todaysThree(artifact, months, completions, childKey, isoDate) {
   const eligible = activitiesForAge(artifact, months);
   const dayMs = 86400000;
   const today = Date.parse(isoDate + "T00:00:00Z");
-  const recent = new Set(
-    (completions || [])
-      .filter((c) => today - Date.parse(c.date + "T00:00:00Z") < 14 * dayMs)
-      .map((c) => c.slug)
-  );
-  const pool = eligible.filter((a) => !recent.has(a.slug));
+  const before = (completions || []).filter((c) => c && c.slug && c.date && c.date < isoDate);
+
+  const lastDone = {};
+  for (const c of before) {
+    if (!lastDone[c.slug] || c.date > lastDone[c.slug]) lastDone[c.slug] = c.date;
+  }
+  const isRecent = (slug) =>
+    lastDone[slug] != null && today - Date.parse(lastDone[slug] + "T00:00:00Z") < 14 * dayMs;
+  const pool = eligible.filter((a) => !isRecent(a.slug));
 
   const coverage = {};
   for (const d of artifact.domains) coverage[d] = 0;
-  for (const c of completions || []) {
+  for (const c of before) {
     if (today - Date.parse(c.date + "T00:00:00Z") < 28 * dayMs) {
       (c.domains || []).forEach((d) => { if (d in coverage) coverage[d] += 1; });
     }
@@ -62,7 +70,10 @@ export function todaysThree(artifact, months, completions, childKey, isoDate) {
   const score = (a) => Math.min(...a.domains.map((d) => coverage[d] ?? 0));
   const shuffled = seededOrder(pool, `${childKey}|${isoDate}`);
   shuffled.sort((a, b) => score(a) - score(b)); // stable sort keeps seeded order within ties
-  return shuffled.slice(0, 3);
+  const refill = eligible
+    .filter((a) => isRecent(a.slug))
+    .sort((x, y) => lastDone[x.slug].localeCompare(lastDone[y.slug]) || x.slug.localeCompare(y.slug));
+  return shuffled.concat(refill).slice(0, 3);
 }
 
 /* Approximate Flesch-Kincaid grade level, used by the grader's reading check. */

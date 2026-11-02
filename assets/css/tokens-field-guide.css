@@ -84,8 +84,8 @@
   --amber: var(--forest);
   --amber-deep: var(--forest);
   --amber-tint: #DCE6DD;
-  --accent-brown: var(--forest-deep);
-  --warm: var(--forest);
+  --accent-brown: var(--danger);       /* read only by tools.css's field error and invalid border: an error, so danger, not green */
+  --warm: var(--forest);              /* kept: article figures use it for marks AND for large area fills (counting-ladder, self-regulation), so clay here would put warm colour at panel size. New figures name a token: --note-warm for marks, --sage-mist-2 for areas. */
   --leaf: #2F6B4A;
   --on-dark: var(--on-ink);
   --on-dark-soft: var(--on-ink-soft);

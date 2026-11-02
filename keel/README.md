@@ -8,7 +8,7 @@ and catches every planted violation, in CI on every push.
 Certified families:
 
 - **Communication Snapshot** (`tools/communication-snapshot.html`) — the "LMC":
-  vocabulary estimates + 12 behavior items, compiled to a severity report
+  vocabulary estimates + 17 behavior items, compiled to a severity report
   (none < watch < discuss < priority_discuss).
 - **Milestone Navigator** (`tools/milestone-navigator.html`) — eight
   worry-domain question sets, each ending in a terminal class
@@ -37,8 +37,8 @@ artifacts/navigator/trees.v1.json        the eight question sets + terminal copy
 lib/lmc.mjs, lib/navigator.mjs           the engines; imported UNCHANGED by both
                                          the browser pages and the CI grader
 graders/floors.mjs                       the floors grader (implements floors.contract.ts)
-graders/selftest.mjs                     CI gate: artifacts pass + 10 planted violations fail
-graders/fixtures/planted-violations.mjs  the ten deliberately-softened artifacts
+graders/selftest.mjs                     CI gate: artifacts pass + every planted violation fails
+graders/fixtures/planted-violations.mjs  the 20 deliberately-softened floors artifacts
 ```
 
 The floors files are **red lines, not targets**: for any answer pattern that
@@ -56,9 +56,11 @@ CI: the "Safety keel" step in `.github/workflows/gates.yml` (keyless, every push
 
 ## Certification status
 
-Per `graders/floors.contract.ts`, the grader gates merges only after the ten
-planted-violation fixtures all fail and the approved artifacts pass. Both hold
-as of 2026-07-19. The artifacts themselves remain
+Per `graders/floors.contract.ts`, the grader gates merges only after every
+planted-violation fixture fails and the approved artifacts pass: the 20 floors
+fixtures (the original ten plus ten added 2026-11-02), and each other family's
+own set in `activities.mjs`, `claims.mjs` and `drc.mjs`. Both hold as of
+2026-11-02. The artifacts themselves remain
 `drafted_pending_matthew_verification`: every floor and every source in
 `floor_sources.v1.json` still needs Matthew's read-through before that status
 flips. The grader guarantees the tools match the artifacts; only Matthew can

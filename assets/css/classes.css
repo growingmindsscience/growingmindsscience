@@ -17,17 +17,13 @@
 .cl-terms { margin-top: 20px; color: var(--ink-muted); font-size: 15px; max-width: 46ch; }
 @media (max-width: 960px) { .cl-title__grid { grid-template-columns: minmax(0, 1fr); align-items: start; } }
 
-/* ---------- Fig. 1: the four classes across birth to five ---------- */
+/* ---------- The map of the four classes across birth to five (navigation, not a Fig.) ---------- */
 .tl { background: var(--surface); border-radius: var(--radius-lg); padding: clamp(18px, 2.4vw, 32px); }
-.tl__axis, .tl__row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.tl__row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
 .tl__axis { color: var(--ink-muted); font-size: 13px; margin-bottom: 12px; }
-.tl__axis > span:last-child { display: flex; justify-content: space-between; }
-/* Phones: the last column is too narrow for "4" and "5 years" side by side, so the unit drops. */
-@media (max-width: 480px) { .tl__yrs { display: none; } }
 .tl__rows { display: grid; gap: 8px; }
 /* Each row is one link: the bar spans the class's window and carries its name. */
 .tl__row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); text-decoration: none; color: var(--on-forest); --bar: var(--forest); --bar-hover: var(--forest-deep); }
-.tl__row--ink { color: var(--paper); --bar: var(--ink); --bar-hover: var(--ink-700); }
 .tl__row--soon { color: var(--ink); --bar: var(--sage-mist); --bar-hover: var(--sage-mist-2); }
 .tl__name, .tl__bar { grid-column: var(--from) / var(--to); grid-row: 1; }
 /* On wide screens the name is the bar: it carries the color, so its text and ground are one element. */
@@ -52,26 +48,23 @@
   .tl__bar { grid-row: 2; min-height: 10px; border-radius: 5px; }
   .tl__row--soon .tl__bar { background: var(--sage-mist-2); }
 }
-.tl figcaption { margin-top: 14px; font-size: 13px; color: var(--ink-muted); }
-.tl figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.4em; }
+.tl figcaption { margin-top: 14px; font-size: 14px; color: var(--ink-muted); }
 
 /* Keep the overview's stepped age ranges, with ticks at the exact bar boundaries. */
 .tl--overview .tl__heading { color: var(--ink); font-size: 15px; font-weight: 500; }
-.tl--overview .tl__axis { position: relative; display: block; height: 28px; margin-block: 12px 16px; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; }
-.tl--overview .tl__axis > span { position: absolute; left: calc(var(--year) * 20%); bottom: 9px; display: block; transform: translateX(-50%); white-space: nowrap; }
-.tl--overview .tl__axis > span:first-child { transform: none; }
-.tl--overview .tl__axis > span:last-child { transform: translateX(-100%); }
-.tl--overview .tl__axis > span::after { content: ""; position: absolute; left: 50%; bottom: -14px; height: 7px; border-left: 1px solid var(--border); }
-.tl--overview .tl__axis > span:first-child::after { left: 0; }
-.tl--overview .tl__axis > span:last-child::after { left: 100%; }
+:is(.tl--overview, .tl--class) .tl__axis { position: relative; display: block; height: 28px; margin-block: 12px 16px; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; }
+:is(.tl--overview, .tl--class) .tl__axis > span { position: absolute; left: calc(var(--year) * 20%); bottom: 9px; display: block; transform: translateX(-50%); white-space: nowrap; }
+:is(.tl--overview, .tl--class) .tl__axis > span:first-child { transform: none; }
+:is(.tl--overview, .tl--class) .tl__axis > span:last-child { transform: translateX(-100%); }
+:is(.tl--overview, .tl--class) .tl__axis > span::after { content: ""; position: absolute; left: 50%; bottom: -14px; height: 7px; border-left: 1px solid var(--border); }
+:is(.tl--overview, .tl--class) .tl__axis > span:first-child::after { left: 0; }
+:is(.tl--overview, .tl--class) .tl__axis > span:last-child::after { left: 100%; }
 .tl--overview .tl__rows { gap: 12px; }
 .tl--overview .tl__row { min-height: 44px; }
 .tl--overview .tl__row--out .tl__name { grid-column: var(--from) / var(--to); min-height: 44px; justify-content: center; padding: 8px 4px; background: var(--bar); color: var(--on-forest); font-size: 13px; text-align: center; text-wrap: balance; }
 .tl--overview .tl__row--out:hover .tl__name { background: var(--bar-hover); }
 .tl--overview .tl__row--out .tl__bar { display: none; }
 .tl--overview .tl__name { color: var(--on-forest); }
-.tl--overview .tl__row--ink { --bar-hover: var(--ink-soft); }
-.tl--overview .tl__row--ink .tl__name { color: var(--paper); }
 .tl--overview .tl__row--soon .tl__name { color: var(--ink); }
 .tl--overview .tl__row:focus-visible { outline: 2px solid var(--forest); outline-offset: 4px; border-radius: var(--radius); }
 .tl--overview .tl__row--soon { margin-top: 4px; }
@@ -80,7 +73,6 @@
 @media (max-width: 640px) {
   .tl--overview .tl__row .tl__name { grid-column: var(--from) / var(--to); display: flex; min-height: 44px; padding: 8px 6px; background: var(--bar); color: var(--on-forest); text-align: left; }
   .tl--overview .tl__row--out .tl__name { padding-inline: 2px; text-align: center; }
-  .tl--overview .tl__row--ink .tl__name { color: var(--paper); }
   .tl--overview .tl__row--soon .tl__name { color: var(--ink); }
   .tl--overview .tl__row .tl__bar { display: none; }
 }
@@ -118,7 +110,7 @@
 .cl-free__act { display: grid; gap: 14px; justify-items: start; }
 .cl-free__links { display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 15px; }
 .cl-free__links a { display: inline-flex; align-items: center; min-height: 44px; }
-@media (max-width: 760px) { .cl-free { grid-template-columns: minmax(0, 1fr); } .cl-free__act { justify-items: stretch; } }
+@media (max-width: 760px) { .cl-free { grid-template-columns: minmax(0, 1fr); } }
 
 .cl-hub .cl-title { padding-block: clamp(36px, 5vw, 72px) clamp(48px, 6vw, 88px); }
 .cl-hub .cl-title__grid { align-items: center; gap: clamp(32px, 4.5vw, 72px); }
@@ -130,6 +122,7 @@
 .cl-title__actions .hb-btn svg { transition: transform 180ms ease; }
 .cl-title__actions .hb-btn:hover svg { transform: translateX(4px); }
 .cl-preview-link { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; font-size: 15px; }
+.cl-preview-link:hover { color: var(--forest-deep); }
 .cl-hub .cl-terms { font-size: 14px; margin-top: 18px; }
 .cl-explorer { min-width: 0; --photo-peek: calc(4.5% + 28px); }
 .cl-explorer [hidden] { display: none !important; }
@@ -174,6 +167,10 @@
 .cl-age__axis span:first-child { transform: none; }
 .cl-age__axis span:last-child { transform: translateX(-100%); }
 .cl-age__readout { position: absolute; top: 76px; left: clamp(48px, calc(14px + (100% - 28px) * var(--age-fraction)), calc(100% - 48px)); transform: translateX(-50%); padding: 4px 10px; border-radius: var(--radius); background: var(--sage-mist); color: var(--ink); font-size: 13px; line-height: 1.5; white-space: nowrap; font-variant-numeric: tabular-nums; }
+/* What a child is building at the age under the marker: each year's one-line summary from Explore. */
+.cl-age__note { margin-top: 4px; max-width: 46ch; font-size: 15px; line-height: 1.5; color: var(--ink-soft); text-wrap: pretty; }
+.cl-age__note a { font-weight: 600; color: var(--ink); text-decoration-color: var(--border); }
+.cl-age__note a:hover { color: var(--forest); text-decoration-color: currentColor; }
 .cl-age__readout::before { content: ""; position: absolute; left: calc(50% - 5px); top: -4px; width: 10px; height: 6px; background: var(--sage-mist); clip-path: polygon(0 100%, 50% 0, 100% 100%); }
 .cl-finder { scroll-margin-top: calc(var(--header-h) + 24px); padding-bottom: clamp(40px, 5vw, 72px); }
 .cl-finder__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; gap: clamp(28px, 5vw, 72px); }
@@ -190,6 +187,7 @@
 .cl-hub .cl-row__body { margin-top: 12px; }
 .cl-hub .cl-row__body > p:first-child { max-width: 44ch; }
 .cl-hub .cl-row__body .cl-row__meta { color: var(--ink-muted); font-size: 14px; }
+.cl-hub .cl-row__meta + .cl-row__meta { margin-top: 4px; }
 .cl-hub .cl-row__act { gap: 10px; }
 .cl-hub .cl-row__act > .cl-row__note { grid-column: 1 / -1; }
 .cl-hub .cl-row__act .hb-btn { width: 100%; min-width: 0; white-space: nowrap; }
@@ -293,13 +291,11 @@
 .cp main .container--narrow > h2, .cp main .container--narrow > .section-head { grid-column: 1; }
 @media (max-width: 860px) { .cp main .container--narrow { grid-template-columns: minmax(0, 1fr); } .cp main .container--narrow > * { grid-column: 1 !important; } }
 
-/* Buttons on the system: one flat shape, calm corners; the ghost is the quiet outline. */
-.cp .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5em; min-height: 48px; padding: 0 1.25rem; border: 0; border-radius: var(--radius); background: var(--forest); color: var(--on-forest); font-weight: 500; font-size: 1rem; text-decoration: none; transition: background-color 160ms ease; }
-.cp .btn:hover { background: var(--forest-deep); color: var(--on-forest); }
-.cp .btn--ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
-.cp .btn--ghost:hover { background: var(--sage-mist); color: var(--ink); }
-.cp .btn--block { width: 100%; }
-.cp .btn--lg { min-height: 52px; }
+/* Buttons are fg-base's .hb-btn (forest, quiet); action rows are .hb-actions. */
+
+/* Support sections (who teaches it, free reading, questions) take DESIGN's tight section value,
+   so the hero, the sample and the syllabus read as the page's long beats. */
+.cp main > section.hb-section--tight { padding-block: clamp(48px, 6vw, 88px); }
 
 /* ---------- Title block ---------- */
 .cp .class-hero { padding-block: clamp(40px, 6vw, 96px) clamp(48px, 7vw, 104px); }
@@ -309,37 +305,64 @@
 .cp .class-intro__facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); gap: 12px 24px; max-width: 40rem; margin-top: 24px; font-size: 15px; }
 .cp .class-intro__facts dt { color: var(--ink-muted); font-size: 13px; }
 .cp .class-intro__facts dd { color: var(--ink); font-weight: 500; }
-.cp .hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+/* Phones: one fact per line, the name beside its value, so the hero stays short. */
+@media (max-width: 560px) {
+  .cp .class-intro__facts { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .cp .class-intro__facts > div { display: grid; grid-template-columns: 4.75rem minmax(0, 1fr); gap: 12px; align-items: baseline; }
+  .cp .class-intro__facts dt { font-size: 14px; }
+}
+.cp .hero__ctas { margin-top: 28px; }
 .cp .class-intro__fine { margin-top: 16px; font-size: 14px; color: var(--ink-muted); max-width: 52ch; }
 .cp .class-intro__fine a { display: inline-block; padding-block: 0.7rem; margin-block: -0.7rem; }
 @media (max-width: 900px) { .cp .class-hero > .container { grid-template-columns: minmax(0, 1fr); } }
-@media (max-width: 640px) { .cp .hero__ctas .btn { width: 100%; } }
 
-/* The figure: the class's own chart, or the curriculum timeline, on a soft-white plate */
-.cp .fig--plate { background: var(--surface); border-radius: var(--radius-lg); padding: clamp(18px, 2.4vw, 32px); margin: 0; }
-.cp .fig svg { display: block; width: 100%; height: auto; }
+/* Fig. 1: the class's own teaching figure, on fg-base's .hb-fig plate with its research-blue
+   caption. The drawing classes below keep each chart on the tokens. */
 .cp .fig-text { font-family: var(--font-body); font-size: 15px; fill: var(--ink-soft); }
 .cp .fig-text--sm { font-size: 13px; fill: var(--ink-muted); }
 .cp .fig-grid { stroke: var(--border-soft); }
 .cp .fig-axis { stroke: var(--ink-muted); }
 .cp .fig-ref { stroke: var(--border); stroke-width: 1; stroke-dasharray: 3 5; }
 .cp .fig-band { fill: var(--sage-mist); }
+/* Dark: sage mist sits at 1.1:1 on the plate, so bands take the next mist step. */
+[data-theme="dark"] .cp .fig-band { fill: var(--sage-mist-2); }
+.cp .fig-ring { fill: var(--surface); stroke: var(--ink-muted); stroke-width: 1.5; }
+.cp .fig-tick { stroke: var(--ink-muted); stroke-width: 1; }
+.cp .fig-halo { paint-order: stroke; stroke: var(--surface); stroke-width: 5px; stroke-linejoin: round; }
+.cp .fig-text--strong { fill: var(--ink); font-weight: 600; }
 .cp .fig-band-edge { stroke: var(--forest); stroke-width: 1; stroke-dasharray: 4 5; fill: none; }
 .cp .fig-curve { fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 .cp .fig-curve--a { stroke: var(--ink); }
 .cp .fig-curve--b { stroke: var(--forest); stroke-dasharray: 9 7; }
 .cp .fig-dot { fill: var(--note-amber); stroke: var(--surface); stroke-width: 2; }
 .cp .fig-label--band { fill: var(--forest); font-weight: 600; }
-.cp .fig__key { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 12px; font-size: 13px; color: var(--ink-soft); list-style: none; padding: 0; }
+.cp .fig__key { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 14px; font-size: 13px; color: var(--ink-soft); list-style: none; padding: 0; }
 .cp .fig__key li { display: inline-flex; align-items: center; gap: 8px; }
 .cp .fig__key-line { width: 1.75rem; border-top: 3px solid var(--ink); }
 .cp .fig__key-line--b { border-top: 3px dashed var(--forest); }
-.cp .fig__caption { margin-top: 14px; font-size: 13px; line-height: 1.5; color: var(--ink-muted); max-width: 70ch; }
-.cp .fig__caption b { color: var(--ink); font-weight: 600; }
+.cp .fig__key--stages { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 24px; }
+.cp .fig__key--stages li { display: block; }
+.cp .fig__key--stages b { margin-right: 0.35em; color: var(--ink); font-weight: 600; }
+.cp .fig__key--stages .is-here b::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 8px; border-radius: 50%; background: var(--note-amber); vertical-align: 1px; }
+.cp .hb-fig__src a { color: inherit; }
+/* The figure's one authored moment: fg-base draws the curves in (.hb-draw); the marks and notes
+   that sit on a curve arrive as the line reaches them (--d, in the same 160ms steps). Without
+   html.anim, with reduced motion and in print they are simply there. */
+@media (prefers-reduced-motion: no-preference) {
+  html.anim .cp .hb-fig[data-draw].is-in .fig-pop { animation: cp-fig-pop 520ms var(--ease-out) both; animation-delay: calc(var(--i, 0) * 90ms + 280ms + var(--d, 0) * 160ms); }
+}
+@keyframes cp-fig-pop { from { opacity: 0; } to { opacity: 1; } }
 @media (max-width: 640px) { .cp .fig-text { font-size: 20px; } .cp .fig-text--sm { font-size: 18px; } }
-/* Fig. 1 on a class page: the class's own row leads, the others step back */
-.tl--class .tl__row--dim { color: var(--ink); --bar: var(--sage-mist); --bar-hover: var(--sage-mist-2); }
-.tl--class .tl__row--dim.tl__row--soon { --bar: var(--paper-2); }
+/* The class map on a class page: "you are here" fills verdigris, the other classes step back to a
+   sage-mist-2 bar that still reads on the soft-white plate in both themes. */
+.tl--class .tl__row--dim { color: var(--ink); --bar: var(--sage-mist-2); --bar-hover: var(--sage); }
+.tl--class .tl__row[aria-current="page"] { color: var(--on-forest); --bar: var(--forest); --bar-hover: var(--forest-deep); }
+.tl--class .tl__row[aria-current="page"] .tl__name { font-weight: 600; }
+.tl--class .tl__row:focus-visible { outline: 2px solid var(--forest); outline-offset: 4px; border-radius: var(--radius); }
+@media (max-width: 640px) {
+  .tl--class .tl__row[aria-current="page"] { color: var(--ink); }
+  .tl--class .tl__row--soon.tl__row--dim .tl__bar, .tl--class .tl__row[aria-current="page"] .tl__bar { background: var(--bar); }
+}
 
 /* ---------- Read part of a lesson (toddler) ---------- */
 .cp .lesson-sample > .container { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 24px clamp(32px, 5vw, 80px); }
@@ -359,19 +382,23 @@
 .cp .syllabus { list-style: none; padding: 0; display: grid; }
 .cp .syllabus__item { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 12px clamp(32px, 5vw, 80px); padding-block: 26px; border-top: 1px solid var(--border-soft); }
 .cp .syllabus__item:first-child { border-top: 0; padding-top: 0; }
-.cp .syllabus__num { font-size: 13px; color: var(--clay-text); font-weight: 500; }
-.cp .syllabus__title { font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem); line-height: 1.1; margin-top: 4px; }
-.cp .syllabus__meta { margin-top: 6px; font-size: 14px; color: var(--ink-muted); }
+/* The module's name leads; "Module N" and its length follow on one meta line under it (Label Below
+   Rule). The markup keeps its reading order for assistive tech; CSS order moves the number. */
+.cp .syllabus__item > :first-child { display: flex; flex-wrap: wrap; align-items: baseline; align-content: start; column-gap: 0.4em; }
+.cp .syllabus__title { order: 1; flex: 1 0 100%; font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem); line-height: 1.1; }
+.cp .syllabus__num, .cp .syllabus__meta { order: 2; margin-top: 8px; font-size: 14px; color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+.cp .syllabus__meta { order: 3; }
+.cp .syllabus__meta::before { content: "\00B7"; content: "\00B7" / ""; margin-right: 0.4em; }
 .cp .syllabus__body > p { color: var(--ink-soft); }
 .cp .syllabus__lessons { list-style: none; padding: 0; margin-top: 14px; display: grid; gap: 2px; font-size: 15px; }
 .cp .syllabus__lessons li { display: grid; grid-template-columns: 1.75rem 1fr; min-height: 32px; align-items: baseline; }
 .cp .syllabus__lessons li > span:first-child { color: var(--ink-muted); font-variant-numeric: tabular-nums; }
 .cp .syllabus__lessons a { display: inline-flex; align-items: center; min-height: 44px; margin-block: -6px; }
-.cp .syllabus__free { font-style: normal; font-size: 13px; color: var(--clay-text); margin-left: 8px; }
+.cp .syllabus__free { font-style: normal; font-size: 13px; color: var(--ink-muted); margin-left: 8px; }
 @media (max-width: 760px) { .cp .syllabus__item { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------- Sources: the research-blue module ---------- */
-.cp .sources { grid-template-rows: auto 1fr; align-content: start; margin-top: clamp(48px, 6vw, 88px); padding-top: clamp(28px, 3vw, 40px); border-top: 1px solid var(--border-soft); display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 16px clamp(32px, 5vw, 80px); }
+.cp .sources { grid-template-rows: auto 1fr; align-content: start; margin-top: clamp(48px, 6vw, 88px); padding-top: 20px; border-top: 2px solid var(--research); display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 16px clamp(32px, 5vw, 80px); }
 .cp .sources__title { font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem); line-height: 1.1; color: var(--research); }
 .cp .sources__title, .cp .sources__lede { grid-column: 1; }
 .cp .sources__lede { font-size: 15px; color: var(--ink-soft); align-self: start; }
@@ -388,6 +415,11 @@
 .cp .educator__photo { width: 72px; height: 72px; border-radius: var(--radius-lg); object-fit: cover; }
 .cp .educator__body { display: grid; gap: 12px; color: var(--ink-soft); }
 .cp .educator__body strong { color: var(--ink); font-weight: 600; }
+/* Phones: the photo sits above the bio, so the text keeps the full column. */
+@media (max-width: 560px) {
+  .cp .educator { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .cp .educator__photo { width: 56px; height: 56px; }
+}
 
 /* ---------- Free reading: one sage-mist panel of links ---------- */
 .cp ul.reading { list-style: none; padding: 8px clamp(16px, 2.4vw, 28px); background: var(--sage-mist); border-radius: var(--radius-lg); display: grid; }
@@ -408,11 +440,25 @@
 .cp .faq-class-item[open] summary::after { content: "\2212"; }
 .cp .faq-class-item p { padding-bottom: 18px; color: var(--ink-soft); max-width: 60ch; }
 
-/* ---------- Enroll and waitlist: the close ---------- */
-.cp .signup { background: var(--sage-mist); }
+/* ---------- Enroll and waitlist: the close, on the ink field ----------
+   The page's one inverted band (DESIGN, The close band), flowing into the footer. The enroll or
+   waitlist card stays soft white: the one lit object on the field, with its own ink text,
+   forest action and forest focus. */
+.cp .signup { background: var(--field-ink); color: var(--on-ink); }
+.cp .signup__head { color: var(--on-ink); }
+.cp .signup__body .lede { color: var(--on-ink-soft); max-width: 46ch; }
+.cp .signup__back a { color: var(--on-ink-soft); }
+.cp .signup__back a:hover { color: var(--on-ink); }
+.cp .signup :focus-visible { outline-color: var(--on-ink); }
+.cp .signup__form { color: var(--ink); }
+.cp .signup__form :focus-visible { outline-color: var(--forest); }
+.cp .signup__form a:not(.hb-btn) { color: var(--forest); }
+.cp .signup__form a:not(.hb-btn):hover { color: var(--forest-deep); }
+.cp .signup__form .hb-btn { width: 100%; }
 .cp .signup__inner { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 32px clamp(32px, 5vw, 80px); align-items: start; }
 .cp .signup__head { font-size: clamp(2.25rem, 1.4rem + 3vw, 4rem) !important; line-height: 0.98 !important; letter-spacing: -0.025em !important; grid-column: 1; }
-.cp .signup__head mark { background: none; color: var(--forest); }
+.cp .signup__head mark { background: none; color: var(--sage); }
+[data-theme="dark"] .cp .signup__head mark { color: var(--forest); }
 .cp .signup__form { grid-column: 2; grid-row: 1 / span 2; background: var(--surface); border-radius: var(--radius-lg); padding: clamp(20px, 3vw, 36px); display: grid; gap: 12px; }
 .cp .signup__form-title { font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem); }
 .cp .signup__price { font-size: 1.125rem; }
@@ -426,8 +472,16 @@
 .cp .form-row { display: grid; gap: 6px; }
 .cp .form-label { font-weight: 500; }
 .cp .form-input { min-height: 48px; padding: 0 14px; border: 1.5px solid var(--ink-muted); border-radius: var(--radius); background: var(--paper); color: var(--ink); font: inherit; }
-.cp .form-input:focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
+.cp .form-input:focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; border-color: var(--forest); }
+.cp .form-input[aria-invalid="true"] { border-color: var(--danger); }
 .cp .form-help, .cp .form-status { font-size: 14px; color: var(--ink-soft); }
+/* Error and success are visible: the message sits under the field in danger, and a sent form
+   says so on a mist note with a drawn check. Empty slots collapse. */
+.cp .field-error { font-size: 14px; color: var(--danger); }
+.cp .field-error:empty, .cp .form-status:empty { display: none; }
+.cp .form-status[data-tone="error"] { color: var(--danger); }
+.cp .form-status[data-tone="success"] { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 10px; align-items: start; padding: 12px 14px; border-radius: var(--radius); background: var(--sage-mist); color: var(--ink); }
+.cp .form-status[data-tone="success"]::before { content: ""; width: 20px; height: 20px; margin-top: 1px; background: var(--success); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M4 10.5l4 4 8-9' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M4 10.5l4 4 8-9' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat; }
 @media (max-width: 860px) { .cp .signup__inner { grid-template-columns: minmax(0, 1fr); } .cp .signup__form, .cp .signup__body, .cp .signup__head { grid-column: 1; grid-row: auto; } }
 
 /* ---------- The phone enroll bar (main.js shows it once the hero buttons scroll away) ---------- */
@@ -436,7 +490,7 @@
 .cp .enroll-bar[hidden] { display: none; }
 .cp .enroll-bar__label { font-size: 14px; color: var(--ink-soft); }
 .cp .enroll-bar__label strong { display: block; color: var(--ink); font-weight: 600; }
-.cp .enroll-bar .btn { min-height: 44px; }
+.cp .enroll-bar .hb-btn { min-height: 44px; }
 @media (min-width: 761px) { .cp .enroll-bar { display: none !important; } }
 @media (prefers-reduced-motion: reduce) { .cp .enroll-bar { transition: none; } }
 .cl-terms--trust { color: var(--ink-soft); font-weight: 600; }

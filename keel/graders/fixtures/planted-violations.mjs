@@ -1,5 +1,9 @@
-/* Ten planted violations: each takes the real artifacts and makes them
-   deliberately softer than a floor (or breaks a policy floor). The grader is
+/* Planted violations: each takes the real artifacts and makes them
+   deliberately softer than a floor (or breaks a policy floor or an integrity
+   rule). The first ten are the original certification set; the rest were
+   added 2026-11-02 with the Snapshot's hearing and intelligibility floors,
+   the stricter integrity checks, and the Navigator's hearing, sudden-change
+   and 0-72 month policy checks. The grader is
    certified only if it catches every one of these AND passes the real
    artifacts. See the certification requirement in floors.contract.ts. */
 
@@ -95,6 +99,104 @@ export const FIXTURES = [
       const c = structuredClone(a);
       const q = c.trees.domains.walking_movement.questions.find((q) => q.id === "wm_asym");
       q.flags[0].class = "discuss";
+      return c;
+    },
+  },
+  {
+    name: "lmc_hearing_concern_unwired",
+    description: "a parent's hearing concern no longer flags anything in the Snapshot",
+    apply(a) {
+      const c = structuredClone(a);
+      c.interpretation.rules = c.interpretation.rules.filter((r) => r.id !== "hearing_concern_any_age");
+      return c;
+    },
+  },
+  {
+    name: "lmc_soften_stranger_intelligibility",
+    description: "a 3-year-old whom unfamiliar adults mostly cannot understand drops to watch",
+    apply(a) {
+      const c = structuredClone(a);
+      c.interpretation.rules.find((r) => r.id === "stranger_intelligibility_36m").severity = "watch";
+      return c;
+    },
+  },
+  {
+    name: "lmc_understands_unused",
+    description: "the 'how many words does your child understand' answer is collected but no rule reads it",
+    apply(a) {
+      const c = structuredClone(a);
+      c.interpretation.rules = c.interpretation.rules.filter((r) => !JSON.stringify(r.condition).includes("vocab_understands"));
+      return c;
+    },
+  },
+  {
+    name: "lmc_misspelled_answer_value",
+    description: "a rule tests an answer value the instrument can never produce, so it silently never fires",
+    apply(a) {
+      const c = structuredClone(a);
+      c.interpretation.rules.find((r) => r.id === "watch_turns_6m").condition.all[0].value = "notyet";
+      return c;
+    },
+  },
+  {
+    name: "lmc_curly_quote_bilingual_softening",
+    description: "a bilingual softening frame hidden behind a typographic apostrophe",
+    apply(a) {
+      const c = structuredClone(a);
+      c.interpretation.guidance_blocks.bilingual_note.body +=
+        " Because your child is bilingual, don\u2019t worry about these lines yet.";
+      return c;
+    },
+  },
+  {
+    name: "lmc_grid_unsound_positive_condition",
+    description: "a rule needs a typical answer on an item the floors grid never varies",
+    apply(a) {
+      const c = structuredClone(a);
+      c.interpretation.rules.push({
+        id: "planted_needs_babble", age_months_gte: 30,
+        condition: { all: [{ behavior: "babbles_consonants", op: "eq", value: "yes" }] },
+        severity: "watch", tags: [], title: "x", body: "x", sources: ["cdc_ltsae"],
+      });
+      return c;
+    },
+  },
+  {
+    name: "lmc_unresolved_guidance_source",
+    description: "the visit script cites a source id that is not in floor_sources",
+    apply(a) {
+      const c = structuredClone(a);
+      c.interpretation.guidance_blocks.visit_script.sources = ["made_up_source"];
+      return c;
+    },
+  },
+  {
+    name: "nav_hearing_recheck",
+    description: "the hearing tree waits on not turning to sounds until 9 months, with a recheck note",
+    apply(a) {
+      const c = structuredClone(a);
+      const q = c.trees.domains.hearing_responding.questions.find((q) => q.id === "hr_turn");
+      q.recheck = { on: "not_yet", age_lt: 9, note: "x" };
+      q.flags[0].age_gte = 9;
+      return c;
+    },
+  },
+  {
+    name: "nav_unqualified_emergency",
+    description: "a Talk soon body says it does not mean emergency without limiting that to gradual changes",
+    apply(a) {
+      const c = structuredClone(a);
+      const t = c.trees.domains.play.terminals.priority_discuss;
+      t.body = t.body.replace("For a change that has built up gradually, soon does not mean emergency", "Soon does not mean emergency");
+      return c;
+    },
+  },
+  {
+    name: "nav_missing_sudden_change",
+    description: "the Navigator drops its standing sudden-change sentence",
+    apply(a) {
+      const c = structuredClone(a);
+      delete c.trees.required_copy.sudden_change;
       return c;
     },
   },

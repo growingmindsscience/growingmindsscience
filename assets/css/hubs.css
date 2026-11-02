@@ -2,8 +2,10 @@
    Growing Minds Science: hubs.css
    The tools, articles, about and pricing hubs on the annotated-observation
    system (body.hub). Primitives come from fg-base.css (container, type,
-   buttons, entrances, menu rows); this file holds the hub title block, the
-   list rows, the panels and the forms. Tokens from tokens-field-guide.css.
+   buttons, action rows, menu rows, entrances via field-guide.css); this file
+   holds the hub title block, the list rows, the questions, the reading layout
+   with its contents, the panels, the forms and their confirmation, and the
+   close band. Tokens from tokens-field-guide.css.
    Quiet rules between rows, calm corners on panels and controls, no
    shadows at rest, real photographs or none.
    ========================================================= */
@@ -24,7 +26,7 @@
   .hub-title__grid { grid-template-columns: minmax(0, 1fr); }
   .hub-photo--tall { justify-self: stretch; max-width: none; aspect-ratio: 4 / 3; }
 }
-@media (max-width: 640px) { .hub-title__actions .hb-btn { width: 100%; } }
+/* Under 640px the title-block buttons go full width: the shared action-row rule in fg-base.css. */
 
 /* ---------- Sections: heading left, content right (the homepage's split) ---------- */
 .hub-sec { padding-block: clamp(56px, 8vw, 120px); }
@@ -58,6 +60,28 @@
   .row { grid-template-columns: minmax(0, 1fr); }
   .row__go { justify-self: start; }
 }
+/* The whole row as one link: <div class="row row--link"> with the name's <a> stretched over it,
+   a sage-mist wash on hover and a trailing arrow as the cue (leave out .row__go). The wash
+   reaches 12px past the column on each side; the words and the rules keep the column's edge. */
+.row--link { position: relative; isolation: isolate; padding-right: 40px; }
+.row--link::before { content: ""; position: absolute; z-index: -1; inset: 0 -12px; background: transparent; transition: background-color var(--t-hover) ease; }
+.rows > .row--link:first-child::before { top: -14px; }
+.row--link .row__name a::after { content: ""; position: absolute; inset: 0; }
+.row--link::after {
+  content: ""; position: absolute; right: 2px; top: 50%; width: 20px; height: 20px; margin-top: -10px;
+  background: var(--ink-muted);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 12h15M13.5 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 12h15M13.5 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: transform var(--t-hover) var(--ease-out), background-color var(--t-hover) ease;
+}
+.row--link:has(.row__go)::after { display: none; }
+.row--link:hover::before { background: var(--sage-mist); }
+.hub-sec--mist .row--link:hover::before { background: var(--surface); }
+.fg .row--link:hover .row__name a { color: var(--forest); text-decoration: underline; }
+.row--link:hover::after { background: var(--forest); transform: translateX(3px); }
+.fg .row--link .row__name a:focus-visible { outline: none; }
+.fg .row--link .row__name a:focus-visible::after { outline: 2.5px solid var(--forest); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .row--link::before, .row--link::after { transition: none; } .row--link:hover::after { transform: none; } }
 
 /* ---------- Tools hub ---------- */
 .hard-door { display: grid; gap: 10px; padding: clamp(22px, 3vw, 36px); border-radius: var(--radius-lg); background: var(--field-ink); color: var(--on-ink); text-decoration: none; }
@@ -66,20 +90,12 @@
 .hard-door:hover { background: var(--field-ink-2); color: var(--on-ink); }
 .hard-door:hover strong { text-decoration: underline; text-underline-offset: 0.12em; }
 .tools-saved { display: inline-flex; align-items: center; min-height: 44px; margin-top: 12px; font-size: 15px; }
+.fg .tools-saved:hover { color: var(--forest); }
 .topic-jump { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 18px; font-size: 15px; }
 .topic-jump a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
 .topic { padding-top: 56px; }
 .topic:first-of-type { padding-top: 0; }
 .topic h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); line-height: 1.1; letter-spacing: -0.015em; color: var(--ink); padding-bottom: 10px; }
-.guide { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 6px 28px; padding-block: 18px; border-top: 1px solid var(--border-soft); align-items: baseline; }
-.guide .tool-card__eyebrow { order: 2; font-size: 14px; color: var(--ink-muted); grid-column: 1; }
-.guide h4 { order: 1; grid-column: 1; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem); line-height: 1.15; }
-.guide h4 a { text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; margin-block: -10px; }
-.guide h4 a:hover { color: var(--forest); text-decoration: underline; text-underline-offset: 0.16em; }
-.guide p { order: 3; grid-column: 2; grid-row: 1 / span 2; color: var(--ink-soft); }
-.guide.is-foryou { background: var(--sage-mist); border-radius: var(--radius); padding-inline: 14px; border-top-color: transparent; }
-.guide .gms-foryou { order: 2; grid-column: 1; justify-self: start; background: none; padding: 0; border-radius: 0; font-size: 13px; font-weight: 600; color: var(--forest); }
-@media (max-width: 760px) { .guide { grid-template-columns: minmax(0, 1fr); } .guide p { grid-column: 1; grid-row: auto; } }
 .hub-sec [data-gms-profile] { margin-top: 24px; }
 
 /* ---------- Articles hub ---------- */
@@ -128,17 +144,83 @@
 .price-row__act > a:not(.hb-btn) { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; }
 .price-row__fine { font-size: 14px; color: var(--ink-muted); line-height: 2; }
 @media (max-width: 860px) { .price-row { grid-template-columns: minmax(0, 1fr) auto; } .price-row__act { grid-column: 1 / -1; } }
-@media (max-width: 560px) { .price-row__act .hb-btn { width: 100%; } .price-row__act { justify-items: stretch; } }
+@media (max-width: 640px) { .price-row__act .hb-btn { width: 100%; } .price-row__act { justify-items: stretch; } }
 
-/* ---------- Questions (details rows) ---------- */
+/* ---------- Questions (details rows): FAQ, Pricing ----------
+   A 1px rule on top of each question and one under the last; the question in Inter 500 at 56px,
+   a drawn plus that turns into a minus when open, the answer in ink-soft at 60ch. Give each
+   <details> an id: home.js opens the one a link or the address points at (#id) and brings it
+   under the header. Without script every question still opens by hand. */
 .qa { display: grid; }
-.qa details { border-top: 1px solid var(--border-soft); }
-.qa details:last-child { border-bottom: 1px solid var(--border-soft); }
-.qa summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; min-height: 56px; padding-block: 12px; font-weight: 500; }
+.qa details { border-top: 1px solid var(--border-soft); scroll-margin-top: calc(var(--header-h, 72px) + 16px); }
+.qa details:last-of-type { border-bottom: 1px solid var(--border-soft); }
+.fg .qa summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: minmax(0, 1fr) 14px; gap: 16px; align-items: center; min-height: 56px; padding-block: 12px; font-family: var(--font-body); font-weight: 500; font-size: inherit; line-height: 1.4; letter-spacing: 0; color: var(--ink); transition: color var(--t-hover) ease; }
 .qa summary::-webkit-details-marker { display: none; }
-.qa summary::after { content: "+"; font-size: 1.25rem; color: var(--ink-muted); }
-.qa details[open] summary::after { content: "\2212"; }
-.qa details p { padding-bottom: 18px; color: var(--ink-soft); max-width: 60ch; }
+.fg .qa summary:hover { color: var(--forest); }
+/* The plus and minus: one drawn mark whose upright folds away when the question opens. */
+.qa summary::after,
+.hb-toc__fold > summary::after {
+  content: ""; width: 14px; height: 14px; background: var(--ink-muted);
+  clip-path: polygon(43% 0, 57% 0, 57% 43%, 100% 43%, 100% 57%, 57% 57%, 57% 100%, 43% 100%, 43% 57%, 0 57%, 0 43%, 43% 43%);
+  transition: clip-path 220ms var(--ease-out), background-color var(--t-hover) ease;
+}
+.qa details[open] > summary::after,
+.hb-toc__fold[open] > summary::after { clip-path: polygon(43% 43%, 57% 43%, 57% 43%, 100% 43%, 100% 57%, 57% 57%, 57% 57%, 43% 57%, 43% 57%, 0 57%, 0 43%, 43% 43%); }
+.qa summary:hover::after, .hb-toc__fold > summary:hover::after { background: var(--forest); }
+@media (prefers-reduced-motion: reduce) { .qa summary::after, .hb-toc__fold > summary::after { transition: none; } }
+.fg .qa details > :not(summary) { max-width: 60ch; padding-bottom: 16px; color: var(--ink-soft); line-height: 1.65; }
+.fg .qa details > :not(summary) + :not(summary) { margin-top: 0; }
+.fg .qa details > :last-child:not(summary) { padding-bottom: 22px; }
+.fg .qa details :is(ul, ol) { display: grid; gap: 8px; margin: 0; padding-left: 1.25em; }
+.fg .qa details ul { list-style: disc; }
+.fg .qa details ol { list-style: decimal; }
+.fg .qa details li::marker { color: var(--ink-muted); }
+.fg .qa details a { color: var(--forest); }
+.fg .qa details a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
+
+/* ---------- Reading layout: "On this page" beside one reading column ----------
+   .hb-read puts a 3-column contents track beside a 9-column text at 1100px and up (one column
+   below). The contents, nav.hb-toc[data-toc], holds a <details class="hb-toc__fold"> written
+   closed: home.js opens it at 1100px and up, where it sticks under the header, and leaves it a
+   closed row on smaller screens. As the reader moves, home.js marks the section in view with
+   aria-current="location": ink, 600, and an 8px ochre dot as the you-are-here mark. */
+.hb-read { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px clamp(32px, 5vw, 80px); align-items: start; }
+.hb-read__text { min-width: 0; max-width: 68ch; }
+.hb-read__text [id] { scroll-margin-top: calc(var(--header-h, 72px) + 24px); }
+.hb-toc { min-width: 0; }
+.hb-toc__fold > summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: minmax(0, 1fr) 14px; gap: 12px; align-items: center; min-height: 48px; font-size: 15px; font-weight: 600; line-height: 1.4; color: var(--ink); border-block: 1px solid var(--border-soft); }
+.hb-toc__fold > summary::-webkit-details-marker { display: none; }
+.hb-toc__fold[open] > summary { border-bottom-color: transparent; }
+.fg .hb-toc__list { display: grid; margin: 0; padding: 0 0 8px; list-style: none; }
+.hb-toc__list a { position: relative; display: flex; align-items: center; min-height: 44px; padding-block: 4px; font-size: 15px; line-height: 1.35; color: var(--ink-soft); text-decoration: none; border-top: 1px solid var(--border-soft); }
+.hb-toc__list li:first-child > a { border-top: 0; }
+.fg .hb-toc__list a:hover { color: var(--forest); text-decoration: underline; }
+.fg .hb-toc__list a[aria-current="location"] { color: var(--ink); font-weight: 600; }
+.hb-toc__list a[aria-current="location"]::before { content: ""; position: absolute; left: -14px; top: 50%; width: 8px; height: 8px; margin-top: -4px; border-radius: 50%; background: var(--note-amber); }
+@media (min-width: 1100px) {
+  .hb-read { grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); }
+  .hb-toc { position: sticky; top: calc(var(--header-h, 72px) + 24px); }
+  /* Open beside the text it reads as a label, not a control. */
+  .hb-toc__fold[open] > summary { cursor: default; min-height: 0; padding-bottom: 6px; border-block: 0; }
+  .hb-toc__fold[open] > summary::after { display: none; }
+}
+
+/* ---------- Form completion: the confirmation panel ----------
+   main.js puts this in place of a [data-contact] form once it is sent, and moves focus to it:
+   a Newsreader statement with a drawn check, one line (the form's data-confirm-line), and the
+   next steps from the page's <template data-confirm>, then a way to write again. */
+.fg form[hidden] { display: none; } /* the form's own display: grid would otherwise outrank [hidden] */
+.fg .hb-confirm { display: grid; gap: 14px; justify-items: start; padding: clamp(24px, 3vw, 40px); border-radius: var(--radius-lg); background: var(--sage-mist); color: var(--ink); }
+.fg .hb-confirm:focus { outline: none; } /* focus is moved here so the statement is read; it is not a control */
+.fg .hb-confirm__statement { display: flex; align-items: flex-start; gap: 12px; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem); line-height: 1.25; letter-spacing: -0.01em; color: var(--ink); max-width: 30ch; }
+.hb-confirm__mark { flex: none; width: 24px; height: 24px; margin-top: 0.12em; color: var(--success); }
+.fg .hb-confirm__line { color: var(--ink-soft); max-width: 52ch; }
+.fg .hb-confirm__next { display: grid; width: 100%; margin: 6px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--sage-mist-2); }
+.hb-confirm__next li + li { border-top: 1px solid var(--sage-mist-2); }
+.fg .hb-confirm__next a { display: flex; align-items: center; min-height: 48px; color: var(--forest); font-weight: 500; }
+.fg .hb-confirm__next a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
+.fg .hb-confirm .hb-btn--quiet { margin-top: 6px; }
+.fg .hb-confirm .hb-btn--quiet:hover { background: var(--surface); }
 
 /* ---------- Close: one statement, one action ---------- */
 .hub-close { background: var(--field-ink); color: var(--on-ink); }
@@ -150,4 +232,107 @@
 .fg .hub-close .hb-btn--quiet { color: var(--on-ink); box-shadow: inset 0 0 0 1.5px var(--on-ink); }
 .fg .hub-close .hb-btn--quiet:hover { background: var(--field-ink-2); color: var(--on-ink); }
 .hub-close :focus-visible { outline-color: var(--on-ink); }
-@media (max-width: 760px) { .hub-close__act { width: 100%; } .hub-close__act .hb-btn { width: 100%; } }
+/* Under 640px the close's buttons go full width (the shared action-row rule in fg-base.css); the
+   dark theme's paper-on-ink fix is there too. */
+
+/* =========================================================
+   Company pages: About, Contact, FAQ, Pricing, Programs.
+   Every class below is new and used only on those pages, so no other page changes.
+   ========================================================= */
+
+/* A section straight under a title block that needs less top space (Pricing's first list). */
+.hub-sec--after-title { padding-top: clamp(40px, 6vw, 88px); }
+/* A second, quieter paragraph under a title's lead (Programs). */
+.fg .hub-title__sub { margin-top: 16px; max-width: 52ch; color: var(--ink-soft); }
+/* A short panel beside the title fills the 5-column track; on a phone it follows the title. */
+.hub-title__grid > .hb-short { align-self: center; }
+/* An action under a split heading. */
+.hub-split__act { margin-top: 24px; }
+/* Question groups (FAQ): sections that hold questions run at the tight hub rhythm. */
+.hub-sec--qa { padding-block: clamp(48px, 6vw, 88px); }
+.hub-sec--qa .hub-split__head a { color: var(--forest); }
+
+/* ---------- Pricing: the age-range bar under each class name, and the amount on phones ---------- */
+.price-row .range { margin-top: 12px; max-width: 280px; }
+.price-row .row__desc { margin-top: 10px; }
+@media (max-width: 560px) {
+  /* One column: the name, then the price on one line, then the span, the description and the action. */
+  .price-row { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .price-row > div:first-child { display: contents; }
+  .price-row .row__name { order: 0; }
+  .price-row__amount { order: 1; white-space: normal; }
+  .price-row .range { order: 2; margin-top: 6px; }
+  .price-row .row__desc { order: 3; margin-top: 4px; }
+  .price-row__act { order: 4; margin-top: 8px; }
+  .price-row__amount small { display: inline; max-width: none; margin-left: 0.4em; font-size: 14px; }
+}
+
+/* ---------- A graded claim, shown small (FAQ, Programs) ----------
+   The claim in Newsreader, its grade on the claims library's five-step scale, the verdict, and
+   a research-blue link to the full grade. Sage mist on haze and soft white; soft white on mist. */
+.fg .hub-claim { display: grid; gap: 10px; margin: 0; padding: 18px 20px; border-radius: var(--radius); background: var(--sage-mist); max-width: 60ch; }
+.hub-sec--mist .hub-claim { background: var(--surface); }
+.fg .qa details > .hub-claim { padding: 18px 20px; margin-bottom: 16px; color: var(--ink); }
+.fg .hub-claim__claim { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem); line-height: 1.25; letter-spacing: -0.01em; color: var(--ink); text-wrap: pretty; }
+.hub-claim__grade { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; font-size: 14px; line-height: 1.4; color: var(--ink-soft); }
+.hub-claim__grade b { font-weight: 600; color: var(--ink); }
+.hub-claim__scale { display: inline-grid; grid-template-columns: repeat(5, 16px); gap: 3px; }
+.hub-claim__scale i { height: 8px; border-radius: var(--radius-sm); background: var(--sage-mist-2); box-shadow: inset 0 0 0 1px var(--sage-deep); }
+.hub-claim__scale i.is-on { background: var(--ink); box-shadow: none; }
+.fg .hub-claim__verdict { font-size: 1rem; line-height: 1.55; color: var(--ink-soft); }
+.fg .hub-claim .hub-claim__src { justify-self: start; display: inline-flex; align-items: center; min-height: 44px; margin-block: -8px -12px; font-size: 15px; color: var(--research); }
+.fg .hub-claim .hub-claim__src:hover { color: var(--research); text-decoration-thickness: 2px; }
+.hub-sec--mist .principles__more { display: grid; gap: 14px; }
+
+/* ---------- A small research-blue sources module (About's publication) ---------- */
+.hub-src { margin-top: 10px; padding-top: 18px; border-top: 2px solid var(--research); }
+.fg .hub-src__title { font-family: var(--font-body); font-size: 15px; font-weight: 600; line-height: 1.4; letter-spacing: 0; color: var(--research); }
+.fg .hub-src__list { display: grid; margin: 6px 0 0; padding: 0; list-style: none; }
+.hub-src__list li { display: flex; align-items: center; min-height: 44px; }
+.fg .hub-src__list a { color: var(--research); line-height: 1.5; }
+.fg .hub-src__list a:hover { color: var(--research); text-decoration-thickness: 2px; }
+.hub-src__list cite { font-style: italic; }
+.bio__text .hub-fine { margin-top: 0; }
+.fg .bio__lead { color: var(--ink); }
+
+/* ---------- About: one moment read through the Lens (a figure) ---------- */
+.fg .model { container-type: inline-size; }
+.model__plate { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: clamp(20px, 3vw, 36px); align-items: start; }
+.model__photo { display: block; }
+.model__photo img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-lg); background: var(--sage-mist-2); }
+.fg .model__steps { display: grid; margin: 0; padding: 0; list-style: none; }
+.model__steps > li { padding-block: 14px; border-top: 1px solid var(--sage-mist-2); }
+.model__steps > li:first-child { padding-top: 0; border-top: 0; }
+.model__steps > li:last-child { padding-bottom: 0; }
+.fg .model__step { display: flex; align-items: baseline; gap: 10px; font-family: var(--font-body); font-size: 15px; font-weight: 600; line-height: 1.4; letter-spacing: 0; color: var(--ink); }
+.model__n { font-size: 14px; font-weight: 600; color: var(--clay-text); font-variant-numeric: tabular-nums; }
+.fg .model__steps p { margin-top: 4px; font-size: 1rem; line-height: 1.55; color: var(--ink-soft); max-width: 46ch; }
+.fg .model__steps .model__ev { margin-top: 6px; font-size: 14px; color: var(--research); }
+@container (max-width: 540px) {
+  .model__plate { grid-template-columns: minmax(0, 1fr); }
+  .model__photo img { aspect-ratio: 4 / 3; object-position: 50% 40%; }
+}
+
+/* ---------- Contact: who reads it, the form, and the places the answer may already be ----------
+   Wide: who and the routes on the left, the form on the right. Phone: who, the form, then the
+   routes, so the form starts inside the first screen. The confirmation takes the form's place. */
+.ct { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); grid-template-rows: auto 1fr; grid-template-areas: "who form" "routes form"; gap: 40px clamp(32px, 5vw, 80px); align-items: start; }
+.ct__who { grid-area: who; display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 20px; align-items: start; }
+.ct__face { width: 88px; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-lg); background: var(--sage-mist); }
+.fg .ct__title { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); line-height: 1.08; letter-spacing: -0.015em; text-wrap: balance; }
+.fg .ct__who p { margin-top: 12px; color: var(--ink-soft); max-width: 46ch; }
+.ct__form, .ct > .hb-confirm { grid-area: form; }
+.ct__routes { grid-area: routes; display: grid; gap: 32px; }
+.ct__routes .hb-next__title { font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem); }
+.fg .ct__crisis > p:first-child { color: var(--ink-soft); max-width: 50ch; }
+.ct__crisis .hb-crisis { margin-top: 12px; }
+@media (max-width: 860px) {
+  .ct { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-template-areas: "who" "form" "routes"; gap: 28px; }
+  .ct__routes { margin-top: 20px; }
+}
+@media (max-width: 420px) { .ct__who { grid-template-columns: 64px minmax(0, 1fr); gap: 16px; } .ct__face { width: 64px; } }
+
+/* ---------- Forms: a visible hint under a label (Programs) ---------- */
+.fg .pg-form .form-hint { margin-top: -2px; font-size: 14px; line-height: 1.45; color: var(--ink-muted); }
+/* The one link that closes a short-version panel reaches a 44px target without moving the line. */
+.fg .hb-short__go a { display: inline-flex; align-items: center; min-height: 44px; margin-block: -10px; }

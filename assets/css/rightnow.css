@@ -11,14 +11,20 @@
 .rn-bar .brand { display: inline-flex; align-items: center; min-height: 44px; gap: 0.6em; color: var(--ink); text-decoration: none; }
 .rn-bar .brand__mark { display: block; width: 32px; height: 32px; flex-shrink: 0; color: var(--ink); overflow: visible; }
 .rn-bar .brand__leaf { fill: var(--sage-deep); }
-[data-theme="dark"] .rn-bar .brand__mark { color: var(--sage); }
-[data-theme="dark"] .rn-bar .brand__leaf { fill: var(--sage-mist-2); }
+/* Dark: the same light sage the site header uses (chrome.css); --sage goes dark here. */
+[data-theme="dark"] .rn-bar .brand__mark { color: #A9C3B2; }
+[data-theme="dark"] .rn-bar .brand__leaf { fill: #CFDFD6; }
 .rn-bar .brand__name { margin-left: 0.1em; font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; letter-spacing: -0.01em; line-height: 1; white-space: nowrap; }
 .rn-bar .brand__desc { position: relative; top: 0.22em; font-family: var(--font-body); font-size: 11px; font-weight: 500; letter-spacing: 0.32em; text-transform: uppercase; }
 .fg .rn-bar > a:not(.brand) { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: var(--ink-soft); text-decoration: underline; text-underline-offset: 0.16em; white-space: nowrap; }
 .fg .rn-bar a:hover { color: var(--forest); }
 
-/* The question and the five choices share one reading surface. */
+/* Help right now: the crisis lines, tappable, in the first screen of every view. */
+.fg .rn-help { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; width: min(100% - 2 * var(--hb-gutter, 16px), 1040px); max-width: none; margin-inline: auto; padding: 14px 0 0; }
+.fg .rn-help__line { margin: 0; max-width: none; font-size: 15px; line-height: 1.4; color: var(--ink-soft); }
+.fg .rn-help .hb-crisis { margin: 0; max-width: none; gap: 8px; }
+
+/* The question and the choices share one reading surface. */
 .fg .rn-main { width: min(100% - 2 * var(--hb-gutter, 16px), 1040px); max-width: none; margin-inline: auto; padding: clamp(40px, 6vw, 80px) 0 clamp(64px, 8vw, 112px); }
 .rn-step { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(40px, 5vw, 80px); align-items: start; }
 .fg .rn-step__title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(2.25rem, 1.4rem + 3.4vw, 4.25rem); line-height: 1; letter-spacing: -0.025em; color: var(--ink); text-wrap: balance; }
@@ -68,6 +74,22 @@
 .fg .rn-answer__body { margin-top: 10px; font-size: 1rem; line-height: 1.7; color: var(--ink-soft); }
 .fg .rn-why__link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 8px; color: var(--forest); font-size: 15px; font-weight: 500; text-decoration: underline; }
 
+/* A safety line outside the recorded steps (crying: never shake; patience: step away). */
+.fg .rn-answer__edge { margin: 20px 0 0; max-width: 60ch; font-size: 1.0625rem; font-weight: 500; line-height: 1.55; color: var(--ink); }
+
+/* The phrase, then when to call the pediatrician or 911 under it. */
+.rn-answer__side { display: grid; gap: 20px; align-content: start; }
+.fg .rn-answer__when { margin: 0; max-width: 60ch; font-size: 15px; line-height: 1.6; color: var(--ink-soft); }
+.fg .rn-answer__when a { display: inline-block; padding-block: 11px; margin-block: -11px; color: var(--forest); text-decoration: underline; text-underline-offset: 3px; }
+.fg .rn-answer__when a:hover { color: var(--ink); }
+
+/* Sources for the safety lines: the research-blue module, compact. */
+.fg .rn-sources { margin-top: 32px; padding-top: 16px; border-top: 2px solid var(--research); }
+.fg .rn-sources__title { margin: 0; font-family: var(--font-body); font-size: 15px; font-weight: 600; line-height: 1.4; letter-spacing: 0; color: var(--research); }
+.fg .rn-sources ul { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 0; }
+.fg .rn-sources a { display: inline-flex; align-items: center; min-height: 40px; font-size: 14px; line-height: 1.4; color: var(--research); text-decoration: underline; text-underline-offset: 3px; }
+.fg .rn-sources a:hover { color: var(--ink); }
+
 /* A phrase to borrow. Copy feedback reports the clipboard's actual result. */
 .fg .rn-answer__try { margin: 0; padding: clamp(24px, 3vw, 32px); border-radius: var(--radius-lg); background: var(--sage-mist); color: var(--ink); }
 .rn-answer__try-label { display: block; font-family: var(--font-body); font-size: 14px; font-weight: 600; color: var(--forest); }
@@ -99,6 +121,10 @@
   .rn-answer__header { margin-bottom: 28px; }
   .rn-guide.is-guided .rn-seq { min-height: 164px; }
 }
+@media (max-width: 560px) {
+  .fg .rn-help { gap: 8px; }
+  .fg .rn-help__line { flex-basis: 100%; }
+}
 @media (max-width: 480px) {
   .rn-bar .brand__desc { display: none; }
   .fg .rn-main { padding-top: 36px; }
@@ -114,11 +140,13 @@
   .rn-choice:is(:hover, :focus-visible) .rn-choice__arrow { transform: none; }
 }
 @media print {
-  .rn-guide__header button, .rn-guide__nav, .rn-copy, .rn-actions, .rn-back, .rn-save-status { display: none !important; }
+  .rn-help, .rn-guide__header button, .rn-guide__nav, .rn-copy, .rn-actions, .rn-back, .rn-save-status { display: none !important; }
   .rn-body .rn-seq li[hidden] { display: grid !important; }
   .rn-guide.is-guided .rn-seq { min-height: 0; }
 }
 
-/* Retain the existing safety information under every answer. */
+/* Retain the existing safety information under every answer, its numbers tappable. */
 .fg .rn-safety { width: min(100% - 2 * var(--hb-gutter, 16px), 720px); margin-inline: auto; padding: 20px 0 48px; border-top: 1px solid var(--border-soft); font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
+.fg .rn-safety a { display: inline-block; padding-block: 11px; margin-block: -11px; color: var(--forest); text-decoration: underline; text-underline-offset: 3px; }
+.fg .rn-safety a:hover { color: var(--ink); }
 .fg .rn-safety__fine { margin-top: 8px; font-size: 14px; color: var(--ink-muted); }

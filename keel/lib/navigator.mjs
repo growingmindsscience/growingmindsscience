@@ -49,9 +49,14 @@ export function classify(domain, effectiveMonths, answers) {
         floor_id: f.floor_id || null
       });
     });
-    if (q.recheck && a === q.recheck.on && effectiveMonths < q.recheck.age_lt) {
-      notes.push({ question_id: q.id, note: q.recheck.note });
-    }
+    /* recheck is one note or a list of notes. Each fires on its answer inside
+       its own window [age_gte, age_lt); notes never change the class. */
+    [].concat(q.recheck || []).forEach(function (r) {
+      if (a !== r.on) return;
+      if (r.age_lt != null && effectiveMonths >= r.age_lt) return;
+      if (r.age_gte != null && effectiveMonths < r.age_gte) return;
+      notes.push({ question_id: q.id, note: r.note });
+    });
   });
 
   var cls = "typical_range";
@@ -62,19 +67,36 @@ export function classify(domain, effectiveMonths, answers) {
   return { class: cls, flags: flags, notes: notes };
 }
 
-/* Full result for the page: terminal copy + invitation where required. */
+/* True when the domain declares the (corrected) age as a thin-coverage band:
+   [from, until) ranges where the tree has few or no age-specific questions,
+   so a clean result there says less than it would elsewhere. */
+export function isThin(domain, effectiveMonths) {
+  return (domain.thin_months || []).some(function (b) {
+    return effectiveMonths >= b[0] && effectiveMonths < b[1];
+  });
+}
+
+/* Full result for the page: terminal copy + invitation where required.
+   A typical_range outcome inside a thin band uses the domain's
+   typical_range_thin copy; the class itself never changes. Every
+   typical_range result carries the standing invitation, whichever copy
+   it uses. */
 export function resolve(trees, domainKey, ageMonths, weeksEarly, answers) {
   var domain = trees.domains[domainKey];
   var age = correctedAge(ageMonths, weeksEarly, trees.corrected_age);
   var outcome = classify(domain, age.months, answers);
-  var terminal = domain.terminals[outcome.class];
+  var thin = outcome.class === "typical_range" && isThin(domain, age.months) && !!domain.terminals.typical_range_thin;
+  var terminal = thin ? domain.terminals.typical_range_thin : domain.terminals[outcome.class];
+  var invite = terminal.includes_invitation || outcome.class === "typical_range";
   return {
     domain: domainKey,
     class: outcome.class,
+    thin: thin,
     flags: outcome.flags,
     notes: outcome.notes,
     terminal: terminal,
-    invitation: terminal.includes_invitation ? trees.required_copy.parent_gut_invitation : null,
+    invitation: invite ? trees.required_copy.parent_gut_invitation : null,
+    sudden_change: outcome.class === "priority_discuss" ? (trees.required_copy.sudden_change || null) : null,
     corrected: age.corrected,
     effective_age_months: age.months
   };

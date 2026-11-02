@@ -1,8 +1,10 @@
 /* =========================================================
    Growing Minds Science: article.css
    The eight articles on the annotated-observation system (body.art).
-   Primitives from fg-base.css; the close band from hubs.css. A title block
-   with the short version on sage mist, then one reading column with the
+   Primitives from fg-base.css; the contents (.hb-read/.hb-toc), the
+   close band and rows from hubs.css; Keep reading (.hb-next) and the
+   figure colour helpers (.hb-fig) from fg-base.css. A title block with
+   the short version on sage mist, then one reading column with the
    contents beside it. Figures sit on soft white with calm corners;
    sources sit in the research-blue module. Tokens from
    tokens-field-guide.css.
@@ -13,25 +15,20 @@
 .art-title__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 32px clamp(32px, 5vw, 80px); align-items: end; }
 .art-title h1 { font-size: clamp(2rem, 1.35rem + 2.5vw, 3.25rem); line-height: 1.02; letter-spacing: -0.02em; max-width: 26ch; }
 .art .art-dek { margin-top: 22px; color: var(--ink-soft); max-width: 52ch; }
-.art .art-meta { margin-top: 16px; font-size: 15px; color: var(--ink-muted); }
-.art-meta a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink-soft); }
+/* One meta line: the section link opens it. The link reaches 44px with a negative block
+   margin, so a wrapped line keeps the same pitch as the first. */
+.art .art-meta { margin-top: 16px; font-size: 15px; line-height: 1.5; color: var(--ink-muted); }
+.art-meta a { display: inline-block; padding-block: 11px; margin-block: -11px; line-height: 22px; color: var(--ink-soft); }
+.fg .art-meta a:hover { color: var(--forest); }
 .art-short { padding: clamp(24px, 3vw, 36px); border-radius: var(--radius-lg); background: var(--sage-mist); }
 .art-short h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); line-height: 1.15; letter-spacing: -0.01em; }
 .art .art-short p { margin-top: 10px; color: var(--ink-soft); }
 @media (max-width: 900px) { .art-title__grid { grid-template-columns: minmax(0, 1fr); } }
 
-/* ---------- Body: contents beside one reading column ---------- */
-.art-body { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: 32px clamp(32px, 5vw, 80px); align-items: start; padding-block: clamp(40px, 5vw, 72px) clamp(72px, 9vw, 128px); border-top: 1px solid var(--border-soft); }
-.art-toc { position: sticky; top: calc(var(--header-h, 72px) + 24px); }
-.art .art-toc h2 { font-family: var(--font-body); letter-spacing: 0; line-height: 1.4; font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
-.art .art-toc ol { list-style: none; margin: 0; padding: 0; display: grid; }
-.art-toc a { display: flex; align-items: center; min-height: 44px; padding-block: 4px; font-size: 15px; line-height: 1.35; color: var(--ink-soft); text-decoration: none; border-top: 1px solid var(--border-soft); }
-.art-toc li:first-child a { border-top: 0; }
-.art-toc a:hover { color: var(--forest); text-decoration: underline; }
-@media (max-width: 900px) {
-  .art-body { grid-template-columns: minmax(0, 1fr); }
-  .art-toc { position: static; padding-bottom: 8px; border-bottom: 1px solid var(--border-soft); }
-}
+/* ---------- Body: contents beside one reading column ----------
+   The grid, the sticky contents and its scroll-spy come from hubs.css (.hb-read, .hb-toc):
+   3/9 at 1100px and up, a closed "In this article" row above the text below that. */
+.art-body { padding-block: clamp(40px, 5vw, 72px) clamp(72px, 9vw, 128px); border-top: 1px solid var(--border-soft); }
 
 /* ---------- The reading column ---------- */
 .art-text { max-width: 68ch; font-size: 1.125rem; line-height: 1.7; color: var(--ink); }
@@ -40,7 +37,8 @@
 .art .art-text h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem); line-height: 1.1; letter-spacing: -0.015em; margin-top: 2.2em; scroll-margin-top: calc(var(--header-h, 72px) + 24px); }
 .art .art-text h3 { font-family: var(--font-body); letter-spacing: 0; font-size: 1.125rem; font-weight: 600; line-height: 1.35; margin-top: 1.8em; }
 .art .art-text h2 + p, .art .art-text h3 + p { margin-top: 0.6em; }
-.art .art-text ul, .art .art-text ol:not([class]) { margin: 1.1em 0 0; padding-left: 1.25rem; display: grid; gap: 0.6em; }
+/* Only unclassed lists: a figure key or a panel list keeps its own measure and margins. */
+.art .art-text ul:not([class]), .art .art-text ol:not([class]) { margin: 1.1em 0 0; padding-left: 1.25rem; display: grid; gap: 0.6em; }
 .art .art-text li::marker { color: var(--ink-muted); }
 .art-text strong { font-weight: 600; }
 .art-text a { color: var(--forest); }
@@ -58,27 +56,62 @@
 .art .art-pair__cell p { margin-top: 8px; font-size: 1rem; color: var(--ink-soft); }
 @media (max-width: 640px) { .art .art-pair { grid-template-columns: minmax(0, 1fr); } }
 
-/* The checklist in "The cliff at three" */
+/* A real comparison: one row per question, so matching answers sit side by side.
+   Square rows under quiet rules, opened by a 2px ink rule; a .is-key row is tinted. */
+.art .art-compare { width: calc(100% + 24px); margin: 2em -12px; border-collapse: collapse; font-size: 1rem; line-height: 1.5; }
+.art-compare th, .art-compare td { padding: 14px 12px; text-align: left; vertical-align: top; }
+.art-compare thead th { padding-top: 0; font-family: var(--font-display); font-weight: 500; font-size: 1.25rem; line-height: 1.2; letter-spacing: -0.01em; color: var(--ink); border-bottom: 2px solid var(--ink); vertical-align: bottom; }
+.art-compare thead th:first-child { font: inherit; }
+.art-compare tbody th { width: 8.5rem; font-size: 15px; font-weight: 600; color: var(--ink); }
+.art-compare td { color: var(--ink-soft); }
+.art-compare tbody tr + tr > * { border-top: 1px solid var(--border-soft); }
+.art-compare tbody tr.is-key > * { background: var(--sage-mist); border-top-color: transparent; }
+.art-compare tbody tr.is-key td { color: var(--ink); }
+@media (max-width: 640px) {
+  .art .art-compare { width: 100%; margin-inline: 0; }
+  .art-compare thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .art-compare, .art-compare tbody, .art-compare tr, .art-compare th, .art-compare td { display: block; width: auto; }
+  .art-compare tbody { border-top: 2px solid var(--ink); }
+  .art-compare tbody tr { padding-block: 14px; }
+  .art-compare tbody tr + tr { border-top: 1px solid var(--border-soft); }
+  .art-compare tbody tr + tr > * { border-top: 0; }
+  .art-compare tbody tr.is-key { padding-inline: 12px; border-radius: var(--radius-sm); background: var(--sage-mist); border-top-color: transparent; }
+  .art-compare tbody tr.is-key > * { background: none; }
+  .art-compare th, .art-compare td { padding: 0; }
+  .art-compare td { margin-top: 6px; }
+  .art-compare td::before { content: attr(data-col) ": "; font-weight: 600; color: var(--ink); }
+}
+
+/* Panels on sage mist: the cliff-at-three checklist, the milestone-worry signals. */
 .art .checklist { margin: 2em 0; padding: clamp(20px, 3vw, 32px); border-radius: var(--radius-lg); background: var(--sage-mist); }
 .art .checklist h3 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); line-height: 1.2; }
 .art .checklist > p { margin-top: 8px; font-size: 15px; color: var(--ink-soft); }
-.art .art-text .checklist ol { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 0; }
+.art .art-text .checklist :is(ol, ul) { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 0; }
+.art .checklist > :is(ol, ul):first-child { margin-top: 0; }
 .art .checklist li { display: grid; gap: 4px; padding-block: 14px; border-top: 1px solid var(--sage-mist-2); }
 .art .checklist li:first-child { border-top: 0; padding-top: 0; }
-.art .checklist .when { font-size: 14px; font-weight: 600; color: var(--forest); }
+.art .checklist .when { font-size: 14px; font-weight: 600; color: var(--ink); }
+.art .checklist .when--lead { font-size: 1rem; }
 .art .checklist .ask { margin: 0; font-size: 1rem; color: var(--ink-soft); }
+.art .checklist .checklist__close { margin: 0; padding-top: 16px; border-top: 1px solid var(--sage-mist-2); font-family: var(--font-display); font-size: clamp(1.1875rem, 1.1rem + 0.35vw, 1.375rem); line-height: 1.3; color: var(--ink); }
+.art .checklist__act { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--sage-mist-2); }
+.art .checklist__act[hidden] { display: none; }
+.checklist__act .hb-btn:hover { background: var(--surface); }
 
 /* ---------- Figures: a soft white panel with calm corners ---------- */
 .art .art-figure { margin: 2.2em 0; padding: clamp(18px, 3vw, 32px); border-radius: var(--radius-lg); background: var(--surface); }
+/* New figures also carry .hb-fig for its colour helpers (f-*, s-*); the panel stays this one. */
+.art .art-figure.hb-fig { display: block; }
 /* Drawn on a 480-unit viewBox with text in SVG units: capped at 32rem, 16-unit
    labels render at about 17px; below 560px labels step to 22 units. */
-.art-figure svg { display: block; width: 100%; max-width: 32rem; height: auto; margin-inline: auto; }
+.art-figure svg { display: block; width: 100%; max-width: 32rem; height: auto; margin-inline: auto; overflow: visible; }
 .art-figure .af-text { font: 500 16px var(--font-body); fill: var(--ink-soft); }
 .art-figure .af-strong { font-weight: 600; fill: var(--ink); }
 .art-figure .af-muted { fill: var(--ink-muted); }
 .art-figure .af-primary { fill: var(--forest); }
 .art-figure .af-accent { fill: var(--clay-text); }
 .art-figure .af-note { font-style: italic; fill: var(--clay-text); }
+.art-figure .af-text--xs { font-size: 15px; }
 .art-figure .af-head, .art-figure .af-key, .art-figure .af-foot, .art-figure figcaption { max-width: 32rem; margin-inline: auto; }
 .art .art-figure .af-head { margin-block: 0 16px; color: var(--ink); font-size: 1rem; font-weight: 600; line-height: 1.4; text-wrap: balance; }
 .art .art-figure .af-foot { margin-block: 16px 0; font-family: var(--font-display); font-style: italic; font-size: 1.125rem; color: var(--ink-soft); line-height: 1.4; text-wrap: balance; }
@@ -87,34 +120,72 @@
 .art-figure .af-key b { color: var(--ink); font-weight: 600; }
 .art-figure .af-key__num { display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border: 1.5px solid var(--forest); border-radius: 50%; color: var(--forest); font-size: 14px; font-weight: 600; }
 .art-figure .af-key__num--warm { border-color: var(--clay-text); color: var(--clay-text); }
-.art .art-figure .af-key--stages { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 20px; }
-.art-figure .af-key--stages li { display: block; }
-.art-figure .af-key--stages b { display: block; }
 .art .art-figure figcaption { margin-top: 16px; color: var(--ink-muted); font-size: 14px; line-height: 1.6; }
-.art-figure figcaption b { font-weight: 600; color: var(--ink); }
-.art .art-figure .article-figure__head { margin: 0 0 16px; }
-.art .figure-steps { display: grid; gap: 20px; margin: 0; padding: 0; list-style: none; }
-.art .figure-steps li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; align-items: start; }
-.art .figure-step__num { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border: 1.5px solid var(--forest); border-radius: 50%; color: var(--forest); font-weight: 600; font-size: 15px; }
-.art .figure-steps .figure-step__title { margin: 4px 0 2px; font-family: var(--font-display); font-size: 1.25rem; line-height: 1.2; color: var(--ink); }
-.art .figure-steps p { margin: 0; color: var(--ink-soft); font-size: 15px; line-height: 1.6; }
-.art .figure-foot { margin: 20px 0 0; padding-top: 16px; border-top: 1px solid var(--border-soft); font-family: var(--font-display); font-style: italic; font-size: 1.125rem; color: var(--ink-soft); }
+/* "Fig. N" and a caption's source line are evidence marks: research blue. */
+.art .art-figure figcaption > b:first-child { font-weight: 600; color: var(--research); }
+.art .art-figure .af-src { display: block; margin-top: 4px; color: var(--research); }
 @media (max-width: 560px) {
   .art-figure .af-text { font-size: 22px; }
+  .art-figure .af-text--sm { font-size: 19px; }
+  .art-figure .af-text--xs { font-size: 17px; }
 }
 @media (max-width: 374px) {
   .art-figure svg { width: calc(100% + 16px); max-width: none; margin-inline: -8px; }
 }
 
-/* ---------- Sources: the research-blue module ---------- */
+/* The figure's one authored moment: parts marked .art-beat (with --b: 0, 1, 2 ...) arrive in
+   order as the figure enters (the loop goes round once; the rungs climb). Without html.anim
+   (no script, reduced motion) and in print they are simply there. */
+@media (prefers-reduced-motion: no-preference) {
+  html.anim .art-figure.is-in .art-beat { animation: art-beat 520ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) both; animation-delay: calc(var(--b, 0) * 260ms + 420ms); }
+}
+@keyframes art-beat { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* ---------- Sources: the research-blue module ----------
+   Every item gets the same row; a linked item is research blue and its link reaches 44px
+   inline (padding with a matching negative margin), so a sentence can continue after it. */
 .art .art-sources { margin-top: 3em; padding-top: 20px; border-top: 2px solid var(--research); }
-.art .art-sources h2 { margin: 0; font-family: var(--font-body); font-size: 15px; font-weight: 600; letter-spacing: 0; color: var(--research); }
-.art .art-sources ul { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 0; }
-.art .art-sources li { border-top: 1px solid var(--border-soft); font-size: 15px; line-height: 1.5; }
+.art .art-sources h2 { margin: 0; font-family: var(--font-body); font-size: 15px; font-weight: 600; line-height: 1.4; letter-spacing: 0; color: var(--research); }
+.art .art-text .art-sources ul { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 0; }
+.art .art-sources li { padding-block: 10px; border-top: 1px solid var(--border-soft); font-size: 15px; line-height: 1.5; color: var(--ink); }
 .art .art-sources li:first-child { border-top: 0; }
-.art .art-sources a { display: flex; align-items: center; min-height: 44px; padding-block: 8px; color: var(--research); }
+.art .art-sources a { padding-block: 13px; margin-block: -13px; color: var(--research); text-underline-offset: 0.16em; }
+.fg .art-sources a:hover { color: var(--research); text-decoration-thickness: 2px; }
+
+/* ---------- Keep reading ---------- */
+.art-next { margin-top: clamp(56px, 7vw, 88px); max-width: 68ch; }
 
 /* ---------- Close ---------- */
 /* Article closes carry longer statements than the hubs: a step smaller, a shorter measure. */
 .art .hub-close h2 { font-size: clamp(1.75rem, 1.25rem + 1.8vw, 2.75rem); max-width: 32ch; }
 .art .art-close__note { margin-top: 10px; font-size: 14px; color: var(--on-ink-muted); }
+
+/* ---------- Print ---------- */
+@media print {
+  .art .art-beat { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .art .checklist__act { display: none !important; }
+  /* "Print this checklist" (articles-hub.js) prints the checklist alone, ink on white. */
+  body.art-print-checklist .skip-link,
+  body.art-print-checklist .site-header,
+  body.art-print-checklist .site-footer,
+  body.art-print-checklist main > :not(.art-body),
+  body.art-print-checklist .art-body > :not(.hb-read__text),
+  body.art-print-checklist .hb-read__text > :not(.art-text),
+  body.art-print-checklist .art-text > :not(.checklist--print) { display: none !important; }
+  body.art-print-checklist .art-body { display: block; padding: 0; border: 0; }
+  body.art-print-checklist .checklist--print { margin: 0; padding: 0; background: none; }
+  body.art-print-checklist .checklist--print,
+  body.art-print-checklist .checklist--print * { color: #000 !important; border-color: #999 !important; }
+  body.art-print-checklist .checklist--print li { break-inside: avoid; }
+}
+
+/* ---------- "The load" (parents-nervous-system): a stack set in HTML so every label wraps ---------- */
+.art-load__plot { display: grid; gap: 6px; max-width: 30rem; margin-inline: auto; font-size: 15px; line-height: 1.4; }
+.art .art-load__plot p { margin: 0; }
+.art .art-text .art-load__stack { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.art-load__block { display: block; padding: 10px 14px; border-radius: var(--radius-sm); background: var(--sage-mist-2); color: var(--ink); }
+.art-load__thread { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; }
+.art-load__block--thread { position: relative; display: inline-block; padding-left: 30px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--ink); font-weight: 600; }
+.art-load__block--thread::before { content: ""; position: absolute; left: 13px; top: 50%; width: 8px; height: 8px; margin-top: -4px; border-radius: 50%; background: var(--note-warm); }
+.art-load__note { font-size: 14px; font-style: italic; color: var(--ink-muted); }
+.art-load__note--base { padding-top: 8px; border-top: 2px solid var(--ink); font-style: normal; font-weight: 600; color: var(--ink); }

@@ -26,12 +26,12 @@
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=adb6f82c92" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=46d4d4e37a" />
-  <link rel="stylesheet" href="/assets/css/fg-base.css?v=975e9133b4" />
-  <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
-  <link rel="stylesheet" href="/assets/css/claims.css?v=d0d715b886" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=a7f09b41d2" />
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
+  <link rel="stylesheet" href="/assets/css/hubs.css?v=36987dd3b5" />
+  <link rel="stylesheet" href="/assets/css/claims.css?v=bd1b0cb640" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=475f0abf7f" />
 </head>
 <body class="fg fg--page hub claims">
   <!-- header:start -->
@@ -83,101 +83,178 @@
   </header>
 
   <main id="main" tabindex="-1">
-    <section class="hub-title hub-title--solo">
+    <section class="hub-title">
       <div class="hb-container hub-title__grid">
         <div data-rise>
           <h1 class="hb-display">Parenting claims, graded</h1>
           <p class="hb-lead"><b>Clear about what&rsquo;s known. Honest about what&rsquo;s not.</b> The internet states every parenting claim with the same confidence. The research does not. Each claim here is stated the way a parent would say it, then graded on two axes: how strong the evidence actually is, and how united the field actually is.</p>
           <p class="hub-title__fine">Free &middot; Evidence-graded &middot; 9 claims and growing</p>
         </div>
+        <nav class="cl-glance" aria-labelledby="glance-h" data-rise style="--i:1">
+          <h2 class="cl-glance__title" id="glance-h">By evidence strength</h2>
+          <ol class="cl-glance__list">
+            <li><a href="#strong"><span class="cl-glance__name">Strong evidence</span> <span class="cl-glance__n">2</span></a></li>
+            <li><a href="#moderate"><span class="cl-glance__name">Moderate evidence</span> <span class="cl-glance__n">2</span></a></li>
+            <li><a href="#limited"><span class="cl-glance__name">Limited evidence</span> <span class="cl-glance__n">1</span></a></li>
+            <li><a href="#insufficient"><span class="cl-glance__name">Not enough evidence</span> <span class="cl-glance__n">1</span></a></li>
+            <li><a href="#contradicted"><span class="cl-glance__name">Contradicted by evidence</span> <span class="cl-glance__n">3</span></a></li>
+          </ol>
+          <p class="cl-glance__more"><a href="#how-claims-get-graded">How claims get graded</a></p>
+        </nav>
       </div>
     </section>
-    <section class="cl-body cl-body--hub">
+    <div class="cl-body cl-body--hub">
       <div class="hb-container">
-        <h2 class="u-visually-hidden">All claims</h2>
-        <div class="cl-rows">
-          <article class="cl-row">
-            <div>
-              <h3 class="cl-row__claim">&ldquo;Hearing two languages will confuse my baby and delay their speech.&rdquo;</h3>
-              <p class="cl-row__meta"><span class="cl-grade--contra">Contradicted by evidence</span> <span aria-hidden="true">&middot;</span> Language</p>
+        <section class="cl-group" id="strong" aria-labelledby="strong-h">
+          <div class="cl-group__head" data-rise>
+            <h2 id="strong-h">Strong evidence</h2>
+            <p class="cl-group__meta">2 claims</p>
+          </div>
+          <div class="rows" data-rise style="--i:1">
+            <div class="row row--link">
+              <div>
+                <h3 class="row__name"><a href="/claims/talking-to-baby">&ldquo;Talking to my baby, even before they can respond, builds their language.&rdquo;</a></h3>
+                <p class="row__meta">Scientific consensus <span aria-hidden="true">&middot;</span> Language</p>
+              </div>
+              <p class="row__desc">Yes. Talking with your baby builds language, and back-and-forth exchanges look especially important.</p>
             </div>
-            <p class="cl-row__verdict">Bilingual children babble on time, and their vocabulary is on track when you count both languages.</p>
-            <p class="cl-row__go"><a href="/claims/bilingual-confusion">Read the grade</a></p>
-          </article>
-          <article class="cl-row">
-            <div>
-              <h3 class="cl-row__claim">&ldquo;A baby walker will help my baby learn to walk sooner.&rdquo;</h3>
-              <p class="cl-row__meta"><span class="cl-grade--contra">Contradicted by evidence</span> <span aria-hidden="true">&middot;</span> Products &amp; gear</p>
+            <div class="row row--link">
+              <div>
+                <h3 class="row__name"><a href="/claims/shared-reading">&ldquo;Reading to my toddler actually changes their language development.&rdquo;</a></h3>
+                <p class="row__meta">Scientific consensus <span aria-hidden="true">&middot;</span> Language</p>
+              </div>
+              <p class="row__desc">Yes. Reading together builds language, and reading interactively, with questions and pauses, can add to the benefit.</p>
             </div>
-            <p class="cl-row__verdict">Walkers don't help babies walk sooner, and the injury record led the AAP to call for a ban.</p>
-            <p class="cl-row__go"><a href="/claims/baby-walkers">Read the grade</a></p>
-          </article>
-          <article class="cl-row">
-            <div>
-              <h3 class="cl-row__claim">&ldquo;Tummy time actually matters for my baby's development.&rdquo;</h3>
-              <p class="cl-row__meta"><span class="cl-grade--solid">Moderate evidence</span> <span aria-hidden="true">&middot;</span> Milestones</p>
+          </div>
+        </section>
+        <section class="cl-group" id="moderate" aria-labelledby="moderate-h">
+          <div class="cl-group__head" data-rise>
+            <h2 id="moderate-h">Moderate evidence</h2>
+            <p class="cl-group__meta">2 claims</p>
+          </div>
+          <div class="rows" data-rise style="--i:1">
+            <div class="row row--link">
+              <div>
+                <h3 class="row__name"><a href="/claims/tummy-time">&ldquo;Tummy time actually matters for my baby’s development.&rdquo;</a></h3>
+                <p class="row__meta">Scientific consensus <span aria-hidden="true">&middot;</span> Milestones</p>
+              </div>
+              <p class="row__desc">Yes: awake tummy time is linked to better motor development; the head-shape evidence is mixed.</p>
             </div>
-            <p class="cl-row__verdict">Yes: awake tummy time is linked to better motor development; the head-shape evidence is mixed.</p>
-            <p class="cl-row__go"><a href="/claims/tummy-time">Read the grade</a></p>
-          </article>
-          <article class="cl-row">
-            <div>
-              <h3 class="cl-row__claim">&ldquo;Screen time is harming my toddler's language development.&rdquo;</h3>
-              <p class="cl-row__meta"><span class="cl-grade--solid">Moderate evidence</span> <span aria-hidden="true">&middot;</span> Screens</p>
+            <div class="row row--link">
+              <div>
+                <h3 class="row__name"><a href="/claims/screen-time-language">&ldquo;Screen time is harming my toddler’s language development.&rdquo;</a></h3>
+                <p class="row__meta">Majority view <span aria-hidden="true">&middot;</span> Screens</p>
+              </div>
+              <p class="row__desc">Heavy, passive, background screen use is linked to less language input; the dose and the type matter more than the screen.</p>
             </div>
-            <p class="cl-row__verdict">Heavy, passive, background screen use is linked to less language input; the dose and the type matter more than the screen.</p>
-            <p class="cl-row__go"><a href="/claims/screen-time-language">Read the grade</a></p>
-          </article>
-          <article class="cl-row">
-            <div>
-              <h3 class="cl-row__claim">&ldquo;Pacifier use will delay my child's speech.&rdquo;</h3>
-              <p class="cl-row__meta"><span class="cl-grade--thin">Not enough evidence</span> <span aria-hidden="true">&middot;</span> Language</p>
+          </div>
+        </section>
+        <section class="cl-group" id="limited" aria-labelledby="limited-h">
+          <div class="cl-group__head" data-rise>
+            <h2 id="limited-h">Limited evidence</h2>
+            <p class="cl-group__meta">1 claim</p>
+          </div>
+          <div class="rows" data-rise style="--i:1">
+            <div class="row row--link">
+              <div>
+                <h3 class="row__name"><a href="/claims/baby-led-weaning">&ldquo;Baby-led weaning is better than spoon-feeding purées.&rdquo;</a></h3>
+                <p class="row__meta">Majority view <span aria-hidden="true">&middot;</span> Feeding</p>
+              </div>
+              <p class="row__desc">A reasonable option, not a clearly better one; the few trials so far show mixed results on growth.</p>
             </div>
-            <p class="cl-row__verdict">There is not enough evidence that ordinary pacifier use delays speech; the clearer tradeoffs are ear infections and, with long use, teeth.</p>
-            <p class="cl-row__go"><a href="/claims/pacifiers-speech">Read the grade</a></p>
-          </article>
-          <article class="cl-row">
-            <div>
-              <h3 class="cl-row__claim">&ldquo;Talking to my baby, even before they can respond, builds their language.&rdquo;</h3>
-              <p class="cl-row__meta"><span class="cl-grade--solid">Strong evidence</span> <span aria-hidden="true">&middot;</span> Language</p>
+          </div>
+        </section>
+        <section class="cl-group" id="insufficient" aria-labelledby="insufficient-h">
+          <div class="cl-group__head" data-rise>
+            <h2 id="insufficient-h">Not enough evidence</h2>
+            <p class="cl-group__meta">1 claim</p>
+          </div>
+          <div class="rows" data-rise style="--i:1">
+            <div class="row row--link">
+              <div>
+                <h3 class="row__name"><a href="/claims/pacifiers-speech">&ldquo;Pacifier use will delay my child’s speech.&rdquo;</a></h3>
+                <p class="row__meta">Majority view <span aria-hidden="true">&middot;</span> Language</p>
+              </div>
+              <p class="row__desc">There is not enough evidence that ordinary pacifier use delays speech; the clearer tradeoffs are ear infections and, with long use, teeth.</p>
             </div>
-            <p class="cl-row__verdict">Yes. Talking with your baby builds language, and back-and-forth exchanges look especially important.</p>
-            <p class="cl-row__go"><a href="/claims/talking-to-baby">Read the grade</a></p>
-          </article>
-          <article class="cl-row">
-            <div>
-              <h3 class="cl-row__claim">&ldquo;Teething causes fevers.&rdquo;</h3>
-              <p class="cl-row__meta"><span class="cl-grade--contra">Contradicted by evidence</span> <span aria-hidden="true">&middot;</span> Milestones</p>
+          </div>
+        </section>
+        <section class="cl-group" id="contradicted" aria-labelledby="contradicted-h">
+          <div class="cl-group__head" data-rise>
+            <h2 id="contradicted-h">Contradicted by evidence</h2>
+            <p class="cl-group__meta">3 claims</p>
+          </div>
+          <div class="rows" data-rise style="--i:1">
+            <div class="row row--link">
+              <div>
+                <h3 class="row__name"><a href="/claims/bilingual-confusion">&ldquo;Hearing two languages will confuse my baby and delay their speech.&rdquo;</a></h3>
+                <p class="row__meta">Scientific consensus <span aria-hidden="true">&middot;</span> Language</p>
+              </div>
+              <p class="row__desc">Bilingual children babble on time, and their vocabulary is on track when you count both languages.</p>
             </div>
-            <p class="cl-row__verdict">Teething can nudge temperature up slightly; a real fever should not be blamed on teeth.</p>
-            <p class="cl-row__go"><a href="/claims/teething-fever">Read the grade</a></p>
-          </article>
-          <article class="cl-row">
-            <div>
-              <h3 class="cl-row__claim">&ldquo;Baby-led weaning is better than spoon-feeding purées.&rdquo;</h3>
-              <p class="cl-row__meta"><span class="cl-grade--thin">Limited evidence</span> <span aria-hidden="true">&middot;</span> Feeding</p>
+            <div class="row row--link">
+              <div>
+                <h3 class="row__name"><a href="/claims/baby-walkers">&ldquo;A baby walker will help my baby learn to walk sooner.&rdquo;</a></h3>
+                <p class="row__meta">Scientific consensus <span aria-hidden="true">&middot;</span> Products &amp; gear</p>
+              </div>
+              <p class="row__desc">Walkers don’t help babies walk sooner, and the injury record led the AAP to call for a ban.</p>
             </div>
-            <p class="cl-row__verdict">A reasonable option, not a clearly better one; the few trials so far show mixed results on growth.</p>
-            <p class="cl-row__go"><a href="/claims/baby-led-weaning">Read the grade</a></p>
-          </article>
-          <article class="cl-row">
-            <div>
-              <h3 class="cl-row__claim">&ldquo;Reading to my toddler actually changes their language development.&rdquo;</h3>
-              <p class="cl-row__meta"><span class="cl-grade--solid">Strong evidence</span> <span aria-hidden="true">&middot;</span> Language</p>
+            <div class="row row--link">
+              <div>
+                <h3 class="row__name"><a href="/claims/teething-fever">&ldquo;Teething causes fevers.&rdquo;</a></h3>
+                <p class="row__meta">Majority view <span aria-hidden="true">&middot;</span> Milestones</p>
+              </div>
+              <p class="row__desc">Teething can nudge temperature up slightly; a real fever should not be blamed on teeth.</p>
             </div>
-            <p class="cl-row__verdict">Yes. Reading together builds language, and reading interactively, with questions and pauses, can add to the benefit.</p>
-            <p class="cl-row__go"><a href="/claims/shared-reading">Read the grade</a></p>
-          </article>
+          </div>
+        </section>
+      </div>
+    </div>
+    <section class="hub-sec hub-sec--mist cl-method-sec" id="how-claims-get-graded" aria-labelledby="method-h">
+      <div class="hb-container hub-split">
+        <div class="hub-split__head" data-rise>
+          <h2 id="method-h">How claims get graded</h2>
+          <p>Two questions, asked of every claim, and the same honesty rules for all of them.</p>
         </div>
-        <div class="cl-narrow">
-
-        <div class="cl-method">
-          <h2>How claims get graded</h2>
+        <div class="cl-method" data-rise style="--i:1">
           <p>Every claim is graded on two independent axes. <strong>Evidence strength</strong> asks: how good is the research behind the claim as parents actually state it? Randomized trials and meta-analyses outrank single observational studies, which outrank expert opinion. <strong>Consensus</strong> asks a different question: where does the field actually sit? A claim can rest on limited evidence while researchers still broadly agree, and both facts belong on the label.</p>
+          <figure class="cl-key" aria-labelledby="key-cap">
+            <div class="cl-key__axis cl-key__axis--5">
+              <p class="cl-key__name">Evidence strength</p>
+              <ol class="cl-key__steps">
+                <li><span class="cl-key__seg" aria-hidden="true"></span><span class="cl-key__label">Contradicted by evidence</span></li>
+                <li><span class="cl-key__seg" aria-hidden="true"></span><span class="cl-key__label">Not enough evidence</span></li>
+                <li><span class="cl-key__seg" aria-hidden="true"></span><span class="cl-key__label">Limited evidence</span></li>
+                <li><span class="cl-key__seg" aria-hidden="true"></span><span class="cl-key__label">Moderate evidence</span></li>
+                <li><span class="cl-key__seg" aria-hidden="true"></span><span class="cl-key__label">Strong evidence</span></li>
+              </ol>
+            </div>
+            <div class="cl-key__axis cl-key__axis--4">
+              <p class="cl-key__name">Consensus</p>
+              <ol class="cl-key__steps">
+                <li><span class="cl-key__seg" aria-hidden="true"></span><span class="cl-key__label">Fringe position</span></li>
+                <li><span class="cl-key__seg" aria-hidden="true"></span><span class="cl-key__label">Field is divided</span></li>
+                <li><span class="cl-key__seg" aria-hidden="true"></span><span class="cl-key__label">Majority view</span></li>
+                <li><span class="cl-key__seg" aria-hidden="true"></span><span class="cl-key__label">Scientific consensus</span></li>
+              </ol>
+            </div>
+            <figcaption id="key-cap">The two scales, from evidence against to strong evidence and from a fringe position to scientific consensus. Each claim page fills in its own step on both.</figcaption>
+          </figure>
           <p>Every empirical statement in a summary is tied to the sources listed on its page, and an automated check enforces the honesty rules: claims below strong evidence cannot use proof-language, and claims with limited or insufficient evidence must say so in plain words. The check runs on every update to this site; a summary that overclaims cannot ship.</p>
           <p>The grades are educational summaries of published research, not medical advice, and they can change; each page shows when it was last reviewed.</p>
-        </div>
           <p class="cl-note">Educational summaries of published research, not medical advice. Grades reflect the cited literature at the review date shown on each page.</p>
+        </div>
+      </div>
+    </section>
+    <section class="hub-sec hub-close" aria-labelledby="close-heading">
+      <div class="hb-container">
+        <div data-rise>
+          <h2 class="hb-display" id="close-heading">Heard a claim that isn&rsquo;t here yet?</h2>
+          <p>Ask the research answers parenting questions with developmental science, not judgment and not generic advice.</p>
+        </div>
+        <div class="hub-close__act" data-rise style="--i:1">
+          <a class="hb-btn hb-btn--paper" href="/tools/ask-the-research">Ask the research</a>
+          <a class="hb-btn hb-btn--quiet" href="/classes/">Browse the classes</a>
         </div>
       </div>
     </section>
@@ -247,8 +324,8 @@
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
 
-  <script src="/assets/js/main.js?v=3f7e70ab67" defer></script>
-  <script src="/assets/js/home.js?v=78ff6722df" defer></script>
+  <script src="/assets/js/main.js?v=b5c8e48c2d" defer></script>
+  <script src="/assets/js/home.js?v=d3d063f882" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

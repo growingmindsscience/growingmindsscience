@@ -26,13 +26,13 @@
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=adb6f82c92" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=46d4d4e37a" />
-  <link rel="stylesheet" href="/assets/css/fg-base.css?v=975e9133b4" />
-  <link rel="stylesheet" href="/assets/css/tools.css?v=7fce784071" />
-  <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
-  <link rel="stylesheet" href="/assets/css/pages.css?v=4d6a085aa8" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=a7f09b41d2" />
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
+  <link rel="stylesheet" href="/assets/css/tools.css?v=4c6ab1c94c" />
+  <link rel="stylesheet" href="/assets/css/hubs.css?v=36987dd3b5" />
+  <link rel="stylesheet" href="/assets/css/pages.css?v=0967ade630" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=475f0abf7f" />
 </head>
 <body class="fg fg--page hub pg-contact-page">
   <!-- header:start -->
@@ -93,57 +93,95 @@
       </div>
     </section>
     <section class="pg-body">
-      <div class="hb-container pg-contact">
-        <div class="pg-contact__intro">
-          <h2>A real reply, not an auto-response.</h2>
-          <p>From Little Onward is a small operation. Every message is read personally. Typical response time is a few business days.</p>
-          <ul class="pg-list">
-            <li>Questions about class content or the waitlist</li>
-            <li>Feedback on tools and articles</li>
-            <li>Collaboration or press inquiries</li>
-            <li>Technical issues with your account or purchase</li>
-          </ul>
-          <p class="hub-fine">This form is not for medical, psychological, or crisis support. If you or someone you know needs immediate help, please contact a qualified professional or emergency services.</p>
+      <div class="hb-container ct">
+        <div class="ct__who" data-rise style="--i:1">
+          <img class="ct__face" src="/assets/img/matthew-photo-400.jpg" width="400" height="500" alt="Matthew McArthur" loading="eager" decoding="async" />
+          <div>
+            <h2 class="ct__title">A real reply, not an auto-response.</h2>
+            <p>From Little Onward is a small operation. Matthew McArthur, who writes the classes, reads every message personally. Typical response time is a few business days.</p>
+          </div>
         </div>
-          <form
-            class="pg-form"
-            data-contact
-            method="POST"
-            action="/api/contact"
-            aria-labelledby="contact-heading">
-            <h3 id="contact-heading" class="pg-form__title">Send a message</h3>
 
-            <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" hidden aria-hidden="true" />
+        <form
+          class="pg-form ct__form"
+          data-contact
+          method="POST"
+          action="/api/contact"
+          aria-labelledby="contact-heading"
+          data-rise style="--i:2">
+          <h2 id="contact-heading" class="pg-form__title">Send a message</h2>
 
-            <div class="form-row">
-              <label class="form-label" for="name">Your name <span class="muted">(optional)</span></label>
-              <input class="form-input" type="text" id="name" name="name" autocomplete="name" placeholder="Your name" />
-            </div>
+          <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" hidden aria-hidden="true" />
 
-            <div class="form-row">
-              <label class="form-label" for="email">Your email</label>
-              <input class="form-input" type="email" id="email" name="email" autocomplete="email" required placeholder="you@example.com" aria-describedby="contact-email-error" />
-              <p class="field-error" id="contact-email-error" role="alert"></p>
-            </div>
+          <div class="form-row">
+            <label class="form-label" for="name">Your name <span class="muted">(optional)</span></label>
+            <input class="form-input" type="text" id="name" name="name" autocomplete="name" placeholder="Your name" />
+          </div>
 
-            <div class="form-row">
-              <label class="form-label" for="message">Message</label>
-              <textarea
-                class="form-input"
-                id="message"
-                name="message"
-                rows="6"
-                required
-                maxlength="2000"
-                placeholder="What's on your mind?"
-                aria-describedby="contact-message-error"></textarea>
-              <p class="field-error" id="contact-message-error" role="alert"></p>
-            </div>
+          <div class="form-row">
+            <label class="form-label" for="email">Your email</label>
+            <input class="form-input" type="email" id="email" name="email" autocomplete="email" required placeholder="you@example.com" aria-describedby="contact-email-error" />
+            <p class="field-error" id="contact-email-error" role="alert"></p>
+          </div>
 
-            <button class="hb-btn pg-form__send" type="submit">Send message</button>
-            <p class="form-status" role="status" aria-live="polite"></p>
-            <p class="form-status form-sent" id="sent">Thank you. Your message is on its way to Matthew.</p>
-          </form>
+          <div class="form-row">
+            <label class="form-label" for="message">Message</label>
+            <textarea
+              class="form-input"
+              id="message"
+              name="message"
+              rows="6"
+              required
+              maxlength="2000"
+              placeholder="What's on your mind?"
+              aria-describedby="contact-message-error"></textarea>
+            <p class="field-error" id="contact-message-error" role="alert"></p>
+          </div>
+
+          <button class="hb-btn pg-form__send" type="submit">Send message</button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+          <p class="form-status form-sent" id="sent">Thank you. Your message is on its way to Matthew.</p>
+
+          <template data-confirm>
+            <ul class="hb-confirm__next">
+              <li><a href="/faq/">Browse the common questions while you wait</a></li>
+              <li><a href="/articles/">Read an article</a></li>
+              <li><a href="/tools/">See the free tools</a></li>
+            </ul>
+          </template>
+        </form>
+
+        <div class="ct__routes" data-rise style="--i:1">
+          <div class="hb-next">
+            <h2 class="hb-next__title" id="routes-h">The answer may already be here</h2>
+            <ul class="hb-next__list" aria-labelledby="routes-h">
+              <li class="hb-next__row">
+                <a class="hb-next__name" href="/faq/">Common questions</a>
+                <p class="hb-next__line">How the classes work, the family-systems waitlist, refunds, and who builds this.</p>
+              </li>
+              <li class="hb-next__row">
+                <a class="hb-next__name" href="/pricing">Pricing</a>
+                <p class="hb-next__line">What each class costs, what is free, and what is included.</p>
+              </li>
+              <li class="hb-next__row">
+                <a class="hb-next__name" href="/tools/">Free tools and guides</a>
+                <p class="hb-next__line">The milestone tracker, behavior, sleep, screen-time and regulation guides. No account needed.</p>
+              </li>
+              <li class="hb-next__row">
+                <a class="hb-next__name" href="/tools/right-now">It&rsquo;s hard right now</a>
+                <p class="hb-next__line">A calm next step in two minutes, for a hard moment that is happening now.</p>
+              </li>
+            </ul>
+          </div>
+          <div class="ct__crisis">
+            <p>This form is not for medical, psychological, or crisis support. If someone needs help now, in the US, call or text 988 any time, or call 911 in an emergency.</p>
+            <p class="hb-crisis">
+              <a class="hb-crisis__line" href="tel:988">Call <b>988</b></a>
+              <a class="hb-crisis__line" href="sms:988">Text <b>988</b></a>
+              <a class="hb-crisis__line" href="tel:911">Call <b>911</b></a>
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -213,8 +251,8 @@
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
 
-  <script src="../assets/js/main.js?v=3f7e70ab67" defer></script>
-  <script src="/assets/js/home.js?v=78ff6722df" defer></script>
+  <script src="../assets/js/main.js?v=b5c8e48c2d" defer></script>
+  <script src="/assets/js/home.js?v=d3d063f882" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

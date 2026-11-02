@@ -189,9 +189,9 @@
   background: none;
 }
 .site-header .nav__link:hover::after,
-.site-header .nav__link[aria-current="page"]::after,
+.site-header .nav__link:is([aria-current="page"], [aria-current="true"])::after,
 .site-header .nav__summary.is-current::after { transform: scaleX(1); }
-.site-header .nav__link[aria-current="page"],
+.site-header .nav__link:is([aria-current="page"], [aria-current="true"]),
 .site-header .nav__summary.is-current { color: var(--chrome-ink); background: none; }
 
 /* Free tools menu (details/summary: works without JS, closes via chrome.js) */
@@ -458,9 +458,9 @@
     font-size: 1.0625rem;
   }
   .site-header .nav__link::after { display: none; }
-  .site-header .nav__link[aria-current="page"],
+  .site-header .nav__link:is([aria-current="page"], [aria-current="true"]),
   .site-header .nav__summary.is-current { font-weight: 600; }
-  .site-header .nav__link[aria-current="page"]::before,
+  .site-header .nav__link:is([aria-current="page"], [aria-current="true"])::before,
   .site-header .nav__summary.is-current::before {
     content: "";
     width: 6px;
@@ -623,7 +623,7 @@
   padding-top: 1.25rem;
   border-top: 3px solid var(--chrome-on-dark);
   color: var(--chrome-on-dark-muted);
-  font-family: var(--chrome-display);
+  font-family: var(--chrome-body); /* fine print is the text face, never the display face */
   font-size: 0.8125rem;
   line-height: 1.5;
 }

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>It's hard right now | From Little Onward</title>
-  <meta name="description" content="A calm, one-tap guide for the hard moment: meltdowns, limits, sleep, losing your patience, or repairing after things went sideways. Research-based, no reading required." />
+  <meta name="description" content="A calm, one-tap guide for the hard moment: a baby who won&#x27;t stop crying, meltdowns, limits, sleep, losing your patience, or repairing after things went sideways. Research-based, no reading required." />
   <meta name="theme-color" content="#F8F9FB" />
   <meta name="color-scheme" content="light dark" />
 
@@ -16,7 +16,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.fromlittleonward.com/tools/right-now" />
   <meta property="og:title" content="It's hard right now | From Little Onward" />
-  <meta property="og:description" content="A calm, one-tap guide for the hard moment: meltdowns, limits, sleep, losing your patience, or repairing after things went sideways." />
+  <meta property="og:description" content="A calm, one-tap guide for the hard moment: a baby who won&#x27;t stop crying, meltdowns, limits, sleep, losing your patience, or repairing after things went sideways." />
   <meta property="og:image" content="https://www.fromlittleonward.com/assets/img/site/family-reading.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://www.fromlittleonward.com/assets/img/site/family-reading.jpg" />
@@ -24,11 +24,11 @@
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=adb6f82c92" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=46d4d4e37a" />
-  <link rel="stylesheet" href="/assets/css/fg-base.css?v=975e9133b4" />
-  <link rel="stylesheet" href="/assets/css/tools.css?v=7fce784071" />
-  <link rel="stylesheet" href="/assets/css/rightnow.css?v=78e1b9ffd4" />
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
+  <link rel="stylesheet" href="/assets/css/tools.css?v=4c6ab1c94c" />
+  <link rel="stylesheet" href="/assets/css/rightnow.css?v=a8364b75ac" />
   <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
   /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 </head>
@@ -43,35 +43,66 @@
     <a href="/tools/">← All tools</a>
   </header>
 
+  <!-- Tappable on every view and in the first screen, before the question. -->
+  <aside class="rn-help" aria-label="Help right now">
+    <p class="rn-help__line">Need help right now? In the US, any time:</p>
+    <p class="hb-crisis">
+      <a class="hb-crisis__line" href="tel:988">Call <b>988</b></a>
+      <a class="hb-crisis__line" href="sms:988">Text <b>988</b></a>
+      <a class="hb-crisis__line" href="tel:911">Emergency <b>911</b></a>
+    </p>
+  </aside>
+
   <main id="rn-main" class="rn-main">
     <!-- Readable without JavaScript: the script replaces this with the
          interactive version (short answers in place) on load. -->
     <div class="rn-step">
       <div class="rn-intro">
-        <h1 class="rn-step__title">What's happening?</h1>
-        <p class="rn-step__eyebrow">It's hard right now</p>
-        <p class="rn-step__lead">Choose what feels closest. Let's find one small next step.</p>
-        <p class="rn-reassurance">You don't have to solve<br />the whole day.</p>
+        <h1 class="rn-step__title">What&rsquo;s happening?</h1>
+        <p class="rn-step__eyebrow">It&rsquo;s hard right now</p>
+        <p class="rn-step__lead">Choose what feels closest. Let&rsquo;s find one small next step.</p>
+        <p class="rn-reassurance">You don&rsquo;t have to solve<br />the whole day.</p>
       </div>
       <div class="rn-choices" aria-label="Choose your situation">
+        <a class="rn-choice" href="/classes/birth-to-12-months"><span class="rn-choice__text"><span class="rn-choice__name">Baby won&rsquo;t stop crying</span><span class="rn-choice__hint">Birth to 12 months. Crying that nothing you try seems to settle.</span></span><svg class="rn-choice__arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
         <a class="rn-choice" href="/tools/whats-underneath-the-meltdown"><span class="rn-choice__text"><span class="rn-choice__name">Meltdown or tantrum</span><span class="rn-choice__hint">Screaming, crying, hitting, going limp, or losing it.</span></span><svg class="rn-choice__arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
-        <a class="rn-choice" href="/tools/limits-without-escalation"><span class="rn-choice__text"><span class="rn-choice__name">Testing a limit</span><span class="rn-choice__hint">Pushing a &quot;no&quot;, refusing, or melting down over a boundary.</span></span><svg class="rn-choice__arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
-        <a class="rn-choice" href="/tools/routines-transitions-night-waking"><span class="rn-choice__text"><span class="rn-choice__name">Won&#x27;t sleep</span><span class="rn-choice__hint">Fighting bedtime, waking in the night, or stalling.</span></span><svg class="rn-choice__arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
-        <a class="rn-choice" href="/tools/regulating-yourself-first"><span class="rn-choice__text"><span class="rn-choice__name">I&#x27;m losing my patience</span><span class="rn-choice__hint">You&#x27;re the one running hot, close to yelling.</span></span><svg class="rn-choice__arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
+        <a class="rn-choice" href="/tools/limits-without-escalation"><span class="rn-choice__text"><span class="rn-choice__name">Testing a limit</span><span class="rn-choice__hint">Pushing a &ldquo;no&rdquo;, refusing, or melting down over a boundary.</span></span><svg class="rn-choice__arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
+        <a class="rn-choice" href="/tools/routines-transitions-night-waking"><span class="rn-choice__text"><span class="rn-choice__name">Won&rsquo;t sleep</span><span class="rn-choice__hint">Fighting bedtime, waking in the night, or stalling.</span></span><svg class="rn-choice__arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
+        <a class="rn-choice" href="/tools/regulating-yourself-first"><span class="rn-choice__text"><span class="rn-choice__name">I&rsquo;m losing my patience</span><span class="rn-choice__hint">You&rsquo;re the one running hot, close to yelling.</span></span><svg class="rn-choice__arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
         <a class="rn-choice" href="/tools/repair-after-the-hard-moment"><span class="rn-choice__text"><span class="rn-choice__name">Something happened between us</span><span class="rn-choice__hint">You yelled, it went sideways, and you want to reconnect.</span></span><svg class="rn-choice__arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
       </div>
     </div>
   </main>
 
   <aside class="rn-safety" aria-label="If you need help now">
-    <p>If you feel you might hurt your child, put them somewhere safe, like a crib, and step away for a few minutes. In the US, call or text 988 any time, or 911 in an emergency.</p>
+    <p>If you feel you might hurt your child, put them somewhere safe and step away for a few minutes. A baby can lie on their back in a crib with nothing else in it. In the US, <a href="tel:988">call 988</a> or <a href="sms:988">text 988</a> any time, or <a href="tel:911">call 911</a> in an emergency.</p>
     <p class="rn-safety__fine">Educational content only. Not medical or psychological advice.</p>
   </aside>
 
-  <!-- Situation → short answer. Shared source of truth for this page. -->
+  <!-- Situation → short answer. Shared source of truth for this page.
+       title, body, seq and tryLine are what Listen reads: a recording is named by a
+       hash of that exact text (GMS.listenHash), so editing them hides its recording
+       until it is re-recorded. The five recorded situations stay exactly as recorded;
+       crying is new and has no recording yet. Interface-only safety lines live in
+       #router-notes below, outside the narration. -->
   <script id="router-data" type="application/json">
   {
     "situations": [
+      {
+        "id": "crying",
+        "choice": "Baby won't stop crying",
+        "hint": "Birth to 12 months. Crying that nothing you try seems to settle.",
+        "state": "Long crying spells are normal in the first months",
+        "title": "You can put your baby down.",
+        "body": "Crying, even long stretches that nothing seems to fix, is normal for young babies. It is often at its worst in the first few months, and it gets better as your baby grows. Feeling worn down by it is normal too, and stepping away for a few minutes is a safe choice.",
+        "seq": [
+          "Check the basics: hunger, a diaper, too warm or too cold, any sign of illness. Then try one calm thing: hold them skin to skin, rock gently, offer a pacifier, or sing softly.",
+          "If you feel overwhelmed, lay your baby on their back in a safe crib with nothing else in it, and step out of the room for a few minutes. Look in on them every 5 to 10 minutes.",
+          "While they are safe in the crib, calm yourself, then call someone: a partner, a friend, a relative, or your baby's doctor."
+        ],
+        "tryLine": "You're safe in your crib. I'm going to take a breath, and I'll be right back.",
+        "aiQuestion": "My baby won't stop crying and I'm getting overwhelmed. What can I do right now?"
+      },
       {
         "id": "meltdown",
         "choice": "Meltdown or tantrum",
@@ -156,12 +187,45 @@
   }
   </script>
 
+  <!-- Interface-only safety lines, by situation id: shown on screen, on the pocket
+       card and on a saved card, never in the Listen narration. edge: a safety line
+       under the steps. when: when to call the pediatrician or 911. whenLink: a
+       further read for that line. full: where the full guide is, when it is not a
+       tool. infant: the guide for a baby under 12 months (from the saved profile).
+       sources: the guidance the safety lines rest on. -->
+  <script id="router-notes" type="application/json">
+  {
+    "crying": {
+      "edge": "However frustrated you feel, never shake a baby. Put them down and walk away instead.",
+      "when": "Call your pediatrician if the crying sounds different from usual, or comes with a fever, poor feeding, or anything else that worries you. If you think it is an emergency, call 911.",
+      "full": { "href": "/classes/birth-to-12-months#crying-curve", "text": "The normal crying curve, in the first-year class" },
+      "sources": [
+        { "href": "https://www.cdc.gov/child-abuse-neglect/about/about-abusive-head-trauma.html", "text": "CDC: About abusive head trauma" },
+        { "href": "https://www.healthychildren.org/English/safety-prevention/at-home/Pages/Abusive-Head-Trauma-Shaken-Baby-Syndrome.aspx", "text": "AAP, HealthyChildren.org: Shaken baby syndrome" },
+        { "href": "https://www.cdc.gov/sudden-infant-death/sleep-safely/index.html", "text": "CDC: Providing care for babies to sleep safely" }
+      ]
+    },
+    "sleep": {
+      "when": "If your child seems sick, or has a fever, pain, or trouble breathing, call your pediatrician or nurse line, or 911 if it feels urgent. Under age 1, babies sleep on their back, on a firm, flat surface with no pillows, blankets, or toys.",
+      "whenLink": { "href": "/tools/whats-typical-by-stage", "text": "Sleep in the first year" },
+      "infant": { "href": "/tools/whats-typical-by-stage", "text": "Read the first-year guide" },
+      "sources": [
+        { "href": "https://publications.aap.org/pediatrics/article-abstract/150/1/e2022057990/188304/Sleep-Related-Infant-Deaths-Updated-2022/", "text": "AAP 2022 safe sleep policy statement" },
+        { "href": "https://www.cdc.gov/sudden-infant-death/sleep-safely/index.html", "text": "CDC: Providing care for babies to sleep safely" }
+      ]
+    },
+    "patience": {
+      "edge": "If you're near your edge, put your child somewhere safe, like a crib for a baby, and step away for a few minutes."
+    }
+  }
+  </script>
+
   <!-- Printable pocket card (hidden on screen; shown only when printing) -->
   <div class="pocket-card" id="rn-pocket" aria-hidden="true"></div>
 
-  <script src="../assets/js/main.js?v=3f7e70ab67" defer></script>
-  <script src="../assets/js/gms-tools.js?v=66a93960af" defer></script>
-  <script src="../assets/js/rightnow.js?v=d27111faec" defer></script>
+  <script src="../assets/js/main.js?v=b5c8e48c2d" defer></script>
+  <script src="../assets/js/gms-tools.js?v=ea7a1ca31d" defer></script>
+  <script src="../assets/js/rightnow.js?v=95657031f7" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

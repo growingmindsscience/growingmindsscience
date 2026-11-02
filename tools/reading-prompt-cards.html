@@ -27,14 +27,14 @@
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=adb6f82c92" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=46d4d4e37a" />
-  <link rel="stylesheet" href="/assets/css/fg-base.css?v=975e9133b4" />
-  <link rel="stylesheet" href="/assets/css/tools.css?v=7fce784071" />
-  <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
-  <link rel="stylesheet" href="/assets/css/guide.css?v=7aac584bb3" />
-  <link rel="stylesheet" href="/assets/css/toolapp.css?v=a38c3b7105" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=a7f09b41d2" />
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
+  <link rel="stylesheet" href="/assets/css/tools.css?v=4c6ab1c94c" />
+  <link rel="stylesheet" href="/assets/css/hubs.css?v=36987dd3b5" />
+  <link rel="stylesheet" href="/assets/css/guide.css?v=340d88ba68" />
+  <link rel="stylesheet" href="/assets/css/toolapp.css?v=89edcc16d7" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=475f0abf7f" />
   <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
   /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 
@@ -93,7 +93,7 @@
       <div class="hb-container g-title__grid">
         <div data-rise>
           <h1 class="hb-display">Reading Prompt Cards</h1>
-          <p class="hb-lead g-lede">Dialogic reading is one of the best-evidenced things a parent can do for language: read the book <em>with</em> your child instead of <em>to</em> them. These cards give you the exact prompts, matched to the kind of book in your lap and your child's age.</p>
+          <p class="hb-lead g-lede">Reading together is one of the most-studied ways to build a child&rsquo;s language, and reading <em>with</em> your child instead of <em>to</em> them (dialogic reading) can add to the benefit. These cards give you the exact prompts, matched to the kind of book in your lap and your child&rsquo;s age.</p>
           <p class="g-meta"><a href="/tools/">Tools</a> <span aria-hidden="true">&middot;</span> Free · 18 months to 5 · Works with any book</p>
           <div class="g-title__actions">
             <a class="hb-btn" href="#cards">Browse the cards</a>
@@ -102,8 +102,13 @@
         </div>
         <aside class="g-glance" aria-labelledby="rp-at-a-glance" data-rise style="--i:1">
           <h2 id="rp-at-a-glance">PEER: the four-beat loop</h2>
-          <p class="tag tag--sub">The method in one loop</p>
-          <ul id="rp-peer-list"></ul>
+          <p class="tag tag--sub">Use it on one or two pages per read</p>
+          <ul id="rp-peer-list">
+            <li><span><strong>Prompt:</strong> Invite your child to say something about the page, using any card from this deck.</span></li>
+            <li><span><strong>Evaluate:</strong> Respond warmly to what they actually said. Every attempt counts.</span></li>
+            <li><span><strong>Expand:</strong> Say their answer back a little bigger, adding a word or a detail. &ldquo;Doggy&rdquo; becomes &ldquo;Yes, a muddy doggy!&rdquo;</span></li>
+            <li><span><strong>Repeat:</strong> Give them a chance to use the bigger version, without demanding it.</span></li>
+          </ul>
         </aside>
       </div>
     </section>
@@ -115,20 +120,37 @@
           <p class="rp-sub">Filter to the book in your lap. One or two prompts per reading is plenty; this is seasoning, not a quiz.</p>
           <div id="rp-filters"></div>
           <p class="rp-count" id="rp-count" role="status"></p>
-          <div class="rp-grid" id="rp-grid"></div>
-          <div class="cs-nav">
-            <button type="button" class="hb-btn" id="rp-print">Print this deck</button>
-          </div>
+          <div class="cs-nav" id="rp-actions"></div>
           <div class="rp-explainers" id="rp-explainers"></div>
+          <div class="rp-grid" id="rp-grid"></div>
+          <noscript><p class="rp-sub">The card deck needs JavaScript to filter and print. The four steps of the method are above, and the reasons it works are below.</p></noscript>
         </div>
         <p class="rp-note">Cards reference kinds of books and generic scenes, never specific titles, so they work with whatever is already on your shelf. Reading the same book again and again is fine; familiar books may make it easier for your child to join in.</p>
+        <p class="rp-note">Book time is also a good window on talking. Most 2-year-olds point to pictures in a book when you ask and put two words together. If your child isn&rsquo;t doing both of these by 2, mention it to your pediatrician; you don&rsquo;t need to wait for a checkup. If your child stops using words they used to say, at any age, call your pediatrician soon. The <a href="/tools/communication-snapshot">Communication Snapshot</a> turns what you notice into notes to bring.</p>
       </div>
     </section>
 
     <section class="g-sec" id="rp-method">
       <div class="hb-container g-narrow">
         <h2>Why this works</h2>
-        <p class="section-intro">In the original dialogic reading study, parents were taught to turn reading into a conversation: ask open questions, expand on what the child says, and read less straight from the page. After about a month, their toddlers scored months ahead on tests of the words they used (Whitehurst et al., 1988, <em>Developmental Psychology</em>), and later studies found smaller but still real benefits. A meta-analysis found the added value of the interactive style was clearest for 2- and 3-year-olds (Mol et al., 2008, <em>Early Education and Development</em>), though later reviews did not find clear differences by age. The likely mechanism is the same serve-and-return engine behind everything on this site: books are a good conversation-holder, because the pictures keep you both looking at the same thing. Read the full evidence grade in our <a href="/claims/shared-reading">claims library</a>.</p>
+        <p class="section-intro">In the original dialogic reading study, parents were taught to turn reading into a conversation: ask open questions, expand on what the child says, and read less straight from the page. In that small first study of about 30 families, toddlers scored months ahead on tests of the words they used after about a month, and the gap narrowed later (Whitehurst et al., 1988, <em>Developmental Psychology</em>). Later studies found smaller but still real benefits, and how much the conversational style adds is still debated. A meta-analysis found the added value of the interactive style was clearest for 2- and 3-year-olds (Mol et al., 2008, <em>Early Education and Development</em>), though later reviews did not find clear differences by age. The likely mechanism is the same serve-and-return engine behind everything on this site: books are a good conversation-holder, because the pictures keep you both looking at the same thing. Read the full evidence grade in our <a href="/claims/shared-reading">claims library</a>.</p>
+        <p class="section-intro">Some prompts are harder than others. Whitehurst&rsquo;s guidance is that recall prompts (what happened) and distancing prompts (linking the book to your child&rsquo;s life) are harder than fill-in-the-blank, open-ended and wh- prompts, and that frequent use of them suits 4- and 5-year-olds. So the deck keeps most of them in the 3 to 5 band; the few for 2-year-olds stay short and concrete, mostly quick flip-back checks and bridges to something your child wears or does every day.</p>
+      </div>
+    </section>
+
+    <section class="g-sec">
+      <div class="hb-container g-narrow">
+        <div class="sources-panel">
+          <h2>Sources</h2>
+          <ul>
+            <li>Whitehurst GJ, Falco FL, Lonigan CJ, et al. <a href="https://doi.org/10.1037/0012-1649.24.4.552" target="_blank" rel="noopener noreferrer">Accelerating language development through picture book reading</a>. <em>Developmental Psychology.</em> 1988;24(4):552-559.</li>
+            <li>Mol SE, Bus AG, de Jong MT, Smeets DJH. <a href="https://doi.org/10.1080/10409280701838603" target="_blank" rel="noopener noreferrer">Added value of dialogic parent-child book readings: a meta-analysis</a>. <em>Early Education and Development.</em> 2008;19(1):7-26.</li>
+            <li>Dowdall N, Melendez-Torres GJ, Murray L, et al. <a href="https://doi.org/10.1111/cdev.13225" target="_blank" rel="noopener noreferrer">Shared picture book reading interventions for child language development: a systematic review and meta-analysis</a>. <em>Child Development.</em> 2020;91(2):e383-e399.</li>
+            <li>Noble C, Sala G, Peter M, et al. <a href="https://doi.org/10.1016/j.edurev.2019.100290" target="_blank" rel="noopener noreferrer">The impact of shared book reading on children&rsquo;s language skills: a meta-analysis</a>. <em>Educational Research Review.</em> 2019;28:100290.</li>
+            <li>Whitehurst GJ. <a href="https://www.readingrockets.org/topics/early-literacy-development/articles/dialogic-reading-effective-way-read-aloud-young-children" target="_blank" rel="noopener noreferrer">Dialogic reading: an effective way to read aloud with young children</a>. Reading Rockets. The PEER loop, the CROWD prompt types, and which prompts suit which ages.</li>
+            <li>CDC, Learn the Signs. Act Early. <a href="https://www.cdc.gov/act-early/milestones/" target="_blank" rel="noopener noreferrer">Milestones by age</a>, and Zubler JM, et al. <a href="https://doi.org/10.1542/peds.2021-052138" target="_blank" rel="noopener noreferrer">Evidence-informed milestones for developmental surveillance tools</a>. <em>Pediatrics.</em> 2022;149(3):e2021052138. The 2-year milestones above.</li>
+          </ul>
+        </div>
       </div>
     </section>
   </main>
@@ -200,37 +222,75 @@
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
 
-  <script src="../assets/js/main.js?v=3f7e70ab67" defer></script>
-  <script src="../assets/js/gms-tools.js?v=66a93960af" defer></script>
+  <script src="../assets/js/main.js?v=b5c8e48c2d" defer></script>
+  <script src="../assets/js/gms-tools.js?v=ea7a1ca31d" defer></script>
   <script type="module">
+    /* Reading Prompt Cards: the deck lives in the keel artifact
+       (keel/artifacts/drc/prompt-cards.v1.json, graded by keel/graders/drc.mjs).
+       This script filters it, explains the five prompt types, and prints the
+       filtered deck. The PEER steps are static in the page so they show
+       without script. */
     const grid = document.getElementById("rp-grid");
     const countEl = document.getElementById("rp-count");
     const filtersEl = document.getElementById("rp-filters");
+    const actions = document.getElementById("rp-actions");
     const deck = document.getElementById("rp-deck");
+    const FILTER_KEY = "gms-rp-filters-v1";
 
     let data;
     try {
-      data = await fetch("/keel/artifacts/drc/prompt-cards.v1.json").then((r) => r.json());
+      const r = await fetch("/keel/artifacts/drc/prompt-cards.v1.json");
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      data = await r.json();
     } catch (e) {
-      grid.innerHTML = "<p>The cards couldn't load. Please refresh the page.</p>";
+      countEl.textContent = "The cards couldn’t load. Check your connection, then refresh the page.";
+      actions.remove();
       throw e;
     }
 
-    const BAND_LABEL = { "18-24": "18–24 mo", "24-36": "2–3 yr", "36-60": "3–5 yr" };
+    const BAND_LABEL = { "18-24": "18–24 months", "24-36": "Age 2", "36-60": "Ages 3–5" };
     const state = { band: "all", type: "all", book: "all" };
+    let profileNote = "";   // why the age chip was preset, shown until the parent changes it
+    let profileBand = null;
 
-    /* Preselect the band from the shared child profile. */
+    /* Typographic quotes for display: the artifact keeps plain ASCII
+       (the grader matches on it). */
+    const smart = (t) => String(t)
+      .replace(/(\w)'(\w)/g, "$1’$2")
+      .replace(/(^|[\s(“])'/g, "$1‘")
+      .replace(/'/g, "’");
+
+    /* Filters the parent chose last time, else the shared child profile. */
+    let restored = false;
     try {
-      if (window.GMS && GMS.profile) {
-        const c = GMS.profile.getActive();
-        const m = c ? GMS.profile.ageInMonths(c) : null;
-        if (m != null) {
-          if (m >= 18 && m < 24) state.band = "18-24";
-          else if (m >= 24 && m < 36) state.band = "24-36";
-          else if (m >= 36) state.band = "36-60";
-        }
+      const saved = JSON.parse(localStorage.getItem(FILTER_KEY) || "null");
+      if (saved && typeof saved === "object") {
+        if (saved.band === "all" || data.age_bands.includes(saved.band)) state.band = saved.band;
+        if (saved.type === "all" || Object.prototype.hasOwnProperty.call(data.crowd, saved.type)) state.type = saved.type;
+        if (saved.book === "all" || (saved.book !== "any" && Object.prototype.hasOwnProperty.call(data.book_types, saved.book))) state.book = saved.book;
+        restored = true;
       }
     } catch (e) {}
+    if (!restored) {
+      try {
+        if (window.GMS && GMS.profile) {
+          const c = GMS.profile.getActive();
+          const m = c ? GMS.profile.ageInMonths(c) : null;
+          if (m != null) {
+            if (m < 18) profileNote = "These cards start around 18 months. For now, point at the pictures and name what you both see.";
+            else if (m <= 60) {
+              state.band = m < 24 ? "18-24" : m < 36 ? "24-36" : "36-60";
+              profileBand = state.band;
+              profileNote = "Age set from your child profile; choose All ages to see every card.";
+            }
+          }
+        }
+      } catch (e) {}
+    }
+
+    function persist() {
+      try { localStorage.setItem(FILTER_KEY, JSON.stringify(state)); } catch (e) {}
+    }
 
     function el(tag, attrs, kids) {
       const n = document.createElement(tag);
@@ -244,26 +304,21 @@
       return n;
     }
 
-    /* PEER list in the hero */
-    const peerList = document.getElementById("rp-peer-list");
-    data.peer.forEach((p) => {
-      peerList.appendChild(el("li", {}, [
-        el("span", { class: "dot" }),
-        el("span", {}, [el("strong", { text: p.step + ": " }), p.body]),
-      ]));
-    });
-
-    /* CROWD explainers */
+    /* The five prompt types, explained above the cards. Choosing a type
+       filter opens its explanation. */
     const expl = document.getElementById("rp-explainers");
+    const explainers = {};
     Object.entries(data.crowd).forEach(([key, c]) => {
-      const d = el("details", {}, [el("summary", { text: `${c.label} prompts, explained` })]);
-      d.appendChild(el("p", { text: c.explainer }));
+      const name = /questions$/.test(c.label) ? c.label : c.label + " prompts";
+      const d = el("details", { "data-type": key }, [el("summary", { text: name + ", explained" })]);
+      d.appendChild(el("p", { text: smart(c.explainer) }));
+      explainers[key] = d;
       expl.appendChild(d);
     });
 
     function chipRow(labelText, options, current, onPick) {
       const row = el("div", { class: "rp-filter-row", role: "group", "aria-label": labelText });
-      row.appendChild(el("span", { class: "rp-filter-label", text: labelText }));
+      row.appendChild(el("span", { class: "rp-filter-label", "aria-hidden": "true", text: labelText }));
       options.forEach((o) => {
         row.appendChild(el("button", {
           type: "button",
@@ -284,15 +339,36 @@
       return true;
     }
 
+    function pick(key, v) {
+      state[key] = v;
+      if (key === "band" && v !== profileBand) profileNote = "";
+      if (key === "type" && v !== "all") Object.entries(explainers).forEach(([k, d]) => { d.open = k === v; });
+      persist();
+      render();
+    }
+
+    function clearFilters() {
+      state.band = state.type = state.book = "all";
+      profileNote = "";
+      persist();
+      render();
+      const first = filtersEl.querySelector(".rp-chip");
+      if (first) first.focus();
+    }
+
+    function cardLabel(c) { return `${data.crowd[c.crowd_type].label} · ${BAND_LABEL[c.age_band] || c.age_band} · ${data.book_types[c.book_type]}`; }
+
+    const printBtn = el("button", { type: "button", class: "hb-btn", id: "rp-print", text: "Print these cards" });
+    let clearBtn = null;
     function render() {
       // The chips are rebuilt on every change; put keyboard focus back on the
       // same chip so a keyboard or screen-reader user keeps their place.
       const focused = document.activeElement;
       const keep = focused && filtersEl.contains(focused) ? focused.getAttribute("data-key") : null;
       filtersEl.innerHTML = "";
-      filtersEl.appendChild(chipRow("Age", [{ value: "all", label: "All ages" }, ...data.age_bands.map((b) => ({ value: b, label: BAND_LABEL[b] || b }))], state.band, (v) => { state.band = v; render(); }));
-      filtersEl.appendChild(chipRow("Book", [{ value: "all", label: "Any book" }, ...Object.entries(data.book_types).filter(([k]) => k !== "any").map(([k, v]) => ({ value: k, label: v }))], state.book, (v) => { state.book = v; render(); }));
-      filtersEl.appendChild(chipRow("Prompt type", [{ value: "all", label: "All types" }, ...Object.entries(data.crowd).map(([k, c]) => ({ value: k, label: c.label }))], state.type, (v) => { state.type = v; render(); }));
+      filtersEl.appendChild(chipRow("Age", [{ value: "all", label: "All ages" }, ...data.age_bands.map((b) => ({ value: b, label: BAND_LABEL[b] || b }))], state.band, (v) => pick("band", v)));
+      filtersEl.appendChild(chipRow("Book", [{ value: "all", label: "Any book" }, ...Object.entries(data.book_types).filter(([k]) => k !== "any").map(([k, v]) => ({ value: k, label: v }))], state.book, (v) => pick("book", v)));
+      filtersEl.appendChild(chipRow("Prompt type", [{ value: "all", label: "All types" }, ...Object.entries(data.crowd).map(([k, c]) => ({ value: k, label: c.label }))], state.type, (v) => pick("type", v)));
       if (keep) {
         const again = Array.from(filtersEl.querySelectorAll("[data-key]")).find((b) => b.getAttribute("data-key") === keep);
         if (again) again.focus();
@@ -300,7 +376,21 @@
 
       grid.innerHTML = "";
       const list = data.cards.filter(matches);
-      countEl.textContent = list.length ? `${list.length} ${list.length === 1 ? "card" : "cards"}` : "No cards match; loosen a filter.";
+      const n = list.length;
+      countEl.textContent = n
+        ? `${n} ${n === 1 ? "card" : "cards"}${profileNote ? ". " + profileNote : ""}`
+        : "No cards match all three filters. Clear them, or loosen one.";
+
+      // Print says what it prints; with nothing to print it gives way to Clear filters.
+      if (n && !printBtn.isConnected) actions.prepend(printBtn);
+      else if (!n && printBtn.isConnected) printBtn.remove();
+      printBtn.textContent = n === data.cards.length ? `Print all ${n} cards` : `Print ${n === 1 ? "this card" : `these ${n} cards`}`;
+      const filtered = state.band !== "all" || state.type !== "all" || state.book !== "all";
+      if (filtered && !n) {
+        if (!clearBtn) clearBtn = el("button", { type: "button", class: "hb-btn hb-btn--quiet", text: "Clear filters", onclick: clearFilters });
+        if (!clearBtn.isConnected) actions.appendChild(clearBtn);
+      } else if (clearBtn && clearBtn.isConnected) clearBtn.remove();
+
       list.forEach((c) => {
         grid.appendChild(el("article", { class: "rp-card" }, [
           el("div", { class: "rp-card__meta" }, [
@@ -308,36 +398,42 @@
             el("span", { class: "rp-badge", text: BAND_LABEL[c.age_band] || c.age_band }),
             el("span", { class: "rp-badge", text: data.book_types[c.book_type] }),
           ]),
-          el("p", { class: "rp-card__prompt", text: "“" + c.prompt_text + "”" }),
-          el("p", { class: "rp-card__follow", text: c.follow_up }),
+          c.cue ? el("p", { class: "rp-card__follow rp-card__cue", text: smart(c.cue) }) : null,
+          el("p", { class: "rp-card__prompt", text: "“" + smart(c.prompt_text) + "”" }),
+          el("p", { class: "rp-card__follow", text: smart(c.follow_up) }),
         ]));
       });
     }
 
-    document.getElementById("rp-print").addEventListener("click", () => {
+    /* The deck is built just before any print (the button, the browser menu
+       or Ctrl+P), from the cards on screen, so every print path gives the
+       cut-out deck. */
+    function buildDeck() {
       const list = data.cards.filter(matches);
       deck.innerHTML = "";
+      if (!list.length) return false;
       deck.appendChild(el("p", { class: "deck-head", text: "Reading Prompt Cards · cut along the dashed lines" }));
       const g = el("div", { class: "deck-grid" });
       list.forEach((c) => {
         g.appendChild(el("div", { class: "deck-card" }, [
-          el("p", { class: "t", text: `${data.crowd[c.crowd_type].label} · ${BAND_LABEL[c.age_band]} · ${data.book_types[c.book_type]}` }),
-          el("p", { class: "p", text: "“" + c.prompt_text + "”" }),
-          el("p", { class: "f", text: c.follow_up }),
+          el("p", { class: "t", text: cardLabel(c) }),
+          c.cue ? el("p", { class: "f", text: smart(c.cue) }) : null,
+          el("p", { class: "p", text: "“" + smart(c.prompt_text) + "”" }),
+          el("p", { class: "f", text: smart(c.follow_up) }),
         ]));
       });
       deck.appendChild(g);
-      deck.appendChild(el("p", { class: "deck-foot", text: "The PEER loop: Prompt, Evaluate (respond warmly), Expand by one word, Repeat. Free from fromlittleonward.com/tools/reading-prompt-cards" }));
-      document.body.classList.add("printing-rp");
-      const after = () => { document.body.classList.remove("printing-rp"); window.removeEventListener("afterprint", after); };
-      window.addEventListener("afterprint", after);
-      setTimeout(after, 1500);
-      window.print();
-    });
+      deck.appendChild(el("p", { class: "deck-foot", text: "The PEER loop: Prompt, Evaluate (respond warmly), Expand (say it back a little bigger), Repeat. Free from fromlittleonward.com/tools/reading-prompt-cards" }));
+      return true;
+    }
+    window.addEventListener("beforeprint", () => { if (buildDeck()) document.body.classList.add("printing-rp"); });
+    window.addEventListener("afterprint", () => { document.body.classList.remove("printing-rp"); });
+    printBtn.addEventListener("click", () => window.print());
 
+    if (state.type !== "all" && explainers[state.type]) explainers[state.type].open = true;
     render();
   </script>
-  <script src="/assets/js/home.js?v=78ff6722df" defer></script>
+  <script src="/assets/js/home.js?v=d3d063f882" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

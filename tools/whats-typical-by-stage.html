@@ -26,13 +26,13 @@
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=adb6f82c92" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=46d4d4e37a" />
-  <link rel="stylesheet" href="/assets/css/fg-base.css?v=975e9133b4" />
-  <link rel="stylesheet" href="/assets/css/tools.css?v=7fce784071" />
-  <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
-  <link rel="stylesheet" href="/assets/css/guide.css?v=7aac584bb3" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=a7f09b41d2" />
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
+  <link rel="stylesheet" href="/assets/css/tools.css?v=4c6ab1c94c" />
+  <link rel="stylesheet" href="/assets/css/hubs.css?v=36987dd3b5" />
+  <link rel="stylesheet" href="/assets/css/guide.css?v=340d88ba68" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=475f0abf7f" />
 
 </head>
 <body class="fg fg--page hub gpage">
@@ -93,11 +93,11 @@
           <p class="g-meta"><a href="/tools/">Tools</a> <span aria-hidden="true">&middot;</span> Infant · 0–12 mo · Sleep development</p>
           <div class="g-title__actions">
             <a class="hb-btn" href="#stage-guide">Open the stage guide</a>
-            <a class="hb-btn hb-btn--quiet" href="#one-minute-summary">Jump to summary</a>
+            <a class="hb-btn hb-btn--quiet" href="#safe-sleep">Safe sleep checklist</a>
           </div>
         </div>
         <aside class="g-glance" aria-labelledby="tool-at-a-glance" data-rise style="--i:1">
-          <h2 id="tool-at-a-glance">What this tool helps with</h2>
+          <h2 id="tool-at-a-glance">What this guide helps with</h2>
           <ul>
             <li>Understanding normal sleep variation without treating every wake-up as a failure.</li>
             <li>Separating developmental sleep changes from sleep-safety decisions.</li>
@@ -108,7 +108,24 @@
       </div>
     </section>
 
-    <section class="g-sec">
+    <div class="hb-container g-layout">
+      <nav class="g-aside" aria-label="On this page">
+        <p class="g-aside__title">On this page</p>
+        <ol class="g-toc">
+          <li><a href="#core-idea">The core idea</a></li>
+          <li><a href="#stage-guide">Stage guide</a></li>
+          <li><a href="#safe-sleep">Safe sleep, every sleep</a></li>
+          <li><a href="#get-help">When to get help</a></li>
+          <li><a href="#research-limits">What the research can and cannot tell us</a></li>
+          <li><a href="#one-minute-summary">When you need the short version</a></li>
+        </ol>
+        <div class="g-aside__act">
+          <button type="button" class="hb-btn hb-btn--quiet" onclick="window.print()">Print this guide</button>
+        </div>
+      </nav>
+      <div class="g-layout__main">
+
+    <section class="g-sec" id="core-idea">
       <div class="hb-container g-narrow">
         <h2>The core idea</h2>
         <p class="section-intro">Infant sleep is developmental. It changes as feeding, circadian rhythms, motor skills, separation awareness, and family routines change. The research can give useful ranges and safety rules. It cannot tell you that every healthy baby should follow one exact schedule.</p>
@@ -116,7 +133,7 @@
         <div class="principle-grid">
           <article class="principle-card">
             <h3>Safety comes first</h3>
-            <p>For the first year, sleep advice should never override safe sleep: back to sleep, a firm flat surface, no soft bedding, and room-sharing without bed-sharing when possible.</p>
+            <p>For the first year, sleep advice should never override <a href="#safe-sleep">safe sleep</a>: back to sleep, a firm flat surface, no soft bedding, and your baby&rsquo;s own sleep surface, not your bed.</p>
           </article>
           <article class="principle-card">
             <h3>Ranges are more honest than targets</h3>
@@ -127,21 +144,42 @@
             <p>Waking can reflect hunger, development, illness, discomfort, sleep associations, schedule fit, or temperament. The useful question is what pattern is changing.</p>
           </article>
         </div>
+
+        <figure class="hb-fig" data-rise>
+          <div class="hb-fig__plate">
+            <ul class="research-list">
+              <li>
+                <p><b>4 to 12 months</b> &middot; 12&ndash;16 hours</p>
+                <div class="range" aria-hidden="true"><div class="range__track" style="--from:50%;--to:66.667%"><i></i></div></div>
+              </li>
+              <li>
+                <p><b>1 to 2 years</b> &middot; 11&ndash;14 hours</p>
+                <div class="range" aria-hidden="true"><div class="range__track" style="--from:45.833%;--to:58.333%"><i></i></div></div>
+              </li>
+              <li>
+                <p><b>3 to 5 years</b> &middot; 10&ndash;13 hours</p>
+                <div class="range" aria-hidden="true"><div class="range__track" style="--from:41.667%;--to:54.167%"><i></i></div><small><span>0 h</span><span>12 h</span><span>24 h</span></small></div>
+              </li>
+            </ul>
+          </div>
+          <figcaption><b class="hb-fig__n">Fig. 1</b> Recommended total sleep per 24 hours, naps included, drawn on a 24-hour day. These are healthy ranges, not targets. No range is set under 4 months, because normal sleep varies too widely.
+            <span class="hb-fig__src">AASM consensus, <a href="https://pubmed.ncbi.nlm.nih.gov/27250809/" target="_blank" rel="noopener noreferrer">Paruthi et al. (2016)</a></span></figcaption>
+        </figure>
       </div>
     </section>
 
     <section class="g-sec" id="stage-guide">
       <div class="hb-container g-narrow">
         <h2>Stage guide</h2>
-        <p class="section-intro">Choose your baby's closest stage. Use this as orientation, not a prescription.</p>
+        <p class="section-intro">Choose your baby&rsquo;s closest stage. Each bar shows where that stage sits in the first year. Use this as orientation, not a prescription.</p>
 
         <div class="stage-wrap" data-decoder data-ai-personalize="false">
           <div class="stage-buttons" role="group" aria-label="Infant sleep stages">
-            <button class="stage-btn is-active" type="button" data-stage="newborn" aria-pressed="true"><strong>0–2 months</strong><span>Newborn sleep is fragmented and feeding-driven.</span></button>
-            <button class="stage-btn" type="button" data-stage="early" aria-pressed="false"><strong>2–4 months</strong><span>Day-night rhythm begins to organize, unevenly.</span></button>
-            <button class="stage-btn" type="button" data-stage="middle" aria-pressed="false"><strong>4–6 months</strong><span>More predictable patterns may start to appear.</span></button>
-            <button class="stage-btn" type="button" data-stage="older" aria-pressed="false"><strong>6–9 months</strong><span>Motor practice and separation awareness can affect nights.</span></button>
-            <button class="stage-btn" type="button" data-stage="late" aria-pressed="false"><strong>9–12 months</strong><span>Naps often consolidate, but waking can still be normal.</span></button>
+            <button class="stage-btn is-active" type="button" data-stage="newborn" aria-pressed="true"><strong>0–2 months</strong><span>Newborn sleep is fragmented and feeding-driven.</span><span class="range__track" aria-hidden="true" style="--from:0%;--to:16.667%"><i></i></span></button>
+            <button class="stage-btn" type="button" data-stage="early" aria-pressed="false"><strong>2–4 months</strong><span>Day-night rhythm begins to organize, unevenly.</span><span class="range__track" aria-hidden="true" style="--from:16.667%;--to:33.333%"><i></i></span></button>
+            <button class="stage-btn" type="button" data-stage="middle" aria-pressed="false"><strong>4–6 months</strong><span>More predictable patterns may start to appear.</span><span class="range__track" aria-hidden="true" style="--from:33.333%;--to:50%"><i></i></span></button>
+            <button class="stage-btn" type="button" data-stage="older" aria-pressed="false"><strong>6–9 months</strong><span>Motor practice and separation awareness can affect nights.</span><span class="range__track" aria-hidden="true" style="--from:50%;--to:75%"><i></i></span></button>
+            <button class="stage-btn" type="button" data-stage="late" aria-pressed="false"><strong>9–12 months</strong><span>Naps often consolidate, but waking can still be normal.</span><span class="range__track" aria-hidden="true" style="--from:75%;--to:100%"><i></i></span></button>
           </div>
 
           <div>
@@ -151,7 +189,7 @@
               <p>Newborns do not yet have mature circadian rhythms. Sleep is spread across day and night, and feeding needs usually drive the pattern.</p>
               <div class="stage-facts">
                 <div class="stage-fact"><strong>Typical pattern</strong><span>Many short sleep periods across 24 hours, with frequent waking for feeding, comfort, and regulation.</span></div>
-                <div class="stage-fact"><strong>What helps</strong><span>Protect safe sleep, use daylight and ordinary household cues during the day, keep nights low-stimulation, and follow medical feeding guidance.</span></div>
+                <div class="stage-fact"><strong>What helps</strong><span><a href="#safe-sleep">Protect safe sleep</a>, use daylight and ordinary household cues during the day, keep nights low-stimulation, and follow medical feeding guidance.</span></div>
                 <div class="stage-fact"><strong>What not to overread</strong><span>A newborn who wakes often is not failing to self-soothe. The nervous system is immature, and sleep is still organizing.</span></div>
               </div>
             </article>
@@ -162,8 +200,8 @@
               <p>Some babies begin giving longer stretches, especially at night, while others remain highly variable. Growth, feeding, reflux, temperament, and family routines can all matter.</p>
               <div class="stage-facts">
                 <div class="stage-fact"><strong>Typical pattern</strong><span>Sleep may still happen in several blocks, but day-night differences often become clearer.</span></div>
-                <div class="stage-fact"><strong>What helps</strong><span>A simple bedtime rhythm, consistent light cues, and a safe sleep space can support organization without forcing a rigid schedule.</span></div>
-                <div class="stage-fact"><strong>What not to overread</strong><span>A rough patch around this age is common. It may reflect development, not a permanent sleep problem.</span></div>
+                <div class="stage-fact"><strong>What helps</strong><span>A simple bedtime rhythm, consistent light cues, and a <a href="#safe-sleep">safe sleep space</a> can support organization without forcing a rigid schedule. If you swaddle, stop as soon as your baby shows signs of trying to roll.</span></div>
+                <div class="stage-fact"><strong>What not to overread</strong><span>Some babies wake more for a while around this age, as the body clock switches on and sleep reorganizes. The &ldquo;four-month regression&rdquo; is a popular name, not a research finding, and it usually settles. Expect a zigzag, not a staircase.</span></div>
               </div>
             </article>
 
@@ -184,7 +222,7 @@
               <p>Rolling, sitting, crawling practice, new foods, illness, teething discomfort, and separation awareness can all disturb sleep. More skills can mean more night activity for a while.</p>
               <div class="stage-facts">
                 <div class="stage-fact"><strong>Typical pattern</strong><span>Some babies move toward two or three naps and longer night stretches. Others still need help overnight.</span></div>
-                <div class="stage-fact"><strong>What helps</strong><span>Keep the response predictable and boring at night, give motor practice during the day, and keep the sleep surface safe as mobility increases.</span></div>
+                <div class="stage-fact"><strong>What helps</strong><span>Keep the response predictable and boring at night, give motor practice during the day, and <a href="#safe-sleep">keep the sleep surface safe</a> as mobility increases.</span></div>
                 <div class="stage-fact"><strong>What not to overread</strong><span>A baby who was sleeping longer and starts waking again has not lost all progress. Sleep often changes around new skills.</span></div>
               </div>
             </article>
@@ -204,7 +242,40 @@
       </div>
     </section>
 
-    <section class="g-sec">
+    <section class="g-sec" id="safe-sleep">
+      <div class="hb-container g-narrow">
+        <h2>Safe sleep, every sleep</h2>
+        <p class="section-intro">Every stage answer above rests on these. If sleep feels impossible, make the sleep space safe first, then ask whether a medical or feeding issue sits underneath the waking.</p>
+        <div class="what-panel">
+          <ul class="research-list">
+            <li><strong>On the back, for every sleep</strong><span>Naps and nights, with every caregiver, until your baby&rsquo;s first birthday.</span></li>
+            <li><strong>A firm, flat surface made for infants</strong><span>A crib, bassinet, or play yard with a firm, flat, non-inclined mattress and a fitted sheet.</span></li>
+            <li><strong>Nothing else in the sleep space</strong><span>No pillows, loose blankets, soft bedding, positioners, or weighted sleep products in or near it.</span></li>
+            <li><strong>Share a room, not a bed</strong><span>Keep your baby on their own infant sleep surface in your room, ideally for at least the first 6 months. The AAP does not recommend bed-sharing.</span></li>
+            <li><strong>Never on a sofa or armchair</strong><span>Never sleep with your baby on a sofa, couch, or armchair. If you might doze off during a night feed, feed in an adult bed with pillows and covers moved away, and move your baby back to their own sleep space when you wake.</span></li>
+            <li><strong>Swaddle on the back, and stop at rolling</strong><span>If you swaddle, always place your baby on their back, and stop as soon as they show signs of trying to roll. That is usually around 3 to 4 months, and can be earlier.</span></li>
+            <li><strong>Car seats and swings are not beds</strong><span>Car seats, strollers, swings, infant carriers, and slings are not for routine sleep. If your baby falls asleep in one, move them to a firm, flat sleep surface as soon as you safely can.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="g-sec" id="get-help">
+      <div class="hb-container g-narrow">
+        <h2>When to get help</h2>
+        <p class="section-intro">Most night waking is ordinary. These are the times not to troubleshoot alone, most urgent first.</p>
+        <ul class="research-list">
+          <li><strong>Call 911 now</strong><p>If your baby is struggling to breathe, stops breathing, turns blue or grey, goes limp, or is very hard to wake. Outside the US, call your local emergency number.</p>
+            <p class="hb-crisis"><a class="hb-crisis__line" href="tel:911"><b>911</b> Emergency</a></p></li>
+          <li><strong>Call your pediatrician right away</strong><p>For a fever of 100.4&deg;F (38&deg;C) or higher in a baby under 3 months, even if your baby seems otherwise well.</p></li>
+          <li><strong>Call your pediatrician promptly</strong><p>For breathing that worries you, poor weight gain, feeding difficulty, unusual lethargy, or persistent vomiting.</p></li>
+          <li><strong>If you are running on empty</strong><p>If you are so tired you might fall asleep holding your baby, put them on their back in their own sleep space first. If you feel you might hurt your child, put them somewhere safe, like a crib, and step away for a few minutes. In the US, call or text 988 any time.</p>
+            <p class="hb-crisis"><a class="hb-crisis__line" href="tel:988"><b>988</b> Call the crisis line</a> <a class="hb-crisis__line" href="sms:988"><b>Text</b> 988</a></p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="g-sec" id="research-limits">
       <div class="hb-container g-narrow">
         <h2>What the research can and cannot tell us</h2>
         <div class="compare-grid">
@@ -232,22 +303,6 @@
       </div>
     </section>
 
-    <section class="g-sec">
-      <div class="hb-container g-narrow">
-        <div class="panel">
-          <h2>Before interpreting the pattern</h2>
-          <p class="tag tag--sub">Safety check</p>
-          <p class="section-intro">If sleep feels impossible, start by making the sleep setup safe and asking whether there is a medical or feeding issue underneath the waking.</p>
-          <ul class="source-list">
-            <li>Back sleep for every sleep, on a firm, flat, non-inclined surface designed for infants.</li>
-            <li>No pillows, loose blankets, soft bedding, positioners, or weighted sleep products in or near the infant sleep space.</li>
-            <li>Room-share without bed-sharing when possible, especially during the first 6 months.</li>
-            <li>Talk with a pediatrician promptly for breathing concerns, poor weight gain, feeding difficulty, unusual lethargy, persistent vomiting, or caregiver exhaustion that feels unsafe.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
     <section class="g-sec" id="one-minute-summary">
       <div class="hb-container g-narrow">
         <div class="summary-card">
@@ -258,8 +313,8 @@
             <li>Newborn sleep is fragmented; day-night rhythm takes time.</li>
             <li>From 4-12 months, 12-16 total hours per 24 hours is the main sleep-duration benchmark.</li>
             <li>Night waking can be normal, especially during feeding needs, illness, and developmental change.</li>
-            <li>Safe sleep rules matter more than any schedule.</li>
-            <li>Ask for medical guidance when sleep problems come with feeding, breathing, growth, health, or safety concerns.</li>
+            <li>Safe sleep rules matter more than any schedule: on the back, on a firm, flat surface of their own, never on a sofa.</li>
+            <li>Call 911 for trouble breathing or a baby who is very hard to wake, and your pediatrician right away for any fever of 100.4&deg;F (38&deg;C) or higher in a baby under 3 months.</li>
           </ul>
         </div>
       </div>
@@ -272,13 +327,43 @@
           <p class="tag tag--sub">Sources used</p>
           <ul class="source-list">
             <li><a href="https://publications.aap.org/pediatrics/article-abstract/150/1/e2022057990/188304/Sleep-Related-Infant-Deaths-Updated-2022/" target="_blank" rel="noopener noreferrer">AAP 2022 safe sleep policy statement</a></li>
+            <li><a href="https://www.healthychildren.org/English/ages-stages/baby/sleep/Pages/a-parents-guide-to-safe-sleep.aspx" target="_blank" rel="noopener noreferrer">HealthyChildren.org: How to keep your sleeping baby safe, the AAP policy explained</a></li>
             <li><a href="https://www.cdc.gov/reproductive-health/features/babies-sleep.html" target="_blank" rel="noopener noreferrer">CDC safe sleep guidance for babies</a></li>
+            <li><a href="https://www.healthychildren.org/English/health-issues/conditions/fever/pages/When-to-Call-the-Pediatrician.aspx" target="_blank" rel="noopener noreferrer">HealthyChildren.org: Fever, when to call the pediatrician</a></li>
             <li><a href="https://pubmed.ncbi.nlm.nih.gov/27250809/" target="_blank" rel="noopener noreferrer">American Academy of Sleep Medicine pediatric sleep duration consensus</a></li>
             <li><a href="https://pubmed.ncbi.nlm.nih.gov/29356197/" target="_blank" rel="noopener noreferrer">Systematic review of infant sleep-wake reference values in the first year</a></li>
           </ul>
         </div>
       </div>
     </section>
+
+    <section class="g-sec" aria-labelledby="next-h">
+      <div class="hb-container g-narrow">
+        <div class="hb-next" data-rise>
+          <h2 class="hb-next__title" id="next-h">Keep going</h2>
+          <ul class="hb-next__list">
+            <li class="hb-next__row">
+              <a class="hb-next__name" href="/tools/routines-transitions-night-waking">Routines, transitions, and night-waking</a>
+              <p class="hb-next__line">What changes after the first year: bedtime stalling, separation, nap changes, and night waking from 1 to 3.</p>
+              <p class="hb-next__meta">Guide &middot; Ages 1 to 3</p>
+            </li>
+            <li class="hb-next__row">
+              <a class="hb-next__name" href="/explore/birth-to-1">Foundations, birth to 1</a>
+              <p class="hb-next__line">Attachment, the senses, and the rhythm of back-and-forth: the guides, tools, articles, and graded claims for the first year.</p>
+              <p class="hb-next__meta">Explore</p>
+            </li>
+            <li class="hb-next__row">
+              <a class="hb-next__name" href="/tools/right-now#crying">When your baby won&rsquo;t stop crying</a>
+              <p class="hb-next__line">A calm next step in two minutes, including when it is safe to put your baby down and step away.</p>
+              <p class="hb-next__meta">It&rsquo;s hard right now</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+      </div>
+    </div>
 
     <section class="hub-sec hub-close" aria-labelledby="close-heading">
       <div class="hb-container">
@@ -359,9 +444,9 @@
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
 
-  <script src="../assets/js/main.js?v=3f7e70ab67" defer></script>
-  <script src="../assets/js/gms-tools.js?v=66a93960af" defer></script>
-  <script src="/assets/js/home.js?v=78ff6722df" defer></script>
+  <script src="../assets/js/main.js?v=b5c8e48c2d" defer></script>
+  <script src="../assets/js/gms-tools.js?v=ea7a1ca31d" defer></script>
+  <script src="/assets/js/home.js?v=d3d063f882" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

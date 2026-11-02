@@ -22,26 +22,13 @@
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=adb6f82c92" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=46d4d4e37a" />
-  <link rel="stylesheet" href="/assets/css/fg-base.css?v=975e9133b4" />
-  <link rel="stylesheet" href="/assets/css/tools.css?v=7fce784071" />
-  <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
-  <link rel="stylesheet" href="/assets/css/pages.css?v=4d6a085aa8" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=a7f09b41d2" />
-  <style>
-    /* The bio-link landing page: one list, newest post first. publish.mjs rewrites the
-       list between the from-instagram markers; nothing else on this page changes. */
-    .fi-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border); }
-    .fi-item { display: grid; grid-template-columns: 1fr auto; gap: 0.5rem 1.5rem; align-items: baseline; padding: 1.1rem 0; border-bottom: 1px solid var(--border); }
-    .fi-item__link { display: grid; gap: 0.25rem; text-decoration: none; color: inherit; }
-    .fi-item__page { font-family: var(--font-display); font-size: var(--step-lead); line-height: 1.2; color: var(--forest); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.18em; }
-    .fi-item__link:hover .fi-item__page { color: var(--forest-deep); }
-    .fi-item__hook { color: var(--ink-soft); font-size: var(--step-body); }
-    .fi-item__when { color: var(--ink-muted); font-size: var(--step-small); white-space: nowrap; }
-    .fi-empty { color: var(--ink-muted); padding: 1.1rem 0; }
-    @media (max-width: 600px) { .fi-item { grid-template-columns: 1fr; } }
-  </style>
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
+  <link rel="stylesheet" href="/assets/css/tools.css?v=4c6ab1c94c" />
+  <link rel="stylesheet" href="/assets/css/hubs.css?v=36987dd3b5" />
+  <link rel="stylesheet" href="/assets/css/pages.css?v=0967ade630" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=475f0abf7f" />
 </head>
 <body class="fg fg--page hub pg-from-instagram">
   <!-- header:start -->
@@ -102,32 +89,33 @@
         </div>
       </div>
     </section>
-    <section class="hub-sec hub-sec--white">
+    <section class="hub-sec hub-sec--white" aria-labelledby="posts-heading">
       <div class="hb-container hub-split">
-        <div class="hub-split__head">
-          <h2 class="hb-display">Latest posts</h2>
+        <div class="hub-split__head" data-rise>
+          <h2 class="hb-display" id="posts-heading">Latest posts</h2>
+          <p>Each post&rsquo;s first line, then the page it points to.</p>
         </div>
-        <ul class="fi-list">
+        <div class="fi-posts" data-rise style="--i:1">
+        <ul class="rows fi-list">
         <!-- from-instagram:start -->
-        <li class="fi-item">
-          <a class="fi-item__link" href="/tools/whats-underneath-the-meltdown?utm_source=instagram&utm_medium=social&utm_campaign=2026-10-24-tantrum-two-parts-recut">
-            <span class="fi-item__page">What's underneath the meltdown, a free tool for looking at what sits under your child's meltdowns</span>
-            <span class="fi-item__hook">A tantrum has two parts. The second one reaches for you.</span>
-          </a>
-          <span class="fi-item__when">Posted October 25</span>
+        <li class="row row--link fi-item">
+          <h3 class="row__name"><a href="/tools/whats-underneath-the-meltdown?utm_source=instagram&utm_medium=social&utm_campaign=2026-10-24-tantrum-two-parts-recut">A tantrum has two parts. The second one reaches for you.</a></h3>
+          <p class="row__desc">What’s underneath the meltdown, a free tool for looking at what sits under your child’s meltdowns</p>
+          <p class="row__meta">Free tool &middot; Ages 18 months to 5 years &middot; Posted October 25</p>
+          <p class="fi-item__src">Source: Potegal &amp; Davidson (2003). Temper Tantrums in Young Children: 2. Tantrum Duration and Temporal Organization. Journal of Developmental &amp; Behavioral Pediatrics. 335 children, 18 to 60 months.</p>
         </li>
-        <li class="fi-item">
-          <a class="fi-item__link" href="/articles/serve-and-return?utm_source=instagram&utm_medium=social&utm_campaign=2026-10-27-dropped-spoon">
-            <span class="fi-item__page">What serve and return actually means</span>
-            <span class="fi-item__hook">She dropped the spoon again. Here is what may be growing.</span>
-          </a>
-          <span class="fi-item__when">Posted October 18</span>
+        <li class="row row--link fi-item">
+          <h3 class="row__name"><a href="/articles/serve-and-return?utm_source=instagram&utm_medium=social&utm_campaign=2026-10-27-dropped-spoon">She dropped the spoon again. Here is what may be growing.</a></h3>
+          <p class="row__desc">What serve and return actually means</p>
+          <p class="row__meta">Free article &middot; Ages 8 to 14 months &middot; Posted October 18</p>
+          <p class="fi-item__src">Source: Center on the Developing Child, Harvard University. Serve and return. developingchild.harvard.edu/science/key-concepts/serve-and-return</p>
         </li>
         <!-- from-instagram:end -->
         </ul>
-        <div class="hub-title__actions" style="margin-top:2rem">
+        <div class="hb-actions fi-actions">
           <a class="hb-btn" href="/tools/">All free tools and guides</a>
           <a class="hb-btn hb-btn--quiet" href="/nsc/classes/infant/preview">Watch a lesson free</a>
+        </div>
         </div>
       </div>
     </section>
@@ -171,6 +159,7 @@
             <li><a href="/about/">Our approach</a></li>
             <li><a href="/articles/">Articles</a></li>
             <li><a href="/faq/">FAQ</a></li>
+            <li><a href="/programs/">For programs</a></li>
             <li><a href="/contact/">Contact</a></li>
           </ul>
         </div>
@@ -187,14 +176,15 @@
       <p class="site-footer__wordmark" aria-hidden="true">from little <span class="site-footer__wordmark-desc">onward</span></p>
       <div class="footer-bottom">
         <p>&copy; <span data-year>2026</span> From Little Onward</p><!-- TODO legal: confirm entity name and structure with attorney -->
+        <p><a href="/privacy/">Privacy</a> &middot; <a href="/terms/">Terms of use</a> &middot; <a href="/terms-of-sale/">Terms of sale</a></p>
         <p>Educational content only. Not medical or psychological advice.</p>
       </div>
     </div>
   </footer>
-  <!-- footer:end -->
+<!-- footer:end -->
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
-  <script src="/assets/js/home.js?v=78ff6722df" defer></script>
+  <script src="/assets/js/home.js?v=d3d063f882" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

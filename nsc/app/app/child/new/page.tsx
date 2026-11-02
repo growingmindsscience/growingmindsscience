@@ -17,7 +17,7 @@ export default async function NewChildPage({
       <div className="text-center">
         <h1 className="text-2xl font-semibold text-ink-deep">Add a child</h1>
         <p className="mt-2 text-sm text-ink-muted">
-          Just a nickname and a birth month. We keep nothing else.
+          A nickname and a birth month are all we need. Home languages are optional.
         </p>
       </div>
       <Card>

@@ -2,8 +2,9 @@
    Growing Minds Science: explore.css
    The Explore hub (body.explore), built by scripts/build-explore.mjs from
    assets/data/explore.json. Age is the first gate: /explore/ shows the five
-   periods on the age line, and each period's page gathers its pages by
-   moment and by topic. Primitives from fg-base.css, sections from hubs.css.
+   periods on the age line, and each period's page opens on where to start
+   (and, on its ages, the Lens), then gathers its pages by moment and by
+   topic, each page once, and closes on the period's class. Primitives from fg-base.css, sections from hubs.css.
    The age line on a sage field, quiet rules between rows, names in
    Newsreader, each page's type as a small label.
    Tokens from tokens-field-guide.css.
@@ -16,12 +17,24 @@
 
 /* ---------- The age line: the door on the gate, the way between periods on a period's page ---------- */
 .ex-line { margin-top: clamp(32px, 4vw, 56px); padding-block: clamp(24px, 3vw, 40px); background: var(--sage); color: var(--on-sage); }
-/* The axis sits under the periods, as a scale. */
-.ex-line__track { display: flex; justify-content: space-between; margin-top: 14px; padding-top: 10px; font-size: 14px; color: var(--on-sage); border-top: 1px solid rgba(25, 60, 57, 0.28); }
+/* The axis sits under the periods, as a scale: each period is 12 months, so the year marks fall
+   on the rules between the columns. */
+.ex-line__track { position: relative; height: 34px; margin-top: 14px; font-size: 14px; font-variant-numeric: tabular-nums; color: var(--on-sage); border-top: 1px solid rgba(25, 60, 57, 0.28); }
+.ex-line__track span { position: absolute; top: 10px; transform: translateX(-50%); }
+.ex-line__track span::before { content: ""; position: absolute; left: 50%; top: -10px; width: 1px; height: 6px; background: currentColor; opacity: 0.5; }
+.ex-line__track span:nth-child(1) { left: 0; transform: none; }
+.ex-line__track span:nth-child(1)::before { left: 0; }
+.ex-line__track span:nth-child(2) { left: 20%; }
+.ex-line__track span:nth-child(3) { left: 40%; }
+.ex-line__track span:nth-child(4) { left: 60%; }
+.ex-line__track span:nth-child(5) { left: 80%; }
+.ex-line__track span:last-child { left: auto; right: 0; transform: none; }
+.ex-line__track span:last-child::before { left: auto; right: 0; }
 .ex-line__stages { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 2px solid var(--ink); }
 .ex-line__stage { display: grid; align-content: start; gap: 6px; padding: 14px 16px 18px; border-left: 1px solid rgba(25, 60, 57, 0.28); color: var(--ink); text-decoration: none; transition: background-color 160ms ease; }
 .ex-line__stage:first-child { border-left: 0; }
-.ex-line__stage:hover { background: var(--sage-deep); color: var(--ink); }
+/* Ink stays ink on the sage-deep hover (forest on sage-deep is 3:1). */
+.explore .ex-line__stage:hover { background: var(--sage-deep); color: var(--ink); }
 .ex-line__years { font-size: 14px; font-weight: 500; font-variant-numeric: tabular-nums; }
 .ex-line__stage strong { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.375rem, 1.1rem + 1vw, 2rem); line-height: 1.08; letter-spacing: -0.015em; }
 .ex-line__sum { margin-top: 6px; font-size: 15px; line-height: 1.5; color: var(--on-sage); }
@@ -33,14 +46,28 @@
 .ex-line--nav .ex-line__stage { padding: 8px 14px 12px; }
 .ex-line--nav .ex-line__stage strong { font-size: clamp(1.0625rem, 0.95rem + 0.4vw, 1.25rem); }
 .ex-line__stage.is-current { background: var(--ink); color: var(--on-ink); }
-.ex-line__stage.is-current:hover { background: var(--ink); color: var(--on-ink); }
+.explore .ex-line__stage.is-current:hover { background: var(--ink); color: var(--on-ink); }
 [data-theme="dark"] .ex-line__stage { border-left-color: rgba(237, 235, 227, 0.2); color: var(--on-sage); }
-[data-theme="dark"] .ex-line__stage:hover { color: var(--on-sage); }
+[data-theme="dark"] .explore .ex-line__stage:hover { color: var(--on-sage); }
+[data-theme="dark"] .explore .ex-line__stage.is-current:hover { background: var(--paper); color: var(--ink); }
+[data-theme="dark"] .ex-line__track { border-top-color: rgba(237, 235, 227, 0.2); }
 [data-theme="dark"] .ex-line__stage.is-current { background: var(--paper); color: var(--ink); }
 @media (max-width: 900px) {
   .ex-line__stages { grid-template-columns: minmax(0, 1fr); }
   .ex-line__stage { padding: 14px 0; border-left: 0; border-top: 1px solid rgba(25, 60, 57, 0.28); }
   .ex-line__stage:first-child { border-top: 0; }
+  [data-theme="dark"] .ex-line__stage { border-top-color: rgba(237, 235, 227, 0.2); }
+  /* Stacked, the periods are a list of doors: each carries the rows' trailing arrow, and the
+     scale (which only reads across) steps aside. */
+  .ex-line:not(.ex-line--nav) .ex-line__stage { position: relative; padding-right: 40px; }
+  .ex-line:not(.ex-line--nav) .ex-line__stage::after {
+    content: ""; position: absolute; right: 4px; top: 50%; width: 22px; height: 22px; margin-top: -11px; background: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 12h15M13.5 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 12h15M13.5 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+  .ex-line:not(.ex-line--nav) .ex-line__stage:hover { margin-inline: calc(-1 * var(--hb-gutter, 16px)); padding-inline: var(--hb-gutter, 16px) calc(40px + var(--hb-gutter, 16px)); }
+  .ex-line:not(.ex-line--nav) .ex-line__stage:hover::after { right: calc(4px + var(--hb-gutter, 16px)); }
+  .ex-line__track { display: none; }
   .ex-line--nav .ex-line__stages { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .ex-line--nav .ex-line__stage { border-top: 0; border-left: 1px solid rgba(25, 60, 57, 0.28); min-height: 44px; padding: 8px 6px 10px; align-content: center; text-align: center; }
   .ex-line--nav .ex-line__stage:first-child { border-left: 0; }
@@ -48,18 +75,66 @@
   .ex-line--nav .ex-line__years { font-size: 13px; }
 }
 
-/* ---------- A period's page: its name, summary and class ---------- */
+/* ---------- A period's page: its name, summary and where to start ---------- */
 .ex-title--stage { padding-top: 0; }
-.ex-stage-head { display: grid; grid-template-columns: minmax(0, 8fr) minmax(0, 4fr); gap: 28px clamp(32px, 5vw, 80px); align-items: end; padding-block: clamp(40px, 6vw, 88px) clamp(40px, 5vw, 72px); }
+.ex-stage-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 36px clamp(32px, 5vw, 80px); align-items: end; padding-block: clamp(40px, 6vw, 88px) clamp(40px, 5vw, 72px); }
 .ex-stage-head h1 { font-size: clamp(2.25rem, 1.4rem + 3.4vw, 4.25rem); line-height: 0.98; letter-spacing: -0.025em; }
-.explore .ex-stage-head__years { margin-top: 12px; font-size: 16px; font-weight: 500; color: var(--forest); font-variant-numeric: tabular-nums; }
+/* The years are meta, not an action: ink-muted Inter 500. */
+.explore .ex-stage-head__years { margin-top: 12px; font-size: 16px; font-weight: 500; color: var(--ink-muted); font-variant-numeric: tabular-nums; }
 .ex-stage-head .hb-lead { margin-top: 18px; color: var(--ink-soft); max-width: 46ch; }
-.ex-stage-head__class { padding-top: 16px; border-top: 2px solid var(--ink); }
-.explore .ex-stage-head__class p { font-size: 15px; color: var(--ink-muted); margin-bottom: 12px; }
+/* Start here: the Lens page's Read / Try / Learn notation, as one index list. */
+.ex-start { padding-top: 14px; border-top: 2px solid var(--ink); }
+.explore .ex-start__title { font-family: var(--font-body); font-size: 15px; font-weight: 600; letter-spacing: 0; line-height: 1.4; color: var(--ink); }
+.explore .ex-start__list { list-style: none; margin: 6px 0 0; padding: 0; display: grid; }
+.ex-start__list li { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); align-items: baseline; border-top: 1px solid var(--border-soft); }
+.ex-start__list li:first-child { border-top: 0; }
+.ex-start__k { font-size: 14px; font-weight: 600; color: var(--clay-text); }
+.explore .ex-start__link { display: flex; align-items: center; min-height: 52px; padding-block: 8px; color: var(--ink); text-decoration: none; font-family: var(--font-display); font-size: clamp(1.1875rem, 1.05rem + 0.5vw, 1.4375rem); line-height: 1.2; letter-spacing: -0.01em; }
+.explore .ex-start__link:hover { color: var(--forest); text-decoration: underline; text-underline-offset: 0.16em; }
 @media (max-width: 860px) { .ex-stage-head { grid-template-columns: minmax(0, 1fr); align-items: start; } }
+
+/* ---------- The Lens door, on the ages the Lens is written for ---------- */
+.ex-lens-sec { padding-bottom: clamp(48px, 6vw, 88px); }
+.ex-lens { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 28px clamp(28px, 4vw, 64px); align-items: center; padding: clamp(16px, 2vw, 24px); background: var(--sage-mist); border-radius: var(--radius-lg); }
+.ex-lens__plate { position: relative; margin: 0; border-radius: var(--radius-lg); overflow: hidden; background: var(--sage-mist-2); aspect-ratio: 4 / 5; }
+.ex-lens__plate img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* One of the Lens's own Observe labels, set on the plate as the Lens sets it (fixed light
+   colors: it sits on a photograph). */
+.ex-lens__label { position: absolute; left: 12%; top: 60%; max-width: 22ch; margin: 0; padding: 10px 12px; border-radius: var(--radius); background: #F8F9FB; color: #193C39; font-size: 14px; line-height: 1.35; }
+.ex-lens__label b { display: block; font-weight: 600; margin-bottom: 2px; }
+.ex-lens__label::before { content: ""; position: absolute; left: -18px; top: 12px; width: 10px; height: 10px; border-radius: 50%; background: #D2A453; box-shadow: 0 0 0 2px #F8F9FB; }
+.ex-lens__body { display: grid; gap: 14px; justify-items: start; padding: clamp(8px, 2vw, 24px) clamp(4px, 1.5vw, 20px); }
+.ex-lens__title { font-size: clamp(2rem, 1.4rem + 2.2vw, 3.25rem); line-height: 1.02; letter-spacing: -0.02em; }
+.explore .ex-lens__meta { margin-top: -4px; font-size: 15px; color: var(--ink-muted); }
+.explore .ex-lens__lead { color: var(--ink-soft); max-width: 52ch; }
+.explore .ex-lens__steps { list-style: none; margin: 6px 0 4px; padding: 0; display: grid; width: 100%; }
+.ex-lens__steps li { display: grid; grid-template-columns: 2rem 7.5rem minmax(0, 1fr); gap: 4px 12px; align-items: baseline; padding-block: 12px; border-top: 1px solid var(--sage-mist-2); }
+.ex-lens__steps li:first-child { border-top: 0; }
+.ex-lens__n { font-size: 14px; font-weight: 600; color: var(--clay-text); font-variant-numeric: tabular-nums; }
+.ex-lens__step { font-size: 15px; font-weight: 600; color: var(--ink); }
+.ex-lens__q { font-family: var(--font-display); font-size: clamp(1.125rem, 1rem + 0.4vw, 1.3125rem); line-height: 1.25; color: var(--ink); }
+.ex-lens .hb-actions { margin-top: 6px; }
+@media (max-width: 860px) {
+  .ex-lens { grid-template-columns: minmax(0, 1fr); }
+  /* On a phone the words come first and the photograph follows, cropped so it never fills the screen. */
+  .ex-lens__plate { order: 2; aspect-ratio: 4 / 3; }
+  .ex-lens__plate img { object-position: 50% 62%; }
+  .ex-lens__label { left: 12px; top: auto; bottom: 12px; max-width: calc(100% - 24px); padding-left: 30px; }
+  .ex-lens__label::before { left: 12px; top: 14px; }
+}
+@media (max-width: 520px) {
+  .ex-lens__steps li { grid-template-columns: 2rem minmax(0, 1fr); }
+  .ex-lens__q { grid-column: 2; }
+}
+/* The page's one authored moment: as the door arrives, its label is set on the plate. */
+@media (prefers-reduced-motion: no-preference) {
+  html.anim .ex-lens.is-in .ex-lens__label { animation: ex-label 520ms var(--ease-out) 620ms both; }
+}
+@keyframes ex-label { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
 /* ---------- Moments and topics, as rows ---------- */
 .ex-sec__title { font-size: clamp(2rem, 1.4rem + 2.2vw, 3.25rem); line-height: 1.02; }
+.ex-sec__head .ex-sec__lede { margin-top: 12px; }
 .explore .ex-sec__lede { margin-top: 12px; color: var(--ink-soft); max-width: 52ch; }
 .ex-sec { scroll-margin-top: var(--header-h, 72px); }
 :is(.ex-stage, .ex-row) { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 16px clamp(32px, 5vw, 80px); align-items: start; padding-block: clamp(22px, 2.6vw, 34px); border-top: 1px solid var(--border-soft); scroll-margin-top: calc(var(--header-h, 72px) + 16px); }
@@ -67,16 +142,23 @@
 .ex-sec > .hb-container.ex-row { border-top: 0; padding-block: 0; }
 .ex-row__head h2 { font-size: clamp(1.75rem, 1.35rem + 1.4vw, 2.5rem); line-height: 1.05; }
 :is(.ex-stage__head, .ex-row__head) h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.5rem, 1.2rem + 1vw, 2.125rem); line-height: 1.08; letter-spacing: -0.015em; }
-.explore .ex-stage__years { margin-top: 4px; font-size: 15px; font-weight: 500; color: var(--forest); font-variant-numeric: tabular-nums; }
+.explore .ex-stage__years { margin-top: 4px; font-size: 15px; font-weight: 500; color: var(--ink-muted); font-variant-numeric: tabular-nums; }
 .explore :is(.ex-stage__head, .ex-row__head) > p:not(.ex-stage__years):not(.ex-stage__class) { margin-top: 10px; color: var(--ink-soft); max-width: 40ch; }
 .explore .ex-stage__class { margin-top: 12px; }
 .ex-stage__class a { display: inline-flex; align-items: center; min-height: 44px; }
 .explore .ex-list { list-style: none; margin: 0; padding: 0; display: grid; }
 .ex-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; border-top: 1px solid var(--border-soft); }
 .ex-list li:first-child { border-top: 0; }
-.ex-list a { display: flex; align-items: center; min-height: 48px; padding-block: 8px; color: var(--ink); text-decoration: none; line-height: 1.35; }
-.ex-list a:hover { color: var(--forest); text-decoration: underline; text-underline-offset: 0.16em; }
+/* Each row's name in Newsreader (The Two Hands Rule), its type in Inter. */
+.explore .ex-list a { display: flex; align-items: center; min-height: 52px; padding-block: 10px; color: var(--ink); text-decoration: none; font-family: var(--font-display); font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); line-height: 1.22; letter-spacing: -0.01em; text-wrap: pretty; }
+.explore .ex-list a:hover { color: var(--forest); text-decoration: underline; text-underline-offset: 0.16em; }
 .ex-type { font-size: 14px; color: var(--ink-muted); white-space: nowrap; }
+/* A graded claim: its grade and verdict, verbatim from the claims library, under the claim. */
+.explore .ex-verdict { grid-column: 1; margin: -4px 0 0; padding-bottom: 14px; font-size: 15px; line-height: 1.5; color: var(--ink-soft); max-width: 62ch; }
+.ex-grade { font-weight: 600; }
+.ex-grade--solid { color: var(--ink); }
+.ex-grade--contra { color: var(--clay-text); }
+.ex-grade--thin { color: var(--ink-muted); }
 @media (max-width: 860px) {
   :is(.ex-stage, .ex-row) { grid-template-columns: minmax(0, 1fr); }
 }

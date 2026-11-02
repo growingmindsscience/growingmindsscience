@@ -137,12 +137,12 @@ ${extraHead}
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=adb6f82c92" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=46d4d4e37a" />
-  <link rel="stylesheet" href="/assets/css/fg-base.css?v=975e9133b4" />
-  <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
-  <link rel="stylesheet" href="/assets/css/article.css?v=01dcd82f94" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=a7f09b41d2" />
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
+  <link rel="stylesheet" href="/assets/css/hubs.css?v=36987dd3b5" />
+  <link rel="stylesheet" href="/assets/css/article.css?v=1cda4972c6" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=475f0abf7f" />
 </head>
 <body class="fg fg--page hub art">
   ${header}
@@ -154,8 +154,8 @@ ${body}
   ${footer}
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
-  <script src="/assets/js/main.js?v=3f7e70ab67" defer></script>
-  <script src="/assets/js/home.js?v=78ff6722df" defer></script>
+  <script src="/assets/js/main.js?v=b5c8e48c2d" defer></script>
+  <script src="/assets/js/home.js?v=d3d063f882" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
@@ -164,7 +164,9 @@ ${body}
 
 const anchor = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 const DOT = ` <span aria-hidden="true">&middot;</span> `;
-const NOTE = "Educational content only. Not medical or psychological advice. Milestones are windows, not deadlines.";
+// Since the 2022 CDC/AAP revision, checklist ages mark when most children (75% or more) show a
+// skill, so the fine print points to asking, not to waiting (same framing as /milestones).
+const NOTE = "Educational content only. Not medical or psychological advice. The ages here are when most children show a skill, so if something hasn’t appeared by then, or something stops, it’s worth asking your child’s doctor.";
 
 function renderPage(entry, { draft }) {
   const rel = `library/entries/${entry.slug}.json`;

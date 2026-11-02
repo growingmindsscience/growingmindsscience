@@ -26,13 +26,13 @@
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=adb6f82c92" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=46d4d4e37a" />
-  <link rel="stylesheet" href="/assets/css/fg-base.css?v=975e9133b4" />
-  <link rel="stylesheet" href="/assets/css/tools.css?v=7fce784071" />
-  <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
-  <link rel="stylesheet" href="/assets/css/pages.css?v=4d6a085aa8" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=a7f09b41d2" />
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
+  <link rel="stylesheet" href="/assets/css/tools.css?v=4c6ab1c94c" />
+  <link rel="stylesheet" href="/assets/css/hubs.css?v=36987dd3b5" />
+  <link rel="stylesheet" href="/assets/css/pages.css?v=0967ade630" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=475f0abf7f" />
 
 </head>
 <body class="fg fg--page hub pg-legal-page">
@@ -86,19 +86,16 @@
 
   <!-- TODO: attorney review (brand rename: Number Path is now Tallykin) -->
   <main id="main" tabindex="-1">
-    <section class="hub-title hub-title--solo">
+    <section class="hub-title">
       <div class="hb-container hub-title__grid">
         <div data-rise>
           <h1 class="hb-display">Privacy, in plain language.</h1>
           <p class="hb-lead">What From Little Onward collects, why, who helps us run the site, and what you can ask us to do.</p>
           <p class="hub-title__fine">Last updated October 23, 2026.</p>
+          <nav class="pg-legal-nav" aria-label="Legal documents"><ul><li><a href="/privacy/" aria-current="page">Privacy</a></li><li><a href="/terms/">Terms of use</a></li><li><a href="/terms-of-sale/">Terms of sale</a></li></ul></nav>
         </div>
-      </div>
-    </section>
-    <section class="pg-body">
-      <div class="hb-container">
-        <div class="pg-legal">
-          <h2 id="short">The short version</h2>
+        <aside class="hb-short pg-legal-short" aria-labelledby="short" data-rise style="--i:1">
+          <h2 class="hb-short__title" id="short">The short version</h2>
           <ul>
             <li>Most of the free tools need no account. What you enter in them stays in your browser and is not sent to us.</li>
             <li>We never sell personal information, and we never share it for advertising. The site runs no ad trackers.</li>
@@ -106,7 +103,29 @@
             <li>We do not save conversations in Ask the research.</li>
             <li>You can ask us to show you, correct, or delete what we hold about you at any time.</li>
           </ul>
-
+        </aside>
+      </div>
+    </section>
+    <section class="pg-body">
+      <div class="hb-container hb-read">
+        <nav class="hb-toc" data-toc aria-label="On this page">
+          <details class="hb-toc__fold">
+            <summary>On this page</summary>
+            <ol class="hb-toc__list">
+              <li><a href="#who">Who we are</a></li>
+              <li><a href="#device">What stays on your device</a></li>
+              <li><a href="#collect">What we collect, and why</a></li>
+              <li><a href="#children">Children&rsquo;s privacy</a></li>
+              <li><a href="#share">Who we share it with</a></li>
+              <li><a href="#keep">How long we keep it</a></li>
+              <li><a href="#choices">Your choices</a></li>
+              <li><a href="#security">Security</a></li>
+              <li><a href="#changes">Changes</a></li>
+              <li><a href="#contact">Questions</a></li>
+            </ol>
+          </details>
+        </nav>
+        <div class="hb-read__text pg-legal">
           <h2 id="who">Who we are</h2>
           <!-- TODO legal: confirm entity name and structure with attorney -->
           <p>From Little Onward is an educational website for parents and caregivers of young children, run by Matthew McArthur. In this policy, &ldquo;we&rdquo; and &ldquo;us&rdquo; mean From Little Onward. You can reach us through the <a href="/contact/">contact page</a>.</p>
@@ -242,8 +261,8 @@
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
 
-  <script src="../assets/js/main.js?v=3f7e70ab67" defer></script>
-  <script src="/assets/js/home.js?v=78ff6722df" defer></script>
+  <script src="/assets/js/main.js?v=b5c8e48c2d" defer></script>
+  <script src="/assets/js/home.js?v=d3d063f882" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

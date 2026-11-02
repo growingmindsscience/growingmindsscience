@@ -1,15 +1,48 @@
 /* Right Now: presentation and controls for the situation router.
-   Advice and narration are sourced only from the unchanged #router-data JSON. */
+   Advice and narration are sourced only from #router-data. The interface-only
+   safety lines (never shake, when to call, sources) come from #router-notes and
+   never enter the narration. */
 (function () {
   'use strict';
 
   var DATA = JSON.parse(document.getElementById('router-data').textContent);
+  var NOTES = {};
+  try { NOTES = JSON.parse(document.getElementById('router-notes').textContent) || {}; } catch (_) {}
   var main = document.getElementById('rn-main');
   var pocket = document.getElementById('rn-pocket');
   var svgNS = 'http://www.w3.org/2000/svg';
 
   function byId(id) {
     return DATA.situations.filter(function (s) { return s.id === id; })[0];
+  }
+
+  function note(s) { return NOTES[s.id] || {}; }
+
+  // Typographic quotes and apostrophes for interface strings only. The narrated
+  // fields (title, body, seq, tryLine) are shown and copied exactly as recorded.
+  function smart(t) {
+    return String(t == null ? '' : t)
+      .replace(/(^|[\s(\[{])"/g, '$1\u201C').replace(/"/g, '\u201D')
+      .replace(/(^|[\s(\[{\u201C])'/g, '$1\u2018').replace(/'/g, '\u2019');
+  }
+
+  // The saved child's age in months, unless only a stage was given long ago.
+  function childMonths() {
+    try {
+      if (!window.GMS || !GMS.profile) return null;
+      if (GMS.profile.isStale && GMS.profile.isStale()) return null;
+      return GMS.profile.ageInMonths();
+    } catch (_) { return null; }
+  }
+
+  // Where the full guide is. A baby under 12 months gets the first-year guide
+  // instead of the toddler one (sleep); crying points to the first-year class.
+  function onward(s) {
+    var n = note(s);
+    if (n.full) return { href: n.full.href, text: smart(n.full.text) };
+    var m = childMonths();
+    if (n.infant && m != null && m < 12) return { href: n.infant.href, text: smart(n.infant.text), infant: true };
+    return { href: '/tools/' + s.toolSlug, text: 'Read the full tool' };
   }
 
   function el(tag, attrs, kids) {
@@ -54,12 +87,12 @@
     stopListening();
     pocket.innerHTML = '';
     main.innerHTML = '';
-    var title = el('h1', { class: 'rn-step__title', text: "What's happening?", tabindex: '-1' });
+    var title = el('h1', { class: 'rn-step__title', text: 'What\u2019s happening?', tabindex: '-1' });
     var intro = el('div', { class: 'rn-intro' }, [
       title,
-      el('p', { class: 'rn-step__eyebrow', text: "It's hard right now" }),
-      el('p', { class: 'rn-step__lead', text: "Choose what feels closest. Let's find one small next step." }),
-      el('p', { class: 'rn-reassurance' }, ["You don't have to solve", el('br'), 'the whole day.'])
+      el('p', { class: 'rn-step__eyebrow', text: 'It\u2019s hard right now' }),
+      el('p', { class: 'rn-step__lead', text: 'Choose what feels closest. Let\u2019s find one small next step.' }),
+      el('p', { class: 'rn-reassurance' }, ['You don\u2019t have to solve', el('br'), 'the whole day.'])
     ]);
     var choices = el('div', { class: 'rn-choices', role: 'group', 'aria-label': 'Choose your situation' });
     DATA.situations.forEach(function (s) {
@@ -67,8 +100,8 @@
         type: 'button', class: 'rn-choice', onclick: function () { go(s.id); }
       }, [
         el('span', { class: 'rn-choice__text' }, [
-          el('span', { class: 'rn-choice__name', text: s.choice }),
-          el('span', { class: 'rn-choice__hint', text: s.hint })
+          el('span', { class: 'rn-choice__name', text: smart(s.choice) }),
+          el('span', { class: 'rn-choice__hint', text: smart(s.hint) })
         ]),
         icon('arrow', 'rn-choice__arrow')
       ]));
@@ -162,10 +195,14 @@
     guide.appendChild(seq);
     guide.appendChild(nav);
     guide.appendChild(status);
+    // A safety line outside the recorded steps (never shake; step away). It stays
+    // in view in both the full and the one-step reading.
+    if (note(s).edge) guide.appendChild(el('p', { class: 'rn-answer__edge', text: smart(note(s).edge) }));
+    var full = onward(s);
     guide.appendChild(el('details', { class: 'rn-why' }, [
       el('summary', {}, ['Why this helps', icon('chevron')]),
       el('p', { class: 'rn-answer__body', text: s.body }),
-      el('a', { class: 'rn-why__link', href: '/tools/' + s.toolSlug }, ['Read the full tool', icon('arrow')])
+      el('a', { class: 'rn-why__link', href: full.href }, [full.text, icon('arrow')])
     ]));
     return guide;
   }
@@ -184,8 +221,8 @@
         range.selectNodeContents(quote);
         selection.removeAllRanges();
         selection.addRange(range);
-        status.textContent = "Words selected. Use your device's Copy command.";
-      } else status.textContent = "Select these words to copy them on your device.";
+        status.textContent = 'Words selected. Use your device\u2019s Copy command.';
+      } else status.textContent = 'Select these words to copy them on your device.';
     }
     copy.addEventListener('click', function () {
       if (!navigator.clipboard || !navigator.clipboard.writeText) { selectWords(); return; }
@@ -203,17 +240,26 @@
     var key = 'right-now:' + s.id;
     var row = el('div', { class: 'rn-actions', role: 'group', 'aria-label': 'Keep this guide or get more support' });
     function isSaved() { return !!(window.GMS && GMS.shelf.has(key)); }
+    // When the browser keeps no site data, a save lasts only for this visit; say so.
+    function kept() { return !(window.GMS && GMS.persistent === false); }
+    function savedText() { return kept() ? 'Saved' : 'Saved for this visit'; }
     var save = el('button', {
-      type: 'button', class: 'btn btn--ghost', text: isSaved() ? 'Saved' : 'Save this', 'aria-pressed': String(isSaved())
+      type: 'button', class: 'btn btn--ghost', text: isSaved() ? savedText() : 'Save this', 'aria-pressed': String(isSaved())
     });
     save.addEventListener('click', function () {
       if (!window.GMS) return;
+      var n = note(s);
       if (GMS.shelf.has(key)) GMS.shelf.removeByKey(key);
-      else GMS.shelf.add({ key: key, toolSlug: 'right-now', toolTitle: "It's hard right now",
-        toolUrl: '/tools/right-now#' + s.id, title: s.title, body: s.body, tryLine: s.tryLine });
-      save.textContent = isSaved() ? 'Saved' : 'Save this';
+      else GMS.shelf.add({ key: key, toolSlug: 'right-now', toolTitle: 'It\u2019s hard right now',
+        toolUrl: '/tools/right-now#' + s.id, title: s.title,
+        // The safety lines (never shake, when to call) travel with the saved card.
+        body: [s.body, smart(n.edge), smart(n.when)].filter(Boolean).join(' '),
+        seq: s.seq, tryLine: s.tryLine });
+      save.textContent = isSaved() ? savedText() : 'Save this';
       save.setAttribute('aria-pressed', String(isSaved()));
-      status.textContent = isSaved() ? 'Find this again in Saved for you, under All tools.' : 'Removed from Saved for you.';
+      status.textContent = !isSaved() ? 'Removed from Saved for you.'
+        : kept() ? 'Find this again in Saved for you, under All tools.'
+        : 'This browser isn\u2019t keeping site data, so this lasts only until you leave the page.';
     });
     row.appendChild(save);
     var ask = el('a', {
@@ -246,7 +292,11 @@
     var ol = el('ul', { class: 'pocket-seq' });
     s.seq.forEach(function (line, i) { ol.appendChild(el('li', { text: (i + 1) + '. ' + line })); });
     pocket.appendChild(ol);
+    var n = note(s);
+    if (n.edge) pocket.appendChild(el('p', { class: 'pocket-when', text: smart(n.edge) }));
     pocket.appendChild(el('div', { class: 'pocket-try', text: 'Try saying: ' + s.tryLine }));
+    if (n.when) pocket.appendChild(el('p', { class: 'pocket-when', text: smart(n.when) }));
+    pocket.appendChild(el('p', { class: 'pocket-help', text: 'If you might hurt your child, put them somewhere safe and step away. In the US, call or text 988 any time, or call 911 in an emergency.' }));
     pocket.appendChild(el('p', { class: 'pocket-foot', text: 'From Little Onward · fromlittleonward.com' }));
   }
 
@@ -258,10 +308,26 @@
     main.innerHTML = '';
     var title = el('h1', { class: 'rn-answer__title', text: s.title, tabindex: '-1' });
     var saveStatus = el('p', { class: 'rn-save-status', role: 'status', 'aria-live': 'polite' });
+    var n = note(s);
+    var infant = onward(s).infant;
+    // When to call: the pediatrician or 911, under the phrase (interface text,
+    // not part of the recording). Its further read is dropped when the guide
+    // link already goes there.
+    var when = n.when ? el('p', { class: 'rn-answer__when' }, [
+      smart(n.when),
+      (n.whenLink && !infant) ? ' ' : null,
+      (n.whenLink && !infant) ? el('a', { href: n.whenLink.href, text: smart(n.whenLink.text) }) : null
+    ]) : null;
+    var sources = (n.sources && n.sources.length) ? el('section', { class: 'rn-sources', 'aria-labelledby': 'rn-sources-title' }, [
+      el('h2', { id: 'rn-sources-title', class: 'rn-sources__title', text: 'Sources' }),
+      el('ul', {}, n.sources.map(function (src) {
+        return el('li', {}, [el('a', { href: src.href, rel: 'noopener noreferrer', target: '_blank', text: smart(src.text) })]);
+      }))
+    ]) : null;
     var card = el('article', { class: 'rn-answer' }, [
-      el('header', { class: 'rn-answer__header' }, [title, el('p', { class: 'rn-answer__state', text: s.state })]),
-      el('div', { class: 'rn-answer__layout' }, [guidance(s), phrase(s)]),
-      actionRow(s, saveStatus), saveStatus
+      el('header', { class: 'rn-answer__header' }, [title, el('p', { class: 'rn-answer__state', text: smart(s.state) })]),
+      el('div', { class: 'rn-answer__layout' }, [guidance(s), el('div', { class: 'rn-answer__side' }, [phrase(s), when])]),
+      actionRow(s, saveStatus), saveStatus, sources
     ]);
     main.appendChild(card);
     main.appendChild(el('div', { class: 'rn-back' }, [

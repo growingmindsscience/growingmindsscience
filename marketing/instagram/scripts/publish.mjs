@@ -242,19 +242,30 @@ function utm(url, id) {
 // states the debunked claim, so the landing page shows the correction ("now") instead.
 const opener = (spec) => spec.slides?.[0] ?? spec.beats?.[0] ?? {};
 const hookOf = (spec) => { const s = opener(spec); return s.lead || s.now || s.text || s.claim || ""; };
+// Spec text into page text: escaped, with typographic quotes and apostrophes.
+const landingText = (s) => String(s || "")
+  .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+  .replace(/"([^"]*)"/g, "“$1”").replace(/'/g, "’");
+// The first real source: spec.sources, else the sources slide's first line, else spec.source.
+const sourceOf = (spec) => (spec.sources || (spec.slides?.find((s) => s.type === "sources") || {}).sources || [])[0] || spec.source || "";
+// Each row leads with the hook the visitor saw on Instagram (a Newsreader row name, linked over
+// the whole row), then the page it points to, then kind, ages and date, then the source in
+// research blue. Styles: .pg-from-instagram in assets/css/pages.css (rows: hubs.css .row--link).
 function rewriteLanding(calendar) {
   if (!existsSync(LANDING)) { console.warn("publish: from-instagram.html missing; skipped the landing page"); return; }
   const published = calendar.posts.filter((p) => p.status === "published").sort((a, b) => (b.published_at || "").localeCompare(a.published_at || "")).slice(0, 4);
   const items = published.length === 0 ? `        <li class="fi-empty">Nothing has gone out yet. The first posts land here the day they publish.</li>` : published.map((p) => {
     const spec = readJson(join(IG, "posts", p.id, "spec.json"));
     const when = new Date(p.published_at).toLocaleDateString("en-US", { month: "long", day: "numeric", timeZone: "America/New_York" });
-    const hook = hookOf(spec);
-    return `        <li class="fi-item">
-          <a class="fi-item__link" href="${utm(spec.link.url, p.id)}">
-            <span class="fi-item__page">${spec.link.page}</span>
-            <span class="fi-item__hook">${hook}</span>
-          </a>
-          <span class="fi-item__when">Posted ${when}</span>
+    const kind = (spec.link.label || "").replace(/,?\s*link in bio\s*$/i, "").trim();
+    const age = spec.age || p.age;
+    const meta = [kind, age && `Ages ${age}`, `Posted ${when}`].filter(Boolean).map(landingText).join(" &middot; ");
+    const src = sourceOf(spec);
+    return `        <li class="row row--link fi-item">
+          <h3 class="row__name"><a href="${utm(spec.link.url, p.id)}">${landingText(hookOf(spec))}</a></h3>
+          <p class="row__desc">${landingText(spec.link.page)}</p>
+          <p class="row__meta">${meta}</p>${src ? `
+          <p class="fi-item__src">Source: ${landingText(src)}</p>` : ""}
         </li>`;
   }).join("\n");
   const html = readFileSync(LANDING, "utf8");

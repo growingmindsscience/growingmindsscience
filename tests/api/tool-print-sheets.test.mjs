@@ -22,3 +22,19 @@ for (const file of readdirSync(TOOLS).filter((f) => f.endsWith(".html"))) {
     });
   }
 }
+
+// Printing from the browser menu, Ctrl+P or a phone's share sheet skips the
+// tool's Print button. These two tools build their sheet for every print path:
+// the checkup page keeps #cp-sheet built while the result shows (toolapp.css
+// prints it under body.cp-has-page); the prompt cards build #rp-deck on
+// beforeprint.
+const EVERY_PRINT_PATH = {
+  "checkup-prep.html": ['classList.add("cp-has-page")', 'classList.remove("cp-has-page")'],
+  "reading-prompt-cards.html": ['addEventListener("beforeprint"', 'addEventListener("afterprint"'],
+};
+for (const [file, needles] of Object.entries(EVERY_PRINT_PATH)) {
+  test(`tools/${file} builds its print sheet for every print path`, () => {
+    const html = readFileSync(TOOLS + file, "utf8");
+    for (const n of needles) assert.ok(html.includes(n), `tools/${file} is missing ${n}`);
+  });
+}

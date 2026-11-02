@@ -58,7 +58,7 @@
     },
     "setup:checklist": {
       "lines": [
-        "You'll need 10 small things that look the same. Blocks, pom-poms, big buttons.",
+        "You'll need 10 small things that look the same. Blocks, pom-poms, big buttons. The script calls them blocks, whatever you use.",
         "Skip food if it might get eaten mid-game. The bear won't mind, but the data will.",
         "A bowl or plate, plus any stuffed animal. That's the bear now.",
         "Pick a moment when {name} is fed, rested, and you have ten minutes."
@@ -218,7 +218,7 @@
         "Counting words are still music: {name} may sing them, but they don't point at amounts yet. That's a real stage, and every counter starts here.",
         "Next, one number word will click onto meaning: \"one.\" It arrives with time and talk.",
         "This week's games soak daily routines in number words. That's the whole job right now.",
-        "Come back in about six weeks and play the check-in again. Rungs move on the scale of months — some check-ins show a climb, and many show a rung settling in. Both are the ladder working."
+        "Come back in about six weeks and play the check-in again. Rungs move on the scale of months. Some check-ins show a climb, and many show a rung settling in. Both are the ladder working."
       ]
     },
     "end:L0:medium": {
@@ -241,16 +241,16 @@
       "lines": [
         "Right now, {name} is a one-knower. That's a real stage on the counting ladder.",
         "{name} knows exactly what \"one\" means. \"Two\" is still a word in a song.",
-        "Next comes two. Every child climbs this ladder, one rung at a time, and each rung takes months.",
+        "Next comes two. Most children climb this ladder in this order, one rung at a time, and each rung takes months.",
         "The games this week are built for exactly this rung. They make the climb richer.",
-        "Come back in about six weeks and play the check-in again. Rungs move on the scale of months — some check-ins show a climb, and many show a rung settling in. Both are the ladder working."
+        "Come back in about six weeks and play the check-in again. Rungs move on the scale of months. Some check-ins show a climb, and many show a rung settling in. Both are the ladder working."
       ]
     },
     "end:L1:medium": {
       "lines": [
         "Today's best read: {name} is a one-knower. That's a real stage on the counting ladder.",
         "{name} showed a solid grip on \"one.\" A few moments were hard to read, which is typical for a game at home.",
-        "Next comes two. Every child climbs this ladder, one rung at a time.",
+        "Next comes two. Most children climb this ladder in this order, one rung at a time.",
         "This week's games are built for this rung. Try the check-in again in a week or two."
       ]
     },
@@ -268,7 +268,7 @@
         "\"One\" and \"two\" mean exact amounts to {name} now. \"Three\" is still catching up.",
         "Next comes three, and it usually takes months of ordinary play. That's the ladder working, not stalling.",
         "This week's games give \"two\" a workout and let \"three\" start knocking.",
-        "Come back in about six weeks and play the check-in again. Rungs move on the scale of months — some check-ins show a climb, and many show a rung settling in. Both are the ladder working."
+        "Come back in about six weeks and play the check-in again. Rungs move on the scale of months. Some check-ins show a climb, and many show a rung settling in. Both are the ladder working."
       ]
     },
     "end:L2:medium": {
@@ -291,9 +291,9 @@
       "lines": [
         "Right now, {name} is a three-knower. That's a real stage on the counting ladder.",
         "One, two, and three are exact ideas for {name} now. \"Four\" is next in line.",
-        "Children usually climb one number at a time here, and then something bigger clicks all at once.",
+        "Children usually climb one number at a time here. Then the bigger idea comes together, sometimes over a few weeks, sometimes over months.",
         "This week's games stretch toward four and keep three feeling easy.",
-        "Come back in about six weeks and play the check-in again. Rungs move on the scale of months — some check-ins show a climb, and many show a rung settling in. Both are the ladder working."
+        "Come back in about six weeks and play the check-in again. Rungs move on the scale of months. Some check-ins show a climb, and many show a rung settling in. Both are the ladder working."
       ]
     },
     "end:L3:medium": {
@@ -316,9 +316,9 @@
       "lines": [
         "Right now, {name} is a four-knower. That's a real stage, high on the counting ladder.",
         "One through four are exact ideas for {name}. The next step is the big one: discovering that counting itself tells you how many.",
-        "That discovery tends to arrive after months on this rung, often all at once.",
+        "That discovery tends to arrive after months on this rung, sometimes quickly, sometimes over a few months.",
         "This week's games set the table for it: counting out, checking, and lots of five.",
-        "Come back in about six weeks and play the check-in again. Rungs move on the scale of months — some check-ins show a climb, and many show a rung settling in. Both are the ladder working."
+        "Come back in about six weeks and play the check-in again. Rungs move on the scale of months. Some check-ins show a climb, and many show a rung settling in. Both are the ladder working."
       ]
     },
     "end:L4:medium": {
@@ -341,9 +341,9 @@
       "lines": [
         "Right now, {name} is a four-knower standing on the doorstep of the biggest step on the ladder.",
         "Five went beautifully today. The full discovery, that counting itself tells you how many, every time, for any amount, is very close.",
-        "When it arrives, counting starts answering the question on its own — and the deeper ideas keep ripening for years after.",
+        "When it arrives, counting starts answering the question on its own, and the deeper ideas keep ripening for years after.",
         "This week's games are exactly the doorstep games: counting out, checking, and celebrating the check.",
-        "Come back in about six weeks and play the check-in again. Rungs move on the scale of months — some check-ins show a climb, and many show a rung settling in. Both are the ladder working."
+        "Come back in about six weeks and play the check-in again. Rungs move on the scale of months. Some check-ins show a climb, and many show a rung settling in. Both are the ladder working."
       ]
     },
     "end:L4near:medium": {
@@ -364,11 +364,11 @@
     },
     "end:CP:high": {
       "lines": [
-        "Right now, {name} is a cardinal-principle knower. The ladder's big discovery is showing up in play.",
-        "{name} can count out an amount and knows the last word counted tells how many. That works for any number {name} can count to.",
+        "Right now, {name} looks like a cardinal-principle knower. The ladder's big discovery is showing up in play.",
+        "{name} counted out five and six on request, the sign that counting is starting to answer \"how many.\" Bigger piles over the coming months will show how far it reaches.",
         "From here the fun widens: one more, who has more, and a longer count list.",
         "This week's games open that next territory.",
-        "The deeper ideas — what number comes after another, comparing numbers out loud — arrive over the next years, in their own time. Check in again in about six weeks if you like, and watch the count list stretch."
+        "The deeper ideas, like what number comes after another and comparing numbers out loud, arrive over the next years, in their own time. Check in again in about six weeks if you like, and watch the count list stretch."
       ]
     },
     "end:CP:medium": {
@@ -452,7 +452,7 @@
     },
     "ps:end:some": {
       "lines": [
-        "Some early signs are showing, and that is completely typical at this age.",
+        "A few right answers today, not enough to read yet. That is very common at this age.",
         "Number words take a long, slow while to attach to real amounts. Play is what attaches them.",
         "The plan starts with the gentlest games. One session is a snapshot. You can play Point and Seek again in a few weeks."
       ]

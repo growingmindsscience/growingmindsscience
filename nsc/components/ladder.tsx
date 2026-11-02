@@ -55,13 +55,13 @@ export function Ladder({
               className={[
                 "relative z-10 flex items-center justify-center rounded-xl px-4 py-3 text-center text-sm font-medium transition-all",
                 isCurrent
-                  ? "bg-rung-glow text-ink-deep shadow-md ring-2 ring-teal"
+                  ? "bg-rung-glow text-ink-deep ring-2 ring-teal"
                   : isNear
                     ? "bg-rung-glow/50 text-ink-deep ring-1 ring-teal/50"
                     : done
                       ? "bg-sea-glass/50 text-ink"
                       : "bg-surface text-ink-muted",
-                isCurrent && animate ? "motion-safe:animate-pulse" : "",
+                isCurrent && animate ? "motion-safe:animate-rung-arrive" : "",
               ].join(" ")}
             >
               {rung.label}

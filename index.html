@@ -30,13 +30,13 @@
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=adb6f82c92" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=46d4d4e37a" />
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
   <link rel="preload" as="image" type="image/webp" imagesrcset="/assets/img/site/hero-parent-baby-640.webp 640w, /assets/img/site/hero-parent-baby-1000.webp 1000w" imagesizes="(min-width: 901px) 58vw, 100vw" />
-  <link rel="stylesheet" href="/assets/css/fg-base.css?v=975e9133b4" />
-  <link rel="stylesheet" href="/assets/css/home.css?v=9078209d56" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
+  <link rel="stylesheet" href="/assets/css/home.css?v=9f8e388d18" />
   <link rel="stylesheet" href="/assets/css/home-lens.css?v=8905b941bc" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=a7f09b41d2" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=475f0abf7f" />
 
   <script type="application/ld+json">
   [
@@ -208,8 +208,9 @@
       <div class="hb-container mission__inner">
         <h2 class="hb-display hb-display--l" id="mission-heading" data-rise style="--i:0">Why this exists.</h2>
         <div class="mission__body">
-          <p class="hb-lead" data-rise style="--i:1">From Little Onward exists to make high-quality, science-backed parent education accessible to any parent who seeks it, not only those who can enroll in a graduate program or pay for a specialist.</p>
-          <p data-rise style="--i:2"><a href="/about/">How we teach</a></p>
+          <p class="mission__thesis" data-rise style="--i:1">Across more than 100 families in early intervention, one pattern held: the parents who did best were, almost without exception, the ones who understood the science.</p>
+          <p class="mission__line" data-rise style="--i:2">Children build the adults they become one ordinary day at a time, and understanding that work makes it lighter to carry.</p>
+          <p class="mission__more" data-rise style="--i:3"><a href="/about/">How we teach</a></p>
         </div>
       </div>
     </section>
@@ -217,24 +218,35 @@
     <!-- 06 Classes -->
     <section class="hb-section classes" id="classes" aria-labelledby="classes-heading">
       <div class="hb-container classes__grid">
-        <div>
+        <div class="classes__side">
           <h2 class="hb-display hb-display--l" id="classes-heading" data-rise style="--i:0">The first five years, understood.</h2>
           <p class="hb-soft classes__intro" data-rise style="--i:1">Understand your child&rsquo;s stage, at your own pace.</p>
+          <div class="agepick" data-agepick data-rise style="--i:2">
+            <p class="agepick__q" id="agepick-q">How old is your child?</p>
+            <ul class="agepick__list" aria-labelledby="agepick-q">
+              <li><a class="agepick__opt" href="/explore/birth-to-1" data-class="infant" data-name="Foundations" data-line="Attachment, the senses, and the rhythm of back-and-forth.">Birth to 1</a></li>
+              <li><a class="agepick__opt" href="/explore/1-to-2" data-class="toddler" data-name="First words, first steps" data-line="Understanding races ahead of speech.">1 to 2</a></li>
+              <li><a class="agepick__opt" href="/explore/2-to-3" data-class="toddler" data-name="Autonomy and big feelings" data-line="&ldquo;No&rdquo; is a milestone, not defiance.">2 to 3</a></li>
+              <li><a class="agepick__opt" href="/explore/3-to-4" data-class="preschool" data-name="The imagination years" data-line="Pretend play is serious cognitive work.">3 to 4</a></li>
+              <li><a class="agepick__opt" href="/explore/4-to-5" data-class="preschool" data-name="Self-control, slowly" data-line="Working memory, flexible thinking and impulse control are under construction, on a wide and normal range.">4 to 5</a></li>
+            </ul>
+            <div class="agepick__note" data-agepick-note aria-live="polite" hidden></div>
+          </div>
         </div>
         <div class="menu" data-rise style="--i:2">
-          <div class="menu__item menu__item--class"><h3><a href="/classes/birth-to-12-months">Birth to 12 months</a></h3><span class="price">$49<small>once</small></span><p>How connection builds security, sleep changes, and language begins before the first word.</p><span class="meta menu__facts"><span><strong>16 lessons</strong><small>4 modules</small></span><span><strong>3 hours</strong><small>Approx. duration</small></span></span>
+          <div class="menu__item menu__item--class" data-class-id="infant"><h3><a href="/classes/birth-to-12-months">Birth to 12 months</a></h3><span class="price">$49<small>once</small></span><p>How connection builds security, sleep changes, and language begins before the first word.</p><span class="meta menu__facts"><span><strong>16 lessons</strong><small>4 modules</small></span><span><strong>3 hours</strong><small>Approx. duration</small></span></span>
 <!-- explore:class:infant:start -->
             <ul class="menu__windows" aria-label="Ages in this class"><li><span class="yrs">Birth to 1</span><span class="win">Foundations</span></li></ul>
             <div class="range" aria-hidden="true"><div class="range__track" style="--from:0%;--to:20%"><i></i></div><small><span>birth</span><span>5 years</span></small></div>
 <!-- explore:class:infant:end -->
-            <span class="menu__go" aria-hidden="true">See the class</span><a class="menu__preview" href="/nsc/classes/infant/preview" aria-label="Watch Serve and return free">Watch a lesson free</a></div>
-          <div class="menu__item menu__item--class"><h3><a href="/classes/toddlerhood">Toddler years, 1 to 3</a></h3><span class="price">$49<small>once</small></span><p>Understand big feelings, growing independence, and how your calm helps them find theirs.</p><span class="meta menu__facts"><span><strong>13 lessons</strong><small>4 modules</small></span><span><strong>2.5 hours</strong><small>Approx. duration</small></span></span>
+            <span class="menu__go" aria-hidden="true">See the class</span><a class="menu__preview" href="/nsc/classes/infant/preview" aria-label="Watch a lesson free: Serve and return">Watch a lesson free</a></div>
+          <div class="menu__item menu__item--class" data-class-id="toddler"><h3><a href="/classes/toddlerhood">Toddler years, 1 to 3</a></h3><span class="price">$49<small>once</small></span><p>Understand big feelings, growing independence, and how your calm helps them find theirs.</p><span class="meta menu__facts"><span><strong>13 lessons</strong><small>4 modules</small></span><span><strong>2.5 hours</strong><small>Approx. duration</small></span></span>
 <!-- explore:class:toddler:start -->
             <ul class="menu__windows" aria-label="Ages in this class"><li><span class="yrs">1 to 2</span><span class="win">First words, first steps</span></li><li><span class="yrs">2 to 3</span><span class="win">Autonomy and big feelings</span></li></ul>
             <div class="range" aria-hidden="true"><div class="range__track" style="--from:20%;--to:60%"><i></i></div><small><span>birth</span><span>5 years</span></small></div>
 <!-- explore:class:toddler:end -->
             <span class="menu__go" aria-hidden="true">See the class</span></div>
-          <div class="menu__item menu__item--class"><h3><a href="/classes/preschool">Preschool years, 3 to 5</a></h3><span class="price">$49<small>once</small></span><p>How play builds thinking, self-control grows, and school readiness takes shape.</p><span class="meta menu__facts"><span><strong>15 lessons</strong><small>4 modules</small></span><span><strong>2 hr 45 min</strong><small>Approx. duration</small></span></span>
+          <div class="menu__item menu__item--class" data-class-id="preschool"><h3><a href="/classes/preschool">Preschool years, 3 to 5</a></h3><span class="price">$49<small>once</small></span><p>How play builds thinking, self-control grows, and school readiness takes shape.</p><span class="meta menu__facts"><span><strong>15 lessons</strong><small>4 modules</small></span><span><strong>2 hours 45 min</strong><small>Approx. duration</small></span></span>
 <!-- explore:class:preschool:start -->
             <ul class="menu__windows" aria-label="Ages in this class"><li><span class="yrs">3 to 4</span><span class="win">The imagination years</span></li><li><span class="yrs">4 to 5</span><span class="win">Self-control, slowly</span></li></ul>
             <div class="range" aria-hidden="true"><div class="range__track" style="--from:60%;--to:100%"><i></i></div><small><span>birth</span><span>5 years</span></small></div>
@@ -250,18 +262,22 @@
     <!-- 07 Tools and evidence -->
     <section class="hb-section tools" id="tools" aria-labelledby="tools-heading">
       <div class="hb-container">
-        <h2 class="hb-display hb-display--l" id="tools-heading" data-rise style="--i:0">Free tools, by what you need</h2>
+        <h2 class="hb-display hb-display--l" id="tools-heading" data-rise style="--i:0">Free tools, by what you need.</h2>
         <div class="tools__grid">
-          <div>
-            <figure class="tools__photo" data-rise style="--i:1"><img src="/assets/img/site/notebook-coffee.jpg" width="1122" height="1402" alt="An open notebook with a few handwritten lines and a question mark, a mug, and a child's drawing on a kitchen table after bedtime." loading="lazy" /></figure>
-            <p class="tools__evidence" data-rise style="--i:2"><b>Clear about what&rsquo;s known. Honest about what&rsquo;s not.</b> Every claim in the library is graded for evidence strength and consensus, and every page cites its sources.</p>
+          <div class="tools__list" data-rise style="--i:1">
+            <a class="tools__row" href="/tools/right-now"><span class="tools__when">Something hard right now?</span><span class="tools__what"><b>It&rsquo;s hard right now</b><span>A calm next step in two minutes.</span></span></a>
+            <a class="tools__row" href="/tools/ask-the-research"><span class="tools__when">A question at bedtime</span><span class="tools__what"><b>Ask the research</b><span>A calm, research-grounded answer to a parenting question.</span></span></a>
+            <a class="tools__row" href="/milestones"><span class="tools__when">Is this typical?</span><span class="tools__what"><b>Milestone tracker</b><span>What&rsquo;s typical at each age, birth to three.</span></span></a>
+            <a class="tools__row" href="/claims/"><span class="tools__when">Is that claim true?</span><span class="tools__what"><b>Claims library</b><span>Parenting claims, graded.</span></span></a>
+            <a class="tools__row" href="/tools/"><span class="tools__when">Everything else</span><span class="tools__what"><b>All tools and guides</b><span>Short guides for the moments that come up every day.</span></span></a>
           </div>
-          <div data-rise style="--i:2">
-            <a class="tools__row" href="/tools/right-now"><span>Hard right now</span><b>It&rsquo;s hard right now</b></a>
-            <a class="tools__row" href="/tools/ask-the-research"><span>A question at bedtime</span><b>Ask the research</b></a>
-            <a class="tools__row" href="/milestones"><span>Is this typical?</span><b>Milestone tracker</b></a>
-            <a class="tools__row" href="/claims/"><span>Is that claim true?</span><b>Claims library</b></a>
-            <a class="tools__row" href="/tools/"><span>Everything else</span><b>All tools and guides</b></a>
+          <div class="grade" data-rise style="--i:2">
+            <h3 class="grade__title" id="grade-title">Clear about what&rsquo;s known. Honest about what&rsquo;s not.</h3>
+            <p class="grade__intro">Every claim in the library is graded for evidence strength and consensus, and every page cites its sources. One of them:</p>
+            <p class="grade__claim">&ldquo;Hearing two languages will confuse my baby and delay their speech.&rdquo;</p>
+            <p class="grade__verdict">Bilingual children babble on time, and their vocabulary is on track when you count both languages.</p>
+            <p class="grade__marks"><span>Contradicted by evidence</span> <span aria-hidden="true">&middot;</span> <span>Scientific consensus</span></p>
+            <p class="grade__src"><a href="/claims/bilingual-confusion">See the grade and its sources</a></p>
           </div>
         </div>
       </div>
@@ -273,8 +289,8 @@
         <figure class="trust__photo" data-rise style="--i:0"><img src="/assets/img/site/matthew-reading.jpg" srcset="/assets/img/site/matthew-reading-1000.jpg 1000w, /assets/img/site/matthew-reading.jpg 2000w" sizes="(min-width: 761px) 50vw, 100vw" width="2000" height="1500" alt="Matthew McArthur sits on a rug reading a board book with three young children; one toddler reaches for the page he is pointing to." loading="lazy" /></figure>
         <div>
           <h2 class="hb-display hb-display--l" id="about-heading" data-rise style="--i:1">The person behind the classes.</h2>
-          <p class="trust__para" data-rise style="--i:2">Matthew McArthur holds an M.A. in Developmental Psychology from San Diego State University, where he studied how the home shapes early development, after working with developmental researchers at UCLA. With Dr. Margaret Friend, he wrote &ldquo;Why Early Chatter Matters&rdquo; for Frontiers for Young Minds, a journal reviewed by young readers. He then spent two years in state-funded early intervention, coaching more than 100 families of children under three.</p>
-          <p class="trust__facts" data-rise style="--i:3"><span>Sources cited on every page</span><span>Educational, not clinical</span></p>
+          <p class="trust__para" data-rise style="--i:2">Matthew McArthur holds an M.A. in Developmental Psychology from San Diego State University, where he studied how the home shapes early development, after working with developmental researchers at UCLA. With Dr. Margaret Friend, he wrote <a class="trust__src" href="https://doi.org/10.3389/frym.2024.1426649">&ldquo;Why Early Chatter Matters&rdquo;</a> for Frontiers for Young Minds, a journal reviewed by young readers. He then spent two years in state-funded early intervention, coaching more than 100 families of children under three.</p>
+          <p class="trust__facts" data-rise style="--i:3"><span>Sources cited on every page</span><span>Educational, not clinical</span><a href="/about/">More about Matthew</a></p>
         </div>
       </div>
     </section>
@@ -356,7 +372,7 @@
 <!-- footer:end -->
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
-  <script src="/assets/js/home.js?v=78ff6722df" defer></script>
+  <script src="/assets/js/home.js?v=d3d063f882" defer></script>
   <script src="/assets/js/home-lens.js?v=5219cef4da" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>

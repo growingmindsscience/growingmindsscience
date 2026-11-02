@@ -34,3 +34,20 @@ export const PREVIOUS_ORIGINS = [
   "https://growingmindsscience.com",
   "https://www.growingmindsscience.com",
 ];
+
+// HTML-escape text for an element or attribute.
+export const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+// Typographic quotes for visible text, applied after esc() (which only produces &...; entities, so
+// no straight quote it emits is touched). Opening single quotes follow a space, a bracket, an
+// opening double quote or the start; every other straight apostrophe is a closing quote or an
+// apostrophe. Certified wording is unchanged; only the glyphs are. Shared by build-claims.mjs
+// and build-explore.mjs so the two generators set quotes the same way.
+export const smartQuotes = (s) => s
+  .replace(/(^|[\s(“])'(?=[\w\d])/g, "$1‘")
+  .replace(/'/g, "’")
+  .replace(/(^|[\s(])&quot;(?=\S)/g, "$1“")
+  .replace(/&quot;/g, "”");
+
+// Escaped, typographically quoted visible text.
+export const txt = (s) => smartQuotes(esc(s));
