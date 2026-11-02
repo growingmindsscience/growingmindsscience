@@ -125,6 +125,29 @@ describe("scoring honesty", () => {
     expect(r.routePlacement).toBe("L0");
   });
 
+  it("a perfect 6/6 with two skips is clear (binomial p ≈ .016)", () => {
+    let st = createPointSession();
+    st = psApplyPick(st, "skip");
+    st = psApplyPick(st, "skip");
+    for (let i = 2; i < PS_PLAN.length; i++) st = psApplyPick(st, PS_PLAN[i].correctSide);
+    const r = psResult(st)!;
+    expect(r.answered).toBe(6);
+    expect(r.correct).toBe(6);
+    expect(r.signal).toBe("clear");
+  });
+
+  it("6 of 7 answered is not clear (p ≈ .06)", () => {
+    let st = createPointSession();
+    st = psApplyPick(st, "skip");
+    const wrong = (s: "left" | "right") => (s === "left" ? "right" : "left");
+    st = psApplyPick(st, wrong(PS_PLAN[1].correctSide));
+    for (let i = 2; i < PS_PLAN.length; i++) st = psApplyPick(st, PS_PLAN[i].correctSide);
+    const r = psResult(st)!;
+    expect(r.answered).toBe(7);
+    expect(r.correct).toBe(6);
+    expect(r.signal).toBe("some");
+  });
+
   it("a skip-heavy session can never claim 'clear' (over-claim guard)", () => {
     // 3 skips → only 5 answered, all correct — still not 'clear'.
     const s = playRule((i) => (i < 3 ? "skip" : PS_PLAN[i].correctSide));

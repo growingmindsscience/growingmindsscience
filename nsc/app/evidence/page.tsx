@@ -3,6 +3,7 @@ import { getCitations } from "@/lib/content.server";
 import { Card, EnrichmentFooter } from "@/components/ui";
 import { brand } from "@/lib/config/brand";
 import type { Citation } from "@/lib/content-types";
+import { NORMS_SOURCES } from "@/lib/norms";
 
 export const metadata = {
   title: "The evidence | Tallykin",
@@ -70,8 +71,9 @@ export default async function EvidencePage() {
           Tallykin makes narrow claims on purpose. This page is the receipt
           for the check-in and the games: the studies they lean on, what each
           one actually shows, and the one popular idea we examined and left
-          out. Every entry below was verified by a human against the published
-          record before it shipped.
+          out. Each entry was checked against the publisher&rsquo;s record and
+          abstract before it shipped. Where only the abstract was read, we
+          quote no more than the abstract reports.
         </p>
       </header>
 
@@ -141,6 +143,33 @@ export default async function EvidencePage() {
           </section>
         );
       })}
+
+      <section className="flex flex-col gap-3" id="for-their-age">
+        <h2 className="text-xl font-semibold text-ink-deep">
+          Where the for-their-age ranges come from
+        </h2>
+        <p className="text-sm text-ink-muted">
+          The typical ranges lean on the knower-level studies above (Wynn; Le
+          Corre &amp; Carey; Sarnecka &amp; Carey), which find children of the
+          same age spread across several rungs, plus a longitudinal sample
+          that sets the top of the ranges. The data stop
+          at about five, so the app makes no age comparison after that.
+        </p>
+        <div className="flex flex-col gap-3">
+          {NORMS_SOURCES.map((c) => (
+            <Card key={c.href}>
+              <p className="font-semibold text-ink-deep">{c.anchor}</p>
+              <p className="mt-1 text-sm leading-relaxed text-ink">{c.scope}</p>
+              <p className="mt-2 text-xs leading-relaxed text-ink-muted">
+                {c.cite}{" "}
+                <a href={c.href} className="text-research underline" rel="noopener">
+                  {c.href.replace("https://", "")}
+                </a>
+              </p>
+            </Card>
+          ))}
+        </div>
+      </section>
 
       <section className="flex flex-col gap-3">
         <h2 className="text-xl font-semibold text-ink-deep">

@@ -93,21 +93,21 @@
       <div class="hb-container g-title__grid">
         <div data-rise>
           <h1 class="hb-display">Activity Library</h1>
-          <p class="hb-lead g-lede">Developmental activities built from household stuff, each with the developmental "why" attached, plus a way to make it easier and a way to make it harder. Filter to your child and your tolerance for mess.</p>
+          <p class="hb-lead g-lede">Developmental activities built from household stuff, each with the developmental &ldquo;why&rdquo; attached, plus a way to make it easier and a way to make it harder. Filter to your child and your tolerance for mess.</p>
           <p class="g-meta"><a href="/tools/">Tools</a> <span aria-hidden="true">&middot;</span> Free · Birth to 3 · No account</p>
           <div class="g-title__actions">
-            <a class="hb-btn" href="#library">Browse activities</a>
+            <a class="hb-btn" href="#al-browse">Browse activities</a>
             <a class="hb-btn hb-btn--quiet" href="#al-method">How these are built</a>
           </div>
         </div>
         <aside class="g-glance" aria-labelledby="al-at-a-glance" data-rise style="--i:1">
-          <h2 id="al-at-a-glance">The "why" comes attached</h2>
+          <h2 id="al-at-a-glance">The &ldquo;why&rdquo; comes attached</h2>
           <p class="tag tag--sub">What makes these different</p>
           <ul>
-            <li>Every activity names the developmental mechanism it feeds, not just "fun sensory play".</li>
+            <li>Every activity names the developmental mechanism it feeds, not just &ldquo;fun sensory play&rdquo;.</li>
             <li>Household materials only. Nothing to buy, print, or laminate.</li>
             <li>Each one adapts down for a younger child and up for an older one.</li>
-            <li>An automated safety check screens every activity's materials for its age range.</li>
+            <li>Every activity&rsquo;s materials and steps are screened against a list of common choking, strangulation, and suffocation hazards for under-3s.</li>
           </ul>
         </aside>
       </div>
@@ -115,28 +115,46 @@
 
     <section class="g-sec" id="library">
       <div class="hb-container g-narrow al-wrap">
-        <div class="al-panel" id="al-today-panel" hidden>
-          <h2>Today's 3</h2>
-          <p class="al-sub" id="al-today-sub">Three picks for today, rotated so no developmental area gets forgotten. Mark one done and tomorrow adjusts.</p>
+        <div class="al-panel" id="al-today-panel" aria-labelledby="al-today-title" hidden>
+          <h2 id="al-today-title">Today&rsquo;s 3</h2>
+          <p class="al-sub" id="al-today-sub">Three picks for today, rotated so no developmental area gets forgotten. Mark one done and tomorrow&rsquo;s picks adjust.</p>
           <div class="al-today" id="al-today"></div>
+          <div class="al-profile" id="al-profile" data-gms-profile style="margin-top: 16px"></div>
         </div>
 
-        <div class="al-panel">
-          <h2>Browse the library</h2>
+        <div class="al-panel" id="al-browse" aria-labelledby="al-browse-title">
+          <h2 id="al-browse-title">Browse the library</h2>
           <p class="al-sub">Set the age and anything else you care about. Everything else is optional.</p>
           <div class="al-filters" id="al-filters"></div>
           <p class="al-count" id="al-count" role="status"></p>
+          <noscript><p class="al-count">The library needs JavaScript to show its activities. Please turn it on and reload the page.</p></noscript>
           <div class="al-grid" id="al-grid"></div>
         </div>
 
-        <p class="al-note">These activities are educational suggestions, not therapy or medical advice. You know your child; skip anything that doesn't fit their abilities today, and stay close for anything involving water, climbing, or food. Ages are guides, not rules.</p>
+        <p class="al-note">These activities are educational suggestions, not therapy or medical advice. You know your child; skip anything that doesn&rsquo;t fit their abilities today, and stay close for anything involving water, climbing, or food. Ages are guides, not rules. For a possible poisoning, call Poison Control at <a href="tel:18002221222">1-800-222-1222</a>.</p>
       </div>
     </section>
 
     <section class="g-sec" id="al-method">
       <div class="hb-container g-narrow">
         <h2>How these are built</h2>
-        <p class="section-intro">Each activity is written fresh for this library and passes an automated check before it can ship: required safety notes, a materials screen against choking and strangulation hazards for the age range, and one non-negotiable rule: the intention line must name a real developmental mechanism from a controlled vocabulary, so "boosts brain development" hand-waving can't get through. The library favors ordinary moments over projects; the research consistently finds the developmental value lives in the interaction, not the materials.</p>
+        <p class="section-intro">Each activity is written fresh for this library and passes an automated check before it can ship. The check screens every activity&rsquo;s materials and steps against a list of common choking, strangulation, suffocation, and burn hazards for under-3s; asks for a bite-off note wherever a sponge, foam, or a brush reaches a child under 2; requires an arm&rsquo;s-reach supervision note on anything with water; and holds one non-negotiable rule: the intention line must name a real developmental mechanism from a controlled vocabulary, so &ldquo;boosts brain development&rdquo; hand-waving can&rsquo;t get through.</p>
+        <p class="section-intro">An automated check is not a safety review, and a word list can&rsquo;t catch everything, so read each activity&rsquo;s safety note with your own child in mind. The library favors ordinary moments over projects; the research consistently finds the developmental value lives in the interaction, not the materials.</p>
+        <div class="sources-panel">
+          <h2>Sources</h2>
+          <ul class="source-list">
+            <li><a href="https://publications.aap.org/pediatrics/article/150/1/e2022057990/188304">AAP, Sleep-Related Infant Deaths: Updated 2022 Recommendations</a>, for starting awake tummy time soon after coming home and moving a baby who falls asleep in a seat to a flat crib.</li>
+            <li><a href="https://doi.org/10.1542/peds.2019-2168">Hewitt, Kerr, Stanley &amp; Okely (2020), Tummy Time and Infant Health Outcomes</a>, Pediatrics, the systematic review behind the tummy time note.</li>
+            <li><a href="https://www.who.int/publications/i/item/9789241550536">WHO (2019), Guidelines on physical activity, sedentary behaviour and sleep for children under 5 years of age</a>, for at least 30 minutes of tummy time a day.</li>
+            <li><a href="https://publications.aap.org/aapnews/news/1444/Health-Alerts-Infant-sleep-positioners-bouncer">AAP News, Health Alerts: infant sleep positioners, bouncer seats, and more</a>, for keeping bouncers on the floor.</li>
+            <li><a href="https://www.healthychildren.org/English/safety-prevention/at-play/Pages/Water-Safety-And-Young-Children.aspx">HealthyChildren.org (AAP), Drowning Prevention for Curious Toddlers</a>, for how little water a toddler can drown in.</li>
+            <li><a href="https://www.healthychildren.org/English/health-issues/injuries-emergencies/Pages/Choking-Prevention.aspx">HealthyChildren.org (AAP), Choking Prevention for Babies and Children</a>, and <a href="https://www.cdc.gov/infant-toddler-nutrition/foods-and-drinks/choking-hazards.html">CDC, Choking Hazards</a>, for cutting round foods small and keeping small objects away from under-3s.</li>
+            <li><a href="https://doi.org/10.1080/15475441.2016.1158112">Taumoepeau (2016), Maternal Expansions of Child Language Relate to Growth in Children&rsquo;s Vocabulary</a>, Language Learning and Development.</li>
+            <li><a href="https://doi.org/10.2307/1129643">Rheingold (1982), Little Children&rsquo;s Participation in the Work of Adults, a Nascent Prosocial Behavior</a>, Child Development.</li>
+            <li><a href="https://doi.org/10.1037/0012-1649.36.2.220">Kochanska, Murray &amp; Harlan (2000), Effortful Control in Early Childhood</a>, Developmental Psychology.</li>
+            <li><a href="https://developingchild.harvard.edu/resources/videos/how-to-5-steps-for-brain-building-serve-and-return/">Harvard Center on the Developing Child, Serve and Return</a>.</li>
+          </ul>
+        </div>
       </div>
     </section>
   </main>
@@ -220,9 +238,12 @@
 
     let data;
     try {
-      data = await fetch("/keel/artifacts/activities/sampler.v1.json").then((r) => r.json());
+      data = await fetch("/keel/artifacts/activities/sampler.v1.json").then((r) => {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      });
     } catch (e) {
-      grid.innerHTML = "<p>The library couldn't load. Please refresh the page.</p>";
+      grid.innerHTML = "<p>The library couldn’t load. Please refresh the page.</p>";
       throw e;
     }
 
@@ -230,33 +251,87 @@
       language: "Language", fine_motor: "Fine motor", gross_motor: "Gross motor",
       cognitive: "Thinking", social_emotional: "Social-emotional", sensory: "Sensory",
     };
+    /* Age bands are half-open [min, end): a child who is exactly 6 months is
+       in 6–12, not in two bands. The top band ends at 37 so 36-month
+       activities and 36-month-olds stay in 2–3 yr. */
     const BANDS = [
-      { key: "all", label: "All ages", min: 0, max: 60 },
-      { key: "0-6", label: "0–6 mo", min: 0, max: 6 },
-      { key: "6-12", label: "6–12 mo", min: 6, max: 12 },
-      { key: "12-18", label: "12–18 mo", min: 12, max: 18 },
-      { key: "18-24", label: "18–24 mo", min: 18, max: 24 },
-      { key: "24-36", label: "2–3 yr", min: 24, max: 36 },
+      { key: "all", label: "All ages", min: 0, end: 61 },
+      { key: "0-6", label: "0–6 mo", min: 0, end: 6 },
+      { key: "6-12", label: "6–12 mo", min: 6, end: 12 },
+      { key: "12-18", label: "12–18 mo", min: 12, end: 18 },
+      { key: "18-24", label: "18–24 mo", min: 18, end: 24 },
+      { key: "24-36", label: "2–3 yr", min: 24, end: 37 },
     ];
-    const MESS = [{ v: 0, label: "Any mess" }, { v: 1, label: "No mess" }, { v: 2, label: "Some mess" }];
+    const MESS = [{ v: 0, label: "Any mess" }, { v: 1, label: "No mess" }, { v: 2, label: "Some mess at most" }];
+    const MESS_WORD = { 1: "No mess", 2: "Some mess", 3: "Messy" };
     const TIME = [{ v: 0, label: "Any length" }, { v: 10, label: "10 min or less" }, { v: 15, label: "15 min or less" }];
 
     const state = { band: "all", domain: "all", mess: 0, time: 0 };
 
-    /* Preselect the band from the shared child profile. */
+    /* Mechanism tags read as words, not code: "cause_effect" -> "cause-and-effect". */
+    const TAG_WORDS = {
+      serve_and_return: "serve-and-return", turn_taking: "turn-taking", cause_effect: "cause-and-effect",
+      hand_eye_coordination: "hand-eye coordination", fine_motor_grasp: "fine-motor grasp",
+    };
+    const pretty = (s) => s.replace(/\b[a-z]+(?:_[a-z]+)+\b/g, (t) => TAG_WORDS[t] || t.replace(/_/g, " "));
+    /* The data keeps straight quotes; show typographic ones. */
+    const typo = (s) => String(s)
+      .replace(/(^|[\s(\[])"/g, "$1“").replace(/"/g, "”")
+      .replace(/(^|[\s(\[])'/g, "$1‘").replace(/'/g, "’");
+    const show = (s) => typo(pretty(s));
+
+    /* Local calendar day, not UTC, so a parent's "today" doesn't roll over in the afternoon. */
+    function localISO() {
+      const now = new Date();
+      return now.getFullYear() + "-" + String(now.getMonth() + 1).padStart(2, "0") + "-" + String(now.getDate()).padStart(2, "0");
+    }
+
+    function profileChild() {
+      try { return window.GMS && GMS.profile ? GMS.profile.getActive() : null; } catch (e) { return null; }
+    }
     function profileMonths() {
       try {
-        if (window.GMS && GMS.profile) {
-          const c = GMS.profile.getActive();
-          if (c) return GMS.profile.ageInMonths(c);
-        }
+        const c = profileChild();
+        if (c) return GMS.profile.ageInMonths(c);
       } catch (e) {}
       return null;
     }
-    const pm = profileMonths();
-    if (pm != null) {
-      const band = BANDS.find((b) => b.key !== "all" && pm >= b.min && pm <= b.max);
-      if (band) state.band = band.key;
+    function bandForMonths(pm) {
+      if (pm == null) return null;
+      const band = BANDS.find((b) => b.key !== "all" && pm >= b.min && pm < b.end);
+      return band ? band.key : null;
+    }
+
+    /* Filters live in the address bar too, so a reload or a shared link keeps them. */
+    function readURL() {
+      let q;
+      try { q = new URLSearchParams(location.search); } catch (e) { return false; }
+      let any = false;
+      const age = q.get("age");
+      if (age && BANDS.some((b) => b.key === age)) { state.band = age; any = true; }
+      const area = q.get("area");
+      if (area && data.domains.includes(area)) { state.domain = area; any = true; }
+      const mess = Number(q.get("mess"));
+      if (MESS.some((m) => m.v === mess && m.v)) { state.mess = mess; any = true; }
+      const time = Number(q.get("time"));
+      if (TIME.some((t) => t.v === time && t.v)) { state.time = time; any = true; }
+      return any;
+    }
+    function writeURL() {
+      try {
+        const q = new URLSearchParams(location.search);
+        const set = (k, v, dflt) => { if (v === dflt) q.delete(k); else q.set(k, String(v)); };
+        set("age", state.band, "all"); set("area", state.domain, "all");
+        set("mess", state.mess, 0); set("time", state.time, 0);
+        const qs = q.toString();
+        history.replaceState(history.state, "", location.pathname + (qs ? "?" + qs : "") + location.hash);
+      } catch (e) {}
+    }
+
+    /* A link with filters wins; otherwise preselect the band from the shared child profile. */
+    if (!readURL()) {
+      const k = bandForMonths(profileMonths());
+      if (k) state.band = k;
     }
 
     function el(tag, attrs, kids) {
@@ -270,7 +345,6 @@
       (kids || []).forEach((c) => { if (c != null) n.appendChild(typeof c === "string" ? document.createTextNode(c) : c); });
       return n;
     }
-    const pretty = (s) => s.replace(/_/g, " ");
 
     function chipRow(labelText, options, current, onPick) {
       const row = el("div", { class: "al-filter-row", role: "group", "aria-label": labelText });
@@ -290,15 +364,16 @@
 
     function renderFilters() {
       filtersEl.innerHTML = "";
-      filtersEl.appendChild(chipRow("Age", BANDS.map((b) => ({ value: b.key, label: b.label })), state.band, (v) => { state.band = v; render(); }));
-      filtersEl.appendChild(chipRow("Area", [{ value: "all", label: "All areas" }, ...data.domains.map((d) => ({ value: d, label: DOMAIN_LABEL[d] || pretty(d) }))], state.domain, (v) => { state.domain = v; render(); }));
-      filtersEl.appendChild(chipRow("Mess", MESS.map((m) => ({ value: m.v, label: m.label })), state.mess, (v) => { state.mess = v; render(); }));
-      filtersEl.appendChild(chipRow("Time", TIME.map((t) => ({ value: t.v, label: t.label })), state.time, (v) => { state.time = v; render(); }));
+      const pick = (k) => (v) => { state[k] = v; writeURL(); render(); };
+      filtersEl.appendChild(chipRow("Age", BANDS.map((b) => ({ value: b.key, label: b.label })), state.band, pick("band")));
+      filtersEl.appendChild(chipRow("Area", [{ value: "all", label: "All areas" }, ...data.domains.map((d) => ({ value: d, label: DOMAIN_LABEL[d] || pretty(d) }))], state.domain, pick("domain")));
+      filtersEl.appendChild(chipRow("Mess", MESS.map((m) => ({ value: m.v, label: m.label })), state.mess, pick("mess")));
+      filtersEl.appendChild(chipRow("Time", TIME.map((t) => ({ value: t.v, label: t.label })), state.time, pick("time")));
     }
 
     function matches(a) {
       const band = BANDS.find((b) => b.key === state.band);
-      if (band.key !== "all" && (a.months_max < band.min || a.months_min > band.max)) return false;
+      if (band.key !== "all" && (a.months_max < band.min || a.months_min >= band.end)) return false;
       if (state.domain !== "all" && !a.domains.includes(state.domain)) return false;
       if (state.mess && a.mess_level > state.mess) return false;
       if (state.time && a.duration_min > state.time) return false;
@@ -311,35 +386,42 @@
         el("span", { class: "al-badge", text: `${a.months_min}–${a.months_max} mo` }),
         ...a.domains.map((d) => el("span", { class: "al-badge", text: DOMAIN_LABEL[d] || pretty(d) })),
         el("span", { class: "al-badge", text: `${a.duration_min} min` }),
-        el("span", { class: "al-badge", text: "mess " + "•".repeat(a.mess_level) }),
+        el("span", { class: "al-badge", text: MESS_WORD[a.mess_level] || "" }),
       ]));
-      card.appendChild(el("h3", { text: a.title }));
-      card.appendChild(el("p", { class: "al-card__intent", text: "Why: " + pretty(a.intention) }));
+      card.appendChild(el("h3", { text: typo(a.title) }));
+      card.appendChild(el("p", { class: "al-card__intent", text: "Why: " + show(a.intention) }));
 
-      const d = el("details", {}, [el("summary", { text: "How to do it" })]);
+      const d = el("details", {}, [el("summary", {}, ["How to do it", el("span", { class: "sr-only", text: ": " + typo(a.title) })])]);
       const body = el("div", { class: "al-detail" });
       body.appendChild(el("h4", { text: "You need" }));
-      body.appendChild(el("ul", {}, a.materials.map((m) => el("li", { text: m.item }))));
+      body.appendChild(el("ul", {}, a.materials.map((m) => el("li", { text: typo(m.item) }))));
       body.appendChild(el("h4", { text: "Steps" }));
-      body.appendChild(el("ol", {}, a.steps.map((s) => el("li", { text: s }))));
+      body.appendChild(el("ol", {}, a.steps.map((s) => el("li", { text: typo(s) }))));
       body.appendChild(el("h4", { text: "Make it easier" }));
-      body.appendChild(el("p", { text: a.adapt_down }));
+      body.appendChild(el("p", { text: typo(a.adapt_down) }));
       body.appendChild(el("h4", { text: "Make it harder" }));
-      body.appendChild(el("p", { text: a.adapt_up }));
+      body.appendChild(el("p", { text: typo(a.adapt_up) }));
       if (a.safety_notes && a.safety_notes !== "None.") {
         body.appendChild(el("h4", { text: "Safety" }));
-        body.appendChild(el("p", { class: "al-safety", text: a.safety_notes }));
+        body.appendChild(el("p", { class: "al-safety", text: typo(a.safety_notes) }));
       }
       body.appendChild(el("h4", { text: "The research angle" }));
-      body.appendChild(el("p", { text: a.evidence_note }));
+      body.appendChild(el("p", { text: typo(a.evidence_note) }));
       d.appendChild(body);
       card.appendChild(d);
 
       const foot = el("div", { class: "al-card__foot" });
-      foot.appendChild(el("button", { type: "button", class: "gms-link", text: "Print card", onclick: () => printActivity(a) }));
+      foot.appendChild(el("button", { type: "button", class: "gms-link", "aria-label": "Print card: " + typo(a.title), text: "Print card", onclick: () => printActivity(a) }));
       if (opts && opts.done) {
-        const doneBtn = el("button", { type: "button", class: "gms-link al-done" + (opts.isDone() ? " is-done" : ""), text: opts.isDone() ? "Done today ✓" : "Mark done" });
-        doneBtn.addEventListener("click", () => { opts.toggle(); doneBtn.classList.toggle("is-done"); doneBtn.textContent = doneBtn.classList.contains("is-done") ? "Done today ✓" : "Mark done"; });
+        const doneBtn = el("button", { type: "button", class: "gms-link al-done" });
+        // The visible label swaps, so no aria-pressed; the name starts with the visible text.
+        const setDone = (on) => {
+          doneBtn.classList.toggle("is-done", on);
+          doneBtn.textContent = on ? "Done today ✓" : "Mark done";
+          doneBtn.setAttribute("aria-label", (on ? "Done today: " : "Mark done: ") + typo(a.title));
+        };
+        setDone(opts.isDone());
+        doneBtn.addEventListener("click", () => { opts.toggle(); setDone(opts.isDone()); });
         foot.appendChild(doneBtn);
       }
       card.appendChild(foot);
@@ -367,39 +449,72 @@
     /* ---- Today's 3 (needs a child with an age) ---- */
     const COMPLETIONS_KEY = "gms-activity-completions-v1";
     function loadCompletions() {
-      try { return JSON.parse(localStorage.getItem(COMPLETIONS_KEY) || "[]"); } catch (e) { return []; }
+      try { const v = JSON.parse(localStorage.getItem(COMPLETIONS_KEY) || "[]"); return Array.isArray(v) ? v : []; } catch (e) { return []; }
     }
     function saveCompletions(list) {
       try { localStorage.setItem(COMPLETIONS_KEY, JSON.stringify(list.slice(-200))); } catch (e) {}
     }
 
+    const todayPanel = document.getElementById("al-today-panel");
+    const todayTitle = document.getElementById("al-today-title");
+    const todaySub = document.getElementById("al-today-sub");
+    const todayHost = document.getElementById("al-today");
+    const NUM = ["No picks", "One pick", "Two picks", "Three picks"];
+
     function renderToday() {
+      todayPanel.hidden = false;
+      todayHost.innerHTML = "";
+      todayTitle.textContent = "Today’s 3";
+      const child = profileChild();
       const months = profileMonths();
-      if (months == null || months > 40) return;
-      const panel = document.getElementById("al-today-panel");
-      const host = document.getElementById("al-today");
-      const child = window.GMS && GMS.profile ? GMS.profile.getActive() : null;
-      const childKey = child ? child.id : "anon";
-      const iso = new Date().toISOString().slice(0, 10);
-      const completions = loadCompletions();
-      const picks = todaysThree(data, months, completions, childKey, iso);
-      if (!picks.length) return;
-      panel.hidden = false;
-      if (child && child.name) {
-        document.getElementById("al-today-sub").textContent =
-          `Three picks for ${child.name} today, rotated so no developmental area gets forgotten. Mark one done and tomorrow adjusts.`;
+      const name = child && child.name ? child.name : "";
+      if (months == null) {
+        todaySub.textContent = (name ? `Add ${name}’s birthday or age stage` : "Add your child’s birthday or age stage") +
+          " and the library picks three activities a day, matched to their age and rotated so no developmental area gets forgotten.";
+        return;
       }
-      host.innerHTML = "";
+      if (months > 36) {
+        todaySub.textContent = `The library runs from birth to 3, so there are no daily picks for ${name || "your child"}’s age yet. Everything below is still open to browse.`;
+        return;
+      }
+      const childKey = child ? child.id : "anon";
+      const iso = localISO();
+      // Older records carry no child; they count for whichever child is active.
+      const mine = loadCompletions().filter((c) => c && c.slug && c.date && (!c.child || c.child === childKey));
+      // Only days before today steer today's picks, so the set holds still
+      // while a parent marks things done and "Done today" survives a reload.
+      const before = mine.filter((c) => c.date < iso);
+      const picks = todaysThree(data, months, before, childKey, iso);
+      if (picks.length < 3) {
+        // Young bands hold only a few activities. Rather than run dry, top up
+        // with the ones done longest ago; repeating them is good practice.
+        const last = {};
+        before.forEach((c) => { if (!last[c.slug] || c.date > last[c.slug]) last[c.slug] = c.date; });
+        const have = new Set(picks.map((p) => p.slug));
+        activitiesForAge(data, months)
+          .filter((a) => !have.has(a.slug))
+          .sort((x, y) => (last[x.slug] || "").localeCompare(last[y.slug] || "") || x.slug.localeCompare(y.slug))
+          .slice(0, 3 - picks.length)
+          .forEach((a) => picks.push(a));
+      }
+      const n = picks.length;
+      todayTitle.textContent = n === 3 ? "Today’s 3" : "Today’s picks";
+      if (!n) {
+        todaySub.textContent = "There are no activities for this age yet. Everything below is still open to browse.";
+        return;
+      }
+      todaySub.textContent = `${NUM[n]} ${name ? "for " + name + " " : ""}today, rotated so no developmental area gets forgotten. Mark one done and tomorrow’s picks adjust.`;
       picks.forEach((a) => {
-        host.appendChild(activityCard(a, {
+        const isDone = () => loadCompletions().some((c) => c.slug === a.slug && c.date === iso && (!c.child || c.child === childKey));
+        todayHost.appendChild(activityCard(a, {
           done: true,
-          isDone: () => loadCompletions().some((c) => c.slug === a.slug && c.date === iso),
+          isDone,
           toggle: () => {
             let list = loadCompletions();
-            if (list.some((c) => c.slug === a.slug && c.date === iso)) {
-              list = list.filter((c) => !(c.slug === a.slug && c.date === iso));
+            if (isDone()) {
+              list = list.filter((c) => !(c.slug === a.slug && c.date === iso && (!c.child || c.child === childKey)));
             } else {
-              list.push({ slug: a.slug, date: iso, domains: a.domains });
+              list.push({ slug: a.slug, date: iso, domains: a.domains, child: childKey });
             }
             saveCompletions(list);
           },
@@ -409,17 +524,17 @@
 
     function printActivity(a) {
       pocket.innerHTML = "";
-      pocket.appendChild(el("h2", { text: a.title }));
-      pocket.appendChild(el("p", { text: `${a.months_min} to ${a.months_max} months · ${a.duration_min} minutes · Why: ${pretty(a.intention)}` }));
+      pocket.appendChild(el("h2", { text: typo(a.title) }));
+      pocket.appendChild(el("p", { text: `${a.months_min} to ${a.months_max} months · ${a.duration_min} minutes · ${MESS_WORD[a.mess_level] || ""} · Why: ${show(a.intention)}` }));
       pocket.appendChild(el("h3", { text: "You need" }));
-      pocket.appendChild(el("ul", {}, a.materials.map((m) => el("li", { text: m.item }))));
+      pocket.appendChild(el("ul", {}, a.materials.map((m) => el("li", { text: typo(m.item) }))));
       pocket.appendChild(el("h3", { text: "Steps" }));
-      pocket.appendChild(el("ol", {}, a.steps.map((s) => el("li", { text: s }))));
+      pocket.appendChild(el("ol", {}, a.steps.map((s) => el("li", { text: typo(s) }))));
       pocket.appendChild(el("h3", { text: "Easier / harder" }));
-      pocket.appendChild(el("ul", {}, [el("li", { text: "Easier: " + a.adapt_down }), el("li", { text: "Harder: " + a.adapt_up })]));
+      pocket.appendChild(el("ul", {}, [el("li", { text: "Easier: " + typo(a.adapt_down) }), el("li", { text: "Harder: " + typo(a.adapt_up) })]));
       if (a.safety_notes && a.safety_notes !== "None.") {
         pocket.appendChild(el("h3", { text: "Safety" }));
-        pocket.appendChild(el("p", { text: a.safety_notes }));
+        pocket.appendChild(el("p", { text: typo(a.safety_notes) }));
       }
       pocket.appendChild(el("p", { class: "vs-foot", text: "Free Activity Library · fromlittleonward.com/tools/activity-library" }));
       document.body.classList.add("printing-al");
@@ -431,6 +546,26 @@
 
     render();
     renderToday();
+
+    /* The child profile card lives in the Today panel; a new or changed child
+       re-picks the age band and today's activities. */
+    try {
+      const host = document.getElementById("al-profile");
+      if (window.GMS && GMS._ui && GMS.profile) {
+        GMS._ui.mountProfile(host); // no-op if gms-tools already mounted it
+        const fitLede = () => {
+          const lede = host.querySelector(".gms-profile__lede");
+          if (lede) lede.textContent = "Add a birthday or pick a stage. Optional.";
+        };
+        fitLede();
+        GMS.profile.onChange(() => {
+          fitLede();
+          const k = bandForMonths(profileMonths());
+          if (k && k !== state.band) { state.band = k; writeURL(); render(); }
+          renderToday();
+        });
+      }
+    } catch (e) {}
   </script>
   <script src="/assets/js/home.js?v=78ff6722df" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>

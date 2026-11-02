@@ -1,7 +1,10 @@
 import { describe, expect, it } from "vitest";
 import {
+  ageReadout,
   formatAge,
   friendlyAgeLabel,
+  hasNormsForAge,
+  NORMS_MAX_MONTHS,
   standingForAge,
   standingSummary,
   typicalRangeForMonths,
@@ -17,7 +20,8 @@ const RANK: Record<Placement, number> = {
   CP: 5,
 };
 const PLACEMENTS: Placement[] = ["L0", "L1", "L2", "L3", "L4", "CP"];
-const MONTHS = Array.from({ length: 61 }, (_, i) => i + 24); // 24..84
+// The ages the published ranges cover: 24 months to about five.
+const MONTHS = Array.from({ length: NORMS_MAX_MONTHS - 24 }, (_, i) => i + 24); // 24..61
 
 describe("typicalRangeForMonths", () => {
   it("returns a valid range (low ≤ high) for every age", () => {
@@ -56,7 +60,8 @@ describe("standingForAge", () => {
       const range = typicalRangeForMonths(m);
       for (const p of PLACEMENTS) {
         const s = standingForAge(m, p);
-        if (RANK[p] < RANK[range.low]) expect(s).toBe("earlier");
+        if (RANK[p] <= RANK[range.low] - 2) expect(s).toBe("well-before");
+        else if (RANK[p] < RANK[range.low]) expect(s).toBe("earlier");
         else if (RANK[p] > RANK[range.high]) expect(s).toBe("ahead");
         else expect(s).toBe("typical");
       }
@@ -65,7 +70,11 @@ describe("standingForAge", () => {
 
   it("spot checks anchored to the literature", () => {
     expect(standingForAge(25, "CP")).toBe("ahead");
-    expect(standingForAge(50, "L0")).toBe("earlier");
+    expect(standingForAge(50, "L2")).toBe("earlier");
+    // Two or more rungs under the floor is "well before", never "earlier".
+    expect(standingForAge(50, "L0")).toBe("well-before");
+    expect(standingForAge(44, "L0")).toBe("well-before");
+    expect(standingForAge(56, "L2")).toBe("well-before");
     expect(standingForAge(26, "L1")).toBe("typical");
     // "one" is learned ~2½ on average, so a young-threes pre-knower is
     // typical at 32m and only reads "earlier" past three.
@@ -124,9 +133,89 @@ describe("standingSummary copy", () => {
   });
 
   it("earlier-side copy always pairs the range with the plan", () => {
-    const s = standingSummary({ months: 50, placement: "L0", name: "Kai" });
+    const s = standingSummary({ months: 50, placement: "L2", name: "Kai" });
     expect(s.standing).toBe("earlier");
     expect(s.detail).toMatch(/games/i);
+    expect(s.followUp).toBeNull();
+  });
+
+  it("never calls a reading outside the range 'in' it, or 'common'", () => {
+    for (const m of MONTHS) {
+      for (const p of PLACEMENTS) {
+        const s = standingSummary({ months: m, placement: p, name: "Kai" });
+        if (s.standing === "earlier" || s.standing === "well-before") {
+          expect(s.headline).not.toMatch(/in the typical range|side of the typical range/i);
+          expect(s.detail).not.toMatch(/common/i);
+        }
+      }
+    }
+  });
+
+  it("a read well before the range always carries the calm checkup line", () => {
+    for (const m of MONTHS) {
+      for (const p of PLACEMENTS) {
+        const s = standingSummary({ months: m, placement: p, name: "Kai" });
+        if (s.standing === "well-before") {
+          expect(s.followUp).toMatch(/checkup/);
+          expect(s.followUp).toMatch(/pediatrician/);
+          expect(s.headline).toMatch(/before the typical range/);
+        } else {
+          expect(s.followUp).toBeNull();
+        }
+      }
+    }
+    // The audit's case: a five-year-old who cannot hand over one.
+    expect(standingSummary({ months: 60, placement: "L0", name: "Kai" }).followUp).toBeTruthy();
+  });
+
+  it("uses 'from ... to', never 'between ... to'", () => {
+    const s = standingSummary({ months: 46, placement: "L3", name: "Kai" });
+    expect(s.detail).toMatch(/somewhere from .+ to /);
+    expect(s.detail).not.toMatch(/between/);
+  });
+});
+
+describe("ageReadout: when there is no comparison", () => {
+  it("covers 24 months to about five, and no further", () => {
+    expect(hasNormsForAge(61)).toBe(true);
+    expect(hasNormsForAge(62)).toBe(false);
+    expect(hasNormsForAge(84)).toBe(false);
+  });
+
+  it("never compares a low-confidence (abandoned or noisy) session", () => {
+    for (const p of PLACEMENTS) {
+      const r = ageReadout({ months: 48, placement: p, name: "Kai", confidence: "low" });
+      expect(r.kind).toBe("unclear");
+      expect(r.headline).not.toMatch(/range/);
+    }
+  });
+
+  it("states no norm past the data, but keeps the checkup line for a low rung", () => {
+    const low = ageReadout({ months: 72, placement: "L0", name: "Kai", confidence: "high" });
+    expect(low.kind).toBe("older");
+    expect(low.headline + low.detail).not.toMatch(/typical range for age 6|Most children around 6/);
+    expect(low.followUp).toMatch(/checkup/);
+    const cp = ageReadout({ months: 66, placement: "CP", name: "Kai", confidence: "high" });
+    expect(cp.kind).toBe("older");
+    expect(cp.followUp).toBeNull();
+  });
+
+  it("compares inside the normed ages, with the same copy as standingSummary", () => {
+    const r = ageReadout({ months: 46, placement: "L3", name: "Kai", confidence: "high" });
+    expect(r.kind).toBe("compare");
+    expect(r.headline).toBe(standingSummary({ months: 46, placement: "L3", name: "Kai" }).headline);
+  });
+
+  it("no ageReadout copy uses deficit language or em dashes", () => {
+    const banned = /behind|delay|deficit|struggl|falling|worry|red flag|—/i;
+    for (let m = 24; m <= 84; m++) {
+      for (const p of PLACEMENTS) {
+        for (const confidence of ["high", "medium", "low", null] as const) {
+          const r = ageReadout({ months: m, placement: p, name: "Kai", confidence });
+          for (const t of [r.headline, r.detail, r.followUp ?? ""]) expect(t).not.toMatch(banned);
+        }
+      }
+    }
   });
 });
 

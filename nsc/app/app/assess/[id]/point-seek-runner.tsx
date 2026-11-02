@@ -21,7 +21,7 @@ import {
 import { recordPointPick } from "../actions";
 import { STEP_LOCK_MS, TAP_NOTICE, type TapNotice } from "./step-guard";
 
-/** A card of N dots — big, friendly, deterministic layout. */
+/** A card of N dots: big, friendly, deterministic layout. */
 function DotCard({
   count,
   side,
@@ -95,6 +95,8 @@ export function PointSeekRunner({
       firstStep.current = false;
       return;
     }
+    // Each step starts at the top (the setup screen can scroll on a phone).
+    window.scrollTo({ top: 0, behavior: "instant" });
     headingRef.current?.focus({ preventScroll: true });
   }, [stepKey]);
 
@@ -126,12 +128,8 @@ export function PointSeekRunner({
     return (
       <main className="mx-auto flex min-h-screen max-w-lg flex-col justify-center gap-6 px-6 py-12">
         <div className="text-center">
-          <p className="text-[0.9375rem] font-semibold text-amber-deep">
-            Point and Seek
-          </p>
-          <h1 className="mt-1 text-2xl font-semibold text-ink-deep">
-            A two-minute watching game
-          </h1>
+          <h1 className="text-2xl font-semibold text-ink-deep">Point and Seek</h1>
+          <p className="mt-1 text-sm text-ink-muted">A two-minute watching game</p>
         </div>
         <Card>
           <ul className="flex flex-col gap-2 text-ink">

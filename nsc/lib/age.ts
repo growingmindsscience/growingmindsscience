@@ -6,6 +6,13 @@ import type { AgeBand } from "@/lib/content-types";
  */
 export const MIN_ASSESSMENT_MONTHS = 24;
 
+/**
+ * From six, no check-in: the ladder game and its plans are built for about
+ * two to five, and the published ranges stop at about five. The prescreen
+ * shows an "older than this is built for" page instead.
+ */
+export const MAX_ASSESSMENT_MONTHS = 72;
+
 /** Paused/in-flight sessions resume within this window, then start fresh. */
 export const RESUME_WINDOW_MS = 48 * 60 * 60 * 1000;
 

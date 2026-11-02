@@ -117,7 +117,7 @@
         </div>
         <div class="cp-worried" role="note" aria-labelledby="cp-worried-title">
           <h2 id="cp-worried-title">If you&rsquo;re worried, you don&rsquo;t have to wait for the visit.</h2>
-          <p>You can call your pediatrician now. For a child under 3, you can also contact your state&rsquo;s early intervention program yourself; from age 3, your local public school district. No referral is needed. <a href="https://www.cdc.gov/act-early/families/concerned.html">What to do if you&rsquo;re concerned (CDC)</a>.</p>
+          <p>You can call your pediatrician now. If your child has stopped doing something they used to do, like saying words they had, babbling, waving, or walking, call and ask to be seen soon rather than saving it for the checkup. For a child under 3, you can also contact your state&rsquo;s early intervention program yourself; from age 3, your local public school district. No referral is needed. <a href="https://www.cdc.gov/act-early/families/concerned.html">What to do if you&rsquo;re concerned (CDC)</a>.</p>
         </div>
         <p class="cs-note">This page offers educational information, not medical advice, screening, or diagnosis. It organizes what you write; it cannot see your child.</p>
       </div>
@@ -126,14 +126,23 @@
     <section class="g-sec" id="how-it-works">
       <div class="hb-container g-narrow">
         <h2>How this works</h2>
-        <p class="section-intro">Well visits are when your child&rsquo;s doctor checks on development: how your child is moving, talking, playing, and getting along. The American Academy of Pediatrics recommends that doctors ask about development at every well visit, use a developmental screening questionnaire at 9, 18, and 30 months, and use an autism-specific one at 18 and 24 months. Your notes help that conversation start from what you see every day.</p>
-        <p class="section-intro">If your child was born more than 3 weeks early, the page shows corrected age (counted from the due date) under 24 months, the way your pediatrician does. Your draft is kept in this browser until you clear it, so you can add to it over a few days.</p>
-        <h3>Sources</h3>
-        <ul class="source-list">
-          <li class="small">Lipkin PH, Macias MM, Council on Children with Disabilities. Promoting optimal development: identifying infants and young children with developmental disorders through developmental surveillance and screening. <em>Pediatrics.</em> 2020;145(1):e20193449.</li>
-          <li class="small">American Academy of Pediatrics, Bright Futures. Recommendations for Preventive Pediatric Health Care (periodicity schedule).</li>
-          <li class="small">CDC, Learn the Signs. Act Early. If you&rsquo;re concerned about your child&rsquo;s development.</li>
-        </ul>
+        <p class="section-intro">Well visits are when your child&rsquo;s doctor checks on development: how your child is moving, talking, playing, and getting along. The Bright Futures schedule from the American Academy of Pediatrics sets checkups at 3 to 5 days, 1, 2, 4, 6, 9, 12, 15, 18, 24, and 30 months, and then once a year. The Academy recommends that doctors ask about development at every well visit, use a developmental screening questionnaire at 9, 18, and 30 months, and use an autism-specific one at 18 and 24 months. It also recommends asking new mothers about postpartum depression at the 1, 2, 4, and 6 month visits. Your notes help that conversation start from what you see every day.</p>
+        <p class="section-intro">If your child was born more than 3 weeks early (from 4 to 18 weeks), the page shows corrected age (counted from the due date) under 24 months, the way your pediatrician does and the way our Communication Snapshot does. Your draft is kept in this browser until you clear it, so you can add to it over a few days.</p>
+      </div>
+    </section>
+
+    <section class="g-sec">
+      <div class="hb-container g-narrow">
+        <div class="sources-panel">
+          <h2>Sources</h2>
+          <ul>
+            <li>American Academy of Pediatrics, Bright Futures. <a href="https://www.aap.org/periodicityschedule" target="_blank" rel="noopener noreferrer">Recommendations for Preventive Pediatric Health Care (periodicity schedule)</a>. The visit list.</li>
+            <li>Lipkin PH, Macias MM; Council on Children with Disabilities, Section on Developmental and Behavioral Pediatrics. <a href="https://doi.org/10.1542/peds.2019-3449" target="_blank" rel="noopener noreferrer">Promoting optimal development: identifying infants and young children with developmental disorders through developmental surveillance and screening</a>. <em>Pediatrics.</em> 2020;145(1):e20193449. Surveillance at every visit; screening at 9, 18, and 30 months.</li>
+            <li>Hyman SL, Levy SE, Myers SM; Council on Children with Disabilities, Section on Developmental and Behavioral Pediatrics. <a href="https://doi.org/10.1542/peds.2019-3447" target="_blank" rel="noopener noreferrer">Identification, evaluation, and management of children with autism spectrum disorder</a>. <em>Pediatrics.</em> 2020;145(1):e20193447. Autism screening at 18 and 24 months.</li>
+            <li>Earls MF, Yogman MW, Mattson G, Rafferty J; Committee on Psychosocial Aspects of Child and Family Health. <a href="https://doi.org/10.1542/peds.2018-3259" target="_blank" rel="noopener noreferrer">Incorporating recognition and management of perinatal depression into pediatric practice</a>. <em>Pediatrics.</em> 2019;143(1):e20183259. Asking mothers about postpartum depression at the 1, 2, 4, and 6 month visits.</li>
+            <li>CDC, Learn the Signs. Act Early. <a href="https://www.cdc.gov/act-early/families/concerned.html" target="_blank" rel="noopener noreferrer">If you&rsquo;re concerned about your child&rsquo;s development</a>. Calling early, and early intervention without a referral.</li>
+          </ul>
+        </div>
       </div>
     </section>
   </main>
@@ -208,38 +217,53 @@
   <script src="../assets/js/main.js?v=3f7e70ab67" defer></script>
   <script src="../assets/js/gms-tools.js?v=66a93960af" defer></script>
   <script type="module">
-    /* Checkup prep: the parent's notes and questions, organized into one
+    /* Checkup prep: the parent’s notes and questions, organized into one
        printed page for a well visit. Nothing here scores, rates or flags; the
        only facts it states are the AAP visit schedule (see How this works).
-       The draft lives in this browser's localStorage and nowhere else. */
+       The draft lives in this browser’s localStorage and nowhere else. */
     const root = document.getElementById("cp-root");
     const sheet = document.getElementById("cp-sheet");
+    const worried = document.querySelector(".cp-worried");
     const DRAFT_KEY = "gms-checkup-prep-v1";
     const MAX_NOTE = 600;
     const MAX_QUESTION = 200;
     const QUESTION_SLOTS = 5;
+    const MAX_AGE = 72;
+    const MONTH_MS = 30.44 * 864e5;
+    /* Corrected age, as the Communication Snapshot and Milestone Navigator do
+       it (keel corrected_age: more than 3 weeks early, under 24 months; one
+       month is 4.345 weeks). Weeks outside 4 to 18 are treated as a typo. */
+    const EARLY = { gt: 3, max: 18, underMonths: 24, weeksPerMonth: 4.345 };
 
+    /* The Bright Futures visits (AAP periodicity schedule). The newborn exam
+       happens in the hospital, so the list starts at the 3 to 5 day visit.
+       adj uses non-breaking hyphens so "24-month" never splits on a phone. */
     const VISITS = [
-      { m: 2, label: "2 months" }, { m: 4, label: "4 months" }, { m: 6, label: "6 months" },
-      { m: 9, label: "9 months" }, { m: 12, label: "12 months" }, { m: 15, label: "15 months" },
-      { m: 18, label: "18 months" }, { m: 24, label: "24 months" }, { m: 30, label: "30 months" },
-      { m: 36, label: "3 years" }, { m: 48, label: "4 years" }, { m: 60, label: "5 years" },
-      { m: 0, label: "Another visit" },
+      { id: "3-5d", m: 0, label: "3 to 5 days", adj: "first‑week" },
+      { id: "1m", m: 1, label: "1 month", adj: "1‑month" },
+      { id: "2m", m: 2, label: "2 months", adj: "2‑month" }, { id: "4m", m: 4, label: "4 months", adj: "4‑month" },
+      { id: "6m", m: 6, label: "6 months", adj: "6‑month" }, { id: "9m", m: 9, label: "9 months", adj: "9‑month" },
+      { id: "12m", m: 12, label: "12 months", adj: "12‑month" }, { id: "15m", m: 15, label: "15 months", adj: "15‑month" },
+      { id: "18m", m: 18, label: "18 months", adj: "18‑month" }, { id: "24m", m: 24, label: "24 months", adj: "24‑month" },
+      { id: "30m", m: 30, label: "30 months", adj: "30‑month" }, { id: "3y", m: 36, label: "3 years", adj: "3‑year" },
+      { id: "4y", m: 48, label: "4 years", adj: "4‑year" }, { id: "5y", m: 60, label: "5 years", adj: "5‑year" },
+      { id: "other", m: null, label: "Another visit", adj: null },
     ];
 
     const AREAS = [
-      { id: "talking", title: "Talking and understanding", starters: ["New words, sounds, or gestures lately:", "How my child lets me know what they want:", "What my child seems to understand:", "Something about talking I'm unsure about:"] },
-      { id: "moving", title: "Moving", starters: ["New things my child's body can do:", "Something about moving I'm unsure about:"] },
-      { id: "playing", title: "Playing and getting along", starters: ["What my child likes to play with:", "How my child plays with me or other children:", "Something about play I'm unsure about:"] },
-      { id: "feelings", title: "Feelings and behavior", starters: ["What helps my child calm down:", "A hard moment that keeps coming up:", "Something about behavior I'm unsure about:"] },
-      { id: "sleep", title: "Sleep and eating", starters: ["Sleep lately:", "Eating lately:", "Something about sleep or eating I'm unsure about:"] },
-      { id: "well", title: "Going well", starters: ["Something my child loves:", "Something new I'm proud of:"] },
+      { id: "talking", title: "Talking and understanding", starters: ["New words, sounds, or gestures lately:", "How my child lets me know what they want:", "What my child seems to understand:", "Something about talking I’m unsure about:"] },
+      { id: "moving", title: "Moving", starters: ["New things my child’s body can do:", "Something about moving I’m unsure about:"] },
+      { id: "playing", title: "Playing and getting along", starters: ["What my child likes to play with:", "How my child plays with me or other children:", "Something about play I’m unsure about:"] },
+      { id: "feelings", title: "Feelings and behavior", starters: ["What helps my child calm down:", "A hard moment that keeps coming up:", "Something about behavior I’m unsure about:"] },
+      { id: "sleep", title: "Sleep and eating", starters: ["Sleep lately:", "Eating lately:", "Something about sleep or eating I’m unsure about:"] },
+      { id: "well", title: "Going well", starters: ["Something my child loves:", "Something new I’m proud of:"] },
       { id: "changes", title: "Changes at home or child care", starters: ["A recent change at home:", "Child care or school:"] },
     ];
     const NOTICED = ["talking", "moving", "playing", "feelings", "sleep"];
+    const STEMS = new Set(AREAS.flatMap((a) => a.starters));
 
     const QUESTION_STARTERS = [
-      "Is this typical for my child's age?",
+      "Is this typical for my child’s age?",
       "What should I watch for before the next visit?",
       "Would a developmental screening help us?",
       "Should we check hearing or vision?",
@@ -249,12 +273,31 @@
 
     /* ---------- state and the on-device draft ---------- */
     // visitPicked: the parent chose a visit; until then it follows the age.
-    const blank = () => ({ name: "", ageMonths: "", bornEarly: null, weeksEarly: "", visit: null, visitPicked: false, notes: {}, questions: Array(QUESTION_SLOTS).fill("") });
+    // ageSetAt: when the age was entered, so a draft kept for weeks can age with the child.
+    const blank = () => ({ name: "", ageMonths: "", ageSetAt: null, bornEarly: null, weeksEarly: "", visit: null, visitPicked: false, notes: {}, questions: Array(QUESTION_SLOTS).fill("") });
+
+    /* Rebuild a saved draft field by field, so a damaged or older draft can
+       never stop the page from drawing. Drafts saved before visit ids stored
+       the visit as a month number (0 meant "Another visit"). */
+    function restore(saved) {
+      const s = blank();
+      if (!saved || typeof saved !== "object" || Array.isArray(saved)) return s;
+      const str = (v, max) => (typeof v === "string" ? v : typeof v === "number" && isFinite(v) ? String(v) : "").slice(0, max);
+      s.name = str(saved.name, 40);
+      s.ageMonths = str(saved.ageMonths, 3);
+      s.weeksEarly = str(saved.weeksEarly, 2);
+      if (typeof saved.ageSetAt === "number" && isFinite(saved.ageSetAt)) s.ageSetAt = saved.ageSetAt;
+      if (typeof saved.bornEarly === "boolean") s.bornEarly = saved.bornEarly;
+      if (typeof saved.visit === "string" && VISITS.some((v) => v.id === saved.visit)) s.visit = saved.visit;
+      else if (typeof saved.visit === "number") s.visit = saved.visit === 0 ? "other" : ((VISITS.find((v) => v.m === saved.visit) || {}).id || null);
+      s.visitPicked = saved.visitPicked === true && s.visit != null;
+      if (saved.notes && typeof saved.notes === "object") AREAS.forEach((a) => { if (typeof saved.notes[a.id] === "string") s.notes[a.id] = saved.notes[a.id].slice(0, MAX_NOTE); });
+      if (Array.isArray(saved.questions)) for (let i = 0; i < QUESTION_SLOTS; i++) if (typeof saved.questions[i] === "string") s.questions[i] = saved.questions[i].slice(0, MAX_QUESTION);
+      return s;
+    }
+
     let state = blank();
-    try {
-      const saved = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null");
-      if (saved && typeof saved === "object") state = Object.assign(blank(), saved, { questions: Object.assign(Array(QUESTION_SLOTS).fill(""), saved.questions || []).slice(0, QUESTION_SLOTS) });
-    } catch (e) {}
+    try { state = restore(JSON.parse(localStorage.getItem(DRAFT_KEY) || "null")); } catch (e) {}
 
     let saveTimer = null;
     function save() {
@@ -264,18 +307,38 @@
       }, 300);
     }
 
-    /* Prefill from the shared child profile the first time only. */
-    function prefillFromProfile() {
-      if (state.ageMonths !== "" || state.name) return;
+    /* A saved age goes stale. On load, a child profile with a birthdate gives
+       today’s age (when the draft is for that child, or unnamed); otherwise a
+       typed age moves on by the whole months since it was entered. */
+    let ageNote = "";
+    function refreshAge() {
       try {
         if (window.GMS && GMS.profile) {
           const child = GMS.profile.getActive();
           if (child) {
-            if (child.name) state.name = String(child.name).slice(0, 40);
-            if (child.birthdate) state.ageMonths = String(GMS.profile.ageInMonths(child));
+            const childName = String(child.name || "").trim().slice(0, 40);
+            if (!state.name.trim() && state.ageMonths === "" && childName) state.name = childName;
+            if (child.birthdate && (!state.name.trim() || state.name.trim() === childName)) {
+              const m = GMS.profile.ageInMonths(child);
+              if (m != null && String(m) !== state.ageMonths) {
+                if (state.ageMonths !== "") ageNote = "Updated from your child profile.";
+                state.ageMonths = String(m);
+                state.ageSetAt = Date.now();
+              }
+              return;
+            }
           }
         }
       } catch (e) {}
+      const age = parseInt(state.ageMonths, 10);
+      if (!isNaN(age) && state.ageSetAt) {
+        const gone = Math.floor((Date.now() - state.ageSetAt) / MONTH_MS);
+        if (gone >= 1 && age + gone <= MAX_AGE) {
+          ageNote = `Updated: you entered ${age} on ${new Date(state.ageSetAt).toLocaleDateString()}. Change it if that’s not right.`;
+          state.ageMonths = String(age + gone);
+          state.ageSetAt += gone * MONTH_MS;
+        }
+      }
     }
 
     /* ---------- helpers ---------- */
@@ -291,32 +354,57 @@
       return n;
     }
 
+    function wholeIn(str, lo, hi) {
+      const s = String(str).trim();
+      if (!/^\d+$/.test(s)) return null;
+      const n = Number(s);
+      return n >= lo && n <= hi ? n : null;
+    }
+
     function ageInfo() {
-      const age = parseInt(state.ageMonths, 10);
-      if (isNaN(age) || age < 0) return null;
-      const weeks = state.bornEarly ? parseInt(state.weeksEarly, 10) : 0;
-      const corrected = state.bornEarly && weeks >= 3 && age < 24 ? Math.max(0, age - Math.round(weeks / 4.35)) : null;
-      return { age, weeks: isNaN(weeks) ? 0 : weeks, corrected };
+      const age = wholeIn(state.ageMonths, 0, MAX_AGE);
+      if (age == null) return null;
+      const weeks = state.bornEarly ? wholeIn(state.weeksEarly, EARLY.gt + 1, EARLY.max) : null;
+      const corrected = weeks != null && age < EARLY.underMonths ? Math.max(0, Math.floor(age - weeks / EARLY.weeksPerMonth)) : null;
+      return { age, weeks, corrected };
     }
 
+    /* "1 month", "7 months", "2 years 6 months". */
+    function fmtAge(m) {
+      if (m < 1) return "under 1 month";
+      if (m < 24) return m === 1 ? "1 month" : `${m} months`;
+      const y = Math.floor(m / 12), r = m % 12;
+      return `${y} years` + (r ? ` ${r} ${r === 1 ? "month" : "months"}` : "");
+    }
+
+    /* The next checkup for this age. A newborn’s next is the 1-month visit;
+       the 3 to 5 day visit is only ever picked by hand. */
     function suggestedVisit(age) {
-      const upcoming = VISITS.find((v) => v.m && v.m >= age - 1);
-      return upcoming ? upcoming.m : 60;
+      if (age < 1) return "1m";
+      const v = VISITS.find((x) => x.m != null && x.m >= Math.max(age, 2));
+      return v ? v.id : "other";
     }
 
-    /* "18-month", "3-year": the visit as an adjective, for the page title. */
+    const visitOf = (id) => VISITS.find((x) => x.id === id) || null;
+
+    /* "18-month", "first-week": the visit as an adjective, for the page title. */
     function visitLabel() {
-      const v = VISITS.find((x) => x.m === state.visit);
-      return v && v.m ? v.label.replace(/ months$/, "-month").replace(/ years$/, "-year") : null;
+      const v = visitOf(state.visit);
+      return v ? v.adj : null;
     }
 
-    /* What the AAP recommends at this visit: the only facts the page states. */
+    /* What the AAP recommends at this visit: the only facts the page states.
+       Each sentence names its source, so any one of them reads alone. */
     function visitNote() {
-      const m = state.visit;
+      const v = visitOf(state.visit);
+      const m = v ? v.m : null;
       const lines = [];
-      if (m) lines.push("At well visits, your child's doctor usually asks how your child is moving, talking, playing, and getting along.");
+      if (m == null) return "";
+      if (m >= 1) lines.push("At well visits, your child’s doctor usually asks how your child is moving, talking, playing, and getting along.");
+      if ([1, 2, 4, 6].includes(m)) lines.push("The American Academy of Pediatrics recommends asking new mothers about postpartum depression at the 1, 2, 4, and 6 month visits, so you may be asked how you are feeling. It’s a routine question, and an honest answer helps.");
       if ([9, 18, 30].includes(m)) lines.push("The American Academy of Pediatrics recommends a developmental screening questionnaire at the 9, 18, and 30 month visits, so your office may ask you to fill one out.");
-      if ([18, 24].includes(m)) lines.push("It also recommends an autism-specific screening questionnaire at 18 and 24 months.");
+      if (m === 18) lines.push("It also recommends an autism-specific screening questionnaire at the 18 and 24 month visits.");
+      if (m === 24) lines.push("The American Academy of Pediatrics recommends an autism-specific screening questionnaire at the 18 and 24 month visits, so your office may ask you to fill one out.");
       return lines.join(" ");
     }
 
@@ -327,19 +415,38 @@
       return null;
     }
 
-    function chipRow(options, current, onPick, label) {
-      const row = el("div", { class: "cs-chips", role: "group", "aria-label": label });
-      options.forEach((o) => {
+    /* One-of-several choices: a radio group drawn as chips. One tab stop;
+       arrow keys move and choose, as native radios do. */
+    function radioRow(options, current, onPick, labelId) {
+      const row = el("div", { class: "cs-chips", role: "radiogroup", "aria-labelledby": labelId });
+      const buttons = [];
+      function choose(i, focus) {
+        buttons.forEach((b, j) => {
+          const on = i === j;
+          b.classList.toggle("is-active", on);
+          b.setAttribute("aria-checked", on ? "true" : "false");
+          b.tabIndex = on ? 0 : -1;
+        });
+        if (focus) buttons[i].focus();
+        onPick(options[i]);
+      }
+      const at = options.findIndex((o) => o.value === current);
+      options.forEach((o, i) => {
+        const on = i === at;
         const b = el("button", {
-          type: "button",
-          class: "cs-chip" + (current === o.value ? " is-active" : ""),
-          "aria-pressed": current === o.value ? "true" : "false",
+          type: "button", role: "radio", class: "cs-chip" + (on ? " is-active" : ""),
+          "aria-checked": on ? "true" : "false", tabindex: on || (at < 0 && i === 0) ? "0" : "-1",
           text: o.label,
-          onclick: () => {
-            row.querySelectorAll(".cs-chip").forEach((c) => { c.classList.toggle("is-active", c === b); c.setAttribute("aria-pressed", c === b ? "true" : "false"); });
-            onPick(o);
+          onclick: () => choose(i, false),
+          onkeydown: (e) => {
+            const last = options.length - 1;
+            const next = { ArrowRight: i + 1, ArrowDown: i + 1, ArrowLeft: i - 1, ArrowUp: i - 1, Home: 0, End: last }[e.key];
+            if (next == null) return;
+            e.preventDefault();
+            choose(next < 0 ? last : next > last ? 0 : next, true);
           },
         });
+        buttons.push(b);
         row.appendChild(b);
       });
       return row;
@@ -364,36 +471,56 @@
       return row;
     }
 
+    /* A note without the starter stems nobody finished. */
+    function cleanNote(text) {
+      return String(text || "").split("\n").filter((line) => !STEMS.has(line.trim().replace(/'/g, "’"))).join("\n").trim();
+    }
+
     /* ---------- the form ---------- */
     function renderForm(opts) {
-      prefillFromProfile();
+      document.body.classList.remove("cp-has-page");
+      sheet.innerHTML = "";
       root.innerHTML = "";
       const form = el("div", { class: "cp-form" });
+      // Each part of the form is its own block, so its heading stays at the
+      // top of that part (toolapp.css moves a step’s direct-child title first).
+      let sec;
+      const part = () => { sec = el("div", { class: "cp-part" }); form.appendChild(sec); };
+      part();
 
       // About the visit
-      form.appendChild(el("h2", { class: "cs-step-title", text: "About the visit" }));
-      form.appendChild(el("p", { class: "cs-step-lede", text: "Your draft saves on this device as you type, so you can come back and add to it before the visit." }));
+      sec.appendChild(el("h2", { class: "cs-step-title", text: "About the visit" }));
+      sec.appendChild(el("p", { class: "cs-step-lede", text: "Your draft saves on this device as you type, so you can come back and add to it before the visit." }));
 
       const nameIn = el("input", { id: "cp-name", type: "text", maxlength: "40", autocomplete: "off", value: state.name, placeholder: "Optional" });
       nameIn.addEventListener("input", () => { state.name = nameIn.value; save(); });
-      form.appendChild(el("div", { class: "cs-field" }, [
-        el("label", { for: "cp-name", text: "Your child's first name or nickname" }),
+      sec.appendChild(el("div", { class: "cs-field" }, [
+        el("label", { for: "cp-name", text: "Your child’s first name or nickname" }),
         nameIn,
         el("p", { class: "cs-hint", text: "Only printed on your page. Leave it blank if you like." }),
       ]));
 
-      const ageIn = el("input", { id: "cp-age", type: "number", min: "0", max: "72", inputmode: "numeric", value: state.ageMonths, "aria-describedby": "cp-age-hint" });
+      const ageIn = el("input", { id: "cp-age", type: "number", min: "0", max: String(MAX_AGE), step: "1", inputmode: "numeric", value: state.ageMonths, "aria-describedby": "cp-age-hint" + (ageNote ? " cp-age-note" : "") });
+      const ageErr = el("p", { class: "cs-error", id: "cp-age-err", role: "alert", hidden: "hidden" });
       const visitWrap = el("div", { class: "cs-field" });
       const noteP = el("p", { class: "cp-visit-note", "aria-live": "polite" });
       function renderVisits() {
         visitWrap.innerHTML = "";
-        visitWrap.appendChild(el("p", { class: "cs-field__label", text: "Which checkup is this?" }));
-        visitWrap.appendChild(chipRow(VISITS.map((v) => ({ value: v.m, label: v.label })), state.visit, (o) => { state.visit = o.value; state.visitPicked = true; noteP.textContent = visitNote(); save(); }, "Which checkup is this?"));
+        visitWrap.appendChild(el("p", { class: "cs-field__label", id: "cp-visit-label", text: "Which checkup is this?" }));
+        visitWrap.appendChild(radioRow(VISITS.map((v) => ({ value: v.id, label: v.label })), state.visit, (o) => { state.visit = o.value; state.visitPicked = true; noteP.textContent = visitNote(); save(); }, "cp-visit-label"));
         noteP.textContent = visitNote();
         visitWrap.appendChild(noteP);
       }
+      function checkAge() {
+        const bad = state.ageMonths.trim() !== "" && wholeIn(state.ageMonths, 0, MAX_AGE) == null;
+        ageErr.hidden = !bad;
+        ageErr.textContent = bad ? `Enter the age as a whole number of months, from 0 to ${MAX_AGE}.` : "";
+        if (bad) ageIn.setAttribute("aria-invalid", "true"); else ageIn.removeAttribute("aria-invalid");
+      }
       ageIn.addEventListener("input", () => {
         state.ageMonths = ageIn.value;
+        state.ageSetAt = Date.now();
+        checkAge();
         const info = ageInfo();
         if (info && !state.visitPicked) {
           const next = suggestedVisit(info.age);
@@ -401,39 +528,55 @@
         }
         save();
       });
-      form.appendChild(el("div", { class: "cs-field" }, [
+      sec.appendChild(el("div", { class: "cs-field" }, [
         el("label", { for: "cp-age", text: "Age in months" }),
         ageIn,
         el("p", { class: "cs-hint", id: "cp-age-hint", text: "For a 3-year-old, enter 36." }),
+        ageNote ? el("p", { class: "cs-hint", id: "cp-age-note", text: ageNote }) : null,
+        ageErr,
       ]));
+      checkAge();
 
       const earlyQ = "Was your child born more than 3 weeks early?";
-      const weeksIn = el("input", { id: "cp-weeks", type: "number", min: "3", max: "18", inputmode: "numeric", value: state.weeksEarly });
-      weeksIn.addEventListener("input", () => { state.weeksEarly = weeksIn.value; save(); });
-      const weeksField = el("div", { class: "cs-field", style: state.bornEarly ? "" : "display:none" }, [
+      const weeksIn = el("input", { id: "cp-weeks", type: "number", min: String(EARLY.gt + 1), max: String(EARLY.max), step: "1", inputmode: "numeric", value: state.weeksEarly, "aria-describedby": "cp-weeks-hint" });
+      const weeksErr = el("p", { class: "cs-error", role: "alert", hidden: "hidden" });
+      function checkWeeks() {
+        const bad = state.weeksEarly.trim() !== "" && wholeIn(state.weeksEarly, EARLY.gt + 1, EARLY.max) == null;
+        weeksErr.hidden = !bad;
+        weeksErr.textContent = bad ? `Enter a whole number of weeks from ${EARLY.gt + 1} to ${EARLY.max}. A baby born 3 weeks early or less doesn’t need a corrected age.` : "";
+        if (bad) weeksIn.setAttribute("aria-invalid", "true"); else weeksIn.removeAttribute("aria-invalid");
+      }
+      weeksIn.addEventListener("input", () => { state.weeksEarly = weeksIn.value; checkWeeks(); save(); });
+      const weeksField = el("div", { class: "cs-field", style: state.bornEarly ? null : "display:none" }, [
         el("label", { for: "cp-weeks", text: "About how many weeks early?" }),
         weeksIn,
+        el("p", { class: "cs-hint", id: "cp-weeks-hint", text: `From ${EARLY.gt + 1} to ${EARLY.max} weeks before the due date.` }),
+        weeksErr,
       ]);
-      form.appendChild(el("div", { class: "cs-field" }, [
-        el("p", { class: "cs-field__label", text: earlyQ }),
-        chipRow([{ value: false, label: "No" }, { value: true, label: "Yes" }], state.bornEarly, (o) => {
+      checkWeeks();
+      sec.appendChild(el("div", { class: "cs-field" }, [
+        el("p", { class: "cs-field__label", id: "cp-early-label", text: earlyQ }),
+        radioRow([{ value: false, label: "No" }, { value: true, label: "Yes" }], state.bornEarly, (o) => {
           state.bornEarly = o.value;
           weeksField.style.display = o.value ? "" : "none";
           save();
-        }, earlyQ),
+        }, "cp-early-label"),
       ]));
-      form.appendChild(weeksField);
+      sec.appendChild(weeksField);
 
       const info = ageInfo();
       if (info && !state.visitPicked) state.visit = suggestedVisit(info.age);
       renderVisits();
-      form.appendChild(visitWrap);
+      sec.appendChild(visitWrap);
 
-      // What I've noticed, going well, changes
-      form.appendChild(el("h2", { class: "cs-step-title cp-section", text: "What you've noticed" }));
-      form.appendChild(el("p", { class: "cs-step-lede", text: "Write from ordinary days. A few words is plenty, and any area can stay blank. Tap a starter to add a sentence beginning." }));
+      // What I’ve noticed, going well, changes
+      part();
+      sec.appendChild(el("h2", { class: "cs-step-title cp-section", text: "What you’ve noticed" }));
+      sec.appendChild(el("p", { class: "cs-step-lede", text: "Write from ordinary days. A few words is plenty, and any area can stay blank. Tap a starter to add a sentence beginning." }));
+      // Where a worried parent starts writing: the don’t-wait panel, including lost skills.
+      if (worried) sec.appendChild(worried);
       AREAS.forEach((a) => {
-        if (a.id === "well") form.appendChild(el("h2", { class: "cs-step-title cp-section", text: "Also worth sharing" }));
+        if (a.id === "well") { part(); sec.appendChild(el("h2", { class: "cs-step-title cp-section", text: "Also worth sharing" })); }
         const id = "cp-" + a.id;
         const ta = el("textarea", { id, class: "cp-text", rows: "3", maxlength: String(MAX_NOTE) });
         ta.value = state.notes[a.id] || "";
@@ -444,12 +587,13 @@
         item.appendChild(starterRow(a.starters, ta, "Sentence starters for " + a.title));
         item.appendChild(ta);
         if (a.id === "talking") item.appendChild(el("p", { class: "cs-item__help" }, ["For a closer look at talking, the ", el("a", { href: "/tools/communication-snapshot", text: "Communication Snapshot" }), " makes notes too."]));
-        form.appendChild(item);
+        sec.appendChild(item);
       });
 
       // Questions
-      form.appendChild(el("h2", { class: "cs-step-title cp-section", text: "Your questions" }));
-      form.appendChild(el("p", { class: "cs-step-lede", text: "Put the most important one first, in case time runs short." }));
+      part();
+      sec.appendChild(el("h2", { class: "cs-step-title cp-section", text: "Your questions" }));
+      sec.appendChild(el("p", { class: "cs-step-lede", text: "Put the most important one first. Your questions print at the top of the page, in this order." }));
       const qInputs = [];
       const qList = el("ol", { class: "cp-questions" });
       for (let i = 0; i < QUESTION_SLOTS; i++) {
@@ -458,6 +602,7 @@
         qInputs.push(qi);
         qList.appendChild(el("li", {}, [qi]));
       }
+      const qErr = el("p", { class: "cs-error", role: "alert", hidden: "hidden" });
       const qStarters = el("div", { class: "cs-chips cp-starters", role: "group", "aria-label": "Common questions" });
       QUESTION_STARTERS.forEach((q) => {
         qStarters.appendChild(el("button", {
@@ -471,18 +616,17 @@
           },
         }));
       });
-      const qErr = el("p", { class: "cs-error", role: "alert", hidden: "hidden" });
-      form.appendChild(qStarters);
-      form.appendChild(qList);
-      form.appendChild(qErr);
+      sec.appendChild(qStarters);
+      sec.appendChild(qList);
+      sec.appendChild(qErr);
 
       const err = el("p", { class: "cs-error", role: "alert", hidden: "hidden" });
-      form.appendChild(err);
-      form.appendChild(el("div", { class: "cs-nav" }, [
+      sec.appendChild(err);
+      sec.appendChild(el("div", { class: "cs-nav" }, [
         el("button", {
           type: "button", class: "btn btn--primary", text: "See your page",
           onclick: () => {
-            if (!hasContent()) { err.hidden = false; err.textContent = "Add at least one note or question first."; return; }
+            if (!hasContent()) { err.hidden = false; err.textContent = "Add at least one note or question first. A sentence starter on its own doesn’t count until you finish it."; return; }
             err.hidden = true;
             renderPage();
           },
@@ -495,19 +639,20 @@
     }
 
     function hasContent() {
-      return Object.values(state.notes).some((v) => v && v.trim()) || state.questions.some((q) => q && q.trim());
+      return Object.values(state.notes).some((v) => cleanNote(v)) || state.questions.some((q) => q && q.trim());
     }
 
     function clearAll() {
-      if (hasContent() && !window.confirm("Clear everything on this page? This can't be undone.")) return;
+      if (hasContent() && !window.confirm("Clear everything on this page? This can’t be undone.")) return;
       state = blank();
+      ageNote = "";
       try { localStorage.removeItem(DRAFT_KEY); } catch (e) {}
       renderForm();
     }
 
     /* ---------- the page (on screen and on paper) ---------- */
     function titleText() {
-      const who = state.name.trim() ? `${state.name.trim()}'s` : "my child's";
+      const who = state.name.trim() ? `${state.name.trim()}'s` : "my child’s";
       const v = visitLabel();
       return v ? `Before ${who} ${v} checkup` : `Before ${who} checkup`;
     }
@@ -516,31 +661,21 @@
       const info = ageInfo();
       const parts = [`Prepared ${new Date().toLocaleDateString()}`];
       if (info) {
-        let a = `Age: ${info.age} months`;
-        if (info.corrected != null) a += ` (about ${info.corrected} months corrected; born ${info.weeks} weeks early)`;
-        else if (state.bornEarly && info.weeks) a += ` (born ${info.weeks} weeks early)`;
+        let a = `Age: ${fmtAge(info.age)}`;
+        if (info.corrected != null) a += ` (${info.corrected < 1 ? "corrected age under 1 month" : `corrected age about ${fmtAge(info.corrected)}`}; born ${info.weeks} weeks early)`;
+        else if (info.weeks != null) a += ` (born ${info.weeks} weeks early)`;
         parts.push(a);
       }
       return parts.join(" · ");
     }
 
     /* Builds the page into `target`; the same function draws the screen
-       preview and the print sheet, so they never disagree. */
+       preview and the print sheet, so they never disagree. Questions come
+       first: they are what the parent most needs answered if time runs short. */
     function buildPage(target, headingTag) {
       target.appendChild(el(headingTag, { text: titleText() }));
       target.appendChild(el("p", { class: "cp-meta", text: ageLine() }));
 
-      const noticed = AREAS.filter((a) => NOTICED.includes(a.id) && (state.notes[a.id] || "").trim());
-      if (noticed.length) {
-        target.appendChild(el("h3", { text: "What I've noticed" }));
-        noticed.forEach((a) => target.appendChild(el("div", { class: "cp-block" }, [el("h4", { text: a.title }), el("p", { class: "cp-notes", text: state.notes[a.id].trim() })])));
-      }
-      ["well", "changes"].forEach((id) => {
-        const text = (state.notes[id] || "").trim();
-        if (!text) return;
-        target.appendChild(el("h3", { text: AREAS.find((a) => a.id === id).title }));
-        target.appendChild(el("p", { class: "cp-notes", text }));
-      });
       const qs = state.questions.map((q) => (q || "").trim()).filter(Boolean);
       if (qs.length) {
         target.appendChild(el("h3", { text: "My questions" }));
@@ -548,8 +683,29 @@
         qs.forEach((q) => ol.appendChild(el("li", { text: q })));
         target.appendChild(ol);
       }
+      const noticed = AREAS.filter((a) => NOTICED.includes(a.id) && cleanNote(state.notes[a.id]));
+      if (noticed.length) {
+        target.appendChild(el("h3", { text: "What I’ve noticed" }));
+        noticed.forEach((a) => target.appendChild(el("div", { class: "cp-block" }, [el("h4", { text: a.title }), el("p", { class: "cp-notes", text: cleanNote(state.notes[a.id]) })])));
+      }
+      ["well", "changes"].forEach((id) => {
+        const text = cleanNote(state.notes[id]);
+        if (!text) return;
+        target.appendChild(el("h3", { text: AREAS.find((a) => a.id === id).title }));
+        target.appendChild(el("p", { class: "cp-notes", text }));
+      });
       const note = visitNote();
       if (note) target.appendChild(el("p", { class: "cp-visit-note", text: note }));
+    }
+
+    /* The print sheet is built with the page, and body.cp-has-page makes
+       every print path (the button, the browser menu, a phone’s share sheet)
+       print the sheet rather than the web page. */
+    function buildSheet() {
+      sheet.innerHTML = "";
+      buildPage(sheet, "h2");
+      sheet.appendChild(el("p", { class: "vs-foot", text: "A parent’s notes, organized with the free checkup prep page at fromlittleonward.com. Not a screening result or diagnosis. If your child has stopped doing something they used to do, like saying words they had, call your pediatrician and ask to be seen soon; don’t wait for a checkup. If you’re worried about anything else, you don’t have to wait either: call your pediatrician, or contact your state’s early intervention program (under 3) or your local school district (3 and older)." }));
+      document.body.classList.add("cp-has-page");
     }
 
     function renderPage() {
@@ -558,7 +714,7 @@
       buildPage(page, "h2");
 
       const actions = el("div", { class: "cs-nav", role: "group", "aria-label": "Page actions" }, [
-        el("button", { type: "button", class: "btn btn--primary", text: "Print your page", onclick: printPage }),
+        el("button", { type: "button", class: "btn btn--primary", text: "Print your page", onclick: () => { buildSheet(); window.print(); } }),
         el("button", { type: "button", class: "btn btn--ghost", text: "Edit", onclick: () => renderForm() }),
       ]);
       const info = ageInfo();
@@ -568,23 +724,23 @@
       page.appendChild(el("p", { class: "cs-note", text: "Your page stays on this device. It is your own notes, not a screening result or diagnosis." }));
 
       root.appendChild(page);
+      if (worried) root.after(worried);
+      buildSheet();
       const h = page.querySelector("h2");
       if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); }
       window.scrollTo({ top: root.getBoundingClientRect().top + window.scrollY - 90, behavior: "auto" });
     }
 
-    function printPage() {
-      sheet.innerHTML = "";
-      buildPage(sheet, "h2");
-      sheet.appendChild(el("p", { class: "vs-foot", text: "A parent's notes, organized with the free checkup prep page at fromlittleonward.com. Not a screening result or diagnosis. If you're worried, you don't have to wait for a visit: call your pediatrician, or contact your state's early intervention program (under 3) or your local school district (3 and older)." }));
-      document.body.classList.add("printing-cp");
-      const after = () => { document.body.classList.remove("printing-cp"); window.removeEventListener("afterprint", after); };
-      window.addEventListener("afterprint", after);
-      setTimeout(after, 1500);
-      window.print();
+    refreshAge();
+    try {
+      renderForm({ initial: true });
+    } catch (e) {
+      // A draft the page can’t draw is set aside rather than leaving a blank tool.
+      state = blank();
+      ageNote = "";
+      try { localStorage.removeItem(DRAFT_KEY); } catch (e2) {}
+      renderForm({ initial: true });
     }
-
-    renderForm({ initial: true });
   </script>
   <script src="/assets/js/home.js?v=78ff6722df" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>

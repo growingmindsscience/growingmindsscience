@@ -123,12 +123,15 @@ export function psIsDone(state: PSState): boolean {
 }
 
 /**
- * Scoring (encoded thresholds, no runtime math beyond counting):
- * under chance (p = .5 per 2AFC trial), P(≥7 of 8 correct) ≈ .035 — that is
- * the only bar we call a "clear" sign. 5–6 of 8 is not statistically above
- * chance; it renders as "some early signs" and still routes to the gentlest
- * band. Fewer than 6 answered trials can never be "clear" — an engaged-but-
- * skippy session must not over-claim.
+ * Scoring (encoded thresholds, no runtime math beyond counting), on the
+ * trials the child actually answered. Under chance (p = .5 per 2AFC trial)
+ * "clear" needs a one-sided binomial p < .05 with at least 6 answered:
+ * 6/6 (p ≈ .016), 7/7 (≈ .008), 7/8 (≈ .035), 8/8 (≈ .004). 6 of 7 is
+ * p ≈ .06 and is not clear. A perfect 6/6 with two skips is therefore
+ * clear, as it should be (audit NSC-12). 5–6 correct otherwise is not
+ * above chance: it renders as "a few right answers, not enough to read
+ * yet" and routes to the gentlest band. Fewer than 6 answered trials can
+ * never be "clear".
  */
 export function psResult(state: PSState): PSResult | null {
   if (!psIsDone(state)) return null;
@@ -136,7 +139,7 @@ export function psResult(state: PSState): PSResult | null {
   const correct = state.records.filter((r) => r.correct).length;
 
   let signal: PSSignal;
-  if (answered >= 6 && correct >= 7) {
+  if (answered >= 6 && (correct >= 7 || correct === answered)) {
     signal = "clear";
   } else if (answered >= 6 && correct >= 5) {
     signal = "some";
@@ -150,7 +153,7 @@ export function psResult(state: PSState): PSResult | null {
     correct,
     skips: state.skips,
     routePlacement: signal === "clear" ? "L1" : "L0",
-    // Only "clear" (≥7/8, p≈.035) earns medium; "some" (5–6/8) is not
+    // Only "clear" (binomial p < .05) earns medium; "some" (5–6 right) is not
     // statistically above chance, so it carries no more confidence than
     // "unclear" does.
     routeConfidence: signal === "clear" ? "medium" : "low",

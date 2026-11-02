@@ -14,7 +14,7 @@ const STEPS = [
   },
   {
     title: "See the ladder",
-    body: "Your child lands on a rung of the counting ladder: the sequence every child climbs between reciting number words and knowing what they mean. You'll see the rung in plain words, and what usually comes next.",
+    body: "Your child lands on a rung of the counting ladder: the order most children climb between reciting number words and knowing what they mean. You'll see the rung in plain words, and what usually comes next.",
   },
   {
     title: "Play the week",
@@ -99,13 +99,14 @@ export default async function Home() {
           What the counting ladder is
         </h2>
         <p className="text-ink">
-          Somewhere between two and five, every child makes the same climb.
-          First the number words are a song. Then &ldquo;one&rdquo; snaps onto
-          meaning: hand a one-knower one block and they&rsquo;re right every
-          time, ask for three and you get a fistful. Then &ldquo;two&rdquo;
-          clicks. Then &ldquo;three,&rdquo; then &ldquo;four,&rdquo; and then
-          the big discovery: counting itself tells you how many, for any
-          number. Developmental scientists have mapped this staircase for over
+          Somewhere between two and five, most children climb the same
+          ladder, in the same order. First the number words are a song. Then
+          &ldquo;one&rdquo; snaps onto meaning: ask a one-knower for one block
+          and they&rsquo;re right every time, ask for three and you get a
+          fistful. Then &ldquo;two&rdquo; clicks. Then &ldquo;three,&rdquo;
+          then &ldquo;four,&rdquo; and then the bigger idea comes together,
+          sometimes over weeks, sometimes over months: counting itself tells
+          you how many. Developmental scientists have mapped this staircase for over
           thirty years using a deceptively simple game called Give-N:
           &ldquo;can you give me three?&rdquo;
         </p>
@@ -113,9 +114,9 @@ export default async function Home() {
           The Feed-the-Bear check-in is that same game, scripted for your
           kitchen. The question engine behind it adjusts to each answer and was
           tested against tens of thousands of simulated children before it was
-          allowed near a real one. It is tuned so that on a noisy day, its rare
-          misses land a rung <em>low</em>, never high. A rung too low means a
-          bored week. A rung too high means a frustrated two-year-old. We chose
+          allowed near a real one. It is tuned so that when a noisy day pushes
+          it off the true rung, it lands <em>low</em> far more often than
+          high. A rung too low means a bored week. A rung too high means a frustrated two-year-old. We chose
           bored.
         </p>
       </section>
@@ -170,15 +171,17 @@ export default async function Home() {
         </Card>
         <Card>
           <h3 className="mb-2 text-lg font-semibold text-ink-deep">
-            No red flags, ever
+            Calm by design
           </h3>
           <p className="text-ink">
-            Tallykin never ranks your child, gives a score, or sounds an
-            alarm. The for-their-age view shows only a wide typical range from
-            published studies, never a percentile. The words it will never use
-            are enforced by a mechanical check on every line of the check-in,
-            game and prompt content, not an editor&rsquo;s good intentions.
-            Every rung is a real stage of a climb every child makes; the
+            Tallykin never ranks your child or gives a score. The
+            for-their-age view shows only a wide typical range from published
+            studies, never a percentile, and it stops at about five, where
+            those studies stop. If a reading lands well outside the typical
+            range, we say so plainly and suggest who to ask. Words that
+            alarm or label are kept out by a mechanical check on every line
+            of the check-in, game and prompt content, not an editor&rsquo;s
+            good intentions. Every rung is a real stage of the climb; the
             readout tells you where the climb is, and what makes a good next
             week.
           </p>

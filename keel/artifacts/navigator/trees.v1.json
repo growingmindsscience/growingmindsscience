@@ -2,10 +2,11 @@
   "artifact": "navigator_trees",
   "version": "1.0.0",
   "status": "drafted_pending_matthew_verification",
-  "semantics": "Eight domain question sets for the Milestone Navigator. Each domain declares a bindings map from the logical observables named in floors.v1.json to concrete question ids and answer values, so floors stay stable while wording can evolve. A question is asked when the child's corrected age is inside [asked_from_months, asked_until_months) or the question is always_asked. Terminal class = the highest class among triggered flags (typical_range < discuss < priority_discuss), typical_range when none trigger. A flag triggers when its answer matches within its age window. Answers of 'sometimes' never trigger an absence flag. Below a flag's age window, the same answer produces a recheck note inside typical_range, never a class change. The floors grader enumerates every path in CI and fails the build if any floor-matching path lands below its floor.",
+  "semantics": "Eight domain question sets for the Milestone Navigator. Each domain declares a bindings map from the logical observables named in floors.v1.json to concrete question ids and answer values, so floors stay stable while wording can evolve. A question is asked when the child’s corrected age is inside [asked_from_months, asked_until_months) or the question is always_asked. Terminal class = the highest class among triggered flags (typical_range < discuss < priority_discuss), typical_range when none trigger. A flag triggers when its answer matches within its age window. Answers of ‘sometimes’ never trigger an absence flag, with one exception: in hearing_responding, a ‘sometimes’ on a response to sound at or past its stated age routes to discuss, because patchy responses to sound are a reason for a hearing test on their own. The hearing tree has no recheck notes: a lone ‘not yet’ on any hearing question it asks reaches at least discuss. Elsewhere, below a flag’s age window the same answer produces a recheck note inside typical_range, never a class change; recheck is one note or a list of notes, each with its own answer and [age_gte, age_lt) window. A domain may declare thin_months, [from, until) bands where it has few age-specific questions; a typical_range result there uses the domain’s typical_range_thin copy (same class, same standing invitation). Every priority_discuss result also shows required_copy.sudden_change. The floors grader enumerates every path in CI and fails the build if any floor-matching path lands below its floor.",
   "corrected_age": { "weeks_early_gt": 3, "applies_under_months": 24 },
   "required_copy": {
-    "parent_gut_invitation": "If something still feels off to you, bring it up with your pediatrician anyway. Your sense of your child is real information, and raising it is never a waste of anyone's time."
+    "parent_gut_invitation": "If something still feels off to you, bring it up with your pediatrician anyway. Your sense of your child is real information, and raising it is never a waste of anyone’s time.",
+    "sudden_change": "If what you noticed came on suddenly, over hours or a day or two, and it involves weakness on one side of the body, a drooping face, trouble speaking, or new trouble walking or keeping their balance, or it comes with a seizure, a severe headache, or unusual sleepiness, call your local emergency number now. Any other change that came on suddenly shouldn’t wait for an appointment: call your pediatrician today."
   },
   "answer_sets": {
     "skill3": [
@@ -27,6 +28,7 @@
     "talking": {
       "title": "Talking",
       "entry": "Words, speech sounds, and being understood",
+      "thin_months": [[0, 2]],
       "bindings": {
         "skill_loss": { "node_id": "tk_skill_loss", "answer_value": "yes" },
         "uses_any_words": { "node_id": "tk_words", "answer_value": "not_yet" },
@@ -45,83 +47,111 @@
           ]
         },
         {
+          "id": "tk_coo",
+          "asked_from_months": 2,
+          "asked_until_months": 9,
+          "answers": "skill3",
+          "prompt": "Does your baby coo and make sounds back when you talk to them?",
+          "help": "Vowel sounds like ‘oooo’ and ‘aahh’, and sounds made back to you when you talk, as if taking a turn.",
+          "flags": [
+            { "on": "not_yet", "age_gte": 4, "class": "discuss", "label": "Not yet cooing or making sounds back" }
+          ],
+          "recheck": { "on": "not_yet", "age_lt": 4, "note": "Cooing and making sounds back when you talk usually arrive by around 4 months. If they haven’t by 4 months, raise it, and ask about hearing at the same time." }
+        },
+        {
           "id": "tk_babble",
           "asked_from_months": 6,
           "asked_until_months": 16,
           "answers": "skill3",
           "prompt": "Does your child babble with consonant sounds?",
-          "help": "Strings like 'ba-ba', 'da-da', 'ma-ma', not just cooing vowel sounds.",
+          "help": "Strings like ‘ba-ba’, ‘da-da’, ‘ma-ma’, not just cooing vowel sounds.",
           "flags": [
             { "on": "not_yet", "age_gte": 12, "class": "discuss", "label": "Not yet babbling with consonant sounds" }
           ],
-          "recheck": { "on": "not_yet", "age_lt": 12, "note": "Consonant babbling usually appears between 6 and 10 months. If it hasn't arrived by 12 months, raise it, and ask about hearing at the same time." }
+          "recheck": { "on": "not_yet", "age_lt": 12, "note": "Consonant babbling usually appears between 6 and 10 months. If it hasn’t arrived by 12 months, raise it, and ask about hearing at the same time." }
         },
         {
           "id": "tk_words",
           "asked_from_months": 10,
           "answers": "skill3",
           "prompt": "Does your child say any single words?",
-          "help": "Words in any language your family speaks. Consistent word approximations count, like 'baba' for bottle. Sounds that don't stand for anything yet do not.",
+          "help": "Words in any language your family speaks. Consistent word approximations count, like ‘baba’ for bottle. Sounds that don’t stand for anything yet do not.",
           "flags": [
             { "on": "not_yet", "age_gte": 16, "class": "discuss", "floor_id": "no_words_16m", "label": "No single words yet" }
           ],
-          "recheck": { "on": "not_yet", "age_lt": 16, "note": "Most children say a first word between 10 and 15 months. If there are no words by 16 months, that's the point to raise it." }
+          "recheck": { "on": "not_yet", "age_lt": 16, "note": "Most children say a first word between 10 and 15 months. If there are no words by 16 months, that’s the point to raise it." }
         },
         {
           "id": "tk_combines",
           "asked_from_months": 15,
           "answers": "skill3",
           "prompt": "Does your child put two words together on their own?",
-          "help": "Their own combinations, like 'more milk' or 'daddy go'. Memorized chunks used as one unit, like 'all done' or 'thank you', do not count here.",
+          "help": "Their own combinations, like ‘more milk’ or ‘daddy go’. Memorized chunks used as one unit, like ‘all done’ or ‘thank you’, do not count here.",
           "flags": [
             { "on": "not_yet", "age_gte": 24, "class": "discuss", "floor_id": "no_two_word_phrases_24m", "label": "No two-word combinations of their own yet" }
           ],
-          "recheck": { "on": "not_yet", "age_lt": 24, "note": "Two-word combinations usually appear between 18 and 24 months, often in a burst once a child has around 50 single words. If there are none by 24 months, raise it." }
+          "recheck": [
+            { "on": "not_yet", "age_lt": 24, "note": "Two-word combinations usually appear between 18 and 24 months, often in a burst once a child has around 50 single words. If there are none by 24 months, raise it." },
+            { "on": "sometimes", "age_gte": 30, "note": "By 30 months, most children put words together every day, often with an action word. Combinations that show up only sometimes are worth a mention at your next visit." }
+          ]
         },
         {
           "id": "tk_clarity",
           "asked_from_months": 30,
           "answers": "clarity",
-          "prompt": "How much of your child's speech can an unfamiliar adult understand?",
-          "help": "Not you, someone who doesn't know your child, like a new babysitter or a stranger at the park. You will understand far more than they do; that's normal.",
+          "prompt": "How much of your child’s speech can an unfamiliar adult understand?",
+          "help": "Not you, someone who doesn’t know your child, like a new babysitter or a stranger at the park. You will understand far more than they do; that’s normal.",
           "flags": [
-            { "on": "less_than_half", "age_gte": 36, "class": "discuss", "floor_id": "stranger_intelligibility_36m", "label": "Strangers understand less than half of their speech" }
+            { "on": "less_than_half", "age_gte": 36, "class": "discuss", "floor_id": "stranger_intelligibility_36m", "label": "Strangers understand less than half of their speech" },
+            { "on": "about_half", "age_gte": 48, "class": "discuss", "label": "Strangers understand only about half of their speech" }
           ],
-          "recheck": { "on": "less_than_half", "age_lt": 36, "note": "Clarity climbs steeply between 2 and 4. By age 3, unfamiliar adults should understand at least half. If it's still below half at 3, raise it." }
+          "recheck": [
+            { "on": "less_than_half", "age_lt": 36, "note": "Clarity climbs steeply between 2 and 4. By age 3, unfamiliar adults should understand at least half. If it’s still below half at 3, raise it." },
+            { "on": "about_half", "age_gte": 36, "age_lt": 48, "note": "The CDC’s 3-year milestone list expects others to understand a child most of the time. About half is worth a mention at your next visit, and a speech-language pathologist can tell you whether the pattern is on track. If it’s still about half at 4, raise it without waiting." }
+          ]
         }
       ],
       "terminals": {
         "typical_range": {
           "title": "In the typical range right now",
-          "body": "Nothing you described crosses any of the research-backed lines for talking at this age. Speech has a wide normal range, and children move through it at genuinely different speeds without it predicting much of anything.",
+          "body": "Nothing you described crosses any of the research-backed lines for talking at this age. Speech has a wide normal range, and within these lines children move through it at genuinely different speeds.",
           "includes_invitation": true
+        },
+        "typical_range_thin": {
+          "title": "Nothing flagged, but this check is short at this age",
+          "body": "At this age, this tool has only a few questions for this area, so a clear result here tells you less than it would at other ages. Nothing you answered crosses a line this tool checks. Your child’s well visits cover this area, and the CDC’s milestone checklist for your child’s age lists what to look for; anything on it you aren’t seeing is worth raising.",
+          "includes_invitation": true,
+          "see_also": { "label": "CDC milestone checklists by age", "url": "https://www.cdc.gov/act-early/milestones/" }
         },
         "discuss": {
           "title": "Worth a conversation with your pediatrician",
           "body": "Something you described has reached the point where the research says to bring it up. That is not a diagnosis, and late talkers often catch up. It means your child has earned a proper look, and early conversations open options that waiting quietly closes.",
           "actions": [
             "Make an appointment rather than waiting for the next routine well visit, and bring the summary below.",
-            "Ask directly: 'Would a hearing test and a speech-language evaluation make sense?' Hearing is always checked first for speech concerns, and both are painless, standard requests.",
-            "Ask about early intervention. In most US states, children under 3 can be evaluated at no cost, without a diagnosis and without waiting for a specialist.",
-            "In the meantime, respond to every word attempt like it landed, and add one word back ('dog' becomes 'big dog'). That's the highest-value practice there is."
+            "Ask directly: ‘Would a hearing test and a speech-language evaluation make sense?’ Hearing is always checked first for speech concerns, and both are painless, standard requests.",
+            "Ask about a free developmental evaluation, without waiting for a diagnosis or a specialist. Every US state has an early intervention program for children under 3; you can call it yourself without a doctor’s referral, and the evaluation is free. From age 3, ask your local public school district for an evaluation instead, also free.",
+            "In the meantime, respond to every word attempt like it landed, and add one word back (‘dog’ becomes ‘big dog’). That’s the highest-value practice there is."
           ],
-          "script": "I want to talk about my child's talking. Specifically:"
+          "script": "I want to talk about my child’s talking. Specifically:",
+          "ask": ["Would a hearing test and a speech-language evaluation make sense?", "Should we contact early intervention, or our public school district if my child is 3 or older, for a free evaluation?"]
         },
         "priority_discuss": {
           "title": "Call your pediatrician and ask for an appointment soon",
-          "body": "Loss of words or skills is the one observation where the guidance is unambiguous at any age: it deserves a prompt conversation, ideally within a week or two. Soon does not mean emergency, and it does not mean a diagnosis. It means this observation is too useful to sit on.",
+          "body": "Loss of words or skills is the one observation where the guidance is unambiguous at any age: it deserves a prompt conversation, ideally within a week or two. For a change that has built up gradually, soon does not mean emergency, and it does not mean a diagnosis. It means this observation is too useful to sit on.",
           "actions": [
-            "When you call, use the words 'my child has lost skills they used to have'. Those words reliably get the right response.",
+            "When you call, use the words ‘my child has lost skills they used to have’. Those words reliably get the right response.",
             "Write down what was lost and roughly when you last saw it. That timeline is the most useful thing you can bring.",
             "Ask for a developmental evaluation and a hearing test in the same breath; regression conversations should start both."
           ],
-          "script": "My child has lost skills they used to have. Specifically:"
+          "script": "My child has lost skills they used to have. Specifically:",
+          "ask": ["Can we start a developmental evaluation and a hearing test now?"]
         }
       }
     },
     "understanding": {
       "title": "Understanding",
       "entry": "Responding to their name, words, and directions",
+      "thin_months": [[0, 9]],
       "bindings": {
         "skill_loss": { "node_id": "un_skill_loss", "answer_value": "yes" },
         "responds_to_name": { "node_id": "un_name", "answer_value": "not_yet" },
@@ -148,29 +178,35 @@
           "flags": [
             { "on": "not_yet", "age_gte": 12, "class": "discuss", "floor_id": "no_response_to_name_12m", "label": "Not yet responding to their name" }
           ],
-          "recheck": { "on": "not_yet", "age_lt": 12, "note": "Name response usually becomes reliable between 9 and 12 months. If it isn't there by 12 months, raise it, and ask about hearing at the same time." }
+          "recheck": [
+            { "on": "not_yet", "age_lt": 12, "note": "Name response usually becomes reliable between 9 and 12 months. If it isn’t there by 12 months, raise it, and ask about hearing at the same time." },
+            { "on": "sometimes", "age_gte": 12, "note": "Responding to their name only some of the time past 12 months is worth mentioning at your next visit, and worth asking about hearing at the same time." }
+          ]
         },
         {
           "id": "un_point",
           "asked_from_months": 12,
           "answers": "skill3",
           "prompt": "When you point at something, does your child look at it?",
-          "help": "At the thing you're pointing at, not just at your finger.",
+          "help": "At the thing you’re pointing at, not just at your finger.",
           "flags": [
             { "on": "not_yet", "age_gte": 18, "class": "discuss", "floor_id": "no_point_following_18m", "label": "Not yet looking where you point" }
           ],
-          "recheck": { "on": "not_yet", "age_lt": 18, "note": "Following a point usually settles in between 12 and 18 months. If it hasn't by 18 months, raise it." }
+          "recheck": { "on": "not_yet", "age_lt": 18, "note": "Following a point usually settles in between 12 and 18 months. If it hasn’t by 18 months, raise it." }
         },
         {
           "id": "un_onestep",
           "asked_from_months": 14,
           "answers": "skill3",
           "prompt": "Does your child follow a simple one-step direction?",
-          "help": "Something like 'bring me the ball' or 'sit down', said in words alone, without pointing or gesturing at the same time.",
+          "help": "Something like ‘bring me the ball’ or ‘sit down’, said in words alone, without pointing or gesturing at the same time.",
           "flags": [
-            { "on": "not_yet", "age_gte": 24, "class": "discuss", "floor_id": "no_one_step_directions_24m", "label": "Not yet following simple one-step directions" }
+            { "on": "not_yet", "age_gte": 18, "class": "discuss", "floor_id": "no_one_step_directions_24m", "label": "Not yet following simple one-step directions" }
           ],
-          "recheck": { "on": "not_yet", "age_lt": 24, "note": "One-step directions usually land between 14 and 24 months. If they're still not landing at 24 months, raise it." }
+          "recheck": [
+            { "on": "not_yet", "age_lt": 18, "note": "Following a one-step direction said in words alone usually arrives by around 18 months. If it isn’t there by 18 months, raise it, and ask about hearing at the same time." },
+            { "on": "sometimes", "age_gte": 24, "note": "Following a one-step direction said in words alone is on the CDC’s list for 18 months. Past two, if it only lands some of the time, test it gently without gestures now and then, and mention the pattern at your next visit." }
+          ]
         }
       ],
       "terminals": {
@@ -179,6 +215,12 @@
           "body": "Nothing you described crosses any of the research-backed lines for understanding at this age. Receptive language, what a child takes in, usually runs well ahead of what they can say, and what you described fits that typical picture.",
           "includes_invitation": true
         },
+        "typical_range_thin": {
+          "title": "Nothing flagged, but this check is short at this age",
+          "body": "At this age, this tool has only a few questions for this area, so a clear result here tells you less than it would at other ages. Nothing you answered crosses a line this tool checks. Your child’s well visits cover this area, and the CDC’s milestone checklist for your child’s age lists what to look for; anything on it you aren’t seeing is worth raising.",
+          "includes_invitation": true,
+          "see_also": { "label": "CDC milestone checklists by age", "url": "https://www.cdc.gov/act-early/milestones/" }
+        },
         "discuss": {
           "title": "Worth a conversation with your pediatrician",
           "body": "Something you described has reached the point where the research says to bring it up. Understanding concerns are worth taking at least as seriously as talking concerns, and they run through two checkable channels: hearing, and language itself. Your pediatrician can start on both at one visit.",
@@ -186,25 +228,28 @@
             "Make an appointment and bring the summary below.",
             "Ask for a hearing test first. Understanding concerns are hearing questions until hearing is checked, and a passed newborn screen does not settle it, because that was a point-in-time result.",
             "Ask whether a speech-language evaluation makes sense; receptive language is exactly what those evaluations are built to look at.",
-            "Ask about early intervention. Under 3, evaluation is available at no cost in most US states."
+            "Ask about a free evaluation. Every US state has an early intervention program for children under 3; you can call it yourself without a doctor’s referral, and the evaluation is free. From age 3, ask your local public school district for an evaluation instead, also free."
           ],
-          "script": "I want to talk about how my child understands language. Specifically:"
+          "script": "I want to talk about how my child understands language. Specifically:",
+          "ask": ["Can we start with a hearing test?", "Would a speech-language evaluation make sense?", "Should we contact early intervention, or our public school district if my child is 3 or older, for a free evaluation?"]
         },
         "priority_discuss": {
           "title": "Call your pediatrician and ask for an appointment soon",
-          "body": "Loss of understanding or responses a child used to have deserves a prompt conversation at any age, ideally within a week or two. Soon does not mean emergency, and it does not mean a diagnosis. It means this observation is too useful to sit on.",
+          "body": "Loss of understanding or responses a child used to have deserves a prompt conversation at any age, ideally within a week or two. For a change that has built up gradually, soon does not mean emergency, and it does not mean a diagnosis. It means this observation is too useful to sit on.",
           "actions": [
-            "When you call, use the words 'my child has lost skills they used to have'.",
+            "When you call, use the words ‘my child has lost skills they used to have’.",
             "Write down what changed and roughly when. The timeline matters more than a perfect description.",
             "Ask for a developmental evaluation and a hearing test together."
           ],
-          "script": "My child has lost understanding they used to have. Specifically:"
+          "script": "My child has lost understanding they used to have. Specifically:",
+          "ask": ["Can we start a developmental evaluation and a hearing test now?"]
         }
       }
     },
     "walking_movement": {
       "title": "Walking and movement",
       "entry": "Sitting, standing, walking, and how they move",
+      "thin_months": [[24, 73]],
       "bindings": {
         "skill_loss": { "node_id": "wm_skill_loss", "answer_value": "yes" },
         "movement_asymmetry": { "node_id": "wm_asym", "answer_value": "yes" },
@@ -219,7 +264,7 @@
           "always_asked": true,
           "answers": "yesno",
           "prompt": "Has your child lost movement skills they used to have?",
-          "help": "For example, they used to sit, crawl, or walk and no longer do, or they've become noticeably clumsier at things they'd mastered. Any real loss counts, at any age.",
+          "help": "For example, they used to sit, crawl, or walk and no longer do, or they’ve become noticeably clumsier at things they’d mastered. Any real loss counts, at any age.",
           "flags": [
             { "on": "yes", "class": "priority_discuss", "floor_id": "skill_loss_any_domain", "label": "Lost movement skills they used to have" }
           ]
@@ -229,7 +274,7 @@
           "always_asked": true,
           "answers": "yesno",
           "prompt": "Does your child use one side of their body noticeably less than the other?",
-          "help": "One arm or leg that's weaker, stiffer, or used much less; movements that look persistently lopsided; dragging one side when crawling.",
+          "help": "One arm or leg that’s weaker, stiffer, or used much less; movements that look persistently lopsided; dragging one side when crawling.",
           "flags": [
             { "on": "yes", "class": "priority_discuss", "floor_id": "asymmetry_any_age", "label": "Uses one side of the body noticeably less than the other" }
           ]
@@ -246,6 +291,29 @@
           ]
         },
         {
+          "id": "wm_tone",
+          "asked_from_months": 0,
+          "asked_until_months": 12,
+          "answers": "yesno",
+          "prompt": "Does your baby often feel unusually floppy or unusually stiff when you pick them up?",
+          "help": "Floppy like a rag doll, or stiff and hard to bend, much of the time, not just when sleepy or upset.",
+          "flags": [
+            { "on": "yes", "class": "discuss", "label": "Often feels unusually floppy or unusually stiff" }
+          ]
+        },
+        {
+          "id": "wm_head",
+          "asked_from_months": 2,
+          "asked_until_months": 9,
+          "answers": "skill3",
+          "prompt": "When you hold your baby upright, do they hold their head steady?",
+          "help": "Steady without your hand behind their head, even if it wobbles now and then.",
+          "flags": [
+            { "on": "not_yet", "age_gte": 4, "class": "discuss", "label": "Not yet holding their head steady when held upright" }
+          ],
+          "recheck": { "on": "not_yet", "age_lt": 4, "note": "Steady head control when held upright usually arrives by around 4 months. If it isn’t there by 4 months, raise it." }
+        },
+        {
           "id": "wm_sit",
           "asked_from_months": 6,
           "asked_until_months": 18,
@@ -255,7 +323,7 @@
           "flags": [
             { "on": "not_yet", "age_gte": 9, "class": "discuss", "floor_id": "not_sitting_9m", "label": "Not yet sitting without support" }
           ],
-          "recheck": { "on": "not_yet", "age_lt": 9, "note": "Independent sitting usually arrives between 6 and 9 months. If it isn't there by 9 months, raise it." }
+          "recheck": { "on": "not_yet", "age_lt": 9, "note": "Independent sitting usually arrives between 6 and 9 months. If it isn’t there by 9 months, raise it." }
         },
         {
           "id": "wm_weight",
@@ -267,18 +335,18 @@
           "flags": [
             { "on": "not_yet", "age_gte": 12, "class": "discuss", "floor_id": "no_weight_bearing_12m", "label": "Not yet bearing weight on their legs when supported" }
           ],
-          "recheck": { "on": "not_yet", "age_lt": 12, "note": "Weight-bearing with support usually appears well before the first birthday. If it isn't there by 12 months, raise it." }
+          "recheck": { "on": "not_yet", "age_lt": 12, "note": "Weight-bearing with support usually appears well before the first birthday. If it isn’t there by 12 months, raise it." }
         },
         {
           "id": "wm_walk",
           "asked_from_months": 12,
           "answers": "skill3",
           "prompt": "Does your child walk on their own?",
-          "help": "Several independent steps without holding on. Cruising along furniture doesn't count yet. If your child was born more than 3 weeks early, we're using corrected age, counted from the due date, which is the standard way to look at this line.",
+          "help": "Several independent steps without holding on. Cruising along furniture doesn’t count yet. If your child was born more than 3 weeks early, we’re using corrected age, counted from the due date, which is the standard way to look at this line.",
           "flags": [
             { "on": "not_yet", "age_gte": 18, "class": "discuss", "floor_id": "not_walking_18m", "label": "Not yet walking independently" }
           ],
-          "recheck": { "on": "not_yet", "age_lt": 18, "note": "Independent walking has one of the widest normal windows there is, roughly 9 to 18 months. If it hasn't arrived by 18 months of corrected age, raise it." }
+          "recheck": { "on": "not_yet", "age_lt": 18, "note": "Independent walking has one of the widest normal windows there is, roughly 9 to 18 months. If it hasn’t arrived by 18 months of corrected age, raise it." }
         }
       ],
       "terminals": {
@@ -287,32 +355,41 @@
           "body": "Nothing you described crosses any of the research-backed lines for movement at this age. Motor milestones have some of the widest normal windows in all of development, and the order children do things in varies more than most parents expect.",
           "includes_invitation": true
         },
+        "typical_range_thin": {
+          "title": "Nothing flagged, but this check is short at this age",
+          "body": "At this age, this tool has only a few questions for this area, so a clear result here tells you less than it would at other ages. Nothing you answered crosses a line this tool checks. Your child’s well visits cover this area, and the CDC’s milestone checklist for your child’s age lists what to look for; anything on it you aren’t seeing is worth raising.",
+          "includes_invitation": true,
+          "see_also": { "label": "CDC milestone checklists by age", "url": "https://www.cdc.gov/act-early/milestones/" }
+        },
         "discuss": {
           "title": "Worth a conversation with your pediatrician",
           "body": "Something you described has reached the point where the research says to bring it up. Motor evaluations are concrete and unintimidating: a clinician watches your child move, checks strength and tone, and tells you what they see. Early conversations here matter because motor support works best when it starts early.",
           "actions": [
             "Make an appointment rather than waiting for the next routine well visit, and bring the summary below.",
-            "Describe what you see specifically: what your child does, what they don't do yet, and anything that looks effortful or uneven.",
-            "Ask whether a physical therapy evaluation makes sense. Under 3, early intervention can evaluate at no cost in most US states.",
+            "Describe what you see specifically: what your child does, what they don’t do yet, and anything that looks effortful or uneven.",
+            "Ask whether a physical therapy evaluation makes sense. Every US state has an early intervention program for children under 3; you can call it yourself without a doctor’s referral, and the evaluation is free. From age 3, ask your local public school district for an evaluation instead, also free.",
             "If your child was born early, say so when you call. Corrected age changes the math, and your pediatrician will want it."
           ],
-          "script": "I want to talk about my child's movement. Specifically:"
+          "script": "I want to talk about my child’s movement. Specifically:",
+          "ask": ["Would a physical therapy evaluation make sense?", "Should we contact early intervention, or our public school district if my child is 3 or older, for a free evaluation?"]
         },
         "priority_discuss": {
           "title": "Call your pediatrician and ask for an appointment soon",
-          "body": "What you described, loss of motor skills or one side of the body working differently than the other, is the kind of observation pediatricians want to hear about promptly, ideally within a week or two. Soon does not mean emergency, and it does not mean a diagnosis. These observations are specific enough that a clinician can act on them quickly.",
+          "body": "What you described, loss of motor skills or one side of the body working differently than the other, is the kind of observation pediatricians want to hear about promptly, ideally within a week or two. If it came on suddenly, over hours or a day or two, don’t wait for an appointment: call your local emergency number now. If it has built up gradually, soon does not mean emergency, and it does not mean a diagnosis. These observations are specific enough that a clinician can act on them quickly.",
           "actions": [
-            "When you call, name the observation plainly: 'one side seems weaker' or 'skills they had are gone'. Those specifics move quickly.",
-            "Note when you first noticed it and whether it's changing.",
+            "When you call, name the observation plainly: ‘one side seems weaker’ or ‘skills they had are gone’. Those specifics move quickly.",
+            "Note when you first noticed it and whether it’s changing.",
             "Ask for a neuromotor evaluation. If your pediatrician agrees, this often means a referral, and starting that clock early is the win."
           ],
-          "script": "I've noticed something about my child's movement that I understand shouldn't wait. Specifically:"
+          "script": "I’ve noticed something about my child’s movement that I understand shouldn’t wait. Specifically:",
+          "ask": ["Can we start a neuromotor evaluation, or a referral for one, now?"]
         }
       }
     },
     "hands_fine_motor": {
       "title": "Hands and fine motor",
       "entry": "Reaching, grasping, and using their hands",
+      "thin_months": [[0, 3], [30, 73]],
       "bindings": {
         "skill_loss": { "node_id": "hf_skill_loss", "answer_value": "yes" },
         "reaches_for_objects": { "node_id": "hf_reach", "answer_value": "not_yet" },
@@ -341,14 +418,14 @@
           "flags": [
             { "on": "not_yet", "age_gte": 6, "class": "discuss", "floor_id": "not_reaching_6m", "label": "Not yet reaching for objects" }
           ],
-          "recheck": { "on": "not_yet", "age_lt": 6, "note": "Reaching usually arrives between 3 and 5 months. If it isn't there by 6 months, raise it." }
+          "recheck": { "on": "not_yet", "age_lt": 6, "note": "Reaching usually arrives between 3 and 5 months. If it isn’t there by 6 months, raise it." }
         },
         {
           "id": "hf_fist",
           "asked_from_months": 3,
           "asked_until_months": 14,
           "answers": "yesno",
-          "prompt": "Are your baby's hands mostly closed in fists?",
+          "prompt": "Are your baby’s hands mostly closed in fists?",
           "help": "Most of the day, hands held tightly closed rather than open and exploring. Newborn fisting is normal; it usually relaxes by around 4 months.",
           "flags": [
             { "on": "yes", "age_gte": 6, "class": "discuss", "floor_id": "persistent_fisting_6m", "label": "Hands still mostly fisted" }
@@ -365,7 +442,7 @@
           "flags": [
             { "on": "not_yet", "age_gte": 9, "class": "discuss", "floor_id": "no_hand_transfer_9m", "label": "Not yet passing objects hand to hand" }
           ],
-          "recheck": { "on": "not_yet", "age_lt": 9, "note": "Hand-to-hand transfer usually arrives between 6 and 8 months. If it isn't there by 9 months, raise it." }
+          "recheck": { "on": "not_yet", "age_lt": 9, "note": "Hand-to-hand transfer usually arrives between 6 and 8 months. If it isn’t there by 9 months, raise it." }
         },
         {
           "id": "hf_pincer",
@@ -377,7 +454,7 @@
           "flags": [
             { "on": "not_yet", "age_gte": 12, "class": "discuss", "floor_id": "no_finger_thumb_grasp_12m", "label": "Not yet picking up small food between thumb and finger" }
           ],
-          "recheck": { "on": "not_yet", "age_lt": 12, "note": "This fingertip pickup usually arrives between 9 and 12 months. If it isn't there by 12 months, raise it." }
+          "recheck": { "on": "not_yet", "age_lt": 12, "note": "This fingertip pickup usually arrives between 9 and 12 months. If it isn’t there by 12 months, raise it." }
         },
         {
           "id": "hf_bothhands",
@@ -393,8 +470,14 @@
       "terminals": {
         "typical_range": {
           "title": "In the typical range right now",
-          "body": "Nothing you described crosses any of the research-backed lines for hand skills at this age. Fine motor development is steady but not showy, and there's real variation in when each piece arrives.",
+          "body": "Nothing you described crosses any of the research-backed lines for hand skills at this age. Fine motor development is steady but not showy, and there’s real variation in when each piece arrives.",
           "includes_invitation": true
+        },
+        "typical_range_thin": {
+          "title": "Nothing flagged, but this check is short at this age",
+          "body": "At this age, this tool has only a few questions for this area, so a clear result here tells you less than it would at other ages. Nothing you answered crosses a line this tool checks. Your child’s well visits cover this area, and the CDC’s milestone checklist for your child’s age lists what to look for; anything on it you aren’t seeing is worth raising.",
+          "includes_invitation": true,
+          "see_also": { "label": "CDC milestone checklists by age", "url": "https://www.cdc.gov/act-early/milestones/" }
         },
         "discuss": {
           "title": "Worth a conversation with your pediatrician",
@@ -402,25 +485,28 @@
           "actions": [
             "Make an appointment and bring the summary below.",
             "Mention whether both hands are affected equally. That one detail meaningfully shapes what a clinician looks for.",
-            "Ask whether an occupational or physical therapy evaluation makes sense. Under 3, early intervention can evaluate at no cost in most US states."
+            "Ask whether an occupational or physical therapy evaluation makes sense. Every US state has an early intervention program for children under 3; you can call it yourself without a doctor’s referral, and the evaluation is free. From age 3, ask your local public school district for an evaluation instead, also free."
           ],
-          "script": "I want to talk about how my child uses their hands. Specifically:"
+          "script": "I want to talk about how my child uses their hands. Specifically:",
+          "ask": ["Would an occupational or physical therapy evaluation make sense?", "Should we contact early intervention, or our public school district if my child is 3 or older, for a free evaluation?"]
         },
         "priority_discuss": {
           "title": "Call your pediatrician and ask for an appointment soon",
-          "body": "Loss of hand skills a child used to have deserves a prompt conversation at any age, ideally within a week or two. Soon does not mean emergency, and it does not mean a diagnosis. It means this observation is too useful to sit on.",
+          "body": "Loss of hand skills a child used to have deserves a prompt conversation at any age, ideally within a week or two. For a change that has built up gradually, soon does not mean emergency, and it does not mean a diagnosis. It means this observation is too useful to sit on.",
           "actions": [
-            "When you call, use the words 'my child has lost skills they used to have'.",
+            "When you call, use the words ‘my child has lost skills they used to have’.",
             "Write down what was lost and roughly when you last saw it.",
             "Ask for a developmental evaluation, and mention if one hand is affected more than the other."
           ],
-          "script": "My child has lost hand skills they used to have. Specifically:"
+          "script": "My child has lost hand skills they used to have. Specifically:",
+          "ask": ["Can we start a developmental evaluation now?"]
         }
       }
     },
     "play": {
       "title": "Play",
       "entry": "Social games, pretend play, and how they play",
+      "thin_months": [[0, 8], [36, 73]],
       "bindings": {
         "skill_loss": { "node_id": "pl_skill_loss", "answer_value": "yes" },
         "plays_back_and_forth_games": { "node_id": "pl_social", "answer_value": "not_yet" },
@@ -447,7 +533,7 @@
           "flags": [
             { "on": "not_yet", "age_gte": 12, "class": "discuss", "floor_id": "no_social_games_12m", "label": "Not yet playing back-and-forth social games" }
           ],
-          "recheck": { "on": "not_yet", "age_lt": 12, "note": "Back-and-forth games usually take off between 8 and 12 months. If they haven't by 12 months, raise it." }
+          "recheck": { "on": "not_yet", "age_lt": 12, "note": "Back-and-forth games usually take off between 8 and 12 months. If they haven’t by 12 months, raise it." }
         },
         {
           "id": "pl_pretend",
@@ -458,7 +544,7 @@
           "flags": [
             { "on": "not_yet", "age_gte": 30, "class": "discuss", "floor_id": "no_pretend_play_30m", "label": "No simple pretend play yet" }
           ],
-          "recheck": { "on": "not_yet", "age_lt": 30, "note": "Simple pretend usually appears between 18 and 30 months. If there's none by 30 months, raise it." }
+          "recheck": { "on": "not_yet", "age_lt": 30, "note": "Simple pretend usually appears between 18 and 30 months. If there’s none by 30 months, raise it." }
         }
       ],
       "terminals": {
@@ -467,32 +553,42 @@
           "body": "Nothing you described crosses any of the research-backed lines for play at this age. Play styles differ enormously between children, and quiet, focused play is just as typical as loud, social play.",
           "includes_invitation": true
         },
+        "typical_range_thin": {
+          "title": "Nothing flagged, but this check is short at this age",
+          "body": "At this age, this tool has only a few questions for this area, so a clear result here tells you less than it would at other ages. Nothing you answered crosses a line this tool checks. Your child’s well visits cover this area, and the CDC’s milestone checklist for your child’s age lists what to look for; anything on it you aren’t seeing is worth raising.",
+          "includes_invitation": true,
+          "see_also": { "label": "CDC milestone checklists by age", "url": "https://www.cdc.gov/act-early/milestones/" }
+        },
         "discuss": {
           "title": "Worth a conversation with your pediatrician",
           "body": "Something you described has reached the point where the research says to bring it up. Play is how young children show us their social communication, so this conversation usually looks at the bigger picture: how your child connects, shares attention, and communicates.",
           "actions": [
             "Make an appointment and bring the summary below.",
-            "Describe what play actually looks like at home: favorite games, what your child does with toys, and how they involve you or don't.",
-            "Ask whether a developmental screening makes sense at this visit. It's a short, standard set of questions, not a diagnosis.",
-            "In the meantime, join your child's play on their terms, follow their lead, and build tiny back-and-forth moments inside whatever they already love."
+            "Describe what play actually looks like at home: favorite games, what your child does with toys, and how they involve you or don’t.",
+            "Ask whether a developmental screening makes sense at this visit. It’s a short, standard set of questions, not a diagnosis.",
+            "Ask about a free evaluation. Every US state has an early intervention program for children under 3; you can call it yourself without a doctor’s referral, and the evaluation is free. From age 3, ask your local public school district for an evaluation instead, also free.",
+            "In the meantime, join your child’s play on their terms, follow their lead, and build tiny back-and-forth moments inside whatever they already love."
           ],
-          "script": "I want to talk about how my child plays. Specifically:"
+          "script": "I want to talk about how my child plays. Specifically:",
+          "ask": ["Would a developmental screening make sense at this visit?", "Should we contact early intervention, or our public school district if my child is 3 or older, for a free evaluation?"]
         },
         "priority_discuss": {
           "title": "Call your pediatrician and ask for an appointment soon",
-          "body": "Loss of play or social skills a child used to have deserves a prompt conversation at any age, ideally within a week or two. Soon does not mean emergency, and it does not mean a diagnosis. It means this observation is too useful to sit on.",
+          "body": "Loss of play or social skills a child used to have deserves a prompt conversation at any age, ideally within a week or two. For a change that has built up gradually, soon does not mean emergency, and it does not mean a diagnosis. It means this observation is too useful to sit on.",
           "actions": [
-            "When you call, use the words 'my child has lost skills they used to have'.",
+            "When you call, use the words ‘my child has lost skills they used to have’.",
             "Write down what changed, roughly when, and whether anything else changed around the same time.",
             "Ask for a developmental evaluation."
           ],
-          "script": "My child has lost play or social skills they used to have. Specifically:"
+          "script": "My child has lost play or social skills they used to have. Specifically:",
+          "ask": ["Can we start a developmental evaluation now?"]
         }
       }
     },
     "social_eye_contact": {
       "title": "Social connection",
       "entry": "Smiling, eye contact, and sharing attention",
+      "thin_months": [[0, 2]],
       "bindings": {
         "skill_loss": { "node_id": "se_skill_loss", "answer_value": "yes" },
         "smiles_at_people": { "node_id": "se_smile", "answer_value": "not_yet" },
@@ -519,31 +615,31 @@
           "prompt": "Does your baby smile back at people?",
           "help": "A real social smile in response to your face or voice, not just a sleepy reflex smile.",
           "flags": [
-            { "on": "not_yet", "age_gte": 4, "class": "discuss", "floor_id": "no_social_smile_4m", "label": "Not yet smiling back at people" }
+            { "on": "not_yet", "age_gte": 3, "class": "discuss", "floor_id": "no_social_smile_4m", "label": "Not yet smiling back at people" }
           ],
-          "recheck": { "on": "not_yet", "age_lt": 4, "note": "Social smiles usually appear between 6 weeks and 3 months. If they haven't by 4 months, raise it." }
+          "recheck": { "on": "not_yet", "age_lt": 3, "note": "Social smiles usually appear between 6 weeks and 3 months. If they haven’t by 3 months, raise it." }
         },
         {
           "id": "se_share",
           "asked_from_months": 9,
           "answers": "skill3",
           "prompt": "Does your child look at your face to share enjoyment?",
-          "help": "When something is funny or exciting, do they look at you as if to say 'did you see that?'",
+          "help": "When something is funny or exciting, do they look at you as if to say ‘did you see that?’",
           "flags": [
             { "on": "not_yet", "age_gte": 12, "class": "discuss", "floor_id": "no_shared_enjoyment_12m", "label": "Not yet looking to share enjoyment" }
           ],
-          "recheck": { "on": "not_yet", "age_lt": 12, "note": "Sharing enjoyment through eye contact usually builds across 9 to 12 months. If it isn't there by 12 months, raise it." }
+          "recheck": { "on": "not_yet", "age_lt": 12, "note": "Sharing enjoyment through eye contact usually builds across 9 to 12 months. If it isn’t there by 12 months, raise it." }
         },
         {
           "id": "se_point",
           "asked_from_months": 10,
           "answers": "skill3",
           "prompt": "Does your child point to show you something interesting?",
-          "help": "This is different from pointing to ask for something. Here the point means 'look at that!', just to share it, like pointing at a dog or a plane.",
+          "help": "This is different from pointing to ask for something. Here the point means ‘look at that!’, just to share it, like pointing at a dog or a plane.",
           "flags": [
             { "on": "not_yet", "age_gte": 15, "class": "discuss", "floor_id": "no_pointing_to_show_15m", "label": "Not yet pointing to show you things" }
           ],
-          "recheck": { "on": "not_yet", "age_lt": 15, "note": "Pointing to share usually appears between 12 and 15 months. If it hasn't by 15 months, raise it." }
+          "recheck": { "on": "not_yet", "age_lt": 15, "note": "Pointing to share usually appears between 12 and 15 months. If it hasn’t by 15 months, raise it." }
         },
         {
           "id": "se_name",
@@ -554,7 +650,10 @@
           "flags": [
             { "on": "not_yet", "age_gte": 12, "class": "discuss", "floor_id": "no_response_to_name_12m", "label": "Not yet responding to their name" }
           ],
-          "recheck": { "on": "not_yet", "age_lt": 12, "note": "Name response usually becomes reliable between 9 and 12 months. If it isn't there by 12 months, raise it, and ask about hearing at the same time." }
+          "recheck": [
+            { "on": "not_yet", "age_lt": 12, "note": "Name response usually becomes reliable between 9 and 12 months. If it isn’t there by 12 months, raise it, and ask about hearing at the same time." },
+            { "on": "sometimes", "age_gte": 12, "note": "Responding to their name only some of the time past 12 months is worth mentioning at your next visit, and worth asking about hearing at the same time." }
+          ]
         }
       ],
       "terminals": {
@@ -563,26 +662,34 @@
           "body": "Nothing you described crosses any of the research-backed lines for social connection at this age. Children vary a great deal in how outwardly social they are, and a reserved temperament is not a warning sign.",
           "includes_invitation": true
         },
+        "typical_range_thin": {
+          "title": "Nothing flagged, but this check is short at this age",
+          "body": "At this age, this tool has only a few questions for this area, so a clear result here tells you less than it would at other ages. Nothing you answered crosses a line this tool checks. Your child’s well visits cover this area, and the CDC’s milestone checklist for your child’s age lists what to look for; anything on it you aren’t seeing is worth raising.",
+          "includes_invitation": true,
+          "see_also": { "label": "CDC milestone checklists by age", "url": "https://www.cdc.gov/act-early/milestones/" }
+        },
         "discuss": {
           "title": "Worth a conversation with your pediatrician",
           "body": "Something you described has reached the point where the research says to bring it up. These particular observations are about shared attention, the thread that connects looking, pointing, and responding, and pediatricians take them seriously precisely because noticing them early is so useful. Hearing is part of this conversation too, since several of these signals run through it.",
           "actions": [
             "Make an appointment rather than waiting for the next routine well visit, and bring the summary below.",
             "Ask for a hearing test alongside the developmental conversation; name response in particular runs through hearing.",
-            "Ask whether a standardized developmental screening makes sense at this visit. It's a short questionnaire, and it's the standard next step for exactly these observations.",
-            "Ask about early intervention. Under 3, evaluation is available at no cost in most US states, without needing any diagnosis first."
+            "Ask whether a standardized developmental screening makes sense at this visit. It’s a short questionnaire, and it’s the standard next step for exactly these observations.",
+            "Ask about a free evaluation; no diagnosis is needed first. Every US state has an early intervention program for children under 3; you can call it yourself without a doctor’s referral, and the evaluation is free. From age 3, ask your local public school district for an evaluation instead, also free."
           ],
-          "script": "I want to talk about how my child connects with people. Specifically:"
+          "script": "I want to talk about how my child connects with people. Specifically:",
+          "ask": ["Can we do a hearing test alongside this conversation?", "Would a standardized developmental screening make sense at this visit?", "Should we contact early intervention, or our public school district if my child is 3 or older, for a free evaluation?"]
         },
         "priority_discuss": {
           "title": "Call your pediatrician and ask for an appointment soon",
-          "body": "Loss of social skills a child used to have, like eye contact, smiling at people, or waving, deserves a prompt conversation at any age, ideally within a week or two. Soon does not mean emergency, and it does not mean a diagnosis. It means this observation is too useful to sit on.",
+          "body": "Loss of social skills a child used to have, like eye contact, smiling at people, or waving, deserves a prompt conversation at any age, ideally within a week or two. For a change that has built up gradually, soon does not mean emergency, and it does not mean a diagnosis. It means this observation is too useful to sit on.",
           "actions": [
-            "When you call, use the words 'my child has lost skills they used to have'.",
+            "When you call, use the words ‘my child has lost skills they used to have’.",
             "Write down what changed and roughly when you last saw the old pattern.",
             "Ask for a developmental evaluation and a hearing test together."
           ],
-          "script": "My child has lost social skills they used to have. Specifically:"
+          "script": "My child has lost social skills they used to have. Specifically:",
+          "ask": ["Can we start a developmental evaluation and a hearing test now?"]
         }
       }
     },
@@ -611,10 +718,10 @@
           "id": "hr_concern",
           "always_asked": true,
           "answers": "yesno",
-          "prompt": "Do you have a feeling that your child doesn't hear well?",
-          "help": "Any nagging sense counts: needing to be very loud, no reaction to sounds that should register, or just something you can't quite name.",
+          "prompt": "Do you have a feeling that your child doesn’t hear well?",
+          "help": "Any nagging sense counts: needing to be very loud, no reaction to sounds that should register, or just something you can’t quite name.",
           "flags": [
-            { "on": "yes", "class": "discuss", "floor_id": "hearing_concern_any_age", "label": "You have a concern about your child's hearing" }
+            { "on": "yes", "class": "discuss", "floor_id": "hearing_concern_any_age", "label": "A feeling that my child doesn’t hear well" }
           ]
         },
         {
@@ -624,19 +731,20 @@
           "prompt": "Does your child respond to loud sounds?",
           "help": "A startle, a blink, turning, going still, or crying when something loud happens nearby.",
           "flags": [
-            { "on": "not_yet", "class": "priority_discuss", "floor_id": "no_sound_response_any_age", "label": "Not responding to loud sounds" }
+            { "on": "not_yet", "class": "priority_discuss", "floor_id": "no_sound_response_any_age", "label": "Not responding to loud sounds" },
+            { "on": "sometimes", "class": "discuss", "label": "Responds to loud sounds only some of the time" }
           ]
         },
         {
           "id": "hr_turn",
-          "asked_from_months": 5,
+          "asked_from_months": 4,
           "answers": "skill3",
           "prompt": "Does your child turn toward sounds and voices?",
           "help": "Turning their head or eyes to find where a voice or interesting sound came from.",
           "flags": [
-            { "on": "not_yet", "age_gte": 9, "class": "discuss", "floor_id": "no_sound_localization_9m", "label": "Not yet turning toward sounds or voices" }
-          ],
-          "recheck": { "on": "not_yet", "age_lt": 9, "note": "Turning toward sounds usually settles in between 5 and 9 months. If it isn't there by 9 months, raise it." }
+            { "on": "not_yet", "class": "discuss", "floor_id": "no_sound_localization_6m", "label": "Not yet turning toward sounds or voices" },
+            { "on": "sometimes", "age_gte": 6, "class": "discuss", "label": "Turns toward sounds or voices only some of the time" }
+          ]
         },
         {
           "id": "hr_name",
@@ -645,9 +753,9 @@
           "prompt": "Does your child respond to their name?",
           "help": "When you say their name from behind or beside them, without touching them, do they look or turn toward you most of the time?",
           "flags": [
-            { "on": "not_yet", "age_gte": 12, "class": "discuss", "floor_id": "no_response_to_name_12m", "label": "Not yet responding to their name" }
-          ],
-          "recheck": { "on": "not_yet", "age_lt": 12, "note": "Name response usually becomes reliable between 9 and 12 months. If it isn't there by 12 months, raise it." }
+            { "on": "not_yet", "class": "discuss", "floor_id": "no_response_to_name_12m", "label": "Not yet responding to their name" },
+            { "on": "sometimes", "age_gte": 12, "class": "discuss", "label": "Responds to their name only some of the time" }
+          ]
         }
       ],
       "terminals": {
@@ -658,24 +766,26 @@
         },
         "discuss": {
           "title": "Worth a hearing check, starting with audiology",
-          "body": "Hearing is the one area where the guidance is different from everywhere else: a caregiver's concern about hearing is, by itself, reason enough for a hearing test, at any age, full stop. There is no watch-and-wait for hearing. The test is painless, works at any age including newborns, and settles the question properly either way.",
+          "body": "Hearing is the one area where the guidance is different from everywhere else: a caregiver’s concern about hearing is, by itself, reason enough for a hearing test, at any age, full stop, and so are responses to sound that are missing or patchy. There is no watch-and-wait for hearing. The test is painless, works at any age including newborns, and settles the question properly either way.",
           "actions": [
-            "Ask your pediatrician for a referral to pediatric audiology, or contact an audiology clinic directly; in many places you can self-refer for a hearing test.",
-            "Don't let a passed newborn hearing screen close the question. That was a point-in-time result, and it does not rule out hearing changes since.",
+            "Ask your pediatrician for a referral to pediatric audiology now, rather than waiting for the next routine well visit. In many places you can also contact an audiology clinic directly and refer yourself.",
+            "Don’t let a passed newborn hearing screen close the question. That was a point-in-time result, and it does not rule out hearing changes since.",
             "Mention recent ear infections or congestion when you call; fluid in the middle ear is a common, treatable cause of muffled hearing.",
             "If hearing comes back fine, bring the rest of this summary back to your pediatrician, because the same observations then become a developmental conversation."
           ],
-          "script": "I have a concern about my child's hearing and I'd like a hearing test. Specifically:"
+          "script": "I have a concern about my child’s hearing and I’d like a hearing test. Specifically:",
+          "ask": ["Can we have a referral to pediatric audiology now?", "Could fluid from a recent ear infection or congestion be part of this?"]
         },
         "priority_discuss": {
           "title": "Call your pediatrician soon and ask about hearing first",
-          "body": "What you described, no response to loud sounds or losing responses your child used to have, deserves a prompt call, ideally this week. Lead with hearing: ask for an urgent audiology referral. A passed newborn hearing screen does not rule this out, because that was a point-in-time test and hearing can change after it. Prompt does not mean emergency; it means hearing is too foundational to language to leave unchecked.",
+          "body": "What you described, no response to loud sounds or losing responses your child used to have, deserves a prompt call, ideally this week. Lead with hearing: ask for an urgent audiology referral. A passed newborn hearing screen does not rule this out, because that was a point-in-time test and hearing can change after it. For a change that has built up gradually, prompt does not mean emergency; it means hearing is too foundational to language to leave unchecked.",
           "actions": [
-            "Call your pediatrician and say exactly what you observed: 'my child doesn't respond to loud sounds' or 'responses they used to have are gone'.",
+            "Call your pediatrician and say exactly what you observed: ‘my child doesn’t respond to loud sounds’ or ‘responses they used to have are gone’.",
             "Ask for a pediatric audiology referral now rather than after a wait-and-see period. For hearing, there is no wait-and-see.",
-            "Write down what sounds do and don't get a response at home; audiologists use exactly that information."
+            "Write down what sounds do and don’t get a response at home; audiologists use exactly that information."
           ],
-          "script": "My child is not responding to sound the way they should. I'd like a hearing evaluation. Specifically:"
+          "script": "My child is not responding to sound the way they should. I’d like a hearing evaluation. Specifically:",
+          "ask": ["Can we have an urgent referral to pediatric audiology?"]
         }
       }
     },
@@ -722,10 +832,10 @@
           "id": "br_intensity",
           "asked_from_months": 12,
           "answers": "yesno",
-          "prompt": "Do the hard moments feel much bigger than other children's the same age?",
+          "prompt": "Do the hard moments feel much bigger than other children’s the same age?",
           "help": "Much longer, much more intense, or much more frequent than what you see in age-mates, on most days, not just during a rough patch or a big transition.",
           "flags": [
-            { "on": "yes", "class": "discuss", "label": "Hard moments much bigger, longer, or more frequent than age-mates', most days" }
+            { "on": "yes", "class": "discuss", "label": "Hard moments much bigger, longer, or more frequent than age-mates’, most days" }
           ]
         },
         {
@@ -742,7 +852,7 @@
       "terminals": {
         "typical_range": {
           "title": "In the typical range right now",
-          "body": "Nothing you described crosses the lines that are well established for behavior at this age. Worth saying plainly: big feelings, meltdowns, and limit-testing are developmentally expected in the early years, and hard days are not evidence that something is wrong. This is also the area where published red lines are scarcest, so we deliberately don't invent precise cutoffs the research doesn't support.",
+          "body": "Nothing you described crosses the lines that are well established for behavior at this age. Worth saying plainly: big feelings, meltdowns, and limit-testing are developmentally expected in the early years, and hard days are not evidence that something is wrong. This is also the area where published red lines are scarcest, so we deliberately don’t invent precise cutoffs the research doesn’t support.",
           "includes_invitation": true
         },
         "discuss": {
@@ -751,20 +861,22 @@
           "actions": [
             "Make an appointment and bring the summary below. Describing the pattern, how often, how long, what sets it off, what helps, is more useful than any label.",
             "If self-injury is part of the picture, say so specifically when you call.",
-            "Ask what support looks like: sometimes it's a developmental screening, sometimes parent coaching approaches with strong evidence behind them, sometimes just a plan and a follow-up.",
+            "Ask what support looks like: sometimes it’s a developmental screening, sometimes parent coaching approaches with strong evidence behind them, sometimes just a plan and a follow-up.",
             "In the meantime, our free tools on meltdowns, limits, and co-regulation are built for exactly these weeks."
           ],
-          "script": "I want to talk about my child's behavior and regulation. Specifically:"
+          "script": "I want to talk about my child’s behavior and regulation. Specifically:",
+          "ask": ["What support would fit what I’m describing: a developmental screening, parent coaching, or a plan and a follow-up?"]
         },
         "priority_discuss": {
           "title": "Call your pediatrician and ask for an appointment soon",
-          "body": "Loss of skills a child used to have deserves a prompt conversation at any age, ideally within a week or two, whatever else is going on with behavior. Soon does not mean emergency, and it does not mean a diagnosis. It means this observation is too useful to sit on.",
+          "body": "Loss of skills a child used to have deserves a prompt conversation at any age, ideally within a week or two, whatever else is going on with behavior. For a change that has built up gradually, soon does not mean emergency, and it does not mean a diagnosis. It means this observation is too useful to sit on.",
           "actions": [
-            "When you call, use the words 'my child has lost skills they used to have'.",
+            "When you call, use the words ‘my child has lost skills they used to have’.",
             "Write down what was lost and roughly when, plus the behavior pattern you came here about; bring both to the same visit.",
             "Ask for a developmental evaluation."
           ],
-          "script": "My child has lost skills they used to have. Specifically:"
+          "script": "My child has lost skills they used to have. Specifically:",
+          "ask": ["Can we start a developmental evaluation now?"]
         }
       }
     }

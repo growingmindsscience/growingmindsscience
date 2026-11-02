@@ -33,8 +33,8 @@
        "rationale": "No spontaneous two-word phrases by 24 months. Memorized chunks (all done, thank you) do not count; the question's help text must draw this line."},
       {"id": "stranger_intelligibility_36m", "applies_age_months_gte": 36,
        "predicate": {"binding": "stranger_understands", "op": "eq", "value": "less_than_half"},
-       "min_class": "discuss", "sources": ["flipsen2006"],
-       "rationale": "Unfamiliar adults understanding less than half of speech at 3 years and beyond warrants evaluation; intelligibility expectations rise steeply across this range."}
+       "min_class": "discuss", "sources": ["flipsen2006", "cdc_ltsae"],
+       "rationale": "Unfamiliar adults understanding less than half of speech at 3 years and beyond warrants evaluation; intelligibility expectations rise steeply across this range. CDC's 3-year checklist (2022) expects a child to talk well enough for others to understand most of the time, so less than half sits well below it. Same id, threshold and sources as the Communication Snapshot floor. Flipsen 2006 is a measurement paper and does not itself state this line (see REVIEW.md); the tree also flags 'about half' from 48 months as a judgment flag beyond this floor (Hustad et al. 2021: at least 50% intelligible by 48 months)."}
     ],
     "understanding": [
       {"id": "no_response_to_name_12m", "applies_age_months_gte": 12,
@@ -48,7 +48,7 @@
       {"id": "no_one_step_directions_24m", "applies_age_months_gte": 24,
        "predicate": {"binding": "follows_one_step", "op": "eq", "value": "not_yet"},
        "min_class": "discuss", "sources": ["cdc_ltsae", "zubler2022"],
-       "rationale": "Mirrors the LMC receptive floor so the two tools can never disagree at the red line."}
+       "rationale": "Mirrors the LMC receptive floor so the two tools can never disagree at the red line. CDC/Zubler 2022 place this milestone at 18 months; the Navigator tree flags from 18 months, and this shared floor guarantees 24."}
     ],
     "walking_movement": [
       {"id": "not_sitting_9m", "applies_age_months_gte": 9,
@@ -104,7 +104,7 @@
       {"id": "no_social_smile_4m", "applies_age_months_gte": 4,
        "predicate": {"binding": "smiles_at_people", "op": "eq", "value": "not_yet"},
        "min_class": "discuss", "sources": ["cdc_ltsae", "zubler2022"],
-       "rationale": "Not smiling in response to people by 4 months."},
+       "rationale": "Not smiling in response to people by 4 months. CDC's 2022 checklist places the social smile at 2 months; the tree flags from 3 months."},
       {"id": "no_shared_enjoyment_12m", "applies_age_months_gte": 12,
        "predicate": {"binding": "looks_to_share_enjoyment", "op": "eq", "value": "not_yet"},
        "min_class": "discuss", "sources": ["zwaigenbaum2015"],
@@ -127,10 +127,10 @@
        "predicate": {"binding": "responds_to_loud_sounds", "op": "eq", "value": "not_yet"},
        "min_class": "priority_discuss", "sources": ["jcih2019"],
        "rationale": "No response to loud sounds at any age, with the action sheet noting newborn hearing screen results are a point-in-time test and do not rule out later loss."},
-      {"id": "no_sound_localization_9m", "applies_age_months_gte": 9,
+      {"id": "no_sound_localization_6m", "applies_age_months_gte": 6,
        "predicate": {"binding": "turns_toward_sounds", "op": "eq", "value": "not_yet"},
        "min_class": "discuss", "sources": ["jcih2019", "cdc_ltsae"],
-       "rationale": "Not turning toward sounds or voices by 9 months."},
+       "rationale": "Not turning toward sounds or voices after 6 months, a CDC sign of hearing loss in babies (CDC's 2022 checklist places turning toward a voice at 4 months; the tree flags whenever the question is asked, from 4 months). Hearing has no watch-and-wait window. Replaces no_sound_localization_9m (2026-11-02), which sat 3 months after the CDC sign."},
       {"id": "no_response_to_name_12m", "applies_age_months_gte": 12,
        "predicate": {"binding": "responds_to_name", "op": "eq", "value": "not_yet"},
        "min_class": "discuss", "sources": ["jcih2019", "zwaigenbaum2015"],

@@ -14,14 +14,30 @@ export function loadActivities() {
   return JSON.parse(readFileSync(join(HERE, "..", "artifacts", "activities", "sampler.v1.json"), "utf8"));
 }
 
-/* Choking/strangulation/burn lexicon for under-36-month content. Tokens are
-   matched anywhere in materials, steps, or adaptations. */
+/* Choking, strangulation, suffocation, ingestion and burn lexicon for
+   under-36-month content. Tokens are matched anywhere in materials, steps,
+   adaptations, or the title (not in safety_notes, which name hazards on
+   purpose). A word list is a floor, not a safety review: REVIEW.md Tier 4
+   is still the human read. */
 const SAFETY_DENYLIST = [
+  // choking: small objects and foods
   /\bballoons?\b/i, /\bmarbles?\b/i, /\bcoins?\b/i, /\bbutton batter(y|ies)\b/i,
   /\bmagnets?\b/i, /\bpopcorn\b/i, /\bhard cand(y|ies)\b/i, /\bwhole grapes?\b/i,
-  /\bwhole nuts?\b/i, /\bpeanuts?\b/i, /\bplastic bags?\b/i, /\bbeads?\b/i,
-  /\bstyrofoam\b/i, /\bglitter\b/i, /\bhot glue\b/i, /\bcandles?\b/i,
+  /\bwhole nuts?\b/i, /\bpeanuts?\b/i, /\bbeads?\b/i, /\bstyrofoam\b/i,
+  /\bpebbles?\b/i, /\b(small|little|tiny) (rocks?|stones?)\b/i, /\bgravel\b/i,
+  /\bdr(y|ied) (beans?|pasta|rice|lentils?|peas)\b/i, /\bhot ?dogs?\b/i, /\bchewing gum\b/i,
+  // strangulation
+  /\bcords?\b/i, /\bstrings?\b/i, /\bribbons?\b/i, /\byarn\b/i, /\bropes?\b/i,
+  /\bnecklaces?\b/i, /\bdrawstrings?\b/i, /\bshoelaces?\b/i,
+  // suffocation
+  /\bplastic bags?\b/i, /\bplastic wrap\b/i, /\bcling ?film\b/i,
+  // ingestion and burns
+  /\bglitter\b/i, /\bhot glue\b/i, /\bcandles?\b/i,
 ];
+
+/* Objects a mouthing child can bite a piece off. Under 24 months these need
+   an explicit chew/bite note in safety_notes. */
+const BITE_OFF = /\b(sponges?|foam|(hair)?brush(es)?|bristles?)\b/i;
 
 const REQUIRED = [
   "slug", "title", "months_min", "months_max", "themes", "domains", "intention",
@@ -88,11 +104,25 @@ export function gradeActivities(artifact) {
       fail("small_parts_note", where, act.safety_notes, "choking/fist-size note in safety_notes");
     }
 
+    /* Bite-off hazards in reach of a mouthing child need their own note. */
+    if (act.months_min < 24 && BITE_OFF.test(body) && !/\bchew|\bbit(e|ing)\b/i.test(act.safety_notes || "")) {
+      fail("bite_off_note", where, act.safety_notes, "chew/bite note in safety_notes for sponge, foam or brush under 24m");
+    }
+
     if (!(act.mess_level >= 1 && act.mess_level <= 3)) fail("mess_level", where, String(act.mess_level), "1-3");
 
     /* Reading level: steps must stay at or under grade 8 (approximate FK). */
     const grade = fkGrade((act.steps || []).join(" "));
     if (grade > 8) fail("reading_level", where, grade.toFixed(1), "<= grade 8");
+  }
+
+  /* Coverage: every month from 0 to 36 offers at least three activities, so
+     Today's 3 can always show three picks (stricter than the band midpoints
+     below, which a month-0 gap slipped through). */
+  for (let m = 0; m <= 36; m++) {
+    const n = activitiesForAge(a, m).length;
+    rep.coverage.cases_evaluated++;
+    if (n < 3) fail("month_coverage", `${m}m`, `${n} activities`, ">= 3 at every month 0-36");
   }
 
   /* Coverage: every band 0-36 and every domain has at least two activities. */
@@ -175,6 +205,45 @@ export const ACTIVITY_FIXTURES = [
     apply(a) {
       const c = structuredClone(a);
       c.activities[2].mechanism_tags.push("brain_boosting");
+      return c;
+    },
+  },
+  {
+    name: "activities_pebble_in_steps",
+    description: "a pebble goes into an under-36m activity's steps",
+    apply(a) {
+      const c = structuredClone(a);
+      const act = c.activities.find((x) => x.slug === "puddle-physics");
+      act.steps[2] = "Drop things in: a leaf floats, a pebble sinks.";
+      return c;
+    },
+  },
+  {
+    name: "activities_strangulation_material",
+    description: "a ribbon appears in an infant activity's materials",
+    apply(a) {
+      const c = structuredClone(a);
+      c.activities[3].materials.push({ item: "a long ribbon to pull", household_common: true });
+      return c;
+    },
+  },
+  {
+    name: "activities_sponge_without_bite_note",
+    description: "a sponge is handed to a mouthing baby with no chew/bite note",
+    apply(a) {
+      const c = structuredClone(a);
+      const act = c.activities.find((x) => x.slug === "basket-of-real-things");
+      act.materials.push({ item: "a clean kitchen sponge", household_common: true });
+      act.safety_notes = "Stay within arm's reach.";
+      return c;
+    },
+  },
+  {
+    name: "activities_month_zero_gap",
+    description: "newborns are left with fewer than three activities",
+    apply(a) {
+      const c = structuredClone(a);
+      c.activities.find((x) => x.slug === "tummy-time-theater").months_min = 1;
       return c;
     },
   },

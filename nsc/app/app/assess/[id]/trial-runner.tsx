@@ -10,11 +10,19 @@ import { stepView } from "@/lib/assessment";
 import type { AssessmentCopy } from "@/lib/content-types";
 import { interpolate } from "@/lib/assessment";
 import { getResult, type Outcome, type Placement, type TitrationState } from "@/lib/titration";
-import { standingSummary } from "@/lib/norms";
+import { ageReadout } from "@/lib/norms";
+import { AgeCard } from "@/components/age-card";
 import { flagOffDay, pauseAssessment, recordOutcome, startPointAndSeek } from "../actions";
 import { STEP_LOCK_MS, TAP_NOTICE, type TapNotice } from "./step-guard";
 
 const NUMWORDS = ["zero", "one", "two", "three", "four", "five", "six"];
+
+/**
+ * Point and Seek was validated with two- and three-year-olds (Silver et al.
+ * 2021) and its readout is written for them, so the retry offer after a
+ * skip-heavy bear game stops here. Mirrors the server gate in actions.ts.
+ */
+const POINT_AND_SEEK_RETRY_MAX_MONTHS = 36;
 
 /** Rung height, for framing a re-run against the previous placement. */
 const RANK: Record<string, number> = { L0: 0, L1: 1, L2: 2, L3: 3, L4: 4, CP: 5 };
@@ -85,6 +93,9 @@ export function TrialRunner({
       firstStep.current = false;
       return;
     }
+    // A new step starts at the top. On a phone the setup screen is long, so
+    // without this the first prompt and its button render above the fold.
+    window.scrollTo({ top: 0, behavior: "instant" });
     headingRef.current?.focus({ preventScroll: true });
   }, [stepKey]);
   const canTap = () => !inFlight.current && Date.now() >= readyAt.current;
@@ -115,7 +126,7 @@ export function TrialRunner({
   }
 
   // Two skips in a row usually means the child is done for now, not that the
-  // parent should push — surface the pause path before the session sours.
+  // parent should push: surface the pause path before the session sours.
   const scored = state.trials.filter((t) => !t.isBonus);
   const twoRecentSkips =
     scored.length >= 2 &&
@@ -185,17 +196,23 @@ export function TrialRunner({
 
   if (view.kind === "done") {
     const result = getResult(state);
-    // "For their age" — one warm sentence against the published typical
-    // range. The over-time version of this lives on the progress page.
-    const ageSummary =
+    // "For their age": one plain sentence against the published typical
+    // range, or the honest reason there is no comparison (an unclear
+    // session, an age past the data). The over-time version lives on the
+    // progress page.
+    const ageCard =
       ageMonths != null && view.placement != null
-        ? standingSummary({
+        ? ageReadout({
             months: ageMonths,
             placement: view.placement,
             name: childName,
             confidence: result?.confidence,
           })
         : null;
+    const offerPointAndSeek =
+      state.stopReason === "skips" &&
+      ageMonths != null &&
+      ageMonths < POINT_AND_SEEK_RETRY_MAX_MONTHS;
     const delta =
       prevPlacement != null && view.placement != null
         ? (RANK[view.placement] ?? 0) - (RANK[prevPlacement] ?? 0)
@@ -255,27 +272,21 @@ export function TrialRunner({
             </p>
           </Card>
         )}
-        {ageSummary && (
-          <Card className="bg-rung-glow/40">
-            <p className="text-sm leading-relaxed text-ink">
-              <span className="font-semibold text-ink-deep">
-                {ageSummary.headline}
-              </span>{" "}
-              {ageSummary.detail}
-            </p>
-            {ageSummary.caveat && (
-              <p className="mt-2 text-xs text-ink-muted">{ageSummary.caveat}</p>
-            )}
-            <p className="mt-2 text-xs text-ink-muted">
-              Typical ranges are wide: a map, never a race.{" "}
-              <Link
-                href={`/app/child/${childId}/progress`}
-                className="font-semibold underline"
-              >
-                Watch it over time →
-              </Link>
-            </p>
-          </Card>
+        {ageCard && (
+          <AgeCard
+            readout={ageCard}
+            footer={
+              <p className="mt-2 text-xs text-ink-muted">
+                Typical ranges are wide: a map, never a race.{" "}
+                <Link
+                  href={`/app/child/${childId}/progress`}
+                  className="font-semibold underline"
+                >
+                  Watch it over time →
+                </Link>
+              </p>
+            }
+          />
         )}
         {otherNumberLanguage && (
           <p className="text-center text-xs leading-relaxed text-ink-muted">
@@ -315,7 +326,12 @@ export function TrialRunner({
         >
           See this week&rsquo;s plan
         </Link>
-        {state.stopReason === "skips" && (
+        {state.stopReason === "skips" && !offerPointAndSeek && (
+          <p className="text-center text-sm text-ink-muted">
+            The bear got mobbed? Try the bear game again on a fresh day.
+          </p>
+        )}
+        {offerPointAndSeek && (
           <form action={startPointAndSeek.bind(null, childId)}>
             <button
               type="submit"
@@ -357,7 +373,7 @@ export function TrialRunner({
         </Card>
         <form action={pauseAssessment.bind(null, assessmentId)}>
           <Button type="submit" className="w-full">
-            Pause &mdash; the bear naps
+            Pause: the bear naps
           </Button>
         </form>
         <Button variant="ghost" onClick={() => setConfirmPause(false)}>
@@ -436,7 +452,7 @@ export function TrialRunner({
                 if (canTap()) setShowCheck(true);
               }}
             >
-              They&rsquo;re done &mdash; let&rsquo;s check
+              They&rsquo;re done. Let&rsquo;s check
             </Button>
             <button
               type="button"
@@ -444,7 +460,7 @@ export function TrialRunner({
               onClick={() => record("skip")}
               className={LINK_BUTTON}
             >
-              Skip &mdash; {childName} didn&rsquo;t try this one
+              Skip: {childName} didn&rsquo;t try this one
             </button>
           </div>
         )}
@@ -460,7 +476,7 @@ export function TrialRunner({
               onClick={() => record("correct", true)}
               className="border border-line"
             >
-              Yes &mdash; after fixing it during the check
+              Yes, after fixing it during the check
             </Button>
             <Button variant="ghost" disabled={pending} onClick={() => record("incorrect")}>
               Not quite

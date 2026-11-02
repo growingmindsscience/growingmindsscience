@@ -2,8 +2,9 @@ import { notFound } from "next/navigation";
 import { requireAuth } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/server";
 import { beginAssessment } from "@/app/app/assess/actions";
-import { getAssessmentCopy } from "@/lib/content.server";
-import { ageInMonths, MIN_ASSESSMENT_MONTHS } from "@/lib/age";
+import { ageInMonths, MAX_ASSESSMENT_MONTHS, MIN_ASSESSMENT_MONTHS } from "@/lib/age";
+import { CHECKUP_LINKS } from "@/lib/norms";
+import { sitePath } from "@/lib/site";
 import { brand } from "@/lib/config/brand";
 import { Card, EnrichmentFooter, LinkButton } from "@/components/ui";
 import { SubmitButton } from "@/components/submit-button";
@@ -33,7 +34,7 @@ export default async function PrescreenPage({
     .maybeSingle();
   if (!child) notFound();
 
-  // Under ~2 there's no check-in — the best number input at this age is
+  // Under ~2 there's no check-in: the best number input at this age is
   // plain talk, and neither instrument reads meaningfully yet.
   const months = ageInMonths(String(child.birth_month).slice(0, 7), new Date());
   if (months < MIN_ASSESSMENT_MONTHS) {
@@ -63,42 +64,54 @@ export default async function PrescreenPage({
     );
   }
 
-  const copy = await getAssessmentCopy();
-  const line = (k: string, f: string) =>
-    (copy.states[k]?.lines ?? [f])[0].replaceAll("{name}", child.nickname);
-  const opts = (k: string, fallback: string[]) =>
-    copy.states[k]?.lines ?? fallback;
+  // From six there's no check-in either: the game, its plans and the
+  // published ranges are built for about two to five.
+  if (months >= MAX_ASSESSMENT_MONTHS) {
+    return (
+      <main className="mx-auto flex min-h-screen max-w-lg flex-col justify-center gap-6 px-6 py-12">
+        <div className="text-center">
+          <h1 className="text-2xl font-semibold text-ink-deep">
+            Built for ages two to five
+          </h1>
+        </div>
+        <Card>
+          <p className="text-ink">
+            {child.nickname} is older than the Feed-the-Bear check-in is built
+            for. It reads the counting steps children usually take between
+            about two and five, and its games are written for those years.
+          </p>
+          <p className="mt-3 text-ink">
+            If counting out two or three things on request is still hard for{" "}
+            {child.nickname}, mention it to {child.nickname}&rsquo;s
+            pediatrician or teacher. Asking early is always welcome, and they
+            can look at the whole picture.
+          </p>
+          <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+            <a
+              href={sitePath(CHECKUP_LINKS.prepPath)}
+              className="inline-flex min-h-11 items-center text-sm font-semibold text-teal underline underline-offset-2"
+            >
+              Get ready for a checkup conversation
+            </a>
+            <a
+              href={CHECKUP_LINKS.cdcConcerned}
+              className="inline-flex min-h-11 items-center text-xs text-research underline underline-offset-2"
+              rel="noopener"
+            >
+              Source: CDC, Learn the Signs. Act Early.
+            </a>
+          </p>
+        </Card>
+        <LinkButton href="/app">Back to your children</LinkButton>
+        <EnrichmentFooter text={brand.enrichmentFooter} />
+      </main>
+    );
+  }
 
+  // One question, and it is used: the script runs in the child's counting
+  // language. Three earlier questions (count range, gives one, points while
+  // counting) were stored but never read, so they are gone (audit NSC-10).
   const questions: Q[] = [
-    {
-      name: "count_band",
-      question: line("prescreen:q2", "How high can they count without help?"),
-      options: opts("prescreen:q2:opts", [
-        "Not yet counting",
-        "Up to 4",
-        "5 to 9",
-        "10 to 19",
-        "20 or higher",
-      ]).map((label, i) => ({
-        value: ["none", "lt5", "5-9", "10-19", "20plus"][i] ?? String(i),
-        label,
-      })),
-    },
-    {
-      name: "gives_one",
-      question: line("prescreen:q3", "If you ask for one, do they hand you exactly one?"),
-      options: opts("prescreen:q3:opts", ["Yes", "Sometimes", "No", "Never tried"]).map(
-        (label, i) => ({ value: ["yes", "sometimes", "no", "untried"][i] ?? String(i), label }),
-      ),
-    },
-    {
-      name: "points_counts",
-      question: line("prescreen:q4", "Do they count objects by pointing or touching?"),
-      options: opts("prescreen:q4:opts", ["Yes", "Sometimes", "No"]).map((label, i) => ({
-        value: ["yes", "sometimes", "no"][i] ?? String(i),
-        label,
-      })),
-    },
     {
       // Children learn each language's small number words separately, so the
       // check-in should run in the child's counting language.
@@ -115,12 +128,9 @@ export default async function PrescreenPage({
   return (
     <main className="mx-auto flex min-h-screen max-w-lg flex-col justify-center gap-6 px-6 py-12">
       <div className="text-center">
-        <h1 className="text-2xl font-semibold text-ink-deep">A few quick taps</h1>
+        <h1 className="text-2xl font-semibold text-ink-deep">One quick question</h1>
         <p className="mt-2 text-sm text-ink-muted">
-          {/* The certified intro line says "Three quick taps", but the form
-              now has four questions (the counting-language one was added
-              in-app), so the page states the count-free part only. */}
-          This helps us read today&rsquo;s play, nothing more.
+          So the game uses the number words {child.nickname} knows best.
         </p>
       </div>
       {error && (
