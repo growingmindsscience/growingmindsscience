@@ -9,6 +9,11 @@
  * /api/audio/[id] route reads, after checking the account can play the game.
  * A line in both scripts is written to both folders.
  *
+ * Voice: eleven_v4 (never a v2 model) with Matthew's v4 settings, approved on a
+ * Sarah test take 2026-11-02. v4 performs quoted words as a second character,
+ * so quote marks are dropped from what the voice reads; the clip id still comes
+ * from the exact on-screen text.
+ *
  * Build-time only. The key is read from the local env (never Vercel, never
  * committed); the runtime serves the mp3s and never calls ElevenLabs.
  * Idempotent — existing clips are skipped, so a copy change regenerates only
@@ -35,6 +40,12 @@ mkdirSync(publicDir, { recursive: true });
 mkdirSync(privateDir, { recursive: true });
 
 const key = process.env.ELEVENLABS_API_KEY;
+const VOICE_SETTINGS = { stability: 0.3, similarity_boost: 0.9, speed: 1.05 };
+
+/** What the voice reads: the line without double quote marks. */
+function spoken(text: string): string {
+  return text.replace(/["“”]/g, "").replace(/\s+/g, " ").trim();
+}
 
 // Collect every voiceable line from the certified scripts, by audience.
 const copy = JSON.parse(
@@ -78,7 +89,7 @@ async function synth(text: string): Promise<Buffer> {
         "xi-api-key": key!,
         "content-type": "application/json",
       },
-      body: JSON.stringify({ text, model_id: AUDIO_MODEL_ID }),
+      body: JSON.stringify({ text: spoken(text), model_id: AUDIO_MODEL_ID, voice_settings: VOICE_SETTINGS }),
     },
   );
   if (!res.ok) {

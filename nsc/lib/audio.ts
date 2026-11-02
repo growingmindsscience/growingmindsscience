@@ -18,7 +18,9 @@
 import type { AssessmentCopy, Game } from "@/lib/content-types";
 
 export const AUDIO_VOICE_ID = "EXAVITQu4vr4xnSDxMaL"; // Sarah — reassuring
-export const AUDIO_MODEL_ID = "eleven_multilingual_v2";
+// Always eleven_v4. Never a v2 model (multilingual, turbo, flash): Matthew rejects how they
+// sound. tests/audio.test.ts fails on one.
+export const AUDIO_MODEL_ID = "eleven_v4";
 /** Fixed object word for the Give-N script (matches the runtime `objects`). */
 export const AUDIO_OBJECTS = "blocks";
 /** Singular form, used after "one" (matches the runtime `objectsSingular`). */
