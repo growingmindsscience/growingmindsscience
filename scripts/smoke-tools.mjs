@@ -108,7 +108,24 @@ try {
   const askHref = await page.locator('.rn-actions a', { hasText: 'Ask about this' }).getAttribute('href');
   ok(/ask-the-research\?q=/.test(askHref), 'right-now: Ask link seeds ?q=');
   await page.locator('.rn-actions button', { hasText: 'Save this' }).click();
-  ok(await page.locator('.rn-actions button', { hasText: 'Saved ✓' }).count() > 0, 'right-now: Save toggles to Saved');
+  ok(await page.locator('.rn-actions button', { hasText: /^Saved$/ }).getAttribute('aria-pressed') === 'true', 'right-now: Save confirms its pressed state');
+  await page.getByRole('button', { name: 'One step at a time', exact: true }).click();
+  ok(await page.locator('.rn-seq li:visible').count() === 1 &&
+    await page.getByRole('button', { name: 'Previous step', exact: true }).isDisabled(), 'right-now: guided mode starts with only the first step');
+  await page.getByRole('button', { name: 'Next step', exact: true }).click();
+  ok(/Step 2 of 3/.test(await page.locator('.rn-guide__progress').innerText()) &&
+    /Regulate first/.test(await page.locator('.rn-seq li:visible').innerText()), 'right-now: guided mode advances to the next advice');
+  await page.getByRole('button', { name: 'Previous step', exact: true }).click();
+  ok(/Make it safe/.test(await page.locator('.rn-seq li:visible').innerText()), 'right-now: guided mode can revisit a step');
+  await page.getByRole('button', { name: 'Show all steps', exact: true }).click();
+  ok(await page.locator('.rn-seq li:visible').count() === 3, 'right-now: all advice remains available without completing a flow');
+  await page.evaluate(() => {
+    Object.defineProperty(navigator, 'clipboard', { configurable: true, value: {
+      writeText: text => { window.__copiedPhrase = text; return Promise.resolve(); }
+    } });
+  });
+  await page.getByRole('button', { name: 'Copy words', exact: true }).click();
+  ok(await page.evaluate(() => window.__copiedPhrase === "I'm here. You're safe. We can wait."), 'right-now: copy uses the original spoken phrase');
   await page.locator('button', { hasText: 'Something else is happening' }).click();
   await page.waitForTimeout(150);
   ok(await page.locator('.rn-choice').count() === 5, 'right-now: back returns to choices');
@@ -118,6 +135,14 @@ try {
   ok(/right-now/.test(page.url()) && await page.locator('.rn-choice').count() === 5, 'right-now: browser Back returns to the choices');
   await page.goto(`${BASE}/tools/right-now.html#repair`, { waitUntil: 'networkidle' });
   ok(/Repair/.test(await page.locator('.rn-answer__title').innerText()), 'right-now: #repair opens that answer directly');
+
+  // Recorded narration is keyed by the exact original script, not UI labels.
+  const recordedScripts = { meltdown: '3ce62fb1', limit: 'c185f0fd', sleep: '61d656e5', patience: '0fa9b2fd', repair: 'acde4214' };
+  for (const [id, hash] of Object.entries(recordedScripts)) {
+    await page.goto(`${BASE}/tools/right-now.html#${id}`, { waitUntil: 'networkidle' });
+    const actual = await page.evaluate(() => GMS.listenHash(GMS._listenSeen.find(item => item.row.isConnected).text));
+    ok(actual === hash && await page.getByRole('button', { name: 'Listen', exact: true }).isVisible(), `right-now: ${id} retains its original recording (${hash})`);
+  }
 
   // Saved item shows on the hub shelf, with its answer and a link back to it
   await page.goto(`${BASE}/tools/index.html`, { waitUntil: 'networkidle' });

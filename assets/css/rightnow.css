@@ -1,18 +1,13 @@
-/* =========================================================
-   Growing Minds Science: rightnow.css
-   "It's hard right now" (body.rn-body) on the annotated-observation system.
-   The page stays chrome-less on purpose: one bar with the wordmark and a way
-   back, one question, then a short answer. The router script renders the
-   steps (rn-*); tools.css keeps their base rules and the pocket card's print
-   sheet, and this file restyles them: Newsreader for the question and the
-   answer, choices as calm rows, the try-this line on sage mist, numbered
-   steps under a quiet rule. Tokens from tokens-field-guide.css.
-   ========================================================= */
-
+/* Right Now: a little steadiness for the hard moment.
+   Narrated advice stays in #router-data, independent of interface labels. */
+:root:not([data-theme="dark"]) .rn-body { --paper: #F8F9FB; }
 .fg.rn-body { background: var(--paper); }
+.rn-body { scrollbar-color: var(--ink-muted) var(--paper); }
+.rn-body [hidden] { display: none !important; }
+.rn-body svg.rn-icon, .rn-choice__arrow { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
-/* ---------- The bar: wordmark and a way back ---------- */
-.fg .rn-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: min(100% - 2 * var(--hb-gutter, 16px), 720px); max-width: none; margin-inline: auto; padding: 18px 0; }
+/* The tool intentionally has no site menu. */
+.fg .rn-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: min(100% - 2 * var(--hb-gutter, 16px), 1040px); max-width: none; margin-inline: auto; padding: 18px 0; border-bottom: 1px solid var(--border-soft); }
 .rn-bar .brand { display: inline-flex; align-items: center; min-height: 44px; gap: 0.6em; color: var(--ink); text-decoration: none; }
 .rn-bar .brand__mark { display: block; width: 32px; height: 32px; flex-shrink: 0; color: var(--ink); overflow: visible; }
 .rn-bar .brand__leaf { fill: var(--sage-deep); }
@@ -20,56 +15,110 @@
 [data-theme="dark"] .rn-bar .brand__leaf { fill: var(--sage-mist-2); }
 .rn-bar .brand__name { margin-left: 0.1em; font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; letter-spacing: -0.01em; line-height: 1; white-space: nowrap; }
 .rn-bar .brand__desc { position: relative; top: 0.22em; font-family: var(--font-body); font-size: 11px; font-weight: 500; letter-spacing: 0.32em; text-transform: uppercase; }
-.fg .rn-bar > a:not(.brand) { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: var(--ink-soft); text-decoration: underline; text-underline-offset: 0.16em; }
+.fg .rn-bar > a:not(.brand) { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: var(--ink-soft); text-decoration: underline; text-underline-offset: 0.16em; white-space: nowrap; }
 .fg .rn-bar a:hover { color: var(--forest); }
-.rn-bar :focus-visible { outline: 2px solid var(--forest); outline-offset: 3px; }
-@media (max-width: 420px) { .rn-bar .brand__desc { display: none; } }
 
-/* ---------- The question ---------- */
-.fg .rn-main { width: min(100% - 2 * var(--hb-gutter, 16px), 720px); max-width: none; margin-inline: auto; padding: clamp(24px, 6vw, 72px) 0 clamp(72px, 10vw, 128px); }
-/* The page has no footer, so the safety line and disclaimer sit under every step. */
+/* The question and the five choices share one reading surface. */
+.fg .rn-main { width: min(100% - 2 * var(--hb-gutter, 16px), 1040px); max-width: none; margin-inline: auto; padding: clamp(40px, 6vw, 80px) 0 clamp(64px, 8vw, 112px); }
+.rn-step { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(40px, 5vw, 80px); align-items: start; }
+.fg .rn-step__title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(2.25rem, 1.4rem + 3.4vw, 4.25rem); line-height: 1; letter-spacing: -0.025em; color: var(--ink); text-wrap: balance; }
+.fg .rn-step__eyebrow { margin: 16px 0 0; font-size: 15px; font-weight: 500; color: var(--forest); }
+.fg .rn-step__lead { margin: 24px 0 0; max-width: 28ch; font-size: 1.125rem; line-height: 1.6; color: var(--ink-soft); }
+.fg .rn-reassurance { margin-top: clamp(48px, 6vw, 80px); padding-top: 20px; border-top: 1px solid var(--border); width: fit-content; font-family: var(--font-display); font-size: 1.5rem; line-height: 1.3; color: var(--ink-muted); }
+.rn-choices { display: grid; gap: 0; border-top: 2px solid var(--ink); }
+.fg .rn-choice { display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%; padding: 23px 12px; border: 0; border-bottom: 1px solid var(--border-soft); border-radius: 0; background: transparent; box-shadow: none; color: var(--ink); font: inherit; text-align: left; text-decoration: none; cursor: pointer; transition: background-color 160ms ease; }
+.rn-choice__text { min-width: 0; }
+.rn-choice__name { display: block; font-family: var(--font-display); font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem); line-height: 1.15; letter-spacing: -0.01em; }
+.fg .rn-choice__hint { display: block; margin-top: 7px; font-family: var(--font-body); font-size: 15px; line-height: 1.5; letter-spacing: 0; color: var(--ink-muted); }
+.rn-choice__arrow { color: var(--forest); transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1); }
+.fg .rn-choice:is(:hover, :focus-visible) { background: var(--sage-mist); color: var(--ink); }
+.rn-choice:is(:hover, :focus-visible) .rn-choice__arrow { transform: translateX(3px); }
+.fg .rn-choice:active { background: var(--sage-mist-2); }
+.rn-main [tabindex="-1"]:focus { outline: none; }
+
+/* Actions first, with the original explanation one disclosure away. */
+.fg .rn-answer { padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.rn-answer__header { max-width: 820px; margin-bottom: 40px; }
+.fg .rn-answer__title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(2.25rem, 1.4rem + 2.6vw, 3.75rem); line-height: 1.04; letter-spacing: -0.025em; color: var(--ink); text-wrap: balance; }
+.fg .rn-answer__state { margin: 16px 0 0; font-size: 15px; font-weight: 500; color: var(--forest); }
+.rn-answer__layout { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr); gap: clamp(32px, 4vw, 56px); align-items: start; }
+.rn-guide__header { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; margin-bottom: 16px; }
+.fg .rn-guide__title { font-family: var(--font-display); font-size: 1.625rem; line-height: 1.2; font-weight: 400; }
+.fg .rn-text-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 8px 0; color: var(--forest); font-family: var(--font-body); font-size: 14px; font-weight: 500; text-decoration: underline; text-underline-offset: 0.2em; }
+.fg .rn-text-button:hover { color: var(--ink); }
+.fg .rn-seq { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 2px solid var(--ink); }
+.fg .rn-seq li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 16px; padding: 22px 0; border-bottom: 1px solid var(--border-soft); color: var(--ink-soft); font-size: 1rem; line-height: 1.65; }
+.rn-seq__number { color: var(--forest); font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2; }
+.rn-seq__copy strong { display: block; font-weight: 600; color: var(--ink); }
+.rn-guide.is-guided .rn-seq { min-height: 176px; align-content: start; }
+.rn-guide.is-guided .rn-seq li { border-bottom: 0; }
+.rn-guide__nav { padding-top: 16px; border-top: 1px solid var(--border-soft); }
+.rn-guide__progress { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 16px; font-size: 14px; color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+.rn-guide__markers { display: flex; gap: 5px; }
+.rn-guide__markers span { display: block; width: 28px; height: 3px; background: var(--border); }
+.rn-guide__markers .is-current { background: var(--forest); }
+.rn-guide__buttons { display: flex; justify-content: space-between; gap: 12px; }
+.fg.rn-body .rn-guide__buttons .btn { min-width: 112px; }
+.fg.rn-body .btn:disabled, .fg.rn-body .btn:disabled:hover { background: var(--paper-2); color: var(--ink-muted); box-shadow: none; cursor: default; }
+.fg .rn-why { margin-top: 16px; border: 0; }
+.fg .rn-why summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 48px; cursor: pointer; list-style: none; font-size: 15px; font-weight: 500; color: var(--forest); }
+.rn-why summary::-webkit-details-marker { display: none; }
+.rn-why summary .rn-icon { transition: transform 160ms ease; }
+.rn-why[open] summary .rn-icon { transform: rotate(180deg); }
+.fg .rn-answer__body { margin-top: 10px; font-size: 1rem; line-height: 1.7; color: var(--ink-soft); }
+.fg .rn-why__link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 8px; color: var(--forest); font-size: 15px; font-weight: 500; text-decoration: underline; }
+
+/* A phrase to borrow. Copy feedback reports the clipboard's actual result. */
+.fg .rn-answer__try { margin: 0; padding: clamp(24px, 3vw, 32px); border-radius: var(--radius-lg); background: var(--sage-mist); color: var(--ink); }
+.rn-answer__try-label { display: block; font-family: var(--font-body); font-size: 14px; font-weight: 600; color: var(--forest); }
+.fg .rn-answer__quote { margin: 16px 0; font-family: var(--font-display); font-size: clamp(1.5rem, 1.2rem + 0.6vw, 2.25rem); line-height: 1.3; font-weight: 400; letter-spacing: -0.01em; text-wrap: pretty; }
+.fg .rn-copy { padding: 8px 0; font-size: 14px; }
+.fg .rn-copy__status { min-height: 0; margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink-soft); }
+.fg .rn-copy__status:not(:empty) { margin-top: 8px; }
+.fg .rn-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-soft); }
+.fg .rn-save-status { margin-top: 10px; font-size: 14px; color: var(--ink-muted); }
+.fg .rn-save-status:empty { display: none; }
+.fg .rn-back { margin-top: 24px; }
+.fg .rn-back .rn-text-button { font-size: 15px; }
+
+/* One action colour and calm, flat controls. */
+.fg.rn-body .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 10px 20px; border: 0; border-radius: var(--radius); background: var(--forest); color: var(--on-forest); font: inherit; font-size: 15px; font-weight: 500; text-decoration: none; cursor: pointer; transition: background-color 140ms ease; }
+.fg.rn-body .btn:hover { background: var(--forest-deep); color: var(--on-forest); }
+.fg.rn-body .btn--ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--border); }
+.fg.rn-body .btn--ghost:hover { background: var(--sage-mist); color: var(--ink); }
+.fg.rn-body .btn[aria-pressed="true"] { background: var(--sage-mist); box-shadow: inset 0 0 0 1px var(--forest); color: var(--forest); }
+.rn-body :is(a, button, summary):focus-visible { outline: 2px solid var(--forest); outline-offset: 3px; }
+
+@media (max-width: 800px) {
+  .rn-step { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .fg .rn-step__title { font-size: clamp(2.25rem, 6vw, 3.75rem); }
+  .fg .rn-step__eyebrow { margin-top: 12px; }
+  .fg .rn-step__lead { margin-top: 16px; max-width: 38ch; }
+  .fg .rn-reassurance { display: none; }
+  .rn-answer__layout { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .rn-answer__header { margin-bottom: 28px; }
+  .rn-guide.is-guided .rn-seq { min-height: 164px; }
+}
+@media (max-width: 480px) {
+  .rn-bar .brand__desc { display: none; }
+  .fg .rn-main { padding-top: 36px; }
+  .fg .rn-choice { gap: 16px; padding: 20px 4px; }
+  .rn-choice__name { font-size: 1.5rem; }
+  .rn-choice__arrow { width: 20px; height: 20px; }
+  .fg .rn-answer__title { font-size: 2.25rem; }
+  .fg .rn-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 28px; }
+  .fg .rn-actions .btn { width: 100%; padding-inline: 10px; font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rn-choice__arrow, .rn-why summary .rn-icon, .fg .rn-choice, .fg.rn-body .btn { transition: none; }
+  .rn-choice:is(:hover, :focus-visible) .rn-choice__arrow { transform: none; }
+}
+@media print {
+  .rn-guide__header button, .rn-guide__nav, .rn-copy, .rn-actions, .rn-back, .rn-save-status { display: none !important; }
+  .rn-body .rn-seq li[hidden] { display: grid !important; }
+  .rn-guide.is-guided .rn-seq { min-height: 0; }
+}
+
+/* Retain the existing safety information under every answer. */
 .fg .rn-safety { width: min(100% - 2 * var(--hb-gutter, 16px), 720px); margin-inline: auto; padding: 20px 0 48px; border-top: 1px solid var(--border-soft); font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
 .fg .rn-safety__fine { margin-top: 8px; font-size: 14px; color: var(--ink-muted); }
-/* The page name reads as the question's subline, not a kicker above it. */
-.rn-step { display: flex; flex-direction: column; }
-.rn-step__title { order: -1; }
-.fg .rn-step__title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(2.25rem, 1.5rem + 3vw, 3.5rem); line-height: 1.02; letter-spacing: -0.02em; color: var(--ink); }
-.fg .rn-step__eyebrow { margin: 10px 0 28px; font-size: 15px; font-weight: 500; color: var(--ink-muted); }
-.rn-choices { display: grid; gap: 0; }
-.fg .rn-choice { display: block; width: 100%; padding: 18px 4px; border: 0; border-top: 1px solid var(--border-soft); border-radius: 0; background: transparent; box-shadow: none; color: var(--ink); font: inherit; font-family: var(--font-display); font-size: clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem); line-height: 1.15; letter-spacing: -0.01em; text-align: left; text-decoration: none; cursor: pointer; transition: background-color 160ms ease; }
-.fg .rn-choice:last-child { border-bottom: 1px solid var(--border-soft); }
-.fg .rn-choice:hover { background: var(--sage-mist); color: var(--ink); }
-.fg .rn-choice:focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
-.fg .rn-choice__hint { display: block; margin-top: 6px; font-family: var(--font-body); font-size: 15px; line-height: 1.45; letter-spacing: 0; color: var(--ink-muted); }
-
-/* ---------- The answer ---------- */
-/* The router moves focus to each new heading for screen readers; no ring for that. */
-.rn-main [tabindex="-1"]:focus { outline: none; }
-.fg .rn-answer { padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
-.fg .rn-answer__state { font-size: 15px; font-weight: 500; color: var(--forest); }
-.fg .rn-answer__title { margin: 8px 0 16px; font-family: var(--font-display); font-weight: 400; font-size: clamp(2rem, 1.4rem + 2.4vw, 3rem); line-height: 1.05; letter-spacing: -0.02em; color: var(--ink); }
-.fg .rn-answer__body { max-width: 60ch; font-size: 1.125rem; line-height: 1.65; color: var(--ink-soft); }
-.fg .rn-seq { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 0; border-top: 2px solid var(--ink); }
-.fg .rn-seq li { display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); gap: 12px; padding-block: 14px; border-bottom: 1px solid var(--border-soft); color: var(--ink-soft); line-height: 1.55; }
-/* The script marks each step with a dot; the steps are an order, so they count. */
-.fg .rn-seq { counter-reset: rn-step; }
-.fg .rn-seq li { counter-increment: rn-step; }
-.fg .rn-seq b { width: auto; height: auto; border-radius: 0; display: block; background: none; font-size: 0; line-height: 1; }
-.fg .rn-seq b::before { content: counter(rn-step); color: var(--forest); font-family: var(--font-display); font-weight: 400; font-size: 1.5rem; }
-.fg .rn-answer__try { margin-top: 28px; padding: clamp(18px, 2.6vw, 28px); border-radius: var(--radius-lg); background: var(--sage-mist); font-family: var(--font-display); font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem); line-height: 1.3; color: var(--ink); }
-.fg .rn-answer__try strong { display: block; margin-bottom: 6px; font-family: var(--font-body); font-size: 15px; font-weight: 600; color: var(--forest); }
-.fg .rn-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-.fg .rn-why { margin-top: 24px; border-top: 1px solid var(--border-soft); }
-.fg .rn-why summary { display: flex; align-items: center; min-height: 52px; cursor: pointer; font-size: 15px; font-weight: 500; color: var(--forest); }
-.fg .rn-why summary:focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
-.fg .rn-why__body { margin: 0 0 16px; max-width: 60ch; color: var(--ink-soft); }
-.fg .rn-back { margin-top: 28px; }
-.fg .rn-back a, .fg .rn-actions .gms-link { display: inline-flex; align-items: center; min-height: 44px; }
-
-/* The script's own buttons, in the system's two shapes. */
-.fg.rn-body .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5em; min-height: 48px; padding: 0 1.25rem; border: 0; border-radius: var(--radius); background: var(--forest); color: var(--on-forest); font: inherit; font-size: 1rem; font-weight: 500; text-decoration: none; cursor: pointer; }
-.fg.rn-body .btn:hover { background: var(--forest-deep); color: var(--on-forest); }
-.fg.rn-body .btn--ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
-.fg.rn-body .btn--ghost:hover { background: var(--sage-mist); color: var(--ink); }
-.fg.rn-body .btn:focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
-@media (max-width: 560px) { .fg .rn-actions .btn { width: 100%; } }

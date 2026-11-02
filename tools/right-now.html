@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="/assets/css/field-guide.css?v=46d4d4e37a" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=975e9133b4" />
   <link rel="stylesheet" href="/assets/css/tools.css?v=7fce784071" />
-  <link rel="stylesheet" href="/assets/css/rightnow.css?v=b6783d5006" />
+  <link rel="stylesheet" href="/assets/css/rightnow.css?v=78e1b9ffd4" />
   <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
   /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 </head>
@@ -47,14 +47,18 @@
     <!-- Readable without JavaScript: the script replaces this with the
          interactive version (short answers in place) on load. -->
     <div class="rn-step">
-      <p class="rn-step__eyebrow">It's hard right now</p>
-      <h1 class="rn-step__title">What's happening?</h1>
-      <div class="rn-choices">
-        <a class="rn-choice" href="/tools/whats-underneath-the-meltdown">Meltdown or tantrum<span class="rn-choice__hint">Screaming, crying, hitting, going limp, or losing it.</span></a>
-        <a class="rn-choice" href="/tools/limits-without-escalation">Testing a limit<span class="rn-choice__hint">Pushing a &quot;no&quot;, refusing, or melting down over a boundary.</span></a>
-        <a class="rn-choice" href="/tools/routines-transitions-night-waking">Won&#x27;t sleep<span class="rn-choice__hint">Fighting bedtime, waking in the night, or stalling.</span></a>
-        <a class="rn-choice" href="/tools/regulating-yourself-first">I&#x27;m losing my patience<span class="rn-choice__hint">You&#x27;re the one running hot, close to yelling.</span></a>
-        <a class="rn-choice" href="/tools/repair-after-the-hard-moment">Something happened between us<span class="rn-choice__hint">You yelled, it went sideways, and you want to reconnect.</span></a>
+      <div class="rn-intro">
+        <h1 class="rn-step__title">What's happening?</h1>
+        <p class="rn-step__eyebrow">It's hard right now</p>
+        <p class="rn-step__lead">Choose what feels closest. Let's find one small next step.</p>
+        <p class="rn-reassurance">You don't have to solve<br />the whole day.</p>
+      </div>
+      <div class="rn-choices" aria-label="Choose your situation">
+        <a class="rn-choice" href="/tools/whats-underneath-the-meltdown"><span class="rn-choice__text"><span class="rn-choice__name">Meltdown or tantrum</span><span class="rn-choice__hint">Screaming, crying, hitting, going limp, or losing it.</span></span><svg class="rn-choice__arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
+        <a class="rn-choice" href="/tools/limits-without-escalation"><span class="rn-choice__text"><span class="rn-choice__name">Testing a limit</span><span class="rn-choice__hint">Pushing a &quot;no&quot;, refusing, or melting down over a boundary.</span></span><svg class="rn-choice__arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
+        <a class="rn-choice" href="/tools/routines-transitions-night-waking"><span class="rn-choice__text"><span class="rn-choice__name">Won&#x27;t sleep</span><span class="rn-choice__hint">Fighting bedtime, waking in the night, or stalling.</span></span><svg class="rn-choice__arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
+        <a class="rn-choice" href="/tools/regulating-yourself-first"><span class="rn-choice__text"><span class="rn-choice__name">I&#x27;m losing my patience</span><span class="rn-choice__hint">You&#x27;re the one running hot, close to yelling.</span></span><svg class="rn-choice__arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
+        <a class="rn-choice" href="/tools/repair-after-the-hard-moment"><span class="rn-choice__text"><span class="rn-choice__name">Something happened between us</span><span class="rn-choice__hint">You yelled, it went sideways, and you want to reconnect.</span></span><svg class="rn-choice__arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
       </div>
     </div>
   </main>
@@ -157,161 +161,7 @@
 
   <script src="../assets/js/main.js?v=3f7e70ab67" defer></script>
   <script src="../assets/js/gms-tools.js?v=66a93960af" defer></script>
-  <script>
-  (function () {
-    var DATA = JSON.parse(document.getElementById('router-data').textContent);
-    var main = document.getElementById('rn-main');
-    var pocket = document.getElementById('rn-pocket');
-    function byId(id) { return DATA.situations.filter(function (s) { return s.id === id; })[0]; }
-    function GMSready(fn) { if (window.GMS) fn(); else document.addEventListener('DOMContentLoaded', fn); }
-
-    function el(tag, attrs, kids) {
-      var n = document.createElement(tag);
-      if (attrs) Object.keys(attrs).forEach(function (k) {
-        if (k === 'class') n.className = attrs[k];
-        else if (k === 'text') n.textContent = attrs[k];
-        else if (k.indexOf('on') === 0) n.addEventListener(k.slice(2), attrs[k]);
-        else if (attrs[k] != null) n.setAttribute(k, attrs[k]);
-      });
-      (kids || []).forEach(function (c) { if (c != null) n.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); });
-      return n;
-    }
-
-    function renderStart() {
-      if (window.GMS && GMS.stopListening) GMS.stopListening();
-      pocket.innerHTML = '';
-      main.innerHTML = '';
-      var step = el('div', { class: 'rn-step' }, [
-        el('p', { class: 'rn-step__eyebrow', text: 'It\'s hard right now' }),
-        el('h1', { class: 'rn-step__title', text: 'What\'s happening?' })
-      ]);
-      var choices = el('div', { class: 'rn-choices' });
-      DATA.situations.forEach(function (s) {
-        choices.appendChild(el('button', {
-          type: 'button', class: 'rn-choice',
-          onclick: function () { go(s.id); }
-        }, [
-          document.createTextNode(s.choice),
-          el('span', { class: 'rn-choice__hint', text: s.hint })
-        ]));
-      });
-      step.appendChild(choices);
-      main.appendChild(step);
-      var h1 = step.querySelector('h1'); if (h1) h1.setAttribute('tabindex', '-1');
-      if (h1) h1.focus({ preventScroll: true });
-    }
-
-    function actionRow(s) {
-      var key = 'right-now:' + s.id;
-      var row = el('div', { class: 'rn-actions', role: 'group', 'aria-label': 'Save, listen, or ask' });
-
-      // Save
-      function isSaved() { return !!(window.GMS && GMS.shelf.has(key)); }
-      var save = el('button', { type: 'button', class: 'btn btn--ghost', text: isSaved() ? 'Saved ✓' : 'Save this' });
-      save.addEventListener('click', function () {
-        if (!window.GMS) return;
-        if (GMS.shelf.has(key)) GMS.shelf.removeByKey(key);
-        else GMS.shelf.add({ key: key, toolSlug: 'right-now', toolTitle: 'It\'s hard right now',
-          toolUrl: '/tools/right-now#' + s.id, title: s.title, body: s.body, tryLine: s.tryLine });
-        save.textContent = isSaved() ? 'Saved ✓' : 'Save this';
-      });
-      row.appendChild(save);
-
-      // Ask AI
-      var ask = el('a', { class: 'btn btn--ghost', href: (window.GMS ? GMS.askUrl(s.aiQuestion) : '/tools/ask-the-research') , text: 'Ask about this' });
-      row.appendChild(ask);
-
-      // Listen: Matthew's recording of this answer, placed before Ask once it is known to exist.
-      if (window.GMS && GMS.mountListen) {
-        var text = [s.title, s.body].concat(s.seq).concat(['Try saying: ' + s.tryLine]).map(function (t) {
-          t = String(t).trim();
-          return /[.?!:;]$/.test(t) ? t : t + '.';
-        }).join(' ');
-        GMS.mountListen(row, text, 'btn btn--ghost', ask);
-      }
-
-      // Print pocket card
-      var print = el('button', { type: 'button', class: 'btn btn--ghost', text: 'Print pocket card' });
-      print.addEventListener('click', function () {
-        fillPocket(s);
-        if (window.GMS && GMS.printCard) GMS.printCard(); else window.print();
-      });
-      row.appendChild(print);
-
-      return row;
-    }
-
-    function fillPocket(s) {
-      pocket.innerHTML = '';
-      pocket.appendChild(el('h2', { text: s.title }));
-      var ol = el('ul', { class: 'pocket-seq' });
-      s.seq.forEach(function (line, i) { ol.appendChild(el('li', { text: (i + 1) + '. ' + line })); });
-      pocket.appendChild(ol);
-      pocket.appendChild(el('div', { class: 'pocket-try', text: 'Try saying: ' + s.tryLine }));
-      pocket.appendChild(el('p', { class: 'pocket-foot', text: 'From Little Onward · fromlittleonward.com' }));
-    }
-
-    function renderAnswer(id) {
-      if (window.GMS && GMS.stopListening) GMS.stopListening();
-      var s = byId(id);
-      if (!s) return renderStart();
-      fillPocket(s);
-      main.innerHTML = '';
-
-      var seq = el('ol', { class: 'rn-seq' });
-      s.seq.forEach(function (line) {
-        seq.appendChild(el('li', {}, [el('b', { 'aria-hidden': 'true', text: '·' }), document.createTextNode(line)]));
-      });
-
-      var card = el('div', { class: 'rn-answer' }, [
-        el('p', { class: 'rn-answer__state', text: s.state }),
-        el('h1', { class: 'rn-answer__title', text: s.title, tabindex: '-1' }),
-        el('p', { class: 'rn-answer__body', text: s.body }),
-        seq,
-        el('div', { class: 'rn-answer__try' }, [el('strong', { text: 'Try: ' }), document.createTextNode(s.tryLine)]),
-        actionRow(s),
-        el('details', { class: 'rn-why' }, [
-          el('summary', { text: 'Read the full tool' }),
-          el('p', { class: 'rn-why__body' }, [
-            'This is the short version for the hard moment. ',
-            el('a', { href: '/tools/' + s.toolSlug, text: 'Open the full guide →' })
-          ])
-        ])
-      ]);
-      main.appendChild(card);
-
-      var back = el('div', { class: 'rn-back' }, [
-        el('button', { type: 'button', class: 'gms-link', text: '← Something else is happening', onclick: goBack })
-      ]);
-      main.appendChild(back);
-
-      var title = card.querySelector('.rn-answer__title');
-      if (title) title.focus({ preventScroll: true });
-      window.scrollTo({ top: 0, behavior: 'auto' });
-    }
-
-    // Each answer gets its own history entry (#meltdown, #sleep, ...), so the
-    // phone's Back gesture returns to "What's happening?" instead of leaving,
-    // and a saved answer can be reopened directly from the shelf.
-    function go(id) {
-      try { history.pushState({ rn: id }, '', '#' + id); } catch (e) {}
-      renderAnswer(id);
-    }
-    function goBack() {
-      if (history.state && history.state.rn) { history.back(); return; } // popstate renders the start
-      try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
-      renderStart();
-    }
-    function fromHash() {
-      var id = (location.hash || '').replace(/^#/, '');
-      try { id = decodeURIComponent(id); } catch (e) {}
-      if (id && byId(id)) renderAnswer(id); else renderStart();
-    }
-    window.addEventListener('popstate', fromHash);
-
-    GMSready(fromHash);
-  })();
-  </script>
+  <script src="../assets/js/rightnow.js?v=d27111faec" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
