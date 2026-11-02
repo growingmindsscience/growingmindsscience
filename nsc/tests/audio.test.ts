@@ -2,6 +2,7 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import {
+  AUDIO_MODEL_ID,
   audioClipId,
   checkinAudioIds,
   checkinLines,
@@ -24,6 +25,13 @@ const catalog = readJson<GamesCatalog>("content/games.catalog.v1.json");
 const ids = new Set(manifest.checkin);
 const gameIds = new Set(manifest.games);
 const everyId = [...manifest.checkin, ...manifest.games];
+
+describe("audio voice", () => {
+  it("records on eleven_v4, never a v2 model", () => {
+    expect(AUDIO_MODEL_ID).toBe("eleven_v4");
+    expect(AUDIO_MODEL_ID).not.toMatch(/v2/);
+  });
+});
 
 describe("audio clip ids", () => {
   it("voiceableText fills {objects} and rejects residual placeholders", () => {
