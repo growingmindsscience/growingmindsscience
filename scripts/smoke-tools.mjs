@@ -122,6 +122,8 @@ try {
   ok(/crying/i.test(await page.locator('.rn-choice').first().innerText()), 'right-now: the crying-baby choice comes first');
   ok(await page.locator('.rn-help a[href="tel:988"]').count() === 1 && await page.locator('.rn-help a[href="sms:988"]').count() === 1 && await page.locator('.rn-help a[href="tel:911"]').count() === 1, 'right-now: 988 call/text and 911 are tappable');
   ok(await page.evaluate(() => document.querySelector('.rn-help .hb-crisis').getBoundingClientRect().bottom <= innerHeight), 'right-now: crisis lines sit in the first screen');
+  const rnLabels = (await page.locator('.rn-step__title, .rn-step__eyebrow, .rn-choice__name, .rn-choice__hint').allInnerTexts()).join(' ');
+  ok(!/['"]/.test(rnLabels) && /’/.test(rnLabels) && /“no”/.test(rnLabels), 'right-now: typographic quotes in the interface labels');
   await page.locator('.rn-choice', { hasText: 'Meltdown' }).click();
   ok(await page.locator('.rn-answer__title').isVisible(), 'right-now: answer renders');
   ok(new URL(page.url()).hash === '#meltdown', 'right-now: the answer has its own #hash');
@@ -129,11 +131,28 @@ try {
   const askHref = await page.locator('.rn-actions a', { hasText: 'Ask about this' }).getAttribute('href');
   ok(/ask-the-research\?q=/.test(askHref), 'right-now: Ask link seeds ?q=');
   await page.locator('.rn-actions button', { hasText: 'Save this' }).click();
-  ok(await page.locator('.rn-actions button', { hasText: 'Saved ✓' }).count() > 0, 'right-now: Save toggles to Saved');
+  ok(await page.locator('.rn-actions button', { hasText: /^Saved$/ }).getAttribute('aria-pressed') === 'true', 'right-now: Save confirms its pressed state');
   ok(await page.locator('.rn-actions button[aria-pressed="true"]').count() === 1, 'right-now: Save carries aria-pressed');
   ok(await page.evaluate(() => { const h = document.querySelector('.rn-answer__title'); return h.nextElementSibling && h.nextElementSibling.classList.contains('rn-answer__state'); }), 'right-now: state line sits under the answer title');
-  ok(await page.locator('.rn-onward a[href="/tools/whats-underneath-the-meltdown"]').isVisible(), 'right-now: the full guide is one visible link');
-  ok(await page.locator('.rn-actions .hb-btn', { hasText: 'Listen' }).count() === 1, 'right-now: the recorded answer keeps its Listen button');
+  ok(await page.locator('.rn-why__link[href="/tools/whats-underneath-the-meltdown"]').count() === 1, 'right-now: the full tool is linked under "Why this helps"');
+  ok(await page.evaluate(() => document.querySelector('.rn-help a[href="tel:988"]').getBoundingClientRect().bottom <= innerHeight), 'right-now: crisis lines stay in the first screen of an answer');
+  await page.getByRole('button', { name: 'One step at a time', exact: true }).click();
+  ok(await page.locator('.rn-seq li:visible').count() === 1 &&
+    await page.getByRole('button', { name: 'Previous step', exact: true }).isDisabled(), 'right-now: guided mode starts with only the first step');
+  await page.getByRole('button', { name: 'Next step', exact: true }).click();
+  ok(/Step 2 of 3/.test(await page.locator('.rn-guide__progress').innerText()) &&
+    /Regulate first/.test(await page.locator('.rn-seq li:visible').innerText()), 'right-now: guided mode advances to the next advice');
+  await page.getByRole('button', { name: 'Previous step', exact: true }).click();
+  ok(/Make it safe/.test(await page.locator('.rn-seq li:visible').innerText()), 'right-now: guided mode can revisit a step');
+  await page.getByRole('button', { name: 'Show all steps', exact: true }).click();
+  ok(await page.locator('.rn-seq li:visible').count() === 3, 'right-now: all advice remains available without completing a flow');
+  await page.evaluate(() => {
+    Object.defineProperty(navigator, 'clipboard', { configurable: true, value: {
+      writeText: text => { window.__copiedPhrase = text; return Promise.resolve(); }
+    } });
+  });
+  await page.getByRole('button', { name: 'Copy words', exact: true }).click();
+  ok(await page.evaluate(() => window.__copiedPhrase === "I'm here. You're safe. We can wait."), 'right-now: copy uses the original spoken phrase');
   await page.locator('button', { hasText: 'Something else is happening' }).click();
   await page.waitForTimeout(150);
   ok(await page.locator('.rn-choice').count() === 6, 'right-now: back returns to choices');
@@ -143,19 +162,29 @@ try {
   ok(/right-now/.test(page.url()) && await page.locator('.rn-choice').count() === 6, 'right-now: browser Back returns to the choices');
   await page.goto(`${BASE}/tools/right-now.html#repair`, { waitUntil: 'networkidle' });
   ok(/Repair/.test(await page.locator('.rn-answer__title').innerText()), 'right-now: #repair opens that answer directly');
+
+  // Recorded narration is keyed by the exact original script, not UI labels.
+  const recordedScripts = { meltdown: '3ce62fb1', limit: 'c185f0fd', sleep: '61d656e5', patience: '0fa9b2fd', repair: 'acde4214' };
+  for (const [id, hash] of Object.entries(recordedScripts)) {
+    await page.goto(`${BASE}/tools/right-now.html#${id}`, { waitUntil: 'networkidle' });
+    const actual = await page.evaluate(() => GMS.listenHash(GMS._listenSeen.find(item => item.row.isConnected).text));
+    ok(actual === hash && await page.getByRole('button', { name: 'Listen', exact: true }).isVisible(), `right-now: ${id} retains its original recording (${hash})`);
+  }
+  await page.goto(`${BASE}/tools/right-now.html#patience`, { waitUntil: 'networkidle' });
+  ok(/step away/.test(await page.locator('.rn-answer__edge').innerText()), 'right-now: patience shows its step-away line');
   // Crying baby: safe put-down, never shake, when to call, sources, pocket card help line
   await page.goto(`${BASE}/tools/right-now.html#crying`, { waitUntil: 'networkidle' });
   const cry = await page.locator('.rn-answer').innerText();
   ok(/on their back in a safe crib/.test(cry) && /never shake a baby/i.test(cry) && /pediatrician/.test(cry) && /911/.test(cry), 'right-now: crying answer covers put-down, never shake, pediatrician, 911');
   ok(await page.locator('.rn-sources a[href*="cdc.gov"]').count() >= 1 && await page.locator('.rn-sources a[href*="healthychildren.org"]').count() === 1, 'right-now: crying answer cites CDC and AAP');
-  ok(/988/.test(await page.locator('#rn-pocket').innerText()), 'right-now: pocket card carries the 988 / 911 line');
-  ok(!/['"]/.test(await page.locator('.rn-answer__title, .rn-answer__try').allInnerTexts().then(a => a.join(' '))), 'right-now: typographic quotes on screen');
+  ok(/988/.test(await page.evaluate(() => document.getElementById('rn-pocket').textContent)), 'right-now: pocket card carries the 988 / 911 line');
+  ok(await page.evaluate(() => !/never shake|pediatrician/i.test(GMS._listenSeen.find(item => item.row.isConnected).text)), 'right-now: the safety lines stay out of the narration');
   // Sleep: illness and safe sleep line; an infant profile goes to the first-year guide
   await page.goto(`${BASE}/tools/right-now.html#sleep`, { waitUntil: 'networkidle' });
   ok(/firm, flat surface/.test(await page.locator('.rn-answer__when').innerText()), 'right-now: sleep answer names illness and safe sleep');
   await page.evaluate(() => { const d = new Date(); d.setMonth(d.getMonth() - 5); localStorage.setItem('gms-child-backup', localStorage.getItem('gms-child-v1') || ''); localStorage.setItem('gms-child-v1', JSON.stringify({ activeId: 'b', children: [{ id: 'b', name: '', birthdate: d.toISOString().slice(0, 10), band: null, createdAt: Date.now() }] })); });
   await page.reload({ waitUntil: 'networkidle' });
-  ok(await page.locator('.rn-onward a[href="/tools/whats-typical-by-stage"]').count() === 1, 'right-now: a baby under 12 months is sent to the first-year sleep guide');
+  ok(await page.locator('.rn-why__link[href="/tools/whats-typical-by-stage"]').count() === 1 && await page.locator('.rn-answer__when a').count() === 0, 'right-now: a baby under 12 months is sent to the first-year sleep guide');
   // A stage-only profile sends a range, and a stale stage sends nothing
   await page.evaluate(() => localStorage.setItem('gms-child-v1', JSON.stringify({ activeId: 'b', children: [{ id: 'b', name: 'Ada', birthdate: null, band: '13-18 months', bandSetAt: Date.now(), createdAt: Date.now() }] })));
   await page.reload({ waitUntil: 'networkidle' });
