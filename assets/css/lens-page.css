@@ -4,20 +4,51 @@
    step tabs and the panel frame are the homepage's (home.css, driven by
    home.js); this file holds what the full Lens adds: the title block, the
    panels' fuller content (mechanisms with their evidence, options, prompts),
-   the text alternative, the links, the sources and the close.
+   the text alternative, the links, the sources and the ages. The close band
+   is hubs.css's .hub-close.
    Tokens from tokens-field-guide.css.
    ========================================================= */
 
 /* ---------- Title block ---------- */
-.lp-title { padding-block: clamp(40px, 6vw, 96px) clamp(32px, 4vw, 56px); }
+.lp-title { padding-block: clamp(36px, 4.5vw, 72px) clamp(28px, 3vw, 44px); }
 .lp-title h1 { font-size: clamp(2.75rem, 1.6rem + 4vw, 5rem); line-height: 0.98; letter-spacing: -0.025em; }
 .lp-meta { margin-top: 16px; font-size: 15px; color: var(--ink-muted); }
 .lp-title .hb-lead { margin-top: 20px; color: var(--ink-soft); max-width: 52ch; }
 
+/* ---------- The Lens section: the plate starts in the first screen ---------- */
+.lp .lp-lens { padding-top: clamp(32px, 3.5vw, 56px); }
+/* Back and Next bring the tabs back to the top of the screen, under the header (script at the foot of the page). */
+.lp .lens__tabs { scroll-margin-top: calc(var(--header-h, 72px) + 12px); }
+
+/* The sticky plate never runs past the screen, so the "Conceptual model" note stays in view with the step it
+   qualifies. The photograph is object-fit: cover and the labels sit in percentages, so the box crops its foot. */
+@media (min-width: 901px) {
+  .lp .lens__plate { max-height: calc(100svh - var(--header-h, 72px) - 32px); }
+}
+
+/* ---------- The re-labelling: the page's one authored moment ----------
+   A step change takes the old labels off at once and sets the new ones down on the same photograph: each fades
+   and rises 6px, its ochre mark landing first, one after another (--i in reading order). Reflect's
+   desaturation is home.css's. Without html.anim (reduced motion, no script) the labels simply appear. */
+@media (prefers-reduced-motion: no-preference) {
+  html.anim .lp .lens__plate .label {
+    transition: opacity 440ms cubic-bezier(0.16, 1, 0.3, 1), transform 440ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--i, 0) * 90ms + 60ms);
+  }
+  html.anim .lp .lens__plate .label::before {
+    transition: transform 360ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--i, 0) * 90ms);
+  }
+  @starting-style {
+    html.anim .lp .lens__plate .label[data-active="true"] { opacity: 0; transform: translateY(6px); }
+    html.anim .lp .lens__plate .label[data-active="true"]::before { transform: scale(0); }
+  }
+}
+
 /* ---------- Panels: the full Lens content inside the homepage's frame ---------- */
 .lp .lens__panel { gap: 18px; }
 .lens__heading { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); line-height: 1.12; letter-spacing: -0.015em; }
-.lens__text { color: var(--ink); max-width: 60ch; }
+.lens__text { color: var(--ink); max-width: 60ch; text-wrap: pretty; }
 .lens__text--soft { color: var(--ink-soft); }
 .lens__block { display: grid; gap: 8px; }
 .fg .lens__subhead { letter-spacing: normal; font-family: var(--font-body); font-size: 15px; font-weight: 600; color: var(--ink); }
@@ -26,46 +57,75 @@
 .lens__list li::before, .lens__prompts li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--note-amber); margin-top: 0.6em; }
 .lens__prompts li { font-family: var(--font-display); font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); line-height: 1.3; padding-block: 4px; }
 .lens__aside { font-size: 15px; color: var(--ink-muted); max-width: 60ch; }
+
+/* Mechanism cards: soft white, 6px, an ochre mark beside a Newsreader name, the reading in Inter at body
+   size under it, and the evidence line in research blue. */
 .fg ul.lens__mechanisms { display: grid; gap: 10px; }
-.lens__mech { background: var(--surface); border-radius: var(--radius); padding: 16px 18px; display: grid; gap: 8px; }
-.fg .lens__mech-title { letter-spacing: normal; font-family: var(--font-body); font-size: 1rem; font-weight: 600; line-height: 1.35; color: var(--ink); }
+.lens__mech { background: var(--surface); border-radius: var(--radius); padding: 18px 20px 18px 18px; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px 14px; align-items: start; }
+.lens__mech::before { content: ""; grid-column: 1; grid-row: 1; width: 8px; height: 8px; margin-top: 0.62em; border-radius: 50%; background: var(--note-amber); }
+.lens__mech > * { grid-column: 2; margin: 0; }
+.fg .lens__mech-title { grid-row: 1; font-family: var(--font-display); font-size: clamp(1.1875rem, 1.05rem + 0.45vw, 1.375rem); font-weight: 500; line-height: 1.2; letter-spacing: -0.01em; color: var(--ink); }
+.lp .lens__mech .lens__text { font-size: 1.0625rem; line-height: 1.55; }
 .lens__mech--parent { background: var(--paper); }
-.lens__evidence { font-size: 14px; font-weight: 500; color: var(--research); }
+.lens__evidence { font-size: 14px; font-weight: 500; line-height: 1.45; color: var(--research); }
 .lens__class { margin-top: 4px; font-size: 14px; color: var(--ink-muted); }
-.lens__class a { color: var(--forest); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+.lens__class a { display: inline-block; padding-block: 12px; margin-block: -12px; color: var(--forest); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+.fg .lens__class a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
 .fg ol.lens__options { display: grid; counter-reset: opt; }
 .lens__options > li { display: grid; gap: 6px; padding-block: 14px; border-top: 1px solid var(--sage-mist-2); }
 .lens__options > li:first-child { border-top: 0; padding-top: 0; }
 .lens__option-title { font-weight: 600; }
 
+/* ---------- Phones and tablets: the steps above the photograph ----------
+   The tabs come first, then the photograph with its labels as a list, then the step's text. Choosing a step
+   re-labels the photograph directly under the tab. The photograph is held to a share of the screen so the
+   tabs, the picture and its labels can be read together. */
+@media (max-width: 900px) {
+  .lp .lens { row-gap: 14px; }
+  .lp .lens > div { display: contents; }
+  .lp .lens__tabs { order: -1; }
+  .lp .lens__panel { margin-top: 14px; }
+  .fg.lp .lens__tab { grid-auto-flow: column; justify-content: center; align-items: center; gap: 8px; padding: 8px 10px; }
+  .lp .lens__plate img { max-height: max(42svh, 280px); object-position: 50% 40%; }
+  .lp .lens__plate > .label { margin: 0; } /* the grid gap spaces the list; a running-text p + p margin would double it */
+  /* In the list the lead word runs into its line, as in the text alternative. */
+  .lp .lens__plate .label b { display: inline; margin: 0; }
+  .lp .lens__plate .label b::after { content: ": "; }
+}
+
 /* ---------- The text alternative to the plate ---------- */
 .lp-alt { margin-top: clamp(28px, 4vw, 48px); padding-top: 20px; border-top: 1px solid var(--sage-mist-2); display: grid; gap: 10px; max-width: 70ch; }
 .lp-caption { font-size: 14px; color: var(--ink-soft); }
 .lp-alt__more summary { display: inline-flex; align-items: center; min-height: 44px; cursor: pointer; font-size: 14px; font-weight: 500; color: var(--ink); text-decoration: underline; text-underline-offset: 0.16em; }
+.fg .lp-alt__more summary:hover { color: var(--forest); }
 .fg ul.lp-alt__list { display: grid; gap: 4px; margin-top: 6px; font-size: 14px; color: var(--ink-soft); }
 
 /* ---------- Go further: Read, Try, Learn ---------- */
-.lp-links { background: var(--surface); }
-.lens__connections { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px clamp(24px, 4vw, 56px); margin-top: clamp(24px, 3vw, 40px); }
-.lens__conn-title { font-family: var(--font-body); font-size: 14px; font-weight: 600; color: var(--clay-text); margin-bottom: 6px; }
+.lp-links { background: var(--surface); scroll-margin-top: var(--header-h, 72px); }
+.lens__connections { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px clamp(24px, 4vw, 56px); margin-top: clamp(24px, 3vw, 40px); }
+.fg.lp .lens__conn-title { font-family: var(--font-body); font-size: 15px; font-weight: 600; line-height: 1.4; letter-spacing: 0; color: var(--clay-text); margin-bottom: 4px; }
 .fg ul.lens__conn-list { display: grid; }
 .lens__conn-list li { border-top: 1px solid var(--border-soft); }
 .lens__conn-list li:first-child { border-top: 0; }
-.lp .lens__link { display: flex; padding: 0; margin: 0; align-items: center; min-height: 48px; text-decoration: none; font-family: var(--font-display); font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); line-height: 1.2; }
-.lp .lens__link:hover { color: var(--forest); text-decoration: underline; text-underline-offset: 0.16em; }
+.fg.lp .lens__link { display: flex; padding-block: 12px; margin: 0; align-items: center; min-height: 48px; text-decoration: none; font-family: var(--font-display); font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); line-height: 1.2; text-wrap: pretty; }
+.fg.lp .lens__link:hover { color: var(--forest); text-decoration: underline; text-underline-offset: 0.16em; }
 @media (max-width: 860px) { .lens__connections { grid-template-columns: minmax(0, 1fr); } }
 
-/* ---------- Sources ---------- */
-.lp-split { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 24px clamp(32px, 5vw, 80px); align-items: start; }
-.lens-page__status { margin-top: 14px; font-size: 15px; color: var(--ink-soft); max-width: 40ch; }
+/* ---------- Sources: the research-blue module ---------- */
+.lp-split { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 16px clamp(32px, 5vw, 80px); align-items: start; }
+.lp-sources .lp-split { padding-top: 20px; border-top: 2px solid var(--research); }
+.fg.lp .lp-sources h2 { font-family: var(--font-body); font-size: 15px; font-weight: 600; line-height: 1.4; letter-spacing: 0; color: var(--research); }
+.lens-page__status { margin-top: 10px; font-size: 15px; color: var(--ink-soft); max-width: 40ch; }
 .fg ul.lens-page__refs { display: grid; }
-.lens-page__refs li { padding-block: 12px; border-top: 1px solid var(--border-soft); font-size: 15px; line-height: 1.5; }
+.lens-page__refs li { padding-block: 10px; border-top: 1px solid var(--border-soft); font-size: 15px; line-height: 1.5; overflow-wrap: anywhere; }
 .lens-page__refs li:first-child { border-top: 0; padding-top: 0; }
 .lens-page__refs cite { font-style: italic; }
+.lens-page__refs a { padding-block: 11px; margin-block: -11px; color: var(--research); text-decoration: underline; text-underline-offset: 0.16em; text-decoration-thickness: 1px; }
+.fg .lens-page__refs a:hover { color: var(--research); text-decoration-thickness: 2px; }
 @media (max-width: 860px) { .lp-split { grid-template-columns: minmax(0, 1fr); } }
 
-/* ---------- Close ---------- */
-.lp-close { padding-top: 0; }
+/* ---------- More for these ages, then the close band ---------- */
+.lp-ages { padding-top: 0; }
 
 /* ---------- No script: every panel shows, in order, and the labels for Observe stay on the plate ---------- */
 .fg--page:not(.js) .lens__plate .label { display: none; }
