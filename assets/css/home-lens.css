@@ -28,6 +28,9 @@
 .fg .story-beat { display: flex; flex-direction: column; justify-content: center; min-height: clamp(240px, 28vw, 320px); padding: 32px 0; border-bottom: 1px solid var(--border-soft); }
 .fg .story-beat:first-child { padding-top: 0; justify-content: flex-start; }
 .fg .story-beat:last-child { border-bottom: 0; }
+/* The last beat activates late (at the reading line), so give the pinned photo
+   room to hold on "The wider moment" before the scene scrolls away. */
+.story-is-enhanced .story-beat:last-child { padding-bottom: clamp(260px, 52svh, 520px); justify-content: flex-start; }
 .fg .story-beat h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); line-height: 1.16; letter-spacing: -0.02em; color: var(--ink); max-width: 27ch; }
 .fg .story-beat p { margin-top: 20px; font-size: 1.125rem; line-height: 1.7; color: var(--ink-soft); max-width: 46ch; }
 .fg .story-beat blockquote { margin: 20px 0 0; padding: 16px 20px; border-radius: var(--radius); background: var(--sage-mist); color: var(--ink); font-family: var(--font-display); font-size: 1.5rem; line-height: 1.35; }
@@ -59,6 +62,7 @@
   .fg .story-beat p { font-size: 1rem; line-height: 1.65; margin-top: 16px; }
   .fg .story-beat blockquote { font-size: 1.25rem; margin-top: 16px; padding: 12px 16px; }
   .fg .story-beat .story-reassurance { font-size: 14px; }
+  .story-is-enhanced .story-beat:last-child { padding-bottom: 180px; }
   .story-footer { margin-top: 24px; gap: 12px; }
   .fg .story-full { font-size: 15px; }
 }
@@ -74,5 +78,5 @@
   .fg .story-scene { position: static; max-width: 320px; }
   .story-photo { min-height: 0; height: 240px; }
   .story-focus, .story-progress { display: none !important; }
-  .fg .story-beat { min-height: 0; padding: 20px 0; break-inside: avoid; }
+  .fg .story-beat, .story-is-enhanced .story-beat:last-child { min-height: 0; padding: 20px 0; break-inside: avoid; }
 }
