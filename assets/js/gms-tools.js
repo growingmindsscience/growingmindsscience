@@ -50,6 +50,10 @@
     try { return JSON.parse(raw); } catch (_) { return fallback; }
   }
   function writeJSON(key, value) { writeRaw(key, JSON.stringify(value)); }
+  // False when the browser will not let us keep anything (site data blocked):
+  // saves then last only until the page is left, and the UI says so.
+  var persistent = !!storage;
+  function savedLabel() { return persistent ? "Saved ✓" : "Saved for this visit"; }
 
   /* ---------- Small helpers ---------- */
   function ready(fn) {
@@ -88,6 +92,12 @@
     var d = new Date();
     return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
   }
+  // The oldest birthday the profile takes: eight years back. The tools cover
+  // birth to five, so anything earlier is almost always a typo in the year.
+  function earliestISO() {
+    var d = new Date();
+    return (d.getFullYear() - 8) + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
 
   /* ---------- Age bands (shared with the milestone tracker) ---------- */
   // Each band maps to an inclusive month range. The seven strings are identical
@@ -111,8 +121,15 @@
     // misleading "25–36 months" label for a four-year-old.
     return null;
   }
+  // The profile editor also offers one wider stage for three- to five-year-olds,
+  // so a preschool family can order the guides without giving a birthday. It is
+  // profile-only: the tracker never sees it (monthsToBand stops at 36 months, and
+  // milestones.html ignores a band it does not offer).
+  var PROFILE_BANDS = AGE_BANDS.concat([
+    { band: "37-60 months", key: "37-60", min: 37, max: 60, label: "3–5 years" }
+  ]);
   function bandByString(str) {
-    for (var i = 0; i < AGE_BANDS.length; i++) if (AGE_BANDS[i].band === str) return AGE_BANDS[i];
+    for (var i = 0; i < PROFILE_BANDS.length; i++) if (PROFILE_BANDS[i].band === str) return PROFILE_BANDS[i];
     return null;
   }
   function monthsFromBirthdate(iso) {
@@ -125,13 +142,30 @@
     if (now.getDate() < b.getDate()) months -= 1;
     return Math.max(0, months);
   }
-  // Coarse, human age phrase for AI prompts and labels — never sends birthdate.
+  // Coarse, human age phrase for AI prompts and labels; never sends birthdate.
   function agePhrase(months) {
     if (months == null) return "";
     if (months < 1) return "newborn";
     if (months < 24) return months + "-month-old";
     var years = Math.floor(months / 12);
     return years + "-year-old";
+  }
+  // A stage is a range, so it is sent as a range, never as an exact age.
+  function bandPhrase(b) {
+    if (!b) return "";
+    if (b.min === 0) return "baby under " + (b.max + 1) + " months";
+    if (b.max <= 24) return b.min + "- to " + b.max + "-month-old";
+    return Math.floor(b.min / 12) + "- to " + Math.floor(b.max / 12) + "-year-old";
+  }
+  var MONTH_MS = 30.44 * 864e5;
+  // A stage picked instead of a birthday does not age. Once more time has passed
+  // than the stage is wide, it is probably out of date: stop using it for an age
+  // and ask the parent instead.
+  function bandStale(child) {
+    if (!child || child.birthdate || !child.band) return false;
+    var b = bandByString(child.band), since = child.bandSetAt || child.createdAt;
+    if (!b || !since) return false;
+    return (Date.now() - since) / MONTH_MS > (b.max - b.min + 1);
   }
 
   /* ---------- Child profile ---------- */
@@ -173,6 +207,7 @@
         name: (data.name || "").trim(),
         birthdate: data.birthdate || null,
         band: data.birthdate ? null : (data.band || null),
+        bandSetAt: (!data.birthdate && data.band) ? Date.now() : null,
         createdAt: Date.now()
       };
       s.children.push(child);
@@ -188,7 +223,10 @@
           id: c.id, createdAt: c.createdAt,
           name: (data.name != null ? data.name : c.name || "").trim(),
           birthdate: data.birthdate || null,
-          band: data.birthdate ? null : (data.band || null)
+          band: data.birthdate ? null : (data.band || null),
+          // When the stage was set (createdAt is kept from the first save).
+          bandSetAt: (!data.birthdate && data.band)
+            ? ((data.band === c.band && c.bandSetAt) ? c.bandSetAt : Date.now()) : null
         };
       });
       saveChildState(s);
@@ -202,9 +240,20 @@
     clearAll: function () { removeRaw(CHILD_KEY); profileEvents.emit(); },
     ageInMonths: function (child) { return childMonths(child || profile.getActive()); },
     ageBand: function (child) { return childBand(child || profile.getActive()); },
-    agePhrase: function (child) { return agePhrase(childMonths(child || profile.getActive())); },
+    agePhrase: function (child) {
+      child = child || profile.getActive();
+      if (child && !child.birthdate && child.band) {
+        var b = bandByString(child.band);
+        return (b && !bandStale(child)) ? bandPhrase(b) : "";
+      }
+      return agePhrase(childMonths(child));
+    },
+    // True when the active (or given) child has only a stage, set long enough
+    // ago that it has probably been outgrown.
+    isStale: function (child) { return bandStale(child || profile.getActive()); },
     onChange: profileEvents.on,
-    BANDS: AGE_BANDS
+    BANDS: AGE_BANDS,
+    PROFILE_BANDS: PROFILE_BANDS
   };
 
   /* ---------- Saved shelf ---------- */
@@ -231,6 +280,8 @@
         title: item.title || "",
         body: item.body || "",
         tryLine: item.tryLine || "",
+        // The answer's steps, when it has them (the right-now router's three).
+        seq: Array.isArray(item.seq) ? item.seq.map(String).slice(0, 6) : [],
         savedAt: Date.now()
       });
       saveShelf(s);
@@ -349,8 +400,9 @@
     opts = opts || {};
     var q = question || "";
     if (opts.personalize !== false) {
+      // An age the parent typed into the tool wins over the saved profile.
       var child = profile.getActive();
-      var phrase = child ? profile.agePhrase(child) : "";
+      var phrase = opts.months != null ? agePhrase(opts.months) : (child ? profile.agePhrase(child) : "");
       if (phrase) q = "For my " + phrase + ": " + q;
     }
     return "/tools/ask-the-research?q=" + encodeURIComponent(q);
@@ -444,6 +496,11 @@
       })[0] || buttons[0];
       if (wanted && outputFor(wanted)) activate(wanted, "link");
       else if (pressed) activate(btnKey(pressed), "init");
+      // A saved-answer link followed from the same page changes only the hash.
+      window.addEventListener("hashchange", function () {
+        var w = hashAnswer();
+        if (w && outputFor(w)) activate(w, "link");
+      });
     });
 
     // 2) Save / Listen / Ask: injected into every output article on the page.
@@ -453,15 +510,24 @@
     });
   }
 
+  // What the shelf keeps. The words to say come from a .g-say line, a closing
+  // p.small, or repair's .script-line; the body is the answer's paragraphs
+  // without the sub-label (.tag) or the script, each ended as a sentence so
+  // nothing runs together on the shelf card.
+  var TRY_LABEL = /^\s*(?:Try|Say|Move|Ask)(?: saying| internally)?:\s*/i;
   function readOutputContent(output) {
     var heading = output.querySelector("h3, h4, .decoder-output__title");
-    var paras = output.querySelectorAll("p:not(.small)");
-    var tryEl = output.querySelector(".small");
-    var body = [].map.call(paras, function (p) { return p.textContent.trim(); }).join(" ");
+    var paras = output.querySelectorAll("p:not(.small):not(.tag):not(.g-say):not(.gms-sr-only)");
+    var tryEl = output.querySelector(".g-say__line, .small, .script-line");
+    var body = [].map.call(paras, function (p) {
+      if (p.closest(".gms-actions, .script-line")) return "";
+      var t = p.textContent.replace(/\s+/g, " ").trim();
+      return !t ? "" : (/[.?!:;"”]$/.test(t) ? t : t + ".");
+    }).filter(Boolean).join(" ");
     return {
       title: heading ? heading.textContent.trim() : "",
       body: body,
-      tryLine: tryEl ? tryEl.textContent.replace(/^Try:\s*/i, "").trim() : "",
+      tryLine: tryEl ? tryEl.textContent.replace(/\s+/g, " ").replace(TRY_LABEL, "").trim() : "",
       listenText: readAloudText(output)
     };
   }
@@ -529,8 +595,9 @@
     // Save
     var saved = shelf.has(cfg.key);
     var saveBtn = el("button", {
-      type: "button", class: "gms-action gms-action--save" + (saved ? " is-saved" : "")
-    }, [saved ? "Saved ✓" : "Save this"]);
+      type: "button", class: "gms-action gms-action--save" + (saved ? " is-saved" : ""),
+      "aria-pressed": saved ? "true" : "false"
+    }, [saved ? savedLabel() : "Save this"]);
     saveBtn.addEventListener("click", function () {
       if (shelf.has(cfg.key)) {
         shelf.removeByKey(cfg.key);
@@ -543,12 +610,14 @@
     });
     // Once saved, point to where saved answers live (the tools hub shelf).
     var viewLink = el("a", { class: "gms-action gms-action--view", href: "/tools/#saved" }, ["View saved"]);
-    viewLink.hidden = !saved;
+    viewLink.hidden = !saved || !persistent;
     var syncSave = function () {
       var on = shelf.has(cfg.key);
       saveBtn.classList.toggle("is-saved", on);
-      saveBtn.textContent = on ? "Saved ✓" : "Save this";
-      viewLink.hidden = !on;
+      saveBtn.setAttribute("aria-pressed", on ? "true" : "false");
+      saveBtn.textContent = on ? savedLabel() : "Save this";
+      // Without storage the shelf page would be empty, so don't point to it.
+      viewLink.hidden = !on || !persistent;
     };
     shelf.onChange(syncSave);
     row.appendChild(saveBtn);
@@ -576,6 +645,9 @@
     _listenSeen: listenSeen,
     printCard: printCard,
     askUrl: askUrl,
+    persistent: persistent,
+    savedLabel: savedLabel,
+    todayISO: todayISO,
     agePhrase: agePhrase,
     monthsToBand: monthsToBand,
     bandByString: bandByString,
@@ -660,16 +732,27 @@
           if (!focusOn("chip:" + ((profile.getActive() || {}).id))) focusOn("add");
         });
         card.appendChild(el("div", { class: "gms-profile__actions" }, [editBtn, addBtn, removeBtn]));
+        // A stage does not age by itself; once it has probably been outgrown,
+        // ask rather than keep guessing (the Ask links stop sending it too).
+        if (active && bandStale(active)) {
+          var ab = bandByString(active.band);
+          var upd = el("button", { type: "button", class: "gms-link", "data-gms-focus": "stale", text: "Update" });
+          upd.addEventListener("click", function () { openEditor(card, profile.getActive(), upd); });
+          card.appendChild(el("p", { class: "gms-profile__stale" }, [
+            "Is " + (active.name || "your child") + " still " + (ab ? ab.label : "at this stage") + "? ", upd
+          ]));
+        }
       } else {
         card.appendChild(el("p", { class: "gms-profile__lede",
           text: "Add your child to see the tools that fit their stage first. Optional." }));
-        var addFirst = el("button", { type: "button", class: "btn btn--ghost gms-profile__add", "data-gms-focus": "add", text: "Add your child" });
+        var addFirst = el("button", { type: "button", class: "hb-btn hb-btn--quiet gms-profile__add", "data-gms-focus": "add", text: "Add your child" });
         addFirst.addEventListener("click", function () { openEditor(card, null, addFirst); });
         card.appendChild(addFirst);
       }
 
       card.appendChild(el("p", { class: "gms-profile__privacy",
-        text: "Saved only in this browser. No account, and nothing is sent to us." }));
+        text: persistent ? "Saved only in this browser. No account, and nothing is sent to us."
+          : "Your browser isn’t letting this page save, so this lasts only until you leave the page. Nothing is sent to us." }));
       host.appendChild(card);
       focusOn(keep);
     }
@@ -677,6 +760,15 @@
     function openEditor(card, child, opener) {
       var existing = card.querySelector(".gms-editor");
       if (existing) { existing.remove(); if (opener) opener.focus(); return; }
+      // While the editor is open its own button is the card's one primary
+      // action, so the "Add your child" trigger steps aside until it closes.
+      var trigger = card.querySelector(".gms-profile__add");
+      if (trigger) trigger.hidden = true;
+      function closeEditor() {
+        form.remove();
+        if (trigger) trigger.hidden = false;
+        if (opener) opener.focus();
+      }
 
       var nameId = uid("name"), dateId = uid("date"), hintId = uid("hint"), errId = uid("err");
       var form = el("form", { class: "gms-editor", novalidate: "novalidate", "aria-label": child ? "Edit your child" : "Add your child" });
@@ -688,12 +780,12 @@
           value: child ? (child.name || "") : "", placeholder: "e.g. Nora" })
       ]));
 
-      var dateInput = el("input", { id: dateId, type: "date", value: child ? (child.birthdate || "") : "", max: todayISO(), "aria-describedby": hintId });
+      var dateInput = el("input", { id: dateId, type: "date", value: child ? (child.birthdate || "") : "", min: earliestISO(), max: todayISO(), "aria-describedby": hintId });
       var dateError = el("p", { class: "gms-field__error", id: errId, role: "alert", hidden: "hidden" });
       form.appendChild(el("div", { class: "gms-field" }, [
         el("label", { for: dateId, text: "Birthday" }),
         dateInput,
-        el("span", { class: "gms-field__hint", id: hintId, text: "Used only to work out your child's stage. Stays on this device." }),
+        el("span", { class: "gms-field__hint", id: hintId, text: "Used only to work out your child’s stage. Stays on this device." }),
         dateError
       ]));
       function clearDateError() {
@@ -703,11 +795,19 @@
       }
       dateInput.addEventListener("input", clearDateError);
 
+      function showDateError(msg) {
+        dateError.textContent = msg;
+        dateError.hidden = false;
+        dateInput.setAttribute("aria-invalid", "true");
+        dateInput.setAttribute("aria-describedby", hintId + " " + errId);
+        dateInput.focus();
+      }
+
       var orRow = el("div", { class: "gms-editor__or" }, [
         el("span", { text: "Prefer not to give a date? Pick a stage:" })
       ]);
       var bandWrap = el("div", { class: "gms-bands", role: "group", "aria-label": "Choose an age stage" });
-      AGE_BANDS.forEach(function (b) {
+      PROFILE_BANDS.forEach(function (b) {
         var btn = el("button", { type: "button", class: "gms-band" + (chosenBand === b.band ? " is-active" : ""),
           "aria-pressed": chosenBand === b.band ? "true" : "false", text: b.label });
         btn.addEventListener("click", function () {
@@ -723,9 +823,8 @@
       });
 
       var buttons = el("div", { class: "gms-editor__buttons" }, [
-        el("button", { type: "submit", class: "btn btn--primary", text: child ? "Save" : "Add child" }),
-        el("button", { type: "button", class: "gms-link gms-link--muted", text: "Cancel",
-          onclick: function () { form.remove(); if (opener) opener.focus(); } })
+        el("button", { type: "submit", class: "hb-btn", text: child ? "Save" : "Add child" }),
+        el("button", { type: "button", class: "gms-link gms-link--muted", text: "Cancel", onclick: closeEditor })
       ]);
 
       form.appendChild(orRow);
@@ -738,14 +837,15 @@
         // The form is novalidate (for the calm inline message below), so the
         // input's max= is not enforced by the browser; check it here.
         if (birthdate && birthdate > todayISO()) {
-          dateError.textContent = "That date is in the future. Enter your child's birthday, or pick a stage below.";
-          dateError.hidden = false;
-          dateInput.setAttribute("aria-invalid", "true");
-          dateInput.setAttribute("aria-describedby", hintId + " " + errId);
-          dateInput.focus();
+          showDateError("That date is in the future. Enter your child’s birthday, or pick a stage below.");
           return;
         }
-        if (!birthdate && !chosenBand && !name.trim()) { form.remove(); if (opener) opener.focus(); return; }
+        // A slipped year (0202 for 2024) would otherwise read as an 1824-year-old.
+        if (birthdate && birthdate < earliestISO()) {
+          showDateError("That birthday is more than 8 years ago. Check the year, or pick a stage below.");
+          return;
+        }
+        if (!birthdate && !chosenBand && !name.trim()) { closeEditor(); return; }
         var id;
         if (child) { profile.update(child.id, { name: name, birthdate: birthdate, band: chosenBand }); id = child.id; }
         else { id = profile.add({ name: name, birthdate: birthdate, band: chosenBand }).id; }
@@ -808,6 +908,9 @@
           el("p", { class: "gms-shelf__tool", text: it.toolTitle || "Saved" }),
           el("h3", { class: "gms-shelf__title", text: it.title || "" }),
           it.body ? el("p", { class: "gms-shelf__body", text: it.body }) : null,
+          (it.seq && it.seq.length) ? el("ol", { class: "gms-shelf__seq" }, it.seq.map(function (line) {
+            return el("li", { text: line });
+          })) : null,
           it.tryLine ? el("p", { class: "gms-shelf__try", text: "Try: " + it.tryLine }) : null
         ]);
         var removeBtn = el("button", { type: "button", class: "gms-link gms-link--muted", "data-shelf-index": String(idx), text: "Remove" });
@@ -815,6 +918,12 @@
           var n = shelf.list().length;
           shelf.removeById(it.id);
           render(Math.min(idx, n - 2));
+          // The last one went and the section hid with it: rather than drop
+          // focus to <body>, land on the page heading.
+          if (n <= 1 && section && section.hidden) {
+            var h = document.querySelector("main h1") || document.querySelector("h1");
+            if (h) { h.setAttribute("tabindex", "-1"); h.focus(); }
+          }
         });
         var foot = el("div", { class: "gms-shelf__foot" }, [
           href ? el("a", { class: "gms-link", href: href, text: "Open tool" }) : null,
@@ -842,6 +951,16 @@
   function reorderToolLists() {
     var active = profile.getActive();
     var months = active ? profile.ageInMonths(active) : null;
+    // A stage-only child matches a card whose range overlaps the stage; a stage
+    // that has probably been outgrown matches nothing until it is updated.
+    var range = null;
+    if (active && !active.birthdate && active.band) {
+      var ab = bandByString(active.band);
+      if (ab && !bandStale(active)) range = { min: ab.min, max: ab.max };
+      months = null;
+    } else if (months != null) {
+      range = { min: months, max: months };
+    }
     var lists = document.querySelectorAll("[data-gms-tool-list]");
     [].forEach.call(lists, function (list) {
       var all = [].slice.call(list.children);
@@ -853,15 +972,20 @@
         card.classList.remove("is-foryou");
         card.style.order = "";
       });
-      if (months != null) {
+      if (range) {
         cards.forEach(function (card) {
           var min = parseInt(card.getAttribute("data-age-min"), 10);
           var max = parseInt(card.getAttribute("data-age-max"), 10);
-          if (!isNaN(min) && !isNaN(max) && months >= min && months <= max) {
+          if (!isNaN(min) && !isNaN(max) && range.max >= min && range.min <= max) {
             card.classList.add("is-foryou");
-            var eyebrow = card.querySelector(".tool-card__eyebrow");
             var flag = el("span", { class: "gms-foryou", text: "For your child" });
-            if (eyebrow && eyebrow.parentNode) eyebrow.parentNode.insertBefore(flag, eyebrow);
+            // A quiet-ruled row (.row__meta) takes the flag as one more meta line
+            // under its name (the Label Below Rule); an older card keeps it
+            // before its eyebrow.
+            var meta = card.querySelector(".row__meta");
+            var eyebrow = card.querySelector(".tool-card__eyebrow");
+            if (meta && meta.parentNode) meta.parentNode.insertBefore(flag, meta.nextSibling);
+            else if (eyebrow && eyebrow.parentNode) eyebrow.parentNode.insertBefore(flag, eyebrow);
             else card.insertBefore(flag, card.firstChild);
           }
         });

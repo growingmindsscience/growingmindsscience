@@ -3,7 +3,7 @@
 // Rebuild after changing curated cards or adding files to knowledge/sources/:
 //   node scripts/build-knowledge.mjs
 //
-// Generated: 2026-10-25T16:07:26.693Z
+// Generated: 2026-11-02T13:12:41.792Z
 
 export const KNOWLEDGE = [
   {
@@ -1469,7 +1469,7 @@ export const KNOWLEDGE = [
   },
   {
     "id": "tantrums-and-the-brain",
-    "title": "Tantrums and meltdowns: an immature brain, not manipulation",
+    "title": "Tantrums and meltdowns: an immature brain, and why \"manipulation\" is the wrong lens",
     "tags": [
       "tantrum",
       "meltdown",
@@ -1491,7 +1491,7 @@ export const KNOWLEDGE = [
     "source": {
       "label": "Developmental neuroscience of emotion regulation"
     },
-    "text": "A tantrum is most accurately understood as a developmental and neurological event, not a strategic one. Young children feel emotions with full intensity, but the prefrontal cortex — the brain region responsible for impulse control, perspective, and calming the alarm system — is highly immature and will keep developing for years. When a toddler is flooded by frustration, fear, or disappointment, the emotional alarm (centered on structures like the amygdala) overwhelms the still-thin \"braking\" system, and the child is genuinely unable to reason, negotiate, or \"calm down\" on command. This is why logic, threats, and long explanations rarely work mid-meltdown — the part of the brain that would receive them is temporarily offline. It also means tantrums are not manipulation; the capacity to manipulate requires exactly the planning skills the child does not yet have. The supportive response is to keep the child (and others) safe, stay calm to co-regulate, keep limits steady but warm, and save teaching for after the storm passes. Tantrums typically become less frequent as language and executive function mature."
+    "text": "At its peak, a tantrum is best understood as an emotional flood the child cannot yet stop, not a calculated plan. Young children feel emotions with full intensity, but the prefrontal cortex (the brain region responsible for impulse control, perspective, and calming the alarm system) is highly immature and will keep developing for years. When a toddler is flooded by frustration, fear, or disappointment, the emotional alarm (centered on structures like the amygdala) overwhelms the still-thin \"braking\" system, and the child is genuinely unable to reason, negotiate, or \"calm down\" on command. This is why logic, threats, and long explanations rarely work mid-meltdown: the part of the brain that would receive them is temporarily offline. Young children do notice what tends to follow their behavior, so the pattern of your responses matters. But nobody can see intent from the outside, and reading a meltdown as deliberate manipulation tends to make parents angrier and discipline harsher. What predicts fewer problems is consistency across episodes, with the limit holding most of the time; one hard day when you gave in is not the problem. The supportive response is to keep the child (and others) safe, stay calm to co-regulate, keep limits steady but warm, and save teaching for after the storm passes. Tantrums typically become less frequent as language and executive function mature."
   },
   {
     "id": "milestones-are-ranges",
@@ -1522,7 +1522,7 @@ export const KNOWLEDGE = [
       "label": "CDC \"Learn the Signs. Act Early.\"",
       "url": "https://www.cdc.gov/ncbddd/actearly/"
     },
-    "text": "Developmental milestones describe the average ages by which most children gain a skill — they are ranges, not deadlines. Healthy children vary widely in when they walk, talk, or master a skill, and a child can be ahead in one domain (say, motor) while taking longer in another (say, language). Most variation is simply normal individual difference. At the same time, the evidence on early intervention is clear: when there is a genuine delay, support started earlier tends to be more effective because the young brain is so plastic. So the guidance is twofold and not contradictory. First, resist anxious comparison — a single \"late\" milestone in an otherwise thriving, connected, engaged child is usually not a concern. Second, take persistent patterns seriously: loss of skills a child previously had, no response to their name, very limited eye contact or social engagement, or a consistent lag across several areas are reasons to talk with a pediatrician and ask about evaluation rather than \"waiting to see.\" Trusting parental instinct and seeking assessment is not overreacting; it is exactly what the \"act early\" message encourages."
+    "text": "CDC's milestone checklists, revised in 2022, list what most children (75 percent or more) can do by each age, so a milestone marks a point most children have already passed, not an average. Healthy children still vary a lot in when they walk, talk, or master a skill, and a child can be ahead in one area (say, motor) while taking longer in another (say, language). Most of that variation is normal individual difference, and a missed milestone is not a reason to panic. It is a reason to ask now: CDC's advice is that if a child is not meeting one or more milestones, has lost skills, or a parent has other concerns, they should talk with the child's doctor and ask about developmental screening rather than wait and see. When support is needed, it tends to work better the earlier it starts, because the young brain is so plastic. Some signs deserve a prompt call: losing words or skills a child had, at any age; not responding to their name or rarely pointing to share interest once those are expected; very limited eye contact or social engagement; or a lag across several areas. In the US, parents can also ask their state's early intervention program for a free evaluation before age 3, with no referral, or their local public school from age 3. Trusting parental instinct and asking for an assessment is not overreacting; it is exactly what the \"act early\" message encourages."
   },
   {
     "id": "source-infant-1-1-born-ready-to-connect-1",

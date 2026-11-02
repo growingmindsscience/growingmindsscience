@@ -2,74 +2,139 @@
    Growing Minds Science: rightnow.css
    "It's hard right now" (body.rn-body) on the annotated-observation system.
    The page stays chrome-less on purpose: one bar with the wordmark and a way
-   back, one question, then a short answer. The router script renders the
-   steps (rn-*); tools.css keeps their base rules and the pocket card's print
-   sheet, and this file restyles them: Newsreader for the question and the
-   answer, choices as calm rows, the try-this line on sage mist, numbered
-   steps under a quiet rule. Tokens from tokens-field-guide.css.
+   back, the crisis lines (tappable, in the first screen on every view), one
+   question, then a short answer. The router script renders the steps (rn-*);
+   tools.css keeps the pocket card's print sheet, and this file styles the rest:
+   Newsreader for the question and the answer, choices as calm rows, the try-this
+   line on sage mist, numbered steps under an ink rule. Tokens from
+   tokens-field-guide.css; the crisis chips (.hb-crisis) and buttons (.hb-btn)
+   come from fg-base.css.
    ========================================================= */
 
 .fg.rn-body { background: var(--paper); }
 
+/* One column for the whole page: the bar, the help line, the step and the safety note. */
+.fg :is(.rn-bar, .rn-help, .rn-main, .rn-safety) { width: min(100% - 2 * var(--hb-gutter, 16px), 720px); max-width: none; margin-inline: auto; }
+
 /* ---------- The bar: wordmark and a way back ---------- */
-.fg .rn-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: min(100% - 2 * var(--hb-gutter, 16px), 720px); max-width: none; margin-inline: auto; padding: 18px 0; }
+.fg .rn-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 0 10px; }
 .rn-bar .brand { display: inline-flex; align-items: center; min-height: 44px; gap: 0.6em; color: var(--ink); text-decoration: none; }
 .rn-bar .brand__mark { display: block; width: 32px; height: 32px; flex-shrink: 0; color: var(--ink); overflow: visible; }
 .rn-bar .brand__leaf { fill: var(--sage-deep); }
-[data-theme="dark"] .rn-bar .brand__mark { color: var(--sage); }
-[data-theme="dark"] .rn-bar .brand__leaf { fill: var(--sage-mist-2); }
+/* Dark: the same light sage the site header uses (chrome.css), not --sage, which goes dark. */
+[data-theme="dark"] .rn-bar .brand__mark { color: #A9C3B2; }
+[data-theme="dark"] .rn-bar .brand__leaf { fill: #CFDFD6; }
 .rn-bar .brand__name { margin-left: 0.1em; font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; letter-spacing: -0.01em; line-height: 1; white-space: nowrap; }
 .rn-bar .brand__desc { position: relative; top: 0.22em; font-family: var(--font-body); font-size: 11px; font-weight: 500; letter-spacing: 0.32em; text-transform: uppercase; }
-.fg .rn-bar > a:not(.brand) { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: var(--ink-soft); text-decoration: underline; text-underline-offset: 0.16em; }
+.fg .rn-bar > a:not(.brand) { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; color: var(--ink-soft); text-decoration: underline; text-underline-offset: 0.16em; white-space: nowrap; }
 .fg .rn-bar a:hover { color: var(--forest); }
-.rn-bar :focus-visible { outline: 2px solid var(--forest); outline-offset: 3px; }
-@media (max-width: 420px) { .rn-bar .brand__desc { display: none; } }
+/* Phones keep "Onward": the tracking tightens instead of the word going. */
+@media (max-width: 420px) { .rn-bar .brand { gap: 0.5em; } .rn-bar .brand__desc { letter-spacing: 0.2em; } }
+
+/* ---------- Help right now: the crisis lines, before the question ---------- */
+.fg .rn-help { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 4px 0 16px; border-bottom: 1px solid var(--border-soft); }
+.fg .rn-help__line { margin: 0; font-size: 15px; line-height: 1.4; color: var(--ink-soft); max-width: none; }
+.fg .rn-help .hb-crisis { margin: 0; max-width: none; gap: 8px; }
+@media (max-width: 560px) {
+  .fg .rn-help { gap: 8px; }
+  .fg .rn-help__line { flex-basis: 100%; }
+}
 
 /* ---------- The question ---------- */
-.fg .rn-main { width: min(100% - 2 * var(--hb-gutter, 16px), 720px); max-width: none; margin-inline: auto; padding: clamp(24px, 6vw, 72px) 0 clamp(72px, 10vw, 128px); }
-/* The page has no footer, so the safety line and disclaimer sit under every step. */
-.fg .rn-safety { width: min(100% - 2 * var(--hb-gutter, 16px), 720px); margin-inline: auto; padding: 20px 0 48px; border-top: 1px solid var(--border-soft); font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
-.fg .rn-safety__fine { margin-top: 8px; font-size: 14px; color: var(--ink-muted); }
+.fg .rn-main { padding: clamp(24px, 5vw, 56px) 0 clamp(28px, 4vw, 48px); }
 /* The page name reads as the question's subline, not a kicker above it. */
 .rn-step { display: flex; flex-direction: column; }
 .rn-step__title { order: -1; }
 .fg .rn-step__title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(2.25rem, 1.5rem + 3vw, 3.5rem); line-height: 1.02; letter-spacing: -0.02em; color: var(--ink); }
-.fg .rn-step__eyebrow { margin: 10px 0 28px; font-size: 15px; font-weight: 500; color: var(--ink-muted); }
+.fg .rn-step__eyebrow { margin: 10px 0 20px; font-size: 15px; font-weight: 500; color: var(--ink-muted); }
 .rn-choices { display: grid; gap: 0; }
-.fg .rn-choice { display: block; width: 100%; padding: 18px 4px; border: 0; border-top: 1px solid var(--border-soft); border-radius: 0; background: transparent; box-shadow: none; color: var(--ink); font: inherit; font-family: var(--font-display); font-size: clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem); line-height: 1.15; letter-spacing: -0.01em; text-align: left; text-decoration: none; cursor: pointer; transition: background-color 160ms ease; }
+/* Each situation is a calm row: the rules keep the column's edge, the hover wash reaches
+   12px past it, and a trailing arrow says the row opens something (as .row--link does). */
+.fg .rn-choice { position: relative; isolation: isolate; display: block; width: 100%; padding: 16px 44px 16px 0; border: 0; border-top: 1px solid var(--border-soft); border-radius: 0; background: transparent; box-shadow: none; color: var(--ink); font: inherit; text-align: left; text-decoration: none; cursor: pointer; }
 .fg .rn-choice:last-child { border-bottom: 1px solid var(--border-soft); }
-.fg .rn-choice:hover { background: var(--sage-mist); color: var(--ink); }
-.fg .rn-choice:focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
+.fg .rn-choice::before { content: ""; position: absolute; z-index: -1; inset: 0 -12px; background: transparent; transition: background-color 160ms ease; }
+.fg .rn-choice::after {
+  content: ""; position: absolute; right: 4px; top: 50%; width: 20px; height: 20px; margin-top: -10px;
+  background: var(--ink-muted);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 12h15M13.5 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 12h15M13.5 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: transform 160ms ease, background-color 160ms ease;
+}
+.fg .rn-choice:hover { background: transparent; color: var(--ink); }
+.fg .rn-choice:hover::before { background: var(--sage-mist); }
+.fg .rn-choice:hover::after { background: var(--forest); transform: translateX(3px); }
+.fg .rn-choice:focus-visible { outline: 2.5px solid var(--forest); outline-offset: 2px; }
+.fg .rn-choice__name { display: block; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem); line-height: 1.15; letter-spacing: -0.01em; }
 .fg .rn-choice__hint { display: block; margin-top: 6px; font-family: var(--font-body); font-size: 15px; line-height: 1.45; letter-spacing: 0; color: var(--ink-muted); }
+/* Without script the choices are links whose name is bare text: give it the row-name face. */
+.fg a.rn-choice { font-family: var(--font-display); font-size: clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem); line-height: 1.15; letter-spacing: -0.01em; }
+@media (max-width: 560px) { .fg .rn-choice { padding-block: 14px; } }
 
 /* ---------- The answer ---------- */
 /* The router moves focus to each new heading for screen readers; no ring for that. */
 .rn-main [tabindex="-1"]:focus { outline: none; }
 .fg .rn-answer { padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
-.fg .rn-answer__state { font-size: 15px; font-weight: 500; color: var(--forest); }
-.fg .rn-answer__title { margin: 8px 0 16px; font-family: var(--font-display); font-weight: 400; font-size: clamp(2rem, 1.4rem + 2.4vw, 3rem); line-height: 1.05; letter-spacing: -0.02em; color: var(--ink); }
+.fg .rn-answer__title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(2rem, 1.4rem + 2.4vw, 3rem); line-height: 1.05; letter-spacing: -0.02em; color: var(--ink); text-wrap: balance; }
+/* The state line sits under the title as its meta line (the Label Below Rule), in ink, not forest. */
+.fg .rn-answer__state { margin: 10px 0 20px; font-size: 15px; font-weight: 500; line-height: 1.4; color: var(--ink-muted); }
 .fg .rn-answer__body { max-width: 60ch; font-size: 1.125rem; line-height: 1.65; color: var(--ink-soft); }
-.fg .rn-seq { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 0; border-top: 2px solid var(--ink); }
-.fg .rn-seq li { display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); gap: 12px; padding-block: 14px; border-bottom: 1px solid var(--border-soft); color: var(--ink-soft); line-height: 1.55; }
+.fg .rn-seq { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 0; border-top: 2px solid var(--ink); counter-reset: rn-step; }
+.fg .rn-seq li { display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); gap: 12px; padding-block: 14px; border-bottom: 1px solid var(--border-soft); color: var(--ink-soft); line-height: 1.55; counter-increment: rn-step; }
 /* The script marks each step with a dot; the steps are an order, so they count. */
-.fg .rn-seq { counter-reset: rn-step; }
-.fg .rn-seq li { counter-increment: rn-step; }
 .fg .rn-seq b { width: auto; height: auto; border-radius: 0; display: block; background: none; font-size: 0; line-height: 1; }
-.fg .rn-seq b::before { content: counter(rn-step); color: var(--forest); font-family: var(--font-display); font-weight: 400; font-size: 1.5rem; }
-.fg .rn-answer__try { margin-top: 28px; padding: clamp(18px, 2.6vw, 28px); border-radius: var(--radius-lg); background: var(--sage-mist); font-family: var(--font-display); font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem); line-height: 1.3; color: var(--ink); }
-.fg .rn-answer__try strong { display: block; margin-bottom: 6px; font-family: var(--font-body); font-size: 15px; font-weight: 600; color: var(--forest); }
-.fg .rn-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-.fg .rn-why { margin-top: 24px; border-top: 1px solid var(--border-soft); }
-.fg .rn-why summary { display: flex; align-items: center; min-height: 52px; cursor: pointer; font-size: 15px; font-weight: 500; color: var(--forest); }
-.fg .rn-why summary:focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
-.fg .rn-why__body { margin: 0 0 16px; max-width: 60ch; color: var(--ink-soft); }
-.fg .rn-back { margin-top: 28px; }
-.fg .rn-back a, .fg .rn-actions .gms-link { display: inline-flex; align-items: center; min-height: 44px; }
+.fg .rn-seq b::before { content: counter(rn-step); color: var(--ink); font-family: var(--font-display); font-weight: 400; font-size: 1.5rem; }
+/* One plain line for the safety step outside the recorded answer (crying, patience). */
+.fg .rn-answer__edge { margin: 20px 0 0; max-width: 60ch; font-size: 1.0625rem; font-weight: 500; line-height: 1.5; color: var(--ink); }
+.fg .rn-answer__try { margin-top: 24px; padding: clamp(18px, 2.6vw, 28px); border-radius: var(--radius-lg); background: var(--sage-mist); font-family: var(--font-display); font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem); line-height: 1.3; color: var(--ink); }
+.fg .rn-answer__try strong { display: block; margin-bottom: 6px; font-family: var(--font-body); font-size: 15px; font-weight: 600; color: var(--ink-soft); }
+/* When to call: the pediatrician or 911, under the try line. */
+.fg .rn-answer__when { margin: 20px 0 0; max-width: 60ch; font-size: 15px; line-height: 1.55; color: var(--ink-soft); }
+.fg .rn-answer__when a { color: var(--forest); text-decoration: underline; text-underline-offset: 3px; display: inline-block; padding-block: 11px; margin-block: -11px; }
 
-/* The script's own buttons, in the system's two shapes. */
-.fg.rn-body .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5em; min-height: 48px; padding: 0 1.25rem; border: 0; border-radius: var(--radius); background: var(--forest); color: var(--on-forest); font: inherit; font-size: 1rem; font-weight: 500; text-decoration: none; cursor: pointer; }
-.fg.rn-body .btn:hover { background: var(--forest-deep); color: var(--on-forest); }
-.fg.rn-body .btn--ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
-.fg.rn-body .btn--ghost:hover { background: var(--sage-mist); color: var(--ink); }
-.fg.rn-body .btn:focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
-@media (max-width: 560px) { .fg .rn-actions .btn { width: 100%; } }
+/* Save, Listen, Ask, Print: quiet buttons in one row; on phones a 2 x 2 grid instead of
+   four stacked full-width buttons. */
+.fg .rn-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+@media (max-width: 560px) {
+  .fg .rn-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .fg .rn-actions .hb-btn { width: 100%; padding-inline: 10px; }
+  .fg .rn-actions > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+
+/* The one way onward: the full guide, named. */
+.fg .rn-onward { margin: 24px 0 0; padding-top: 8px; border-top: 1px solid var(--border-soft); max-width: none; }
+.fg .rn-onward a { display: inline-block; padding-block: 12px; font-size: 1rem; font-weight: 500; line-height: 1.5; color: var(--forest); text-decoration: underline; text-underline-offset: 3px; }
+.fg .rn-onward a span { white-space: nowrap; }
+.fg .rn-onward a:hover { color: var(--forest-deep); }
+
+/* Sources for the safety lines: the research-blue module, compact. */
+.fg .rn-sources { margin-top: 28px; padding-top: 16px; border-top: 2px solid var(--research); }
+.fg .rn-sources__title { margin: 0; font-family: var(--font-body); font-size: 15px; font-weight: 600; line-height: 1.4; letter-spacing: 0; color: var(--research); }
+.fg .rn-sources ul { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 0; }
+.fg .rn-sources a { display: inline-flex; align-items: center; min-height: 40px; font-size: 14px; line-height: 1.4; color: var(--research); text-decoration: underline; text-underline-offset: 3px; }
+.fg .rn-sources a:hover { color: var(--ink); }
+
+.fg .rn-back { margin-top: 16px; }
+.fg .rn-back .gms-link { display: inline-flex; align-items: center; gap: 0.4em; min-height: 44px; font-size: 15px; font-weight: 500; }
+
+/* ---------- Safety note (every view; the page has no footer) ---------- */
+.fg .rn-safety { padding: 20px 0 48px; border-top: 1px solid var(--border-soft); font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
+.fg .rn-safety p { max-width: 62ch; }
+.fg .rn-safety a { color: var(--forest); text-decoration: underline; text-underline-offset: 3px; display: inline-block; padding-block: 11px; margin-block: -11px; }
+.fg .rn-safety a:hover { color: var(--forest-deep); }
+.fg .rn-safety__fine { margin-top: 8px; font-size: 14px; color: var(--ink-muted); }
+
+/* ---------- Question to answer: a short crossfade, no movement ----------
+   Only views the parent asked for (not the first one); reduced motion stays instant. */
+@media (prefers-reduced-motion: no-preference) {
+  html.anim .rn-in { animation: rn-in 200ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+}
+@keyframes rn-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .fg .rn-choice::before, .fg .rn-choice::after { transition: none; } .fg .rn-choice:hover::after { transform: none; } }
+
+/* ---------- Plain Ctrl+P of an answer: the words and the safety note, no controls ---------- */
+@media print {
+  .rn-help, .rn-actions, .rn-back, .rn-onward, .rn-bar > a:not(.brand), .skip-link { display: none !important; }
+  .fg .rn-main { padding: 12px 0 16px; }
+  .fg .rn-answer__try { background: none; border: 1px solid #CCD3DC; }
+  .fg .rn-safety { padding-bottom: 0; }
+}
