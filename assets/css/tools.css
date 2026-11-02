@@ -51,6 +51,8 @@
 .gms-action:hover { border-color: var(--primary); color: var(--ink); }
 .gms-action:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 .gms-action[hidden] { display: none; }
+/* "Other choices" goes back up to the choices; only needed where they stack above the answer. */
+@media (min-width: 921px) { .gms-action--choices { display: none; } }
 .gms-action--save.is-saved { background: var(--surface-2); border-color: var(--primary); color: var(--primary); font-weight: 600; }
 .gms-action--ask,
 .gms-action--view { color: var(--primary); }

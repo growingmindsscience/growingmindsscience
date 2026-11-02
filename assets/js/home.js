@@ -194,7 +194,6 @@
     var slides = Array.prototype.slice.call(track.children);
     var steps = Array.prototype.slice.call(seq.querySelectorAll("[data-seq-go]"));
     var dots = Array.prototype.slice.call(seq.querySelectorAll("[data-seq-dots] i"));
-    var now = seq.querySelector("[data-seq-now]");
     var prev = seq.querySelector("[data-seq-prev]");
     var next = seq.querySelector("[data-seq-next]");
     var status = seq.querySelector("[data-seq-status]");
@@ -216,8 +215,6 @@
         else { s.removeAttribute("data-current"); s.setAttribute("aria-hidden", "true"); }
         s.querySelectorAll("a, button").forEach(function (el) { if (k === i) el.removeAttribute("tabindex"); else el.tabIndex = -1; });
       });
-      var label = steps[i] && steps[i].querySelector("span");
-      if (now) now.textContent = (i + 1) + " of " + slides.length + (label ? " \u00b7 " + label.textContent : "");
       // aria-disabled rather than disabled, so keyboard focus stays on the arrow at either end.
       if (prev) prev.setAttribute("aria-disabled", String(i === 0));
       if (next) next.setAttribute("aria-disabled", String(i === slides.length - 1));
@@ -277,17 +274,4 @@
     mark(0);
     fit();
   });
-
-  /* The age row's progress bar */
-  var row = document.querySelector("[data-agerow]");
-  var bar = document.querySelector("[data-agebar]");
-  if (row && bar) {
-    var upd = function () {
-      var max = row.scrollWidth - row.clientWidth;
-      var p = max > 0 ? row.scrollLeft / max : 0;
-      bar.style.transform = "translateX(" + (p * 400) + "%)";
-    };
-    row.addEventListener("scroll", upd, { passive: true });
-    upd();
-  }
 })();

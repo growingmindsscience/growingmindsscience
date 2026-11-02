@@ -57,7 +57,7 @@
       "prompt_text": "At the start, why didn't the bear want to sleep?", "follow_up": "Why-recall is harder than what-recall. Any reasonable theory is a good answer; the book's answer is just one option." },
     { "id": "r5", "crowd_type": "recall", "book_type": "lift_the_flap", "age_band": "18-24",
       "prompt_text": "What was hiding under there?", "follow_up": "Ask right after closing the flap, then open it again to check. Peekaboo memory is still recall." },
-    { "id": "r6", "crowd_type": "recall", "book_type": "vehicle", "age_band": "24-36",
+    { "id": "r6", "crowd_type": "recall", "book_type": "vehicle", "age_band": "36-60",
       "prompt_text": "Where did the tractor go after the barn?", "follow_up": "If they shrug, offer two choices: 'The field, or the pond?' Choices scaffold recall without giving it away." },
     { "id": "r7", "crowd_type": "recall", "book_type": "everyday_life", "age_band": "36-60",
       "prompt_text": "What happened when the milk spilled?", "follow_up": "Cause-and-effect recall. Expand with feeling words: 'Right, she was frustrated, and then she got a towel.'" },

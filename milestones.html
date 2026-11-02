@@ -19,10 +19,10 @@
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=adb6f82c92" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=46d4d4e37a" />
-  <link rel="stylesheet" href="/assets/css/fg-base.css?v=975e9133b4" />
-  <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
+  <link rel="stylesheet" href="/assets/css/hubs.css?v=36987dd3b5" />
   <style>
     /* Milestone tracker. Field-guide tokens only, so both themes follow the system:
        flat at rest, 6px controls, 10px panels, forest only for actions, sage mist
@@ -38,6 +38,7 @@
     .ms-act__list li:last-child { padding-bottom: 0; }
     .ms-act__list b { display: block; margin-bottom: 2px; color: var(--ink); font-weight: 600; }
     .fg .ms-act a { color: var(--forest); }
+    .fg .ms-act a.ms-act__ref { color: var(--research); }
     .fg .ms-act .ms-act__src { margin-top: 18px; font-size: 14px; line-height: 1.45; color: var(--research); }
     .fg .ms-act .ms-act__src a { color: var(--research); }
 
@@ -194,6 +195,7 @@
       .controls { grid-template-columns: minmax(0, 1fr); }
       .tracker-progress { grid-template-columns: minmax(0, 1fr); }
       .fg .ms-act h2 { font-size: 1.5rem; }
+      .fg .rh-meta { text-align: left; }
     }
     @media (prefers-reduced-motion: reduce) {
       .mark-tick::after, .fg .mark-btn, .fg .age-tabs button { transition: none; }
@@ -227,7 +229,7 @@
   </style>
   <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
   /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=a7f09b41d2" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=475f0abf7f" />
 </head>
 <body class="fg fg--page hub ms">
   <!-- header:start -->
@@ -291,7 +293,7 @@
         <p class="ms-act__lede">Children grow at their own pace, and this tracker is for noticing and play. Three things are worth acting on now rather than at the next checkup.</p>
         <ul class="ms-act__list">
           <li><b>A skill your child has lost, at any age.</b> If your child stops doing something they could do, like babbling, saying words, waving, or turning to their name, call your child&rsquo;s doctor now and ask to be seen soon.</li>
-          <li><b>A &ldquo;not yet&rdquo; on CDC&rsquo;s checklist.</b> CDC&rsquo;s <a href="https://www.cdc.gov/act-early/milestones/index.html">milestone checklists</a> list what most children (75% or more) do by each age. If your child isn&rsquo;t doing one of those yet, talk to your child&rsquo;s doctor rather than waiting to see.</li>
+          <li><b>A &ldquo;not yet&rdquo; on CDC&rsquo;s checklist.</b> CDC&rsquo;s <a class="ms-act__ref" href="https://www.cdc.gov/act-early/milestones/index.html">milestone checklists</a> list what most children (75% or more) do by each age. If your child isn&rsquo;t doing one of those yet, talk to your child&rsquo;s doctor rather than waiting to see.</li>
           <li><b>A free evaluation, no referral needed.</b> If something worries you, you can ask for a free early intervention evaluation yourself: under 3, through your state&rsquo;s early intervention program; from 3, through your local public school district. <a href="https://www.cdc.gov/act-early/families/concerned.html">What to do if you&rsquo;re concerned</a>.</li>
         </ul>
         <p class="ms-act__src">From <a href="#sources">CDC, the American Academy of Pediatrics, and IDEA Part C</a>.</p>
@@ -539,7 +541,7 @@ function stem(w){w=w.replace(/[^a-z0-9-]/g,'');if(w.length>4)w=w.replace(/(ing|e
 function terms(q){return q.toLowerCase().replace(/[’']/g,'').split(/\s+/).map(stem).filter(function(w){return w&&!STOP[w]})}
 function hay(m){return [m.age,m.domain,AREA_WORDS[m.domain]||'',m.title,m.explanation,m.watchFor.join(' '),m.tryThis.join(' ')].join(' ').toLowerCase()}
 function matches(m,ts){if(!ts.length)return true;var h=hay(m);return ts.every(function(t){return (SYN[t]||[t]).some(function(x){return h.indexOf(x)>-1})})}
-var WORRY=/\b(delay|behind|worr|concern|regress|lost|losing|loses|stopped|stop(s|ping)? (talk|walk|smil|babbl)|autis|late talk|not talk|doctor|pediatric|red flag|warning|evaluat|early intervention|therap)/i;
+var WORRY=/\b(delay|behind|worr|concern|regress|lost|losing|loses|stopped|stop(s|ping)? (talk|walk|smil|babbl)|autis|late talk|not (talk|walk|crawl|sit|smil|point|babbl|respond|look)|eye contact|no eye|doesn.?t respond|doctor|pediatric|red flag|warning|evaluat|early intervention|therap)/i;
 
 function render(){
   var q=state.q.trim();var ts=terms(q);
@@ -558,12 +560,14 @@ function render(){
 var SG_CLASSES={'birth-to-12-months':{href:'/classes/birth-to-12-months',title:'Birth to 12 Months',tag:'Open now'},'toddlerhood':{href:'/classes/toddlerhood',title:'Toddler Years',tag:'Open now'}};
 var SG_ART={'serve-and-return':'What “serve and return” actually means','parents-nervous-system':'When your own nervous system is the variable','milestone-worry':'What to do with milestone worry','toddler-no':'The toddler “no” is not the war you think it is','self-regulation':'Self-regulation, briefly','counting-ladder':'The counting ladder','cliff-at-three':'The cliff at three'};
 var SG_STAGE={'0-3 months':{cls:'birth-to-12-months',articles:['serve-and-return','parents-nervous-system','milestone-worry']},'4-6 months':{cls:'birth-to-12-months',articles:['serve-and-return','milestone-worry']},'7-9 months':{cls:'birth-to-12-months',articles:['serve-and-return','milestone-worry']},'10-12 months':{cls:'birth-to-12-months',articles:['milestone-worry','serve-and-return']},'13-18 months':{cls:'toddlerhood',articles:['toddler-no','self-regulation','milestone-worry'],np:true},'19-24 months':{cls:'toddlerhood',articles:['toddler-no','counting-ladder','milestone-worry'],np:true},'25-36 months':{cls:'toddlerhood',articles:['counting-ladder','cliff-at-three','milestone-worry'],np:true}};
-function renderStageGuide(){var box=el('stageGuide');if(!box)return;var cfg=SG_STAGE[state.age];if(state.age==='All'||!cfg){box.hidden=true;box.innerHTML='';return}
+function renderStageGuide(){var box=el('stageGuide');if(!box)return;var cfg=SG_STAGE[state.age];if(state.age==='All'||!cfg){box.hidden=true;box.innerHTML='';box.dataset.band='';return}
+  /* render() runs on every search keystroke; rewrite the live region only when the stage changes. */
+  if(box.dataset.band===state.age&&box.innerHTML){box.hidden=false;return}
   var cls=SG_CLASSES[cfg.cls];
   var arts=cfg.articles.map(function(slug){return '<a class="sg-link" href="/articles/'+slug+'">'+esc(SG_ART[slug]||slug)+'</a>'}).join('');
   var more=(cls?'<a class="sg-link" href="'+cls.href+'">'+esc(cls.title)+' <span class="sg-tag">'+esc(cls.tag)+'</span></a>':'')+(cfg.np?'<a class="sg-link" href="/nsc">Tallykin <span class="sg-tag">A ten-minute counting check-in</span></a>':'');
   box.innerHTML='<h3>Going further at '+esc(state.age)+'</h3><p class="sg-sub">Hand-picked from our free articles and classes for this age. If your child has stopped doing something they used to do, don’t wait for any of this: <a href="#act-early">call your child’s doctor</a>.</p><div class="sg-groups"><div><p class="sg-label">Read</p><div class="sg-links">'+arts+'</div></div>'+(more?'<div><p class="sg-label">Go deeper</p><div class="sg-links">'+more+'</div></div>':'')+'</div>';
-  box.hidden=false}
+  box.dataset.band=state.age;box.hidden=false}
 
 /* Your notes: counted for the chosen stage, so it never reads as a score across 0 to 3. */
 function updateProgress(){
@@ -583,7 +587,7 @@ function buildReport(){var box=el('milestoneReport');var byId={};DATA.milestones
   var body='';
   if(noticed.length){body+='<div class="r-domains">'+DATA.domains.filter(function(d){return byDomain[d].length}).map(function(d){var items=byDomain[d];return '<div class="r-domain"><h3>'+esc(d)+' <b>'+items.length+'</b></h3><ul>'+items.map(function(m){return '<li>'+esc(m.title)+' <span class="r-age">('+esc(m.age)+')</span></li>'}).join('')+'</ul></div>'}).join('')+'</div>'}
   else{body+='<p class="r-empty">You haven’t marked any cards yet. Choose your child’s age above and tap “Mark as noticed” on what you’re seeing at home, then come back and save your reflection.</p>'}
-  body+='<div class="r-ask"><h3>Worth raising with your child’s doctor</h3><ul><li>Anything your child used to do and has stopped doing. Call now; don’t save it for the checkup.</li><li>Anything on CDC’s milestone checklist for your child’s age that you haven’t seen yet <span class="r-print-url">(cdc.gov/act-early)</span>.</li><li>Anything else that worries you. You can also ask for a free early intervention evaluation yourself, with no referral: under 3, through your state’s early intervention program; from 3, through your local public school district.</li></ul><div class="r-lines" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div>';
+  body+='<div class="r-ask"><h3>Worth raising with your child’s doctor</h3><ul><li>Anything your child used to do and has stopped doing. Call now; don’t save it for the checkup.</li><li>Anything on <a href="https://www.cdc.gov/act-early/milestones/index.html">CDC’s milestone checklist</a> for your child’s age that you haven’t seen yet<span class="r-print-url"> (cdc.gov/act-early)</span>.</li><li>Anything else that worries you. You can also ask for a free early intervention evaluation yourself, with no referral: under 3, through your state’s early intervention program; from 3, through your local public school district.</li></ul><div class="r-lines" aria-hidden="true"><span></span><span></span><span></span><span></span></div></div>';
   var stageBand=(state.age!=='All')?state.age:(Object.keys(bands).sort(function(a,b){return bands[b]-bands[a]})[0]||null);
   var cfg=stageBand?SG_STAGE[stageBand]:null;
   if(cfg){var cls=SG_CLASSES[cfg.cls];var links=[];cfg.articles.forEach(function(s){links.push('<li>'+reportLink('/articles/'+s,SG_ART[s]||s)+'</li>')});if(cls)links.push('<li>'+reportLink(cls.href,cls.title,cls.tag)+'</li>');if(cfg.np)links.push('<li>'+reportLink('/nsc','Tallykin','a ten-minute counting check-in')+'</li>');body+='<div class="r-next"><h3>Further reading for the '+esc(stageBand)+' stage</h3><ul>'+links.join('')+'</ul></div>'}
@@ -623,7 +627,7 @@ function init(){
 }
 init();
 </script>
-<script src="/assets/js/gms-tools.js?v=66a93960af" defer></script>
+<script src="/assets/js/gms-tools.js?v=ea7a1ca31d" defer></script>
 <script>
 /* Open the tracker to the active child's stage (from a #band= / ?band= link, or the
    local profile), reusing the #ageFilter change wiring. Never overrides a manual
@@ -655,12 +659,12 @@ init();
     var b = GMS.profile.ageBand(child);
     if (b && offered(b.band) && !(GMS.profile.isStale && GMS.profile.isStale(child))) {
       choose(b.band);
-      say('Showing ' + b.band + ' from ' + nameOf(child, true) + ' profile. Pick another age any time.', b.band);
+      say('Showing ' + b.band + ' from ' + nameOf(child, true) + ' profile. Pick another age any time.' + (b.max <= 24 ? ' If your baby was born more than 3 weeks early, choose the stage for their corrected age.' : ''), b.band);
       return;
     }
     var months = GMS.profile.ageInMonths(child);
     if ((b && b.band === '37-60 months') || (months != null && months > 36)) {
-      say(nameOf(child) + ' profile says 3 to 5 years, and this tracker covers birth to 36 months. For older children, see Explore <a href="/explore/3-to-4">3 to 4</a> and <a href="/explore/4-to-5">4 to 5</a>, or CDC&rsquo;s <a href="https://www.cdc.gov/act-early/milestones/index.html">milestone checklists</a> for ages 4 and 5.', '');
+      say(nameOf(child) + (months != null && months > 60 ? ' profile is past 36 months' : ' profile says 3 to 5 years') + ', and this tracker covers birth to 36 months. For older children, see Explore <a href="/explore/3-to-4">3 to 4</a> and <a href="/explore/4-to-5">4 to 5</a>, or CDC&rsquo;s <a href="https://www.cdc.gov/act-early/milestones/index.html">milestone checklists</a> for ages 4 and 5.', '');
     }
   }
   function onHash() {

@@ -28,6 +28,7 @@ const TITLE_RUN = /(?<![.!?]\s)(?<!^)\b[A-Z][a-z]+ [A-Z][a-z]+/;
 const KNOWN_TITLE_WORDS = /\b(goodnight moon|hungry caterpillar|brown bear|wild things|corduroy|madeline|dr\.? seuss|peppa|bluey|elmo)\b/i;
 
 const MAX_WORDS = { "18-24": 12, "24-36": 18, "36-60": 20 };
+const MAX_CUE_WORDS = 16;
 
 export function gradeDrc(artifact) {
   const a = artifact || loadCards();
@@ -61,9 +62,15 @@ export function gradeDrc(artifact) {
       fail("crowd_type_correctness", where, card.prompt_text, `matches ${card.crowd_type} frame`);
     }
 
-    const both = `${card.prompt_text} ${card.follow_up}`;
-    if (KNOWN_TITLE_WORDS.test(both) || TITLE_RUN.test(card.prompt_text || "")) {
-      fail("no_book_text", where, card.prompt_text, "no titles, character names, or quoted book text");
+    /* The optional cue (the stage direction shown above the prompt) is read
+       aloud from the card too, so it gets the same no-book-text scan. */
+    const both = `${card.prompt_text} ${card.follow_up} ${card.cue || ""}`;
+    if (KNOWN_TITLE_WORDS.test(both) || TITLE_RUN.test(card.prompt_text || "") || TITLE_RUN.test(card.cue || "")) {
+      fail("no_book_text", where, card.cue && TITLE_RUN.test(card.cue) ? card.cue : card.prompt_text, "no titles, character names, or quoted book text");
+    }
+    if (card.cue != null) {
+      const cueWords = (String(card.cue).match(/\S+/g) || []).length;
+      if (!cueWords || cueWords > MAX_CUE_WORDS) fail("cue_length", where, `${cueWords} words`, `1 to ${MAX_CUE_WORDS} words when a cue is present`);
     }
 
     const words = (card.prompt_text.match(/\S+/g) || []).length;
@@ -103,6 +110,15 @@ export const DRC_FIXTURES = [
     apply(a) {
       const c = structuredClone(a);
       c.cards[10].follow_up += " Works beautifully with Goodnight Moon.";
+      return c;
+    },
+  },
+  {
+    name: "drc_book_title_in_cue",
+    description: "a stage-direction cue that names a book and its characters",
+    apply(a) {
+      const c = structuredClone(a);
+      c.cards.find((x) => x.cue).cue = "Open Little Blue Truck and stop before the last word.";
       return c;
     },
   },

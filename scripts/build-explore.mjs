@@ -16,7 +16,7 @@
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { SITE_ORIGIN } from "./site.mjs";
+import { SITE_ORIGIN, esc, txt } from "./site.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CHECK = process.argv.includes("--check");
@@ -26,22 +26,30 @@ const d = JSON.parse(readFileSync(join(ROOT, "assets", "data", "explore.json"), 
 const claimsArtifact = JSON.parse(readFileSync(join(ROOT, "keel", "artifacts", "claims", "claims.v1.json"), "utf8"));
 const claims = claimsArtifact.claims;
 
-const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-// Typographic apostrophes for display only; the claim's words are unchanged.
-const curl = (t) => String(t).replace(/(\w)'(\w)/g, "$1\u2019$2");
+// esc() escapes; txt() escapes and sets typographic quotes for visible text (site.mjs, shared
+// with build-claims.mjs). The claim's words are unchanged; only the glyphs are.
 const claimOf = (it) => {
   const c = claims.find((x) => `/claims/${x.slug}` === it.href);
   if (!c) throw new Error(`no claim for ${it.href}`);
   return c;
 };
-const title = (it) => (it.type !== "claim" ? it.title : `“${curl(claimOf(it).claim_text.replace(/\.$/, ""))}”`);
+const title = (it) => (it.type !== "claim" ? txt(it.title) : `“${txt(claimOf(it).claim_text.replace(/\.$/, ""))}”`);
 // The strength label's tone, as on /claims/: clay for contradicted, ink for evidence that holds,
 // muted for thin evidence. Ink, not forest: forest is the action color.
 const gradeClass = (s) => (s === "contradicted" ? "ex-grade--contra" : s === "strong" || s === "moderate" ? "ex-grade--solid" : "ex-grade--thin");
 const ORDER = ["lens", "tool", "guide", "article", "claim", "class"];
 const sorted = (items) => [...items].sort((a, b) => ORDER.indexOf(a.type) - ORDER.indexOf(b.type));
-const forAge = (id) => d.items.filter((it) => it.ages.includes(id) && it.type !== "class");
-const allAges = d.items.filter((it) => d.stages.every((s) => it.ages.includes(s.id)) && it.type !== "class");
+// A noindex page is not launched (today the Milestone Navigator, held for attorney review,
+// keel/DECISIONS.md D3), so Explore leaves it off; it returns by itself when its noindex is removed.
+function launched(href) {
+  if (!href.startsWith("/") || href.includes("#")) return true;
+  const p = href.replace(/^\//, "").replace(/\/$/, "/index");
+  const file = join(ROOT, p.endsWith(".html") ? p : `${p}.html`);
+  if (!existsSync(file)) return true;
+  return !/<meta\s+name="robots"\s+content="[^"]*noindex/i.test(readFileSync(file, "utf8"));
+}
+const forAge = (id) => d.items.filter((it) => it.ages.includes(id) && it.type !== "class" && launched(it.href));
+const allAges = d.items.filter((it) => d.stages.every((s) => it.ages.includes(s.id)) && it.type !== "class" && launched(it.href));
 const I = (n) => " ".repeat(n);
 const href = (s) => `/explore/${s.slug}`;
 const RIGHT_NOW = "/tools/right-now";
@@ -51,11 +59,11 @@ const RIGHT_NOW = "/tools/right-now";
 function verdict(it) {
   if (it.type !== "claim") return "";
   const c = claimOf(it);
-  return `<p class="ex-verdict"><span class="ex-grade ${gradeClass(c.grade_strength)}">${esc(claimsArtifact.strength_labels[c.grade_strength])}</span> <span aria-hidden="true">&middot;</span> ${esc(curl(c.verdict_label))}</p>`;
+  return `<p class="ex-verdict"><span class="ex-grade ${gradeClass(c.grade_strength)}">${txt(claimsArtifact.strength_labels[c.grade_strength])}</span> <span aria-hidden="true">&middot;</span> ${txt(c.verdict_label)}</p>`;
 }
 function list(items, pad) {
   return `${I(pad)}<ul class="ex-list">\n` + sorted(items).map((it) =>
-    `${I(pad + 2)}<li><a href="${esc(it.href)}">${esc(title(it))}</a><span class="ex-type">${esc(d.types[it.type])}</span>${verdict(it)}</li>`
+    `${I(pad + 2)}<li><a href="${esc(it.href)}">${title(it)}</a><span class="ex-type">${txt(d.types[it.type])}</span>${verdict(it)}</li>`
   ).join("\n") + `\n${I(pad)}</ul>`;
 }
 
@@ -65,8 +73,8 @@ function ageLine(current) {
   const stages = d.stages.map((s) => {
     const cur = s.id === current;
     return `          <a class="ex-line__stage${cur ? " is-current" : ""}" href="${href(s)}"${cur ? ' aria-current="page"' : ""}>
-            <span class="ex-line__years">${esc(s.years)}</span>
-            <strong>${esc(s.name)}</strong>${current ? "" : `\n            <span class="ex-line__sum">${esc(s.summary)}</span>`}
+            <span class="ex-line__years">${txt(s.years)}</span>
+            <strong>${txt(s.name)}</strong>${current ? "" : `\n            <span class="ex-line__sum">${txt(s.summary)}</span>`}
           </a>`;
   }).join("\n");
   // Each period is 12 months wide, so the scale's marks fall on the rules between the periods.
@@ -125,7 +133,7 @@ const START = [["read", "Read"], ["try", "Try"], ["learn", "Learn"]];
 function startHere(s) {
   if (!s.home) return "";
   const rows = START.filter(([k]) => s.home[k]).map(([k, label]) =>
-    `            <li><span class="ex-start__k">${label}</span><a class="ex-start__link" href="${esc(s.home[k].href)}">${esc(s.home[k].label)}</a></li>`).join("\n");
+    `            <li><span class="ex-start__k">${label}</span><a class="ex-start__link" href="${esc(s.home[k].href)}">${txt(s.home[k].label)}</a></li>`).join("\n");
   return `        <div class="ex-start" data-rise style="--i:1">
           <h2 class="ex-start__title" id="start-heading">Start here</h2>
           <ul class="ex-start__list" aria-labelledby="start-heading">
@@ -160,7 +168,7 @@ function lensDoor(lens) {
             <figcaption class="ex-lens__label">${LENS.label}</figcaption>
           </figure>
           <div class="ex-lens__body">
-            <h2 class="hb-display ex-lens__title" id="lens-heading">${esc(lens.title)}</h2>
+            <h2 class="hb-display ex-lens__title" id="lens-heading">${txt(lens.title)}</h2>
             <p class="ex-lens__meta">${LENS.meta}</p>
             <p class="ex-lens__lead">${LENS.lead}</p>
             <ol class="ex-lens__steps">
@@ -182,7 +190,7 @@ function stagePage(s) {
   const take = (its) => { const out = its.filter((it) => !seen.has(it.href)); out.forEach((it) => seen.add(it.href)); return out; };
   const row = (id, name, hint, its) => `        <article class="ex-row" id="${id}">
           <div class="ex-row__head">
-            <h3>${esc(name)}</h3>${hint ? `\n            <p>${esc(hint)}</p>` : ""}
+            <h3>${txt(name)}</h3>${hint ? `\n            <p>${txt(hint)}</p>` : ""}
           </div>
 ${list(its, 10)}
         </article>`;
@@ -202,9 +210,9 @@ ${list(its, 10)}
 ${ageLine(s.id)}
       <div class="hb-container ex-stage-head">
         <div data-rise>
-          <h1 class="hb-display">${esc(s.name)}</h1>
-          <p class="ex-stage-head__years">${esc(s.years)}</p>
-          <p class="hb-lead">${esc(s.summary)}</p>
+          <h1 class="hb-display">${txt(s.name)}</h1>
+          <p class="ex-stage-head__years">${txt(s.years)}</p>
+          <p class="hb-lead">${txt(s.summary)}</p>
         </div>
 ${startHere(s)}
       </div>
@@ -228,7 +236,7 @@ ${topicRows.join("\n")}
       </div>
     </section>` : ""}
 ${close("Go deeper into this age.",
-  `The class for this period, ${esc(cls.title.replace(/,.*$/, ""))}, explains the why in short, self-paced lessons built from the research. $49 one time, with lifetime access.`,
+  `The class for this period, ${txt(cls.title.replace(/,.*$/, ""))}, explains the why in short, self-paced lessons built from the research. $49 one time, with lifetime access.`,
   `<a class="hb-btn hb-btn--paper" href="${esc(s.class)}">See the class</a><a class="hb-btn hb-btn--quiet" href="${RIGHT_NOW}">It&rsquo;s hard right now</a>`)}`;
 }
 

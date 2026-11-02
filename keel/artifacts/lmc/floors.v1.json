@@ -74,7 +74,7 @@
       "applies_age_months_gte": 36,
       "condition": {"all": [{"behavior": "understood_by_others", "op": "eq", "value": "less_than_half"}]},
       "min_severity": "discuss",
-      "sources": ["flipsen2006", "cdc_ltsae"],
+      "sources": ["cdc_ltsae", "coplan1988", "flipsen2006"],
       "rationale": "Added 2026-11-02. Same id, threshold and answer value as the Milestone Navigator floor, so the two tools cannot disagree about a 3-year-old whom unfamiliar adults mostly cannot understand. CDC's 3-year checklist (2022) expects a child to talk well enough for others to understand most of the time."
     },
     {

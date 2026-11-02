@@ -44,7 +44,8 @@ test("page contracts: safe storage, validate-only unlock, text-only errors", () 
   assert.ok(!/\b(localStorage|sessionStorage)\s*\./.test(script), "storage goes through safeStore()");
   assert.match(script, /validateOnly: true/);
   assert.ok(!/innerHTML\s*=\s*`[^`]*\$\{[^}]*error/i.test(script), "server error text is never set as HTML");
-  assert.match(script, /aria-busy/);
+  assert.match(PAGE, /id="chatStatus" role="status"/);
+  assert.ok(!/setAttribute\('aria-busy'/.test(script), "the chat log is never marked aria-busy");
   assert.match(script, /new AbortController\(\)/);
 });
 

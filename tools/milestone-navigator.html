@@ -34,14 +34,14 @@
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=adb6f82c92" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=46d4d4e37a" />
-  <link rel="stylesheet" href="/assets/css/fg-base.css?v=975e9133b4" />
-  <link rel="stylesheet" href="/assets/css/tools.css?v=7fce784071" />
-  <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
-  <link rel="stylesheet" href="/assets/css/guide.css?v=7aac584bb3" />
-  <link rel="stylesheet" href="/assets/css/toolapp.css?v=a38c3b7105" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=a7f09b41d2" />
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
+  <link rel="stylesheet" href="/assets/css/tools.css?v=4c6ab1c94c" />
+  <link rel="stylesheet" href="/assets/css/hubs.css?v=36987dd3b5" />
+  <link rel="stylesheet" href="/assets/css/guide.css?v=340d88ba68" />
+  <link rel="stylesheet" href="/assets/css/toolapp.css?v=89edcc16d7" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=475f0abf7f" />
   <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
   /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 
@@ -219,8 +219,8 @@
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
 
-  <script src="../assets/js/main.js?v=3f7e70ab67" defer></script>
-  <script src="../assets/js/gms-tools.js?v=66a93960af" defer></script>
+  <script src="../assets/js/main.js?v=b5c8e48c2d" defer></script>
+  <script src="../assets/js/gms-tools.js?v=ea7a1ca31d" defer></script>
   <script type="module">
     import { askedQuestions, resolve, correctedAge } from "/keel/lib/navigator.mjs";
 
@@ -540,7 +540,7 @@
           ? `My ${domain.title.toLowerCase()} check came back typical. What should I expect next at this age?`
           : build();
         while (result.class !== "typical_range" && q.length > 440 && named.length > 1) { named = named.slice(0, -1); q = build(); }
-        actions.appendChild(el("a", { class: "btn btn--ghost", href: GMS.askUrl(q), text: "Ask the research" }));
+        actions.appendChild(el("a", { class: "btn btn--ghost", href: GMS.askUrl(q, { months: state.ageMonths }), text: "Ask the research" }));
       }
       actions.appendChild(el("button", { type: "button", class: "gms-link", text: "← Change an answer", onclick: () => { state.qIndex = Math.max(0, asked.length - 1); renderQuestion(); } }));
       actions.appendChild(el("button", { type: "button", class: "gms-link", text: "Check another area", onclick: () => renderDomains() }));
@@ -581,7 +581,7 @@
 
     renderDomains({ initial: true });
   </script>
-  <script src="/assets/js/home.js?v=78ff6722df" defer></script>
+  <script src="/assets/js/home.js?v=1f1dfef590" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

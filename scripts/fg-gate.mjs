@@ -406,7 +406,11 @@ try {
                 const a = document.activeElement; if (!a || a === document.body) return null;
                 const all = [...document.querySelectorAll('*')];
                 const cs = getComputedStyle(a);
-                const ring = (cs.outlineStyle !== 'none' && parseFloat(cs.outlineWidth) > 0) || (cs.boxShadow && cs.boxShadow !== 'none');
+                const drawn = (st) => (st.outlineStyle !== 'none' && parseFloat(st.outlineWidth) > 0) || (st.boxShadow && st.boxShadow !== 'none');
+                // A stretched link (.row--link .row__name a, .hb-next__name) draws its ring on an
+                // absolutely positioned ::after that covers the row, so read the pseudo-element too.
+                const after = getComputedStyle(a, '::after');
+                const ring = drawn(cs) || (after.content !== 'none' && after.position === 'absolute' && drawn(after));
                 return { pos: all.indexOf(a), name: (a.getAttribute('aria-label') || a.textContent || a.name || a.tagName).trim().replace(/\s+/g, ' ').slice(0, 40), ring };
               });
               if (!info) break;
@@ -446,8 +450,18 @@ try {
             const small = await page.evaluate(() => {
               const out = { block: [], inline: 0 };
               for (const e of document.querySelectorAll('a[href],button,input:not([type=hidden]),select,textarea,summary,[role=button]')) {
-                const r = e.getBoundingClientRect(); const cs = getComputedStyle(e);
+                let r = e.getBoundingClientRect(); const cs = getComputedStyle(e);
                 if (!r.width || !r.height || cs.visibility === 'hidden' || e.closest('[hidden],[aria-hidden="true"]')) continue;
+                // A stretched link's target is its absolutely positioned ::after, which covers its
+                // containing block (the nearest positioned ancestor): measure that box instead.
+                const after = getComputedStyle(e, '::after');
+                if (Math.min(r.width, r.height) < 44 && after.content !== 'none' && after.position === 'absolute' && cs.position === 'static') {
+                  let cb = e.parentElement;
+                  while (cb && cb !== document.body && getComputedStyle(cb).position === 'static') cb = cb.parentElement;
+                  const w = parseFloat(after.width), h = parseFloat(after.height);
+                  if (w > 0 && h > 0) r = { width: Math.max(r.width, w), height: Math.max(r.height, h) };
+                  else if (cb) { const b = cb.getBoundingClientRect(); r = { width: Math.max(r.width, b.width), height: Math.max(r.height, b.height) }; }
+                }
                 if (Math.min(r.width, r.height) >= 44) continue;
                 const inText = e.tagName === 'A' && cs.display === 'inline' && e.closest('p,li,dd,td,figcaption,blockquote') && e.parentElement.textContent.trim().length > e.textContent.trim().length + 20;
                 if (inText) { out.inline++; continue; }

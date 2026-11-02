@@ -20,8 +20,12 @@ questions about their child, and receives one of three results:
 - **discuss** — a suggestion to bring specific observations to their
   pediatrician (or audiology, for hearing), with practical steps;
 - **priority_discuss** — a suggestion to call and ask for an appointment
-  "soon, ideally within a week or two", explicitly framed as not an emergency
-  and not a diagnosis.
+  "soon, ideally within a week or two", framed as not an emergency for a
+  change that has built up gradually, and not a diagnosis. Every such result
+  also carries a standing sudden-change sentence (added 2026-11-02, see
+  question 8): a sudden change with signs such as one-sided weakness, a
+  drooping face or a seizure means calling the local emergency number now,
+  and any other sudden change means calling the pediatrician today.
 
 The result never names a condition, never assigns risk or probability, never
 recommends or discourages treatment, and never tells a parent not to seek
@@ -103,8 +107,39 @@ verification pass (keel/REVIEW.md) is running in parallel with this review.
 6. **The hearing pathway.** For hearing, the tool advises seeking a hearing
    test on caregiver concern alone (consistent with JCIH 2019) and, on the
    priority path, asking for an "urgent audiology referral". Comfortable?
+   Updated 2026-11-02: hearing now has no watch-and-wait branch at all. The
+   hearing questions carry no "check again later" notes; not turning toward
+   sounds is flagged whenever it is asked (from 4 months), and "only some of
+   the time" answers are flagged too. A CI check now fails any update that
+   reintroduces a wait-and-see answer for hearing.
 7. **Geographic scope.** Copy references US structures (early intervention,
-   "most US states"). Any need for a US-only statement or geo-neutral wording?
+   the public school district). Any need for a US-only statement or
+   geo-neutral wording? Updated 2026-11-02: the earlier "most US states"
+   wording is replaced with the IDEA position: "Every US state has an early
+   intervention program for children under 3; you can call it yourself
+   without a doctor's referral, and the evaluation is free. From age 3, ask
+   your local public school district for an evaluation instead, also free."
+   (34 CFR 303.521(b) and 300.111; services after evaluation may carry state
+   sliding-scale fees, so the copy claims only that the evaluation is free.)
+   Please confirm this is accurate enough to state as fact.
+8. **The sudden-change sentence (added 2026-11-02).** Every "Talk soon"
+   result now ends with: "If what you noticed came on suddenly, over hours or
+   a day or two, and it involves weakness on one side of the body, a drooping
+   face, trouble speaking, or new trouble walking or keeping their balance, or
+   it comes with a seizure, a severe headache, or unusual sleepiness, call
+   your local emergency number now. Any other change that came on suddenly
+   shouldn't wait for an appointment: call your pediatrician today." The
+   "soon does not mean emergency" line is now limited to changes that built
+   up gradually, and the result fine print repeats the emergency-number line.
+   Sourced to the 2024 AHA and American Red Cross First Aid Guidelines
+   (signs of stroke in children). Any concern with naming emergency signs in
+   an educational tool, or with the list being incomplete?
+9. **Thin-coverage results (added 2026-11-02).** At ages where a category asks
+   few or no age-specific questions (for example walking after 24 months, or
+   play before 8 months), a clean result no longer says "in the typical
+   range"; it uses separate wording saying the tool has little to check at
+   this age and links to the CDC milestone checklists. The bands are listed
+   per category in the copy inventory. Is that wording appropriately modest?
 
 ## Launch mechanics once cleared
 

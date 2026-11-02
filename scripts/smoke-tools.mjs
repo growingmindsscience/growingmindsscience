@@ -59,6 +59,11 @@ try {
   await page.fill('.gms-editor input[type="date"]', future.toISOString().slice(0, 10));
   await page.click('.gms-editor button[type="submit"]');
   ok(await page.locator('.gms-field__error:not([hidden])').count() === 1, 'hub: a future birthday is not accepted');
+  ok(await page.locator('.gms-field__error').evaluate(e => getComputedStyle(e).color) === 'rgb(166, 55, 31)', 'hub: the error reads in the danger colour');
+  await page.fill('.gms-editor input[type="date"]', '0202-05-01');
+  await page.click('.gms-editor button[type="submit"]');
+  ok(/more than 8 years ago/.test(await page.locator('.gms-field__error').innerText()), 'hub: a typo year (0202) is refused');
+  ok(await page.locator('.gms-band', { hasText: '3–5 years' }).count() === 1, 'hub: a 3-to-5 stage chip is offered');
   await page.locator('.gms-editor .gms-link', { hasText: 'Cancel' }).click();
 
   // --- Persistence across reload ---
@@ -93,6 +98,19 @@ try {
     ok(await page.locator(`${v.out}[data-output="${v.key}"]`).isVisible(), `${v.slug}: toggle shows the chosen answer`);
   }
 
+  // --- A saved repair answer keeps its script; the body does not run the sub-label in ---
+  await page.goto(`${BASE}/tools/repair-after-the-hard-moment.html`, { waitUntil: 'networkidle' });
+  await page.locator('.scenario-output:not([hidden]) .gms-action--save').click();
+  const savedRepair = await page.evaluate(() => JSON.parse(localStorage.getItem('gms-shelf-v1')).items.find(i => /^repair-after/.test(i.key)));
+  ok(savedRepair && savedRepair.tryLine.length > 0, `repair: saved answer keeps its script (${savedRepair && savedRepair.tryLine.slice(0, 40)})`);
+  ok(savedRepair && await page.locator('.scenario-output:not([hidden]) .gms-action--save').getAttribute('aria-pressed') === 'true', 'repair: Save carries aria-pressed');
+  await page.locator('.scenario-output:not([hidden]) .gms-action--save').click();
+  // --- An #answer= hash changed in place opens that answer ---
+  await page.goto(`${BASE}/tools/whats-underneath-the-meltdown.html`, { waitUntil: 'networkidle' });
+  await page.evaluate(() => { location.hash = 'answer=sensory'; });
+  await page.waitForTimeout(200);
+  ok(await page.locator('.decoder-output[data-output="sensory"]').isVisible(), 'meltdown: an #answer= hash change opens that answer');
+
   // --- A saved-answer link (#answer=) opens that answer ---
   await page.goto(`${BASE}/tools/whats-underneath-the-meltdown.html#answer=sensory`, { waitUntil: 'networkidle' });
   ok(await page.locator('.decoder-output[data-output="sensory"]').isVisible() &&
@@ -100,7 +118,10 @@ try {
 
   // --- Right-now router ---
   await page.goto(`${BASE}/tools/right-now.html`, { waitUntil: 'networkidle' });
-  ok(await page.locator('.rn-choice').count() === 5, 'right-now: 5 situation choices');
+  ok(await page.locator('.rn-choice').count() === 6, 'right-now: 6 situation choices');
+  ok(/crying/i.test(await page.locator('.rn-choice').first().innerText()), 'right-now: the crying-baby choice comes first');
+  ok(await page.locator('.rn-help a[href="tel:988"]').count() === 1 && await page.locator('.rn-help a[href="sms:988"]').count() === 1 && await page.locator('.rn-help a[href="tel:911"]').count() === 1, 'right-now: 988 call/text and 911 are tappable');
+  ok(await page.evaluate(() => document.querySelector('.rn-help .hb-crisis').getBoundingClientRect().bottom <= innerHeight), 'right-now: crisis lines sit in the first screen');
   await page.locator('.rn-choice', { hasText: 'Meltdown' }).click();
   ok(await page.locator('.rn-answer__title').isVisible(), 'right-now: answer renders');
   ok(new URL(page.url()).hash === '#meltdown', 'right-now: the answer has its own #hash');
@@ -109,15 +130,42 @@ try {
   ok(/ask-the-research\?q=/.test(askHref), 'right-now: Ask link seeds ?q=');
   await page.locator('.rn-actions button', { hasText: 'Save this' }).click();
   ok(await page.locator('.rn-actions button', { hasText: 'Saved ✓' }).count() > 0, 'right-now: Save toggles to Saved');
+  ok(await page.locator('.rn-actions button[aria-pressed="true"]').count() === 1, 'right-now: Save carries aria-pressed');
+  ok(await page.evaluate(() => { const h = document.querySelector('.rn-answer__title'); return h.nextElementSibling && h.nextElementSibling.classList.contains('rn-answer__state'); }), 'right-now: state line sits under the answer title');
+  ok(await page.locator('.rn-onward a[href="/tools/whats-underneath-the-meltdown"]').isVisible(), 'right-now: the full guide is one visible link');
+  ok(await page.locator('.rn-actions .hb-btn', { hasText: 'Listen' }).count() === 1, 'right-now: the recorded answer keeps its Listen button');
   await page.locator('button', { hasText: 'Something else is happening' }).click();
   await page.waitForTimeout(150);
-  ok(await page.locator('.rn-choice').count() === 5, 'right-now: back returns to choices');
+  ok(await page.locator('.rn-choice').count() === 6, 'right-now: back returns to choices');
   await page.locator('.rn-choice', { hasText: 'sleep' }).click();
   await page.goBack();
   await page.waitForTimeout(150);
-  ok(/right-now/.test(page.url()) && await page.locator('.rn-choice').count() === 5, 'right-now: browser Back returns to the choices');
+  ok(/right-now/.test(page.url()) && await page.locator('.rn-choice').count() === 6, 'right-now: browser Back returns to the choices');
   await page.goto(`${BASE}/tools/right-now.html#repair`, { waitUntil: 'networkidle' });
   ok(/Repair/.test(await page.locator('.rn-answer__title').innerText()), 'right-now: #repair opens that answer directly');
+  // Crying baby: safe put-down, never shake, when to call, sources, pocket card help line
+  await page.goto(`${BASE}/tools/right-now.html#crying`, { waitUntil: 'networkidle' });
+  const cry = await page.locator('.rn-answer').innerText();
+  ok(/on their back in a safe crib/.test(cry) && /never shake a baby/i.test(cry) && /pediatrician/.test(cry) && /911/.test(cry), 'right-now: crying answer covers put-down, never shake, pediatrician, 911');
+  ok(await page.locator('.rn-sources a[href*="cdc.gov"]').count() >= 1 && await page.locator('.rn-sources a[href*="healthychildren.org"]').count() === 1, 'right-now: crying answer cites CDC and AAP');
+  ok(/988/.test(await page.locator('#rn-pocket').innerText()), 'right-now: pocket card carries the 988 / 911 line');
+  ok(!/['"]/.test(await page.locator('.rn-answer__title, .rn-answer__try').allInnerTexts().then(a => a.join(' '))), 'right-now: typographic quotes on screen');
+  // Sleep: illness and safe sleep line; an infant profile goes to the first-year guide
+  await page.goto(`${BASE}/tools/right-now.html#sleep`, { waitUntil: 'networkidle' });
+  ok(/firm, flat surface/.test(await page.locator('.rn-answer__when').innerText()), 'right-now: sleep answer names illness and safe sleep');
+  await page.evaluate(() => { const d = new Date(); d.setMonth(d.getMonth() - 5); localStorage.setItem('gms-child-backup', localStorage.getItem('gms-child-v1') || ''); localStorage.setItem('gms-child-v1', JSON.stringify({ activeId: 'b', children: [{ id: 'b', name: '', birthdate: d.toISOString().slice(0, 10), band: null, createdAt: Date.now() }] })); });
+  await page.reload({ waitUntil: 'networkidle' });
+  ok(await page.locator('.rn-onward a[href="/tools/whats-typical-by-stage"]').count() === 1, 'right-now: a baby under 12 months is sent to the first-year sleep guide');
+  // A stage-only profile sends a range, and a stale stage sends nothing
+  await page.evaluate(() => localStorage.setItem('gms-child-v1', JSON.stringify({ activeId: 'b', children: [{ id: 'b', name: 'Ada', birthdate: null, band: '13-18 months', bandSetAt: Date.now(), createdAt: Date.now() }] })));
+  await page.reload({ waitUntil: 'networkidle' });
+  ok(/For%20my%2013-%20to%2018-month-old/.test(await page.locator('.rn-actions a', { hasText: 'Ask about this' }).getAttribute('href')), 'profile: a stage is sent as a range');
+  await page.evaluate(() => localStorage.setItem('gms-child-v1', JSON.stringify({ activeId: 'b', children: [{ id: 'b', name: 'Ada', birthdate: null, band: '4-6 months', bandSetAt: Date.now() - 400 * 864e5, createdAt: Date.now() - 400 * 864e5 }] })));
+  await page.reload({ waitUntil: 'networkidle' });
+  ok(!/For%20my/.test(await page.locator('.rn-actions a', { hasText: 'Ask about this' }).getAttribute('href')), 'profile: an outgrown stage sends no age');
+  await page.goto(`${BASE}/tools/index.html`, { waitUntil: 'networkidle' });
+  ok(await page.locator('.gms-profile__stale', { hasText: 'Is Ada still 4–6 months?' }).count() === 1, 'hub: an outgrown stage asks to be updated');
+  await page.evaluate(() => { const b = localStorage.getItem('gms-child-backup'); if (b) localStorage.setItem('gms-child-v1', b); else localStorage.removeItem('gms-child-v1'); localStorage.removeItem('gms-child-backup'); });
 
   // Saved item shows on the hub shelf, with its answer and a link back to it
   await page.goto(`${BASE}/tools/index.html`, { waitUntil: 'networkidle' });
@@ -126,6 +174,9 @@ try {
   ok(await page.locator('[data-gms-shelf] .gms-shelf__body').count() > 0, 'hub: shelf card shows the saved answer text');
   ok(await page.locator('[data-gms-shelf] a[href="/tools/right-now#meltdown"]').count() > 0, 'hub: "Open tool" reopens the saved answer');
   ok(await page.locator('[data-gms-shelf-link]:not([hidden])').count() > 0, 'hub: "Saved for you" shortcut is shown');
+  ok(await page.locator('[data-gms-shelf] .gms-shelf__seq li').count() === 3, 'hub: a saved right-now answer keeps its 3 steps');
+  ok(await page.locator('[data-gms-tool-list] .row__meta', { hasText: 'Meltdown decoder' }).count() === 1, 'hub: guide rows say what each guide does');
+  ok(await page.locator('a[href$="ask-the-research.html"]').count() === 0, 'hub: no stray .html link');
 
   // Print pocket card: the card is lifted to <body> and prints on a single page
   await page.goto(`${BASE}/tools/whats-underneath-the-meltdown.html`, { waitUntil: 'networkidle' });
@@ -152,14 +203,16 @@ try {
   await page.locator('.cs-item').nth(1).locator('.cs-chip', { hasText: '50 to 199' }).click();
   await page.locator('.cs-nav .btn--primary', { hasText: 'Continue' }).click();
   ok(await page.locator('.cs-item[data-behavior]').count() >= 8, 'snapshot: behavior items render');
-  // Answer every behavior 'Yes' except lost_skills ('No'); zero words at 20m must flag.
+  // A clean child apart from vocabulary: 'No' wherever 'No' is an answer (lost
+  // skills, a parent hearing concern), 'Yes' everywhere else; zero words at 20m must flag.
   for (const item of await page.locator('.cs-item[data-behavior]').all()) {
-    const id = await item.getAttribute('data-behavior');
-    await item.locator('.cs-chip', { hasText: id === 'lost_skills' ? 'No' : 'Yes' }).first().click();
+    const labels = (await item.locator('.cs-chip').allTextContents()).map(t => t.trim());
+    await item.locator('.cs-chip', { hasText: labels.includes('No') ? /^\s*No\s*$/ : /^\s*Yes\s*$/ }).first().click();
   }
   await page.locator('.cs-nav .btn--primary', { hasText: 'See the snapshot' }).click();
   ok(await page.locator('.cs-sev--discuss').count() > 0, 'snapshot: no words at 20m compiles to discuss');
   ok(await page.locator('.cs-flag', { hasText: 'No words yet' }).count() > 0, 'snapshot: no_words_16m flag surfaces');
+  ok(await page.locator('.cs-flag', { hasText: 'concern about your child’s hearing' }).count() === 0, 'snapshot: a "No" to the hearing question adds no hearing flag');
   ok(await page.locator('.cs-report .btn--primary', { hasText: 'Print notes' }).count() > 0, 'snapshot: print visit notes offered');
   const csAsk = await page.locator('.cs-report a', { hasText: 'Ask the research' }).getAttribute('href');
   ok(decodeURIComponent(csAsk.split('?q=')[1]).length <= 500 && /while%20we%20wait/.test(csAsk), 'snapshot: AI question fits the 500-character prefill and keeps its ask');
@@ -218,9 +271,11 @@ try {
 
   // --- Claims Library: hub + a claim page ---
   await page.goto(`${BASE}/claims/index.html`, { waitUntil: 'networkidle' });
-  ok(await page.locator('.cl-row').count() === 9, 'claims: hub lists all 9 claims');
+  ok(await page.locator('.cl-group .row--link').count() === 9, 'claims: hub lists all 9 claims');
+  const glanceN = (await page.locator('.cl-glance__n').allInnerTexts()).reduce((a, n) => a + Number(n), 0);
+  ok(glanceN === 9, `claims: strength counts add up to 9 (${glanceN})`);
   await page.goto(`${BASE}/claims/teething-fever.html`, { waitUntil: 'networkidle' });
-  ok(/Contradicted by evidence/.test(await page.locator('.cl-grade__labels').first().innerText()), 'claims: grade badge renders');
+  ok(/Contradicted by evidence/.test(await page.locator('.cl-scale__val').first().innerText()), 'claims: grade scale renders');
   ok(await page.locator('.cl-sources li').count() >= 2, 'claims: sources listed');
 
   // AI ?q= prefill — fills the box, does NOT send, cleans the URL
@@ -229,6 +284,18 @@ try {
   ok((await page.locator('#chatInput').inputValue()).includes('melt down'), 'ai: ?q= prefills the textarea');
   ok(await page.locator('.msg--user').count() === 0, 'ai: prefill does not auto-send');
   ok(!/[?]q=/.test(page.url()), 'ai: URL cleaned after prefill');
+
+  // --- Storage blocked: Save says it lasts only for this visit ---
+  const blocked = await browser.newContext();
+  await blocked.addInitScript(() => { Object.defineProperty(window, 'localStorage', { get() { throw new DOMException('blocked', 'SecurityError'); } }); });
+  const bp = await blocked.newPage();
+  bp.on('pageerror', e => errors.push('blocked: ' + e));
+  await bp.goto(`${BASE}/tools/right-now.html#meltdown`, { waitUntil: 'networkidle' });
+  await bp.locator('.rn-actions button', { hasText: 'Save this' }).click();
+  ok(await bp.locator('.rn-actions button', { hasText: 'Saved for this visit' }).count() === 1, 'storage blocked: Save says "Saved for this visit", not "Saved"');
+  await bp.goto(`${BASE}/tools/index.html`, { waitUntil: 'networkidle' });
+  ok(/isn’t letting this page save/.test(await bp.locator('.gms-profile__privacy').innerText()), 'storage blocked: the profile card says nothing will be kept');
+  await blocked.close();
 
   ok(errors.length === 0, `no console/page errors (${errors.length})`);
   if (errors.length) errors.slice(0, 8).forEach(e => console.log('   !', e));

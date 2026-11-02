@@ -35,6 +35,8 @@
 /* The column shares the title block's left edge and stops at a reading measure. */
 .gpage .g-narrow > * { max-width: 880px; }
 .gpage .g-narrow > :is(.what-panel, .summary-card, .panel):first-child { margin-top: 0; }
+/* fg-base sets .hb-fig { margin: 0 }; in the column a figure keeps its distance from the intro. */
+.gpage .g-narrow > .hb-fig { margin-top: 24px; }
 .g-sec { padding-block: clamp(36px, 5vw, 64px); }
 .g-title + .g-sec { padding-top: 0; }
 .g-title + .g-sec > .g-narrow { border-top: 1px solid var(--border-soft); padding-top: clamp(48px, 6vw, 80px); }
@@ -77,7 +79,7 @@
 
 /* Labels. Standing alone they title a panel; under a heading they are its subline. */
 .gpage .tag { display: block; font-family: var(--font-display); font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); line-height: 1.2; color: var(--ink); }
-.gpage .tag--sub { margin-top: 6px; font-family: var(--font-body); font-size: 14px; font-weight: 600; line-height: 1.4; color: var(--forest); }
+.gpage .tag--sub { margin-top: 6px; font-family: var(--font-body); font-size: 14px; font-weight: 600; line-height: 1.4; color: var(--ink-soft); }
 
 /* ---------- Panels ---------- */
 .gpage .what-panel { margin-top: 24px; padding: clamp(22px, 3vw, 36px); border-radius: var(--radius-lg); background: var(--sage-mist); }
@@ -133,7 +135,7 @@
   font-family: var(--font-display); font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); font-weight: 400; line-height: 1.3; letter-spacing: -0.01em;
   color: var(--ink); max-width: 46ch; text-wrap: pretty;
 }
-.fg.gpage .g-say__label { display: block; margin: 0 0 6px; font-family: var(--font-body); font-size: 15px; font-weight: 600; line-height: 1.4; letter-spacing: 0; color: var(--forest); }
+.fg.gpage .g-say__label { display: block; margin: 0 0 6px; font-family: var(--font-body); font-size: 15px; font-weight: 600; line-height: 1.4; letter-spacing: 0; color: var(--ink-soft); }
 .fg.gpage .g-say__line { display: block; margin: 0; font-family: var(--font-display); font-size: inherit; line-height: inherit; color: var(--ink); }
 .fg.gpage :is(.g-say, .script-line, .small) a { color: var(--forest); }
 /* On a mist panel the script steps to soft white so it still reads as a panel. */
@@ -152,7 +154,7 @@
 .gpage .tip-item__head { font-weight: 600; color: var(--ink); }
 .gpage .tip-item__body { margin: 0; color: var(--ink-soft); }
 .gpage .tab-tip { margin-top: 16px; padding: 16px 20px; border-radius: var(--radius); background: var(--sage-mist); border: 0; }
-.gpage .tab-tip__label { margin: 0; font-size: 15px; font-weight: 600; color: var(--forest); }
+.gpage .tab-tip__label { margin: 0; font-size: 15px; font-weight: 600; color: var(--ink-soft); }
 .gpage .tab-tip p { margin-top: 4px; color: var(--ink-soft); }
 
 /* ---------- Steps, principles, comparisons ---------- */
@@ -177,15 +179,18 @@
 .gpage .routine-list strong { display: block; font-weight: 600; color: var(--ink); }
 .gpage .routine-list span { display: block; margin-top: 4px; color: var(--ink-soft); }
 
-.gpage .research-list { list-style: none; margin: 16px 0 0; padding: 0; display: grid; }
-.gpage .research-list li { padding-block: 12px; border-top: 1px solid var(--sage-mist-2); }
-.gpage .research-list li:first-child { border-top: 0; }
-.gpage .research-list strong { display: block; font-weight: 600; color: var(--ink); }
-.gpage .research-list span { display: block; margin-top: 4px; color: var(--ink-soft); }
+/* .safety-list is the same ruled list, named for a checklist rather than findings. */
+.gpage :is(.research-list, .safety-list) { list-style: none; margin: 16px 0 0; padding: 0; display: grid; }
+.gpage :is(.research-list, .safety-list) li { padding-block: 12px; border-top: 1px solid var(--sage-mist-2); }
+.gpage :is(.research-list, .safety-list) li:first-child { border-top: 0; }
+.gpage :is(.research-list, .safety-list) strong { display: block; font-weight: 600; color: var(--ink); }
+.gpage :is(.research-list, .safety-list) span { display: block; margin-top: 4px; color: var(--ink-soft); }
 
 /* ---------- Sources: the research-blue module ---------- */
 .gpage .sources-panel { margin-top: 0; padding: 20px 0 0; border: 0; border-top: 2px solid var(--research); border-radius: 0; background: none; box-shadow: none; }
 .gpage .panel .sources-panel { margin-top: 16px; }
+/* Straight after an intro paragraph the rule needs room, or it reads as that paragraph's underline. */
+.gpage .section-intro + .sources-panel { margin-top: 24px; }
 .gpage .sources-panel h2 { font-family: var(--font-body); font-size: 15px; font-weight: 600; letter-spacing: 0; line-height: 1.4; color: var(--research); }
 .gpage :is(.sources-panel, .source-list) ul, .gpage ul.source-list { list-style: none; margin: 12px 0 0; padding: 0; display: grid; }
 .gpage .sources-panel li { padding-block: 10px; border-top: 1px solid var(--border-soft); font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
@@ -204,6 +209,8 @@
 
 /* ---------- Controls from gms-tools.js and the meta link reach 44px ---------- */
 .fg.gpage .gms-action { min-height: 44px; padding-inline: 14px; }
+/* "Other choices" (gms-tools.js) only where the choices stack above the answer. */
+@media (min-width: 761px) { .gpage .gms-action--choices { display: none; } }
 
 /* ---------- Close: the guides' statements are long; a step smaller, a wider measure ---------- */
 .gpage .hub-close h2 { font-size: clamp(1.5rem, 1.15rem + 1.5vw, 2.5rem); max-width: 34ch; }
@@ -223,7 +230,7 @@
     --research: #426B91; --clay-text: #9E5236; --border: #CCD3DC; --border-soft: #DFE4EA;
     background: #FFFFFF; color: var(--ink); font-size: 11pt;
   }
-  .gpage :is(.skip-link, .site-header, .site-footer, .hub-close, .g-aside, .g-title__actions, .gms-actions, .gms-sr-only, .tabs, .hb-btn, [data-print-card]) { display: none !important; }
+  .gpage :is(.skip-link, .site-header, .site-footer, .hub-close, .hb-next, .g-aside, .g-title__actions, .gms-actions, .gms-sr-only, .tabs, .hb-btn, [data-print-card]) { display: none !important; }
   .gpage .g-title { padding-block: 0 16pt; }
   .gpage .g-title__grid { display: block; }
   .gpage .g-glance { display: block; margin-top: 14pt; padding: 0; background: none; }
@@ -233,6 +240,15 @@
   .gpage .g-layout { display: block; }
   .gpage .g-narrow > * { max-width: none; }
   .gpage .g-sec h2 { font-size: 18pt; break-after: avoid; }
+  .gpage .g-sec h2 + * { break-before: avoid; }
+  /* Chromium will not carry a heading over to a grid on the next page, so a short section whose
+     heading opens straight onto a grid stays in one piece. */
+  .gpage .g-narrow:has(> h2 + :is(.compare-grid, .response-grid, .principle-grid)) { break-inside: avoid; }
+  /* The Keep going section prints nothing, so it takes no space either. */
+  .gpage section:has(> .hb-container > .hb-next:only-child) { display: none; }
+  /* The sources heading stays a label, and stays with its list. */
+  .gpage .sources-panel h2 { font-size: 11pt; break-after: avoid; }
+  .gpage .sources-panel h2 + :is(ul, ol) { break-before: avoid; }
   .gpage :is(.g-sec h3, .tag:not(.tag--sub), .what-block__label) { font-size: 13pt; break-after: avoid; }
   .gpage :is(.what-panel, .summary-card, .g-glance, .tab-tip) { padding: 0; background: none; }
   .gpage :is(.what-block, .response-card, .principle-card, .compare-box, .tip-item, .pattern-fact, .stage-fact, .repair-step, .sources-panel li, .source-list li) { break-inside: avoid; }

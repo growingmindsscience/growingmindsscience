@@ -7,8 +7,9 @@
      values) is compiled through the SAME engine the page uses
      (keel/lib/lmc.mjs). Any floor-matching case that compiles below the
      floor's min_severity is a violation.
-   - Navigator: exhaustive path enumeration per domain (every integer age 0-40
-     x every answer combination of the questions asked at that age) through
+   - Navigator: exhaustive path enumeration per domain (every integer age 0-72,
+     the page's whole input range, x every answer combination of the questions
+     asked at that age) through
      keel/lib/navigator.mjs. Any floor-matching path that terminates below
      min_class is a violation.
    - Cross-file: shared floor ids must carry identical thresholds; every
@@ -354,8 +355,9 @@ export function checkNavigatorFloors(a) {
       violate(rep, "skill_loss_any_domain", domKey, "skill-loss node missing or not always_asked", "always_asked node");
     }
 
-    /* (2) exhaustive path enumeration, integer ages 0..40. */
-    for (let age = 0; age <= 40; age++) {
+    /* (2) exhaustive path enumeration, integer ages 0..72 (the page accepts
+       0 to 72 months, so every age a parent can enter is graded). */
+    for (let age = 0; age <= NAV_MAX_AGE; age++) {
       const asked = askedQuestions(domain, age);
       const optionSets = asked.map((q) => trees.answer_sets[q.answers].map((o) => o.value));
       let paths = [{}];
@@ -391,6 +393,9 @@ export function checkNavigatorFloors(a) {
   }
   return rep;
 }
+
+const NAV_MAX_AGE = 72;
+const NAV_ORDER = ["typical_range", "discuss", "priority_discuss"];
 
 /* ---------------------------- policy floors ------------------------------- */
 export function checkPolicyFloors(a) {
@@ -458,6 +463,58 @@ export function checkPolicyFloors(a) {
     for (const k of Object.keys(r)) {
       if (/language/i.test(k)) {
         violate(rep, "bilingual_no_discount", `lmc_rule:${r.id}`, k, "no language-keyed rule fields");
+      }
+    }
+  }
+
+  /* hearing_no_watch_and_wait: a possible hearing problem is never a
+     wait-and-see. The hearing tree carries no recheck notes, and a "not yet"
+     on any hearing question it asks, at any age, lands at least discuss. */
+  const hr = a.trees.domains.hearing_responding;
+  if (hr) {
+    for (const q of hr.questions) {
+      if (q.recheck) violate(rep, "hearing_no_watch_and_wait", `hearing_responding.${q.id}`, "recheck", "no recheck in hearing");
+    }
+    for (let age = 0; age <= NAV_MAX_AGE; age++) {
+      for (const q of askedQuestions(hr, age)) {
+        if (!a.trees.answer_sets[q.answers].some((o) => o.value === "not_yet")) continue;
+        rep.coverage.cases_evaluated++;
+        if (classify(hr, age, { [q.id]: "not_yet" }).class === "typical_range") {
+          violate(rep, "hearing_no_watch_and_wait", { domain: "hearing_responding", age, question: q.id }, "typical_range", "discuss");
+        }
+      }
+    }
+  } else {
+    violate(rep, "hearing_no_watch_and_wait", "navigator trees", "no hearing_responding domain", "a hearing tree");
+  }
+
+  /* sudden_change_exception: "soon, not an emergency" must never cover a
+     sudden change. The standing sudden-change sentence exists, and any Talk
+     soon body that says it "does not mean emergency" is qualified by
+     "built up gradually". */
+  const sc = (a.trees.required_copy || {}).sudden_change;
+  rep.coverage.cases_evaluated++;
+  if (!sc || sc.length < 40) violate(rep, "sudden_change_exception", "navigator required_copy", "missing/short", "sudden-change sentence");
+  for (const [k, d] of Object.entries(a.trees.domains)) {
+    const b = (d.terminals.priority_discuss || {}).body || "";
+    rep.coverage.cases_evaluated++;
+    if (/does not mean emergency/.test(b) && !/built up gradually/.test(b)) {
+      violate(rep, "sudden_change_exception", `${k}.priority_discuss`, "unqualified", "qualified by built up gradually");
+    }
+  }
+
+  /* sometimes_never_outranks_not_yet: on every three-way skill question at
+     every age, answering "sometimes" never lands higher than "not yet". */
+  for (const [k, d] of Object.entries(a.trees.domains)) {
+    for (let age = 0; age <= NAV_MAX_AGE; age++) {
+      for (const q of askedQuestions(d, age)) {
+        if (q.answers !== "skill3") continue;
+        rep.coverage.cases_evaluated++;
+        const some = NAV_ORDER.indexOf(classify(d, age, { [q.id]: "sometimes" }).class);
+        const notYet = NAV_ORDER.indexOf(classify(d, age, { [q.id]: "not_yet" }).class);
+        if (some > notYet) {
+          violate(rep, "sometimes_never_outranks_not_yet", { domain: k, age, question: q.id }, NAV_ORDER[some], `<= ${NAV_ORDER[notYet]}`);
+        }
       }
     }
   }

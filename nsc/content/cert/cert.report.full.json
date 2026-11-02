@@ -83,7 +83,7 @@
     },
     {
       "artifact": "prompts.deck",
-      "sha256": "8be59ca376a2d19e0b1e668bd2504ea1842d48295fba78d49c7a687684b5ba42",
+      "sha256": "0d87073e7ff77faf6eef9f0b4bc4ebf8f13216501bad7aa341c2966103b4d412",
       "mode": "full",
       "pass": true,
       "checks": [
@@ -100,7 +100,7 @@
         {
           "name": "readability",
           "status": "pass",
-          "details": "FK grade 1.92 over 450 pooled strings (6041 words) — limit 8"
+          "details": "FK grade 1.91 over 450 pooled strings (6040 words) — limit 8"
         },
         {
           "name": "prompt-deck-counts",

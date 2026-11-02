@@ -24,14 +24,14 @@
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=adb6f82c92" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=46d4d4e37a" />
-  <link rel="stylesheet" href="/assets/css/fg-base.css?v=975e9133b4" />
-  <link rel="stylesheet" href="/assets/css/tools.css?v=7fce784071" />
-  <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
-  <link rel="stylesheet" href="/assets/css/guide.css?v=7aac584bb3" />
-  <link rel="stylesheet" href="/assets/css/toolapp.css?v=a38c3b7105" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=a7f09b41d2" />
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
+  <link rel="stylesheet" href="/assets/css/tools.css?v=4c6ab1c94c" />
+  <link rel="stylesheet" href="/assets/css/hubs.css?v=36987dd3b5" />
+  <link rel="stylesheet" href="/assets/css/guide.css?v=340d88ba68" />
+  <link rel="stylesheet" href="/assets/css/toolapp.css?v=89edcc16d7" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=475f0abf7f" />
   <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
   /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 
@@ -126,7 +126,12 @@
     <section class="g-sec" id="how-it-works">
       <div class="hb-container g-narrow">
         <h2>How this works</h2>
-        <p class="section-intro">Well visits are when your child&rsquo;s doctor checks on development: how your child is moving, talking, playing, and getting along. The Bright Futures schedule from the American Academy of Pediatrics sets checkups at 3 to 5 days, 1, 2, 4, 6, 9, 12, 15, 18, 24, and 30 months, and then once a year. The Academy recommends that doctors ask about development at every well visit, use a developmental screening questionnaire at 9, 18, and 30 months, and use an autism-specific one at 18 and 24 months. It also recommends asking new mothers about postpartum depression at the 1, 2, 4, and 6 month visits. Your notes help that conversation start from what you see every day.</p>
+        <p class="section-intro">Well visits are when your child&rsquo;s doctor checks on development: how your child is moving, talking, playing, and getting along. The Bright Futures schedule from the American Academy of Pediatrics sets checkups after the newborn exam in the hospital at 3 to 5 days, 1, 2, 4, 6, 9, 12, 15, 18, 24, and 30 months, and then once a year. The Academy recommends that doctors ask about development at every well visit, use a developmental screening questionnaire at 9, 18, and 30 months, and use an autism-specific one at 18 and 24 months. It also recommends asking new mothers about postpartum depression at the 1, 2, 4, and 6 month visits. Your notes help that conversation start from what you see every day.</p>
+        <p class="section-intro">If low mood, worry, or irritability lasts more than two weeks, during pregnancy or in the year after a birth, tell your doctor or your baby&rsquo;s pediatrician. In the US, the National Maternal Mental Health Hotline is free and confidential, any time of day.</p>
+        <p class="hb-crisis">
+          <a class="hb-crisis__line" href="tel:+18338526262"><b>1-833-852-6262</b> Call the hotline</a>
+          <a class="hb-crisis__line" href="sms:+18338526262"><b>Text</b> 1-833-852-6262</a>
+        </p>
         <p class="section-intro">If your child was born more than 3 weeks early (from 4 to 18 weeks), the page shows corrected age (counted from the due date) under 24 months, the way your pediatrician does and the way our Communication Snapshot does. Your draft is kept in this browser until you clear it, so you can add to it over a few days.</p>
       </div>
     </section>
@@ -214,8 +219,8 @@
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
 
-  <script src="../assets/js/main.js?v=3f7e70ab67" defer></script>
-  <script src="../assets/js/gms-tools.js?v=66a93960af" defer></script>
+  <script src="../assets/js/main.js?v=b5c8e48c2d" defer></script>
+  <script src="../assets/js/gms-tools.js?v=ea7a1ca31d" defer></script>
   <script type="module">
     /* Checkup prep: the parent’s notes and questions, organized into one
        printed page for a well visit. Nothing here scores, rates or flags; the
@@ -334,7 +339,7 @@
       if (!isNaN(age) && state.ageSetAt) {
         const gone = Math.floor((Date.now() - state.ageSetAt) / MONTH_MS);
         if (gone >= 1 && age + gone <= MAX_AGE) {
-          ageNote = `Updated: you entered ${age} on ${new Date(state.ageSetAt).toLocaleDateString()}. Change it if that’s not right.`;
+          ageNote = `Updated: you entered ${age} ${age === 1 ? "month" : "months"} on ${new Date(state.ageSetAt).toLocaleDateString()}. Change it if that’s not right.`;
           state.ageMonths = String(age + gone);
           state.ageSetAt += gone * MONTH_MS;
         }
@@ -574,7 +579,12 @@
       sec.appendChild(el("h2", { class: "cs-step-title cp-section", text: "What you’ve noticed" }));
       sec.appendChild(el("p", { class: "cs-step-lede", text: "Write from ordinary days. A few words is plenty, and any area can stay blank. Tap a starter to add a sentence beginning." }));
       // Where a worried parent starts writing: the don’t-wait panel, including lost skills.
-      if (worried) sec.appendChild(worried);
+      if (worried) {
+        sec.appendChild(worried);
+        // Inside the form the panel sits under "What you’ve noticed", so its heading steps down a level.
+        const wh = worried.querySelector("h2");
+        if (wh) wh.setAttribute("aria-level", "3");
+      }
       AREAS.forEach((a) => {
         if (a.id === "well") { part(); sec.appendChild(el("h2", { class: "cs-step-title cp-section", text: "Also worth sharing" })); }
         const id = "cp-" + a.id;
@@ -652,7 +662,7 @@
 
     /* ---------- the page (on screen and on paper) ---------- */
     function titleText() {
-      const who = state.name.trim() ? `${state.name.trim()}'s` : "my child’s";
+      const who = state.name.trim() ? `${state.name.trim()}’s` : "my child’s";
       const v = visitLabel();
       return v ? `Before ${who} ${v} checkup` : `Before ${who} checkup`;
     }
@@ -724,7 +734,11 @@
       page.appendChild(el("p", { class: "cs-note", text: "Your page stays on this device. It is your own notes, not a screening result or diagnosis." }));
 
       root.appendChild(page);
-      if (worried) root.after(worried);
+      if (worried) {
+        root.after(worried);
+        const wh = worried.querySelector("h2");
+        if (wh) wh.removeAttribute("aria-level");
+      }
       buildSheet();
       const h = page.querySelector("h2");
       if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); }
@@ -742,7 +756,7 @@
       renderForm({ initial: true });
     }
   </script>
-  <script src="/assets/js/home.js?v=78ff6722df" defer></script>
+  <script src="/assets/js/home.js?v=1f1dfef590" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

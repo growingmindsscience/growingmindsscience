@@ -11,7 +11,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { SITE_ORIGIN, INSTAGRAM_URL } from "./site.mjs";
+import { SITE_ORIGIN, INSTAGRAM_URL, esc, txt } from "./site.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const ORIGIN = SITE_ORIGIN;
@@ -23,18 +23,8 @@ const a = JSON.parse(readFileSync(join(ROOT, "keel", "artifacts", "claims", "cla
 // the class for each period. Read-only here; it gives each claim page its next steps.
 const explore = JSON.parse(readFileSync(join(ROOT, "assets", "data", "explore.json"), "utf8"));
 
-const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-
-// Typographic quotes for visible text, applied after esc() (which only produces &...; entities, so
-// no straight quote it emits is touched). Opening single quotes follow a space, a bracket or the
-// start; every other straight apostrophe is a closing quote or an apostrophe. The certified wording
-// is unchanged; only the glyphs are.
-const smart = (s) => s
-  .replace(/(^|[\s(“])'(?=[\w\d])/g, "$1‘")
-  .replace(/'/g, "’")
-  .replace(/(^|[\s(])&quot;(?=\S)/g, "$1“")
-  .replace(/&quot;/g, "”");
-const txt = (s) => smart(esc(s));
+// esc() and txt() (escape, then typographic quotes for visible text) come from site.mjs, shared
+// with build-explore.mjs.
 
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const longDate = (iso) => {
@@ -229,12 +219,12 @@ ${extraHead}
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=adb6f82c92" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=46d4d4e37a" />
-  <link rel="stylesheet" href="/assets/css/fg-base.css?v=975e9133b4" />
-  <link rel="stylesheet" href="/assets/css/hubs.css?v=ed7b49bfbe" />
-  <link rel="stylesheet" href="/assets/css/claims.css?v=d0d715b886" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=a7f09b41d2" />
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
+  <link rel="stylesheet" href="/assets/css/hubs.css?v=36987dd3b5" />
+  <link rel="stylesheet" href="/assets/css/claims.css?v=bd1b0cb640" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=475f0abf7f" />
 </head>
 <body class="fg fg--page hub claims">
   <!-- header:start -->
@@ -353,8 +343,8 @@ ${body}
 
   <script src="/assets/js/chrome.js?v=288fec8e54"></script>
 
-  <script src="/assets/js/main.js?v=3f7e70ab67" defer></script>
-  <script src="/assets/js/home.js?v=78ff6722df" defer></script>
+  <script src="/assets/js/main.js?v=b5c8e48c2d" defer></script>
+  <script src="/assets/js/home.js?v=1f1dfef590" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

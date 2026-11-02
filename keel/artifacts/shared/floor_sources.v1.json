@@ -38,7 +38,7 @@
     },
     "flipsen2006": {
       "citation": "Flipsen P Jr. Measuring the intelligibility of conversational speech in children. Clin Linguist Phon. 2006;20(4):303-312.",
-      "role": "Intelligibility expectations underpinning the stranger-intelligibility floor at 36m+."
+      "role": "Background on conversational-intelligibility measurement; notes parent-report norms are unvalidated."
     },
     "idea_part_c": {
       "citation": "Individuals with Disabilities Education Act, Part C (Early Intervention Program for Infants and Toddlers with Disabilities), 34 CFR 303.521(b): evaluation and assessment are carried out at public expense, at no cost to families; and IDEA Part B child find (34 CFR 300.111) for children 3 and older through the local school district. CDC Learn the Signs. Act Early., If You're Concerned: families can contact early intervention themselves, without a doctor's referral.",
@@ -49,6 +49,25 @@
       "citation": "Zwaigenbaum L, Bauman ML, Stone WL, et al. Early identification of autism spectrum disorder: recommendations for practice and research. Pediatrics. 2015;136(Suppl 1):S10-S40.",
       "role": "Response to name by 12m, joint attention and pointing-to-show expectations, regression as a priority flag.",
       "doi": "10.1542/peds.2014-3667C"
+    },
+    "cdc_hearing_signs": {
+      "citation": "CDC. Signs and Symptoms of Hearing Loss in Children.",
+      "role": "Lists 'does not turn to the source of a sound after 6 months of age' and 'seems to hear some sounds but not others' as signs of hearing loss in babies; ask for a hearing screening as soon as possible. Added 2026-11-02.",
+      "url": "https://www.cdc.gov/hearing-loss-children/signs-symptoms/index.html"
+    },
+    "hustad2021": {
+      "citation": "Hustad KC, Mahr TJ, Natzke P, Rathouz PJ. Speech development between 30 and 119 months in typical children I: intelligibility growth curves for single-word and multiword productions. J Speech Lang Hear Res. 2021;64(10):3707-3719.",
+      "role": "Lower bound of at least 50% intelligible to unfamiliar listeners by 48 months; backs the about-half flag at 48m+. Added 2026-11-02.",
+      "doi": "10.1044/2021_JSLHR-21-00142"
+    },
+    "coplan1988": {
+      "citation": "Coplan J, Gleason JR. Unclear speech: recognition and significance of unintelligible speech in preschool children. Pediatrics. 1988;82(3 Pt 2):447-452.",
+      "role": "Parent-report intelligibility-to-strangers expectations; the 36m less-than-half floor sits below them. Added 2026-11-02."
+    },
+    "aha_first_aid_2024": {
+      "citation": "American Heart Association and American Red Cross. 2024 Guidelines for First Aid, Table 6: Common Signs and Symptoms of Stroke in Children.",
+      "role": "Backs the Navigator's sudden_change emergency sentence. Added 2026-11-02.",
+      "url": "https://cpr.heart.org/en/resuscitation-science/2024-first-aid-guidelines/tables-and-figures/medical-emergencies/common-signs-and-symptoms-of-stroke-in-children"
     }
   }
 }

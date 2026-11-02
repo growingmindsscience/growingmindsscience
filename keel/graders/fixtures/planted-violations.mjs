@@ -1,8 +1,9 @@
 /* Planted violations: each takes the real artifacts and makes them
    deliberately softer than a floor (or breaks a policy floor or an integrity
    rule). The first ten are the original certification set; the rest were
-   added 2026-11-02 with the Snapshot's hearing and intelligibility floors and
-   the stricter integrity checks. The grader is
+   added 2026-11-02 with the Snapshot's hearing and intelligibility floors,
+   the stricter integrity checks, and the Navigator's hearing, sudden-change
+   and 0-72 month policy checks. The grader is
    certified only if it catches every one of these AND passes the real
    artifacts. See the certification requirement in floors.contract.ts. */
 
@@ -166,6 +167,36 @@ export const FIXTURES = [
     apply(a) {
       const c = structuredClone(a);
       c.interpretation.guidance_blocks.visit_script.sources = ["made_up_source"];
+      return c;
+    },
+  },
+  {
+    name: "nav_hearing_recheck",
+    description: "the hearing tree waits on not turning to sounds until 9 months, with a recheck note",
+    apply(a) {
+      const c = structuredClone(a);
+      const q = c.trees.domains.hearing_responding.questions.find((q) => q.id === "hr_turn");
+      q.recheck = { on: "not_yet", age_lt: 9, note: "x" };
+      q.flags[0].age_gte = 9;
+      return c;
+    },
+  },
+  {
+    name: "nav_unqualified_emergency",
+    description: "a Talk soon body says it does not mean emergency without limiting that to gradual changes",
+    apply(a) {
+      const c = structuredClone(a);
+      const t = c.trees.domains.play.terminals.priority_discuss;
+      t.body = t.body.replace("For a change that has built up gradually, soon does not mean emergency", "Soon does not mean emergency");
+      return c;
+    },
+  },
+  {
+    name: "nav_missing_sudden_change",
+    description: "the Navigator drops its standing sudden-change sentence",
+    apply(a) {
+      const c = structuredClone(a);
+      delete c.trees.required_copy.sudden_change;
       return c;
     },
   },

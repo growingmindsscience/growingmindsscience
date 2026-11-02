@@ -158,6 +158,36 @@ export function gradeActivities(artifact) {
     if (!seen.has(d)) fail("todays_three_rotation", d, "domain never surfaced in 14 days", "all reachable domains within 14 days");
   }
 
+  /* Today's 3 never runs dry: three picks at every month 0-36 with no
+     history, and three picks every day for 16 days when a parent marks all
+     three done daily (the youngest bands hold only a few activities, so the
+     engine must refill from the ones done longest ago). */
+  for (let m = 0; m <= 36; m++) {
+    const n = todaysThree(a, m, [], "child-z", "2026-07-19").length;
+    rep.coverage.cases_evaluated++;
+    if (n !== 3) fail("todays_three_count", `${m}m, no history`, `${n} picks`, "3 picks");
+  }
+  for (const m of [0, 7, 13]) {
+    let log = [];
+    for (let day = 1; day <= 16; day++) {
+      const iso = `2026-08-${String(day).padStart(2, "0")}`;
+      const picks = todaysThree(a, m, log, "child-r", iso);
+      rep.coverage.cases_evaluated++;
+      if (picks.length !== 3) fail("todays_three_count", `${m}m, all done daily, day ${day}`, `${picks.length} picks`, "3 picks");
+      picks.forEach((p) => log.push({ slug: p.slug, date: iso, domains: p.domains }));
+    }
+  }
+  /* Marking today's picks done must not change today's picks. */
+  {
+    const iso = "2026-07-19";
+    const first = todaysThree(a, 20, [], "child-x", iso);
+    const after = todaysThree(a, 20, first.map((p) => ({ slug: p.slug, date: iso, domains: p.domains })), "child-x", iso);
+    rep.coverage.cases_evaluated++;
+    if (JSON.stringify(first.map((p) => p.slug)) !== JSON.stringify(after.map((p) => p.slug))) {
+      fail("todays_three_today_pinned", `child-x @ ${iso}`, "picks changed after marking done", "today's picks hold still");
+    }
+  }
+
   return rep;
 }
 

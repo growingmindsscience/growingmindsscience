@@ -54,10 +54,7 @@
 .pg-contact { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 40px clamp(32px, 5vw, 80px); align-items: start; }
 .pg-contact__intro h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem); line-height: 1.08; letter-spacing: -0.015em; }
 .pg-contact-page .pg-contact__intro > p:not(.hub-fine) { margin-top: 14px; color: var(--ink-soft); max-width: 46ch; }
-.pg-contact-page .pg-list { list-style: none; margin: 24px 0 0; padding: 0; display: grid; }
-.pg-list li { padding-block: 12px; border-top: 1px solid var(--border-soft); color: var(--ink-soft); }
-.pg-list li:first-child { border-top: 0; padding-top: 0; }
-/* The crisis note is guidance, not fine print. */
+/* The note under the intro (Programs) reads as guidance, not fine print. */
 .pg-contact-page .pg-contact__intro .hub-fine { margin-top: 28px; font-size: 16px; color: var(--ink-soft); max-width: 50ch; }
 @media (max-width: 860px) { .pg-contact { grid-template-columns: minmax(0, 1fr); } }
 
@@ -92,10 +89,8 @@
 .fg .pg-ages__head p { margin-top: 14px; color: var(--ink-soft); max-width: 52ch; }
 .pg-ages .ex-line { margin-top: clamp(24px, 3vw, 40px); }
 
-/* Thank-you: the free lesson beside the title, on mist. Its button keeps the button's own
-   colours (.hb-short colours its links forest). */
+/* Thank-you: the free lesson beside the title, on mist. */
 .fg .pg-lesson .hb-actions { margin-top: 20px; }
-.fg .pg-lesson .hb-btn, .fg .pg-lesson .hb-btn:hover { color: var(--on-forest); text-decoration: none; }
 
 /* ---------- From Instagram: the page behind each post ----------
    publish.mjs writes the rows between the from-instagram markers: the post's hook as the row

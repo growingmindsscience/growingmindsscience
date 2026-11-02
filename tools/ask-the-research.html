@@ -26,9 +26,9 @@
   <link rel="preload" href="/assets/fonts/newsreader-v26-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
-  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=adb6f82c92" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=46d4d4e37a" />
-  <link rel="stylesheet" href="/assets/css/fg-base.css?v=975e9133b4" />
+  <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
 
   <style>
     /* ── Tokens: the page's own names, the field guide's values (tokens-field-guide.css) ── */
@@ -337,7 +337,7 @@
 
     /* Further reading: the research-blue source module, after a finished answer. */
     .msg__reading {
-      margin-top: .75rem; padding-top: .75rem; border-top: 2px solid var(--research);
+      margin-top: .75rem; padding-top: 1.25rem; border-top: 2px solid var(--research);
       width: 100%;
     }
     .msg__reading-title { font-size: .9375rem; font-weight: 600; line-height: 1.4; color: var(--research); }
@@ -420,6 +420,8 @@
     .chat-meta__left { font-size: .875rem; line-height: 1.5; color: var(--ink-muted); }
     /* Centered on the first 44px row, level with the unlock buttons. */
     .chat-meta__left > p { margin-top: .7rem; }
+    /* Tappable help lines with 44px targets that keep the line height. */
+    .chat-meta__left a.chat-tel { display: inline-block; padding: 12px 4px; margin: -12px -4px; font-weight: 600; white-space: nowrap; }
     .chat-meta__right { display: flex; align-items: center; gap: 0 1rem; flex-wrap: wrap; }
     /* Quiet text controls with 44px-tall hit areas. */
     .chat-about summary,
@@ -553,7 +555,7 @@
       .topic-card:active, .topic-card:hover .topic-card__arrow { transform: none; }
     }
   </style>
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=a7f09b41d2" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=475f0abf7f" />
 </head>
 <body class="fg fg--page gm-ai">
 
@@ -702,7 +704,7 @@
              questions run out and the input is hidden. -->
         <div class="chat-meta">
           <div class="chat-meta__left">
-            <p>For adults. General information, not a screening, diagnosis, or medical advice. In an emergency, call 911; in a crisis, call or text 988.</p>
+            <p>For adults. General information, not a screening, diagnosis, or medical advice. In an emergency, call <a class="chat-tel" href="tel:911">911</a>; in a crisis, call or text <a class="chat-tel" href="tel:988">988</a>.</p>
             <details class="chat-about">
               <summary>How this works</summary>
               <p>Answers are written by Claude, an AI model from Anthropic, using a curated library of developmental research and From Little Onward class material. To write each answer, your question and the recent part of this conversation are sent to our server and on to Anthropic. We don't save your conversation: it stays in this browser tab and clears when you start over or leave the page. Please leave out names and other details that could identify your child. It can&rsquo;t assess a specific child: if you&rsquo;re worried about your child&rsquo;s development, talk to your pediatrician or contact your state&rsquo;s early intervention program.</p>
@@ -1389,7 +1391,7 @@
       } catch (err) {
         if (!(err && err.name === 'AbortError')) {
           failure = failure || (navigator.onLine === false
-            ? { message: "You're offline. Your question is back in the box: send it again when you're connected.", code: 'offline' }
+            ? { message: "You’re offline. Your question is back in the box: send it again when you’re connected.", code: 'offline' }
             : { message: 'Something went wrong. Please try again.', code: 'network' });
         }
       }
@@ -1409,7 +1411,7 @@
         if (finishReason === 'length') {
           addNote(answer.bubble, 'This answer was cut short. Ask a follow-up to hear the rest.');
         } else if (finishReason === 'content_filter') {
-          addNote(answer.bubble, "Ask the research couldn't finish this answer. Try asking in a different way.");
+          addNote(answer.bubble, "Ask the research couldn’t finish this answer. Try asking in a different way.");
         }
         addFurtherReading(answer.wrap, sources);
         conversationHistory.push({ role: 'user', content: question });
@@ -1420,7 +1422,7 @@
         // the question goes back in the box so it can be sent again.
         const message = failure ? failure.message
           : fullText.trim() ? 'The answer was interrupted before it finished. Please try again.'
-          : "Ask the research didn't send an answer. Please try again.";
+          : "Ask the research didn’t send an answer. Please try again.";
         if (answer) {
           answer.bubble.innerHTML = renderMarkdown(fullText);
           addNote(answer.bubble, message, 'error');

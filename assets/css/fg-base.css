@@ -173,8 +173,8 @@
 .fg .hb-short li { padding-block: 10px; border-top: 1px solid var(--sage-mist-2); }
 .fg .hb-short li:first-child { border-top: 0; padding-top: 0; }
 .fg .hb-short :is(b, strong) { color: var(--ink); font-weight: 600; }
-.fg .hb-short a { color: var(--forest); }
-.fg .hb-short a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
+.fg .hb-short a:not(.hb-btn) { color: var(--forest); }
+.fg .hb-short a:not(.hb-btn):hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
 
 /* ---------- Words to say: a label over the words, on sage mist ----------
    The right-now anatomy: an Inter 600 label, then the line in Newsreader at statement size.

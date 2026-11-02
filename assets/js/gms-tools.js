@@ -582,10 +582,12 @@
     // the heading is only a last-resort fallback.
     var aiQuestion = output.dataset.aiQuestion || (dec && dec.dataset.aiQuestion) ||
       (content.title ? "Tell me more about this: " + content.title.replace(/[.?!]+$/, "") : ("Tell me more about " + meta.title.toLowerCase()));
+    var wrap = output.closest("[data-decoder], .decoder, .pattern-wrap, .scenario-wrap, .stage-wrap");
     output.appendChild(buildActionRow({
       key: key, meta: meta, content: content, aiQuestion: aiQuestion, listenText: content.listenText,
       personalize: !(dec && dec.dataset.aiPersonalize === "false"),
-      toolUrl: output.dataset.output ? meta.path + "#answer=" + encodeURIComponent(outKey) : meta.path
+      toolUrl: output.dataset.output ? meta.path + "#answer=" + encodeURIComponent(outKey) : meta.path,
+      choices: wrap ? wrap.querySelector(".decoder-buttons, .pattern-buttons, .scenario-buttons, .stage-buttons") : null
     }));
   }
 
@@ -631,6 +633,19 @@
 
     // Listen sits between Save and Ask once its recording is confirmed.
     mountListen(row, cfg.listenText, "gms-action gms-action--listen", askLink);
+
+    // On a phone the choices sit above the answer and scroll away after a tap;
+    // this goes back to them, onto the chosen one. CSS shows it only where the
+    // chooser is one column (tools.css).
+    if (cfg.choices) {
+      var backBtn = el("button", { type: "button", class: "gms-action gms-action--choices" }, ["Other choices"]);
+      backBtn.addEventListener("click", function () {
+        var chosen = cfg.choices.querySelector('[aria-pressed="true"]') || cfg.choices.querySelector("button");
+        scrollToOutput(cfg.choices, false);
+        if (chosen) { try { chosen.focus({ preventScroll: true }); } catch (_) { chosen.focus(); } }
+      });
+      row.appendChild(backBtn);
+    }
 
     return row;
   }
@@ -743,8 +758,9 @@
           ]));
         }
       } else {
+        // A page can word the empty-state intro for itself (data-gms-lede on the host).
         card.appendChild(el("p", { class: "gms-profile__lede",
-          text: "Add your child to see the tools that fit their stage first. Optional." }));
+          text: host.getAttribute("data-gms-lede") || "Add your child to see the tools that fit their stage first. Optional." }));
         var addFirst = el("button", { type: "button", class: "hb-btn hb-btn--quiet gms-profile__add", "data-gms-focus": "add", text: "Add your child" });
         addFirst.addEventListener("click", function () { openEditor(card, null, addFirst); });
         card.appendChild(addFirst);
