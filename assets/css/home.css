@@ -219,18 +219,6 @@ html:not(.anim) .label { transition: none; }
 .classes__intro { margin-top: 16px; max-width: 34ch; }
 /* The heading and intro stay beside the list while it scrolls, so the left track is never empty. */
 @media (min-width: 861px) and (min-height: 700px) { .classes__side { position: sticky; top: calc(var(--header-h) + 40px); } }
-/* The age line: the five Explore periods as an index list (2px ink rule, quiet rules between),
-   so "Find your child's age" lands on ages. Years in tabular Inter, the period in Newsreader,
-   the first line of its Explore summary beneath. Each row opens that period. */
-.ages { margin-top: clamp(28px, 3vw, 40px); }
-.ages__list { border-top: 2px solid var(--ink); }
-.ages__list li + li { border-top: 1px solid var(--border-soft); }
-.fg .ages__row { display: grid; grid-template-columns: 6.25em minmax(0, 1fr); column-gap: 12px; align-items: baseline; padding: 12px 0; color: var(--ink); text-decoration: none; }
-.ages__yrs { grid-row: 1 / span 2; font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums; color: var(--ink-soft); }
-.ages__name { font-family: var(--font-display); font-size: clamp(1.25rem, 1.1rem + 0.4vw, 1.4375rem); line-height: 1.2; letter-spacing: -0.01em; }
-.ages__line { margin-top: 2px; font-size: 14px; line-height: 1.45; color: var(--ink-soft); text-wrap: pretty; }
-.fg .ages__row:hover .ages__name { color: var(--forest); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
-.ages__row:focus-visible { outline-offset: 2px; }
 /* Row rhythm: title and price, then the pitch close beneath, the facts tight under it,
    the age windows as their own group, the range, then the action. */
 .classes .menu__item { row-gap: 0; padding-block: clamp(24px, 3vw, 36px); }
@@ -264,16 +252,6 @@ html:not(.anim) .label { transition: none; }
 .classes__terms strong { color: var(--ink); font-weight: 500; }
 @media (max-width: 860px) {
   .classes__grid { grid-template-columns: 1fr; }
-  /* Phones and tablets: the compact Explore form, five 48px cells of years above the classes. */
-  .ages { margin-top: 24px; }
-  .ages__list { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top-width: 2px; }
-  .ages__list li + li { border-top: 0; border-left: 1px solid var(--border-soft); }
-  .fg .ages__row { display: flex; position: relative; align-items: center; justify-content: center; min-height: 48px; padding: 6px 4px; text-align: center; }
-  .ages__yrs { font-size: 14px; color: var(--ink); line-height: 1.25; }
-  .ages__line { display: none; }
-  .ages__name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
-  .fg .ages__row:hover { background: var(--sage-mist); }
-  .fg .ages__row:hover .ages__yrs { color: var(--forest); }
 }
 /* On a phone, each class is a distinct reading unit with its own facts and action. */
 @media (max-width: 640px) {
@@ -361,3 +339,29 @@ html:not(.anim) .label { transition: none; }
 .close .close__terms { margin-top: 16px; font-size: 15px; }
 /* Phones: the photo stacks above the words, so drop field-guide.css's .close padding (it showed as an empty band) and frame the pair and the slide instead of anchoring right. */
 @media (max-width: 800px) { .close { min-height: 0; padding-block: 0; } .close img { position: relative; height: auto; aspect-ratio: 4 / 3; object-position: 25% 50%; filter: none; } .close::after { content: none; } .close__inner { display: block; padding-top: 32px; } }
+
+/* Age picker: one question, five ages; picking one marks the class that covers it */
+.agepick { margin-top: clamp(28px, 3vw, 40px); padding-top: 18px; border-top: 2px solid var(--ink); }
+.agepick__q { font-family: var(--font-display); font-size: clamp(1.25rem, 1.1rem + 0.4vw, 1.4375rem); line-height: 1.2; letter-spacing: -0.01em; color: var(--ink); }
+.agepick__list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.fg .agepick__opt { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 14px; border-radius: 6px; box-shadow: inset 0 0 0 1.5px var(--border); color: var(--ink); font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums; text-decoration: none; transition: background-color 160ms ease, box-shadow 160ms ease, color 160ms ease; }
+.fg .agepick__opt:hover { background: var(--sage-mist); box-shadow: inset 0 0 0 1.5px var(--ink-muted); color: var(--ink); }
+.fg .agepick__opt[aria-pressed="true"] { background: var(--forest); box-shadow: none; color: var(--on-forest); }
+.fg .agepick__opt:active { transform: translateY(1px); }
+.agepick__note { margin-top: 18px; padding: 18px 20px; border-radius: 10px; background: var(--sage-mist); }
+.agepick__name { font-family: var(--font-display); font-size: clamp(1.25rem, 1.1rem + 0.4vw, 1.4375rem); line-height: 1.2; color: var(--ink); }
+.agepick__line { margin-top: 4px; font-size: 15px; line-height: 1.5; color: var(--ink-soft); text-wrap: pretty; }
+.agepick__links { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 10px; font-size: 15px; font-weight: 500; }
+.fg .agepick__links a { display: inline-flex; align-items: center; min-height: 44px; margin-block: -10px; color: var(--forest); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+/* The class that covers the chosen age: a mist wash and its age row in ink */
+.classes .menu__item--class { transition: background-color 220ms ease; }
+.classes .menu__item--class.is-match { background: var(--sage-mist); margin-inline: -20px; padding-inline: 20px; border-radius: 10px; }
+.classes .menu__item--class.is-match:first-child { padding-top: clamp(24px, 3vw, 36px); }
+.menu__windows li.is-match .win { color: var(--ink); font-weight: 600; }
+.menu__windows li.is-match .yrs { color: var(--ink); }
+@media (prefers-reduced-motion: reduce) { .fg .agepick__opt, .classes .menu__item--class { transition: none; } }
+@media (max-width: 640px) {
+  .agepick__list { display: grid; grid-template-columns: minmax(0, 1.55fr) repeat(4, minmax(0, 1fr)); gap: 6px; }
+  .fg .agepick__opt { width: 100%; justify-content: center; padding: 6px 4px; font-size: 14px; text-align: center; line-height: 1.2; }
+  .classes .menu__item--class.is-match { margin-inline: 0; padding-inline: 20px; }
+}

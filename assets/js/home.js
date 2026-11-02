@@ -274,4 +274,42 @@
     mark(0);
     fit();
   });
+  /* Age picker on the homepage classes section: choosing an age marks the class
+     that covers it and shows that age in one line. Without script each age is a
+     plain link to its Explore page. */
+  var picker = document.querySelector("[data-agepick]");
+  if (picker) {
+    var note = picker.querySelector("[data-agepick-note]");
+    var opts = Array.prototype.slice.call(picker.querySelectorAll(".agepick__opt"));
+    var items = Array.prototype.slice.call(document.querySelectorAll("[data-class-id]"));
+    var classNames = {};
+    items.forEach(function (it) { var a = it.querySelector("h3 a"); if (a) classNames[it.getAttribute("data-class-id")] = { name: a.textContent, href: a.getAttribute("href") }; });
+    opts.forEach(function (o) { o.setAttribute("role", "button"); o.setAttribute("aria-pressed", "false"); });
+    var choose = function (o) {
+      opts.forEach(function (x) { x.setAttribute("aria-pressed", x === o ? "true" : "false"); });
+      var cid = o.getAttribute("data-class"), yrs = o.textContent;
+      items.forEach(function (it) {
+        var on = it.getAttribute("data-class-id") === cid;
+        it.classList.toggle("is-match", on);
+        Array.prototype.forEach.call(it.querySelectorAll(".menu__windows li"), function (li) {
+          var y = li.querySelector(".yrs");
+          li.classList.toggle("is-match", on && !!y && y.textContent === yrs);
+        });
+      });
+      var cls = classNames[cid] || { name: "", href: "/classes/" };
+      note.innerHTML = "";
+      var name = document.createElement("p"); name.className = "agepick__name"; name.textContent = o.getAttribute("data-name");
+      var line = document.createElement("p"); line.className = "agepick__line"; line.textContent = o.getAttribute("data-line");
+      var links = document.createElement("p"); links.className = "agepick__links";
+      var c = document.createElement("a"); c.href = cls.href; c.textContent = "See " + cls.name;
+      var e = document.createElement("a"); e.href = o.getAttribute("href"); e.textContent = "Explore " + yrs.toLowerCase().replace(/^birth/, "birth");
+      links.appendChild(c); links.appendChild(e);
+      note.appendChild(name); note.appendChild(line); note.appendChild(links);
+      note.hidden = false;
+    };
+    opts.forEach(function (o) {
+      o.addEventListener("click", function (ev) { ev.preventDefault(); choose(o); });
+      o.addEventListener("keydown", function (ev) { if (ev.key === " ") { ev.preventDefault(); choose(o); } });
+    });
+  }
 })();
