@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Renders the site-wide social/OG card (1200x630): the From Little Onward
-// lockup, as the header draws it, centered on the cream ground. Pages without
+// lockup, as the header draws it, centered on the haze ground. Pages without
 // an article card of their own point og:image / twitter:image at this file.
 // Rendered with headless Chrome from the site's own fonts; the committed PNG
 // is what ships.
@@ -38,7 +38,7 @@ const html = `<!doctype html><html><head><meta charset="utf-8"><style>
   @font-face { font-family: Inter; font-weight: 400 600; src: url(${font("inter-v20-latin.woff2")}) format("woff2"); }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { width: 1200px; height: 630px; }
-  body { display: flex; align-items: center; justify-content: center; background: #F7F4EC; color: #193C39; }
+  body { display: flex; align-items: center; justify-content: center; background: #F8F9FB; color: #193C39; }
   .lockup { display: flex; align-items: center; gap: 28px; }
   .mark { width: 128px; height: 128px; overflow: visible; }
   .name { font-family: Newsreader, Georgia, serif; font-size: 96px; font-weight: 500; letter-spacing: -0.01em; line-height: 1; white-space: nowrap; }
