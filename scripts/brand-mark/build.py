@@ -7,7 +7,7 @@ Changes from the concept image (Matthew, 2026-10-15: keep the sprout):
 - A small-size drawing (two arcs, heavier strokes, larger leaf) for 32px and
   below, where three arcs merge.
 - Colors are the brand tokens: forest ink #193C39, sage-deep #8DAE9A,
-  sage #A9C3B2, sage-mist-2 #CFDFD6, paper #F7F4EC.
+  sage #A9C3B2, sage-mist-2 #CFDFD6, paper #F8F9FB (haze, 2026-11-03).
 - The lockups set the wordmark as the site header does (2026-10-25): "from
   little" in Newsreader 500, then ONWARD in Inter 500, uppercase, tracked
   0.32em. Forest ink on paper; white on forest ink. Horizontal puts ONWARD on
@@ -27,7 +27,7 @@ import uharfbuzz as hb
 OUT = os.environ.get('MARK_OUT', os.path.join(HERE, 'out'))
 os.makedirs(OUT, exist_ok=True)
 
-INK, PAPER = '#193C39', '#F7F4EC'
+INK, PAPER = '#193C39', '#F8F9FB'
 SAGE, SAGE_DEEP, SAGE_LIGHT = '#A9C3B2', '#8DAE9A', '#CFDFD6'
 
 # ---------------------------------------------------------------- the mark
