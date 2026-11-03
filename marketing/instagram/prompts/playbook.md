@@ -20,7 +20,7 @@ Give one parent one true, useful idea that changes how they see an ordinary mome
 ## How to make a post people save and send
 
 1. **Start from the moment, not the study.** Name a scene the parent lived today, in concrete detail. The study arrives as the explanation, never as the hook. "Your toddler knows the rule and breaks it anyway" beats "A 1991 study of rule use".
-2. **Hooks that stop the scroll, honestly.** The kinds that work here: the surprising true number ("Most tantrums are over in under a minute."), the reframe of a worry ("She is not ignoring you. Her brakes are still being built."), the exact question parents search ("18 months and not saying much yet?"), and the thing everyone repeats that the evidence does not support. Twelve words or fewer. The slides must pay off every hook in full; never promise more than the research shows.
+2. **Hooks that stop the scroll, honestly.** The kinds that work here: the surprising true number ("The most common tantrum lasts a minute or less."), the reframe of a worry ("She is not ignoring you. Her brakes are still being built."), the exact question parents search ("18 months and not saying much yet?"), and the thing everyone repeats that the evidence does not support. Twelve words or fewer. The slides must pay off every hook in full; never promise more than the research shows.
 3. **Specific beats general.** Real numbers from the research (how many children, what share, what ages), real ages written as ranges, real behavior a parent can picture.
 4. **The save is the "try" slide.** Three or four things a parent can do tonight, in the parent's own words, each concrete enough to picture. No "be present", no "foster connection".
 5. **The send is relief or recognition.** A post gets sent when it makes a parent feel less alone, less guilty, or right in an argument at home ("send this to whoever does bedtime"). Write so a parent wants to hand it to someone. At most one gentle share line in a caption, only when it fits. Never "tag a friend".
@@ -59,10 +59,21 @@ Carousels (1080 x 1350, five to nine slides, at most 55 words on a slide, the co
 
 Reels (1080 x 1920, Matthew's own cloned voice, captions burned in, a music bed):
 
-- **study-in-30**: kinetic text over a forest ground. About 130 spoken words, 55 to 60 seconds. Beats: hook (0 to 2 s, the surprise or the question), promise (what they will have by the end), payoff in beats (one idea each, a visible change every two to three seconds; one beat may carry `bars` or a `stat` that animates), the honest catch (a beat with id `catch`), what to do at home, close (the free page, said and shown), mark.
+- **study-in-30**: kinetic text over a forest ground. About 130 spoken words, 55 to 60 seconds. It is one study told as a story, not a list of findings. Beats: hook (0 to 2 s, the surprise or the question, often an open loop), promise (what they will have by the end), then the story (what the researchers did, what they found, and the turn: the part that surprised them or changes how the moment looks; a visible change every two to three seconds; one beat may carry `bars` or a `stat` that animates), the honest catch (a beat with id `catch`), what to do at home, which follows from the turn, close (the free page, said and shown), mark.
 - **watch-for-this**: one annotated scene, labels appearing as the voice names them. About 110 spoken words. Only when a drawn scene is available.
 
-Reel scripts are full, plain sentences a parent follows on first hearing: no fragments, no tagline phrases, no jargon. Each `say` is what the voice reads; each `text` is what appears on screen (shorter, 16 words at most; `sub` 20 at most).
+Reel scripts are full, plain sentences a parent follows on first hearing: no fragments, no tagline phrases, no jargon.
+
+## A reel is a story
+
+A reel loses the viewer the moment a beat does not follow from the one before it. The 2026-10-24 tantrum reel is the example of what not to do: it promised "a shape", then spent four beats on a second study's frequency numbers and a list of warning signs before coming back to the shape, so it played as a stack of facts.
+
+- **One study, one question.** The reel follows one study from the question to the answer. A second study comes in only when it answers a question the first one raises out loud ("but were these children unusual?"). Everything else (other numbers, other papers, the signs worth a pediatrician conversation) goes in the caption.
+- **Every beat leads into the next one.** Read the `say` lines in order with "so", "but" or "then" between them. If a join reads "and also", the beat is a new topic: cut it or move it to the caption.
+- **Close every loop you open.** If the hook or promise sets something up ("it has a shape", "the third one surprised them"), the beats right after pay it off, in order. Nothing comes in between.
+- **Build to a turn.** The middle of the reel has one moment where the picture changes (what the researchers saw when they looked closer, the result nobody expected). The home beat comes out of that turn, so the advice feels earned rather than added on.
+- **Screen and voice say the same thing.** The `text` is a shorter version of the `say`, never a different number or claim. If the voice says "half a minute to a minute", the screen does not say "under a minute".
+- **Too short is fixed by telling the story better, not by adding facts.** If one study does not fill the word count, add what happened to the children (what they did, what the parents saw), not another finding. Each `say` is what the voice reads; each `text` is what appears on screen (shorter, 16 words at most; `sub` 20 at most).
 
 ## Music briefs
 
