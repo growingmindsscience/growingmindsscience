@@ -22,7 +22,7 @@ Tools menu, in order:
 ## 1. Hero (masthead plate, then the title on the axis)
 
 Title: See what's growing.
-Standfirst: A developmental-science education for parents of children 0 to 5. Learn what your child is building, why ordinary moments matter, and how to respond with the confidence that comes from knowing the research.
+Standfirst: We help parents of children 0 to 5 understand how their child is developing, so they can respond with confidence. Every class and free tool here is built from peer-reviewed research.
 Primary button: Explore a moment (→ #lens)
 Secondary button: Explore by age (→ #explore)
 Quiet line under the actions: Something hard right now? Start here. (→ /tools/right-now)
