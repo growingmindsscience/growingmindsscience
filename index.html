@@ -35,7 +35,7 @@
   <link rel="preload" as="image" type="image/webp" imagesrcset="/assets/img/site/hero-parent-baby-640.webp 640w, /assets/img/site/hero-parent-baby-1000.webp 1000w" imagesizes="(min-width: 901px) 58vw, 100vw" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
   <link rel="stylesheet" href="/assets/css/home.css?v=e10a7ae50a" />
-  <link rel="stylesheet" href="/assets/css/home-lens.css?v=c1c003af1c" />
+  <link rel="stylesheet" href="/assets/css/home-lens.css?v=2dcccf04a9" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=475f0abf7f" />
 
   <script type="application/ld+json">
@@ -117,8 +117,8 @@
           <h1 class="hb-display hero__title" id="hero-title" data-rise style="--i:0">Every <span class="hero__nowrap">grown-up</span> starts little.</h1>
           <p class="hb-lead hero__lead" data-rise style="--i:1">We help parents of children <span class="hero__nowrap">0 to 5</span> understand how their child is developing, so they can respond with confidence. <span class="hero__proof">Every class and free tool here is built from peer-reviewed research.</span></p>
           <div class="hero__actions" data-rise style="--i:2">
-            <a class="hb-btn" href="#lens">Walk through a moment</a>
-            <a class="hb-btn hb-btn--quiet" href="#classes">Find your child&rsquo;s age</a>
+            <a class="hb-btn" href="#lens" data-track-cta="hero-lens">Walk through a moment</a>
+            <a class="hb-btn hb-btn--quiet" href="#classes" data-track-cta="hero-age">Find your child&rsquo;s age</a>
           </div>
           <p class="hero__quiet" data-rise style="--i:3">Something hard right now? <a href="/tools/right-now">Start here.</a></p>
         </div>
@@ -192,8 +192,17 @@
             </section>
           </div>
         </div>
+        <aside class="story-next" aria-labelledby="story-next-title">
+          <p class="story-next__eyebrow">Go deeper in the Toddler years class</p>
+          <h3 class="story-next__title" id="story-next-title">Module 4 picks up right here.</h3>
+          <p class="story-next__body">Four short lessons on big feelings and transitions: the shape a tantrum takes, heading one off before it&rsquo;s time to leave, staying calm in the middle of it, and repair afterward.</p>
+          <div class="story-next__actions">
+            <a class="hb-btn" href="/classes/toddlerhood#sample" data-track-cta="lens-handoff">Read part of a lesson, free</a>
+            <span class="story-next__price">$49 once, lifetime access</span>
+          </div>
+        </aside>
         <div class="story-footer">
-          <a class="story-full" href="/lens/leaving-the-playground">Read the full guide, with sources <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
+          <a class="story-full" href="/lens/leaving-the-playground" data-track-cta="lens-full-guide">Read the full guide, with sources <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
         </div>
       </div>
     </section>
@@ -297,7 +306,7 @@
         <div class="close__text">
           <h2 class="hb-display" id="close-heading" data-rise style="--i:0">Love your child. Learn the science.</h2>
           <p data-rise style="--i:1">One self-paced class for each window from birth to five, built from peer-reviewed research and taught for an ordinary Tuesday. Open to any parent who seeks it.</p>
-          <a class="hb-btn hb-btn--paper" href="/classes/" data-rise style="--i:2">See the classes</a>
+          <a class="hb-btn hb-btn--paper" href="/classes/" data-track-cta="close-classes" data-rise style="--i:2">See the classes</a>
           <p class="close__terms" data-rise style="--i:3">$49 a class, or all three for $119. Lifetime access, no subscription. Full refund within 14 days if you have watched four lessons or fewer.</p>
         </div>
       </div>
@@ -366,9 +375,9 @@
   </footer>
 <!-- footer:end -->
 
-  <script src="/assets/js/chrome.js?v=288fec8e54"></script>
+  <script src="/assets/js/chrome.js?v=072b6d90d4"></script>
   <script src="/assets/js/home.js?v=d3d063f882" defer></script>
-  <script src="/assets/js/home-lens.js?v=5219cef4da" defer></script>
+  <script src="/assets/js/home-lens.js?v=024e1e905a" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

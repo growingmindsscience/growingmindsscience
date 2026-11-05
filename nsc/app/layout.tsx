@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter, Newsreader } from "next/font/google";
 import "./globals.css";
 import { brand } from "@/lib/config/brand";
@@ -55,6 +56,11 @@ export default function RootLayout({
         </div>
         <SiteFooter />
         <TimeZoneSync />
+        {/* Vercel Web Analytics, served by the parent site at its origin root
+            (this app is proxied under /nsc there), so page views and funnel
+            events from the classes area land beside the marketing pages'. On
+            a bare deployment host the request 404s quietly. */}
+        <Script src="/_vercel/insights/script.js" strategy="afterInteractive" />
       </body>
     </html>
   );
