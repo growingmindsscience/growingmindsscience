@@ -74,17 +74,17 @@ html:not(.anim) .label { transition: none; }
   .hero__text, .hero__text > div { display: contents; }
   /* Phones: a smaller title keeps "Every grown-up" on one line, and a wider crop lifts the lead and first button into the first screen. */
   .hero__title { order: 0; margin-top: 16px; font-size: clamp(2.75rem, 1.6rem + 5.6vw, 3.25rem); }
-  .plate { order: 1; margin: 20px 0; display: flex; }
-  /* The photograph, then the toggle as its own quiet button under it. */
+  /* Phones open on the promise: tagline, mission, actions. The photograph
+     follows, its top edge above the fold as the invitation to scroll. It
+     stands alone here: no Fig. 1 caption, no "Show what's beneath" toggle. */
+  .plate { order: 5; margin: 0 0 40px; display: flex; }
+  .hero .plate__fig, .hero .plate__toggle, .hero .labels { display: none; }
   .plate__img { position: relative; flex: none; display: grid; gap: 8px; overflow: visible; background: none; }
   .plate picture { position: relative; inset: auto; display: block; overflow: hidden; border-radius: var(--radius-lg); background: var(--sage-mist); }
   .plate img { position: relative; inset: auto; display: block; aspect-ratio: 3 / 2; object-position: 50% 22%; }
-  .fg .plate__toggle { position: static; width: 100%; justify-content: center; min-height: 48px; background: var(--paper); color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
-  .fg .plate__toggle:hover, .fg .plate__toggle[aria-pressed="true"] { background: var(--sage-mist); color: var(--ink); }
-  .plate__fig { margin-top: 8px; }
-  .hero__lead { order: 2; margin-top: 0; }
+  .hero__lead { order: 2; margin-top: 20px; }
   .hero__actions { order: 3; margin-top: 24px; }
-  .hero__quiet { order: 4; margin-bottom: 40px; }
+  .hero__quiet { order: 4; margin: 20px 0 28px; }
 
   /* On a phone the labels are a list under the photograph, not overlays. The lead label shows at
      rest, as it does over the desktop plate; the toggle adds the other two. */
