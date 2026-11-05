@@ -1,8 +1,6 @@
-import Link from "next/link";
 import { requireClassAuth } from "@/lib/auth";
-import { hasClassAccess } from "@/lib/classes.server";
-import { Card, LinkButton } from "@/components/ui";
-import { AwaitClassAccess } from "./wait";
+import { hasClassAccess, publishedLessons } from "@/lib/classes.server";
+import { ClassWelcome } from "@/components/class-welcome";
 import { stripe } from "@/lib/stripe";
 import { TrackPurchase } from "@/components/track";
 import { fulfillClassCheckout } from "@/lib/class-orders.server";
@@ -23,15 +21,11 @@ export default async function ClassSuccessPage({ searchParams }: {
     } catch { /* The signed webhook remains the primary fulfillment path. */ }
   }
   const ready = await hasClassAccess(user.id);
+  const first = ready ? (await publishedLessons())[0] : undefined;
   return (
     <main className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-6 py-12 text-center">
       {sessionId?.startsWith("cs_") && <TrackPurchase classId="toddlerhood" sessionId={sessionId} />}
-      <Card>
-        <h1 className="text-2xl text-ink-deep sm:text-3xl">{ready ? "Your class is ready" : "Thank you for enrolling"}</h1>
-        <p className="mt-3 text-ink">{ready ? "Toddler years is in My classes." : "We're confirming your payment and adding the class to your account."}</p>
-        {ready ? <LinkButton href="/app/classes/toddlerhood" className="mt-5">Open class</LinkButton> : <AwaitClassAccess />}
-        <p className="mt-4 text-xs text-ink-muted">You can always return through <Link href="/app/classes" className="underline">My classes</Link>.</p>
-      </Card>
+      <ClassWelcome ready={ready} courseSlug="toddlerhood" firstLessonSlug={first?.slug} />
     </main>
   );
 }
