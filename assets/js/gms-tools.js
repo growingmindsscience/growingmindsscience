@@ -1014,7 +1014,39 @@
     });
   }
 
-  window.GMS._ui = { mountProfile: mountProfile, mountShelf: mountShelf, reorderToolLists: reorderToolLists };
+  // The closing "go deeper" section on a tool page names one class: the one for
+  // the saved child's age, or, with no age (or a stage that has gone stale),
+  // the class list. The HTML default is the class list, so nothing is lost
+  // without script or storage.
+  var NEXT_CLASSES = [
+    { max: 11, href: "/classes/birth-to-12-months", name: "Birth to 12 months", short: "first-year class" },
+    { max: 35, href: "/classes/toddlerhood", name: "Toddler years, 1 to 3", short: "toddler class" },
+    { max: 71, href: "/classes/preschool", name: "Preschool years, 3 to 5", short: "preschool class" }
+  ];
+  function mountNextClass(host) {
+    var line = host.querySelector("[data-gms-next-line]");
+    var btn = host.querySelector("[data-gms-next-btn]");
+    if (!line || !btn) return;
+    var defaults = { line: line.textContent, text: btn.textContent, href: btn.getAttribute("href") };
+    function render() {
+      var child = profile.getActive();
+      var months = child && !profile.isStale(child) ? profile.ageInMonths(child) : null;
+      var phrase = months == null ? "" : profile.agePhrase(child);
+      var pick = null;
+      if (months != null) for (var i = 0; i < NEXT_CLASSES.length; i++) if (months <= NEXT_CLASSES[i].max) { pick = NEXT_CLASSES[i]; break; }
+      if (!pick || !phrase) {
+        line.textContent = defaults.line; btn.textContent = defaults.text; btn.setAttribute("href", defaults.href);
+        return;
+      }
+      line.textContent = "For your " + phrase + ", that\u2019s " + pick.name + ": self-paced, built from peer-reviewed research, $49 once with lifetime access.";
+      btn.textContent = "See the " + pick.short;
+      btn.setAttribute("href", pick.href);
+    }
+    render();
+    profile.onChange(render);
+  }
+
+  window.GMS._ui = { mountProfile: mountProfile, mountShelf: mountShelf, reorderToolLists: reorderToolLists, mountNextClass: mountNextClass };
 
   /* ---------- Auto-init ---------- */
   ready(function () {
@@ -1024,6 +1056,8 @@
     });
     var pHost = document.querySelector("[data-gms-profile]");
     if (pHost) mountProfile(pHost);
+    var nHost = document.querySelector("[data-gms-next]");
+    if (nHost) mountNextClass(nHost);
     var sHost = document.querySelector("[data-gms-shelf]");
     if (sHost) mountShelf(sHost);
     if (document.querySelector("[data-gms-tool-list]")) {

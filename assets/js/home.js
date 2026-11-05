@@ -274,20 +274,50 @@
     mark(0);
     fit();
   });
-  /* Age picker on the homepage classes section: choosing an age marks the class
-     that covers it and shows that age in one line. Without script each age is a
-     plain link to its Explore page. */
+  /* Age picker on the homepage classes section. Choosing an age marks the class
+     that covers it, moves that class to the top of the list on a phone, and
+     shows one recommendation: the class, its free sample if it has one, and
+     the bundle while there are classes still ahead. Without script each age
+     is a plain link to its Explore page. */
   var picker = document.querySelector("[data-agepick]");
   if (picker) {
     var note = picker.querySelector("[data-agepick-note]");
+    var menu = document.querySelector(".classes .menu");
     var opts = Array.prototype.slice.call(picker.querySelectorAll(".agepick__opt"));
     var items = Array.prototype.slice.call(document.querySelectorAll("[data-class-id]"));
-    var classNames = {};
-    items.forEach(function (it) { var a = it.querySelector("h3 a"); if (a) classNames[it.getAttribute("data-class-id")] = { name: a.textContent, href: a.getAttribute("href") }; });
+    var bundle = document.querySelector(".menu__item--bundle");
+    var bundlePrice = bundle ? (bundle.querySelector(".price").firstChild.textContent || "").trim() : "";
+    var classes = {};
+    items.forEach(function (it) {
+      var a = it.querySelector("h3 a");
+      var price = it.querySelector(".price");
+      if (!a) return;
+      classes[it.getAttribute("data-class-id")] = {
+        href: a.getAttribute("href"),
+        name: a.textContent,
+        short: it.getAttribute("data-short") || "class",
+        price: price ? (price.firstChild.textContent || "").trim() : "",
+        sampleHref: it.getAttribute("data-sample-href"),
+        sampleLabel: it.getAttribute("data-sample-label")
+      };
+    });
+    var el = function (tag, cls, text) {
+      var node = document.createElement(tag);
+      if (cls) node.className = cls;
+      if (text) node.textContent = text;
+      return node;
+    };
+    var link = function (href, text, cta, cls) {
+      var a = el("a", cls, text);
+      a.href = href;
+      a.setAttribute("data-track-cta", cta);
+      return a;
+    };
     opts.forEach(function (o) { o.setAttribute("role", "button"); o.setAttribute("aria-pressed", "false"); });
     var choose = function (o) {
       opts.forEach(function (x) { x.setAttribute("aria-pressed", x === o ? "true" : "false"); });
       var cid = o.getAttribute("data-class"), yrs = o.textContent;
+      if (menu) menu.classList.add("has-match");
       items.forEach(function (it) {
         var on = it.getAttribute("data-class-id") === cid;
         it.classList.toggle("is-match", on);
@@ -296,16 +326,24 @@
           li.classList.toggle("is-match", on && !!y && y.textContent === yrs);
         });
       });
-      var cls = classNames[cid] || { name: "", href: "/classes/" };
+      var cls = classes[cid] || { href: "/classes/", name: "the classes", short: "classes", price: "" };
       note.innerHTML = "";
-      var name = document.createElement("p"); name.className = "agepick__name"; name.textContent = o.getAttribute("data-name");
-      var line = document.createElement("p"); line.className = "agepick__line"; line.textContent = o.getAttribute("data-line");
-      var links = document.createElement("p"); links.className = "agepick__links";
-      var c = document.createElement("a"); c.href = cls.href; c.textContent = "See " + cls.name;
-      var e = document.createElement("a"); e.href = o.getAttribute("href"); e.textContent = "Explore " + yrs.toLowerCase().replace(/^birth/, "birth");
-      links.appendChild(c); links.appendChild(e);
-      note.appendChild(name); note.appendChild(line); note.appendChild(links);
+      note.appendChild(el("p", "agepick__name", o.getAttribute("data-name")));
+      note.appendChild(el("p", "agepick__line", o.getAttribute("data-line")));
+      note.appendChild(el("p", "agepick__fit", "Covered in " + cls.name + (cls.price ? ", " + cls.price + " once." : ".")));
+      var actions = el("div", "agepick__actions");
+      actions.appendChild(link(cls.href, "See the " + cls.short, "agepick-class", "hb-btn"));
+      if (cls.sampleHref) actions.appendChild(link(cls.sampleHref, cls.sampleLabel, "agepick-sample", "agepick__sample"));
+      note.appendChild(actions);
+      var more = el("p", "agepick__links");
+      // The bundle only helps while a later class is still ahead of the child.
+      if (bundle && cid !== "preschool") {
+        more.appendChild(link(bundle.getAttribute("href"), "Or all three classes for " + bundlePrice + ", ready as they grow", "agepick-bundle"));
+      }
+      more.appendChild(link(o.getAttribute("href"), "Explore " + yrs.toLowerCase(), "agepick-explore"));
+      note.appendChild(more);
       note.hidden = false;
+      if (window.floTrack) window.floTrack("Age Picked", { age: yrs });
     };
     opts.forEach(function (o) {
       o.addEventListener("click", function (ev) { ev.preventDefault(); choose(o); });

@@ -359,7 +359,13 @@ html:not(.anim) .label { transition: none; }
 .agepick__name { font-family: var(--font-display); font-size: clamp(1.25rem, 1.1rem + 0.4vw, 1.4375rem); line-height: 1.2; color: var(--ink); }
 .agepick__line { margin-top: 4px; font-size: 15px; line-height: 1.5; color: var(--ink-soft); text-wrap: pretty; }
 .agepick__links { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-top: 10px; font-size: 15px; font-weight: 500; }
+.fg .agepick__fit { margin-top: 10px; font-size: 15px; color: var(--ink); }
+.agepick__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 16px; }
+.fg .agepick__sample { display: inline-flex; align-items: center; min-height: 44px; color: var(--forest); font-size: 15px; font-weight: 500; text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+.fg .agepick__sample:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
+.agepick__note .agepick__links { flex-direction: column; align-items: flex-start; gap: 0; margin-top: 12px; padding-top: 8px; border-top: 1px solid var(--border-soft); font-size: 14px; font-weight: 400; }
 .fg .agepick__links a { display: inline-flex; align-items: center; min-height: 44px; margin-block: -10px; color: var(--forest); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+.fg .agepick__note .agepick__links a { margin-block: 0; min-height: 40px; }
 /* The class that covers the chosen age: a mist wash and its age row in ink */
 .classes .menu__item--class { transition: background-color 220ms ease; }
 .classes .menu__item--class.is-match { background: var(--sage-mist); margin-inline: -20px; padding-inline: 20px; border-radius: 10px; }
@@ -371,4 +377,7 @@ html:not(.anim) .label { transition: none; }
   .agepick__list { display: grid; grid-template-columns: minmax(0, 1.55fr) repeat(4, minmax(0, 1fr)); gap: 6px; }
   .fg .agepick__opt { width: 100%; justify-content: center; padding: 6px 4px; font-size: 14px; text-align: center; line-height: 1.2; }
   .classes .menu__item--class.is-match { margin-inline: 0; padding-inline: 20px; }
+  /* On a phone the chosen class comes first, so the recommendation is the next thing read. */
+  .classes .menu.has-match .menu__item--class.is-match { order: -1; }
+  .agepick__actions .hb-btn { width: 100%; justify-content: center; }
 }
