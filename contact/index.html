@@ -249,6 +249,19 @@
 <!-- footer:end -->
 
 
+  <script>
+  /* Arriving from the end of a class (?finished=<class>): start the message
+     with a prompt about what changed, and ask before quoting anyone. */
+  (function () {
+    try {
+      var names = { infant: "Birth to 12 months", toddlerhood: "Toddler years", preschool: "Preschool years" };
+      var cls = names[new URLSearchParams(location.search).get("finished")];
+      var box = document.getElementById("message");
+      if (!cls || !box || box.value) return;
+      box.value = "I finished " + cls + ".\n\nWhat changed for us:\n\n\nOK to share a line of this on the site, first name only? Yes / No";
+    } catch (e) { /* the form works the same without it */ }
+  })();
+  </script>
   <script src="/assets/js/chrome.js?v=072b6d90d4"></script>
 
   <script src="../assets/js/main.js?v=b5c8e48c2d" defer></script>

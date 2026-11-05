@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { type ClassCourseSlug, type ClassLesson, lessonPath } from "@/lib/classes";
 import { Card, LinkButton } from "@/components/ui";
+import { sitePath } from "@/lib/site";
 
 export interface LessonProgress { lesson_id: string; position_seconds: number | null; completed_at: string | null }
 
@@ -52,6 +53,10 @@ export function ClassResume({ lessons, progress, courseSlug, modules }: {
         <div className="mt-4">
           <h2 className="text-xl text-ink-deep">You have finished the class</h2>
           <p className="mt-1 text-sm text-ink-soft">Every lesson stays here for you. Come back to any of them whenever you need it.</p>
+          <p className="mt-4 text-sm text-ink">
+            What changed for you and your child? Matthew reads every note, and it shapes the next version of the class.{" "}
+            <a href={sitePath(`/contact/?finished=${courseSlug}`)} className="font-semibold text-teal underline">Tell Matthew</a>
+          </p>
         </div>
       )}
     </Card>

@@ -1,9 +1,7 @@
-import Link from "next/link";
 import { requireClassAuth } from "@/lib/auth";
 import { hasClassAccess, publishedLessons } from "@/lib/classes.server";
-import { PRESCHOOL_COURSE, lessonPath } from "@/lib/classes";
-import { Card, LinkButton } from "@/components/ui";
-import { AwaitClassAccess } from "@/app/app/classes/toddlerhood/success/wait";
+import { PRESCHOOL_COURSE } from "@/lib/classes";
+import { ClassWelcome } from "@/components/class-welcome";
 import { stripe } from "@/lib/stripe";
 import { TrackPurchase } from "@/components/track";
 import { fulfillClassCheckout } from "@/lib/class-orders.server";
@@ -30,21 +28,7 @@ export default async function PreschoolClassSuccessPage({ searchParams }: {
   return (
     <main className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-6 py-12 text-center">
       {sessionId?.startsWith("cs_") && <TrackPurchase classId="preschool" sessionId={sessionId} />}
-      <Card>
-        <h1 className="text-2xl text-ink-deep sm:text-3xl">{ready ? "Welcome. Your class is ready." : "Thank you for enrolling"}</h1>
-        <p className="mt-3 text-ink">{ready
-          ? "Preschool years is yours to keep. Each lesson is about ten minutes, and your place is saved as you go."
-          : "We're confirming your payment and adding the class to your account."}</p>
-        {ready ? (
-          <div className="mt-5 flex flex-col items-center gap-2">
-            <LinkButton href={first ? lessonPath(first.slug, PRESCHOOL_COURSE.slug) : "/app/classes/preschool"}>
-              {first ? "Start the first lesson" : "Open class"}
-            </LinkButton>
-            {first && <Link href="/app/classes/preschool" className="inline-flex min-h-11 items-center text-sm font-semibold text-teal underline">See all lessons</Link>}
-          </div>
-        ) : <AwaitClassAccess />}
-        <p className="mt-4 text-xs text-ink-muted">You can always return through <Link href="/app/classes" className="underline">My classes</Link>.</p>
-      </Card>
+      <ClassWelcome ready={ready} courseSlug={PRESCHOOL_COURSE.slug} firstLessonSlug={first?.slug} />
     </main>
   );
 }
