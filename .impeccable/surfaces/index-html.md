@@ -25,3 +25,14 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 
 ## Unresolved
 - Inner pages inherit the world through styles.css, seminar.css and chrome.css tokens; class pages get a route-segment inset; the nsc app (separate deploy) is out of scope for this round and must be restyled to match later.
+
+## Phone hero (2026-11-05)
+
+Persuade. At 900px and below the first screen is one poster in four beats:
+promise (H1 "Every grown-up starts little."), mission (first sentence of the
+lead), proof (the research sentence as a meta line with a research-blue dot),
+then the parent-and-toddler photograph full-bleed at 16:9 as the tagline made
+literal, then the two buttons and "Start here." Words are at rest from the
+first paint (no rise, no fg-rise); the photograph's settle is the one motion.
+No Fig. 1 caption and no label toggle on phones (Matthew, 2026-11-05).
+Desktop is unchanged. Checked at 320x640, 375x667, 390x844, dark mode, 1280.

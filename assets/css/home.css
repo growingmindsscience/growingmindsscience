@@ -74,17 +74,24 @@ html:not(.anim) .label { transition: none; }
   .hero__text, .hero__text > div { display: contents; }
   /* Phones: a smaller title keeps "Every grown-up" on one line, and a wider crop lifts the lead and first button into the first screen. */
   .hero__title { order: 0; margin-top: 16px; font-size: clamp(2.75rem, 1.6rem + 5.6vw, 3.25rem); }
-  /* Phones open on the promise: tagline, mission, actions. The photograph
-     follows, its top edge above the fold as the invitation to scroll. It
-     stands alone here: no Fig. 1 caption, no "Show what's beneath" toggle. */
-  .plate { order: 5; margin: 0 0 40px; display: flex; }
+  /* Phones read the first screen as one poster, in four beats: the promise,
+     the mission, the picture of it (a grown-up and someone little), then the
+     way in. The words are at rest from the first paint rather than rising in;
+     the photograph keeps its slow settle as the one authored moment. No Fig. 1
+     caption and no label toggle here: on a phone the photograph is the tagline
+     made literal, not a figure to operate. */
+  html.anim .fg--home .hero [data-rise] { opacity: 1; transform: none; transition: none; animation: none; }
+  .hero__lead { order: 1; margin-top: 16px; color: var(--ink); }
+  /* The research sentence becomes the proof under the mission, marked in research blue (evidence). */
+  .hero__proof { display: flex; gap: 10px; align-items: baseline; margin-top: 14px; font-size: 15px; line-height: 1.45; color: var(--ink-muted); }
+  .hero__proof::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--research); transform: translateY(-1px); }
+  .plate { order: 2; margin: 28px calc(-1 * var(--hb-gutter)) 0; display: flex; }
   .hero .plate__fig, .hero .plate__toggle, .hero .labels { display: none; }
-  .plate__img { position: relative; flex: none; display: grid; gap: 8px; overflow: visible; background: none; }
-  .plate picture { position: relative; inset: auto; display: block; overflow: hidden; border-radius: var(--radius-lg); background: var(--sage-mist); }
-  .plate img { position: relative; inset: auto; display: block; aspect-ratio: 3 / 2; object-position: 50% 22%; }
-  .hero__lead { order: 2; margin-top: 20px; }
+  .plate__img { position: relative; flex: none; display: block; overflow: hidden; background: var(--sage-mist); }
+  .plate picture { position: relative; inset: auto; display: block; }
+  .plate img { position: relative; inset: auto; display: block; aspect-ratio: 16 / 9; object-position: 50% 23%; }
   .hero__actions { order: 3; margin-top: 24px; }
-  .hero__quiet { order: 4; margin: 20px 0 28px; }
+  .hero__quiet { order: 4; margin: 18px 0 40px; }
 
   /* On a phone the labels are a list under the photograph, not overlays. The lead label shows at
      rest, as it does over the desktop plate; the toggle adds the other two. */
