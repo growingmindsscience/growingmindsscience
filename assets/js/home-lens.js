@@ -19,6 +19,7 @@
     respond: [0.47, 0.48, 0.22, 0.13]
   };
   var current = '';
+  var completed = false;
   var animation = null;
   var observer = null;
   var readingLine = 0;
@@ -75,6 +76,11 @@
     placeFrame(key, !!current);
     current = key;
     scope.setAttribute('data-step', key);
+    // Funnel: a reader who reaches the last beat has read the whole moment.
+    if (key === beats[beats.length - 1].getAttribute('data-story-beat') && !completed && window.floTrack) {
+      completed = true;
+      window.floTrack('Lens Completed', {});
+    }
     captions.forEach(function (caption) { caption.hidden = caption.getAttribute('data-story-caption') !== key; });
     stages.forEach(function (stage) {
       if (stage.getAttribute('data-story-stage') === key) stage.setAttribute('aria-current', 'step');

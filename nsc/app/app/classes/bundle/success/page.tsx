@@ -5,6 +5,7 @@ import { CLASS_BUNDLE } from "@/lib/classes";
 import { Card, LinkButton } from "@/components/ui";
 import { AwaitClassAccess } from "@/app/app/classes/toddlerhood/success/wait";
 import { stripe } from "@/lib/stripe";
+import { TrackPurchase } from "@/components/track";
 import { fulfillClassCheckout } from "@/lib/class-orders.server";
 
 export const dynamic = "force-dynamic";
@@ -28,6 +29,7 @@ export default async function BundleSuccessPage({ searchParams }: {
   const ready = CLASS_BUNDLE.courses.every((slug) => owned.includes(slug));
   return (
     <main className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-6 py-12 text-center">
+      {sessionId?.startsWith("cs_") && <TrackPurchase classId="bundle" sessionId={sessionId} />}
       <Card>
         <h1 className="text-2xl text-ink-deep sm:text-3xl">{ready ? "Welcome. All three classes are ready." : "Thank you for enrolling"}</h1>
         <p className="mt-3 text-ink">{ready

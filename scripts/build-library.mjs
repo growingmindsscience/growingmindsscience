@@ -153,7 +153,7 @@ ${body}
 
   ${footer}
 
-  <script src="/assets/js/chrome.js?v=288fec8e54"></script>
+  <script src="/assets/js/chrome.js?v=072b6d90d4"></script>
   <script src="/assets/js/main.js?v=b5c8e48c2d" defer></script>
   <script src="/assets/js/home.js?v=d3d063f882" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>

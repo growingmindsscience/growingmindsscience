@@ -146,3 +146,48 @@
     });
   });
 })();
+
+/* Funnel events for Vercel Web Analytics (custom events). Page views already
+   come from /_vercel/insights/script.js; these record the steps between them:
+     CTA Click      a marked call to action    { from, cta }
+     Enroll Click   any link into class signup { from, class }
+     Preview Click  any link to a free lesson  { from, class }
+     Lens Completed sent by home-lens.js       { from }
+   Mark a new call to action with data-track-cta="name" (event "CTA Click"),
+   or add data-track="Event Name" to send it under another name. Two data
+   keys at most per event. Tracking never blocks a click and never throws. */
+(function () {
+  "use strict";
+  // The insights script loads deferred; queue calls made before it arrives.
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  window.floTrack = function (name, data) {
+    try {
+      var payload = { from: location.pathname };
+      for (var key in data) if (Object.prototype.hasOwnProperty.call(data, key)) payload[key] = data[key];
+      window.va("event", { name: name, data: payload });
+    } catch (e) { /* analytics is never worth an error */ }
+  };
+
+  function classFrom(href) {
+    var next = /[?&]next=([^&#]+)/.exec(href);
+    var path = next ? decodeURIComponent(next[1]) : href;
+    var match = /\/classes\/([\w-]+)\/(?:enroll|preview)/.exec(path);
+    return match ? match[1] : "unknown";
+  }
+
+  document.addEventListener("click", function (e) {
+    var target = e.target;
+    if (!target || !target.closest) return;
+    var marked = target.closest("[data-track], [data-track-cta]");
+    if (marked) {
+      window.floTrack(marked.getAttribute("data-track") || "CTA Click", { cta: marked.getAttribute("data-track-cta") || "unnamed" });
+      return;
+    }
+    var link = target.closest("a[href]");
+    if (!link) return;
+    var href = link.getAttribute("href");
+    if (link.closest(".nav__cta")) window.floTrack("CTA Click", { cta: "header-enroll" });
+    else if (/\/nsc\/class-signup|\/app\/classes\/[\w-]+\/enroll/.test(href)) window.floTrack("Enroll Click", { class: classFrom(href) });
+    else if (/\/nsc\/classes\/[\w-]+\/preview/.test(href)) window.floTrack("Preview Click", { class: classFrom(href) });
+  }, true);
+})();
