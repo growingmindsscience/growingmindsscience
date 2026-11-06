@@ -15,6 +15,8 @@ All five pictures must read as one photographer's work on one afternoon:
 
 ## 1. Explorer photograph: joint attention
 
+> Superseded 2026-11-05 by `hero-age-photos-brief.md`. This photo put what they look at outside the frame, which leaves nothing for a drawn figure to land on. Use the new brief.
+
 File: `assets/img/site/hero-parent-baby.jpg` (and a 640-wide copy as `hero-parent-baby-640.jpg`).
 Size: 1200 × 1800 px, portrait 2:3. It is shown as a 4:5 crop on desktop and a 3:2 crop on phones, so keep the subject in the central 60% of the frame both ways.
 

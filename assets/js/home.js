@@ -2,7 +2,7 @@
    The homepage's behavior, also loaded by inner pages on the same system for
    their entrances (every other part is guarded and does nothing there).
    The header, menu and theme live in chrome.js.
-   - The plate: "Show what's beneath" reveals the typeset labels over the photograph.
+   - The hero plate: one drawn figure per age; the hero age row picks which one shows.
    - The Lens: a four-step tablist; the plate's labels follow the active step.
    - The Lens sequence (homepage): a carousel of four frames; its rail, arrows and phone bar
      follow the scroll.
@@ -126,16 +126,53 @@
     mark();
   });
 
-  /* The plate's labels */
-  var toggle = document.querySelector("[data-plate-toggle]");
-  var labels = toggle && document.getElementById(toggle.getAttribute("aria-controls"));
-  if (toggle && labels) {
-    // The name stays "Show what's beneath"; aria-pressed and the pressed fill carry the state.
-    toggle.addEventListener("click", function () {
-      var on = toggle.getAttribute("aria-pressed") !== "true";
-      toggle.setAttribute("aria-pressed", String(on));
-      labels.setAttribute("data-on", String(on));
-    });
+  /* The hero plate: one figure per age. Pointing at or focusing an age in the hero row shows that
+     age's figure; it stays until another age is chosen. Only the default photograph loads with the
+     page; the other four load on the first sign of interest in the row (or once the page is idle on
+     a wide screen), so the first screen stays one download. Phones never hover and keep the default. */
+  var plate = document.querySelector("[data-plate]");
+  if (plate) {
+    var figs = Array.prototype.slice.call(plate.querySelectorAll(".fig"));
+    var caption = plate.querySelector("[data-fig-caption]");
+    var loaded = false;
+    var loadAll = function () {
+      if (loaded) return;
+      loaded = true;
+      figs.forEach(function (f) {
+        var src = f.querySelector("source[data-srcset]");
+        var img = f.querySelector("img[data-src]");
+        if (src) { src.srcset = src.getAttribute("data-srcset"); src.removeAttribute("data-srcset"); }
+        if (img) { img.src = img.getAttribute("data-src"); img.removeAttribute("data-src"); }
+      });
+    };
+    var show = function (n) {
+      var next = figs.filter(function (f) { return f.getAttribute("data-fig") === n; })[0];
+      if (!next || next.classList.contains("is-on")) return;
+      loadAll();
+      plate.setAttribute("data-swapped", "");
+      figs.forEach(function (f) {
+        var on = f === next;
+        f.classList.toggle("is-on", on);
+        if (on) f.removeAttribute("aria-hidden"); else f.setAttribute("aria-hidden", "true");
+      });
+      if (caption) caption.innerHTML = next.getAttribute("data-caption");
+    };
+    var row = document.querySelector(".hero__agelist");
+    if (row) {
+      row.addEventListener("pointerenter", loadAll);
+      row.addEventListener("focusin", loadAll);
+      Array.prototype.forEach.call(row.querySelectorAll("[data-fig]"), function (a) {
+        var pick = function () { show(a.getAttribute("data-fig")); };
+        a.addEventListener("pointerenter", function (e) { if (e.pointerType !== "touch") pick(); });
+        a.addEventListener("focus", pick);
+      });
+    }
+    var wide = window.matchMedia("(min-width: 901px) and (hover: hover)");
+    if (wide.matches) {
+      window.addEventListener("load", function () {
+        (window.requestIdleCallback || function (fn) { setTimeout(fn, 1500); })(loadAll);
+      });
+    }
   }
 
   /* The Lens tablist */
@@ -348,6 +385,21 @@
     opts.forEach(function (o) {
       o.addEventListener("click", function (ev) { ev.preventDefault(); choose(o); });
       o.addEventListener("keydown", function (ev) { if (ev.key === " ") { ev.preventDefault(); choose(o); } });
+    });
+    /* The hero asks the same question first. An age chosen there answers this picker and brings it
+       up under the header, so the recommendation is the next thing the parent reads; focus moves to
+       the chosen age so keyboard and screen-reader users land in the same place. Without script the
+       hero ages are plain links to the same Explore pages. */
+    Array.prototype.forEach.call(document.querySelectorAll("[data-hero-age]"), function (h) {
+      h.addEventListener("click", function (ev) {
+        var o = opts.filter(function (x) { return x.getAttribute("href") === h.getAttribute("href"); })[0];
+        if (!o || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button > 0) return;
+        ev.preventDefault();
+        choose(o);
+        var still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        try { o.focus({ preventScroll: true }); } catch (e) { o.focus(); }
+        picker.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "start" });
+      });
     });
   }
 })();
