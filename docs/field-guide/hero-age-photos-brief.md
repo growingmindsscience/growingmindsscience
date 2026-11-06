@@ -85,7 +85,7 @@ File: `assets/img/site/hero-age-4.jpg`
 
 1. Matthew saves the five masters at the paths above.
 2. In the repo: make the WebP copies, measure each figure's points on the master (eyes, hands, objects), and draw the figures in code so they stay sharp and accessible at every crop.
-3. The hero plate swaps figure on hover or focus of an age. Phones show figure 1 only. Reduced motion gets an instant swap with no line drawing.
+3. The hero plate swaps figure on hover or focus of an age. On a touch screen the first tap on an age previews its figure (added 2026-11-06). Reduced motion gets an instant swap with no line drawing.
 4. The current `hero-parent-baby` files stay until figure 1 ships, then retire.
 
 Good to have, not required: generate figure 1 first. It is the default hero, so shipping it alone already fixes the graphic on every device, and the other four can follow.

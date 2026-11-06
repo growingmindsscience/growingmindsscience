@@ -26,7 +26,7 @@
 /* Ages are set in the display serif, like the tabs of a field guide: they read as numbers to choose, not words to read. */
 .fg .hero__age { display: flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 8px; border-radius: var(--radius); box-shadow: inset 0 0 0 1.5px var(--ink); color: var(--ink); font-family: var(--font-display); font-size: 1.5rem; font-weight: 500; line-height: 1; font-variant-numeric: lining-nums tabular-nums; text-decoration: none; white-space: nowrap; transition: background-color 160ms ease, box-shadow 160ms ease, color 160ms ease; }
 .fg .hero__agelist li:first-child .hero__age { font-size: 1.25rem; }
-.fg .hero__age:hover { background: var(--forest); box-shadow: inset 0 0 0 1.5px var(--forest); color: var(--on-forest); }
+.fg .hero__age:hover, .fg .hero__age[aria-current="true"] { background: var(--forest); box-shadow: inset 0 0 0 1.5px var(--forest); color: var(--on-forest); }
 .fg .hero__age:active { transform: translateY(1px); }
 @media (prefers-reduced-motion: reduce) { .fg .hero__age { transition: none; } }
 /* One action colour: every link in running text on the homepage is forest, like the class and age links. */
@@ -64,6 +64,10 @@
 /* The tag sits at a point on the photograph, mapped through the same centre crop as the image. */
 .fig__tag { position: absolute; z-index: 2; left: calc(50cqw + (var(--x) - 0.5) * max(100cqw, 100cqh)); top: calc(50cqh + (var(--y) - 0.5) * max(100cqw, 100cqh)); translate: -50% -50%; display: inline-flex; align-items: center; gap: 8px; max-width: calc(100cqw - 24px); margin: 0; padding: 7px 12px 7px 10px; border-radius: var(--radius); background: #F8F9FB; color: #193C39; font-size: 14px; font-weight: 600; line-height: 1.25; white-space: nowrap; box-shadow: 0 1px 2px rgba(25, 60, 57, 0.18), 0 4px 14px rgba(25, 60, 57, 0.12); }
 .fig__tag::before { content: ""; flex: none; width: 9px; height: 9px; border-radius: 50%; background: #D2A453; }
+/* On a touch screen the first tap on an age previews its figure, and this button under the photograph
+   carries the parent on to that age's class. Without script, or with a mouse, it never shows. */
+.plate__go { align-self: flex-start; margin-top: 14px; }
+.fg .plate__go[hidden] { display: none; }
 .plate__fig { margin-top: 10px; font-size: 14px; color: var(--ink-muted); }
 .plate__fig b { color: var(--research); font-weight: 600; }
 /* Typeset labels, used by the Lens plates (lens/ pages). */
@@ -108,6 +112,7 @@ html:not(.anim) .label { transition: none; }
   /* A 4:3 window on the square photograph: every figure sits in its middle 60%, so nothing is cut. */
   .plate__img { flex: none; aspect-ratio: 4 / 3; }
   /* A phone's photograph is too narrow to centre a tag on its point, so every tag sits in the same corner. */
+  .plate__go { align-self: stretch; margin: 14px var(--hb-gutter) 0; }
   .fig__tag { left: 10px; top: auto; bottom: 10px; translate: none; max-width: calc(100% - 20px); font-size: 13px; padding: 6px 10px 6px 9px; }
 }
 }
