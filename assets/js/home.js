@@ -129,7 +129,11 @@
   /* The hero plate: one figure per age. Pointing at or focusing an age in the hero row shows that
      age's figure; it stays until another age is chosen. Only the default photograph loads with the
      page; the other four load on the first sign of interest in the row (or once the page is idle on
-     a wide screen), so the first screen stays one download. Phones never hover and keep the default. */
+     a wide screen), so the first screen stays one download. A touch screen cannot hover, so there the
+     first tap on an age is the hover: it shows that age's figure and brings up a button under the
+     photograph to that age's class. Tapping the same age again, or the button, goes on to the class.
+     A mouse click or the keyboard goes straight on, as before. */
+  var heroPreview = null;
   var plate = document.querySelector("[data-plate]");
   if (plate) {
     var figs = Array.prototype.slice.call(plate.querySelectorAll(".fig"));
@@ -164,6 +168,27 @@
         a.addEventListener("pointerenter", function (e) { if (e.pointerType !== "touch") pick(); });
         a.addEventListener("focus", pick);
       });
+      var go = plate.querySelector("[data-hero-go]");
+      var ages = Array.prototype.slice.call(row.querySelectorAll("[data-hero-age]"));
+      var previewed = null, lastPointer = "";
+      row.addEventListener("pointerdown", function (e) { lastPointer = e.pointerType; });
+      // Returns true when the tap was taken as a preview, so the caller does not go on.
+      heroPreview = function (a) {
+        var touch = lastPointer === "touch" || lastPointer === "pen";
+        lastPointer = "";
+        if (!go || !touch || a === previewed) return false;
+        previewed = a;
+        show(a.getAttribute("data-fig"));
+        ages.forEach(function (x) { if (x === a) x.setAttribute("aria-current", "true"); else x.removeAttribute("aria-current"); });
+        var n = a.getAttribute("data-fig");
+        go.textContent = n === "0" ? "See the class for babies under 1" : "See the class for age " + n;
+        go.href = a.getAttribute("href");
+        go.hidden = false;
+        var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        go.scrollIntoView({ block: "nearest", behavior: still ? "auto" : "smooth" });
+        if (window.floTrack) window.floTrack("Hero Age Previewed", { age: a.textContent });
+        return true;
+      };
     }
     var wide = window.matchMedia("(min-width: 901px) and (hover: hover)");
     if (wide.matches) {
@@ -388,10 +413,12 @@
        up under the header, so the recommendation is the next thing the parent reads; focus moves to
        the chosen age so keyboard and screen-reader users land in the same place. Without script the
        hero ages are plain links to the same Explore pages. */
-    Array.prototype.forEach.call(document.querySelectorAll("[data-hero-age]"), function (h) {
+    Array.prototype.forEach.call(document.querySelectorAll("[data-hero-age], [data-hero-go]"), function (h) {
       h.addEventListener("click", function (ev) {
+        if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button > 0) return;
+        if (h.hasAttribute("data-hero-age") && heroPreview && heroPreview(h)) { ev.preventDefault(); return; }
         var o = opts.filter(function (x) { return x.getAttribute("href") === h.getAttribute("href"); })[0];
-        if (!o || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button > 0) return;
+        if (!o) return;
         ev.preventDefault();
         choose(o);
         var still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
