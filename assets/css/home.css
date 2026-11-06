@@ -11,100 +11,110 @@
    ========================================================= */
 
 /* ---------- 01 Hero: the annotated plate ---------- */
+/* The first screen answers three questions in under twenty words: what this is (the title), why to
+   trust it (the line under it), and whether it is for this parent (the age row). The age row is the
+   hero's only action; it answers the classes section's picker, so a tap there lands on the one
+   class for that age. */
 .hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); min-height: calc(100svh - var(--header-h)); }
-.hero__text { display: grid; align-content: space-between; padding: 0 var(--hb-gutter) clamp(32px, 5vh, 64px) 0; }
+.hero__text { display: grid; align-content: center; padding: clamp(32px, 6vh, 72px) var(--hb-gutter) clamp(48px, 9vh, 112px) 0; }
 /* The title also caps by height, so on a laptop screen the column fits and the plate is not stretched past the fold. */
-.hero__title { font-size: min(clamp(3.25rem, 2rem + 5.2vw, 7rem), 11.5vh); line-height: 0.96; letter-spacing: -0.025em; margin-top: clamp(32px, 8vh, 96px); }
-.hero__lead { margin-top: 24px; color: var(--ink-soft); }
-.hero__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
-.hero__quiet { margin-top: 24px; font-size: 15px; color: var(--ink-muted); }
+.hero__title { font-size: min(clamp(3rem, 1.5rem + 4.3vw, 5.75rem), 10.5vh); line-height: 0.98; letter-spacing: -0.025em; text-wrap: balance; }
+.hero__lead { margin-top: 22px; max-width: 34ch; color: var(--ink-soft); }
+.hero__ages { margin-top: clamp(32px, 5vh, 48px); }
+.hero__ask { font-size: 16px; font-weight: 600; color: var(--ink); }
+.hero__agelist { display: grid; grid-template-columns: minmax(0, 1.7fr) repeat(4, minmax(0, 1fr)); gap: 8px; max-width: 420px; margin-top: 12px; }
+/* Ages are set in the display serif, like the tabs of a field guide: they read as numbers to choose, not words to read. */
+.fg .hero__age { display: flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 8px; border-radius: var(--radius); box-shadow: inset 0 0 0 1.5px var(--ink); color: var(--ink); font-family: var(--font-display); font-size: 1.5rem; font-weight: 500; line-height: 1; font-variant-numeric: lining-nums tabular-nums; text-decoration: none; white-space: nowrap; transition: background-color 160ms ease, box-shadow 160ms ease, color 160ms ease; }
+.fg .hero__agelist li:first-child .hero__age { font-size: 1.25rem; }
+.fg .hero__age:hover { background: var(--forest); box-shadow: inset 0 0 0 1.5px var(--forest); color: var(--on-forest); }
+.fg .hero__age:active { transform: translateY(1px); }
+@media (prefers-reduced-motion: reduce) { .fg .hero__age { transition: none; } }
 /* One action colour: every link in running text on the homepage is forest, like the class and age links. */
-.fg .hero__quiet a, .fg .seq__class a, .fg .trust__facts a { color: var(--forest); }
-.fg .hero__quiet a:hover, .fg .seq__class a:hover, .fg .trust__facts a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
-/* Short laptop screens (1024x768 and the like): tighter steps so both buttons stay in the first screen. */
+.fg .seq__class a, .fg .trust__facts a { color: var(--forest); }
+.fg .seq__class a:hover, .fg .trust__facts a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
+/* Short laptop screens (1024x768 and the like): tighter steps so the age row stays in the first screen. */
 @media (min-width: 901px) and (max-height: 820px) {
-  .hero__title { font-size: min(clamp(3.25rem, 2rem + 5.2vw, 7rem), 9vh); margin-top: 4vh; }
+  .hero__title { font-size: min(clamp(3rem, 1.5rem + 4.3vw, 5.75rem), 9.5vh); }
   .hero__lead { margin-top: 16px; }
-  .hero__actions { margin-top: 24px; }
-  .hero__quiet { margin-top: 16px; }
+  .hero__ages { margin-top: 28px; }
 }
-.hero__nowrap { white-space: nowrap; } /* "grown-up" never splits at its hyphen */
+/* Hyphenated words in the hero never split at the hyphen. */
+.hero__nowrap { white-space: nowrap; }
+/* A tap in the hero brings the picker up under the header, recommendation and all. */
+.agepick { scroll-margin-top: calc(var(--header-h) + 16px); }
 
+/* The plate: one photograph per age, each with a drawn figure. The photographs are square and
+   cropped from the centre (object-fit: cover), and each figure's SVG uses the same 1000-unit square
+   with preserveAspectRatio "xMidYMid slice", so the lines stay on the eyes and hands at every crop.
+   A solid line is an action, a dotted line a gaze, a dashed amber line something only pretended;
+   the amber dot is where the figure lands. Lines keep a 2px stroke at any size. */
 .plate { position: relative; display: flex; flex-direction: column; margin: 0; }
-.plate__img { position: relative; flex: 1 1 auto; min-height: 0; overflow: hidden; background: var(--sage-mist); }
-.plate picture, .plate img { position: absolute; inset: 0; width: 100%; height: 100%; }
-.plate img { object-fit: cover; object-position: 50% 30%; }
-/* The toggle sits at the top of the photograph, in the first screen with all four labels below it. */
-.fg .plate__toggle { position: absolute; left: 24px; top: 24px; z-index: 3; min-height: 48px; padding: 0 18px; border-radius: var(--radius); background: #F8F9FB; color: #193C39; box-shadow: inset 0 0 0 1.5px #193C39; font-weight: 500; display: inline-flex; align-items: center; gap: 10px; }
-.fg .plate__toggle:hover, .fg .plate__toggle[aria-pressed="true"] { background: #E0EBE5; color: #193C39; }
-.plate__toggle .sw { width: 10px; height: 10px; border-radius: 50%; background: #D2A453; }
+.plate__img { position: relative; flex: 1 1 auto; min-height: 0; overflow: hidden; background: var(--sage-mist); container-type: size; }
+.fig { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity 420ms cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 420ms; }
+.fig.is-on { opacity: 1; visibility: visible; transition: opacity 420ms cubic-bezier(0.16, 1, 0.3, 1), visibility 0s; }
+.fig picture, .fig img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.fig img { object-fit: cover; object-position: 50% 50%; }
+.fig__defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.plate .fig__lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; filter: drop-shadow(0 1px 1.5px rgba(25, 60, 57, 0.55)); }
+.fig__lines path { fill: none; stroke: #F8F9FB; stroke-width: 2.25px; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.fig__lines .fig__look { stroke-dasharray: 0 7; stroke-width: 3px; }
+.fig__lines .fig__ring { stroke-width: 1.75px; }
+.fig__lines .fig__tea { stroke: #D2A453; stroke-dasharray: 5 5; stroke-width: 2.75px; }
+.fig__mark { fill: #D2A453; stroke: #F8F9FB; stroke-width: 2px; vector-effect: non-scaling-stroke; }
+/* The tag sits at a point on the photograph, mapped through the same centre crop as the image. */
+.fig__tag { position: absolute; z-index: 2; left: calc(50cqw + (var(--x) - 0.5) * max(100cqw, 100cqh)); top: calc(50cqh + (var(--y) - 0.5) * max(100cqw, 100cqh)); translate: -50% -50%; display: inline-flex; align-items: center; gap: 8px; max-width: calc(100cqw - 24px); margin: 0; padding: 7px 12px 7px 10px; border-radius: var(--radius); background: #F8F9FB; color: #193C39; font-size: 14px; font-weight: 600; line-height: 1.25; white-space: nowrap; box-shadow: 0 1px 2px rgba(25, 60, 57, 0.18), 0 4px 14px rgba(25, 60, 57, 0.12); }
+.fig__tag::before { content: ""; flex: none; width: 9px; height: 9px; border-radius: 50%; background: #D2A453; }
 .plate__fig { margin-top: 10px; font-size: 14px; color: var(--ink-muted); }
 .plate__fig b { color: var(--research); font-weight: 600; }
-.labels { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+/* Typeset labels, used by the Lens plates (lens/ pages). */
 .label { position: absolute; max-width: 26ch; background: #F8F9FB; color: #193C39; border-radius: var(--radius); padding: 10px 12px; font-size: 14px; line-height: 1.35; pointer-events: auto; opacity: 0; transform: translateY(6px); transition: opacity 360ms ease, transform 360ms ease; transition-delay: calc(var(--i, 0) * 140ms); }
-.labels[data-on="true"] .label, .labels .label--lead { opacity: 1; transform: none; }
-/* One label shows from the start, so the photograph reads as a figure before anyone presses the toggle. */
 html:not(.anim) .label { transition: none; }
 .label b { display: block; font-weight: 600; margin-bottom: 2px; }
 .label::before { content: ""; position: absolute; width: 10px; height: 10px; border-radius: 50%; background: #D2A453; box-shadow: 0 0 0 2px #F8F9FB; left: -18px; top: 12px; }
 .label--note { background: #193C39; color: #EEF3F0; }
 .label--note::before { display: none; }
-/* positions on the parent-and-baby photograph (object-position 50% 30%) */
-.label--1 { left: 8%; top: 56%; }
-.label--2 { left: 55%; top: 10%; }
-.label--4 { left: 8%; top: 30%; max-width: 22ch; }
-/* No script: the labels are simply shown and the toggle is hidden */
-.fg--home:not(.js) .labels .label { opacity: 1; transform: none; }
-.fg--home:not(.js) .plate__toggle { display: none; }
 
-/* The page's one authored moment: the photograph settles from a 4% scale, then the lead label
-   draws in over it, so the picture becomes Fig. 1 as the reader arrives. It plays from load (the
-   plate is in the first screen); if a short screen holds the plate below the fold, it waits for the
-   entrance like every other part. Without html.anim (no script, reduced motion) both are at rest. */
+/* The page's one authored moment: the photograph settles from a 4% scale and the figure draws in
+   over it, so the figure appears as the reader arrives. Choosing another age replays the
+   draw on that figure. A short screen that holds the plate below the fold waits for the entrance.
+   Without html.anim (no script, reduced motion) everything is at rest and a swap is instant. */
 @media (prefers-reduced-motion: no-preference) {
-  html.anim .plate img { animation: plate-settle 1800ms cubic-bezier(0.16, 1, 0.3, 1) 160ms both; }
-  html.anim .plate .label--lead { animation: plate-label 640ms cubic-bezier(0.16, 1, 0.3, 1) 1100ms both; }
-  html.anim .plate.rise-wait:not(.is-in) img, html.anim .plate.rise-wait:not(.is-in) .label--lead { animation: none; }
+  html.anim .plate:not([data-swapped]) .fig.is-on img { animation: plate-settle 1800ms cubic-bezier(0.16, 1, 0.3, 1) 160ms both; }
+  html.anim .fig.is-on .fig__lines { animation: fig-lines 900ms cubic-bezier(0.16, 1, 0.3, 1) var(--fig-delay, 800ms) both; }
+  html.anim .fig.is-on .fig__tag { animation: fig-tag 560ms cubic-bezier(0.16, 1, 0.3, 1) calc(var(--fig-delay, 800ms) + 360ms) both; }
+  html.anim .plate.rise-wait:not(.is-in) img, html.anim .plate.rise-wait:not(.is-in) .fig__lines, html.anim .plate.rise-wait:not(.is-in) .fig__tag { animation: none; }
+  /* After the first swap the photograph is already settled; only the figure redraws, quickly. */
+  .plate[data-swapped] { --fig-delay: 140ms; }
 }
+@media (prefers-reduced-motion: reduce) { .fig, .fig.is-on { transition: none; } }
 @keyframes plate-settle { from { transform: scale(1.04); } to { transform: none; } }
-@keyframes plate-label { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes fig-lines { from { opacity: 0; filter: blur(3px) drop-shadow(0 1px 1.5px rgba(25, 60, 57, 0.55)); } to { opacity: 1; filter: blur(0) drop-shadow(0 1px 1.5px rgba(25, 60, 57, 0.55)); } }
+@keyframes fig-tag { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
 @media (max-width: 900px) {
   .hero { display: flex; flex-direction: column; min-height: 0; }
   .hero__text, .hero__text > div { display: contents; }
-  /* Phones: a smaller title keeps "Every grown-up" on one line, and a wider crop lifts the lead and first button into the first screen. */
-  .hero__title { order: 0; margin-top: 16px; font-size: clamp(2.75rem, 1.6rem + 5.6vw, 3.25rem); }
-  /* Phones read the first screen as one poster, in four beats: the promise,
-     the mission, the picture of it (a grown-up and someone little), then the
-     way in. The words are at rest from the first paint rather than rising in;
-     the photograph keeps its slow settle as the one authored moment. No Fig. 1
-     caption and no label toggle here: on a phone the photograph is the tagline
-     made literal, not a figure to operate. */
+  /* Phones read the first screen top to bottom: the promise, the proof, the question with its
+     answers, then the photograph. The first tap sits well inside the first screen. The words are at
+     rest from the first paint rather than rising in; the photograph keeps its slow settle as the one
+     authored moment. */
+  .hero__title { order: 0; margin-top: 20px; font-size: clamp(2.5rem, 1.5rem + 5vw, 3.25rem); line-height: 1; }
   html.anim .fg--home .hero [data-rise] { opacity: 1; transform: none; transition: none; animation: none; }
-  .hero__lead { order: 1; margin-top: 16px; color: var(--ink); }
-  /* The research sentence becomes the proof under the mission, marked in research blue (evidence). */
-  .hero__proof { display: flex; gap: 10px; align-items: baseline; margin-top: 14px; font-size: 15px; line-height: 1.45; color: var(--ink-muted); }
-  .hero__proof::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--research); transform: translateY(-1px); }
-  .plate { order: 2; margin: 28px calc(-1 * var(--hb-gutter)) 0; display: flex; }
-  .hero .plate__fig, .hero .plate__toggle, .hero .labels { display: none; }
-  .plate__img { position: relative; flex: none; display: block; overflow: hidden; background: var(--sage-mist); }
-  .plate picture { position: relative; inset: auto; display: block; }
-  .plate img { position: relative; inset: auto; display: block; aspect-ratio: 16 / 9; object-position: 50% 23%; }
-  .hero__actions { order: 3; margin-top: 24px; }
-  .hero__quiet { order: 4; margin: 18px 0 40px; }
-
-  /* On a phone the labels are a list under the photograph, not overlays. The lead label shows at
-     rest, as it does over the desktop plate; the toggle adds the other two. */
-  .labels { position: static; display: grid; gap: 8px; padding: 12px 0 4px; }
-  .fg--home.js .labels:not([data-on="true"]) .label:not(.label--lead) { display: none; }
-  .label, .label--1, .label--2, .label--4 { position: relative; inset: auto; max-width: none; font-size: 14px; padding: 8px 12px 8px 30px; opacity: 1; transform: none; }
-  .labels > .label { margin: 0; } /* the grid gap spaces the list; a running-text p + p margin would double it */
-  .label::before { left: 12px; top: 12px; }
+  .hero__lead { order: 1; margin-top: 14px; color: var(--ink-soft); }
+  .hero__ages { order: 2; margin-top: 24px; }
+  .hero__agelist { max-width: none; gap: 6px; }
+  .fg .hero__age { min-height: 52px; padding: 0 4px; }
+  .plate { order: 3; margin: 32px calc(-1 * var(--hb-gutter)) 0; display: flex; }
+  /* A 4:3 window on the square photograph: every figure sits in its middle 60%, so nothing is cut. */
+  .plate__img { flex: none; aspect-ratio: 4 / 3; }
+  /* A phone's photograph is too narrow to centre a tag on its point, so every tag sits in the same corner. */
+  .fig__tag { left: 10px; top: auto; bottom: 10px; translate: none; max-width: calc(100% - 20px); font-size: 13px; padding: 6px 10px 6px 9px; }
+}
 }
 
 /* ---------- 02 The Lens: the plate again, step by step ---------- */
 .lens-section { background: var(--sage-mist); }
-/* Both hero buttons land flush under the header, with no sliver of the band above showing. */
+/* In-page links land flush under the header, with no sliver of the band above showing. */
 #lens, #classes { scroll-margin-top: var(--header-h); }
 .lens-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: clamp(28px, 4vw, 48px); }
 .lens-head p { max-width: 42ch; }

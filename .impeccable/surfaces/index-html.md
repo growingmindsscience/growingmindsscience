@@ -26,13 +26,34 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 ## Unresolved
 - Inner pages inherit the world through styles.css, seminar.css and chrome.css tokens; class pages get a route-segment inset; the nsc app (separate deploy) is out of scope for this round and must be restyled to match later.
 
-## Phone hero (2026-11-05)
+## Hero (2026-11-05, second pass)
 
-Persuade. At 900px and below the first screen is one poster in four beats:
-promise (H1 "Every grown-up starts little."), mission (first sentence of the
-lead), proof (the research sentence as a meta line with a research-blue dot),
-then the parent-and-toddler photograph full-bleed at 16:9 as the tagline made
-literal, then the two buttons and "Start here." Words are at rest from the
-first paint (no rise, no fg-rise); the photograph's settle is the one motion.
-No Fig. 1 caption and no label toggle on phones (Matthew, 2026-11-05).
-Desktop is unchanged. Checked at 320x640, 375x667, 390x844, dark mode, 1280.
+Persuade. Matthew: the hero was too many words, too much reading before a
+visitor knows what this is or whether it is for them. The first screen now
+answers three questions in under twenty words, on laptop and phone alike:
+what this is (H1 "Understand your child, from birth to five."), why to trust
+it ("Short classes on how young children develop, built from peer-reviewed
+research."), and whether it is for this parent ("How old is your child?" with
+Under 1, 1, 2, 3, 4). The age row is the hero's only action; it answers the
+classes section's picker (same Explore hrefs) and scrolls it into view with
+the recommendation open. Classes over the Lens as the main action (Matthew);
+the Lens sits directly below and is found by scrolling. Trust line is "built
+from peer-reviewed research", never a scientist credential (Matthew). "Every
+grown-up starts little." left the hero; it stays as the footer line and the
+OG title. "Something hard right now?" left the hero; the nav carries "It's
+hard right now". Phones: title, line, age row, then the photograph at 16:9;
+no Fig. 1 caption and no label toggle (PR 210 decision kept). Desktop keeps
+the plate, its toggle, labels and caption. Checked at 320x640 (dark),
+375x812, 1024x768, 1280x720, 1440x900.
+
+## Hero figures (2026-11-05, third pass)
+
+The plate is now five square photographs, one per age, from
+`docs/field-guide/hero-age-photos-brief.md`, each with a drawn figure in code
+(solid = action, dotted = gaze, dashed amber = pretended, ring = option,
+amber dot = where it lands, one tag). Pointing at or focusing an age in the
+hero row swaps the figure; phones keep age 1. Only the default photograph
+loads with the page. The "Show what's beneath" toggle and the typeset hero
+labels are gone (the Lens plates keep theirs). Figure 1 draws three lines
+meeting at the cat: the child's point, the child's gaze and the parent's gaze
+(the revised photograph, where the parent follows the point).
