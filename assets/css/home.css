@@ -75,7 +75,7 @@ html:not(.anim) .label { transition: none; }
 .label--note::before { display: none; }
 
 /* The page's one authored moment: the photograph settles from a 4% scale and the figure draws in
-   over it, so the picture becomes Fig. 1 as the reader arrives. Choosing another age replays the
+   over it, so the figure appears as the reader arrives. Choosing another age replays the
    draw on that figure. A short screen that holds the plate below the fold waits for the entrance.
    Without html.anim (no script, reduced motion) everything is at rest and a swap is instant. */
 @media (prefers-reduced-motion: no-preference) {
@@ -97,7 +97,7 @@ html:not(.anim) .label { transition: none; }
   /* Phones read the first screen top to bottom: the promise, the proof, the question with its
      answers, then the photograph. The first tap sits well inside the first screen. The words are at
      rest from the first paint rather than rising in; the photograph keeps its slow settle as the one
-     authored moment. No Fig. 1 caption and no label toggle here (Matthew, 2026-11-05). */
+     authored moment. No caption and no label toggle here (Matthew, 2026-11-05). */
   .hero__title { order: 0; margin-top: 20px; font-size: clamp(2.5rem, 1.5rem + 5vw, 3.25rem); line-height: 1; }
   html.anim .fg--home .hero [data-rise] { opacity: 1; transform: none; transition: none; animation: none; }
   .hero__lead { order: 1; margin-top: 14px; color: var(--ink-soft); }
