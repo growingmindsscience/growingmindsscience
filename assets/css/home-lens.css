@@ -50,7 +50,7 @@
 }
 @media (max-width: 700px) {
   .story-heading { margin-bottom: 28px; }
-  .story-heading h2 { font-size: clamp(2.125rem, 1.4rem + 2.8vw, 3.75rem); text-align: center; text-wrap: balance; }
+  .story-heading h2 { font-size: clamp(2.125rem, 1.4rem + 2.8vw, 3.75rem); text-wrap: balance; }
   .story-walkthrough { display: block; }
   .fg .story-scene { top: var(--header-h); z-index: 3; padding-bottom: 16px; }
   .story-photo { height: clamp(180px, 30svh, 260px); min-height: 0; }
