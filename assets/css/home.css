@@ -97,7 +97,7 @@ html:not(.anim) .label { transition: none; }
   /* Phones read the first screen top to bottom: the promise, the proof, the question with its
      answers, then the photograph. The first tap sits well inside the first screen. The words are at
      rest from the first paint rather than rising in; the photograph keeps its slow settle as the one
-     authored moment. No caption and no label toggle here (Matthew, 2026-11-05). */
+     authored moment. */
   .hero__title { order: 0; margin-top: 20px; font-size: clamp(2.5rem, 1.5rem + 5vw, 3.25rem); line-height: 1; }
   html.anim .fg--home .hero [data-rise] { opacity: 1; transform: none; transition: none; animation: none; }
   .hero__lead { order: 1; margin-top: 14px; color: var(--ink-soft); }
@@ -105,7 +105,6 @@ html:not(.anim) .label { transition: none; }
   .hero__agelist { max-width: none; gap: 6px; }
   .fg .hero__age { min-height: 52px; padding: 0 4px; }
   .plate { order: 3; margin: 32px calc(-1 * var(--hb-gutter)) 0; display: flex; }
-  .hero .plate__fig { display: none; }
   /* A 4:3 window on the square photograph: every figure sits in its middle 60%, so nothing is cut. */
   .plate__img { flex: none; aspect-ratio: 4 / 3; }
   /* A phone's photograph is too narrow to centre a tag on its point, so every tag sits in the same corner. */

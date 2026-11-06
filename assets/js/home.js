@@ -133,7 +133,6 @@
   var plate = document.querySelector("[data-plate]");
   if (plate) {
     var figs = Array.prototype.slice.call(plate.querySelectorAll(".fig"));
-    var caption = plate.querySelector("[data-fig-caption]");
     var loaded = false;
     var loadAll = function () {
       if (loaded) return;
@@ -155,7 +154,6 @@
         f.classList.toggle("is-on", on);
         if (on) f.removeAttribute("aria-hidden"); else f.setAttribute("aria-hidden", "true");
       });
-      if (caption) caption.innerHTML = next.getAttribute("data-caption");
     };
     var row = document.querySelector(".hero__agelist");
     if (row) {
