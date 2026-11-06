@@ -162,11 +162,10 @@
     .ai-page-header p {
       font-size: 1.0625rem; line-height: 1.6; color: var(--ink-soft); max-width: 54ch;
     }
+    /* The quota reads as a status line, not a control: no frame, no fill. */
     .ai-tier-badge {
       display: inline-flex; align-items: center; flex-shrink: 0;
-      padding: .625rem 1rem; border-radius: var(--radius);
-      background: var(--surface); border: 1px solid var(--line);
-      font-size: .9375rem; line-height: 1.4; color: var(--ink-soft); white-space: nowrap;
+      font-size: .9375rem; line-height: 1.4; color: var(--ink-muted); white-space: nowrap;
     }
     .ai-tier-badge strong { color: var(--ink); font-weight: 700; }
 
@@ -192,10 +191,9 @@
 
     /* Welcome state */
     .chat-welcome { padding: 1.75rem 0 1rem; }
-    .chat-welcome > p { font-size: 1rem; line-height: 1.6; color: var(--ink-soft); max-width: 60ch; }
 
     /* ── Topic browser (training cards) ────────────── */
-    .topic-browser { margin-top: 1.75rem; text-align: left; }
+    .topic-browser { text-align: left; }
     .topic-browser__hint {
       font-size: .9375rem; line-height: 1.5; color: var(--ink-muted);
       margin-bottom: 1rem;
@@ -238,6 +236,8 @@
       transition: opacity .15s, transform .15s;
     }
     .topic-card:hover .topic-card__arrow { opacity: 1; transform: translateX(2px); }
+    /* Phones show four questions and fold the rest behind this. */
+    .topic-more { display: none; }
 
     /* ── Chat toolbar (new conversation) ───────────── */
     .chat-toolbar {
@@ -436,7 +436,7 @@
     .chat-about summary:hover { color: var(--ink); text-decoration-thickness: 2px; }
     .chat-about p { margin: .25rem 0 .5rem; max-width: 62ch; font-size: .9375rem; color: var(--ink-soft); line-height: 1.55; }
     .access-code-toggle {
-      color: var(--teal); background: none; border: none; padding: 0 .125rem;
+      color: var(--teal); background: none; border: none; padding: 0;
     }
     .access-code-toggle:hover { text-decoration-thickness: 2px; }
 
@@ -512,8 +512,37 @@
       .topic-cards { grid-template-columns: 1fr; }
       .topic-sheet { max-height: 88vh; padding: 1rem 1.125rem 1.75rem; }
       .topic-sheet__bar { top: -1rem; }
-      .plans-strip__card { flex-direction: column; align-items: flex-start; text-align: left; padding: 1.5rem 1.25rem; }
+      .plans-strip { padding: 2rem 0 2.5rem; }
+      .plans-strip__card { flex-direction: column; align-items: flex-start; text-align: left; padding: 1.5rem 1.25rem; gap: 1.25rem; }
       .plans-strip__text { flex: none; }
+
+      /* Phones, before the first question: the composer comes straight after
+         the header (the script moves the welcome below it), so asking never
+         waits behind the question browser. */
+      .chat-shell:has(> .chat-welcome:not([hidden])) .chat-input-wrap { border-top: 0; padding: 1.25rem 0 1rem; }
+      .chat-input-wrap + .chat-welcome { border-top: 1px solid var(--line-soft); padding: 1.5rem 0 1.25rem; }
+      .chat-meta__left > p { margin-top: .625rem; }
+
+      /* Stages and topics on one row that scrolls sideways, fading at the
+         right edge so the rest reads as "more this way". */
+      .chat-welcome .topic-tabs {
+        flex-wrap: nowrap; overflow-x: auto; overscroll-behavior-x: contain;
+        scrollbar-width: none; scroll-padding-inline: 1rem 2.5rem;
+        margin: -6px -1rem calc(1.25rem - 6px); padding: 6px 2.5rem 6px 1rem;
+        -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
+                mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
+      }
+      .chat-welcome .topic-tabs::-webkit-scrollbar { display: none; }
+      .chat-welcome .topic-tab { flex: none; }
+
+      .chat-welcome .topic-cards:not(.is-expanded) > li:nth-child(n+5) { display: none; }
+      .chat-welcome .topic-more {
+        display: inline-flex; align-items: center; min-height: 44px; margin-top: .75rem;
+        padding: .5rem 0; background: none; border: none;
+        font-size: .9375rem; font-weight: 600; color: var(--teal);
+        text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px;
+      }
+      .chat-welcome .topic-more:hover { text-decoration-thickness: 2px; }
     }
 
     /* ── Utilities and accessibility ───────────────── */
@@ -524,7 +553,7 @@
     }
     .topic-tab:focus-visible, .topic-card:focus-visible, .chat-tool-btn:focus-visible,
     .access-code-toggle:focus-visible, .access-btn:focus-visible, .chat-send:focus-visible,
-    .topic-sheet__close:focus-visible, .chat-about summary:focus-visible,
+    .topic-sheet__close:focus-visible, .chat-about summary:focus-visible, .topic-more:focus-visible,
     .chat-shell .btn:focus-visible, .plans-strip .btn:focus-visible, .skip-link:focus-visible,
     .msg__bubble a:focus-visible, .msg__reading a:focus-visible {
       outline: 2.5px solid var(--focus); outline-offset: 3px;
@@ -644,8 +673,6 @@
       <!-- Welcome and topic browser. Kept outside the conversation log so
            screen readers do not announce the topic cards as chat. -->
       <div class="chat-welcome" id="chatWelcome">
-        <p>Ask anything about your child&rsquo;s behavior, feelings, sleep, language, or development. You&rsquo;ll get a calm, research-grounded answer, with no judgment and never a diagnosis.</p>
-
         <!-- Topic browser (data-driven training cards) -->
         <div class="topic-browser" id="topicBrowser">
           <p class="topic-browser__hint">Not sure where to start? Pick a stage or topic, then tap a question.</p>
@@ -724,8 +751,8 @@
       <div class="hb-container">
         <div class="plans-strip__card">
           <div class="plans-strip__text">
-            <h2 id="plans-strip-title">Free gives you 5 questions a day.</h2>
-            <p>Want more? Ask the research, the AI tool, is included with the toddler class, with a fair-use limit of 50 questions a day.</p>
+            <h2 id="plans-strip-title">Ask more with the toddler class.</h2>
+            <p>Ask the research is included with the toddler class, with a fair-use limit of 50 questions a day.</p>
           </div>
           <div class="plans-strip__cta">
             <a class="btn btn--teal" href="/classes/">See the classes <span aria-hidden="true">→</span></a>
@@ -1187,6 +1214,15 @@
     }
 
     /* ── Messages ─────────────────────────────────────── */
+    const phoneLayout = window.matchMedia('(max-width: 640px)');
+    const inputWrapEl = document.querySelector('.chat-input-wrap');
+    function placeWelcome() {
+      if (phoneLayout.matches) inputWrapEl.after(welcomeEl);
+      else messagesEl.before(welcomeEl);
+    }
+    placeWelcome();
+    phoneLayout.addEventListener('change', placeWelcome);
+
     function hideWelcome() {
       welcomeEl.hidden = true;
       messagesEl.classList.remove('is-empty');
@@ -1485,7 +1521,11 @@
         tab.setAttribute('role', 'tab');
         tab.setAttribute('aria-controls', browser.panel.id);
         tab.textContent = topic.label;
-        tab.addEventListener('click', () => selectTopic(topic.id));
+        tab.addEventListener('click', () => {
+          selectTopic(topic.id);
+          // On phones the tabs scroll sideways; bring a half-hidden one fully in.
+          tab.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: scrollBehavior() });
+        });
         tab.addEventListener('keydown', (event) => onTabKeydown(event, browser, topic.id));
         browser.tablist.appendChild(tab);
         return { tab, topic };
@@ -1512,7 +1552,22 @@
         item.appendChild(card);
         list.appendChild(item);
       }
-      browser.panel.replaceChildren(list);
+      const hiddenCount = topic.questions.length - 4;
+      if (browser.prefix !== 'topic' || hiddenCount < 1) {
+        browser.panel.replaceChildren(list);
+        return;
+      }
+      // Phones show the first four; CSS keeps this button hidden elsewhere.
+      const more = document.createElement('button');
+      more.type = 'button';
+      more.className = 'topic-more';
+      more.textContent = `Show ${hiddenCount} more ${hiddenCount === 1 ? 'question' : 'questions'}`;
+      more.addEventListener('click', () => {
+        list.classList.add('is-expanded');
+        more.remove();
+        list.children[4].querySelector('button').focus();
+      });
+      browser.panel.replaceChildren(list, more);
     }
 
     function selectTopic(id, focusIn) {
@@ -1619,7 +1674,7 @@
       autoResize();
       updateTierBadge();
       if (!inputArea.hidden) inputEl.focus({ preventScroll: true });
-      welcomeEl.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
+      (phoneLayout.matches ? inputWrapEl : welcomeEl).scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
     }
 
     document.getElementById('newChatBtn').addEventListener('click', resetConversation);
