@@ -57,3 +57,57 @@ loads with the page. The "Show what's beneath" toggle and the typeset hero
 labels are gone (the Lens plates keep theirs). Figure 1 draws three lines
 meeting at the cat: the child's point, the child's gaze and the parent's gaze
 (the revised photograph, where the parent follows the point).
+
+## Hero, the annotated plate (2026-11-09, fourth and fifth pass)
+
+Persuade. Matthew's brief: the hero should be the opening of the illustrated
+world the playground story established, say who the site helps, what is here
+and where to start. The fourth pass was a words-left, painting-right split.
+He turned it down the same day: too plain a layout, and flat on a phone next
+to the old hero, whose drawn lines showed a developmental lesson. The fifth
+pass (his pick after an overdrive round of three directions: annotated moment,
+five painted ages, a lens) keeps the painting and copy and makes the first
+screen one annotated plate. The age question lives in the classes picker.
+
+THESIS: An ordinary moment has something in it once you can read it. The hero
+shows that instead of saying it, then the playground story applies it to a
+hard moment with the same parent and toddler.
+
+WORDS: H1 "Understand their world. Find your next step." on two wide lines,
+the second in forest. Line: "Practical guidance for understanding your child
+from birth to five. Short classes and free tools, built from peer-reviewed
+research." Notes on the plate: "They notice the cat." / "They point, to share
+it with you." / "You look too." Name: "Joint attention, from about 12 months."
+("from" was added to his earlier tag because the painted toddler is older than
+twelve months; his call to keep or drop.) Way on: "That was an easy moment.
+Here is a harder one." to #lens.
+
+ACTIONS: "Find help for this moment" (forest button) to /tools/right-now.
+"Explore the classes" (underlined forest link) to /classes/. Existing routes.
+
+ART: one watercolor generated to match the playground story, with its two
+paintings as references. Cut into two pieces where the paper was bare (cat;
+toddler and parent). Source and build: `docs/hero/source/`,
+`scripts/hero-art.py`. Darken over Haze, so no rectangle. No new art was
+needed for the fifth pass.
+
+FORM: title wide across the top with the line and actions under it; the
+painting the full width along the ground, cat far left, people far right;
+three pencil strokes across the paper between (loop, pointing sweep ending in
+the amber dot, the parent's dotted arc), each with its note on the stroke; the
+name under the cat, the way on at the lower right. On a short laptop the plate
+narrows and stays right so the whole of it fits the first screen. Phones:
+title, line, actions, then the painting edge to edge with numbered strokes and
+the notes as a numbered list under it.
+
+MOTION: words at rest from the first paint. The plate is read aloud once in
+about four seconds (painting, loop, sweep, arc, notes, name), held on a short
+screen until the painting is in view. Hover, or a tap on a phone, picks out one
+stroke and redraws it. A 28px drift as the first screen scrolls away. No loop,
+no pointer following, nothing pinned. Reduced motion and no script: the
+finished plate, with all three notes, is simply there.
+
+Checked 2026-11-09 with `node scripts/smoke-home-hero.mjs` (218 checks, Chrome)
+at 320x568, 390x844, 844x390, 768x1024, 1024x768, 1280x720, 1440x900 and
+1920x1080, plus hover, tap, the held sequence, dark, reduced motion, no script
+and keyboard. Not checked in Safari or Firefox, or on a physical phone.

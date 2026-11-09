@@ -32,9 +32,9 @@
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
   <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
   <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
-  <link rel="preload" as="image" type="image/webp" imagesrcset="/assets/img/site/hero-age-1-640.webp 640w, /assets/img/site/hero-age-1-1000.webp 1000w, /assets/img/site/hero-age-1-1400.webp 1400w" imagesizes="(min-width: 901px) 58vw, 100vw" />
+  <link rel="preload" as="image" type="image/webp" imagesrcset="/assets/img/site/hero/shared-attention-people-680.webp 680w, /assets/img/site/hero/shared-attention-people-1020.webp 1020w, /assets/img/site/hero/shared-attention-people-1360.webp 1360w" imagesizes="(min-width: 1400px) 500px, (min-width: 901px) 35vw, 66vw" fetchpriority="high" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
-  <link rel="stylesheet" href="/assets/css/home.css?v=0477bdf35f" />
+  <link rel="stylesheet" href="/assets/css/home.css?v=865b4f8898" />
   <link rel="stylesheet" href="/assets/css/home-lens.css?v=8fe1330d96" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=475f0abf7f" />
 
@@ -110,56 +110,59 @@
   </header>
 <!-- header:end -->
   <main id="main" tabindex="-1">
-    <!-- 01 Hero: the annotated plate -->
+    <!-- 01 Hero: one ordinary moment, read like a plate in a field guide. The painting is in the
+         hand of the playground story below, with the same two people. Three pencil strokes are
+         drawn over it in order (the cat is noticed, the toddler points, the parent looks too),
+         each with its note, and the lesson is named under it. The cat and the people are two
+         pieces of one painting (scripts/hero-art.py); home.css stands them on one ground line
+         and sets how far apart they sit. The strokes are measured in the painting's own units:
+         the loop in the cat's piece (280 x 292), the parent's arc in the people's piece
+         (680 x 588), and the pointing line across the whole stage, once for the wide layout
+         (1800 wide) and once for the narrow one (1040 wide). Words and actions are plain HTML,
+         at rest from the first paint. Hover and tap behaviour is in home.js. -->
     <section class="hb-container hero" aria-labelledby="hero-title">
       <div class="hero__text">
-        <div>
-          <h1 class="hb-display hero__title" id="hero-title" data-rise style="--i:0">Understand your child, from birth to five.</h1>
-          <p class="hb-lead hero__lead" data-rise style="--i:1">Short classes on how young children develop, built from <span class="hero__nowrap">peer-reviewed</span> research.</p>
-          <div class="hero__ages" data-rise style="--i:2">
-            <p class="hero__ask" id="hero-ages-q">How old is your child?</p>
-            <ul class="hero__agelist" aria-labelledby="hero-ages-q">
-              <li><a class="hero__age" href="/explore/birth-to-1" data-hero-age data-fig="0" data-track-cta="hero-age">Under 1</a></li>
-              <li><a class="hero__age" href="/explore/1-to-2" data-hero-age data-fig="1" data-track-cta="hero-age" aria-label="1 year old">1</a></li>
-              <li><a class="hero__age" href="/explore/2-to-3" data-hero-age data-fig="2" data-track-cta="hero-age" aria-label="2 years old">2</a></li>
-              <li><a class="hero__age" href="/explore/3-to-4" data-hero-age data-fig="3" data-track-cta="hero-age" aria-label="3 years old">3</a></li>
-              <li><a class="hero__age" href="/explore/4-to-5" data-hero-age data-fig="4" data-track-cta="hero-age" aria-label="4 years old">4</a></li>
-            </ul>
-          </div>
+        <h1 class="hb-display hero__title" id="hero-title"><span>Understand their world.</span> <span>Find your next step.</span></h1>
+        <p class="hb-lead hero__lead">Practical guidance for understanding your child from birth to five. Short classes and free tools, built from <span class="hero__nowrap">peer-reviewed</span> research.</p>
+        <div class="hero__actions">
+          <a class="hb-btn hero__go" href="/tools/right-now" data-track-cta="hero-help">Find help for this moment</a>
+          <a class="hero__more" href="/classes/" data-track-cta="hero-classes">Explore the classes <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
         </div>
       </div>
 
-      <figure class="plate" data-plate data-rise style="--i:1">
-        <div class="plate__img">
-          <svg class="fig__defs" width="0" height="0" aria-hidden="true" focusable="false"><defs><marker id="fig-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M1 1 L8 5 L1 9" fill="none" stroke="#F8F9FB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs></svg>
-          <div class="fig" data-fig="0" aria-hidden="true">
-            <picture><source type="image/webp" data-srcset="/assets/img/site/hero-age-0-640.webp 640w, /assets/img/site/hero-age-0-1000.webp 1000w, /assets/img/site/hero-age-0-1400.webp 1400w" sizes="(min-width: 901px) 58vw, 100vw" /><img data-src="/assets/img/site/hero-age-0-1000.jpg" width="1000" height="1000" alt="A parent lies on the rug face to face with a baby, answering the baby&rsquo;s coo." decoding="async" /></picture>
-            <svg class="fig__lines" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><path class="fig__act" d="M648 512 Q538 418 430 478" marker-end="url(#fig-arrow)"/><path class="fig__act" d="M402 566 Q530 652 646 568" marker-end="url(#fig-arrow)"/></svg>
-            <p class="fig__tag" style="--x:0.535;--y:0.33">Serve and return, from the first months</p>
+      <figure class="hero__plate" data-hero-plate>
+        <div class="hero__stage">
+          <div class="hero__piece hero__piece--cat" data-step-for="1">
+            <img src="/assets/img/site/hero/shared-attention-cat-280.webp" srcset="/assets/img/site/hero/shared-attention-cat-280.webp 280w, /assets/img/site/hero/shared-attention-cat-560.webp 560w" sizes="(min-width: 1400px) 206px, (min-width: 901px) 15vw, 27vw" width="280" height="292" alt="" decoding="async" />
+            <svg class="hero__ink" viewBox="0 0 280 292" aria-hidden="true" focusable="false"><mask id="hero-m1" maskUnits="userSpaceOnUse" x="-10" y="-30" width="300" height="330"><path class="hero__reveal" data-draw="1" pathLength="1" stroke-width="12" d="M204 38C158-6 86 4 52 62C18 122 22 196 66 228C112 258 186 246 216 192C240 146 238 86 218 54C214 48 209 42 203 37" /></mask><path class="hero__stroke" data-s="1" mask="url(#hero-m1)" d="M204 38C158-6 86 4 52 62C18 122 22 196 66 228C112 258 186 246 216 192C240 146 238 86 218 54C214 48 209 42 203 37" /></svg>
           </div>
-          <div class="fig is-on" data-fig="1">
-            <picture><source type="image/webp" srcset="/assets/img/site/hero-age-1-640.webp 640w, /assets/img/site/hero-age-1-1000.webp 1000w, /assets/img/site/hero-age-1-1400.webp 1400w" sizes="(min-width: 901px) 58vw, 100vw" /><img src="/assets/img/site/hero-age-1-1000.jpg" width="1000" height="1000" alt="A toddler on a parent&rsquo;s lap points at a cat asleep on the armchair, and the parent looks at the cat too." fetchpriority="high" decoding="async" /></picture>
-            <svg class="fig__lines" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><path class="fig__act" d="M368 494 L240 492"/><path class="fig__look" d="M640 452 L240 486"/><path class="fig__look" d="M680 274 L242 482"/><circle class="fig__mark" cx="228" cy="488" r="7"/></svg>
-            <p class="fig__tag" style="--x:0.3;--y:0.62">Joint attention, about 12 months</p>
+          <div class="hero__piece hero__piece--people">
+            <img src="/assets/img/site/hero/shared-attention-people-1020.webp" srcset="/assets/img/site/hero/shared-attention-people-680.webp 680w, /assets/img/site/hero/shared-attention-people-1020.webp 1020w, /assets/img/site/hero/shared-attention-people-1360.webp 1360w" sizes="(min-width: 1400px) 500px, (min-width: 901px) 35vw, 66vw" width="680" height="588" alt="A toddler in a mustard cardigan points at a small tabby cat sitting in the grass. A parent crouches beside the toddler, one hand on the child&rsquo;s back, and looks where the child is pointing." fetchpriority="high" decoding="async" />
+            <svg class="hero__ink" viewBox="0 0 680 588" aria-hidden="true" focusable="false">
+              <mask id="hero-m3" maskUnits="userSpaceOnUse" x="20" y="-10" width="350" height="210"><path class="hero__reveal" data-draw="3" pathLength="1" stroke-width="14" d="M336 56C300 14 240 10 196 40C140 78 84 128 50 168" /></mask>
+              <path class="hero__dots" data-s="3" mask="url(#hero-m3)" d="M336 56C300 14 240 10 196 40C140 78 84 128 50 168" />
+              <path class="hero__stroke hero__stroke--tip" data-s="3" d="M56 143L50 168L75 159" />
+            </svg>
+            <span class="hero__hit hero__hit--toddler" data-step-for="2"></span>
+            <span class="hero__hit hero__hit--parent" data-step-for="3"></span>
           </div>
-          <div class="fig" data-fig="2" aria-hidden="true">
-            <picture><source type="image/webp" data-srcset="/assets/img/site/hero-age-2-640.webp 640w, /assets/img/site/hero-age-2-1000.webp 1000w, /assets/img/site/hero-age-2-1400.webp 1400w" sizes="(min-width: 901px) 58vw, 100vw" /><img data-src="/assets/img/site/hero-age-2-1000.jpg" width="1000" height="1000" alt="A parent crouches in the hallway holding out two pairs of shoes, and the toddler reaches for one." decoding="async" /></picture>
-            <svg class="fig__lines" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><path class="fig__ring" d="M449 445 a96 96 0 1 0 0.1 0"/><path class="fig__ring" d="M683 465 a90 90 0 1 0 0.1 0"/><path class="fig__look" d="M276 318 L384 456"/><circle class="fig__mark" cx="388" cy="461" r="7"/></svg>
-            <p class="fig__tag" style="--x:0.48;--y:0.25">A real choice, about 2</p>
-          </div>
-          <div class="fig" data-fig="3" aria-hidden="true">
-            <picture><source type="image/webp" data-srcset="/assets/img/site/hero-age-3-640.webp 640w, /assets/img/site/hero-age-3-1000.webp 1000w, /assets/img/site/hero-age-3-1400.webp 1400w" sizes="(min-width: 901px) 58vw, 100vw" /><img data-src="/assets/img/site/hero-age-3-1000.jpg" width="1000" height="1000" alt="A child pours pretend tea from an empty teapot into a cup the parent holds out." decoding="async" /></picture>
-            <svg class="fig__lines" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><path class="fig__tea" d="M484 534 Q512 536 522 566"/><path class="fig__look" d="M688 404 L528 528"/><circle class="fig__mark" cx="522" cy="566" r="7"/></svg>
-            <p class="fig__tag" style="--x:0.5;--y:0.2">Pretend play, about 3</p>
-          </div>
-          <div class="fig" data-fig="4" aria-hidden="true">
-            <picture><source type="image/webp" data-srcset="/assets/img/site/hero-age-4-640.webp 640w, /assets/img/site/hero-age-4-1000.webp 1000w, /assets/img/site/hero-age-4-1400.webp 1400w" sizes="(min-width: 901px) 58vw, 100vw" /><img data-src="/assets/img/site/hero-age-4-1000.jpg" width="1000" height="1000" alt="At the kitchen table, a child holds a hand back above a game piece while the parent takes a turn." decoding="async" /></picture>
-            <svg class="fig__lines" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><path class="fig__look" d="M292 504 L560 646"/><circle class="fig__mark" cx="381" cy="694" r="7"/></svg>
-            <p class="fig__tag" style="--x:0.48;--y:0.2">Waiting a turn, about 4</p>
-          </div>
+          <svg class="hero__ink hero__ink--wide" viewBox="0 0 1800 588" aria-hidden="true" focusable="false"><mask id="hero-m2w" maskUnits="userSpaceOnUse" x="0" y="0" width="1800" height="588"><path class="hero__reveal" data-draw="2" pathLength="1" stroke-width="16" d="M1146 193C900 160 560 250 276 392" /></mask><path class="hero__stroke" data-s="2" mask="url(#hero-m2w)" d="M1146 193C900 160 560 250 276 392" /><circle class="hero__dot" data-s="2" cx="274" cy="393" r="7" /></svg>
+          <svg class="hero__ink hero__ink--narrow" viewBox="0 0 1040 588" aria-hidden="true" focusable="false"><mask id="hero-m2n" maskUnits="userSpaceOnUse" x="0" y="0" width="1040" height="588"><path class="hero__reveal" data-draw="2" pathLength="1" stroke-width="28" d="M386 193C330 186 280 260 238 372" /></mask><path class="hero__stroke" data-s="2" mask="url(#hero-m2n)" d="M386 193C330 186 280 260 238 372" /><circle class="hero__dot" data-s="2" cx="237" cy="374" r="11" /></svg>
+          <i class="hero__num" data-s="1" aria-hidden="true">1</i>
+          <i class="hero__num" data-s="2" aria-hidden="true">2</i>
+          <i class="hero__num" data-s="3" aria-hidden="true">3</i>
         </div>
-        <a class="hb-btn plate__go" href="/explore/1-to-2" data-hero-go data-track-cta="hero-age-go" hidden>See the class for age 1</a>
+        <figcaption class="hero__legend">
+          <ol class="hero__notes">
+            <li class="hero__note" data-s="1" data-step-for="1">They notice the cat.</li>
+            <li class="hero__note" data-s="2" data-step-for="2">They point, to share it with you.</li>
+            <li class="hero__note" data-s="3" data-step-for="3">You look too.</li>
+          </ol>
+          <p class="hero__name">Joint attention, from about 12 months.</p>
+        </figcaption>
       </figure>
+
+      <a class="hero__next" href="#lens" data-track-cta="hero-next">That was an easy moment. Here is a harder one. <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 4v15m-6-6 6 6 6-6" /></svg></a>
     </section>
 
     <!-- 02 Leaving the playground: one moment in four beats.
@@ -401,7 +404,7 @@
 <!-- footer:end -->
 
   <script src="/assets/js/chrome.js?v=072b6d90d4"></script>
-  <script src="/assets/js/home.js?v=241250a9c2" defer></script>
+  <script src="/assets/js/home.js?v=f67c936c67" defer></script>
   <script src="/assets/js/home-lens.js?v=35e128dbef" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>

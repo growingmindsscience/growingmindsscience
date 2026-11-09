@@ -10,67 +10,153 @@
    from field-guide.css.
    ========================================================= */
 
-/* ---------- 01 Hero: the annotated plate ---------- */
-/* The first screen answers three questions in under twenty words: what this is (the title), why to
-   trust it (the line under it), and whether it is for this parent (the age row). The age row is the
-   hero's only action; it answers the classes section's picker, so a tap there lands on the one
-   class for that age. */
-.hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); min-height: calc(100svh - var(--header-h)); }
-.hero__text { display: grid; align-content: center; padding: clamp(32px, 6vh, 72px) var(--hb-gutter) clamp(48px, 9vh, 112px) 0; }
-/* The title also caps by height, so on a laptop screen the column fits and the plate is not stretched past the fold. */
-.hero__title { font-size: min(clamp(3rem, 1.5rem + 4.3vw, 5.75rem), 10.5vh); line-height: 0.98; letter-spacing: -0.025em; text-wrap: balance; }
-.hero__lead { margin-top: 22px; max-width: 34ch; color: var(--ink-soft); }
-.hero__ages { margin-top: clamp(32px, 5vh, 48px); }
-.hero__ask { font-size: 16px; font-weight: 600; color: var(--ink); }
-.hero__agelist { display: grid; grid-template-columns: minmax(0, 1.7fr) repeat(4, minmax(0, 1fr)); gap: 8px; max-width: 420px; margin-top: 12px; }
-/* Ages are set in the display serif, like the tabs of a field guide: they read as numbers to choose, not words to read. */
-.fg .hero__age { display: flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 8px; border-radius: var(--radius); box-shadow: inset 0 0 0 1.5px var(--ink); color: var(--ink); font-family: var(--font-display); font-size: 1.5rem; font-weight: 500; line-height: 1; font-variant-numeric: lining-nums tabular-nums; text-decoration: none; white-space: nowrap; transition: background-color 160ms ease, box-shadow 160ms ease, color 160ms ease; }
-.fg .hero__agelist li:first-child .hero__age { font-size: 1.25rem; }
-.fg .hero__age:hover, .fg .hero__age[aria-current="true"] { background: var(--forest); box-shadow: inset 0 0 0 1.5px var(--forest); color: var(--on-forest); }
-.fg .hero__age:active { transform: translateY(1px); }
-@media (prefers-reduced-motion: reduce) { .fg .hero__age { transition: none; } }
+/* ---------- 01 Hero: one ordinary moment, read like a plate ---------- */
+/* The first screen is one plate from a field guide. The title runs wide across the top with the
+   line and the two actions under it; the painting runs the whole width along the ground, the cat
+   far left, the toddler and parent far right; and three pencil strokes cross the open paper
+   between them: the cat is noticed, the toddler points, the parent looks too. That is the whole
+   pitch, shown instead of said: an ordinary moment has something in it once you can read it.
+   The playground story below is the same two people on a harder day. */
+.hero { display: flex; flex-direction: column; justify-content: center; min-height: min(calc(100svh - var(--header-h)), 900px); padding-block: clamp(20px, 4vh, 44px) clamp(8px, 1.5vh, 20px); }
+/* The words sit over the empty top-left corner of the painting's sheet, so they stay above it. */
+.hero__text { position: relative; z-index: 2; pointer-events: none; }
+.hero__text > * { pointer-events: auto; }
+/* Two sentences, one line each. The title also caps by height, so a laptop holds the whole plate. */
+.hero__title { font-size: min(clamp(3rem, 1rem + 5vw, 5.5rem), 10.5vh); line-height: 0.98; letter-spacing: -0.025em; }
+.hero__title span { display: block; }
+.hero__title span + span { color: var(--forest); }
+.fg .hero__lead { margin-top: clamp(14px, 2.2vh, 22px); max-width: 60ch; color: var(--ink-soft); }
+/* Hyphenated words in the hero never split at the hyphen. */
+.hero__nowrap { white-space: nowrap; }
+.hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; margin-top: clamp(18px, 3vh, 28px); }
+.fg .hero__go { min-height: 56px; padding: 0 1.5rem; font-size: 1.0625rem; }
+.fg .hero__more, .fg .hero__next { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; font-weight: 500; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25em; }
+.fg .hero__more { color: var(--forest); }
+.fg .hero__more:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
+:is(.hero__more, .hero__next) svg { flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: transform 200ms var(--ease-out); }
+.hero__more:hover svg { transform: translateX(3px); }
+/* The way on: the story below is this same parent and toddler when it is not easy. */
+.fg .hero__next { position: relative; z-index: 2; align-self: flex-end; margin-top: 2px; color: var(--ink-soft); font-size: 1rem; font-weight: 400; }
+.fg .hero__next:hover { color: var(--forest); text-decoration-thickness: 2px; }
+.hero__next:hover svg { transform: translateY(3px); }
+@media (prefers-reduced-motion: reduce) { :is(.hero__more, .hero__next) svg { transition: none; } }
 /* One action colour: every link in running text on the homepage is forest, like the class and age links. */
 .fg .seq__class a, .fg .trust__facts a { color: var(--forest); }
 .fg .seq__class a:hover, .fg .trust__facts a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
-/* Short laptop screens (1024x768 and the like): tighter steps so the age row stays in the first screen. */
-@media (min-width: 901px) and (max-height: 820px) {
-  .hero__title { font-size: min(clamp(3rem, 1.5rem + 4.3vw, 5.75rem), 9.5vh); }
-  .hero__lead { margin-top: 16px; }
-  .hero__ages { margin-top: 28px; }
-}
-/* Hyphenated words in the hero never split at the hyphen. */
-.hero__nowrap { white-space: nowrap; }
-/* A tap in the hero brings the picker up under the header, recommendation and all. */
+/* The age picker comes up under the header, recommendation and all. */
 .agepick { scroll-margin-top: calc(var(--header-h) + 16px); }
 
-/* The plate: one photograph per age, each with a drawn figure. The photographs are square and
-   cropped from the centre (object-fit: cover), and each figure's SVG uses the same 1000-unit square
-   with preserveAspectRatio "xMidYMid slice", so the lines stay on the eyes and hands at every crop.
-   A solid line is an action, a dotted line a gaze, a dashed amber line something only pretended;
-   the amber dot is where the figure lands. Lines keep a 2px stroke at any size. */
-.plate { position: relative; display: flex; flex-direction: column; margin: 0; }
-.plate__img { position: relative; flex: 1 1 auto; min-height: 0; overflow: hidden; background: var(--sage-mist); container-type: size; }
-.fig { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity 420ms cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 420ms; }
-.fig.is-on { opacity: 1; visibility: visible; transition: opacity 420ms cubic-bezier(0.16, 1, 0.3, 1), visibility 0s; }
-.fig picture, .fig img { position: absolute; inset: 0; width: 100%; height: 100%; }
-.fig img { object-fit: cover; object-position: 50% 50%; }
-.fig__defs { position: absolute; width: 0; height: 0; overflow: hidden; }
-.plate .fig__lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; filter: drop-shadow(0 1px 1.5px rgba(25, 60, 57, 0.55)); }
-.fig__lines path { fill: none; stroke: #F8F9FB; stroke-width: 2.25px; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-.fig__lines .fig__look { stroke-dasharray: 0 7; stroke-width: 3px; }
-.fig__lines .fig__ring { stroke-width: 1.75px; }
-.fig__lines .fig__tea { stroke: #D2A453; stroke-dasharray: 5 5; stroke-width: 2.75px; }
-.fig__mark { fill: #D2A453; stroke: #F8F9FB; stroke-width: 2px; vector-effect: non-scaling-stroke; }
-/* The tag sits at a point on the photograph, mapped through the same centre crop as the image. */
-.fig__tag { position: absolute; z-index: 2; left: calc(50cqw + (var(--x) - 0.5) * max(100cqw, 100cqh)); top: calc(50cqh + (var(--y) - 0.5) * max(100cqw, 100cqh)); translate: -50% -50%; display: inline-flex; align-items: center; gap: 8px; max-width: calc(100cqw - 24px); margin: 0; padding: 7px 12px 7px 10px; border-radius: var(--radius); background: #F8F9FB; color: #193C39; font-size: 14px; font-weight: 600; line-height: 1.25; white-space: nowrap; box-shadow: 0 1px 2px rgba(25, 60, 57, 0.18), 0 4px 14px rgba(25, 60, 57, 0.12); }
-.fig__tag::before { content: ""; flex: none; width: 9px; height: 9px; border-radius: 50%; background: #D2A453; }
-/* On a touch screen the first tap on an age previews its figure, and this button under the photograph
-   carries the parent on to that age's class. Without script, or with a mouse, it never shows. */
-.plate__go { align-self: flex-start; margin-top: 14px; }
-.fg .plate__go[hidden] { display: none; }
+/* The plate. --stage-w is its width: all of the page's width, less on a short screen so the whole
+   plate still fits under the words. The second term is the width whose height the screen has
+   left: the screen, less the header, the words (two title lines at 10.5vh plus about 250px) and
+   the foot row, over the plate's height per unit of width (0.327, less the 0.04 it is pulled up).
+   The plate is pulled up under the action row a little, into paper that holds nothing but the
+   top of the pointing line's sweep, and stays to the right so the people keep the page's edge. */
+.hero__plate { --stage-w: min(100%, max(780px, (79.4svh - var(--header-h) - 248px) * 3.49)); position: relative; z-index: 1; width: var(--stage-w); margin: calc(var(--stage-w) * -0.04) 0 0 auto; }
+/* The stage is measured in the painting's own units (scripts/hero-art.py): the people are
+   680 x 588, the cat 280 x 292, and both stand on the stage's bottom edge, which is the ground.
+   --scene-w is the stage's width in those units and --cat-x where the cat's box starts, so how far
+   the cat sits from the pointing hand is a layout decision: the width of the page on a desk, a
+   short hop on a phone. The pointing line is drawn for each (index.html, .hero__ink--wide and
+   --narrow), so change these two numbers and that path together. The two boxes must never overlap
+   (--cat-x + 280 stays under --scene-w - 680), because each carries its own sheet of paper: the
+   files paint their ground a touch lighter than Haze and are drawn with darken over a true Haze
+   box, exactly as the playground story does (home-lens.css, .pg-cam), so no rectangle shows. */
+.hero__stage { --scene-w: 1800; --cat-x: 40; position: relative; isolation: isolate; aspect-ratio: var(--scene-w) / 588; pointer-events: none; }
+.hero__piece { position: absolute; bottom: 0; background: #F8F9FB; isolation: isolate; pointer-events: auto; }
+.hero__piece--people { right: 0; width: calc(680 / var(--scene-w) * 100%); }
+.hero__piece--cat { left: calc(var(--cat-x) / var(--scene-w) * 100%); width: calc(280 / var(--scene-w) * 100%); }
+.hero__piece img { display: block; width: 100%; height: auto; mix-blend-mode: darken; user-select: none; }
+/* Pointing at the toddler or the parent picks out that one's stroke (home.js). */
+.hero__hit { position: absolute; top: 0; bottom: 0; }
+.hero__hit--toddler { left: 0; width: 46%; }
+.hero__hit--parent { left: 46%; right: 0; }
+
+/* The pencil. Every stroke keeps one width at any size. A stroke that is drawn in has a twin
+   inside a mask (.hero__reveal, a fat line along the same path) and it is the twin that grows, so
+   a dotted line can be drawn in too. The amber dot is where the point lands. */
+.hero__ink { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.hero__stage .hero__ink--narrow { display: none; }
+.hero__stroke, .hero__dots { fill: none; stroke: #35504C; stroke-width: 1.75px; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.hero__dots { stroke-width: 2.75px; stroke-dasharray: 0 6.5; }
+.hero__reveal { fill: none; stroke: #fff; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; }
+.hero__dot { fill: #D2A453; stroke: #F8F9FB; stroke-width: 2px; vector-effect: non-scaling-stroke; }
+.hero__num { display: none; }
+
+/* The notes. On a wide screen each sits on its own stroke, on the painting's sheet (so their ink
+   is the sheet's, in both themes): above the loop, along the pointing line, over the parent's
+   arc. Positions are fractions of the 1800 x 588 stage. The second note leans with the line it
+   follows (13.4 degrees at its middle). The lesson's name hangs under the cat. */
+.hero__legend { display: contents; }
+.fg .hero__notes { position: absolute; z-index: 3; inset: 0 0 auto; aspect-ratio: 1800 / 588; margin: 0; padding: 0; list-style: none; pointer-events: none; }
+.fg .hero__note { position: absolute; margin: 0; font-family: var(--font-display); font-size: clamp(1.0625rem, 0.9rem + 0.45vw, 1.25rem); line-height: 1.2; letter-spacing: -0.005em; color: #193C39; white-space: nowrap; cursor: default; pointer-events: auto; }
+.hero__note[data-s="1"] { left: 3.4%; bottom: 51.5%; }
+.hero__note[data-s="2"] { left: 40.3%; top: 38.6%; translate: -50% 18px; rotate: -13.4deg; }
+.hero__note[data-s="3"] { left: 76.1%; bottom: 99%; translate: -50% 0; }
+.fg .hero__name { position: absolute; z-index: 3; left: 2.2%; top: calc(100% + 14px); display: inline-flex; align-items: center; gap: 8px; margin: 0; font-size: 14px; font-weight: 600; line-height: 1.3; color: var(--ink); }
+.hero__name::before { content: ""; flex: none; width: 9px; height: 9px; border-radius: 50%; background: #D2A453; }
+/* Choosing one stroke (hover, or a tap on a phone) lets the other two fall back. */
+.hero__plate [data-s] { transition: opacity 220ms ease; }
+.hero__plate[data-step="1"] [data-s]:not([data-s="1"]),
+.hero__plate[data-step="2"] [data-s]:not([data-s="2"]),
+.hero__plate[data-step="3"] [data-s]:not([data-s="3"]) { opacity: 0.3; }
+/* A note that falls back must still be readable: it may stay that way until the next tap. */
+.hero__plate[data-step] :is(.hero__note, .hero__num)[data-s] { opacity: 1; color: #546965; }
+.hero__plate[data-step="1"] :is(.hero__note, .hero__num)[data-s="1"],
+.hero__plate[data-step="2"] :is(.hero__note, .hero__num)[data-s="2"],
+.hero__plate[data-step="3"] :is(.hero__note, .hero__num)[data-s="3"] { color: #193C39; }
+@media (prefers-reduced-motion: reduce) { .hero__plate [data-s] { transition: none; } }
+/* Watercolor needs paper. On the night page the plate keeps a sheet of it, like the playground
+   story, and the words stand clear above the sheet instead of over its corner. */
+[data-theme="dark"] .hero__stage::before { content: ""; position: absolute; z-index: -1; inset: -9% -1.5% -2.5%; border-radius: var(--radius-lg); background: #F8F9FB; }
+[data-theme="dark"] .hero__plate { --stage-w: 100%; width: calc(var(--stage-w) * 0.96); margin: calc(var(--stage-w) * 0.03 + 28px) calc(var(--stage-w) * 0.02) calc(var(--stage-w) * 0.012) auto; }
+[data-theme="dark"] .fg .hero__name { top: calc(100% + 26px); }
+[data-theme="dark"] .fg .hero__next { margin-top: 14px; }
+
+/* The hero's one authored moment, about four seconds from the first paint, and the words never
+   wait for it. The cat is there first and the people settle in a beat later, each as a whole
+   figure. Then the plate is read aloud: the loop goes round the cat, the pointing line sweeps
+   across to it, the parent's arc hops onto the point, each followed by its note, and last the
+   lesson's name. After that the stage falls a few pixels behind the page as it scrolls away.
+   Nothing loops and nothing follows the pointer. home.js holds the sequence (.is-waiting) on a
+   screen too short to show the painting at first, and starts it as the painting comes into view.
+   Without html.anim (no script, reduced motion) the finished plate is simply there. */
+@media (prefers-reduced-motion: no-preference) {
+  html.anim .hero__piece { animation: hero-settle 1000ms var(--ease-out) backwards; }
+  html.anim .hero__piece--cat { --hero-rise: 8px; animation-delay: 120ms; }
+  html.anim .hero__piece--people { --hero-rise: 18px; animation-delay: 260ms; }
+  html.anim .hero__reveal { animation: hero-draw var(--dur, 850ms) cubic-bezier(0.5, 0, 0.2, 1) var(--at, 0ms) backwards; }
+  html.anim .hero__reveal[data-draw="1"] { --at: 900ms; }
+  html.anim .hero__reveal[data-draw="2"] { --at: 1650ms; --dur: 950ms; }
+  html.anim .hero__reveal[data-draw="3"] { --at: 2700ms; --dur: 750ms; }
+  html.anim :is(.hero__note, .hero__num, .hero__dot, .hero__stroke--tip, .hero__name) { animation: hero-set 480ms var(--ease-out) var(--at, 0ms) backwards; }
+  html.anim :is(.hero__note, .hero__num)[data-s="1"] { --at: 1250ms; }
+  html.anim :is(.hero__note, .hero__num)[data-s="2"] { --at: 2100ms; }
+  html.anim .hero__dot { --at: 2520ms; }
+  html.anim :is(.hero__note, .hero__num)[data-s="3"] { --at: 3000ms; }
+  html.anim .hero__stroke--tip { --at: 3350ms; }
+  html.anim .hero__name { --at: 3700ms; }
+  html.anim .hero__plate.is-waiting :is(.hero__piece, .hero__reveal, .hero__note, .hero__num, .hero__dot, .hero__stroke--tip, .hero__name) { animation-play-state: paused; }
+  @supports (animation-timeline: scroll()) {
+    html.anim .hero__stage { animation: hero-drift linear both; animation-timeline: scroll(root block); animation-range: 0px 100vh; }
+  }
+}
+@keyframes hero-settle { from { opacity: 0; transform: translateY(var(--hero-rise, 16px)); } }
+@keyframes hero-draw { from { stroke-dashoffset: 1; opacity: 0; } 3% { opacity: 1; } }
+@keyframes hero-set { from { opacity: 0; transform: translateY(5px); } }
+@keyframes hero-drift { to { translate: 0 28px; } }
+@media (min-width: 901px) and (prefers-reduced-motion: no-preference) {
+  /* The notes are on the sheet, so on a wide screen they drift with it. */
+  @supports (animation-timeline: scroll()) {
+    html.anim .hero__notes { animation: hero-drift linear both; animation-timeline: scroll(root block); animation-range: 0px 100vh; }
+  }
+}
+/* The story below is the same world on the same paper, so it starts close under the hero. */
+.hero + .pg-story { padding-top: clamp(40px, 5vw, 64px); }
+
+/* Typeset labels, used by the Lens plates (lens/ pages). */
 .plate__fig { margin-top: 10px; font-size: 14px; color: var(--ink-muted); }
 .plate__fig b { color: var(--research); font-weight: 600; }
-/* Typeset labels, used by the Lens plates (lens/ pages). */
 .label { position: absolute; max-width: 26ch; background: #F8F9FB; color: #193C39; border-radius: var(--radius); padding: 10px 12px; font-size: 14px; line-height: 1.35; pointer-events: auto; opacity: 0; transform: translateY(6px); transition: opacity 360ms ease, transform 360ms ease; transition-delay: calc(var(--i, 0) * 140ms); }
 html:not(.anim) .label { transition: none; }
 .label b { display: block; font-weight: 600; margin-bottom: 2px; }
@@ -78,42 +164,55 @@ html:not(.anim) .label { transition: none; }
 .label--note { background: #193C39; color: #EEF3F0; }
 .label--note::before { display: none; }
 
-/* The page's one authored moment: the photograph settles from a 4% scale and the figure draws in
-   over it, so the figure appears as the reader arrives. Choosing another age replays the
-   draw on that figure. A short screen that holds the plate below the fold waits for the entrance.
-   Without html.anim (no script, reduced motion) everything is at rest and a swap is instant. */
-@media (prefers-reduced-motion: no-preference) {
-  html.anim .plate:not([data-swapped]) .fig.is-on img { animation: plate-settle 1800ms cubic-bezier(0.16, 1, 0.3, 1) 160ms both; }
-  html.anim .fig.is-on .fig__lines { animation: fig-lines 900ms cubic-bezier(0.16, 1, 0.3, 1) var(--fig-delay, 800ms) both; }
-  html.anim .fig.is-on .fig__tag { animation: fig-tag 560ms cubic-bezier(0.16, 1, 0.3, 1) calc(var(--fig-delay, 800ms) + 360ms) both; }
-  html.anim .plate.rise-wait:not(.is-in) img, html.anim .plate.rise-wait:not(.is-in) .fig__lines, html.anim .plate.rise-wait:not(.is-in) .fig__tag { animation: none; }
-  /* After the first swap the photograph is already settled; only the figure redraws, quickly. */
-  .plate[data-swapped] { --fig-delay: 140ms; }
-}
-@media (prefers-reduced-motion: reduce) { .fig, .fig.is-on { transition: none; } }
-@keyframes plate-settle { from { transform: scale(1.04); } to { transform: none; } }
-@keyframes fig-lines { from { opacity: 0; filter: blur(3px) drop-shadow(0 1px 1.5px rgba(25, 60, 57, 0.55)); } to { opacity: 1; filter: blur(0) drop-shadow(0 1px 1.5px rgba(25, 60, 57, 0.55)); } }
-@keyframes fig-tag { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-
 @media (max-width: 900px) {
-  .hero { display: flex; flex-direction: column; min-height: 0; }
-  .hero__text, .hero__text > div { display: contents; }
-  /* Phones read the first screen top to bottom: the promise, the proof, the question with its
-     answers, then the photograph. The first tap sits well inside the first screen. The words are at
-     rest from the first paint rather than rising in; the photograph keeps its slow settle as the one
-     authored moment. */
-  .hero__title { order: 0; margin-top: 20px; font-size: clamp(2.5rem, 1.5rem + 5vw, 3.25rem); line-height: 1; }
-  html.anim .fg--home .hero [data-rise] { opacity: 1; transform: none; transition: none; animation: none; }
-  .hero__lead { order: 1; margin-top: 14px; color: var(--ink-soft); }
-  .hero__ages { order: 2; margin-top: 24px; }
-  .hero__agelist { max-width: none; gap: 6px; }
-  .fg .hero__age { min-height: 52px; padding: 0 4px; }
-  .plate { order: 3; margin: 32px calc(-1 * var(--hb-gutter)) 0; display: flex; }
-  /* A 4:3 window on the square photograph: every figure sits in its middle 60%, so nothing is cut. */
-  .plate__img { flex: none; aspect-ratio: 4 / 3; }
-  /* A phone's photograph is too narrow to centre a tag on its point, so every tag sits in the same corner. */
-  .plate__go { align-self: stretch; margin: 14px var(--hb-gutter) 0; }
-  .fig__tag { left: 10px; top: auto; bottom: 10px; translate: none; max-width: calc(100% - 20px); font-size: 13px; padding: 6px 10px 6px 9px; }
+  /* Phones and upright tablets read top to bottom: the promise, the line, both actions, then the
+     plate. Each sentence of the title keeps to one line, so the first action sits well inside the
+     first screen and the painting begins under it. */
+  .hero { justify-content: flex-start; min-height: 0; padding-block: 24px 0; }
+  .hero__title { font-size: clamp(1.75rem, 8.8vw, 3.75rem); line-height: 1.04; }
+  .fg .hero__lead { margin-top: 14px; max-width: 40ch; }
+  .hero__actions { margin-top: 24px; }
+  /* The painting runs to both edges of the screen and the cat sits a short hop from the pointing
+     hand, so the three of them are as large as the screen allows. There is no room to set a note
+     on each stroke here, so the strokes are numbered and the notes are a numbered list under the
+     painting, in the page's own ink. Tapping a figure or a note picks out its stroke. */
+  .hero__plate { width: auto; margin: 28px calc(6px - var(--hb-gutter)) 0; }
+  .hero__stage { --scene-w: 1040; --cat-x: 0; }
+  .hero__stage .hero__ink--wide { display: none; }
+  .hero__stage .hero__ink--narrow { display: block; }
+  .hero__num { position: absolute; z-index: 3; display: grid; place-items: center; width: 20px; height: 20px; translate: -50% -50%; font: normal 600 12px/1 var(--font-body); font-variant-numeric: lining-nums; color: #35504C; }
+  .hero__num[data-s="1"] { left: 2.6%; top: 52.5%; }
+  .hero__num[data-s="2"] { left: 26.2%; top: 39.5%; }
+  .hero__num[data-s="3"] { left: 46.7%; top: 9.9%; }
+  .hero__legend { display: block; margin-top: 12px; padding-inline: calc(var(--hb-gutter) - 6px); }
+  .fg .hero__notes { position: static; aspect-ratio: auto; display: grid; gap: 4px; counter-reset: hero-note; pointer-events: auto; }
+  .fg .hero__note { position: static; display: flex; align-items: baseline; gap: 12px; min-height: 32px; font-size: 1.125rem; line-height: 1.3; color: var(--ink); white-space: normal; translate: none; rotate: none; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .hero__note::before { counter-increment: hero-note; content: counter(hero-note); flex: none; width: 1ch; font: 600 12px/1 var(--font-body); font-variant-numeric: lining-nums; color: var(--ink-muted); }
+  .hero__plate[data-step] .hero__note[data-s] { color: var(--ink-muted); }
+  .hero__plate[data-step="1"] .hero__note[data-s="1"],
+  .hero__plate[data-step="2"] .hero__note[data-s="2"],
+  .hero__plate[data-step="3"] .hero__note[data-s="3"] { color: var(--ink); }
+  .fg .hero__name { position: static; margin-top: 12px; }
+  /* Two lines on a phone: the arrow follows the last word instead of standing off to one side. */
+  .fg .hero__next { display: block; align-self: flex-start; min-height: 0; margin-top: 6px; padding-block: 10px; line-height: 1.5; text-wrap: balance; }
+  .hero__next svg { display: inline; margin-left: 4px; vertical-align: -4px; }
+  [data-theme="dark"] .hero__plate { width: auto; margin: 44px 0 0; }
+  [data-theme="dark"] .hero__stage::before { inset: -9% -2.5% -4%; }
+  [data-theme="dark"] .hero__legend { margin-top: 24px; padding-inline: 0; }
+  [data-theme="dark"] .fg .hero__next { margin-top: 10px; }
+}
+@media (max-width: 640px) {
+  .fg .hero__more { justify-content: center; width: 100%; }
+}
+/* A phone on its side: a smaller title, so the first action clears the browser's own bars, and a
+   painting that never grows taller than the screen it is on. */
+@media (max-width: 900px) and (max-height: 480px) {
+  .hero { padding-top: 16px; }
+  .hero__title { font-size: clamp(1.75rem, 11vh, 3rem); }
+  .fg .hero__lead { margin-top: 10px; max-width: none; }
+  .hero__actions { margin-top: 16px; }
+  .hero__plate { width: min(100%, 78svh * 1040 / 588); margin-inline: auto; }
+  .hero__legend { padding-inline: 0; }
 }
 }
 
