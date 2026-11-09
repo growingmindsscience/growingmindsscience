@@ -2,7 +2,7 @@
    The homepage's behavior, also loaded by inner pages on the same system for
    their entrances (every other part is guarded and does nothing there).
    The header, menu and theme live in chrome.js.
-   - The hero plate: one drawn figure per age; the hero age row picks which one shows.
+   - The hero plate: holds its draw-in until the painting is in view; hover or tap picks out a stroke.
    - The Lens: a four-step tablist; the plate's labels follow the active step.
    - The Lens sequence (homepage): a carousel of four frames; its rail, arrows and phone bar
      follow the scroll.
@@ -126,76 +126,57 @@
     mark();
   });
 
-  /* The hero plate: one figure per age. Pointing at or focusing an age in the hero row shows that
-     age's figure; it stays until another age is chosen. Only the default photograph loads with the
-     page; the other four load on the first sign of interest in the row (or once the page is idle on
-     a wide screen), so the first screen stays one download. A touch screen cannot hover, so there the
-     first tap on an age is the hover: it shows that age's figure and brings up a button under the
-     photograph to that age's class. Tapping the same age again, or the button, goes on to the class.
-     A mouse click or the keyboard goes straight on, as before. */
-  var heroPreview = null;
-  var plate = document.querySelector("[data-plate]");
-  if (plate) {
-    var figs = Array.prototype.slice.call(plate.querySelectorAll(".fig"));
-    var loaded = false;
-    var loadAll = function () {
-      if (loaded) return;
-      loaded = true;
-      figs.forEach(function (f) {
-        var src = f.querySelector("source[data-srcset]");
-        var img = f.querySelector("img[data-src]");
-        if (src) { src.srcset = src.getAttribute("data-srcset"); src.removeAttribute("data-srcset"); }
-        if (img) { img.src = img.getAttribute("data-src"); img.removeAttribute("data-src"); }
+  /* The hero plate: three pencil strokes over the painting, each with a note. The page draws them
+     in once by itself (home.css). Here: on a screen too short to show the painting at first, that
+     sequence is held until the painting comes into view; and pointing at the cat, the toddler,
+     the parent or a note picks out that one's stroke, draws it again and lets the other two fall
+     back. A touch screen has no hover, so there a tap does it and a second tap, or a tap
+     anywhere else, puts the plate back. Nothing is hidden behind any of this: without it the
+     finished plate and all three notes are simply there. */
+  var heroPlate = document.querySelector("[data-hero-plate]");
+  if (heroPlate) {
+    var heroMoves = root.classList.contains("anim");
+    var heroStage = heroPlate.querySelector(".hero__stage");
+    if (heroMoves && heroStage && "IntersectionObserver" in window) {
+      var stageBox = heroStage.getBoundingClientRect();
+      var inView = Math.min(stageBox.bottom, window.innerHeight || root.clientHeight) - Math.max(stageBox.top, 0);
+      if (inView < stageBox.height * 0.9) {
+        heroPlate.classList.add("is-waiting");
+        var heroSeen = new IntersectionObserver(function (entries) {
+          if (!entries[0].isIntersecting) return;
+          heroPlate.classList.remove("is-waiting");
+          heroSeen.disconnect();
+        }, { threshold: 0.9 });
+        heroSeen.observe(heroStage);
+      }
+    }
+    var heroStep = "";
+    var redraw = function (n) {
+      if (!heroMoves || !heroPlate.animate || heroPlate.classList.contains("is-waiting")) return;
+      Array.prototype.forEach.call(heroPlate.querySelectorAll('.hero__reveal[data-draw="' + n + '"]'), function (line) {
+        line.animate([{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], { duration: 700, easing: "cubic-bezier(0.5, 0, 0.2, 1)" });
       });
     };
-    var show = function (n) {
-      var next = figs.filter(function (f) { return f.getAttribute("data-fig") === n; })[0];
-      if (!next || next.classList.contains("is-on")) return;
-      loadAll();
-      plate.setAttribute("data-swapped", "");
-      figs.forEach(function (f) {
-        var on = f === next;
-        f.classList.toggle("is-on", on);
-        if (on) f.removeAttribute("aria-hidden"); else f.setAttribute("aria-hidden", "true");
-      });
+    var pick = function (n) {
+      if (n === heroStep) return;
+      heroStep = n;
+      if (n) { heroPlate.setAttribute("data-step", n); redraw(n); }
+      else heroPlate.removeAttribute("data-step");
     };
-    var row = document.querySelector(".hero__agelist");
-    if (row) {
-      row.addEventListener("pointerenter", loadAll);
-      row.addEventListener("focusin", loadAll);
-      Array.prototype.forEach.call(row.querySelectorAll("[data-fig]"), function (a) {
-        var pick = function () { show(a.getAttribute("data-fig")); };
-        a.addEventListener("pointerenter", function (e) { if (e.pointerType !== "touch") pick(); });
-        a.addEventListener("focus", pick);
+    var heroPointer = "";
+    heroPlate.addEventListener("pointerdown", function (e) { heroPointer = e.pointerType; });
+    Array.prototype.forEach.call(heroPlate.querySelectorAll("[data-step-for]"), function (el) {
+      var n = el.getAttribute("data-step-for");
+      el.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") pick(n); });
+      el.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") pick(""); });
+      el.addEventListener("click", function (e) {
+        if (heroPointer === "mouse") return;
+        e.stopPropagation();
+        pick(heroStep === n ? "" : n);
+        if (window.floTrack && heroStep) window.floTrack("Hero Stroke Picked", { stroke: n });
       });
-      var go = plate.querySelector("[data-hero-go]");
-      var ages = Array.prototype.slice.call(row.querySelectorAll("[data-hero-age]"));
-      var previewed = null, lastPointer = "";
-      row.addEventListener("pointerdown", function (e) { lastPointer = e.pointerType; });
-      // Returns true when the tap was taken as a preview, so the caller does not go on.
-      heroPreview = function (a) {
-        var touch = lastPointer === "touch" || lastPointer === "pen";
-        lastPointer = "";
-        if (!go || !touch || a === previewed) return false;
-        previewed = a;
-        show(a.getAttribute("data-fig"));
-        ages.forEach(function (x) { if (x === a) x.setAttribute("aria-current", "true"); else x.removeAttribute("aria-current"); });
-        var n = a.getAttribute("data-fig");
-        go.textContent = n === "0" ? "See the class for babies under 1" : "See the class for age " + n;
-        go.href = a.getAttribute("href");
-        go.hidden = false;
-        var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        go.scrollIntoView({ block: "nearest", behavior: still ? "auto" : "smooth" });
-        if (window.floTrack) window.floTrack("Hero Age Previewed", { age: a.textContent });
-        return true;
-      };
-    }
-    var wide = window.matchMedia("(min-width: 901px) and (hover: hover)");
-    if (wide.matches) {
-      window.addEventListener("load", function () {
-        (window.requestIdleCallback || function (fn) { setTimeout(fn, 1500); })(loadAll);
-      });
-    }
+    });
+    document.addEventListener("click", function () { if (heroPointer !== "mouse") pick(""); });
   }
 
   /* The Lens tablist */
@@ -408,23 +389,6 @@
     opts.forEach(function (o) {
       o.addEventListener("click", function (ev) { ev.preventDefault(); choose(o); });
       o.addEventListener("keydown", function (ev) { if (ev.key === " ") { ev.preventDefault(); choose(o); } });
-    });
-    /* The hero asks the same question first. An age chosen there answers this picker and brings it
-       up under the header, so the recommendation is the next thing the parent reads; focus moves to
-       the chosen age so keyboard and screen-reader users land in the same place. Without script the
-       hero ages are plain links to the same Explore pages. */
-    Array.prototype.forEach.call(document.querySelectorAll("[data-hero-age], [data-hero-go]"), function (h) {
-      h.addEventListener("click", function (ev) {
-        if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button > 0) return;
-        if (h.hasAttribute("data-hero-age") && heroPreview && heroPreview(h)) { ev.preventDefault(); return; }
-        var o = opts.filter(function (x) { return x.getAttribute("href") === h.getAttribute("href"); })[0];
-        if (!o) return;
-        ev.preventDefault();
-        choose(o);
-        var still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        try { o.focus({ preventScroll: true }); } catch (e) { o.focus(); }
-        picker.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "start" });
-      });
     });
   }
 })();
