@@ -35,7 +35,7 @@
   <link rel="preload" as="image" type="image/webp" imagesrcset="/assets/img/site/hero-age-1-640.webp 640w, /assets/img/site/hero-age-1-1000.webp 1000w, /assets/img/site/hero-age-1-1400.webp 1400w" imagesizes="(min-width: 901px) 58vw, 100vw" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
   <link rel="stylesheet" href="/assets/css/home.css?v=0477bdf35f" />
-  <link rel="stylesheet" href="/assets/css/home-lens.css?v=990b5aeed5" />
+  <link rel="stylesheet" href="/assets/css/home-lens.css?v=8fe1330d96" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=475f0abf7f" />
 
   <script type="application/ld+json">
@@ -162,54 +162,49 @@
       </figure>
     </section>
 
-    <!-- 02 The Developmental Lens -->
-    <section class="hb-section lens-story" id="lens" aria-labelledby="lens-heading" data-guided-lens data-step="observe">
+    <!-- 02 Leaving the playground: one moment in four beats.
+         Copy and images live here. Timing and camera moves are at the top of
+         /assets/js/home-lens.js. Without that script (or with reduced motion)
+         this is a plain illustrated sequence, all four beats visible. -->
+    <section class="hb-section pg-story" id="lens" aria-labelledby="lens-heading" data-playground-story>
       <div class="hb-container">
-        <div class="story-heading">
-          <h2 class="hb-display hb-display--l" id="lens-heading">Why &ldquo;time&nbsp;to&nbsp;go&rdquo; ends in tears</h2>
+        <div class="pg-head">
+          <h2 class="hb-display hb-display--l" id="lens-heading">When it&rsquo;s time to leave the playground</h2>
+          <p class="pg-standfirst">You can stay warm and still leave. Tears don&rsquo;t mean it went wrong.</p>
         </div>
-        <div class="story-walkthrough">
-          <figure class="story-scene" aria-describedby="story-scene-caption">
-            <div class="story-photo">
-              <picture>
-                <source type="image/webp" srcset="/assets/img/site/child-learning-640.webp 640w, /assets/img/site/child-learning-1122.webp 1122w" sizes="(min-width: 901px) 46vw, 100vw" />
-                <img src="/assets/img/site/child-learning.jpg" srcset="/assets/img/site/child-learning-640.jpg 640w, /assets/img/site/child-learning.jpg 1122w" sizes="(min-width: 901px) 46vw, 100vw" width="1122" height="1402" alt="A toddler at the bottom of a slide, one hand on it, turned back toward it; an adult crouches behind with a hand held out low." loading="lazy" />
-              </picture>
-              <div class="story-focus" aria-hidden="true" data-story-focus>
-                <svg viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false"><path class="story-focus__under" d="M0 18V0h18M82 0h18v18M100 82v18H82M18 100H0V82" vector-effect="non-scaling-stroke" /><path d="M0 18V0h18M82 0h18v18M100 82v18H82M18 100H0V82" vector-effect="non-scaling-stroke" /></svg>
-              </div>
-            </div>
-            <figcaption class="story-caption" id="story-scene-caption">
-              <p data-story-caption="observe"><strong>Leaning back toward the slide.</strong></p>
-              <p data-story-caption="understand" hidden><strong>Eyes still on the slide.</strong></p>
-              <p data-story-caption="respond" hidden><strong>A hand offered low, not grabbing.</strong></p>
-              <p data-story-caption="reflect" hidden><strong>Both of you, in the moment.</strong></p>
-            </figcaption>
-            <ol class="story-progress" aria-label="Steps in this guide">
-              <li data-story-stage="observe" aria-current="step">What happens</li>
-              <li data-story-stage="understand">Why</li>
-              <li data-story-stage="respond">What helps</li>
-              <li data-story-stage="reflect">Next time</li>
+        <div class="pg-track" data-pg-track>
+          <div class="pg-stage" data-pg-stage>
+            <ol class="pg-beats">
+              <li class="pg-beat" data-pg-beat="leave">
+                <div class="pg-text">
+                  <h3 class="pg-name">Time to leave</h3>
+                  <p class="pg-line"><span>It&rsquo;s time to go.</span> <span>They&rsquo;re not ready.</span></p>
+                </div>
+                <div class="pg-art"><div class="pg-cam"><img src="/assets/img/site/playground/time-to-leave-1440.webp" srcset="/assets/img/site/playground/time-to-leave-720.webp 720w, /assets/img/site/playground/time-to-leave-1440.webp 1440w, /assets/img/site/playground/time-to-leave-2160.webp 2160w" sizes="(min-width: 761px) 76vw, 150vw" width="1440" height="960" alt="A toddler sits at the top of a small slide, grinning, about to go down. A parent stands a few steps away with a bag on one shoulder, watching." loading="lazy" decoding="async" /></div></div>
+              </li>
+              <li class="pg-beat" data-pg-beat="acknowledge">
+                <div class="pg-text">
+                  <h3 class="pg-name">Acknowledge the feeling</h3>
+                  <p class="pg-line"><span>&ldquo;You really wanted to stay.&rdquo;</span></p>
+                </div>
+                <div class="pg-art"><div class="pg-cam"><img src="/assets/img/site/playground/name-the-feeling-1440.webp" srcset="/assets/img/site/playground/name-the-feeling-720.webp 720w, /assets/img/site/playground/name-the-feeling-1440.webp 1440w, /assets/img/site/playground/name-the-feeling-2160.webp 2160w" sizes="(min-width: 761px) 76vw, 150vw" width="1440" height="960" alt="The parent crouches to the toddler&rsquo;s height, one hand open, talking. The toddler sits at the foot of the slide, one hand still on it, looking up." loading="lazy" decoding="async" /></div></div>
+              </li>
+              <li class="pg-beat" data-pg-beat="hold">
+                <div class="pg-text">
+                  <h3 class="pg-name">Hold the boundary</h3>
+                  <p class="pg-line"><span>&ldquo;It&rsquo;s time to leave.</span> <span>I&rsquo;ll help you.&rdquo;</span></p>
+                </div>
+                <div class="pg-art"><div class="pg-cam"><img src="/assets/img/site/playground/hold-the-boundary-1440.webp" srcset="/assets/img/site/playground/hold-the-boundary-720.webp 720w, /assets/img/site/playground/hold-the-boundary-1440.webp 1440w, /assets/img/site/playground/hold-the-boundary-2160.webp 2160w" sizes="(min-width: 761px) 76vw, 150vw" width="1440" height="960" alt="The toddler stands beside the slide with one hand on it, close to tears. The parent, still crouched, holds out an open hand." loading="lazy" decoding="async" /></div></div>
+              </li>
+              <li class="pg-beat" data-pg-beat="together">
+                <div class="pg-text">
+                  <h3 class="pg-name">Move together</h3>
+                  <p class="pg-line"><span>The feeling can stay.</span> <span>You can move forward together.</span></p>
+                </div>
+                <div class="pg-art"><div class="pg-cam"><img src="/assets/img/site/playground/move-together-1440.webp" srcset="/assets/img/site/playground/move-together-720.webp 720w, /assets/img/site/playground/move-together-1440.webp 1440w, /assets/img/site/playground/move-together-2160.webp 2160w" sizes="(min-width: 761px) 76vw, 150vw" width="1440" height="960" alt="Parent and toddler walk away hand in hand. The toddler looks back at the slide, still sad. The parent keeps walking, calm." loading="lazy" decoding="async" /></div></div>
+              </li>
             </ol>
-          </figure>
-          <div class="story-lessons">
-            <section class="story-beat" data-story-beat="observe" aria-labelledby="story-observe">
-              <h3 id="story-observe">A minute ago, they were fine.</h3>
-              <p>You call them to leave. They run back to the slide and drop to the ground, crying.</p>
-            </section>
-            <section class="story-beat" data-story-beat="understand" aria-labelledby="story-understand">
-              <h3 id="story-understand">Stopping in the middle of fun is hard.</h3>
-              <p>The urge to keep playing is strong from the start. The ability to stop themselves grows slowly, through the preschool years and beyond.</p>
-            </section>
-            <section class="story-beat" data-story-beat="respond" aria-labelledby="story-respond">
-              <h3 id="story-respond">Before it&rsquo;s time to leave, say what comes next.</h3>
-              <blockquote>&ldquo;Two more slides, then home for lunch.&rdquo;</blockquote>
-              <p>There may still be tears, but leaving won&rsquo;t come as a surprise.</p>
-            </section>
-            <section class="story-beat" data-story-beat="reflect" aria-labelledby="story-reflect">
-              <h3 id="story-reflect">Notice what set off the tears.</h3>
-              <p>Was it the warning, the walk to the gate, or the car seat? Each time, you learn a little more about your child.</p>
-            </section>
+            <div class="pg-progress" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
           </div>
         </div>
         <aside class="story-next" aria-labelledby="story-next-title">
@@ -407,7 +402,7 @@
 
   <script src="/assets/js/chrome.js?v=072b6d90d4"></script>
   <script src="/assets/js/home.js?v=241250a9c2" defer></script>
-  <script src="/assets/js/home-lens.js?v=024e1e905a" defer></script>
+  <script src="/assets/js/home-lens.js?v=35e128dbef" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
