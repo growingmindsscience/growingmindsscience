@@ -293,3 +293,7 @@
   .gpage :is(.sources-panel, .source-list) a { padding: 0; }
   .gpage :is(.sources-panel, .source-list) a[href^="http"]::after { content: " (" attr(href) ")"; color: var(--ink-muted); font-size: 9pt; }
 }
+/* Immediate help belongs on phones as well as the desktop reference column. */
+.fg.gpage .g-title .g-glance--immediate { display: block; }
+.g-glance--immediate ol { padding-left: 1.25em; }
+.g-glance--immediate li + li { margin-top: 12px; }

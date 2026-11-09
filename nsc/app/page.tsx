@@ -56,12 +56,12 @@ export default async function Home() {
         </h1>
         <p className="max-w-md text-lg text-ink">
           {brand.tagline} A ten-minute check-in places your child on the
-          counting ladder, then hands you a week of playful, evidence-backed
-          games.
+          counting ladder and suggests playful games to try together.
         </p>
         <p className="-mt-3 text-sm text-ink-muted">A From Little Onward tool</p>
         <p className="text-sm text-ink-muted">Ten minutes. A bowl. A bear.</p>
-        <LinkButton href={start}>Start the game</LinkButton>
+        <LinkButton href={start}>Start the free check-in</LinkButton>
+        <p className="max-w-md text-sm text-ink-soft">Free: the check-in, one matched game each week, and a daily number-talk prompt. Full program: {PRICE} once, no subscription.</p>
         <p className="text-sm text-ink-muted">
           The check-in is free.{" "}
           {!user && (
