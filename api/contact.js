@@ -2,6 +2,7 @@ export const config = { runtime: "edge" };
 
 import { cleanHeaderText, cleanText, isValidEmail, jsonResponse, normalizeEmail, parseRequestBody } from "./_security.js";
 import { checkRateLimit } from "./_ratelimit.js";
+import { logSiteEvent } from "./_site-events.js";
 
 const WEB3FORMS_URL = "https://api.web3forms.com/submit";
 
@@ -98,6 +99,10 @@ export default async function handler(request) {
   if (!upstreamResponse.ok) {
     return errorResponse(request, 502, "The message could not be sent. Please try again.");
   }
+
+  // Awaited for the same reason as the waitlist's Kit call: an Edge function
+  // can stop once its response is returned. Never fails the request.
+  await logSiteEvent(isProgram ? "program_inquiry" : "contact", isProgram ? "Program inquiry" : "Contact form");
 
   if (acceptsHtml(request)) return redirectResponse(sentPage);
   return jsonResponse(200, { ok: true });

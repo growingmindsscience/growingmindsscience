@@ -2,6 +2,7 @@ export const config = { runtime: "edge" };
 
 import { cleanHeaderText, isValidEmail, jsonResponse, normalizeEmail, parseRequestBody } from "./_security.js";
 import { checkRateLimit } from "./_ratelimit.js";
+import { logSiteEvent, waitlistEvent } from "./_site-events.js";
 
 const WEB3FORMS_URL = "https://api.web3forms.com/submit";
 const KIT_API_URL = "https://api.convertkit.com/v3/forms";
@@ -128,6 +129,8 @@ export default async function handler(request) {
 
   const firstName = submission.name ? submission.name.split(" ")[0] : "";
   await subscribeToKit(email, firstName);
+  const event = waitlistEvent(submission.subject);
+  await logSiteEvent(event.kind, event.detail);
 
   if (acceptsHtml(request)) return redirectResponse("/thank-you");
   return jsonResponse(200, { ok: true });
