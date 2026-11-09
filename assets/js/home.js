@@ -376,7 +376,7 @@
     opts.forEach(function (o) { o.setAttribute("role", "button"); o.setAttribute("aria-pressed", "false"); });
     var choose = function (o) {
       opts.forEach(function (x) { x.setAttribute("aria-pressed", x === o ? "true" : "false"); });
-      var cid = o.getAttribute("data-class"), yrs = o.textContent;
+      var cid = o.getAttribute("data-class"), yrs = o.getAttribute("data-yrs") || o.textContent;
       if (menu) menu.classList.add("has-match");
       items.forEach(function (it) {
         var on = it.getAttribute("data-class-id") === cid;
