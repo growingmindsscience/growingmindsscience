@@ -293,3 +293,24 @@
   .gpage :is(.sources-panel, .source-list) a { padding: 0; }
   .gpage :is(.sources-panel, .source-list) a[href^="http"]::after { content: " (" attr(href) ")"; color: var(--ink-muted); font-size: 9pt; }
 }
+
+/* Meltdown guide: relief first. The three steps sit above everything else, with the
+   Big feelings watercolors as one picture per step. */
+.gpage .g-now-glance, .g-now-glance { list-style: none; margin: 0; padding: clamp(20px, 2.5vw, 28px); border-radius: var(--radius-lg); background: var(--sage-mist); display: grid; gap: 14px; }
+.g-now-glance li { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: baseline; color: var(--ink-soft); line-height: 1.45; }
+.g-now-glance b { color: var(--ink); font-weight: 600; }
+.g-now-glance__n { font-family: var(--font-display); font-size: 1.75rem; line-height: 1; color: var(--clay-text); }
+.g-now { padding-block: clamp(8px, 2vw, 24px) clamp(40px, 5vw, 72px); }
+.g-now__steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3vw, 40px); }
+.g-now__step p { margin: 10px 0 0; color: var(--ink-soft); }
+.g-now__img { display: block; width: 100%; max-width: 360px; height: auto; margin: 0 auto 18px; }
+.g-now__title { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.5rem, 1.25rem + 0.8vw, 1.875rem); line-height: 1.1; letter-spacing: -0.01em; color: var(--ink); margin: 0; }
+.g-now__n { color: var(--clay-text); margin-right: 4px; }
+.g-now__safety { margin: clamp(24px, 3vw, 36px) 0 0; font-weight: 500; color: var(--ink); }
+.g-underneath { padding-top: clamp(40px, 5vw, 72px); border-top: 1px solid var(--border-soft); }
+.g-underneath__title { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.875rem, 1.4rem + 1.6vw, 2.75rem); line-height: 1.05; letter-spacing: -0.02em; color: var(--ink); }
+/* The watercolors are painted on light paper; on the dark theme their washes read as pale patches. */
+[data-theme="dark"] .g-now__img { display: none; }
+@media (max-width: 900px) {
+  .g-now__steps { grid-template-columns: minmax(0, 1fr); }
+}
