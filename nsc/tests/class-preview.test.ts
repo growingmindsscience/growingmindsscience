@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { INFANT_PREVIEW_PATH, classLessonNumber, freePreviewLessonWith } from "../lib/class-preview";
+import { CLASS_PREVIEW_PATHS, INFANT_PREVIEW_PATH, classLessonNumber, freePreviewLessonWith } from "../lib/class-preview";
 import { INFANT_MODULE_LESSON_COUNTS } from "../lib/classes";
 import { isPublicPath } from "../lib/supabase/middleware";
 import { FakeDb, type Row } from "./fake-supabase";
@@ -60,6 +60,13 @@ describe("free preview lesson", () => {
 });
 
 describe("free preview access", () => {
+  it.each(Object.values(CLASS_PREVIEW_PATHS))("opens only the exact sample route %s", (path) => {
+    expect(isPublicPath(path)).toBe(true);
+    expect(isPublicPath(`${path}/other`)).toBe(false);
+    expect(isPublicPath(path.replace("/preview", ""))).toBe(false);
+    expect(isPublicPath(`/app${path}`)).toBe(false);
+  });
+
   it("opens the preview page to signed-out visitors and nothing else in the class", () => {
     expect(isPublicPath(INFANT_PREVIEW_PATH)).toBe(true);
     expect(isPublicPath("/classes")).toBe(false);
@@ -69,8 +76,8 @@ describe("free preview access", () => {
     expect(isPublicPath("/app/classes/infant/lessons/serve-and-return")).toBe(false);
   });
 
-  it("signs playback without reading anything from the request", () => {
-    const src = readFileSync(join(root, "app/api/classes/infant/preview/playback/route.ts"), "utf8")
+  it.each(Object.keys(CLASS_PREVIEW_PATHS))("%s signs playback without reading anything from the request", (slug) => {
+    const src = readFileSync(join(root, `app/api/classes/${slug}/preview/playback/route.ts`), "utf8")
       .replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "");
     expect(src).toMatch(/export async function GET\(\)/);
     expect(src).not.toMatch(/params|searchParams|request|cookies|headers\(\)/);

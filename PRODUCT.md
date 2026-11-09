@@ -21,11 +21,11 @@ enrolled and returning families; the marketing site is the primary register.
 Growing Minds Science is a developmental-science education for parents: the
 course in child development that used to require a graduate program, taught as
 self-paced classes built from peer-reviewed research, plus free tools, articles,
-and a research-grounded AI tutor. The founder's thesis is that the parents who
-do best are, almost without exception, the ones who understand the science; the
-product exists to give every parent that education without enrolling in
-college. Success looks like a parent who feels like a capable student rather
-than a judged caregiver, and who enrolls in a class or returns to a tool.
+and a research-grounded AI tutor. The product exists to make developmental
+research accessible to parents without enrolling in college, with explanations
+they can use in ordinary family life. Success looks like a parent who feels like
+a capable student rather than a judged caregiver, and who enrolls in a class or
+returns to a tool.
 
 ## Brand Personality
 

@@ -122,23 +122,20 @@ ${list(allAges, 8)}
       </div>
     </section>
 ${close("Go deeper, one age at a time.",
-  "The classes explain the why. Three classes are open, one for each window of the first five years, $49 each with lifetime access.",
+  "Free resources help with one question. A class connects the topics for your child’s stage in a planned sequence, with recorded lessons and saved progress. $49 per class, once, with lifetime access.",
   `<a class="hb-btn hb-btn--paper" href="/classes/">Browse the classes</a><a class="hb-btn hb-btn--quiet" href="${RIGHT_NOW}">It&rsquo;s hard right now</a>`)}`;
 }
 
 // ---------- a period's page ----------
 // Start here: the period's curated Read / Try / Learn (explore.json stages[].home), in the Lens
 // page's notation: a clay Inter label beside a Newsreader name, under quiet rules.
-const START = [["read", "Read"], ["try", "Try"], ["learn", "Learn"]];
 function startHere(s) {
-  if (!s.home) return "";
-  const rows = START.filter(([k]) => s.home[k]).map(([k, label]) =>
-    `            <li><span class="ex-start__k">${label}</span><a class="ex-start__link" href="${esc(s.home[k].href)}">${txt(s.home[k].label)}</a></li>`).join("\n");
+  if (!s.start) return "";
   return `        <div class="ex-start" data-rise style="--i:1">
           <h2 class="ex-start__title" id="start-heading">Start here</h2>
-          <ul class="ex-start__list" aria-labelledby="start-heading">
-${rows}
-          </ul>
+          <p class="ex-start__note">${txt(s.start.note)}</p>
+          <a class="ex-start__link" href="${esc(s.start.href)}">${txt(s.start.label)}</a>
+          <p class="ex-start__note"><a href="#moments">Or choose what is happening today</a></p>
         </div>`;
 }
 
@@ -181,6 +178,18 @@ ${steps}
     </section>`;
 }
 
+// Keep the first recommendation visible; optional reading follows it.
+function recommendedList(items) {
+  const ordered = sorted(items);
+  return `          <div class="ex-recommendation">
+            <p class="ex-start__note">Start here</p>
+${list(ordered.slice(0, 1), 12)}${ordered.length > 1 ? `
+            <details class="ex-more"><summary>More on this topic</summary>
+${list(ordered.slice(1), 14)}
+            </details>` : ""}
+          </div>`;
+}
+
 function stagePage(s) {
   const items = forAge(s.id);
   const lens = items.find((it) => it.type === "lens");
@@ -192,7 +201,7 @@ function stagePage(s) {
           <div class="ex-row__head">
             <h3>${txt(name)}</h3>${hint ? `\n            <p>${txt(hint)}</p>` : ""}
           </div>
-${list(its, 10)}
+${recommendedList(its)}
         </article>`;
   const momentRows = d.moments
     .map((m) => ({ m, its: take(items.filter((it) => it.moments.includes(m.id))) }))
@@ -236,7 +245,7 @@ ${topicRows.join("\n")}
       </div>
     </section>` : ""}
 ${close("Go deeper into this age.",
-  `The class for this period, ${txt(cls.title.replace(/,.*$/, ""))}, explains the why in short, self-paced lessons built from the research. $49 one time, with lifetime access.`,
+  `${txt(cls.title.replace(/,.*$/, ""))} connects the topics for this age in a planned sequence of recorded lessons, with captions, written versions, and saved progress. $49 one time, with lifetime access.`,
   `<a class="hb-btn hb-btn--paper" href="${esc(s.class)}">See the class</a><a class="hb-btn hb-btn--quiet" href="${RIGHT_NOW}">It&rsquo;s hard right now</a>`)}`;
 }
 

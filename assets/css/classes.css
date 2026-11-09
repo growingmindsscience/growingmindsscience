@@ -494,3 +494,11 @@
 @media (min-width: 761px) { .cp .enroll-bar { display: none !important; } }
 @media (prefers-reduced-motion: reduce) { .cp .enroll-bar { transition: none; } }
 .cl-terms--trust { color: var(--ink-soft); font-weight: 600; }
+
+/* Help a new parent choose the right amount of learning. */
+.cl-value { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; padding-block: 48px; border-top: 1px solid var(--border); }
+.cl-value h2 { font-size: 2rem; }
+.cl-value h3 { font-size: 1.375rem; }
+.cl-value p { margin-block: 16px; line-height: 1.6; }
+.cl-value a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 860px) { .cl-value { grid-template-columns: minmax(0, 1fr); gap: 24px; } }

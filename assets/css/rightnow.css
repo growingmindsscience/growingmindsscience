@@ -150,3 +150,8 @@
 .fg .rn-safety a { display: inline-block; padding-block: 11px; margin-block: -11px; color: var(--forest); text-decoration: underline; text-underline-offset: 3px; }
 .fg .rn-safety a:hover { color: var(--ink); }
 .fg .rn-safety__fine { margin-top: 8px; font-size: 14px; color: var(--ink-muted); }
+
+/* Immediate advice remains available when scripts cannot load. */
+.rn-fallback { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border); scroll-margin-top: 20px; }
+.rn-fallback h2 { font-size: 1.75rem; }
+.rn-fallback li { margin-block: 12px; }

@@ -162,3 +162,9 @@
 @media (max-width: 860px) {
   :is(.ex-stage, .ex-row) { grid-template-columns: minmax(0, 1fr); }
 }
+
+.ex-start__note { margin-block: 12px; font-size: 15px; color: var(--ink-soft); }
+.ex-more { margin-top: 16px; }
+.ex-more summary { display: list-item; min-height: 44px; padding-block: 12px; cursor: pointer; color: var(--forest); }
+.ex-more summary:focus-visible { outline: 2px solid var(--forest); outline-offset: 3px; }
+.ex-recommendation .ex-list { margin-top: 0; }

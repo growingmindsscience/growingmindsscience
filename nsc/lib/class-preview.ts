@@ -2,7 +2,12 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import type { ClassCourseSlug, ClassLesson } from "@/lib/classes";
 
 /** The public preview page for each class that has a free lesson. */
-export const INFANT_PREVIEW_PATH = "/classes/infant/preview";
+export const CLASS_PREVIEW_PATHS = {
+  infant: "/classes/infant/preview",
+  toddlerhood: "/classes/toddlerhood/preview",
+  preschool: "/classes/preschool/preview",
+} as const satisfies Record<ClassCourseSlug, string>;
+export const INFANT_PREVIEW_PATH = CLASS_PREVIEW_PATHS.infant;
 
 export type FreePreviewLesson = Pick<ClassLesson,
   "id" | "module_number" | "position" | "slug" | "title" | "summary" | "transcript" | "duration_seconds" | "mux_playback_id">;
