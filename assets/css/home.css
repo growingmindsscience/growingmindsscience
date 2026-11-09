@@ -396,3 +396,29 @@ html:not(.anim) .label { transition: none; }
   .classes .menu.has-match .menu__item--class.is-match { order: -1; }
   .agepick__actions .hb-btn { width: 100%; justify-content: center; }
 }
+
+
+/* What does a class add? (classes column, under the age picker) */
+.classadd { margin-top: 32px; padding: 28px; border-radius: 8px; background: var(--sage-mist); }
+.classadd__title { margin: 0 0 14px; font-family: var(--font-display); font-weight: 500; font-size: 1.75rem; line-height: 1.1; letter-spacing: -0.01em; color: var(--ink); }
+.classadd__text strong { font-weight: 600; color: var(--ink); }
+.classadd__text { margin: 0 0 14px; font-size: 0.9375rem; line-height: 1.5; color: var(--ink-soft); }
+.classadd__note { margin: 0; font-size: 0.875rem; line-height: 1.5; color: var(--ink-muted); }
+
+/* Watercolor accents: small, decorative (alt=""), cut from the From Little Onward illustration set */
+.wc { display: block; height: auto; pointer-events: none; user-select: none; }
+.classes .menu__item--class { position: relative; }
+.wc-class { position: absolute; right: 0; bottom: 28px; width: 148px; }
+.story-next { position: relative; }
+.wc-next { position: absolute; right: 48px; bottom: 0; width: 250px; }
+.tools .hb-container { position: relative; }
+.wc-tools { position: absolute; right: 0; top: -12px; width: 150px; }
+/* The illustrations are painted on light paper; on the dark theme their washes read as pale patches. */
+[data-theme="dark"] .wc { display: none; }
+@media (max-width: 899px) {
+  .wc-next { position: static; width: 190px; margin: 20px auto -8px; }
+  .wc-tools { width: 104px; top: -4px; }
+}
+@media (max-width: 699px) {
+  .wc-class { position: static; grid-column: 1 / -1; width: 112px; margin: 0 0 6px -4px; }
+}
