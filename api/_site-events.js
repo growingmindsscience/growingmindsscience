@@ -19,8 +19,9 @@ export async function logSiteEvent(kind, detail) {
     const res = await fetch(`${url.replace(/\/$/, "")}/rest/v1/site_events`, {
       method: "POST",
       headers: {
+        // A publishable key (sb_publishable_...) goes in apikey only; the
+        // gateway maps it to the anon role.
         apikey: key,
-        authorization: `Bearer ${key}`,
         "content-type": "application/json",
         prefer: "return=minimal",
       },

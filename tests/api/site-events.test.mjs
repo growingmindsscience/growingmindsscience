@@ -54,6 +54,7 @@ test("a contact message logs one row with no name, email, or message text", with
     const body = JSON.parse(call.init.body);
     assert.deepEqual(body, { kind: "contact", detail: "Contact form" });
     assert.equal(call.init.headers.apikey, "pk-test");
+    assert.equal(call.init.headers.authorization, undefined);
   } finally { net.restore(); }
 }));
 
