@@ -1,36 +1,81 @@
-/* The homepage Lens: native scrolling guides attention through one photograph. */
-.lens-story { --story-ground: #F8F9FB; background: var(--story-ground); padding-block: clamp(56px, 7vw, 100px); }
-[data-theme="dark"] .lens-story { --story-ground: var(--paper); }
-.story-heading { margin-bottom: clamp(32px, 4vw, 56px); }
-.story-walkthrough { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(36px, 6vw, 88px); align-items: start; }
-.fg .story-scene { position: sticky; top: calc(var(--header-h) + 20px); margin: 0; min-width: 0; background: var(--story-ground); }
-.story-photo { position: relative; height: min(57vw, 570px, 65svh); min-height: 320px; overflow: hidden; border-radius: var(--radius-lg); background: var(--sage-mist); }
-.story-photo picture { display: contents; }
-.story-photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
-.story-focus { position: absolute; left: 12%; top: 15%; width: 48%; height: 77%; transform-origin: 0 0; pointer-events: none; opacity: 0; }
-.story-is-enhanced .story-focus { opacity: 1; }
-.story-focus svg { width: 100%; height: 100%; overflow: visible; fill: none; stroke: #F8F9FB; stroke-width: 2; }
-.story-focus .story-focus__under { stroke: #193C39; stroke-opacity: 0.75; stroke-width: 4; }
-.fg .story-caption { min-height: 62px; padding: 20px 0 16px; font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
-.fg .story-caption p { margin: 0; }
-.story-caption [hidden] { display: none !important; }
-.story-caption strong { display: block; font-weight: 600; color: var(--ink); }
-.fg .story-progress { display: flex; justify-content: space-between; gap: 8px; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--border); }
-.story-progress li { position: relative; padding-top: 12px; font-size: 14px; line-height: 1.4; color: var(--ink-muted); transition: color 180ms ease; }
-.story-progress li::before { content: ""; position: absolute; top: -1px; inset-inline: 0; height: 2px; background: transparent; }
-.story-progress [aria-current="step"] { color: var(--forest); }
-.story-progress [aria-current="step"]::before { background: var(--forest); }
-.story-lessons { min-width: 0; }
-.fg .story-beat { display: flex; flex-direction: column; justify-content: center; min-height: clamp(240px, 28vw, 320px); padding: 32px 0; border-bottom: 1px solid var(--border-soft); }
-.fg .story-beat:first-child { padding-top: 0; justify-content: flex-start; }
-.fg .story-beat:last-child { border-bottom: 0; }
-/* The last beat activates late (at the reading line), so give the pinned photo
-   room to hold on "The wider moment" before the scene scrolls away. */
-.story-is-enhanced .story-beat:last-child { padding-bottom: clamp(260px, 52svh, 520px); justify-content: flex-start; }
-.fg .story-beat h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); line-height: 1.16; letter-spacing: -0.02em; color: var(--ink); max-width: 27ch; }
-.fg .story-beat p { margin-top: 20px; font-size: 1.125rem; line-height: 1.7; color: var(--ink-soft); max-width: 46ch; }
-.fg .story-beat blockquote { margin: 20px 0 0; padding: 16px 20px; border-radius: var(--radius); background: var(--sage-mist); color: var(--ink); font-family: var(--font-display); font-size: 1.5rem; line-height: 1.35; }
-/* The handoff: the moment the reader just finished lives in Module 4 of the toddler class. */
+/* The homepage playground story: one moment, four beats, one illustration each.
+
+   Default (no script, reduced motion, short screens, print): a plain
+   illustrated sequence with every beat visible.
+   .pg-live (set by home-lens.js): the stage pins under the header and scroll
+   moves through the beats. The script only writes opacity and transform.
+
+   Each illustration is a 3:2 canvas, transparent around the painting, with
+   its figures somewhere inside. --cx/--cw/--top say where (fractions of
+   the canvas, printed by scripts/playground-art.py), so the figures are fitted
+   to whatever box they are given and stand on one shared ground line. */
+.pg-story { --pg-ground: #F8F9FB; background: var(--pg-ground); padding-block: clamp(56px, 7vw, 100px); }
+[data-theme="dark"] .pg-story { --pg-ground: var(--paper); }
+.pg-head { max-width: 44rem; }
+.fg .pg-standfirst { margin: clamp(14px, 1.6vw, 20px) 0 0; max-width: 36ch; font-size: var(--step-lead); line-height: 1.4; color: var(--ink-soft); }
+
+/* The sequence */
+.fg .pg-beats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(40px, 5vw, 72px) clamp(28px, 5vw, 80px); margin: clamp(32px, 4vw, 56px) 0 0; padding: 0; list-style: none; }
+.pg-beat { display: flex; flex-direction: column; min-width: 0; }
+.fg .pg-name { margin: 0; font-family: var(--font-body); font-size: 0.9375rem; font-weight: 500; line-height: 1.3; letter-spacing: 0.005em; color: var(--forest); }
+.fg .pg-line { margin: 10px 0 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.5rem, 1.15rem + 1.3vw, 2.125rem); line-height: 1.14; letter-spacing: -0.018em; color: var(--ink); }
+.pg-line span { display: block; }
+.pg-text { position: relative; z-index: 2; }
+
+/* The art box. Fallback first: the whole canvas, contained. */
+.pg-art { order: -1; position: relative; aspect-ratio: 3 / 2; margin-bottom: 20px; overflow: hidden; }
+/* The files paint their paper a touch lighter than Haze, because lossy WebP
+   cannot hold the exact colour. .pg-cam is a true Haze sheet the size of the
+   canvas; drawing the image over it with darken brings every bare-paper pixel
+   down to the page colour exactly, so the canvas has no visible rectangle. */
+.pg-cam { background: #F8F9FB; isolation: isolate; }
+.pg-art img { display: block; width: 100%; height: auto; max-width: none; user-select: none; mix-blend-mode: darken; }
+.pg-beat:nth-child(1) { --cx: 0.491; --cw: 0.814; --top: 0.237; }
+.pg-beat:nth-child(2), .pg-beat:nth-child(3) { --cx: 0.452; --cw: 0.602; --top: 0.253; }
+.pg-beat:nth-child(4) { --cx: 0.4165; --cw: 0.557; --top: 0.131; }
+@supports (width: 1cqw) and (translate: 10px) {
+  .pg-art { container-type: size; }
+  /* Fit the figures (not the canvas) inside 90% of the box width and 92% of its
+     height, with the ground wash ending 3% above the bottom edge. 0.94 is the
+     canvas fraction where that wash ends; the canvas is 2/3 as tall as wide. */
+  .pg-cam {
+    --w: min(calc(var(--pg-fit-w, 90cqw) / var(--cw)), calc(138cqh / (0.94 - var(--top))), var(--pg-max, 1320px));
+    position: absolute; left: 50%; bottom: calc(3cqh - var(--w) * 0.04); width: var(--w);
+    translate: calc(var(--cx) * -100%) 0;
+    transform-origin: calc(var(--cx) * 100%) 94%;
+  }
+}
+/* Watercolor needs paper. On the night page the art keeps a sheet of it. */
+[data-theme="dark"] .pg-art { background: #F8F9FB; border-radius: var(--radius-lg); }
+.pg-progress { display: none; }
+
+/* Live: the pinned stage */
+@media screen {
+  .pg-live .pg-track { position: relative; margin-top: clamp(8px, 2vw, 24px); height: calc(100vh - var(--header-h) + var(--pg-travel, 2.75) * var(--pg-pace, 1) * 100vh); height: calc(100svh - var(--header-h) + var(--pg-travel, 2.75) * var(--pg-pace, 1) * 100svh); }
+  .pg-live .pg-stage { position: sticky; top: var(--header-h); height: calc(100vh - var(--header-h)); height: calc(100svh - var(--header-h)); overflow: hidden; background: var(--pg-ground); }
+  .fg .pg-live .pg-beats { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; height: 100%; margin: 0; }
+  .pg-live .pg-beat { grid-area: 1 / 1; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 8fr); column-gap: clamp(24px, 4vw, 64px); align-items: center; min-height: 0; }
+  .pg-live .pg-text { min-height: 15.5rem; }
+  .fg .pg-live .pg-line { margin-top: 14px; font-size: clamp(1.875rem, 1rem + 2.5vw, 3.25rem); line-height: 1.1; letter-spacing: -0.022em; }
+  .pg-live .pg-art { order: 0; aspect-ratio: auto; height: min(70vh, 760px, 100% - 48px); height: min(70svh, 760px, 100% - 48px); margin: 0; overflow: visible; }
+  .pg-live .pg-cam { will-change: opacity, transform; }
+  .pg-live .pg-text { will-change: opacity, transform; }
+  [data-theme="dark"] .pg-live .pg-art { overflow: hidden; }
+  /* The beats are stacked, so one sheet (the first, lowest) serves all four. */
+  [data-theme="dark"] .pg-live .pg-beat:not(:first-child) .pg-art { background: none; }
+  /* Wide screens: the heading leans into the empty top of the stage, so the
+     first view already holds the picture. The overlap stays 40px clear of
+     the caption block (15.5rem tall, centred in the stage). */
+  @media (min-width: 901px) {
+    .pg-live .pg-head { position: relative; z-index: 3; }
+    .pg-live .pg-track { margin-top: calc(-1 * clamp(0px, (100vh - var(--header-h) - 15.5rem) / 2 - 40px, 200px)); margin-top: calc(-1 * clamp(0px, (100svh - var(--header-h) - 15.5rem) / 2 - 40px, 200px)); }
+  }
+  .pg-live .pg-progress { position: absolute; z-index: 2; left: 0; bottom: clamp(24px, 6vh, 56px); display: flex; gap: 8px; }
+  .pg-progress i { width: 28px; height: 2px; border-radius: 1px; background: var(--border); transition: background-color 240ms ease; }
+  .pg-progress i.is-on { background: var(--forest); }
+}
+
+/* The handoff: the moment the reader just watched is a lesson in the toddler class. */
 .fg .story-next { margin-top: clamp(32px, 4vw, 48px); padding: clamp(24px, 3vw, 36px); border-radius: var(--radius-lg); background: var(--sage-mist); }
 .fg .story-next__eyebrow { margin: 0; font-size: 14px; font-weight: 500; letter-spacing: 0.01em; color: var(--forest); }
 .fg .story-next__title { margin: 8px 0 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); line-height: 1.2; letter-spacing: -0.015em; color: var(--ink); }
@@ -41,27 +86,13 @@
 .story-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px 32px; margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border); }
 .fg .story-full { display: inline-flex; align-items: center; gap: 12px; min-height: 48px; color: var(--forest); font-size: 1rem; font-weight: 500; text-decoration: underline; text-underline-offset: 0.2em; }
 .story-full svg { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
-.lens-story :focus-visible { outline: 2px solid var(--forest); outline-offset: 4px; }
-@media (max-width: 900px) and (min-width: 701px) {
-  .story-walkthrough { gap: 32px; }
-  .story-photo { min-height: 0; height: 50svh; }
-  .fg .story-beat h3 { font-size: 1.625rem; }
-  .fg .story-beat p { font-size: 1rem; }
-}
-@media (max-width: 700px) {
-  .story-heading { margin-bottom: 28px; }
-  .story-heading h2 { font-size: clamp(2.125rem, 1.4rem + 2.8vw, 3.75rem); text-wrap: balance; }
-  .story-walkthrough { display: block; }
-  .fg .story-scene { top: var(--header-h); z-index: 3; padding-bottom: 16px; }
-  .story-photo { height: clamp(180px, 30svh, 260px); min-height: 0; }
-  .fg .story-caption { min-height: 48px; padding: 12px 0 10px; font-size: 14px; }
-  .story-progress li { padding-top: 10px; }
-  .fg .story-beat { min-height: 230px; padding-block: 28px; scroll-margin-top: calc(var(--header-h) + 350px); }
-  .fg .story-beat:first-child { padding-top: 24px; justify-content: center; }
-  .fg .story-beat h3 { font-size: 1.5rem; line-height: 1.2; }
-  .fg .story-beat p { font-size: 1rem; line-height: 1.65; margin-top: 16px; }
-  .fg .story-beat blockquote { font-size: 1.25rem; margin-top: 16px; padding: 12px 16px; }
-  .story-is-enhanced .story-beat:last-child { padding-bottom: 180px; }
+.pg-story :focus-visible { outline: 2px solid var(--forest); outline-offset: 4px; }
+@media (max-width: 760px) {
+  .pg-head h2 { text-wrap: balance; }
+  .fg .pg-beats { grid-template-columns: minmax(0, 1fr); gap: 36px; margin-top: 28px; }
+  .pg-art { margin-inline: calc(-1 * var(--hb-gutter)); margin-bottom: 12px; --pg-fit-w: 92cqw; }
+  [data-theme="dark"] .pg-art { margin-inline: 0; }
+  .fg .pg-line { font-size: clamp(1.5rem, 1rem + 2.6vw, 1.875rem); }
   .fg .story-next { margin-top: 24px; padding: 20px; }
   .fg .story-next__body { font-size: 1rem; }
   .story-next__actions .hb-btn { width: 100%; justify-content: center; }
@@ -69,17 +100,22 @@
   .story-next + .story-footer { margin-top: 8px; }
   .fg .story-full { font-size: 15px; }
 }
-@media (max-height: 560px) and (max-width: 700px) {
-  .fg .story-scene { position: relative; top: auto; }
-  .story-photo { height: auto; aspect-ratio: 4 / 3; }
+@media screen and (max-width: 900px) {
+  /* Phones and upright tablets: art above, caption below in a reserved block, shorter travel. */
+  .pg-live .pg-track { --pg-pace: 0.86; margin-top: 4px; }
+  .pg-live .pg-beat { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto; align-content: center; row-gap: 14px; padding-bottom: 44px; }
+  .pg-live .pg-art { order: -1; margin-inline: calc(-1 * var(--hb-gutter)); --pg-fit-w: 92cqw; height: min(86vw, 100vh - var(--header-h) - 15.5rem); height: min(86vw, 100svh - var(--header-h) - 15.5rem); }
+  [data-theme="dark"] .pg-live .pg-art { margin-inline: 0; }
+  .pg-live .pg-text { min-height: 8.5rem; padding-bottom: 0; }
+  .fg .pg-live .pg-line { margin-top: 10px; font-size: clamp(1.5rem, 1rem + 2.6vw, 2.5rem); line-height: 1.14; }
+  .pg-live .pg-progress { bottom: 20px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .story-progress li { transition: none; }
+  .pg-progress i { transition: none; }
 }
 @media print {
-  .story-walkthrough { display: block; }
-  .fg .story-scene { position: static; max-width: 320px; }
-  .story-photo { min-height: 0; height: 240px; }
-  .story-focus, .story-progress, .story-next__actions { display: none !important; }
-  .fg .story-beat, .story-is-enhanced .story-beat:last-child { min-height: 0; padding: 20px 0; break-inside: avoid; }
+  .pg-cam, .pg-text { opacity: 1 !important; transform: none !important; }
+  .fg .pg-beats { gap: 24px; }
+  .pg-beat { break-inside: avoid; }
+  .story-next__actions { display: none !important; }
 }
