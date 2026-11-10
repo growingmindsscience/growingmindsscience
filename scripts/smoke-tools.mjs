@@ -282,10 +282,10 @@ try {
   // --- Activity Library: profile-aware filters + Today's 3 ---
   await page.goto(`${BASE}/tools/activity-library.html`, { waitUntil: 'networkidle' });
   await page.waitForTimeout(300);
-  ok(await page.locator('#al-grid .al-card').count() >= 8, 'activities: age-filtered grid renders');
+  ok(await page.locator('#al-grid .al-row').count() >= 8, 'activities: age-filtered grid renders');
   ok(await page.locator('#al-today-panel:not([hidden]) .al-card').count() === 3, "activities: Today's 3 renders for the profiled child");
   await page.locator('.al-chip', { hasText: 'All ages' }).click();
-  ok(await page.locator('#al-grid .al-card').count() === 24, 'activities: All ages shows the full sampler');
+  ok(await page.locator('#al-grid .al-row').count() === 24, 'activities: All ages shows the full sampler');
   ok(await page.evaluate(() => (document.activeElement.textContent || '').trim() === 'All ages'), 'activities: focus stays on the chosen filter');
   await page.locator('#al-today .al-done').first().click();
   ok(await page.locator('#al-today .al-done.is-done').count() === 1, 'activities: mark-done toggles');
