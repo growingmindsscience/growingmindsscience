@@ -258,8 +258,8 @@ for (const s of d.stages) {
     .replace(/(<meta property="og:description" content=")[^"]*"/, (_, a) => `${a}${esc(desc)}"`)
     .replace(/(<link rel="canonical" href=")[^"]*"/, (_, a) => `${a}${ORIGIN}${href(s)}"`)
     .replace(/(<meta property="og:url" content=")[^"]*"/, (_, a) => `${a}${ORIGIN}${href(s)}"`)
-    // The period is the current page; the header's Explore link marks the section it sits in.
-    .replace(/(<a class="nav__link" href="\/explore\/") aria-current="page"/, '$1 aria-current="true"');
+    // The period is the current page; the Explore entry in the header's Tools menu marks the section it sits in.
+    .replace(/(<a class="nav__submenu-link" href="\/explore\/") aria-current="page"/, '$1 aria-current="true"');
   outputs.push([`explore/${s.slug}.html`, html]);
 }
 
