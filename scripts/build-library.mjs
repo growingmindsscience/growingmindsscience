@@ -140,7 +140,7 @@ ${extraHead}
   <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
   <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
-  <link rel="stylesheet" href="/assets/css/hubs.css?v=555375e0a7" />
+  <link rel="stylesheet" href="/assets/css/hubs.css?v=05c4490964" />
   <link rel="stylesheet" href="/assets/css/article.css?v=1cda4972c6" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=eacaf2a72e" />
 </head>
