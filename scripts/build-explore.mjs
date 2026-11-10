@@ -61,6 +61,18 @@ function verdict(it) {
   const c = claimOf(it);
   return `<p class="ex-verdict"><span class="ex-grade ${gradeClass(c.grade_strength)}">${txt(claimsArtifact.strength_labels[c.grade_strength])}</span> <span aria-hidden="true">&middot;</span> ${txt(c.verdict_label)}</p>`;
 }
+// The compact form, for the topic index: the grade stays beside the type, the verdict sentence
+// waits on the claim's own page.
+function links(items, pad) {
+  const grade = (it) => {
+    if (it.type !== "claim") return "";
+    const c = claimOf(it);
+    return ` <span aria-hidden="true">&middot;</span> <span class="ex-grade ${gradeClass(c.grade_strength)}">${txt(claimsArtifact.strength_labels[c.grade_strength])}</span>`;
+  };
+  return `${I(pad)}<ul class="ex-links">\n` + sorted(items).map((it) =>
+    `${I(pad + 2)}<li><a href="${esc(it.href)}">${title(it)}</a><span class="ex-type">${txt(d.types[it.type])}${grade(it)}</span></li>`
+  ).join("\n") + `\n${I(pad)}</ul>`;
+}
 function list(items, pad) {
   return `${I(pad)}<ul class="ex-list">\n` + sorted(items).map((it) =>
     `${I(pad + 2)}<li><a href="${esc(it.href)}">${title(it)}</a><span class="ex-type">${txt(d.types[it.type])}</span>${verdict(it)}</li>`
@@ -208,7 +220,11 @@ function stagePage(s) {
   // moments' lede; the Lens has its own door. Topics then list only what the moments have not.
   const seen = new Set([RIGHT_NOW, ...(lens ? [lens.href] : [])]);
   const take = (its) => { const out = its.filter((it) => !seen.has(it.href)); out.forEach((it) => seen.add(it.href)); return out; };
-  const row = (id, name, hint, its) => `        <article class="ex-row" id="${id}">
+  const topic = (id, name, its) => `          <div class="ex-topic" id="${id}">
+            <h3>${txt(name)}</h3>
+${links(its, 12)}
+          </div>`;
+  const row = (id, name, hint, its) => `        <article class="ex-row ex-row--tight" id="${id}">
           <div class="ex-row__head">
             <h3>${txt(name)}</h3>${hint ? `\n            <p>${txt(hint)}</p>` : ""}
           </div>
@@ -221,9 +237,9 @@ ${list(its, 10)}
   const topicRows = d.topics
     .map((t) => ({ t, its: take(items.filter((it) => it.topics.includes(t.id))) }))
     .filter((x) => x.its.length)
-    .map(({ t, its }) => row(`t-${t.id}`, t.name, "", its));
+    .map(({ t, its }) => topic(`t-${t.id}`, t.name, its));
   const rest = take(items);
-  if (rest.length) topicRows.push(row("also", "Also for this age", "", rest));
+  if (rest.length) topicRows.push(topic("also", "Also for this age", rest));
   const cls = d.items.find((it) => it.type === "class" && it.href === s.class);
   if (!cls) throw new Error(`explore.json: no class item for ${s.class}`);
   return `    <section class="ex-title ex-title--stage">
@@ -252,7 +268,9 @@ ${momentRows}
           <h2 class="hb-display ex-sec__title" id="topics-heading">More by topic</h2>
           <p class="ex-sec__lede">One thread at a time, for this period, without the pages above.</p>
         </div>
+        <div class="ex-topics">
 ${topicRows.join("\n")}
+        </div>
       </div>
     </section>` : ""}
 ${close("Go deeper into this age.",

@@ -150,18 +150,34 @@
 .explore .ex-stage__class { margin-top: 12px; }
 .ex-stage__class a { display: inline-flex; align-items: center; min-height: 44px; }
 .explore .ex-list { list-style: none; margin: 0; padding: 0; display: grid; }
-.ex-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: baseline; border-top: 1px solid var(--border-soft); }
+/* The type sits right after the name it describes, not across the row from it. */
+.ex-list li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 14px; border-top: 1px solid var(--border-soft); }
 .ex-list li:first-child { border-top: 0; }
 /* Each row's name in Newsreader (The Two Hands Rule), its type in Inter. */
 .explore .ex-list a { display: flex; align-items: center; min-height: 52px; padding-block: 10px; color: var(--ink); text-decoration: none; font-family: var(--font-display); font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); line-height: 1.22; letter-spacing: -0.01em; text-wrap: pretty; }
 .explore .ex-list a:hover { color: var(--forest); text-decoration: underline; text-underline-offset: 0.16em; }
 .ex-type { font-size: 14px; color: var(--ink-muted); white-space: nowrap; }
 /* A graded claim: its grade and verdict, verbatim from the claims library, under the claim. */
-.explore .ex-verdict { grid-column: 1; margin: -4px 0 0; padding-bottom: 14px; font-size: 15px; line-height: 1.5; color: var(--ink-soft); max-width: 62ch; }
+.explore .ex-verdict { flex: 0 0 100%; margin: -4px 0 0; padding-bottom: 14px; font-size: 15px; line-height: 1.5; color: var(--ink-soft); max-width: 62ch; }
 .ex-grade { font-weight: 600; }
 .ex-grade--solid { color: var(--ink); }
 .ex-grade--contra { color: var(--clay-text); }
 .ex-grade--thin { color: var(--ink-muted); }
+/* A stage page's moments: the same rows, set closer, so seven situations read as one index. */
+.ex-row--tight { padding-block: clamp(14px, 1.5vw, 20px); }
+.ex-row--tight .ex-row__head h3 { font-size: clamp(1.3125rem, 1.15rem + 0.6vw, 1.625rem); line-height: 1.12; padding-top: 9px; }
+.explore .ex-row--tight .ex-row__head > p { margin-top: 6px; font-size: 15px; line-height: 1.5; }
+.explore .ex-row--tight .ex-list a { min-height: 44px; padding-block: 8px; }
+.explore .ex-row--tight .ex-verdict { padding-bottom: 10px; }
+/* A stage page's topics: a back-of-the-book index in columns, not a second run of rows. */
+.ex-topics { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr)); gap: 32px clamp(28px, 4vw, 56px); margin-top: clamp(28px, 4vw, 48px); padding-top: clamp(20px, 2.4vw, 28px); border-top: 2px solid var(--ink); }
+.ex-topic { scroll-margin-top: calc(var(--header-h, 72px) + 16px); }
+.ex-topic h3 { font-family: var(--font-body); font-size: 14px; font-weight: 600; line-height: 1.4; color: var(--ink); }
+.explore .ex-links { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 14px; }
+.ex-links li { display: grid; gap: 2px; }
+.explore .ex-links a { color: var(--ink); text-decoration: none; font-family: var(--font-display); font-size: 1.125rem; line-height: 1.25; letter-spacing: -0.005em; text-wrap: pretty; padding-block: 4px; }
+.explore .ex-links a:hover { color: var(--forest); text-decoration: underline; text-underline-offset: 0.16em; }
+.ex-links .ex-type { white-space: normal; }
 @media (max-width: 860px) {
   :is(.ex-stage, .ex-row) { grid-template-columns: minmax(0, 1fr); }
 }
