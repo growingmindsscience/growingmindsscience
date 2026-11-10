@@ -207,6 +207,10 @@
     @media screen and (max-width: 640px) {
       .grid { gap: 12px; }
       .card { padding: 20px; font-size: 1rem; }
+    }
+    /* Every screen: a card opens on request, so the wall of cards stays scannable. Print shows all. */
+    @media screen {
+      .grid { align-items: start; }
       .card__more { display: none; }
       .card.is-open .card__more { display: block; }
       .fg .more-btn { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 44px; margin-top: 14px; padding: 10px 0 0; border-top: 1px solid var(--border-soft); color: var(--forest); font-size: 15px; font-weight: 600; text-align: left; }
