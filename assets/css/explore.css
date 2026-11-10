@@ -108,9 +108,8 @@
 .explore .ex-lens__meta { margin-top: -4px; font-size: 15px; color: var(--ink-muted); }
 .explore .ex-lens__lead { color: var(--ink-soft); max-width: 52ch; }
 .explore .ex-lens__steps { list-style: none; margin: 6px 0 4px; padding: 0; display: grid; width: 100%; }
-.ex-lens__steps li { display: grid; grid-template-columns: 2rem 7.5rem minmax(0, 1fr); gap: 4px 12px; align-items: baseline; padding-block: 12px; border-top: 1px solid var(--sage-mist-2); }
+.ex-lens__steps li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 4px 12px; align-items: baseline; padding-block: 12px; border-top: 1px solid var(--sage-mist-2); }
 .ex-lens__steps li:first-child { border-top: 0; }
-.ex-lens__n { font-size: 14px; font-weight: 600; color: var(--clay-text); font-variant-numeric: tabular-nums; }
 .ex-lens__step { font-size: 15px; font-weight: 600; color: var(--ink); }
 .ex-lens__q { font-family: var(--font-display); font-size: clamp(1.125rem, 1rem + 0.4vw, 1.3125rem); line-height: 1.25; color: var(--ink); }
 .ex-lens .hb-actions { margin-top: 6px; }
@@ -123,8 +122,7 @@
   .ex-lens__label::before { left: 12px; top: 14px; }
 }
 @media (max-width: 520px) {
-  .ex-lens__steps li { grid-template-columns: 2rem minmax(0, 1fr); }
-  .ex-lens__q { grid-column: 2; }
+  .ex-lens__steps li { grid-template-columns: minmax(0, 1fr); }
 }
 /* The page's one authored moment: as the door arrives, its label is set on the plate. */
 @media (prefers-reduced-motion: no-preference) {

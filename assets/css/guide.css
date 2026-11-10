@@ -296,7 +296,7 @@
 
 /* Meltdown guide: relief first. The three steps sit above everything else, with the
    Big feelings watercolors as one picture per step. */
-.gpage .g-now-glance, .g-now-glance { list-style: none; margin: 0; padding: clamp(20px, 2.5vw, 28px); border-radius: var(--radius-lg); background: var(--sage-mist); display: grid; gap: 14px; }
+.fg ol.g-now-glance, .gpage .g-now-glance, .g-now-glance { list-style: none; margin: 0; padding: clamp(20px, 2.5vw, 28px); border-radius: var(--radius-lg); background: var(--sage-mist); display: grid; gap: 14px; }
 .g-now-glance li { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: baseline; color: var(--ink-soft); line-height: 1.45; }
 .g-now-glance b { color: var(--ink); font-weight: 600; }
 .g-now-glance__n { font-family: var(--font-display); font-size: 1.75rem; line-height: 1; color: var(--clay-text); }
