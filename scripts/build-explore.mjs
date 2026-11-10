@@ -159,7 +159,7 @@ const LENS = {
 };
 function lensDoor(lens) {
   const steps = LENS.steps.map(([name, q], i) =>
-    `              <li><span class="ex-lens__n">0${i + 1}</span><span class="ex-lens__step">${name}</span><span class="ex-lens__q">${q}</span></li>`).join("\n");
+    `              <li><span class="ex-lens__step">${name}</span><span class="ex-lens__q">${q}</span></li>`).join("\n");
   return `    <section class="ex-lens-sec" aria-labelledby="lens-heading">
       <div class="hb-container">
         <div class="ex-lens" data-rise>
