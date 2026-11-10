@@ -9,6 +9,7 @@ import { SubmitButton } from "@/components/submit-button";
 import { Eyebrow } from "@/components/class-chrome";
 import { startInfantClassCheckout } from "./infant/actions";
 import { startPreschoolClassCheckout } from "./preschool/actions";
+import { startFamilyClassCheckout } from "./family/actions";
 import { startClassCheckout } from "./toddlerhood/actions";
 import { startBundleCheckout } from "./bundle/actions";
 import { CLASS_REFUND_POLICY } from "@/lib/refund-policy";
@@ -17,9 +18,11 @@ export const dynamic = "force-dynamic";
 export const metadata = { title: "My classes" };
 
 /** Catalog order: youngest age first. */
+// The family systems class joins this list when its lessons are published.
 const COURSE_ORDER: ClassCourseSlug[] = ["infant", "toddlerhood", "preschool"];
 const CHECKOUT = {
   infant: startInfantClassCheckout, toddlerhood: startClassCheckout, preschool: startPreschoolClassCheckout,
+  family: startFamilyClassCheckout,
 } as const;
 /** Mirrors FREE_DAILY_LIMIT in the static site's api/_ai-chat.js. */
 const FREE_AI_QUESTIONS_PER_DAY = 5;

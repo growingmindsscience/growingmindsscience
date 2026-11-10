@@ -1,4 +1,4 @@
-import { CLASS_BUNDLE, INFANT_COURSE, PRESCHOOL_COURSE } from "@/lib/classes";
+import { CLASS_BUNDLE, FAMILY_COURSE, INFANT_COURSE, PRESCHOOL_COURSE } from "@/lib/classes";
 import { safeNextPath } from "@/lib/safe-next";
 
 export const CLASS_HOME = "/app/classes";
@@ -22,6 +22,8 @@ export function classDestination(raw: unknown): string {
 export const INFANT_ENROLL_PATH = "/app/classes/infant/enroll";
 /** The same for the preschool class. */
 export const PRESCHOOL_ENROLL_PATH = "/app/classes/preschool/enroll";
+/** The same for the family systems class. */
+export const FAMILY_ENROLL_PATH = "/app/classes/family/enroll";
 /** The same for the all-classes bundle. */
 export const BUNDLE_ENROLL_PATH = "/app/classes/bundle/enroll";
 
@@ -32,5 +34,6 @@ export const BUNDLE_ENROLL_PATH = "/app/classes/bundle/enroll";
 export function enrollingCourse(destination: string) {
   if (destination === INFANT_ENROLL_PATH) return INFANT_COURSE;
   if (destination === BUNDLE_ENROLL_PATH) return CLASS_BUNDLE;
+  if (destination === FAMILY_ENROLL_PATH) return FAMILY_COURSE;
   return destination === PRESCHOOL_ENROLL_PATH ? PRESCHOOL_COURSE : null;
 }

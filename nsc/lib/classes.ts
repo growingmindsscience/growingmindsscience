@@ -60,10 +60,29 @@ export const PRESCHOOL_COURSE = {
   ],
 } as const;
 
+export const FAMILY_COURSE = {
+  slug: "family",
+  title: "Family systems and stress",
+  shortTitle: "Family systems and stress",
+  scope: "class:family",
+  product: "class_family",
+  priceDisplay: "$49",
+  ages: "Any age, any family structure",
+  blurb: "Four modules on how the whole family, its adults, siblings, and stress, shapes the developing child.",
+  detailsPath: "/classes/family-systems.html",
+  modules: [
+    "The Family as a System",
+    "The Adults",
+    "Siblings",
+    "Stress, Work, and Recovery",
+  ],
+} as const;
+
 export const CLASS_COURSES = {
   toddlerhood: TODDLER_COURSE,
   infant: INFANT_COURSE,
   preschool: PRESCHOOL_COURSE,
+  family: FAMILY_COURSE,
 } as const;
 
 export type ClassCourseSlug = keyof typeof CLASS_COURSES;
@@ -127,6 +146,8 @@ export const INFANT_MODULE_LESSON_COUNTS = [5, 4, 3, 4] as const;
 export const PRESCHOOL_MODULE_LESSON_COUNTS = [4, 4, 3, 4] as const;
 /** Published lessons each toddler module must have before sales open (the 2026 rebuild: 13 lessons). */
 export const TODDLER_MODULE_LESSON_COUNTS = [3, 3, 3, 4] as const;
+/** Published lessons each family systems module must have before sales open. */
+export const FAMILY_MODULE_LESSON_COUNTS = [3, 3, 3, 4] as const;
 
 export type SalesGate = { open: true } | { open: false; reason: string };
 
@@ -155,12 +176,17 @@ export function preschoolSalesGate(input: SalesGateInput): SalesGate {
   return salesGate("PRESCHOOL", PRESCHOOL_MODULE_LESSON_COUNTS, input);
 }
 
+/** The same gate for the family systems class, read from the FAMILY_CLASS_* variables. */
+export function familySalesGate(input: SalesGateInput): SalesGate {
+  return salesGate("FAMILY", FAMILY_MODULE_LESSON_COUNTS, input);
+}
+
 /** The same gate for the toddler class, read from the TODDLER_CLASS_* variables. */
 export function toddlerSalesGate(input: SalesGateInput): SalesGate {
   return salesGate("TODDLER", TODDLER_MODULE_LESSON_COUNTS, input);
 }
 
-function salesGate(prefix: "INFANT" | "PRESCHOOL" | "TODDLER", required: readonly number[], input: SalesGateInput): SalesGate {
+function salesGate(prefix: "INFANT" | "PRESCHOOL" | "TODDLER" | "FAMILY", required: readonly number[], input: SalesGateInput): SalesGate {
   // Env values pasted into a dashboard or piped from a shell often carry a
   // trailing newline or space; compare the trimmed value.
   const flag = input.salesFlag?.trim().toLowerCase();

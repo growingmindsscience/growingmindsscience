@@ -10,6 +10,7 @@ const PRICE_VARIABLES = {
   toddlerhood: "TODDLER_CLASS_PRICE_ID",
   infant: "INFANT_CLASS_PRICE_ID",
   preschool: "PRESCHOOL_CLASS_PRICE_ID",
+  family: "FAMILY_CLASS_PRICE_ID",
   bundle: "CLASS_BUNDLE_PRICE_ID",
 } as const;
 

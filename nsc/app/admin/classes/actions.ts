@@ -64,5 +64,6 @@ export async function saveLesson(id: string, formData: FormData) {
   revalidatePath("/app/classes/toddlerhood");
   revalidatePath("/app/classes/infant");
   revalidatePath("/app/classes/preschool");
+  revalidatePath("/app/classes/family");
   redirect(`/admin/classes/${id}?saved=1`);
 }

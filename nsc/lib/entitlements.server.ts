@@ -129,7 +129,7 @@ export async function getEntitlementSummary(): Promise<EntitlementSummary> {
     .eq("user_id", user.id);
   for (const row of ent ?? []) {
     if (row.product_scope === "class:toddlerhood" || row.product_scope === "class:infant" ||
-        row.product_scope === "class:preschool") continue;
+        row.product_scope === "class:preschool" || row.product_scope === "class:family") continue;
     if (row.expires_at === null || new Date(row.expires_at) > now) {
       scopes.add(row.product_scope);
     }
@@ -155,6 +155,12 @@ export async function getEntitlementSummary(): Promise<EntitlementSummary> {
     .eq("user_id", user.id)
     .eq("product_scope", "class:preschool");
   if (ownsToddlerClass(preschoolGrants ?? [], now)) scopes.add("class:preschool");
+  const { data: familyGrants } = await supabase
+    .from("entitlements")
+    .select("expires_at, source, source_ref")
+    .eq("user_id", user.id)
+    .eq("product_scope", "class:family");
+  if (ownsToddlerClass(familyGrants ?? [], now)) scopes.add("class:family");
 
   const membership = scopes.has("membership");
   return {

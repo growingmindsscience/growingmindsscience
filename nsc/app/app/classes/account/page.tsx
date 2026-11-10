@@ -18,6 +18,7 @@ const SCOPE_LABELS: Record<string, string> = {
   "class:toddlerhood": `${CLASS_COURSES.toddlerhood.shortTitle} class, lifetime access`,
   "class:infant": `${CLASS_COURSES.infant.shortTitle} class, lifetime access`,
   "class:preschool": `${CLASS_COURSES.preschool.shortTitle} class, lifetime access`,
+  "class:family": `${CLASS_COURSES.family.shortTitle} class, lifetime access`,
 };
 
 const ORDER_STATUS: Record<string, string> = { paid: "Paid", refunded: "Refunded", disputed: "Disputed" };

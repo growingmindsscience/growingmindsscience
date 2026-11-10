@@ -24,7 +24,8 @@ export const CLASS_GIFT_REDEEM_PATH = "/app/classes/redeem";
 
 /** Every scope a class gift code unlocks. */
 export const CLASS_GIFT_SCOPES: string[] = [
-  ...Object.values(CLASS_COURSES).map((course) => course.scope),
+  // The family systems class is not in gifts yet; that is decided when it goes on sale.
+  ...Object.values(CLASS_COURSES).filter((course) => course.slug !== "family").map((course) => course.scope),
   "ai:unlimited",
 ];
 

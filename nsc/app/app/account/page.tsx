@@ -19,6 +19,7 @@ const SCOPE_LABELS: Record<string, string> = {
   "class:toddlerhood": "Toddler class: lifetime access",
   "class:infant": "Infant class: lifetime access",
   "class:preschool": "Preschool class: lifetime access",
+  "class:family": "Family systems and stress class: lifetime access",
 };
 
 function scopeLabel(scope: string): string {
