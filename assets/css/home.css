@@ -513,8 +513,9 @@ html:not(.anim) .label { transition: none; }
 .wc-next { position: absolute; right: 48px; bottom: 0; width: 250px; }
 .tools .hb-container { position: relative; }
 .wc-tools { position: absolute; right: 0; top: -12px; width: 150px; }
-/* The illustrations are painted on light paper; on the dark theme their washes read as pale patches. */
-[data-theme="dark"] .wc { display: none; }
+/* The illustrations are cut out, so on the night page they sit straight on the dark ground,
+   dimmed a little so their pale floor washes do not glare. */
+[data-theme="dark"] .wc { filter: brightness(0.88) saturate(1.05); }
 @media (max-width: 899px) {
   .wc-next { position: static; width: 190px; margin: 20px auto -8px; }
   .wc-tools { width: 104px; top: -4px; }
@@ -522,3 +523,5 @@ html:not(.anim) .label { transition: none; }
 @media (max-width: 699px) {
   .wc-class { position: static; grid-column: 1 / -1; width: 112px; margin: 0 0 6px -4px; }
 }
+/* Clears the section heading on the narrowest phones. */
+@media (max-width: 359px) { .wc-tools { width: 72px; } }
