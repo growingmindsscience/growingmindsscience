@@ -512,8 +512,9 @@ html:not(.anim) .label { transition: none; }
 .wc-next { position: absolute; right: 48px; bottom: 0; width: 250px; }
 .tools .hb-container { position: relative; }
 .wc-tools { position: absolute; right: 0; top: -12px; width: 150px; }
-/* The illustrations are painted on light paper; on the dark theme their washes read as pale patches. */
-[data-theme="dark"] .wc { display: none; }
+/* Watercolor needs paper: the illustrations are painted on light paper, so on the night page each
+   keeps a small sheet of it, like the hero plate. */
+[data-theme="dark"] .wc { box-sizing: content-box; padding: 8px; border-radius: var(--radius-lg); background: #F8F9FB; }
 @media (max-width: 899px) {
   .wc-next { position: static; width: 190px; margin: 20px auto -8px; }
   .wc-tools { width: 104px; top: -4px; }
@@ -521,3 +522,5 @@ html:not(.anim) .label { transition: none; }
 @media (max-width: 699px) {
   .wc-class { position: static; grid-column: 1 / -1; width: 112px; margin: 0 0 6px -4px; }
 }
+/* Clears the section heading on the narrowest phones; the night sheet counts toward the width. */
+@media (max-width: 359px) { .wc-tools { width: 72px; } [data-theme="dark"] .wc-tools { width: 56px; } }
