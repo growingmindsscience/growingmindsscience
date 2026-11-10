@@ -250,7 +250,7 @@
   transition: background-color 160ms var(--chrome-ease);
 }
 .site-header .nav__submenu-link:hover,
-.site-header .nav__submenu-link[aria-current="page"] { background: var(--chrome-tint); }
+.site-header .nav__submenu-link:is([aria-current="page"], [aria-current="true"]) { background: var(--chrome-tint); }
 .site-header .nav__submenu-title {
   color: var(--chrome-ink);
   font-family: var(--chrome-display);

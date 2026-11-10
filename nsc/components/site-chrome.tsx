@@ -33,10 +33,8 @@ export function SiteWordmark({ href, label = "From Little Onward, home" }: { hre
 
 const SITE_LINKS: [string, string][] = [
   ["It’s hard right now", "/tools/right-now"],
-  ["Explore", "/explore/"],
   ["Classes", "/classes/"],
   ["Tools", "/tools/"],
-  ["Articles", "/articles/"],
   ["About", "/about/"],
 ];
 

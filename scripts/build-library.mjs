@@ -142,7 +142,7 @@ ${extraHead}
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
   <link rel="stylesheet" href="/assets/css/hubs.css?v=36987dd3b5" />
   <link rel="stylesheet" href="/assets/css/article.css?v=1cda4972c6" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=475f0abf7f" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=eacaf2a72e" />
 </head>
 <body class="fg fg--page hub art">
   ${header}

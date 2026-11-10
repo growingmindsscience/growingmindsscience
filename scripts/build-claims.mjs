@@ -224,7 +224,7 @@ ${extraHead}
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
   <link rel="stylesheet" href="/assets/css/hubs.css?v=36987dd3b5" />
   <link rel="stylesheet" href="/assets/css/claims.css?v=bd1b0cb640" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=475f0abf7f" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=eacaf2a72e" />
 </head>
 <body class="fg fg--page hub claims">
   <!-- header:start -->
@@ -244,24 +244,23 @@ ${extraHead}
 
         <ul class="nav__list" id="primary-nav-list">
           <li class="nav__now"><a class="nav__link" href="/tools/right-now">It&rsquo;s hard right now</a></li>
-          <li><a class="nav__link" href="/explore/">Explore</a></li>
           <li><a class="nav__link" href="/classes/">Classes</a></li>
           <li class="nav__item">
             <details class="nav__details">
               <summary class="nav__link nav__summary">Tools <svg class="nav__chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></summary>
               <div class="nav__menu">
                 <ul class="nav__submenu">
-                  <li><a class="nav__submenu-link" href="/tools/right-now"><span class="nav__submenu-title">It&rsquo;s hard right now</span><span class="nav__submenu-desc">A calm next step in two minutes.</span></a></li>
                   <li><a class="nav__submenu-link" href="/tools/ask-the-research"><span class="nav__submenu-title">Ask the research</span><span class="nav__submenu-desc">A calm, research-grounded answer to a parenting question.</span></a></li>
                   <li><a class="nav__submenu-link" href="/milestones"><span class="nav__submenu-title">Milestone tracker</span><span class="nav__submenu-desc">What&rsquo;s typical at each age, birth to three.</span></a></li>
                   <li><a class="nav__submenu-link" href="/tools/communication-snapshot"><span class="nav__submenu-title">Communication Snapshot</span><span class="nav__submenu-desc">Turn what you notice about talking into notes for a checkup.</span></a></li>
                   <li><a class="nav__submenu-link" href="/nsc"><span class="nav__submenu-title">Tallykin</span><span class="nav__submenu-desc">A free ten-minute counting check-in.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/explore/"><span class="nav__submenu-title">Explore by age</span><span class="nav__submenu-desc">Guides, tools and articles for each age, birth to five.</span></a></li>
+                  <li><a class="nav__submenu-link" href="/articles/"><span class="nav__submenu-title">Articles</span><span class="nav__submenu-desc">Developmental science in plain language.</span></a></li>
                 </ul>
                 <a class="nav__menu-all" href="/tools/">All free tools and guides <span aria-hidden="true">&rarr;</span></a>
               </div>
             </details>
           </li>
-          <li><a class="nav__link" href="/articles/">Articles</a></li>
           <li><a class="nav__link" href="/about/">About</a></li>
           <li class="nav__item nav__auth"><a class="nav__link" href="/nsc/class-login">My classes</a></li>
           <li class="nav__cta"><a class="btn btn--primary" href="/classes/">Enroll, from $49</a></li>
