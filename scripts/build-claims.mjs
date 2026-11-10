@@ -222,8 +222,8 @@ ${extraHead}
   <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
   <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
-  <link rel="stylesheet" href="/assets/css/hubs.css?v=36987dd3b5" />
-  <link rel="stylesheet" href="/assets/css/claims.css?v=bd1b0cb640" />
+  <link rel="stylesheet" href="/assets/css/hubs.css?v=555375e0a7" />
+  <link rel="stylesheet" href="/assets/css/claims.css?v=97da88f5fc" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=eacaf2a72e" />
 </head>
 <body class="fg fg--page hub claims">
@@ -406,8 +406,19 @@ ${scale("Consensus", CONSENSUS_SCALE, a.consensus_labels, c.grade_consensus)}
       </div>
     </section>
     <section class="cl-body">
-      <div class="hb-container cl-narrow">
-        <div class="cl-text">
+      <div class="hb-container cl-narrow hb-read">
+        <nav class="hb-toc cl-toc" data-toc aria-label="On this page">
+          <details class="hb-toc__fold">
+            <summary>On this page</summary>
+            <ol class="hb-toc__list">
+              <li><a href="#evidence">The evidence</a></li>
+              <li><a href="#sources">Sources</a></li>
+              <li><a href="#how-claims-get-graded">${METHOD_TITLE}</a></li>
+            </ol>
+          </details>
+        </nav>
+        <div class="hb-read__text">
+        <div class="cl-text" id="evidence">
 ${paras.map((p, i) => `          <p class="cl-summary${i === 0 && paras.length > 1 ? " cl-summary--lead" : ""}">${txt(p)}</p>`).join("\n")}
         </div>
         <div class="hb-actions cl-ask">
@@ -427,6 +438,7 @@ ${METHOD_P.map((p) => `            <p>${p}</p>`).join("\n")}
           </details>
         </div>
         <p class="cl-note">This page summarizes published research for educational purposes. It is not medical advice, and it is not a recommendation for or against any practice for your specific child; those calls belong with you and your child&rsquo;s clinician.</p>
+        </div>
       </div>
     </section>
     <section class="hb-section--tight cl-next" aria-labelledby="next-h">

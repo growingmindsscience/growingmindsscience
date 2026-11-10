@@ -62,7 +62,8 @@
 /* ---------- One reading column ---------- */
 .claims .cl-body { padding-block: 0; }
 .claims .cl-body > .cl-narrow { border-top: 1px solid var(--border-soft); padding-top: clamp(40px, 5vw, 72px); }
-.claims .cl-narrow > * { max-width: 880px; }
+.claims .cl-narrow:not(.hb-read) > * { max-width: 880px; }
+/* The contents rail: "Ask about this" sits quietly under the list. */
 .claims .cl-text { max-width: 64ch; }
 .claims .cl-summary { font-size: 1.125rem; line-height: 1.7; color: var(--ink); text-wrap: pretty; }
 .claims .cl-summary + .cl-summary { margin-top: 1em; }
