@@ -78,6 +78,11 @@
 /* ---------- A period's page: its name, summary and where to start ---------- */
 .ex-title--stage { padding-top: 0; }
 .ex-stage-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 36px clamp(32px, 5vw, 80px); align-items: end; padding-block: clamp(40px, 6vw, 88px) clamp(40px, 5vw, 72px); }
+.ex-stage-head:has(+ .ex-strip) { padding-bottom: clamp(20px, 3vw, 36px); }
+.ex-strip { padding-bottom: clamp(32px, 5vw, 72px); }
+.ex-strip img { display: block; width: 100%; height: auto; max-width: 1100px; margin-inline: auto; }
+@media (max-width: 640px) { .ex-strip img { max-width: 300px; } }
+[data-theme="dark"] .ex-strip img { filter: brightness(0.88) saturate(1.05); }
 .ex-stage-head h1 { font-size: clamp(2.25rem, 1.4rem + 3.4vw, 4.25rem); line-height: 0.98; letter-spacing: -0.025em; }
 /* The years are meta, not an action: ink-muted Inter 500. */
 .explore .ex-stage-head__years { margin-top: 12px; font-size: 16px; font-weight: 500; color: var(--ink-muted); font-variant-numeric: tabular-nums; }

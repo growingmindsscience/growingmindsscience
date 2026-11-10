@@ -130,6 +130,26 @@ ${close("Go deeper, one age at a time.",
 // Start here: the period's curated Read / Try / Learn (explore.json stages[].home), in the Lens
 // page's notation: a clay Inter label beside a Newsreader name, under quiet rules.
 const START = [["read", "Read"], ["try", "Try"], ["learn", "Learn"]];
+// Three-beat watercolor strip under the stage hero. 4-to-5 has none, so its page is unchanged.
+const STRIPS = {
+  "birth-to-1": { alt: "Three moments between a parent and a baby sitting face to face: the baby waves, the parent answers with an open hand, and they reach toward each other.", w: 1600, h: 460, bw: 572, bh: 486 },
+  "1-to-2": { alt: "Three moments: a toddler notices a cat, points at it while looking up at his mother, and she holds out a hand toward the cat as they both look.", w: 1600, h: 469, bw: 512, bh: 577 },
+  "2-to-3": { alt: "Three moments at a slide: a parent crouches and talks with a toddler, holds out a hand while the toddler hesitates, then they walk away hand in hand.", w: 1600, h: 468, bw: 380, bh: 471 },
+  "3-to-4": { alt: "Three moments with a picture book: a child points at a rabbit on the page, the parent points and talks, and the child tells the story back.", w: 1600, h: 471, bw: 628, bh: 550 },
+};
+function stageStrip(s) {
+  const t = STRIPS[s.slug];
+  if (!t) return "";
+  const base = `/assets/img/site/explore/strip-${s.slug}`;
+  return `      <div class="hb-container ex-strip" data-rise style="--i:2">
+        <picture>
+          <source media="(max-width: 640px)" srcset="${base}-beat.webp" width="${t.bw}" height="${t.bh}" />
+          <img src="${base}-800.webp" srcset="${base}-800.webp 800w, ${base}-1600.webp 1600w" sizes="(min-width: 1400px) 1320px, 92vw" width="${t.w}" height="${t.h}" alt="${esc(t.alt)}" loading="eager" decoding="async" />
+        </picture>
+      </div>
+`;
+}
+
 function startHere(s) {
   if (!s.home) return "";
   const rows = START.filter(([k]) => s.home[k]).map(([k, label]) =>
@@ -216,7 +236,7 @@ ${ageLine(s.id)}
         </div>
 ${startHere(s)}
       </div>
-    </section>
+${stageStrip(s)}    </section>
 ${lens ? lensDoor(lens) + "\n" : ""}    <section class="hub-sec hub-sec--white ex-sec" id="moments" aria-labelledby="moments-heading">
       <div class="hb-container">
         <div class="ex-sec__head" data-rise>
