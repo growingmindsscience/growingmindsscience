@@ -284,9 +284,8 @@ const homeRows = (home) => {
       return s;
     });
     placed += stages.length;
-    const items = stages.map((s) => `<li><span class="yrs">${ent(s.years)}</span><span class="win">${ent(s.name)}</span></li>`).join("");
     const from = (stages[0].from / 60) * 100, to = (stages[stages.length - 1].to / 60) * 100;
-    const block = `            <ul class="menu__windows" aria-label="Ages in this class">${items}</ul>\n            <div class="range" aria-hidden="true"><div class="range__track" style="--from:${from}%;--to:${to}%"><i></i></div><small><span>birth</span><span>5 years</span></small></div>`;
+    const block = `            <div class="range" aria-hidden="true"><div class="range__track" style="--from:${from}%;--to:${to}%"><i></i></div><small><span>birth</span><span>5 years</span></small></div>`;
     const re = new RegExp(`(<!-- explore:class:${c.id}:start -->)[\\s\\S]*?(<!-- explore:class:${c.id}:end -->)`);
     if (!re.test(home)) throw new Error(`index.html: no explore:class:${c.id} markers`);
     home = home.replace(re, (_, a, b) => `${a}\n${block}\n${b}`);
