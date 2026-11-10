@@ -31,9 +31,9 @@
   <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
   <link rel="stylesheet" href="/assets/css/tools.css?v=4c6ab1c94c" />
-  <link rel="stylesheet" href="/assets/css/hubs.css?v=36987dd3b5" />
+  <link rel="stylesheet" href="/assets/css/hubs.css?v=555375e0a7" />
   <link rel="stylesheet" href="/assets/css/guide.css?v=5d9402490a" />
-  <link rel="stylesheet" href="/assets/css/toolapp.css?v=89edcc16d7" />
+  <link rel="stylesheet" href="/assets/css/toolapp.css?v=180c8dc937" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=eacaf2a72e" />
   <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
   /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
@@ -112,6 +112,7 @@
       </div>
     </section>
 
+    <div class="ta-side">
     <section class="g-sec" id="snapshot" aria-label="Communication Snapshot">
       <div class="hb-container g-narrow cs-app">
         <div class="cs-card" id="cs-root">
@@ -121,11 +122,16 @@
       </div>
     </section>
 
-    <section class="g-sec" id="how-it-works">
+    <section class="g-sec ta-note" id="how-it-works">
       <div class="hb-container g-narrow">
         <h2>How this works</h2>
         <p class="section-intro">Behind this tool sits a set of published red lines, things like <em>no single words by 16 months</em> (Filipek et al., 1999) and the <em>fewer than 50 words or no combinations at 24 months</em> late-talker marker (Rescorla, 1989). Each line is stored with its source, and an automated check runs on every update to this site: if a change would classify one of these red-line observations more softly than its stored line, the check fails. The tool may flag earlier than these lines; it is never allowed to flag later. Where a question here matches a skill the CDC&rsquo;s 2022 milestone checklists expect by an age your child has passed, a &ldquo;not yet&rdquo; is always worth at least a watch, and from 12 months it is worth raising, because the CDC asks parents to talk with the doctor when a child misses any milestone.</p>
         <p class="section-intro">Two details we handle the way clinicians do: if your child was born more than 3 weeks early, we use corrected age (counted from the due date) under 24 months. And words count across every language your family speaks; being bilingual never delays any line here.</p>
+      </div>
+    </section>
+    </div>
+    <section class="g-sec ta-src">
+      <div class="hb-container g-narrow">
         <div class="sources-panel">
         <h2>Sources</h2>
         <ul class="source-list">

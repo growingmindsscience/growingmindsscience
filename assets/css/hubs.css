@@ -122,6 +122,19 @@
 .bio__text h2 { color: var(--ink); font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.75rem); line-height: 1.05; }
 .bio__role { color: var(--ink); font-weight: 500; }
 @media (max-width: 760px) { .bio { grid-template-columns: minmax(0, 1fr); } .bio img { max-width: 160px; } }
+.bio__src { display: grid; gap: 14px; }
+@media (min-width: 1100px) {
+  .bio { grid-template-columns: clamp(220px, 19.5vw, 280px) minmax(0, 38rem) minmax(260px, 1fr); column-gap: clamp(32px, 4vw, 56px); row-gap: 14px; }
+  .bio__text > .creds { font-size: 1rem; }
+  .bio__text > .creds li { grid-template-columns: 3rem minmax(0, 1fr); gap: 10px; padding-block: 8px; }
+  .bio__text > .creds li:first-child { padding-top: 0; }
+  .bio > img { grid-column: 1; grid-row: 1 / span 6; }
+  .bio__text { display: contents; }
+  .bio__text > * { grid-column: 2; }
+  .bio__text > .creds { grid-column: 3; grid-row: 1 / span 2; align-self: start; }
+  .bio__text > .bio__src { grid-column: 3; grid-row: 3 / span 4; align-self: start; }
+  .bio__text > .bio__src .hub-src { margin-top: 0; }
+}
 /* Five principles as rows: the name, then its one line. */
 .principles { display: grid; }
 .principles > div { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 4px 28px; padding-block: 18px; border-top: 1px solid var(--sage-mist-2); align-items: baseline; }
@@ -329,6 +342,12 @@
 @media (max-width: 860px) {
   .ct { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-template-areas: "who" "form" "routes"; gap: 28px; }
   .ct__routes { margin-top: 20px; }
+}
+@media (min-width: 1100px) {
+  .ct__who { grid-template-columns: 200px minmax(0, 1fr); gap: 28px; }
+  .ct__face { width: 200px; }
+  .ct__form { position: sticky; top: 96px; }
+  .fg .ct__crisis > p:first-child { color: var(--ink); font-size: 1rem; max-width: 50ch; }
 }
 @media (max-width: 420px) { .ct__who { grid-template-columns: 64px minmax(0, 1fr); gap: 16px; } .ct__face { width: 64px; } }
 
