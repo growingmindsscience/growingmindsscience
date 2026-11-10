@@ -9,7 +9,9 @@
    its figures somewhere inside. --cx/--cw/--top say where (fractions of
    the canvas, printed by scripts/playground-art.py), so the figures are fitted
    to whatever box they are given and stand on one shared ground line. */
-.pg-story { --pg-ground: #F8F9FB; background: var(--pg-ground); padding-block: clamp(56px, 7vw, 100px); }
+/* overflow-anchor: when the script turns the plain sequence into the pinned stage the
+   section gets shorter; the browser must not move the scroll position to follow a beat. */
+.pg-story { --pg-ground: #F8F9FB; background: var(--pg-ground); padding-block: clamp(56px, 7vw, 100px); overflow-anchor: none; }
 [data-theme="dark"] .pg-story { --pg-ground: var(--paper); }
 .pg-head { max-width: 44rem; }
 .fg .pg-standfirst { margin: clamp(14px, 1.6vw, 20px) 0 0; max-width: 36ch; font-size: var(--step-lead); line-height: 1.4; color: var(--ink-soft); }
@@ -47,16 +49,22 @@
 }
 /* Watercolor needs paper. On the night page the art keeps a sheet of it. */
 [data-theme="dark"] .pg-art { background: #F8F9FB; border-radius: var(--radius-lg); }
+.fg .pg-skip { margin: 14px 0 0; font-size: 1rem; }
+.fg .pg-skip a { display: inline-block; padding-block: 12px; margin-block: -12px; color: var(--forest); font-weight: 500; text-decoration: underline; text-underline-offset: 0.2em; }
+.fg .pg-skip a:hover { color: var(--forest-deep); text-decoration-thickness: 2px; }
 .pg-progress { display: none; }
 
 /* Live: the pinned stage */
 @media screen {
-  .pg-live .pg-track { position: relative; margin-top: clamp(8px, 2vw, 24px); height: calc(100vh - var(--header-h) + var(--pg-travel, 2.75) * var(--pg-pace, 1) * 100vh); height: calc(100svh - var(--header-h) + var(--pg-travel, 2.75) * var(--pg-pace, 1) * 100svh); }
+  .pg-live .pg-track { position: relative; margin-top: clamp(8px, 2vw, 24px); height: calc(100vh - var(--header-h) + var(--pg-travel, 1.85) * var(--pg-pace, 1) * 100vh); height: calc(100svh - var(--header-h) + var(--pg-travel, 1.85) * var(--pg-pace, 1) * 100svh); }
   .pg-live .pg-stage { position: sticky; top: var(--header-h); height: calc(100vh - var(--header-h)); height: calc(100svh - var(--header-h)); overflow: hidden; background: var(--pg-ground); }
   .fg .pg-live .pg-beats { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; height: 100%; margin: 0; }
-  .pg-live .pg-beat { grid-area: 1 / 1; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 8fr); column-gap: clamp(24px, 4vw, 64px); align-items: center; min-height: 0; }
+  .pg-live .pg-beat { grid-area: 1 / 1; display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 7fr); column-gap: clamp(24px, 4vw, 64px); align-items: center; min-height: 0; }
   .pg-live .pg-text { min-height: 15.5rem; }
   .fg .pg-live .pg-line { margin-top: 14px; font-size: clamp(1.875rem, 1rem + 2.5vw, 3.25rem); line-height: 1.1; letter-spacing: -0.022em; }
+  /* The caption is sized from its own column, so the longest line (the last beat) never
+     breaks and every caption stays on two lines. */
+  @supports (width: 1cqw) { .pg-live .pg-text { container-type: inline-size; } .fg .pg-live .pg-line { font-size: clamp(1.5rem, 7.6cqw, 3.25rem); } }
   .pg-live .pg-art { order: 0; aspect-ratio: auto; height: min(70vh, 760px, 100% - 48px); height: min(70svh, 760px, 100% - 48px); margin: 0; overflow: visible; }
   .pg-live .pg-cam { will-change: opacity, transform; }
   .pg-live .pg-text { will-change: opacity, transform; }
@@ -77,8 +85,7 @@
 
 /* The handoff: the moment the reader just watched is a lesson in the toddler class. */
 .fg .story-next { margin-top: clamp(32px, 4vw, 48px); padding: clamp(24px, 3vw, 36px); border-radius: var(--radius-lg); background: var(--sage-mist); }
-.fg .story-next__eyebrow { margin: 0; font-size: 14px; font-weight: 500; letter-spacing: 0.01em; color: var(--forest); }
-.fg .story-next__title { margin: 8px 0 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); line-height: 1.2; letter-spacing: -0.015em; color: var(--ink); }
+.fg .story-next__title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem); line-height: 1.15; letter-spacing: -0.015em; color: var(--ink); }
 .fg .story-next__body { margin: 12px 0 0; max-width: 58ch; font-size: 1.0625rem; line-height: 1.65; color: var(--ink-soft); }
 .story-next__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 24px; }
 .fg .story-next__price { font-size: 14px; color: var(--ink-muted); }

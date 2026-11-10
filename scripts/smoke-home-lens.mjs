@@ -17,9 +17,9 @@ const browser = await chromium.launch({ ...(process.env.CHROMIUM_PATH ? { execut
 const errors = [];
 const keys = ['leave', 'acknowledge', 'hold', 'together'];
 /* A scroll position well inside each beat's rest, as a fraction of the pinned travel. */
-const rests = { leave: 0.05, acknowledge: 0.32, hold: 0.63, together: 0.92 };
+const rests = { leave: 0.05, acknowledge: 0.34, hold: 0.635, together: 0.92 };
 /* The middle of each change between beats. */
-const changes = [0.173, 0.482, 0.791];
+const changes = [0.189, 0.486, 0.784];
 const capture = process.env.LENS_CAPTURE === '1';
 const output = root + 'output/playground-story';
 if (capture) await mkdir(output, { recursive: true });
@@ -150,7 +150,7 @@ try {
     return { over, ground: ground / (px.length / 4) };
   }, shot.toString('base64'));
   check(bright.over === 0 && bright.ground > 0.6, 'the art sits on the exact page ground, no lighter rectangle around it');
-  check(await page.locator('#lens a').count() === 2 && await page.locator('#lens a[href="/lens/leaving-the-playground"]').count() === 1 && await page.locator('#lens a[href="/classes/toddlerhood#sample"]').count() === 1, 'the class handoff and the full guide link are kept');
+  check(await page.locator('#lens a').count() === 3 && await page.locator('#lens .pg-head a[href="#classes"]').count() === 1 && await page.locator('#lens a[href="/lens/leaving-the-playground"]').count() === 1 && await page.locator('#lens a[href="/classes/toddlerhood#sample"]').count() === 1, 'the class handoff, the full guide link and the skip to classes are kept');
   await context.close();
 
   /* Dark mode keeps a sheet of paper under the art. */
