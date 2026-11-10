@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="/assets/css/tools.css?v=4c6ab1c94c" />
   <link rel="stylesheet" href="/assets/css/hubs.css?v=555375e0a7" />
   <link rel="stylesheet" href="/assets/css/guide.css?v=5d9402490a" />
-  <link rel="stylesheet" href="/assets/css/toolapp.css?v=180c8dc937" />
+  <link rel="stylesheet" href="/assets/css/toolapp.css?v=1bebdbb98d" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=eacaf2a72e" />
   <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
   /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
@@ -124,10 +124,14 @@
         <div class="al-panel" id="al-browse" aria-labelledby="al-browse-title">
           <h2 id="al-browse-title">Browse the library</h2>
           <p class="al-sub">Set the age and anything else you care about. Everything else is optional.</p>
-          <div class="al-filters" id="al-filters"></div>
-          <p class="al-count" id="al-count" role="status"></p>
-          <noscript><p class="al-count">The library needs JavaScript to show its activities. Please turn it on and reload the page.</p></noscript>
-          <div class="al-grid" id="al-grid"></div>
+          <div class="al-browse">
+            <div class="al-rail">
+              <div class="al-filters" id="al-filters"></div>
+              <p class="al-count" id="al-count" role="status"></p>
+            </div>
+            <noscript><p class="al-count">The library needs JavaScript to show its activities. Please turn it on and reload the page.</p></noscript>
+            <div class="al-index" id="al-grid"></div>
+          </div>
         </div>
 
         <p class="al-note">These activities are educational suggestions, not therapy or medical advice. You know your child; skip anything that doesn&rsquo;t fit their abilities today, and stay close for anything involving water, climbing, or food. Ages are guides, not rules. For a possible poisoning, call Poison Control at <a href="tel:18002221222">1-800-222-1222</a>.</p>
@@ -391,6 +395,83 @@
       return true;
     }
 
+    /* The how-to, shared by the Today cards and the index rows. Two columns
+       of it sit side by side in a wide row: the doing, then the adjusting. */
+    function detailBody(a, h) {
+      const doing = el("div", { class: "al-detail__col" }, [
+        el(h, { text: "You need" }),
+        el("ul", {}, a.materials.map((m) => el("li", { text: typo(m.item) }))),
+        el(h, { text: "Steps" }),
+        el("ol", {}, a.steps.map((s) => el("li", { text: typo(s) }))),
+      ]);
+      const tuning = el("div", { class: "al-detail__col" }, [
+        el(h, { text: "Make it easier" }),
+        el("p", { text: typo(a.adapt_down) }),
+        el(h, { text: "Make it harder" }),
+        el("p", { text: typo(a.adapt_up) }),
+      ]);
+      if (a.safety_notes && a.safety_notes !== "None.") {
+        tuning.appendChild(el(h, { text: "Safety" }));
+        tuning.appendChild(el("p", { class: "al-safety", text: typo(a.safety_notes) }));
+      }
+      tuning.appendChild(el(h, { text: "The research angle" }));
+      tuning.appendChild(el("p", { text: typo(a.evidence_note) }));
+      return el("div", { class: "al-detail" }, [doing, tuning]);
+    }
+
+    /* One line of the index: the title, the why, and the facts as plain text.
+       The whole line opens the how-to in place. */
+    function activityRow(a, titleTag) {
+      const sub = titleTag === "h4" ? "h5" : "h4";
+      const facts = [
+        `${a.months_min}–${a.months_max} mo`,
+        a.domains.map((d) => DOMAIN_LABEL[d] || pretty(d)).join(", "),
+        `${a.duration_min} min`,
+        MESS_WORD[a.mess_level] || "",
+      ].filter(Boolean).map((f) => f.replace(/ /g, "\u00a0")).join("\u00a0· "); // a fact never splits across lines, and the dot stays with the fact before it
+      const body = detailBody(a, sub);
+      body.appendChild(el("div", { class: "al-row__foot" }, [
+        el("button", { type: "button", class: "gms-link", "aria-label": "Print card: " + typo(a.title), text: "Print card", onclick: () => printActivity(a) }),
+      ]));
+      return el("li", { class: "al-row", "data-slug": a.slug }, [
+        el("details", {}, [
+          el("summary", {}, [
+            el(titleTag, { class: "al-row__title", text: typo(a.title) }),
+            el("span", { class: "al-row__why", text: show(a.intention) }),
+            el("span", { class: "al-row__meta", text: facts }),
+            el("span", { class: "al-row__mark", "aria-hidden": "true" }),
+          ]),
+          body,
+        ]),
+      ]);
+    }
+
+    /* With every age showing, the index is grouped by the age an activity
+       starts at. With one age picked, it is a single list. */
+    const STARTS = [
+      { min: 0, label: "From birth" }, { min: 6, label: "From 6 months" }, { min: 12, label: "From 12 months" },
+      { min: 18, label: "From 18 months" }, { min: 24, label: "From 2 years" },
+    ];
+    function renderIndex(list) {
+      const byAge = (x, y) => x.months_min - y.months_min || x.months_max - y.months_max;
+      if (state.band !== "all") {
+        grid.appendChild(el("ol", { class: "al-rows" }, list.slice().sort(byAge).map((a) => activityRow(a, "h3"))));
+        return;
+      }
+      STARTS.forEach((g, i) => {
+        const next = STARTS[i + 1] ? STARTS[i + 1].min : Infinity;
+        const mine = list.filter((a) => a.months_min >= g.min && a.months_min < next).sort(byAge);
+        if (!mine.length) return;
+        grid.appendChild(el("section", { class: "al-group" }, [
+          el("div", { class: "al-group__head" }, [
+            el("h3", { text: g.label }),
+            el("span", { class: "al-group__n", text: String(mine.length) }),
+          ]),
+          el("ol", { class: "al-rows" }, mine.map((a) => activityRow(a, "h4"))),
+        ]));
+      });
+    }
+
     function activityCard(a, opts) {
       const card = el("article", { class: "al-card", "data-slug": a.slug });
       card.appendChild(el("div", { class: "al-card__meta" }, [
@@ -403,21 +484,7 @@
       card.appendChild(el("p", { class: "al-card__intent", text: "Why: " + show(a.intention) }));
 
       const d = el("details", {}, [el("summary", {}, ["How to do it", el("span", { class: "sr-only", text: ": " + typo(a.title) })])]);
-      const body = el("div", { class: "al-detail" });
-      body.appendChild(el("h4", { text: "You need" }));
-      body.appendChild(el("ul", {}, a.materials.map((m) => el("li", { text: typo(m.item) }))));
-      body.appendChild(el("h4", { text: "Steps" }));
-      body.appendChild(el("ol", {}, a.steps.map((s) => el("li", { text: typo(s) }))));
-      body.appendChild(el("h4", { text: "Make it easier" }));
-      body.appendChild(el("p", { text: typo(a.adapt_down) }));
-      body.appendChild(el("h4", { text: "Make it harder" }));
-      body.appendChild(el("p", { text: typo(a.adapt_up) }));
-      if (a.safety_notes && a.safety_notes !== "None.") {
-        body.appendChild(el("h4", { text: "Safety" }));
-        body.appendChild(el("p", { class: "al-safety", text: typo(a.safety_notes) }));
-      }
-      body.appendChild(el("h4", { text: "The research angle" }));
-      body.appendChild(el("p", { text: typo(a.evidence_note) }));
+      const body = detailBody(a, "h4");
       d.appendChild(body);
       card.appendChild(d);
 
@@ -454,7 +521,7 @@
       countEl.textContent = list.length
         ? `${list.length} ${list.length === 1 ? "activity" : "activities"}`
         : "Nothing matches those filters; loosen one and good options come back.";
-      list.forEach((a) => grid.appendChild(activityCard(a)));
+      renderIndex(list);
     }
 
     /* ---- Today's 3 (needs a child with an age) ---- */
