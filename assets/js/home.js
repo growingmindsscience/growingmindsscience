@@ -362,10 +362,6 @@
       items.forEach(function (it) {
         var on = it.getAttribute("data-class-id") === cid;
         it.classList.toggle("is-match", on);
-        Array.prototype.forEach.call(it.querySelectorAll(".menu__windows li"), function (li) {
-          var y = li.querySelector(".yrs");
-          li.classList.toggle("is-match", on && !!y && y.textContent === yrs);
-        });
       });
       var cls = classes[cid] || { href: "/classes/", name: "the classes", short: "classes", price: "" };
       note.innerHTML = "";
