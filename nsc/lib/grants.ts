@@ -14,6 +14,7 @@
  * | Legacy $49 class bundle      | class:toddlerhood + ai:unlimited, perpetual   |
  * | Infant class $49 one-time    | class:infant, perpetual                       |
  * | Preschool class $49 one-time | class:preschool, perpetual                    |
+ * | Family class $49 one-time    | class:family, perpetual                       |
  * | All-classes bundle $119      | all three class scopes + ai:unlimited, perp.  |
  * | Tallykin $34 one-time     | numberpath_full, perpetual (kept standalone)  |
  * | Tallykin gift redemption  | numberpath_full, perpetual, source gift       |
@@ -187,6 +188,15 @@ export function grantsForOneTimePurchase(args: {
       return [
         {
           product_scope: "class:preschool",
+          source: "stripe_otp",
+          source_ref: sessionId,
+          expires_at: null,
+        },
+      ];
+    case "class_family":
+      return [
+        {
+          product_scope: "class:family",
           source: "stripe_otp",
           source_ref: sessionId,
           expires_at: null,

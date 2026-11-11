@@ -43,7 +43,7 @@ export async function POST(request: Request) {
   const { data: lesson } = await service.from("class_lessons")
     .select("id, mux_asset_id, mux_playback_id, duration_seconds, transcript, status")
     .eq("id", lessonId)
-    .in("course_slug", ["toddlerhood", "infant", "preschool"])
+    .in("course_slug", ["toddlerhood", "infant", "preschool", "family"])
     .maybeSingle();
   if (!lesson?.mux_asset_id || !lesson.mux_playback_id) {
     return NextResponse.json({ error: "No ready video" }, { status: 404 });

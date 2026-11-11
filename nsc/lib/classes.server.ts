@@ -1,7 +1,7 @@
 import "server-only";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
 import {
-  CLASS_COURSES, INFANT_COURSE, INFANT_MODULE_LESSON_COUNTS, PRESCHOOL_COURSE, PRESCHOOL_MODULE_LESSON_COUNTS,
+  CLASS_COURSES, INFANT_COURSE, INFANT_MODULE_LESSON_COUNTS, PRESCHOOL_COURSE, FAMILY_MODULE_LESSON_COUNTS, familySalesGate, PRESCHOOL_MODULE_LESSON_COUNTS,
   TODDLER_COURSE, TODDLER_MODULE_LESSON_COUNTS, infantSalesGate, ownsToddlerClass, preschoolSalesGate, toddlerSalesGate,
   type ClassCourseSlug, type ClassLesson,
 } from "@/lib/classes";
@@ -67,6 +67,7 @@ export async function classSalesOpen(courseSlug: ClassCourseSlug = TODDLER_COURS
     infant: { required: INFANT_MODULE_LESSON_COUNTS, gate: infantSalesGate, prefix: "INFANT" },
     preschool: { required: PRESCHOOL_MODULE_LESSON_COUNTS, gate: preschoolSalesGate, prefix: "PRESCHOOL" },
     toddlerhood: { required: TODDLER_MODULE_LESSON_COUNTS, gate: toddlerSalesGate, prefix: "TODDLER" },
+    family: { required: FAMILY_MODULE_LESSON_COUNTS, gate: familySalesGate, prefix: "FAMILY" },
   }[courseSlug];
   const lessons = await publishedLessons(courseSlug);
   const gate = course.gate({
