@@ -91,17 +91,17 @@ export function courseForProduct(product: string | undefined) {
   return Object.values(CLASS_COURSES).find((course) => course.product === product);
 }
 
-/** All three classes in one payment. Each class still grants on its own scope. */
+/** All four classes in one payment. Each class still grants on its own scope. */
 export const CLASS_BUNDLE = {
   slug: "bundle",
-  title: "All three classes",
-  shortTitle: "All three classes",
-  heading: "All three classes",
+  title: "All four classes",
+  shortTitle: "All four classes",
+  heading: "All four classes",
   product: "class_bundle_all",
-  priceDisplay: "$119",
-  separateDisplay: "$147",
-  savingsDisplay: "$28",
-  courses: ["infant", "toddlerhood", "preschool"] as ClassCourseSlug[],
+  priceDisplay: "$159",
+  separateDisplay: "$196",
+  savingsDisplay: "$37",
+  courses: ["infant", "toddlerhood", "preschool", "family"] as ClassCourseSlug[],
 } as const;
 
 /** A class or the bundle: anything one class checkout can sell. */

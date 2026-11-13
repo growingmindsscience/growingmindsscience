@@ -30,12 +30,14 @@ describe("BundleWelcome", () => {
         { courseSlug: "infant", firstLessonSlug: "a" },
         { courseSlug: "toddlerhood", firstLessonSlug: "b" },
         { courseSlug: "preschool" },
+        { courseSlug: "family", firstLessonSlug: "d" },
       ],
     }));
-    expect(text(html)).toContain("All three classes are ready");
+    expect(text(html)).toContain("All four classes are ready");
     expect(html).toContain('href="/app/classes/infant/lessons/a"');
     expect(html).toContain('href="/app/classes/toddlerhood/lessons/b"');
     expect(html).toContain('href="/app/classes/preschool"');
-    expect((text(html).match(/Start lesson 1/g) ?? []).length).toBe(2);
+    expect(html).toContain('href="/app/classes/family/lessons/d"');
+    expect((text(html).match(/Start lesson 1/g) ?? []).length).toBe(3);
   });
 });

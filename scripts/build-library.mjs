@@ -35,7 +35,7 @@ const CLASS_META = {
   "birth-to-12-months": { href: "/classes/birth-to-12-months", title: "Birth to 12 Months", tag: "Available now" },
   toddlerhood: { href: "/classes/toddlerhood", title: "Toddler Years", tag: "Available now" },
   preschool: { href: "/classes/preschool", title: "Preschool Years", tag: "Available now" },
-  "family-systems": { href: "/classes/family-systems", title: "Family Systems & Stress", tag: "Waitlist" },
+  "family-systems": { href: "/classes/family-systems", title: "Family Systems & Stress", tag: "Available now" },
 };
 const ARTICLE_TITLE = {
   "serve-and-return": "What “serve and return” actually means",
@@ -155,7 +155,7 @@ ${body}
 
   <script src="/assets/js/chrome.js?v=072b6d90d4"></script>
   <script src="/assets/js/main.js?v=b5c8e48c2d" defer></script>
-  <script src="/assets/js/home.js?v=53f9d7b185" defer></script>
+  <script src="/assets/js/home.js?v=30ec994df1" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

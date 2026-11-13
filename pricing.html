@@ -6,7 +6,7 @@
   <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
   /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <title>Pricing | From Little Onward</title>
-  <meta name="description" content="Everything From Little Onward offers, in one place: free tools and articles, the $49 first-year class, the $49 toddler class with the AI tool included, the $49 preschool class, all three classes for $119 with the AI tool included, and the free Tallykin check-in (the full version is $34)." />
+  <meta name="description" content="Everything From Little Onward offers, in one place: free tools and articles, the $49 first-year class, the $49 toddler class with the AI tool included, the $49 preschool class, the $49 family systems class, all four classes for $159 with the AI tool included, and the free Tallykin check-in (the full version is $34)." />
   <meta name="theme-color" content="#F8F9FB" />
   <meta name="color-scheme" content="light dark" />
 
@@ -121,12 +121,19 @@
               <a class="hb-btn" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Fpreschool%2Fenroll">Enroll, $49<span class="u-visually-hidden">: Preschool years</span></a>
             </div>
           </div>
-          <div class="price-row price-row--feature" id="all-three" data-rise>
-            <div><h3 class="row__name"><a href="/classes/#bundle">All three classes</a></h3><div class="range" aria-hidden="true"><div class="range__track" style="--from:0%;--to:100%"><i></i></div><small><span>birth</span><span>5 years</span></small></div><p class="row__desc">Birth to 12 months, the toddler years, and the preschool years in one enrollment, ready as your child grows into each one. 44 lessons from birth to age 5. Ask the research, the AI tool, is included, with a fair-use limit of 50 questions a day.</p></div>
-            <p class="price-row__amount">$119<small>once, lifetime access</small><span class="price-row__save">Save $28</span></p>
+          <div class="price-row" data-rise>
+            <div><h3 class="row__name"><a href="/classes/family-systems">The whole family, any age</a></h3><div class="range" aria-hidden="true"><div class="range__track" style="--from:0%;--to:100%"><i></i></div><small><span>birth</span><span>5 years</span></small></div><p class="row__desc">Family systems and stress: the adults, siblings, work, and hard seasons around a child, for any age and any family shape. 13 short lessons.</p></div>
+            <p class="price-row__amount">$49<small>once, lifetime access</small></p>
             <div class="price-row__act">
-              <a class="hb-btn" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Fbundle%2Fenroll">Enroll, $119<span class="u-visually-hidden">: all three classes</span></a>
-              <p class="price-row__fine">You save $28 compared with buying each class on its own ($147).</p>
+              <a class="hb-btn" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Ffamily%2Fenroll">Enroll, $49<span class="u-visually-hidden">: The whole family</span></a>
+            </div>
+          </div>
+          <div class="price-row price-row--feature" id="all-four" data-rise>
+            <div><h3 class="row__name"><a href="/classes/#bundle">All four classes</a></h3><div class="range" aria-hidden="true"><div class="range__track" style="--from:0%;--to:100%"><i></i></div><small><span>birth</span><span>5 years</span></small></div><p class="row__desc">Birth to 12 months, the toddler years, the preschool years, and the whole family in one enrollment, ready as your child grows into each one. 57 lessons. Ask the research, the AI tool, is included, with a fair-use limit of 50 questions a day.</p></div>
+            <p class="price-row__amount">$159<small>once, lifetime access</small><span class="price-row__save">Save $37</span></p>
+            <div class="price-row__act">
+              <a class="hb-btn" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Fbundle%2Fenroll">Enroll, $159<span class="u-visually-hidden">: all four classes</span></a>
+              <p class="price-row__fine">You save $37 compared with buying each class on its own ($196).</p>
             </div>
           </div>
         </div>
@@ -173,7 +180,7 @@
         <div class="qa" data-rise style="--i:1">
           <details id="ai-tool">
             <summary>Which class includes the AI tool?</summary>
-            <p>The toddler class, and all three classes when you enroll in them together. Ask the research, the AI tool, is included with either, with a fair-use limit of 50 questions a day. Without a class, Ask the research answers five free questions a day, with no account and no card.</p>
+            <p>The toddler class, and all four classes when you enroll in them together. Ask the research, the AI tool, is included with either, with a fair-use limit of 50 questions a day. Without a class, Ask the research answers five free questions a day, with no account and no card.</p>
           </details>
           <details id="refunds">
             <summary>Can I get a refund?</summary>
@@ -269,7 +276,7 @@
   <script src="/assets/js/chrome.js?v=072b6d90d4"></script>
 
   <script src="/assets/js/main.js?v=b5c8e48c2d" defer></script>
-  <script src="/assets/js/home.js?v=53f9d7b185" defer></script>
+  <script src="/assets/js/home.js?v=30ec994df1" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

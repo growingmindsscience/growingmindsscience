@@ -134,7 +134,7 @@ ${list(allAges, 8)}
       </div>
     </section>
 ${close("Go deeper, one age at a time.",
-  "The classes explain the why. Three classes are open, one for each window of the first five years, $49 each with lifetime access.",
+  "The classes explain the why. Four classes are open, one for each window of the first five years and one for the whole family, $49 each with lifetime access.",
   `<a class="hb-btn hb-btn--paper" href="/classes/">Browse the classes</a><a class="hb-btn hb-btn--quiet" href="${RIGHT_NOW}">It&rsquo;s hard right now</a>`)}`;
 }
 

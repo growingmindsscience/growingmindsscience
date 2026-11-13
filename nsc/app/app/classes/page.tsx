@@ -18,8 +18,7 @@ export const dynamic = "force-dynamic";
 export const metadata = { title: "My classes" };
 
 /** Catalog order: youngest age first. */
-// The family systems class joins this list when its lessons are published.
-const COURSE_ORDER: ClassCourseSlug[] = ["infant", "toddlerhood", "preschool"];
+const COURSE_ORDER: ClassCourseSlug[] = ["infant", "toddlerhood", "preschool", "family"];
 const CHECKOUT = {
   infant: startInfantClassCheckout, toddlerhood: startClassCheckout, preschool: startPreschoolClassCheckout,
   family: startFamilyClassCheckout,
@@ -126,10 +125,10 @@ export default async function MyClassesPage({ searchParams }: {
           {bundleOpen && (
             <Card className="flex flex-col gap-1 border-2 border-teal sm:flex-row sm:items-center sm:gap-6">
               <div className="flex-1">
-                <Eyebrow>Birth to age 5 · Best value</Eyebrow>
+                <Eyebrow>Birth to age 5, and the family · Best value</Eyebrow>
                 <h3 className="mt-2 text-xl text-ink-deep">{CLASS_BUNDLE.title}</h3>
                 <p className="mt-1 text-sm text-ink-soft">
-                  Birth to 12 months, Toddler years, and Preschool years, ready as your child grows.
+                  Birth to 12 months, Toddler years, Preschool years, and Family systems and stress, ready as your child grows.
                   Ask the research is included, with a fair-use limit of {CLASS_AI_FAIR_USE_PER_DAY} questions a day.
                 </p>
                 <p className="mt-4 text-ink">
@@ -140,7 +139,7 @@ export default async function MyClassesPage({ searchParams }: {
                 </p>
               </div>
               <form action={startBundleCheckout} className="pt-4 sm:pt-0">
-                <SubmitButton pendingLabel="Opening checkout…">Enroll in all three</SubmitButton>
+                <SubmitButton pendingLabel="Opening checkout…">Enroll in all four</SubmitButton>
               </form>
             </Card>
           )}

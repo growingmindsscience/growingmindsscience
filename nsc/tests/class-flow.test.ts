@@ -116,7 +116,7 @@ describe("enroll intent", () => {
   it("names the class only for an enroll destination", () => {
     expect(enrollingCourse(INFANT_ENROLL_PATH)?.slug).toBe("infant");
     expect(enrollingCourse("/app/classes/infant")).toBeNull();
-    expect(enrollingCourse(BUNDLE_ENROLL_PATH)).toMatchObject({ slug: "bundle", priceDisplay: "$119" });
+    expect(enrollingCourse(BUNDLE_ENROLL_PATH)).toMatchObject({ slug: "bundle", priceDisplay: "$159" });
     expect(enrollingCourse(PRESCHOOL_ENROLL_PATH)?.slug).toBe("preschool");
     expect(enrollingCourse("/app/classes/preschool")).toBeNull();
     expect(enrollingCourse("/app/classes")).toBeNull();

@@ -78,7 +78,7 @@ export function BundleWelcome({ ready, starts }: {
 }) {
   return (
     <Card>
-      <h1 className="text-2xl text-ink-deep sm:text-3xl">{ready ? "Welcome. All three classes are ready." : "Thank you for enrolling"}</h1>
+      <h1 className="text-2xl text-ink-deep sm:text-3xl">{ready ? "Welcome. All four classes are ready." : "Thank you for enrolling"}</h1>
       <p className="mt-3 text-ink">{ready
         ? "They are yours to keep. Start with the class for your child's age today; the others will be here as they grow."
         : "We're confirming your payment and adding the classes to your account."}</p>

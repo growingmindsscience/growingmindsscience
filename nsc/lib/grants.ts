@@ -15,7 +15,7 @@
  * | Infant class $49 one-time    | class:infant, perpetual                       |
  * | Preschool class $49 one-time | class:preschool, perpetual                    |
  * | Family class $49 one-time    | class:family, perpetual                       |
- * | All-classes bundle $119      | all three class scopes + ai:unlimited, perp.  |
+ * | All-classes bundle $159      | all four class scopes + ai:unlimited, perp.   |
  * | Tallykin $34 one-time     | numberpath_full, perpetual (kept standalone)  |
  * | Tallykin gift redemption  | numberpath_full, perpetual, source gift       |
  */
@@ -202,8 +202,8 @@ export function grantsForOneTimePurchase(args: {
           expires_at: null,
         },
       ];
-    case "class_bundle_all": // all three classes; AI comes with the toddler class
-      return ["class:infant", "class:toddlerhood", "class:preschool", "ai:unlimited"].map((product_scope): Grant => ({
+    case "class_bundle_all": // all four classes; AI comes with the toddler class
+      return ["class:infant", "class:toddlerhood", "class:preschool", "class:family", "ai:unlimited"].map((product_scope): Grant => ({
         product_scope,
         source: "stripe_otp",
         source_ref: sessionId,
