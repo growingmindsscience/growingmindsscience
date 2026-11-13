@@ -91,24 +91,53 @@ export function courseForProduct(product: string | undefined) {
   return Object.values(CLASS_COURSES).find((course) => course.product === product);
 }
 
-/** All four classes in one payment. Each class still grants on its own scope. */
+/**
+ * Two class bundles are sold side by side. Each class inside still grants on
+ * its own scope.
+ *
+ * The three age classes keep the original bundle's slug, product and price
+ * variable (CLASS_BUNDLE_PRICE_ID, $119), so its Checkout, past sessions and
+ * refunds are unchanged. The product name `class_bundle_all` predates the
+ * family class; it means the three age classes.
+ */
 export const CLASS_BUNDLE = {
   slug: "bundle",
+  title: "The three age classes",
+  shortTitle: "Three age classes",
+  heading: "The three age classes",
+  product: "class_bundle_all",
+  priceDisplay: "$119",
+  separateDisplay: "$147",
+  savingsDisplay: "$28",
+  courses: ["infant", "toddlerhood", "preschool"] as ClassCourseSlug[],
+} as const;
+
+/** All four classes, the three age classes plus Family systems and stress (CLASS_BUNDLE_FOUR_PRICE_ID, $159). */
+export const CLASS_BUNDLE_FOUR = {
+  slug: "all-four",
   title: "All four classes",
   shortTitle: "All four classes",
   heading: "All four classes",
-  product: "class_bundle_all",
+  product: "class_bundle_four",
   priceDisplay: "$159",
   separateDisplay: "$196",
   savingsDisplay: "$37",
   courses: ["infant", "toddlerhood", "preschool", "family"] as ClassCourseSlug[],
 } as const;
 
-/** A class or the bundle: anything one class checkout can sell. */
+/** Catalog order: the larger bundle first. */
+export const CLASS_BUNDLES = [CLASS_BUNDLE_FOUR, CLASS_BUNDLE] as const;
+export type ClassBundle = (typeof CLASS_BUNDLES)[number];
+export type ClassBundleSlug = ClassBundle["slug"];
+
+export function bundleForSlug(slug: string): ClassBundle | undefined {
+  return CLASS_BUNDLES.find((bundle) => bundle.slug === slug);
+}
+
+/** A class or a bundle: anything one class checkout can sell. */
 export function classOfferForProduct(product: string | undefined):
-  { slug: ClassCourseSlug | typeof CLASS_BUNDLE.slug; product: string } | undefined {
-  if (product === CLASS_BUNDLE.product) return CLASS_BUNDLE;
-  return courseForProduct(product);
+  { slug: ClassCourseSlug | ClassBundleSlug; product: string } | undefined {
+  return CLASS_BUNDLES.find((bundle) => bundle.product === product) ?? courseForProduct(product);
 }
 
 export function isClassCourseSlug(value: string): value is ClassCourseSlug {

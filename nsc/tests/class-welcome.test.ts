@@ -25,6 +25,7 @@ describe("ClassWelcome", () => {
 describe("BundleWelcome", () => {
   it("offers each class's first lesson so the parent starts at their child's age", () => {
     const html = renderToStaticMarkup(createElement(BundleWelcome, {
+      title: "All four classes",
       ready: true,
       starts: [
         { courseSlug: "infant", firstLessonSlug: "a" },
