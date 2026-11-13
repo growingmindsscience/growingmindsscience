@@ -3,6 +3,16 @@ import type { ClassCourseSlug, ClassLesson } from "@/lib/classes";
 
 /** The public preview page for each class that has a free lesson. */
 export const INFANT_PREVIEW_PATH = "/classes/infant/preview";
+export const TODDLER_PREVIEW_PATH = "/classes/toddlerhood/preview";
+export const PRESCHOOL_PREVIEW_PATH = "/classes/preschool/preview";
+export const FAMILY_PREVIEW_PATH = "/classes/family/preview";
+
+export const CLASS_PREVIEW_PATHS: Record<ClassCourseSlug, string> = {
+  infant: INFANT_PREVIEW_PATH,
+  toddlerhood: TODDLER_PREVIEW_PATH,
+  preschool: PRESCHOOL_PREVIEW_PATH,
+  family: FAMILY_PREVIEW_PATH,
+};
 
 export type FreePreviewLesson = Pick<ClassLesson,
   "id" | "module_number" | "position" | "slug" | "title" | "summary" | "transcript" | "duration_seconds" | "mux_playback_id">;

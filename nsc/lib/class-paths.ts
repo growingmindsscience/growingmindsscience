@@ -22,6 +22,8 @@ export function classDestination(raw: unknown): string {
 export const INFANT_ENROLL_PATH = "/app/classes/infant/enroll";
 /** The same for the preschool class. */
 export const PRESCHOOL_ENROLL_PATH = "/app/classes/preschool/enroll";
+/** The same for the toddler class. */
+export const TODDLER_ENROLL_PATH = "/app/classes/toddlerhood/enroll";
 /** The same for the family systems class. */
 export const FAMILY_ENROLL_PATH = "/app/classes/family/enroll";
 /** The same for the three age classes bundle ($119). */
