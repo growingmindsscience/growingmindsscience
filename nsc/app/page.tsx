@@ -18,7 +18,7 @@ const STEPS = [
   },
   {
     title: "Play the week",
-    body: "Three household games matched to that exact rung, plus a daily ten-second number-talk prompt. A fresh set arrives each week, and every six weeks you re-run the check-in to see where things stand. Rungs take months. A climb and a rung settling in are both the ladder working.",
+    body: "Household games matched to that exact rung, plus a daily ten-second number-talk prompt. One matched game each week is free, and the unlock opens all three. A fresh set arrives each week, and every six weeks you re-run the check-in to see where things stand. Rungs take months. A climb and a rung settling in are both the ladder working.",
   },
 ];
 

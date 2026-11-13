@@ -70,7 +70,7 @@ const DOMAIN_LABEL = {
 // Related pages by their own titles; anything unlisted falls back to its slug.
 const TOOL_NAME = {
   "/milestones": "Milestone tracker",
-  "/tools/whats-typical-by-stage": "What\u2019s typical, by stage",
+  "/tools/whats-typical-by-stage": "Sleep in the first year: what\u2019s typical, by stage",
   "/tools/routines-transitions-night-waking": "Routines, transitions, and night-waking",
   "/tools/communication-snapshot": "Communication Snapshot",
   "/tools/milestone-navigator": "Milestone Navigator",
@@ -419,6 +419,7 @@ ${scale("Consensus", CONSENSUS_SCALE, a.consensus_labels, c.grade_consensus)}
         </nav>
         <div class="hb-read__text">
         <div class="cl-text" id="evidence">
+          <h2 class="sr-only" id="evidence-h">The evidence</h2>
 ${paras.map((p, i) => `          <p class="cl-summary${i === 0 && paras.length > 1 ? " cl-summary--lead" : ""}">${txt(p)}</p>`).join("\n")}
         </div>
         <div class="hb-actions cl-ask">

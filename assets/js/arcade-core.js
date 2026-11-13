@@ -893,7 +893,7 @@
     dino: "/assets/js/dino-game.js?v=726e654361",
     echo: "/assets/js/echo-game.js?v=2cf8428aef",
     hopper: "/assets/js/hopper-game.js?v=be33bbbeb8",
-    invaders: "/assets/js/invaders-game.js?v=eb594aa79d",
+    invaders: "/assets/js/invaders-game.js?v=d7112a5432",
     maze: "/assets/js/maze-game.js?v=161ebc3d55",
     pong: "/assets/js/pong-game.js?v=9ccd6de2c5",
     snake: "/assets/js/snake-game.js?v=94bbf0eb93",
