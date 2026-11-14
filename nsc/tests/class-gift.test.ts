@@ -31,8 +31,8 @@ describe("class gift codes", () => {
     expect(normalizeClassGiftCode("")).toBe("");
   });
 
-  it("unlocks all three classes and Growing Minds AI, for life", () => {
-    expect(CLASS_GIFT_SCOPES).toEqual(["class:toddlerhood", "class:infant", "class:preschool", "ai:unlimited"]);
+  it("unlocks all four classes and Growing Minds AI, for life", () => {
+    expect(CLASS_GIFT_SCOPES).toEqual(["class:toddlerhood", "class:infant", "class:preschool", "class:family", "ai:unlimited"]);
     const grants = grantsForClassGift("gift-1");
     expect(grants.every((g) => g.source === "gift" && g.expires_at === null && g.source_ref === "class-gift:gift-1")).toBe(true);
     // A gift grant counts as owning the class (unlike the shared AI code).

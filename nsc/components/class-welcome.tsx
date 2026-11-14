@@ -72,13 +72,15 @@ export function ClassWelcome({ ready, courseSlug, firstLessonSlug }: {
  * After the bundle: one row per class, each with its own first lesson, so a
  * parent starts with the class for their child's age instead of hunting.
  */
-export function BundleWelcome({ ready, starts }: {
+export function BundleWelcome({ title, ready, starts }: {
+  /** The bundle's name, e.g. "All four classes". */
+  title: string;
   ready: boolean;
   starts: { courseSlug: ClassCourseSlug; firstLessonSlug?: string }[];
 }) {
   return (
     <Card>
-      <h1 className="text-2xl text-ink-deep sm:text-3xl">{ready ? "Welcome. All three classes are ready." : "Thank you for enrolling"}</h1>
+      <h1 className="text-2xl text-ink-deep sm:text-3xl">{ready ? `Welcome. ${title} are ready.` : "Thank you for enrolling"}</h1>
       <p className="mt-3 text-ink">{ready
         ? "They are yours to keep. Start with the class for your child's age today; the others will be here as they grow."
         : "We're confirming your payment and adding the classes to your account."}</p>

@@ -181,6 +181,11 @@ const CLASSES = {
   "family-systems.html": {
     name: "Family Systems & Stress: How the Whole Family Shapes the Developing Child",
     audience: "Parents and caregivers of children aged 0–5",
+    offer: {
+      price: "49.00",
+      url: `${ORIGIN}/nsc/app/classes/family`,
+      description: "$49 one time with lifetime access to all 13 lessons",
+    },
   },
   "preschool.html": {
     name: "Preschool Years: Self-Regulation, Play, and Kindergarten Readiness",

@@ -3,7 +3,7 @@ import type Stripe from "stripe";
 import { createServiceClient } from "@/lib/supabase/server";
 import { applyGrants } from "@/lib/entitlements.server";
 import { grantsForOneTimePurchase } from "@/lib/grants";
-import { CLASS_BUNDLE, CLASS_COURSES, TODDLER_COURSE, classOfferForProduct, isClassCourseSlug, validClassPayment } from "@/lib/classes";
+import { CLASS_COURSES, bundleForSlug, TODDLER_COURSE, classOfferForProduct, isClassCourseSlug, validClassPayment } from "@/lib/classes";
 import { stripe } from "@/lib/stripe";
 
 const PRICE_VARIABLES = {
@@ -12,6 +12,7 @@ const PRICE_VARIABLES = {
   preschool: "PRESCHOOL_CLASS_PRICE_ID",
   family: "FAMILY_CLASS_PRICE_ID",
   bundle: "CLASS_BUNDLE_PRICE_ID",
+  "all-four": "CLASS_BUNDLE_FOUR_PRICE_ID",
 } as const;
 
 /** A signed Stripe event is necessary; price verification is an additional guard. */
@@ -79,11 +80,11 @@ async function revokeClassPayment(paymentIntent: string, status: "refunded" | "d
     .eq("status", "paid");
   if (error) throw new Error(`Could not find class order: ${error.message}`);
   for (const order of orders ?? []) {
-    // The toddler class and the bundle also granted unlimited AI.
-    const bundle = order.course_slug === CLASS_BUNDLE.slug;
+    // The toddler class and both bundles also granted unlimited AI.
+    const bundle = bundleForSlug(order.course_slug);
     const single = isClassCourseSlug(order.course_slug) && order.course_slug !== TODDLER_COURSE.slug
       ? CLASS_COURSES[order.course_slug] : null;
-    const scopes = bundle ? [...CLASS_BUNDLE.courses.map((slug) => CLASS_COURSES[slug].scope), "ai:unlimited"]
+    const scopes = bundle ? [...bundle.courses.map((slug) => CLASS_COURSES[slug].scope), "ai:unlimited"]
       : single ? [single.scope] : [TODDLER_COURSE.scope, "ai:unlimited"];
     const source = bundle || single ? "stripe_otp" : "stripe_otp_legacy";
     const now = new Date().toISOString();
