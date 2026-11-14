@@ -1,5 +1,6 @@
 "use client";
 
+import { track } from "@/components/track";
 import { useEffect, useRef, useState, type ComponentRef } from "react";
 import MuxPlayer from "@mux/mux-player-react";
 import type { ClassCourseSlug } from "@/lib/classes";
@@ -93,6 +94,7 @@ export function ClassPlayer({ lessonId, title, startTime, completed = false, cou
   // Where the player starts when it (re)loads its source. A token refresh
   // reloads the source, so it must resume from where the parent is now.
   const [resumeAt, setResumeAt] = useState(startTime);
+  const previewTracked = useRef(false);
   const lastSaved = useRef(0);
   const position = useRef(startTime);
   const endpoint = `/nsc/api/classes/${courseSlug}/lessons/${lessonId}`;
@@ -200,7 +202,13 @@ export function ClassPlayer({ lessonId, title, startTime, completed = false, cou
               // The control bar always sits over the video, so the accent is
               // verdigris in its on-dark form (the dark theme's teal), not amber.
               accentColor="#8FC4AE"
-              onPlay={() => setStarted(true)}
+              onPlay={() => {
+                setStarted(true);
+                if (preview && !previewTracked.current) {
+                  previewTracked.current = true;
+                  track("Preview Started", { class: courseSlug });
+                }
+              }}
               onTimeUpdate={(event) => {
                 const seconds = (event.target as HTMLMediaElement).currentTime;
                 position.current = seconds;

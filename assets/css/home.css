@@ -520,3 +520,13 @@ html:not(.anim) .label { transition: none; }
 }
 /* Clears the section heading on the narrowest phones. */
 @media (max-width: 359px) { .wc-tools { width: 72px; } }
+
+/* An early, compact route to the class that fits the family. */
+.class-finder__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
+.class-finder .agepick { margin-top: 0; }
+.class-finder .hb-soft { margin-top: 16px; }
+.class-finder__trust { margin-top: 24px; max-width: 48ch; color: var(--ink-muted); font-size: 15px; line-height: 1.6; }
+@media (max-width: 760px) {
+  .class-finder__grid { grid-template-columns: 1fr; gap: 24px; }
+  .class-finder__trust { margin-top: 16px; }
+}

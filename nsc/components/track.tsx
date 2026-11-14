@@ -14,7 +14,7 @@ declare global {
 export function track(name: string, data: Record<string, string> = {}) {
   try {
     window.va = window.va || function (...args: unknown[]) { (window.vaq = window.vaq || []).push(args); };
-    window.va("event", { name, data: { from: window.location.pathname.replace(/^\/nsc/, "") || "/", ...data } });
+    window.va("event", { name, data: { from: window.location.pathname.replace(/^\/nsc/, "") || "/", origin: document.cookie.includes("flo-origin=homepage-age-picker") ? "homepage-age-picker" : "other", ...data } });
   } catch { /* analytics is never worth an error */ }
 }
 
