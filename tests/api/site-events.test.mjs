@@ -34,6 +34,7 @@ function withOs(fn) {
 test("waitlistEvent: class waitlists are sign-ups, the articles list is the newsletter", () => {
   assert.deepEqual(waitlistEvent("Family Systems Class Waitlist, From Little Onward"), { kind: "signup", detail: "Family Systems Class Waitlist" });
   assert.deepEqual(waitlistEvent("Articles Email Signup, From Little Onward"), { kind: "newsletter", detail: "Articles Email Signup" });
+  assert.deepEqual(waitlistEvent("Tools Email Signup, From Little Onward"), { kind: "newsletter", detail: "Tools Email Signup" });
 });
 
 test("logSiteEvent does nothing when the operating system is not configured", async () => {

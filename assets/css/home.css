@@ -354,6 +354,9 @@ html:not(.anim) .label { transition: none; }
 .fg .classes .menu__facts { font-size: 15px; line-height: 1.4; color: var(--ink-soft); }
 .classes .menu__bundle-facts strong { color: var(--ink); font-weight: 600; }
 .classes .menu__bundle-facts { display: flex; flex-wrap: wrap; gap: 6px 20px; }
+/* Bundle: the full price it is measured against, and the one recommended default. */
+.classes .price__was { margin-left: 6px; color: var(--ink-muted); font-weight: 400; text-decoration-thickness: 1px; }
+.classes .menu__pick { grid-column: 1 / -1; justify-self: start; margin-bottom: 4px; font-size: 13px; font-weight: 600; letter-spacing: 0.01em; color: var(--forest); }
 .classes .menu__item .menu__go { margin-top: 20px; }
 .classes .menu__go { grid-column: 1 / -1; justify-self: start; font-size: 15px; font-weight: 500; color: var(--forest); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
 .classes .menu__item:hover .menu__go { color: var(--forest-deep); text-decoration-thickness: 2px; }

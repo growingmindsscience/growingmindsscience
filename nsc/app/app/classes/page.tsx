@@ -128,7 +128,7 @@ export default async function MyClassesPage({ searchParams }: {
             return (
               <Card key={bundle.slug} className={`flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-6 ${four ? "border-2 border-teal" : ""}`}>
                 <div className="flex-1">
-                  <Eyebrow>{four ? "Birth to age 5, plus the family class · Best value" : "Birth to age 5 · Without the family class"}</Eyebrow>
+                  <Eyebrow>{four ? "Birth to age 5, plus the family class" : "Birth to age 5 · Without the family class"}</Eyebrow>
                   <h3 className="mt-2 text-xl text-ink-deep">{bundle.title}</h3>
                   <p className="mt-1 text-sm text-ink-soft">
                     {four
