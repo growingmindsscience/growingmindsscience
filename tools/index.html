@@ -104,7 +104,7 @@
         <div class="rows">
           <div class="row row--link" id="growing-minds-ai" data-rise style="--i:0">
             <div><h3 class="row__name"><a href="/tools/ask-the-research">Ask the research</a></h3><p class="row__meta">Any age &middot; 5 free questions a day</p></div>
-            <p class="row__desc">Calm answers drawn from a curated research library. Included with the toddler class, with a fair-use limit of 50 questions a day.</p>
+            <p class="row__desc">Calm answers drawn from a curated research library. Included with the toddler class and with all three classes together, with a fair-use limit of 50 questions a day.</p>
           </div>
           <div class="row row--link" id="number-path" data-rise style="--i:1">
             <div><h3 class="row__name"><a href="/nsc">Tallykin</a></h3><p class="row__meta">Ages 2 to 5 &middot; 10 minutes</p></div>
@@ -236,6 +236,43 @@
           <p>Private to this browser. Nothing here is sent anywhere.</p>
         </div>
         <div data-gms-shelf></div>
+      </div>
+    </section>
+
+    <section class="hub-sec hub-sec--mist" aria-labelledby="signup-heading">
+      <div class="hb-container signup" data-rise>
+        <div>
+          <h2 class="hb-display" id="signup-heading">A note when something new is ready.</h2>
+          <p>A short email when we add a tool or a guide. No fixed schedule, nothing to keep up with, and every tool stays free without it.</p>
+        </div>
+        <div>
+          <form
+            id="toolsSignupForm"
+            class="inline-signup"
+            method="POST"
+            action="/api/waitlist"
+            data-newsletter
+            data-success="You&rsquo;re in. We&rsquo;ll write when something new is ready.">
+            <input type="hidden" name="subject" value="Tools Email Signup, From Little Onward" />
+            <input type="hidden" name="interest" value="Tools" />
+            <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+            <input
+              type="email"
+              name="email"
+              required
+              autocomplete="email"
+              placeholder="your@email.com"
+              class="inline-signup__input"
+              aria-label="Email address"
+              aria-describedby="toolsEmailError" />
+            <button
+              type="submit"
+              class="btn btn--primary hb-btn">Send me a note</button>
+            <p id="toolsEmailError" class="field-error" role="alert"></p>
+            <p id="toolsFormStatus" role="status" aria-live="polite" class="inline-signup__status"></p>
+          </form>
+          <p class="inline-signup__disclaimer">Unsubscribe anytime. What you enter in the tools stays on your device.</p>
+        </div>
       </div>
     </section>
 

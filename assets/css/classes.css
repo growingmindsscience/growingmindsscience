@@ -93,6 +93,8 @@
 .cl-row__links { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 15px; }
 .cl-row__links a { display: inline-flex; align-items: center; min-height: 44px; }
 .cl-row__note { font-size: 14px; color: var(--ink-muted); max-width: 30ch; }
+/* The one recommended default, on the bundle row. */
+.cl-row__pick { margin-bottom: 10px; font-size: 13px; font-weight: 600; letter-spacing: 0.01em; color: var(--forest); }
 @media (max-width: 960px) {
   .cl-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); padding-block: 44px 40px; }
   .cl-row__head { grid-column: 1 / -1; }
