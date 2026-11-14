@@ -160,9 +160,12 @@
   "use strict";
   // The insights script loads deferred; queue calls made before it arrives.
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  if (location.pathname === "/" || location.pathname === "/index.html") {
+    document.cookie = "flo-origin=homepage-age-picker; Path=/; Max-Age=2592000; SameSite=Lax";
+  }
   window.floTrack = function (name, data) {
     try {
-      var payload = { from: location.pathname };
+      var payload = { from: location.pathname, origin: document.cookie.includes("flo-origin=homepage-age-picker") ? "homepage-age-picker" : "other" };
       for (var key in data) if (Object.prototype.hasOwnProperty.call(data, key)) payload[key] = data[key];
       window.va("event", { name: name, data: payload });
     } catch (e) { /* analytics is never worth an error */ }
@@ -181,7 +184,6 @@
     var marked = target.closest("[data-track], [data-track-cta]");
     if (marked) {
       window.floTrack(marked.getAttribute("data-track") || "CTA Click", { cta: marked.getAttribute("data-track-cta") || "unnamed" });
-      return;
     }
     var link = target.closest("a[href]");
     if (!link) return;

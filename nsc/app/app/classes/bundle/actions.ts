@@ -1,5 +1,6 @@
 "use server";
 
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { requireClassAuth } from "@/lib/auth";
 import { classSalesOpen, ownedClassSlugs } from "@/lib/classes.server";
@@ -30,6 +31,8 @@ async function startCheckout(bundle: ClassBundle) {
   const priceId = process.env[PRICE_VARIABLE[bundle.slug]];
   if (!priceId) redirect("/app/classes?error=checkout-unavailable");
   const origin = siteOrigin();
+  const originCookie = (await cookies()).get("flo-origin")?.value;
+  const conversionOrigin = originCookie === "homepage-age-picker" ? originCookie : "other";
   let session;
   try {
     session = await stripe().checkout.sessions.create({
@@ -37,7 +40,7 @@ async function startCheckout(bundle: ClassBundle) {
       line_items: [{ price: priceId, quantity: 1 }],
       client_reference_id: user.id,
       customer_email: user.email,
-      metadata: { product: bundle.product, owner_id: user.id },
+      metadata: { product: bundle.product, owner_id: user.id, conversion_origin: conversionOrigin },
       success_url: `${origin}/nsc/app/classes/${bundle.slug}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/nsc/app/classes`,
       allow_promotion_codes: true,

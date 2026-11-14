@@ -9,12 +9,14 @@ import { fulfillClassCheckout } from "@/lib/class-orders.server";
 /** The thank-you page shared by both bundles. */
 export async function BundleSuccess({ bundle, sessionId }: { bundle: ClassBundle; sessionId?: string }) {
   const user = await requireClassAuth(`/app/classes/${bundle.slug}/success`);
+  let paid = false;
   if (sessionId?.startsWith("cs_") && sessionId.length < 200) {
     try {
       const session = await stripe().checkout.sessions.retrieve(sessionId);
       if (session.client_reference_id === user.id && session.metadata?.owner_id === user.id &&
           session.metadata?.product === bundle.product) {
         await fulfillClassCheckout(session);
+        paid = session.payment_status === "paid" || session.payment_status === "no_payment_required";
       }
     } catch { /* The signed webhook remains the primary fulfillment path. */ }
   }
@@ -26,7 +28,7 @@ export async function BundleSuccess({ bundle, sessionId }: { bundle: ClassBundle
   })));
   return (
     <main className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-6 py-12 text-center">
-      {sessionId?.startsWith("cs_") && <TrackPurchase classId={bundle.slug} sessionId={sessionId} />}
+      {paid && sessionId && <TrackPurchase classId={bundle.slug} sessionId={sessionId} />}
       <BundleWelcome title={bundle.title} ready={ready} starts={starts} />
     </main>
   );

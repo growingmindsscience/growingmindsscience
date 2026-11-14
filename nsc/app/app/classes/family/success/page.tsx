@@ -14,12 +14,14 @@ export default async function FamilyClassSuccessPage({ searchParams }: {
 }) {
   const user = await requireClassAuth("/app/classes/family/success");
   const { session_id: sessionId } = await searchParams;
+  let paid = false;
   if (sessionId?.startsWith("cs_") && sessionId.length < 200) {
     try {
       const session = await stripe().checkout.sessions.retrieve(sessionId);
       if (session.client_reference_id === user.id && session.metadata?.owner_id === user.id &&
           session.metadata?.product === FAMILY_COURSE.product) {
         await fulfillClassCheckout(session);
+        paid = session.payment_status === "paid" || session.payment_status === "no_payment_required";
       }
     } catch { /* The signed webhook remains the primary fulfillment path. */ }
   }
@@ -27,7 +29,7 @@ export default async function FamilyClassSuccessPage({ searchParams }: {
   const first = ready ? (await publishedLessons(FAMILY_COURSE.slug))[0] : undefined;
   return (
     <main className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-6 py-12 text-center">
-      {sessionId?.startsWith("cs_") && <TrackPurchase classId="family" sessionId={sessionId} />}
+      {paid && sessionId && <TrackPurchase classId="family" sessionId={sessionId} />}
       <ClassWelcome ready={ready} courseSlug={FAMILY_COURSE.slug} firstLessonSlug={first?.slug} />
     </main>
   );

@@ -1,4 +1,4 @@
-import { CLASS_BUNDLE, CLASS_BUNDLE_FOUR, FAMILY_COURSE, INFANT_COURSE, PRESCHOOL_COURSE } from "@/lib/classes";
+import { CLASS_BUNDLE, CLASS_BUNDLE_FOUR, TODDLER_COURSE, FAMILY_COURSE, INFANT_COURSE, PRESCHOOL_COURSE } from "@/lib/classes";
 import { safeNextPath } from "@/lib/safe-next";
 
 export const CLASS_HOME = "/app/classes";
@@ -36,6 +36,7 @@ export const ALL_FOUR_ENROLL_PATH = "/app/classes/all-four/enroll";
  * destination is an enroll path; null for an ordinary class sign-in.
  */
 export function enrollingCourse(destination: string) {
+  if (destination === TODDLER_ENROLL_PATH) return TODDLER_COURSE;
   if (destination === INFANT_ENROLL_PATH) return INFANT_COURSE;
   if (destination === BUNDLE_ENROLL_PATH) return CLASS_BUNDLE;
   if (destination === ALL_FOUR_ENROLL_PATH) return CLASS_BUNDLE_FOUR;
