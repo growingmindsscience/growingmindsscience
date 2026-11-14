@@ -150,7 +150,7 @@ try {
     return { over, ground: ground / (px.length / 4) };
   }, shot.toString('base64'));
   check(bright.over === 0 && bright.ground > 0.6, 'the art sits on the exact page ground, no lighter rectangle around it');
-  check(await page.locator('#lens a').count() === 3 && await page.locator('#lens .pg-head a[href="#classes"]').count() === 1 && await page.locator('#lens a[href="/lens/leaving-the-playground"]').count() === 1 && await page.locator('#lens a[href="/classes/toddlerhood#sample"]').count() === 1, 'the class handoff, the full guide link and the skip to classes are kept');
+  check(await page.locator('#lens a').count() === 4 && await page.locator('#lens .pg-head a[href="/nsc/classes/toddlerhood/preview"]').count() === 1 && await page.locator('#lens a[href="/lens/leaving-the-playground"]').count() === 1 && await page.locator('#lens a[href="/nsc/classes/toddlerhood/preview"]').count() === 2, 'the two free previews, class handoff and full guide links are present');
   await context.close();
 
   /* Dark mode keeps a sheet of paper under the art. */
