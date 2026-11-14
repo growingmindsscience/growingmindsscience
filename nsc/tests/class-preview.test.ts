@@ -1,8 +1,8 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { INFANT_PREVIEW_PATH, classLessonNumber, freePreviewLessonWith } from "../lib/class-preview";
+import { CLASS_PREVIEW_PATHS, INFANT_PREVIEW_PATH, classLessonNumber, freePreviewLessonWith } from "../lib/class-preview";
 import { INFANT_MODULE_LESSON_COUNTS } from "../lib/classes";
 import { isPublicPath } from "../lib/supabase/middleware";
 import { FakeDb, type Row } from "./fake-supabase";
@@ -69,12 +69,28 @@ describe("free preview access", () => {
     expect(isPublicPath("/app/classes/infant/lessons/serve-and-return")).toBe(false);
   });
 
-  it("signs playback without reading anything from the request", () => {
-    const src = readFileSync(join(root, "app/api/classes/infant/preview/playback/route.ts"), "utf8")
+  it("opens every class's preview page and nothing beneath it", () => {
+    for (const path of Object.values(CLASS_PREVIEW_PATHS)) {
+      expect(isPublicPath(path)).toBe(true);
+      expect(isPublicPath(`${path}/other`)).toBe(false);
+    }
+    expect(isPublicPath("/app/classes/toddlerhood/lessons/inside-a-tantrum")).toBe(false);
+  });
+
+  it.each(Object.entries(CLASS_PREVIEW_PATHS))("signs %s playback for its own class without reading the request", (slug, path) => {
+    const src = readFileSync(join(root, `app/api${path}/playback/route.ts`), "utf8")
       .replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "");
     expect(src).toMatch(/export async function GET\(\)/);
     expect(src).not.toMatch(/params|searchParams|request|cookies|headers\(\)/);
     expect(src).toMatch(/export const dynamic = "force-dynamic"/);
+    expect(src).toContain(`freePreviewPlayback("${slug}")`);
+    expect(existsSync(join(root, `app${path}/page.tsx`))).toBe(true);
+  });
+
+  it("each preview route matches the player's playback URL", () => {
+    const player = readFileSync(join(root, "components/class-player.tsx"), "utf8");
+    expect(player).toContain("/nsc/api/classes/${courseSlug}/preview/playback");
+    for (const [slug, path] of Object.entries(CLASS_PREVIEW_PATHS)) expect(path).toBe(`/classes/${slug}/preview`);
   });
 
   it("flags one lesson and adds no policy that would expose lessons to the API", () => {

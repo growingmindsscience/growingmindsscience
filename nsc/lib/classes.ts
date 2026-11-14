@@ -129,6 +129,8 @@ export interface ClassLesson {
   mux_playback_id: string | null;
   duration_seconds: number | null;
   captions_ready: boolean;
+  /** The one lesson of its class anyone may watch free (migration 0017). */
+  is_free_preview?: boolean;
   status: "draft" | "published";
 }
 

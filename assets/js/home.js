@@ -339,7 +339,8 @@
         short: it.getAttribute("data-short") || "class",
         price: price ? (price.firstChild.textContent || "").trim() : "",
         sampleHref: it.getAttribute("data-sample-href"),
-        sampleLabel: it.getAttribute("data-sample-label")
+        sampleLabel: it.getAttribute("data-sample-label"),
+        benefit: it.querySelector("p").textContent
       };
     });
     var el = function (tag, cls, text) {
@@ -365,13 +366,14 @@
       });
       var cls = classes[cid] || { href: "/classes/", name: "the classes", short: "classes", price: "" };
       note.innerHTML = "";
-      note.appendChild(el("p", "agepick__name", o.getAttribute("data-name")));
-      note.appendChild(el("p", "agepick__line", o.getAttribute("data-line")));
-      note.appendChild(el("p", "agepick__fit", "Covered in " + cls.name + (cls.price ? ", " + cls.price + " once." : ".")));
+      note.appendChild(el("p", "agepick__name", cls.name));
+      note.appendChild(el("p", "agepick__line", cls.benefit));
+      note.appendChild(el("p", "agepick__fit", cls.price + " once · Lifetime access · No subscription"));
       var actions = el("div", "agepick__actions");
       actions.appendChild(link(cls.href, "See the " + cls.short, "agepick-class", "hb-btn"));
       if (cls.sampleHref) actions.appendChild(link(cls.sampleHref, cls.sampleLabel, "agepick-sample", "agepick__sample"));
       note.appendChild(actions);
+      note.appendChild(el("p", "agepick__line", "The free lesson needs no account. Full refund within 14 days of buying if you have watched four lessons or fewer."));
       var more = el("p", "agepick__links");
       // The bundle only helps while a later class is still ahead of the child.
       if (bundle && cid !== "preschool") {

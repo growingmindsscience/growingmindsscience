@@ -14,12 +14,14 @@ export default async function BundleSuccessPage({ searchParams }: {
 }) {
   const user = await requireClassAuth("/app/classes/bundle/success");
   const { session_id: sessionId } = await searchParams;
+  let paid = false;
   if (sessionId?.startsWith("cs_") && sessionId.length < 200) {
     try {
       const session = await stripe().checkout.sessions.retrieve(sessionId);
       if (session.client_reference_id === user.id && session.metadata?.owner_id === user.id &&
           session.metadata?.product === CLASS_BUNDLE.product) {
         await fulfillClassCheckout(session);
+        paid = session.payment_status === "paid" || session.payment_status === "no_payment_required";
       }
     } catch { /* The signed webhook remains the primary fulfillment path. */ }
   }
@@ -31,7 +33,7 @@ export default async function BundleSuccessPage({ searchParams }: {
   })));
   return (
     <main className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-6 py-12 text-center">
-      {sessionId?.startsWith("cs_") && <TrackPurchase classId="bundle" sessionId={sessionId} />}
+      {paid && sessionId && <TrackPurchase classId="bundle" sessionId={sessionId} />}
       <BundleWelcome ready={ready} starts={starts} />
     </main>
   );

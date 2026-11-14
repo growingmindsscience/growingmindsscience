@@ -63,6 +63,10 @@ export default async function EditClassLesson({ params, searchParams }: {
             <input type="checkbox" name="captions_ready" defaultChecked={lesson.captions_ready} className="mt-1" />
             I reviewed the English captions in Mux and they are ready for students.
           </label>
+          <label className="flex items-start gap-3 text-sm text-ink">
+            <input type="checkbox" name="is_free_preview" defaultChecked={lesson.is_free_preview === true} className="mt-1" />
+            Free preview: anyone can watch this lesson on the class&rsquo;s public preview page. One per class; checking it here unchecks any other. Only shows once published.
+          </label>
           <Field label="Visibility" htmlFor="status">
             <select id="status" name="status" defaultValue={lesson.status} className="rounded-xl border border-line bg-surface px-4 py-3 text-ink">
               <option value="draft">Draft — hidden from customers</option>

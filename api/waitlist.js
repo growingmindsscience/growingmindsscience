@@ -14,6 +14,7 @@ const DEFAULT_SUBJECT = "New Waitlist Signup, From Little Onward";
 const KNOWN_SUBJECTS = new Set([
   "New Class Notify Signup, From Little Onward",
   "Articles Email Signup, From Little Onward",
+  "Tools Email Signup, From Little Onward",
   "Birth to 12 Months Waitlist, From Little Onward",
   "Preschool Class Waitlist, From Little Onward",
   "Family Systems Class Waitlist, From Little Onward",

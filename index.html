@@ -34,7 +34,7 @@
   <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
   <link rel="preload" as="image" type="image/webp" imagesrcset="/assets/img/site/hero/shared-attention-people-680.webp 680w, /assets/img/site/hero/shared-attention-people-1020.webp 1020w, /assets/img/site/hero/shared-attention-people-1360.webp 1360w" imagesizes="(min-width: 1400px) 500px, (min-width: 901px) 35vw, 66vw" fetchpriority="high" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
-  <link rel="stylesheet" href="/assets/css/home.css?v=7f65993e23" />
+  <link rel="stylesheet" href="/assets/css/home.css?v=6995a8c728" />
   <link rel="stylesheet" href="/assets/css/home-lens.css?v=f50abf8e55" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=eacaf2a72e" />
 
@@ -125,7 +125,7 @@
         <p class="hb-lead hero__lead">Practical guidance for understanding your child from birth to five. Short classes and free tools, built from <span class="hero__nowrap">peer-reviewed</span> research.</p>
         <div class="hero__actions">
           <a class="hb-btn hero__go" href="/tools/right-now" data-track-cta="hero-help">Find help for this moment</a>
-          <a class="hero__more" href="/classes/" data-track-cta="hero-classes">Explore the classes <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
+          <a class="hero__more" href="#class-picker" data-track-cta="hero-classes">Find a class by age <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
         </div>
       </div>
 
@@ -164,6 +164,27 @@
       <a class="hero__next" href="#lens" data-track-cta="hero-next">That was an easy moment. Here is a harder one. <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 4v15m-6-6 6 6 6-6" /></svg></a>
     </section>
 
+    <section class="hb-section hb-section--tight class-finder" aria-labelledby="class-finder-heading">
+      <div class="hb-container class-finder__grid">
+        <div>
+          <h2 class="hb-display hb-display--m" id="class-finder-heading">Find a class for your child’s age.</h2>
+          <p class="hb-soft">Choose their age to see a class and try a full lesson free.</p>
+          <p class="class-finder__trust">Created by Matthew McArthur, M.A. in Developmental Psychology, drawing on two years coaching families in early intervention. <a href="/about/">Meet Matthew</a></p>
+        </div>
+          <div class="agepick" id="class-picker" data-agepick>
+            <p class="agepick__q" id="agepick-q">How old is your child?</p>
+            <ul class="agepick__list" aria-labelledby="agepick-q">
+              <li><a class="agepick__opt" href="/explore/birth-to-1" data-class="infant" data-name="Foundations" data-line="Attachment, the senses, and the rhythm of back-and-forth." data-yrs="Birth to 1">Under 1</a></li>
+              <li><a class="agepick__opt" href="/explore/1-to-2" data-class="toddler" data-name="First words, first steps" data-line="Understanding races ahead of speech." data-yrs="1 to 2">1</a></li>
+              <li><a class="agepick__opt" href="/explore/2-to-3" data-class="toddler" data-name="Autonomy and big feelings" data-line="&ldquo;No&rdquo; is a milestone, not defiance." data-yrs="2 to 3">2</a></li>
+              <li><a class="agepick__opt" href="/explore/3-to-4" data-class="preschool" data-name="The imagination years" data-line="Pretend play is serious cognitive work." data-yrs="3 to 4">3</a></li>
+              <li><a class="agepick__opt" href="/explore/4-to-5" data-class="preschool" data-name="Self-control, slowly" data-line="Working memory, flexible thinking and impulse control are under construction, on a wide and normal range." data-yrs="4 to 5">4</a></li>
+            </ul>
+            <div class="agepick__note" data-agepick-note aria-live="polite" hidden></div>
+          </div>
+      </div>
+    </section>
+
     <!-- 02 Leaving the playground: one moment in four beats.
          Copy and images live here. Timing and camera moves are at the top of
          /assets/js/home-lens.js. Without that script (or with reduced motion)
@@ -173,7 +194,7 @@
         <div class="pg-head">
           <h2 class="hb-display hb-display--l" id="lens-heading">When it&rsquo;s time to leave the playground</h2>
           <p class="pg-standfirst">You can stay warm and still leave. Tears don&rsquo;t mean it went wrong.</p>
-          <p class="pg-skip"><a href="#classes" data-track-cta="lens-skip-classes">Skip to classes by age</a></p>
+          <p class="pg-skip"><a href="/nsc/classes/toddlerhood/preview" data-track-cta="lens-preview-top">Watch “Inside a Tantrum” free</a> · No account needed</p>
         </div>
         <div class="pg-track" data-pg-track>
           <div class="pg-stage" data-pg-stage>
@@ -212,11 +233,12 @@
         </div>
         <aside class="story-next" aria-labelledby="story-next-title">
           <h3 class="story-next__title" id="story-next-title">There&rsquo;s a whole lesson on moments like this.</h3>
-          <p class="story-next__body">In the Toddler years class, it&rsquo;s one of four short lessons on big feelings and transitions: the shape a tantrum takes, heading one off before it&rsquo;s time to leave, staying calm in the middle of it, and repair afterward.</p>
+          <p class="story-next__body">Learn how to prepare for transitions, respond during big feelings, and reconnect afterward. The Toddler years class brings four modules together to help you understand this stage and decide what to try next.</p>
           <div class="story-next__actions">
-            <a class="hb-btn" href="/classes/toddlerhood#sample" data-track-cta="lens-handoff">Read part of a lesson, free</a>
-            <span class="story-next__price">$49 once, lifetime access</span>
+            <a class="hb-btn" href="/nsc/classes/toddlerhood/preview" data-track-cta="lens-handoff">Watch “Inside a Tantrum” free</a>
+            <span class="story-next__price">No account needed</span>
           </div>
+          <p class="story-next__body"><a href="/classes/toddlerhood" data-track-cta="lens-class">See the toddler class</a> · $49 once · Lifetime access · No subscription</p>
           <img class="wc wc-next" src="/assets/img/site/wc/wc-comfort.webp" alt="" width="555" height="581" loading="lazy" decoding="async" />
         </aside>
         <div class="story-footer">
@@ -244,17 +266,6 @@
         <div class="classes__side">
           <h2 class="hb-display hb-display--l" id="classes-heading" data-rise style="--i:0">The first five years, understood.</h2>
           <p class="hb-soft classes__intro" data-rise style="--i:1">Understand your child&rsquo;s stage, at your own pace.</p>
-          <div class="agepick" data-agepick data-rise style="--i:2">
-            <p class="agepick__q" id="agepick-q">How old is your child?</p>
-            <ul class="agepick__list" aria-labelledby="agepick-q">
-              <li><a class="agepick__opt" href="/explore/birth-to-1" data-class="infant" data-name="Foundations" data-line="Attachment, the senses, and the rhythm of back-and-forth." data-yrs="Birth to 1">Under 1</a></li>
-              <li><a class="agepick__opt" href="/explore/1-to-2" data-class="toddler" data-name="First words, first steps" data-line="Understanding races ahead of speech." data-yrs="1 to 2">1</a></li>
-              <li><a class="agepick__opt" href="/explore/2-to-3" data-class="toddler" data-name="Autonomy and big feelings" data-line="&ldquo;No&rdquo; is a milestone, not defiance." data-yrs="2 to 3">2</a></li>
-              <li><a class="agepick__opt" href="/explore/3-to-4" data-class="preschool" data-name="The imagination years" data-line="Pretend play is serious cognitive work." data-yrs="3 to 4">3</a></li>
-              <li><a class="agepick__opt" href="/explore/4-to-5" data-class="preschool" data-name="Self-control, slowly" data-line="Working memory, flexible thinking and impulse control are under construction, on a wide and normal range." data-yrs="4 to 5">4</a></li>
-            </ul>
-            <div class="agepick__note" data-agepick-note aria-live="polite" hidden></div>
-          </div>
           <div class="classadd" data-rise style="--i:3">
             <h3 class="classadd__title">What does a class add?</h3>
             <p class="classadd__text"><strong>A free guide covers one situation,</strong> like leaving the playground.</p>
@@ -267,19 +278,19 @@
             <div class="range" aria-hidden="true"><div class="range__track" style="--from:0%;--to:20%"><i></i></div><small><span>birth</span><span>5 years</span></small></div>
 <!-- explore:class:infant:end -->
             <span class="menu__go" aria-hidden="true">See the class</span><a class="menu__preview" href="/nsc/classes/infant/preview" aria-label="Watch a lesson free: Serve and return">Watch a lesson free</a></div>
-          <div class="menu__item menu__item--class" data-class-id="toddler" data-short="toddler class" data-sample-href="/classes/toddlerhood#sample" data-sample-label="Read part of a lesson free"><img class="wc wc-class" src="/assets/img/site/wc/wc-toddler.webp" alt="" width="480" height="385" loading="lazy" decoding="async" /><h3><a href="/classes/toddlerhood">Toddler years, 1 to 3</a></h3><span class="price">$49<small>once</small></span><p>Understand big feelings, growing independence, and how your calm helps them find theirs.</p><span class="meta menu__facts">13 lessons, about 2.5 hours</span>
+          <div class="menu__item menu__item--class" data-class-id="toddler" data-short="toddler class" data-sample-href="/nsc/classes/toddlerhood/preview" data-sample-label="Watch a lesson free"><img class="wc wc-class" src="/assets/img/site/wc/wc-toddler.webp" alt="" width="480" height="385" loading="lazy" decoding="async" /><h3><a href="/classes/toddlerhood">Toddler years, 1 to 3</a></h3><span class="price">$49<small>once</small></span><p>Understand big feelings, growing independence, and how your calm helps them find theirs.</p><span class="meta menu__facts">13 lessons, about 2.5 hours</span>
 <!-- explore:class:toddler:start -->
             <div class="range" aria-hidden="true"><div class="range__track" style="--from:20%;--to:60%"><i></i></div><small><span>birth</span><span>5 years</span></small></div>
 <!-- explore:class:toddler:end -->
-            <span class="menu__go" aria-hidden="true">See the class</span></div>
-          <div class="menu__item menu__item--class" data-class-id="preschool" data-short="preschool class"><img class="wc wc-class" src="/assets/img/site/wc/wc-preschool.webp" alt="" width="480" height="350" loading="lazy" decoding="async" /><h3><a href="/classes/preschool">Preschool years, 3 to 5</a></h3><span class="price">$49<small>once</small></span><p>How play builds thinking, self-control grows, and school readiness takes shape.</p><span class="meta menu__facts">15 lessons, about 2 hours 45 minutes</span>
+            <span class="menu__go" aria-hidden="true">See the class</span><a class="menu__preview" href="/nsc/classes/toddlerhood/preview" aria-label="Watch a lesson free: Inside a tantrum">Watch a lesson free</a></div>
+          <div class="menu__item menu__item--class" data-class-id="preschool" data-short="preschool class" data-sample-href="/nsc/classes/preschool/preview" data-sample-label="Watch a lesson free"><img class="wc wc-class" src="/assets/img/site/wc/wc-preschool.webp" alt="" width="480" height="350" loading="lazy" decoding="async" /><h3><a href="/classes/preschool">Preschool years, 3 to 5</a></h3><span class="price">$49<small>once</small></span><p>How play builds thinking, self-control grows, and school readiness takes shape.</p><span class="meta menu__facts">15 lessons, about 2 hours 45 minutes</span>
 <!-- explore:class:preschool:start -->
             <div class="range" aria-hidden="true"><div class="range__track" style="--from:60%;--to:100%"><i></i></div><small><span>birth</span><span>5 years</span></small></div>
 <!-- explore:class:preschool:end -->
-            <span class="menu__go" aria-hidden="true">See the class</span></div>
-          <a class="menu__item menu__item--bundle" href="/classes/#bundle"><h3>All three classes</h3><span class="price">$119<small>once</small></span><p>All three classes in one enrollment, ready as your child grows from birth to five.</p><span class="meta menu__bundle-facts"><span><strong>44 lessons</strong> from birth to age 5</span><strong>Save $28</strong></span><span class="menu__go">See the bundle</span></a>
+            <span class="menu__go" aria-hidden="true">See the class</span><a class="menu__preview" href="/nsc/classes/preschool/preview" aria-label="Watch a lesson free: Sharing, fairness, and helping">Watch a lesson free</a></div>
+          <a class="menu__item menu__item--bundle" href="/classes/#bundle"><span class="menu__pick">Our pick if your child is under one</span><h3>All three classes</h3><span class="price">$119 <s class="price__was"><span class="u-visually-hidden">instead of </span>$147</s><small>once</small></span><p>All three classes in one enrollment, ready as your child grows from birth to five.</p><span class="meta menu__bundle-facts"><span><strong>44 lessons</strong> from birth to age 5</span><strong>Save 19% ($28)</strong></span><span class="menu__go">See the bundle</span></a>
           <a class="menu__item menu__item--soon" href="/classes/family-systems"><h3>The whole family</h3><span class="price soon">In development</span><p>How family stress affects children, and which everyday supports make a difference.</p><span class="menu__go">Join the waitlist</span></a>
-          <p class="classes__terms"><strong>Lifetime access. No subscription.</strong><span>Captions and a written version of every lesson.</span></p>
+          <p class="classes__terms"><strong>Lifetime access. No subscription.</strong><span>Captions and a written version of every lesson.</span><span>Full refund within 14 days if you have watched four lessons or fewer. <a href="/terms-of-sale/">Refund terms</a></span></p>
         </div>
       </div>
     </section>
@@ -399,8 +410,8 @@
   </footer>
 <!-- footer:end -->
 
-  <script src="/assets/js/chrome.js?v=072b6d90d4"></script>
-  <script src="/assets/js/home.js?v=53f9d7b185" defer></script>
+  <script src="/assets/js/chrome.js?v=d5fdf5ae8e"></script>
+  <script src="/assets/js/home.js?v=397b77a004" defer></script>
   <script src="/assets/js/home-lens.js?v=587931cdd8" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>

@@ -1,7 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { isClassPath } from "@/lib/class-paths";
-import { INFANT_PREVIEW_PATH } from "@/lib/class-preview";
+import { CLASS_PREVIEW_PATHS } from "@/lib/class-preview";
 
 /**
  * Refreshes the Supabase session on every request and guards the app.
@@ -12,7 +12,8 @@ import { INFANT_PREVIEW_PATH } from "@/lib/class-preview";
 const PUBLIC_EXACT = new Set([
   "/",
   "/evidence",
-  INFANT_PREVIEW_PATH, // the free class lesson; it serves only the flagged lesson
+  // Each class's free lesson; a preview page serves only that class's flagged lesson.
+  ...Object.values(CLASS_PREVIEW_PATHS),
 ]);
 const PUBLIC_PREFIXES = [
   "/login",

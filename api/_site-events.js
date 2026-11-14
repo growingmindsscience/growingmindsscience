@@ -39,5 +39,5 @@ export async function logSiteEvent(kind, detail) {
 /** The waitlist form's notification subject, as a short label and a kind. */
 export function waitlistEvent(subject) {
   const label = String(subject || "").replace(/, From Little Onward$/, "");
-  return { kind: /^Articles/.test(label) ? "newsletter" : "signup", detail: label || "Waitlist" };
+  return { kind: /^(Articles|Tools) Email/.test(label) ? "newsletter" : "signup", detail: label || "Waitlist" };
 }

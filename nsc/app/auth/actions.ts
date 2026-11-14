@@ -1,5 +1,6 @@
 "use server";
 
+import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
@@ -72,12 +73,14 @@ export async function signup(formData: FormData) {
     );
   }
 
+  const originCookie = (await cookies()).get("flo-origin")?.value;
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     // Used only when Supabase "Confirm email" is ON: the link lands on the
     // code exchange, then continues to `next`.
     options: {
+      data: classFlow ? { conversion_origin: originCookie === "homepage-age-picker" ? originCookie : "other" } : undefined,
       emailRedirectTo: `${siteOrigin()}/nsc/auth/callback?next=${encodeURIComponent(next)}`,
     },
   });
