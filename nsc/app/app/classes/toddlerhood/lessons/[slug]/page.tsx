@@ -6,6 +6,7 @@ import { hasClassAccess, progressForUser, publishedLessonTitle, publishedLessons
 import { TODDLER_COURSE, lessonPath, transcriptParagraphs } from "@/lib/classes";
 import { Eyebrow } from "@/components/class-chrome";
 import { ClassPlayer } from "@/components/class-player";
+import { ClassThisWeek } from "@/components/class-this-week";
 
 export const dynamic = "force-dynamic";
 
@@ -47,6 +48,8 @@ export default async function ClassLessonPage({ params }: { params: Promise<{ sl
       </header>
 
       <ClassPlayer lessonId={lesson.id} title={lesson.title} posterLabel={`Module ${lesson.module_number} · Lesson ${index + 1} of ${lessons.length}`} posterMinutes={lesson.duration_seconds ? Math.max(1, Math.round(lesson.duration_seconds / 60)) : null} startTime={place?.completed_at ? 0 : (place?.position_seconds ?? 0)} completed={Boolean(place?.completed_at)} next={upcoming ? { href: lessonPath(upcoming.slug), title: upcoming.title, minutes: upcoming.duration_seconds ? Math.max(1, Math.round(upcoming.duration_seconds / 60)) : null } : undefined} />
+
+      <ClassThisWeek courseSlug="toddlerhood" lessonSlug={lesson.slug} />
 
       {lessonNav("Lesson navigation", "-my-3")}
 

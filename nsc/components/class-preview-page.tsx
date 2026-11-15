@@ -8,6 +8,7 @@ import { CLASS_REFUND_POLICY } from "@/lib/refund-policy";
 import { sitePath } from "@/lib/site";
 import { ClassHeader, ClassShell, Eyebrow } from "@/components/class-chrome";
 import { ClassPlayer } from "@/components/class-player";
+import { ClassThisWeek } from "@/components/class-this-week";
 import { LinkButton, buttonClasses } from "@/components/ui";
 
 /** What differs between the classes' free lesson pages. */
@@ -108,6 +109,7 @@ export async function ClassPreviewPage({ config, lesson }: { config: ClassPrevie
               posterLabel={`Free lesson · Module ${lesson.module_number}, lesson ${lessonNumber} of ${lessonCount}`}
               posterMinutes={lesson.duration_seconds ? Math.max(1, Math.round(lesson.duration_seconds / 60)) : null}
             />
+            <ClassThisWeek courseSlug={course.slug} lessonSlug={lesson.slug} />
             <section aria-labelledby="class-heading" className="border-t border-line pt-8">
               <h2 id="class-heading" className="text-2xl text-ink-deep">
                 This is lesson {lessonNumber} of {lessonCount}
