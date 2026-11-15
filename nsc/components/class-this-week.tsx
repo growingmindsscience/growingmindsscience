@@ -8,12 +8,14 @@ const focusLink = "inline-flex min-h-11 items-center rounded-sm text-teal underl
  * links, so it works without JavaScript. Renders only for a lesson with a
  * companion, so it is safe to mount on every lesson page.
  */
-export function ClassLessonNav({ courseSlug, lessonSlug }: { courseSlug: ClassCourseSlug; lessonSlug: string }) {
-  if (!thisWeekPlan(courseSlug, lessonSlug)) return null;
+export function ClassLessonNav({ courseSlug, lessonSlug, always = false }: { courseSlug: ClassCourseSlug; lessonSlug: string; always?: boolean }) {
+  const hasPractice = Boolean(thisWeekPlan(courseSlug, lessonSlug));
+  // `always` is for free previews, which have a video and a written lesson even without a Practice section.
+  if (!hasPractice && !always) return null;
   return (
     <nav aria-label="On this page" className="-mt-1 flex flex-wrap gap-x-5 text-sm font-semibold">
       <a href="#watch" className={focusLink}>Watch</a>
-      <a href="#practice" className={focusLink}>Practice</a>
+      {hasPractice && <a href="#practice" className={focusLink}>Practice</a>}
       <a href="#read" className={focusLink}>Read</a>
     </nav>
   );

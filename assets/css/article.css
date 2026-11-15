@@ -179,6 +179,17 @@
   body.art-print-checklist .checklist--print li { break-inside: avoid; }
 }
 
+/* ---------- Reading-page additions: summary lists, figure takeaways ---------- */
+.art .art-short .art-short__list { margin: 12px 0 0; padding-left: 1.2em; color: var(--ink-soft); }
+.art .art-short .art-short__list li { margin-top: 6px; }
+.art .art-short .art-short__list b, .art .art-short b { color: var(--ink); font-weight: 600; }
+.art .art-short a { color: var(--research); text-decoration: underline; text-underline-offset: 3px; }
+.art .art-short .art-short__terms { display: block; margin-top: 6px; font-size: 14px; color: var(--ink-muted); }
+.art .art-figure .af-take { display: block; margin-top: 8px; color: var(--ink-soft); }
+.art .art-figure .af-gloss { max-width: 32rem; margin: 16px auto 0; color: var(--ink-soft); font-size: 15px; line-height: 1.5; }
+.art .art-figure .af-gloss b { color: var(--ink); font-weight: 600; }
+.art .art-figure .af-take a { color: var(--research); text-decoration: underline; text-underline-offset: 3px; }
+
 /* ---------- "The load" (parents-nervous-system): a stack set in HTML so every label wraps ---------- */
 .art-load__plot { display: grid; gap: 6px; max-width: 30rem; margin-inline: auto; font-size: 15px; line-height: 1.4; }
 .art .art-load__plot p { margin: 0; }

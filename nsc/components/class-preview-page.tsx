@@ -94,15 +94,9 @@ export async function ClassPreviewPage({ config, lesson }: { config: ClassPrevie
               <h1 className="text-3xl text-ink-deep sm:text-5xl">{lesson.title}</h1>
               {lesson.summary && <p className="max-w-[60ch] text-lg text-ink-soft [text-wrap:pretty]">{lesson.summary}</p>}
               <p className="max-w-[60ch] text-ink-soft">A full lesson from the {course.shortTitle} class, free to watch. No account needed.</p>
-              {leadIn && (
-                <p className="mt-2 max-w-[60ch] rounded-card bg-tint px-5 py-4 text-[0.9375rem] text-ink [text-wrap:pretty]">
-                  <span className="font-semibold text-ink-deep">Where this fits. </span>
-                  {leadIn}
-                </p>
-              )}
             </header>
-            <ClassLessonNav courseSlug={course.slug} lessonSlug={lesson.slug} />
-            <div id="watch" className="scroll-mt-6">
+            <ClassLessonNav courseSlug={course.slug} lessonSlug={lesson.slug} always />
+            <div id="watch" className="-mt-4 scroll-mt-6">
               <ClassPlayer
                 lessonId={lesson.id}
                 title={lesson.title}
@@ -113,6 +107,13 @@ export async function ClassPreviewPage({ config, lesson }: { config: ClassPrevie
                 posterMinutes={lesson.duration_seconds ? Math.max(1, Math.round(lesson.duration_seconds / 60)) : null}
               />
             </div>
+            {/* After the video, so the player arrives on the first screen; the lesson itself still stands on its own. */}
+            {leadIn && (
+              <p className="-mt-4 max-w-[60ch] rounded-card bg-tint px-5 py-4 text-[0.9375rem] text-ink [text-wrap:pretty]">
+                <span className="font-semibold text-ink-deep">Where this fits. </span>
+                {leadIn}
+              </p>
+            )}
             <ClassThisWeek courseSlug={course.slug} lessonSlug={lesson.slug} paragraphs={paragraphs} />
             <section aria-labelledby="class-heading" className="border-t border-line pt-8">
               <h2 id="class-heading" className="text-2xl text-ink-deep">

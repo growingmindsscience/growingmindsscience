@@ -122,4 +122,24 @@ describe("enroll intent", () => {
     expect(enrollingCourse("/app/classes/preschool")).toBeNull();
     expect(enrollingCourse("/app/classes")).toBeNull();
   });
+
+  it("keeps the chosen enroll path through sanitizing, and nothing else", () => {
+    for (const path of [INFANT_ENROLL_PATH, TODDLER_ENROLL_PATH, PRESCHOOL_ENROLL_PATH, BUNDLE_ENROLL_PATH]) {
+      expect(enrollingCourse(classDestination(path))).not.toBeNull();
+    }
+    // Untrusted, off-site, Tallykin and query variants fall back to the generic state.
+    for (const raw of [
+      undefined,
+      "",
+      "https://evil.example/app/classes/infant/enroll",
+      "//evil.example/app/classes/infant/enroll",
+      "/app/child/new",
+      "/app/classes/infant/enroll/../../../app",
+      "/app/classes/unknown/enroll",
+    ]) {
+      expect(enrollingCourse(classDestination(raw))).toBeNull();
+    }
+    // A query on an enroll path is not claimed as that class.
+    expect(enrollingCourse(classDestination(`${INFANT_ENROLL_PATH}?x=1`))).toBeNull();
+  });
 });
