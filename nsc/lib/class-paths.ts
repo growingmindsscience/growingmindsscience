@@ -18,6 +18,29 @@ export function classDestination(raw: unknown): string {
   return isClassPath(next) ? next : CLASS_HOME;
 }
 
+/**
+ * Sign-in `next` for a signed-out visit to a protected path. A class path
+ * keeps its safe query (Stripe's `?session_id=` on a success page);
+ * anything unsafe falls back to the bare path. Other areas keep the path
+ * alone, as before.
+ */
+export function signInNext(pathname: string, search = ""): string {
+  if (!isClassPath(pathname)) return pathname;
+  return safeNextPath(`${pathname}${search}`, pathname);
+}
+
+/** Validate a checkout reference received from an untrusted query. */
+export function checkoutSessionId(raw: unknown): string | undefined {
+  return typeof raw === "string" && raw.startsWith("cs_") && raw.length < 200 && /^[\w-]+$/.test(raw)
+    ? raw
+    : undefined;
+}
+
+/** The class sign-in URL (path and query) for a given destination. */
+export function classLoginUrl(next: string): string {
+  return `/class-login?next=${encodeURIComponent(next)}`;
+}
+
 /** Sends a signed-in parent straight to Stripe Checkout for the infant class. */
 export const INFANT_ENROLL_PATH = "/app/classes/infant/enroll";
 /** The same for the preschool class. */

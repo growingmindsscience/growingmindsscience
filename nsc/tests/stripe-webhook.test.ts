@@ -105,6 +105,15 @@ describe("stripe webhook: on-site classes", () => {
     expect(d.classes.fulfill).toHaveBeenCalledTimes(1);
   });
 
+  it("routes a family checkout to class fulfillment, not the generic grant", async () => {
+    const db = new FakeDb({ uniques });
+    const d = deps(db);
+    const out = await handleStripeEvent(checkout({ metadata: { product: "class_family", owner_id: "user-1" } }), d);
+    expect(out).toEqual({ status: 200, body: { received: true, class: "family" } });
+    expect(d.classes.fulfill).toHaveBeenCalledTimes(1);
+    expect(db.rows("entitlements")).toEqual([]);
+  });
+
   it("routes a bundle checkout to class fulfillment", async () => {
     const d = deps(new FakeDb({ uniques }));
     const out = await handleStripeEvent(checkout({ metadata: { product: "class_bundle_all", owner_id: "user-1" } }), d);

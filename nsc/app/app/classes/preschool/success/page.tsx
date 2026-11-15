@@ -1,4 +1,5 @@
 import { requireClassAuth } from "@/lib/auth";
+import { checkoutSessionId } from "@/lib/class-paths";
 import { hasClassAccess, publishedLessons } from "@/lib/classes.server";
 import { PRESCHOOL_COURSE } from "@/lib/classes";
 import { ClassWelcome } from "@/components/class-welcome";
@@ -10,12 +11,13 @@ export const dynamic = "force-dynamic";
 export const metadata = { title: "Welcome to Preschool years" };
 
 export default async function PreschoolClassSuccessPage({ searchParams }: {
-  searchParams: Promise<{ session_id?: string }>;
+  searchParams: Promise<{ session_id?: string | string[] }>;
 }) {
-  const user = await requireClassAuth("/app/classes/preschool/success");
-  const { session_id: sessionId } = await searchParams;
+  const sessionId = checkoutSessionId((await searchParams).session_id);
+  const path = "/app/classes/preschool/success";
+  const user = await requireClassAuth(sessionId ? `${path}?session_id=${sessionId}` : path);
   let paid = false;
-  if (sessionId?.startsWith("cs_") && sessionId.length < 200) {
+  if (sessionId) {
     try {
       const session = await stripe().checkout.sessions.retrieve(sessionId);
       if (session.client_reference_id === user.id && session.metadata?.owner_id === user.id &&

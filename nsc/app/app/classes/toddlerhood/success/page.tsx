@@ -1,5 +1,6 @@
 import { TODDLER_COURSE } from "@/lib/classes";
 import { requireClassAuth } from "@/lib/auth";
+import { checkoutSessionId } from "@/lib/class-paths";
 import { hasClassAccess, publishedLessons } from "@/lib/classes.server";
 import { ClassWelcome } from "@/components/class-welcome";
 import { stripe } from "@/lib/stripe";
@@ -9,12 +10,13 @@ import { fulfillClassCheckout } from "@/lib/class-orders.server";
 export const dynamic = "force-dynamic";
 
 export default async function ClassSuccessPage({ searchParams }: {
-  searchParams: Promise<{ session_id?: string }>;
+  searchParams: Promise<{ session_id?: string | string[] }>;
 }) {
-  const user = await requireClassAuth("/app/classes/toddlerhood/success");
-  const { session_id: sessionId } = await searchParams;
+  const sessionId = checkoutSessionId((await searchParams).session_id);
+  const path = "/app/classes/toddlerhood/success";
+  const user = await requireClassAuth(sessionId ? `${path}?session_id=${sessionId}` : path);
   let paid = false;
-  if (sessionId?.startsWith("cs_") && sessionId.length < 200) {
+  if (sessionId) {
     try {
       const session = await stripe().checkout.sessions.retrieve(sessionId);
       if (session.client_reference_id === user.id && session.metadata?.owner_id === user.id && session.metadata?.product === TODDLER_COURSE.product) {

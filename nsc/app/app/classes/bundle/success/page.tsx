@@ -1,4 +1,5 @@
 import { requireClassAuth } from "@/lib/auth";
+import { checkoutSessionId } from "@/lib/class-paths";
 import { ownedClassSlugs, publishedLessons } from "@/lib/classes.server";
 import { CLASS_BUNDLE } from "@/lib/classes";
 import { BundleWelcome } from "@/components/class-welcome";
@@ -10,12 +11,13 @@ export const dynamic = "force-dynamic";
 export const metadata = { title: "Welcome to all three classes" };
 
 export default async function BundleSuccessPage({ searchParams }: {
-  searchParams: Promise<{ session_id?: string }>;
+  searchParams: Promise<{ session_id?: string | string[] }>;
 }) {
-  const user = await requireClassAuth("/app/classes/bundle/success");
-  const { session_id: sessionId } = await searchParams;
+  const sessionId = checkoutSessionId((await searchParams).session_id);
+  const path = "/app/classes/bundle/success";
+  const user = await requireClassAuth(sessionId ? `${path}?session_id=${sessionId}` : path);
   let paid = false;
-  if (sessionId?.startsWith("cs_") && sessionId.length < 200) {
+  if (sessionId) {
     try {
       const session = await stripe().checkout.sessions.retrieve(sessionId);
       if (session.client_reference_id === user.id && session.metadata?.owner_id === user.id &&

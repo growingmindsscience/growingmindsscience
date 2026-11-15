@@ -40,7 +40,7 @@ export default async function FamilyClassPage({ searchParams }: {
           {error === "not-open" && <p role="alert" className="mt-3 text-sm text-coral-deep">Enrollment is not open for this account yet.</p>}
           {error === "checkout-unavailable" && <p role="alert" className="mt-3 text-sm text-coral-deep">Checkout is unavailable right now. Please try again later.</p>}
           {salesOpen ? <form action={startFamilyClassCheckout} className="mt-5"><SubmitButton pendingLabel="Opening checkout…">Enroll now</SubmitButton></form> : (
-            error !== "not-open" && <p className="mt-4 text-sm text-ink-muted">Enrollment is not open yet.</p>
+            !error && <p className="mt-4 text-sm text-ink-muted">Enrollment is not open yet.</p>
           )}
           <a href={sitePath(FAMILY_COURSE.detailsPath)} className={buttonClasses("ghost", "md", "mt-4 border border-line")}>View class details</a>
           <PurchaseTerms narration className="mt-4" />
