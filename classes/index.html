@@ -33,7 +33,7 @@
   <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
   <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
-  <link rel="stylesheet" href="/assets/css/classes.css?v=195dac0b5b" />
+  <link rel="stylesheet" href="/assets/css/classes.css?v=d3bd9afbd8" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=eacaf2a72e" />
 </head>
 <body class="fg fg--page cl-hub">
@@ -88,20 +88,24 @@
 
     <!-- Welcome -->
     <section class="hb-container cl-welcome" aria-labelledby="page-heading">
-      <h1 class="hb-display" id="page-heading">The first five years, <em>understood.</em></h1>
-      <p class="hb-lead" data-rise style="--i:1">Find the class for your child&rsquo;s age. Short, self-paced lessons help you understand what you&rsquo;re seeing and decide what to try next.</p>
-      <p class="cl-terms" data-rise style="--i:2">$49 per class &middot; Lifetime access &middot; No subscription</p>
+      <div class="cl-welcome__head">
+        <h1 class="hb-display" id="page-heading">How old is <em>your child?</em></h1>
+        <div class="cl-welcome__aside">
+          <p class="hb-lead">Find short, self-paced lessons on what you&rsquo;re seeing and what to try next.</p>
+          <p class="cl-terms">$49 per class &middot; Lifetime access &middot; No subscription</p>
+        </div>
+      </div>
       <nav class="cl-jump" aria-label="Jump to your child&rsquo;s age">
-        <a href="#infant">Baby</a>
-        <a href="#toddler">Toddler</a>
-        <a href="#preschool">Preschool</a>
+        <a href="#infant"><b>Baby</b><span>Birth to 12 months</span></a>
+        <a href="#toddler"><b>Toddler</b><span>1 to 3 years</span></a>
+        <a href="#preschool"><b>Preschool</b><span>3 to 5 years</span></a>
       </nav>
+      <p class="cl-tiebreak"><strong>Just turned three?</strong> Choose Toddler if tantrums, &ldquo;no,&rdquo; and transitions fill your days. Choose Preschool if play, friendships, and getting ready for school do.</p>
     </section>
 
-    <!-- Choose by age -->
+    <!-- The classes, by age -->
     <section class="hb-container cl-choose" id="choose-class" aria-labelledby="choose-heading">
-      <h2 class="cl-choose__heading" id="choose-heading">Choose your child&rsquo;s stage</h2>
-      <p class="cl-tiebreak"><strong>Just turned three?</strong> Choose Toddler if tantrums, &ldquo;no,&rdquo; and transitions fill your days. Choose Preschool if play, friendships, and getting ready for school do.</p>
+      <h2 class="u-visually-hidden" id="choose-heading">The classes, by age</h2>
       <ol class="cl-stages">
 
         <li class="cl-stage" id="infant" aria-labelledby="infant-heading">
@@ -109,7 +113,7 @@
             <img src="/assets/img/site/class-infant-400.jpg" srcset="/assets/img/site/class-infant-400.jpg 400w, /assets/img/site/class-infant.jpg 800w" sizes="(min-width: 861px) 22vw, 92vw" width="800" height="800" alt="" loading="eager" decoding="async" />
           </a>
           <div class="cl-stage__body">
-            <h3 id="infant-heading"><a href="/classes/birth-to-12-months">Birth to 12 months</a></h3>
+            <h3 id="infant-heading"><a href="/classes/birth-to-12-months">Baby <span class="cl-stage__age">Birth to 12 months</span></a></h3>
             <p class="cl-stage__help">Make sense of crying, sleep, feeding, and what babies tell us before they can talk.</p>
             <p class="cl-stage__meta">16 lessons &middot; About 3 hours &middot; $49, once</p>
           </div>
@@ -124,7 +128,7 @@
             <img src="/assets/img/site/class-toddler-400.jpg" srcset="/assets/img/site/class-toddler-400.jpg 400w, /assets/img/site/class-toddler.jpg 800w" sizes="(min-width: 861px) 22vw, 92vw" width="800" height="800" alt="" loading="lazy" decoding="async" />
           </a>
           <div class="cl-stage__body">
-            <h3 id="toddler-heading"><a href="/classes/toddlerhood">Toddler years, 1 to 3</a></h3>
+            <h3 id="toddler-heading"><a href="/classes/toddlerhood">Toddler <span class="cl-stage__age">1 to 3 years</span></a></h3>
             <p class="cl-stage__help">Understand what happens during tantrums and what helps when your toddler says &ldquo;no&rdquo; or has to stop playing.</p>
             <p class="cl-stage__meta">13 lessons &middot; About 2.5 hours &middot; $49, once</p>
           </div>
@@ -139,7 +143,7 @@
             <img src="/assets/img/site/class-preschool-400.jpg" srcset="/assets/img/site/class-preschool-400.jpg 400w, /assets/img/site/class-preschool.jpg 800w" sizes="(min-width: 861px) 22vw, 92vw" width="800" height="800" alt="" loading="lazy" decoding="async" />
           </a>
           <div class="cl-stage__body">
-            <h3 id="preschool-heading"><a href="/classes/preschool">Preschool years, 3 to 5</a></h3>
+            <h3 id="preschool-heading"><a href="/classes/preschool">Preschool <span class="cl-stage__age">3 to 5 years</span></a></h3>
             <p class="cl-stage__help">See how play and friendships help your child build the skills they&rsquo;ll use in school.</p>
             <p class="cl-stage__meta">15 lessons &middot; About 2.5 hours &middot; $49, once</p>
           </div>
@@ -173,7 +177,7 @@
           <h2 class="hb-display" id="free-heading">Start with Serve and Return</h2>
           <p>See how everyday back-and-forth helps babies communicate. This free infant lesson needs no account.</p>
           <div class="cl-free__act">
-            <a class="hb-btn hb-btn--paper" href="/nsc/classes/infant/preview"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="m10 8 6 4-6 4Z" stroke-linejoin="round" /></svg>Watch the free infant lesson</a>
+            <a class="hb-btn hb-btn--paper" href="/nsc/classes/infant/preview"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="m10 8 6 4-6 4Z" stroke-linejoin="round" /></svg>Watch a free lesson<span class="u-visually-hidden">: Serve and Return, Birth to 12 months</span></a>
           </div>
           <details class="cl-free__more">
             <summary>More free reading and tools</summary>

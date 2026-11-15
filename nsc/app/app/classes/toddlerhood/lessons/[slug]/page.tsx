@@ -6,7 +6,7 @@ import { hasClassAccess, progressForUser, publishedLessonTitle, publishedLessons
 import { TODDLER_COURSE, lessonPath, transcriptParagraphs } from "@/lib/classes";
 import { Eyebrow } from "@/components/class-chrome";
 import { ClassPlayer } from "@/components/class-player";
-import { ClassThisWeek } from "@/components/class-this-week";
+import { ClassLessonNav, ClassLessonText, ClassThisWeek } from "@/components/class-this-week";
 
 export const dynamic = "force-dynamic";
 
@@ -26,6 +26,7 @@ export default async function ClassLessonPage({ params }: { params: Promise<{ sl
   const place = progress.find((row) => row.lesson_id === lesson.id);
   const previous = index > 0 ? lessons[index - 1] : null;
   const upcoming = index + 1 < lessons.length ? lessons[index + 1] : null;
+  const paragraphs = transcriptParagraphs(lesson.transcript);
   const navLink = "inline-flex min-h-11 items-center font-semibold text-teal underline";
   // Rendered above and below the written lesson, so the next step never sits
   // under a couple of thousand words.
@@ -47,18 +48,15 @@ export default async function ClassLessonPage({ params }: { params: Promise<{ sl
         {lesson.summary && <p className="mt-3 text-ink">{lesson.summary}</p>}
       </header>
 
-      <ClassPlayer lessonId={lesson.id} title={lesson.title} posterLabel={`Module ${lesson.module_number} · Lesson ${index + 1} of ${lessons.length}`} posterMinutes={lesson.duration_seconds ? Math.max(1, Math.round(lesson.duration_seconds / 60)) : null} startTime={place?.completed_at ? 0 : (place?.position_seconds ?? 0)} completed={Boolean(place?.completed_at)} next={upcoming ? { href: lessonPath(upcoming.slug), title: upcoming.title, minutes: upcoming.duration_seconds ? Math.max(1, Math.round(upcoming.duration_seconds / 60)) : null } : undefined} />
+      <ClassLessonNav courseSlug="toddlerhood" lessonSlug={lesson.slug} />
 
-      <ClassThisWeek courseSlug="toddlerhood" lessonSlug={lesson.slug} />
+      <div id="watch" className="scroll-mt-6"><ClassPlayer lessonId={lesson.id} title={lesson.title} posterLabel={`Module ${lesson.module_number} · Lesson ${index + 1} of ${lessons.length}`} posterMinutes={lesson.duration_seconds ? Math.max(1, Math.round(lesson.duration_seconds / 60)) : null} startTime={place?.completed_at ? 0 : (place?.position_seconds ?? 0)} completed={Boolean(place?.completed_at)} next={upcoming ? { href: lessonPath(upcoming.slug), title: upcoming.title, minutes: upcoming.duration_seconds ? Math.max(1, Math.round(upcoming.duration_seconds / 60)) : null } : undefined} /></div>
+
+      <ClassThisWeek courseSlug="toddlerhood" lessonSlug={lesson.slug} paragraphs={paragraphs} />
 
       {lessonNav("Lesson navigation", "-my-3")}
 
-      <section aria-labelledby="read-heading" className="border-t border-line pt-8">
-        <h2 id="read-heading" className="text-2xl text-ink-deep">Read this lesson</h2>
-        <div className="mt-5 flex max-w-[62ch] flex-col gap-4 text-base leading-relaxed text-ink [text-wrap:pretty]">
-          {transcriptParagraphs(lesson.transcript).map((paragraph, i) => <p key={i}>{paragraph}</p>)}
-        </div>
-      </section>
+      <ClassLessonText courseSlug="toddlerhood" lessonSlug={lesson.slug} paragraphs={paragraphs} />
 
       {lessonNav("Lesson navigation, end of page", "border-t border-line pt-3")}
     </main>
