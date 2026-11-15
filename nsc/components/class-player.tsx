@@ -12,6 +12,9 @@ interface PlaybackInfo { playbackId: string; token: string; expiresAt: number }
 /** Why the first playback request failed; decides what the parent can do next. */
 type LoadError = "signed-out" | "unavailable";
 
+/** Why a progress save failed: the session ended, or a passing network/server error. */
+type SaveProblem = "signed-out" | "no-access" | "retrying";
+
 export interface NextLesson { href: string; title: string; minutes?: number | null }
 
 /**
@@ -91,6 +94,11 @@ export function ClassPlayer({ lessonId, title, startTime, completed = false, cou
   const [done, setDone] = useState(completed);
   const [saving, setSaving] = useState(false);
   const [saveFailed, setSaveFailed] = useState(false);
+  // Why the last position save did not land; shown beside the video without
+  // stopping it. `saveSeq` numbers requests, `appliedSeq` the newest one reported.
+  const [saveProblem, setSaveProblem] = useState<SaveProblem | null>(null);
+  const saveSeq = useRef(0);
+  const appliedSeq = useRef(0);
   // Where the player starts when it (re)loads its source. A token refresh
   // reloads the source, so it must resume from where the parent is now.
   const [resumeAt, setResumeAt] = useState(startTime);
@@ -134,6 +142,14 @@ export function ClassPlayer({ lessonId, title, startTime, completed = false, cou
 
   async function save(positionSeconds: number, complete = false): Promise<boolean> {
     if (preview || !Number.isFinite(positionSeconds)) return false;
+    const seq = ++saveSeq.current;
+    // Only the newest finished save may change the note, so a slow earlier
+    // success never clears (or a stale failure never raises) the warning.
+    const report = (state: SaveProblem | null) => {
+      if (seq < appliedSeq.current) return;
+      appliedSeq.current = seq;
+      setSaveProblem(state);
+    };
     try {
       const response = await fetch(`${endpoint}/progress`, {
         method: "POST",
@@ -142,9 +158,14 @@ export function ClassPlayer({ lessonId, title, startTime, completed = false, cou
         body: JSON.stringify({ positionSeconds, complete }),
       });
       if (response.ok && complete) setDone(true);
+      if (response.ok) report(null);
+      else if (response.status === 401) report("signed-out");
+      else if (response.status === 403) report("no-access");
+      else report("retrying");
       return response.ok;
     } catch {
       // A position save is retried on the next progress event.
+      report("retrying");
       return false;
     }
   }
@@ -270,7 +291,23 @@ export function ClassPlayer({ lessonId, title, startTime, completed = false, cou
         </div>
       ) : (
         <>
-          {playback && !loadError && <p className="mt-2 text-sm text-ink-muted">Your place is saved as you watch.</p>}
+          {playback && !loadError && !saveProblem && <p className="mt-2 text-sm text-ink-muted">Your place is saved as you watch.</p>}
+          {/* Always mounted so a screen reader hears each change once, not each failed save. */}
+          <div role="status" aria-live="polite">
+            {saveProblem === "signed-out" && (
+              <p className="mt-2 text-sm text-ink">
+                Your sign-in has ended, so your place may not be saved. Keep watching, then{" "}
+                <button type="button" onClick={() => window.location.reload()} className="font-semibold text-teal underline underline-offset-4">sign in again</button>{" "}
+                to resume saving your progress.
+              </p>
+            )}
+            {saveProblem === "no-access" && (
+              <p className="mt-2 text-sm text-ink">Your place could not be saved. <a href="/nsc/app/classes" className="font-semibold text-teal underline underline-offset-4">Check your class access</a>.</p>
+            )}
+            {saveProblem === "retrying" && (
+              <p className="mt-2 text-sm text-ink-muted">Having trouble saving your place. We will keep trying as you watch.</p>
+            )}
+          </div>
           <Button variant="ghost" size="sm" className="mt-3" disabled={saving} onClick={() => void markComplete()}>
             {saving ? "Saving…" : "Mark lesson complete"}
           </Button>

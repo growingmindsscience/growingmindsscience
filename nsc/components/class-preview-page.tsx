@@ -49,7 +49,7 @@ export function classPreviewMetadata(config: ClassPreviewConfig, lesson: FreePre
  * One lesson of a class, free to watch with no account, so a parent can try
  * the class before paying. Public in the middleware; the lesson and its
  * playback come only from the class's row flagged is_free_preview. While a
- * class's sales are closed, the next step is its waitlist instead of checkout.
+ * class's sales are closed, the next step is its class page instead of checkout.
  */
 export async function ClassPreviewPage({ config, lesson }: { config: ClassPreviewConfig; lesson: FreePreviewLesson | null }) {
   const course = CLASS_COURSES[config.courseSlug];
@@ -58,15 +58,16 @@ export async function ClassPreviewPage({ config, lesson }: { config: ClassPrevie
   if (lesson && user && await hasClassAccess(user.id, course.slug).catch(() => false)) {
     redirect(lessonPath(lesson.slug, course.slug));
   }
-  const salesOpen = lesson ? await classSalesOpen(course.slug).catch(() => false) : false;
+  // The signed-in parent's id lets the gate open for the preview-env test account.
+  const salesOpen = lesson ? await classSalesOpen(course.slug, user?.id).catch(() => false) : false;
   const lessonCount = config.moduleLessonCounts.reduce((sum, count) => sum + count, 0);
   const lessonNumber = lesson ? classLessonNumber(config.moduleLessonCounts, lesson.module_number, lesson.position) : 0;
   const paragraphs = lesson ? transcriptParagraphs(lesson.transcript) : [];
   const leadIn = lesson ? config.leadIns[lesson.slug] : undefined;
   const nextHref = salesOpen
     ? `/class-signup?next=${encodeURIComponent(config.enrollPath)}`
-    : sitePath(`${course.detailsPath}#waitlist`);
-  const nextLabel = salesOpen ? `Enroll, ${course.priceDisplay}` : "Join the waitlist";
+    : sitePath(course.detailsPath);
+  const nextLabel = salesOpen ? `Enroll, ${course.priceDisplay}` : "See class details";
   const detailsLink = (
     <a href={sitePath(course.detailsPath)} className="inline-flex min-h-11 items-center text-sm text-ink-muted underline underline-offset-4">← Class details</a>
   );
@@ -122,7 +123,7 @@ export async function ClassPreviewPage({ config, lesson }: { config: ClassPrevie
               <p className="mt-3 max-w-[60ch] text-ink-soft [text-wrap:pretty]">
                 {salesOpen
                   ? `The class is ${course.priceDisplay} once, with lifetime access. `
-                  : "The full class opens soon; the waitlist hears first. "}
+                  : "The class page has the full outline and the latest on enrollment. "}
                 It walks through {config.span} in four modules: {config.modulesSentence} Every lesson has captions and a written version.
               </p>
               {salesOpen && <p className="mt-3 max-w-[60ch] text-ink-soft [text-wrap:pretty]">{CLASS_REFUND_POLICY}</p>}
@@ -141,7 +142,7 @@ export async function ClassPreviewPage({ config, lesson }: { config: ClassPrevie
                   Ready for the <span className="hl">other {lessonCount - 1}</span>?
                 </h2>
                 <p className="mt-2 text-on-dark-soft">
-                  {salesOpen ? `${course.priceDisplay} once, lifetime access.` : "Join the waitlist to hear when the class opens."}
+                  {salesOpen ? `${course.priceDisplay} once, lifetime access.` : "See the outline and how to enroll."}
                 </p>
               </div>
               <LinkButton href={nextHref} variant="amber">{nextLabel}</LinkButton>
