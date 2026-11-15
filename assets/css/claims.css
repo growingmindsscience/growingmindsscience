@@ -29,6 +29,12 @@
 /* The grade: the verdict as a statement, then the grade as a figure. */
 .claims .cl-grade { padding: clamp(24px, 3vw, 36px); border-radius: var(--radius-lg); background: var(--sage-mist); }
 .claims .cl-verdict { font-family: var(--font-display); font-size: clamp(1.375rem, 1.15rem + 0.8vw, 1.75rem); line-height: 1.3; letter-spacing: -0.01em; color: var(--ink); text-wrap: pretty; }
+.claims .cl-verdict-label { margin-bottom: 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); }
+.claims .cl-scale__note { margin-top: 6px; font-size: 13px; line-height: 1.4; color: var(--ink-soft); }
+.claims .cl-step { margin: 28px 0; padding: 16px 0 16px 18px; border-left: 3px solid var(--sage-deep); }
+.claims .cl-step h2 { font-size: 1.125rem; line-height: 1.3; }
+.claims .cl-step p { margin-top: 6px; }
+.claims .cl-step a { color: var(--research); text-decoration: underline; text-underline-offset: 3px; }
 .claims .cl-scales { display: grid; gap: 20px; margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--sage-mist-2); }
 
 /* A scale: the axis and the claim's step on one line, the track, its two ends under it.

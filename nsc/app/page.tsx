@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getUser } from "@/lib/auth";
 import { getCitations } from "@/lib/content.server";
 import { Card, EnrichmentFooter, LinkButton } from "@/components/ui";
-import { Ladder } from "@/components/ladder";
+import { Ladder, LadderGloss } from "@/components/ladder";
 import { brand } from "@/lib/config/brand";
 
 const PRICE = process.env.NEXT_PUBLIC_NSC_PRICE_DISPLAY ?? "$34";
@@ -73,7 +73,10 @@ export default async function Home() {
             </>
           )}
         </p>
-        <Ladder className="mt-4 w-full" />
+        <div className="mt-4 grid w-full items-start gap-6 sm:grid-cols-2">
+          <Ladder className="w-full" />
+          <LadderGloss className="text-left" />
+        </div>
       </section>
 
       {/* How it works */}

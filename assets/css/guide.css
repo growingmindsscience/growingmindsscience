@@ -299,6 +299,9 @@
 .fg ol.g-now-glance, .gpage .g-now-glance, .g-now-glance { list-style: none; margin: 0; padding: clamp(20px, 2.5vw, 28px); border-radius: var(--radius-lg); background: var(--sage-mist); display: grid; gap: 14px; }
 .g-now-glance li { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: baseline; color: var(--ink-soft); line-height: 1.45; }
 .g-now-glance b { color: var(--ink); font-weight: 600; }
+.g-quick { margin: 20px 0 8px; }
+.g-quick__title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 500; line-height: 1.2; margin: 0 0 10px; color: var(--ink); }
+.g-quick .g-now-glance { padding: 16px 18px; gap: 10px; }
 .g-now-glance__n { font-family: var(--font-display); font-size: 1.75rem; line-height: 1; color: var(--clay-text); }
 .g-now { padding-block: clamp(8px, 2vw, 24px) clamp(40px, 5vw, 72px); }
 .g-now__steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3vw, 40px); }

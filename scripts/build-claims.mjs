@@ -163,14 +163,24 @@ function relatedClaims(c, n) {
 // position to scientific consensus. Every word is the artifact's own label.
 const STRENGTH_SCALE = ["contradicted", "insufficient", "limited", "moderate", "strong"];
 const CONSENSUS_SCALE = ["fringe", "divided", "majority", "consensus"];
+// The two scales answer different questions, so each carries its own name and one plain line
+// saying how to read it. On the strength scale the low end is the research pointing against the
+// claim, not weak research, so a low step there is a clear answer, never "low confidence".
+const AXIS_STRENGTH = "What the research says";
+const AXIS_CONSENSUS = "How settled it is";
+const AXIS_NOTE = {
+  [AXIS_STRENGTH]: "Far left: the research points against the claim. Far right: it supports it.",
+  [AXIS_CONSENSUS]: "How closely researchers agree with each other, whichever way the evidence points.",
+};
 function scale(axis, steps, labels, current) {
   const at = steps.indexOf(current);
   const first = labels[steps[0]], last = labels[steps[steps.length - 1]];
   const segs = steps.map((s) => `<span class="cl-scale__seg${s === current ? " is-on" : ""}"></span>`).join("");
   return `            <div class="cl-scale cl-scale--${steps.length}">
               <p class="cl-scale__head"><span class="cl-scale__axis">${axis}</span> <b class="cl-scale__val">${esc(labels[current])}</b></p>
-              <div class="cl-scale__bar" role="img" aria-label="Step ${at + 1} of ${steps.length}, on a scale from ${esc(first)} to ${esc(last)}">${segs}</div>
+              <div class="cl-scale__bar" role="img" aria-label="${axis}: ${esc(labels[current])}. Step ${at + 1} of ${steps.length}, on a scale from ${esc(first)} to ${esc(last)}. ${AXIS_NOTE[axis]}">${segs}</div>
               <p class="cl-scale__ends" aria-hidden="true"><span>${esc(first)}</span><span>${esc(last)}</span></p>
+              <p class="cl-scale__note">${AXIS_NOTE[axis]}</p>
             </div>`;
 }
 
@@ -223,7 +233,7 @@ ${extraHead}
   <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
   <link rel="stylesheet" href="/assets/css/hubs.css?v=05c4490964" />
-  <link rel="stylesheet" href="/assets/css/claims.css?v=97da88f5fc" />
+  <link rel="stylesheet" href="/assets/css/claims.css?v=ad2b6379dd" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=eacaf2a72e" />
 </head>
 <body class="fg fg--page hub claims">
@@ -343,7 +353,7 @@ ${body}
   <script src="/assets/js/chrome.js?v=d5fdf5ae8e"></script>
 
   <script src="/assets/js/main.js?v=b5c8e48c2d" defer></script>
-  <script src="/assets/js/home.js?v=397b77a004" defer></script>
+  <script src="/assets/js/home.js?v=e6330d4519" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
@@ -353,11 +363,36 @@ ${body}
 // The method, said once. The hub sets it open beside the key to both scales; a claim page folds
 // it into a closed question, since the scales in its grade panel already carry the legend.
 const METHOD_P = [
-  `Every claim is graded on two independent axes. <strong>Evidence strength</strong> asks: how good is the research behind the claim as parents actually state it? Randomized trials and meta-analyses outrank single observational studies, which outrank expert opinion. <strong>Consensus</strong> asks a different question: where does the field actually sit? A claim can rest on limited evidence while researchers still broadly agree, and both facts belong on the label.`,
+  `Every claim is graded on two independent axes. <strong>What the research says</strong> (evidence strength) asks: how good is the research behind the claim as parents actually state it, and does it point for or against? Randomized trials and meta-analyses outrank single observational studies, which outrank expert opinion. <strong>How settled it is</strong> (consensus) asks a different question: where does the field actually sit? A claim can rest on limited evidence while researchers still broadly agree, and both facts belong on the label.`,
   `Every empirical statement in a summary is tied to the sources listed on its page, and an automated check enforces the honesty rules: claims below strong evidence cannot use proof-language, and claims with limited or insufficient evidence must say so in plain words. The check runs on every update to this site; a summary that overclaims cannot ship.`,
   `The grades are educational summaries of published research, not medical advice, and they can change; each page shows when it was last reviewed.`,
 ];
 const METHOD_TITLE = "How claims get graded";
+
+// One obvious next step on the three health and safety claims, set above Sources. The sentence is
+// each page's own, quoted from its summary; the link is a trusted resource the site already links
+// elsewhere (tools/whats-typical-by-stage, tools/activity-library). Nothing here is new guidance.
+const HC = "https://www.healthychildren.org/English/";
+const NEXT_STEP = {
+  "teething-fever": {
+    h: "If your baby has a fever",
+    p: "The American Academy of Pediatrics explains when to call your child’s doctor about a fever.",
+    href: `${HC}health-issues/conditions/fever/pages/When-to-Call-the-Pediatrician.aspx`,
+    link: "HealthyChildren.org: Fever, when to call the pediatrician",
+  },
+  "baby-led-weaning": {
+    h: "Whichever way you feed",
+    p: "Safe preparation matters whichever way you feed.",
+    href: `${HC}health-issues/injuries-emergencies/Pages/Choking-Prevention.aspx`,
+    link: "HealthyChildren.org: Choking prevention for babies and children",
+  },
+  "baby-walkers": {
+    h: "If a walker is already at home",
+    p: "The American Academy of Pediatrics explains the risks of wheeled walkers and lists safer alternatives.",
+    href: `${HC}safety-prevention/at-home/Pages/Baby-Walkers-A-Dangerous-Choice.aspx`,
+    link: "HealthyChildren.org: Baby walker safety and alternatives",
+  },
+};
 
 function claimPage(c) {
   const jsonld = {
@@ -396,10 +431,11 @@ function claimPage(c) {
           <p class="cl-meta"><a href="/claims/">Claims</a> <span aria-hidden="true">&middot;</span> Evidence-graded claim <span aria-hidden="true">&middot;</span> ${esc(DOMAIN_LABEL[c.domain] || c.domain)} <span aria-hidden="true">&middot;</span> Reviewed <time datetime="${esc(c.last_reviewed)}">${esc(longDate(c.last_reviewed))}</time></p>
         </div>
         <aside class="cl-grade" aria-label="The grade" data-rise style="--i:1">
+          <p class="cl-verdict-label">The short answer</p>
           <p class="cl-verdict">${txt(c.verdict_label)}</p>
           <div class="cl-scales">
-${scale("Evidence strength", STRENGTH_SCALE, a.strength_labels, c.grade_strength)}
-${scale("Consensus", CONSENSUS_SCALE, a.consensus_labels, c.grade_consensus)}
+${scale(AXIS_STRENGTH, STRENGTH_SCALE, a.strength_labels, c.grade_strength)}
+${scale(AXIS_CONSENSUS, CONSENSUS_SCALE, a.consensus_labels, c.grade_consensus)}
           </div>
           <p class="cl-grade__src"><a href="#sources">${n} source${n === 1 ? "" : "s"}</a></p>
         </aside>
@@ -425,7 +461,11 @@ ${paras.map((p, i) => `          <p class="cl-summary${i === 0 && paras.length >
           <a class="hb-btn" href="${esc(ask)}">Ask about this</a>
           <a class="hb-btn hb-btn--quiet" href="/claims/">All graded claims</a>
         </div>
-        <section class="cl-sources" id="sources" aria-labelledby="sources-h">
+${NEXT_STEP[c.slug] ? `        <aside class="cl-step" aria-labelledby="step-h">
+          <h2 id="step-h">${NEXT_STEP[c.slug].h}</h2>
+          <p>${txt(NEXT_STEP[c.slug].p)}${NEXT_STEP[c.slug].href ? ` <a href="${NEXT_STEP[c.slug].href}" target="_blank" rel="noopener noreferrer">${esc(NEXT_STEP[c.slug].link)}</a>` : ""}</p>
+        </aside>
+` : ""}        <section class="cl-sources" id="sources" aria-labelledby="sources-h">
           <h2 id="sources-h">Sources</h2>
           <ol>
 ${c.sources.map((s) => `            <li><p class="cl-src__role">${txt(s.role)}</p><p class="cl-src__cite">${txt(s.citation)}</p></li>`).join("\n")}
@@ -526,9 +566,9 @@ ${groups}
         <div class="cl-method" data-rise style="--i:1">
           <p>${METHOD_P[0]}</p>
           <figure class="cl-key" aria-labelledby="key-cap">
-${key("Evidence strength", STRENGTH_SCALE, a.strength_labels)}
-${key("Consensus", CONSENSUS_SCALE, a.consensus_labels)}
-            <figcaption id="key-cap">The two scales, from evidence against to strong evidence and from a fringe position to scientific consensus. Each claim page fills in its own step on both.</figcaption>
+${key(AXIS_STRENGTH, STRENGTH_SCALE, a.strength_labels)}
+${key(AXIS_CONSENSUS, CONSENSUS_SCALE, a.consensus_labels)}
+            <figcaption id="key-cap">The two scales, from evidence against to strong evidence and from a fringe position to scientific consensus. Each claim page fills in its own step on both. A low step on the first scale means the research points against the claim, not that the research is weak.</figcaption>
           </figure>
 ${METHOD_P.slice(1).map((p) => `          <p>${p}</p>`).join("\n")}
           <p class="cl-note">Educational summaries of published research, not medical advice. Grades reflect the cited literature at the review date shown on each page.</p>

@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
   <link rel="stylesheet" href="/assets/css/tools.css?v=4c6ab1c94c" />
-  <link rel="stylesheet" href="/assets/css/rightnow.css?v=77b273cf77" />
+  <link rel="stylesheet" href="/assets/css/rightnow.css?v=46466466e5" />
   <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
   /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 </head>
@@ -64,14 +64,35 @@
         <p class="rn-reassurance">You don&rsquo;t have to solve<br />the whole day.</p>
       </div>
       <div class="rn-choices" aria-label="Choose your situation">
-        <a class="rn-choice" href="/classes/birth-to-12-months"><span class="rn-choice__text"><span class="rn-choice__name">Baby won&rsquo;t stop crying</span><span class="rn-choice__hint">Birth to 12 months. Crying that nothing you try seems to settle.</span></span><svg class="rn-choice__arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
+        <a class="rn-choice" href="#crying"><span class="rn-choice__text"><span class="rn-choice__name">Baby won&rsquo;t stop crying</span><span class="rn-choice__hint">Birth to 12 months. Crying that nothing you try seems to settle.</span></span><svg class="rn-choice__arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
         <a class="rn-choice" href="/tools/whats-underneath-the-meltdown"><span class="rn-choice__text"><span class="rn-choice__name">Meltdown or tantrum</span><span class="rn-choice__hint">Screaming, crying, hitting, going limp, or losing it.</span></span><svg class="rn-choice__arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
-        <a class="rn-choice" href="/tools/limits-without-escalation"><span class="rn-choice__text"><span class="rn-choice__name">Testing a limit</span><span class="rn-choice__hint">Pushing a &ldquo;no&rdquo;, refusing, or melting down over a boundary.</span></span><svg class="rn-choice__arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
+        <a class="rn-choice" href="/tools/limits-without-escalation"><span class="rn-choice__text"><span class="rn-choice__name">Testing a limit</span><span class="rn-choice__hint">Saying &ldquo;no&rdquo;, refusing, or pushing back on a rule.</span></span><svg class="rn-choice__arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
         <a class="rn-choice" href="/tools/routines-transitions-night-waking"><span class="rn-choice__text"><span class="rn-choice__name">Won&rsquo;t sleep</span><span class="rn-choice__hint">Fighting bedtime, waking in the night, or stalling.</span></span><svg class="rn-choice__arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
         <a class="rn-choice" href="/tools/regulating-yourself-first"><span class="rn-choice__text"><span class="rn-choice__name">I&rsquo;m losing my patience</span><span class="rn-choice__hint">You&rsquo;re the one running hot, close to yelling.</span></span><svg class="rn-choice__arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
         <a class="rn-choice" href="/tools/repair-after-the-hard-moment"><span class="rn-choice__text"><span class="rn-choice__name">Something happened between us</span><span class="rn-choice__hint">You yelled, it went sideways, and you want to reconnect.</span></span><svg class="rn-choice__arrow" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
       </div>
     </div>
+
+    <!-- No-JS answer for the crying choice, same vetted text as the router data
+         below. The script replaces all of <main>, so this only shows without it. -->
+    <section class="rn-static" id="crying" aria-labelledby="rn-static-crying-title">
+      <p class="rn-step__eyebrow">Baby won&rsquo;t stop crying</p>
+      <h2 class="rn-static__title" id="rn-static-crying-title">You can put your baby down.</h2>
+      <p>Crying, even long stretches that nothing seems to fix, is normal for young babies. It is often at its worst in the first few months, and it gets better as your baby grows. Feeling worn down by it is normal too, and stepping away for a few minutes is a safe choice.</p>
+      <ol>
+        <li>Check the basics: hunger, a diaper, too warm or too cold, any sign of illness. Then try one calm thing: hold them skin to skin, rock gently, offer a pacifier, or sing softly.</li>
+        <li>If you feel overwhelmed, lay your baby on their back in a safe crib with nothing else in it, and step out of the room for a few minutes. Look in on them every 5 to 10 minutes.</li>
+        <li>While they are safe in the crib, calm yourself, then call someone: a partner, a friend, a relative, or your baby&rsquo;s doctor.</li>
+      </ol>
+      <p><strong>However frustrated you feel, never shake a baby. Put them down and walk away instead.</strong></p>
+      <p>Call your pediatrician if the crying sounds different from usual, or comes with a fever, poor feeding, or anything else that worries you. If you think it is an emergency, call 911.</p>
+      <p><a href="/classes/birth-to-12-months#crying-curve">The normal crying curve, in the first-year class</a></p>
+      <ul class="rn-static__sources">
+        <li><a href="https://www.cdc.gov/child-abuse-neglect/about/about-abusive-head-trauma.html" rel="noopener noreferrer" target="_blank">CDC: About abusive head trauma</a></li>
+        <li><a href="https://www.healthychildren.org/English/safety-prevention/at-home/Pages/Abusive-Head-Trauma-Shaken-Baby-Syndrome.aspx" rel="noopener noreferrer" target="_blank">AAP, HealthyChildren.org: Shaken baby syndrome</a></li>
+        <li><a href="https://www.cdc.gov/sudden-infant-death/sleep-safely/index.html" rel="noopener noreferrer" target="_blank">CDC: Providing care for babies to sleep safely</a></li>
+      </ul>
+    </section>
   </main>
 
   <aside class="rn-safety" aria-label="If you need help now">
@@ -122,7 +143,7 @@
       {
         "id": "limit",
         "choice": "Testing a limit",
-        "hint": "Pushing a \"no\", refusing, or melting down over a boundary.",
+        "hint": "Saying \"no\", refusing, or pushing back on a rule.",
         "state": "A limit set off big feelings",
         "title": "Hold the limit and make room for the feeling.",
         "body": "A child falling apart doesn't mean the limit was wrong. Keep the boundary simple, acknowledge the feeling, and avoid adding new arguments while it is peaking. Less talking, more calm follow-through.",

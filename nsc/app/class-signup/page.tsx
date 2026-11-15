@@ -23,9 +23,11 @@ export default async function ClassSignupPage({ searchParams }: {
   return (
     <ClassAuthFrame
       context={enrolling && <EnrollContext course={enrolling} step="sign-up" />}
-      title="Create your class account"
+      title={enrolling ? "Create your account to enroll" : "Create your class account"}
       wordmarkHref={`/class-signup?next=${encodeURIComponent(destination)}`}
-      lede="One place for the classes you own, your lesson progress, and everything else in your account."
+      lede={enrolling
+        ? "Your From Little Onward account keeps your class and lesson progress in one place."
+        : "One place for the classes you own, your lesson progress, and everything else in your account."}
       footer={
         <p>Already have an account?{" "}
           <Link href={`/class-login?next=${encodeURIComponent(destination)}`} className="inline-flex min-h-11 items-center font-semibold text-teal underline">Sign in</Link>

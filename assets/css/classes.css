@@ -151,6 +151,8 @@
 .cp-hero__promise { margin-top: 18px; max-width: 44ch; font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem); line-height: 1.5; color: var(--ink-soft); }
 .cp .hero__ctas { display: grid; gap: 12px; margin-top: 26px; }
 .cp-hero__facts { margin-top: 16px; font-size: 14px; line-height: 1.5; color: var(--ink-muted); max-width: 52ch; }
+.cp-hero__facts + .cp-hero__facts { margin-top: 6px; }
+.cp-hero__facts a { color: inherit; text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
 .cp-hero__photo { margin: 0; overflow: hidden; border-radius: var(--radius-lg); background: var(--sage-mist); aspect-ratio: 16 / 10; }
 .cp-hero__photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
 @media (min-width: 560px) { .cp .hero__ctas { display: flex; flex-wrap: wrap; } }
@@ -255,6 +257,7 @@
 .cp .fig__key li { display: inline-flex; align-items: center; gap: 8px; }
 .cp .fig__key-line { width: 1.75rem; border-top: 3px solid var(--ink); }
 .cp .fig__key-line--b { border-top: 3px dashed var(--forest); }
+.cp .fig-label--calm { fill: var(--forest); font-weight: 600; }
 .cp .fig__caption { margin-top: 14px; font-size: 13px; line-height: 1.5; color: var(--ink-muted); max-width: 70ch; }
 .cp .fig__caption b { color: var(--ink); font-weight: 600; }
 @media (max-width: 640px) { .cp .fig-text { font-size: 20px; } .cp .fig-text--sm { font-size: 18px; } }
