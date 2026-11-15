@@ -72,6 +72,52 @@ export function ClassResume({ lessons, progress, courseSlug, modules }: {
 }
 
 /**
+ * A short index of the outline's modules, each a plain link to its #module-N
+ * heading, so a long syllabus is one tap from any part. Only modules that have
+ * lessons are listed, and only when there are at least two of them. For an
+ * owner who has started, the module holding the resume lesson is marked, and
+ * finished modules say so; nothing is marked before there is real progress.
+ */
+function ModuleIndex({ modules, lessons, byLesson, journey }: {
+  modules: readonly string[];
+  lessons: ClassLesson[];
+  byLesson: Map<string, LessonProgress>;
+  journey: ReturnType<typeof classJourney> | null;
+}) {
+  const populated = modules
+    .map((title, index) => ({ title, number: index + 1, lessons: lessons.filter((lesson) => lesson.module_number === index + 1) }))
+    .filter((group) => group.lessons.length > 0);
+  if (populated.length < 2) return null;
+  const hereModule = journey?.status === "in-progress" ? journey.next?.module_number ?? null : null;
+  const hereLabel = journey && journey.watchedSeconds > 0 ? "Resume here" : "Up next";
+  return (
+    <nav aria-label="Jump to a module">
+      <ol className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,8rem),1fr))] gap-x-3 gap-y-1">
+        {populated.map((group) => {
+          const here = group.number === hereModule;
+          const done = Boolean(journey) && group.lessons.every((lesson) => byLesson.get(lesson.id)?.completed_at);
+          return (
+            <li key={group.number} className="flex">
+              <a
+                href={`#module-${group.number}`}
+                className={`flex min-h-11 w-full flex-col justify-center border-l-2 py-1.5 pl-3 pr-2 transition-colors hover:bg-tint/60 ${here ? "border-teal bg-tint/40" : "border-line"}`}
+              >
+                <span className="text-sm leading-snug text-ink-muted">
+                  Module {group.number}
+                  {here && <span className="font-semibold text-teal"> · {hereLabel}</span>}
+                  {done && <span className="font-semibold text-teal"> · <span aria-hidden="true">✓ </span>Done</span>}
+                </span>
+                <span className="text-sm font-semibold leading-snug text-ink-deep underline decoration-field-line underline-offset-4 [text-wrap:pretty]">{group.title}</span>
+              </a>
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+  );
+}
+
+/**
  * The class outline, module by module. Owners get a link per lesson with
  * its length and their progress, and the resume lesson is marked; `locked`
  * shows the same outline to a visitor who has not enrolled, without links.
@@ -84,18 +130,23 @@ export function ClassOutline({ modules, lessons, progress = [], courseSlug, lock
   locked?: boolean;
 }) {
   const byLesson = new Map(progress.map((row) => [row.lesson_id, row]));
-  const upNext = locked ? null : classJourney(lessons, progress).next?.id ?? null;
+  const journey = locked ? null : classJourney(lessons, progress);
+  const upNext = journey?.next?.id ?? null;
   // Ruled rows, not cards (DESIGN.md): a hairline above each lesson and one
   // below the last. Linked rows wash to the tint on hover; locked rows stay flat.
-  const row = "flex items-start justify-between gap-4 border-t border-line px-3 py-3 text-ink";
+  // Narrow or zoomed-in screens put the status under the title instead of
+  // squeezing it (a rem breakpoint, so it follows the reader's font size).
+  const row = "flex flex-col gap-1 border-t border-line px-3 py-3 text-ink min-[26rem]:flex-row min-[26rem]:items-start min-[26rem]:justify-between min-[26rem]:gap-4";
   return (
     <>
+      <ModuleIndex modules={modules} lessons={lessons} byLesson={byLesson} journey={journey} />
       {modules.map((title, index) => {
         const moduleLessons = lessons.filter((lesson) => lesson.module_number === index + 1);
         return (
           <section key={title} aria-labelledby={`module-${index + 1}`}>
             <p aria-hidden="true" className="font-display text-[0.9375rem] font-medium italic text-amber-deep">Module {index + 1}</p>
-            <h2 id={`module-${index + 1}`} className="mb-2 text-xl text-ink-deep">
+            {/* The margin leaves the "Module N" line above in view when a jump lands here. */}
+            <h2 id={`module-${index + 1}`} className="mb-2 scroll-mt-10 text-xl text-ink-deep">
               <span className="sr-only">Module {index + 1}: </span>{title}
             </h2>
             {moduleLessons.length ? (
@@ -111,13 +162,13 @@ export function ClassOutline({ modules, lessons, progress = [], courseSlug, lock
                         <strong className="block font-semibold leading-snug">{lesson.title}</strong>
                         {lesson.summary && <span className="mt-0.5 block text-sm leading-snug text-ink-soft">{lesson.summary}</span>}
                       </span>
-                      <span className="shrink-0 text-right text-sm leading-snug text-ink-muted">
+                      <span className="flex shrink-0 flex-wrap gap-x-3 text-sm leading-snug text-ink-muted min-[26rem]:block min-[26rem]:text-right">
                         {place?.completed_at
-                          ? <span className="block font-semibold text-teal"><span aria-hidden="true" className="mr-1">✓</span>Done</span>
+                          ? <span className="block whitespace-nowrap font-semibold text-teal"><span aria-hidden="true" className="mr-1">✓</span>Done</span>
                           : current
-                            ? <span className="block font-semibold text-teal">{partly ? "Resume here" : "Up next"}</span>
-                            : partly && <span className="block font-semibold text-teal">In progress</span>}
-                        {length && <span className="block">{length} min</span>}
+                            ? <span className="block whitespace-nowrap font-semibold text-teal">{partly ? "Resume here" : "Up next"}</span>
+                            : partly && <span className="block whitespace-nowrap font-semibold text-teal">In progress</span>}
+                        {length && <span className="block whitespace-nowrap">{length} min</span>}
                       </span>
                     </>
                   );
