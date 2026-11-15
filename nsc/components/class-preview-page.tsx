@@ -8,7 +8,7 @@ import { CLASS_REFUND_POLICY } from "@/lib/refund-policy";
 import { sitePath } from "@/lib/site";
 import { ClassHeader, ClassShell, Eyebrow } from "@/components/class-chrome";
 import { ClassPlayer } from "@/components/class-player";
-import { ClassThisWeek } from "@/components/class-this-week";
+import { ClassLessonNav, ClassLessonText, ClassThisWeek } from "@/components/class-this-week";
 import { LinkButton, buttonClasses } from "@/components/ui";
 
 /** What differs between the classes' free lesson pages. */
@@ -61,6 +61,7 @@ export async function ClassPreviewPage({ config, lesson }: { config: ClassPrevie
   const salesOpen = lesson ? await classSalesOpen(course.slug).catch(() => false) : false;
   const lessonCount = config.moduleLessonCounts.reduce((sum, count) => sum + count, 0);
   const lessonNumber = lesson ? classLessonNumber(config.moduleLessonCounts, lesson.module_number, lesson.position) : 0;
+  const paragraphs = lesson ? transcriptParagraphs(lesson.transcript) : [];
   const leadIn = lesson ? config.leadIns[lesson.slug] : undefined;
   const nextHref = salesOpen
     ? `/class-signup?next=${encodeURIComponent(config.enrollPath)}`
@@ -100,16 +101,19 @@ export async function ClassPreviewPage({ config, lesson }: { config: ClassPrevie
                 </p>
               )}
             </header>
-            <ClassPlayer
-              lessonId={lesson.id}
-              title={lesson.title}
-              startTime={0}
-              courseSlug={course.slug}
-              preview
-              posterLabel={`Free lesson · Module ${lesson.module_number}, lesson ${lessonNumber} of ${lessonCount}`}
-              posterMinutes={lesson.duration_seconds ? Math.max(1, Math.round(lesson.duration_seconds / 60)) : null}
-            />
-            <ClassThisWeek courseSlug={course.slug} lessonSlug={lesson.slug} />
+            <ClassLessonNav courseSlug={course.slug} lessonSlug={lesson.slug} />
+            <div id="watch" className="scroll-mt-6">
+              <ClassPlayer
+                lessonId={lesson.id}
+                title={lesson.title}
+                startTime={0}
+                courseSlug={course.slug}
+                preview
+                posterLabel={`Free lesson · Module ${lesson.module_number}, lesson ${lessonNumber} of ${lessonCount}`}
+                posterMinutes={lesson.duration_seconds ? Math.max(1, Math.round(lesson.duration_seconds / 60)) : null}
+              />
+            </div>
+            <ClassThisWeek courseSlug={course.slug} lessonSlug={lesson.slug} paragraphs={paragraphs} />
             <section aria-labelledby="class-heading" className="border-t border-line pt-8">
               <h2 id="class-heading" className="text-2xl text-ink-deep">
                 This is lesson {lessonNumber} of {lessonCount}
@@ -126,12 +130,7 @@ export async function ClassPreviewPage({ config, lesson }: { config: ClassPrevie
                 <a href={sitePath(`${course.detailsPath}#syllabus`)} className={buttonClasses("ghost", "md")}>See the syllabus</a>
               </div>
             </section>
-            <section aria-labelledby="read-heading" className="border-t border-line pt-8">
-              <h2 id="read-heading" className="text-2xl text-ink-deep">Read this lesson</h2>
-              <div className="mt-5 flex max-w-[62ch] flex-col gap-4 text-base leading-relaxed text-ink [text-wrap:pretty]">
-                {transcriptParagraphs(lesson.transcript).map((paragraph, i) => <p key={i}>{paragraph}</p>)}
-              </div>
-            </section>
+            <ClassLessonText courseSlug={course.slug} lessonSlug={lesson.slug} paragraphs={paragraphs} />
           </main>
           {/* The written lesson runs long, so the next step is here too, on the ink band that closes every Seminar page. */}
           <section aria-labelledby="next-heading" className="ink-band ink-grid bg-ink-800 text-on-dark">
