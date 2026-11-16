@@ -4,7 +4,7 @@ import { login } from "@/app/auth/actions";
 import { Card, Field, Input } from "@/components/ui";
 import { PasswordInput } from "@/components/password-input";
 import { SubmitButton } from "@/components/submit-button";
-import { ClassAuthFrame, EnrollContext } from "@/components/class-chrome";
+import { ClassAuthFrame, EnrollContext, enrollBack } from "@/components/class-chrome";
 import { getUser } from "@/lib/auth";
 import { classDestination, enrollingCourse } from "@/lib/class-paths";
 import { sitePath } from "@/lib/site";
@@ -24,11 +24,16 @@ export default async function ClassLoginPage({ searchParams }: {
   const enrolling = enrollingCourse(destination);
   return (
     <ClassAuthFrame
-      context={enrolling && !confirm && <EnrollContext course={enrolling} step="sign-in" />}
-      title={confirm ? "Check your email" : "Sign in to your classes"}
+      context={enrolling && <EnrollContext course={enrolling} step={confirm ? "confirm" : "sign-in"} />}
+      back={enrolling ? enrollBack(enrolling) : undefined}
+      title={confirm ? "Check your email" : enrolling ? "Sign in to enroll" : "Sign in to your classes"}
       lede={confirm
-        ? `If this is a new account, we sent a link to confirm it. Open it on this device and it takes you straight to ${enrolling ? "checkout" : "your classes"}.`
-        : "Classes you enrolled in on this site, and your lesson progress, live in your From Little Onward account."}
+        ? enrolling
+          ? "If this is a new account, we sent a confirmation link."
+          : "If this is a new account, we sent a link to confirm it. Open it on this device and it takes you straight to your classes."
+        : enrolling
+          ? undefined
+          : "Classes you enrolled in on this site, and your lesson progress, live in your From Little Onward account."}
       wordmarkHref={`/class-login?next=${encodeURIComponent(destination)}`}
       footer={
         <p>New here?{" "}
