@@ -398,9 +398,11 @@
 .cp-moment__steps li:first-child { border-top: 0; }
 .cp-moment__label { font-size: 13px; font-weight: 600; line-height: 1.4; color: var(--forest); }
 .cp-moment__steps p { font-family: var(--font-display); font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem); line-height: 1.4; color: var(--ink); max-width: 36ch; }
-.cp-jump { display: flex; flex-wrap: wrap; gap: 0 22px; margin-top: 4px; font-size: 15px; }
-.cp-jump a { display: inline-flex; align-items: center; min-height: 44px; color: var(--forest); text-decoration: underline; text-underline-offset: 0.2em; }
-.cp-jump a:hover { color: var(--forest-deep); }
+/* On this page: quiet in-page links under the hero facts, one line of 44px targets that wraps.
+   Each target is a section[id], so the scroll margin below clears the sticky header. */
+.cp-jump { display: flex; flex-wrap: wrap; gap: 0 20px; margin-top: 6px; font-size: 15px; }
+.cp-jump a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink-soft); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+.cp-jump a:hover { color: var(--forest); }
 .cp main > section[id] { scroll-margin-top: calc(var(--header-h, 72px) + 16px); }
 @media (min-width: 861px) {
   .cp-moment__steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
