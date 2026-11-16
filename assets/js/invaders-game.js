@@ -1,5 +1,5 @@
 /* Growing Minds Science — invaders-game.js
-   "GMS Invaders" on the Arcade page: little questions march down the page
+   "Little Invaders" on the Arcade page: little questions march down the page
    in lockstep, and a small lens at the bottom answers them before they reach
    the floor. Six waves, named for developmental moments, end on The Headline,
    a folded newspaper that opens wider with every answer.
@@ -217,7 +217,7 @@
     function showStart() {
       var p = A.progress.get(GAME_KEY);
       shell.prompt.show({
-        kicker: "GMS Invaders",
+        kicker: "Little Invaders",
         title: p.plays ? "The questions are back" : "Answer the questions before they land",
         text: "Little questions are marching down the page. Answer them with your lens before they reach the floor. Six waves, ending with The Headline. " + controlsLine(),
         actions: [{ label: "Start", primary: true, onClick: start }],
@@ -950,10 +950,10 @@
     A.defineGame("invaders", function () {
       var shell = A.makeShell({
         key: GAME_KEY,
-        title: "GMS Invaders",
+        title: "Little Invaders",
         tagline: "Answer the questions before they land.",
-        label: "GMS Invaders game",
-        canvas: { w: W, h: H, label: "GMS Invaders play field" },
+        label: "Little Invaders game",
+        canvas: { w: W, h: H, label: "Little Invaders play field" },
         hud: [{ id: "score", label: "Score", value: 0 }, { id: "best", label: "Best", value: A.leaderboard.best(GAME_KEY) }, { id: "wave", label: "Wave", value: "1 of 6" }],
         help: A.isCoarsePointer()
           ? "Hold the field to fire, slide to steer · or use the buttons · Pause pauses"
