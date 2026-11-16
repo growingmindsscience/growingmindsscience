@@ -358,14 +358,29 @@
     opts.forEach(function (o) { o.setAttribute("role", "button"); o.setAttribute("aria-pressed", "false"); });
     var choose = function (o) {
       opts.forEach(function (x) { x.setAttribute("aria-pressed", x === o ? "true" : "false"); });
-      var cid = o.getAttribute("data-class"), yrs = o.getAttribute("data-yrs") || o.textContent;
+      var cids = (o.getAttribute("data-class") || "").split(" "), cid = cids[cids.length - 1], yrs = o.getAttribute("data-yrs") || o.textContent;
       if (menu) menu.classList.add("has-match");
       items.forEach(function (it) {
-        var on = it.getAttribute("data-class-id") === cid;
+        var on = cids.indexOf(it.getAttribute("data-class-id")) !== -1;
         it.classList.toggle("is-match", on);
       });
-      var cls = classes[cid] || { href: "/classes/", name: "the classes", short: "classes", price: "" };
       note.innerHTML = "";
+      /* Age three sits on the line between two classes: offer both, with the catalog's own wording. */
+      var choices = {
+        toddler: "Toddler: tantrums, “no,” and transitions fill your days",
+        preschool: "Preschool: play, friendships, and getting ready for school"
+      };
+      if (cids.length > 1) {
+        note.appendChild(el("p", "agepick__name", "Just turned three? Pick the one that fits your days."));
+        var both = el("div", "agepick__actions");
+        cids.forEach(function (id, i) {
+          var c = classes[id];
+          if (c) both.appendChild(link(c.href, choices[id] || c.name, "agepick-class-" + id, i === 0 ? "hb-btn" : "hb-btn hb-btn--quiet"));
+        });
+        note.appendChild(both);
+        cid = "toddler";
+      } else {
+      var cls = classes[cid] || { href: "/classes/", name: "the classes", short: "classes", price: "" };
       note.appendChild(el("p", "agepick__name", cls.name));
       note.appendChild(el("p", "agepick__line", cls.benefit));
       note.appendChild(el("p", "agepick__fit", cls.price + " once · Lifetime access · No subscription"));
@@ -373,7 +388,10 @@
       actions.appendChild(link(cls.href, "See the " + cls.short, "agepick-class", "hb-btn"));
       if (cls.sampleHref) actions.appendChild(link(cls.sampleHref, cls.sampleLabel, "agepick-sample", "agepick__sample"));
       note.appendChild(actions);
-      note.appendChild(el("p", "agepick__line", "The free lesson needs no account. Full refund within 14 days of buying if you have watched four lessons or fewer."));
+      }
+      var fine = el("p", "agepick__line", "The free lesson needs no account. Full refund within 14 days of buying if you have watched four lessons or fewer. ");
+      fine.appendChild(link("/terms-of-sale/", "Refund terms", "agepick-refund"));
+      note.appendChild(fine);
       var more = el("p", "agepick__links");
       // The bundle only helps while a later class is still ahead of the child.
       if (bundle && cid !== "preschool") {

@@ -20,8 +20,8 @@
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const stages = [
     { id: "infant", title: "Birth to 12 months", metadata: "16 lessons · About 3 hours", cta: "See the infant class", href: "/classes/birth-to-12-months" },
-    { id: "toddler", title: "Toddler years, 1 to 3", metadata: "13 lessons · About 2.5 hours", cta: "See the toddler class", href: "/classes/toddlerhood" },
-    { id: "preschool", title: "Preschool years, 3 to 5", metadata: "15 lessons · About 2 hours 45 minutes", cta: "See the preschool class", href: "/classes/preschool" }
+    { id: "toddler", title: "Toddler years, 1 to 3", metadata: "13 lessons · About 2.5 hours · Ask the research included", cta: "See the toddler class", href: "/classes/toddlerhood" },
+    { id: "preschool", title: "Preschool years, 3 to 5", metadata: "15 lessons · About 2.5 hours", cta: "See the preschool class", href: "/classes/preschool" }
   ];
   // One line per year of the age line: the period name and summary from assets/data/explore.json
   // (stages[].name / .summary), so the slider shows what a child is building at that age.

@@ -1,0 +1,46 @@
+/* ---------- Pricing page price list (pricing.html only; .price-row above stays for home and tools) ----------
+   A ruled index of every price near the top, then one row per offer in the same order:
+   name, scope facts, price, Enroll, then the free lesson. No decorative range bars. */
+.pl-title { padding-block: clamp(24px, 6vw, 88px) clamp(28px, 4vw, 56px); }
+.pl-title .hb-lead { margin-top: 12px; max-width: 46ch; }
+.pl-index { margin-top: 20px; max-width: 40rem; }
+.pl-index__list { display: grid; column-gap: 32px; border-top: 1px solid var(--border-soft); }
+.pl-index__list li { border-bottom: 1px solid var(--border-soft); }
+.pl-index__list a { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 46px; padding-block: 6px; text-decoration: none; }
+.pl-index__list a:hover > span:first-child { color: var(--forest); text-decoration: underline; text-underline-offset: 0.16em; }
+.pl-index__price { font-family: var(--font-display); font-size: 1.25rem; line-height: 1; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pl-index__price--free { font-family: var(--font-body); font-size: 15px; color: var(--ink-muted); }
+@media (min-width: 861px) { .pl-index__list { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.pl-sec, .pl-row { scroll-margin-top: calc(var(--header-h, 72px) + 16px); }
+.pl-terms { display: grid; gap: 10px; margin-top: 16px; max-width: 38ch; font-size: 15px; line-height: 1.55; color: var(--ink-soft); }
+.pl-terms b { font-weight: 600; color: var(--ink); }
+@media (min-width: 861px) { .hub-split--stack .pl-terms { max-width: none; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 40px; } }
+.pl-list { display: grid; }
+.pl-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "body price" "act act"; gap: 16px 24px; padding-block: 24px; border-top: 1px solid var(--border-soft); align-items: start; }
+.pl-row:first-child { border-top: 0; padding-top: 0; }
+.pl-row__body { grid-area: body; min-width: 0; }
+.pl-row__body .row__desc { margin-top: 6px; }
+.pl-facts { display: grid; gap: 4px; margin-top: 10px; font-size: 14px; line-height: 1.45; color: var(--ink-muted); }
+.pl-facts li { position: relative; padding-left: 14px; }
+.pl-facts li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 5px; height: 5px; border-radius: 50%; background: var(--sage-deep, var(--sage)); }
+.pl-row__note { margin-top: 12px; max-width: 60ch; font-size: 14px; line-height: 1.55; color: var(--ink-soft); }
+.pl-row__note b { font-weight: 600; color: var(--ink); }
+.pl-row__price { grid-area: price; text-align: right; font-family: var(--font-display); font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem); font-weight: 400; line-height: 1; letter-spacing: -0.015em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.pl-row__price small { display: block; max-width: 12ch; margin: 6px 0 0 auto; font-family: var(--font-body); font-size: 13px; line-height: 1.4; letter-spacing: 0; color: var(--ink-muted); white-space: normal; }
+.pl-save { display: inline-block; margin-top: 8px; padding: 2px 8px; border-radius: var(--radius-sm); background: var(--sage-mist); font-family: var(--font-body); font-size: 13px; font-weight: 600; line-height: 1.5; letter-spacing: 0; color: var(--ink); }
+.pl-row__act { grid-area: act; display: flex; flex-wrap: wrap; align-items: center; gap: 2px 20px; }
+.pl-row__link { display: inline-flex; align-items: center; min-height: 44px; font-size: 15px; }
+.pl-row--bundle { padding: 22px; border-top: 0; border-radius: var(--radius-lg); background: var(--sage-mist); }
+.pl-row--bundle .pl-save { background: var(--surface); }
+.pl-row--bundle + .pl-row { border-top: 0; }
+.pl-row--free { grid-template-areas: "body body" "act act"; }
+@media (max-width: 640px) {
+  .pl-row__act .hb-btn { flex: 1 1 100%; }
+  .pl-row--bundle { padding: 18px; margin-inline: -6px; }
+}
+@media (min-width: 1000px) {
+  .pl-row { grid-template-columns: minmax(0, 1fr) 6.5rem 12rem; grid-template-areas: "body price act"; }
+  .pl-row--free { grid-template-areas: "body body act"; }
+  .pl-row__act { flex-direction: column; align-items: stretch; }
+  .pl-row__act .hb-btn { width: 100%; }
+}

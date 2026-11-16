@@ -690,18 +690,18 @@
         <p>Ask the research, the AI tool, is included with your class, with a fair-use limit of 50 questions a day. Your access code is in your class confirmation email.</p>
         <div class="access-panel__row">
           <input class="access-input" type="password" id="accessCodeInput" placeholder="Your access code" autocomplete="off" aria-label="Access code" />
-          <button class="access-btn" type="button" id="accessCodeSubmit">Unlock</button>
+          <button class="access-btn" type="button" id="accessCodeSubmit">Use code</button>
         </div>
         <p class="access-status" id="accessStatus" aria-live="polite"></p>
       </div>
 
       <!-- Subscriber login panel -->
       <div class="access-panel" id="subscriberPanel" role="region" aria-labelledby="subscriberPanelTitle" hidden>
-        <h3 id="subscriberPanelTitle">AI Pro subscriber</h3>
-        <p>Enter the email you used when you subscribed to unlock unlimited access.</p>
+        <h3 id="subscriberPanelTitle">Or, existing subscriber</h3>
+        <p>If you subscribed earlier, enter the email you used to unlock unlimited access.</p>
         <div class="access-panel__row">
           <input class="access-input" type="email" id="subscriberEmailInput" placeholder="Your email address" autocomplete="email" aria-label="Subscriber email" />
-          <button class="access-btn" type="button" id="subscriberEmailSubmit">Unlock</button>
+          <button class="access-btn" type="button" id="subscriberEmailSubmit">Use email</button>
         </div>
         <p class="access-status" id="subscriberStatus" aria-live="polite"></p>
       </div>
@@ -737,8 +737,9 @@
             </details>
           </div>
           <div class="chat-meta__right" id="unlockLinks">
-            <button class="access-code-toggle" type="button" id="accessCodeToggle" aria-expanded="false" aria-controls="accessPanel">Have a class access code?</button>
-            <!-- AI Pro is no longer sold and never had subscribers; the sign-in stays wired but hidden. -->
+            <button class="access-code-toggle" type="button" id="accessCodeToggle" aria-expanded="false" aria-controls="accessPanel subscriberPanel">Already have access?</button>
+            <!-- One entry opens both the class code and the subscriber email forms.
+                 AI Pro is no longer sold and never had subscribers; its own toggle stays wired but hidden. -->
             <button class="access-code-toggle" type="button" id="subscriberLoginToggle" aria-expanded="false" aria-controls="subscriberPanel" hidden>Existing AI&nbsp;Pro subscriber?</button>
           </div>
         </div>
@@ -1687,10 +1688,8 @@
     accessToggle.addEventListener('click', () => {
       const open = accessPanel.hidden;
       setPanelOpen(accessPanel, accessToggle, open);
-      if (open) {
-        setPanelOpen(subPanel, subToggle, false);
-        codeInput.focus();
-      }
+      setPanelOpen(subPanel, subToggle, open);
+      if (open) codeInput.focus();
     });
 
     subToggle.addEventListener('click', () => {
@@ -1702,9 +1701,10 @@
       }
     });
 
-    function closePanelSoon(panel, toggle) {
+    function closePanelSoon() {
       setTimeout(() => {
-        setPanelOpen(panel, toggle, false);
+        setPanelOpen(accessPanel, accessToggle, false);
+        setPanelOpen(subPanel, subToggle, false);
         if (!inputArea.hidden) inputEl.focus({ preventScroll: true });
       }, 1400);
     }
@@ -1749,7 +1749,7 @@
       codeInput.value = '';
       setStatus(codeStatus, 'Access unlocked. Ask the research, the AI tool, is included with your class, with a fair-use limit of 50 questions a day.', 'success');
       updateTierBadge();
-      closePanelSoon(accessPanel, accessToggle);
+      closePanelSoon();
     }
 
     codeSubmit.addEventListener('click', submitAccessCode);
@@ -1789,7 +1789,7 @@
 
         saveSubscriberToken(data.token);
         setStatus(subStatus, 'Unlimited access unlocked.', 'success');
-        closePanelSoon(subPanel, subToggle);
+        closePanelSoon();
       } catch {
         setStatus(subStatus, 'Could not verify. Please try again.', 'error');
       } finally {
@@ -1820,7 +1820,7 @@
 
         saveSubscriberToken(data.token);
         setStatus(subStatus, 'Unlimited access unlocked. Welcome!', 'success');
-        closePanelSoon(subPanel, subToggle);
+        closePanelSoon();
       } catch {
         setStatus(subStatus, 'Could not confirm automatically. Enter your email below to unlock.', 'error');
         subEmailInput.focus();
@@ -1898,6 +1898,7 @@
     if (urlParams.get('subscribed') === '1') {
       const checkoutSessionId = urlParams.get('session_id') || '';
       // Show the subscriber panel and drop the one-time checkout id from the URL.
+      setPanelOpen(accessPanel, accessToggle, true);
       setPanelOpen(subPanel, subToggle, true);
       window.history.replaceState(null, '', window.location.pathname);
       if (checkoutSessionId) unlockFromCheckout(checkoutSessionId);

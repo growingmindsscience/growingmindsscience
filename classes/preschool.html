@@ -104,7 +104,7 @@
   <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
   <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
-  <link rel="stylesheet" href="/assets/css/classes.css?v=a525475f8a" />
+  <link rel="stylesheet" href="/assets/css/classes.css?v=f474dbd4b9" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=eacaf2a72e" />
 </head>
 <body class="fg fg--page cp">
@@ -158,37 +158,145 @@
 
   <main id="main">
 
-    <!-- HERO -->
-    <section class="class-hero class-intro">
-      <div class="container">
-        <div class="class-intro__copy">
-          <h1 class="class-hero__title">Preschool years, 3 to 5</h1>
-          <p class="class-hero__lede">
-          A research-based look at what preschoolers are actually developing between ages 3 and 5:
-          self-regulation, social skills, imaginative play, and the executive function that
-          makes kindergarten readiness about far more than letters and numbers.
-        </p>
-          <dl class="class-intro__facts">
-            <div><dt>Format</dt><dd>4 modules, 15 lessons</dd></div>
-            <div><dt>Length</dt><dd>About 2 hours 45 minutes, self-paced</dd></div>
-            <div><dt>Price</dt><dd>$49 once, lifetime access</dd></div>
-          </dl>
-          <div class="hero__ctas hb-actions">
-            <a class="hb-btn" href="#enroll">Enroll, $49</a>
-            <a class="hb-btn hb-btn--quiet" href="/nsc/classes/preschool/preview">Watch a lesson free</a>
+    <!-- HERO: life stage, a parent's question, one plain promise, the action -->
+    <section class="class-hero cp-hero" aria-labelledby="hero-title">
+      <div class="container cp-hero__grid">
+        <div class="cp-hero__copy">
+          <h1 class="cp-hero__title" id="hero-title"><span class="cp-hero__stage">Preschool years, 3 to 5</span><span class="u-visually-hidden">: </span>What does my preschooler really need before kindergarten?</h1>
+          <p class="cp-hero__promise">See how play, friendships, and big feelings help your child build the skills they&rsquo;ll bring to school.</p>
+          <div class="hero__ctas">
+            <a class="hb-btn btn" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Fpreschool%2Fenroll">Enroll, $49</a>
+            <a class="hb-btn hb-btn--quiet btn" href="/nsc/classes/preschool/preview">Watch a free lesson</a>
           </div>
-          <p class="class-intro__fine">Checkout is here, with Stripe, and the lessons live under <a href="/nsc/class-login">My classes</a>.</p>
+          <p class="cp-hero__facts">Preview: &ldquo;Sharing, Fairness, and Helping&rdquo; &middot; No account needed</p>
+          <p class="cp-hero__facts">$49 once &middot; Lifetime access &middot; 15 lessons, about 2.5 hours</p>
+          <p class="cp-hero__facts">Full refund within 14 days if you&rsquo;ve watched 4 lessons or fewer; the free preview lesson doesn&rsquo;t count. <a href="/terms-of-sale/">Refund terms</a></p>
+          <nav class="cp-jump" aria-label="On this page">
+            <a href="#syllabus">What&rsquo;s inside</a><a href="#educator">Who teaches it</a><a href="#questions">Common questions</a>
+          </nav>
         </div>
-        <figure class="hb-fig" data-rise data-draw style="--i:1" aria-labelledby="fig-preschool-caption">
+        <figure class="cp-hero__photo">
+          <img src="/assets/img/site/class-preschool-400.jpg" srcset="/assets/img/site/class-preschool-400.jpg 400w, /assets/img/site/class-preschool.jpg 800w" sizes="(min-width: 900px) 40vw, 92vw" width="800" height="800" alt="A preschooler explores a pretend kitchen." fetchpriority="high" decoding="async" />
+        </figure>
+      </div>
+    </section>
+
+    <!-- A TEACHING MOMENT: situation, what is growing, what to try (from Module 1) -->
+    <section class="cp-moment" aria-labelledby="moment-heading">
+      <div class="container">
+        <h2 id="moment-heading">When a game gets frustrating</h2>
+        <ol class="cp-moment__steps">
+          <li><span class="cp-moment__label">The situation</span><p>Your preschooler can take turns in a game. Then they lose a turn and want to walk away.</p></li>
+          <li><span class="cp-moment__label">What is growing</span><p>Handling frustration takes practice. Even when a child knows the rules, they may need help in the moment.</p></li>
+          <li><span class="cp-moment__label">What to try</span><p>Offer a short, shared pause. &ldquo;That was frustrating. Want to take a breath with me, then decide what to do?&rdquo;</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- WHO IT'S FOR -->
+    <section class="cp-for" id="for">
+      <div class="container container--narrow">
+        <h2 data-rise>Who this is for</h2>
+        <div class="cp-prose" data-rise>
+          <p>Your child is three, four, or five. One minute they are capable and funny, and the next they fall apart over something small. Meanwhile, kindergarten is on the horizon and everyone has an opinion about what they should know by then.</p>
+          <p>This class shows what the research actually says about this stretch of childhood, in plain language, so you can focus on what matters.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT WILL FEEL EASIER -->
+    <section class="section--alt" id="easier">
+      <div class="container container--narrow">
+        <h2 data-rise>What this class helps with</h2>
+        <ol class="cp-benefits" data-rise>
+          <li>
+            <h3>Big reactions over small things</h3>
+            <p>Understand what changes in the preschool brain, what self-regulation is, and how adults support it without doing it for the child.</p>
+          </li>
+          <li>
+            <h3>Play, friends, and fights</h3>
+            <p>See why child-directed play does so much developmental work, and what to do (and not do) when children fight or leave each other out.</p>
+          </li>
+          <li>
+            <h3>Knowing what readiness means</h3>
+            <p>Learn what kindergarten readiness research actually measures, and why executive function matters far more than academic drills.</p>
+          </li>
+        </ol>
+        <details class="cp-more" data-rise>
+          <summary>Everything you&rsquo;ll learn</summary>
+          <ul class="check-list">
+            <li>What changes in the preschool brain between ages 3 and 5, and why your child can still fall apart over small things.</li>
+            <li>What self-regulation actually is, how it develops, and how adults support it without doing it for the child.</li>
+            <li>Why child-directed play is doing more developmental work than most structured activities.</li>
+            <li>How preschool social skills develop, and what to do (and not do) when children fight or exclude.</li>
+            <li>What kindergarten readiness research actually measures, and why executive function matters far more than academic skills.</li>
+          </ul>
+        </details>
+      </div>
+    </section>
+
+    <!-- FREE LESSON -->
+    <section class="cp-try" id="sample">
+      <div class="container container--narrow">
+        <h2 data-rise>Try a lesson first</h2>
+        <div class="cp-try__panel" data-rise>
+          <p class="cp-try__title">Sharing, Fairness, and Helping</p>
+          <p class="cp-try__meta">A full lesson from the preschool class &middot; No account needed</p>
+          <a class="hb-btn btn" href="/nsc/classes/preschool/preview">Watch a free lesson</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT'S INSIDE -->
+    <section id="syllabus">
+      <div class="container">
+        <div class="section-head" data-rise>
+          <h2 data-rise>What&rsquo;s inside</h2>
+          <p class="section-head__lede" data-rise>Four modules, 15 lessons, about 2.5 hours, self-paced.</p>
+        </div>
+        <ol class="syllabus">
+          <li class="syllabus__item" data-rise>
+            <div><p class="syllabus__num">Module 1</p><h3 class="syllabus__title">The Thinking Preschooler</h3><p class="syllabus__meta">4 lessons</p></div>
+            <div class="syllabus__body"><p>What changes between ages 3 and 5 in impulse control, working memory, and emotional capacity, how self-regulation grows with an adult&rsquo;s help, and why a preschooler can seem so much more capable than their behavior on a hard day.</p>
+              <details class="cp-more cp-more--small"><summary>See the 4 lessons<span class="u-visually-hidden">: Module 1</span></summary><ol class="syllabus__lessons"><li><span>1</span>The Preschool Brain</li><li><span>2</span>How Self-Regulation Grows</li><li><span>3</span>Minds and Feelings</li><li><span>4</span>Behavior at 3, 4, and 5</li></ol></details></div>
+          </li>
+          <li class="syllabus__item" data-rise>
+            <div><p class="syllabus__num">Module 2</p><h3 class="syllabus__title">Play as the Work</h3><p class="syllabus__meta">4 lessons</p></div>
+            <div class="syllabus__body"><p>What the research says about pretend play, rough-and-tumble, and risky play, how free and guided play each teach, and what screens do and don&rsquo;t do at this age.</p>
+              <details class="cp-more cp-more--small"><summary>See the 4 lessons<span class="u-visually-hidden">: Module 2</span></summary><ol class="syllabus__lessons"><li><span>1</span>Pretend Play</li><li><span>2</span>Rough-and-Tumble and Risky Play</li><li><span>3</span>Free Play, Guided Play, and Teaching</li><li><span>4</span>Screens at 3 to 5</li></ol></details></div>
+          </li>
+          <li class="syllabus__item" data-rise>
+            <div><p class="syllabus__num">Module 3</p><h3 class="syllabus__title">Friends and Feelings</h3><p class="syllabus__meta">3 lessons &middot; Lesson 2 free to watch</p></div>
+            <div class="syllabus__body"><p>How play moves from side by side to together, what sharing, fairness, and helping look like at this age, and what to do (and not do) when children fight or leave each other out.</p>
+              <details class="cp-more cp-more--small"><summary>See the 3 lessons<span class="u-visually-hidden">: Module 3</span></summary><ol class="syllabus__lessons"><li><span>1</span>From Playing Beside to Playing Together</li><li><span>2</span><span class="syllabus__lesson"><a href="/nsc/classes/preschool/preview">Sharing, Fairness, and Helping</a> <em class="syllabus__free">Free to watch</em></span></li><li><span>3</span>Conflict, Exclusion, and Big Feelings With Others</li></ol></details></div>
+          </li>
+          <li class="syllabus__item" data-rise>
+            <div><p class="syllabus__num">Module 4</p><h3 class="syllabus__title">Ready for School</h3><p class="syllabus__meta">4 lessons</p></div>
+            <div class="syllabus__body"><p>What kindergarten readiness research actually measures: talk that builds thinking, early literacy and early math without worksheets, and why executive function matters more than academic drills.</p>
+              <details class="cp-more cp-more--small"><summary>See the 4 lessons<span class="u-visually-hidden">: Module 4</span></summary><ol class="syllabus__lessons"><li><span>1</span>Talk That Builds Thinking</li><li><span>2</span>Early Literacy Without Worksheets</li><li><span>3</span>Early Math: The Counting Ladder</li><li><span>4</span>What Readiness Really Means, and the Year Ahead</li></ol></details></div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- OPTIONAL: where this class sits (the page's reference figure) -->
+    <section class="cp-science section--alt" id="science">
+      <div class="container container--narrow">
+        <h2 data-rise>For the curious</h2>
+        <div data-rise>
+          <details class="cp-more">
+            <summary>How children build their own capacity to calm down</summary>
+            <figure class="hb-fig" aria-labelledby="fig-preschool-caption">
           <div class="hb-fig__plate">
             <svg viewBox="0 0 480 280" role="img" aria-labelledby="fig-preschool-title" aria-describedby="fig-preschool-desc" xmlns="http://www.w3.org/2000/svg">
               <title id="fig-preschool-title">Figure 1. Co-regulation tapers as self-regulation grows, birth to age ten.</title>
-              <desc id="fig-preschool-desc">A schematic timeline from birth to age ten in four stages: birth to 12 months, 12 to 36 months, 3 to 5 years, and 6 to 10 years. A wide band of borrowed calm, co-regulation from adults, tapers as the child grows, while the child&rsquo;s own self-regulation capacity grows beneath it. The adult support never reaches zero. A dot marks the preschool years, 3 to 5, where children use simple strategies with adult support.</desc>
+              <desc id="fig-preschool-desc">A schematic timeline from birth to age ten in four stages: birth to 12 months, 12 to 36 months, 3 to 5 years, and 6 to 10 years. A wide band of borrowed calm, co-regulation from adults, tapers as the child grows, while the child&rsquo;s own self-regulation capacity grows beneath it. The adult support never reaches zero. A dot labeled &ldquo;You are here, 3 to 5&rdquo; marks the preschool years, where children use simple strategies with adult support.</desc>
               <polygon class="fig-band" points="40,20 460,20 460,92 40,222"/>
               <line class="fig-ref" x1="250" y1="20" x2="250" y2="236"/>
               <line class="fig-ref" x1="355" y1="20" x2="355" y2="236"/>
               <path class="fig-curve fig-curve--a hb-draw" pathLength="1" style="--d:0" d="M40 222 L460 92"/>
               <circle class="fig-dot fig-pop" style="--d:2" cx="302.5" cy="140.75" r="5.5"/>
+              <text class="fig-text fig-text--strong fig-pop" style="--d:2" x="302.5" y="122" text-anchor="middle">You are here, 3 to 5</text>
               <text class="fig-text fig-text--strong" x="56" y="50">Borrowed calm</text>
               <text class="fig-text" x="56" y="72">(co-regulation from adults)</text>
               <text class="fig-text fig-text--strong" x="444" y="196" text-anchor="end">Own capacity</text>
@@ -210,71 +318,28 @@
             <ul class="fig__key fig__key--stages">
               <li><b>Birth to 12 mo</b> fully external</li>
               <li><b>12 to 36 mo</b> first self-soothing</li>
-              <li class="is-here"><b>3 to 5 yrs</b> strategies, with support</li>
+              <li class="is-here"><b>3 to 5 yrs, you are here:</b> strategies, with support</li>
               <li><b>6 to 10 yrs</b> internalized strategies</li>
             </ul>
           </div>
           <figcaption id="fig-preschool-caption"><b class="hb-fig__n">Fig. 1</b> Borrowed calm, then own capacity. The adult share shrinks as the child&rsquo;s own capacity grows, but it never drops to zero: stress, hunger, illness, and novelty can pull any child (or adult) back toward needing more support for a while. From 3 to 5, children can use simple strategies, like taking a breath or walking away, with adult support. Module 1, lesson 2, &ldquo;How Self-Regulation Grows,&rdquo; picks this up.
             <span class="hb-fig__src">A teaching schematic, not measured data, redrawn from Fig. 1 of the free article <a href="/articles/self-regulation">&ldquo;Self-regulation, briefly&rdquo;</a>, with its sources.</span></figcaption>
         </figure>
-      </div>
-    </section>
-
-    <!-- WHAT YOU'LL LEARN -->
-    <section class="section--alt">
-      <div class="container container--narrow">
-        <div class="section-head" data-rise>
-          <h2>By the end of the class</h2>
-          <p class="section-head__lede">You&rsquo;ll understand what your preschooler is actually building.</p>
+          </details>
         </div>
-        <ul class="check-list" data-rise>
-          <li>What changes in the preschool brain between ages 3 and 5, and why your child can still fall apart over small things.</li>
-          <li>What self-regulation actually is, how it develops, and how adults support it without doing it for the child.</li>
-          <li>Why child-directed play is doing more developmental work than most structured activities.</li>
-          <li>How preschool social skills develop, and what to do (and not do) when children fight or exclude.</li>
-          <li>What kindergarten readiness research actually measures, and why executive function matters far more than academic skills.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- SYLLABUS -->
-    <section id="syllabus">
-      <div class="container">
-        <div class="section-head" data-rise>
-          <h2>Four modules</h2>
-          <p class="section-head__lede">For the years between toddlerhood and school.</p>
-        </div>
-        <ol class="syllabus">
-          <li class="syllabus__item" data-rise>
-            <div><p class="syllabus__num">Module 1</p><h3 class="syllabus__title">The Thinking Preschooler</h3><p class="syllabus__meta">4 lessons</p></div>
-            <div class="syllabus__body"><p>What changes between ages 3 and 5 in impulse control, working memory, and emotional capacity, how self-regulation grows with an adult&rsquo;s help, and why a preschooler can seem so much more capable than their behavior on a hard day.</p><ol class="syllabus__lessons"><li><span>1</span>The Preschool Brain</li><li><span>2</span>How Self-Regulation Grows</li><li><span>3</span>Minds and Feelings</li><li><span>4</span>Behavior at 3, 4, and 5</li></ol></div>
-          </li>
-          <li class="syllabus__item" data-rise>
-            <div><p class="syllabus__num">Module 2</p><h3 class="syllabus__title">Play as the Work</h3><p class="syllabus__meta">4 lessons</p></div>
-            <div class="syllabus__body"><p>What the research says about pretend play, rough-and-tumble, and risky play, how free and guided play each teach, and what screens do and don&rsquo;t do at this age.</p><ol class="syllabus__lessons"><li><span>1</span>Pretend Play</li><li><span>2</span>Rough-and-Tumble and Risky Play</li><li><span>3</span>Free Play, Guided Play, and Teaching</li><li><span>4</span>Screens at 3 to 5</li></ol></div>
-          </li>
-          <li class="syllabus__item" data-rise>
-            <div><p class="syllabus__num">Module 3</p><h3 class="syllabus__title">Friends and Feelings</h3><p class="syllabus__meta">3 lessons</p></div>
-            <div class="syllabus__body"><p>How play moves from side by side to together, what sharing, fairness, and helping look like at this age, and what to do (and not do) when children fight or leave each other out.</p><ol class="syllabus__lessons"><li><span>1</span>From Playing Beside to Playing Together</li><li><span>2</span><span class="syllabus__lesson"><a href="/nsc/classes/preschool/preview">Sharing, Fairness, and Helping</a> <em class="syllabus__free">Free to watch</em></span></li><li><span>3</span>Conflict, Exclusion, and Big Feelings With Others</li></ol></div>
-          </li>
-          <li class="syllabus__item" data-rise>
-            <div><p class="syllabus__num">Module 4</p><h3 class="syllabus__title">Ready for School</h3><p class="syllabus__meta">4 lessons</p></div>
-            <div class="syllabus__body"><p>What kindergarten readiness research actually measures: talk that builds thinking, early literacy and early math without worksheets, and why executive function matters more than academic drills.</p><ol class="syllabus__lessons"><li><span>1</span>Talk That Builds Thinking</li><li><span>2</span>Early Literacy Without Worksheets</li><li><span>3</span>Early Math: The Counting Ladder</li><li><span>4</span>What Readiness Really Means, and the Year Ahead</li></ol></div>
-          </li>
-        </ol>
       </div>
     </section>
 
     <!-- WHO TEACHES IT -->
-    <section class="section--alt hb-section--tight">
+    <section id="educator">
       <div class="container container--narrow">
-        <h2 data-rise>Who teaches it.</h2>
+        <h2 data-rise>Who teaches it</h2>
         <div class="educator" data-rise>
           <img class="educator__photo" src="/assets/img/matthew-avatar-144.jpg" alt="Matthew McArthur" width="72" height="72" loading="lazy" decoding="async" />
           <div class="educator__body">
             <p>
-              Created and taught by <strong>Matthew McArthur</strong>, who holds an M.A. in Developmental Psychology
-              from San Diego State University, where he studied how parent stress, changes at home, screen time, and back-and-forth interaction
+              Created and taught by <strong>Matthew McArthur</strong>, a Child Development Specialist. At San Diego State
+              University he studied how parent stress, changes at home, screen time, and back-and-forth interaction
               shape language and thinking from 6 months to 5 years, after working with developmental researchers at
               UCLA, and he wrote <a href="https://doi.org/10.3389/frym.2024.1426649">&ldquo;Why Early Chatter Matters&rdquo;</a> for Frontiers for Young Minds.
             </p>
@@ -285,57 +350,53 @@
       </div>
     </section>
 
-    <!-- FREE READING -->
-    <section class="hb-section--tight">
-      <div class="container container--narrow">
-        <div class="section-head" data-rise>
-          <h2>Free reading for the preschool years.</h2>
-        </div>
-        <ul class="reading" data-rise>
-          <li><a href="/articles/self-regulation"><span class="reading__kind">Free article</span><span class="reading__title">Self-regulation, briefly</span><span class="reading__arrow" aria-hidden="true">&rarr;</span></a></li>
-          <li><a href="/tools/limits-without-escalation"><span class="reading__kind">Free guide</span><span class="reading__title">Limits without escalation</span><span class="reading__arrow" aria-hidden="true">&rarr;</span></a></li>
-          <li><a href="/tools/screens-language-attention"><span class="reading__kind">Free guide</span><span class="reading__title">Screens, language, and attention</span><span class="reading__arrow" aria-hidden="true">&rarr;</span></a></li>
-          <li><a href="/nsc"><span class="reading__kind">Free check-in</span><span class="reading__title">Tallykin</span><span class="reading__arrow" aria-hidden="true">&rarr;</span></a></li>
-        </ul>
-      </div>
-    </section>
-
     <!-- FAQ -->
-    <section class="section--alt hb-section--tight">
+    <section class="section--alt" id="questions">
       <div class="container container--narrow">
-        <h2 data-rise>A few things parents usually ask first.</h2>
-        <div class="faq-class-list" data-rise>
+        <h2 data-rise>Common questions</h2>
+        <div data-rise>
+          <div class="faq-class-list">
 
-          <details class="faq-class-item">
-            <summary>How do I start, and how do I get back in?</summary>
-            <p>When you <a href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Fpreschool%2Fenroll">enroll</a>, you create a free account, pay securely with Stripe, and the class opens right away. After that it lives in <a href="/nsc/class-login">My classes</a>, which remembers where you left off in every lesson.</p>
+            <details class="faq-class-item">
+              <summary>How do I start, and how do I get back in?</summary>
+              <p>When you <a href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Fpreschool%2Fenroll">enroll</a>, you create a free account, pay securely with Stripe, and the class opens right away. After that it lives in <a href="/nsc/class-login">My classes</a>, which remembers where you left off in every lesson.</p>
+            </details>
+
+            <details class="faq-class-item">
+              <summary>Can I get a refund?</summary>
+              <p>Yes. Within 14 days of buying, and as long as you&rsquo;ve watched 4 lessons or fewer, you get a full refund: <a href="/contact/">email Matthew</a> with the address you bought with. A refund ends your access to the class. Want to see the teaching first? <a href="/nsc/classes/preschool/preview">Watch a free lesson</a>.</p>
+            </details>
+
+            <details class="faq-class-item">
+              <summary>Is this medical or psychological advice?</summary>
+              <p>No. The class is educational. For concerns about your own child, your pediatrician and your child&rsquo;s clinicians are the right people to ask, and the class will help you ask better questions.</p>
+            </details>
+
+          </div>
+          <details class="cp-more cp-reading">
+            <summary>More free reading for the preschool years</summary>
+            <ul class="reading">
+              <li><a href="/articles/self-regulation"><span class="reading__kind">Free article</span><span class="reading__title">Self-regulation, briefly</span><span class="reading__arrow" aria-hidden="true">&rarr;</span></a></li>
+              <li><a href="/tools/limits-without-escalation"><span class="reading__kind">Free guide</span><span class="reading__title">Limits without escalation</span><span class="reading__arrow" aria-hidden="true">&rarr;</span></a></li>
+              <li><a href="/tools/screens-language-attention"><span class="reading__kind">Free guide</span><span class="reading__title">Screens, language, and attention</span><span class="reading__arrow" aria-hidden="true">&rarr;</span></a></li>
+              <li><a href="/nsc"><span class="reading__kind">Free check-in</span><span class="reading__title">Number Path</span><span class="reading__arrow" aria-hidden="true">&rarr;</span></a></li>
+            </ul>
           </details>
-
-          <details class="faq-class-item">
-            <summary>Can I get a refund?</summary>
-            <p>Yes. Within 14 days of buying, and as long as you&rsquo;ve watched 4 lessons or fewer, you get a full refund: <a href="/contact/">email Matthew</a> with the address you bought with. A refund ends your access to the class.</p>
-          </details>
-
-          <details class="faq-class-item">
-            <summary>Is this medical or psychological advice?</summary>
-            <p>No. The class is educational. For concerns about your own child, your pediatrician and your child&rsquo;s clinicians are the right people to ask, and the class will help you ask better questions.</p>
-          </details>
-
         </div>
       </div>
     </section>
 
     <!-- ENROLL -->
-    <section id="enroll" class="signup fg-ink-field">
+    <section id="enroll" class="signup">
       <div class="container signup__inner signup__inner--offer">
-        <h2 class="signup__head" data-rise>Start the preschool class for <mark>$49</mark>.</h2>
-        <div class="signup__form" aria-labelledby="enroll-heading" data-rise>
+        <h2 class="signup__head">Start the preschool class for <mark>$49</mark>.</h2>
+        <div class="signup__form" aria-labelledby="enroll-heading">
           <h3 id="enroll-heading" class="signup__form-title">Preschool years</h3>
           <p class="signup__price"><strong>$49</strong> once &middot; lifetime access</p>
-          <p class="signup__note">You&rsquo;ll create a free account (or sign in), then pay securely with Stripe. The class opens the moment you&rsquo;re done.</p>
-          <a class="hb-btn" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Fpreschool%2Fenroll">Enroll, $49</a>
+          <p class="signup__note">Set up a free account (or sign in), pay securely, and the first lesson opens right away.</p>
+          <a class="btn btn--primary btn--block btn--lg" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Fpreschool%2Fenroll">Enroll, $49</a>
           <p class="signup__refund">Full refund within 14 days if you&rsquo;ve watched 4 lessons or fewer. <a href="/terms-of-sale/">Terms of sale</a>.</p>
-          <p class="signup__fine">Not sure yet? <a href="/nsc/classes/preschool/preview">Watch a lesson free</a>. Already enrolled? <a href="/nsc/class-login">Open My classes</a>. Questions first? <a href="/contact/">Ask Matthew</a>.</p>
+          <p class="signup__fine">Not sure yet? <a href="/nsc/classes/preschool/preview">Watch a free lesson</a>. Already enrolled? <a href="/nsc/class-login">Open My classes</a>. Questions first? <a href="/contact/">Ask Matthew</a>.</p>
         </div>
         <div class="signup__body">
           <p class="signup__back"><a href="/classes/">&larr; All classes</a></p>
@@ -349,7 +410,7 @@
        and steps aside for the enroll section and the footer. -->
   <div class="enroll-bar" data-enroll-bar hidden>
     <p class="enroll-bar__label"><strong>Preschool years</strong> $49 once</p>
-    <a class="hb-btn" href="#enroll">Enroll</a>
+    <a class="hb-btn" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Fpreschool%2Fenroll">Enroll</a>
   </div>
 
   <!-- footer:start -->
@@ -417,7 +478,7 @@
   <script src="/assets/js/chrome.js?v=d5fdf5ae8e"></script>
 
   <script src="../assets/js/main.js?v=b5c8e48c2d" defer></script>
-  <script src="/assets/js/home.js?v=397b77a004" defer></script>
+  <script src="/assets/js/home.js?v=e6330d4519" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

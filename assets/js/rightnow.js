@@ -327,7 +327,14 @@
     var card = el('article', { class: 'rn-answer' }, [
       el('header', { class: 'rn-answer__header' }, [title, el('p', { class: 'rn-answer__state', text: smart(s.state) })]),
       el('div', { class: 'rn-answer__layout' }, [guidance(s), el('div', { class: 'rn-answer__side' }, [phrase(s), when])]),
-      actionRow(s, saveStatus), saveStatus, sources
+      actionRow(s, saveStatus), saveStatus,
+      // Meltdown only, and after the help: an optional, quiet next step.
+      s.id === 'meltdown' ? el('p', { class: 'rn-next' }, [
+        'When things are calm, you can ',
+        el('a', { href: '/nsc/classes/toddlerhood/preview', text: 'watch “Inside a Tantrum,” a free toddler lesson' }),
+        '.'
+      ]) : null,
+      sources
     ]);
     main.appendChild(card);
     main.appendChild(el('div', { class: 'rn-back' }, [

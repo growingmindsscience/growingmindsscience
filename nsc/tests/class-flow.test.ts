@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { infantSalesGate, preschoolSalesGate } from "@/lib/classes";
-import { BUNDLE_ENROLL_PATH, TODDLER_ENROLL_PATH, INFANT_ENROLL_PATH, PRESCHOOL_ENROLL_PATH, classDestination, enrollingCourse, isClassPath } from "@/lib/class-paths";
+import { classOfferForProduct, familySalesGate, infantSalesGate, preschoolSalesGate } from "@/lib/classes";
+import { BUNDLE_ENROLL_PATH, FAMILY_ENROLL_PATH, TODDLER_ENROLL_PATH, INFANT_ENROLL_PATH, PRESCHOOL_ENROLL_PATH, classDestination, classLoginUrl, enrollingCourse, isClassPath, signInNext, checkoutSessionId } from "@/lib/class-paths";
 import { sitePath } from "@/lib/site";
 
 const USER = "3f2b8c1e-0d4a-4b6f-9a7e-1c2d3e4f5a6b";
@@ -76,6 +76,79 @@ describe("infant sales gate", () => {
   });
 });
 
+describe("family sales gate", () => {
+  const familyReady = { ...ready, moduleCounts: [3, 3, 3, 4] };
+
+  it("opens only with its own flag and exactly 3/3/3/4 published lessons", () => {
+    expect(familySalesGate(familyReady)).toEqual({ open: true });
+    expect(familySalesGate({ ...familyReady, salesFlag: undefined })).toEqual({
+      open: false,
+      reason: "FAMILY_CLASS_SALES_ENABLED is not set for this deployment; FAMILY_CLASS_TEST_USER_ID is not set",
+    });
+    // One lesson unpublished, and one extra lesson added, both close it.
+    expect(familySalesGate({ ...familyReady, moduleCounts: [3, 3, 3, 3] })).toEqual({
+      open: false, reason: "published lesson counts do not match: module 4 has 3, needs 4",
+    });
+    expect(familySalesGate({ ...familyReady, moduleCounts: [3, 4, 3, 4] }).open).toBe(false);
+    // The infant counts (5/4/3/4) do not satisfy it.
+    expect(familySalesGate(ready).open).toBe(false);
+  });
+
+  it("opens on preview only for the allowed user", () => {
+    const preview = { ...familyReady, vercelEnv: "preview", previewUserId: USER };
+    expect(familySalesGate(preview)).toEqual({ open: true });
+    expect(familySalesGate({ ...preview, userId: "someone-else" }).open).toBe(false);
+    expect(familySalesGate({ ...preview, userId: undefined }).open).toBe(false);
+  });
+});
+
+describe("family checkout intent", () => {
+  it("maps the enroll path to the $49 family class and the family product", () => {
+    expect(classDestination(FAMILY_ENROLL_PATH)).toBe(FAMILY_ENROLL_PATH);
+    expect(enrollingCourse(FAMILY_ENROLL_PATH)).toMatchObject({ slug: "family", priceDisplay: "$49", product: "class_family" });
+    expect(enrollingCourse("/app/classes/family")).toBeNull();
+    expect(classOfferForProduct("class_family")).toMatchObject({ slug: "family" });
+  });
+});
+
+describe("signed-out redirect keeps the class destination", () => {
+  const successPaths = [
+    "/app/classes/toddlerhood/success",
+    "/app/classes/infant/success",
+    "/app/classes/preschool/success",
+    "/app/classes/family/success",
+    "/app/classes/bundle/success",
+  ];
+
+  it("keeps Stripe's session_id on every class and bundle success page", () => {
+    for (const path of successPaths) {
+      const next = signInNext(path, "?session_id=cs_test_a1B2");
+      expect(next).toBe(`${path}?session_id=cs_test_a1B2`);
+      // The sign-in link carries it encoded, and sign-in decodes it back unchanged.
+      const url = new URL(classLoginUrl(next), "https://x.example");
+      expect(url.searchParams.get("next")).toBe(next);
+      expect(classDestination(url.searchParams.get("next"))).toBe(next);
+      expect(checkoutSessionId("cs_test_a1B2")).toBe("cs_test_a1B2");
+    }
+  });
+
+  it("drops a malformed session id instead of forwarding it", () => {
+    for (const bad of ["x", "cs_a b", "cs_a&next=//evil.example", `cs_${"a".repeat(200)}`, undefined]) {
+      expect(checkoutSessionId(bad)).toBeUndefined();
+    }
+  });
+
+  it("rejects off-site and malformed query variants, and leaves other areas alone", () => {
+    expect(signInNext("/app/classes/family", "?a=\\evil")).toBe("/app/classes/family");
+    expect(signInNext("/app/classes/family", "?a=b c")).toBe("/app/classes/family");
+    expect(checkoutSessionId(["cs_test_one", "cs_test_two"])).toBeUndefined();
+    expect(signInNext("/app", "?x=1")).toBe("/app");
+    expect(signInNext("/app/classes/family", "")).toBe("/app/classes/family");
+    // requireClassAuth's sanitizer: external or non-class targets become My classes.
+    expect(classDestination("https://evil.example/")).toBe("/app/classes");
+  });
+});
+
 describe("class sign-in destination", () => {
   it("never lands a class sign-in on the Number Path dashboard", () => {
     expect(classDestination(undefined)).toBe("/app/classes");
@@ -121,5 +194,25 @@ describe("enroll intent", () => {
     expect(enrollingCourse(PRESCHOOL_ENROLL_PATH)?.slug).toBe("preschool");
     expect(enrollingCourse("/app/classes/preschool")).toBeNull();
     expect(enrollingCourse("/app/classes")).toBeNull();
+  });
+
+  it("keeps the chosen enroll path through sanitizing, and nothing else", () => {
+    for (const path of [INFANT_ENROLL_PATH, TODDLER_ENROLL_PATH, PRESCHOOL_ENROLL_PATH, BUNDLE_ENROLL_PATH]) {
+      expect(enrollingCourse(classDestination(path))).not.toBeNull();
+    }
+    // Untrusted, off-site, Tallykin and query variants fall back to the generic state.
+    for (const raw of [
+      undefined,
+      "",
+      "https://evil.example/app/classes/infant/enroll",
+      "//evil.example/app/classes/infant/enroll",
+      "/app/child/new",
+      "/app/classes/infant/enroll/../../../app",
+      "/app/classes/unknown/enroll",
+    ]) {
+      expect(enrollingCourse(classDestination(raw))).toBeNull();
+    }
+    // A query on an enroll path is not claimed as that class.
+    expect(enrollingCourse(classDestination(`${INFANT_ENROLL_PATH}?x=1`))).toBeNull();
   });
 });

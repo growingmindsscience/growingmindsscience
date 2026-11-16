@@ -3,7 +3,25 @@ import { createClient } from "@/lib/supabase/server";
 import { backfillEntitlementsForUser } from "@/lib/backfill.server";
 import { safeNextPath } from "@/lib/safe-next";
 import { siteOrigin } from "@/lib/site";
-import { isClassPath } from "@/lib/class-paths";
+import { classDestination, isClassPath } from "@/lib/class-paths";
+
+const RESET_UPDATE_PATH = "/reset/update";
+
+/**
+ * The class destination carried inside a class password-reset `next`
+ * (`/reset/update?class=1&next=<class path>`, parameters in any order), or
+ * null when `next` is not a class reset. The pathname must match exactly and
+ * the nested `next` is revalidated as a class path, so a hand-edited link
+ * can only ever land on My classes.
+ */
+function classResetDestination(next: string): string | null {
+  const [beforeHash] = next.split("#", 1);
+  const q = beforeHash.indexOf("?");
+  if (q < 0 || beforeHash.slice(0, q) !== RESET_UPDATE_PATH) return null;
+  const params = new URLSearchParams(beforeHash.slice(q + 1));
+  if (params.get("class") !== "1") return null;
+  return classDestination(params.get("next"));
+}
 
 /**
  * Auth code exchange for email links (password recovery, and any future
@@ -33,11 +51,13 @@ export async function GET(req: Request) {
       return NextResponse.redirect(new URL(`/nsc${next}`, origin));
     }
   }
-  const classFlow = next.startsWith("/reset/update?class=1") || isClassPath(next);
+  const resetDestination = classResetDestination(next);
+  const classFlow = resetDestination !== null || isClassPath(next);
   const loginPath = classFlow ? "/nsc/class-login" : "/nsc/login";
   // A class link that fails (opened in another browser, or expired) still
-  // knows where the parent was headed.
-  const keepNext = isClassPath(next) ? `&next=${encodeURIComponent(next)}` : "";
+  // knows where the parent was headed, including through a class reset.
+  const destination = isClassPath(next) ? next : resetDestination;
+  const keepNext = destination ? `&next=${encodeURIComponent(destination)}` : "";
   return NextResponse.redirect(new URL(
     `${loginPath}?error=${encodeURIComponent(isClassPath(next)
       ? "That link did not work here. Sign in below, or open the link on the device where you signed up."
