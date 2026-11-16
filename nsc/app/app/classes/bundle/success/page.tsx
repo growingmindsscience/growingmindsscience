@@ -2,7 +2,7 @@ import { requireClassAuth } from "@/lib/auth";
 import { checkoutSessionId } from "@/lib/class-paths";
 import { ownedClassSlugs, publishedLessons } from "@/lib/classes.server";
 import { CLASS_BUNDLE } from "@/lib/classes";
-import { BundleWelcome } from "@/components/class-welcome";
+import { BundleWelcome, welcomeState } from "@/components/class-welcome";
 import { stripe } from "@/lib/stripe";
 import { TrackPurchase } from "@/components/track";
 import { fulfillClassCheckout } from "@/lib/class-orders.server";
@@ -36,7 +36,7 @@ export default async function BundleSuccessPage({ searchParams }: {
   return (
     <main className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-6 py-12 text-center">
       {paid && sessionId && <TrackPurchase classId="bundle" sessionId={sessionId} />}
-      <BundleWelcome ready={ready} starts={starts} />
+      <BundleWelcome state={welcomeState(ready, Boolean(sessionId))} starts={starts} />
     </main>
   );
 }
