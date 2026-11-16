@@ -2,7 +2,7 @@ import { requireClassAuth } from "@/lib/auth";
 import { checkoutSessionId } from "@/lib/class-paths";
 import { hasClassAccess, publishedLessons } from "@/lib/classes.server";
 import { INFANT_COURSE } from "@/lib/classes";
-import { ClassWelcome } from "@/components/class-welcome";
+import { ClassWelcome, welcomeState } from "@/components/class-welcome";
 import { stripe } from "@/lib/stripe";
 import { TrackPurchase } from "@/components/track";
 import { fulfillClassCheckout } from "@/lib/class-orders.server";
@@ -32,7 +32,7 @@ export default async function InfantClassSuccessPage({ searchParams }: {
   return (
     <main className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-6 py-12 text-center">
       {paid && sessionId && <TrackPurchase classId="infant" sessionId={sessionId} />}
-      <ClassWelcome ready={ready} courseSlug={INFANT_COURSE.slug} firstLessonSlug={first?.slug} />
+      <ClassWelcome state={welcomeState(ready, Boolean(sessionId))} courseSlug={INFANT_COURSE.slug} firstLessonSlug={first?.slug} />
     </main>
   );
 }
