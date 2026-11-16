@@ -33,6 +33,7 @@
     { "type": "lens", "title": "Leaving the playground", "href": "/lens/leaving-the-playground", "ages": ["y1", "y2", "y3"], "topics": ["regulation", "behavior"], "moments": ["leaving"] },
 
     { "type": "tool", "title": "It’s hard right now", "href": "/tools/right-now", "ages": ["y0", "y1", "y2", "y3", "y4"], "topics": ["behavior", "regulation"], "moments": ["meltdown", "limit", "sleep", "patience", "repair"] },
+    { "type": "tool", "title": "Before your child’s checkup", "href": "/tools/checkup-prep", "ages": ["y3", "y4"], "topics": [], "moments": ["worry"] },
     { "type": "tool", "title": "Communication Snapshot", "href": "/tools/communication-snapshot", "ages": ["y0", "y1", "y2"], "topics": ["communication"], "moments": ["worry"] },
     { "type": "tool", "title": "Milestone Navigator", "href": "/tools/milestone-navigator", "ages": ["y0", "y1", "y2", "y3", "y4"], "topics": ["learning", "communication"], "moments": ["worry"] },
     { "type": "tool", "title": "Milestone tracker", "href": "/milestones", "ages": ["y0", "y1", "y2"], "topics": ["learning"], "moments": ["worry"] },
@@ -57,7 +58,7 @@
     { "type": "article", "title": "Self-regulation, briefly", "href": "/articles/self-regulation", "ages": ["y2", "y3", "y4"], "topics": ["regulation"], "moments": [] },
     { "type": "article", "title": "When your own nervous system is the variable", "href": "/articles/parents-nervous-system", "ages": ["y0", "y1", "y2", "y3", "y4"], "topics": ["regulation", "relationships"], "moments": ["patience"] },
     { "type": "article", "title": "What to do with milestone worry", "href": "/articles/milestone-worry", "ages": ["y0", "y1", "y2"], "topics": ["learning", "communication"], "moments": ["worry"] },
-    { "type": "article", "title": "The cliff at three", "href": "/articles/cliff-at-three", "ages": ["y2", "y3"], "topics": ["learning", "communication"], "moments": [] },
+    { "type": "article", "title": "The cliff at three", "href": "/articles/cliff-at-three", "ages": ["y2", "y3"], "topics": ["learning", "communication"], "moments": ["worry"] },
     { "type": "article", "title": "The counting ladder", "href": "/articles/counting-ladder", "ages": ["y2", "y3", "y4"], "topics": ["learning", "play"], "moments": [] },
 
     { "type": "claim", "title": "Hearing two languages will confuse my baby", "href": "/claims/bilingual-confusion", "ages": ["y0", "y1", "y2"], "topics": ["communication"], "moments": ["worry"] },

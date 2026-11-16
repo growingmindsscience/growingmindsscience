@@ -1,6 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
-import { isClassPath } from "@/lib/class-paths";
+import { isClassPath, signInNext } from "@/lib/class-paths";
 import { CLASS_PREVIEW_PATHS } from "@/lib/class-preview";
 
 /**
@@ -73,7 +73,9 @@ export async function updateSession(request: NextRequest) {
   if (!user && !isPublicPath(path)) {
     const url = request.nextUrl.clone();
     url.pathname = isClassPath(path) ? "/class-login" : "/login";
-    url.searchParams.set("next", path);
+    // Drop the original query: it travels inside `next`, never beside it.
+    url.search = "";
+    url.searchParams.set("next", signInNext(path, request.nextUrl.search));
     return NextResponse.redirect(url);
   }
 

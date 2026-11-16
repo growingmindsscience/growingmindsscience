@@ -6,7 +6,7 @@
   <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
   /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
   <title>Pricing | From Little Onward</title>
-  <meta name="description" content="Everything From Little Onward offers, in one place: free tools and articles, the $49 first-year class, the $49 toddler class with the AI tool included, the $49 preschool class, the $49 family systems class, all four classes for $159 or the three age classes for $119, each with the AI tool included, and the free Tallykin check-in (the full version is $34)." />
+  <meta name="description" content="Everything From Little Onward offers, in one place: free tools and articles, the $49 first-year class, the $49 toddler class with the AI tool included, the $49 preschool class, the $49 whole-family class, the three age classes together for $119 with the AI tool included, and the free Tallykin check-in (the full version is $34)." />
   <meta name="theme-color" content="#F8F9FB" />
   <meta name="color-scheme" content="light dark" />
 
@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
   <link rel="stylesheet" href="/assets/css/hubs.css?v=05c4490964" />
+  <link rel="stylesheet" href="/assets/css/pricing.css?v=1d6b302bbf" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=eacaf2a72e" />
 </head>
 <body class="fg fg--page hub">
@@ -82,99 +83,151 @@
 <!-- header:end -->
 
   <main id="main" tabindex="-1">
-    <section class="hb-container hub-title hub-title--solo" aria-labelledby="page-heading">
-      <div class="hub-title__grid">
-        <div>
-          <h1 class="hb-display" id="page-heading">Prices, stated plainly.</h1>
-          <p class="hb-lead" data-rise style="--i:1">Everything we sell is below, with the price stated plainly. The tools, articles and milestone tracker are free, and Ask the research answers five AI questions a day with no account and no card. The free tier stays free because the mission is access, not upsell.</p>
-        </div>
-      </div>
+    <section class="hb-container hub-title hub-title--solo pl-title" aria-labelledby="page-heading">
+      <h1 class="hb-display" id="page-heading">Prices, stated plainly.</h1>
+      <p class="hb-lead">Each class is one payment with lifetime access, and nothing renews. The free tools stay free.</p>
+      <!-- The whole price list in one glance, so a parent on a phone can jump straight to a choice. Plain hash links. -->
+      <nav class="pl-index" aria-label="Prices on this page">
+        <ul class="pl-index__list">
+          <li><a href="#birth-to-12-months"><span>Birth to 12 months</span><span class="pl-index__price">$49</span></a></li>
+          <li><a href="#toddlerhood"><span>Toddler years, 1 to 3</span><span class="pl-index__price">$49</span></a></li>
+          <li><a href="#preschool"><span>Preschool years, 3 to 5</span><span class="pl-index__price">$49</span></a></li>
+          <li><a href="#all-three"><span>All three age classes</span><span class="pl-index__price">$119</span></a></li>
+          <li><a href="#family-systems"><span>The whole family, any age</span><span class="pl-index__price">$49</span></a></li>
+          <li><a href="#all-four"><span>All four classes</span><span class="pl-index__price">$159</span></a></li>
+          <li><a href="#free"><span>Free tools and Ask the research</span><span class="pl-index__price pl-index__price--free">Free</span></a></li>
+        </ul>
+      </nav>
     </section>
 
-    <section class="hub-sec hub-sec--white hub-sec--after-title" aria-labelledby="classes-heading">
+    <section class="hub-sec hub-sec--white hub-sec--after-title pl-sec" id="classes" aria-labelledby="classes-heading">
       <div class="hb-container hub-split hub-split--stack">
         <div class="hub-split__head" data-rise>
           <h2 class="hb-display" id="classes-heading">Classes</h2>
-          <p>One payment each, lifetime access, nothing renews. Full refund within 14 days if you&rsquo;ve watched 4 lessons or fewer. <a href="/terms-of-sale/">Terms of sale</a>. Checkout is here, with Stripe; lessons live in My classes.</p>
+          <ul class="pl-terms">
+            <li><b>One payment, lifetime access.</b> Nothing renews.</li>
+            <li><b>Every lesson</b> has captions and a written version, and each class has a free lesson to watch first.</li>
+            <li><b>Refunds:</b> a full refund within 14 days if you&rsquo;ve watched 4 lessons or fewer. <a href="#refunds">Refund details</a> &middot; <a href="/terms-of-sale/">Terms of sale</a></li>
+            <li><b>Checkout</b> is here, with Stripe; lessons live in <a href="/nsc/class-login">My classes</a>.</li>
+          </ul>
         </div>
-        <div class="rows rows--price">
-          <div class="price-row" data-rise>
-            <div><h3 class="row__name"><a href="/classes/birth-to-12-months">Birth to 12 months</a></h3><div class="range" aria-hidden="true"><div class="range__track" style="--from:0%;--to:20%"><i></i></div><small><span>birth</span><span>5 years</span></small></div><p class="row__desc">Cues, attachment, and the first year. 16 short lessons, about 3 hours, with captions and a written version of every lesson.</p></div>
-            <p class="price-row__amount">$49<small>once, lifetime access</small></p>
-            <div class="price-row__act">
+        <div class="pl-list">
+          <div class="pl-row" id="birth-to-12-months" data-rise>
+            <div class="pl-row__body">
+              <h3 class="row__name"><a href="/classes/birth-to-12-months">Birth to 12 months</a></h3>
+              <p class="row__desc">Cues, attachment, and the first year.</p>
+              <ul class="pl-facts"><li>16 short lessons</li><li>About 3 hours</li></ul>
+            </div>
+            <p class="pl-row__price">$49<small>once</small></p>
+            <div class="pl-row__act">
               <a class="hb-btn" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Finfant%2Fenroll">Enroll, $49<span class="u-visually-hidden">: Birth to 12 months</span></a>
-              <p class="price-row__fine">Not sure yet? <a href="/nsc/classes/infant/preview">Watch a lesson free</a>.</p>
+              <a class="pl-row__link" href="/nsc/classes/infant/preview">Watch a free lesson<span class="u-visually-hidden">: Birth to 12 months</span></a>
             </div>
           </div>
-          <div class="price-row" data-rise>
-            <div><h3 class="row__name"><a href="/classes/toddlerhood">Toddler years, 1 to 3</a></h3><div class="range" aria-hidden="true"><div class="range__track" style="--from:20%;--to:60%"><i></i></div><small><span>birth</span><span>5 years</span></small></div><p class="row__desc">Language, autonomy, and big feelings. 13 lessons, about 2.5 hours. Ask the research, the AI tool, is included with your class, with a fair-use limit of 50 questions a day.</p></div>
-            <p class="price-row__amount">$49<small>once, lifetime access</small></p>
-            <div class="price-row__act">
+          <div class="pl-row" id="toddlerhood" data-rise>
+            <div class="pl-row__body">
+              <h3 class="row__name"><a href="/classes/toddlerhood">Toddler years, 1 to 3</a></h3>
+              <p class="row__desc">Language, autonomy, and big feelings.</p>
+              <ul class="pl-facts"><li>13 lessons</li><li>About 2.5 hours</li><li>Ask the research, the AI tool, included (fair use: 50 questions a day)</li></ul>
+            </div>
+            <p class="pl-row__price">$49<small>once</small></p>
+            <div class="pl-row__act">
               <a class="hb-btn" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Ftoddlerhood%2Fenroll">Enroll, $49<span class="u-visually-hidden">: Toddler years</span></a>
-              <p class="price-row__fine">Already enrolled? <a href="/nsc/class-login">Open My classes</a>.</p>
+              <a class="pl-row__link" href="/nsc/classes/toddlerhood/preview">Watch a free lesson<span class="u-visually-hidden">: Toddler years</span></a>
             </div>
           </div>
-          <div class="price-row" data-rise>
-            <div><h3 class="row__name"><a href="/classes/preschool">Preschool years, 3 to 5</a></h3><div class="range" aria-hidden="true"><div class="range__track" style="--from:60%;--to:100%"><i></i></div><small><span>birth</span><span>5 years</span></small></div><p class="row__desc">Self-regulation, play, and kindergarten readiness, for ages 3 to 5. 15 short lessons.</p></div>
-            <p class="price-row__amount">$49<small>once, lifetime access</small></p>
-            <div class="price-row__act">
+          <div class="pl-row" id="preschool" data-rise>
+            <div class="pl-row__body">
+              <h3 class="row__name"><a href="/classes/preschool">Preschool years, 3 to 5</a></h3>
+              <p class="row__desc">Self-regulation, play, and kindergarten readiness.</p>
+              <ul class="pl-facts"><li>15 short lessons</li><li>About 2.5 hours</li></ul>
+            </div>
+            <p class="pl-row__price">$49<small>once</small></p>
+            <div class="pl-row__act">
               <a class="hb-btn" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Fpreschool%2Fenroll">Enroll, $49<span class="u-visually-hidden">: Preschool years</span></a>
+              <a class="pl-row__link" href="/nsc/classes/preschool/preview">Watch a free lesson<span class="u-visually-hidden">: Preschool years</span></a>
             </div>
           </div>
-          <div class="price-row" data-rise>
-            <div><h3 class="row__name"><a href="/classes/family-systems">The whole family, any age</a></h3><div class="range" aria-hidden="true"><div class="range__track" style="--from:0%;--to:100%"><i></i></div><small><span>birth</span><span>5 years</span></small></div><p class="row__desc">Family systems and stress: the adults, siblings, work, and hard seasons around a child, for any age and any family shape. 13 short lessons.</p></div>
-            <p class="price-row__amount">$49<small>once, lifetime access</small></p>
-            <div class="price-row__act">
+          <div class="pl-row pl-row--bundle" id="all-three" data-rise>
+            <div class="pl-row__body">
+              <h3 class="row__name">All three age classes</h3>
+              <p class="row__desc">Birth to 12 months, the toddler years, and the preschool years in one enrollment, ready as your child grows into each one.</p>
+              <ul class="pl-facts"><li>44 lessons, birth to age 5</li><li>Ask the research, the AI tool, included (fair use: 50 questions a day)</li></ul>
+              <p class="pl-row__note"><b>Who it&rsquo;s for:</b> accounts that don&rsquo;t already own any of the three. If you own one, enroll in the others one at a time from <a href="/nsc/class-login">My classes</a>. Family Systems is sold separately, or with all three in <a href="#all-four">all four classes</a>.</p>
+            </div>
+            <p class="pl-row__price">$119<small>once, instead of $147</small><span class="pl-save">Save $28</span></p>
+            <div class="pl-row__act">
+              <a class="hb-btn" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Fbundle%2Fenroll">Enroll, $119<span class="u-visually-hidden">: all three age classes</span></a>
+              <a class="pl-row__link" href="#birth-to-12-months">See each class and its free lesson</a>
+            </div>
+          </div>
+          <div class="pl-row" id="family-systems" data-rise>
+            <div class="pl-row__body">
+              <h3 class="row__name"><a href="/classes/family-systems">The whole family, any age</a></h3>
+              <p class="row__desc">Family systems and stress, for any age and any family shape.</p>
+              <ul class="pl-facts"><li>4 modules, 13 short lessons</li><li>About 2 hours 10 minutes</li><li>Sold on its own, not part of the all-three enrollment</li></ul>
+            </div>
+            <p class="pl-row__price">$49<small>once</small></p>
+            <div class="pl-row__act">
               <a class="hb-btn" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Ffamily%2Fenroll">Enroll, $49<span class="u-visually-hidden">: The whole family</span></a>
+              <a class="pl-row__link" href="/nsc/classes/family/preview">Watch a free lesson<span class="u-visually-hidden">: The whole family</span></a>
             </div>
           </div>
-          <div class="price-row price-row--feature" id="all-three" data-rise>
-            <div><h3 class="row__name"><a href="/classes/#bundle">The three age classes</a></h3><div class="range" aria-hidden="true"><div class="range__track" style="--from:0%;--to:100%"><i></i></div><small><span>birth</span><span>5 years</span></small></div><p class="row__desc">Birth to 12 months, the toddler years, and the preschool years in one enrollment, without the family class. 44 lessons from birth to age 5. Ask the research, the AI tool, is included, with a fair-use limit of 50 questions a day.</p></div>
-            <p class="price-row__amount">$119<small>once, lifetime access</small><span class="price-row__save">Save 19%</span></p>
-            <div class="price-row__act">
-              <a class="hb-btn" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Fbundle%2Fenroll">Enroll, $119<span class="u-visually-hidden">: the three age classes, without the family class</span></a>
-              <p class="price-row__fine">$28 less than buying each class on its own ($147), about 19%.</p>
+          <div class="pl-row pl-row--bundle" id="all-four" data-rise>
+            <div class="pl-row__body">
+              <h3 class="row__name">All four classes</h3>
+              <p class="row__desc">The three age classes plus Family systems and stress in one enrollment, ready as your child grows into each one, with the whole family in view.</p>
+              <ul class="pl-facts"><li>57 lessons, birth to age 5 and the whole family</li><li>Ask the research, the AI tool, included (fair use: 50 questions a day)</li></ul>
+              <p class="pl-row__note"><b>Who it&rsquo;s for:</b> accounts that don&rsquo;t already own any of the four. If you own one, enroll in the others one at a time from <a href="/nsc/class-login">My classes</a>.</p>
             </div>
-          </div>
-          <div class="price-row" id="all-four" data-rise>
-            <div><h3 class="row__name"><a href="/classes/#all-four">All four classes</a></h3><div class="range" aria-hidden="true"><div class="range__track" style="--from:0%;--to:100%"><i></i></div><small><span>birth</span><span>5 years</span></small></div><p class="row__desc">The three age classes plus Family systems and stress, in one enrollment, ready as your child grows into each one. 57 lessons. Ask the research, the AI tool, is included, with a fair-use limit of 50 questions a day.</p></div>
-            <p class="price-row__amount">$159<small>once, lifetime access</small><span class="price-row__save">Save 19%</span></p>
-            <div class="price-row__act">
+            <p class="pl-row__price">$159<small>once, instead of $196</small><span class="pl-save">Save $37</span></p>
+            <div class="pl-row__act">
               <a class="hb-btn" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Fall-four%2Fenroll">Enroll, $159<span class="u-visually-hidden">: all four classes, including the family class</span></a>
-              <p class="price-row__fine">$37 less than buying each class on its own ($196), about 19%.</p>
+              <a class="pl-row__link" href="#birth-to-12-months">See each class and its free lesson</a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="hub-sec" aria-labelledby="also-heading">
+    <section class="hub-sec pl-sec" id="free" aria-labelledby="free-heading">
+      <div class="hb-container hub-split">
+        <div class="hub-split__head" data-rise>
+          <h2 class="hb-display" id="free-heading">Free</h2>
+          <p>No account and no card. The free tier stays free because the mission is access.</p>
+        </div>
+        <div class="pl-list">
+          <div class="pl-row pl-row--free" data-rise>
+            <div class="pl-row__body">
+              <h3 class="row__name">Tools, articles, and Ask the research</h3>
+              <p class="row__desc">Every parent tool and guide, eight articles, the milestone tracker, the Tallykin check-in, and five AI questions a day in Ask the research.</p>
+            </div>
+            <div class="pl-row__act">
+              <a class="pl-row__link" href="/tools/">Explore the free tools</a>
+              <a class="pl-row__link" href="/tools/ask-the-research">Ask the AI a question</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hub-sec hub-sec--white pl-sec" id="tallykin" aria-labelledby="also-heading">
       <div class="hb-container hub-split">
         <div class="hub-split__head" data-rise>
           <h2 class="hb-display" id="also-heading">Also available</h2>
           <p>For when you want one tool rather than a course.</p>
         </div>
-        <div class="rows">
-          <div class="price-row" data-rise>
-            <div><h3 class="row__name">Tallykin</h3><p class="row__desc">The counting check-in for ages 2 to 5 is free. The full version adds three matched games a week, a daily number-talk prompt, and a re-check every six weeks.</p></div>
-            <p class="price-row__amount">$34<small>once; the check&#8209;in is free</small></p>
-            <div class="price-row__act"><a class="hb-btn hb-btn--quiet" href="/nsc">Meet Tallykin</a><a href="/nsc/gift">Give it as a gift</a></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="hub-sec hub-sec--white" aria-labelledby="free-heading">
-      <div class="hb-container hub-split">
-        <div class="hub-split__head" data-rise>
-          <h2 class="hb-display" id="free-heading">Free</h2>
-          <p>No account and no card. Free stays free.</p>
-        </div>
-        <div class="rows">
-          <div class="price-row" data-rise>
-            <div><h3 class="row__name">Tools, articles, and Ask the research</h3><p class="row__desc">Every parent tool and guide, eight articles, the milestone tracker, the Tallykin check-in, and five AI questions a day in Ask the research.</p></div>
-            <p class="price-row__amount">$0</p>
-            <div class="price-row__act"><a href="/tools/">Explore the free tools</a><a href="/tools/ask-the-research">Ask the AI a question</a></div>
+        <div class="pl-list">
+          <div class="pl-row" data-rise>
+            <div class="pl-row__body">
+              <h3 class="row__name">Tallykin</h3>
+              <p class="row__desc">The counting check-in for ages 2 to 5 is free. The full version adds three matched games a week, a daily number-talk prompt, and a re-check every six weeks.</p>
+            </div>
+            <p class="pl-row__price">$34<small>once; the check&#8209;in is free</small></p>
+            <div class="pl-row__act">
+              <a class="hb-btn hb-btn--quiet" href="/nsc">Meet Tallykin</a>
+              <a class="pl-row__link" href="/nsc/gift">Give it as a gift</a>
+            </div>
           </div>
         </div>
       </div>
@@ -188,7 +241,7 @@
         <div class="qa" data-rise style="--i:1">
           <details id="ai-tool">
             <summary>Which class includes the AI tool?</summary>
-            <p>The toddler class, and either bundle: all four classes or the three age classes. Ask the research, the AI tool, is included with each, with a fair-use limit of 50 questions a day. Without a class, Ask the research answers five free questions a day, with no account and no card.</p>
+            <p>The toddler class, and either bundle: the three age classes, or all four classes. Ask the research, the AI tool, is included with each, with a fair-use limit of 50 questions a day. Without a class, Ask the research answers five free questions a day, with no account and no card.</p>
           </details>
           <details id="refunds">
             <summary>Can I get a refund?</summary>
@@ -212,9 +265,9 @@
       <div class="hb-container">
         <div data-rise>
           <h2 class="hb-display" id="close-heading">Start with the window you&rsquo;re in.</h2>
-          <p>One payment, lifetime access, and nothing renews. Watch a full lesson before you decide.</p>
+          <p>Each class page lists every lesson, module by module.</p>
         </div>
-        <div class="hub-close__act" data-rise style="--i:1"><a class="hb-btn hb-btn--paper" href="/nsc/classes/infant/preview">Watch a lesson free</a><a class="hb-btn hb-btn--quiet" href="/classes/">Browse the classes</a></div>
+        <div class="hub-close__act" data-rise style="--i:1"><a class="hb-btn hb-btn--paper" href="/classes/">Browse the classes</a></div>
       </div>
     </section>
   </main>
@@ -284,7 +337,7 @@
   <script src="/assets/js/chrome.js?v=d5fdf5ae8e"></script>
 
   <script src="/assets/js/main.js?v=b5c8e48c2d" defer></script>
-  <script src="/assets/js/home.js?v=fcb88a4893" defer></script>
+  <script src="/assets/js/home.js?v=8b840cf659" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

@@ -104,7 +104,7 @@
   <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
   <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
-  <link rel="stylesheet" href="/assets/css/classes.css?v=a525475f8a" />
+  <link rel="stylesheet" href="/assets/css/classes.css?v=f474dbd4b9" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=eacaf2a72e" />
 </head>
 <body class="fg fg--page cp">
@@ -158,30 +158,175 @@
 
   <main id="main">
 
-    <!-- HERO: the pitch beside one idea from the class -->
-    <section class="class-hero class-intro">
-      <div class="container">
-        <div class="class-intro__copy">
-          <h1 class="class-hero__title">Birth to 12 months</h1>
-          <p class="class-hero__lede">
-            A calm, research-based picture of what infants are actually doing in the first year:
-            how they communicate long before words, how attachment forms, and what the science
-            says about crying, sleep, feeding, and play.
-          </p>
-          <dl class="class-intro__facts">
-            <div><dt>Format</dt><dd>4 modules, 16 lessons</dd></div>
-            <div><dt>Length</dt><dd>About 3 hours, self-paced</dd></div>
-            <div><dt>Includes</dt><dd>Captions and transcripts</dd></div>
-            <div><dt>Price</dt><dd>$49 once, lifetime access</dd></div>
-          </dl>
-          <div class="hero__ctas hb-actions">
-            <a class="hb-btn" href="#enroll">Enroll, $49</a>
-            <a class="hb-btn hb-btn--quiet" href="/nsc/classes/infant/preview">Watch a lesson free</a>
+    <!-- HERO: life stage, a parent's question, one plain promise, the action -->
+    <section class="class-hero cp-hero" aria-labelledby="hero-title">
+      <div class="container cp-hero__grid">
+        <div class="cp-hero__copy">
+          <h1 class="cp-hero__title" id="hero-title"><span class="cp-hero__stage">Birth to 12 months</span><span class="u-visually-hidden">: </span>What is my baby trying to tell me?</h1>
+          <p class="cp-hero__promise">Read your baby&rsquo;s cues and make more sense of crying, sleep and feeding, one short lesson at a time.</p>
+          <div class="hero__ctas">
+            <a class="hb-btn btn" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Finfant%2Fenroll">Enroll, $49</a>
+            <a class="hb-btn hb-btn--quiet btn" href="/nsc/classes/infant/preview">Watch a free lesson</a>
           </div>
-          <p class="class-intro__fine">Checkout is here, with Stripe, and the lessons live under <a href="/nsc/class-login">My classes</a>.</p>
+          <p class="cp-hero__facts">Preview: &ldquo;Serve and Return&rdquo; &middot; No account needed</p>
+          <p class="cp-hero__facts">$49 once &middot; Lifetime access &middot; 16 lessons, about 3 hours, with captions and transcripts</p>
+          <p class="cp-hero__facts">Full refund within 14 days if you&rsquo;ve watched 4 lessons or fewer; the free preview lesson doesn&rsquo;t count. <a href="/terms-of-sale/">Refund terms</a></p>
+          <nav class="cp-jump" aria-label="On this page">
+            <a href="#syllabus">What&rsquo;s inside</a><a href="#educator">Who teaches it</a><a href="#questions">Common questions</a>
+          </nav>
         </div>
+        <figure class="cp-hero__photo">
+          <img src="/assets/img/site/class-infant-400.jpg" srcset="/assets/img/site/class-infant-400.jpg 400w, /assets/img/site/class-infant.jpg 800w" sizes="(min-width: 900px) 40vw, 92vw" width="800" height="800" alt="A baby holds a parent&rsquo;s finger." fetchpriority="high" decoding="async" />
+        </figure>
+      </div>
+    </section>
 
-        <figure class="hb-fig" id="crying-curve" data-rise data-draw style="--i:1" aria-labelledby="fig-infant-caption">
+    <!-- A TEACHING MOMENT: situation, what is growing, what to try (from Modules 1 and 2) -->
+    <section class="cp-moment" aria-labelledby="moment-heading">
+      <div class="container">
+        <h2 id="moment-heading">When your baby looks away</h2>
+        <ol class="cp-moment__steps">
+          <li><span class="cp-moment__label">The situation</span><p>Your baby fusses and turns away. You wonder whether they&rsquo;ve had enough.</p></li>
+          <li><span class="cp-moment__label">What is growing</span><p>Even before words, babies send signals with their face, voice, and body.</p></li>
+          <li><span class="cp-moment__label">What to try</span><p>Pause for a moment. If they turn back or make a sound, answer with a smile or a few words.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- WHO IT'S FOR -->
+    <section class="cp-for" id="for">
+      <div class="container container--narrow">
+        <h2 data-rise>Who this is for</h2>
+        <div class="cp-prose" data-rise>
+          <p>You have a baby under one, and every day brings a new question. Why the crying? Is this sleep normal? Am I reading them right? Advice comes from every direction and doesn&rsquo;t always agree.</p>
+          <p>This class explains what the research says infants are actually doing, in plain language, so you have a steadier picture to work from.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT WILL FEEL EASIER -->
+    <section class="section--alt" id="easier">
+      <div class="container container--narrow">
+        <h2 data-rise>What this class helps with</h2>
+        <ol class="cp-benefits" data-rise>
+          <li>
+            <h3>Crying makes more sense</h3>
+            <p>See the normal crying curve, what helps, and realistic expectations for crying and sleep, based on the research rather than the pressure.</p>
+          </li>
+          <li>
+            <h3>Your baby&rsquo;s signals are easier to read</h3>
+            <p>Learn the cues for ready, hungry, tired, and had enough, and how temperament changes what they look like.</p>
+          </li>
+          <li>
+            <h3>Connection doesn&rsquo;t have to be perfect</h3>
+            <p>Secure attachment forms through everyday moments, and babies attach to more than one person.</p>
+          </li>
+        </ol>
+        <details class="cp-more" data-rise>
+          <summary>Everything you&rsquo;ll learn</summary>
+          <ul class="check-list">
+            <li>What your baby&rsquo;s brain is building in the first year, and why responsive care matters more than enrichment.</li>
+            <li>How to read your baby&rsquo;s signals for ready, hungry, tired, and had enough.</li>
+            <li>How secure attachment forms through everyday moments, and why it doesn&rsquo;t require perfection.</li>
+            <li>Realistic expectations for crying and sleep, based on the research rather than the pressure.</li>
+            <li>How babies build language before their first words, and how movement and play drive learning.</li>
+          </ul>
+        </details>
+      </div>
+    </section>
+
+    <!-- FREE LESSON -->
+    <section class="cp-try" id="sample">
+      <div class="container container--narrow">
+        <h2 data-rise>Try a lesson first</h2>
+        <div class="cp-try__panel" data-rise>
+          <p class="cp-try__title">Serve and Return</p>
+          <p class="cp-try__meta">A full lesson from Module 1 &middot; 14 minutes &middot; No account needed</p>
+          <a class="hb-btn btn" href="/nsc/classes/infant/preview">Watch a free lesson</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT'S INSIDE -->
+    <section id="syllabus" class="section--alt">
+      <div class="container">
+        <div class="section-head" data-rise>
+          <h2 data-rise>What&rsquo;s inside</h2>
+          <p class="section-head__lede" data-rise>Four modules, 16 lessons, about 3 hours. Self-paced, with captions and transcripts.</p>
+        </div>
+        <ol class="syllabus">
+          <li class="syllabus__item" data-rise>
+            <div><p class="syllabus__num">Module 1</p><h3 class="syllabus__title">The Newborn Brain</h3><p class="syllabus__meta">5 lessons, about 1 hour &middot; Lesson 3 free to watch</p></div>
+            <div class="syllabus__body">
+              <p>What newborns can already do, how experience builds the brain, the back-and-forth that shapes it, why babies cry and how to help them calm, and why a baby can be capable and fragile at the same time.</p>
+              <details class="cp-more cp-more--small">
+                <summary>See the 5 lessons<span class="u-visually-hidden">: Module 1</span></summary>
+                <ol class="syllabus__lessons">
+                  <li><span>1</span>Born Ready to Connect</li>
+                  <li><span>2</span>A Brain Built by Experience</li>
+                  <li><span>3</span><span class="syllabus__lesson"><a href="/nsc/classes/infant/preview">Serve and Return</a> <em class="syllabus__free">Free to watch</em></span></li>
+                  <li><span>4</span>States, Crying, and the Borrowed Nervous System</li>
+                  <li><span>5</span>Capable and Fragile at Once</li>
+                </ol>
+              </details>
+            </div>
+          </li>
+          <li class="syllabus__item" data-rise>
+            <div><p class="syllabus__num">Module 2</p><h3 class="syllabus__title">Reading Your Baby&rsquo;s Cues</h3><p class="syllabus__meta">4 lessons, about 40 minutes</p></div>
+            <div class="syllabus__body">
+              <p>The signals that mean ready, hungry, tired, or had enough. Your baby&rsquo;s temperament, feeding as a two-way conversation, and what sleep really looks like across the first year.</p>
+              <details class="cp-more cp-more--small">
+                <summary>See the 4 lessons<span class="u-visually-hidden">: Module 2</span></summary>
+                <ol class="syllabus__lessons">
+                  <li><span>1</span>The Cue Vocabulary</li>
+                  <li><span>2</span>Temperament</li>
+                  <li><span>3</span>Feeding as a Conversation</li>
+                  <li><span>4</span>Sleep Across the First Year</li>
+                </ol>
+              </details>
+            </div>
+          </li>
+          <li class="syllabus__item" data-rise>
+            <div><p class="syllabus__num">Module 3</p><h3 class="syllabus__title">Attachment in the First Year</h3><p class="syllabus__meta">3 lessons, about 30 minutes</p></div>
+            <div class="syllabus__body">
+              <p>What secure attachment is and isn&rsquo;t, how babies attach to more than one person (including in childcare), and why separation and stranger wariness show up later in the year.</p>
+              <details class="cp-more cp-more--small">
+                <summary>See the 3 lessons<span class="u-visually-hidden">: Module 3</span></summary>
+                <ol class="syllabus__lessons">
+                  <li><span>1</span>What Secure Attachment Is, and Isn&rsquo;t</li>
+                  <li><span>2</span>Many Hands</li>
+                  <li><span>3</span>Separation and Stranger Wariness</li>
+                </ol>
+              </details>
+            </div>
+          </li>
+          <li class="syllabus__item" data-rise>
+            <div><p class="syllabus__num">Module 4</p><h3 class="syllabus__title">The Explorer: Language, Movement, and Play</h3><p class="syllabus__meta">4 lessons, about 40 minutes</p></div>
+            <div class="syllabus__body">
+              <p>Babbling, pointing, and the first words your baby understands. Tummy time, crawling, and how moving changes everything. Play, hiding games, and what the evidence says about screens.</p>
+              <details class="cp-more cp-more--small">
+                <summary>See the 4 lessons<span class="u-visually-hidden">: Module 4</span></summary>
+                <ol class="syllabus__lessons">
+                  <li><span>1</span>Language Before Words</li>
+                  <li><span>2</span>On the Move</li>
+                  <li><span>3</span>Play and the Hidden Toy</li>
+                  <li><span>4</span>Screens, and the Year Ahead</li>
+                </ol>
+              </details>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- OPTIONAL: the chart and the research -->
+    <section class="cp-science" id="science">
+      <div class="container container--narrow">
+        <h2 data-rise>For the curious</h2>
+        <div data-rise>
+          <details class="cp-more">
+            <summary>Optional: the crying chart and the research behind the class</summary>
+            <figure class="hb-fig" id="crying-curve" aria-labelledby="fig-infant-caption">
           <div class="hb-fig__plate">
             <svg viewBox="0 0 480 300" role="img" aria-labelledby="fig-infant-title" aria-describedby="fig-infant-desc" xmlns="http://www.w3.org/2000/svg">
               <title id="fig-infant-title">Figure 1. The normal crying curve.</title>
@@ -204,127 +349,53 @@
               <g class="fig-pop" style="--d:3">
                 <line class="fig-tick" x1="361" y1="175" x2="361" y2="189"/>
                 <circle class="fig-ring" cx="361" cy="169.4" r="4"/>
-                <text class="fig-text fig-halo" x="361" y="207" text-anchor="middle">About half by 3 months</text>
+                <text class="fig-text fig-halo" x="361" y="207" text-anchor="middle">About half by 12 weeks</text>
               </g>
               <g class="fig-text fig-text--sm">
                 <text x="56" y="105" text-anchor="end">2 hrs</text>
                 <text x="56" y="180" text-anchor="end">1 hr</text>
                 <text x="64" y="276" text-anchor="middle">Birth</text>
                 <text x="163" y="276" text-anchor="middle">4 wks</text>
-                <text x="262" y="276" text-anchor="middle">8</text>
-                <text x="361" y="276" text-anchor="middle">12</text>
+                <text x="262" y="276" text-anchor="middle">8 wks</text>
+                <text x="361" y="276" text-anchor="middle">12 wks</text>
                 <text x="460" y="276" text-anchor="end">16 wks</text>
+                <text x="262" y="295" text-anchor="middle">Age in weeks</text>
                 <text x="64" y="14">Fussing and crying, per day</text>
               </g>
             </svg>
           </div>
-          <figcaption id="fig-infant-caption"><b class="hb-fig__n">Fig. 1</b> The normal crying curve. On average, fussing and crying build after birth, are highest in the first six weeks at about two hours a day, and fall to about one hour by ten to twelve weeks. Individual babies vary widely. Module 1, lesson 4 covers what helps.
+          <figcaption id="fig-infant-caption"><b class="hb-fig__n">Fig. 1</b> The normal crying curve, by age in weeks. Takeaway: crying is highest in the first 6 weeks, at about two hours a day, and falls to about one hour by 10 to 12 weeks. Individual babies vary widely. Module 1, lesson 4 covers what helps.
             <span class="hb-fig__src">Schematic after Brazelton (1962) and the meta-analysis by Wolke, Bilgin and Samara (2017).</span></figcaption>
         </figure>
-      </div>
-    </section>
-
-    <!-- WHAT YOU'LL LEARN -->
-    <section class="section--alt">
-      <div class="container container--narrow">
-        <div class="section-head" data-rise>
-          <h2>By the end of the class</h2>
-          <p class="section-head__lede">The first year will feel a lot less like guessing.</p>
-        </div>
-        <ul class="check-list" data-rise>
-          <li>What your baby&rsquo;s brain is building in the first year, and why responsive care matters more than enrichment.</li>
-          <li>How to read your baby&rsquo;s signals for ready, hungry, tired, and had enough.</li>
-          <li>How secure attachment forms through everyday moments, and why it doesn&rsquo;t require perfection.</li>
-          <li>Realistic expectations for crying and sleep, based on the research rather than the pressure.</li>
-          <li>How babies build language before their first words, and how movement and play drive learning.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- SYLLABUS -->
-    <section id="syllabus">
-      <div class="container">
-        <div class="section-head" data-rise>
-          <h2>Four modules</h2>
-          <p class="section-head__lede">For the year when everything is new.</p>
-        </div>
-        <ol class="syllabus">
-          <li class="syllabus__item" data-rise>
-            <div><p class="syllabus__num">Module 1</p><h3 class="syllabus__title">The Newborn Brain</h3><p class="syllabus__meta">5 lessons &middot; About 1 hour</p></div>
-            <div class="syllabus__body">
-              <p>What newborns can already do, how experience builds the brain, the back-and-forth that shapes it, why babies cry and how to help them calm, and why a baby can be capable and fragile at the same time.</p>
-              <ol class="syllabus__lessons">
-                <li><span>1</span>Born Ready to Connect</li>
-                <li><span>2</span>A Brain Built by Experience</li>
-                <li><span>3</span><span class="syllabus__lesson"><a href="/nsc/classes/infant/preview">Serve and Return</a> <em class="syllabus__free">Free to watch</em></span></li>
-                <li><span>4</span>States, Crying, and the Borrowed Nervous System</li>
-                <li><span>5</span>Capable and Fragile at Once</li>
+            <div class="sources">
+              <h3 class="sources__title">What this class draws on.</h3>
+              <p class="sources__lede">Eight of the peer-reviewed studies the lessons are built on, at least one from every module.</p>
+              <ol class="sources-list">
+                <li><span class="sources-list__cite">Nelson et al. (2007). Cognitive recovery in socially deprived young children. <i>Science</i>, 318, 1937&ndash;1940.</span> <span class="sources-list__where">Module 1, lesson 2</span></li>
+                <li><span class="sources-list__cite">Mesman, van IJzendoorn, &amp; Bakermans-Kranenburg (2009). The many faces of the Still-Face Paradigm: a review and meta-analysis. <i>Developmental Review</i>, 29, 120&ndash;162.</span> <span class="sources-list__where">Module 1, lesson 3</span></li>
+                <li><span class="sources-list__cite">Slagt et al. (2016). Differences in sensitivity to parenting depending on child temperament: a meta-analysis. <i>Psychological Bulletin</i>. <a href="https://doi.org/10.1037/bul0000061">doi</a></span> <span class="sources-list__where">Module 2, lesson 2</span></li>
+                <li><span class="sources-list__cite">Black &amp; Aboud (2011). Responsive feeding is embedded in a theoretical framework of responsive parenting. <i>Journal of Nutrition</i>. <a href="https://doi.org/10.3945/jn.110.129973">doi</a></span> <span class="sources-list__where">Module 2, lesson 3</span></li>
+                <li><span class="sources-list__cite">Madigan et al. (2024). Maternal and paternal sensitivity: key determinants of child attachment security examined through meta-analysis. <i>Psychological Bulletin</i>. <a href="https://doi.org/10.1037/bul0000433">doi</a></span> <span class="sources-list__where">Module 3, lesson 1</span></li>
+                <li><span class="sources-list__cite">Ahnert, Pinquart, &amp; Lamb (2006). Security of children&rsquo;s relationships with nonparental care providers: a meta-analysis. <i>Child Development</i>. <a href="https://doi.org/10.1111/j.1467-8624.2006.00896.x">doi</a></span> <span class="sources-list__where">Module 3, lesson 2</span></li>
+                <li><span class="sources-list__cite">Goldstein, King, &amp; West (2003). Social interaction shapes babbling. <i>PNAS</i>. <a href="https://doi.org/10.1073/pnas.1332441100">doi</a></span> <span class="sources-list__where">Module 4, lesson 1</span></li>
+                <li><span class="sources-list__cite">Strouse et al. (2021). Learning from video: a meta-analysis of the video deficit in children ages 0 to 6 years. <i>Child Development</i>, 92(1), e20&ndash;e38. <a href="https://doi.org/10.1111/cdev.13429">doi</a></span> <span class="sources-list__where">Module 4, lesson 4</span></li>
               </ol>
             </div>
-          </li>
-          <li class="syllabus__item" data-rise>
-            <div><p class="syllabus__num">Module 2</p><h3 class="syllabus__title">Reading Your Baby&rsquo;s Cues</h3><p class="syllabus__meta">4 lessons &middot; About 40 minutes</p></div>
-            <div class="syllabus__body">
-              <p>The signals that mean ready, hungry, tired, or had enough. Your baby&rsquo;s temperament, feeding as a two-way conversation, and what sleep really looks like across the first year.</p>
-              <ol class="syllabus__lessons">
-                <li><span>1</span>The Cue Vocabulary</li>
-                <li><span>2</span>Temperament</li>
-                <li><span>3</span>Feeding as a Conversation</li>
-                <li><span>4</span>Sleep Across the First Year</li>
-              </ol>
-            </div>
-          </li>
-          <li class="syllabus__item" data-rise>
-            <div><p class="syllabus__num">Module 3</p><h3 class="syllabus__title">Attachment in the First Year</h3><p class="syllabus__meta">3 lessons &middot; About 30 minutes</p></div>
-            <div class="syllabus__body">
-              <p>What secure attachment is and isn&rsquo;t, how babies attach to more than one person (including in childcare), and why separation and stranger wariness show up later in the year.</p>
-              <ol class="syllabus__lessons">
-                <li><span>1</span>What Secure Attachment Is, and Isn&rsquo;t</li>
-                <li><span>2</span>Many Hands</li>
-                <li><span>3</span>Separation and Stranger Wariness</li>
-              </ol>
-            </div>
-          </li>
-          <li class="syllabus__item" data-rise>
-            <div><p class="syllabus__num">Module 4</p><h3 class="syllabus__title">The Explorer: Language, Movement, and Play</h3><p class="syllabus__meta">4 lessons &middot; About 40 minutes</p></div>
-            <div class="syllabus__body">
-              <p>Babbling, pointing, and the first words your baby understands. Tummy time, crawling, and how moving changes everything. Play, hiding games, and what the evidence says about screens.</p>
-              <ol class="syllabus__lessons">
-                <li><span>1</span>Language Before Words</li>
-                <li><span>2</span>On the Move</li>
-                <li><span>3</span>Play and the Hidden Toy</li>
-                <li><span>4</span>Screens, and the Year Ahead</li>
-              </ol>
-            </div>
-          </li>
-        </ol>
-        <div class="sources" data-rise>
-          <h3 class="sources__title">What this class draws on.</h3>
-          <p class="sources__lede"><b>Clear about what&rsquo;s known. Honest about what&rsquo;s not.</b> Eight of the peer-reviewed studies the lessons are built on, at least one from every module.</p>
-          <ol class="sources-list">
-            <li><span class="sources-list__cite">Nelson et al. (2007). Cognitive recovery in socially deprived young children. <i>Science</i>, 318, 1937&ndash;1940.</span> <span class="sources-list__where">Module 1, lesson 2</span></li>
-            <li><span class="sources-list__cite">Mesman, van IJzendoorn, &amp; Bakermans-Kranenburg (2009). The many faces of the Still-Face Paradigm: a review and meta-analysis. <i>Developmental Review</i>, 29, 120&ndash;162.</span> <span class="sources-list__where">Module 1, lesson 3</span></li>
-            <li><span class="sources-list__cite">Slagt et al. (2016). Differences in sensitivity to parenting depending on child temperament: a meta-analysis. <i>Psychological Bulletin</i>. <a href="https://doi.org/10.1037/bul0000061">doi</a></span> <span class="sources-list__where">Module 2, lesson 2</span></li>
-            <li><span class="sources-list__cite">Black &amp; Aboud (2011). Responsive feeding is embedded in a theoretical framework of responsive parenting. <i>Journal of Nutrition</i>. <a href="https://doi.org/10.3945/jn.110.129973">doi</a></span> <span class="sources-list__where">Module 2, lesson 3</span></li>
-            <li><span class="sources-list__cite">Madigan et al. (2024). Maternal and paternal sensitivity: key determinants of child attachment security examined through meta-analysis. <i>Psychological Bulletin</i>. <a href="https://doi.org/10.1037/bul0000433">doi</a></span> <span class="sources-list__where">Module 3, lesson 1</span></li>
-            <li><span class="sources-list__cite">Ahnert, Pinquart, &amp; Lamb (2006). Security of children&rsquo;s relationships with nonparental care providers: a meta-analysis. <i>Child Development</i>. <a href="https://doi.org/10.1111/j.1467-8624.2006.00896.x">doi</a></span> <span class="sources-list__where">Module 3, lesson 2</span></li>
-            <li><span class="sources-list__cite">Goldstein, King, &amp; West (2003). Social interaction shapes babbling. <i>PNAS</i>. <a href="https://doi.org/10.1073/pnas.1332441100">doi</a></span> <span class="sources-list__where">Module 4, lesson 1</span></li>
-            <li><span class="sources-list__cite">Strouse et al. (2021). Learning from video: a meta-analysis of the video deficit in children ages 0 to 6 years. <i>Child Development</i>, 92(1), e20&ndash;e38. <a href="https://doi.org/10.1111/cdev.13429">doi</a></span> <span class="sources-list__where">Module 4, lesson 4</span></li>
-          </ol>
+          </details>
         </div>
       </div>
     </section>
 
     <!-- WHO TEACHES IT -->
-    <section class="section--alt hb-section--tight">
+    <section class="section--alt" id="educator">
       <div class="container container--narrow">
-        <h2 data-rise>Who teaches it.</h2>
+        <h2 data-rise>Who teaches it</h2>
         <div class="educator" data-rise>
           <img class="educator__photo" src="/assets/img/matthew-avatar-144.jpg" alt="Matthew McArthur" width="72" height="72" loading="lazy" decoding="async" />
           <div class="educator__body">
             <p>
-              Created and taught by <strong>Matthew McArthur</strong>, who holds an M.A. in Developmental Psychology
-              from San Diego State University, where he studied how parent stress, changes at home, screen time, and back-and-forth interaction
+              Created and taught by <strong>Matthew McArthur</strong>, a Child Development Specialist. At San Diego State
+              University he studied how parent stress, changes at home, screen time, and back-and-forth interaction
               shape language and thinking from 6 months to 5 years, after working with developmental researchers at
               UCLA, and he wrote <a href="https://doi.org/10.3389/frym.2024.1426649">&ldquo;Why Early Chatter Matters&rdquo;</a> for Frontiers for Young Minds.
             </p>
@@ -335,57 +406,53 @@
       </div>
     </section>
 
-    <!-- FREE READING -->
-    <section class="hb-section--tight">
-      <div class="container container--narrow">
-        <div class="section-head" data-rise>
-          <h2>Free reading for the first year.</h2>
-        </div>
-        <ul class="reading" data-rise>
-          <li><a href="/nsc/classes/infant/preview"><span class="reading__kind">Free lesson</span><span class="reading__title">Serve and Return, from Module 1</span><span class="reading__arrow" aria-hidden="true">&rarr;</span></a></li>
-          <li><a href="/articles/serve-and-return"><span class="reading__kind">Free article</span><span class="reading__title">What &ldquo;serve and return&rdquo; actually means</span><span class="reading__arrow" aria-hidden="true">&rarr;</span></a></li>
-          <li><a href="/tools/co-regulation-primer"><span class="reading__kind">Free guide</span><span class="reading__title">A nervous-system primer for parents</span><span class="reading__arrow" aria-hidden="true">&rarr;</span></a></li>
-          <li><a href="/tools/whats-typical-by-stage"><span class="reading__kind">Free guide</span><span class="reading__title">What&rsquo;s typical, by stage: sleep in the first year</span><span class="reading__arrow" aria-hidden="true">&rarr;</span></a></li>
-        </ul>
-      </div>
-    </section>
-
     <!-- FAQ -->
-    <section class="section--alt hb-section--tight">
+    <section id="questions">
       <div class="container container--narrow">
-        <h2 data-rise>A few things parents usually ask first.</h2>
-        <div class="faq-class-list" data-rise>
+        <h2 data-rise>Common questions</h2>
+        <div data-rise>
+          <div class="faq-class-list">
 
-          <details class="faq-class-item">
-            <summary>How do I start, and how do I get back in?</summary>
-            <p>When you <a href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Finfant%2Fenroll">enroll</a>, you create a free account, pay securely with Stripe, and the class opens right away. After that it lives in <a href="/nsc/class-login">My classes</a>, which remembers where you left off in every lesson.</p>
+            <details class="faq-class-item">
+              <summary>How do I start, and how do I get back in?</summary>
+              <p>When you <a href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Finfant%2Fenroll">enroll</a>, you create a free account, pay securely with Stripe, and the class opens right away. After that it lives in <a href="/nsc/class-login">My classes</a>, which remembers where you left off in every lesson.</p>
+            </details>
+
+            <details class="faq-class-item">
+              <summary>Can I get a refund?</summary>
+              <p>Yes. Within 14 days of buying, and as long as you&rsquo;ve watched 4 lessons or fewer, you get a full refund: <a href="/contact/">email Matthew</a> with the address you bought with. The free lesson doesn&rsquo;t count toward the four. A refund ends your access to the class. Want to see the teaching first? <a href="/nsc/classes/infant/preview">Watch &ldquo;Serve and Return&rdquo; free</a>, a full lesson from Module 1.</p>
+            </details>
+
+            <details class="faq-class-item">
+              <summary>Is this medical or psychological advice?</summary>
+              <p>No. The class is educational. For concerns about your own baby, your pediatrician and your baby&rsquo;s clinicians are the right people to ask, and the class will help you ask better questions.</p>
+            </details>
+
+          </div>
+          <details class="cp-more cp-reading">
+            <summary>More free reading for the first year</summary>
+            <ul class="reading">
+              <li><a href="/nsc/classes/infant/preview"><span class="reading__kind">Free lesson</span><span class="reading__title">Serve and Return, from Module 1</span><span class="reading__arrow" aria-hidden="true">&rarr;</span></a></li>
+              <li><a href="/articles/serve-and-return"><span class="reading__kind">Free article</span><span class="reading__title">What &ldquo;serve and return&rdquo; actually means</span><span class="reading__arrow" aria-hidden="true">&rarr;</span></a></li>
+              <li><a href="/tools/co-regulation-primer"><span class="reading__kind">Free guide</span><span class="reading__title">A nervous-system primer for parents</span><span class="reading__arrow" aria-hidden="true">&rarr;</span></a></li>
+              <li><a href="/tools/routines-transitions-night-waking"><span class="reading__kind">Free guide</span><span class="reading__title">Routines, transitions, and night-waking</span><span class="reading__arrow" aria-hidden="true">&rarr;</span></a></li>
+            </ul>
           </details>
-
-          <details class="faq-class-item">
-            <summary>Can I get a refund?</summary>
-            <p>Yes. Within 14 days of buying, and as long as you&rsquo;ve watched 4 lessons or fewer, you get a full refund: <a href="/contact/">email Matthew</a> with the address you bought with. The free lesson doesn&rsquo;t count toward the four. A refund ends your access to the class. Want to see the teaching first? <a href="/nsc/classes/infant/preview">Watch &ldquo;Serve and Return&rdquo; free</a>, a full lesson from Module 1.</p>
-          </details>
-
-          <details class="faq-class-item">
-            <summary>Is this medical or psychological advice?</summary>
-            <p>No. The class is educational. For concerns about your own baby, your pediatrician and your baby&rsquo;s clinicians are the right people to ask, and the class will help you ask better questions.</p>
-          </details>
-
         </div>
       </div>
     </section>
 
     <!-- ENROLL -->
-    <section id="enroll" class="signup fg-ink-field">
+    <section id="enroll" class="signup">
       <div class="container signup__inner signup__inner--offer">
-        <h2 class="signup__head" data-rise>Start the first&#8209;year class for <mark>$49</mark>.</h2>
-        <div class="signup__form" aria-labelledby="enroll-heading" data-rise>
+        <h2 class="signup__head">Start the first&#8209;year class for <mark>$49</mark>.</h2>
+        <div class="signup__form" aria-labelledby="enroll-heading">
           <h3 id="enroll-heading" class="signup__form-title">Birth to 12 months</h3>
           <p class="signup__price"><strong>$49</strong> once &middot; lifetime access</p>
-          <p class="signup__note">You&rsquo;ll create a free account (or sign in), then pay securely with Stripe. The class opens the moment you&rsquo;re done.</p>
-          <a class="hb-btn" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Finfant%2Fenroll">Enroll, $49</a>
+          <p class="signup__note">Set up a free account (or sign in), pay securely, and the first lesson opens right away.</p>
+          <a class="btn btn--primary btn--block btn--lg" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Finfant%2Fenroll">Enroll, $49</a>
           <p class="signup__refund">Full refund within 14 days if you&rsquo;ve watched 4 lessons or fewer. <a href="/terms-of-sale/">Terms of sale</a>.</p>
-          <p class="signup__fine">Not sure yet? <a href="/nsc/classes/infant/preview">Watch a lesson free</a>. Already enrolled? <a href="/nsc/class-login">Open My classes</a>. Questions first? <a href="/contact/">Ask Matthew</a>.</p>
+          <p class="signup__fine">Not sure yet? <a href="/nsc/classes/infant/preview">Watch a free lesson</a>. Already enrolled? <a href="/nsc/class-login">Open My classes</a>. Questions first? <a href="/contact/">Ask Matthew</a>.</p>
         </div>
         <div class="signup__body">
           <p class="signup__back"><a href="/classes/">&larr; All classes</a></p>
@@ -399,7 +466,7 @@
        and steps aside for the enroll section and the footer. -->
   <div class="enroll-bar" data-enroll-bar hidden>
     <p class="enroll-bar__label"><strong>Birth to 12 months</strong> $49 once</p>
-    <a class="hb-btn" href="#enroll">Enroll</a>
+    <a class="hb-btn" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Finfant%2Fenroll">Enroll</a>
   </div>
 
   <!-- footer:start -->
@@ -467,7 +534,7 @@
   <script src="/assets/js/chrome.js?v=d5fdf5ae8e"></script>
 
   <script src="../assets/js/main.js?v=b5c8e48c2d" defer></script>
-  <script src="/assets/js/home.js?v=fcb88a4893" defer></script>
+  <script src="/assets/js/home.js?v=8b840cf659" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

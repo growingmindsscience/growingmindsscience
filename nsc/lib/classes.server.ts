@@ -6,6 +6,7 @@ import {
   type ClassCourseSlug, type ClassLesson,
 } from "@/lib/classes";
 import { freePreviewLessonWith, type FreePreviewLesson } from "@/lib/class-preview";
+import type { JourneyProgressRow } from "@/lib/class-journey";
 
 export async function hasClassAccess(userId: string, courseSlug: ClassCourseSlug = TODDLER_COURSE.slug): Promise<boolean> {
   const supabase = await createClient();
@@ -84,11 +85,16 @@ export async function classSalesOpen(courseSlug: ClassCourseSlug = TODDLER_COURS
   return gate.open;
 }
 
-export async function progressForUser(userId: string) {
+/**
+ * Every progress row this account can read (RLS: its own). Callers scope rows
+ * to one class through that class's published lessons (lib/class-journey).
+ * updated_at (migration 0008) tells which lesson the parent touched last.
+ */
+export async function progressForUser(userId: string): Promise<JourneyProgressRow[]> {
   const supabase = await createClient();
   const { data, error } = await supabase.from("class_progress")
-    .select("lesson_id, position_seconds, completed_at")
+    .select("lesson_id, position_seconds, completed_at, updated_at")
     .eq("user_id", userId);
   if (error) throw new Error(`Could not load class progress: ${error.message}`);
-  return data ?? [];
+  return (data ?? []) as JourneyProgressRow[];
 }

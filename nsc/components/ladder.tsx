@@ -15,6 +15,34 @@ const RUNGS: { code: Placement | "CPX"; label: string }[] = [
   { code: "CPX", label: "One more, one fewer" },
 ];
 
+/**
+ * Plain meanings for the rungs, in the words of the landing page's own
+ * explanation ("What the counting ladder is"). The last rung has no
+ * explanation there yet, so it is deliberately left out rather than invented.
+ */
+const GLOSSES: { code: Placement; label: string; meaning: string }[] = [
+  { code: "CP", label: "Counts any set", meaning: "Counting itself tells them how many." },
+  { code: "L4", label: "Four-knower", meaning: "“Four” has clicked too." },
+  { code: "L3", label: "Three-knower", meaning: "“Three” has clicked too." },
+  { code: "L2", label: "Two-knower", meaning: "“Two” has clicked. Ask for three and you may still get a fistful." },
+  { code: "L1", label: "One-knower", meaning: "Right every time for one block. Ask for three and you get a fistful." },
+  { code: "L0", label: "Just starting", meaning: "The number words are still a song." },
+];
+
+/** A short reading guide to sit beside the ladder; read it from the top rung down, as the ladder is drawn. */
+export function LadderGloss({ className }: { className?: string }) {
+  return (
+    <dl className={["flex flex-col gap-3 text-sm text-ink", className].filter(Boolean).join(" ")} aria-label="What each rung means">
+      {GLOSSES.map((g) => (
+        <div key={g.code}>
+          <dt className="font-semibold text-ink-deep">{g.label}</dt>
+          <dd className="text-ink-soft">{g.meaning}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
 export function Ladder({
   current,
   nearCP = false,

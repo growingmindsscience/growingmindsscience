@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import type { User } from "@supabase/supabase-js";
+import { classDestination, classLoginUrl } from "@/lib/class-paths";
 
 /** Returns the signed-in user or redirects to /login. Use in protected server components/actions. */
 export async function requireAuth(): Promise<User> {
@@ -15,7 +16,7 @@ export async function requireAuth(): Promise<User> {
 /** Keep class visitors in the class-branded sign-in flow. */
 export async function requireClassAuth(next: string): Promise<User> {
   const user = await getUser();
-  if (!user) redirect(`/class-login?next=${encodeURIComponent(next)}`);
+  if (!user) redirect(classLoginUrl(classDestination(next)));
   return user;
 }
 

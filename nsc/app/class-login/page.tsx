@@ -4,7 +4,7 @@ import { login } from "@/app/auth/actions";
 import { Card, Field, Input } from "@/components/ui";
 import { PasswordInput } from "@/components/password-input";
 import { SubmitButton } from "@/components/submit-button";
-import { ClassAuthFrame, EnrollContext } from "@/components/class-chrome";
+import { ClassAuthFrame, EnrollContext, enrollBack } from "@/components/class-chrome";
 import { getUser } from "@/lib/auth";
 import { classDestination, enrollingCourse } from "@/lib/class-paths";
 import { sitePath } from "@/lib/site";
@@ -24,11 +24,16 @@ export default async function ClassLoginPage({ searchParams }: {
   const enrolling = enrollingCourse(destination);
   return (
     <ClassAuthFrame
-      context={enrolling && !confirm && <EnrollContext course={enrolling} step="sign-in" />}
-      title={confirm ? "Check your email" : "Sign in to your classes"}
+      context={enrolling && <EnrollContext course={enrolling} step={confirm ? "confirm" : "sign-in"} />}
+      back={enrolling ? enrollBack(enrolling) : undefined}
+      title={confirm ? "Check your email" : enrolling ? "Sign in to enroll" : "Sign in to your classes"}
       lede={confirm
-        ? `We sent you a link to confirm your account. Open it on this device and it takes you straight to ${enrolling ? "checkout" : "your classes"}.`
-        : "Classes you enrolled in on this site, and your lesson progress, live in your From Little Onward account."}
+        ? enrolling
+          ? "If this is a new account, we sent a confirmation link."
+          : "If this is a new account, we sent a link to confirm it. Open it on this device and it takes you straight to your classes."
+        : enrolling
+          ? undefined
+          : "Classes you enrolled in on this site, and your lesson progress, live in your From Little Onward account."}
       wordmarkHref={`/class-login?next=${encodeURIComponent(destination)}`}
       footer={
         <p>New here?{" "}
@@ -37,12 +42,19 @@ export default async function ClassLoginPage({ searchParams }: {
       }
     >
       {confirm ? (
-        <p role="status" className="rounded-card bg-tint px-5 py-4 text-center text-sm text-ink">
-          Nothing in your inbox after a minute or two? Check spam, then{" "}
-          <a href={sitePath("/contact/")} className="font-semibold text-teal underline underline-offset-4">contact us</a> and we will help.{" "}
-          Already confirmed?{" "}
-          <Link href={`/class-login?next=${encodeURIComponent(destination)}`} className="font-semibold text-teal underline">Sign in</Link>.
-        </p>
+        <div role="status" className="flex flex-col gap-3 rounded-card bg-tint px-5 py-4 text-center text-sm text-ink">
+          <p>
+            Already have an account with this email, or already confirmed?{" "}
+            <Link href={`/class-login?next=${encodeURIComponent(destination)}`} className="font-semibold text-teal underline underline-offset-4">Sign in</Link>{" "}
+            or{" "}
+            <Link href={`/reset?class=1&next=${encodeURIComponent(destination)}`} className="font-semibold text-teal underline underline-offset-4">reset your password</Link>.
+            You will come back to {enrolling ? "checkout" : "your classes"}.
+          </p>
+          <p>
+            Nothing in your inbox after a minute or two? Check spam, then{" "}
+            <a href={sitePath("/contact/")} className="font-semibold text-teal underline underline-offset-4">contact us</a> and we will help.
+          </p>
+        </div>
       ) : (
       <>
       <Card>

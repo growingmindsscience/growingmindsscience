@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { requireClassAuth } from "@/lib/auth";
 import { classSalesOpen, ownedClassSlugs, progressForUser, publishedLessons } from "@/lib/classes.server";
-import { CLASS_AI_FAIR_USE_PER_DAY, CLASS_BUNDLE_FOUR, CLASS_BUNDLES, CLASS_COURSES, lessonPath, type ClassCourseSlug } from "@/lib/classes";
+import { CLASS_AI_FAIR_USE_PER_DAY, CLASS_BUNDLE, CLASS_BUNDLE_FOUR, CLASS_COURSES, lessonPath, type ClassCourseSlug } from "@/lib/classes";
 import { getEntitlementSummary } from "@/lib/entitlements.server";
 import { sitePath } from "@/lib/site";
 import { Card, LinkButton, buttonClasses } from "@/components/ui";
@@ -13,12 +13,11 @@ import { startFamilyClassCheckout } from "./family/actions";
 import { startClassCheckout } from "./toddlerhood/actions";
 import { startAllFourCheckout, startBundleCheckout } from "./bundle/actions";
 import { CLASS_REFUND_POLICY } from "@/lib/refund-policy";
+import { bundleOffered, classJourney, journeyActionLabel, splitCatalog } from "@/lib/class-journey";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "My classes" };
 
-/** Catalog order: youngest age first. */
-const COURSE_ORDER: ClassCourseSlug[] = ["infant", "toddlerhood", "preschool", "family"];
 const CHECKOUT = {
   infant: startInfantClassCheckout, toddlerhood: startClassCheckout, preschool: startPreschoolClassCheckout,
   family: startFamilyClassCheckout,
@@ -34,74 +33,94 @@ export default async function MyClassesPage({ searchParams }: {
   const [owned, progress, summary] = await Promise.all([
     ownedClassSlugs(user.id), progressForUser(user.id), getEntitlementSummary(),
   ]);
-  const ownedCourses = COURSE_ORDER.filter((slug) => owned.includes(slug));
-  const otherCourses = COURSE_ORDER.filter((slug) => !owned.includes(slug));
-  const [lessonGroups, salesOpen] = await Promise.all([
-    Promise.all(ownedCourses.map((slug) => publishedLessons(slug))),
-    Promise.all(otherCourses.map((slug) => classSalesOpen(slug, user.id))),
+  const { ownedCourses: catalogOwned, otherCourses: unowned } = splitCatalog(owned);
+  const [lessonGroups, salesFlags] = await Promise.all([
+    Promise.all(catalogOwned.map((slug) => publishedLessons(slug))),
+    Promise.all(unowned.map((slug) => classSalesOpen(slug, user.id).catch(() => false))),
   ]);
-  // A bundle is offered only to a parent who owns none of its classes, while all of them are on sale.
-  const onSale = new Set(otherCourses.filter((_, index) => salesOpen[index]));
-  const openBundles = CLASS_BUNDLES.filter((bundle) => bundle.courses.every((slug) => onSale.has(slug)));
-  const done = new Set(progress.filter((row) => row.completed_at).map((row) => row.lesson_id));
+  const salesOpen = Object.fromEntries(unowned.map((slug, index) => [slug, salesFlags[index]])) as Partial<Record<ClassCourseSlug, boolean>>;
+  // Same rule as the bundle checkout: none of a bundle's classes owned, all of them on sale.
+  // Family Systems is outside the three-class bundle, so owning it never hides that one.
+  const bundleOpen = bundleOffered(owned, salesOpen);
+  const allFourOpen = bundleOffered(owned, salesOpen, CLASS_BUNDLE_FOUR);
+  // The class touched most recently comes first, so a parent back from an
+  // interruption lands on their lesson; untouched classes keep catalog order.
+  const ownedClasses = catalogOwned
+    .map((slug, index) => ({ slug, lessons: lessonGroups[index], journey: classJourney(lessonGroups[index], progress) }))
+    .sort((a, b) => (b.journey.lastActivity > a.journey.lastActivity ? 1 : b.journey.lastActivity < a.journey.lastActivity ? -1 : 0));
+  // The three age classes always show (with "not open yet" when closed);
+  // Family Systems is listed once its sales gate opens.
+  const otherCourses = unowned.filter((slug) => slug !== "family" || salesOpen.family);
+  const ownedCourses = ownedClasses.map(({ slug }) => slug);
 
   return (
-    <main className="mx-auto flex max-w-4xl flex-col gap-12 px-6 py-10">
+    <main className="mx-auto flex max-w-4xl flex-col gap-10 px-6 py-8 sm:gap-12 sm:py-10">
       <header>
-        <h1 className="text-4xl text-ink-deep">My classes</h1>
+        <h1 className="text-3xl text-ink-deep sm:text-4xl">My classes</h1>
         <p className="mt-2 text-ink-soft">Everything you own, and where you left off.</p>
         {gift === "ok" ? (
           <p role="status" className="mt-4 rounded-card bg-tint px-5 py-4 text-ink">
-            Gift code accepted. Every class is now yours, with Ask the research (the AI tool) included.
+            Gift code accepted. Your unlocked classes are ready below, with Ask the research included.
           </p>
-        ) : (
+        ) : !ownedCourses.length && (
           <Link href="/app/classes/redeem" className="mt-3 inline-flex min-h-11 items-center text-sm font-semibold text-teal underline underline-offset-4">
             Have a gift code?
           </Link>
         )}
         {error === "not-open" && <p role="alert" className="mt-3 text-sm text-coral-deep">Enrollment is not open for this account yet.</p>}
         {error === "checkout-unavailable" && <p role="alert" className="mt-3 text-sm text-coral-deep">Checkout is unavailable right now. Please try again later.</p>}
-        {error === "bundle-owned" && <p role="alert" className="mt-3 text-sm text-coral-deep">You already own one of the classes in that bundle, so it would charge you twice. Enroll in the others one at a time below.</p>}
+        {error === "bundle-owned" && <p role="alert" className="mt-3 text-sm text-coral-deep">You already own one of these classes, so the bundle would charge you twice. Enroll in the others one at a time below.</p>}
       </header>
 
       <section aria-labelledby="owned-heading" className="flex flex-col gap-4">
         <h2 id="owned-heading" className="text-xl text-ink-deep">Your classes</h2>
         {ownedCourses.length ? (
           <div className={`grid gap-4 ${ownedCourses.length > 1 ? "sm:grid-cols-2" : ""}`}>
-            {ownedCourses.map((slug, index) => {
+            {ownedClasses.map(({ slug, lessons, journey }) => {
               const course = CLASS_COURSES[slug];
-              const lessons = lessonGroups[index];
-              const complete = lessons.filter((lesson) => done.has(lesson.id)).length;
-              const next = lessons.find((lesson) => !done.has(lesson.id));
-              const started = complete > 0 || progress.some((row) => lessons.some((lesson) => lesson.id === row.lesson_id));
-              const percent = lessons.length ? Math.round((complete / lessons.length) * 100) : 0;
+              const { next, complete, total } = journey;
+              const percent = total ? Math.round((complete / total) * 100) : 0;
+              const lead = journey.watchedSeconds > 0 ? "Pick up where you left off" : journey.status === "not-started" ? "Start here" : "Up next";
               return (
                 <Card key={slug} className="flex flex-col">
                   <Eyebrow>{course.ages} · Lifetime access</Eyebrow>
-                  <h3 className="mt-2 text-xl text-ink-deep">{course.shortTitle}</h3>
-                  <p className="mt-1 text-sm text-ink-soft">{course.blurb}</p>
-                  {lessons.length ? (
-                    <div className="mt-5">
+                  <h3 className="mt-1 text-xl text-ink-deep">{course.shortTitle}</h3>
+                  {next ? (
+                    <p className="mt-3 text-ink">
+                      <span className="block text-sm text-ink-muted">{lead}</span>
+                      <span className="block font-semibold leading-snug">{next.title}</span>
+                      {journey.minutesLeft && (
+                        <span className="block text-sm text-ink-muted">
+                          {journey.watchedSeconds > 0 ? `About ${journey.minutesLeft} min left` : `${journey.minutesLeft} min`}
+                        </span>
+                      )}
+                    </p>
+                  ) : (
+                    <p className="mt-3 text-sm text-ink-soft">
+                      {lessons.length ? "You have finished every lesson. They all stay here for you." : "Lessons are being prepared for on-site viewing."}
+                    </p>
+                  )}
+                  {total > 0 && (
+                    <div className="mt-4 flex items-center gap-3">
                       <div
-                        role="progressbar" aria-valuemin={0} aria-valuemax={lessons.length} aria-valuenow={complete}
+                        role="progressbar" aria-valuemin={0} aria-valuemax={total} aria-valuenow={complete}
                         aria-label={`${course.shortTitle} progress`}
-                        className="h-2 overflow-hidden rounded-sm bg-sea-glass"
+                        className="h-1.5 flex-1 overflow-hidden rounded-sm bg-sea-glass"
                       >
                         <div className="h-full rounded-sm bg-teal" style={{ width: `${percent}%` }} />
                       </div>
-                      <p className="mt-2 text-sm text-ink-muted">
-                        {complete} of {lessons.length} lessons complete
-                        {next && started ? ` · Next: ${next.title}` : ""}
-                      </p>
+                      <p className="shrink-0 text-sm text-ink-muted">{complete} of {total} done</p>
                     </div>
-                  ) : (
-                    <p className="mt-5 text-sm text-ink-muted">Lessons are being prepared for on-site viewing.</p>
                   )}
-                  <div className="mt-auto flex flex-wrap gap-2 pt-5">
-                    <LinkButton href={next ? lessonPath(next.slug, slug) : `/app/classes/${slug}`}>
-                      {!lessons.length ? "Open class" : !next ? "Review class" : started ? "Continue" : "Start class"}
+                  <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 pt-5">
+                    <LinkButton href={next ? lessonPath(next.slug, slug) : `/app/classes/${slug}`} className="w-full sm:w-auto">
+                      {journeyActionLabel(journey)}<span className="sr-only">, {course.shortTitle}</span>
                     </LinkButton>
-                    {next && <LinkButton href={`/app/classes/${slug}`} variant="ghost">All lessons</LinkButton>}
+                    {next && (
+                      <Link href={`/app/classes/${slug}`} className="inline-flex min-h-11 items-center text-sm font-semibold text-teal underline underline-offset-4">
+                        All lessons<span className="sr-only"> in {course.shortTitle}</span>
+                      </Link>
+                    )}
                   </div>
                 </Card>
               );
@@ -123,36 +142,50 @@ export default async function MyClassesPage({ searchParams }: {
           <h2 id="more-heading" className="text-xl text-ink-deep">
             {ownedCourses.length ? "More classes" : "Available classes"}
           </h2>
-          {openBundles.map((bundle) => {
-            const four = bundle.slug === CLASS_BUNDLE_FOUR.slug;
-            return (
-              <Card key={bundle.slug} className={`flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-6 ${four ? "border-2 border-teal" : ""}`}>
-                <div className="flex-1">
-                  <Eyebrow>{four ? "Birth to age 5, plus the family class" : "Birth to age 5 · Without the family class"}</Eyebrow>
-                  <h3 className="mt-2 text-xl text-ink-deep">{bundle.title}</h3>
-                  <p className="mt-1 text-sm text-ink-soft">
-                    {four
-                      ? "Birth to 12 months, Toddler years, Preschool years, and Family systems and stress, ready as your child grows."
-                      : "Birth to 12 months, Toddler years, and Preschool years, ready as your child grows. Family systems and stress is not included."}
-                    {" "}Ask the research is included, with a fair-use limit of {CLASS_AI_FAIR_USE_PER_DAY} questions a day.
-                  </p>
-                  <p className="mt-4 text-ink">
-                    <span className="font-[family-name:var(--font-display)] text-2xl font-semibold text-ink-deep">{bundle.priceDisplay}</span>
-                    <span className="ml-2 text-sm text-ink-muted">
-                      <s>{bundle.separateDisplay}</s> separately, so you save {bundle.savingsDisplay}. One payment, lifetime access. {CLASS_REFUND_POLICY}
-                    </span>
-                  </p>
-                </div>
-                <form action={four ? startAllFourCheckout : startBundleCheckout} className="pt-4 sm:pt-0">
-                  <SubmitButton pendingLabel="Opening checkout…" {...(four ? {} : { variant: "ghost" as const })}>
-                    {four ? "Enroll in all four" : "Enroll in the three"}
-                  </SubmitButton>
-                </form>
-              </Card>
-            );
-          })}
+          {bundleOpen && (
+            <Card className="flex flex-col gap-1 border-2 border-teal sm:flex-row sm:items-center sm:gap-6">
+              <div className="flex-1">
+                <Eyebrow>Birth to age 5 · Without the family class</Eyebrow>
+                <h3 className="mt-2 text-xl text-ink-deep">{CLASS_BUNDLE.title}</h3>
+                <p className="mt-1 text-sm text-ink-soft">
+                  Birth to 12 months, Toddler years, and Preschool years, ready as your child grows.
+                  Ask the research is included, with a fair-use limit of {CLASS_AI_FAIR_USE_PER_DAY} questions a day.
+                </p>
+                <p className="mt-4 text-ink">
+                  <span className="font-[family-name:var(--font-display)] text-2xl font-semibold text-ink-deep">{CLASS_BUNDLE.priceDisplay}</span>
+                  <span className="ml-2 text-sm text-ink-muted">
+                    <s>{CLASS_BUNDLE.separateDisplay}</s> separately, so you save {CLASS_BUNDLE.savingsDisplay}. One payment, lifetime access. {CLASS_REFUND_POLICY}
+                  </span>
+                </p>
+              </div>
+              <form action={startBundleCheckout} className="pt-4 sm:pt-0">
+                <SubmitButton pendingLabel="Opening checkout…">Enroll in all three</SubmitButton>
+              </form>
+            </Card>
+          )}
+          {allFourOpen && (
+            <Card className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-6">
+              <div className="flex-1">
+                <Eyebrow>Birth to age 5, plus the family class</Eyebrow>
+                <h3 className="mt-2 text-xl text-ink-deep">{CLASS_BUNDLE_FOUR.title}</h3>
+                <p className="mt-1 text-sm text-ink-soft">
+                  The three age classes plus Family systems and stress, ready as your child grows.
+                  Ask the research is included, with a fair-use limit of {CLASS_AI_FAIR_USE_PER_DAY} questions a day.
+                </p>
+                <p className="mt-4 text-ink">
+                  <span className="font-[family-name:var(--font-display)] text-2xl font-semibold text-ink-deep">{CLASS_BUNDLE_FOUR.priceDisplay}</span>
+                  <span className="ml-2 text-sm text-ink-muted">
+                    <s>{CLASS_BUNDLE_FOUR.separateDisplay}</s> separately, so you save {CLASS_BUNDLE_FOUR.savingsDisplay}. One payment, lifetime access. {CLASS_REFUND_POLICY}
+                  </span>
+                </p>
+              </div>
+              <form action={startAllFourCheckout} className="pt-4 sm:pt-0">
+                <SubmitButton pendingLabel="Opening checkout…">Enroll in all four</SubmitButton>
+              </form>
+            </Card>
+          )}
           <div className={`grid gap-4 ${otherCourses.length > 1 ? "sm:grid-cols-2" : ""}`}>
-            {otherCourses.map((slug, index) => {
+            {otherCourses.map((slug) => {
               const course = CLASS_COURSES[slug];
               return (
                 <Card key={slug} className="flex flex-col">
@@ -164,7 +197,7 @@ export default async function MyClassesPage({ searchParams }: {
                     <span className="ml-2 text-sm text-ink-muted">one payment, lifetime access. {CLASS_REFUND_POLICY}</span>
                   </p>
                   <div className="mt-auto flex flex-wrap items-center gap-2 pt-5">
-                    {salesOpen[index] ? (
+                    {salesOpen[slug] ? (
                       <form action={CHECKOUT[slug]}>
                         <SubmitButton pendingLabel="Opening checkout…">Enroll</SubmitButton>
                       </form>
@@ -223,6 +256,12 @@ export default async function MyClassesPage({ searchParams }: {
         <p className="text-sm text-ink-muted">
           Receipts, password, and sign-in details are in{" "}
           <Link href="/app/classes/account" className="underline">Account</Link>.
+          {ownedCourses.length > 0 && gift !== "ok" && (
+            <>
+              {" "}Have a gift code?{" "}
+              <Link href="/app/classes/redeem" className="underline">Redeem it</Link>.
+            </>
+          )}
         </p>
       </section>
     </main>

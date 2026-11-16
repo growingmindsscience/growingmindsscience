@@ -173,7 +173,16 @@ describe("one-time purchase grants", () => {
     }]);
   });
 
-  it("three-class bundle grants the three age classes and class AI, perpetual", () => {
+  it("family purchase grants only family lifetime access", () => {
+    expect(grantsForOneTimePurchase({ sessionId: "cs_family", product: "class_family" })).toEqual([{
+      product_scope: "class:family",
+      source: "stripe_otp",
+      source_ref: "cs_family",
+      expires_at: null,
+    }]);
+  });
+
+  it("bundle purchase grants all three classes and class AI, perpetual", () => {
     const grants = grantsForOneTimePurchase({ sessionId: "cs_bundle", product: "class_bundle_all" });
     expect(grants.map((g) => g.product_scope)).toEqual([
       "class:infant", "class:toddlerhood", "class:preschool", "ai:unlimited",

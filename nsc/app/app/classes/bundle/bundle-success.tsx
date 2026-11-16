@@ -1,16 +1,19 @@
 import { requireClassAuth } from "@/lib/auth";
+import { checkoutSessionId } from "@/lib/class-paths";
 import { ownedClassSlugs, publishedLessons } from "@/lib/classes.server";
 import type { ClassBundle } from "@/lib/classes";
-import { BundleWelcome } from "@/components/class-welcome";
+import { BundleWelcome, welcomeState } from "@/components/class-welcome";
 import { stripe } from "@/lib/stripe";
 import { TrackPurchase } from "@/components/track";
 import { fulfillClassCheckout } from "@/lib/class-orders.server";
 
 /** The thank-you page shared by both bundles. */
-export async function BundleSuccess({ bundle, sessionId }: { bundle: ClassBundle; sessionId?: string }) {
-  const user = await requireClassAuth(`/app/classes/${bundle.slug}/success`);
+export async function BundleSuccess({ bundle, sessionId: rawSessionId }: { bundle: ClassBundle; sessionId?: string | string[] }) {
+  const sessionId = checkoutSessionId(rawSessionId);
+  const path = `/app/classes/${bundle.slug}/success`;
+  const user = await requireClassAuth(sessionId ? `${path}?session_id=${sessionId}` : path);
   let paid = false;
-  if (sessionId?.startsWith("cs_") && sessionId.length < 200) {
+  if (sessionId) {
     try {
       const session = await stripe().checkout.sessions.retrieve(sessionId);
       if (session.client_reference_id === user.id && session.metadata?.owner_id === user.id &&
@@ -29,7 +32,7 @@ export async function BundleSuccess({ bundle, sessionId }: { bundle: ClassBundle
   return (
     <main className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-6 py-12 text-center">
       {paid && sessionId && <TrackPurchase classId={bundle.slug} sessionId={sessionId} />}
-      <BundleWelcome title={bundle.title} ready={ready} starts={starts} />
+      <BundleWelcome title={bundle.title} state={welcomeState(ready, Boolean(sessionId))} starts={starts} />
     </main>
   );
 }

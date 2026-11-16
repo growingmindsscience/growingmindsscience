@@ -141,7 +141,7 @@ ${extraHead}
   <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
   <link rel="stylesheet" href="/assets/css/hubs.css?v=05c4490964" />
-  <link rel="stylesheet" href="/assets/css/article.css?v=1cda4972c6" />
+  <link rel="stylesheet" href="/assets/css/article.css?v=ff71e419fa" />
   <link rel="stylesheet" href="/assets/css/chrome.css?v=eacaf2a72e" />
 </head>
 <body class="fg fg--page hub art">
@@ -155,7 +155,7 @@ ${body}
 
   <script src="/assets/js/chrome.js?v=d5fdf5ae8e"></script>
   <script src="/assets/js/main.js?v=b5c8e48c2d" defer></script>
-  <script src="/assets/js/home.js?v=fcb88a4893" defer></script>
+  <script src="/assets/js/home.js?v=8b840cf659" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
@@ -187,7 +187,7 @@ function renderPage(entry, { draft }) {
 
   const explore = [
     ...(related.articles || []).map((s) => `<li><a href="/articles/${s}">${esc(ARTICLE_TITLE[s] || s)}</a></li>`),
-    ...(cls ? [`<li><a href="${cls.href}">The ${esc(cls.title)} class</a>${cls.tag === "Waitlist" ? " (waitlist open)" : ""}</li>`] : []),
+    ...(cls ? [`<li><a href="${cls.href}">The ${esc(cls.title)} class</a></li>`] : []),
     `<li><a href="/tools/ask-the-research?q=${encodeURIComponent(entry.question)}">Ask the research about this</a></li>`,
   ];
 
