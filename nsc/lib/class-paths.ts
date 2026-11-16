@@ -1,4 +1,4 @@
-import { CLASS_BUNDLE, TODDLER_COURSE, FAMILY_COURSE, INFANT_COURSE, PRESCHOOL_COURSE } from "@/lib/classes";
+import { CLASS_BUNDLE, CLASS_BUNDLE_FOUR, TODDLER_COURSE, FAMILY_COURSE, INFANT_COURSE, PRESCHOOL_COURSE } from "@/lib/classes";
 import { safeNextPath } from "@/lib/safe-next";
 
 export const CLASS_HOME = "/app/classes";
@@ -49,8 +49,10 @@ export const PRESCHOOL_ENROLL_PATH = "/app/classes/preschool/enroll";
 export const TODDLER_ENROLL_PATH = "/app/classes/toddlerhood/enroll";
 /** The same for the family systems class. */
 export const FAMILY_ENROLL_PATH = "/app/classes/family/enroll";
-/** The same for the all-classes bundle. */
+/** The same for the three age classes bundle ($119). */
 export const BUNDLE_ENROLL_PATH = "/app/classes/bundle/enroll";
+/** The same for the all four classes bundle ($159). */
+export const ALL_FOUR_ENROLL_PATH = "/app/classes/all-four/enroll";
 
 /**
  * The class a sign-in or sign-up is on the way to buying, when its
@@ -60,6 +62,7 @@ export function enrollingCourse(destination: string) {
   if (destination === TODDLER_ENROLL_PATH) return TODDLER_COURSE;
   if (destination === INFANT_ENROLL_PATH) return INFANT_COURSE;
   if (destination === BUNDLE_ENROLL_PATH) return CLASS_BUNDLE;
+  if (destination === ALL_FOUR_ENROLL_PATH) return CLASS_BUNDLE_FOUR;
   if (destination === FAMILY_ENROLL_PATH) return FAMILY_COURSE;
   return destination === PRESCHOOL_ENROLL_PATH ? PRESCHOOL_COURSE : null;
 }

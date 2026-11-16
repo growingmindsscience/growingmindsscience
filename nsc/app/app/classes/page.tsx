@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { requireClassAuth } from "@/lib/auth";
 import { classSalesOpen, ownedClassSlugs, progressForUser, publishedLessons } from "@/lib/classes.server";
-import { CLASS_AI_FAIR_USE_PER_DAY, CLASS_BUNDLE, CLASS_COURSES, lessonPath, type ClassCourseSlug } from "@/lib/classes";
+import { CLASS_AI_FAIR_USE_PER_DAY, CLASS_BUNDLE, CLASS_BUNDLE_FOUR, CLASS_COURSES, lessonPath, type ClassCourseSlug } from "@/lib/classes";
 import { getEntitlementSummary } from "@/lib/entitlements.server";
 import { sitePath } from "@/lib/site";
 import { Card, LinkButton, buttonClasses } from "@/components/ui";
@@ -11,7 +11,7 @@ import { startInfantClassCheckout } from "./infant/actions";
 import { startPreschoolClassCheckout } from "./preschool/actions";
 import { startFamilyClassCheckout } from "./family/actions";
 import { startClassCheckout } from "./toddlerhood/actions";
-import { startBundleCheckout } from "./bundle/actions";
+import { startAllFourCheckout, startBundleCheckout } from "./bundle/actions";
 import { CLASS_REFUND_POLICY } from "@/lib/refund-policy";
 import { bundleOffered, classJourney, journeyActionLabel, splitCatalog } from "@/lib/class-journey";
 
@@ -39,9 +39,10 @@ export default async function MyClassesPage({ searchParams }: {
     Promise.all(unowned.map((slug) => classSalesOpen(slug, user.id).catch(() => false))),
   ]);
   const salesOpen = Object.fromEntries(unowned.map((slug, index) => [slug, salesFlags[index]])) as Partial<Record<ClassCourseSlug, boolean>>;
-  // Same rule as startBundleCheckout: none of the three bundle classes owned, all three on sale.
-  // Family Systems is outside the bundle, so owning it never hides the bundle.
+  // Same rule as the bundle checkout: none of a bundle's classes owned, all of them on sale.
+  // Family Systems is outside the three-class bundle, so owning it never hides that one.
   const bundleOpen = bundleOffered(owned, salesOpen);
+  const allFourOpen = bundleOffered(owned, salesOpen, CLASS_BUNDLE_FOUR);
   // The class touched most recently comes first, so a parent back from an
   // interruption lands on their lesson; untouched classes keep catalog order.
   const ownedClasses = catalogOwned
@@ -144,7 +145,7 @@ export default async function MyClassesPage({ searchParams }: {
           {bundleOpen && (
             <Card className="flex flex-col gap-1 border-2 border-teal sm:flex-row sm:items-center sm:gap-6">
               <div className="flex-1">
-                <Eyebrow>Birth to age 5 · Best value</Eyebrow>
+                <Eyebrow>Birth to age 5 · Without the family class</Eyebrow>
                 <h3 className="mt-2 text-xl text-ink-deep">{CLASS_BUNDLE.title}</h3>
                 <p className="mt-1 text-sm text-ink-soft">
                   Birth to 12 months, Toddler years, and Preschool years, ready as your child grows.
@@ -159,6 +160,27 @@ export default async function MyClassesPage({ searchParams }: {
               </div>
               <form action={startBundleCheckout} className="pt-4 sm:pt-0">
                 <SubmitButton pendingLabel="Opening checkout…">Enroll in all three</SubmitButton>
+              </form>
+            </Card>
+          )}
+          {allFourOpen && (
+            <Card className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-6">
+              <div className="flex-1">
+                <Eyebrow>Birth to age 5, plus the family class</Eyebrow>
+                <h3 className="mt-2 text-xl text-ink-deep">{CLASS_BUNDLE_FOUR.title}</h3>
+                <p className="mt-1 text-sm text-ink-soft">
+                  The three age classes plus Family systems and stress, ready as your child grows.
+                  Ask the research is included, with a fair-use limit of {CLASS_AI_FAIR_USE_PER_DAY} questions a day.
+                </p>
+                <p className="mt-4 text-ink">
+                  <span className="font-[family-name:var(--font-display)] text-2xl font-semibold text-ink-deep">{CLASS_BUNDLE_FOUR.priceDisplay}</span>
+                  <span className="ml-2 text-sm text-ink-muted">
+                    <s>{CLASS_BUNDLE_FOUR.separateDisplay}</s> separately, so you save {CLASS_BUNDLE_FOUR.savingsDisplay}. One payment, lifetime access. {CLASS_REFUND_POLICY}
+                  </span>
+                </p>
+              </div>
+              <form action={startAllFourCheckout} className="pt-4 sm:pt-0">
+                <SubmitButton pendingLabel="Opening checkout…">Enroll in all four</SubmitButton>
               </form>
             </Card>
           )}

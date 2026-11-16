@@ -121,6 +121,13 @@ describe("stripe webhook: on-site classes", () => {
     expect(d.classes.fulfill).toHaveBeenCalledTimes(1);
   });
 
+  it("routes a four-class bundle checkout to its own offer", async () => {
+    const d = deps(new FakeDb({ uniques }));
+    const out = await handleStripeEvent(checkout({ metadata: { product: "class_bundle_four", owner_id: "user-1" } }), d);
+    expect(out).toEqual({ status: 200, body: { received: true, class: "all-four" } });
+    expect(d.classes.fulfill).toHaveBeenCalledTimes(1);
+  });
+
   it("waits on an unpaid class checkout", async () => {
     const d = deps(new FakeDb({ uniques }));
     const out = await handleStripeEvent(checkout({ ...classSession, payment_status: "unpaid" }), d);

@@ -2,7 +2,7 @@
  * Where a parent is in a class, and what My classes offers next. Pure, so the
  * dashboard and the owned classroom agree and the rules are testable.
  */
-import { CLASS_BUNDLE, type ClassCourseSlug, type ClassLesson } from "@/lib/classes";
+import { CLASS_BUNDLE, type ClassCourseSlug, type ClassLesson, type ClassBundle } from "@/lib/classes";
 
 /** Catalog order: youngest age first, then the any-age Family Systems class. */
 export const CLASS_CATALOG_ORDER: readonly ClassCourseSlug[] = ["infant", "toddlerhood", "preschool", "family"];
@@ -103,10 +103,14 @@ export function splitCatalog(owned: readonly ClassCourseSlug[]) {
 }
 
 /**
- * Mirrors startBundleCheckout: the three-class bundle is offered only when the
- * parent owns none of its three classes and all three are on sale. Classes
- * outside the bundle (Family Systems) never affect it.
+ * Mirrors startCheckout in bundle/actions: a bundle is offered only when the
+ * parent owns none of its classes and all of them are on sale. Classes outside
+ * the bundle (Family Systems, for the three-class bundle) never affect it.
  */
-export function bundleOffered(owned: readonly ClassCourseSlug[], salesOpen: Partial<Record<ClassCourseSlug, boolean>>): boolean {
-  return CLASS_BUNDLE.courses.every((slug) => !owned.includes(slug) && salesOpen[slug] === true);
+export function bundleOffered(
+  owned: readonly ClassCourseSlug[],
+  salesOpen: Partial<Record<ClassCourseSlug, boolean>>,
+  bundle: Pick<ClassBundle, "courses"> = CLASS_BUNDLE,
+): boolean {
+  return bundle.courses.every((slug) => !owned.includes(slug) && salesOpen[slug] === true);
 }
