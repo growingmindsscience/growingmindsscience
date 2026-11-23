@@ -7,16 +7,16 @@ const USER = "3f2b8c1e-0d4a-4b6f-9a7e-1c2d3e4f5a6b";
 const ready = { salesFlag: "1", vercelEnv: "production", previewUserId: undefined, userId: USER, moduleCounts: [5, 4, 3, 4] };
 
 describe("preschool sales gate", () => {
-  const preschoolReady = { ...ready, moduleCounts: [4, 4, 3, 4] };
+  const preschoolReady = { ...ready, moduleCounts: [8, 8, 6, 8] };
 
-  it("stays closed until its own flag is on and all 15 lessons are published", () => {
+  it("stays closed until its own flag is on and all 30 lesson parts are published", () => {
     expect(preschoolSalesGate({ ...preschoolReady, salesFlag: undefined })).toEqual({
       open: false,
       reason: "PRESCHOOL_CLASS_SALES_ENABLED is not set for this deployment; PRESCHOOL_CLASS_TEST_USER_ID is not set",
     });
-    expect(preschoolSalesGate({ ...preschoolReady, moduleCounts: [4, 3, 0, 0] })).toEqual({
+    expect(preschoolSalesGate({ ...preschoolReady, moduleCounts: [8, 3, 0, 0] })).toEqual({
       open: false,
-      reason: "published lesson counts do not match: module 2 has 3, needs 4; module 3 has 0, needs 3; module 4 has 0, needs 4",
+      reason: "published lesson counts do not match: module 2 has 3, needs 8; module 3 has 0, needs 6; module 4 has 0, needs 8",
     });
     // The infant lesson counts do not satisfy the preschool gate.
     expect(preschoolSalesGate(ready).open).toBe(false);

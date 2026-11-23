@@ -144,10 +144,10 @@ export function lessonPath(slug: string, courseSlug: ClassCourseSlug = TODDLER_C
 
 /** Published lessons each infant module must have before sales open. */
 export const INFANT_MODULE_LESSON_COUNTS = [5, 4, 3, 4] as const;
-/** Published lessons each preschool module must have before sales open. */
-export const PRESCHOOL_MODULE_LESSON_COUNTS = [4, 4, 3, 4] as const;
-/** Published lessons each toddler module must have before sales open (the 2026 rebuild: 13 lessons). */
-export const TODDLER_MODULE_LESSON_COUNTS = [3, 3, 3, 4] as const;
+/** Published lessons each preschool module must have before sales open (2026-11-23: every lesson is two parts, so 30). */
+export const PRESCHOOL_MODULE_LESSON_COUNTS = [8, 8, 6, 8] as const;
+/** Published lessons each toddler module must have before sales open (2026-11-23: the 13 lessons are each two parts, so 26). */
+export const TODDLER_MODULE_LESSON_COUNTS = [6, 6, 6, 8] as const;
 /** Published lessons each family systems module must have before sales open. */
 export const FAMILY_MODULE_LESSON_COUNTS = [3, 3, 3, 4] as const;
 
