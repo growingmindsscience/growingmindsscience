@@ -1,0 +1,10 @@
+{
+  "_how_to_add": [
+    "Only a parent's own words, used with their yes to being quoted on the site. Never write, reword or combine quotes.",
+    "text: their words, trimmed only (an ellipsis where you cut). name: first name only, one word. detail: optional, e.g. 'parent of a 2-year-old', only if they said that is fine.",
+    "classes: which pages show it: infant, toddlerhood, preschool, family. The homepage and pricing page show any quote. consent: where and when they said yes, e.g. 'email, 2026-12-03'. It is not published.",
+    "Then run: node scripts/build-quotes.mjs and commit. CI fails if the pages and this file disagree (node scripts/build-quotes.mjs --check).",
+    "The finish-a-class prompt on the contact page asks 'OK to share a line of this on the site, first name only?'. Replies that say yes are the source."
+  ],
+  "quotes": []
+}

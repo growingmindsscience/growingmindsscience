@@ -26,6 +26,19 @@
 .hero__title span { display: block; }
 .hero__title span + span { color: var(--forest); }
 .fg .hero__lead { margin-top: clamp(14px, 2.2vh, 22px); max-width: 60ch; color: var(--ink-soft); }
+/* Who it is for and what it is, in one line above the promise. */
+.fg .hero__eyebrow { margin-bottom: clamp(10px, 1.6vh, 16px); color: var(--forest); font-size: 1rem; font-weight: 600; letter-spacing: 0.01em; }
+/* The first action is the age: the picker sits where the two buttons were, then one quiet way to
+   help right now. The class for the chosen age opens under the ages. */
+.fg .hero__actions { flex-direction: column; align-items: flex-start; gap: 12px; }
+.agepick--hero { margin-top: 0; }
+.agepick--hero .agepick__q { font-size: clamp(1.125rem, 1rem + 0.4vw, 1.3125rem); }
+.agepick--hero .agepick__list { margin-top: 10px; }
+.fg .agepick--hero .agepick__opt { min-height: 48px; padding: 10px 16px; font-size: 1rem; background: var(--surface, #fff); }
+.fg .agepick--hero .agepick__opt[aria-pressed="true"] { background: var(--forest); }
+.agepick--hero .agepick__note { max-width: 40rem; box-shadow: 0 1px 0 var(--border); }
+.fg .hero__actions .hero__more { color: var(--ink-soft); font-weight: 400; }
+.fg .hero__actions .hero__more:hover { color: var(--forest); }
 /* Hyphenated words in the hero never split at the hyphen. */
 .hero__nowrap { white-space: nowrap; }
 .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; margin-top: clamp(18px, 3vh, 28px); }
@@ -48,11 +61,11 @@
 
 /* The plate. --stage-w is its width: all of the page's width, less on a short screen so the whole
    plate still fits under the words. The second term is the width whose height the screen has
-   left: the screen, less the header, the words (two title lines at 10.5vh plus about 250px) and
+   left: the screen, less the header, the words (two title lines at 10.5vh plus about 390px: the line above the title, the lead and the age picker) and
    the foot row, over the plate's height per unit of width (0.327, less the 0.04 it is pulled up).
    The plate is pulled up under the action row a little, into paper that holds nothing but the
    top of the pointing line's sweep, and stays to the right so the people keep the page's edge. */
-.hero__plate { --stage-w: min(100%, max(780px, (79.4svh - var(--header-h) - 248px) * 3.49)); position: relative; z-index: 1; width: var(--stage-w); margin: calc(var(--stage-w) * -0.04) 0 0 auto; }
+.hero__plate { --stage-w: min(100%, max(720px, (79.4svh - var(--header-h) - 390px) * 3.49)); position: relative; z-index: 1; width: var(--stage-w); margin: calc(var(--stage-w) * -0.04) 0 0 auto; }
 /* The stage is measured in the painting's own units (scripts/hero-art.py): the people are
    680 x 588, the cat 280 x 292, and both stand on the stage's bottom edge, which is the ground.
    --scene-w is the stage's width in those units and --cat-x where the cat's box starts, so how far
@@ -109,7 +122,9 @@
 /* Watercolor needs paper. On the night page the plate keeps a sheet of it, like the playground
    story, and the words stand clear above the sheet instead of over its corner. */
 [data-theme="dark"] .hero__stage::before { content: ""; position: absolute; z-index: -1; inset: -9% -1.5% -2.5%; border-radius: var(--radius-lg); background: #F8F9FB; }
-[data-theme="dark"] .hero__plate { --stage-w: 100%; width: calc(var(--stage-w) * 0.96); margin: calc(var(--stage-w) * 0.03 + 28px) calc(var(--stage-w) * 0.02) calc(var(--stage-w) * 0.012) auto; }
+/* Dark: the plate sits on its own sheet, so it caps by height like the light plate, a little
+   smaller for the sheet's margin, and the whole sheet stays in the first screen. */
+[data-theme="dark"] .hero__plate { --stage-w: min(100%, max(720px, (79.4svh - var(--header-h) - 420px) * 3.49)); width: calc(var(--stage-w) * 0.96); margin: calc(var(--stage-w) * 0.03 + 28px) calc(var(--stage-w) * 0.02) calc(var(--stage-w) * 0.012) auto; }
 [data-theme="dark"] .fg .hero__name { top: calc(100% + 26px); }
 [data-theme="dark"] .fg .hero__next { margin-top: 14px; }
 
@@ -202,7 +217,10 @@ html:not(.anim) .label { transition: none; }
   [data-theme="dark"] .fg .hero__next { margin-top: 10px; }
 }
 @media (max-width: 640px) {
-  .fg .hero__more { justify-content: center; width: 100%; }
+  .fg .hero__more { display: block; min-height: 0; padding-block: 10px; line-height: 1.5; }
+  .hero__more svg { display: inline; margin-left: 4px; vertical-align: -4px; }
+  .agepick--hero .agepick__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .fg .agepick--hero .agepick__opt { justify-content: center; padding-inline: 6px; font-size: 0.9375rem; }
 }
 /* A phone on its side: a smaller title, so the first action clears the browser's own bars, and a
    painting that never grows taller than the screen it is on. */
@@ -532,3 +550,27 @@ html:not(.anim) .label { transition: none; }
   .class-finder__grid { grid-template-columns: 1fr; gap: 24px; }
   .class-finder__trust { margin-top: 16px; }
 }
+
+/* The close on paper (index.html): the playground story's last watercolor, the two of them walking
+   home, beside the closing words. No photograph and no dark band. */
+.close--paper { min-height: 0; display: block; padding: 0; background: var(--paper); color: var(--ink); }
+.close--paper :focus-visible { outline-color: var(--forest); }
+.close--paper::after { content: none; }
+.close--paper .close__inner { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; gap: 24px clamp(32px, 5vw, 72px); padding-block: clamp(48px, 7vw, 96px); }
+.close--paper .close__art { position: static; width: 100%; height: auto; object-fit: contain; filter: none; }
+/* The painting's paper is a shade lighter than the page: multiply lets the page show through it. */
+.close--paper .close__art { mix-blend-mode: multiply; }
+[data-theme="dark"] .close--paper .close__art { mix-blend-mode: normal; }
+.close--paper .close__text { grid-column: 2; }
+.close--paper h2 { color: var(--ink); }
+.close--paper p { color: var(--ink-soft); }
+.close--paper .close__terms { color: var(--ink-muted); }
+.close--paper .close__terms a { color: var(--forest); }
+[data-theme="dark"] .close--paper .close__art { border-radius: var(--radius-lg); }
+@media (max-width: 800px) {
+  .close--paper .close__inner { display: grid; grid-template-columns: minmax(0, 1fr); padding-block: 40px 56px; }
+  .close--paper .close__text { grid-column: 1; }
+  .close--paper .close__art { aspect-ratio: auto; }
+}
+/* The email note before the close. */
+.note-signup-band { background: var(--paper-2); }

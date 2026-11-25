@@ -42,12 +42,12 @@ const measure = page => page.evaluate(() => {
   const title = document.querySelector('.hero__title');
   return {
     vw: innerWidth, vh: innerHeight, overflow: document.documentElement.scrollWidth - innerWidth,
-    title: box('.hero__title'), lead: box('.hero__lead'), go: box('.hero__go'), more: box('.hero__more'), next: box('.hero__next'),
+    title: box('.hero__title'), lead: box('.hero__lead'), go: box('.agepick__opt'), more: box('.hero__more'), next: box('.hero__next'),
     stage: box('.hero__stage'), people: box('.hero__piece--people'), cat: box('.hero__piece--cat'), name: box('.hero__name'),
     notes: [1, 2, 3].map(n => box(`.hero__note[data-s="${n}"]`)),
     noteText: [...document.querySelectorAll('.hero__note')].map(n => n.textContent.trim()),
     lines: Math.round(title.getBoundingClientRect().height / parseFloat(getComputedStyle(title).lineHeight)),
-    shown: ['.hero__title', '.hero__lead', '.hero__go', '.hero__more', '.hero__piece--people', '.hero__piece--cat', '.hero__note[data-s="1"]', '.hero__note[data-s="2"]', '.hero__note[data-s="3"]', '.hero__name', '.hero__next'].every(shown),
+    shown: ['.hero__title', '.hero__lead', '.agepick__opt', '.hero__more', '.hero__piece--people', '.hero__piece--cat', '.hero__note[data-s="1"]', '.hero__note[data-s="2"]', '.hero__note[data-s="3"]', '.hero__name', '.hero__next'].every(shown),
     pointing: ['wide', 'narrow'].filter(k => getComputedStyle(document.querySelector('.hero__ink--' + k)).display !== 'none'),
     numerals: [...document.querySelectorAll('.hero__num')].filter(n => getComputedStyle(n).display !== 'none').length,
     /* naturalWidth is corrected by the sizes hint, so the file's real width is read from its name. */
@@ -102,7 +102,7 @@ try {
     check(m.lines === 2, `${at}: the title sits on two lines, one sentence each`);
     check(m.go[3] <= m.vh && m.go[1] >= 0, `${at}: the first action is inside the first screen`);
     check(m.more[3] - m.more[1] >= 44 && m.go[3] - m.go[1] >= 48 && m.next[3] - m.next[1] >= 44, `${at}: the actions and the way on are each a full touch target tall`);
-    check(m.hrefs.join() === '/tools/right-now,/classes/,#lens', `${at}: the actions go to the right-now tool and the classes, and the way on to the playground story`);
+    check(m.hrefs.join() === '/explore/birth-to-1,/explore/1-to-2,/explore/2-to-3,/explore/3-to-4,/explore/4-to-5,/explore/4-to-5,/tools/right-now,#lens', `${at}: the six ages (each an Explore page without script), the right-now tool, and the way on to the playground story`);
     check(m.images.every(i => i.ok && i.sharp), `${at}: both pictures loaded at a size that fills their box`);
     check(m.images.filter(i => i.alt).length === 1 && m.images[0].alt === '', `${at}: one description for the whole scene, on the people`);
     check(m.cat[2] <= m.people[0] + 0.5, `${at}: the cat's sheet and the people's sheet do not overlap`);
@@ -138,7 +138,7 @@ try {
   /* Motion: the painting settles, the plate is read aloud once, then a small drift as the page scrolls. */
   {
     const page = await open({ viewport: { width: 1440, height: 900 } }, { settle: 0 });
-    const words = await page.evaluate(() => ['.hero__title', '.hero__lead', '.hero__go', '.hero__more'].every(s => { const e = document.querySelector(s), c = getComputedStyle(e); return c.opacity === '1' && e.getAnimations().length === 0; }));
+    const words = await page.evaluate(() => ['.hero__title', '.hero__lead', '.agepick__opt', '.hero__more'].every(s => { const e = document.querySelector(s), c = getComputedStyle(e); return c.opacity === '1' && e.getAnimations().length === 0; }));
     check(words, 'motion: the words and actions are at rest from the first paint, with no animation on them');
     const early = await page.evaluate(() => ({ pieces: [...document.querySelectorAll('.hero__piece')].every(e => e.getAnimations().some(a => a.animationName === 'hero-settle')), name: getComputedStyle(document.querySelector('.hero__name')).opacity, waiting: document.querySelector('[data-hero-plate]').classList.contains('is-waiting') }));
     check(early.pieces && early.name === '0' && !early.waiting, 'motion: with the painting on screen the sequence starts at once, and the lesson is not named before it is drawn');
@@ -195,7 +195,7 @@ try {
   {
     /* A screen too short to show the painting holds the sequence until the painting arrives. */
     const page = await open({ viewport: { width: 375, height: 520 }, isMobile: true, hasTouch: true }, { settle: 2500 });
-    const held = await page.evaluate(() => ({ waiting: document.querySelector('[data-hero-plate]').classList.contains('is-waiting'), cat: getComputedStyle(document.querySelector('.hero__piece--cat')).opacity, action: document.querySelector('.hero__go').getBoundingClientRect().bottom <= innerHeight }));
+    const held = await page.evaluate(() => ({ waiting: document.querySelector('[data-hero-plate]').classList.contains('is-waiting'), cat: getComputedStyle(document.querySelector('.hero__piece--cat')).opacity, action: document.querySelector('.agepick__opt').getBoundingClientRect().bottom <= innerHeight }));
     check(held.waiting && held.cat === '0' && held.action, 'short phone: the first action is on screen and the plate waits, undrawn, below it');
     await page.evaluate(() => document.querySelector('.hero__stage').scrollIntoView({ block: 'center', behavior: 'instant' }));
     await page.waitForTimeout(DRAWN);
@@ -217,7 +217,7 @@ try {
     for (const [width, height] of [[390, 844], [1440, 900]]) {
       const page = await open({ viewport: { width, height }, ...options });
       const state = await page.evaluate(() => ({
-        shown: ['.hero__title', '.hero__go', '.hero__more', '.hero__piece--people', '.hero__piece--cat', '.hero__note[data-s="1"]', '.hero__note[data-s="3"]', '.hero__name'].every(s => { const c = getComputedStyle(document.querySelector(s)); return c.opacity === '1' && c.visibility === 'visible'; }),
+        shown: ['.hero__title', '.agepick__opt', '.hero__more', '.hero__piece--people', '.hero__piece--cat', '.hero__note[data-s="1"]', '.hero__note[data-s="3"]', '.hero__name'].every(s => { const c = getComputedStyle(document.querySelector(s)); return c.opacity === '1' && c.visibility === 'visible'; }),
         sheet: getComputedStyle(document.querySelector('.hero__stage'), '::before').backgroundColor,
         noteInk: getComputedStyle(document.querySelector('.hero__note')).color, pageInk: getComputedStyle(document.querySelector('.hero__title')).color,
         clear: (() => { const s = document.querySelector('.hero__stage').getBoundingClientRect(), a = document.querySelector('.hero__actions').getBoundingClientRect(); return a.bottom <= s.top; })(),
@@ -233,12 +233,12 @@ try {
     }
   }
   {
-    /* Keyboard: the two actions and the way on are reachable in order and show a focus ring. */
+    /* Keyboard: the ages, the right-now link and the way on are reachable in order and show a focus ring. */
     const page = await open({ viewport: { width: 1440, height: 900 } });
     await page.focus('.nav__cta a'); await page.keyboard.press('Tab');
     const seen = [];
-    for (let i = 0; i < 3; i++) { await page.keyboard.press('Tab'); seen.push(await page.evaluate(() => { const a = document.activeElement, c = getComputedStyle(a); return a.className.split(' ').pop() + '|' + c.outlineStyle + '|' + (parseFloat(c.outlineWidth) >= 2); })); }
-    check(seen.join() === 'hero__go|solid|true,hero__more|solid|true,hero__next|solid|true', 'keyboard: after the header, Tab reaches the first action, the second, then the way on, each with a visible ring');
+    for (let i = 0; i < 8; i++) { await page.keyboard.press('Tab'); seen.push(await page.evaluate(() => { const a = document.activeElement, c = getComputedStyle(a); return a.className.split(' ').pop() + '|' + c.outlineStyle + '|' + (parseFloat(c.outlineWidth) >= 2); })); }
+    check(seen.join() === Array(6).fill('agepick__opt|solid|true').concat(['hero__more|solid|true', 'hero__next|solid|true']).join(), 'keyboard: after the header, Tab reaches the six ages, the right-now link, then the way on, each with a visible ring');
     await page.keyboard.press('Enter'); await page.waitForTimeout(700);
     check(await page.evaluate(() => location.hash === '#lens' && document.querySelector('#lens').getBoundingClientRect().top < innerHeight / 2), 'keyboard: the way on lands on the playground story');
     await page.context().close();

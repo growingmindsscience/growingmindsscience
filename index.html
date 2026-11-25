@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
   /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
-  <title>From Little Onward: child development for parents</title>
+  <title>From Little Onward: child development classes for parents of children 0 to 5</title>
   <meta name="description" content="Science-backed parent education for children 0 to 5, open to any parent who seeks it: self-paced classes, free tools and articles, every claim sourced." />
   <meta name="theme-color" content="#F8F9FB" />
   <meta name="color-scheme" content="light dark" />
@@ -31,12 +31,12 @@
   <link rel="preload" href="/assets/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/css/fonts.css?v=a9295d8c01" />
   <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=f57aed2d31" />
   <link rel="preload" as="image" type="image/webp" imagesrcset="/assets/img/site/hero/shared-attention-people-680.webp 680w, /assets/img/site/hero/shared-attention-people-1020.webp 1020w, /assets/img/site/hero/shared-attention-people-1360.webp 1360w" imagesizes="(min-width: 1400px) 500px, (min-width: 901px) 35vw, 66vw" fetchpriority="high" />
-  <link rel="stylesheet" href="/assets/css/fg-base.css?v=78accdba72" />
-  <link rel="stylesheet" href="/assets/css/home.css?v=35997e892a" />
-  <link rel="stylesheet" href="/assets/css/home-lens.css?v=f50abf8e55" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=eacaf2a72e" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=fa6174ebdd" />
+  <link rel="stylesheet" href="/assets/css/home.css?v=1d001a7976" />
+  <link rel="stylesheet" href="/assets/css/home-lens.css?v=f86ad264c8" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=40ed1362a5" />
 
   <script type="application/ld+json">
   [
@@ -46,7 +46,7 @@
       "name": "From Little Onward",
       "url": "https://www.fromlittleonward.com",
       "logo": "https://www.fromlittleonward.com/assets/img/brand/icon-512.png",
-      "founder": { "@type": "Person", "name": "Matthew McArthur", "jobTitle": "Child Development Specialist" },
+      "founder": { "@type": "Person", "name": "Matthew McArthur", "jobTitle": "Child Development Specialist", "url": "https://www.fromlittleonward.com/about/", "alumniOf": { "@type": "CollegeOrUniversity", "name": "San Diego State University" }, "knowsAbout": ["Developmental psychology", "Early childhood development", "Parent coaching"] },
       "sameAs": ["https://www.instagram.com/fromlittleonward/"],
       "description": "Science-backed parent education, open to any parent who seeks it."
     },
@@ -121,11 +121,25 @@
          at rest from the first paint. Hover and tap behaviour is in home.js. -->
     <section class="hb-container hero" aria-labelledby="hero-title">
       <div class="hero__text">
+        <p class="hero__eyebrow">Child development classes for parents of children under five</p>
         <h1 class="hb-display hero__title" id="hero-title"><span>Understand their world.</span> <span>Find your next step.</span></h1>
-        <p class="hb-lead hero__lead">Practical guidance for understanding your child from birth to five. Short classes and free tools, built from <span class="hero__nowrap">peer-reviewed</span> research.</p>
+        <p class="hb-lead hero__lead">Self-paced classes built from <span class="hero__nowrap">peer-reviewed</span> research by a developmental psychologist who has coached 100+ families. Try a full lesson free.</p>
+        <!-- The one first action: choose an age. Each age is a plain link to its Explore page without
+             script; with home.js it shows the class for that age and its free lesson in place. -->
         <div class="hero__actions">
-          <a class="hb-btn hero__go" href="/tools/right-now" data-track-cta="hero-help">Find help for this moment</a>
-          <a class="hero__more" href="#class-picker" data-track-cta="hero-classes">Find a class by age <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
+          <div class="agepick agepick--hero" id="class-picker" data-agepick>
+            <p class="agepick__q" id="agepick-q">How old is your child?</p>
+            <ul class="agepick__list" aria-labelledby="agepick-q">
+              <li><a class="agepick__opt" href="/explore/birth-to-1" data-class="infant" data-name="Foundations" data-line="Attachment, the senses, and the rhythm of back-and-forth." data-yrs="Birth to 1">Under 1 year</a></li>
+              <li><a class="agepick__opt" href="/explore/1-to-2" data-class="toddler" data-name="First words, first steps" data-line="Understanding races ahead of speech." data-yrs="1 to 2">1 year old</a></li>
+              <li><a class="agepick__opt" href="/explore/2-to-3" data-class="toddler" data-name="Autonomy and big feelings" data-line="&ldquo;No&rdquo; is a milestone, not defiance." data-yrs="2 to 3">2 years old</a></li>
+              <li><a class="agepick__opt" href="/explore/3-to-4" data-class="toddler preschool" data-name="The imagination years" data-line="Pretend play is serious cognitive work." data-yrs="3 to 4">3 years old</a></li>
+              <li><a class="agepick__opt" href="/explore/4-to-5" data-class="preschool" data-name="Self-control, slowly" data-line="Working memory, flexible thinking and impulse control are under construction, on a wide and normal range." data-yrs="4 to 5">4 years old</a></li>
+              <li><a class="agepick__opt" href="/explore/4-to-5" data-class="preschool" data-name="Self-control, slowly" data-line="Working memory, flexible thinking and impulse control are under construction, on a wide and normal range." data-yrs="4 to 5">5 years old</a></li>
+            </ul>
+            <div class="agepick__note" data-agepick-note aria-live="polite" hidden></div>
+          </div>
+          <a class="hero__more" href="/tools/right-now" data-track-cta="hero-help">Hard moment right now? A calm next step in two minutes <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 12h15m-6-6 6 6-6 6" /></svg></a>
         </div>
       </div>
 
@@ -164,30 +178,22 @@
       <a class="hero__next" href="#lens" data-track-cta="hero-next">That was an easy moment. Here is a harder one. <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 4v15m-6-6 6 6 6-6" /></svg></a>
     </section>
 
-    <section class="hb-section hb-section--tight class-finder" aria-labelledby="class-finder-heading">
-      <div class="hb-container class-finder__grid">
+    <!-- 02 Who made this: the proof, right after the first choice. Parent quotes follow when there are any. -->
+    <section class="hb-section trust" id="about" aria-labelledby="about-heading">
+      <div class="hb-container trust__grid">
+        <figure class="trust__photo" data-rise style="--i:0"><img src="/assets/img/site/matthew-reading.jpg" srcset="/assets/img/site/matthew-reading-1000.jpg 1000w, /assets/img/site/matthew-reading.jpg 2000w" sizes="(min-width: 761px) 50vw, 100vw" width="2000" height="1500" alt="Matthew McArthur sits on a rug reading a board book with three young children; one toddler reaches for the page he is pointing to." loading="lazy" decoding="async" /></figure>
         <div>
-          <h2 class="hb-display hb-display--m" id="class-finder-heading">Find a class for your child’s age.</h2>
-          <p class="hb-soft">Choose their age to see a class and try a full lesson free.</p>
-          <p class="class-finder__trust">Created by Matthew McArthur, M.A. in Developmental Psychology, drawing on two years coaching families in early intervention. <a href="/about/">Meet Matthew</a></p>
+          <h2 class="hb-display hb-display--l" id="about-heading" data-rise style="--i:1">The person behind the classes.</h2>
+          <p class="trust__para" data-rise style="--i:2">Matthew McArthur holds an M.A. in Developmental Psychology from San Diego State University, where he studied how the home shapes early development, after working with developmental researchers at UCLA. With Dr. Margaret Friend, he wrote <a class="trust__src" href="https://doi.org/10.3389/frym.2024.1426649">&ldquo;Why Early Chatter Matters&rdquo;</a> for Frontiers for Young Minds, a journal reviewed by young readers. He then spent two years in state-funded early intervention, coaching more than 100 families of children under three.</p>
+          <p class="trust__facts" data-rise style="--i:3"><span>More than 100 families coached</span><span>Sources cited on every page</span><span>Educational, not clinical</span><a href="/about/">More about Matthew</a></p>
         </div>
-          <div class="agepick" id="class-picker" data-agepick>
-            <p class="agepick__q" id="agepick-q">How old is your child?</p>
-            <ul class="agepick__list" aria-labelledby="agepick-q">
-              <li><a class="agepick__opt" href="/explore/birth-to-1" data-class="infant" data-name="Foundations" data-line="Attachment, the senses, and the rhythm of back-and-forth." data-yrs="Birth to 1">Under 1 year</a></li>
-              <li><a class="agepick__opt" href="/explore/1-to-2" data-class="toddler" data-name="First words, first steps" data-line="Understanding races ahead of speech." data-yrs="1 to 2">1 year old</a></li>
-              <li><a class="agepick__opt" href="/explore/2-to-3" data-class="toddler" data-name="Autonomy and big feelings" data-line="&ldquo;No&rdquo; is a milestone, not defiance." data-yrs="2 to 3">2 years old</a></li>
-              <li><a class="agepick__opt" href="/explore/3-to-4" data-class="toddler preschool" data-name="The imagination years" data-line="Pretend play is serious cognitive work." data-yrs="3 to 4">3 years old</a></li>
-              <li><a class="agepick__opt" href="/explore/4-to-5" data-class="preschool" data-name="Self-control, slowly" data-line="Working memory, flexible thinking and impulse control are under construction, on a wide and normal range." data-yrs="4 to 5">4 years old</a></li>
-              <li><a class="agepick__opt" href="/explore/4-to-5" data-class="preschool" data-name="Self-control, slowly" data-line="Working memory, flexible thinking and impulse control are under construction, on a wide and normal range." data-yrs="4 to 5">5 years old</a></li>
-            </ul>
-            <p class="agepick__tie"><strong>Just turned three?</strong> Choose Toddler if tantrums, &ldquo;no,&rdquo; and transitions fill your days. Choose Preschool if play, friendships, and getting ready for school do.</p>
-            <div class="agepick__note" data-agepick-note aria-live="polite" hidden></div>
-          </div>
       </div>
     </section>
 
-    <!-- 02 Leaving the playground: one moment in four beats.
+    <!-- quotes:home:start -->
+    <!-- quotes:home:end -->
+
+    <!-- 03 Leaving the playground: one moment in four beats.
          Copy and images live here. Timing and camera moves are at the top of
          /assets/js/home-lens.js. Without that script (or with reduced motion)
          this is a plain illustrated sequence, all four beats visible. -->
@@ -257,7 +263,6 @@
           <p class="mission__thesis" data-rise style="--i:1">When parents understood what was happening developmentally, hard moments made more sense.</p>
           <p class="mission__line" data-rise style="--i:2">That pattern held across more than 100 families in early intervention, and it left parents with more ideas for what to try next.</p>
           <p class="mission__line" data-rise style="--i:3">Children build the adults they become one ordinary day at a time, and understanding that work makes it lighter to carry.</p>
-          <p class="mission__by" data-rise style="--i:4"><img src="/assets/img/matthew-photo-400.jpg" width="400" height="499" alt="" loading="lazy" decoding="async" /><span><strong>Matthew McArthur</strong>, M.A. in Developmental Psychology. Two years coaching families in state-funded early intervention. <a href="/about/">How we teach</a></span></p>
         </div>
       </div>
     </section>
@@ -292,7 +297,7 @@
             <span class="menu__go" aria-hidden="true">See the class</span><a class="menu__preview" href="/nsc/classes/preschool/preview" aria-label="Watch a lesson free: Sharing, fairness, and helping">Watch a lesson free</a></div>
           <a class="menu__item menu__item--bundle" href="/pricing#all-three"><span class="menu__pick">Our pick if your child is under one</span><h3>Three age-based classes</h3><span class="price">$119 <s class="price__was"><span class="u-visually-hidden">instead of </span>$147</s><small>once</small></span><p>All three classes in one enrollment, ready as your child grows from birth to five.</p><span class="meta menu__bundle-facts"><span><strong>44 lessons</strong> from birth to age 5</span><strong>Save 19% ($28)</strong></span><span class="menu__go">See the bundle</span></a>
           <a class="menu__item" href="/classes/family-systems"><h3>The whole family, any age</h3><span class="price">$49<small>once</small></span><p>How family stress affects children, and which everyday supports make a difference.</p><span class="meta menu__facts">13 lessons, about 2 hours 10 minutes, not part of the $119 bundle</span><span class="menu__go">See the class</span></a>
-          <p class="classes__terms"><strong>Lifetime access. No subscription.</strong><span>Captions and a written version of every lesson.</span><span>Full refund within 14 days if you have watched four lessons or fewer. <a href="/terms-of-sale/">Refund terms</a></span></p>
+          <p class="classes__terms"><strong>Lifetime access. No subscription.</strong><span>Captions and a written version of every lesson.</span><span>14-day refund. <a href="/terms-of-sale/">Refund terms</a></span></p>
         </div>
       </div>
     </section>
@@ -324,27 +329,35 @@
       </div>
     </section>
 
-    <!-- 08 Why trust From Little Onward -->
-    <section class="hb-section trust" id="about" aria-labelledby="about-heading">
-      <div class="hb-container trust__grid">
-        <figure class="trust__photo" data-rise style="--i:0"><img src="/assets/img/site/matthew-reading.jpg" srcset="/assets/img/site/matthew-reading-1000.jpg 1000w, /assets/img/site/matthew-reading.jpg 2000w" sizes="(min-width: 761px) 50vw, 100vw" width="2000" height="1500" alt="Matthew McArthur sits on a rug reading a board book with three young children; one toddler reaches for the page he is pointing to." loading="lazy" /></figure>
+    <!-- 09 Not ready yet: one short note when something new is ready -->
+    <section class="hb-section hb-section--tight note-signup-band" aria-labelledby="note-signup-heading">
+      <div class="hb-container note-signup">
         <div>
-          <h2 class="hb-display hb-display--l" id="about-heading" data-rise style="--i:1">The person behind the classes.</h2>
-          <p class="trust__para" data-rise style="--i:2">Matthew McArthur holds an M.A. in Developmental Psychology from San Diego State University, where he studied how the home shapes early development, after working with developmental researchers at UCLA. With Dr. Margaret Friend, he wrote <a class="trust__src" href="https://doi.org/10.3389/frym.2024.1426649">&ldquo;Why Early Chatter Matters&rdquo;</a> for Frontiers for Young Minds, a journal reviewed by young readers. He then spent two years in state-funded early intervention, coaching more than 100 families of children under three.</p>
-          <p class="trust__facts" data-rise style="--i:3"><span>Sources cited on every page</span><span>Educational, not clinical</span><a href="/about/">More about Matthew</a></p>
+          <h2 class="hb-display hb-display--m" id="note-signup-heading" data-rise style="--i:0">Not ready for a class yet?</h2>
+          <p class="hb-soft" data-rise style="--i:1">Get a short note when a new free guide, article or lesson is ready. No fixed schedule, no filler.</p>
         </div>
+        <form class="inline-signup" method="POST" action="/api/waitlist" data-newsletter data-success="You&rsquo;re in. We&rsquo;ll write when something new is ready." data-rise style="--i:2">
+          <input type="hidden" name="subject" value="Homepage Email Signup, From Little Onward" />
+          <input type="hidden" name="interest" value="Homepage notes" />
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+          <input type="email" name="email" required autocomplete="email" placeholder="your@email.com" class="inline-signup__input" aria-label="Email address" aria-describedby="homeEmailError" />
+          <button type="submit" class="hb-btn" data-track-cta="home-email">Send me notes</button>
+          <p id="homeEmailError" class="field-error" role="alert"></p>
+          <p role="status" aria-live="polite" class="inline-signup__status"></p>
+          <p class="inline-signup__disclaimer">Unsubscribe anytime. <a href="/privacy/">Privacy</a></p>
+        </form>
       </div>
     </section>
 
-    <!-- 09 Close -->
-    <section class="close" aria-labelledby="close-heading">
-      <img src="/assets/img/site/walk-home.jpg" srcset="/assets/img/site/walk-home-1000.jpg 1000w, /assets/img/site/walk-home.jpg 2000w" sizes="100vw" width="2000" height="1125" alt="The same parent and toddler walk away from the playground hand in hand, the toddler glancing back at the slide." loading="lazy" decoding="async" />
+    <!-- 10 Close: the same parent and toddler walking home, in the playground story's own watercolor -->
+    <section class="close close--paper" aria-labelledby="close-heading">
       <div class="hb-container close__inner">
+        <img class="close__art" src="/assets/img/site/playground/move-together-1440.webp" srcset="/assets/img/site/playground/move-together-720.webp 720w, /assets/img/site/playground/move-together-1440.webp 1440w" sizes="(min-width: 801px) 55vw, 100vw" width="1440" height="960" alt="The parent and toddler from the playground walk away hand in hand, the slide behind them." loading="lazy" decoding="async" />
         <div class="close__text">
           <h2 class="hb-display" id="close-heading" data-rise style="--i:0">Love your child. Learn the science.</h2>
           <p data-rise style="--i:1">One self-paced class for each window from birth to five, built from peer-reviewed research and taught for an ordinary Tuesday. Open to any parent who seeks it.</p>
-          <a class="hb-btn hb-btn--paper" href="/classes/" data-track-cta="close-classes" data-rise style="--i:2">See the classes</a>
-          <p class="close__terms" data-rise style="--i:3">$49 per class, or the three age-based classes for $119. Lifetime access, no subscription. Full refund within 14 days if you have watched four lessons or fewer.</p>
+          <a class="hb-btn" href="/classes/" data-track-cta="close-classes" data-rise style="--i:2">See the classes</a>
+          <p class="close__terms" data-rise style="--i:3">$49 per class, or the three age-based classes for $119. Lifetime access, no subscription, <a href="/terms-of-sale/">14-day refund</a>.</p>
         </div>
       </div>
     </section>
@@ -396,7 +409,6 @@
           <h2 class="site-footer__heading">Elsewhere</h2>
           <ul class="footer-list">
             <li><a href="https://www.instagram.com/fromlittleonward/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-            <li><a href="/arcade/">Arcade</a></li>
           </ul>
         </div>
       </nav>
@@ -413,8 +425,9 @@
 <!-- footer:end -->
 
   <script src="/assets/js/chrome.js?v=d5fdf5ae8e"></script>
-  <script src="/assets/js/home.js?v=e6330d4519" defer></script>
-  <script src="/assets/js/home-lens.js?v=587931cdd8" defer></script>
+  <script src="/assets/js/main.js?v=b5c8e48c2d" defer></script>
+  <script src="/assets/js/home.js?v=5439b22758" defer></script>
+  <script src="/assets/js/home-lens.js?v=8e4d012ece" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

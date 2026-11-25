@@ -197,3 +197,31 @@
 .fg :is(.hub-close, .fg-ink-field, .hb-crisis--ink) .hb-crisis__line { color: var(--on-ink); box-shadow: inset 0 0 0 1.5px var(--on-ink-muted); }
 .fg :is(.hub-close, .fg-ink-field, .hb-crisis--ink) .hb-crisis__line:hover { background: var(--field-ink-2); color: var(--on-ink); box-shadow: inset 0 0 0 1.5px var(--on-ink); }
 .fg :is(.hub-close, .fg-ink-field, .hb-crisis--ink) .hb-crisis__line:focus-visible { outline-color: var(--on-ink); }
+
+/* ---------- Email note (homepage and class pages) ----------
+   A one-field form posting to /api/waitlist, handled by main.js ([data-newsletter]).
+   Scoped to .note-signup so the articles hub keeps its own .signup layout from hubs.css. */
+.note-signup { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 20px clamp(32px, 5vw, 80px); align-items: end; }
+.note-signup .hb-soft { margin-top: 12px; max-width: 46ch; }
+.note-signup .inline-signup { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; }
+.note-signup .inline-signup__input { min-height: 48px; padding: 0 14px; border: 1.5px solid var(--ink-muted); border-radius: var(--radius); background: var(--paper); color: var(--ink); font: inherit; }
+.note-signup .inline-signup__input:focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
+.note-signup .field-error, .note-signup .inline-signup__status { grid-column: 1 / -1; font-size: 15px; color: var(--ink-soft); }
+.note-signup .field-error:empty, .note-signup .inline-signup__status:empty { display: none; }
+.note-signup .inline-signup__disclaimer { grid-column: 1 / -1; font-size: 15px; color: var(--ink-muted); }
+@media (max-width: 760px) {
+  .note-signup { grid-template-columns: minmax(0, 1fr); }
+  .note-signup .inline-signup { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------- What parents say ----------
+   Written by scripts/build-quotes.mjs from marketing/parent-quotes.json, between
+   <!-- quotes:<page>:start/end --> markers. With no quotes the markers stay empty and
+   nothing shows. Only real words, used with the parent's yes. */
+.pq { background: var(--paper-2); }
+.pq__list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: clamp(20px, 3vw, 36px); margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; }
+.pq__item { margin: 0; padding: clamp(20px, 2.4vw, 28px); border-radius: var(--radius-lg); background: var(--paper); box-shadow: inset 0 0 0 1px var(--border); }
+.pq__text { margin: 0; font-family: var(--font-display); font-size: clamp(1.125rem, 1rem + 0.4vw, 1.3125rem); line-height: 1.4; color: var(--ink); }
+.pq__text p + p { margin-top: 0.6em; }
+.pq__who { margin-top: 14px; font-size: 15px; line-height: 1.5; color: var(--ink-muted); }
+.pq__who b { color: var(--ink); font-weight: 600; }

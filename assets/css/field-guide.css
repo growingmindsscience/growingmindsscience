@@ -553,21 +553,25 @@ html:has(> body.fg) { scrollbar-color: var(--sage-deep) var(--paper); }
      [data-rise] plays fg-rise from page load, staggered by --i. CSS alone finishes it, so a page
      that does not load home.js never keeps anything hidden.
    - As it enters. home.js marks each [data-rise] that starts below the first screen with
-     .rise-wait, which holds it until the observer adds .is-in as it scrolls into view; then the
-     same keyframe plays there. Anything in the first screen keeps its load sequence.
+     .rise-wait, which leaves it showing at rest until the observer adds .is-in as it scrolls into
+     view; then a softer keyframe (fg-rise-soft) plays there. Anything in the first screen keeps its load sequence.
    Reduced motion, no script and print show everything at rest.
    ========================================================= */
 @media (prefers-reduced-motion: no-preference) {
   .anim [data-reveal] { opacity: 0; transform: translateY(22px); transition: opacity 700ms var(--ease-out), transform 900ms var(--ease-out); transition-delay: calc(var(--i, 0) * 80ms); }
   .anim [data-reveal].is-in { opacity: 1; transform: none; }
   html.anim [data-rise] { opacity: 0; transform: translateY(18px); animation: fg-rise var(--t-reveal) var(--ease-out) forwards; animation-delay: calc(var(--i, 0) * 90ms + 160ms); }
-  html.anim [data-rise].rise-wait { animation-delay: calc(var(--i, 0) * 80ms); }
+  /* Parts below the first screen are never invisible: they rest in place, fully shown, and lift
+     gently (from 0.4 opacity, 14px) as they enter. A page captured whole, read without scrolling
+     or scrolled past quickly shows everything. */
+  html.anim [data-rise].rise-wait { opacity: 1; transform: none; animation-name: fg-rise-soft; animation-delay: calc(var(--i, 0) * 80ms); }
   html.anim [data-rise].rise-wait:not(.is-in) { animation: none; }
   @supports (animation-timeline: view()) {
     .anim .fg-drift img { animation: fg-drift linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; }
   }
 }
 @keyframes fg-rise { to { opacity: 1; transform: none; } }
+@keyframes fg-rise-soft { from { opacity: 0.4; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @keyframes fg-drift { from { transform: translateY(-3%) scale(1.06); } to { transform: translateY(3%) scale(1.06); } }
 
 /* Inline links keep their line but reach a 44px touch target. */
