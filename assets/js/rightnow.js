@@ -328,11 +328,12 @@
       el('header', { class: 'rn-answer__header' }, [title, el('p', { class: 'rn-answer__state', text: smart(s.state) })]),
       el('div', { class: 'rn-answer__layout' }, [guidance(s), el('div', { class: 'rn-answer__side' }, [phrase(s), when])]),
       actionRow(s, saveStatus), saveStatus,
-      // Meltdown only, and after the help: an optional, quiet next step.
-      s.id === 'meltdown' ? el('p', { class: 'rn-next' }, [
-        'When things are calm, you can ',
-        el('a', { href: '/nsc/classes/toddlerhood/preview', text: 'watch “Inside a Tantrum,” a free toddler lesson' }),
-        '.'
+      // After the help: an optional, quiet next step into a class lesson
+      // (router-notes "next"), for the situations a lesson covers.
+      n.next ? el('p', { class: 'rn-next' }, [
+        smart(n.next.lead),
+        el('a', { href: n.next.href, text: smart(n.next.text) }),
+        smart(n.next.tail)
       ]) : null,
       sources
     ]);
