@@ -60,13 +60,19 @@ if (problems.length) {
 function render(key) {
   const list = quotes.filter((q) => q.pages.includes(key)).slice(0, MAX_PER_PAGE);
   if (!list.length) return "\n";
-  const items = list.map((q) => {
+  const items = list.map((q, i) => {
     const paras = q.text.trim().split(/\n\s*\n/).map((p) => `<p>${esc(p.trim())}</p>`).join("");
-    const who = q.name ? `<b>${esc(q.name.trim())}</b>, ${esc(q.label.trim())}` : esc(q.label.trim());
-    return `          <li><figure class="pq__item"><blockquote class="pq__text">${paras}</blockquote><figcaption class="pq__who">${who}</figcaption></figure></li>`;
+    // "Parent of a toddler, in-home coaching" reads as who, then how they worked with Matthew.
+    const label = q.label.trim();
+    const cut = label.indexOf(", ");
+    const role = (q.name ? q.name.trim() + ", " : "") + (cut === -1 ? label : label.slice(0, cut));
+    const ctx = cut === -1 ? "" : label.slice(cut + 2).replace(/^./, (c) => c.toUpperCase());
+    const who = `<span class="pq__role">${esc(role)}</span>` + (ctx ? `<span class="pq__ctx">${esc(ctx)}</span>` : "");
+    const cls = i === 0 ? "pq__li pq__li--lead" : "pq__li";
+    return `          <li class="${cls}"><figure class="pq__item"><blockquote class="pq__text">${paras}</blockquote><figcaption class="pq__who">${who}</figcaption></figure></li>`;
   });
   return `
-    <section class="hb-section hb-section--tight pq" aria-labelledby="pq-heading">
+    <section class="hb-section pq" aria-labelledby="pq-heading">
       <div class="hb-container">
         <h2 class="hb-display hb-display--m" id="pq-heading">${esc(HEADING)}</h2>
         <p class="pq__intro">${esc(INTRO)}</p>

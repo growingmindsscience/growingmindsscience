@@ -213,19 +213,41 @@
   .note-signup { grid-template-columns: minmax(0, 1fr); }
   .note-signup .inline-signup { grid-template-columns: minmax(0, 1fr); }
 }
-
-/* ---------- What parents say ----------
+/* ---------- Words from families ----------
    Written by scripts/build-quotes.mjs from marketing/parent-quotes.json, between
    <!-- quotes:<page>:start/end --> markers. With no quotes the markers stay empty and
-   nothing shows. Only real words, used with the parent's yes. */
+   nothing shows. Only real words, used with the family's yes.
+   Set like a page of a well-made book, not a wall of cards: a 2px ink rule opens the list
+   (an index list), the first quote leads at statement size with its opening quotation mark
+   hung in the margin, and the rest stand beside it under 1px rules. Ink only: verdigris acts,
+   so no quote mark or credit is green. Flat: no boxes, no shadows. */
 .pq { background: var(--paper-2); }
-.pq__list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: clamp(20px, 3vw, 36px); margin: clamp(24px, 3vw, 40px) 0 0; padding: 0; list-style: none; }
-.pq__item { margin: 0; padding: clamp(20px, 2.4vw, 28px); border-radius: var(--radius-lg); background: var(--paper); box-shadow: inset 0 0 0 1px var(--border); }
-.pq__text { margin: 0; font-family: var(--font-display); font-size: clamp(1.125rem, 1rem + 0.4vw, 1.3125rem); line-height: 1.4; color: var(--ink); }
+.pq__intro { margin-top: 12px; max-width: 60ch; font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
+.pq__list { display: grid; grid-template-columns: minmax(0, 1fr); margin: clamp(28px, 3.5vw, 44px) 0 0; padding: 0; list-style: none; border-top: 2px solid var(--ink); }
+.pq__li { padding-block: clamp(24px, 3vw, 36px); }
+.pq__li + .pq__li { border-top: 1px solid var(--border-soft); }
+.pq__item { margin: 0; }
+.pq__text { margin: 0; font-family: var(--font-display); font-size: clamp(1.125rem, 1.05rem + 0.25vw, 1.25rem); line-height: 1.45; color: var(--ink); text-wrap: pretty; }
+.pq__text p { margin: 0; }
 .pq__text p + p { margin-top: 0.6em; }
-.pq__who { margin-top: 14px; font-size: 15px; line-height: 1.5; color: var(--ink-muted); }
-.pq__who b { color: var(--ink); font-weight: 600; }
-.pq__intro { margin-top: 10px; max-width: 60ch; font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
-.pq__list > li { display: flex; }
-.pq__item { flex: 1; }
-@media (min-width: 900px) { .pq__list:has(> li:nth-child(4)) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* Hanging punctuation: the opening mark sits in the margin, so the words keep the column's edge. */
+.pq__text > p:first-child { text-indent: -0.42em; }
+.pq__text > p:first-child::before { content: "\201C"; }
+.pq__text > p:last-child::after { content: "\201D"; }
+.pq__li--lead .pq__text { font-size: clamp(1.5rem, 1.15rem + 1.2vw, 2.125rem); line-height: 1.28; letter-spacing: -0.012em; }
+.pq__who { margin-top: 18px; font-family: var(--font-body); font-size: 15px; line-height: 1.45; }
+.pq__role { display: block; color: var(--ink); font-weight: 600; }
+.pq__ctx { display: block; color: var(--ink-muted); }
+.pq__li--lead .pq__who { margin-top: 24px; }
+@media (min-width: 900px) {
+  /* The lead quote on the left; the others stacked beside it, each under a 1px rule. */
+  .pq__list:has(> li:nth-child(2)) { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: clamp(48px, 6vw, 104px); }
+  .pq__list:has(> li:nth-child(2)) .pq__li--lead { grid-column: 1; grid-row: 1 / span 3; padding-right: 0; }
+  .pq__list:has(> li:nth-child(2)) .pq__li:not(.pq__li--lead) { grid-column: 2; }
+  .pq__list:has(> li:nth-child(2)) .pq__li:nth-child(2) { border-top: 0; }
+  .pq__list:has(> li:nth-child(2)) .pq__li--lead { border-top: 0; }
+  /* The lead stays in view while the reader passes the quotes beside it. */
+  .pq__list:has(> li:nth-child(2)) .pq__li--lead .pq__item { position: sticky; top: calc(var(--header-h, 72px) + 32px); }
+  /* One quote alone keeps a readable measure. */
+  .pq__list:not(:has(> li:nth-child(2))) .pq__li--lead .pq__item { max-width: 46rem; }
+}
