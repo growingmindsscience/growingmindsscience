@@ -70,10 +70,10 @@
   }
   </script>
   <link rel="stylesheet" href="/assets/css/tokens-field-guide.css?v=a516f3fb0d" />
-  <link rel="stylesheet" href="/assets/css/field-guide.css?v=f57aed2d31" />
-  <link rel="stylesheet" href="/assets/css/fg-base.css?v=523490cd91" />
-  <link rel="stylesheet" href="/assets/css/classes.css?v=e13331adb7" />
-  <link rel="stylesheet" href="/assets/css/chrome.css?v=40ed1362a5" />
+  <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
+  <link rel="stylesheet" href="/assets/css/fg-base.css?v=ee0161fdd8" />
+  <link rel="stylesheet" href="/assets/css/classes.css?v=f474dbd4b9" />
+  <link rel="stylesheet" href="/assets/css/chrome.css?v=eacaf2a72e" />
 </head>
 <body class="fg fg--page cp">
   <!-- header:start -->
@@ -138,13 +138,13 @@
           </div>
           <p class="cp-hero__facts">Preview: &ldquo;Inside a Tantrum&rdquo; &middot; No account needed</p>
           <p class="cp-hero__facts">$49 once &middot; Lifetime access &middot; 13 lessons, about 2.5 hours &middot; Ask the research included, up to 50 questions a day</p>
-          <p class="cp-hero__facts">14-day refund if it isn&rsquo;t right for you (<a href="/terms-of-sale/">refund terms</a>)</p>
+          <p class="cp-hero__facts">Full refund within 14 days if you&rsquo;ve watched 4 lessons or fewer; the free preview lesson doesn&rsquo;t count. <a href="/terms-of-sale/">Refund terms</a></p>
           <nav class="cp-jump" aria-label="On this page">
             <a href="#sample">Read part of a lesson</a><a href="#syllabus">What&rsquo;s inside</a><a href="#educator">Who teaches it</a><a href="#questions">Common questions</a>
           </nav>
         </div>
-        <figure class="cp-hero__photo cp-hero__photo--wc">
-          <img src="/assets/img/site/wc/big-feelings-1.webp" width="630" height="581" alt="A watercolor of a parent sitting close beside a crying toddler, wooden blocks on the floor between them." fetchpriority="high" decoding="async" />
+        <figure class="cp-hero__photo">
+          <img src="/assets/img/site/class-toddler-400.jpg" srcset="/assets/img/site/class-toddler-400.jpg 400w, /assets/img/site/class-toddler.jpg 800w" sizes="(min-width: 900px) 40vw, 92vw" width="800" height="800" alt="A toddler&rsquo;s hand pushes a sippy cup across a wooden table while a parent&rsquo;s hand rests nearby." fetchpriority="high" decoding="async" />
         </figure>
       </div>
     </section>
@@ -383,7 +383,7 @@
           <p class="signup__price"><strong>$49</strong> once &middot; lifetime access</p>
           <p class="signup__note">Set up a free account (or sign in), pay securely, and the first lesson opens right away.</p>
           <a class="btn btn--primary btn--block btn--lg" href="/nsc/class-signup?next=%2Fapp%2Fclasses%2Ftoddlerhood%2Fenroll">Enroll, $49</a>
-          <p class="signup__refund">14-day refund if it isn&rsquo;t right for you. <a href="/terms-of-sale/">Refund terms</a>.</p>
+          <p class="signup__refund">Full refund within 14 days if you&rsquo;ve watched 4 lessons or fewer. <a href="/terms-of-sale/">Terms of sale</a>.</p>
           <p class="signup__fine">Already enrolled? <a href="/nsc/class-login">Open My classes</a>. Questions first? <a href="/contact/">Ask Matthew</a>.</p>
         </div>
         <div class="signup__body">
@@ -397,26 +397,6 @@
       </div>
     </section>
 
-
-    <!-- Not ready yet: one short note when something new is ready (main.js, [data-newsletter]) -->
-    <section class="hb-section hb-section--tight note-signup-band" aria-labelledby="note-signup-heading">
-      <div class="hb-container note-signup">
-        <div>
-          <h2 class="hb-display hb-display--m" id="note-signup-heading">Not ready to enroll?</h2>
-          <p class="hb-soft">Get a short note when a new free guide, article or lesson is ready. No fixed schedule, no filler.</p>
-        </div>
-        <form class="inline-signup" method="POST" action="/api/waitlist" data-newsletter data-success="You&rsquo;re in. We&rsquo;ll write when something new is ready.">
-          <input type="hidden" name="subject" value="Class Page Email Signup (Toddler class), From Little Onward" />
-          <input type="hidden" name="interest" value="Toddler class page notes" />
-          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
-          <input type="email" name="email" required autocomplete="email" placeholder="your@email.com" class="inline-signup__input" aria-label="Email address" aria-describedby="noteEmailError" />
-          <button type="submit" class="hb-btn" data-track-cta="class-email-toddler">Send me notes</button>
-          <p id="noteEmailError" class="field-error" role="alert"></p>
-          <p role="status" aria-live="polite" class="inline-signup__status"></p>
-          <p class="inline-signup__disclaimer">Unsubscribe anytime. <a href="/privacy/">Privacy</a></p>
-        </form>
-      </div>
-    </section>
   </main>
 
   <!-- Phone-only enroll bar: appears once the hero buttons have scrolled away,
@@ -472,6 +452,7 @@
           <h2 class="site-footer__heading">Elsewhere</h2>
           <ul class="footer-list">
             <li><a href="https://www.instagram.com/fromlittleonward/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+            <li><a href="/arcade/">Arcade</a></li>
           </ul>
         </div>
       </nav>
@@ -490,7 +471,7 @@
   <script src="/assets/js/chrome.js?v=d5fdf5ae8e"></script>
 
   <script src="../assets/js/main.js?v=b5c8e48c2d" defer></script>
-  <script src="/assets/js/home.js?v=c676e0656b" defer></script>
+  <script src="/assets/js/home.js?v=8dede58f73" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
