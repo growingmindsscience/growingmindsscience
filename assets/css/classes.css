@@ -40,7 +40,7 @@
 .cl-jump a { display: flex; flex-direction: column; justify-content: center; gap: 2px; min-height: 64px; padding: 12px 10px 12px 12px; color: var(--ink); text-decoration: none; }
 .cl-jump a + a { border-left: 1px solid var(--border-soft); }
 .cl-jump b { font-family: var(--font-display); font-weight: 400; font-size: 1.1875rem; line-height: 1.15; letter-spacing: -0.01em; }
-.cl-jump span { font-size: 13px; line-height: 1.3; color: var(--ink-muted); }
+.cl-jump span { font-size: 14px; line-height: 1.3; color: var(--ink-muted); }
 .cl-jump a:hover { background: var(--sage-mist); }
 .cl-jump a:hover b { color: var(--forest); }
 @media (min-width: 640px) {
@@ -51,7 +51,7 @@
 @media (max-width: 380px) {
   .cl-jump a { padding: 10px 6px 10px 8px; }
   .cl-jump b { font-size: 1rem; }
-  .cl-jump span { font-size: 12px; }
+  .cl-jump span { font-size: 13px; }
 }
 .cl-stage__age { display: block; margin-top: 4px; font-family: var(--font-body); font-size: 14px; font-weight: 500; letter-spacing: 0; line-height: 1.3; color: var(--ink-muted); }
 .cl-jump a:focus-visible, .cl-stage__free:focus-visible { outline: 2px solid var(--forest); outline-offset: 3px; }
@@ -92,7 +92,7 @@
 .cl-free__links a, .cl-free__note a { color: var(--on-ink-soft); }
 .cl-free__links a { display: inline-flex; align-items: center; min-height: 44px; }
 .cl-free__links a:hover, .cl-free__note a:hover { color: var(--on-ink); }
-.cl-free .cl-free__note { font-size: 13px; color: var(--on-ink-muted); margin-top: 20px; max-width: 56ch; }
+.cl-free .cl-free__note { font-size: 14px; color: var(--on-ink-muted); margin-top: 20px; max-width: 56ch; }
 .cl-free-section :focus-visible { outline: 2.5px solid var(--on-ink); outline-offset: 3px; }
 .cl-lesson { display: block; position: relative; overflow: hidden; border-radius: var(--radius-lg); color: var(--on-ink); background: var(--field-ink-2); text-decoration: none; }
 .cl-lesson > img { display: block; width: 100%; aspect-ratio: 8 / 5; object-fit: cover; }
@@ -101,8 +101,8 @@
 .cl-lesson:hover .cl-lesson__play { transform: translate(-50%, -50%) scale(1.08); }
 .cl-lesson__caption { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 20px; }
 .cl-lesson__caption b { display: block; color: var(--on-ink); font-weight: 500; font-size: 18px; }
-.cl-lesson__caption > span > span { display: block; color: var(--on-ink-soft); font-size: 13px; margin-top: 4px; }
-.cl-lesson__duration { font-size: 13px; color: var(--on-ink-soft); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.cl-lesson__caption > span > span { display: block; color: var(--on-ink-soft); font-size: 14px; margin-top: 4px; }
+.cl-lesson__duration { font-size: 14px; color: var(--on-ink-soft); white-space: nowrap; font-variant-numeric: tabular-nums; }
 @media (min-width: 861px) { .cl-free { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); } .cl-free__act .hb-btn { width: auto; } }
 
 .cl-hub a:focus-visible, .cl-hub summary:focus-visible { outline: 2.5px solid var(--forest); outline-offset: 3px; border-radius: var(--radius); }
@@ -224,7 +224,7 @@
 .cp .syllabus__lessons li { display: grid; grid-template-columns: 1.75rem 1fr; min-height: 32px; align-items: baseline; }
 .cp .syllabus__lessons li > span:first-child { color: var(--ink-muted); font-variant-numeric: tabular-nums; }
 .cp .syllabus__lessons a { display: inline-flex; align-items: center; min-height: 44px; margin-block: -6px; }
-.cp .syllabus__free { font-style: normal; font-size: 13px; color: var(--clay-text); margin-left: 8px; }
+.cp .syllabus__free { font-style: normal; font-size: 14px; color: var(--clay-text); margin-left: 8px; }
 @media (min-width: 761px) { .cp .syllabus__item { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 12px clamp(32px, 5vw, 80px); } }
 
 /* ---------- Sources: the research-blue module ---------- */
@@ -234,7 +234,7 @@
 .cp .sources-list { list-style: none; padding: 0; display: grid; }
 .cp .sources-list li { display: grid; gap: 4px 24px; padding-block: 12px; border-top: 1px solid var(--border-soft); font-size: 15px; line-height: 1.45; }
 .cp .sources-list li:first-child { border-top: 0; padding-top: 0; }
-.cp .sources-list__where { font-size: 13px; color: var(--research); }
+.cp .sources-list__where { font-size: 14px; color: var(--research); }
 .cp .sources-list a { color: var(--research); display: inline-flex; align-items: center; min-height: 44px; margin-block: -10px; }
 
 /* ---------- The figure (chart or timeline) ---------- */
@@ -253,12 +253,12 @@
 .cp .fig-curve--b { stroke: var(--forest); stroke-dasharray: 9 7; }
 .cp .fig-dot { fill: var(--note-amber); stroke: var(--surface); stroke-width: 2; }
 .cp .fig-label--band { fill: var(--forest); font-weight: 600; }
-.cp .fig__key { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 12px; font-size: 13px; color: var(--ink-soft); list-style: none; padding: 0; }
+.cp .fig__key { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 12px; font-size: 14px; color: var(--ink-soft); list-style: none; padding: 0; }
 .cp .fig__key li { display: inline-flex; align-items: center; gap: 8px; }
 .cp .fig__key-line { width: 1.75rem; border-top: 3px solid var(--ink); }
 .cp .fig__key-line--b { border-top: 3px dashed var(--forest); }
 .cp .fig-label--calm { fill: var(--forest); font-weight: 600; }
-.cp .fig__caption { margin-top: 14px; font-size: 13px; line-height: 1.5; color: var(--ink-muted); max-width: 70ch; }
+.cp .fig__caption { margin-top: 14px; font-size: 14px; line-height: 1.5; color: var(--ink-muted); max-width: 70ch; }
 .cp .fig__caption b { color: var(--ink); font-weight: 600; }
 @media (max-width: 640px) { .cp .fig-text { font-size: 20px; } .cp .fig-text--sm { font-size: 18px; } }
 
@@ -279,7 +279,7 @@
 .tl__row:hover .tl__name { text-decoration: underline; text-underline-offset: 0.16em; }
 .tl--class .tl__row--dim { --bar: var(--sage-mist-2); --bar-hover: var(--sage-deep); }
 .tl--class .tl__row--dim.tl__row--soon { --bar: var(--paper-2); }
-.tl figcaption { margin-top: 14px; font-size: 13px; color: var(--ink-muted); }
+.tl figcaption { margin-top: 14px; font-size: 14px; color: var(--ink-muted); }
 .tl figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.4em; }
 
 /* ---------- Who teaches it ---------- */
@@ -294,7 +294,7 @@
 .cp ul.reading { list-style: none; padding: 8px clamp(16px, 2.4vw, 28px); background: var(--sage-mist); border-radius: var(--radius-lg); display: grid; }
 .cp .reading li + li { border-top: 1px solid var(--sage-mist-2); }
 .cp .reading a { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; align-items: baseline; padding-block: 14px; min-height: 48px; text-decoration: none; }
-.cp .reading__kind { grid-column: 1 / -1; font-size: 13px; color: var(--ink-muted); }
+.cp .reading__kind { grid-column: 1 / -1; font-size: 14px; color: var(--ink-muted); }
 .cp .reading__title { font-weight: 500; }
 .cp .reading a:hover .reading__title { color: var(--forest); text-decoration: underline; text-underline-offset: 0.16em; }
 @media (min-width: 561px) { .cp .reading a { grid-template-columns: minmax(0, 9rem) minmax(0, 1fr) auto; } .cp .reading__kind { grid-column: auto; } }
@@ -414,3 +414,11 @@
   .cp .cp-hero__copy .hero__ctas { align-items: stretch; }
   .cp .cp-hero__copy .hero__ctas .hb-btn { justify-content: center; }
 }
+
+/* Watercolor art (the brand's illustration style) in place of photographs: the figures are
+   cut out on transparent paper, so they sit whole on the sage panel instead of being cropped. */
+.cl-stage__image--wc img { object-fit: contain; padding: 6% 10%; }
+.cp-hero__photo--wc img,
+.cp .cp-hero__photo--wc img { object-fit: contain; padding: 6% 9%; }
+.cl-lesson--wc > img { object-fit: contain; padding: 8% 5% 18%; background: #FAFCFE; }
+.cl-ai-note { margin-top: 28px; }
