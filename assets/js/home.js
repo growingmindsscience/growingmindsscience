@@ -140,13 +140,13 @@
     if (heroMoves && heroStage && "IntersectionObserver" in window) {
       var stageBox = heroStage.getBoundingClientRect();
       var inView = Math.min(stageBox.bottom, window.innerHeight || root.clientHeight) - Math.max(stageBox.top, 0);
-      if (inView < stageBox.height * 0.6) {
+      if (inView < stageBox.height * 0.9) {
         heroPlate.classList.add("is-waiting");
         var heroSeen = new IntersectionObserver(function (entries) {
           if (!entries[0].isIntersecting) return;
           heroPlate.classList.remove("is-waiting");
           heroSeen.disconnect();
-        }, { threshold: 0.6 });
+        }, { threshold: 0.9 });
         heroSeen.observe(heroStage);
       }
     }
@@ -315,7 +315,7 @@
     mark(0);
     fit();
   });
-  /* Age picker in the homepage hero. Choosing an age marks the class
+  /* Age picker on the homepage classes section. Choosing an age marks the class
      that covers it, moves that class to the top of the list on a phone, and
      shows one recommendation: the class, its free sample if it has one, and
      the bundle while there are classes still ahead. Without script each age
@@ -389,9 +389,8 @@
       if (cls.sampleHref) actions.appendChild(link(cls.sampleHref, cls.sampleLabel, "agepick-sample", "agepick__sample"));
       note.appendChild(actions);
       }
-      var fine = el("p", "agepick__line", "The free lesson needs no account. ");
-      fine.appendChild(link("/terms-of-sale/", "14-day refund", "agepick-refund"));
-      fine.appendChild(document.createTextNode(" if it isn\u2019t right for you."));
+      var fine = el("p", "agepick__line", "The free lesson needs no account. Full refund within 14 days of buying if you have watched four lessons or fewer. ");
+      fine.appendChild(link("/terms-of-sale/", "Refund terms", "agepick-refund"));
       note.appendChild(fine);
       var more = el("p", "agepick__links");
       // The bundle only helps while a later class is still ahead of the child.
@@ -407,24 +406,5 @@
       o.addEventListener("click", function (ev) { ev.preventDefault(); choose(o); });
       o.addEventListener("keydown", function (ev) { if (ev.key === " ") { ev.preventDefault(); choose(o); } });
     });
-  }
-  /* Families' words (scripts/build-quotes.mjs). The pull line's words carry a sage marker inside
-     each quote; with motion welcome the marker draws on once the quote is on screen
-     (fg-base.css holds it at zero until .is-drawn). Without IntersectionObserver, or on print,
-     every stroke is simply there. */
-  var pqItems = Array.prototype.slice.call(document.querySelectorAll(".pq__item"));
-  if (pqItems.length) {
-    var drawAll = function () { pqItems.forEach(function (el) { el.classList.add("is-drawn"); }); };
-    if (root.classList.contains("anim") && "IntersectionObserver" in window) {
-      var pqSeen = new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) {
-          if (en.isIntersecting) { en.target.classList.add("is-drawn"); pqSeen.unobserve(en.target); }
-        });
-      }, { rootMargin: "0px 0px -15% 0px", threshold: 0.35 });
-      pqItems.forEach(function (el) { pqSeen.observe(el); });
-      window.addEventListener("beforeprint", drawAll);
-    } else {
-      drawAll();
-    }
   }
 })();

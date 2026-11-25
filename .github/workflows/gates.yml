@@ -110,14 +110,6 @@ jobs:
             echo "::notice::scripts/build-explore.mjs not present on this ref — skipping"
           fi
 
-      - name: Parent quotes on the pages match their data, and every quote has consent (drift gate)
-        run: |
-          if [ -f scripts/build-quotes.mjs ]; then
-            node scripts/build-quotes.mjs --check
-          else
-            echo "::notice::scripts/build-quotes.mjs not present on this ref — skipping"
-          fi
-
       # vercel.json serves /assets/css and /assets/js as immutable for a year, so a
       # page that links a changed file without a fresh ?v= hash would keep serving
       # the old copy to returning visitors. Fails if any reference is stale.

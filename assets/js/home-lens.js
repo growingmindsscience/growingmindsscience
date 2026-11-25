@@ -18,8 +18,8 @@
   /* ---- Timing and camera. Edit here. -------------------------------------
      Lengths are in screens of scrolling. REST is how long each beat holds
      still; CHANGE is the travel from one beat to the next. */
-  var REST = [0.14, 0.2, 0.2, 0.16];        // about 1.1 screens in all (was 1.85): the story
-  var CHANGE = 0.13;                         // stays, the classes come sooner
+  var REST = [0.25, 0.35, 0.35, 0.3];
+  var CHANGE = 0.2;
   /* Each beat's camera across its time on stage: scale from/to, and a sideways
      drift as a fraction of the stage width. Beat 3 does not move at all. */
   var CAMERA = [
