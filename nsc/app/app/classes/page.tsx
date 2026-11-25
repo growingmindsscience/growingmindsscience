@@ -145,7 +145,7 @@ export default async function MyClassesPage({ searchParams }: {
           {bundleOpen && (
             <Card className="flex flex-col gap-1 border-2 border-teal sm:flex-row sm:items-center sm:gap-6">
               <div className="flex-1">
-                <Eyebrow>Birth to age 5 · Without the family class</Eyebrow>
+                <Eyebrow>Our pick · Birth to age 5, without the family class</Eyebrow>
                 <h3 className="mt-2 text-xl text-ink-deep">{CLASS_BUNDLE.title}</h3>
                 <p className="mt-1 text-sm text-ink-soft">
                   Birth to 12 months, Toddler years, and Preschool years, ready as your child grows.
