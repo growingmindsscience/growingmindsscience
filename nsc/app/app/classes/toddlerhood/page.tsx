@@ -37,7 +37,7 @@ export default async function ToddlerClassPage({ searchParams }: {
           {error === "not-open" && <p role="alert" className="mt-3 text-sm text-coral-deep">Enrollment is not open for this account yet.</p>}
           {error === "checkout-unavailable" && <p role="alert" className="mt-3 text-sm text-coral-deep">Checkout is unavailable right now. Please try again later.</p>}
           {salesOpen ? <form action={startClassCheckout} className="mt-5"><Button type="submit">Enroll now</Button></form> : (
-            <p className="mt-4 text-sm text-ink-muted">Enrollment opens once all 13 lessons are published.</p>
+            <p className="mt-4 text-sm text-ink-muted">Enrollment opens once all 26 lessons are published.</p>
           )}
           <PurchaseTerms narration />
         </Card>
