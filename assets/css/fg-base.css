@@ -217,46 +217,45 @@
    Written by scripts/build-quotes.mjs from marketing/parent-quotes.json, between
    <!-- quotes:<page>:start/end --> markers. With no quotes the markers stay empty and
    nothing shows. Only real words, used with the family's yes.
-   Set like a page of a well-made book, not a wall of cards: a 2px ink rule opens the list
-   (an index list), the first quote leads at statement size with its opening quotation mark
-   hung in the margin, and the rest stand beside it under 1px rules. Ink only: verdigris acts,
-   so no quote mark or credit is green. Flat: no boxes, no shadows. */
-.pq { background: var(--paper-2); }
+   Set the way a publisher sets review quotes: the line that carries the change, lifted word
+   for word from the parent's quote (the build refuses any other), stands large; the whole quote
+   follows at reading size; the credit closes it. Inside the quote the same words carry a soft
+   sage marker (not an underline: underlines on this site are links), drawn on as the quote
+   comes into view. A 2px ink
+   rule opens the list, 1px rules part the rows. Ink only, flat, no boxes. */
+.pq { background: var(--paper-2); --pq-marker: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 16' preserveAspectRatio='none'%3E%3Cpath d='M3.5 4.2C42 2.2 118 3.4 196.8 2.4C198.6 5.6 199 10 197.6 13.4C128 14.6 58 13.6 2.8 14.2C1.4 10.8 1.6 7.2 3.5 4.2Z' fill='%23B9D0C1'/%3E%3C/svg%3E"); }
+[data-theme="dark"] .pq { --pq-marker: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 16' preserveAspectRatio='none'%3E%3Cpath d='M3.5 4.2C42 2.2 118 3.4 196.8 2.4C198.6 5.6 199 10 197.6 13.4C128 14.6 58 13.6 2.8 14.2C1.4 10.8 1.6 7.2 3.5 4.2Z' fill='%23416B5B'/%3E%3C/svg%3E"); }
 .pq__intro { margin-top: 12px; max-width: 60ch; font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
 .pq__list { display: grid; grid-template-columns: minmax(0, 1fr); margin: clamp(28px, 3.5vw, 44px) 0 0; padding: 0; list-style: none; border-top: 2px solid var(--ink); }
-.pq__li { padding-block: clamp(24px, 3vw, 36px); }
+.pq__li { padding-block: clamp(28px, 3.4vw, 44px); }
 .pq__li + .pq__li { border-top: 1px solid var(--border-soft); }
-.pq__item { margin: 0; }
-.pq__text { margin: 0; font-family: var(--font-display); font-size: clamp(1.125rem, 1.05rem + 0.25vw, 1.25rem); line-height: 1.45; color: var(--ink); text-wrap: pretty; }
+.pq__item { margin: 0; max-width: 38rem; }
+/* The pull line: hung quotation marks, no full stop. The build capitalizes its first letter. */
+.pq__pull { margin: 0; font-family: var(--font-display); font-size: clamp(1.5rem, 1.2rem + 1vw, 2.125rem); font-weight: 500; line-height: 1.14; letter-spacing: -0.018em; color: var(--ink); text-indent: -0.4em; text-wrap: balance; }
+.fg .pq__pull { text-wrap: balance; }
+.pq__pull::before { content: "\201C"; }
+.pq__pull::after { content: "\201D"; }
+.pq__text { margin: 16px 0 0; font-family: var(--font-display); font-size: clamp(1.0625rem, 1rem + 0.2vw, 1.1875rem); line-height: 1.55; color: var(--ink-soft); text-wrap: pretty; }
 .pq__text p { margin: 0; }
 .pq__text p + p { margin-top: 0.6em; }
-/* Hanging punctuation: the opening mark sits in the margin, so the words keep the column's edge. */
 .pq__text > p:first-child { text-indent: -0.42em; }
 .pq__text > p:first-child::before { content: "\201C"; }
 .pq__text > p:last-child::after { content: "\201D"; }
-.pq__li--lead .pq__text { font-size: clamp(1.5rem, 1.15rem + 1.2vw, 2.125rem); line-height: 1.28; letter-spacing: -0.012em; }
-.pq__who { margin-top: 18px; font-family: var(--font-body); font-size: 15px; line-height: 1.45; }
+.pq__mark { color: var(--ink); background: var(--pq-marker) no-repeat 0 62% / 100% 0.82em; padding-inline: 0.08em; margin-inline: -0.08em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+@media (prefers-reduced-motion: no-preference) {
+  html.anim .pq__mark { transition: background-size 1100ms cubic-bezier(0.5, 0, 0.2, 1) 250ms; }
+  html.anim .pq__item:not(.is-drawn) .pq__mark { background-size: 0% 0.82em; }
+}
+.pq__who { margin-top: 20px; font-family: var(--font-body); font-size: 15px; line-height: 1.45; }
 .pq__role { display: block; color: var(--ink); font-weight: 600; }
 .pq__ctx { display: block; color: var(--ink-muted); }
-.pq__li--lead .pq__who { margin-top: 24px; }
-@media (min-width: 900px) {
-  /* The lead quote on the left; the others stacked beside it, each under a 1px rule. */
-  .pq__list:not(.pq__list--even):has(> li:nth-child(2)) { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: clamp(48px, 6vw, 104px); }
-  .pq__list:not(.pq__list--even):has(> li:nth-child(2)) .pq__li--lead { grid-column: 1; grid-row: 1 / span 3; padding-right: 0; }
-  .pq__list:not(.pq__list--even):has(> li:nth-child(2)) .pq__li:not(.pq__li--lead) { grid-column: 2; }
-  .pq__list:not(.pq__list--even):has(> li:nth-child(2)) .pq__li:nth-child(2) { border-top: 0; }
-  .pq__list:not(.pq__list--even):has(> li:nth-child(2)) .pq__li--lead { border-top: 0; }
-  /* The lead stays in view while the reader passes the quotes beside it. */
-  .pq__list:not(.pq__list--even):has(> li:nth-child(2)) .pq__li--lead .pq__item { position: sticky; top: calc(var(--header-h, 72px) + 32px); }
-  /* One quote alone keeps a readable measure. */
-  .pq__list:not(:has(> li:nth-child(2))) .pq__li--lead .pq__item { max-width: 46rem; }
+@media (min-width: 860px) {
+  /* Two to a row; the first row sits on the 2px rule, later rows under a 1px rule. */
+  .pq__list:has(> li:nth-child(2)) { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(48px, 6vw, 104px); }
+  .pq__list:has(> li:nth-child(2)) > .pq__li:nth-child(2) { border-top: 0; }
 }
-/* Inside the homepage's "person behind the classes": two families' words under the bio, as
-   equal columns under the same 2px rule. No lead, no band of its own. */
+/* Inside the homepage's "person behind the classes": no band of its own, an h3 for a name. */
 .pq--inline { background: none; margin-top: clamp(48px, 6vw, 88px); }
 .pq__heading { font-family: var(--font-display); font-size: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem); font-weight: 500; line-height: 1.15; letter-spacing: -0.01em; color: var(--ink); }
 .pq--inline .pq__list { margin-top: clamp(20px, 2.5vw, 28px); }
-@media (min-width: 760px) {
-  .pq__list--even { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(40px, 5vw, 88px); }
-  .pq__list--even > .pq__li:nth-child(-n + 2) { border-top: 0; }
-}
+@media print { .pq__item .pq__mark { background-size: 100% 0.82em !important; } }

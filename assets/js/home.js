@@ -408,4 +408,23 @@
       o.addEventListener("keydown", function (ev) { if (ev.key === " ") { ev.preventDefault(); choose(o); } });
     });
   }
+  /* Families' words (scripts/build-quotes.mjs). The pull line's words carry a sage marker inside
+     each quote; with motion welcome the marker draws on once the quote is on screen
+     (fg-base.css holds it at zero until .is-drawn). Without IntersectionObserver, or on print,
+     every stroke is simply there. */
+  var pqItems = Array.prototype.slice.call(document.querySelectorAll(".pq__item"));
+  if (pqItems.length) {
+    var drawAll = function () { pqItems.forEach(function (el) { el.classList.add("is-drawn"); }); };
+    if (root.classList.contains("anim") && "IntersectionObserver" in window) {
+      var pqSeen = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add("is-drawn"); pqSeen.unobserve(en.target); }
+        });
+      }, { rootMargin: "0px 0px -15% 0px", threshold: 0.35 });
+      pqItems.forEach(function (el) { pqSeen.observe(el); });
+      window.addEventListener("beforeprint", drawAll);
+    } else {
+      drawAll();
+    }
+  }
 })();

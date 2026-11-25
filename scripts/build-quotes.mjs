@@ -46,6 +46,8 @@ quotes.forEach((q, i) => {
   if (typeof q.label !== "string" || !q.label.trim() || q.label.length > 80) problems.push(`${at}: label must say who this is and how they worked with Matthew, in under 80 characters`);
   if (typeof q.consent !== "string" || q.consent.trim().length < 4) problems.push(`${at}: consent must say where and when the parent said yes`);
   if (!Array.isArray(q.pages) || !q.pages.length || q.pages.some((k) => !PAGES[k])) problems.push(`${at}: pages must list one or more of ${Object.keys(PAGES).join(", ")}`);
+  if (typeof q.pull !== "string" || !q.pull.trim() || q.pull.length > 70) problems.push(`${at}: pull must be a short line (under 70 characters) taken from the quote`);
+  else if (typeof q.text === "string" && !q.text.includes(q.pull)) problems.push(`${at}: pull must appear word for word in the quote's text`);
   const key = (q.text || "").trim().toLowerCase();
   if (seen.has(key)) problems.push(`${at}: duplicate text`);
   seen.add(key);
@@ -59,17 +61,24 @@ function render(key) {
   const { variant, max } = PAGES[key];
   const list = quotes.filter((q) => q.pages.includes(key)).slice(0, max);
   if (!list.length) return "\n";
-  const lead = variant === "section";
-  const items = list.map((q, i) => {
-    const paras = q.text.trim().split(/\n\s*\n/).map((p) => `<p>${esc(p.trim())}</p>`).join("");
+  const items = list.map((q) => {
+    // The pull line is the parent's own words, lifted from the quote; in the full quote the same
+    // words carry a sage marker (drawn on by home.js as the quote comes into view). The large line
+    // only capitalizes its first letter, as a quoted fragment opening a line does.
+    let marked = false;
+    const paras = q.text.trim().split(/\n\s*\n/).map((p) => {
+      const at = marked ? -1 : p.indexOf(q.pull);
+      if (at === -1) return `<p>${esc(p.trim())}</p>`;
+      marked = true;
+      return `<p>${esc(p.slice(0, at)).trimStart()}<span class="pq__mark">${esc(q.pull)}</span>${esc(p.slice(at + q.pull.length)).trimEnd()}</p>`;
+    }).join("");
     // "Parent of a toddler, in-home coaching" reads as who, then how they worked with Matthew.
     const label = q.label.trim();
     const cut = label.indexOf(", ");
     const role = (q.name ? q.name.trim() + ", " : "") + (cut === -1 ? label : label.slice(0, cut));
     const ctx = cut === -1 ? "" : label.slice(cut + 2).replace(/^./, (c) => c.toUpperCase());
     const who = `<span class="pq__role">${esc(role)}</span>` + (ctx ? `<span class="pq__ctx">${esc(ctx)}</span>` : "");
-    const cls = lead && i === 0 ? "pq__li pq__li--lead" : "pq__li";
-    return `          <li class="${cls}"><figure class="pq__item"><blockquote class="pq__text">${paras}</blockquote><figcaption class="pq__who">${who}</figcaption></figure></li>`;
+    return `          <li class="pq__li"><figure class="pq__item"><p class="pq__pull" aria-hidden="true">${esc(q.pull.charAt(0).toUpperCase() + q.pull.slice(1))}</p><blockquote class="pq__text">${paras}</blockquote><figcaption class="pq__who">${who}</figcaption></figure></li>`;
   });
   if (variant === "inline") {
     return `
