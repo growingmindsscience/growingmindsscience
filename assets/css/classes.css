@@ -291,6 +291,9 @@
 @media (min-width: 561px) { .cp .educator { grid-template-columns: 72px minmax(0, 1fr); gap: 20px; } .cp .educator__photo { width: 72px; height: 72px; } }
 
 /* ---------- Free reading (inside a disclosure) ---------- */
+/* Free tools for the moments a class covers, at the end of "What this class helps with". */
+.cp .cp-free-tools { margin-top: 40px; }
+.cp .cp-free-tools__head { margin: 0 0 14px; font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.625rem); line-height: 1.15; }
 .cp ul.reading { list-style: none; padding: 8px clamp(16px, 2.4vw, 28px); background: var(--sage-mist); border-radius: var(--radius-lg); display: grid; }
 .cp .reading li + li { border-top: 1px solid var(--sage-mist-2); }
 .cp .reading a { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; align-items: baseline; padding-block: 14px; min-height: 48px; text-decoration: none; }

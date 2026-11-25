@@ -135,7 +135,6 @@
   .fg .rn-help__line { flex-basis: 100%; }
 }
 @media (max-width: 480px) {
-  .rn-bar .brand__desc { display: none; }
   .fg .rn-main { padding-top: 36px; }
   .fg .rn-choice { gap: 16px; padding: 20px 4px; }
   .rn-choice__name { font-size: 1.5rem; }
@@ -143,6 +142,14 @@
   .fg .rn-answer__title { font-size: 2.25rem; }
   .fg .rn-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 28px; }
   .fg .rn-actions .btn { width: 100%; padding-inline: 10px; font-size: 14px; }
+}
+/* Keep the whole name on small phones: tighten the lockup instead of dropping "Onward". */
+@media (max-width: 380px) {
+  .fg .rn-bar { gap: 12px; }
+  .rn-bar .brand { gap: 0.45em; }
+  .rn-bar .brand__mark { width: 28px; height: 28px; }
+  .rn-bar .brand__name { font-size: 1.2rem; }
+  .rn-bar .brand__desc { font-size: 10px; letter-spacing: 0.24em; }
 }
 @media (prefers-reduced-motion: reduce) {
   .rn-choice__arrow, .rn-why summary .rn-icon, .fg .rn-choice, .fg.rn-body .btn { transition: none; }

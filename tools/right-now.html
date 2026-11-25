@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="/assets/css/field-guide.css?v=27d30a5c46" />
   <link rel="stylesheet" href="/assets/css/fg-base.css?v=ee0161fdd8" />
   <link rel="stylesheet" href="/assets/css/tools.css?v=4c6ab1c94c" />
-  <link rel="stylesheet" href="/assets/css/rightnow.css?v=46466466e5" />
+  <link rel="stylesheet" href="/assets/css/rightnow.css?v=2824a0d62e" />
   <script>/* Enable motion only when it is welcome; otherwise content stays visible (no-JS & reduced-motion safe). */try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('anim');}catch(e){}
   /* Apply saved/system theme before paint (same key as chrome.js so the choice follows the visitor). */try{var t=localStorage.getItem('gms-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 </head>
@@ -213,7 +213,8 @@
        under the steps. when: when to call the pediatrician or 911. whenLink: a
        further read for that line. full: where the full guide is, when it is not a
        tool. infant: the guide for a baby under 12 months (from the saved profile).
-       sources: the guidance the safety lines rest on. -->
+       sources: the guidance the safety lines rest on. next: an optional, quiet
+       link to the class lesson that goes deeper, shown after the help. -->
   <script id="router-notes" type="application/json">
   {
     "crying": {
@@ -236,7 +237,17 @@
       ]
     },
     "patience": {
-      "edge": "If you're near your edge, put your child somewhere safe, like a crib for a baby, and step away for a few minutes."
+      "edge": "If you're near your edge, put your child somewhere safe, like a crib for a baby, and step away for a few minutes.",
+      "next": { "lead": "Later, when you have a minute to yourself, the family class goes deeper on this in ", "href": "/classes/family-systems#syllabus", "text": "“Your Own Nervous System Comes First.”", "tail": "" }
+    },
+    "meltdown": {
+      "next": { "lead": "When things are calm, you can ", "href": "/nsc/classes/toddlerhood/preview", "text": "watch “Inside a Tantrum,” a free toddler lesson", "tail": "." }
+    },
+    "limit": {
+      "next": { "lead": "When things are calm, the toddler class goes deeper on this in ", "href": "/classes/toddlerhood#syllabus", "text": "“Choices and Warm Limits.”", "tail": "" }
+    },
+    "repair": {
+      "next": { "lead": "When you're ready, the toddler class goes deeper on this in ", "href": "/classes/toddlerhood#syllabus", "text": "“After the Storm: Repair.”", "tail": "" }
     }
   }
   </script>
@@ -246,7 +257,7 @@
 
   <script src="../assets/js/main.js?v=b5c8e48c2d" defer></script>
   <script src="../assets/js/gms-tools.js?v=b238e4bcd4" defer></script>
-  <script src="../assets/js/rightnow.js?v=8fe4fb2b92" defer></script>
+  <script src="../assets/js/rightnow.js?v=cf53aecae3" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
