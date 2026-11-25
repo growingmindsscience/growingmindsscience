@@ -1,10 +1,47 @@
 {
   "_how_to_add": [
-    "Only a parent's own words, used with their yes to being quoted on the site. Never write, reword or combine quotes.",
-    "text: their words, trimmed only (an ellipsis where you cut). name: first name only, one word. detail: optional, e.g. 'parent of a 2-year-old', only if they said that is fine.",
-    "classes: which pages show it: infant, toddlerhood, preschool, family. The homepage and pricing page show any quote. consent: where and when they said yes, e.g. 'email, 2026-12-03'. It is not published.",
+    "Only a parent's own words, used with their yes to being quoted on the site. Never write, reword or combine quotes; check the text against the recording or the parent's approved wording, not an AI summary of the session.",
+    "text: their words, trimmed only (an ellipsis where you cut). Changing he/she to 'my child' to anonymize is fine. name: optional, first name only. label: who this is and how they worked with Matthew (e.g. 'Parent of a toddler, in-home coaching'), so no one takes it for a review of the video classes.",
+    "pages: where it shows: home, pricing, infant, toddlerhood, preschool, family (up to 4 per page, in file order). consent: where and when the parent said yes. It is not published; this file is not deployed.",
     "Then run: node scripts/build-quotes.mjs and commit. CI fails if the pages and this file disagree (node scripts/build-quotes.mjs --check).",
-    "The finish-a-class prompt on the contact page asks 'OK to share a line of this on the site, first name only?'. Replies that say yes are the source."
+    "One quote per family. Never add Review or Rating structured data for these."
   ],
-  "quotes": []
+  "quotes": [
+    {
+      "text": "Before, my toddler would just take off in parking lots. But using the boundaries we practiced, calmly explaining, ‘You’re going to hold my hand and we’re going to walk, we’re not running here,’ my child was completely fine with it. I definitely see improvement in how my child understands expectations and responds to direction.",
+      "label": "Parent of a toddler, in-home coaching",
+      "pages": [
+        "home",
+        "toddlerhood"
+      ],
+      "consent": "Written permission on file from the family (per Matthew, 2026-11-25). Anonymized: no name, gender or child's name."
+    },
+    {
+      "text": "Stepping back and letting my child do things independently, rather than stepping in and over-helping, built confidence so fast. My toddler insists on using the spoon alone now, and watching those fine motor skills take off has been amazing.",
+      "label": "Parent of a toddler, in-home coaching",
+      "pages": [
+        "home",
+        "toddlerhood"
+      ],
+      "consent": "Written permission on file from the family (per Matthew, 2026-11-25). Anonymized: no name, gender or child's name."
+    },
+    {
+      "text": "I was worried starting new milestones would cause a regression, but having that structured scaffolding gave my baby so much security. There’s incredible eye contact, social babbling, and thriving around other children.",
+      "label": "Parent, in-person infant class",
+      "pages": [
+        "home",
+        "infant"
+      ],
+      "consent": "Written permission on file from the family (per Matthew, 2026-11-25). Anonymized: no name, gender or child's name."
+    },
+    {
+      "text": "With my older child, I was much more of a helicopter parent. Through this guidance, I learned to let my toddler explore, test limits, and figure things out naturally without constantly saying ‘no.’ My child is curious, confident, and learning that the world is a safe place to try.",
+      "label": "Parent of a toddler, in-home coaching",
+      "pages": [
+        "home",
+        "toddlerhood"
+      ],
+      "consent": "Written permission on file from the family (per Matthew, 2026-11-25). Anonymized: no name, gender or child's name."
+    }
+  ]
 }

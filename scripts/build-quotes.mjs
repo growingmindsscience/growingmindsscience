@@ -8,31 +8,31 @@
 //   node scripts/build-quotes.mjs          # rewrite the pages
 //   node scripts/build-quotes.mjs --check  # exit 1 if a page and the data disagree, or a quote breaks a rule
 //
-// Rules, enforced here because a testimonial must be real: every quote names where the
-// parent said yes (consent), uses a first name only, and stays short.
+// Rules, enforced here because a testimonial must be real: every quote records where the
+// parent said yes (consent), carries a label saying how the family worked with Matthew,
+// uses at most a first name, and stays short. Never Review/Rating structured data: these
+// are not reviews of a product.
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CHECK = process.argv.includes("--check");
-const MAX_PER_PAGE = 3;
+const MAX_PER_PAGE = 4;
 
-const CLASSES = {
-  infant: "Birth to 12 months class",
-  toddlerhood: "Toddler class",
-  preschool: "Preschool class",
-  family: "Whole-family class",
-};
-// key -> [file, which quotes]. "any" pages show quotes from every class.
+// Page keys, as in the <!-- quotes:<key>:start --> markers. A quote lists the pages it appears on.
 const PAGES = {
-  home: ["index.html", "any"],
-  pricing: ["pricing.html", "any"],
-  infant: ["classes/birth-to-12-months.html", "infant"],
-  toddlerhood: ["classes/toddlerhood.html", "toddlerhood"],
-  preschool: ["classes/preschool.html", "preschool"],
-  family: ["classes/family-systems.html", "family"],
+  home: "index.html",
+  pricing: "pricing.html",
+  infant: "classes/birth-to-12-months.html",
+  toddlerhood: "classes/toddlerhood.html",
+  preschool: "classes/preschool.html",
+  family: "classes/family-systems.html",
 };
+// Matthew's families so far worked with him in person, so the section says so: no reader should
+// take these for reviews of the video classes.
+const HEADING = "From families Matthew has worked with";
+const INTRO = "Shared with the families’ written permission. Each one worked with Matthew in person.";
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
@@ -43,11 +43,11 @@ const seen = new Set();
 quotes.forEach((q, i) => {
   const at = `quote ${i + 1}`;
   if (!q || typeof q.text !== "string" || !q.text.trim()) problems.push(`${at}: no text`);
-  else if (q.text.length > 420) problems.push(`${at}: text over 420 characters; trim it with an ellipsis, never reword`);
-  if (typeof q.name !== "string" || !/^[\p{L}][\p{L}'’-]{0,29}$/u.test(q.name.trim())) problems.push(`${at}: name must be a first name only, one word`);
+  else if (q.text.length > 480) problems.push(`${at}: text over 480 characters; trim it with an ellipsis, never reword`);
+  if (q.name != null && (typeof q.name !== "string" || !/^[\p{L}][\p{L}'’-]{0,29}$/u.test(q.name.trim()))) problems.push(`${at}: name, if given, must be a first name only, one word`);
+  if (typeof q.label !== "string" || !q.label.trim() || q.label.length > 80) problems.push(`${at}: label must say who this is and how they worked with Matthew, in under 80 characters`);
   if (typeof q.consent !== "string" || q.consent.trim().length < 4) problems.push(`${at}: consent must say where and when the parent said yes`);
-  if (q.detail != null && (typeof q.detail !== "string" || q.detail.length > 60)) problems.push(`${at}: detail must be a short string`);
-  if (!Array.isArray(q.classes) || !q.classes.length || q.classes.some((c) => !CLASSES[c])) problems.push(`${at}: classes must list one or more of ${Object.keys(CLASSES).join(", ")}`);
+  if (!Array.isArray(q.pages) || !q.pages.length || q.pages.some((k) => !PAGES[k])) problems.push(`${at}: pages must list one or more of ${Object.keys(PAGES).join(", ")}`);
   const key = (q.text || "").trim().toLowerCase();
   if (seen.has(key)) problems.push(`${at}: duplicate text`);
   seen.add(key);
@@ -57,19 +57,19 @@ if (problems.length) {
   process.exit(1);
 }
 
-function render(key, which) {
-  const list = quotes.filter((q) => which === "any" || q.classes.includes(which)).slice(0, MAX_PER_PAGE);
+function render(key) {
+  const list = quotes.filter((q) => q.pages.includes(key)).slice(0, MAX_PER_PAGE);
   if (!list.length) return "\n";
   const items = list.map((q) => {
     const paras = q.text.trim().split(/\n\s*\n/).map((p) => `<p>${esc(p.trim())}</p>`).join("");
-    const cls = which === "any" ? CLASSES[q.classes[0]] : "";
-    const who = [q.detail ? esc(q.detail.trim()) : "", cls].filter(Boolean).join(" &middot; ");
-    return `          <li><figure class="pq__item"><blockquote class="pq__text">${paras}</blockquote><figcaption class="pq__who"><b>${esc(q.name.trim())}</b>${who ? ", " + who : ""}</figcaption></figure></li>`;
+    const who = q.name ? `<b>${esc(q.name.trim())}</b>, ${esc(q.label.trim())}` : esc(q.label.trim());
+    return `          <li><figure class="pq__item"><blockquote class="pq__text">${paras}</blockquote><figcaption class="pq__who">${who}</figcaption></figure></li>`;
   });
   return `
     <section class="hb-section hb-section--tight pq" aria-labelledby="pq-heading">
       <div class="hb-container">
-        <h2 class="hb-display hb-display--m" id="pq-heading">What parents say</h2>
+        <h2 class="hb-display hb-display--m" id="pq-heading">${esc(HEADING)}</h2>
+        <p class="pq__intro">${esc(INTRO)}</p>
         <ul class="pq__list">
 ${items.join("\n")}
         </ul>
@@ -79,12 +79,12 @@ ${items.join("\n")}
 }
 
 const stale = [];
-for (const [key, [file, which]] of Object.entries(PAGES)) {
+for (const [key, file] of Object.entries(PAGES)) {
   const path = join(ROOT, file);
   const html = readFileSync(path, "utf8");
   const re = new RegExp(`(<!-- quotes:${key}:start -->)[\\s\\S]*?(<!-- quotes:${key}:end -->)`);
   if (!re.test(html)) { console.error(`${file}: no quotes:${key} markers`); process.exit(1); }
-  const out = html.replace(re, (_, a, b) => a + render(key, which) + "    " + b);
+  const out = html.replace(re, (_, a, b) => a + render(key) + "    " + b);
   if (out !== html) {
     if (CHECK) stale.push(file);
     else writeFileSync(path, out);
