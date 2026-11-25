@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Writes "What parents say" into the homepage, the pricing page and each class page from
+// Writes the families' words into the homepage's founder section and the About page from
 // marketing/parent-quotes.json (not deployed: it holds consent notes), as plain HTML between markers:
 //   <!-- quotes:<key>:start -->  ...  <!-- quotes:<key>:end -->
 // With no quotes (or none for a page) the markers stay empty and the page shows nothing.
@@ -18,16 +18,14 @@ import { dirname, join } from "node:path";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CHECK = process.argv.includes("--check");
-const MAX_PER_PAGE = 4;
 
 // Page keys, as in the <!-- quotes:<key>:start --> markers. A quote lists the pages it appears on.
+// Quotes stand beside Matthew's experience, never beside an Enroll button: no class or pricing page
+// (decision 2026-11-25). "inline" sets them inside the homepage's "person behind the classes"
+// section as equal columns; "section" is a section of its own with a lead quote.
 const PAGES = {
-  home: "index.html",
-  pricing: "pricing.html",
-  infant: "classes/birth-to-12-months.html",
-  toddlerhood: "classes/toddlerhood.html",
-  preschool: "classes/preschool.html",
-  family: "classes/family-systems.html",
+  home: { file: "index.html", variant: "inline", max: 2 },
+  about: { file: "about/index.html", variant: "section", max: 4 },
 };
 // Matthew's families so far worked with him in person, so the section says so: no reader should
 // take these for reviews of the video classes.
@@ -58,8 +56,10 @@ if (problems.length) {
 }
 
 function render(key) {
-  const list = quotes.filter((q) => q.pages.includes(key)).slice(0, MAX_PER_PAGE);
+  const { variant, max } = PAGES[key];
+  const list = quotes.filter((q) => q.pages.includes(key)).slice(0, max);
   if (!list.length) return "\n";
+  const lead = variant === "section";
   const items = list.map((q, i) => {
     const paras = q.text.trim().split(/\n\s*\n/).map((p) => `<p>${esc(p.trim())}</p>`).join("");
     // "Parent of a toddler, in-home coaching" reads as who, then how they worked with Matthew.
@@ -68,9 +68,20 @@ function render(key) {
     const role = (q.name ? q.name.trim() + ", " : "") + (cut === -1 ? label : label.slice(0, cut));
     const ctx = cut === -1 ? "" : label.slice(cut + 2).replace(/^./, (c) => c.toUpperCase());
     const who = `<span class="pq__role">${esc(role)}</span>` + (ctx ? `<span class="pq__ctx">${esc(ctx)}</span>` : "");
-    const cls = i === 0 ? "pq__li pq__li--lead" : "pq__li";
+    const cls = lead && i === 0 ? "pq__li pq__li--lead" : "pq__li";
     return `          <li class="${cls}"><figure class="pq__item"><blockquote class="pq__text">${paras}</blockquote><figcaption class="pq__who">${who}</figcaption></figure></li>`;
   });
+  if (variant === "inline") {
+    return `
+      <div class="hb-container pq pq--inline">
+        <h3 class="pq__heading" id="pq-heading">${esc(HEADING)}</h3>
+        <p class="pq__intro">${esc(INTRO)}</p>
+        <ul class="pq__list pq__list--even" aria-labelledby="pq-heading">
+${items.join("\n")}
+        </ul>
+      </div>
+`;
+  }
   return `
     <section class="hb-section pq" aria-labelledby="pq-heading">
       <div class="hb-container">
@@ -85,7 +96,7 @@ ${items.join("\n")}
 }
 
 const stale = [];
-for (const [key, file] of Object.entries(PAGES)) {
+for (const [key, { file }] of Object.entries(PAGES)) {
   const path = join(ROOT, file);
   const html = readFileSync(path, "utf8");
   const re = new RegExp(`(<!-- quotes:${key}:start -->)[\\s\\S]*?(<!-- quotes:${key}:end -->)`);
