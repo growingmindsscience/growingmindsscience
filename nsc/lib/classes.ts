@@ -148,8 +148,8 @@ export const INFANT_MODULE_LESSON_COUNTS = [10, 8, 6, 8] as const;
 export const PRESCHOOL_MODULE_LESSON_COUNTS = [8, 8, 6, 8] as const;
 /** Published lessons each toddler module must have before sales open (2026-11-23: the 13 lessons are each two parts, so 26). */
 export const TODDLER_MODULE_LESSON_COUNTS = [6, 6, 6, 8] as const;
-/** Published lessons each family systems module must have before sales open. */
-export const FAMILY_MODULE_LESSON_COUNTS = [3, 3, 3, 4] as const;
+/** Published lessons each family systems module must have before sales open (2026-11-25: the 13 lessons are each two parts, so 26). */
+export const FAMILY_MODULE_LESSON_COUNTS = [6, 6, 6, 8] as const;
 
 export type SalesGate = { open: true } | { open: false; reason: string };
 
