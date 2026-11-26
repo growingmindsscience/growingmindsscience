@@ -3,6 +3,7 @@ import { getUser } from "@/lib/auth";
 import { isClassAdmin } from "@/lib/admin";
 import { createServiceClient } from "@/lib/supabase/server";
 import { muxApi, signedPlaybackToken } from "@/lib/mux.server";
+import { lessonTranscriptAfterSync, shouldImportGeneratedTranscript } from "@/lib/class-sync";
 
 interface MuxUpload { data: { status: string; asset_id?: string } }
 interface MuxAsset { data: {
@@ -59,20 +60,23 @@ export async function POST(request: Request) {
         });
       }
     }
-    // A first upload is not a replacement: keep the written version that was seeded before the video arrived.
+    // A new video changes caption timing, so captions need a fresh review. The written lesson
+    // stays: Mux's auto-transcript only fills a lesson that has no written text yet.
     const replacing = Boolean(lesson.mux_asset_id) && lesson.mux_asset_id !== asset.data.id;
-    let transcript = replacing ? "" : lesson.transcript;
+    let generated = "";
     const readyCaption = textTracks.find((track) => track.status === "ready" && track.language_code?.startsWith("en"));
-    if (!transcript && readyCaption) {
+    if (shouldImportGeneratedTranscript(lesson.transcript) && readyCaption) {
       try {
         const { token } = signedPlaybackToken(playbackId, Math.ceil(asset.data.duration ?? 0));
         const textResponse = await fetch(
           `https://stream.mux.com/${encodeURIComponent(playbackId)}/text/${encodeURIComponent(readyCaption.id)}.txt?token=${encodeURIComponent(token)}`,
           { headers: { Referer: configuredOrigin }, cache: "no-store" },
         );
-        if (textResponse.ok) transcript = (await textResponse.text()).slice(0, 100_000).trim();
+        if (textResponse.ok) generated = await textResponse.text();
       } catch { /* Admin may paste the written lesson manually. */ }
     }
+    const transcript = lessonTranscriptAfterSync(lesson.transcript, generated);
+    const transcriptImported = shouldImportGeneratedTranscript(lesson.transcript) && Boolean(transcript);
     const { error } = await service.from("class_lessons")
       .update({
         mux_asset_id: asset.data.id,
@@ -87,7 +91,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       status: "ready",
       captions: textTracks.map((track) => ({ status: track.status, language: track.language_code })),
-      transcriptImported: Boolean(transcript),
+      transcriptImported,
     });
   } catch (cause) {
     return NextResponse.json({ error: (cause as Error).message }, { status: 503 });
