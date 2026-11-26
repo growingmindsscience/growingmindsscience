@@ -142,32 +142,33 @@
     }
     .btn--teal:hover { background: var(--action-hover); color: var(--btn-primary-ink); }
 
-    /* ── Page header (on the haze ground; the footer is the page's one ink field) ── */
+    /* ── Page header: name, one line, meta. Same shape as the other tool pages. ── */
     .ai-page-header {
-      padding: clamp(2.25rem, 1.5rem + 3vw, 4rem) 0 clamp(1.25rem, 1rem + 1vw, 1.75rem);
-      border-bottom: 1px solid var(--line-soft);
-    }
-    .ai-page-header__inner {
-      display: flex; align-items: flex-end; justify-content: space-between; gap: 1.25rem 2rem; flex-wrap: wrap;
+      padding: clamp(2.25rem, 1.5rem + 3vw, 4rem) 0 clamp(1rem, .75rem + 1vw, 1.5rem);
     }
     .ai-page-header h1 {
       font-size: clamp(2rem, 1.35rem + 2.6vw, 3.25rem); line-height: 1.05; letter-spacing: -.015em;
-      color: var(--ink); margin-bottom: .625rem; text-wrap: balance;
+      color: var(--ink); margin-bottom: .75rem; text-wrap: balance;
     }
-    /* The label sits under the question as its subline, not above it as a kicker. */
-    .ai-page-header .ai-label {
-      margin: 0 0 .875rem;
-      font-size: .9375rem; font-weight: 600; line-height: 1.4; color: var(--ink-soft);
-    }
-    .ai-page-header p {
+    .ai-page-header .ai-lead {
       font-size: 1.0625rem; line-height: 1.6; color: var(--ink-soft); max-width: 54ch;
     }
-    /* The quota reads as a status line, not a control: no frame, no fill. */
-    .ai-tier-badge {
-      display: inline-flex; align-items: center; flex-shrink: 0;
-      font-size: .9375rem; line-height: 1.4; color: var(--ink-muted); white-space: nowrap;
+    .ai-meta {
+      margin-top: 1rem; font-size: .9375rem; line-height: 1.5; color: var(--ink-muted);
     }
+    .ai-tier-badge { white-space: nowrap; }
+    /* A 44px-tall tap area that keeps the line height. */
+    .ai-meta a {
+      display: inline-block; padding: 12px 0; margin: -12px 0; color: var(--ink-soft);
+      text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px;
+    }
+    .ai-meta a:hover { text-decoration-thickness: 2px; }
     .ai-tier-badge strong { color: var(--ink); font-weight: 700; }
+    /* Once a conversation starts the intro has done its job: the name and the
+       counter stay, the paragraph goes, and the answer moves up. */
+    .is-chatting .ai-page-header { padding: clamp(1.25rem, 1rem + 1vw, 2rem) 0 0; }
+    .is-chatting .ai-page-header h1 { font-size: clamp(1.625rem, 1.3rem + 1.2vw, 2.25rem); margin-bottom: 0; }
+    .is-chatting .ai-page-header .ai-lead { display: none; }
 
     /* ── Chat shell ────────────────────────────────── */
     .chat-shell {
@@ -178,24 +179,20 @@
 
     /* ── Messages ──────────────────────────────────── */
     .chat-messages {
-      flex: 1; overflow-y: auto; padding: 1.5rem 0;
-      display: flex; flex-direction: column; gap: 1.125rem;
-      min-height: 300px; max-height: calc(100vh - 380px);
+      flex: 1; padding: .5rem 0 1.5rem;
+      display: flex; flex-direction: column; gap: 1rem;
     }
     /* Before the first question the log is empty; the welcome and topic
        browser sit above it, outside the live region. */
-    .chat-messages.is-empty { min-height: 0; padding: 0; }
-    .chat-messages::-webkit-scrollbar { width: 4px; }
-    .chat-messages::-webkit-scrollbar-track { background: transparent; }
-    .chat-messages::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+    .chat-messages.is-empty { padding: 0; }
 
-    /* Welcome state */
-    .chat-welcome { padding: 1.75rem 0 1rem; }
+    /* Starter questions, under the box and the fine print. */
+    .chat-welcome { border-top: 1px solid var(--line-soft); margin-top: 1.25rem; padding: 1.75rem 0 1rem; }
 
     /* ── Topic browser (training cards) ────────────── */
     .topic-browser { text-align: left; }
     .topic-browser__hint {
-      font-size: .9375rem; line-height: 1.5; color: var(--ink-muted);
+      font-size: 1.375rem; line-height: 1.25; color: var(--ink);
       margin-bottom: 1rem;
     }
     .topic-tabs {
@@ -210,6 +207,20 @@
       transition: background-color .15s, border-color .15s, color .15s;
     }
     .topic-tab:hover { border-color: var(--teal); color: var(--teal); }
+    /* Ages: three equal choices. Topics: fold behind one button. */
+    .chat-welcome .topic-tabs--ages { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 560px; margin-bottom: .25rem; }
+    .chat-welcome .topic-tabs--ages .topic-tab { justify-content: center; text-align: center; }
+    .chat-welcome .topic-tabs--topics { margin: .25rem 0 1.25rem; }
+    .topic-toggle {
+      display: inline-flex; align-items: center; gap: .375rem; min-height: 44px; margin-bottom: .75rem;
+      padding: 0; background: none; border: none;
+      font-size: .9375rem; font-weight: 600; color: var(--teal);
+      text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px;
+    }
+    .topic-toggle:hover { text-decoration-thickness: 2px; }
+
+    .topic-tab__sub { display: block; font-size: .8125rem; font-weight: 500; opacity: .8; }
+    .topic-tabs--ages .topic-tab { flex-direction: column; line-height: 1.2; }
     .topic-tab[aria-selected="true"] {
       background: var(--teal); border-color: var(--teal); color: var(--btn-primary-ink);
     }
@@ -236,16 +247,22 @@
       transition: opacity .15s, transform .15s;
     }
     .topic-card:hover .topic-card__arrow { opacity: 1; transform: translateX(2px); }
-    /* Phones show four questions and fold the rest behind this. */
-    .topic-more { display: none; }
+    /* Four questions show; the rest fold behind this. */
+    .chat-welcome .topic-cards:not(.is-expanded) > li:nth-child(n+5) { display: none; }
+    .topic-more {
+      display: inline-flex; align-items: center; min-height: 44px; margin-top: .75rem;
+      padding: .5rem 0; background: none; border: none;
+      font-size: .9375rem; font-weight: 600; color: var(--teal);
+      text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px;
+    }
+    .topic-more:hover { text-decoration-thickness: 2px; }
 
     /* ── Chat toolbar (new conversation) ───────────── */
     .chat-toolbar {
-      display: none; align-items: center; justify-content: space-between;
-      gap: .5rem 1rem; padding: .75rem 0 0; flex-wrap: wrap;
+      display: none; align-items: center; justify-content: flex-start;
+      gap: .5rem; padding: 1rem 0 .5rem; flex-wrap: wrap;
     }
     .chat-toolbar.is-visible { display: flex; }
-    .chat-toolbar__label { font-size: .875rem; line-height: 1.5; color: var(--ink-muted); }
     .chat-toolbar__actions { display: flex; gap: .5rem; flex-wrap: wrap; }
     .chat-tool-btn {
       display: inline-flex; align-items: center; gap: .45rem; min-height: 44px;
@@ -296,23 +313,17 @@
     .topic-sheet__close:hover { background: var(--teal-wash); border-color: var(--teal); color: var(--teal); }
     .topic-sheet .topic-browser { max-width: 760px; margin: 0 auto; }
 
-    /* Message bubbles */
-    .msg { display: flex; flex-direction: column; max-width: 84%; }
-    .msg--user { align-self: flex-end; align-items: flex-end; }
-    .msg--assistant { align-self: flex-start; align-items: flex-start; }
-
-    .msg__bubble {
-      padding: .875rem 1.125rem; border-radius: var(--radius-lg); font-size: 1rem; line-height: 1.6;
-    }
+    /* Messages. A conversation reads like a page: each question is a small
+       heading over a rule, each answer is body text at a reading measure. */
+    .msg { display: flex; flex-direction: column; width: 100%; max-width: 40rem; }
+    .msg--user { padding-top: 1.25rem; border-top: 1px solid var(--line-soft); }
+    .msg--user:first-child { border-top: 0; padding-top: .25rem; }
+    .msg__bubble { font-size: 1.0625rem; line-height: 1.7; }
     .msg--user .msg__bubble {
-      background: var(--teal); color: var(--btn-primary-ink);
-      border-bottom-right-radius: 4px;
+      font-family: var(--font-display); font-size: clamp(1.375rem, 1.2rem + .6vw, 1.625rem);
+      line-height: 1.25; letter-spacing: -.005em; color: var(--ink); text-wrap: balance;
     }
-    .msg--assistant .msg__bubble {
-      background: var(--surface); color: var(--ink);
-      border: 1px solid var(--line); border-bottom-left-radius: 4px;
-      box-shadow: var(--shadow-sm);
-    }
+    .msg--assistant .msg__bubble { color: var(--ink); }
 
     /* Markdown rendering inside assistant bubble */
     .msg__bubble strong { font-weight: 700; }
@@ -323,7 +334,7 @@
     .msg__bubble li { line-height: 1.5; }
     .msg__bubble li + li { margin-top: .375rem; }
     .msg__bubble li::marker { color: var(--ink-muted); }
-    .msg__bubble > * + * { margin-top: .75rem; }
+    .msg__bubble > * + * { margin-top: 1rem; }
     .msg__bubble code { font-size: .9375em; }
     /* Links the page allows in an answer: tap-to-call help lines and pages on
        the verified source list. Numbers never wrap mid-number. */
@@ -361,12 +372,7 @@
     @keyframes blink { 50% { opacity: 0; } }
 
     /* Thinking dots */
-    .msg__thinking {
-      display: flex; gap: 4px; align-items: center; padding: .875rem 1rem;
-      background: var(--surface); border: 1px solid var(--line);
-      border-radius: var(--radius-lg); border-bottom-left-radius: 4px;
-      box-shadow: var(--shadow-sm);
-    }
+    .msg__thinking { display: flex; gap: 4px; align-items: center; padding: .75rem 0; }
     .msg__thinking span {
       width: 6px; height: 6px; background: var(--ink-muted); border-radius: 50%;
       animation: dot .9s ease-in-out infinite;
@@ -377,12 +383,14 @@
 
     /* Disclaimer under each answer */
     .msg__disclaimer {
-      font-size: .875rem; color: var(--ink-muted); margin-top: .375rem; padding: 0 .25rem;
+      font-size: .875rem; color: var(--ink-muted); margin-top: .75rem;
     }
 
     /* ── Input area ────────────────────────────────── */
-    .chat-input-wrap {
-      border-top: 1px solid var(--line); padding: 1rem 0 1.25rem; background: var(--ground);
+    .chat-input-wrap { padding: .25rem 0 .75rem; background: var(--ground); }
+    .is-chatting .chat-input-wrap:has(> #inputArea:not([hidden])) {
+      position: sticky; bottom: 0; z-index: 5;
+      border-top: 1px solid var(--line); padding: .75rem 0 calc(.75rem + env(safe-area-inset-bottom, 0px));
     }
     .chat-input-box {
       display: flex; align-items: flex-end; gap: .75rem;
@@ -413,16 +421,13 @@
     .chat-send:disabled { background: var(--tint); color: var(--ink-muted); cursor: default; }
     .chat-send svg { pointer-events: none; }
 
-    .chat-meta {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      margin-top: .375rem; gap: 0 1rem; flex-wrap: wrap;
-    }
-    .chat-meta__left { font-size: .875rem; line-height: 1.5; color: var(--ink-muted); }
-    /* Centered on the first 44px row, level with the unlock buttons. */
-    .chat-meta__left > p { margin-top: .7rem; }
+    .chat-meta__left { max-width: 46rem; font-size: .875rem; line-height: 1.5; color: var(--ink-muted); }
+    .chat-meta__links { display: flex; align-items: flex-start; flex-wrap: wrap; gap: 0 1.5rem; margin-top: .125rem; }
+    /* Open, the explanation takes the full row and the code link wraps below it. */
+    .chat-meta__links .chat-about[open] { flex-basis: 100%; }
+    .chat-meta__unlock { display: flex; align-items: center; gap: 0 1rem; flex-wrap: wrap; }
     /* Tappable help lines with 44px targets that keep the line height. */
     .chat-meta__left a.chat-tel { display: inline-block; padding: 12px 4px; margin: -12px -4px; font-weight: 600; white-space: nowrap; }
-    .chat-meta__right { display: flex; align-items: center; gap: 0 1rem; flex-wrap: wrap; }
     /* Quiet text controls with 44px-tall hit areas. */
     .chat-about summary,
     .access-code-toggle {
@@ -431,7 +436,7 @@
       text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px;
       cursor: pointer;
     }
-    .chat-about summary { list-style: none; color: var(--ink-muted); }
+    .chat-about summary { list-style: none; color: var(--ink-soft); }
     .chat-about summary::-webkit-details-marker { display: none; }
     .chat-about summary:hover { color: var(--ink); text-decoration-thickness: 2px; }
     .chat-about p { margin: .25rem 0 .5rem; max-width: 62ch; font-size: .9375rem; color: var(--ink-soft); line-height: 1.55; }
@@ -453,8 +458,8 @@
 
     /* ── Access code panel ─────────────────────────── */
     .access-panel {
-      background: var(--surface); border: 1px solid var(--line);
-      border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 1rem;
+      background: var(--surface); border: 1px solid var(--line); max-width: 40rem;
+      border-radius: var(--radius-lg); padding: 1.25rem; margin: .5rem 0 1rem;
       box-shadow: var(--shadow-sm);
     }
     .access-panel h3 { font-size: 1.125rem; font-weight: 600; color: var(--ink); margin-bottom: .375rem; }
@@ -504,45 +509,15 @@
 
     /* ── Responsive ────────────────────────────────── */
     @media (max-width: 640px) {
-      .ai-page-header__inner { flex-direction: column; align-items: flex-start; }
-      /* Phones: answers use the full width instead of a 30-character column. */
-      .msg--assistant { max-width: 100%; }
-      /* Phones: no inner scroll box; the conversation scrolls with the page. */
-      .chat-messages { max-height: none; overflow: visible; min-height: 0; }
       .topic-cards { grid-template-columns: 1fr; }
       .topic-sheet { max-height: 88vh; padding: 1rem 1.125rem 1.75rem; }
       .topic-sheet__bar { top: -1rem; }
       .plans-strip { padding: 2rem 0 2.5rem; }
       .plans-strip__card { flex-direction: column; align-items: flex-start; text-align: left; padding: 1.5rem 1.25rem; gap: 1.25rem; }
       .plans-strip__text { flex: none; }
-
-      /* Phones, before the first question: the composer comes straight after
-         the header (the script moves the welcome below it), so asking never
-         waits behind the question browser. */
-      .chat-shell:has(> .chat-welcome:not([hidden])) .chat-input-wrap { border-top: 0; padding: 1.25rem 0 1rem; }
-      .chat-input-wrap + .chat-welcome { border-top: 1px solid var(--line-soft); padding: 1.5rem 0 1.25rem; }
-      .chat-meta__left > p { margin-top: .625rem; }
-
-      /* Stages and topics on one row that scrolls sideways, fading at the
-         right edge so the rest reads as "more this way". */
-      .chat-welcome .topic-tabs {
-        flex-wrap: nowrap; overflow-x: auto; overscroll-behavior-x: contain;
-        scrollbar-width: none; scroll-padding-inline: 1rem 2.5rem;
-        margin: -6px -1rem calc(1.25rem - 6px); padding: 6px 2.5rem 6px 1rem;
-        -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
-                mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
-      }
-      .chat-welcome .topic-tabs::-webkit-scrollbar { display: none; }
-      .chat-welcome .topic-tab { flex: none; }
-
-      .chat-welcome .topic-cards:not(.is-expanded) > li:nth-child(n+5) { display: none; }
-      .chat-welcome .topic-more {
-        display: inline-flex; align-items: center; min-height: 44px; margin-top: .75rem;
-        padding: .5rem 0; background: none; border: none;
-        font-size: .9375rem; font-weight: 600; color: var(--teal);
-        text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px;
-      }
-      .chat-welcome .topic-more:hover { text-decoration-thickness: 2px; }
+      .topic-browser__hint { font-size: 1.25rem; }
+      .chat-welcome .topic-tabs--ages { gap: .375rem; }
+      .chat-welcome .topic-tabs--ages .topic-tab { padding: .5rem .375rem; }
     }
 
     /* ── Utilities and accessibility ───────────────── */
@@ -553,7 +528,7 @@
     }
     .topic-tab:focus-visible, .topic-card:focus-visible, .chat-tool-btn:focus-visible,
     .access-code-toggle:focus-visible, .access-btn:focus-visible, .chat-send:focus-visible,
-    .topic-sheet__close:focus-visible, .chat-about summary:focus-visible, .topic-more:focus-visible,
+    .topic-sheet__close:focus-visible, .chat-about summary:focus-visible, .topic-more:focus-visible, .topic-toggle:focus-visible,
     .chat-shell .btn:focus-visible, .plans-strip .btn:focus-visible, .skip-link:focus-visible,
     .msg__bubble a:focus-visible, .msg__reading a:focus-visible {
       outline: 2.5px solid var(--focus); outline-offset: 3px;
@@ -562,18 +537,17 @@
     @media print {
       body { background: #fff; }
       .site-header .nav, .site-footer, .skip-link, .chat-toolbar, .chat-welcome, #inputArea, .chat-limit,
-      .access-panel, .chat-meta__right, .chat-about, .ai-tier-badge, .plans-strip,
+      .access-panel, .chat-meta__links, .ai-meta, .ai-tier-badge, .plans-strip,
       .topic-sheet, .topic-sheet-backdrop, .msg__thinking, .cursor { display: none !important; }
       .site-header { position: static; }
       .ai-page-header { padding: 0 0 .75rem; }
       .chat-shell > * { max-width: none; }
       .chat-messages { max-height: none; overflow: visible; min-height: 0; padding: 1rem 0; }
       .msg, .msg--assistant { max-width: 100%; }
-      .msg__bubble { border: 1px solid #b8c0c8; break-inside: auto; }
-      .msg--user .msg__bubble { background: none; color: var(--ink); }
+      .msg__bubble { break-inside: auto; }
       .msg__reading a { display: inline; min-height: 0; }
       .msg__reading a::after { content: " (" attr(href) ")"; }
-      .chat-input-wrap { border-top: 0; padding: 0; }
+      .chat-input-wrap { position: static !important; border-top: 0; padding: 0; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -637,26 +611,24 @@
 
   <main id="main">
 
-    <!-- PAGE HEADER -->
+    <!-- PAGE HEADER: the tool's name, one line on what it does, and the same
+         meta line as the other tool pages. The question box follows at once. -->
     <div class="ai-page-header">
-      <div class="hb-container ai-page-header__inner">
-        <div>
-          <h1>Ask a developmental science question.</h1>
-          <p class="ai-label">Ask the research · free, no account needed</p>
-          <p>Get a calm, research-grounded answer, not generic internet advice and not judgment. Grounded in developmental neuroscience and 50+ years of published research.</p>
-        </div>
-        <div class="ai-tier-badge" id="tierBadge" aria-live="polite">
-          <span id="tierText">Free · <strong id="questionsLeft">5</strong> questions today</span>
-        </div>
+      <div class="hb-container">
+        <h1>Ask the research</h1>
+        <p class="ai-lead">A calm answer to your question about your child&rsquo;s development, grounded in published research, not generic internet advice.</p>
+        <p class="ai-meta"><a href="/tools/">Tools</a> <span aria-hidden="true">&middot;</span> Any age <span aria-hidden="true">&middot;</span> No account <span aria-hidden="true">&middot;</span> <span class="ai-tier-badge" id="tierBadge" aria-live="polite"><span id="tierText">Free · <strong id="questionsLeft">5</strong> questions today</span></span></p>
       </div>
     </div>
 
-    <!-- CHAT -->
+    <!-- CHAT, in reading order: the conversation, the question box, the fine
+         print, then the starter questions. Before the first question the
+         conversation is empty, so the box sits right under the header on every
+         screen size. -->
     <div class="hb-container chat-shell">
 
       <!-- Toolbar (appears once a conversation starts) -->
       <div class="chat-toolbar" id="chatToolbar">
-        <span class="chat-toolbar__label">We don't save this conversation. It clears when you start over or leave the page.</span>
         <div class="chat-toolbar__actions">
           <button class="chat-tool-btn" type="button" id="browseTopicsBtn" aria-haspopup="dialog" aria-controls="topicSheet" aria-expanded="false">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
@@ -664,25 +636,58 @@
           </button>
           <button class="chat-tool-btn" type="button" id="newChatBtn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-            New conversation
+            Start over
           </button>
-        </div>
-      </div>
-
-      <!-- Welcome and topic browser. Kept outside the conversation log so
-           screen readers do not announce the topic cards as chat. -->
-      <div class="chat-welcome" id="chatWelcome">
-        <!-- Topic browser (data-driven training cards) -->
-        <div class="topic-browser" id="topicBrowser">
-          <p class="topic-browser__hint">Not sure where to start? Pick a stage or topic, then tap a question.</p>
-          <div class="topic-tabs" id="topicTabs" role="tablist" aria-label="Question topics"></div>
-          <div class="topic-panel" id="topicPanel" role="tabpanel"></div>
         </div>
       </div>
 
       <!-- Messages -->
       <div class="chat-messages is-empty" id="chatMessages" role="log" aria-label="Conversation" aria-live="polite"></div>
       <p class="sr-only" id="chatStatus" role="status"></p>
+
+      <!-- Input. Once a conversation starts it stays at the bottom of the
+           screen, so a follow-up never means scrolling back down. -->
+      <div class="chat-input-wrap">
+        <div id="limitReached" class="chat-limit" tabindex="-1" hidden>
+          <p>You&rsquo;ve used your <strong>5 free questions</strong> for today. Come back tomorrow, or see what the toddler class includes.</p>
+          <a class="btn btn--teal" href="/classes/">See the classes <span aria-hidden="true">→</span></a>
+        </div>
+        <div id="inputArea">
+          <div class="chat-input-box">
+            <textarea
+              class="chat-textarea"
+              id="chatInput"
+              rows="1"
+              maxlength="1200"
+              placeholder="Type your question…"
+              aria-label="Your question"></textarea>
+            <button class="chat-send" id="sendBtn" type="button" aria-label="Send" disabled>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- The fine print, once: one safety line, then two quiet links on one
+           row. Outside #inputArea, so the unlock link stays visible when the
+           free questions run out and the input is hidden. -->
+      <div class="chat-meta">
+        <div class="chat-meta__left">
+          <p>For adults. General information, not a screening, diagnosis, or medical advice, and nothing you ask is saved. In an emergency, call <a class="chat-tel" href="tel:911">911</a>; in a crisis, call or text <a class="chat-tel" href="tel:988">988</a>.</p>
+        </div>
+        <div class="chat-meta__links">
+          <details class="chat-about">
+              <summary>How this works</summary>
+              <p>Answers are written by Claude, an AI model from Anthropic, using a curated library of developmental research and From Little Onward class material. To write each answer, your question and the recent part of this conversation are sent to our server and on to Anthropic. We don't save your conversation: it stays in this browser tab and clears when you start over or leave the page. Please leave out names and other details that could identify your child. It can&rsquo;t assess a specific child: if you&rsquo;re worried about your child&rsquo;s development, talk to your pediatrician or contact your state&rsquo;s early intervention program.</p>
+            </details>
+          <div class="chat-meta__unlock" id="unlockLinks">
+            <button class="access-code-toggle" type="button" id="accessCodeToggle" aria-expanded="false" aria-controls="accessPanel subscriberPanel">Have a class code?</button>
+            <!-- One entry opens both the class code and the subscriber email forms.
+                 AI Pro is no longer sold and never had subscribers; its own toggle stays wired but hidden. -->
+            <button class="access-code-toggle" type="button" id="subscriberLoginToggle" aria-expanded="false" aria-controls="subscriberPanel" hidden>Existing AI&nbsp;Pro subscriber?</button>
+          </div>
+        </div>
+      </div>
 
       <!-- Access code panel -->
       <div class="access-panel" id="accessPanel" role="region" aria-labelledby="accessPanelTitle" hidden>
@@ -706,42 +711,16 @@
         <p class="access-status" id="subscriberStatus" aria-live="polite"></p>
       </div>
 
-      <!-- Input -->
-      <div class="chat-input-wrap">
-        <div id="limitReached" class="chat-limit" tabindex="-1" hidden>
-          <p>You&rsquo;ve used your <strong>5 free questions</strong> for today. Come back tomorrow, or see what the toddler class includes.</p>
-          <a class="btn btn--teal" href="/classes/">See the classes <span aria-hidden="true">→</span></a>
-        </div>
-        <div id="inputArea">
-          <div class="chat-input-box">
-            <textarea
-              class="chat-textarea"
-              id="chatInput"
-              rows="1"
-              maxlength="1200"
-              placeholder="Ask a developmental science question…"
-              aria-label="Your question"></textarea>
-            <button class="chat-send" id="sendBtn" type="button" aria-label="Send" disabled>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-            </button>
-          </div>
-        </div>
-        <!-- Outside #inputArea, so the unlock links stay visible when the free
-             questions run out and the input is hidden. -->
-        <div class="chat-meta">
-          <div class="chat-meta__left">
-            <p>For adults. General information, not a screening, diagnosis, or medical advice. In an emergency, call <a class="chat-tel" href="tel:911">911</a>; in a crisis, call or text <a class="chat-tel" href="tel:988">988</a>.</p>
-            <details class="chat-about">
-              <summary>How this works</summary>
-              <p>Answers are written by Claude, an AI model from Anthropic, using a curated library of developmental research and From Little Onward class material. To write each answer, your question and the recent part of this conversation are sent to our server and on to Anthropic. We don't save your conversation: it stays in this browser tab and clears when you start over or leave the page. Please leave out names and other details that could identify your child. It can&rsquo;t assess a specific child: if you&rsquo;re worried about your child&rsquo;s development, talk to your pediatrician or contact your state&rsquo;s early intervention program.</p>
-            </details>
-          </div>
-          <div class="chat-meta__right" id="unlockLinks">
-            <button class="access-code-toggle" type="button" id="accessCodeToggle" aria-expanded="false" aria-controls="accessPanel subscriberPanel">Already have access?</button>
-            <!-- One entry opens both the class code and the subscriber email forms.
-                 AI Pro is no longer sold and never had subscribers; its own toggle stays wired but hidden. -->
-            <button class="access-code-toggle" type="button" id="subscriberLoginToggle" aria-expanded="false" aria-controls="subscriberPanel" hidden>Existing AI&nbsp;Pro subscriber?</button>
-          </div>
+      <!-- Starter questions. Kept outside the conversation log so screen
+           readers do not announce them as chat. Ages first; topics fold
+           behind one button. -->
+      <div class="chat-welcome" id="chatWelcome">
+        <div class="topic-browser" id="topicBrowser">
+          <h2 class="topic-browser__hint">Or start with a question other parents ask</h2>
+          <div class="topic-tabs topic-tabs--ages" id="topicTabs" role="tablist" aria-label="Questions by age"></div>
+          <button class="topic-toggle" type="button" id="topicToggle" aria-expanded="false" aria-controls="topicTabsMore">More topics</button>
+          <div class="topic-tabs topic-tabs--topics" id="topicTabsMore" role="tablist" aria-label="Questions by topic" hidden></div>
+          <div class="topic-panel" id="topicPanel" role="tabpanel"></div>
         </div>
       </div>
     </div>
@@ -847,10 +826,11 @@
 
     /* ── Topic library (training cards) ───────────────── */
     /* Add or edit topics here: the browser and the bottom sheet both
-       render from this single source, so new questions appear everywhere. */
+       render from this single source, so new questions appear everywhere.
+       Ages (group 'age') always show; the rest fold behind "More topics". */
     const TOPICS = [
       {
-        id: 'babies', label: 'Babies (0–1 yr)',
+        id: 'babies', group: 'age', label: 'Babies', sub: '0–1 yr',
         questions: [
           "Why does my baby cry so much in the evening?",
           "What is serve-and-return, and why does it matter for babies?",
@@ -863,7 +843,7 @@
         ],
       },
       {
-        id: 'toddlers', label: 'Toddlers (1–3 yr)',
+        id: 'toddlers', group: 'age', label: 'Toddlers', sub: '1–3 yr',
         questions: [
           "Why does my toddler have meltdowns at transitions?",
           "What's happening in my toddler's brain when they say 'no' to everything?",
@@ -876,7 +856,7 @@
         ],
       },
       {
-        id: 'preschool', label: 'Preschoolers (3–5 yr)',
+        id: 'preschool', group: 'age', label: 'Preschoolers', sub: '3–5 yr',
         questions: [
           "Why does my preschooler tell elaborate stories that aren't true?",
           "How do I support big emotions in a 4-year-old?",
@@ -1214,19 +1194,16 @@
     }
 
     /* ── Messages ─────────────────────────────────────── */
-    const phoneLayout = window.matchMedia('(max-width: 640px)');
     const inputWrapEl = document.querySelector('.chat-input-wrap');
-    function placeWelcome() {
-      if (phoneLayout.matches) inputWrapEl.after(welcomeEl);
-      else messagesEl.before(welcomeEl);
-    }
-    placeWelcome();
-    phoneLayout.addEventListener('change', placeWelcome);
+    const mainEl = document.getElementById('main');
 
+    // Once a question is asked the page becomes the conversation: the intro
+    // paragraph and the starters fold away and the box stays at the bottom.
     function hideWelcome() {
       welcomeEl.hidden = true;
       messagesEl.classList.remove('is-empty');
       toolbarEl.classList.add('is-visible');
+      mainEl.classList.add('is-chatting');
     }
 
     function addMessage(role, html, { disclaimer = role === 'assistant' } = {}) {
@@ -1271,18 +1248,24 @@
       return messagesEl.scrollHeight > messagesEl.clientHeight + 1
         && getComputedStyle(messagesEl).overflowY !== 'visible';
     }
+    // The visible bottom edge: above the pinned question box when it is pinned.
+    function visibleBottom() {
+      return getComputedStyle(inputWrapEl).position === 'sticky'
+        ? Math.min(window.innerHeight, inputWrapEl.getBoundingClientRect().top)
+        : window.innerHeight;
+    }
     function isAtBottom() {
       if (messagesScrollInside()) {
         return messagesEl.scrollHeight - messagesEl.scrollTop - messagesEl.clientHeight < 48;
       }
-      return messagesEl.getBoundingClientRect().bottom <= window.innerHeight + 48;
+      return messagesEl.getBoundingClientRect().bottom <= visibleBottom() + 48;
     }
     function followToBottom() {
       if (messagesScrollInside()) {
         messagesEl.scrollTop = messagesEl.scrollHeight;
         return;
       }
-      const overflow = messagesEl.getBoundingClientRect().bottom - window.innerHeight;
+      const overflow = messagesEl.getBoundingClientRect().bottom - visibleBottom();
       if (overflow > 0) window.scrollBy(0, overflow + 16);
     }
     function reveal(el) {
@@ -1502,7 +1485,7 @@
     const ARROW_SVG = '<svg class="topic-card__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
 
     const topicBrowsers = [
-      { prefix: 'topic', tablist: document.getElementById('topicTabs'), panel: document.getElementById('topicPanel'), tabs: [] },
+      { prefix: 'topic', tablist: document.getElementById('topicTabs'), moreList: document.getElementById('topicTabsMore'), panel: document.getElementById('topicPanel'), tabs: [] },
       { prefix: 'sheet', tablist: document.getElementById('sheetTabs'), panel: document.getElementById('sheetPanel'), tabs: [] },
     ];
 
@@ -1521,13 +1504,16 @@
         tab.setAttribute('role', 'tab');
         tab.setAttribute('aria-controls', browser.panel.id);
         tab.textContent = topic.label;
-        tab.addEventListener('click', () => {
-          selectTopic(topic.id);
-          // On phones the tabs scroll sideways; bring a half-hidden one fully in.
-          tab.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: scrollBehavior() });
-        });
+        if (topic.sub) {
+          const sub = document.createElement('span');
+          sub.className = 'topic-tab__sub';
+          sub.textContent = topic.sub;
+          tab.append(' ', sub);
+        }
+        tab.addEventListener('click', () => selectTopic(topic.id));
         tab.addEventListener('keydown', (event) => onTabKeydown(event, browser, topic.id));
-        browser.tablist.appendChild(tab);
+        const list = browser.moreList && topic.group !== 'age' ? browser.moreList : browser.tablist;
+        list.appendChild(tab);
         return { tab, topic };
       });
     }
@@ -1552,12 +1538,12 @@
         item.appendChild(card);
         list.appendChild(item);
       }
+      // The page shows the first four; the sheet shows them all.
       const hiddenCount = topic.questions.length - 4;
       if (browser.prefix !== 'topic' || hiddenCount < 1) {
         browser.panel.replaceChildren(list);
         return;
       }
-      // Phones show the first four; CSS keeps this button hidden elsewhere.
       const more = document.createElement('button');
       more.type = 'button';
       more.className = 'topic-more';
@@ -1578,15 +1564,24 @@
           tab.setAttribute('aria-selected', String(selected));
           tab.tabIndex = selected ? 0 : -1;
         }
+        // Each tab list keeps one tab in the Tab order: the selected one, or
+        // its first tab when the selection is in the other list.
+        for (const list of [browser.tablist, browser.moreList]) {
+          if (list && !list.querySelector('[tabindex="0"]') && list.firstElementChild) list.firstElementChild.tabIndex = 0;
+        }
         browser.panel.setAttribute('aria-labelledby', tabId(browser, id));
         renderCards(browser);
       }
       if (focusIn) document.getElementById(tabId(focusIn, id)).focus();
     }
 
-    // Left/Right move between topics (wrapping), Home/End jump to the ends.
+    // Left/Right move between tabs in the same list (wrapping), Home/End jump
+    // to the ends. On the page, ages and topics are separate lists.
     function onTabKeydown(event, browser, id) {
-      const ids = TOPICS.map((t) => t.id);
+      const group = (TOPICS.find((t) => t.id === id) || {}).group;
+      const ids = TOPICS
+        .filter((t) => !browser.moreList || (t.group === 'age') === (group === 'age'))
+        .map((t) => t.id);
       const index = ids.indexOf(id);
       let next;
       if (event.key === 'ArrowRight') next = ids[(index + 1) % ids.length];
@@ -1667,6 +1662,7 @@
       messagesEl.classList.add('is-empty');
       welcomeEl.hidden = false;
       toolbarEl.classList.remove('is-visible');
+      mainEl.classList.remove('is-chatting');
       closeTopicSheet({ returnFocus: false });
       selectTopic(TOPICS[0].id);
       inputEl.value = '';
@@ -1674,7 +1670,7 @@
       autoResize();
       updateTierBadge();
       if (!inputArea.hidden) inputEl.focus({ preventScroll: true });
-      (phoneLayout.matches ? inputWrapEl : welcomeEl).scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
+      mainEl.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
     }
 
     document.getElementById('newChatBtn').addEventListener('click', resetConversation);
@@ -1923,6 +1919,16 @@
 
     /* ── Init ─────────────────────────────────────────── */
     for (const browser of topicBrowsers) buildTabs(browser);
+
+    // "More topics" opens the second row of tabs under the ages.
+    const topicToggle = document.getElementById('topicToggle');
+    const topicTabsMore = document.getElementById('topicTabsMore');
+    topicToggle.addEventListener('click', () => {
+      const open = topicToggle.getAttribute('aria-expanded') !== 'true';
+      topicToggle.setAttribute('aria-expanded', String(open));
+      topicToggle.textContent = open ? 'Fewer topics' : 'More topics';
+      topicTabsMore.hidden = !open;
+    });
     selectTopic(activeTopicId);
     autoResize();
     updateTierBadge();
