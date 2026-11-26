@@ -192,6 +192,16 @@ describe("one-time purchase grants", () => {
     }
   });
 
+  it("four-class bundle adds the family class", () => {
+    const grants = grantsForOneTimePurchase({ sessionId: "cs_four", product: "class_bundle_four" });
+    expect(grants.map((g) => g.product_scope)).toEqual([
+      "class:infant", "class:toddlerhood", "class:preschool", "class:family", "ai:unlimited",
+    ]);
+    for (const g of grants) {
+      expect(g).toMatchObject({ source: "stripe_otp", source_ref: "cs_four", expires_at: null });
+    }
+  });
+
   it("gift redemption grants perpetual Number Path from source gift", () => {
     const g = grantForGiftRedemption({ giftCodeId: "gc_1" });
     expect(g.product_scope).toBe("numberpath_full");

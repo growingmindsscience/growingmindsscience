@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { bundleOffered, classJourney, journeyActionLabel, splitCatalog } from "@/lib/class-journey";
+import { CLASS_BUNDLE_FOUR } from "@/lib/classes";
 
 const lesson = (n: number, duration: number | null = 600) => ({
   id: `l${n}`, slug: `lesson-${n}`, title: `Lesson ${n}`, module_number: Math.ceil(n / 3), duration_seconds: duration,
@@ -108,5 +109,11 @@ describe("my classes catalog", () => {
     expect(bundleOffered(["family", "infant"], open)).toBe(false);
     expect(bundleOffered([], { ...open, preschool: false })).toBe(false);
     expect(bundleOffered([], { infant: true, toddlerhood: true })).toBe(false);
+  });
+
+  it("offers all four only when Family Systems is also unowned and on sale", () => {
+    expect(bundleOffered([], { ...open, family: true }, CLASS_BUNDLE_FOUR)).toBe(true);
+    expect(bundleOffered(["family"], { ...open, family: true }, CLASS_BUNDLE_FOUR)).toBe(false);
+    expect(bundleOffered([], open, CLASS_BUNDLE_FOUR)).toBe(false);
   });
 });

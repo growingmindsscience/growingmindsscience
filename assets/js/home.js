@@ -393,9 +393,9 @@
       fine.appendChild(link("/terms-of-sale/", "Refund terms", "agepick-refund"));
       note.appendChild(fine);
       var more = el("p", "agepick__links");
-      // The bundle only helps while a later class is still ahead of the child.
-      if (bundle && cid !== "preschool") {
-        more.appendChild(link(bundle.getAttribute("href"), "Or all three classes for " + bundlePrice + ", ready as they grow", "agepick-bundle"));
+      // The bundle includes the family class, which fits any age, so it is offered at every stage.
+      if (bundle) {
+        more.appendChild(link(bundle.getAttribute("href"), "Or all four classes for " + bundlePrice + ", ready as they grow", "agepick-bundle"));
       }
       more.appendChild(link(o.getAttribute("href"), "Explore " + yrs.toLowerCase(), "agepick-explore"));
       note.appendChild(more);

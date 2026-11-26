@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CLASS_COURSES, type ClassCourseSlug, lessonPath } from "@/lib/classes";
+import { CLASS_BUNDLE, CLASS_COURSES, type ClassCourseSlug, lessonPath } from "@/lib/classes";
 import { sitePath } from "@/lib/site";
 import { Card, LinkButton } from "@/components/ui";
 import { AwaitClassAccess } from "@/components/await-class-access";
@@ -137,14 +137,16 @@ export function ClassWelcome({ state, courseSlug, firstLessonSlug }: {
  * After the bundle: one row per class, each with its own first lesson, so a
  * parent starts with the class for their child's age instead of hunting.
  */
-export function BundleWelcome({ state, starts }: {
+export function BundleWelcome({ title = CLASS_BUNDLE.title, state, starts }: {
+  /** The bundle's name, e.g. "All four classes". */
+  title?: string;
   state: WelcomeState;
   starts: { courseSlug: ClassCourseSlug; firstLessonSlug?: string }[];
 }) {
   if (state !== "ready") return <Card><NotReady state={state} subject="the classes in the bundle" plural /></Card>;
   return (
     <Card>
-      <h1 className="text-2xl text-ink-deep sm:text-3xl">Welcome. All three classes are ready.</h1>
+      <h1 className="text-2xl text-ink-deep sm:text-3xl">Welcome. {title} are ready.</h1>
       <p className="mt-3 text-ink">They are yours to keep. Start with the class for your child&apos;s age today; the others will be here as they grow.</p>
       <ul className="mt-5 flex flex-col border-b border-line text-left">
         {starts.map(({ courseSlug, firstLessonSlug }) => {
