@@ -54,8 +54,8 @@ describe("free preview lesson", () => {
 
   it("numbers a lesson across the whole class for the end card", () => {
     expect(classLessonNumber(INFANT_MODULE_LESSON_COUNTS, 1, 3)).toBe(3);
-    expect(classLessonNumber(INFANT_MODULE_LESSON_COUNTS, 2, 1)).toBe(6);
-    expect(classLessonNumber(INFANT_MODULE_LESSON_COUNTS, 4, 4)).toBe(16);
+    expect(classLessonNumber(INFANT_MODULE_LESSON_COUNTS, 2, 1)).toBe(11);
+    expect(classLessonNumber(INFANT_MODULE_LESSON_COUNTS, 4, 8)).toBe(32);
   });
 });
 

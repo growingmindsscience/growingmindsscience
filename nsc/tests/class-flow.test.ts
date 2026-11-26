@@ -4,7 +4,7 @@ import { BUNDLE_ENROLL_PATH, FAMILY_ENROLL_PATH, TODDLER_ENROLL_PATH, INFANT_ENR
 import { sitePath } from "@/lib/site";
 
 const USER = "3f2b8c1e-0d4a-4b6f-9a7e-1c2d3e4f5a6b";
-const ready = { salesFlag: "1", vercelEnv: "production", previewUserId: undefined, userId: USER, moduleCounts: [5, 4, 3, 4] };
+const ready = { salesFlag: "1", vercelEnv: "production", previewUserId: undefined, userId: USER, moduleCounts: [10, 8, 6, 8] };
 
 describe("preschool sales gate", () => {
   const preschoolReady = { ...ready, moduleCounts: [8, 8, 6, 8] };
@@ -25,7 +25,7 @@ describe("preschool sales gate", () => {
 });
 
 describe("infant sales gate", () => {
-  it("opens in production once the flag is on and every lesson is published", () => {
+  it("opens in production once the flag is on and all 32 lesson parts are published", () => {
     expect(infantSalesGate(ready)).toEqual({ open: true });
   });
 
@@ -44,8 +44,8 @@ describe("infant sales gate", () => {
   it("stays closed without the flag or with lessons missing", () => {
     expect(infantSalesGate({ ...ready, salesFlag: undefined }).open).toBe(false);
     expect(infantSalesGate({ ...ready, salesFlag: "0" }).open).toBe(false);
-    expect(infantSalesGate({ ...ready, moduleCounts: [5, 4, 3, 3] })).toEqual({
-      open: false, reason: "published lesson counts do not match: module 4 has 3, needs 4",
+    expect(infantSalesGate({ ...ready, moduleCounts: [10, 8, 6, 7] })).toEqual({
+      open: false, reason: "published lesson counts do not match: module 4 has 7, needs 8",
     });
   });
 
@@ -56,7 +56,7 @@ describe("infant sales gate", () => {
     expect(infantSalesGate({ ...closed, userId: undefined }).open).toBe(false);
     expect(infantSalesGate({ ...closed, testUserId: "" , userId: "" }).open).toBe(false);
     // The test account still waits for every lesson to be published.
-    expect(infantSalesGate({ ...closed, moduleCounts: [5, 4, 3, 0] }).open).toBe(false);
+    expect(infantSalesGate({ ...closed, moduleCounts: [10, 8, 6, 0] }).open).toBe(false);
   });
 
   it("never writes a configured value into the logged reason", () => {
@@ -90,7 +90,7 @@ describe("family sales gate", () => {
       open: false, reason: "published lesson counts do not match: module 4 has 3, needs 4",
     });
     expect(familySalesGate({ ...familyReady, moduleCounts: [3, 4, 3, 4] }).open).toBe(false);
-    // The infant counts (5/4/3/4) do not satisfy it.
+    // The infant counts (10/8/6/8) do not satisfy it.
     expect(familySalesGate(ready).open).toBe(false);
   });
 
