@@ -77,19 +77,19 @@ describe("infant sales gate", () => {
 });
 
 describe("family sales gate", () => {
-  const familyReady = { ...ready, moduleCounts: [3, 3, 3, 4] };
+  const familyReady = { ...ready, moduleCounts: [6, 6, 6, 8] };
 
-  it("opens only with its own flag and exactly 3/3/3/4 published lessons", () => {
+  it("opens only with its own flag and exactly 6/6/6/8 published lessons", () => {
     expect(familySalesGate(familyReady)).toEqual({ open: true });
     expect(familySalesGate({ ...familyReady, salesFlag: undefined })).toEqual({
       open: false,
       reason: "FAMILY_CLASS_SALES_ENABLED is not set for this deployment; FAMILY_CLASS_TEST_USER_ID is not set",
     });
     // One lesson unpublished, and one extra lesson added, both close it.
-    expect(familySalesGate({ ...familyReady, moduleCounts: [3, 3, 3, 3] })).toEqual({
-      open: false, reason: "published lesson counts do not match: module 4 has 3, needs 4",
+    expect(familySalesGate({ ...familyReady, moduleCounts: [6, 6, 6, 7] })).toEqual({
+      open: false, reason: "published lesson counts do not match: module 4 has 7, needs 8",
     });
-    expect(familySalesGate({ ...familyReady, moduleCounts: [3, 4, 3, 4] }).open).toBe(false);
+    expect(familySalesGate({ ...familyReady, moduleCounts: [6, 7, 6, 8] }).open).toBe(false);
     // The infant counts (5/4/3/4) do not satisfy it.
     expect(familySalesGate(ready).open).toBe(false);
   });
